@@ -54,7 +54,7 @@ Authentication API response
 }
 ```
 
-On each of the different landing screens for 'Super user', 'Branch Manager' and 'Funder' role it would suffice to just indicate that these are different screens through static content. If you wish you can invoke different classes the platform for each of the different landing pages e.g.
+On each of the different landing screens for 'Super user', 'Branch Manager' and 'Funder' role it would suffice to just indicate that these are different screens through static content. If you wish you can invoke different platform API calls on each of the different landing pages e.g.
  - 'Super user' -> show all offices through https://demo.openmf.org/api-docs/apiLive.htm#offices_list
  - 'Branch Manager' -> show all clients through https://demo.openmf.org/api-docs/apiLive.htm#clients_list
  - 'Funder' -> show all funds through https://demo.openmf.org/api-docs/apiLive.htm#funds_retrieve
