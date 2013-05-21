@@ -55,10 +55,20 @@ Authentication API response
 ```
 
 On each of the different landing screens for 'Super user', 'Branch Manager' and 'Funder' role it would suffice to just indicate that these are different screens through static content. If you wish you can invoke different classes the platform for each of the different landing pages e.g.
-
-'Super user' -> show all offices through https://demo.openmf.org/api-docs/apiLive.htm#offices_list
-'Branch Manager' -> show all clients through https://demo.openmf.org/api-docs/apiLive.htm#clients_list
-'Funder' -> show all funds through https://demo.openmf.org/api-docs/apiLive.htm#funds_retrieve
+ - 'Super user' -> show all offices through https://demo.openmf.org/api-docs/apiLive.htm#offices_list
+ - 'Branch Manager' -> show all clients through https://demo.openmf.org/api-docs/apiLive.htm#clients_list
+ - 'Funder' -> show all funds through https://demo.openmf.org/api-docs/apiLive.htm#funds_retrieve
 
 
 ### 2 CRUD screens around typical administrative area like users
+
+Implement CRUD behaviour around the users resource (https://demo.openmf.org/api-docs/apiLive.htm#users)
+
+## Objective
+
+The objective of this prototype/spike is to demonstrate a clean way of developing a single page app which exhibits the following qualities:
+
+1. Structured Approach
+2. Automation of dev code into production artifacts
+3. Localisation and Internationalisation
+4. Customisable and Extensible
