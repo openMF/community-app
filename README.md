@@ -66,9 +66,11 @@ Implement CRUD behaviour around the users resource (https://demo.openmf.org/api-
 
 ## Objective
 
-The objective of this prototype/spike is to demonstrate a clean way of developing a single page app which exhibits the following qualities:
+Along with code to demostrate how the scenarios in scope of work can be implemented, the objective of this prototype/spike is to demonstrate a clean way of developing a single page app which exhibits the following qualities:
 
 1. Structured Approach
 2. Automation of dev code into production artifacts
 3. Localisation and Internationalisation
 4. Customisable and Extensible
+
+Together with code to demostrate how the scenarios in scope of work are implemented 
