@@ -27,7 +27,7 @@ For the prototype the following scenarios should suffice:
 This scenario will involve:
   - provide login screen that will use platform authentication api (<a target="_blank" href="https://demo.openmf.org/api-docs/apiLive.htm#authentication">https://demo.openmf.org/api-docs/apiLive.htm#authentication</a>)
   - on failure handle error response from platform authentication api 
-  - on success display appropriate screen based on the roles associated with authenticated user.
+  - on success display appropriate screen based on the organisational role associated with authenticated user.
 
 Existing users on demo server:
  - mifos/passowrd has a 'Super user' role 
@@ -41,6 +41,14 @@ Authentication API response
   "userId": 1,
   "base64EncodedAuthenticationKey": "bWlmb3M6cGFzc3dvcmQ=",
   "authenticated": true,
+  "staffId": 1, 
+  "staffDisplayName": "Director, Program", 
+  "organisationalRole": { 
+     "id": 100, 
+     "code": 
+     "staffOrganisationalRoleType.programDirector", 
+     "value": "Program Director" 
+  },
   "roles": [
     {
       "id": 1,
