@@ -1,28 +1,24 @@
 (function() {
   require.config({
     paths: {
-      angular: '../lib/angular/angular',
-      underscore: '../lib/underscore/underscore',
-      test: '../test/functional'
+      'angular':      '../lib/angular/angular',
+      'angular-mocks': '../lib/angular/angular-mocks',
+      'underscore':   '../lib/underscore/underscore',
+      'sinon':        '../lib/sinon/sinon-1.7.1',
+      'test':         '../test/functional'
     },
     shim: {
-      angular: {
+      'angular': {
         exports: 'angular'
       },
-      underscore: {
-        exports: '_'
-      },
-      mifosX: {
+      'mifosX': {
         deps: ['angular']
       }
     },
   });
 
-  require(['mifosXComponents', 'underscore', 'mifosX'], function(components) {
-    var dependencies = [
-      'routes',
-      'test/test_scenario_loader'
-    ];
+  require(['mifosXComponents', 'mifosX', 'underscore'], function(components) {
+    var dependencies = ['routes', 'test/test_scenario_loader'];
     dependencies = _.reduce(_.keys(components), function(list, group) {
       return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
     }, dependencies);
