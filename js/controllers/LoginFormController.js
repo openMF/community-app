@@ -7,7 +7,7 @@
       scope.login = function() {
         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
       };
-      scope.$on("UserAuthenticationFailureEvent", function() {
+      scope.$on("UserAuthenticationFailureEvent", function(data) {
         scope.authenticationFailed = true;
       });
     }

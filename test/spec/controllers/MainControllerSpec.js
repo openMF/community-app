@@ -7,8 +7,9 @@ describe("MainController", function() {
     });
     this.location = jasmine.createSpyObj("$location", ['path', 'replace']);
     this.location.path.andReturn(this.location);
+    this.webStorage = jasmine.createSpyObj("webStorage", ['add', 'get']);
 
-    this.controller = new mifosX.controllers.MainController(this.scope, this.location);
+    this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.webStorage);
   });
 
   it("should listen to 'UserAuthenticationSuccessEvent'", function() {
@@ -27,6 +28,11 @@ describe("MainController", function() {
     });
     it("should redirect to the home page", function() {
       expect(this.location.path).toHaveBeenCalledWith('/home');
+    });
+    it("should store the authentication key", function() {
+      eventListener({}, {base64EncodedAuthenticationKey: "test_key"});
+
+      expect(this.webStorage.add).toHaveBeenCalledWith("authenticationKey", "test_key");
     });
   });
 });

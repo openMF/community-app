@@ -23,14 +23,19 @@ describe("AuthenticationService", function() {
     expect(http.post).toHaveBeenCalledWith("/authentication?username=test_username&password=test_password");
   });
 
-  it("should broadcast a 'UserAuthenticationSuccessEvent' on successful authentication", function() {
-    callbacks['success']("test_data");
+  describe("On successful authentication", function() {
+    it("should broadcast a 'UserAuthenticationSuccessEvent' on successful authentication", function() {
+      callbacks['success']("test_data");
 
-    expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationSuccessEvent", "test_data");
+      expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationSuccessEvent", "test_data");
+    });
   });
-  it("should broadcast a 'UserAuthenticationFailureEvent' on failed authentication", function() {
-    callbacks['error']("test_data");
 
-    expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationFailureEvent", "test_data");
+  describe("On failed authentication", function() {
+    it("should broadcast a 'UserAuthenticationFailureEvent' on failed authentication", function() {
+      callbacks['error']("test_data");
+
+      expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationFailureEvent", "test_data");
+    });
   });
 });
