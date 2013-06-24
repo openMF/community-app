@@ -18,6 +18,16 @@ Mifos X is a MIS platform for microfinance. Its capabilities are exposed through
  - Online Demo API Documentation: <a target="_blank" href="https://demo.openmf.org/api-docs/apiLive.htm">https://demo.openmf.org/api-docs/apiLive.htm</a>
  - Online Demo API (Example call): <a target="_blank" href="https://demo.openmf.org/mifosng-provider/api/v1/offices?tenantIdentifier=default&pretty=true">https://demo.openmf.org/mifosng-provider/api/v1/offices?tenantIdentifier=default&pretty=true</a> - log on using username/password of mifos/password
 
+### Setting up Mifos X server
+
+ - Follow instructions at <a target="_blank" href="https://github.com/openMF/mifosx">https://github.com/openMF/mifosx/wiki</a>
+ 
+**Troubleshooting**
+
+In case you get 'PermGen - Out of space' errors when running the tomcatRunWar task, increase the memory of your java process through the GRADLE_OPTS env variable
+
+    export GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=265m"  
+
 ## Scope of Work
 
 For the prototype the following scenarios should suffice:
