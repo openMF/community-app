@@ -32,7 +32,7 @@ define([], function() {
       httpStatusCode: "401",
       defaultUserMessage: "Unauthenticated. Please login.",
       userMessageGlobalisationCode: "error.msg.not.authenticated",
-      errors: [] 
+      errors: []
     };
   };
   
@@ -47,6 +47,27 @@ define([], function() {
           return [200, authenticationSuccess(username, users[username]), {}];
         }
         return [401, authenticationFailure(), {}];
+      });
+
+      var URL_REGEX2 = /\/api\/v1\/users\/(\w+)/;
+      httpBackend.whenGET(URL_REGEX2).respond(function(method, url, data, headers) {
+        var userId = url.match(URL_REGEX2);
+        var userData = {
+          id: userId,
+          username: "mifos",
+          officeId: 1,
+          officeName: "Head Office",
+          firstname: "App",
+          lastname: "Administrator",
+          email: "demomfi@mifos.org",
+          availableRoles: [],
+          roles: [ { 
+            id: 1,
+            name: "Super user",
+            description: "This role provides all application permissions." 
+          } ] 
+        }
+        return [200, userData, {}];
       });
     }
   };
