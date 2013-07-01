@@ -9,6 +9,9 @@
       })
       .when('/home', {
         templateUrl: 'html/home.html'
+      })
+      .when('/roles', {
+        templateUrl: 'html/roles/index.html'
       });
 
     $locationProvider.html5Mode(false);
