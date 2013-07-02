@@ -1,26 +1,26 @@
 describe("AuthenticationService", function() {
-  var scope, http, callbacks;
+  var scope, httpService, callbacks;
   beforeEach(function() {
     callbacks = {};
     scope = jasmine.createSpyObj("$rootScope", ['$broadcast']);
     
-    http = jasmine.createSpyObj("$http", ['post', 'success', 'error']);
-    http.post.andReturn(http);
+    httpService = jasmine.createSpyObj("httpService", ['post', 'success', 'error']);
+    httpService.post.andReturn(httpService);
     _.each(['success', 'error'], function(method) {
-      http[method].andCallFake(function(callback) {
+      httpService[method].andCallFake(function(callback) {
         callbacks[method] = callback;
         return this;
       });
     });
 
-    new mifosX.services.AuthenticationService(scope, http).authenticateWithUsernamePassword({
+    new mifosX.services.AuthenticationService(scope, httpService).authenticateWithUsernamePassword({
       username: "test_username",
       password: "test_password",
     });
   });
 
   it("should pass the correct parameters to the post method", function() {
-    expect(http.post).toHaveBeenCalledWith("/authentication?username=test_username&password=test_password");
+    expect(httpService.post).toHaveBeenCalledWith("/authentication?username=test_username&password=test_password");
   });
 
   describe("On successful authentication", function() {

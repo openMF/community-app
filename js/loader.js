@@ -39,7 +39,6 @@
       if (!test) {
         angular.bootstrap(document, ["MifosX_Application"]);
       }
-      // require([], 'test/test_realtime_demo');
     });
   });
 }());
