@@ -49,7 +49,7 @@ define([], function() {
         return [401, authenticationFailure(), {}];
       });
 
-      var URL_REGEX2 = /\/api\/v1\/users\/(\w+)/;
+      var URL_REGEX2 = /\/users\/(\w+)/;
       httpBackend.whenGET(URL_REGEX2).respond(function(method, url, data, headers) {
         var userId = url.match(URL_REGEX2);
         var userData = {

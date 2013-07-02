@@ -30,6 +30,7 @@
       return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
     }, [
       'test/test_scenario_loader',
+      'test/test_realtime_demo',
       'routes',
       'webstorage-configuration'
     ]);
@@ -38,6 +39,7 @@
       if (!test) {
         angular.bootstrap(document, ["MifosX_Application"]);
       }
+      // require([], 'test/test_realtime_demo');
     });
   });
 }());

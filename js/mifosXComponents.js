@@ -8,7 +8,8 @@ define({
     'LoginFormController'
   ],
   services: [
-    'ResourceFactory',
+    'ResourceFactoryProvider',
+    'HttpServiceProvider',
     'AuthenticationService'
   ],
   directives: []

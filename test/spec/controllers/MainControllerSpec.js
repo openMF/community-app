@@ -8,7 +8,7 @@ describe("MainController", function() {
     this.location = jasmine.createSpyObj("$location", ['path', 'replace']);
     this.location.path.andReturn(this.location);
     this.webStorage = jasmine.createSpyObj("webStorage", ['add', 'get']);
-    this.http = { defaults: { headers: { common: {} } } };
+    this.http = jasmine.createSpyObj("HttpService", ['setAuthorization']);
     this.resourceFactory = {userResource: {
       get: jasmine.createSpy('userResource.get()').andCallFake(function(params, callback) {
         resourceCallback = callback;
@@ -34,8 +34,8 @@ describe("MainController", function() {
         this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.webStorage, this.http, this.resourceFactory);
       });
   
-      it("should set the authorization http header", function() {
-        expect(this.http.defaults.headers.common.Authorization).toEqual("Basic test_key");
+      it("should set the authorization", function() {
+        expect(this.http.setAuthorization).toHaveBeenCalledWith("test_key");
       });
       it("should retrieve the current user", function() {
         expect(this.resourceFactory.userResource.get).toHaveBeenCalledWith({userId: "test_user"}, jasmine.any(Function))
@@ -71,10 +71,10 @@ describe("MainController", function() {
 
       expect(this.webStorage.add).toHaveBeenCalledWith("authenticationKey", "test_key");
     });
-    it("should set the authorization http header", function() {
+    it("should set the authorization", function() {
       eventListener({}, {base64EncodedAuthenticationKey: "test_key"});
 
-      expect(this.http.defaults.headers.common.Authorization).toEqual("Basic test_key");
+      expect(this.http.setAuthorization).toHaveBeenCalledWith("test_key");
     });
   });
 });
