@@ -10,7 +10,8 @@ define({
   services: [
     'ResourceFactoryProvider',
     'HttpServiceProvider',
-    'AuthenticationService'
+    'AuthenticationService',
+    'SessionManager'
   ],
   directives: []
 });
