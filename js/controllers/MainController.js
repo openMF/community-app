@@ -1,28 +1,25 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, webStorage, httpService, resourceFactory) {
+    MainController: function(scope, location, sessionManager) {
       scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
-        webStorage.add("userId", data.userId);
-        webStorage.add("authenticationKey", data.base64EncodedAuthenticationKey);
-        httpService.setAuthorization(data.base64EncodedAuthenticationKey);
-        scope.currentUser = new mifosX.models.User(data);
+        scope.currentSession = sessionManager.startSession(data);
         location.path('/home').replace();
       });
 
-      if (webStorage.get("userId") !== null && webStorage.get("authenticationKey") !== null) {
-        httpService.setAuthorization(webStorage.get("authenticationKey"));
-        var userData = resourceFactory.userResource.get({userId: webStorage.get("userId")}, function() {
-          scope.currentUser = new mifosX.models.User(userData);
-        });
-      }
+      scope.logout = function() {
+        scope.currentSession = sessionManager.clearSession();
+        location.path('/').replace();
+      };
+
+      sessionManager.restoreSession(function(session) {
+        scope.currentSession = session;
+      });
     }
   });
   mifosX.ng.application.controller('MainController', [
     '$scope',
     '$location',
-    'webStorage',
-    'HttpService',
-    'ResourceFactory',
+    'SessionManager',
     mifosX.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");
