@@ -3,19 +3,19 @@
     SessionManager: function(webStorage, httpService, resourceFactory) {
       var EMPTY_SESSION = {};
 
-      this.startSession = function(data) {
+      this.get = function(data) {
         webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey});
         httpService.setAuthorization(data.base64EncodedAuthenticationKey);
         return {user: new mifosX.models.User(data)};
       }
 
-      this.clearSession = function() {
+      this.clear = function() {
         webStorage.remove("sessionData");
         httpService.cancelAuthorization();
         return EMPTY_SESSION;
       };
 
-      this.restoreSession = function(handler) {
+      this.restore = function(handler) {
         var sessionData = webStorage.get('sessionData');
         if (sessionData !== null) {
           httpService.setAuthorization(sessionData.authenticationKey);

@@ -21,7 +21,7 @@ describe("SessionManager", function() {
           if (key === 'sessionData') return {userId: "test_user", authenticationKey: "test_key"};
         });
         var self = this;
-        this.sessionManager.restoreSession(function(session) {self.session = session;});
+        this.sessionManager.restore(function(session) {self.session = session;});
       });
 
       it("should set the http authorization", function() {
@@ -41,7 +41,7 @@ describe("SessionManager", function() {
       beforeEach(function() {
         webStorage.get.andReturn(null);
         var self = this;
-        this.sessionManager.restoreSession(function(session) {self.session = session;});
+        this.sessionManager.restore(function(session) {self.session = session;});
       });
 
       it("should return an empty session", function() {
@@ -52,7 +52,7 @@ describe("SessionManager", function() {
 
   describe("Session start", function() {
     beforeEach(function() {
-      this.session = this.sessionManager.startSession({userId: "test_user", base64EncodedAuthenticationKey: "test_key"});
+      this.session = this.sessionManager.get({userId: "test_user", base64EncodedAuthenticationKey: "test_key"});
     });
 
     it("should set the http authorization", function() {
@@ -69,7 +69,7 @@ describe("SessionManager", function() {
 
   describe("Session clear", function() {
     beforeEach(function() {
-      this.session = this.sessionManager.clearSession();
+      this.session = this.sessionManager.clear();
     });
 
     it("should cancel the http authorization", function() {

@@ -2,16 +2,16 @@
   mifosX.controllers = _.extend(module, {
     MainController: function(scope, location, sessionManager) {
       scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
-        scope.currentSession = sessionManager.startSession(data);
+        scope.currentSession = sessionManager.get(data);
         location.path('/home').replace();
       });
 
       scope.logout = function() {
-        scope.currentSession = sessionManager.clearSession();
+        scope.currentSession = sessionManager.clear();
         location.path('/').replace();
       };
 
-      sessionManager.restoreSession(function(session) {
+      sessionManager.restore(function(session) {
         scope.currentSession = session;
       });
     }
