@@ -1,8 +1,5 @@
-define(['angular-mocks'], function() {
-  var regexp = /\?test_scenario=(\w+)/;
-  var match = regexp.exec(window.location.search);
-  if (match) {
-    var scenarioName = match[1];
+define(['mifosX', 'angular-mocks'], {
+  configure: function(scenarioName) {
     require(["test/scenarios/" + scenarioName + "_scenario"], function(scenario) {
       mifosX.ng.application.config(function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
@@ -13,7 +10,5 @@ define(['angular-mocks'], function() {
       });
       angular.bootstrap(document, ["MifosX_Application"]);
     });
-    return true;
   }
-  return false;
 });

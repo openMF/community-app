@@ -29,14 +29,13 @@
     var dependencies = _.reduce(_.keys(components), function(list, group) {
       return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
     }, [
-      'test/test_scenario_loader',
-      'test/test_realtime_demo',
+      'test/testInitializer',
       'routes',
       'webstorage-configuration'
     ]);
 
-    require(dependencies, function(test) {
-      if (!test) {
+    require(dependencies, function(testMode) {
+      if (!testMode) {
         angular.bootstrap(document, ["MifosX_Application"]);
       }
     });
