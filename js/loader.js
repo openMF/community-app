@@ -6,35 +6,37 @@
       'angular-mocks':    '../lib/angular/angular-mocks',
       'underscore':       '../lib/underscore/underscore',
       'webstorage':       '../lib/angular-webstorage',
-      'test':             '../test/functional'
+      'require-css':      '../lib/require-css',
+      'require-less':     '../lib/require-less',
+      'styles':           '../stylesheets',
+      'test':             '../test/functional',
     },
     shim: {
-      'angular': {
-        exports: 'angular'
-      },
-      'angular-resource': {
-        deps: ['angular']
-      },
-      'webstorage': {
-        deps: ['angular']
-      },
+      'angular': { exports: 'angular' },
+      'angular-resource': { deps: ['angular'] },
+      'angular-mocks': { deps: ['angular'] },
+      'webstorage': { deps: ['angular'] },
       'mifosX': {
         deps: ['angular', 'angular-resource', 'webstorage'],
         exports: 'mifosX'
       }
     },
+    packages: [
+      {
+        name: 'css',
+        location: '../lib/require-css',
+        main: 'css'
+      },
+      {
+        name: 'less',
+        location: '../lib/require-less',
+        main: 'less'
+      }
+    ]
   });
 
-  require(['mifosXComponents', 'mifosX', 'underscore'], function(components) {
-    var dependencies = _.reduce(_.keys(components), function(list, group) {
-      return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
-    }, [
-      'test/testInitializer',
-      'routes',
-      'webstorage-configuration'
-    ]);
-
-    require(dependencies, function(testMode) {
+  require(['mifosXComponents', 'mifosXStyles'], function() {
+    require(['test/testInitializer'], function(testMode) {
       if (!testMode) {
         angular.bootstrap(document, ["MifosX_Application"]);
       }
