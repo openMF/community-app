@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.services = _.extend(module, {
-    AuthenticationService: function(scope, http) {
+    AuthenticationService: function(scope, httpService) {
       var onSuccess = function(data) {
         scope.$broadcast("UserAuthenticationSuccessEvent", data);
       };
@@ -10,13 +10,13 @@
       };
 
       this.authenticateWithUsernamePassword = function(credentials) {
-        http.post("/authentication?username=" + credentials.username + "&password=" + credentials.password)
+        httpService.post("/authentication?username=" + credentials.username + "&password=" + credentials.password)
           .success(onSuccess)
           .error(onFailure);
       };
     }
   });
-  mifosX.ng.services.service('AuthenticationService', ['$rootScope', '$http', mifosX.services.AuthenticationService]).run(function($log) {
+  mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', mifosX.services.AuthenticationService]).run(function($log) {
     $log.info("AuthenticationService initialized");
   });
 }(mifosX.services || {}));

@@ -1,80 +1,58 @@
 describe("MainController", function() {
-  var eventListener, resourceCallback, userConstructor;
+  var eventListener, sessionCallback;
   beforeEach(function() {
     this.scope = jasmine.createSpyObj("$scope", ['$on']);
-    this.scope.$on.andCallFake(function(event, listener) {
-      eventListener = listener;
-    });
+    this.scope.$on.andCallFake(function(event, listener) { eventListener = listener; });
     this.location = jasmine.createSpyObj("$location", ['path', 'replace']);
     this.location.path.andReturn(this.location);
-    this.webStorage = jasmine.createSpyObj("webStorage", ['add', 'get']);
-    this.http = { defaults: { headers: { common: {} } } };
-    this.resourceFactory = {userResource: {
-      get: jasmine.createSpy('userResource.get()').andCallFake(function(params, callback) {
-        resourceCallback = callback;
-        return "test_data";
-      })
-    }};
-    userConstructor = spyOn(mifosX.models, 'User').andReturn({id: "test_user"});
+    this.sessionManager = jasmine.createSpyObj("sessionManager", ['get', 'clear', 'restore']);
+    this.sessionManager.restore.andCallFake(function(callback) {
+      sessionCallback = callback;
+    });
+
+    this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.sessionManager);
   });
 
   describe("on initialisation", function() {
     it("should listen to 'UserAuthenticationSuccessEvent'", function() {
-      this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.webStorage, this.http, this.resourceFactory);
-
       expect(this.scope.$on).toHaveBeenCalledWith("UserAuthenticationSuccessEvent", jasmine.any(Function));
     });
 
-    describe("when a userId and an authorisation key exist in the storage", function() {
-      beforeEach(function() {
-      this.webStorage.get.andCallFake(function(key) {
-          if (key === 'userId') return "test_user";
-          if (key === 'authenticationKey') return "test_key";
-        });
-        this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.webStorage, this.http, this.resourceFactory);
-      });
-  
-      it("should set the authorization http header", function() {
-        expect(this.http.defaults.headers.common.Authorization).toEqual("Basic test_key");
-      });
-      it("should retrieve the current user", function() {
-        expect(this.resourceFactory.userResource.get).toHaveBeenCalledWith({userId: "test_user"}, jasmine.any(Function))
-      });
-      it("should update the current user in the scope", function() {
-        resourceCallback();
-        expect(userConstructor).toHaveBeenCalledWith("test_data");
-        expect(this.scope.currentUser).toEqual({id: "test_user"});
-      });
+    it("should restore the session", function() {
+      sessionCallback("test_session");
+      expect(this.scope.currentSession).toEqual("test_session");
     });
   });
 
   describe("on receving 'UserAuthenticationSuccessEvent'", function() {
     beforeEach(function() {
-      this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.webStorage, this.http, this.resourceFactory);
+      this.sessionManager.get.andReturn("test_session");
+      
       eventListener({}, "test_data");
     });
 
-    it("should store a new User in the scope", function() {
-      expect(userConstructor).toHaveBeenCalledWith("test_data");
-      expect(this.scope.currentUser).toEqual({id: "test_user"});
+    it("should start a new session", function() {
+      expect(this.sessionManager.get).toHaveBeenCalledWith("test_data");
+      expect(this.scope.currentSession).toEqual("test_session");
     });
     it("should redirect to the home page", function() {
       expect(this.location.path).toHaveBeenCalledWith('/home');
     });
-    it("should store the user id", function() {
-      eventListener({}, {userId: "test_user"});
+  });
 
-      expect(this.webStorage.add).toHaveBeenCalledWith("userId", "test_user");
+  describe("User logout", function() {
+    beforeEach(function() {
+      this.sessionManager.clear.andReturn("test_session");
+      
+      this.scope.logout();
     });
-    it("should store the authentication key", function() {
-      eventListener({}, {base64EncodedAuthenticationKey: "test_key"});
 
-      expect(this.webStorage.add).toHaveBeenCalledWith("authenticationKey", "test_key");
+    it("should clear the session", function() {
+      expect(this.sessionManager.clear).toHaveBeenCalled();
+      expect(this.scope.currentSession).toEqual("test_session");
     });
-    it("should set the authorization http header", function() {
-      eventListener({}, {base64EncodedAuthenticationKey: "test_key"});
-
-      expect(this.http.defaults.headers.common.Authorization).toEqual("Basic test_key");
+    it("should redirect to the start page", function() {
+      expect(this.location.path).toHaveBeenCalledWith('/');
     });
   });
 });
