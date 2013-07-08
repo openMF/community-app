@@ -1,8 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     AllRolesController: function(scope, resourceFactory) {
-      var allRolesData = resourceFactory.allRolesResource.get(function() {
-        // scope.roles = new mifosX.models.User(userData);
+      resourceFactory.allRolesResource.get({}, function(allRolesData) {
         scope.allRoles = allRolesData;
       });
     }

@@ -19,7 +19,7 @@
         var sessionData = webStorage.get('sessionData');
         if (sessionData !== null) {
           httpService.setAuthorization(sessionData.authenticationKey);
-          var userData = resourceFactory.userResource.get({userId: sessionData.userId}, function() {
+          resourceFactory.userResource.get({userId: sessionData.userId}, function(userData) {
             handler({user: new mifosX.models.User(userData)});
           });
         } else {

@@ -6,7 +6,6 @@ describe("SessionManager", function() {
     resourceFactory = {userResource: {
       get: jasmine.createSpy('userResource.get()').andCallFake(function(params, callback) {
         resourceCallback = callback;
-        return "test_user_data";
       })
     }};
     userConstructor = spyOn(mifosX.models, 'User').andReturn({id: "test_user"});
@@ -31,7 +30,7 @@ describe("SessionManager", function() {
         expect(resourceFactory.userResource.get).toHaveBeenCalledWith({userId: "test_user"}, jasmine.any(Function))
       });
       it("should return a session with the user", function() {
-        resourceCallback();
+        resourceCallback("test_user_data");
         expect(userConstructor).toHaveBeenCalledWith("test_user_data");
         expect(this.session).toEqual({user: {id: "test_user"}});
       });

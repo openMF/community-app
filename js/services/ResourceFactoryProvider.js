@@ -6,7 +6,9 @@
 
       this.$get = ['$resource', function(resource) {
         return {
-          userResource: resource(baseUrl + "/users/:userId"),
+          userResource: resource(baseUrl + "/users/:userId", {}, {
+            getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true}
+          }),
           allRolesResource: resource(baseUrl + "/roles")
         };
       }];

@@ -1,14 +1,18 @@
 describe("ResourceFactoryProvider", function() {
-  var factory, ngResource;
+  var ngResource;
   beforeEach(function() {
     this.provider = new mifosX.services.ResourceFactoryProvider();
     ngResource = jasmine.createSpy("$resource").andReturn("test_resource");
 
-    factory = this.provider.$get[1](ngResource);
+    this.factory = this.provider.$get[1](ngResource);
   });
 
-  it("should define the User resource", function() {
-    expect(ngResource).toHaveBeenCalledWith("/users/:userId");
-    expect(factory.userResource).toEqual("test_resource");
+  describe("User resource", function() {
+    it("should define the User resource", function() {
+      expect(ngResource).toHaveBeenCalledWith("/users/:userId", {}, {
+        getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true}
+      });
+      expect(this.factory.userResource).toEqual("test_resource");
+    });
   });
 });

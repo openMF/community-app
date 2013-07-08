@@ -12,6 +12,9 @@
       })
       .when('/roles', {
         templateUrl: 'html/roles/index.html'
+      })
+      .when('/admin/users', {
+        templateUrl: 'html/administration/users.html'
       });
 
     $locationProvider.html5Mode(false);
