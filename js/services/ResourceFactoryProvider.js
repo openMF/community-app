@@ -6,8 +6,8 @@
 
       this.$get = ['$resource', function(resource) {
         return {
-          userResource: resource(baseUrl + "/users/:userId")
-          allRolesResource = resource(baseUrl + "/roles");
+          userResource: resource(baseUrl + "/users/:userId"),
+          allRolesResource: resource(baseUrl + "/roles")
         };
       }];
     }
