@@ -5,11 +5,14 @@
       this.setBaseUrl = function(url) {baseUrl = url;};
 
       this.$get = ['$resource', function(resource) {
+        var defineResource = function(url, paramDefaults, actions) {
+          return resource(baseUrl + url, paramDefaults, actions);
+        };
         return {
-          userResource: resource(baseUrl + "/users/:userId", {}, {
+          userResource: defineResource("/users/:userId", {}, {
             getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true}
           }),
-          allRolesResource: resource(baseUrl + "/roles")
+          allRolesResource: defineResource("/roles")
         };
       }];
     }

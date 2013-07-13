@@ -1,8 +1,9 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     UserController: function(scope, resourceFactory) {
-      resourceFactory.userResource.getAllUsers({}, function(usersData) {
-        scope.users = _.map(usersData, function(data) {return new mifosX.models.User(data);});
+      scope.users = [];
+      resourceFactory.userResource.getAllUsers({fields: "id,firstname,lastname,username,officeName"}, function(data) {
+        scope.users = data;
       });
     }
   });

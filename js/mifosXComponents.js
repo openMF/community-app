@@ -15,7 +15,9 @@ define(['underscore', 'mifosX'], function() {
       'AuthenticationService',
       'SessionManager'
     ],
-    directives: []
+    directives: [
+      'DataTablesDirective'
+    ]
   };
 
   require(_.reduce(_.keys(components), function(list, group) {

@@ -35,25 +35,21 @@ define([], function() {
       errors: []
     };
   };
-  
+
   return {
-    stubServer: function(httpBackend) {
-      var URL_REGEX = /\/authentication\?username=(\w+)&password=(.+)/;
-      httpBackend.whenPOST(URL_REGEX).respond(function(method, url, data) {
-        var match = url.match(URL_REGEX);
+    stubServer: function(fakeServer) {
+      fakeServer.post(/\/authentication\?username=(\w+)&password=(.+)/, function(match) {
         var username = match[1];
         var password = match[2];
         if (users[username] && password === 'password') {
-          return [200, authenticationSuccess(username, users[username]), {}];
+          return {content: authenticationSuccess(username, users[username])};
         }
-        return [401, authenticationFailure(), {}];
+        return {returnCode: 401, content: authenticationFailure()};
       });
 
-      var URL_REGEX2 = /\/users\/(\w+)/;
-      httpBackend.whenGET(URL_REGEX2).respond(function(method, url, data, headers) {
-        var userId = url.match(URL_REGEX2);
-        var userData = {
-          id: userId,
+      fakeServer.get(/\/users\/(\w+)/, function(match) {
+        return {content: {
+          id: match[1],
           username: "mifos",
           officeId: 1,
           officeName: "Head Office",
@@ -61,13 +57,12 @@ define([], function() {
           lastname: "Administrator",
           email: "demomfi@mifos.org",
           availableRoles: [],
-          roles: [ { 
+          roles: [{
             id: 1,
             name: "Super user",
             description: "This role provides all application permissions." 
-          } ] 
-        }
-        return [200, userData, {}];
+          }] 
+        }};
       });
     }
   };

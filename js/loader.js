@@ -1,6 +1,9 @@
 (function() {
   require.config({
     paths: {
+      'jquery':           '../lib/jquery/jquery-1.10.2',
+      'jquery-ui':        '../lib/jquery-ui/jquery-ui-1.10.3.custom',
+      'data-tables':      '../lib/data-tables/jquery.dataTables',
       'angular':          '../lib/angular/angular',
       'angular-resource': '../lib/angular/angular-resource',
       'angular-mocks':    '../lib/angular/angular-mocks',
@@ -16,8 +19,9 @@
       'angular-resource': { deps: ['angular'] },
       'angular-mocks': { deps: ['angular'] },
       'webstorage': { deps: ['angular'] },
+      'jquery-ui': { deps: ['jquery'] },
       'mifosX': {
-        deps: ['angular', 'angular-resource', 'webstorage'],
+        deps: ['angular', 'angular-resource', 'webstorage', 'data-tables', 'jquery-ui'],
         exports: 'mifosX'
       }
     },

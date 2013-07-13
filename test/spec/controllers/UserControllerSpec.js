@@ -14,9 +14,13 @@ describe("UserController", function() {
     this.controller = new mifosX.controllers.UserController(this.scope, this.resourceFactory);
   });
 
+  it("should call the userResource with the correct field selection", function() {
+    expect(this.resourceFactory.userResource.getAllUsers).toHaveBeenCalledWith({fields: "id,firstname,lastname,username,officeName"}, jasmine.any(Function));
+  });
+
   it("should populate the scope with the retrieved users", function() {
     resourceCallback(["test_user1", "test_user2"]);
     
-    expect(this.scope.users).toEqual([{id: "test_user1"}, {id: "test_user2"}])
+    expect(this.scope.users).toEqual(["test_user1", "test_user2"]);
   });
 });

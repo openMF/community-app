@@ -3,7 +3,9 @@ define(['underscore'], function() {
     css: [
       'skeleton/base',
       'skeleton/skeleton',
-      'skeleton/layout'
+      'skeleton/layout',
+      'data-tables/css/jquery.dataTables',
+      'jquery-ui/redmond/jquery-ui-1.10.3.custom'
     ],
     less: [
       'mifosX'

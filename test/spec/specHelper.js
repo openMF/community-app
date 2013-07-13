@@ -7,9 +7,8 @@ var MockModule = function() {
   this.config = 
   this.run = function(){return this};
 };
-var angular = {
-  module: jasmine.createSpy().andReturn(new MockModule())
-}
+
+angular.module = jasmine.createSpy().andReturn(new MockModule())
 
 var $, jQuery = function() {throw "you must stub or mock any call to jQuery!"};
 
