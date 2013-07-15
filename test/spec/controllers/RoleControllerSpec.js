@@ -3,14 +3,13 @@ describe("RoleController", function() {
 
   beforeEach(function() {
     this.scope = {};
-    this.scope = {}
     this.resourceFactory = { roleResource: {
-      get: jasmine.createSpy('roleResource.get()').andCallFake(function(params, callback) {
+      getAllRoles: jasmine.createSpy('roleResource.getAllRoles()').andCallFake(function(params, callback) {
         resourceCallback = callback;
       })
     }};
 
-    this.controller = new mifosX.controllers.RolesController(this.scope, this.resourceFactory);
+    this.controller = new mifosX.controllers.RoleController(this.scope, this.resourceFactory);
   });
 
   it("should get all roles", function() {

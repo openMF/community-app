@@ -10,8 +10,8 @@
       .when('/home', {
         templateUrl: 'html/home.html'
       })
-      .when('/roles', {
-        templateUrl: 'html/roles/index.html'
+      .when('/admin/roles', {
+        templateUrl: 'html/administration/roles.html'
       })
       .when('/admin/users', {
         templateUrl: 'html/administration/users.html'
