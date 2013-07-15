@@ -15,4 +15,11 @@ describe("ResourceFactoryProvider", function() {
       expect(this.factory.userResource).toEqual("test_resource");
     });
   });
+
+  describe("Role resource", function() {
+    it("should define the Role resource", function() {
+      expect(ngResource).toHaveBeenCalledWith("/roles/:roleId", {}, {});
+      expect(this.factory.userResource).toEqual("test_resource");
+    });
+  });
 });

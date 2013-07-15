@@ -12,7 +12,7 @@
           userResource: defineResource("/users/:userId", {}, {
             getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true}
           }),
-          allRolesResource: defineResource("/roles")
+          roleResource: defineResource("/roles/:roleId", {}, {})
         };
       }];
     }

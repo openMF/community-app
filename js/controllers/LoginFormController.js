@@ -7,9 +7,11 @@
       scope.login = function() {
         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
       };
+
       scope.$on("UserAuthenticationFailureEvent", function(data) {
         scope.authenticationFailed = true;
       });
+
     }
   });
   mifosX.ng.application.controller('LoginFormController', ['$scope', 'AuthenticationService', mifosX.controllers.LoginFormController]).run(function($log) {
