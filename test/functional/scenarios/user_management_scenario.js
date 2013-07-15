@@ -25,7 +25,7 @@ define(["test/scenarios/user_authentication_scenario"], function(authenticationS
     stubServer: function(fakeServer) {
       authenticationScenario.stubServer(fakeServer);
       fakeServer.get(/\/roles\/(\w+)/, { content: all_roles });
-      fakeServer.get(/\/users?.*/, { content: createUsers(25) });
+      fakeServer.get(/\/users?.*/, { content: createUsers(25), delay: 3 });
     }
   };
 });
