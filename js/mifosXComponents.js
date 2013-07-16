@@ -17,7 +17,8 @@ define(['underscore', 'mifosX'], function() {
       'SessionManager'
     ],
     directives: [
-      'DataTablesDirective'
+      'DataTablesDirective',
+      'OverlayDirective'
     ]
   };
 

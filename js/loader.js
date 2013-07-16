@@ -4,6 +4,7 @@
       'jquery':           '../lib/jquery/jquery-1.10.2',
       'jquery-ui':        '../lib/jquery-ui/jquery-ui-1.10.3.custom',
       'data-tables':      '../lib/data-tables/jquery.dataTables',
+      'blockUI':          '../lib/blockUI/jquery.blockUI',
       'angular':          '../lib/angular/angular',
       'angular-resource': '../lib/angular/angular-resource',
       'angular-mocks':    '../lib/angular/angular-mocks',
@@ -21,7 +22,14 @@
       'webstorage': { deps: ['angular'] },
       'jquery-ui': { deps: ['jquery'] },
       'mifosX': {
-        deps: ['angular', 'angular-resource', 'webstorage', 'data-tables', 'jquery-ui'],
+        deps: [
+          'angular',
+          'angular-resource',
+          'webstorage',
+          'data-tables',
+          'blockUI',
+          'jquery-ui'
+        ],
         exports: 'mifosX'
       }
     },
