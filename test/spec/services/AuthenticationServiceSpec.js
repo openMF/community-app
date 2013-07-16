@@ -23,6 +23,10 @@ describe("AuthenticationService", function() {
     expect(httpService.post).toHaveBeenCalledWith("/authentication?username=test_username&password=test_password");
   });
 
+  it("should broadcast 'UserAuthenticationStartEvent'", function() {
+    expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationStartEvent");
+  });
+
   describe("On successful authentication", function() {
     it("should broadcast a 'UserAuthenticationSuccessEvent' on successful authentication", function() {
       callbacks['success']("test_data");
