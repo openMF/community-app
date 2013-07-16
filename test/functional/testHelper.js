@@ -18,7 +18,7 @@ define(['underscore'], {
         httpBackend["when" + method.toUpperCase()](urlRegex).respond(function(method, url, data, headers) {
           var responseOptions = getResponseOptions(url.match(urlRegex), data, headers, response);
           if (_.isNumber(responseOptions.delay) && responseOptions.delay > 0) {
-            // a bit of a hack, but this is the only way I figured how to pass delay information
+            // a bit of a hack, but this is the only way I figured out to pass delay information
             // to the $httpBackend decorator (see scenarioTest.js) 
             responseOptions.headers['MifosX-Scenario-Delay'] = responseOptions.delay * 1000;
           }

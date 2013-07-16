@@ -42,27 +42,29 @@ define([], function() {
         var username = match[1];
         var password = match[2];
         if (users[username] && password === 'password') {
-          return {content: authenticationSuccess(username, users[username])};
+          return {content: authenticationSuccess(username, users[username]), delay: 2};
         }
-        return {returnCode: 401, content: authenticationFailure()};
+        return {returnCode: 401, content: authenticationFailure(), delay: 3};
       });
 
       fakeServer.get(/\/users\/(\w+)/, function(match) {
-        return {content: {
-          id: match[1],
-          username: "mifos",
-          officeId: 1,
-          officeName: "Head Office",
-          firstname: "App",
-          lastname: "Administrator",
-          email: "demomfi@mifos.org",
-          availableRoles: [],
-          roles: [{
-            id: 1,
-            name: "Super user",
-            description: "This role provides all application permissions." 
-          }] 
-        }};
+        return {
+          content: {
+            id: match[1],
+            username: "mifos",
+            officeId: 1,
+            officeName: "Head Office",
+            firstname: "App",
+            lastname: "Administrator",
+            email: "demomfi@mifos.org",
+            availableRoles: [],
+            roles: [{
+              id: 1,
+              name: "Super user",
+              description: "This role provides all application permissions." 
+            }] 
+          }
+        };
       });
     }
   };
