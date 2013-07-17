@@ -2,8 +2,10 @@
   mifosX.controllers = _.extend(module, {
     UserController: function(scope, resourceFactory) {
       scope.users = [];
+      scope.$evalAsync(function() { scope.$broadcast('UserDataLoadingStartEvent'); });
       resourceFactory.userResource.getAllUsers({fields: "id,firstname,lastname,username,officeName"}, function(data) {
         scope.users = data;
+        scope.$broadcast('UserDataLoadingCompleteEvent');
       });
     }
   });
