@@ -8,7 +8,7 @@ describe("SessionManager", function() {
         resourceCallback = callback;
       })
     }};
-    userConstructor = spyOn(mifosX.models, 'User').andReturn({id: "test_user"});
+    userConstructor = spyOn(mifosX.models, 'LoggedInUser').andReturn({id: "test_user"});
 
     this.sessionManager = new mifosX.services.SessionManager(webStorage, httpService, resourceFactory);
   });

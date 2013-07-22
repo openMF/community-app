@@ -1,4 +1,4 @@
-describe("User", function() {
+describe("LoggedInUser", function() {
   it("should return the mapped role page name", function() {
     var data = {
       roles: [
@@ -7,7 +7,7 @@ describe("User", function() {
       ]
     };
 
-    var user = new mifosX.models.User(data);
+    var user = new mifosX.models.LoggedInUser(data);
 
     expect(user.getHomePageIdentifier()).toEqual('superuser');
   });

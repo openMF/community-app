@@ -10,9 +10,6 @@ describe("UserController", function() {
         resourceCallback = callback;
       })
     }};
-    userConstructor = spyOn(mifosX.models, 'User').andCallFake(function(data) {
-      return {id: data};
-    });
 
     this.controller = new mifosX.controllers.UserController(this.scope, this.resourceFactory);
   });

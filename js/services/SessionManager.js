@@ -6,7 +6,7 @@
       this.get = function(data) {
         webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey});
         httpService.setAuthorization(data.base64EncodedAuthenticationKey);
-        return {user: new mifosX.models.User(data)};
+        return {user: new mifosX.models.LoggedInUser(data)};
       }
 
       this.clear = function() {
@@ -20,7 +20,7 @@
         if (sessionData !== null) {
           httpService.setAuthorization(sessionData.authenticationKey);
           resourceFactory.userResource.get({userId: sessionData.userId}, function(userData) {
-            handler({user: new mifosX.models.User(userData)});
+            handler({user: new mifosX.models.LoggedInUser(userData)});
           });
         } else {
           handler(EMPTY_SESSION);
