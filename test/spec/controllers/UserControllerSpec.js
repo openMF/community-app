@@ -14,6 +14,12 @@ describe("UserController", function() {
     this.controller = new mifosX.controllers.UserController(this.scope, this.resourceFactory);
   });
 
+  it("should broadcast 'OpenUserFormDialog' event with the title", function() {
+    this.scope.newUserFormDialog();
+
+    expect(this.scope.$broadcast).toHaveBeenCalledWith('OpenUserFormDialog', {title: 'New User'});
+  });
+
   it("should broadcast 'UserDataLoadingStartEvent' when loading begins", function() {
     expect(this.scope.$broadcast).toHaveBeenCalledWith('UserDataLoadingStartEvent');
   });

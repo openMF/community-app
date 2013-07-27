@@ -18,7 +18,8 @@ define(['underscore', 'mifosX'], function() {
     ],
     directives: [
       'DataTablesDirective',
-      'OverlayDirective'
+      'OverlayDirective',
+      'DialogDirective'
     ]
   };
 
