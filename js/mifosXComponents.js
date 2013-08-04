@@ -8,6 +8,7 @@ define(['underscore', 'mifosX'], function() {
       'MainController',
       'LoginFormController',
       'UserController',
+      'UserFormController',
       'RoleController'
     ],
     services: [

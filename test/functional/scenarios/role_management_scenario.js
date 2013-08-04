@@ -9,7 +9,6 @@ define(["test/scenarios/user_authentication_scenario"], function(authenticationS
     stubServer: function(fakeServer) {
       authenticationScenario.stubServer(fakeServer);
       fakeServer.get(/\/roles/, function(){ 
-        console.log("called -" + arguments);
         return {content: roles} 
       });
     }

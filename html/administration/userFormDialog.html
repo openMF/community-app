@@ -1,22 +1,49 @@
-<div id="userForm" class="hide"
-  data-mf-dialog="{show: 'OpenUserFormDialog', hide: 'CloseUserForm'}"
-  data-mf-dialog-options="{modal: true}">
-  <form>
+<div class="hide"
+  data-mf-dialog="{show: 'OpenUserFormDialog', hide: 'CloseUserForm,SubmitUserFormSuccess'}"
+  data-mf-dialog-options="{modal: true, width: 'auto'}">
+  <form name="userForm" data-ng-controller="UserFormController">
+    <div data-ng-show="formInError">
+      <div class="errorTitle">There were errors submitting the form:</div>
+      <ul class="error" >
+        <li data-ng-repeat="error in errors">
+          {{error.defaultUserMessage}}
+        </li>
+      </ul>
+    </div>
     <div>
       <label for="username">Username</label>
-      <input name="username" type="text" />
+      <input name="username" type="text" data-ng-model="userFormData.username" placeholder="username"/>
     </div>
     <div>
       <label for="firstname">First name</label>
-      <input name="firstname" type="text" />
+      <input name="firstname" type="text" data-ng-model="userFormData.firstname" placeholder="firstname"/>
     </div>
     <div>
       <label for="lastname">Last name</label>
-      <input name="lastname" type="text" />
+      <input name="lastname" type="text" data-ng-model="userFormData.lastname" placeholder="lastname"/>
     </div>
     <div>
       <label for="email">Email</label>
-      <input name="email" type="email" />
+      <input name="email" type="email" data-ng-model="userFormData.email" placeholder="email address"/>
+    </div>
+    <div>
+      <input type="checkbox" name="sendPasswordToEmail" data-ng-model="userFormData.sendPasswordToEmail"> <b>Generate password and email it</b>
+    </div>
+    <div>
+      <label for="office">Office</label>
+      <select name="officeId" data-ng-model="userFormData.office" data-ng-options="o.name for o in offices"/>
+    </div>
+    <div>
+      <label>Roles</label>
+      <div data-ng-repeat="role in roles">
+        <div>
+          <input type="checkbox" name="role_{{role.id}}" data-ng-model="userFormData.selectedRoles[role.id]"> <b>{{role.name}}</b>
+        </div>
+      </div>
+    </div>
+    <div class='form-footer'>
+      <input type='submit' value='Done' data-ng-click="submitUserForm()"/>
+      <input type='submit' value='Cancel' data-ng-click="cancelUserForm()"/>
     </div>
   </form>
 </div>

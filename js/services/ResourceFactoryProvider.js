@@ -14,6 +14,9 @@
           }),
           roleResource: defineResource("/roles/:roleId", {}, {
             getAllRoles: {method: 'GET', params: {}, isArray: true}
+          }),
+          officeResource: defineResource("/offices/:officeId", {}, {
+            getAllOffices: {method: 'GET', params: {}, isArray: true}
           })
         };
       }];

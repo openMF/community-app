@@ -3,22 +3,17 @@
   <div class="users-actions">
     <div class="action create" data-ng-click="newUserFormDialog()">New user</div>
   </div>
-  <table id="usersTable" data-ng-show="users.length > 0" 
-    data-mf-data-table="{sScrollY: 280, sPaginationType: 'full_numbers'}" data-mf-data-table-items="users">
+  <table id="usersTable" data-ng-show="users.length > 0"
+    data-mf-data-table="{sScrollY: 280, sPaginationType: 'full_numbers'}"
+    data-mf-data-table-columns="username,firstname,lastname"
+    data-mf-data-table-items="users">
     <thead>
       <tr>
         <th>User Name</th>
-        <th>Family Name</th>
         <th>Given Name</th>
+        <th>Family Name</th>
       </tr>
     </thead>
-    <tbody>
-      <tr data-ng-repeat="user in users">
-        <td>{{user.username}}</td>
-        <td>{{user.lastname}}</td>
-        <td>{{user.firstname}}</td>
-      </tr>
-    </tbody>
   </table>
   <div class="hide" 
     data-mf-overlay="{show: 'UserDataLoadingStartEvent', hide: 'UserDataLoadingCompleteEvent'}"
