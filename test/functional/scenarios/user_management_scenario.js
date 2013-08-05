@@ -31,7 +31,7 @@ define(["test/scenarios/user_authentication_scenario"], function(authenticationS
       fakeServer.get(/\/users?.*/, { content: createUsers(25), delay: 3 });
       fakeServer.get(/\/roles/, { content: roles, delay: 1 });
       fakeServer.get(/\/offices/, { content: offices, delay: 1 });
-      fakeServer.post(/\/users/, {returnCode: 201, delay: 0.5});
+      fakeServer.post(/\/users/, {returnCode: 201, delay: 2});
     }
   };
 });

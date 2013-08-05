@@ -30,6 +30,8 @@
             _.keys(scope.userFormData.selectedRoles), function(roleId) {return parseInt(roleId, 10);}
           )
         };
+
+        scope.$emit('SubmitUserFormStart');
         new resourceFactory.userResource(userData).$save({}, 
           function(data) {
             userData.id = data.resourceId;
@@ -39,6 +41,7 @@
           function(response) {
             scope.formInError = true;
             scope.errors = response.data.errors;
+            scope.$emit('SubmitUserFormError');
           }
         );
       };

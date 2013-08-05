@@ -38,7 +38,7 @@ describe("UserFormController", function() {
     it("should reset the form data", function() {
       eventCallback();
 
-      expect(this.scope.userFormData).toEqual({selectedRoles: {}});
+      expect(this.scope.userFormData).toEqual({selectedRoles: {}, sendPasswordToEmail: false});
       expect(this.scope.formInError).toBeFalsy();
       expect(this.scope.errors).toEqual([]);
     });
@@ -80,6 +80,10 @@ describe("UserFormController", function() {
         
         this.scope.submitUserForm();
       });
+
+      it("should emit the 'SubmitUserFormStart' event", function() {
+        expect(this.scope.$emit).toHaveBeenCalledWith('SubmitUserFormStart');
+      });
       it("should create and save a new user resource", function() {
         expect(this.resourceFactory.userResource).toHaveBeenCalledWith(expectedUserParams);
         expect(userResource.$save).toHaveBeenCalledWith({}, jasmine.any(Function), jasmine.any(Function));
@@ -99,6 +103,9 @@ describe("UserFormController", function() {
         it("should put the errors in the scope", function() {
           expect(this.scope.errors).toEqual('test_errors');
         });
+        it("should emit the 'SubmitUserFormError' event", function() {
+          expect(this.scope.$emit).toHaveBeenCalledWith('SubmitUserFormError');
+        });
       });
 
       describe("User save success handler", function() {
@@ -114,7 +121,7 @@ describe("UserFormController", function() {
         it("should add the user to the users in the scope", function() {
           expect(this.scope.users).toEqual([existingUser, addedUser]);
         });
-        it("should emit the 'SubmitUserFormSuccess'", function() {
+        it("should emit the 'SubmitUserFormSuccess' event", function() {
           expect(this.scope.$emit).toHaveBeenCalledWith('SubmitUserFormSuccess');
         });
       });
