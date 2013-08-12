@@ -1,0 +1,27 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by name/fundname">
+    <div class="span4 pull-right">
+        <a href="#/createloanproduct" class="btn btn-primary"><i class="icon-plus icon-white"></i> Create Loan Product</a>
+    </div>
+</div>
+
+<div class="row alert-block span">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Fund name</th>
+                <th>Status</th>
+                <th>Expiry date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="loanproduct in loanproducts | filter:filterText">
+                <td>{{loanproduct.name}}</td>
+                <td>{{loanproduct.fundName}}</td>
+                <td>{{loanproduct.status}}</td>
+                <td>{{loanproduct.closeDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

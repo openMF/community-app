@@ -1,0 +1,25 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by name">
+    <div class="span4 pull-right">
+        <a href="#/createloanproduct" class="btn btn-primary"><i class="icon-plus icon-white"></i> Create Charge</a>
+    </div>
+</div>
+
+<div class="row alert-block span">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Is Penalty?</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="charge in charges | filter:filterText">
+                <td><a href="#/viewcharge/{{charge.id}}">{{charge.name}}</a></td>         
+                <td>{{charge.penalty}}</td>            
+                <td>{{charge.active}}</td>            
+            </tr>
+        </tbody>
+    </table>
+</div>
