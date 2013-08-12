@@ -15,6 +15,9 @@
       })
       .when('/admin/users', {
         templateUrl: 'html/administration/users.html'
+      })
+      .when('/clients', {
+        templateUrl: 'html/clients.html'  
       });
 
     $locationProvider.html5Mode(false);

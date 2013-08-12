@@ -8,6 +8,8 @@
       'angular':          '../lib/angular/angular',
       'angular-resource': '../lib/angular/angular-resource',
       'angular-mocks':    '../lib/angular/angular-mocks',
+      'angularui':        '../lib/angularui/ui-bootstrap-0.4.0',
+      'angularuitpls':    '../lib/angularui/ui-bootstrap-tpls-0.5.0',
       'underscore':       '../lib/underscore/underscore',
       'webstorage':       '../lib/angular-webstorage',
       'require-css':      '../lib/require-css',
@@ -18,6 +20,8 @@
     shim: {
       'angular': { exports: 'angular' },
       'angular-resource': { deps: ['angular'] },
+      'angularui': { deps: ['angular'] },
+      'angularuitpls': { deps: ['angular' ,'angularui' ] },
       'angular-mocks': { deps: ['angular'] },
       'webstorage': { deps: ['angular'] },
       'jquery-ui': { deps: ['jquery'] },
@@ -25,6 +29,8 @@
         deps: [
           'angular',
           'angular-resource',
+          'angularui',
+          'angularuitpls',          
           'webstorage',
           'data-tables',
           'blockUI',

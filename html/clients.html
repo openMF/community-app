@@ -1,0 +1,27 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by name/acct#/staff/office">
+    <div class="span4 pull-right">
+        <a href="#/createclient" class="btn btn-primary"><i class="icon-plus icon-white"></i> Create Client</a>
+    </div>
+</div>
+
+<div class="row alert-block span" ng-controller="ClientController">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Account #</th>
+                <th>Staff</th>
+                <th>Office</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="client in clients.pageItems">
+                <td><a href="#/viewclient/{{client.id}}">{{client.displayName}}</a></td>
+                <td><a href="#/viewclient/{{client.id}}">{{client.accountNo}}</a></td>  
+                <td>{{client.staffName}}</td>
+                <td>{{client.officeName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
