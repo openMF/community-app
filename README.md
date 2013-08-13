@@ -27,6 +27,10 @@ You can search for them in http://sindresorhus.com/bower-components/ or even:
 bower search <package>
 ```
 
+## Running the tests
+
+Just open test/SpecRunner.html in the browser.
+
 ## Background
 
 The Mifos project (<a target="_blank" href="http://www.mifos.org/about">http://www.mifos.org/about</a>) was originally setup and guided by <a target="_blank" href="http://www.grameenfoundation.org/">Grameen Foundation</a>. It has been open source since inception but in recent years the community for open source microfinance (http://www.openmf.org) took over maintanance and future development of the Mifos project.
