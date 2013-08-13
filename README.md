@@ -2,6 +2,31 @@
 
 Repository for putting prototype work from Thoughtworks HSP around building single page web app
 
+## Setup
+
+To download the dependencies, first install bower:
+
+```
+npm install -g bower
+```
+
+Next run a clean install on the project root folder:
+
+```
+bower install
+```
+
+Done.
+
+## Adding dependencies
+
+You can also add more dependencies on bower.json. 
+You can search for them in http://sindresorhus.com/bower-components/ or even:
+
+```
+bower search <package>
+```
+
 ## Background
 
 The Mifos project (<a target="_blank" href="http://www.mifos.org/about">http://www.mifos.org/about</a>) was originally setup and guided by <a target="_blank" href="http://www.grameenfoundation.org/">Grameen Foundation</a>. It has been open source since inception but in recent years the community for open source microfinance (http://www.openmf.org) took over maintanance and future development of the Mifos project.
