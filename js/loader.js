@@ -8,6 +8,8 @@
       'angular':          '../lib/angular/angular',
       'angular-resource': '../lib/angular-resource/angular-resource',
       'angular-mocks':    '../lib/angular-mocks/angular-mocks',
+      'angularui':        '../lib/angular-bootstrap/ui-bootstrap',
+      'angularuitpls':    '../lib/angular-bootstrap/ui-bootstrap-tpls',
       'underscore':       '../lib/underscore/underscore',
       'webstorage':       '../lib/angular-webstorage/angular-webstorage',
       'require-css':      '../lib/require-css/css',
