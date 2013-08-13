@@ -1,19 +1,19 @@
 (function() {
   require.config({
     paths: {
-      'jquery':           '../lib/jquery/jquery-1.10.2',
-      'jquery-ui':        '../lib/jquery-ui/jquery-ui-1.10.3.custom',
-      'data-tables':      '../lib/data-tables/jquery.dataTables',
-      'blockUI':          '../lib/blockUI/jquery.blockUI',
+      'jquery':           '../lib/jquery/jquery',
+      'jquery-ui':        '../lib/jquery-ui/ui/jquery-ui',
+      'data-tables':      '../lib/datatables/media/js/jquery.dataTables',
+      'blockUI':          '../lib/blockui/jquery.blockUI',
       'angular':          '../lib/angular/angular',
-      'angular-resource': '../lib/angular/angular-resource',
-      'angular-mocks':    '../lib/angular/angular-mocks',
+      'angular-resource': '../lib/angular-resource/angular-resource',
+      'angular-mocks':    '../lib/angular-mocks/angular-mocks',
       'underscore':       '../lib/underscore/underscore',
-      'webstorage':       '../lib/angular-webstorage',
-      'require-css':      '../lib/require-css',
-      'require-less':     '../lib/require-less',
+      'webstorage':       '../lib/angular-webstorage/angular-webstorage',
+      'require-css':      '../lib/require-css/css',
+      'require-less':     '../lib/require-less/less',
       'styles':           '../stylesheets',
-      'test':             '../test/functional',
+      'test':             '../test/functional'
     },
     shim: {
       'angular': { exports: 'angular' },
