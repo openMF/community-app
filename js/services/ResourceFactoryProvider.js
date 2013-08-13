@@ -17,6 +17,9 @@
           }),
           officeResource: defineResource("/offices/:officeId", {}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
+          }),
+          clientResource: defineResource("/clients/:clientId", {}, {
+            getAllClients: {method: 'GET', params: {}}
           })
         };
       }];

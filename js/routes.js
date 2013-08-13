@@ -15,6 +15,15 @@
       })
       .when('/admin/users', {
         templateUrl: 'html/administration/users.html'
+      })
+      .when('/clients', {
+        templateUrl: 'html/clients.html'  
+      })
+      .when('/organization', {
+        templateUrl: 'html/administration/organization.html'  
+      })
+      .when('/system', {
+        templateUrl: 'html/administration/system.html'  
       });
 
     $locationProvider.html5Mode(false);

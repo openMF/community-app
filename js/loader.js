@@ -18,6 +18,8 @@
     shim: {
       'angular': { exports: 'angular' },
       'angular-resource': { deps: ['angular'] },
+      'angularui': { deps: ['angular'] },
+      'angularuitpls': { deps: ['angular' ,'angularui' ] },
       'angular-mocks': { deps: ['angular'] },
       'webstorage': { deps: ['angular'] },
       'jquery-ui': { deps: ['jquery'] },
@@ -25,6 +27,8 @@
         deps: [
           'angular',
           'angular-resource',
+          'angularui',
+          'angularuitpls',          
           'webstorage',
           'data-tables',
           'blockUI',

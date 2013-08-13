@@ -1,18 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>MifosX prototype</title>
-  <style>[data-ng-cloak] { display: none !important; }</style>  
+    <meta charset="utf-8">
+    <title>Mifos-X Client</title>
+    <style>[data-ng-cloak] { display: none !important; }</style>
 </head>
-<body data-ng-cloak data-ng-controller="MainController">
-  <div class="container">
-    <div data-ng-include="'html/header.html'"></div>
-    <section>
-      <div data-ng-view></div>
-    </section>
-    <div data-ng-include="'html/footer.html'"></div>
-  </div>
-  <script type='text/javascript' data-main="js/loader.js" src='lib/requirejs/require.js'></script>
+<body  class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-cloak data-ng-controller="MainController">
+<!-- Login Form
+ ================================================== -->
+<div data-ng-hide="currentSession.user != null" >
+    <div class="well form-search ng-pristine ng-valid" data-ng-form="loginForm" data-ng-controller="LoginFormController">
+        <input type="text" data-ng-model="loginCredentials.username" placeholder="UserName" class="input-small">
+        <input type="password" data-ng-model="loginCredentials.password" placeholder="Password" class="input-small">
+        <button class="btn" type="submit" data-ng-click="login()">Sign In</button>
+        <div data-ng-show="authenticationFailed">
+            <p>Please try again, your credentials are not valid</p>
+        </div>
+    </div>
+</div>
+<!-- Navbar
+  ================================================== -->
+<div data-ng-hide="currentSession.user == null">
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="../">Mifos <strong>X</strong></a>
+                <div class="nav-collapse collapse" id="main-menu">
+                    <ul class="nav" id="main-menu-left">
+                        <li><a href="#"><i class="icon-home icon-white"></i>Home</a></li>
+                        <li><a href="#"><i class="icon-bell-alt"></i>Tasks</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-group"></i>Clients<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="swatch-menu">
+                                <li><a href="#/clients">Clients</a></li>
+                                <li><a href="#">Groups</a></li>
+                                <li><a href="#">Centers</a></li>
+                            </ul>
+                        </li>
+                        <li><a id="swatch-link" href="#"><i class="icon-money"></i>Accounting</a></li>
+                        <li class="dropdown" id="preview-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-bar-chart"></i>Reports<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a target="_blank" href="#">All</a></li>
+                                <li><a target="_blank" href="#">Clients</a></li>
+                                <li><a target="_blank" href="#">Loans</a></li>
+                                <li><a target="_blank" href="#">Funds</a></li>
+                                <li><a target="_blank" href="#">Accounting</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tags"></i>Products<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="swatch-menu">
+                                <li><a href="#/loanproducts">Loan Products</a></li>
+                                <li><a href="#/savingproducts">Saving Products</a></li>
+                                <li><a href="#">Products Mix</a></li>
+                                <li><a href="#/charges">Charges/Penalties</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="preview-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-wrench"></i>Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Users</a></li>
+                                <li><a href="#/organization">Organization</a></li>
+                                <li><a href="#/system">System</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <ul class="nav pull-right" id="main-menu-right">
+                        <li class="dropdown" id="preview-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{currentSession.user.name}}<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="icon-user"></i>Profile</a></li>
+                                <li><a href="#"><i class="icon-cog"></i>Setting</a></li>
+                                <li><a data-ng-click="logout()"><i class="icon-off"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--
+                    <form action="" class="navbar-search pull-right ng-pristine ng-valid">
+                        <input type="text" placeholder="Search" class="search-query span2">
+                    </form>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span3 well sidebar-nav">
+
+                <div class="input-append">
+                    <input type="text" ng-model="search.query" class="form-control input-small" placeholder="Search">
+                    <span class="input-group-addon"><a href="#/search/{{search.query}}" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+                </div>
+                <accordion close-others="true">
+                    <accordion-group is-open="acc1open">
+                        <accordion-heading>
+                            TRANSACTION
+                        </accordion-heading>
+                        <ul class="nav nav-list">
+                            <li><a href="#">Collection Sheet</a></li>
+                            <li><a href="#">Loan Repayment</a></li>
+                            <li><a href="#">Loan Disbursement</a></li>
+                            <li ><a href="#">Savings Deposit</a></li>
+                            <li><a href="#">Savings Withdrawal</a></li>
+                        </ul>
+                    </accordion-group>
+                    <accordion-group is-open="acc2open">
+                        <accordion-heading>
+                            NAVIGATE
+                        </accordion-heading>
+                        <ul class="nav nav-list">
+                            <li><a href="#">Centers | Groups</a></li>
+                            <li><a href="#">Branches</a></li>
+                            <li><a href="#">Clients</a></li>
+                            <li><a href="#">Loans | Savings</a></li>
+                            <li><a href="#">Transactions</a></li>
+                            <li><a href="#">Loans | Savings | Others</a></li>
+                        </ul>
+                    </accordion-group>
+                    <accordion-group is-open="acc3open">
+                        <accordion-heading>
+                            CREATE NEW
+                        </accordion-heading>
+                        <ul class="nav nav-list">
+                            <li><a href="#">Client | multiple</a></li>
+                            <li><a href="#">Loan | multiple</a></li>
+                            <li><a href="#">Savings | multiple</a></li>
+                            <li><a href="#">Center</a></li>
+                            <li><a href="#">Group</a></li>
+                        </ul>
+                    </accordion-group>
+                </accordion>
+            </div>
+            <div class="span9">
+                <div ng-view></div>
+            </div>
+            <!-- Footer
+             ================================================== -->
+            <hr>
+        </div> <!-- /row-fluid -->
+    </div><!-- /container -->
+</div>
+<!-- Le javascript
+================================================== -->
+<script type='text/javascript' data-main="js/loader.js" src='lib/requirejs/require.js'></script>
+
+<!-- Placed at the end of the document so the pages load faster -->
 </body>
 </html>
