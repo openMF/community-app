@@ -24,6 +24,18 @@
       })
       .when('/system', {
         templateUrl: 'html/administration/system.html'  
+      })
+      .when('/loanproducts', {
+        templateUrl: 'html/products/loanproducts.html'
+      })
+      .when('/charges', {
+        templateUrl: 'html/products/charges.html'
+      })
+      .when('/viewcharge/:id', {
+        templateUrl: 'html/products/viewcharge.html'
+      })
+      .when('/savingproducts', {
+        templateUrl: 'html/products/savingproducts.html'
       });
 
     $locationProvider.html5Mode(false);
