@@ -22,6 +22,12 @@
           }),
           loanProductResource: defineResource("/loanproducts/:loanproductId", {}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
+          }),
+          chargeResource: defineResource("/charges/:chargeId", {chargeId:'@chargeId'}, {
+            getAllCharges: {method: 'GET', params: {}, isArray:true}
+          }),
+          savingProductResource: defineResource("/savingsproducts/:savingproductId", {}, {
+            getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
           })
         };
       }];
