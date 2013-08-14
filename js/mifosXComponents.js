@@ -11,7 +11,10 @@ define(['underscore', 'mifosX'], function() {
       'UserFormController',
       'RoleController',
       'ClientController',
-      'LoanProductController'
+      'LoanProductController',
+      'ChargeController',
+      'ViewChargeController',
+      'SavingProductController'
     ],
     services: [
       'ResourceFactoryProvider',
