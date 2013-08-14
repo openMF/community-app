@@ -3,7 +3,6 @@
     ResourceFactoryProvider: function() {
       var baseUrl = "";
       this.setBaseUrl = function(url) {baseUrl = url;};
-
       this.$get = ['$resource', function(resource) {
         var defineResource = function(url, paramDefaults, actions) {
           return resource(baseUrl + url, paramDefaults, actions);
@@ -20,6 +19,9 @@
           }),
           clientResource: defineResource("/clients/:clientId", {}, {
             getAllClients: {method: 'GET', params: {}}
+          }),
+          loanProductResource: defineResource("/loanproducts/:loanproductId", {}, {
+            getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
           })
         };
       }];
