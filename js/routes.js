@@ -24,6 +24,9 @@
       })
       .when('/system', {
         templateUrl: 'html/administration/system.html'  
+      })
+      .when('/loanproducts', {
+        templateUrl: 'html/products/loanproduct.html'
       });
 
     $locationProvider.html5Mode(false);
