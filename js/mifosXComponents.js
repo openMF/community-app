@@ -20,7 +20,8 @@ define(['underscore', 'mifosX'], function() {
       'ResourceFactoryProvider',
       'HttpServiceProvider',
       'AuthenticationService',
-      'SessionManager'
+      'SessionManager',
+      'Paginator'
     ],
     directives: [
       'DataTablesDirective',

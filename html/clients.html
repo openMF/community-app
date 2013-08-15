@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="client in clients.pageItems">
+            <tr ng-repeat="client in clients.currentPageItems  | filter:filterText">
                 <td><a href="#/viewclient/{{client.id}}">{{client.displayName}}</a></td>
                 <td><a href="#/viewclient/{{client.id}}">{{client.accountNo}}</a></td>  
                 <td>{{client.staffName}}</td>
@@ -24,4 +24,8 @@
             </tr>
         </tbody>
     </table>
+    <ul class="pager">
+        <li class="previous"><a ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; Prev</a></li>
+        <li class="next" ><a ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">Next &rarr;</a></li>
+    </ul>
 </div>
