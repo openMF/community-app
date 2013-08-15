@@ -2,15 +2,24 @@
 
 Repository for putting prototype work from Thoughtworks HSP around building single page web app
 
-## Setup
+## Overview Video
+To get a good overview of the code layout, and recommendations going ahead on the Angular.js Prototype application, please watch this video recording of a session taken by Silvio from ThoughtWorks:
 
-To download the dependencies, first install bower:
+<a target="_blank" href="http://youtu.be/_Q_1Ll2MydM">YouTube Video on MifosX UI Prootype Code Walkthrough</a>
+
+## Building from source
+
+1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
+
+2. Clone this respository to your local filesystem
+
+3. To download the dependencies, first install bower:
 
 ```
 npm install -g bower
 ```
 
-Next run a clean install on the project root folder:
+4. Next run a clean install on the project root folder:
 
 ```
 bower install
