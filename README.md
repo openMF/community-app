@@ -7,17 +7,19 @@ To get a good overview of the code layout, and recommendations going ahead on th
 
 <a target="_blank" href="http://youtu.be/_Q_1Ll2MydM">YouTube Video on MifosX UI Prootype Code Walkthrough</a>
 
-## Setup
+## Building from source
 
-Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
+1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
 
-To download the dependencies, first install bower:
+2. Clone this respository to your local filesystem
+
+3. To download the dependencies, first install bower:
 
 ```
 npm install -g bower
 ```
 
-Next run a clean install on the project root folder:
+4. Next run a clean install on the project root folder:
 
 ```
 bower install
