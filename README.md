@@ -2,6 +2,11 @@
 
 Repository for putting prototype work from Thoughtworks HSP around building single page web app
 
+## Overview Video
+To get a good overview of the code layout, and recommendations going ahead on the Angular.js Prototype application, please watch this video recording of a session taken by Silvio from ThoughtWorks:
+
+<a target="_blank" href="http://youtu.be/_Q_1Ll2MydM">YouTube Video on MifosX UI Prootype Code Walkthrough</a>
+
 ## Setup
 
 To download the dependencies, first install bower:
