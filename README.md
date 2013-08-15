@@ -9,6 +9,8 @@ To get a good overview of the code layout, and recommendations going ahead on th
 
 ## Setup
 
+Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
+
 To download the dependencies, first install bower:
 
 ```
