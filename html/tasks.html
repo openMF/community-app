@@ -1,0 +1,72 @@
+<div class="row paddedleft" ng-controller="TaskController">
+	<fieldset>
+		<legend>Pending Tasks</legend>
+		<hr/>
+    	<tabset>
+    		<tab heading="Client Approval">
+    			<div> 
+			        <table class="table condensed-table">
+			        <thead>
+			            <tr>
+			                <th>Name</th>
+			                <th>Account No</th>
+			                <th>OfficeName</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr ng-repeat="client in clients | filter : {active: 'false'}">
+			              <td><a href=''>{{client.displayName}}</a></td>
+			              <td>{{client.accountNo}}</td>
+			              <td>{{client.officeName}}</td>
+			            </tr>
+			        </tbody>
+			        </table>
+			    </div>
+    		</tab>
+		    <tab heading="Loan Approval">
+		    	<div> 
+			        <table class="table condensed-table">
+			        <thead>
+			            <tr>
+			                <th>Client Name</th>
+			                <th>Loan Acctno#</th>
+			                <th>Loan Product</th>
+			                <th>Principal</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr ng-repeat="loan in loans | filter : {status.pendingApproval :'true' }">
+							<td><a href=''>{{loan.clientName}}<a></td>
+			                <td><a href=''>{{loan.accountNo}}</a></td>
+			                <td>{{loan.loanProductName}}</td>
+			                <td>{{loan.principal}}</td>
+			            </tr>
+			        </tbody>
+			        </table>
+			    </div>
+		    </tab>
+		    <tab heading="Loan Disbursal">
+		    	<div> 
+			        <table class="table condensed-table">
+			        <thead>
+			            <tr>
+			                <th>Client Name</th>
+			                <th>Loan Acctno#</th>
+			                <th>Loan Product</th>
+			                <th>Principal</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr ng-repeat="loan in loans | filter : {status.waitingForDisbursal :'true' }">
+							<td><a href=''>{{loan.clientName}}<a></td>
+			                <td><a href=''>{{loan.accountNo}}</a></td>
+			                <td>{{loan.loanProductName}}</td>
+			                <td>{{loan.principal}}</td>
+			            </tr>
+			        </tbody>
+			        </table>
+			    </div>
+		    </tab>
+    	</tabset>
+	</fieldset>
+</div>

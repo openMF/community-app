@@ -37,6 +37,9 @@
           }),
           savingProductResource: defineResource("/savingsproducts/:savingproductId", {}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
+          }),
+          loanResource: defineResource("/loans/:loanId", {}, {
+            getAllLoans: {method: 'GET', params: {}}
           })
         };
       }];
