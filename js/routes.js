@@ -17,7 +17,13 @@
         templateUrl: 'html/administration/users.html'
       })
       .when('/clients', {
-        templateUrl: 'html/clients.html'  
+        templateUrl: 'html/clients/clients.html'  
+      })
+      .when('/createclient', {
+        templateUrl: 'html/clients/createclient.html'  
+      })
+      .when('/viewclient/:id', {
+        templateUrl: 'html/clients/viewclient.html'
       })
       .when('/organization', {
         templateUrl: 'html/administration/organization.html'  
