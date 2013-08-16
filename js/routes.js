@@ -36,6 +36,9 @@
       })
       .when('/savingproducts', {
         templateUrl: 'html/products/savingproducts.html'
+      })
+      .when('/offices', {
+        templateUrl: 'html/organization/offices.html'
       });
 
     $locationProvider.html5Mode(false);
