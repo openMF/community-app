@@ -16,6 +16,9 @@ define(['underscore', 'mifosX'], function() {
       'ViewChargeController',
       'SavingProductController'
     ],
+    filters: [
+      'StatusLookup'
+    ],
     services: [
       'ResourceFactoryProvider',
       'HttpServiceProvider',
