@@ -45,6 +45,9 @@
       })
       .when('/offices', {
         templateUrl: 'html/organization/offices.html'
+      })
+      .when('/tasks', {
+        templateUrl: 'html/tasks.html'
       });
 
     $locationProvider.html5Mode(false);
