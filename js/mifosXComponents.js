@@ -19,6 +19,8 @@ define(['underscore', 'mifosX'], function() {
     ],
     filters: [
       'StatusLookup'
+      'ViewClientController',
+      'CreateClientController'
     ],
     services: [
       'ResourceFactoryProvider',
