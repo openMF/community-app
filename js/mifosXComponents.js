@@ -17,7 +17,8 @@ define(['underscore', 'mifosX'], function() {
       'SavingProductController',
       'OfficesController',
       'ViewClientController',
-      'CreateClientController'
+      'CreateClientController',
+      'TaskController'
     ],
     filters: [
       'StatusLookup'
