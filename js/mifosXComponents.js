@@ -14,7 +14,9 @@ define(['underscore', 'mifosX'], function() {
       'LoanProductController',
       'ChargeController',
       'ViewChargeController',
-      'SavingProductController'
+      'SavingProductController',
+      'ViewClientController',
+      'CreateClientController'
     ],
     services: [
       'ResourceFactoryProvider',

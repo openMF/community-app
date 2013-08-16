@@ -17,8 +17,17 @@
           officeResource: defineResource("/offices/:officeId", {}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
-          clientResource: defineResource("/clients/:clientId", {}, {
+          clientResource: defineResource("/clients/:clientId", {clientId:'@clientId'}, {
             getAllClients: {method: 'GET', params: {}}
+          }),
+          clientAccountResource: defineResource("/clients/:clientId/accounts", {clientId:'@clientId'}, {
+            getAllClients: {method: 'GET', params: {}}
+          }),
+          clientNotesResource: defineResource("/clients/:clientId/notes", {clientId:'@clientId'}, {
+            getAllNotes: {method: 'GET', params: {}, isArray:true}
+          }),
+          clientTemplateResource: defineResource("/clients/template", {}, {
+            get: {method: 'GET', params: {}}
           }),
           loanProductResource: defineResource("/loanproducts/:loanproductId", {}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
