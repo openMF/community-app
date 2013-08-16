@@ -1,0 +1,93 @@
+<div>
+  <div class="row paddedtop">
+    <div class="pull-right">
+      <div class="btn-group">
+          <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+          <a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i> New Loan</a>
+          <a href="#" class="btn btn-primary"><i class="icon-list-ul icon-white"></i> Add Note</a>
+          <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Close</a>
+      </div>
+    </div>
+  </div>
+  <div ng-controller="ViewClientController">
+    <div class="row">
+      <div class="paddedleft"><span class="pull-left"><span class="pull-left badge badge-warning ">{{client.status.value}}</span>&nbsp;<h3>{{client.displayName}}</h3></span></div>
+    </div>
+    <div class="row paddedleft">
+      <div class="span3">
+        <img src="../prototype-app/image/blank_avatar.jpg" alt="Avatar" width="100">
+      </div>
+      <div class="span5">
+          <strong>System Id:&nbsp;</strong> {{client.accountNo}} <br>
+          <strong>Loan Officer:&nbsp;</strong> {{client.staffName}} <br>
+      </div>
+    </div>
+    <div class="row paddedleft">
+      <hr/>
+      <tabset >
+      <tab heading="Accounts">
+        <div> 
+          <p>
+            <b>Loan Accounts Overview</b>
+          </p>
+          <table class="table condensed-table">
+          <thead>
+              <tr>
+                  <th>Product</th>
+                  <th>Loan Type</th>
+                  <th>Account No</th>
+                  <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="loanaccount in clientAccounts.loanAccounts">
+                <td>{{loanaccount.productName}}</td>
+                <td>{{loanaccount.loanType.value}}</td>
+                <td><a href="#">{{loanaccount.accountNo}}</a></td>
+                <td>{{loanaccount.status.value}}</td> 
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        <div>
+          <p>
+            <b>Saving Accounts Overview</b>
+          </p>
+          <table class="table condensed-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Account No</th>
+              <th>Status</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
+                <td>{{savingaccount.productName}}</td>
+                <td><a href="#">{{savingaccount.accountNo}}</a></td>
+                <td>{{savingaccount.status.value}}</td>
+                <td>{{savingaccount.accountBalance}}</td>         
+              </tr>
+          </tbody>
+          </table>
+        </div>
+      </tab>
+      <tab heading="Personal Details">Personal details of clients</tab>
+      <tab heading="Identify Documents">Client documents</tab>
+      <tab heading="Family Details">Client family details</tab>
+      <tab heading="Notes">
+        <div ng-repeat="clientNote in clientNotes">
+          <div>
+            <blockquote>
+              <p>{{clientNote.note}}</p>
+              <small>Created by :&nbsp;{{clientNote.createdByUsername}}</small>
+              <small>Created on :&nbsp;{{clientNote.createdOn}}</small>
+            </blockquote>
+          </div>
+        </ul>
+      </tab>
+    </tabset>
+    </div>
+  </div>
+</div>
