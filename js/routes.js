@@ -48,6 +48,9 @@
       })
       .when('/tasks', {
         templateUrl: 'html/tasks.html'
+      })
+      .when('/viewcurrconfig', {
+        templateUrl: 'html/organization/currencyconfig.html'
       });
 
     $locationProvider.html5Mode(false);
