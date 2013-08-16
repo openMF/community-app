@@ -14,7 +14,8 @@ define(['underscore', 'mifosX'], function() {
       'LoanProductController',
       'ChargeController',
       'ViewChargeController',
-      'SavingProductController'
+      'SavingProductController',
+      'OfficesController'
     ],
     filters: [
       'StatusLookup'

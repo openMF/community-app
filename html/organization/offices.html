@@ -1,0 +1,27 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by name/externalId">
+    <div class="span4 pull-right">
+        <a href="#/createoffice" class="btn btn-primary"><i class="icon-plus icon-white"></i> Create Office</a>
+    </div>
+</div>
+
+<div class="row alert-block span" ng-controller="OfficesController">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>External Id</th>
+                <th>Parent Office</th>
+                <th>Opened On</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="office in offices  | filter:filterText">
+                <td><a href="#/viewoffice/{{office.id}}">{{office.name}}</a></td>
+                <td><a href="#/viewoffice/{{office.id}}">{{office.externalId}}</a></td>  
+                <td>{{office.parentName}}</td>
+                <td>{{office.openingDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
