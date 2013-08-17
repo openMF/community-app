@@ -5,7 +5,8 @@
 
                       var  cssClassNameLookup = {
                         "true" : "statusactive" ,
-                        "false" : "statusdeleted"
+                        "false" : "statusdeleted",
+                        "Active" : "statusactive"
                       }   
 
                       return cssClassNameLookup[input];
