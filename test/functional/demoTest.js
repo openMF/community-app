@@ -1,6 +1,6 @@
 define(['mifosX', 'services/HttpServiceProvider', 'services/ResourceFactoryProvider'], {
   configure: function(url) {
-    var baseUrl = url || "https://demo.openmf.org/mifosng-provider";
+    var baseUrl = url || "https://demo.openmf.org";
     mifosX.ng.services.config(['HttpServiceProvider', 'ResourceFactoryProvider', '$httpProvider', function(httpServiceProvider, resourceFactoryProvider, httpProvider) {
       resourceFactoryProvider.setBaseUrl(baseUrl);
       httpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
