@@ -9,9 +9,11 @@
         scope.$broadcast("UserAuthenticationFailureEvent", data);
       };
 
+      var apiVer = '/api/v1';
+
       this.authenticateWithUsernamePassword = function(credentials) {
         scope.$broadcast("UserAuthenticationStartEvent");
-        httpService.post("/authentication?username=" + credentials.username + "&password=" + credentials.password)
+        httpService.post(apiVer + "/authentication?username=" + credentials.username + "&password=" + credentials.password)
           .success(onSuccess)
           .error(onFailure);
       };
