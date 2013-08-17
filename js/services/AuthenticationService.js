@@ -9,7 +9,7 @@
         scope.$broadcast("UserAuthenticationFailureEvent", data);
       };
 
-      var apiVer = '/api/v1';
+      var apiVer = '/mifosng-provider/api/v1';
 
       this.authenticateWithUsernamePassword = function(credentials) {
         scope.$broadcast("UserAuthenticationStartEvent");
