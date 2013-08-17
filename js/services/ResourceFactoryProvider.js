@@ -29,7 +29,7 @@
           clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
             get: {method: 'GET', params: {}}
           }),
-          loanProductResource: defineResource(apiVer + "/loanproducts/:loanproductId", {}, {
+          loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId", {loanProductId:'@loanProductId'}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
           }),
           chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId:'@chargeId'}, {

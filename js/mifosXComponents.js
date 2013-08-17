@@ -20,7 +20,8 @@ define(['underscore', 'mifosX'], function() {
       'CreateClientController',
       'TaskController',
       'CurrencyConfigController',
-      'SearchController'
+      'SearchController',
+      'ViewLoanProductController'
     ],
     filters: [
       'StatusLookup'
