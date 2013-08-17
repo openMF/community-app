@@ -6,7 +6,7 @@
         scope.$broadcast('LoanProductDataLoadingStartEvent');
         resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
             scope.loanproducts = data;
-			scope.$broadcast('LoanProductDataLoadingCompleteEvent');
+			      scope.$broadcast('LoanProductDataLoadingCompleteEvent');
         });
 
     }
