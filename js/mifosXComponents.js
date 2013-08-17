@@ -43,6 +43,7 @@ define(['underscore', 'mifosX'], function() {
     return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
   }, [
     'routes',
+    'setHeaders',
     'webstorage-configuration'
   ]));
 });
