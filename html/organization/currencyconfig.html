@@ -1,0 +1,41 @@
+<h3>Currecny configuration</h3>
+<div class="row alert-block span" ng-controller="CurrencyConfigController">
+	<div ng-hide="hideview">
+    	<div class="span4 pull-right">
+        	<a ng-click="hideview = !hideview" class="btn btn-primary"><i class="icon-plus icon-white"></i> Edit</a>
+    	</div>
+    	<br><br>
+		<table class="table" ui:sortable>
+	        <thead>
+	            <tr>
+	                <th>Currency Name</th>
+	                <th>Currency Code</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="currency in selectedCurrOptions  | filter:filterText">
+	                <td>{{currency.name}}</td>
+	                <td>{{currency.code}}</td>
+	            </tr>
+	        </tbody>
+	    </table>
+    </div>
+    <div ng-show="hideview">
+
+    	<input class="form-control input-xxlarge" 
+         ng-model="selected" 
+         placeholder="New Currency"
+         type="text"
+         typeahead="item as item.displayLabel for item in allCurrOptions | filter:$viewValue | limitTo:8" />&nbsp;&nbsp;<a ng-click='addCur()'><i class="icon-plus"></i></a>
+
+     	<div ng-repeat="currency in selectedCurrOptions">
+			<input disabled="" class="form-control input-xxlarge" placeholder={{currency.displayLabel}}} type="text"/>&nbsp;&nbsp;<a ng-click='deleteCur(currency.code)'><i class="icon-remove"></i></a>
+        </div>
+
+        <div class="span5 pull-right">
+            <button type="reset" class="btn">Cancel</button>
+            <button type="submit" ng-click="submit()" class="btn btn-primary">Save</button>
+         </div>
+    </div>	
+
+</div>
