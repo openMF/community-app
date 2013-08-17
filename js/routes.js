@@ -54,6 +54,8 @@
       })
       .when('/search/:query', {
         templateUrl: 'html/search/glresults.html'
+      .when('/viewloanproduct/:id', {
+        templateUrl: 'html/products/viewloanproduct.html'
       });
 
     $locationProvider.html5Mode(false);
