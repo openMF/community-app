@@ -40,6 +40,9 @@
           }),
           loanResource: defineResource("/loans/:loanId", {}, {
             getAllLoans: {method: 'GET', params: {}}
+          }),
+          currencyConfigResource: defineResource("/currencies", {}, {
+            update: { method: 'PUT'}
           })
         };
       }];
