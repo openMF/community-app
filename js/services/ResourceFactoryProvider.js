@@ -43,6 +43,12 @@
           }),
           currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
             update: { method: 'PUT'}
+          }),
+          globalSearch: defineResource(apiVer + "/search", {query:'@query'}, {
+            search: { method: 'GET',
+                      params: { query: '@query'} ,
+                      isArray:true
+                    }
           })
         };
       }];

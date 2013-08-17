@@ -51,6 +51,9 @@
       })
       .when('/viewcurrconfig', {
         templateUrl: 'html/organization/currencyconfig.html'
+      })
+      .when('/search/:query', {
+        templateUrl: 'html/search/glresults.html'
       });
 
     $locationProvider.html5Mode(false);
