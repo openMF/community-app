@@ -7,6 +7,11 @@ To get a good overview of the code layout, and recommendations going ahead on th
 
 <a target="_blank" href="http://youtu.be/_Q_1Ll2MydM">YouTube Video on MifosX UI Prootype Code Walkthrough</a>
 
+## Online Demo
+
+<a target="_blank" href="https://demo.openmf.org/prototype-app/#/">Access the online demo version here</a>
+
+
 ## Building from source
 
 1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
