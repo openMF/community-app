@@ -69,6 +69,15 @@
       })
       .when('/viewuser/:id', {
         templateUrl: 'html/administration/viewuser.html'
+      })
+      .when('/employees', {
+        templateUrl: 'html/organization/employees.html'
+      })
+      .when('/viewemployee/:id', {
+        templateUrl: 'html/organization/viewemployee.html'
+      })
+      .when('/createemployee/', {
+        templateUrl: 'html/organization/createemployee.html'
       });
 
     $locationProvider.html5Mode(false);

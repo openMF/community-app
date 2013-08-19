@@ -50,6 +50,9 @@
           userTemplateResource: defineResource(apiVer + "/users/template", {}, {
             get: {method: 'GET', params: {}}
           }),
+          employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId:'@staffId'}, {
+            getAllEmployees: {method: 'GET', params: {}, isArray: true}
+          }),
           globalSearch: defineResource(apiVer + "/search", {query:'@query'}, {
             search: { method: 'GET',
                       params: { query: '@query'} ,
