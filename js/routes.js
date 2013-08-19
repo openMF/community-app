@@ -57,7 +57,10 @@
       })  
       .when('/viewloanproduct/:id', {
         templateUrl: 'html/products/viewloanproduct.html'
-      });
+      })
+      .when('/usersetting', {
+        templateUrl: 'html/administration/usersettings.html'
+      });;
 
     $locationProvider.html5Mode(false);
   };

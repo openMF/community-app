@@ -9,6 +9,7 @@ define(['underscore', 'mifosX'], function() {
       'LoginFormController',
       'UserController',
       'UserFormController',
+      'UserSettingController',
       'RoleController',
       'ClientController',
       'LoanProductController',
@@ -44,7 +45,7 @@ define(['underscore', 'mifosX'], function() {
     return list.concat(_.map(components[group], function(name) { return group + "/" + name; }));
   }, [
     'routes',
-    'setHeaders',
+    'initialTasks',
     'webstorage-configuration'
   ]));
 });
