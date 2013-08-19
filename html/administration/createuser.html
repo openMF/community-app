@@ -1,0 +1,71 @@
+      <form class="form-horizontal well" ng-controller="CreateUserController" ng-submit="submit()">
+        <fieldset>
+          <legend>Create User</legend>
+          <div class="control-group">
+            <label class="control-label" for="username">User Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="username" ng-model="formData.username">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="firstname">First Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="firstname" ng-model="formData.firstname">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="lastname">Last Name</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="lastname" ng-model="formData.lastname">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="email">Email</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="email" ng-model="formData.email">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="sendPasswordToEmail">Auto generate password</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" ng-model="formData.sendPasswordToEmail">
+              </label>
+            </div>
+          </div>
+          <div ng-hide="formData.sendPasswordToEmail">
+            <div class="control-group">
+              <label class="control-label" for="password">Password</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="password" ng-model="formData.password">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="repeatPassword">Repeat Password</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="repeatPassword" ng-model="formData.repeatPassword">
+              </div>
+            </div>
+          </div>
+          <div class="control-group info">
+            <label class="control-label" for="office">Office</label>
+            <div class="controls">
+              <select id="office" class="input-xlarge" ng-model="formData.officeId">
+                <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group info">
+            <label class="control-label" for="role">Select roles</label>
+            <div class="controls">
+              <select id="role" class="input-xlarge" ng-model="formData.roles" multiple>
+                <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">{{availablerole.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </fieldset>
+      </form>
