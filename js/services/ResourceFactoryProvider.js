@@ -44,6 +44,12 @@
           currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
             update: { method: 'PUT'}
           }),
+          userListResource: defineResource(apiVer + "/users/:userId", {userId:'@userId'}, {
+            getAllUsers: {method: 'GET', params: {}, isArray: true}
+          }),
+          userTemplateResource: defineResource(apiVer + "/users/template", {}, {
+            get: {method: 'GET', params: {}}
+          }),
           globalSearch: defineResource(apiVer + "/search", {query:'@query'}, {
             search: { method: 'GET',
                       params: { query: '@query'} ,

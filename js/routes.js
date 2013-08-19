@@ -60,7 +60,16 @@
       })
       .when('/usersetting', {
         templateUrl: 'html/administration/usersettings.html'
-      });;
+      })
+      .when('/userslist/', {
+        templateUrl: 'html/administration/userslist.html'
+      })
+      .when('/createuser/', {
+        templateUrl: 'html/administration/createuser.html'
+      })
+      .when('/viewuser/:id', {
+        templateUrl: 'html/administration/viewuser.html'
+      });
 
     $locationProvider.html5Mode(false);
   };
