@@ -25,7 +25,10 @@ define(['underscore', 'mifosX'], function() {
       'ViewLoanProductController',
       'UserListController',
       'CreateUserController',
-      'ViewUserController'
+      'ViewUserController',
+      'EmployeeController',
+      'ViewEmployeeController',
+      'CreateEmployeeController'
     ],
     filters: [
       'StatusLookup'
