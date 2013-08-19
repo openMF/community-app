@@ -7,6 +7,8 @@
       'blockUI':          '../lib/blockui/jquery.blockUI',
       'angular':          '../lib/angular/angular',
       'angular-resource': '../lib/angular-resource/angular-resource',
+      'angular-translate': '../lib/angular-translate/angular-translate',
+      'angular-translate-loader-static-files': '../lib/angular-translate-loader-static-files/angular-translate-loader-static-files',
       'angular-mocks':    '../lib/angular-mocks/angular-mocks',
       'angularui':        '../lib/angular-bootstrap/ui-bootstrap',
       'angularuitpls':    '../lib/angular-bootstrap/ui-bootstrap-tpls',
@@ -20,6 +22,8 @@
     shim: {
       'angular': { exports: 'angular' },
       'angular-resource': { deps: ['angular'] },
+      'angular-translate': { deps: ['angular'] },
+      'angular-translate-loader-static-files': {deps: ['angular' , 'angular-translate'] },
       'angularui': { deps: ['angular'] },
       'angularuitpls': { deps: ['angular' ,'angularui' ] },
       'angular-mocks': { deps: ['angular'] },
@@ -29,6 +33,8 @@
         deps: [
           'angular',
           'angular-resource',
+          'angular-translate',
+          'angular-translate-loader-static-files',
           'angularui',
           'angularuitpls',          
           'webstorage',
