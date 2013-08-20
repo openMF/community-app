@@ -45,7 +45,8 @@
             update: { method: 'PUT'}
           }),
           userListResource: defineResource(apiVer + "/users/:userId", {userId:'@userId'}, {
-            getAllUsers: {method: 'GET', params: {}, isArray: true}
+            getAllUsers: {method: 'GET', params: {}, isArray: true},
+            update: { method: 'PUT' }
           }),
           userTemplateResource: defineResource(apiVer + "/users/template", {}, {
             get: {method: 'GET', params: {}}
