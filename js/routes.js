@@ -70,6 +70,9 @@
       .when('/viewuser/:id', {
         templateUrl: 'html/administration/viewuser.html'
       })
+      .when('/edituser/:id', {
+        templateUrl: 'html/administration/edituser.html'
+      })
       .when('/employees', {
         templateUrl: 'html/organization/employees.html'
       })

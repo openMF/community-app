@@ -26,6 +26,7 @@ define(['underscore', 'mifosX'], function() {
       'UserListController',
       'CreateUserController',
       'ViewUserController',
+      'EditUserController',
       'EmployeeController',
       'ViewEmployeeController',
       'CreateEmployeeController',
