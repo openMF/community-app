@@ -78,6 +78,9 @@
       })
       .when('/createemployee/', {
         templateUrl: 'html/organization/createemployee.html'
+      })
+      .when('/managefunds/', {
+        templateUrl: 'html/organization/managefunds.html'
       });
 
     $locationProvider.html5Mode(false);
