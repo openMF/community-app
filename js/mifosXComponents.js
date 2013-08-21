@@ -29,6 +29,7 @@ define(['underscore', 'mifosX'], function() {
       'EditUserController',
       'EmployeeController',
       'ViewEmployeeController',
+      'EditEmployeeController',
       'CreateEmployeeController',
       'ManageFundsController'
     ],
