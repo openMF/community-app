@@ -31,7 +31,8 @@ define(['underscore', 'mifosX'], function() {
       'ViewEmployeeController',
       'EditEmployeeController',
       'CreateEmployeeController',
-      'ManageFundsController'
+      'ManageFundsController',
+      'AccFreqPostingController'
     ],
     filters: [
       'StatusLookup'
