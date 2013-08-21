@@ -84,6 +84,9 @@
       })
       .when('/managefunds/', {
         templateUrl: 'html/organization/managefunds.html'
+      })
+      .when('/nav/offices', {
+        templateUrl: 'html/navigation/offices.html'
       });
 
     $locationProvider.html5Mode(false);
