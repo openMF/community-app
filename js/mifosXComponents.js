@@ -17,6 +17,7 @@ define(['underscore', 'mifosX'], function() {
       'ViewChargeController',
       'SavingProductController',
       'OfficesController',
+      'ViewOfficeController',
       'ViewClientController',
       'CreateClientController',
       'TaskController',
