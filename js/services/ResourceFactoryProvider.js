@@ -14,7 +14,7 @@
           roleResource: defineResource(apiVer + "/roles/:roleId", {}, {
             getAllRoles: {method: 'GET', params: {}, isArray: true}
           }),
-          officeResource: defineResource(apiVer + "/offices/:officeId", {}, {
+          officeResource: defineResource(apiVer + "/offices/:officeId", {officeId:"@officeId"}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
           clientResource: defineResource(apiVer + "/clients/:clientId", {clientId:'@clientId'}, {
