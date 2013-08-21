@@ -63,6 +63,9 @@
           }),
           fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true}
+          }),
+          accountingRulesResource: defineResource(apiVer + "/accountingrules", {}, {
+            getAllRules: {method: 'GET', params: {associations : 'all'}, isArray: true}
           })
         };
       }];

@@ -90,6 +90,12 @@
       })
       .when('/nav/offices', {
         templateUrl: 'html/navigation/offices.html'
+      })
+      .when('/accounting', {
+        templateUrl: 'html/accounting/accounting.html'
+      })
+      .when('/freqposting', {
+        templateUrl: 'html/accounting/freqposting.html'
       });
 
     $locationProvider.html5Mode(false);
