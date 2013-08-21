@@ -2,14 +2,6 @@
         <fieldset>
           <legend>Add a journal entry</legend>
           <div class="control-group info">
-            <label class="control-label" for="office">Accounting Rules</label>
-            <div class="controls">
-              <select class="input-xlarge" ng-model="formData.rule">
-                <option ng-repeat="rule in rules" value="{{rule.id}}">{{rule.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group info">
             <label class="control-label" for="loanofficer">Office</label>
             <div class="controls">
               <select class="input-xlarge" ng-model="formData.officeId">
@@ -17,10 +9,53 @@
               </select>
             </div>
           </div>
-		  <div class="control-group">
+          <div class="control-group info">
+            <label class="control-label" for="office">Accounting Rules</label>
+            <div class="controls">
+              <select class="input-xlarge" ng-model="formData.rule" ng-options="rule.name for rule in rules" ></select>
+            </div>
+          </div>
+		      <div class="control-group" ng-hide="formData.rule.allowMultipleDebitEntries || formData.rule.allowMultipleCreditEntries || formData.rule.creditAccounts.length > 0">
             <label class="control-label" for="firstname">Amount</label>
             <div class="controls">
               <input type="text" class="input-xlarge" id="firstname" ng-model="formData.firstname">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="firstname">Effected GL Entries</label>
+            <div class="controls">
+              <table width="100%">
+                <tr>
+                  <td width="50%">
+                    <strong>Credit</strong>
+                  </td>
+                  <td width="50%">
+                    <strong>Debit</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span ng-hide="formData.rule.allowMultipleCreditEntries">
+                      {{formData.rule.creditAccountHead.name}}
+                    </span>
+                    <span ng-show="formData.rule.creditAccounts.length > 0" >
+                      <select class="input-small" ng-model="formData.creditAccount" ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts" ></select>
+                      <input type="text" class="input-small"  ng-model="formData.crAmount">
+                      <a ng-show="formData.rule.allowMultipleCreditEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
+                    </span>                        
+                  </td>
+                  <td>
+                    <span ng-hide="formData.rule.allowMultipleDebitEntries">
+                      {{formData.rule.debitAccountHead.name}}
+                    </span>  
+                    <span ng-show="formData.rule.debitAccounts.length > 0" >
+                      <select class="input-small" ng-model="formData.debitAccount" ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts" ></select>
+                      <input type="text" class="input-small"  ng-model="formData.dbAmount">
+                      <a ng-show="formData.rule.allowMultipleDebitEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
+                    </span>  
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
           <div class="control-group">

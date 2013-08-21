@@ -6,7 +6,6 @@
               scope.rules = data;
             });
 
-
             resourceFactory.officeResource.getAllOffices(function(data){
               scope.offices = data;  
             });
