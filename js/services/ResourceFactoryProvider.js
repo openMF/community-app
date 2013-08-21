@@ -52,7 +52,8 @@
             get: {method: 'GET', params: {}}
           }),
           employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId:'@staffId'}, {
-            getAllEmployees: {method: 'GET', params: {}, isArray: true}
+            getAllEmployees: {method: 'GET', params: {}, isArray: true},
+            update: { method: 'PUT'}
           }),
           globalSearch: defineResource(apiVer + "/search", {query:'@query'}, {
             search: { method: 'GET',

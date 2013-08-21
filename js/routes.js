@@ -79,6 +79,9 @@
       .when('/viewemployee/:id', {
         templateUrl: 'html/organization/viewemployee.html'
       })
+      .when('/editemployee/:id', {
+        templateUrl: 'html/organization/editemployee.html'
+      })
       .when('/createemployee/', {
         templateUrl: 'html/organization/createemployee.html'
       })
