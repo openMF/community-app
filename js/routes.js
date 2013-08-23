@@ -46,6 +46,9 @@
       .when('/offices', {
         templateUrl: 'html/organization/offices.html'
       })
+      .when('/createoffice', {
+        templateUrl: 'html/organization/createoffice.html'
+      })
       .when('/viewoffice/:id', {
         templateUrl: 'html/organization/viewoffice.html'
       })
