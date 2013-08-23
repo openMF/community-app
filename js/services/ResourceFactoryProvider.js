@@ -66,6 +66,13 @@
           }),
           accountingRulesResource: defineResource(apiVer + "/accountingrules", {}, {
             getAllRules: {method: 'GET', params: {associations : 'all'}, isArray: true}
+          }),
+          accountCoaResource: defineResource(apiVer + "/glaccounts/:glAccountId", {glAccountId:'@glAccountId'}, {
+            getAllAccountCoas: {method: 'GET', params: {}, isArray: true},
+            update: { method: 'PUT' }
+          }),
+          accountCoaTemplateResource: defineResource(apiVer + "/glaccounts/template", {}, {
+            get: {method: 'GET', params: {}}
           })
         };
       }];
