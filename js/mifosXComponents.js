@@ -33,7 +33,11 @@ define(['underscore', 'mifosX'], function() {
       'EditEmployeeController',
       'CreateEmployeeController',
       'ManageFundsController',
-      'AccFreqPostingController'
+      'AccFreqPostingController',
+      'AccCoaController',
+      'AccCreateGLAccountContoller',
+      'AccViewGLAccountContoller',
+      'AccEditGLAccountController'
     ],
     filters: [
       'StatusLookup'
