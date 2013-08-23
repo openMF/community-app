@@ -97,6 +97,18 @@
       .when('/accounting', {
         templateUrl: 'html/accounting/accounting.html'
       })
+      .when('/accounting_coa', {
+        templateUrl: 'html/accounting/accounting_coa.html'
+      })
+      .when('/createglaccount', {
+        templateUrl: 'html/accounting/createglaccounting.html'
+      })
+      .when('/viewglaccount/:id', {
+        templateUrl: 'html/accounting/viewglaccounting.html'
+      })
+      .when('/editglaccount/:id', {
+        templateUrl: 'html/accounting/editglaccounting.html'
+      })
       .when('/freqposting', {
         templateUrl: 'html/accounting/freqposting.html'
       });
