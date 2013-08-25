@@ -3,22 +3,37 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../prototype-app/image/favicon.ico" />
-    <title>Mifos-X Client</title>
+    <title>{{ 'label.product.title' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
 </head>
 <body  class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-cloak data-ng-controller="MainController">
 <!-- Login Form
  ================================================== -->
-<div id="pagetop" class="container" data-ng-hide="currentSession.user != null" >
+<div class="container well" data-ng-hide="currentSession.user != null" >
     <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
+        <div class="pull-right ">
+            <span class="dropdown" >
+              {{ 'label.change.language' | translate }}
+              <a class="dropdown-toggle btn btn-primary">
+                {{optlang.name}}
+                <i class="icon-sort-down"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="lang in langs">
+                  <a ng-click="changeLang(lang)">{{lang.name}}</a>
+                </li>
+              </ul>
+            </span>
+        </div>
+        <br/><br/>
         <div class="pull-right">
-            <input type="text" data-ng-model="loginCredentials.username" placeholder="UserName" class="input-small">
-            <input type="password" data-ng-model="loginCredentials.password" placeholder="Password" class="input-small">
-            <button class="btn" type="submit" data-ng-click="login()">Sign In</button>
-            <div data-ng-show="authenticationFailed">
-                <p>Please try again, your credentials are not valid</p>
-            </div>
-        </div>    
+            <input type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.username' | translate }}" class="input-small">
+            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.password' | translate }}" class="input-small">
+            <button class="btn btn-success" type="submit" data-ng-click="login()">{{ 'label.signin' | translate }}</button>
+        </div>
+        <div class="pull-right" data-ng-show="authenticationFailed">
+            <p>{{ 'error.login.failed' | translate }}</p>
+        </div>
     </div>
     <div class="row span8 offset2 paddedbottom">
     <table width="%100">
@@ -27,11 +42,12 @@
                 <img src="../prototype-app/image/MifosX_logo.png" alt="MifosX" width="150">
             </td>    
             <td width="70%">
-                <h1>Mifos X</h1>
-                <span>1.6.3</span><br/>
-                <span>MifosX is upto date</span>
-                <p>MifosX is designed by <a href="#">COSM</a>, a <a href="#">global community</a> working togther for poorest, especially women, gain access to financial services.</p>
-                <span>Sound interesting? <a href="#">Get invloved!</a></span>
+                <h1>{{ 'label.product.name' | translate }}</h1>
+                <span>{{ 'label.product.version' | translate }}</span><br/>
+                <span>{{ 'label.product.status' | translate }}</span><br/>
+                <span>{{ 'label.product.aboutus1' | translate }}<a target="http://www.openmf.org/" href="http://www.openmf.org/">COSM</a>.
+                A <a target="http://mifos.org/community" href="http://mifos.org/community">{{ 'label.product.aboutus2' | translate }}</a> {{ 'label.product.aboutus3' | translate }}</span><br/>
+                <span>{{ 'label.get.involved1' | translate }} <a target="http://mifos.org/community/news/how-you-can-get-involved" href="http://mifos.org/community/news/how-you-can-get-involved">{{ 'label.get.involved2' | translate }}</a></span>
             </td>
         </tr>
     </table>        
@@ -40,36 +56,36 @@
     <div class="span4">
             <div style="border: 1px solid #DDDDDD;padding:15px;">
                 <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
-                    Resources
+                    <strong>{{ 'label.resources' | translate }}</strong>
                 </div>
                 <ul>
-                    <li><a href="#">User manual</a></li>
-                    <li><a href="#">Functional spec</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation" href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation">{{ 'label.usermanual' | translate }}</a></li>
+                    <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842" href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{ 'label.functional.spec' | translate }}</a></li>
+                    <li><a target="http://mifos.org/faq" href="http://mifos.org/faq">{{ 'label.faq' | translate }}</a></li>
                 </ul>
             </div>
     </div>
     <div class="span4">
             <div style="border: 1px solid #DDDDDD;padding:15px;">
                 <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
-                    Community
+                    <strong>{{ 'label.community' | translate }}</strong>
                 </div>
                 <ul>
-                    <li><a href="#">User group</a></li>
-                    <li><a href="#">Developer group</a></li>
-                    <li><a href="#">IRC</a></li>
+                    <li><a target="https://groups.google.com/forum/#!forum/mifosusers" href="https://groups.google.com/forum/#!forum/mifosusers">{{ 'label.users.group' | translate }}</a></li>
+                    <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper" href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{ 'label.developer.group' | translate }}</a></li>
+                    <li><a target="http://mifos.org/community/communications/mifos-irc" href="http://mifos.org/community/communications/mifos-irc">{{ 'label.product.irc' | translate }}</a></li>
                 </ul>
             </div>
     </div>
     <div class="span4">
             <div style="border: 1px solid #DDDDDD;padding:15px;">
                 <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
-                    News and Upcoming events
+                    <strong>{{ 'label.product.news' | translate }}</strong>
                 </div>
                 <ul>
-                    <li><a href="#">2 days left to user meet</a></li>
-                    <li><a href="#">Mifosx 2.3 release is availbale now</a></li>
-                    <li><a href="#">GSoC blog</a></li>
+                    <li>2 days left to user meet</li>
+                    <li><a target="http://sourceforge.net/projects/mifos/" href="http://sourceforge.net/projects/mifos/">Mifosx 2.3 release is availbale now</a></li>
+                    <li><a target="http://google-opensource.blogspot.in/" href="http://google-opensource.blogspot.in/">GSoC blog</a></li>
                 </ul>
             </div>
 
