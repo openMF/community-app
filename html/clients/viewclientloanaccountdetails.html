@@ -1,0 +1,283 @@
+<div ng-controller="ViewClientLoanDetailsController">
+  <div class="row paddedtop">
+    <div class="pull-right">
+      <div class="btn-group" >
+          <span ng-repeat="button in buttons">
+              <a  ngclick="{{button.tooltip}}()" tooltip="{{button.tooltip |translate}}" tooltip-placement="bottom" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i></a>
+          </span> 
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="paddedleft"><span class="pull-left"><h4><i class="icon-stop {{clientloandetails.status.code | StatusLookup}}"></i>&nbsp;{{clientloandetails.loanProductName}}(#{{clientloandetails.accountNo}}</h4></span></div>
+    </div>
+    <div class="row paddedleft">
+      <table width="100%">
+        <tr>
+          <td width="20%">{{'label.disbursementdate' | translate}}</td>
+          <td width="30%">{{clientloandetails.timeline.actualDisbursementDate}}</td>
+          <td width="20%">{{'label.currency' | translate}}</td>
+          <td width="30%">{{clientloandetails.currency.name}}</td>
+        </tr>
+        <tr>
+          <td>{{'label.loanofficer' | translate}}</td>
+          <td>{{clientloandetails.loanOfficerName}}</td>
+          <td>{{'label.disburseamount' | translate}}</td>
+          <td>{{clientloandetails.principal}}</td>
+        </tr>
+        <tr>
+          <td>{{'label.loanpurpose' | translate}}</td>
+          <td>{{clientloandetails.loanPurposeName}}</td>
+          <td>{{'label.arrearsby' | translate}}</td>
+          <td>{{clientloandetails.summary.totalOverdue}}</td>
+        </tr>
+      </table>
+    <div class="row paddedleft">
+      <hr class="marginbottom"/>
+      <tabset >
+        <tab heading="{{'tab.accountdetail' | translate}}">
+          <div> 
+            <table>
+                <tr>
+                  <td width="40%">{{'label.repaymentstrategy' | translate}}</td>
+                  <td width="60%">{{clientloandetails.transactionProcessingStrategyName}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.repayments' | translate}}</td>
+                  <td>{{clientloandetails.numberOfRepayments}} every {{clientloandetails.repaymentEvery}}&nbsp;{{clientloandetails.repaymentFrequencyType.value}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.amortization' | translate}}</td>
+                  <td>{{clientloandetails.amortizationType.value}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.interest' | translate}}</td>
+                  <td>{{clientloandetails.annualInterestRate}} per annum ({{clientloandetails.interestRatePerPeriod}}%&nbsp; {{clientloandetails.interestRateFrequencyType.value}} - {{clientloandetails.interestType.value}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.graceonprincipalpayment' | translate}}</td>
+                  <td>{{clientloandetails.graceOnPrincipalPayment}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.graceoninterestpayment' | translate}}</td>
+                  <td>{{clientloandetails.timeline.approvedOnDate}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.submittedondate' | translate}}</td>
+                  <td>{{clientloandetails.timeline.submittedOnDate}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.approvedondate' | translate}}</td>
+                  <td>{{clientloandetails.timeline.approvedOnDate}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.disbursedondate' | translate}}</td>
+                  <td>{{clientloandetails.timeline.actualDisbursementDate}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.matureson' | translate}}</td>
+                  <td>{{clientloandetails.timeline.expectedMaturityDate}}</td>
+                </tr>
+                <tr>
+                  <td>{{'label.interestChargedFrom' | translate}}</td>
+                  <td>{{clientloandetails.timeline.interestChargedFromDate}}</td>
+                </tr>
+            </tbody>
+            </table>
+          </div>
+        </tab>
+
+        <tab heading="{{'tab.summary' | translate}}">
+          <table  class="table">
+              <thead>
+                <tr>
+                  <th class="empty"></th>
+                  <th>{{'table.heading.original' | translate}}</th>
+                  <th>{{'table.heading.paid' | translate}}</th>
+                  <th>{{'table.heading.waived' | translate}}</th>
+                  <th>{{'table.heading.writtenoff' | translate}}</th>
+                  <th>{{'table.heading.outstanding' | translate}}</th>
+                  <th>{{'table.heading.overdue' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>{{'table.heading.principal' | translate}}</th>
+                  <td>{{clientloandetails.summary.principalDisbursed}}</td>
+                  <td>{{clientloandetails.summary.principalPaid}}</td>
+                  <td>&nbsp;</td>
+                  <td>{{clientloandetails.summary.principalWrittenOff}}</td>
+                  <td>{{clientloandetails.summary.principalOutstanding}}</td>
+                  <td>{{clientloandetails.summary.principalOverdue}}</td>
+                </tr>
+                <tr>
+                  <th>{{'table.heading.interest' | translate}}</th>
+                  <td>{{clientloandetails.summary.interestCharged}}</td>
+                  <td>{{clientloandetails.summary.interestPaid}}</td>
+                  <td>{{clientloandetails.summary.interestWaived}}</td>
+                  <td>{{clientloandetails.summary.interestWrittenOff}}</td>
+                  <td>{{clientloandetails.summary.interestOutstanding}}</td>
+                  <td>{{clientloandetails.summary.interestOverdue}}</td>
+                </tr>
+                <tr>
+                  <th>{{'table.heading.fees' | translate}}</th>
+                  <td>{{clientloandetails.summary.feeChargesCharged}}</td>
+                  <td>{{clientloandetails.summary.feeChargesPaid}}</td>
+                  <td>{{clientloandetails.summary.feeChargesWaived}}</td>
+                  <td>{{clientloandetails.summary.feeChargesWrittenOff}}</td>
+                  <td>{{clientloandetails.summary.feeChargesOutstanding}}</td>
+                  <td>{{clientloandetails.summary.feeChargesOverdue}}</td>
+                </tr>
+
+                <tr>
+                  <th>{{'table.heading.penalties' | translate}}</th>
+                  <td>{{clientloandetails.summary.penaltyChargesCharged}}</td>
+                  <td>{{clientloandetails.summary.penaltyChargesPaid}}</td>
+                  <td>{{clientloandetails.summary.penaltyChargesWaived}}</td>
+                  <td>{{clientloandetails.summary.penaltyChargesWrittenOff}}</td>
+                  <td>{{clientloandetails.summary.penaltyChargesOutstanding}}</td>
+                  <td>{{clientloandetails.summary.penaltyChargesOverdue}}</td>
+                </tr>
+              </tbody>
+              <tfoot >
+                <tr>
+                  <th>{{'table.heading.total' | translate}}</th>
+                  <th>{{clientloandetails.summary.totalExpectedRepayment}}</th>
+                  <th>{{clientloandetails.summary.totalRepayment}}</th>
+                  <th>{{clientloandetails.summary.totalWaived}}</th>
+                  <th>{{clientloandetails.summary.totalWrittenOff}}</th>
+                  <th>{{clientloandetails.summary.totalOutstanding}}</th>
+                  <th>{{clientloandetails.summary.totalOverdue}}</th>
+                </tr>
+              </tfoot>
+            </table>
+        </tab>
+
+        <tab heading="{{'tab.repaymentschedule' | translate}}">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">{{'table.heading.days' | translate}}</th>
+                  <th scope="col">{{'table.heading.date' | translate}}</th>
+                  <th scope="col">{{'table.heading.paiddate' | translate}}</th>
+                  <th scope="col">&nbsp;</th>
+                  
+                  <th scope="col">{{'table.heading.principaldue' | translate}}</th>
+
+                  <th scope="col">{{'table.heading.interest' | translate}}</th>
+                  <th scope="col">{{'table.heading.fees' | translate}}</th>
+                  <th scope="col">{{'table.heading.penalties' | translate}}</th>
+
+                  <th scope="col">{{'table.heading.totaldue' | translate}}</th>
+                  <th scope="col">{{'table.heading.balanceofloan' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="period in clientloandetails.repaymentSchedule.periods">
+                <td scope="row">{{period.period}}</td>
+                <td>{{period.daysInPeriod}}</td>
+                <td>{{period.dueDate}}</td>
+                <td>{{period.obligationsMetOnDate}}</td>
+                <td>&nbsp;</td>
+
+                <td>{{period.principalDue}}</td>
+
+                <td>{{period.interestOriginalDue}}</td>
+                <td>{{period.feeChargesDue}}</td>
+                <td>{{period.penaltyChargesDue}}</td>
+
+                <td>{{period.totalOriginalDueForPeriod}}</td>
+                <td>{{period.principalLoanBalanceOutstanding}}</td>
+              </tr>
+              </tbody>
+              <tfoot class="ui-widget-header">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>{{clientloandetails.repaymentSchedule.loanTermInDays}}</th>
+                  <th colspan="3">{{'table.heading.total' | translate}}</th>
+
+                  <th>{{clientloandetails.repaymentSchedule.totalPrincipalExpected}}</th>
+
+                  <th>{{clientloandetails.repaymentSchedule.totalInterestCharged}}</th>
+                  <th>{{clientloandetails.repaymentSchedule.totalFeeChargesCharged}}</th>
+                  <th>{{clientloandetails.repaymentSchedule.totalPenaltyChargesCharged}}</th>
+
+                  <th>{{clientloandetails.repaymentSchedule.totalRepaymentExpected}}</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </tfoot>
+            </table>
+
+
+        </tab>
+        <tab heading="{{'tab.transaction' | translate}}">
+            <table class="table">
+              <colgroup span="4"></colgroup>
+                <thead>
+                  <tr>
+                    <th>{{'table.heading.transactiondate' | translate}}</th>
+                    <th>{{'table.heading.transactiontype' | translate}}</th>
+                    <th>{{'table.heading.amount' | translate}}</th>
+                    <th colspan="4" scope="colgroup">{{'table.heading.breakdown' | translate}}</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">{{'table.heading.principal' | translate}}</th>
+                    <th scope="col">{{'table.heading.interest' | translate}}</th>
+                    <th scope="col">{{'table.heading.fees' | translate}}</th>
+                    <th scope="col">{{'table.heading.penalities' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="transaction in clientloandetails.transactions">
+                  <td>{{transaction.date}}</td>
+                  <td>{{transaction.type.value}}</td>
+                  <td>{{transaction.amount}}</td>
+                  <td>{{transaction.principalPortion}}</td>
+                  <td>{{transaction.interestPortion}}</td>
+                  <td>{{transaction.feeChargesPortion}}</td>
+                  <td>{{transaction.penaltyChargesPortion}}</td>
+                </tbody>
+            </table>
+          </tab>
+
+        <tab heading="{{'tab.loandocuments' | translate}}">
+          <table class="table">
+            <thead>
+              <th>{{'table.heading.name' | translate}}</th>
+              <th>{{'table.heading.description' | translate}}</th>
+              <th>{{'table.heading.filename' | translate}}</th>
+              <th>{{'table.heading.actions' | translate}}</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="document in loandocuments">
+                <td>{{document.name}}</td>
+                <td>{{document.description}}</td>
+                <td>{{document.fileName}}</td>
+                <td>
+                  <i class="icon-cloud-download"></i>&nbsp;
+                  <i class="icon-edit"></i>&nbsp;
+                  <i class="icon-remove"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+
+        <tab heading="{{'tab.notes' | translate}}">
+          <div ng-repeat="note in clientloandetails.notes">
+            <blockquote>
+              <p>{{note.note}}</p>
+              <small>Updated by :&nbsp;{{note.updatedByUsername}}</small>
+              <small>Updated on :&nbsp;{{note.updatedOn}}</small>
+            </blockquote>
+          </div>
+        </tab>
+    </tabset>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@ define(['underscore', 'mifosX'], function() {
       'UserSettingController',
       'RoleController',
       'ClientController',
+      'ViewClientLoanDetailsController',
       'LoanProductController',
       'ChargeController',
       'ViewChargeController',
