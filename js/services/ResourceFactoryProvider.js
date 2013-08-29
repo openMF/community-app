@@ -38,8 +38,14 @@
           savingProductResource: defineResource(apiVer + "/savingsproducts/:savingproductId", {}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
           }),
-          loanResource: defineResource(apiVer + "/loans/:loanId", {}, {
-            getAllLoans: {method: 'GET', params: {}}
+          loanResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {
+            getAllLoans: {method: 'GET', params: {}},
+          }),
+          LoanAccountResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {
+            getLoanAccountDetails: {method: 'GET', params: {}}
+          }),
+          LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents", {loanId:'@loanId'}, {
+            getLoanDocuments: {method: 'GET', params: {} , isArray: true}
           }),
           currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
             update: { method: 'PUT'}
