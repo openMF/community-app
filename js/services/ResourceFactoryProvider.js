@@ -81,8 +81,9 @@
           accountCoaTemplateResource: defineResource(apiVer + "/glaccounts/template", {}, {
             get: {method: 'GET', params: {}}
           }),
-          journalEntriesResource: defineResource(apiVer + "/journalentries", {}, {
-            get: {method: 'GET', params: {}}
+          journalEntriesResource: defineResource(apiVer + "/journalentries/:trxid", {trxid:'@transactionId'}, {
+            get: {method: 'GET', params: {transactionId:'@transactionId'}},
+            reverse: {method: 'POST', params:{command:'reverse'}}
           })
         };
       }];

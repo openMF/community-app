@@ -120,6 +120,9 @@
       })
       .when('/freqposting', {
         templateUrl: 'html/accounting/freqposting.html'
+      })
+      .when('/viewtransactions/:transactionId', {
+        templateUrl: 'html/accounting/view_transactions.html'
       });
 
     $locationProvider.html5Mode(false);

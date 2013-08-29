@@ -73,7 +73,7 @@
                   }
 
                   resourceFactory.journalEntriesResource.save(jeTransaction,function(data){
-                    location.path('/accounting');
+                    location.path('/viewtransactions/'+data.transactionId);
                   });
             }
     }
