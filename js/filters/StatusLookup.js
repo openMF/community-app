@@ -6,7 +6,10 @@
                       var  cssClassNameLookup = {
                         "true" : "statusactive" ,
                         "false" : "statusdeleted",
-                        "Active" : "statusactive"
+                        "Active" : "statusactive",
+                        "loanStatusType.submitted.and.pending.approval" : "statuspending",
+                        "loanStatusType.approved" : "statusApproved",
+                        "loanStatusType.active" : "statusactive"
                       }   
 
                       return cssClassNameLookup[input];
