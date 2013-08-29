@@ -1,8 +1,8 @@
       <form class="form-horizontal well" ng-controller="AccFreqPostingController" ng-submit="submit()">
         <fieldset>
-          <legend>Add a journal entry</legend>
+          <legend>{{ 'label.journalentry.posting.title' | translate }}</legend>
           <div class="control-group info">
-            <label class="control-label" for="loanofficer">Office</label>
+            <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
             <div class="controls">
               <select class="input-xlarge" ng-model="formData.officeId">
                 <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
@@ -10,75 +10,75 @@
             </div>
           </div>
           <div class="control-group info">
-            <label class="control-label" for="office">Accounting Rules</label>
+            <label class="control-label" for="accountingRule">{{ 'label.journalentry.accounting.rules' | translate }}</label>
             <div class="controls">
-              <select class="input-xlarge" ng-model="formData.rule" ng-options="rule.name for rule in rules" ></select>
-            </div>
-          </div>
-		      <div class="control-group" ng-hide="formData.rule.allowMultipleDebitEntries || formData.rule.allowMultipleCreditEntries || formData.rule.creditAccounts.length > 0">
-            <label class="control-label" for="firstname">Amount</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="firstname" ng-model="formData.firstname">
+              <select class="input-xlarge" ng-model="formData.rule" ng-options="rule.name for rule in rules" ng-change="resetCrAndDb()"></select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="firstname">Effected GL Entries</label>
+            <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}</label>
             <div class="controls">
               <table width="100%">
                 <tr>
                   <td width="50%">
-                    <strong>Credit</strong>
+                    <strong>{{ 'label.journalentry.credit' | translate }}</strong>
                   </td>
                   <td width="50%">
-                    <strong>Debit</strong>
+                    <strong>{{ 'label.journalentry.debit' | translate }}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <span ng-hide="formData.rule.allowMultipleCreditEntries">
-                      {{formData.rule.creditAccountHead.name}}
-                    </span>
-                    <span ng-show="formData.rule.creditAccounts.length > 0" >
-                      <select class="input-small" ng-model="formData.creditAccount" ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts" ></select>
-                      <input type="text" class="input-small"  ng-model="formData.crAmount">
-                      <a ng-show="formData.rule.allowMultipleCreditEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
-                    </span>                        
+                    <div ng-show="formData.rule.creditAccounts.length > 0" >
+                      <select class="input-small" ng-model="formData.creditAccountTemplate" ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts" ></select>
+                      &nbsp; <input type="text" class="input-small"  ng-model="formData.crAmountTemplate">
+                      &nbsp; <a ng-click="addCrAccount()" ng-show="formData.rule.allowMultipleCreditEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
+                    </div>
+                    <br>
+                    <div ng-repeat="crAccount in formData.crAccounts">
+                      <input type="text" class="input-small"  ng-model="crAccount.crGlName" readonly>
+                      <input type="text" class="input-small"  ng-model="crAccount.crAmount">
+                      <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                    </div>
                   </td>
                   <td>
-                    <span ng-hide="formData.rule.allowMultipleDebitEntries">
-                      {{formData.rule.debitAccountHead.name}}
-                    </span>  
-                    <span ng-show="formData.rule.debitAccounts.length > 0" >
-                      <select class="input-small" ng-model="formData.debitAccount" ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts" ></select>
-                      <input type="text" class="input-small"  ng-model="formData.dbAmount">
-                      <a ng-show="formData.rule.allowMultipleDebitEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
-                    </span>  
+                    <div ng-show="formData.rule.debitAccounts.length > 0" >
+                      <select class="input-small" ng-model="formData.debitAccountTemplate" ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts" ></select>
+                      &nbsp; <input type="text" class="input-small"  ng-model="formData.debitAmountTemplate">
+                      &nbsp; <a ng-click="addDebitAccount()" ng-show="formData.rule.allowMultipleDebitEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
+                    </div>
+                    <br>
+                    <div ng-repeat="dbAccount in formData.dbAccounts">
+                      <input type="text" class="input-small"  ng-model="dbAccount.debitGlName" readonly>
+                      <input type="text" class="input-small"  ng-model="dbAccount.debitAmount">
+                      <a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                    </div>
                   </td>
                 </tr>
               </table>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="middlename">Referance Number</label>
+            <label class="control-label" for="referenceNumber">{{ 'label.journalentry.reference.number' | translate }}</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="middlename" ng-model="formData.middlename">
+              <input type="text" class="input-xlarge" id="referenceNumber" ng-model="formData.referenceNumber">
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="lastname">Transaction Date</label>
+            <label class="control-label" for="transactionDate">{{ 'label.journalentry.transaction.date' | translate }}</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="lastname" ng-model="formData.lastname">
+              <input type="text" class="input-xlarge" id="transactionDate" ng-model="formData.transactionDate">
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="active">Comments</label>
+            <label class="control-label" for="comments">{{ 'label.journalentry.comments' | translate }}</label>
             <div class="controls">
               <input type="text" class="input-xlarge" ng-model="formData.comments">
             </div>
           </div>
           <div class="form-actions">
-            <button type="reset" class="btn">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn">{{ 'label.cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
           </div>
         </fieldset>
       </form>
