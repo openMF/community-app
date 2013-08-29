@@ -40,7 +40,8 @@ define(['underscore', 'mifosX'], function() {
       'AccCoaController',
       'AccCreateGLAccountContoller',
       'AccViewGLAccountContoller',
-      'AccEditGLAccountController'
+      'AccEditGLAccountController',
+      'ViewTransactionController'
     ],
     filters: [
       'StatusLookup'
