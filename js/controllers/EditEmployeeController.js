@@ -3,7 +3,7 @@
     EditEmployeeController: function(scope, routeParams, resourceFactory, location) {
         scope.offices = [];
 
-        resourceFactory.employeeResource.get({staffId: routeParams.id, template: 'true'} , function(data) {
+         resourceFactory.employeeResource.get({staffId: routeParams.id, template: 'true'} , function(data) {
             scope.offices = data.allowedOffices;
             scope.formData = {
               firstname : data.firstname,
@@ -24,7 +24,7 @@
           
              this.formData.officeId = this.formData.officeName.id;
              delete this.formData.officeName;
-
+             
              resourceFactory.employeeResource.update({'staffId': routeParams.id},this.formData,function(data){
              location.path('/viewemployee/' + data.resourceId);
           });

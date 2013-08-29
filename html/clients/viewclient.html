@@ -1,15 +1,15 @@
-<div>
+<div ng-controller="ViewClientController">
   <div class="row paddedtop">
     <div class="pull-right">
       <div class="btn-group">
-          <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+          <a href="#/editclient/{{client.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
           <a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i> New Loan</a>
           <a href="#" class="btn btn-primary"><i class="icon-list-ul icon-white"></i> Add Note</a>
           <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Close</a>
       </div>
     </div>
   </div>
-  <div ng-controller="ViewClientController">
+  <div>
     <div id="clientviewtop" class="row">
       <div class="paddedleft"><span class="pull-left"><h3><i class="icon-stop {{client.status.value | StatusLookup}}"></i>&nbsp;{{client.displayName}}</h3></span></div>
     </div>
@@ -18,7 +18,10 @@
         <img src="../prototype-app/image/blank_avatar.jpg" alt="Avatar" width="100">
       </div>
       <div class="span5">
-          <strong>{{ 'label.systemid' | translate }}&nbsp;</strong> {{client.accountNo}} <br>
+          <strong>{{ 'label.accountno' | translate }}&nbsp;</strong> {{client.accountNo}} <br>
+          <strong>{{ 'label.activationdate' | translate }}&nbsp;</strong> {{client.activationDate}} <br>
+          <strong>{{ 'label.officename' | translate }}&nbsp;</strong> {{client.officeName}} <br>
+          <strong>{{ 'label.memberof' | translate }}&nbsp;</strong><span ng-repeat="group in client.groups" > {{group.name}}&nbsp;</span> <br>
           <strong>{{ 'label.loanofficer' | translate }}&nbsp;</strong> {{client.staffName}} <br>
       </div>
     </div>

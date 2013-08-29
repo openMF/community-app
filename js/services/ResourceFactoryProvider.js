@@ -18,7 +18,8 @@
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
           clientResource: defineResource(apiVer + "/clients/:clientId", {clientId:'@clientId'}, {
-            getAllClients: {method: 'GET', params: {}}
+            getAllClients: {method: 'GET', params: {}},
+            update: { method: 'PUT'}
           }),
           clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId:'@clientId'}, {
             getAllClients: {method: 'GET', params: {}}

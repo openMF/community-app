@@ -22,6 +22,9 @@
       .when('/createclient', {
         templateUrl: 'html/clients/createclient.html'  
       })
+      .when('/editclient/:id', {
+        templateUrl : 'html/clients/editclient.html'
+      })
       .when('/viewclient/:id', {
         templateUrl: 'html/clients/viewclient.html'
       })
