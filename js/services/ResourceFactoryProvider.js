@@ -79,6 +79,9 @@
           }),
           accountCoaTemplateResource: defineResource(apiVer + "/glaccounts/template", {}, {
             get: {method: 'GET', params: {}}
+          }),
+          journalEntriesResource: defineResource(apiVer + "/journalentries", {}, {
+            get: {method: 'GET', params: {}}
           })
         };
       }];
