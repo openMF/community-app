@@ -3,29 +3,29 @@
         <h3>{{ 'label.journalentry.transaction.number' | translate }}&nbsp;<b>{{transactionNumber}}</b></h3>
         <div class="pull-right">
             <div class="btn-group">
-                <a ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary"><i class="icon-repeat icon-white"></i> Reverse</a>
+                <a ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary"><i class="icon-undo icon-white"></i> Reverse</a>
             </div>
         </div>
     </div>
 
-    <div class="row alert-block span" ng-controller="ViewTransactionController">
+    <div class="row alert-block span">
     	<table class="table" ui:sortable>
             <thead>
                 <tr>
+                    <th>Office</th>
                     <th>Transaction Date</th>
                     <th>Type</th>
                     <th>Account</th>
-                    <th>TransactionId</th>
                     <th>Debit</th>
                     <th>Credit</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="transaction in transactions">
+                    <td>{{transaction.officeName}}</td>
                     <td>{{transaction.transactionDate}}</td>
                     <td>{{transaction.glAccountType.value}}</td>
-                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                    <td>{{transaction.transactionId}}</td>  
+                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>  
                     <td>
                         <div ng-show="transaction.entryType.value == 'CREDIT'">
                             {{transaction.amount}}

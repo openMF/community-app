@@ -41,7 +41,8 @@ define(['underscore', 'mifosX'], function() {
       'AccCreateGLAccountContoller',
       'AccViewGLAccountContoller',
       'AccEditGLAccountController',
-      'ViewTransactionController'
+      'ViewTransactionController',
+      'JournalEntryController'
     ],
     filters: [
       'StatusLookup'
