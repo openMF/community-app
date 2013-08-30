@@ -83,7 +83,8 @@
           }),
           journalEntriesResource: defineResource(apiVer + "/journalentries/:trxid", {trxid:'@transactionId'}, {
             get: {method: 'GET', params: {transactionId:'@transactionId'}},
-            reverse: {method: 'POST', params:{command:'reverse'}}
+            reverse: {method: 'POST', params:{command:'reverse'}},
+            search:{method: 'GET', params: {}}
           })
         };
       }];
