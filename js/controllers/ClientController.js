@@ -8,7 +8,7 @@
           resourceFactory.clientResource.getAllClients({offset: offset, limit: limit} , callback);
         };
         
-        scope.clients = paginatorService.paginate(fetchFunction, 4);
+        scope.clients = paginatorService.paginate(fetchFunction, 9);
 
     }
   });
