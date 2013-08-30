@@ -126,6 +126,9 @@
       })
       .when('/journalentry', {
         templateUrl: 'html/accounting/journalentry_posting.html'
+      })
+      .when('/searchtransaction', {
+        templateUrl: 'html/accounting/search_transaction.html'
       });
 
     $locationProvider.html5Mode(false);

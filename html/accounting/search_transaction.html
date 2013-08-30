@@ -1,0 +1,72 @@
+<div ng-controller="SearchTransactionController">
+    <div class="row alert-block span" >
+        <span class="input-append">
+                <input ng-model="formData.transactionId" type="text" class="input-xlarge" placeholder="Search by transaction #" />
+                <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control"><i class="icon-chevron-down"></i></a></span>
+                <span><a ng-click="searchByTransaction(formData.transactionId)" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+        </span>
+    </div>
+    <div collapse="isCollapsed" class="row alert-block span">
+        <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
+        <label>Account Name</label>
+        <input ng-model="formData.glAccount" type="text" class="input-xlarge" placeholder="Account Name" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" />
+        <div class="control-group info">
+            <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
+            <div class="controls">
+              <select class="input-xlarge" ng-model="formData.officeId">
+                <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+              </select>
+            </div>
+        </div>
+        <div class="control-group info">
+            <label class="control-label" for="filter">{{ 'label.additional.filter' | translate }}</label>
+            <div class="controls">
+              <select class="input-xlarge" ng-model="formData.manualEntriesOnly">
+                <option ng-repeat="filter in filters" value="{{filter.value}}">{{filter.option}}</option>
+              </select>
+            </div>
+        </div>
+        <label>{{ 'label.fromdate' | translate }}</label>
+        <input ng-model="formData.fromDate" type="text" class="input-xlarge" placeholder="From Date" />
+        <label>{{ 'label.todate' | translate }}</label>
+        <input ng-model="formData.toDate" type="text" class="input-xlarge" placeholder="To Date" /><br/>
+        <span><a ng-click="searchTransaction(formData)" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span>
+    </div>
+
+    <div ng-show="displayResults" class="row alert-block span">
+    	<table class="table" ui:sortable>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Transaction Date</th>
+                    <th>Type</th>
+                    <th>Account</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transaction in transactions">
+                    <td>{{transaction.officeName}}</td>
+                    <td>{{transaction.transactionDate}}</td>
+                    <td>{{transaction.glAccountType.value}}</td>
+                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>  
+                    <td>
+                        <div ng-show="transaction.entryType.value == 'CREDIT'">
+                            {{transaction.amount}}
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-show="transaction.entryType.value == 'DEBIT'">
+                            {{transaction.amount}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li class="previous"><a ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; Prev</a></li>
+            <li class="next" ><a ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">Next &rarr;</a></li>
+        </ul>
+    </div>
+</div>
