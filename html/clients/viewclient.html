@@ -76,9 +76,30 @@
           </table>
         </div>
       </tab>
-      <tab heading="Personal Details">Personal details of clients</tab>
-      <tab heading="Identify Documents">Client documents</tab>
-      <tab heading="Family Details">Client family details</tab>
+      <tab heading="Identify Documents">
+        <table class="table">
+            <thead>
+              <th>{{'table.heading.uniqueidentification' | translate}}</th>
+              <th>{{'table.heading.description' | translate}}</th>
+              <th>{{'table.heading.identitydocuments' | translate}}</th>
+              <th>{{'table.heading.actions' | translate}}</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="document in identitydocuments">
+                <td>{{document.documentKey}}</td>
+                <td>{{document.description}}</td>
+                <td>
+                  <span ng-repeat="file in document.documents">{{file.fileName}}&nbsp;&nbsp;</span>
+                </td>
+                <td>
+                  <i class="icon-cloud-download"></i>&nbsp;
+                  <i class="icon-edit"></i>&nbsp;
+                  <i class="icon-remove"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </tab>
       <tab heading="Notes">
         <div ng-repeat="clientNote in clientNotes">
           <div>
