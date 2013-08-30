@@ -18,8 +18,8 @@
           scope.offices = data;  
         });
 
-       var fetchFunction = function(offset, limit, transactionId, callback) {
-          resourceFactory.journalEntriesResource.search({offset: offset, limit: limit, transactionId : transactionId} , callback);
+       var fetchFunction = function(offset, limit, callback) {
+          resourceFactory.journalEntriesResource.search({transactionId : scope.formData.transactionId , offset: offset, limit: limit} , callback);
         };
 
 
