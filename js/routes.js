@@ -123,6 +123,9 @@
       })
       .when('/viewtransactions/:transactionId', {
         templateUrl: 'html/accounting/view_transactions.html'
+      })
+      .when('/journalentry', {
+        templateUrl: 'html/accounting/journalentry_posting.html'
       });
 
     $locationProvider.html5Mode(false);
