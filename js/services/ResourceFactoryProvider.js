@@ -17,9 +17,13 @@
           officeResource: defineResource(apiVer + "/offices/:officeId", {officeId:"@officeId"}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
-          clientResource: defineResource(apiVer + "/clients/:clientId", {clientId:'@clientId'}, {
+          clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId:'@clientId',anotherresource:'@anotherresource'}, {
             getAllClients: {method: 'GET', params: {}},
+            getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
             update: { method: 'PUT'}
+          }),
+          clientIdentifierResource: defineResource(apiVer + "/client_identifiers/:clientIdentityId/documents", {clientIdentityId:'@clientIdentityId'}, {
+            get: {method: 'GET', params: {}, isArray:true}
           }),
           clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId:'@clientId'}, {
             getAllClients: {method: 'GET', params: {}}
