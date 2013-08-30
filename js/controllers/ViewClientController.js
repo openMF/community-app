@@ -11,6 +11,23 @@
         resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id} , function(data) {
             scope.clientNotes = data;
         })
+        scope.isNotClosed = function(loanaccount) {
+          if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
+            loanaccount.status.code === "loanStatusType.rejected") {
+            return false;
+          } else{
+             return true;
+          }
+           
+        };
+        scope.isClosed = function(loanaccount) {
+          if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
+            loanaccount.status.code === "loanStatusType.rejected") {
+            return true;
+          } else{
+             return false;
+          }
+        };
 
     }
   });

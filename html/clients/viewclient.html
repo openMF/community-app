@@ -36,17 +36,17 @@
           <table class="table condensed-table">
           <thead>
               <tr>
+                  <th>Account No</th>
                   <th>Product</th>
                   <th>Loan Type</th>
-                  <th>Account No</th>
                   <th>Status</th>
               </tr>
           </thead>
           <tbody>
-              <tr ng-repeat="loanaccount in clientAccounts.loanAccounts">
+              <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed" >
+                <td><a href="#/viewloanaccount/{{loanaccount.id}}"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>&nbsp;{{loanaccount.accountNo}}</a></td>
                 <td><a href="#/viewloanaccount/{{loanaccount.id}}">{{loanaccount.productName}}</a></td>
                 <td>{{loanaccount.loanType.value}}</td>
-                <td><a href="#/viewloanaccount/{{loanaccount.id}}">{{loanaccount.accountNo}}</a></td>
                 <td>{{loanaccount.status.value}}</td> 
               </tr>
           </tbody>
@@ -59,16 +59,16 @@
           <table class="table condensed-table">
           <thead>
             <tr>
-              <th>Product</th>
               <th>Account No</th>
+              <th>Product</th>
               <th>Status</th>
               <th>Balance</th>
             </tr>
           </thead>
           <tbody>
               <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
+                <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;<a href="#">{{savingaccount.accountNo}}</a></td>
                 <td>{{savingaccount.productName}}</td>
-                <td><a href="#">{{savingaccount.accountNo}}</a></td>
                 <td>{{savingaccount.status.value}}</td>
                 <td>{{savingaccount.accountBalance}}</td>         
               </tr>
@@ -90,6 +90,31 @@
           </div>
         </div>
         </ul>
+      </tab>
+      <tab heading="Closed Account">
+        <div> 
+          <p>
+            <b>Loan Accounts Overview</b>
+          </p>
+          <table class="table condensed-table">
+          <thead>
+              <tr>
+                  <th>Account No</th>
+                  <th>Product</th>
+                  <th>Loan Type</th>
+                  <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isClosed" >
+                <td><a href="#/viewloanaccount/{{loanaccount.id}}"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>&nbsp;{{loanaccount.accountNo}}</a></td>
+                <td><a href="#/viewloanaccount/{{loanaccount.id}}">{{loanaccount.productName}}</a></td>
+                <td>{{loanaccount.loanType.value}}</td>
+                <td>{{loanaccount.status.value}}</td> 
+              </tr>
+          </tbody>
+          </table>
+        </div>
       </tab>
     </tabset>
     </div>
