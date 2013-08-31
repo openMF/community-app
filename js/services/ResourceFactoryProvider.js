@@ -89,6 +89,9 @@
             get: {method: 'GET', params: {transactionId:'@transactionId'}},
             reverse: {method: 'POST', params:{command:'reverse'}},
             search:{method: 'GET', params: {}}
+          }),
+          accountingClosureResource: defineResource(apiVer + "/glclosures", {}, {
+            get: {method: 'GET', params: {}, isArray:true}
           })
         };
       }];
