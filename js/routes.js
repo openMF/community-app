@@ -129,6 +129,12 @@
       })
       .when('/searchtransaction', {
         templateUrl: 'html/accounting/search_transaction.html'
+      })
+      .when('/accounts_closure', {
+        templateUrl: 'html/accounting/accounts_closure.html'
+      })
+      .when('/closedaccountingDetails/:officeId', {
+        templateUrl: 'html/accounting/view_close_accounting.html'
       });
 
     $locationProvider.html5Mode(false);
