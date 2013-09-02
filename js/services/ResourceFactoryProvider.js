@@ -44,7 +44,7 @@
           chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId:'@chargeId'}, {
             getAllCharges: {method: 'GET', params: {}, isArray:true}
           }),
-          savingProductResource: defineResource(apiVer + "/savingsproducts/:savingproductId", {}, {
+          savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId", {savingProductId:'@savingProductId'}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
           }),
           loanResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {

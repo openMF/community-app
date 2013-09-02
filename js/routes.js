@@ -49,6 +49,9 @@
       .when('/savingproducts', {
         templateUrl: 'html/products/savingproducts.html'
       })
+      .when('/viewsavingproduct/:id', {
+        templateUrl: 'html/products/viewsavingproduct.html'
+      })
       .when('/offices', {
         templateUrl: 'html/organization/offices.html'
       })
