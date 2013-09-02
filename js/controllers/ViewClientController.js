@@ -28,8 +28,24 @@
             }
         });
 
-        
+        resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
+            scope.clientdatatables = data;
+        });
 
+        scope.dataTableChange = function(clientdatatable) {
+          resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
+          clientId: routeParams.id, genericResultSet: 'true'} , function(data) {
+            scope.datatabledetails = data;
+            scope.datatabledetails.isData = data.data.length > 0 ? true : false;
+            scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+            if(!scope.datatabledetails.isMultirow && scope.datatabledetails.isData > 0) {
+              for(var i=0; i<data.columnHeaders.length; i++) {
+                scope.datatabledetails.columnHeaders[i].value = data.data[0].row[i];
+              }
+            }
+          });
+        }
+        
         scope.isNotClosed = function(loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
             loanaccount.status.code === "loanStatusType.rejected") {
