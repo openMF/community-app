@@ -34,6 +34,10 @@
           clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
             get: {method: 'GET', params: {}}
           }),
+          DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:clientId", {datatablename:'@datatablename',clientId:'@clientId'}, {
+            getAllDataTables: {method: 'GET', params: {}, isArray:true},
+            getTableDetails: {method: 'GET', params: {}}
+          }),
           loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId", {loanProductId:'@loanProductId'}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
           }),
