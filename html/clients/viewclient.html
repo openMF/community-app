@@ -100,6 +100,39 @@
             </tbody>
           </table>
       </tab>
+      <tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables" select="dataTableChange(clientdatatable)">
+        <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right "><a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i></a></span></br>
+        <table class="table" ng-show="datatabledetails.isMultirow">
+          <thead>
+            <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+            <th>{{'table.heading.actions' | translate}}</th>
+          </thead>
+            <tbody>
+              <tr ng-repeat="data in datatabledetails.data">
+                <td ng-repeat="row in data.row">
+                  {{row}}
+                </td>
+                <td>
+                  <i class="icon-edit"></i>&nbsp;
+                  <i class="icon-remove"></i>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+        
+        <div ng-show="!datatabledetails.isMultirow">
+          <span class="pull-right" ng-show="datatabledetails.isData">
+            <i class="icon-edit"></i>&nbsp;
+            <i class="icon-remove"></i>
+          </span>
+          <table ng-show="!datatabledetails.isMultirow" width="100%">
+            <tr ng-repeat="column in datatabledetails.columnHeaders">
+              <td width="30%">{{column.columnName}}:</td>
+              <td width="70%" valign="top">{{column.value}}</td>
+            </tr>
+          </table>
+        </div>
+
       <tab heading="Notes">
         <div ng-repeat="clientNote in clientNotes">
           <div>
