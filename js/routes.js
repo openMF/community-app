@@ -37,6 +37,12 @@
       .when('/system', {
         templateUrl: 'html/administration/system.html'  
       })
+      .when('/datatables', {
+        templateUrl: 'html/administration/system/datatables.html'
+      })
+      .when('/viewdatatable/:tableName', {
+        templateUrl: 'html/administration/system/viewdatatable.html'
+      })
       .when('/loanproducts', {
         templateUrl: 'html/products/loanproducts.html'
       })
