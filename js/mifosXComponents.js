@@ -25,6 +25,8 @@ define(['underscore', 'mifosX'], function() {
       'ViewClientController',
       'CreateClientController',
       'TaskController',
+      'DataTableController',
+      'ViewDataTableController',
       'CurrencyConfigController',
       'SearchController',
       'ViewLoanProductController',
