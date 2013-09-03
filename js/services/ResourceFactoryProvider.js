@@ -34,6 +34,9 @@
           clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
             get: {method: 'GET', params: {}}
           }),
+          runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
+            get: {method: 'GET', params: {}, isArray:true}
+          }),
           DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:clientId", {datatablename:'@datatablename',clientId:'@clientId'}, {
             getAllDataTables: {method: 'GET', params: {}, isArray:true},
             getTableDetails: {method: 'GET', params: {}}

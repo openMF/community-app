@@ -17,13 +17,43 @@
       <div class="span3">
         <img src="../prototype-app/image/blank_avatar.jpg" alt="Avatar" width="100">
       </div>
-      <div class="span5">
-          <strong>{{ 'label.accountno' | translate }}&nbsp;</strong> {{client.accountNo}} <br>
-          <strong>{{ 'label.activationdate' | translate }}&nbsp;</strong> {{client.activationDate}} <br>
-          <strong>{{ 'label.officename' | translate }}&nbsp;</strong> {{client.officeName}} <br>
-          <strong>{{ 'label.memberof' | translate }}&nbsp;</strong><span ng-repeat="group in client.groups" > {{group.name}}&nbsp;</span> <br>
-          <strong>{{ 'label.loanofficer' | translate }}&nbsp;</strong> {{client.staffName}} <br>
+      <div class="span9">
+        <div>
+          <table width="100%">
+            <tr>
+              <td width="25%">{{ 'label.accountno' | translate }}</td>
+              <td width="25%">{{client.accountNo}}&nbsp;&nbsp;</td>
+              <td width="25%">{{ 'label.numofloancycle' | translate }}</td>
+              <td width="25%">{{client.ClientSummary.loanCycle}}</td>
+            </tr>
+            <tr>
+              <td>{{ 'label.activationdate' | translate }}</td>
+              <td>{{client.activationDate}}</td>
+              <td>{{ 'label.lastloanamount' | translate }}</td>
+              <td valign="top">{{client.ClientSummary.lastLoanAmount}}</td>
+            </tr>
+            <tr>
+              <td>{{ 'label.officename' | translate }}</td>
+              <td>{{client.officeName}}</td>
+              <td>{{ 'label.numofactiveloans' | translate }}</td>
+              <td>{{client.ClientSummary.activeLoans}}</td>
+            </tr>
+            <tr>
+              <td valign="top">{{ 'label.memberof' | translate }}</td>
+              <td><span ng-repeat="group in client.groups" > {{group.name}}&nbsp;</span></td>
+              <td>{{ 'label.totalsavings' | translate }}</td>
+              <td>{{client.ClientSummary.totalSavings}}</td>
+            </tr>
+            <tr>
+              <td>{{ 'label.loanofficer' | translate }}</td>
+              <td>{{client.staffName}}</td>
+              <td>{{ 'label.numofactivesavings' | translate }}</td>
+              <td>{{client.ClientSummary.activeSavings}}</td>
+            </tr>
+          </table>
+        </div>
       </div>
+      
     </div>
     <div class="row paddedleft">
       <hr/>
@@ -101,6 +131,7 @@
           </table>
       </tab>
       <tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables" select="dataTableChange(clientdatatable)">
+        <div>
         <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right "><a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i></a></span></br>
         <table class="table" ng-show="datatabledetails.isMultirow">
           <thead>
@@ -132,7 +163,8 @@
             </tr>
           </table>
         </div>
-
+      </div>
+      </tab>
       <tab heading="Notes">
         <div ng-repeat="clientNote in clientNotes">
           <div>
