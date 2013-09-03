@@ -19,26 +19,32 @@
         });
 
        var fetchFunction = function(offset, limit, callback) {
-          resourceFactory.journalEntriesResource.search({transactionId : scope.formData.transactionId , offset: offset, limit: limit} , callback);
+          var params = {};
+          params.offset = offset;
+          params.limit = limit;
+          params.locale = "en";
+          params.dateFormat = "dd MMMM yyyy";
+
+          if (scope.formData.transactionId) { params.transactionId = scope.formData.transactionId; };
+
+          if (scope.formData.glAccount) { params.glAccountId = scope.formData.glAccount.id; };
+
+          if (scope.formData.officeId) { params.officeId = scope.formData.officeId; };
+
+          if (scope.formData.manualEntriesOnly) { params.manualEntriesOnly = scope.formData.manualEntriesOnly; };
+
+          if (scope.formData.fromDate) { params.fromDate = scope.formData.fromDate; };
+
+          if (scope.formData.toDate) { params.toDate = scope.formData.toDate; };
+
+          resourceFactory.journalEntriesResource.search(params, callback);
         };
 
-
-        scope.searchByTransaction = function (transactionId) {
-          if (transactionId != undefined && transactionId != "") {
-            scope.displayResults = true;
-            scope.transactions = paginatorService.paginate(fetchFunction, 4);
-          }
-        };
-
-        scope.searchTransaction = function (data) {
-          if (data != undefined) {
-            data.glAccountId = data.glAccount.id;
-            delete data.glAccount;
-            scope.displayResults = true;
-            scope.transactions = paginatorService.paginate(fetchFunction, 4);
-          }
+        scope.searchTransaction = function () {
+          scope.displayResults = true;
+          scope.transactions = paginatorService.paginate(fetchFunction, 4);
           scope.isCollapsed= true;
-        }
+        };
 
     }
   });
