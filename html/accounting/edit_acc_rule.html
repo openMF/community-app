@@ -1,0 +1,88 @@
+      <form class="form-horizontal well" ng-controller="AccEditRuleController" ng-submit="submit()">
+        <fieldset>
+          <legend>{{ 'label.accounting.rule.title' | translate }}</legend>
+          <div class="control-group">
+            <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="name" ng-model="formData.name">
+            </div>
+          </div>
+          <div class="control-group info">
+            <label class="control-label" for="office">{{ 'label.office' | translate }}</label>
+            <div class="controls">
+              <select class="input-xlarge" ng-model="formData.office">
+                <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="description">{{ 'label.description' | translate }}</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" ng-model="formData.description">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}</label>
+            <div class="controls">
+              <table width="100%">
+                <tr>
+                  <td width="50%">
+                    <strong>{{ 'label.journalentry.credit' | translate }}</strong>
+                  </td>
+                  <td width="50%">
+                    <strong>{{ 'label.journalentry.debit' | translate }}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%">
+                    <span>{{ 'label.credit.rule.type' | translate }}</span> &nbsp;
+                    <input type="radio" ng-model="creditRuleType" value="Account" ng-change="resetCredits()">Account &nbsp;&nbsp;&nbsp;
+                    <input type="radio" ng-model="creditRuleType" value="tags" ng-change="resetCredits()">Tags
+                  </td>
+                  <td width="50%">
+                    <span>{{ 'label.debit.rule.type' | translate }}</span>&nbsp;
+                    <input type="radio" ng-model="debitRuleType" value="Account" ng-change="resetDebits()">Account &nbsp;&nbsp;&nbsp;
+                    <input type="radio" ng-model="debitRuleType" value="tags" ng-change="resetDebits()">Tags
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div ng-show="creditRuleType=='Account'">
+                      <select class="input-medium" ng-model="formData.accountToCredit" ng-options="creditAccount.name for creditAccount in glAccounts" ></select>
+                    </div>
+                    <div ng-show="creditRuleType=='tags'">
+                      <label for="allowMultipleCreditEntries">{{ 'label.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
+                      <select class="input-medium" ng-model="formData.creditTagTemplate" ng-options="creditTag.name for creditTag in creditTagOptions" ></select>
+                      &nbsp; <a ng-click="addCreditTag()">&nbsp;<i class="icon-plus icon-white"></i></a>
+                      <br>
+                      <div ng-repeat="crTag in formData.creditTags">
+                        <input type="text" class="input-medium"  ng-model="crTag.name" readonly>
+                        <a ng-click="removeCrTag($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div ng-show="debitRuleType=='Account'">
+                      <select class="input-medium" ng-model="formData.accountToDebit" ng-options="debitAccount.name for debitAccount in glAccounts" ></select>
+                    </div>
+                    <div ng-show="debitRuleType=='tags'">
+                      <label for="allowMultipleDebitEntries">{{ 'label.allowMultipleDebitEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleDebitEntries"></label>
+                      <select class="input-medium" ng-model="formData.debitTagTemplate" ng-options="debitTag.name for debitTag in debitTagOptions" ></select>
+                      &nbsp; <a ng-click="addDebitTag()">&nbsp;<i class="icon-plus icon-white"></i></a>
+                      <br>
+                      <div ng-repeat="dbTag in formData.debitTags">
+                        <input type="text" class="input-medium"  ng-model="dbTag.name" readonly>
+                        <a ng-click="removeDebitTag($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="reset" class="btn">{{ 'label.cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
+          </div>
+        </fieldset>
+      </form>

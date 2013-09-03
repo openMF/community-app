@@ -138,6 +138,18 @@
       })
       .when('/closedaccountingDetails/:officeId', {
         templateUrl: 'html/accounting/view_close_accounting.html'
+      })
+      .when('/accounting_rules', {
+        templateUrl: 'html/accounting/accounting_rules.html'
+      })
+      .when('/viewaccrule/:id', {
+        templateUrl: 'html/accounting/view_acc_rule.html'
+      })
+      .when('/add_accrule', {
+        templateUrl: 'html/accounting/add_acc_rule.html'
+      })
+      .when('/editaccrule/:id', {
+        templateUrl: 'html/accounting/edit_acc_rule.html'
       });
 
     $locationProvider.html5Mode(false);
