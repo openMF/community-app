@@ -45,7 +45,11 @@ define(['underscore', 'mifosX'], function() {
       'ViewTransactionController',
       'JournalEntryController',
       'SearchTransactionController',
-      'AccountingClosureController'
+      'AccountingClosureController',
+      'AccountingRuleController',
+      'ViewAccRuleController',
+      'AccCreateRuleController',
+      'AccEditRuleController'
     ],
     filters: [
       'StatusLookup'
