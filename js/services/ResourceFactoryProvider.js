@@ -82,8 +82,14 @@
           fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true}
           }),
-          accountingRulesResource: defineResource(apiVer + "/accountingrules", {}, {
-            getAllRules: {method: 'GET', params: {associations : 'all'}, isArray: true}
+          accountingRulesResource: defineResource(apiVer + "/accountingrules/:accountingRuleId", {accountingRuleId:'@accountingRuleId'}, {
+            getAllRules: {method: 'GET', params: {associations : 'all'}, isArray: true},
+            getById: {method: 'GET', params: {accountingRuleId:'@accountingRuleId'}},
+            get: {method: 'GET', params: {}, isArray: true},
+            update: {method: 'PUT'}
+          }),
+          accountingRulesTemplateResource: defineResource(apiVer + "/accountingrules/template", {}, {
+            get: {method: 'GET', params: {}}
           }),
           accountCoaResource: defineResource(apiVer + "/glaccounts/:glAccountId", {glAccountId:'@glAccountId'}, {
             getAllAccountCoas: {method: 'GET', params: {}, isArray: true},
