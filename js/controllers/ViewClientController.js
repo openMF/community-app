@@ -6,6 +6,10 @@
 
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
+            resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {
+              scope.client.ClientSummary = data[0];
+              console.log(scope.client.ClientSummary);
+             });
         });
         resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
             scope.clientAccounts = data;
