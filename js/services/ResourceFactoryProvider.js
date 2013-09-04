@@ -17,6 +17,7 @@
           officeResource: defineResource(apiVer + "/offices/:officeId", {officeId:"@officeId"}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
+
           clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId:'@clientId',anotherresource:'@anotherresource'}, {
             getAllClients: {method: 'GET', params: {}},
             getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
@@ -59,6 +60,7 @@
           LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents", {loanId:'@loanId'}, {
             getLoanDocuments: {method: 'GET', params: {} , isArray: true}
           }),
+
           currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
             update: { method: 'PUT'}
           }),
@@ -71,7 +73,7 @@
           }),
           employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId:'@staffId'}, {
             getAllEmployees: {method: 'GET', params: {}, isArray: true},
-            update: { method: 'PUT'}
+            update: { method: 'PUT', params: {}, isArray: true}
           }),
           globalSearch: defineResource(apiVer + "/search", {query:'@query'}, {
             search: { method: 'GET',
@@ -79,7 +81,7 @@
                       isArray:true
                     }
           }),
-          fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
+           fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true}
           }),
           accountingRulesResource: defineResource(apiVer + "/accountingrules/:accountingRuleId", {accountingRuleId:'@accountingRuleId'}, {
@@ -103,9 +105,21 @@
             reverse: {method: 'POST', params:{command:'reverse'}},
             search:{method: 'GET', params: {}}
           }),
+
           accountingClosureResource: defineResource(apiVer + "/glclosures", {}, {
             get: {method: 'GET', params: {}, isArray:true}
+          }) ,
+          codeResources: defineResource(apiVer + "/codes/:codeId", {codeId:"@codeId"}, {
+                getAllCodes: {method: 'GET', params: {}, isArray: true}
+
+          }),
+
+          codeValueResource: defineResource(apiVer + "/codes/:codeId/codevalues/:codevalueId", {codeId:'@codeId',codevalueId:'@codevalueId'}, {
+            getAllCodeValues: {method: 'GET', params: {}, isArray:true},
+            update: { method: 'PUT', params: {}, isArray:true }
           })
+
+
         };
       }];
     }
