@@ -51,7 +51,11 @@ define(['underscore', 'mifosX'], function() {
       'AccountingRuleController',
       'ViewAccRuleController',
       'AccCreateRuleController',
-      'AccEditRuleController'
+      'AccEditRuleController',
+      'CodeController',
+      'AddCodeController',
+      'ViewCodeController',
+      'EditCodeController'
     ],
     filters: [
       'StatusLookup'
