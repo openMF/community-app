@@ -61,6 +61,9 @@
       .when('/offices', {
         templateUrl: 'html/organization/offices.html'
       })
+      .when('/viewcode/:id', {
+        templateUrl: 'html/system/viewcode.html'
+      })
       .when('/createoffice', {
         templateUrl: 'html/organization/createoffice.html'
       })
@@ -142,6 +145,9 @@
       .when('/accounts_closure', {
         templateUrl: 'html/accounting/accounts_closure.html'
       })
+      .when('/codes', {
+            templateUrl: 'html/system/codes.html'
+      })
       .when('/closedaccountingDetails/:officeId', {
         templateUrl: 'html/accounting/view_close_accounting.html'
       })
@@ -156,7 +162,20 @@
       })
       .when('/editaccrule/:id', {
         templateUrl: 'html/accounting/edit_acc_rule.html'
+      })
+      .when('/viewcode/:id', {
+          templateUrl: 'html/system/viewcode.html'
+      })
+        .when('/addcode', {
+            templateUrl: 'html/system/addcode.html'
+        })
+        .when('/codes', {
+            templateUrl: 'html/system/codes.html'
+        })
+      .when('/editcode/:id', {
+          templateUrl: 'html/system/editcode.html'
       });
+
 
     $locationProvider.html5Mode(false);
   };
