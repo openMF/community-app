@@ -7,8 +7,7 @@
     <style>[data-ng-cloak] { display: none !important; }</style>
 </head>
 <body  class="preview" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-cloak data-ng-controller="MainController">
-<!-- Login Form
- ================================================== -->
+<!-- Login Form  -->
 <div class="container well" data-ng-hide="currentSession.user != null" >
     <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
         <div class="pull-right ">
@@ -51,8 +50,8 @@
             </td>
         </tr>
     </table>        
-</div>
-<div class="row">
+    </div>
+    <div class="row">
     <div class="span4">
             <div style="border: 1px solid #DDDDDD;padding:15px;">
                 <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
@@ -92,8 +91,7 @@
     </div>
   </div>  
 </div>
-<!-- Navbar
-  ================================================== -->
+<!-- Navbar -->
 <div data-ng-hide="currentSession.user == null">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
@@ -107,7 +105,6 @@
                 <div class="nav-collapse collapse" id="main-menu">
                     <ul class="nav" id="main-menu-left">
                         <li><a href="#"><i class="icon-home icon-white"></i>{{ 'link.home' | translate }}</a></li>
-                        <li><a href="#/tasks"><i class="icon-bell-alt"></i>{{ 'link.tasks' | translate }}</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-group"></i>{{ 'link.clients' | translate }}<b class="caret"></b></a>
                             <ul class="dropdown-menu" id="swatch-menu">
@@ -125,15 +122,6 @@
                                 <li><a target="_blank" href="#">{{ 'link.reports.loans' | translate }}</a></li>
                                 <li><a target="_blank" href="#">{{ 'link.reports.funds' | translate }}</a></li>
                                 <li><a target="_blank" href="#">{{ 'link.reports.accounting' | translate }}</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tags"></i>{{ 'link.products' | translate }}<b class="caret"></b></a>
-                            <ul class="dropdown-menu" id="swatch-menu">
-                                <li><a href="#/loanproducts">{{ 'link.products.loanproducts' | translate }}</a></li>
-                                <li><a href="#/savingproducts">{{ 'link.products.savingproducts' | translate }}</a></li>
-                                <li><a href="#">{{ 'link.products.productsmix' | translate }}</a></li>
-                                <li><a href="#/charges">{{ 'link.products.charges' | translate }}</a></li>
                             </ul>
                         </li>
                         <li class="dropdown" id="preview-menu">
@@ -167,62 +155,32 @@
     </div>
     <div class="container">
         <div class="row-fluid">
-            <div class="span3 well sidebar-nav">
-
-                <div class="input-append">
-                    <input type="text" ng-model="search.query" class="form-control input-small" placeholder="Search">
-                    <span class="input-group-addon"><a href="#/search/{{search.query}}" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
-                </div>
-                <accordion close-others="true">
-                    <accordion-group is-open="true">
-                        <accordion-heading>
-                            NAVIGATE
-                        </accordion-heading>
-                        <ul class="nav nav-list">
-                            <li><a href="#/nav/offices">Offices</a></li>
-                            <li><a href="#">Centers | Groups</a></li>
-                            <li><a href="#/clients">Clients</a></li>
-                            <li><a href="#">Loans | Savings</a></li>
-                            <li><a href="#">Transactions</a></li>
-                        </ul>
-                    </accordion-group>
-                    <accordion-group is-open="acc2open">
-                        <accordion-heading>
-                            TRANSACTION
-                        </accordion-heading>
-                        <ul class="nav nav-list">
-                            <li><a href="#">Collection Sheet</a></li>
-                            <li><a href="#">Loan Repayment</a></li>
-                            <li><a href="#">Loan Disbursement</a></li>
-                            <li ><a href="#">Savings Deposit</a></li>
-                            <li><a href="#">Savings Withdrawal</a></li>
-                        </ul>
-                    </accordion-group>
-                    <accordion-group is-open="acc3open">
-                        <accordion-heading>
-                            CREATE NEW
-                        </accordion-heading>
-                        <ul class="nav nav-list">
-                            <li><a href="#">Client | multiple</a></li>
-                            <li><a href="#">Loan | multiple</a></li>
-                            <li><a href="#">Savings | multiple</a></li>
-                            <li><a href="#">Center</a></li>
-                            <li><a href="#">Group</a></li>
-                        </ul>
-                    </accordion-group>
-                </accordion>
+            <div class="span1 affix">
+                <ul class="text-center nav nav-tabs nav-stacked">
+                    <li><br/></li>
+                    <li><a href="#/nav/offices"><i class="icon-compass icon-2x" tooltip-placement="bottom" tooltip="NAVIGATION"></i></a></li>
+                    <li><br/><br/></li>
+                    <li><a href="#/tasks"><i class="icon-bell-alt icon-2x" tooltip-placement="bottom" tooltip="{{ 'link.tasks' | translate }}"></i></li></a>
+                    <li><br/><br/></li>
+                    <li><i class="icon-tasks icon-2x" tooltip-placement="bottom" tooltip="COLLECTION"></i></li>
+                    <li><br/><br/></li>
+                    <li><i class="icon-user icon-2x" tooltip-placement="bottom" tooltip="CREATE CLIENT"></i></li>
+                    <li><br/><br/></li>
+                    <li><i class="icon-group icon-2x" tooltip-placement="bottom" tooltip="CREATE GROUP"></i></li>
+                    <li><br/><br/></li>
+                    <li>
+                    </li>
+                </ul>
             </div>
-            <div class="span9">
+            <div class="span11 paddedleft80">
                 <div ng-view></div>
             </div>
-            <!-- Footer
-             ================================================== -->
+            <!-- Footer -->
             <hr>
         </div> <!-- /row-fluid -->
     </div><!-- /container -->
 </div>
-<!-- Le javascript
-================================================== -->
+<!-- Load javascript -->
 <script type='text/javascript' data-main="js/loader.js" src='lib/requirejs/require.js'></script>
 <!-- Placed at the end of the document so the pages load faster -->
 </body>
