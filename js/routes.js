@@ -10,6 +10,9 @@
       .when('/home', {
         templateUrl: 'html/home.html'
       })
+      .when('/products', {
+        templateUrl: 'html/products/products.html'
+      })
       .when('/admin/roles', {
         templateUrl: 'html/administration/roles.html'
       })
