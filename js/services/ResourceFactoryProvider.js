@@ -105,19 +105,25 @@
             reverse: {method: 'POST', params:{command:'reverse'}},
             search:{method: 'GET', params: {}}
           }),
-
           accountingClosureResource: defineResource(apiVer + "/glclosures", {}, {
             get: {method: 'GET', params: {}, isArray:true}
           }) ,
           codeResources: defineResource(apiVer + "/codes/:codeId", {codeId:"@codeId"}, {
                 getAllCodes: {method: 'GET', params: {}, isArray: true}
-
           }),
-
           codeValueResource: defineResource(apiVer + "/codes/:codeId/codevalues/:codevalueId", {codeId:'@codeId',codevalueId:'@codevalueId'}, {
             getAllCodeValues: {method: 'GET', params: {}, isArray:true},
             update: { method: 'PUT', params: {}, isArray:true }
+          }),
+          holResource: defineResource(apiVer + "/holidays", {}, {
+              getAllHols: {method: 'GET', params: {}, isArray: true}
+          }),
+          holValueResource: defineResource(apiVer + "/holidays/:holId", {holId:'@holId'}, {
+              getholvalues: {method: 'GET', params: {}, isArray:true},
+
           })
+
+
 
 
         };
