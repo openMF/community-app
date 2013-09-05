@@ -1,10 +1,15 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     MainController: function(scope, location, sessionManager, translate) {
+      
       scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
         location.path('/home').replace();
       });
+
+      scope.search = function(){
+          location.path('/search/' + scope.search.query );
+      };
 
       scope.logout = function() {
         scope.currentSession = sessionManager.clear();
