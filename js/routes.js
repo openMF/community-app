@@ -145,9 +145,6 @@
       .when('/accounts_closure', {
         templateUrl: 'html/accounting/accounts_closure.html'
       })
-      .when('/codes', {
-            templateUrl: 'html/system/codes.html'
-      })
       .when('/closedaccountingDetails/:officeId', {
         templateUrl: 'html/accounting/view_close_accounting.html'
       })
@@ -166,14 +163,23 @@
       .when('/viewcode/:id', {
           templateUrl: 'html/system/viewcode.html'
       })
-        .when('/addcode', {
-            templateUrl: 'html/system/addcode.html'
-        })
-        .when('/codes', {
-            templateUrl: 'html/system/codes.html'
-        })
+      .when('/addcode', {
+          templateUrl: 'html/system/addcode.html'
+      })
+      .when('/codes', {
+          templateUrl: 'html/system/codes.html'
+      })
       .when('/editcode/:id', {
           templateUrl: 'html/system/editcode.html'
+      })
+      .when('/managehol', {
+          templateUrl: 'html/organization/managehol.html'
+      })
+      .when('/addhol', {
+          templateUrl: 'html/organization/addhol.html'
+      })
+      .when('/viewhol/:id', {
+          templateUrl: 'html/organization/viewhol.html'
       });
 
 
