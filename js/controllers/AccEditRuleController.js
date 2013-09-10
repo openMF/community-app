@@ -15,7 +15,7 @@
         scope.offices = data.allowedOffices;
         scope.creditTagOptions = data.allowedCreditTagOptions;
         scope.debitTagOptions = data.allowedDebitTagOptions;
-        
+        scope.accountingRuleId = data.id;        
         //update text fields
         scope.formData.name = data.name;
         scope.formData.description=data.description;

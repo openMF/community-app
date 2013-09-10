@@ -5,6 +5,7 @@
 
          resourceFactory.employeeResource.get({staffId: routeParams.id, template: 'true'} , function(data) {
             scope.offices = data.allowedOffices;
+            scope.staffId = data.id;
             scope.formData = {
               firstname : data.firstname,
               lastname : data.lastname,

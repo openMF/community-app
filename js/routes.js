@@ -73,7 +73,7 @@
       .when('/tasks', {
         templateUrl: 'html/tasks.html'
       })
-      .when('/viewcurrconfig', {
+      .when('/currconfig', {
         templateUrl: 'html/organization/currencyconfig.html'
       })
       .when('/search/:query', {
@@ -85,7 +85,7 @@
       .when('/usersetting', {
         templateUrl: 'html/administration/usersettings.html'
       })
-      .when('/userslist/', {
+      .when('/users/', {
         templateUrl: 'html/administration/userslist.html'
       })
       .when('/createuser/', {
@@ -109,8 +109,8 @@
       .when('/createemployee/', {
         templateUrl: 'html/organization/createemployee.html'
       })
-      .when('/managefunds/', {
-        templateUrl: 'html/organization/managefunds.html'
+      .when('/funds/', {
+        templateUrl: 'html/organization/funds.html'
       })
       .when('/nav/offices', {
         templateUrl: 'html/navigation/offices.html'
@@ -172,11 +172,11 @@
       .when('/editcode/:id', {
           templateUrl: 'html/system/editcode.html'
       })
-      .when('/managehol', {
-          templateUrl: 'html/organization/managehol.html'
+      .when('/holidays', {
+          templateUrl: 'html/organization/holidays.html'
       })
-      .when('/addhol', {
-          templateUrl: 'html/organization/addhol.html'
+      .when('/createholiday', {
+          templateUrl: 'html/organization/createholiday.html'
       })
       .when('/viewhol/:id', {
           templateUrl: 'html/organization/viewhol.html'

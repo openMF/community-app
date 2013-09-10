@@ -9,6 +9,7 @@
 
         resourceFactory.accountCoaResource.get({glAccountId: routeParams.id, template: 'true'}, function(data) {
             scope.coadata = data;
+            scope.glAccountId = data.id;
             scope.accountTypes = data.accountTypeOptions;
             scope.usageTypes = data.usageOptions;
             scope.formData = {
