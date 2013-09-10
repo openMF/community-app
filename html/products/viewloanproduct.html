@@ -1,186 +1,193 @@
-<div id="viewlptop">
-	<div class="row paddedtop">
-	<div class="pull-right">
-	  <div class="btn-group">
-	      <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
-	      <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Delete</a>
-	  </div>
-	</div>
-</div>
-
 <div class="row paddedleft" ng-controller="ViewLoanProductController">
-	<legend>{{loanproduct.name}}</legend>
-	<table  width="100%">
-		<tr>
-        	<td>
-        		<a id="test" name="test" class="old-syle-anchor">&nbsp;</a>
-        	</td>
-        </tr>
-		<tr class="bottomborder">
-			<td colspan="4">	
-				<strong>Details</strong>
-			</td>
-		</tr>
-		<tr class="toppadding">
-			<td>Description :</td>
-			<td colspan="3">{{loanproduct.description}}</td>
-		</tr>
-		<tr>
-			<td>FundName  :</td>
-			<td colspan="3">{{loanproduct.fundName}}</td>
-		</tr>
-		<tr>
-			<td>Start date :</td>
-			<td colspan="3">{{loanproduct.startDate}}</td>
-		</tr>
-		<tr>
-			<td>Close date :</td>
-			<td colspan="3">{{loanproduct.closeDate}}</td>
-		</tr>
-		<tr>
-			<td>IncludeInBorrowerCycle  :</td>
-			<td colspan="3">{{loanproduct.includeInBorrowerCycle}}</td>
-		</tr>
-		<tr><td colspan="4"><br/></td></tr>
-		<tr class="bottomborder"><td colspan="4"><strong>Terms</strong></td></tr>
-		<tr class="toppadding">
-			<td>Currency :</td>
-			<td colspan="3">{{loanproduct.currency.name}}</td>
-		</tr>
-		<tr>
-			<td>Decimal Places :</td>
-			<td colspan="3">{{loanproduct.currency.decimalPlaces}}</td>
-		</tr>
-		<tr>
-			<td>Principal :</td>
-			<td colspan="3">{{loanproduct.principal}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minPrincipal}}&nbsp;, Max :{{loanproduct.maxPrincipal}} )</td>
-		</tr>
-
-		<tr>
-			<td># Of Repayments :</td>
-			<td colspan="3">{{loanproduct.numberOfRepayments}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minNumberOfRepayments}}&nbsp;, Max:{{loanproduct.maxNumberOfRepayments}})</td>
-		</tr>
-		<tr>
-			<td>Repaid Every :</td>
-			<td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
-		</tr>
-		<tr>
-			<td>Nominal interest rate % :</td>
-			<td colspan="3">{{loanproduct.interestRatePerPeriod}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minInterestRatePerPeriod}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}</td>
-		</tr>
-		<tr><td colspan="4"><br/></td></tr>
-		<tr class="bottomborder"><td colspan="4"><strong>Settings</strong></td></tr>
-		<tr class="toppadding">
-			<td>Amortization :</td>
-			<td colspan="3">{{loanproduct.amortizationType.value}}</td>
-		</tr>
-		<tr>
-			<td>Interest method :</td>
-			<td colspan="3">{{loanproduct.interestType.value}}</td>
-		</tr>
-		<tr>
-			<td>Interest calculation period :</td>
-			<td colspan="3">{{loanproduct.interestCalculationPeriodType.value}}</td>
-		</tr>
-		<tr>
-			<td>Arrears tolerance :</td>
-			<td colspan="3">{{loanproduct.inArrearsTolerance}}</td>
-		</tr>
-		<tr>
-			<td>Repayment strategy :</td>
-			<td colspan="3">{{loanproduct.transactionProcessingStrategyName}}</td>
-		</tr>
-		<tr>
-			<td>Grace :</td>
-			<td colspan="3">{{loanproduct.}}</td>
-		</tr>
-		<tr>
-			<td>Interest-Free Period(s) :</td>
-			<td colspan="3">{{loanproduct.}}</td>
-		</tr>
-		<tr><td colspan="4"><br/></td></tr>
-		<tr class="bottomborder"><td colspan="4"><strong>Charges</strong></td></tr>
-            <tr class="bottomborder graybg">
-                <td>Name</td>
-                <td>Type</td>
-                <td>Amount</td>
-                <td>Collected on</td>
-            </tr>
-            <tr ng-repeat="charge in loanproduct.charges">
-                <td>{{charge.name}}</td>
-                <td>{{charge.chargeCalculationType.value}}</td>
-                <td>{{charge.amount}}</td>
-                <td>{{charge.chargeTimeType.value}}</td>
-            </tr>
-        <tr><td colspan="4"><br/></td></tr>
-		<tr class="bottomborder"><td><strong>Accounting</strong></td><td colspan="3"><span ng-hide="hasAccounting"> None</span></td></tr>
-		<tr><td colspan="4">
-		<table width="100%" ng-show="hasAccounting">
-			<tr class="toppadding">
-				<td>Fund Source :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.fundSourceAccountId}}</td>
-			</tr>
+	<div class="paddedtop">
+		<ul class="breadcrumb">
+	        <li><a href="#/loanproducts">{{'link.products.loanproducts' | translate}}</a> <span class="divider">/</span></li>
+	        <li class="active">{{loanproduct.name}}</li>
+	    </ul>
+	</div>
+	<div id="viewlptop">
+		<div class="row">
+		<div class="pull-right">
+		  <div class="btn-group">
+		      <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+		      <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Delete</a>
+		  </div>
+		</div>
+	</div>
+	<div>
+		<legend>{{loanproduct.name}}</legend>
+		<table  width="100%">
 			<tr>
-				<td>Loan Portfolio :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.loanPortfolioAccountId}}</td>
-			</tr>
-			<tr>
-				<td>Income from Interest :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.interestOnLoanAccountId}}</td>
-			</tr>
-			<tr>
-				<td>Income from Fees :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.incomeFromFeeAccountId}}</td>
-			</tr>
-			<tr>
-				<td>Income from Penalties :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.incomeFromPenaltyAccountId}}</td>
-			</tr>
-			<tr>
-				<td>Losses Written Off :</td>
-				<td colspan="3">{{loanproduct.accountingMappings.writeOffAccountId}}</td>
-			</tr>
-			<tr><td colspan="4"><br/></td></tr>
-			<tr>
-				<td>
-					Advance accounting rules
+	        	<td>
+	        		<a id="test" name="test" class="old-syle-anchor">&nbsp;</a>
+	        	</td>
+	        </tr>
+			<tr class="bottomborder">
+				<td colspan="4">	
+					<strong>Details</strong>
 				</td>
 			</tr>
-			<tr class="toppadding bottomborder"><td colspan="4">Fund sources for payment channels</td></tr>
+			<tr class="toppadding">
+				<td>Description :</td>
+				<td colspan="3">{{loanproduct.description}}</td>
+			</tr>
+			<tr>
+				<td>FundName  :</td>
+				<td colspan="3">{{loanproduct.fundName}}</td>
+			</tr>
+			<tr>
+				<td>Start date :</td>
+				<td colspan="3">{{loanproduct.startDate}}</td>
+			</tr>
+			<tr>
+				<td>Close date :</td>
+				<td colspan="3">{{loanproduct.closeDate}}</td>
+			</tr>
+			<tr>
+				<td>IncludeInBorrowerCycle  :</td>
+				<td colspan="3">{{loanproduct.includeInBorrowerCycle}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td colspan="4"><strong>Terms</strong></td></tr>
+			<tr class="toppadding">
+				<td>Currency :</td>
+				<td colspan="3">{{loanproduct.currency.name}}</td>
+			</tr>
+			<tr>
+				<td>Decimal Places :</td>
+				<td colspan="3">{{loanproduct.currency.decimalPlaces}}</td>
+			</tr>
+			<tr>
+				<td>Principal :</td>
+				<td colspan="3">{{loanproduct.principal}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minPrincipal}}&nbsp;, Max :{{loanproduct.maxPrincipal}} )</td>
+			</tr>
+
+			<tr>
+				<td># Of Repayments :</td>
+				<td colspan="3">{{loanproduct.numberOfRepayments}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minNumberOfRepayments}}&nbsp;, Max:{{loanproduct.maxNumberOfRepayments}})</td>
+			</tr>
+			<tr>
+				<td>Repaid Every :</td>
+				<td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
+			</tr>
+			<tr>
+				<td>Nominal interest rate % :</td>
+				<td colspan="3">{{loanproduct.interestRatePerPeriod}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minInterestRatePerPeriod}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td colspan="4"><strong>Settings</strong></td></tr>
+			<tr class="toppadding">
+				<td>Amortization :</td>
+				<td colspan="3">{{loanproduct.amortizationType.value}}</td>
+			</tr>
+			<tr>
+				<td>Interest method :</td>
+				<td colspan="3">{{loanproduct.interestType.value}}</td>
+			</tr>
+			<tr>
+				<td>Interest calculation period :</td>
+				<td colspan="3">{{loanproduct.interestCalculationPeriodType.value}}</td>
+			</tr>
+			<tr>
+				<td>Arrears tolerance :</td>
+				<td colspan="3">{{loanproduct.inArrearsTolerance}}</td>
+			</tr>
+			<tr>
+				<td>Repayment strategy :</td>
+				<td colspan="3">{{loanproduct.transactionProcessingStrategyName}}</td>
+			</tr>
+			<tr>
+				<td>Grace :</td>
+				<td colspan="3">{{loanproduct.}}</td>
+			</tr>
+			<tr>
+				<td>Interest-Free Period(s) :</td>
+				<td colspan="3">{{loanproduct.}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td colspan="4"><strong>Charges</strong></td></tr>
 	            <tr class="bottomborder graybg">
-	                <td>Payment Type</td>
-	                <td colspan="3">Fund Source</td>
+	                <td>Name</td>
+	                <td>Type</td>
+	                <td>Amount</td>
+	                <td>Collected on</td>
 	            </tr>
-	            <tr ng-repeat="paymentChannel in loanproduct.paymentChannelToFundSourceMappings">
-	                <td>{{paymentChannel.paymentTypeId}}</td>
-	                <td colspan="3">{{paymentChannel.fundSourceAccountId}}</td>
+	            <tr ng-repeat="charge in loanproduct.charges">
+	                <td>{{charge.name}}</td>
+	                <td>{{charge.chargeCalculationType.value}}</td>
+	                <td>{{charge.amount}}</td>
+	                <td>{{charge.chargeTimeType.value}}</td>
 	            </tr>
-	        <tr><td colspan="4"></td></tr>
-	        <tr class="toppadding bottomborder"><td colspan="4">Fees to Specific Income accounts</td></tr>
-	            <tr class="bottomborder graybg">
-	                <td>Fee</td>
-	                <td colspan="3">Income Account</td>
-	            </tr>
-	            <tr ng-repeat="feeToIncomeAccount in loanproduct.feeToIncomeAccountMappings">
-	                <td>{{feeToIncomeAccount.chargeId}}</td>
-	                <td colspan="3">{{feeToIncomeAccount.incomeAccountId}}</td>
-	            </tr>
-	        <tr><td colspan="4"></td></tr>
-	        <tr class="toppadding bottomborder"><td colspan="4">Penalties to Specific income accounts</td></tr>
-	        <tr class="bottomborder graybg"><td>Penalty</td><td colspan="3">Income Account</td></tr>
-	        <tr ng-repeat="penaltyToIncomeAccount in loanproduct.penaltyToIncomeAccountMappings">
-	                <td>{{penaltyToIncomeAccount.chargeId}}</td>
-	                <td colspan="3">{{penaltyToIncomeAccount.incomeAccountId}}</td>
-	        </tr>
+	        <tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td><strong>Accounting</strong></td><td colspan="3"><span ng-hide="hasAccounting"> None</span></td></tr>
+			<tr><td colspan="4">
+			<table width="100%" ng-show="hasAccounting">
+				<tr class="toppadding">
+					<td width="28%">Fund Source :</td>
+					<td colspan="3" width="40%">{{loanproduct.accountingMappings.fundSourceAccountId}}</td>
+				</tr>
+				<tr>
+					<td>Loan Portfolio :</td>
+					<td colspan="3">{{loanproduct.accountingMappings.loanPortfolioAccountId}}</td>
+				</tr>
+				<tr>
+					<td>Income from Interest :</td>
+					<td colspan="3">{{loanproduct.accountingMappings.interestOnLoanAccountId}}</td>
+				</tr>
+				<tr>
+					<td>Income from Fees :</td>
+					<td colspan="3">{{loanproduct.accountingMappings.incomeFromFeeAccountId}}</td>
+				</tr>
+				<tr>
+					<td>Income from Penalties :</td>
+					<td colspan="3">{{loanproduct.accountingMappings.incomeFromPenaltyAccountId}}</td>
+				</tr>
+				<tr>
+					<td>Losses Written Off :</td>
+					<td colspan="3">{{loanproduct.accountingMappings.writeOffAccountId}}</td>
+				</tr>
+				<tr><td colspan="4"><br/></td></tr>
+				<tr>
+					<td>
+						Advance accounting rules
+					</td>
+				</tr>
+				<tr class="toppadding bottomborder"><td colspan="4">Fund sources for payment channels</td></tr>
+		            <tr class="bottomborder graybg">
+		                <td>Payment Type</td>
+		                <td colspan="3">Fund Source</td>
+		            </tr>
+		            <tr ng-repeat="paymentChannel in loanproduct.paymentChannelToFundSourceMappings">
+		                <td>{{paymentChannel.paymentTypeId}}</td>
+		                <td colspan="3">{{paymentChannel.fundSourceAccountId}}</td>
+		            </tr>
+		        <tr><td colspan="4"></td></tr>
+		        <tr class="toppadding bottomborder"><td colspan="4">Fees to Specific Income accounts</td></tr>
+		            <tr class="bottomborder graybg">
+		                <td>Fee</td>
+		                <td colspan="3">Income Account</td>
+		            </tr>
+		            <tr ng-repeat="feeToIncomeAccount in loanproduct.feeToIncomeAccountMappings">
+		                <td>{{feeToIncomeAccount.chargeId}}</td>
+		                <td colspan="3">{{feeToIncomeAccount.incomeAccountId}}</td>
+		            </tr>
+		        <tr><td colspan="4"></td></tr>
+		        <tr class="toppadding bottomborder"><td colspan="4">Penalties to Specific income accounts</td></tr>
+		        <tr class="bottomborder graybg"><td>Penalty</td><td colspan="3">Income Account</td></tr>
+		        <tr ng-repeat="penaltyToIncomeAccount in loanproduct.penaltyToIncomeAccountMappings">
+		                <td>{{penaltyToIncomeAccount.chargeId}}</td>
+		                <td colspan="3">{{penaltyToIncomeAccount.incomeAccountId}}</td>
+		        </tr>
+			</table>
+			    </td>
+			</tr>
+			<tr>
+				<td colspan="3">
+				</td>
+				<td class="pull-right">
+					<a ng-click="scrollto('viewlptop')"><i class="icon-upload"></i> Top</a>
+				</td>
+			</tr>
 		</table>
-		    </td>
-		</tr>
-		<tr>
-			<td colspan="3">
-			</td>
-			<td class="pull-right">
-				<a ng-click="scrollto('viewlptop')"><i class="icon-upload"></i> Top</a>
-			</td>
-		</tr>
-	</table>
+	</div>
 </div>

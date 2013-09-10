@@ -4,6 +4,7 @@
         scope.offices = [];
 
         resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'} , function(data) {
+            scope.dataId = data.id;
             scope.offices = data.officeOptions;
             scope.staffs = data.staffOptions;
             scope.formData = {

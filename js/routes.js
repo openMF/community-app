@@ -73,7 +73,7 @@
       .when('/tasks', {
         templateUrl: 'html/tasks.html'
       })
-      .when('/viewcurrconfig', {
+      .when('/currconfig', {
         templateUrl: 'html/organization/currencyconfig.html'
       })
       .when('/search/:query', {
@@ -85,7 +85,7 @@
       .when('/usersetting', {
         templateUrl: 'html/administration/usersettings.html'
       })
-      .when('/userslist/', {
+      .when('/users/', {
         templateUrl: 'html/administration/userslist.html'
       })
       .when('/createuser/', {
