@@ -7,6 +7,7 @@
         scope.selectedRoles = [];
         resourceFactory.userListResource.get({userId: routeParams.id, template: 'true'} , function(data) {
             scope.formData = data;
+            scope.userId = data.id;
             scope.offices = data.allowedOffices;
             scope.availableRoles = data.availableRoles.concat(data.selectedRoles);
             scope.selectedRoles = data.selectedRoles;
