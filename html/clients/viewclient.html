@@ -26,33 +26,81 @@
       <tabset  style="margin-bottom: 0px;">
       <tab heading="Accounts">
               <div class="row-fluid">
-                <div class="paddedbottom20">
-                  <div class="row-fluid">
-                      <div class="btn-group">
+                  <div class="row-fluid primarydiv">
+                      <div class="btn-group pull-right">
                           <a href="#/editclient/{{client.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
                           <a href="#" class="btn btn-primary"><i class="icon-plus icon-white"></i> New Loan</a>
                           <a href="#" class="btn btn-primary"><i class="icon-list-ul icon-white"></i> Add Note</a>
                           <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Close</a>
                       </div>
                   </div>
-                </div>
-                <div class="span8">
-                    <div class="row-fluid">
-                      <div class="span3">
-                        <span>{{ 'label.accountno' | translate }}</span>
-                        <span>{{ 'label.activationdate' | translate }}</span>
-                        <span>{{ 'label.officename' | translate }}</span>
-                        <span>{{ 'label.loanofficer' | translate }}</span>
-                        <span>{{ 'label.memberof' | translate }}</span>
+                  <br/>
+                  <div class="row-fluid">
+                      <div class="span7">
+                        <table  width="100%" >
+                            <tr>
+                              <td width="35%">{{'label.firstname' | translate}}</td>
+                              <td width="65%">{{client.firstname}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{'label.lastname' | translate}}</td>
+                              <td>{{client.lastname}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.accountno' | translate }}</td>
+                              <td>{{client.accountNo}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.activationdate' | translate }}</td>
+                              <td valign="top">{{client.activationDate}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.officename' | translate }}</td>
+                              <td>{{client.officeName}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.loanofficer' | translate }}</td>
+                              <td>{{client.ClientSummary.totalSavings}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{client.staffName}}</td>
+                              <td>
+                                <span ng-repeat="group in client.groups" > {{group.name}} |&nbsp;</span>
+                              </td>
+                            </tr>
+                          </table>
                       </div>
                       <div class="span5">
-                        <span>{{client.accountNo}}</span><br/>
-                        <span>{{client.activationDate}}</span><br/>
-                        <span>{{client.officeName}}</span><br/>
-                        <span>{{client.staffName}}</span><br/>
-                        <span ng-repeat="group in client.groups" > {{group.name}}&nbsp;</span>
+                          <table class="table table-striped" width="100%" >
+                            <thead>
+                              <tr class="graybg">
+                                <th colspan="2">Performance History</th>
+                              </tr>
+                            </thead>
+                            <tr>
+                              <td width="60%">{{ 'label.numofloancycle' | translate }}</td>
+                              <td width="40%">{{client.ClientSummary.loanCycle}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.lastloanamount' | translate }}</td>
+                              <td valign="top">{{client.ClientSummary.lastLoanAmount}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.numofactiveloans' | translate }}</td>
+                              <td>{{client.ClientSummary.activeLoans}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.totalsavings' | translate }}</td>
+                              <td>{{client.ClientSummary.totalSavings}}</td>
+                            </tr>
+                            <tr>
+                              <td>{{ 'label.numofactivesavings' | translate }}</td>
+                              <td>{{client.ClientSummary.activeSavings}}</td>
+                            </tr>
+                          </table>
                       </div>
-                    </div>
+                  </div>
+                  <div class="row-fluid">
                     <br/>
                     <table class="table">
                         <tr class="graybg">
@@ -97,37 +145,6 @@
                           </td>
                         </tr>
                     </table>
-                </div>
-                <div class="span3">
-                      <div class="paddedleft">
-                          <table class="table table-striped" width="100%" >
-                            <thead>
-                              <tr class="graybg">
-                                <th colspan="2">Performance History</th>
-                              </tr>
-                            </thead>
-                            <tr>
-                              <td width="60%">{{ 'label.numofloancycle' | translate }}</td>
-                              <td width="40%">{{client.ClientSummary.loanCycle}}</td>
-                            </tr>
-                            <tr>
-                              <td>{{ 'label.lastloanamount' | translate }}</td>
-                              <td valign="top">{{client.ClientSummary.lastLoanAmount}}</td>
-                            </tr>
-                            <tr>
-                              <td>{{ 'label.numofactiveloans' | translate }}</td>
-                              <td>{{client.ClientSummary.activeLoans}}</td>
-                            </tr>
-                            <tr>
-                              <td>{{ 'label.totalsavings' | translate }}</td>
-                              <td>{{client.ClientSummary.totalSavings}}</td>
-                            </tr>
-                            <tr>
-                              <td>{{ 'label.numofactivesavings' | translate }}</td>
-                              <td>{{client.ClientSummary.activeSavings}}</td>
-                            </tr>
-                          </table>
-                      </div>
                 </div>
           </div>
       </tab>
