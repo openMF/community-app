@@ -1,34 +1,43 @@
-<div id="viewlptop">
-    <div class="row paddedtop">
-    <div class="pull-right">
-      <div class="btn-group">
-          <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'button.edit' | translate}}</a>
-          <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> {{'button.delete' | translate}}</a>
-      </div>
+<div ng-controller="ViewDataTableController">
+    <div id="viewlptop">
+        <div class="paddedbottom10">
+            <ul class="breadcrumb">
+                <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+                <li><a href="#/datatables">{{'label.managedatatables' | translate}}</a> <span class="divider">/</span></li>
+                <li class="active">{{datatable.registeredTableName}}</li>
+            </ul>
+        </div>
+        <div class="row">
+        <div class="pull-right">
+          <div class="btn-group">
+              <a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'button.edit' | translate}}</a>
+              <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> {{'button.delete' | translate}}</a>
+          </div>
+        </div>
     </div>
-</div>
 
-<div class="row alert-block span" ng-controller="ViewDataTableController">
-    <legend>{{datatable.registeredTableName}}</legend>
-    <strong>{{'label.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
-    <table class="table" ui:sortable>
-        <thead>
-            <tr>
-                <th>{{'table.heading.fieldname' | translate}}</th>
-                <th>{{'table.heading.type' | translate}}</th>
-                <th>{{'table.heading.length' | translate}}</th>
-                <th>{{'table.heading.code' | translate}}</th>
-                <th>{{'table.heading.mandatory' | translate}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="column in datatable.columnHeaderData | filter:filterText">
-                <td>{{column.columnName}}</td>
-                <td>{{column.columnType}}</td>
-                <td>{{column.columnLength}}</td>
-                <td>{{column.code}}</td>
-                <td>{{column.isColumnNullable}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="row alert-block span">
+        <legend>{{datatable.registeredTableName}}</legend>
+        <strong>{{'label.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
+        <table class="table" ui:sortable>
+            <thead>
+                <tr>
+                    <th>{{'table.heading.fieldname' | translate}}</th>
+                    <th>{{'table.heading.type' | translate}}</th>
+                    <th>{{'table.heading.length' | translate}}</th>
+                    <th>{{'table.heading.code' | translate}}</th>
+                    <th>{{'table.heading.mandatory' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="column in datatable.columnHeaderData | filter:filterText">
+                    <td>{{column.columnName}}</td>
+                    <td>{{column.columnType}}</td>
+                    <td>{{column.columnLength}}</td>
+                    <td>{{column.code}}</td>
+                    <td>{{column.isColumnNullable}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div></div>
