@@ -2,6 +2,8 @@
   mifosX.controllers = _.extend(module, {
     MainController: function(scope, location, sessionManager, translate) {
       
+      scope.leftnav = false;
+
       scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
         location.path('/home').replace();
