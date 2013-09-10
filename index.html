@@ -94,13 +94,11 @@
 <!-- Navbar -->
 <div data-ng-hide="currentSession.user == null">
     <div class="navbar navbar-fixed-top">
+        <div class="pull-left">
+            <a class="brand" ng-click="leftnav = !leftnav"><i class="icon-chevron-right"></i></a>
+        </div>
         <div class="navbar-inner">
             <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
                 <a class="brand" href="../">Mifos <strong>X</strong></a>
                 <div class="nav-collapse collapse" id="main-menu">
                     <ul class="nav" id="main-menu-left">
@@ -153,26 +151,27 @@
             </div>
         </div>
     </div>
+
+    <div ng-show="leftnav" class="pull-left paddedleft ">
+        <div class="leftmenu">
+                    <ul class="nav nav-list affix ext-sidenav">
+                          <br/>
+                          <li><a href="#/nav/offices"><i class="icon-compass icon-large"></i> Navigation</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#/tasks"><i class="icon-bell-alt icon-large"></i> Tasks</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="icon-tasks icon-large"></i> Collection Sheet</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#/createclient"><i class="icon-user icon-large"></i> + Client </a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="icon-group icon-large"></i> + Group </a></li>
+                    </ul>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row-fluid">
-            <div class="span1 affix">
-                <ul class="text-center nav nav-tabs nav-stacked">
-                    <li><br/></li>
-                    <li><a href="#/nav/offices"><i class="icon-compass icon-2x" tooltip-placement="bottom" tooltip="NAVIGATION"></i></a></li>
-                    <li><br/><br/></li>
-                    <li><a href="#/tasks"><i class="icon-bell-alt icon-2x" tooltip-placement="bottom" tooltip="{{ 'link.tasks' | translate }}"></i></li></a>
-                    <li><br/><br/></li>
-                    <li><i class="icon-tasks icon-2x" tooltip-placement="bottom" tooltip="COLLECTION"></i></li>
-                    <li><br/><br/></li>
-                    <li><i class="icon-user icon-2x" tooltip-placement="bottom" tooltip="CREATE CLIENT"></i></li>
-                    <li><br/><br/></li>
-                    <li><i class="icon-group icon-2x" tooltip-placement="bottom" tooltip="CREATE GROUP"></i></li>
-                    <li><br/><br/></li>
-                    <li>
-                    </li>
-                </ul>
-            </div>
-            <div class="span11 pull-right">
+            <div class="span12 pull-right">
                 <div ng-view></div>
             </div>
             <!-- Footer -->
