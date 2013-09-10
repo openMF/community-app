@@ -7,6 +7,7 @@
 
             resourceFactory.codeResources.get({codeId: routeParams.id} , function(data) {
                 scope.code = data;
+                scope.codeId = data.id;
 
             });
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id} , function(data) {
