@@ -1,13 +1,77 @@
 <div class="paddedleft paddedtop" ng-controller="SearchController">
-  <div ng-repeat="result in searchResults">
-      <div class="row">
-        <blockquote>
-          <p><a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a></p>
-          <span>{{result.entityType}}</span><br>
-          <span>System Id: &nbsp;{{result.entityId}}</span> <br>
-          <span>Acct #: &nbsp;{{result.entityAccountNo}}</span> <br>         
-          <span>Office: &nbsp;{{result.parentName}}</span>
-        </blockquote>
+  <div class="row-fluid">
+    <div class="span5">
+      <div ng-repeat="result in searchResults">
+          <div class="blockquotecss">
+            <span><a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</span>
+            <a ng-click="getClientDetails(result.entityId)"><i class="icon-double-angle-right"></i></a>
+            <br>
+            <span>{{result.entityType}}&nbsp;,&nbsp;Office:{{result.parentName}}</span><br>
+          </div>
       </div>
+    </div>
+    <div class="span7">
+        <div ng-show="client" class="affix">
+              <br/>
+              <div>
+                    <span class="pull-left">
+                      <img src="../prototype-app/image/blank_avatar.jpg" alt="Avatar" width="40"> 
+                    </span>
+                    <span class="pull-left">
+                      <h3>
+                        &nbsp;
+                        {{client.displayName}}
+                        &nbsp;
+                        <i class="icon-circle {{client.status.value | StatusLookup}}"></i>
+                        &nbsp;
+                      </h3>
+                    </span>
+              </div>
+              <br/>
+              <table  width="100%" class="table">
+                <tr class="graybg">
+                  <th>Loan Accounts</th>
+                  <th></th>
+                  <th>Loan Type</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+                <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed" >
+                  <td>
+                    <a href="#/viewloanaccount/{{loanaccount.id}}">
+                      {{loanaccount.productName}}
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#/viewloanaccount/{{loanaccount.id}}">
+                      {{loanaccount.accountNo}}
+                    </a>
+                  </td>
+                  <td>{{loanaccount.loanType.value}}</td>
+                  <td>{{loanaccount.status.value}}</td> 
+                  <td><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                </tr>
+                <tr><td colspan="5">&nbsp;</td></tr>
+                <tr class="graybg">
+                  <th>Savings Accounts</th>
+                  <th></th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+                <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
+                  <td>
+                    <a href="#">{{savingaccount.productName}}</a>
+                  </td>
+                  <td>{{savingaccount.accountNo}}</td>
+                  <td>{{savingaccount.accountBalance}}</td>         
+                  <td>{{savingaccount.status.value}}</td>
+                  <td>
+                    <i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                  </td>
+                </tr>
+              </table>
+        </div>
+    </div>
   </div>
 </div>
