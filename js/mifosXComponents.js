@@ -58,8 +58,9 @@ define(['underscore', 'mifosX'], function() {
       'EditCodeController',
       'HolController',
       'ViewHolController',
-      'AddHolController'
-
+      'AddHolController',
+      'ViewReportsController',
+      'RunReportsController'
     ],
     filters: [
       'StatusLookup'
