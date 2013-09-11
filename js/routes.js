@@ -180,6 +180,12 @@
       })
       .when('/viewhol/:id', {
           templateUrl: 'html/organization/viewhol.html'
+      })
+      .when('/reports/:type', {
+        templateUrl: 'html/reports/view_reports.html'
+      })
+      .when('/run_report/:name', {
+        templateUrl: 'html/reports/run_reports.html'
       });
 
 
