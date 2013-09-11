@@ -59,10 +59,10 @@
                             </tr>
                             <tr>
                               <td>{{ 'label.loanofficer' | translate }}</td>
-                              <td>{{client.ClientSummary.totalSavings}}</td>
+                              <td>{{client.staffName}}</td>
                             </tr>
                             <tr>
-                              <td>{{client.staffName}}</td>
+                              <td>{{ 'label.memberof' | translate }}</td>
                               <td>
                                 <span ng-repeat="group in client.groups" > {{group.name}} |&nbsp;</span>
                               </td>
@@ -207,6 +207,16 @@
       </div>
       </tab>
       <tab heading="Notes">
+        <br/>
+        <form>
+            <div class="control-group">
+              <div class="controls">
+                <textarea rows="1" class="field span10" id="textarea" placeholder="Enter note" ng-model="formData.note"></textarea>
+                <button class="btn btn-primary" type="submit" ng-click="saveNote()">Add Note</button>
+                <button class="btn btn-primary" ng-click="resetNote()">Reset</button>
+              </div>
+            </div>  
+        </form>
         <div ng-repeat="clientNote in clientNotes">
           <div>
             <blockquote>
