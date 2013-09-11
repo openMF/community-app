@@ -35,6 +35,12 @@
           clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
             get: {method: 'GET', params: {}}
           }),
+          groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId:'@groupId',anotherresource:'@anotherresource'}, {
+            
+          }),
+          groupAccountResource: defineResource(apiVer + "/groups/:groupId/accounts", {groupId:'@groupId'}, {
+
+          }),
           runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
             get: {method: 'GET', params: {}, isArray:true}
           }),
