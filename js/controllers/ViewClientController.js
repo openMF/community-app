@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientController: function(scope, routeParams , resourceFactory ) {
+    ViewClientController: function(scope, routeParams , route, location, resourceFactory) {
         scope.client = [];
         scope.identitydocuments = [];
 
@@ -67,9 +67,17 @@
           }
         };
 
+        scope.resetNote = function() { 
+          this.formData = '';
+        }
+        scope.saveNote = function() {   
+            resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData,function(data){
+            route.reload();
+          });
+        }
     }
   });
-  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams','ResourceFactory', mifosX.controllers.ViewClientController]).run(function($log) {
+  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.ViewClientController]).run(function($log) {
     $log.info("ViewClientController initialized");
   });
 }(mifosX.controllers || {}));
