@@ -1,0 +1,54 @@
+<div  ng-controller="ViewAccRuleController">
+	<div class="paddedbottom10">
+		<ul class="breadcrumb">
+	        <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/accounting_rules">{{'label.accountingrules' | translate}}</a> <span class="divider">/</span></li>
+	        <li class="active">{{rule.name}}</li>
+	    </ul>
+	</div>
+	<div>
+	    <div class="pull-right">
+	      <div class="btn-group">
+	          <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+	          <a class="btn btn-primary" ng-click="deleteRule()"><i class="icon-trash icon-white"></i> Delete</a>
+	      </div>
+	    </div>
+	  </div>
+
+	<div class="row paddedleft">
+		<h3>{{rule.name}}</h3>
+		<label>{{ 'label.office' | translate }}&nbsp;{{rule.officeName}}</label>
+		<label>{{ 'label.description' | translate }}&nbsp;{{rule.description}}</label>
+		<hr/>
+		<table width="100%">
+			<thead>
+				<th>{{ 'label.credit.account.details' | translate }}</th>
+				<th align="left">{{ 'label.debit.account.details' | translate }}</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<table align="center">
+							<tr ng-repeat="crAccount in rule.creditAccounts">
+								<td>{{crAccount.name}}({{crAccount.glCode}})</td>
+							</tr>
+							<tr ng-repeat="creditTag in rule.creditTags">
+								<td>{{creditTag.tag.name}}</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table align="left">
+							<tr ng-repeat="dbAccount in rule.debitAccounts">
+								<td>{{dbAccount.name}}({{dbAccount.glCode}})</td>
+							</tr>
+							<tr ng-repeat="debitTag in rule.debitTags">
+								<td>{{debitTag.tag.name}}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -126,13 +126,8 @@
               getAllHols: {method: 'GET', params: {}, isArray: true}
           }),
           holValueResource: defineResource(apiVer + "/holidays/:holId", {holId:'@holId'}, {
-              getholvalues: {method: 'GET', params: {}, isArray:true},
-
+              getholvalues: {method: 'GET', params: {}}
           })
-
-
-
-
         };
       }];
     }

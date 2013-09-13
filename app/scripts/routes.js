@@ -138,6 +138,45 @@
       })
       .when('/closedaccountingDetails/:officeId', {
         templateUrl: 'views/accounting/view_close_accounting.html'
+      })
+      .when('/accounting_rules', {
+        templateUrl: 'views/accounting/accounting_rules.html'
+      })
+      .when('/viewaccrule/:id', {
+        templateUrl: 'views/accounting/view_acc_rule.html'
+      })
+      .when('/add_accrule', {
+        templateUrl: 'views/accounting/add_acc_rule.html'
+      })
+      .when('/editaccrule/:id', {
+        templateUrl: 'views/accounting/edit_acc_rule.html'
+      })
+      .when('/viewcode/:id', {
+          templateUrl: 'views/system/viewcode.html'
+      })
+      .when('/addcode', {
+          templateUrl: 'views/system/addcode.html'
+      })
+      .when('/codes', {
+          templateUrl: 'views/system/codes.html'
+      })
+      .when('/editcode/:id', {
+          templateUrl: 'views/system/editcode.html'
+      })
+      .when('/holidays', {
+          templateUrl: 'views/organization/holidays.html'
+      })
+      .when('/createholiday', {
+          templateUrl: 'views/organization/createholiday.html'
+      })
+      .when('/viewholiday/:id', {
+          templateUrl: 'views/organization/viewholiday.html'
+      })
+      .when('/reports/:type', {
+        templateUrl: 'views/reports/view_reports.html'
+      })
+      .when('/run_report/:name', {
+        templateUrl: 'views/reports/run_reports.html'
       });
 
     $locationProvider.html5Mode(false);
