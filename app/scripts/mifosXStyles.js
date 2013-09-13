@@ -5,11 +5,6 @@ define(['underscore'], function() {
       'bootswatch',
       'font-awesome.min',
       'app'
- //     'skeleton/base',
- //     'skeleton/skeleton',
- //     'skeleton/layout',
- //     'data-tables/css/jquery.dataTables',
- //     'jquery-ui/redmond/jquery-ui-1.10.3.custom'
     ],
     less: [
       'mifosX'
