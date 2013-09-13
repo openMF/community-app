@@ -45,7 +45,20 @@ define(['underscore', 'mifosX'], function() {
       'accounting/ViewTransactionController',
       'accounting/JournalEntryController',
       'accounting/SearchTransactionController',
-      'accounting/AccountingClosureController'
+      'accounting/AccountingClosureController',
+      'accounting/AccountingRuleController',
+      'accounting/AccCreateRuleController',
+      'accounting/AccEditRuleController',
+      'accounting/ViewAccRuleController',
+      'system/CodeController',
+      'system/EditCodeController',
+      'system/ViewCodeController',
+      'system/AddCodeController',
+      'organization/HolController',
+      'organization/ViewHolController',
+      'organization/AddHolController',
+      'reports/ViewReportsController',
+      'reports/RunReportsController'
     ],
     filters: [
       'StatusLookup'

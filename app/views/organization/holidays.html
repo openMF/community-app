@@ -1,0 +1,34 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.manageholidays' | translate}}</li>
+    </ul>
+</div>
+
+<div class="row alert-block span">
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by Office Name"/>
+<div class="span4 pull-right">
+    <a href="#/createholiday" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.createholiday' | translate}}</a>
+</div>
+</div>
+<div class="row alert-block span" data-ng-controller="HolController">
+    <table class="table" ui:sortable>
+        <thead>
+        <tr>
+            <th>Holiday Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Alternate Working Day</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="holiday in holidays | filter:filterText">
+            <td><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a></td>
+            <td>{{holiday.fromDate}}</td>
+            <td>{{holiday.toDate}}</td>
+            <td>{{holiday.repaymentsScheduleTO}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
