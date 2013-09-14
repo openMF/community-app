@@ -22,7 +22,7 @@
                     newholiday.offices.push(temp);
                 }
                 resourceFactory.holValueResource.save(newholiday,function(data){
-                    location.path('/managehol');
+                    location.path('/holidays');
                 });
             };
         }

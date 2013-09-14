@@ -1,0 +1,22 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control input-xxlarge" placeholder="Filter by name">
+</div>
+
+<div class="row alert-block span" ng-controller="ViewReportsController">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="report in reports | filter:filterText">
+                <td><a href="#/run_report/{{report.report_name}}?type={{report.report_type}}">{{report.report_name}}</a></td>
+                <td>{{report.report_type}}</td>  
+                <td>{{report.report_category}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,28 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
+    <li class="active">{{'label.accountingrules' | translate}}</li>
+  </ul>
+</div>
+<div class="row alert-block span" >
+    <div class="span4 pull-right">
+        <a href="#/add_accrule" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{"button.addrule" | translate}}</a>
+    </div>
+</div>
+
+<div class="row alert-block span" ng-controller="AccountingRuleController">
+	<table class="table" ui:sortable>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Office</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rule in rules">
+                <td><a href="#/viewaccrule/{{rule.id}}">{{rule.name}}</a></td>
+                <td>{{rule.officeName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
