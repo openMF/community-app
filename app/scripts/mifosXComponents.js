@@ -4,6 +4,13 @@ define(['underscore', 'mifosX'], function() {
       'LoggedInUser',
       'roleMap'
     ],
+    services: [
+      'ResourceFactoryProvider',
+      'HttpServiceProvider',
+      'AuthenticationService',
+      'SessionManager',
+      'Paginator'
+    ],
     controllers: [
       'main/MainController',
       'main/LoginFormController',
@@ -62,13 +69,6 @@ define(['underscore', 'mifosX'], function() {
     ],
     filters: [
       'StatusLookup'
-    ],
-    services: [
-      'ResourceFactoryProvider',
-      'HttpServiceProvider',
-      'AuthenticationService',
-      'SessionManager',
-      'Paginator'
     ],
     directives: [
       'DataTablesDirective',
