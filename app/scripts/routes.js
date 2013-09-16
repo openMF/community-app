@@ -189,8 +189,13 @@
       })
       .when('/viewsavings/:id', {
         templateUrl: 'views/savings/view_saving_account_details.html'
+      })
+      .when('/group', {
+        templateUrl: 'views/groups/groups.html'
+      })
+      .when('/creategroup', {
+        templateUrl: 'views/groups/creategroup.html'
       });
-
     $locationProvider.html5Mode(false);
   };
   mifosX.ng.application.config(defineRoutes).run(function($log) {

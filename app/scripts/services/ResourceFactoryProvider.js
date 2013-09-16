@@ -36,10 +36,15 @@
             get: {method: 'GET', params: {}}
           }),
           groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId:'@groupId',anotherresource:'@anotherresource'}, {
-            
+              getAllGroups: {method: 'GET', params: {}},
+              getAllGroupInfo: {method: 'GET', params: {}, isArray: true},
+              update: { method: 'PUT'}
           }),
           groupAccountResource: defineResource(apiVer + "/groups/:groupId/accounts", {groupId:'@groupId'}, {
-
+              getAll: {method: 'GET', params: {}}
+          }),
+          groupNotesResource: defineResource(apiVer + "/groups/:groupId/notes", {groupId:'@groupId'}, {
+              getAllNotes: {method: 'GET', params: {}, isArray:true}
           }),
           runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
             get: {method: 'GET', params: {}, isArray:true},
@@ -134,6 +139,7 @@
           savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId", {accountId:'@accountId'}, {
               get: {method: 'GET', params: {accountId:'@accountId'}}
           })
+
         };
       }];
     }
