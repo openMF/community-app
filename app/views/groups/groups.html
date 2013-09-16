@@ -1,0 +1,29 @@
+<div class="row alert-block span" >
+    <input ng-model="filterText" type="text" class="form-control" placeholder="Filter by Name/Head Office">
+    <div class="span4 pull-right">
+        <a href="#/creategroup" class="btn btn-primary"><i class="icon-plus icon-white"></i>Create Group</a>
+    </div>
+</div>
+
+<div class="row alert-block span" ng-controller="GroupController">
+    <table class="table" ui:sortable>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Office</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="group in groups.currentPageItems  | filter:filterText">
+            <td><a href="#/viewgroup/{{group.id}}">{{group.name}}</a></td>
+            <td>{{group.status.value}}</td>
+            <td>{{group.officeName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pager">
+        <li class="previous"><a ng-click="groups.previous()" ng-disabled="!clients.hasPrevious()">&larr; Prev</a></li>
+        <li class="next" ><a ng-click="groups.next()" ng-disabled="!clients.hasNext()">Next &rarr;</a></li>
+    </ul>
+</div>
