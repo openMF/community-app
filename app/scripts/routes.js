@@ -10,6 +10,9 @@
       .when('/home', {
         templateUrl: 'views/home.html'
       })
+      .when('/products', {
+        templateUrl: 'views/products/home.html'
+      })
       .when('/admin/roles', {
         templateUrl: 'views/administration/roles.html'
       })
@@ -177,6 +180,12 @@
       })
       .when('/run_report/:name', {
         templateUrl: 'views/reports/run_reports.html'
+      })
+      .when('/new_saving_application/:clientId', {
+        templateUrl: 'views/savings/new_saving_account_application.html'
+      })
+      .when('/viewsavings/:id', {
+        templateUrl: 'views/savings/view_saving_account_details.html'
       });
 
     $locationProvider.html5Mode(false);
