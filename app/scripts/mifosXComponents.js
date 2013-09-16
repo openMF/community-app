@@ -65,7 +65,9 @@ define(['underscore', 'mifosX'], function() {
       'organization/ViewHolController',
       'organization/AddHolController',
       'reports/ViewReportsController',
-      'reports/RunReportsController'
+      'reports/RunReportsController',
+      'savings/CreateSavingAccountController',
+      'savings/ViewSavingDetailsController'
     ],
     filters: [
       'StatusLookup'

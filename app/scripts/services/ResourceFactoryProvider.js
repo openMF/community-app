@@ -127,6 +127,12 @@
           }),
           holValueResource: defineResource(apiVer + "/holidays/:holId", {holId:'@holId'}, {
               getholvalues: {method: 'GET', params: {}}
+          }),
+          savingsTemplateResource: defineResource(apiVer + "/savingsaccounts/template", {}, {
+              get: {method: 'GET', params: {}}
+          }),
+          savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId", {accountId:'@accountId'}, {
+              get: {method: 'GET', params: {accountId:'@accountId'}}
           })
         };
       }];
