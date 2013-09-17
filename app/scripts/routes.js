@@ -31,6 +31,9 @@
       .when('/viewclient/:id', {
         templateUrl: 'views/clients/viewclient.html'
       })
+      .when('/newloanaccount/:id', {
+          templateUrl: 'views/clients/clientnewloanaccount.html'
+      })
       .when('/viewloanaccount/:id', {
         templateUrl: 'views/clients/viewclientloanaccountdetails.html'
       })

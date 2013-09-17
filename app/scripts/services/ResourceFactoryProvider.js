@@ -58,7 +58,7 @@
           savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId", {savingProductId:'@savingProductId'}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
           }),
-          loanResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {
+          loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType", {resourceType:'@resourceType', loanId:'@loanId'}, {
             getAllLoans: {method: 'GET', params: {}},
           }),
           LoanAccountResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {
