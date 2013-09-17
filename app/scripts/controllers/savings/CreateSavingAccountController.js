@@ -35,16 +35,15 @@
             if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
 
           });
-        }
+        };
 
         scope.submit = function() {
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";
           this.formData.clientId = scope.clientId;
-          console.log(this.formData);
           resourceFactory.savingsResource.save(this.formData,function(data){
-            location.path('/viewclient/' + scope.clientId);
+            location.path('/viewsavingaccount/' + data.savingsId);
           });
         };
     }
