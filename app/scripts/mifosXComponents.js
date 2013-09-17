@@ -68,7 +68,9 @@ define(['underscore', 'mifosX'], function() {
       'reports/ViewReportsController',
       'reports/RunReportsController',
       'savings/CreateSavingAccountController',
-      'savings/ViewSavingDetailsController'
+      'savings/ViewSavingDetailsController',
+      'groups/GroupController',
+      'groups/ViewGroupController'
     ],
     filters: [
       'StatusLookup'
