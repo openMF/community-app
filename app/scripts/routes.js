@@ -70,7 +70,7 @@
       .when('/tasks', {
         templateUrl: 'views/tasks.html'
       })
-      .when('/viewcurrconfig', {
+      .when('/currconfig', {
         templateUrl: 'views/organization/currencyconfig.html'
       })
       .when('/search/:query', {
@@ -159,6 +159,12 @@
       })
       .when('/viewcode/:id', {
           templateUrl: 'views/system/viewcode.html'
+      })
+      .when('/datatables', {
+          templateUrl: 'views/system/datatables.html'
+      })
+      .when('/viewdatatable/:tableName', {
+        templateUrl: 'views/system/viewdatatable.html'
       })
       .when('/addcode', {
           templateUrl: 'views/system/addcode.html'
