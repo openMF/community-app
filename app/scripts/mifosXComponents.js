@@ -68,7 +68,8 @@ define(['underscore', 'mifosX'], function() {
       'reports/ViewReportsController',
       'reports/RunReportsController',
       'savings/CreateSavingAccountController',
-      'savings/ViewSavingDetailsController'
+      'savings/ViewSavingDetailsController',
+      'private/SuperuserController'
     ],
     filters: [
       'StatusLookup'
@@ -76,7 +77,8 @@ define(['underscore', 'mifosX'], function() {
     directives: [
       'DataTablesDirective',
       'OverlayDirective',
-      'DialogDirective'
+      'DialogDirective',
+      'PanelDirective'
     ]
   };
 
