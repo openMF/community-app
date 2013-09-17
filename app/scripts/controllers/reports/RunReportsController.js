@@ -13,11 +13,12 @@
       scope.reportData = {};
       scope.reportData.columnHeaders = [];
       scope.reportData.data = [];
-      scope.baseURL="#";
+      scope.baseURL="";
 
       scope.reportName = routeParams.name;
       scope.reportType = routeParams.type;
-      scope.pentahoReportDetail=[];
+      scope.reportId = routeParams.reportId;
+      scope.pentahoReportParameters = [];
 
       resourceFactory.runReportsResource.getReport({reportSource: 'FullParameterList', parameterType : true, R_reportListing: "'"+routeParams.name+"'"}, function(data){
         
@@ -44,44 +45,8 @@
       });
 
       if (scope.reportType == 'Pentaho') {
-        resourceFactory.runReportsResource.getReport({reportSource: 'FullReportDetails', parameterType : true, R_reportName: routeParams.name}, function(data){
-
-          var prevId = -1;
-          var currId;
-          var tmpParameters;
-          for (var i in data.data )
-          {
-            currId = data.data[i].row[0]
-            if (currId != prevId)
-            {
-              tmpParameters = [];
-              if (!(data.data[i].row[5] == null))
-              {
-                tmpParam = [];
-                tmpParam.push(data.data[i].row[6]);
-                tmpParam.push(data.data[i].row[7]);
-                tmpParameters.push(tmpParam);
-              }
-              tmpRow = {
-                    id: data.data[i].row[0],
-                    name: data.data[i].row[1],
-                    type: data.data[i].row[2],
-                    subtype: data.data[i].row[3],
-                    category: data.data[i].row[4],
-                    parameters: tmpParameters
-              }
-              scope.pentahoReportDetail.push(tmpRow); 
-              prevId = currId;
-
-            }
-            else
-            { 
-              tmpParam = [];
-              tmpParam.push(data.data[i].row[6]);
-              tmpParam.push(data.data[i].row[7]);
-              scope.pentahoReportDetail[(scope.pentahoReportDetail.length - 1)].parameters.push(tmpParam);
-            }
-          }
+        resourceFactory.reportsResource.get({id:scope.reportId, fields:'reportParameters'}, function(data){
+          scope.pentahoReportParameters = data.reportParameters || [];
         });
       }
 
@@ -144,15 +109,13 @@
         var reportParams = "";
         for (var i = 0; i < scope.reqFields.length; i++) {
           var reqField = scope.reqFields[i];
-          for (var j = 0; j < scope.pentahoReportDetail.length; j++) {
-            var tempParam = scope.pentahoReportDetail[j];
-            for (var k = 0; k < tempParam.parameters.length; k++) {
-              if (reqField.name == tempParam.parameters[k][1]) {
-                var paramName = "R_"+tempParam.parameters[k][0];
-                if (paramCount > 1) reportParams += "&"
-                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.formData[scope.reqFields[i].inputName]);
-                paramCount = paramCount + 1;
-              }
+          for (var j = 0; j < scope.pentahoReportParameters.length; j++) {
+            var tempParam = scope.pentahoReportParameters[j];
+            if (reqField.name == tempParam.parameterName) {
+              var paramName = "R_"+tempParam.reportParameterName;
+              if (paramCount > 1) reportParams += "&"
+              reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.formData[scope.reqFields[i].inputName]);
+              paramCount = paramCount + 1;
             }
           }
         }

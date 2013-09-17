@@ -11,7 +11,7 @@
         templateUrl: 'views/home.html'
       })
       .when('/products', {
-        templateUrl: 'views/products/home.html'
+        templateUrl: 'views/products/products.html'
       })
       .when('/admin/roles', {
         templateUrl: 'views/administration/roles.html'
