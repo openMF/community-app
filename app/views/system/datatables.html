@@ -1,0 +1,27 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.managedatatables' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+        <a href="#/createdatatable" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'button.createdatatable' | translate}}</a>
+    </div>
+</div>
+
+<div class="row-fluid" ng-controller="DataTableController">
+    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+    <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'table.heading.datatablename' | translate}}</th>
+                <th>{{'table.heading.associatedwith' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="datatable in datatables | filter:filterText">
+                <td><a href="#/viewdatatable/{{datatable.registeredTableName}}">{{datatable.registeredTableName}}</a></td>
+                <td>{{datatable.applicationTableName}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
