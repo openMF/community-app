@@ -4,7 +4,8 @@ define(['underscore'], function() {
       'bootstrap-combined.min',
       'bootswatch',
       'font-awesome.min',
-      'app'
+      'app',
+      'nv.d3'
     ],
     less: [
       'mifosX'
