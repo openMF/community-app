@@ -1,0 +1,127 @@
+<form class="well" ng-controller="EditSavingAccountController" ng-submit="submit()">
+  <fieldset>
+    <legend>{{ 'label.edit.saving.application' | translate }}</legend>
+    <table width="80%">
+      <tr class="control-group">
+        <td width="50%">
+          <label class="control-label">{{ 'label.applicant' | translate }}&nbsp;</label>
+          <input type="text" value="{{clientName}}" readonly>
+        </td>
+        <td width="50%">
+          <label class="control-label">{{ 'label.product' | translate }}&nbsp;</label>
+          <select ng-model="formData.productId" ng-options="product.id as product.name for product in products" ng-change="changeProduct()" value="{{product.id}}"></select>
+        </td>
+      </tr>
+    </table>
+    <div collapse="isCollapsed">
+      <table width="80%">
+        <tr class="control-group">
+          <td width="50%">
+            <label class="control-label">{{ 'label.field.officer' | translate }}&nbsp;</label>
+            <select ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}"></select>
+          </td>
+          <td width="50%">
+            <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;</label>
+            <input type="text" ng-model="formData.submittedOnDate">
+          </td>
+        </tr>
+        <tr class="span2"></tr>
+      </table>
+      <table width="100%">
+        <tr class="control-group">
+          <td width="10%" align="center">
+            <label class="control-label"><h4>{{ 'label.heading.tems' | translate }}</h4></label>
+          </td>
+          <td class="blockquoteresult" width="90%">
+            <table width="100%">
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.currency' | translate }}&nbsp;<b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.decimalplaces' | translate }}&nbsp;<b>{{data.currency.decimalPlaces}}</b></label>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.nominalannualinterestrate' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" ng-model="formData.nominalAnnualInterestRate">
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.currencyinmultiplesof' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" value="{{data.currency.inMultiplesOf}}" readonly>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.interestcompoundingperiod' | translate }}&nbsp;</label>
+                  <select ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
+                  </select>
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.interestpostingperiod' | translate }}&nbsp;</label>
+                  <select ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.interest.calculated.using' | translate }}&nbsp;</label>
+                  <select ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
+                  </select>
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.daysinyears' | translate }}&nbsp;</label>
+                  <select ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}">
+                  </select>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="span2"></tr>
+        <tr class="control-group">
+          <td width="10%" align="center">
+            <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
+          </td>
+          <td class="blockquoteresult" width="90%">
+            <table width="100%">
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.minimumopeningbalance' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.lockinPeriodFrequency' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
+                  <select ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.annual.fee' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" ng-model="formData.annualFeeAmount">&nbsp;
+                  {{ 'label.on' | translate }}
+                  <input type="text" class="input-small" ng-model="formData.annualFeeOnMonthDay">
+                </td>
+                <td width="50%">
+                  <label class="control-label">{{ 'label.withdrawal.fee' | translate }}&nbsp;</label>
+                  <input type="text" class="input-small" ng-model="formData.withdrawalFeeAmount">&nbsp;
+                  <select ng-model="formData.withdrawalFeeType" class="input-small" ng-options="type.id as type.value for type in data.withdrawalFeeTypeOptions" value="{{type.id}}">
+                  </select><br>
+                  <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers"> &nbsp;<span class="control-label">{{ 'label.withdrawal.fee.for.transfers' | translate }}&nbsp;</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="form-actions" align="center">
+      <button type="reset" class="btn">Cancel</button>
+      <button type="submit" class="btn btn-primary" ng-show="!isCollapsed">Save</button>
+    </div>
+   
+  </fieldset>
+</form>

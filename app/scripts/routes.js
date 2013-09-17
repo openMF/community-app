@@ -193,7 +193,7 @@
       .when('/new_saving_application/:clientId', {
         templateUrl: 'views/savings/new_saving_account_application.html'
       })
-      .when('/viewsavings/:id', {
+      .when('/viewsavingaccount/:id', {
         templateUrl: 'views/savings/view_saving_account_details.html'
       })
       .when('/group', {
@@ -201,6 +201,12 @@
       })
       .when('/creategroup', {
         templateUrl: 'views/groups/creategroup.html'
+      })
+      .when('/editsavingaccount/:id', {
+        templateUrl: 'views/savings/edit_saving_account_application.html'
+      })
+      .when('/savingaccount/:id/:action', {
+        templateUrl: 'views/savings/saving_account_actions.html'
       });
     $locationProvider.html5Mode(false);
   };

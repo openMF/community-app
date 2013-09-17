@@ -73,7 +73,9 @@ define(['underscore', 'mifosX'], function() {
       'savings/ViewSavingDetailsController',
       'private/SuperuserController',
       'groups/GroupController',
-      'groups/ViewGroupController'
+      'groups/ViewGroupController',
+      'savings/EditSavingAccountController',
+      'savings/SavingAccountActionsController'
     ],
     filters: [
       'StatusLookup'

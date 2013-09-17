@@ -137,9 +137,15 @@
               get: {method: 'GET', params: {}}
           }),
           savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId", {accountId:'@accountId'}, {
-              get: {method: 'GET', params: {accountId:'@accountId'}}
+              get: {method: 'GET', params: {accountId:'@accountId'}},
+              update: {method: 'PUT'}
+          }),
+          savingsTrxnsTemplateResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/template", {savingsId:'@savingsId'}, {
+              get: {method: 'GET', params: {savingsId:'@savingsId'}}
+          }),
+          savingsTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId:'@savingsId', transactionId:'@transactionId'}, {
+              get: {method: 'GET', params: {savingsId:'@savingsId', transactionId:'@transactionId'}}
           })
-
         };
       }];
     }
