@@ -50,6 +50,9 @@
             get: {method: 'GET', params: {}, isArray:true},
             getReport: {method: 'GET', params: {}}
           }),
+          reportsResource: defineResource(apiVer + "/reports/:id", {id:'@id'}, {
+            get: {method: 'GET', params: {id:'@id'}}
+          }),
           DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:clientId", {datatablename:'@datatablename',clientId:'@clientId'}, {
             getAllDataTables: {method: 'GET', params: {}, isArray:true},
             getTableDetails: {method: 'GET', params: {}}
