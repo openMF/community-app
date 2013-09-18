@@ -5,31 +5,20 @@
 
         resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'} , function(data) {
             scope.offices = data.officeOptions;
-            scope.staffs = data.staffOptions;
+            scope.staffs = data.staffOptions; 
+            scope.officeId = data.officeId;
             scope.formData = {
               firstname : data.firstname,
               lastname : data.lastname,
-              active: data.active,
-              accountNo: data.accountNo
+              middlename : data.middlename,
+              active : data.active,
+              accountNo : data.accountNo, 
+              staffId : data.staffId
             };
 
-            for(var i=0; i< data.officeOptions.length; i++){
-              if(data.officeOptions[i].id == data.officeId){
-                scope.formData.officeName = data.officeOptions[i];
-                break;
-              }
-            }
-
-            for(var i=0; i< data.staffOptions.length; i++){
-              if(data.staffOptions[i].id == data.staffId){
-                scope.formData.officeName = data.staffOptions[i];
-                break;
-              }
-            }
         });
         
         scope.submit = function() {
-             delete this.formData.officeName;
              this.formData.locale = 'en';
              this.formData.activationDate = '05 August 2013';
              this.formData.dateFormat = 'dd MMMM yyyy';

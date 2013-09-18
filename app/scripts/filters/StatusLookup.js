@@ -12,7 +12,10 @@
                         "loanStatusType.active" : "statusactive",
                         "savingsAccountStatusType.submitted.and.pending.approval":"statuspending",
                         "savingsAccountStatusType.approved":"statusApproved",
-                        "savingsAccountStatusType.active":"statusactive"
+                        "savingsAccountStatusType.active":"statusactive",
+                        "loanProduct.active":"statusactive",
+                        "clientStatusType.pending":"statuspending",
+                        "clientStatusType.active":"statusactive",
                       }   
 
                       return cssClassNameLookup[input];

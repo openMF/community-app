@@ -1,5 +1,5 @@
 <div ng-controller="AccEditGLAccountController">
-  <div class="paddedbottom10">
+  <div>
     <ul class="breadcrumb">
       <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
       <li><a href="#/accounting_coa">{{'label.coa' | translate}}</a> <span class="divider">/</span></li>
@@ -17,7 +17,7 @@
             <div class="control-group">
               <label class="control-label" for="name">{{'label.accountname' | translate}}</label>
                 <div class="controls">
-                  <input type="text" class="input-xlarge" id="name" ng-model="formData.name">
+                  <input type="text" id="name" ng-model="formData.name">
                 </div>
             </div>
           </td>
@@ -27,17 +27,17 @@
             <div class="control-group">
               <label class="control-label" for="glCode">{{'label.glcode' | translate}}</label>
                 <div class="controls">
-                  <input type="text" class="input-xlarge" id="glCode" ng-model="formData.glCode">
+                  <input type="text" id="glCode" ng-model="formData.glCode">
                 </div>
             </div>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="control-group info">
+            <div class="control-group">
               <label class="control-label" for="type">{{ 'label.accounttype' | translate }}</label>
               <div class="controls">
-                <select ng-model="formData.type" class="input-xlarge"  ng-options="accountType.value for accountType in accountTypes" value="{{accountType.id}}" ng-change="changeType(formData.type.id)">
+                <select ng-model="formData.type"  ng-options="accountType.value for accountType in accountTypes" value="{{accountType.id}}" ng-change="changeType(formData.type.id)">
                 </select>
               </div>
             </div>
@@ -45,10 +45,10 @@
         </tr>
         <tr>
           <td>
-            <div class="control-group info">
+            <div class="control-group">
               <label class="control-label" for="tag">{{'label.tag' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.tag" class="input-xlarge"  ng-options="tag.name for tag in tags" value="{{tag.id}}">
+                <select ng-model="formData.tag"  ng-options="tag.name for tag in tags" value="{{tag.id}}">
                 </select>
               </div>
             </div>
@@ -56,20 +56,20 @@
         </tr>
         <tr>
           <td>
-            <div class="control-group info">
+            <div class="control-group">
               <label class="control-label" for="usage">{{'label.accountusage' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.usage" class="input-xlarge"  ng-options="usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+                <select ng-model="formData.usage"  ng-options="usageType.value for usageType in usageTypes" value="{{usageType.id}}">
               </div>
             </div>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="control-group info">
+            <div class="control-group">
               <label class="control-label" for="parent">{{'label.parent' | translate}}</label>
               <div class="controls">
-                 <select ng-model="formData.parent" class="input-xlarge"  ng-options="headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                 <select ng-model="formData.parent"  ng-options="headerType.name for headerType in headerTypes" value="{{headerType.id}}">
               </div>
             </div>
           </td>
@@ -91,7 +91,7 @@
             <div class="control-group">
               <label class="control-label" for="description">{{'label.description' | translate}}</label>
                 <div class="controls">
-                  <textarea id="description" class="input-xlarge" name="description"  ng-model="formData.description" rows="4" cols=""></textarea>
+                  <textarea id="description" name="description" class="input-xlarge" ng-model="formData.description" rows="4" cols=""></textarea>
                 </div>
             </div>
           </td>
@@ -99,7 +99,7 @@
       </table>
 
       
-      <div class="form-actions">
+      <div class="offset3">
         <button type="reset" class="btn">Cancel</button>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
