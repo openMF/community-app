@@ -1,22 +1,28 @@
-<div class="row alert-block span" >
-    <input ng-model="filterText" type="text" class="form-control input-xxlarge" placeholder="Filter by name">
-</div>
+<div ng-controller="ViewReportsController">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{type}}</li>
+        </ul>
+    </div>
 
-<div class="row alert-block span" ng-controller="ViewReportsController">
-	<table class="table" ui:sortable>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="report in reports | filter:filterText">
-                <td><a href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_name}}</a></td>
-                <td>{{report.report_type}}</td>  
-                <td>{{report.report_category}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row-fluid">
+        <br><br>
+        <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+    	<table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="report in reports | filter:filterText">
+                    <td><a href="#/run_report/{{report.report_name}}?type={{report.report_type}}">{{report.report_name}}</a></td>
+                    <td>{{report.report_type}}</td>  
+                    <td>{{report.report_category}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
