@@ -148,6 +148,9 @@
           }),
           savingsTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId:'@savingsId', transactionId:'@transactionId'}, {
               get: {method: 'GET', params: {savingsId:'@savingsId', transactionId:'@transactionId'}}
+          }),
+          accountTransferResource: defineResource(apiVer + "/accounttransfers/:transferId", {transferId:'@transferId'}, {
+              get: {method: 'GET', params: {transferId:'@transferId'}}
           })
         };
       }];

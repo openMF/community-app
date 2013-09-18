@@ -83,6 +83,27 @@
             scope.showDateField = true;
             scope.showNoteField = true;
           break;
+          case "modifytransaction":
+            resourceFactory.savingsTrxnsResource.get({savingsId:scope.accountId, transactionId:routeParams.transactionId, template:'true'}, function(data){
+              scope.paymentTypes=data.paymentTypeOptions;
+              scope.formData.transactionAmount = data.amount;
+              if (data.paymentDetailData) {
+                if (data.paymentDetailData.paymentType) scope.formData.paymentTypeId = data.paymentDetailData.paymentType.id;
+                scope.formData.accountNumber = data.paymentDetailData.accountNumber;
+                scope.formData.checkNumber = data.paymentDetailData.checkNumber;
+                scope.formData.routingCode = data.paymentDetailData.routingCode;
+                scope.formData.receiptNumber = data.paymentDetailData.receiptNumber;
+                scope.formData.bankNumber = data.paymentDetailData.bankNumber;
+              }
+            });
+            scope.title = 'label.edit.saving.account.transaction';
+            scope.labelName = 'label.saving.account.transactionDate';
+            scope.modelName = 'transactionDate';
+            scope.showDateField = true;
+            scope.showNoteField = false;
+            scope.isTransaction = true;
+            scope.showPaymentDetails = false;
+          break;
         }
 
         scope.submit = function() {
@@ -91,7 +112,11 @@
             this.formData.locale = 'en';
             this.formData.dateFormat = 'dd MMMM yyyy';
           }
-          if (scope.action == "deposit" || scope.action == "withdrawal") {
+          if (scope.action == "deposit" || scope.action == "withdrawal" || scope.action == "modifytransaction") {
+            if(scope.action == "modifytransaction") {
+              params.command = 'modify';
+              params.transactionId = routeParams.transactionId;
+            }
             params.savingsId = scope.accountId;
             resourceFactory.savingsTrxnsResource.save(params, this.formData, function(data){
               location.path('/viewsavingaccount/' + data.savingsId);

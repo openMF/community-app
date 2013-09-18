@@ -207,6 +207,9 @@
       })
       .when('/savingaccount/:id/:action', {
         templateUrl: 'views/savings/saving_account_actions.html'
+      })
+      .when('/viewaccounttransfers/:id', {
+        templateUrl: 'views/accounttransfers/view_accounttransfer.html'
       });
     $locationProvider.html5Mode(false);
   };

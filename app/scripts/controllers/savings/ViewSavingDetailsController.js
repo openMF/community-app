@@ -41,12 +41,16 @@
           break;
           case "calculateInterest":
             resourceFactory.savingsResource.save({accountId:accountId,command:'calculateInterest'}, {}, function(data){
-              location.path('/viewsavingaccount/' + data.savingsId);
+              resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
+                scope.savingaccountdetails = savingAccountData;
+              });
             });
           break;
           case "postInterest":
             resourceFactory.savingsResource.save({accountId:accountId,command:'postInterest'}, {}, function(data){
-              location.path('/viewsavingaccount/' + data.savingsId);
+              resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
+                scope.savingaccountdetails = savingAccountData;
+              });
             });
           break;
           case "applyAnnualFees":
@@ -128,6 +132,22 @@
                             };
         }
       });
+
+      scope.modifyTransaction = function(accountId, transactionId) {
+        location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
+      };
+
+      scope.undoTransaction = function(accountId, transactionId) {
+        var params = {savingsId:accountId, transactionId:transactionId, command:'undo'};
+        var formData = {dateFormat:'dd MMMM yyyy', locale:'en', transactionAmount:0};
+        // FIX-ME: need to be update the date dynamically when datepicker available.
+        formData.transactionDate = '18 September 2013';
+        resourceFactory.savingsTrxnsResource.save(params, formData, function(data){
+          resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
+            scope.savingaccountdetails = savingAccountData;
+          });
+        });
+      };
 
     }
   });
