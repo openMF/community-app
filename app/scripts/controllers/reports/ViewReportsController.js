@@ -6,6 +6,10 @@
       scope.reports = [];
       scope.type = routeParams.type;
 
+      //to display type of report on breadcrumb
+      var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
+      scope.type = typeReport;
+
       if (routeParams.type == 'all') {
         resourceFactory.runReportsResource.get({reportSource: 'FullReportList', parameterType : true, genericResultSet : false}, function(data){
           scope.reports = scope.getReports(data);

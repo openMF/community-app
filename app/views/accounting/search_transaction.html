@@ -4,45 +4,46 @@
         <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
         <li class="active">{{'label.searchjournalentries' | translate}}</li>
       </ul>
-    </div>
-    <div class="row alert-block span" >
+    </div><br>
+    <div class="row-fluid" >
         <span class="input-append">
-                <input ng-model="formData.transactionId" type="text" class="input-xlarge" placeholder="Search by transaction #" />
+                <input ng-model="formData.transactionId" type="text" placeholder="Search by transaction #" />
                 <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control"><i class="icon-chevron-down"></i></a></span>
                 <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
     </div>
-    <div collapse="isCollapsed" class="row alert-block span">
+    <br>
+    <div collapse="isCollapsed" class="row affix" width="100%">
         <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
-        <label>Account Name</label>
-        <input ng-model="formData.glAccount" type="text" class="input-xlarge" placeholder="Account Name" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" />
-        <div class="control-group info">
-            <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
-            <div class="controls">
-              <select class="input-xlarge" ng-model="formData.officeId">
-                <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
-              </select>
+        <div class="offset1">    <label>Account Name</label>
+            <input ng-model="formData.glAccount" type="text" placeholder="Account Name" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" />
+            <div class="control-group">
+                <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
+                <div class="controls">
+                  <select ng-model="formData.officeId">
+                    <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+                  </select>
+                </div>
             </div>
-        </div>
-        <div class="control-group info">
-            <label class="control-label" for="filter">{{ 'label.additional.filter' | translate }}</label>
-            <div class="controls">
-              <select class="input-xlarge" ng-model="formData.manualEntriesOnly">
-                <option ng-repeat="filter in filters" value="{{filter.value}}">{{filter.option}}</option>
-              </select>
+            <div class="control-group">
+                <label class="control-label" for="filter">{{ 'label.additional.filter' | translate }}</label>
+                <div class="controls">
+                  <select ng-model="formData.manualEntriesOnly">
+                    <option ng-repeat="filter in filters" value="{{filter.value}}">{{filter.option}}</option>
+                  </select>
+                </div>
             </div>
-        </div>
-        <label>{{ 'label.fromdate' | translate }}</label>
-        <input ng-model="formData.fromDate" type="text" class="input-xlarge" placeholder="From Date" />
-        <label>{{ 'label.todate' | translate }}</label>
-        <input ng-model="formData.toDate" type="text" class="input-xlarge" placeholder="To Date" /><br/>
-        <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span>
+            <label>{{ 'label.fromdate' | translate }}</label>
+            <input ng-model="formData.fromDate" type="text" placeholder="From Date" />
+            <label>{{ 'label.todate' | translate }}</label>
+            <input ng-model="formData.toDate" type="text" placeholder="To Date" /><br/>
+            <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span></div>
     </div>
 
-    <div ng-show="displayResults" class="row alert-block span">
-    	<table class="table" ui:sortable>
+    <div ng-show="displayResults" class="row-fluid">
+    	<table class="table">
             <thead>
-                <tr>
+                <tr class="graybg">
                     <th>Office</th>
                     <th>Transaction Date</th>
                     <th>Type</th>

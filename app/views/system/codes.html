@@ -1,4 +1,4 @@
-<div class="paddedbottom10">
+<div>
     <ul class="breadcrumb">
         <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
         <li class="active">{{'label.managecodes' | translate}}</li>
@@ -7,23 +7,23 @@
         <a href="#/addcode" class="btn btn-primary"><i class="icon-plus icon-white"></i>Add Code</a>
     </div>
 </div>
-    <div class="row-fluid" data-ng-controller="CodeController">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>CodeName</th>
-                <th>System Defined</th>
+<div class="row-fluid" data-ng-controller="CodeController">
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>CodeName</th>
+            <th>System Defined</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="code in codes">
+                <td><a href="#/viewcode/{{code.id}}">{{code.name}}</a></td>
+                <td>{{code.systemDefined}}</td>
             </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="code in codes">
-                    <td><a href="#/viewcode/{{code.id}}">{{code.name}}</a></td>
-                    <td>{{code.systemDefined}}</td>
-                </tr>
 
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
 
 
 
