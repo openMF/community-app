@@ -36,15 +36,20 @@
             get: {method: 'GET', params: {}}
           }),
           groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId:'@groupId',anotherresource:'@anotherresource'}, {
-              getAllGroups: {method: 'GET', params: {}},
-              getAllGroupInfo: {method: 'GET', params: {}, isArray: true},
+              get: {method: 'GET', params: {}},
               update: { method: 'PUT'}
+          }),
+          groupSummaryResource: defineResource(apiVer + "/runreports/:reportSource",{reportSource: '@reportSource'}, {
+              getSummary: {method: 'GET', params: {}}
           }),
           groupAccountResource: defineResource(apiVer + "/groups/:groupId/accounts", {groupId:'@groupId'}, {
               getAll: {method: 'GET', params: {}}
           }),
           groupNotesResource: defineResource(apiVer + "/groups/:groupId/notes", {groupId:'@groupId'}, {
               getAllNotes: {method: 'GET', params: {}, isArray:true}
+          }),
+          groupTemplateResource: defineResource(apiVer + "/groups/template", {}, {
+              get: {method: 'GET', params: {}}
           }),
           runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
             get: {method: 'GET', params: {}, isArray:true},

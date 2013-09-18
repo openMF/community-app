@@ -1,1 +1,248 @@
-<h1>view group</h1>
+<div ng-controller="ViewGroupController">
+<ul class="breadcrumb">
+    <li><img src="../app/images/blank_avatar.jpg" alt="Avatar" width="20"><img src="../app/images/blank_avatar.jpg" alt="Avatar" width="20"></li>
+    <li>
+        <h3>
+            &nbsp;
+            {{group.name}}
+            &nbsp;
+            <i class="icon-circle {{group.status.value | StatusLookup}}"></i>
+            &nbsp;
+        </h3>
+    </li>
+    <li><span class="divider">|</span>
+        <i class="icon-barcode"></i>
+        <small>Uniquely identified with id {{group.id}}&nbsp;</small>
+    </li>
+    <li><span class="divider">|</span>
+        <i class="icon-building"></i>
+        <small>Office: "{{group.officeName}}" </small>
+    </li>
+    <li></li>
+</ul>
+<div>
+<tabset  style="margin-bottom: 0px;">
+<tab heading="General">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv">
+            <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
+                <button class="btn btn-primary" data-ng-click="activateGroup(group.id)" data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>Activate</button>
+                <a href="#/editgroup/{{group.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>Edit</a>
+                <button class="btn btn-primary" data-ng-click="closure()"><i class="icon-remove-circle icon-white"></i>Close</button>
+                <button class="btn btn-primary" data-ng-click="deleteGroup(group.id)"><i class="icon-trash icon-white"></i>Delete </button>
+            </div>
+        </div>
+        <br/>
+        <div data-ng-switch on="choice">
+            <form ng-switch-when="1">
+                <div>
+                    <h3>Confirm</h3>
+                    <input type="text" data-ng-model="formData.closureDate" placeholder="Closure Date" required/>
+                    <select class="input-xlarge" ng-model="formData.closureReasonId">
+                        <option ng-repeat="reason in template.closureReasons" value="{{reason.id}}">{{reason.name}}</option>
+                    </select>
+                    <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">Cancel</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="closeGroup(group.id)">Confirm</button>
+                </div>
+              <hr/>
+            </form>
+            <form ng-switch-when="2">
+                <div >
+                    <input type="text" data-ng-model="formData.activationDate" placeholder="Enter Activation Date" required/><br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">Cancel</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="activate(group.id)"><i class="icon-check-sign icon-white"></i>Activate</button>
+                </div>
+                <hr/>
+            </form>
+            <form data-ng-switch-when="3">
+                <button type="button" class="btn btn-primary" data-ng-click="delete(group.id)">Confirm Delete</button>
+                <hr/>
+            </form>
+        </div>
+            <div class="row-fluid">
+            <div class="span7">
+                <div data-ng-show="group.status.value=='Closed'">
+                    <h3>{{'label.groupclosed' | translate}}</h3>
+                </div>
+                <table width="100%" >
+                    <tr>
+                        <td width="35%">{{'label.name' | translate}}</td>
+                        <td width="65%">{{group.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{group.activationDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{group.staffName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.nextmeetingon' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.nextTenRecurringDates[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.meetingfrequency' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="span5">
+                <table class="table table-striped" width="100%" >
+                    <thead>
+                    <tr class="graybg">
+                        <th colspan="2">Summary</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclient' | translate }}</td>
+                        <td width="40%">{{summary.activeClients}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactivegrouploans' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclientloans' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactivegroupborrowers' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupBorrowers}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclientborrowers' | translate }}</td>
+                        <td width="40%">{{summary.activeClientBorrowers}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+                        <td width="40%">{{summary.overdueGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+                        <td width="40%">{{summary.overdueClientLoans}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+          <div>
+            <h3>Loan Account Overview</h3>
+            <table class="table table-striped" width="100%">
+              <thead>
+                <tr class="graybg">
+                    <th>Product</th>
+                    <th>Account No</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="loanaccount in groupAccounts.loanAccounts" >
+                    <td>
+                        <a href="#/">
+                            {{loanaccount.productName}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/">
+                            {{loanaccount.accountNo}}
+                        </a>
+                    </td>
+                    <td><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
+                </tr>
+            </table>
+          </div>
+        <br/>
+          <div>
+            <table class="table table-striped" width="100%">
+
+              <thead>  <h3>Savings Account Overview</h3>
+                <tr><td colspan="5">&nbsp;</td></tr>
+                <tr class="graybg">
+                    <th>Product</th>
+                    <th>Account No</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts">
+                    <td><a href="#/">{{savingaccount.productName}}</a></td>
+                    <td><a href="#">{{savingaccount.accountNo}}</a></td>
+                    <td>{{savingaccount.accountBalance}}</td>
+                    <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</tab>
+<tab heading="Members">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv">
+
+        </div>
+    </div>
+    <table class="table table-striped" width="100%">
+        <thead>
+             <th>{{'table.heading.accountno' | translate}}</th>
+             <th>{{'lable.name' | translate}}</th>
+             <th>Status</th>
+        </thead>
+        <tbody>
+           <tr ng-repeat="member in group.clientMembers">
+            <td><a href="#/viewclient/{{member.id}}">{{member.accountNo}}</a></td>
+            <td><a href="#/viewclient/{{member.id}}">{{member.displayName}}</a></td>
+            <td> <i class="icon-stop {{member.status.code | StatusLookup}}"></i>{{member.status.value}}</td>
+           </tr>
+        </tbody>
+    </table>
+</tab>
+<tab heading="Notes">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv"></div>
+    </div>
+    <form>
+        <div class="control-group" data-ng-hide="group.status.value=='Closed'">
+            <div class="controls">
+                <textarea rows="1" class="field span10" id="textarea" placeholder="Enter note" ng-model="formData.note"></textarea>
+                <button class="btn btn-primary" type="submit" ng-click="saveNote()">Add Note</button>
+                <button class="btn btn-primary" ng-click="resetNote()">Reset</button>
+            </div>
+        </div>
+    </form>
+    <div ng-repeat="groupNote in groupNotes">
+        <div>
+            <blockquote>
+                <p>{{groupNote.note}}</p>
+                <small>Created by :&nbsp;{{groupNote.createdByUsername}}</small>
+                <small>Created on :&nbsp;{{groupNote.createdOn}}</small>
+            </blockquote>
+        </div>
+    </div>
+    </ul>
+</tab>
+<tab heading="Committee">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv"></div>
+    </div>
+        <table class="table ">
+            <thead>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Client Id</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="grouprole in group.groupRoles" >
+                <td>{{grouprole.role.name}}</td>
+                <td><a href="#viewclient/{{member.id}}">{{grouprole.clientName}}</a></td>
+                <td>{{grouprole.clientId}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</tab>
+</tabset>
+</div>
+</div>
+</div>
