@@ -1,39 +1,38 @@
 <div ng-controller="CurrencyConfigController">
-    <div ng-hide="hideview">
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
-            <li class="active">{{'label.currencyconfig' | translate}}</li>
-        </ul>
-        <div class="pull-right">
-            <a ng-click="hideview = !hideview" class="btn btn-primary"><i class="icon-plus icon-white"></i> Edit</a>
-        </div>
-    </div>
-    <div ng-show="hideview">
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
-            <li class="active">{{'label.editcurrencyconfig' | translate}}</li>
-        </ul>
-    </div>
-    <div class="row-fluid">
-    	<div ng-hide="hideview">
-        	<br><br>
-    		<table class="table" ui:sortable>
-    	        <thead>
-    	            <tr>
-    	                <th>Currency Name</th>
-    	                <th>Currency Code</th>
-    	            </tr>
-    	        </thead>
-    	        <tbody>
-    	            <tr ng-repeat="currency in selectedCurrOptions  | filter:filterText">
-    	                <td>{{currency.name}}</td>
-    	                <td>{{currency.code}}</td>
-    	            </tr>
-    	        </tbody>
-    	    </table>
+    <div>
+        <div ng-hide="hideview">
+            <ul class="breadcrumb">
+                <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
+                <li class="active">{{'label.currencyconfig' | translate}}</li>
+            </ul>
+            <div class="pull-right">
+                <a ng-click="hideview = !hideview" class="btn btn-primary"><i class="icon-plus icon-white"></i> Edit</a>
+            </div>
         </div>
         <div ng-show="hideview">
-            <br><br>
+            <ul class="breadcrumb">
+                <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
+                <li class="active">{{'label.editcurrencyconfig' | translate}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row-fluid">
+		<table class="table" ng-hide="hideview">
+	        <thead>
+	            <tr class="graybg">
+	                <th>Currency Name</th>
+	                <th>Currency Code</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="currency in selectedCurrOptions  | filter:filterText">
+	                <td>{{currency.name}}</td>
+	                <td>{{currency.code}}</td>
+	            </tr>
+	        </tbody>
+	    </table>
+        <div ng-show="hideview">
+            <br>
         	<input class="form-control input-xxlarge" 
              ng-model="selected" 
              placeholder="New Currency"
