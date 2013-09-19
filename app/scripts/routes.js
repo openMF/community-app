@@ -210,6 +210,12 @@
       })
       .when('/viewaccounttransfers/:id', {
         templateUrl: 'views/accounttransfers/view_accounttransfer.html'
+      })
+      .when('/accounttransfers/:accountType/:accountId', {
+        templateUrl: 'views/accounttransfers/make_accounttransfer.html'
+      })
+      .when('/viewsavingtrxn/:accountId/trxnId/:id', {
+        templateUrl: 'views/savings/view_saving_transaction.html'
       });
     $locationProvider.html5Mode(false);
   };

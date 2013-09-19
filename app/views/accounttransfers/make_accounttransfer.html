@@ -1,0 +1,82 @@
+<form class="form-horizontal well" ng-controller="MakeAccountTransferController" ng-submit="submit()">
+	<div class="paddedbottom10">
+		<ul class="breadcrumb">
+			<li><a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.view.saving.account' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{'legend.heading.account.transfers' | translate}}</li>
+		</ul>
+	</div>
+  <fieldset>
+    <legend>{{ 'legend.heading.account.transfers' | translate }}</legend>
+    <div class="row paddedleft">
+    	<label><strong>{{ 'label.transferring.from' | translate}}</strong></label>
+		<table width="100%">
+			<tr>
+				<td width="20%">{{'label.applicant' | translate}}</td>
+				<td width="30%">{{transfer.fromClient.displayName}}</td>
+				<td width="20%">{{'label.office' | translate}}</td>
+				<td width="30%">{{transfer.fromOffice.name}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.fromaccount' | translate}}</td>
+				<td>{{transfer.fromAccount.productName}}&nbsp;-&nbsp;#{{transfer.fromAccount.accountNo}}</td>
+				<td>{{'label.fromaccount.type' | translate}}</td>
+				<td>{{transfer.fromAccountType.value}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.currency' | translate}}</td>
+				<td>{{transfer.currency.name}}</td>
+				<td class="span2"></td>
+			</tr>
+		</table>
+    </div>
+    <hr>
+    <label><strong>{{ 'label.transferring.to' | translate}}</strong></label>
+	<div class="control-group">
+		<label class="control-label" for="toOfficeId">{{ 'label.office' | translate }}</label>
+		<div class="controls">
+			<select ng-model="formData.toOfficeId" ng-options="toOffice.id as toOffice.name for toOffice in toOffices" ng-change="changeEvent()" value="{{toOffice.id}}"></select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="toClientId">{{ 'label.transferred.client' | translate }}</label>
+		<div class="controls">
+			<select ng-model="formData.toClientId" ng-options="toClient.id as toClient.displayName for toClient in toClients" ng-change="changeEvent()" value="{{toClient.id}}"></select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="toAccountType">{{ 'label.transferred.account' | translate }}</label>
+		<div class="controls">
+			<select ng-model="formData.toAccountType" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEvent()" value="{{toAccountType.id}}"></select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="toAccountId">{{ 'label.transferred.accountnumber' | translate }}</label>
+		<div class="controls">
+			<select ng-model="formData.toAccountId" ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts" ng-change="changeEvent()" value="{{toAccount.id}}"></select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="transferAmount">{{ 'label.transaction.amount' | translate }}</label>
+		<div class="controls">
+			<input type="text" id="transferAmount" ng-model="formData.transferAmount">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="transferDate">{{ 'label.transaction.date' | translate }}</label>
+		<div class="controls">
+			<input type="text" id="transferDate" ng-model="formData.transferDate">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="transferDescription">{{ 'label.transaction.description' | translate }}</label>
+		<div class="controls">
+			<input type="text" id="transferDescription" ng-model="formData.transferDescription">
+		</div>
+	</div>
+    <div class="offset3">
+      <button type="reset" class="btn">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+   
+  </fieldset>
+</form>
