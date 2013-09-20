@@ -3,7 +3,7 @@
    <ul class="breadcrumb">
     <li>
         <div class='gavatar'>
-                <img class="avatarpic" title="member1" src="../app/images/021.jpg">
+                <img class="avatarpic" title="member1" src="../app/images/blank_avatar.jpg">
                 <img class="avatarpic" title="member2" src="../app/images/1.jpg">
                 <img class="avatarpic next-row" title="member3" src="../app/images/2.jpg">
                 <img class="avatarpic next-row" title="member4" src="../app/images/3.jpg">
@@ -36,33 +36,12 @@
                 <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
                     <button class="btn btn-primary" data-ng-click="activateGrouppop()" data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</button>
                     <a href="#/editgroup/{{group.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.edit' | translate }}</a>
-                    <button class="btn btn-primary" data-ng-click="closureGrouppop()"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</button>
+                    <a href="#/closegroup/{{group.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
                     <button class="btn btn-primary" data-ng-click="deleteGrouppop()" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
                 </div>
             </div>
             <br/>
             <div data-ng-switch on="choice">
-                <form ng-switch-when="1">
-                    <div class="paddedleft">
-                        <h3>{{ 'label.confirm' | translate }}</h3>
-                        <div>
-                            <label class="control-label">{{ 'label.closuredate' | translate }}</label>
-                            <input type="text" data-ng-model="formData.closureDate" required/>
-                        </div>
-                        <div>
-                            <label class="control-label">{{ 'label.closurereasons' | translate }}</label>
-                            <select ng-model="formData.closureReasonId">
-                                <option ng-repeat="reason in template.closureReasons" value="{{reason.id}}">{{reason.name}}</option>
-                             </select>
-                        </div>
-                        <br/>
-                        <div>
-                            <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">{{ 'label.cancel' | translate }}</button>
-                            <button type="button" class="btn btn-primary" data-ng-click="closeGroup(group.id)">{{ 'label.confirm' | translate }}</button>
-                        </div>
-                    </div>
-                  <hr/>
-                </form>
                 <form ng-switch-when="2">
                     <div class="paddedleft">
                         <div>
@@ -201,7 +180,7 @@
                 <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.add' | translate }}</a>
                 <button type="button" class="btn btn-primary pull-right" data-ng-click="disassociateMemberpop(group.id)">{{ 'label.disassociatemember' | translate }}</button>
                 <button type="button" class="btn btn-primary pull-right" data-ng-click="associateMemberpop(group.id)">{{ 'label.associatemember' | translate }}</button>
-                <a href="#/" class="btn btn-primary pull-right">{{ 'label.attendance' | translate }}</a>
+                <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" class="btn btn-primary pull-right">{{ 'label.attendance' | translate }}</a>
             </div>
         </div>
         <div data-ng-switch on="choice">
