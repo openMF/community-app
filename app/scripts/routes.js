@@ -225,6 +225,9 @@
       })
       .when('/addmember', {
         templateUrl: 'views/groups/addmember.html'
+      })
+      .when('/managegroup', {
+        templateUrl: 'views/groups/managegroup.html'
       });
     $locationProvider.html5Mode(false);
   };

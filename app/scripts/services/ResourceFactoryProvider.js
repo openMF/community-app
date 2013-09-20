@@ -51,6 +51,9 @@
           groupTemplateResource: defineResource(apiVer + "/groups/template", {}, {
               get: {method: 'GET', params: {}}
           }),
+          groupMeetingResource:defineResource(apiVer + "/groups/:groupId/meetings/:templateSource", {groupId:'@groupId',templateSource:'@templateSource'}, {
+              getMeetingInfo: {method:'GET', params: {}}
+          }),
           runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
             get: {method: 'GET', params: {}, isArray:true},
             getReport: {method: 'GET', params: {}}
