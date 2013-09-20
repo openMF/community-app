@@ -5,7 +5,7 @@
             scope.groups = [];
 
             var fetchFunction = function(offset, limit, callback) {
-                resourceFactory.groupResource.getAllGroups({offset: offset, limit: limit} , callback);
+                resourceFactory.groupResource.get({offset: offset, limit: limit} , callback);
             };
 
             scope.groups = paginatorService.paginate(fetchFunction, 14);

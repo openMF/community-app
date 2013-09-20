@@ -196,7 +196,7 @@
       .when('/viewsavingaccount/:id', {
         templateUrl: 'views/savings/view_saving_account_details.html'
       })
-      .when('/group', {
+      .when('/groups', {
         templateUrl: 'views/groups/groups.html'
       })
       .when('/creategroup', {
@@ -216,6 +216,15 @@
       })
       .when('/viewsavingtrxn/:accountId/trxnId/:id', {
         templateUrl: 'views/savings/view_saving_transaction.html'
+      })
+      .when('/viewgroup/:id', {
+        templateUrl: 'views/groups/viewgroup.html'
+      })
+      .when('/editgroup/:id', {
+        templateUrl: 'views/groups/editgroup.html'
+      })
+      .when('/addmember', {
+        templateUrl: 'views/groups/addmember.html'
       });
     $locationProvider.html5Mode(false);
   };
