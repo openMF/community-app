@@ -16,7 +16,9 @@
                         "loanProduct.active":"statusactive",
                         "clientStatusType.pending":"statuspending",
                         "clientStatusType.active":"statusactive",
-                      }   
+                        "clientStatusType.submitted.and.pending.approval":"statuspending",
+                        "clientStatusTYpe.approved":"statusApproved"
+                     }
 
                       return cssClassNameLookup[input];
                   }

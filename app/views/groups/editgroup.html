@@ -1,0 +1,34 @@
+<form class="form-horizontal well" ng-controller="EditGroupController">
+    <fieldset>
+        <legend>{{'label.editgroup' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label" for="name">{{'label.name' | translate}}</label>
+            <div class="controls">
+                <input type="text" id="name" placeholder="{{editGroup.name}}" ng-model="formData.name">
+            </div>
+        </div>
+        <div class="control-group info">
+            <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
+            <div class="controls">
+                <select id="staffs" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions" value="{{staff.id}}">
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
+            <div class="controls">
+                <input type="text" id="externalid"  ng-model="formData.externalId">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="activationDate">{{'label.form.activationdate' | translate}}</label>
+            <div class="controls">
+                <input type="text" id="activationDate"  ng-model="formData.activationDate">
+            </div>
+        </div>
+        <div class="offset">
+            <a href="#/viewgroup/{{editGroup.id}}" class="btn btn-primary">{{'label.cancel' | translate}}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="updateGroup(editGroup.id)">{{'label.save' | translate}}</button>
+        </div>
+    </fieldset>
+</form>
