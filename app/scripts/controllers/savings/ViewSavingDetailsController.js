@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewSavingDetailsController: function(scope, routeParams, resourceFactory, location) {
+    ViewSavingDetailsController: function(scope, routeParams, resourceFactory, location, route) {
       scope.$broadcast('SavingAccountDataLoadingStartEvent');
 
       scope.isDebit = function (savingsTransactionType) {
@@ -41,22 +41,19 @@
           break;
           case "calculateInterest":
             resourceFactory.savingsResource.save({accountId:accountId,command:'calculateInterest'}, {}, function(data){
-              resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
-                scope.savingaccountdetails = savingAccountData;
-              });
+              route.reload();
             });
           break;
           case "postInterest":
             resourceFactory.savingsResource.save({accountId:accountId,command:'postInterest'}, {}, function(data){
-              resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
-                scope.savingaccountdetails = savingAccountData;
-              });
+              route.reload();
             });
           break;
           case "applyAnnualFees":
             location.path('/savingaccount/' + accountId + '/applyAnnualFees');
           break;
           case "transferFunds":
+            location.path('/accounttransfers/fromsavings/'+accountId);
           break;
           case "close":
             location.path('/savingaccount/' + accountId + '/close');
@@ -136,22 +133,9 @@
       scope.modifyTransaction = function(accountId, transactionId) {
         location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
       };
-
-      scope.undoTransaction = function(accountId, transactionId) {
-        var params = {savingsId:accountId, transactionId:transactionId, command:'undo'};
-        var formData = {dateFormat:'dd MMMM yyyy', locale:'en', transactionAmount:0};
-        // FIX-ME: need to be update the date dynamically when datepicker available.
-        formData.transactionDate = '18 September 2013';
-        resourceFactory.savingsTrxnsResource.save(params, formData, function(data){
-          resourceFactory.savingsResource.get({accountId: data.savingsId, associations: 'all'}, function(savingAccountData) {
-            scope.savingaccountdetails = savingAccountData;
-          });
-        });
-      };
-
     }
   });
-  mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewSavingDetailsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewSavingDetailsController]).run(function($log) {
     $log.info("ViewSavingDetailsController initialized");
   });
 }(mifosX.controllers || {}));

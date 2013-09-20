@@ -1,4 +1,10 @@
 <div ng-controller="ViewSavingDetailsController">
+  <div class="paddedbottom10">
+    <ul class="breadcrumb">
+      <li><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a> <span class="divider">/</span></li>
+      <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
+    </ul>
+  </div>
   <div class="row paddedtop">
     <div class="pull-right">
       <div class="btn-group" >
@@ -38,6 +44,7 @@
           <td>{{savingaccountdetails.summary.accountBalance}}</td>
         </tr>
       </table>
+    </div>
     <div class="row paddedleft">
       <hr class="marginbottom"/>
       <tabset >
@@ -116,12 +123,14 @@
                   <th>{{'table.heading.debit' | translate}}</th>
                   <th>{{'table.heading.credit' | translate}}</th>
                   <th>{{'table.heading.balance' | translate}}</th>
-                  <th>{{'table.heading.actions' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="transaction in savingaccountdetails.transactions">
-                  <td>{{transaction.id}}</td>
+                  <td>
+                    <a ng-hide="transaction.transfer" href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
+                    <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
+                  </td>
                   <td>{{transaction.date}}</td>
                   <td>{{transaction.transactionType.value}}</td>
                   <td>
@@ -135,15 +144,6 @@
                     </div>
                   </td>
                   <td>{{transaction.runningBalance}}</td>
-                  <td>
-                    <div ng-hide="transaction.transfer">
-                      <a ng-hide="transaction.reversed" href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}" class="btn btn-primary" ><i class="icon-pencil icon-white"></i>{{ 'button.edit' | translate}}</a>&nbsp;
-                      <a ng-hide="transaction.reversed" ng-click="undoTransaction(transaction.accountId, transaction.id)" class="btn btn-danger" ><i class="icon-trash icon-white"></i>{{ 'button.undo' | translate}}</a>
-                    </div>
-                    <div ng-show="transaction.transfer">
-                      <a href="#/viewaccounttransfers/{{transaction.transfer.id}}" class="btn btn-primary" ><i class="icon-exchange icon-white"></i>{{ 'button.view' | translate}}</a>
-                    </div>
-                  </td>
               </tbody>
           </table>
         </tab>
