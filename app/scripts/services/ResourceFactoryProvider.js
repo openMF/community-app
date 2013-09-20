@@ -151,6 +151,9 @@
           }),
           accountTransferResource: defineResource(apiVer + "/accounttransfers/:transferId", {transferId:'@transferId'}, {
               get: {method: 'GET', params: {transferId:'@transferId'}}
+          }),
+          accountTransfersTemplateResource: defineResource(apiVer + "/accounttransfers/template", {}, {
+              get: {method: 'GET', params: {}}
           })
         };
       }];
