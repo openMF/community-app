@@ -61,6 +61,9 @@
                     });
                 });
             };
+            scope.setAttendance = function(){
+             choice = 'attendance';
+            };
 
             scope.activateGrouppop = function() {
                 scope.choice = 2;
@@ -76,24 +79,7 @@
                     });
                 });
             };
-            scope.closureGrouppop = function(){
-                resourceFactory.groupTemplateResource.get({command:'close'}, function(data){
-                    scope.template = data;
-                });
-                scope.choice = 1;
-            };
-            scope.closeGroup = function(id){
-                var newClosure = new Object();
-                newClosure.locale = 'en';
-                newClosure.dateFormat = 'dd MMMM yyyy';
-                newClosure.closureDate = this.formData.closureDate;
-                newClosure.closureReasonId = this.formData.closureReasonId
-                resourceFactory.groupResource.save({groupId: id ,command:'close'},newClosure, function(data){
-                    resourceFactory.groupResource.get({groupId: id}, function(data){
-                        route.reload();
-                    });
-                });
-            };
+
             scope.deleteGrouppop = function(){
                 scope.choice = 3;
             } ;
