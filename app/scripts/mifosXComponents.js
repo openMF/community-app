@@ -81,7 +81,9 @@ define(['underscore', 'mifosX'], function() {
       'savings/ViewTransactionController',
       'groups/CreateGroupController',
       'groups/AddMemberController',
-      'groups/EditGroupController'
+      'groups/EditGroupController',
+      'groups/GroupAttendanceController',
+      'groups/CloseGroupController'
     ],
     filters: [
       'StatusLookup'

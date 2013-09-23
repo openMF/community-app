@@ -225,6 +225,12 @@
       })
       .when('/addmember', {
         templateUrl: 'views/groups/addmember.html'
+      })
+      .when('/groupattendance', {
+        templateUrl: 'views/groups/groupattendance.html'
+      })
+      .when('/closegroup/:id', {
+        templateUrl: 'views/groups/closegroup.html'
       });
     $locationProvider.html5Mode(false);
   };

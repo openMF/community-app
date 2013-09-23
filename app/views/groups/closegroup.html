@@ -1,0 +1,21 @@
+<form data-ng-controller="CloseGroupController">
+    <div class="paddedleft">
+        <h3>{{ 'label.confirm' | translate }}</h3>
+        <div>
+            <label class="control-label">{{ 'label.closuredate' | translate }}</label>
+            <input type="text" data-ng-model="formData.closureDate" required/>
+        </div>
+        <div>
+            <label class="control-label">{{ 'label.closurereasons' | translate }}</label>
+            <select ng-model="formData.closureReasonId">
+                <option ng-repeat="reason in template.closureReasons" value="{{reason.id}}">{{reason.name}}</option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="closeGroup()">{{ 'label.confirm' | translate }}</button>
+        </div>
+    </div>
+    <hr/>
+</form>
