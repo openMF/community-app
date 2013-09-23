@@ -1,0 +1,35 @@
+<form class="form-horizontal well" ng-controller="ManageGroupController">
+    <fieldset>
+        <legend>{{'label.attendance' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label" for="meeting">{{'label.meetingdate' | translate}}</label>
+            <div class="controls">
+                    <input type="text" id="name" ng-model="formData.meetingDate">Next Meeting on:{{meeting.nextTenRecurringDates[0]}}
+            </div>
+        <table class="table table-striped" width="100%">
+            <thead>
+            <tr><td colspan="5">&nbsp;</td></tr>
+            <tr class="graybg">
+                <th>{{ 'label.code.name' | translate }}</th>
+                <th>{{ 'label.attendance' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="client in clients">
+                <td>{{client.displayName}}</td>
+                <td>
+                    <div>
+                        <select ng-model="tempData[client.id]">
+                            <option data-ng-repeat="attendance in attendanceOptions" value="{{attendance.id}}">{{attendance.value}}</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="offset">
+            <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{'label.cancel' | translate}}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)">{{'label.save' | translate}}</button>
+        </div>
+    </fieldset>
+</form>
