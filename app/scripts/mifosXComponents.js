@@ -83,7 +83,9 @@ define(['underscore', 'mifosX'], function() {
       'groups/AddMemberController',
       'groups/EditGroupController',
       'groups/GroupAttendanceController',
-      'groups/CloseGroupController'
+      'groups/CloseGroupController',
+      'groups/AddRoleController',
+      'groups/MemberManageController'
     ],
     filters: [
       'StatusLookup'

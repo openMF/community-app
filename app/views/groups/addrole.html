@@ -1,0 +1,23 @@
+<form data-ng-controller="AddRoleController">
+    <div class="paddedleft">
+        <h3>{{ 'label.addrole' | translate }}</h3>
+        <div>
+            <label class="control-label">{{ 'label.client' | translate }}</label>
+            <select ng-model="formData.clientId">
+                <option ng-repeat="client in clients" value="{{client.id}}">{{client.displayName}}</option>
+            </select>
+        </div>
+        <div>
+            <label class="control-label">{{ 'label.role' | translate }}</label>
+            <select ng-model="formData.role">
+                <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="addrole()">{{ 'label.add' | translate }}</button>
+        </div>
+    </div>
+    <hr/>
+</form>
