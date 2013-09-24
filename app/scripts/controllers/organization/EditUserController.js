@@ -12,13 +12,6 @@
             scope.availableRoles = data.availableRoles.concat(data.selectedRoles);
             scope.selectedRoles = data.selectedRoles;
 
-            for(var i=0; i< data.allowedOffices.length; i++){
-                  if(data.allowedOffices[i].id == data.officeId){
-                    scope.formData.officeName = data.allowedOffices[i];
-                    break;
-                  }
-              }
-
         });
         
         scope.submit = function() {

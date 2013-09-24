@@ -5,7 +5,8 @@
         resourceFactory.officeResource.getAllOffices(function(data) {
             scope.offices = data;
             scope.formData = {
-              isLoanOfficer: true
+              isLoanOfficer: true, 
+              officeId : scope.offices[0].id,
             };
         });
         

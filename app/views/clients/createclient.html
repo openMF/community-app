@@ -4,16 +4,14 @@
             <div class="control-group">
               <label class="control-label" for="office">Office</label>
               <div class="controls">
-                <select id="office" ng-model="formData.officeId">
-                  <option ng-repeat="office in offices" value="{{office.id}}" ng-click="changeOffice(office.id)">{{office.name}}</option>
-                </select>
+                <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(officeId)"></select>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="loanofficer">Loan Officer</label>
               <div class="controls">
-                <select id="loanofficer" ng-model="formData.staffId">
-                  <option ng-repeat="staff in staffs" value="{{staff.id}}">{{staff.displayName}}</option>
+                <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                  <option value="">{{'label.select.loanofficer' | translate}}</option>
                 </select>
               </div>
             </div>

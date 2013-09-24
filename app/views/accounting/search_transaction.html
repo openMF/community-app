@@ -20,16 +20,16 @@
             <div class="control-group">
                 <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
                 <div class="controls">
-                  <select ng-model="formData.officeId">
-                    <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+                  <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                      <option style="display:none" value="">{{'label.select.office' | translate}}</option>
                   </select>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="filter">{{ 'label.additional.filter' | translate }}</label>
                 <div class="controls">
-                  <select ng-model="formData.manualEntriesOnly">
-                    <option ng-repeat="filter in filters" value="{{filter.value}}">{{filter.option}}</option>
+                  <select ng-model="formData.manualEntriesOnly"  ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
+                      <option style="display:none" value="">{{'label.select.filter' | translate}}</option>
                   </select>
                 </div>
             </div>

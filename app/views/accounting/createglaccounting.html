@@ -35,9 +35,7 @@
                 <div class="control-group">
                   <label class="control-label" for="type">{{'label.accounttype' | translate}}</label>
                   <div class="controls">
-                    <select id="type" ng-model="formData.type" ng-change="changeType(formData.type)">
-                      <option ng-repeat="accountType in accountTypes" value="{{accountType.id}}" >{{accountType.value}}</option>
-                    </select>
+                    <select ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
                   </div>
                 </div>
               </td>
@@ -47,8 +45,8 @@
                 <div class="control-group">
                   <label class="control-label" for="tagId">{{'label.tag' | translate}}</label>
                   <div class="controls">
-                    <select id="tagId" ng-model="formData.tagId">
-                      <option ng-repeat="type in types" value="{{type.id}}" >{{type.name}}</option>
+                    <select ng-model="formData.tagId"  ng-options="type.id as type.name for type in types" value="{{type.id}}">
+                      <option value="">{{'label.select.tag' | translate}}</option>
                     </select>
                   </div>
                 </div>
@@ -60,9 +58,7 @@
                 <div class="control-group">
                   <label class="control-label" for="usage">{{'label.accountusage' | translate}}</label>
                   <div class="controls">
-                    <select id="usage" ng-model="formData.usage">
-                      <option ng-repeat="usageType in usageTypes" value="{{usageType.id}}" >{{usageType.value}}</option>
-                    </select>
+                    <select ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
                   </div>
                 </div>
               </td>
@@ -73,8 +69,8 @@
                 <div class="control-group">
                   <label class="control-label" for="parentId">{{'label.parent' | translate}}</label>
                   <div class="controls">
-                    <select id="parentId" ng-model="formData.parentId">
-                      <option ng-repeat="headerType in headerTypes" value="{{headerType.id}}" >{{headerType.name}}</option>
+                    <select ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                      <option value="">{{'label.select.parent' | translate}}</option>
                     </select>
                   </div>
                 </div>
@@ -106,7 +102,7 @@
 
           
           <div class="offset3">
-            <button type="reset" class="btn">Cancel</button>
+            <a href="#/accounting_coa"><button type="reset" class="btn">Cancel</button></a>
             <button type="submit" class="btn btn-primary">Save</button>
           </div>
           

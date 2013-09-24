@@ -1,5 +1,5 @@
     <div ng-controller="EditUserController">
-      <div class="paddedbottom10">
+      <div>
         <ul class="breadcrumb">
           <li><a href="#/clients">{{'link.admin.users' | translate}}</a> <span class="divider">/</span></li>
           <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a> <span class="divider">/</span></li>
@@ -14,35 +14,36 @@
           <div class="control-group">
             <label class="control-label" for="username">User Name</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="username" ng-model="formData.username">
+              <input type="text" id="username" ng-model="formData.username">
             </div>
           </div>
           
           <div class="control-group">
             <label class="control-label" for="firstname">First Name</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="firstname" value="{{user.firstname}}" ng-model="formData.firstname">
+              <input type="text" id="firstname" value="{{user.firstname}}" ng-model="formData.firstname">
             </div>
           </div>
 
           <div class="control-group">
             <label class="control-label" for="lastname">Last Name</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="lastname" value="{{user.lastname}}" ng-model="formData.lastname">
+              <input type="text" id="lastname" value="{{user.lastname}}" ng-model="formData.lastname">
             </div>
           </div>
 
           <div class="control-group">
             <label class="control-label" for="email">Email</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="email" value="{{user.email}}" ng-model="formData.email">
+              <input type="text" id="email" value="{{user.email}}" ng-model="formData.email">
             </div>
           </div>
 
           <div class="control-group">
             <label class="control-label" for="office">Office</label>
             <div class="controls">
-              <select ng-model="formData.officeName" ng-options="office.name for office in offices" value="{{office.id}}">
+              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
       		    </select>
             </div>
           </div>
@@ -50,14 +51,14 @@
           <div class="control-group">
             <label class="control-label" for="role">Select roles</label>
             <div class="controls">
-              <select class="input-xlarge" ng-model="formData.selectedRoles"  ng-options="availablerole.name for availablerole in availableRoles" value="{{availablerole.id}}" multiple>
+              <select ng-model="formData.selectedRoles"  ng-options="availablerole.name for availablerole in availableRoles" value="{{availablerole.id}}" multiple>
       		    </select>
             </div>
           </div>
 
-          <div class="form-actions">
-            <button type="reset" class="btn">{{'label.save' | translate}}</button>
-            <button type="submit" class="btn btn-primary">{{'label.cancel' | translate}}</button>
+          <div class="offset3">
+            <a href="#/viewuser/{{userId}}"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
           </div>
         </fieldset>
       </form>
