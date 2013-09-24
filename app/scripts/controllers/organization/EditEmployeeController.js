@@ -9,23 +9,13 @@
             scope.formData = {
               firstname : data.firstname,
               lastname : data.lastname,
-              isLoanOfficer: data.isLoanOfficer
+              isLoanOfficer: data.isLoanOfficer,
+              officeId : data.officeId,
             };
-
-            for(var i=0; i< data.allowedOffices.length; i++){
-                  if(data.allowedOffices[i].id == data.officeId){
-                    scope.formData.officeName = data.allowedOffices[i];
-                    break;
-                  }
-              }
 
         });
         
         scope.submit = function() {
-          
-             this.formData.officeId = this.formData.officeName.id;
-             delete this.formData.officeName;
-             
              resourceFactory.employeeResource.update({'staffId': routeParams.id},this.formData,function(data){
              location.path('/viewemployee/' + data.resourceId);
           });

@@ -4,7 +4,7 @@
 
             scope.accountClosures=[];
             resourceFactory.officeResource.getAllOffices(function(data){
-              scope.offices = data;  
+              scope.offices = data;
             });
             
             var params = {}

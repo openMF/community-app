@@ -13,6 +13,9 @@
         scope.offices = data.allowedOffices;
         scope.creditTagOptions = data.allowedCreditTagOptions;
         scope.debitTagOptions = data.allowedDebitTagOptions;
+        scope.formData.officeId = scope.offices[0].id;
+        scope.formData.accountToCredit = scope.glAccounts[0];
+        scope.formData.accountToDebit = scope.glAccounts[1];
       });
 
       scope.addCreditTag = function () {
@@ -48,7 +51,7 @@
       scope.submit = function() {
             var accountingRule = new Object();
             accountingRule.name=this.formData.name;
-            accountingRule.officeId=this.formData.office;
+            accountingRule.officeId=this.formData.officeId;
             accountingRule.description = this.formData.description;
 
             //Construct creditsTags array
