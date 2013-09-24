@@ -37,6 +37,33 @@
       .when('/viewloanaccount/:id', {
         templateUrl: 'views/clients/viewclientloanaccountdetails.html'
       })
+      .when('/loanaccount/:id/:action', {
+        templateUrl: 'views/clients/clientloanaccountactions.html'
+      })
+      .when('/editloanaccount/:id', {
+        templateUrl: 'views/clients/editclientloanaccount.html'
+      })
+      .when('/addloancharge/:id', {
+        templateUrl: 'views/clients/addloancharge.html'
+      })
+      .when('/addcollateral/:id', {
+        templateUrl: 'views/clients/addloancollateral.html'
+      })
+      .when('/loan/:loanId/editcollateral/:id', {
+        templateUrl: 'views/clients/editloancollateral.html'
+      })
+      .when('/loan/:loanId/viewcollateral/:id', {
+        templateUrl: 'views/clients/viewloancollateral.html'
+      })
+      .when('/loan/:loanId/viewcharge/:id', {
+        templateUrl: 'views/clients/viewloancharge.html'
+      })
+      .when('/loan/:loanId/editcharge/:id', {
+        templateUrl: 'views/clients/editloancharge.html'
+      })
+      .when('/assignloanofficer/:id', {
+        templateUrl: 'views/clients/assignloanofficer.html'
+      })
       .when('/organization', {
         templateUrl: 'views/administration/organization.html'  
       })
