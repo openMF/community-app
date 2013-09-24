@@ -1,18 +1,18 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ClientNewLoanAccAppController: function(scope, routeParams, resourceFactory, location) {
+        EditClientLoanAccAppController: function(scope, routeParams, resourceFactory, location) {
             scope.previewRepayment = false;
-            resourceFactory.loanResource.get({resourceType : 'template', templateType : 'individual',
-                clientId : routeParams.id}, function(data) {
-                  scope.clientloanaccounts = data;
-                  scope.formData = {
-                    clientName: data.clientName
-                };
+            resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting'}, function(data) {
+                  scope.clientloanaccountinfo = data;
+                  scope.clientId = data.clientId;
+                  scope.formData = {loanOfficerId: data.loanOfficerId, loanPurposeId: data.loanPurposeId};
+                  scope.previewClientLoanAccInfo();
+                  
             });
 
             scope.loanProductChange = function(loanProductId) {
                 resourceFactory.loanResource.get({resourceType : 'template', templateType : 'individual',
-                    clientId : routeParams.id, productId : loanProductId}, function(data) {
+                    clientId : scope.clientId, productId : loanProductId}, function(data) {
                         scope.clientloanaccountinfo = data;
                         scope.previewClientLoanAccInfo();
                 });
@@ -21,16 +21,12 @@
             scope.previewClientLoanAccInfo = function() {
               scope.previewRepayment = false;
               scope.clientId = scope.clientloanaccountinfo.clientId;
-              scope.charges = scope.clientloanaccountinfo.charges;
+              scope.charges = scope.clientloanaccountinfo.charges || [];
 
               //to display loan officer and loan purpose
-              if(this.formData.loanOfficerId) {
-                scope.loanOfficerId = this.formData.loanOfficerId;
-              }
+              if(this.formData.loanOfficerId) scope.loanOfficerId = this.formData.loanOfficerId;
 
-              if(this.formData.loanPurposeId) {
-                scope.loanPurposeId = this.formData.loanPurposeId;
-              }
+              if(this.formData.loanPurposeId) scope.loanPurposeId = this.formData.loanPurposeId;
 
               scope.formData = {
                 clientName: scope.clientloanaccountinfo.clientName,
@@ -53,7 +49,7 @@
                 graceOnPrincipalPayment : scope.clientloanaccountinfo.graceOnPrincipalPayment,
                 graceOnInterestPayment : scope.clientloanaccountinfo.graceOnInterestPayment,
                 transactionProcessingStrategyId : scope.clientloanaccountinfo.transactionProcessingStrategyId,
-                graceOnInterestCharged : scope.clientloanaccountinfo.graceOnInterestCharged,
+                graceOnInterestCharged : scope.clientloanaccountinfo.graceOnInterestCharged
               };
 
               //to display loan officer and loan purpose
@@ -127,10 +123,10 @@
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = 'individual';
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "12 September 2013";
-                this.formData.submittedOnDate = this.formData.submittedOnDate || "12 September 2013";
+                this.formData.expectedDisbursementDate = "12 September 2013";
+                this.formData.submittedOnDate = "12 September 2013";
 
-                resourceFactory.loanResource.save(this.formData,function(data){
+                resourceFactory.loanResource.put({loanId : routeParams.id},this.formData,function(data){
                   location.path('/viewclient/' + data.clientId);
                 });
             };
@@ -140,8 +136,8 @@
             }
         }
     });
-    mifosX.ng.application.controller('ClientNewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ClientNewLoanAccAppController]).run(function($log) {
-        $log.info("ClientNewLoanAccAppController initialized");
+    mifosX.ng.application.controller('EditClientLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditClientLoanAccAppController]).run(function($log) {
+        $log.info("EditClientLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
 
