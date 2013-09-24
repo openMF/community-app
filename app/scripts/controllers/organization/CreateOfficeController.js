@@ -4,6 +4,9 @@
         scope.offices = [];
         resourceFactory.officeResource.getAllOffices(function(data) {
             scope.offices = data;
+            scope.formData = {
+              parentId : scope.offices[0].id
+            }
         });
         
         scope.submit = function() {   

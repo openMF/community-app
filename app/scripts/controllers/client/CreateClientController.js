@@ -9,7 +9,7 @@
         resourceFactory.clientTemplateResource.get(function(data) {
             scope.offices = data.officeOptions;
             scope.staffs = data.staffOptions;
-            
+            scope.formData.officeId = scope.offices[0].id;
         });
         
          scope.changeOffice =function(officeId) {

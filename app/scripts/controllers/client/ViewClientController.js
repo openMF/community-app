@@ -6,33 +6,97 @@
 
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
-            resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {
-              scope.client.ClientSummary = data[0];
-             });
+            if (data.status.value == "Pending") {
+              scope.buttons = [{
+                                name:"button.edit",
+                                href:"#/editclient",
+                                icon :"icon-edit"
+                              },
+                              {
+                                name:"button.activate",
+                                href:"#/client",
+                                subhref:"activate",
+                                icon :"icon-ok-sign"
+                              },
+                              {
+                                name:"button.delete",
+                                icon :"icon-warning-sign"
+                              },
+                              {
+                                name:"button.close",
+                                icon :"icon-remove-circle"
+                              }]
+                            
+              }
+
+            if (data.status.value == "Active") {
+              scope.buttons = [{
+                                name:"button.edit",
+                                href:"#/editclient",
+                                icon :"icon-edit"
+                              },
+                              {
+                                name:"button.newloan",
+                                href:"#/newloanaccount",
+                                icon :"icon-plus"
+                              },
+                              {
+                                name:"link.new.savings.application",
+                                href:"#/new_saving_application",
+                                icon :"icon-plus"
+                              },
+                              {
+                                name:"button.close",
+                                icon :"icon-remove-circle"
+                              }]
+            }
+
+            if(data.staffId) {
+              scope.buttons.push({
+                name:"button.unassignloanofficer",
+                href:"#/client",
+                subhref:"unassignloanofficer",
+                icon :"icon-male"
+              });
+            } else {
+              scope.buttons.push({
+                name:"button.assignloanofficer",
+                href:"#/client",
+                subhref:"assignloanofficer",
+                icon :"icon-male"
+              });
+            }
+
+          resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {
+            scope.client.ClientSummary = data[0];
+          });
         });
+
         resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
             scope.clientAccounts = data;
+
         });
+
         resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id} , function(data) {
             scope.clientNotes = data;
         });
+
         resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'} , function(data) {
             scope.identitydocuments = data;
             for(var i = 0; i<scope.identitydocuments.length; i++) {
-                  resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id} , function(data) {
-
-                      for(var j = 0; j<scope.identitydocuments.length; j++) {
-                               if(data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId)
-                                {
-                                  scope.identitydocuments[j].documents = data;
-                                }
-                        }
+              resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id} , function(data) {
+                for(var j = 0; j<scope.identitydocuments.length; j++) {
+                   if(data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId)
+                    {
+                      scope.identitydocuments[j].documents = data;
+                    }
+                }
               });
             }
         });
 
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
-            scope.clientdatatables = data;
+          scope.clientdatatables = data;
         });
 
         scope.dataTableChange = function(clientdatatable) {
@@ -58,6 +122,7 @@
           }
            
         };
+
         scope.isClosed = function(loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
             loanaccount.status.code === "loanStatusType.rejected") {
@@ -70,6 +135,7 @@
         scope.resetNote = function() { 
           this.formData = '';
         }
+
         scope.saveNote = function() {   
             resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData,function(data){
             route.reload();

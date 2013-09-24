@@ -11,7 +11,8 @@
             });
 
             resourceFactory.officeResource.getAllOffices(function(data){
-              scope.offices = data;  
+              scope.offices = data;
+              scope.formData.officeId = scope.offices[0].id;  
             });
 
             //events for credits
