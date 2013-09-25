@@ -1,7 +1,7 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
         EditGroupController: function(scope, resourceFactory,location, routeParams ) {
-
+            scope.managecode = routeParams.managecode;
             resourceFactory.groupResource.get({groupId: routeParams.id,associations:'clientMembers',template:'true'} , function(data) {
                 scope.editGroup = data;
                 scope.formData = {
@@ -10,10 +10,19 @@
                                     staffId:data.staffId
                                  };
             });
-            scope.updateGroup = function(id){
+            scope.updateGroup = function(){
                 this.formData.locale = "en";
                 this.formData.dateFormat = 'dd MMMM yyyy';
-                resourceFactory.groupResource.update({groupId:id},this.formData , function(data) {
+                resourceFactory.groupResource.update({groupId:routeParams.id},this.formData , function(data) {
+                    location.path('/viewgroup/'+routeParams.id);
+                });
+            };
+            scope.activate = function(){
+                var newActivation = new Object();
+                newActivation.locale = 'en' ;
+                newActivation.dateFormat = 'dd MMMM yyyy';
+                newActivation.activationDate = this.formData.activationDate;
+                resourceFactory.groupResource.save({groupId : routeParams.id,command:'activate'},newActivation, function(data){
                     location.path('/viewgroup/'+routeParams.id);
                 });
             };
