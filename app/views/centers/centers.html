@@ -1,0 +1,31 @@
+<div>
+    <ul class="breadcrumb">
+        <li class="active">{{'link.clients.centers' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+        <a href="#/createcenter" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.createcenter' | translate}}</a>
+    </div>
+</div>
+<div class="row-fluid" ng-controller="CenterController">
+    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.filterbynameheadoffice' | translate}}">
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.form.name' | translate}}</th>
+            <th>{{'label.status' | translate}}</th>
+            <th>{{'label.form.office' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="center in centers.currentPageItems  | filter:filterText">
+            <td><a href="#/viewcenter/{{center.id}}">{{center.name}}</a></td>
+            <td><i class="icon-stop {{center.status.code | StatusLookup}}"></i>{{center.status.value}}</td>
+            <td>{{center.officeName}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pager">
+        <li class="previous"><a ng-click="centers.previous()" ng-disabled="!centers.hasPrevious()">&larr; {{'label.prev' | translate}}</a></li>
+        <li class="next" ><a ng-click="centers.next()" ng-disabled="!centers.hasNext()">{{'label.next' | translate}} &rarr;</a></li>
+    </ul>
+</div>

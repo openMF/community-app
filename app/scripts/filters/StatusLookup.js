@@ -17,7 +17,11 @@
                         "clientStatusType.pending":"statuspending",
                         "clientStatusType.active":"statusactive",
                         "clientStatusType.submitted.and.pending.approval":"statuspending",
-                        "clientStatusTYpe.approved":"statusApproved"
+                        "clientStatusTYpe.approved":"statusApproved",
+                        "groupingStatusType.active":"statusactive",
+                        "groupingStatusType.pending":"statuspending",
+                        "groupingStatusType.submitted.and.pending.approval":"statuspending",
+                        "groupingStatusType.approved":"statusApproved"
                      }
 
                       return cssClassNameLookup[input];
