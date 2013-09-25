@@ -235,6 +235,9 @@
       .when('/creategroup', {
         templateUrl: 'views/groups/creategroup.html'
       })
+      .when('/attachmeeting/:id/:entityType', {
+        templateUrl: 'views/groups/attachmeeting.html'
+      })
       .when('/editsavingaccount/:id', {
         templateUrl: 'views/savings/edit_saving_account_application.html'
       })
