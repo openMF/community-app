@@ -270,6 +270,9 @@
       })
       .when('/membermanage/:id', {
         templateUrl: 'views/groups/membermanage.html'
+      })
+      .when('/transferclients/:id', {
+        templateUrl: 'views/groups/transferclients.html'
       });
     $locationProvider.html5Mode(false);
   };
