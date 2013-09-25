@@ -46,6 +46,11 @@
                                 icon :"icon-plus"
                               },
                               {
+                                name:"button.transferclient",
+                                href:"#/transferclient",
+                                icon :"icon-arrow-right"
+                              },
+                              {
                                 name:"button.close",
                                 icon :"icon-remove-circle"
                               }]
