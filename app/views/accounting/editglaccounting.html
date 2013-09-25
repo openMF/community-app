@@ -37,8 +37,7 @@
             <div class="control-group">
               <label class="control-label" for="type">{{ 'label.accounttype' | translate }}</label>
               <div class="controls">
-                <select ng-model="formData.type"  ng-options="accountType.value for accountType in accountTypes" value="{{accountType.id}}" ng-change="changeType(formData.type.id)">
-                </select>
+                <select ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
               </div>
             </div>
           </td>
@@ -48,7 +47,8 @@
             <div class="control-group">
               <label class="control-label" for="tag">{{'label.tag' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.tag"  ng-options="tag.name for tag in tags" value="{{tag.id}}">
+                <select ng-model="formData.tagId"  ng-options="tag.id as tag.name for tag in tags" value="{{tag.id}}">
+                  <option value="">{{'label.select.tag' | translate}}</option>
                 </select>
               </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="control-group">
               <label class="control-label" for="usage">{{'label.accountusage' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.usage"  ng-options="usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+                <select ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
               </div>
             </div>
           </td>
@@ -69,7 +69,9 @@
             <div class="control-group">
               <label class="control-label" for="parent">{{'label.parent' | translate}}</label>
               <div class="controls">
-                 <select ng-model="formData.parent"  ng-options="headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                <select ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                  <option value="">{{'label.select.parent' | translate}}</option>
+                </select>
               </div>
             </div>
           </td>
@@ -100,7 +102,7 @@
 
       
       <div class="offset3">
-        <button type="reset" class="btn">Cancel</button>
+        <a href="#/viewglaccount/{{glAccountId}}"><button type="reset" class="btn">Cancel</button></a>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
       

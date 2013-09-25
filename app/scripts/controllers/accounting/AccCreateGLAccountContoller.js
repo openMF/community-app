@@ -12,8 +12,14 @@
             scope.usageTypes = data.usageOptions;
 
             scope.formData = {
-              manualEntriesAllowed: true
+              manualEntriesAllowed: true,
+              type: scope.accountTypes[0].id,
+              usage: scope.usageTypes[0].id,
             };
+            //by default display assetTagsOptions and assetHeaderAccountOptions
+            scope.types = data.allowedAssetsTagOptions,
+            scope.headerTypes = data.assetHeaderAccountOptions
+
             scope.changeType = function (value) {
               if(value == 1) {
                   scope.types = data.allowedAssetsTagOptions;

@@ -18,6 +18,7 @@
         scope.accountingRuleId = data.id;        
         //update text fields
         scope.formData.name = data.name;
+        scope.formData.officeId = data.officeId;
         scope.formData.description=data.description;
 
         //update formData for view previous details.
@@ -91,7 +92,7 @@
       scope.submit = function() {
             var accountingRule = new Object();
             accountingRule.name=this.formData.name;
-            accountingRule.officeId=this.formData.office;
+            accountingRule.officeId=this.formData.officeId;
             accountingRule.description = this.formData.description;
 
             //Construct creditsTags array

@@ -27,11 +27,9 @@
               <div class="row-fluid">
                   <div class="row-fluid primarydiv">
                       <div class="btn-group pull-right">
-                          <a href="#/editclient/{{client.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
-                          <a href="#/newloanaccount/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'button.newloan' | translate}}</a>
-                          <a href="#/new_client_saving_application/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'link.new.savings.application' | translate }}</a>
-                          <a href="#" class="btn btn-primary"><i class="icon-list-ul icon-white"></i> Add Note</a>
-                          <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Close</a>
+                        <span ng-repeat="button in buttons">
+                          <a  href="{{button.href}}/{{client.id}}/{{button.subhref}}" ng-click="clientActionButton('button.subhref')" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
+                        </span>
                       </div>
                   </div>
                   <br/>

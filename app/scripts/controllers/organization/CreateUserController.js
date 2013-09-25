@@ -7,7 +7,8 @@
             scope.offices = data.allowedOffices;
             scope.availableRoles = data.availableRoles;
             scope.formData = {
-              sendPasswordToEmail: true
+              sendPasswordToEmail: true,
+              officeId : scope.offices[0].id,
             };
         });
         
