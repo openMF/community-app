@@ -6,14 +6,22 @@
         scope.formData = {};
         scope.isCollapsed = true;
         scope.clientId = routeParams.clientId;
+        scope.groupId = routeParams.groupId;
 
-        resourceFactory.savingsTemplateResource.get({clientId:scope.clientId}, function(data) {
+        scope.inparams = {};
+        if (scope.clientId) {scope.inparams.clientId = scope.clientId};
+        if (scope.groupId) {scope.inparams.groupId = scope.groupId};
+
+        resourceFactory.savingsTemplateResource.get(scope.inparams, function(data) {
             scope.products = data.productOptions;
+            scope.charges = data.chargeOptions;
             scope.clientName = data.clientName;
+            scope.groupName = data.groupName;
         });
         
          scope.changeProduct =function() {
-          resourceFactory.savingsTemplateResource.get({clientId:scope.clientId, productId : scope.formData.productId}, function(data) {
+          scope.inparams.productId = scope.formData.productId;
+          resourceFactory.savingsTemplateResource.get(scope.inparams, function(data) {
 
             scope.isCollapsed = false;
             scope.data = data;
@@ -41,7 +49,8 @@
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";
-          this.formData.clientId = scope.clientId;
+          if (scope.clientId) this.formData.clientId = scope.clientId;
+          if (scope.groupId) this.formData.groupId = scope.groupId;
           resourceFactory.savingsResource.save(this.formData,function(data){
             location.path('/viewsavingaccount/' + data.savingsId);
           });

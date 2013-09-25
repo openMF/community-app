@@ -217,7 +217,13 @@
       .when('/run_report/:name', {
         templateUrl: 'views/reports/run_reports.html'
       })
-      .when('/new_saving_application/:clientId', {
+      .when('/new_client_saving_application/:clientId', {
+        templateUrl: 'views/savings/new_saving_account_application.html'
+      })
+      .when('/new_group_saving_application/:groupId', {
+        templateUrl: 'views/savings/new_saving_account_application.html'
+      })
+      .when('/new_jlg_saving_application/:groupId/:clientId', {
         templateUrl: 'views/savings/new_saving_account_application.html'
       })
       .when('/viewsavingaccount/:id', {

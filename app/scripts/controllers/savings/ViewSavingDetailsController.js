@@ -20,11 +20,13 @@
             location.path('/savingaccount/' + accountId + '/reject');
           break;
           case "withdrawnbyclient":
-            location.path('/savingaccount/' + accountId + '/withdrawnbyclient');
+            location.path('/savingaccount/' + accountId + '/withdrawnByApplicant');
           break;
           case "delete":
             resourceFactory.savingsResource.delete({accountId:accountId}, {}, function(data){
-              location.path('/viewclient/' + data.clientId);
+              var destination = '/viewgroup/' + data.groupId;
+              if (data.clientId) destination = '/viewclient/' + data.clientId;
+              location.path(destination);
             });
           break;
           case "undoapproval":
@@ -53,7 +55,9 @@
             location.path('/savingaccount/' + accountId + '/applyAnnualFees');
           break;
           case "transferFunds":
-            location.path('/accounttransfers/fromsavings/'+accountId);
+            if (scope.savingaccountdetails.clientId) {
+              location.path('/accounttransfers/fromsavings/'+accountId);
+            }
           break;
           case "close":
             location.path('/savingaccount/' + accountId + '/close');

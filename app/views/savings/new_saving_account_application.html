@@ -1,7 +1,8 @@
 <form class="well" ng-controller="CreateSavingAccountController" ng-submit="submit()">
   <div class="paddedbottom10">
     <ul class="breadcrumb">
-      <li><a href="#/viewclient/{{clientId}}">{{clientName}}</a> <span class="divider">/</span></li>
+      <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
+      <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a> <span class="divider">/</span></li>
       <li class="active">{{'label.saving.application' | translate}}</li>
     </ul>
   </div>
@@ -10,8 +11,10 @@
     <table width="80%">
       <tr class="control-group">
         <td width="50%">
-          <label class="control-label">{{ 'label.applicant' | translate }}&nbsp;</label>
-          <input type="text" value="{{clientName}}" readonly>
+          <label ng-show="clientName" class="control-label">{{ 'label.applicant' | translate }}&nbsp;</label>
+          <input ng-show="clientName" type="text" value="{{clientName}}" readonly>
+          <label ng-show="groupName" class="control-label">{{ 'label.applicant.group' | translate }}&nbsp;</label>
+          <input ng-show="groupName" type="text" value="{{groupName}}" readonly>
         </td>
         <td width="50%">
           <label class="control-label">{{ 'label.product' | translate }}&nbsp;</label>
