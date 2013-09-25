@@ -258,6 +258,12 @@
       })
       .when('/closegroup/:id', {
         templateUrl: 'views/groups/closegroup.html'
+      })
+      .when('/addrole/:id', {
+        templateUrl: 'views/groups/addrole.html'
+      })
+      .when('/membermanage/:id', {
+        templateUrl: 'views/groups/membermanage.html'
       });
     $locationProvider.html5Mode(false);
   };

@@ -1,0 +1,38 @@
+<div data-ng-controller="MemberManageController">
+    <div data-ng-switch on="managecode">
+        <form ng-switch-when="1">
+            <div class="paddedleft">
+                <h3>{{ 'label.associatemembers' | translate }}</h3>
+                <div>
+                    <label class="control-label">{{ 'label.clients' | translate }}</label>
+                    <select multiple ng-model="formData.clientMembers">
+                        <option ng-repeat="client in allClients" value="{{client.id}}">{{client.displayName}}</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="associate()">{{ 'label.save' | translate }}</button>
+                </div>
+            </div>
+            <hr/>
+        </form>
+        <form ng-switch-when="2">
+            <div class="paddedleft">
+                <h3>{{ 'label.disassociatemembers' | translate }}</h3>
+                <div>
+                    <label class="control-label">{{ 'label.members' | translate }}</label>
+                    <select multiple ng-model="formData.clientMembers">
+                        <option ng-repeat="mem in allMembers" value="{{mem.id}}">{{mem.displayName}}</option>
+                    </select>
+                </div>
+                <br/>
+                <div>
+                    <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="disassociate()">{{ 'label.save' | translate }}</button>
+                </div>
+            </div>
+            <hr/>
+        </form>
+    </div>
+</div>

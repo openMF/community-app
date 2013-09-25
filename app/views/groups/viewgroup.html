@@ -3,10 +3,10 @@
    <ul class="breadcrumb">
     <li>
         <div class='gavatar'>
-                <img class="avatarpic" title="member1" src="../app/images/blank_avatar.jpg">
-                <img class="avatarpic" title="member2" src="../app/images/1.jpg">
-                <img class="avatarpic next-row" title="member3" src="../app/images/2.jpg">
-                <img class="avatarpic next-row" title="member4" src="../app/images/3.jpg">
+                <img class="avatarpic" title="member1" src="../app/images/dummy_avatars/4.jpg">
+                <img class="avatarpic" title="member2" src="../app/images/dummy_avatars/1.jpg">
+                <img class="avatarpic next-row" title="member3" src="../app/images/dummy_avatars/2.jpg">
+                <img class="avatarpic next-row" title="member4" src="../app/images/dummy_avatars/3.jpg">
         </div>
     </li>
     <li>
@@ -29,31 +29,19 @@
    </ul>
  </div>
  <div>
-   <tabset  style="margin-bottom: 0px;">
+   <tabset style="margin-bottom: 0px;">
     <tab heading="{{ 'label.general' | translate }}">
         <div class="row-fluid">
             <div class="row-fluid primarydiv">
                 <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
-                    <button class="btn btn-primary" data-ng-click="activateGrouppop()" data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</button>
-                    <a href="#/editgroup/{{group.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.edit' | translate }}</a>
+                    <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</a>
+                    <a href="#/editgroup/{{group.id}}?managecode=1" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.edit' | translate }}</a>
                     <a href="#/closegroup/{{group.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
                     <button class="btn btn-primary" data-ng-click="deleteGrouppop()" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
                 </div>
             </div>
             <br/>
             <div data-ng-switch on="choice">
-                <form ng-switch-when="2">
-                    <div class="paddedleft">
-                        <div>
-                            <label class="control-label">{{ 'label.enteractivationdate' | translate }}</label>
-                            <input type="text" data-ng-model="formData.activationDate" required/>
-                        </div>
-                        <br/>
-                        <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">{{ 'label.cancel' | translate }}</button>
-                        <button type="button" class="btn btn-primary" data-ng-click="activate(group.id)"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</button>
-                    </div>
-                    <hr/>
-                </form>
                 <form data-ng-switch-when="3">
                     <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(group.id)">{{ 'label.confirmdelete' | translate }}</button>
                     <hr/>
@@ -176,48 +164,12 @@
     </tab>
     <tab heading="{{ 'label.group.members' | translate }}">
         <div class="row-fluid">
-            <div class="row-fluid primarydiv">
+            <div class="row-fluid primarydiv" data-ng-hide="group.status.value == 'Closed'">
                 <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.add' | translate }}</a>
-                <button type="button" class="btn btn-primary pull-right" data-ng-click="disassociateMemberpop(group.id)">{{ 'label.disassociatemember' | translate }}</button>
-                <button type="button" class="btn btn-primary pull-right" data-ng-click="associateMemberpop(group.id)">{{ 'label.associatemember' | translate }}</button>
+                <a href="#/membermanage/{{group.id}}?managecode=2" class="btn btn-primary pull-right">{{ 'label.disassociatemember' | translate }}</a>
+                <a href="#/membermanage/{{group.id}}?managecode=1" class="btn btn-primary pull-right">{{ 'label.associatemember' | translate }}</a>
                 <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" class="btn btn-primary pull-right">{{ 'label.attendance' | translate }}</a>
             </div>
-        </div>
-        <div data-ng-switch on="choice">
-            <form ng-switch-when="5">
-                <div class="paddedleft">
-                    <h3>{{ 'label.associatemembers' | translate }}</h3>
-                    <div>
-                        <label class="control-label">{{ 'label.clients' | translate }}</label>
-                        <select multiple ng-model="formData.clientMembers">
-                            <option ng-repeat="client in allClients" value="{{client.id}}">{{client.displayName}}</option>
-                        </select>
-                    </div>
-                    <br/>
-                    <div>
-                        <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">{{ 'label.cancel' | translate }}</button>
-                        <button type="button" class="btn btn-primary" data-ng-click="associateMember(group.id)">{{ 'label.save' | translate }}</button>
-                    </div>
-                </div>
-                <hr/>
-            </form>
-            <form ng-switch-when="6">
-                <div class="paddedleft">
-                    <h3>{{ 'label.disassociatemembers' | translate }}</h3>
-                    <div>
-                        <label class="control-label">{{ 'label.members' | translate }}</label>
-                        <select multiple ng-model="formData.clientMembers">
-                            <option ng-repeat="mem in allMembers" value="{{mem.id}}">{{mem.displayName}}</option>
-                        </select>
-                    </div>
-                    <br/>
-                    <div>
-                        <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">{{ 'label.cancel' | translate }}</button>
-                        <button type="button" class="btn btn-primary" data-ng-click="disassociate(group.id)">{{ 'label.save' | translate }}</button>
-                    </div>
-                </div>
-                <hr/>
-            </form>
         </div>
         <table class="table table-striped" width="100%">
             <thead>
@@ -236,8 +188,8 @@
     </tab>
     <tab heading="{{ 'label.notes' | translate }}">
         <form>
-            <div class="control-group" data-ng-hide="group.status.value=='Closed'">
-                <div class="controls">
+            <div class="control-group">
+                <div class="controls" data-ng-hide="group.status.value=='Closed'">
                     <textarea rows="1" class="field span10" id="textarea" placeholder="{{ 'label.enternote' | translate }}" ng-model="formData.note"></textarea>
                     <br/>
                     <button class="btn btn-primary" ng-click="resetNote()">{{ 'label.reset' | translate }}</button>
@@ -258,34 +210,9 @@
     </tab>
     <tab heading="{{ 'label.committee' | translate }}">
         <div class="row-fluid">
-            <div class="row-fluid primarydiv">
-                <button class="btn btn-primary pull-right" data-ng-click="addrolepop(group.id)"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.add' | translate }}</button>
+            <div class="row-fluid primarydiv" data-ng-hide="group.status.value == 'Closed'">
+                <a href="#/addrole/{{group.id}}" class="btn btn-primary pull-right"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.add' | translate }}</a>
             </div>
-        </div>
-        <div data-ng-switch on="choice">
-            <form ng-switch-when="0">
-                <div class="paddedleft">
-                    <h3>{{ 'label.addrole' | translate }}</h3>
-                    <div>
-                        <label class="control-label">{{ 'label.client' | translate }}</label>
-                        <select ng-model="formData.clientId">
-                            <option ng-repeat="client in clients" value="{{client.id}}">{{client.displayName}}</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="control-label">{{ 'label.role' | translate }}</label>
-                        <select ng-model="formData.role">
-                            <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
-                        </select>
-                    </div>
-                    <br/>
-                    <div>
-                        <button type="button" class="btn btn-primary" data-ng-click="cancel(group.id)">{{ 'label.cancel' | translate }}</button>
-                        <button type="button" class="btn btn-primary" data-ng-click="addrole(group.id)">{{ 'label.add' | translate }}</button>
-                    </div>
-                </div>
-                <hr/>
-            </form>
         </div>
         <table class="table ">
             <thead>
@@ -301,7 +228,7 @@
                     <td>{{grouprole.role.name}}</td>
                     <td><a href="#viewclient/{{member.id}}">{{grouprole.clientName}}</a></td>
                     <td>{{grouprole.clientId}}</td>
-                    <td><button type="button" class="btn btn-primary" data-ng-click="delrole(grouprole.id)">{{ 'label.unassign' | translate }}</button></td>
+                    <td><button type="button" class="btn btn-primary" data-ng-hide="group.status.value == 'Closed'" data-ng-click="delrole(grouprole.id)">{{ 'label.unassign' | translate }}</button></td>
                 </tr>
             </tbody>
         </table>
