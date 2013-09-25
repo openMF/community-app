@@ -83,6 +83,7 @@ define(['underscore', 'mifosX'], function() {
       'private/SuperuserController',
       'groups/GroupController',
       'groups/ViewGroupController',
+      'groups/AttachMeetingController',
       'savings/EditSavingAccountController',
       'savings/SavingAccountActionsController',
       'accounttransfers/ViewAccountTransferDetailsController',
