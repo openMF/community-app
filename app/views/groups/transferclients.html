@@ -1,0 +1,60 @@
+<div data-ng-controller="TransferClientsController">
+   <form>
+        <div class="paddedleft">
+            <h3>{{ 'label.transferclientsbetweengroups' | translate }}</h3>
+            <div>
+                <label class="control-label">{{ 'label.clients' | translate }}</label>
+                <select multiple ng-model="tempData">
+                    <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{'label.inheritgrouploanofficer' | translate}}</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="formData.inheritDestinationGroupLoanOfficer">
+                </div>
+            </div>
+            <div>
+                <label class="control-label">{{ 'label.destinationgroup' | translate }}</label>
+                <select ng-model="formData.destinationGroupId">
+                    <option ng-repeat="onegroup in groups" value="{{onegroup.id}}" data-ng-click="viewgroup(onegroup.id)">{{onegroup.name}}</option>
+                </select>
+            </div>
+            <div data-ng-switch on="view">
+                <table data-ng-switch-when="1">
+                    <tr>
+                        <td>
+                            <h3>{{'label.destinationgroupdetails' | translate}}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.name' | translate}}</td>
+                        <td>{{groupdata.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.groupidentification' | translate }}</td>
+                        <td>{{groupdata.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{groupdata.activationDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{groupdata.staffName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.list.externalid' | translate }}</td>
+                        <td>{{groupdata.externalId}}</td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <div>
+                <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+                <button type="button" class="btn btn-primary" data-ng-click="transfer()">{{ 'label.save' | translate }}</button>
+            </div>
+        </div>
+        <hr/>
+   </form>
+</div>
