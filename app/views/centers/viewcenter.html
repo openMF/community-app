@@ -1,0 +1,184 @@
+<div ng-controller="ViewCenterController">
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <img src="../app/images/blank_avatar.jpg" alt="Avatar" width="40">
+        </li>
+        <li>
+            <h3>
+                &nbsp;
+                {{center.name}}
+                &nbsp;
+                <i class="icon-circle {{center.status.value | StatusLookup}}"></i>
+                &nbsp;
+            </h3>
+        </li>
+        <li><span class="divider">|</span>
+            <i class="icon-barcode"></i>
+            <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{center.id}}&nbsp;</small>
+        </li>
+        <li><span class="divider">|</span>
+            <i class="icon-building"></i>
+            <small>{{ 'label.office' | translate }} "{{center.officeName}}" </small>
+        </li>
+    </ul>
+</div>
+<div>
+<tabset style="margin-bottom: 0px;">
+<tab heading="{{ 'label.general' | translate }}">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv">
+            <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
+                <a href="#/" class="btn btn-primary" data-ng-hide="center.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</a>
+                <a href="#/" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.edit' | translate }}</a>
+                <a ng-show="center.active" href="#/" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.centersavingapplication' | translate }}</a>
+                <a href="#/" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
+                <button class="btn btn-primary" data-ng-click="deletecenterpop()" data-ng-hide="center.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
+            </div>
+        </div>
+        <br/>
+        <div data-ng-switch on="choice">
+            <form data-ng-switch-when="3">
+                <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(center.id)">{{ 'label.confirmdelete' | translate }}</button>
+                <hr/>
+            </form>
+        </div>
+        <div class="row-fluid">
+            <div class="span7">
+                <div data-ng-show="center.status.value=='Closed'">
+                    <h3>{{'label.centerclosed' | translate}}</h3>
+                </div>
+                <table width="100%" >
+                    <tr>
+                        <td width="35%">{{'label.name' | translate}}</td>
+                        <td width="65%">{{center.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{center.activationDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{center.staffName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.nextmeetingon' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.nextTenRecurringDates[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.meetingfrequency' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="span5">
+                <table class="table table-striped" width="100%" >
+                    <thead>
+                    <tr class="graybg">
+                        <th colspan="2">{{ 'label.summary' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclient' | translate }}</td>
+                        <td width="40%">{{summary.activeClients}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactivegrouploans' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclientloans' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactivegroupborrowers' | translate }}</td>
+                        <td width="40%">{{summary.activeGroupBorrowers}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveclientborrowers' | translate }}</td>
+                        <td width="40%">{{summary.activeClientBorrowers}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+                        <td width="40%">{{summary.overdueGroupLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%">{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+                        <td width="40%">{{summary.overdueClientLoans}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div data-ng-show="accounts.savingsAccounts">
+            <table class="table table-striped" width="100%">
+                <thead>
+                <label>{{ 'label.savingsaccountsoverview' | translate }}</label>
+                <tr><td colspan="5">&nbsp;</td></tr>
+                <tr class="graybg">
+                    <th>{{ 'label.products' | translate }}</th>
+                    <th>{{ 'label.form.accountno' | translate }}</th>
+                    <th>{{ 'label.balance' | translate }}</th>
+                    <th>{{ 'label.status' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="savingaccount in accounts.savingsAccounts">
+                    <td><a href="#">{{savingaccount.productName}}</a></td>
+                    <td><a href="#/">{{savingaccount.accountNo}}</a></td>
+                    <td>{{savingaccount.accountBalance}}</td>
+                    <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</tab>
+<tab heading="{{ 'label.groups' | translate }}">
+    <div class="row-fluid">
+        <div class="row-fluid primarydiv" data-ng-hide="center.status.value == 'Closed'">
+            <a href="#/" class="btn btn-primary pull-right"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.add' | translate }}</a>
+            <a href="#/" class="btn btn-primary pull-right">{{ 'label.attendance' | translate }}</a>
+        </div>
+    </div>
+    <table class="table table-striped" width="100%">
+        <thead>
+        <th>{{'label.form.name' | translate}}</th>
+        <th>{{'label.form.office' | translate}}</th>
+        <th>{{ 'label.status' | translate }}</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="group in center.groupMembers">
+            <td><a href="#/viewgroup/{{group.id}}">{{group.name}}</a></td>
+            <td><a href="#/viewgroup/{{group.id}}">{{group.officeName}}</a></td>
+            <td> <i class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}</td>
+        </tr>
+        </tbody>
+    </table>
+</tab>
+<tab heading="{{ 'label.notes' | translate }}">
+    <form>
+        <div class="control-group">
+            <div class="controls" data-ng-hide="center.status.value=='Closed'">
+                <textarea rows="1" class="field span10" id="textarea" placeholder="{{ 'label.enternote' | translate }}" ng-model="formData.note"></textarea>
+                <br/>
+                <button class="btn btn-primary" ng-click="resetNote()">{{ 'label.reset' | translate }}</button>
+                <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{ 'label.addnote' | translate }}</button>
+            </div>
+        </div>
+    </form>
+    <div ng-repeat="groupnote in notes">
+        <div>
+            <blockquote>
+                <p>{{groupnote.note}}</p>
+                <small>{{ 'label.createdby' | translate }} :&nbsp;{{groupnote.createdByUsername}}</small>
+                <small>{{ 'label.createdon' | translate }} :&nbsp;{{groupnote.createdOn}}</small>
+            </blockquote>
+        </div>
+    </div>
+    </ul>
+</tab>
+</tabset>
+</div>
+</div>
+

@@ -97,7 +97,9 @@ define(['underscore', 'mifosX'], function() {
       'groups/CloseGroupController',
       'groups/AddRoleController',
       'groups/MemberManageController',
-      'groups/TransferClientsController'
+      'groups/TransferClientsController',
+      'centers/CenterController',
+      'centers/ViewCenterController'
     ],
     filters: [
       'StatusLookup'
