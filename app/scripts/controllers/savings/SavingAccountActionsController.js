@@ -26,7 +26,7 @@
             scope.showDateField = true;
             scope.showNoteField = true;
           break;
-          case "withdrawnbyclient":
+          case "withdrawnByApplicant":
             scope.title = 'label.withdraw.saving.account';
             scope.labelName = 'label.saving.account.withdrawnOnDate';
             scope.modelName = 'withdrawnOnDate';

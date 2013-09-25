@@ -9,8 +9,14 @@
 
         resourceFactory.savingsResource.get({accountId:scope.accountId, template:true}, function(data) {
           scope.data = data;
-          scope.formData.clientId = data.clientId;
-          scope.clientName = data.clientName;
+          if (data.clientId) {
+            scope.formData.clientId = data.clientId;
+            scope.clientName = data.clientName;
+          }
+          if (data.groupId) {
+            scope.formData.groupId = data.groupId;
+            scope.groupName = data.groupName;
+          }
           scope.formData.productId = data.savingsProductId;
           scope.products = data.productOptions;
           scope.formData.fieldOfficerId = data.fieldOfficerId;
@@ -33,7 +39,10 @@
         });
         
          scope.changeProduct =function() {
-          resourceFactory.savingsTemplateResource.get({clientId:scope.formData.clientId, productId : scope.formData.productId}, function(data) {
+          var inparams = {productId : scope.formData.productId};
+          if (scope.formData.clientId) inparams.clientId = scope.formData.clientId;
+          if (scope.formData.groupId) inparams.groupId = scope.formData.groupId;
+          resourceFactory.savingsTemplateResource.get(inparams, function(data) {
 
             scope.isCollapsed = false;
             scope.data = data;
