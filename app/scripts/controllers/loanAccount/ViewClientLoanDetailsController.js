@@ -1,11 +1,71 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientLoanDetailsController: function(scope, routeParams, resourceFactory) {
+    ViewClientLoanDetailsController: function(scope, routeParams, resourceFactory, location) {
       scope.$broadcast('ClientLoanAccountDataLoadingStartEvent');
       scope.loandocuments = [];
 
+      scope.clickEvent = function(eventName, accountId) {
+        eventName = eventName || "";
+        switch (eventName) {
+          case "addloancharge":
+            location.path('/addloancharge/' + accountId);
+          break;
+          case "addcollateral":
+            location.path('/addcollateral/' + accountId);
+          break;
+          case "assignloanofficer":
+            location.path('/assignloanofficer/' + accountId);
+          break;
+          case "modifyapplication":
+            location.path('/editloanaccount/' + accountId);
+          break;
+          case "approve":
+            location.path('/loanaccount/' + accountId + '/approve');
+          break;
+          case "reject":
+            location.path('/loanaccount/' + accountId + '/reject');
+          break;
+          case "withdrawnbyclient":
+            location.path('/loanaccount/' + accountId + '/withdrawnByApplicant');
+          break;
+          case "delete":
+            resourceFactory.LoanAccountResource.delete({loanId:accountId}, {}, function(data){
+              location.path('/viewclient/' + data.clientId);
+            });
+          break;
+          case "undoapproval":
+            location.path('/loanaccount/' + accountId + '/undoapproval');
+          break;
+          case "disburse":
+            location.path('/loanaccount/' + accountId + '/disburse');
+          break;
+          case "undodisbursal":
+            location.path('/loanaccount/' + accountId + '/undodisbursal');
+          break;
+          case "makerepayment":
+            location.path('/loanaccount/' + accountId + '/repayment');
+          break;
+          case "waiveinterest":
+            location.path('/loanaccount/' + accountId + '/waiveinterest');
+          break;
+          case "writeoff":
+            location.path('/loanaccount/' + accountId + '/writeoff');
+          break;
+          case "close-rescheduled":
+            location.path('/loanaccount/' + accountId + '/close-rescheduled');
+          break;
+          case "transferFunds":
+            location.path('/accounttransfers/fromloans/'+accountId);
+          break;
+          case "close":
+            location.path('/loanaccount/' + accountId + '/close');
+          break;
+        }
+      };
+
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.clientloandetails = data;
+
           scope.$broadcast('ClientLoanAccountDataLoadingCompleteEvent');
 
           if (data.status.value == "Submitted and pending approval") {
@@ -32,11 +92,14 @@
                                 name:"button.reject"
                               },
                               {
-                                 name:"button.withdrawnbyclient"
-                               },
-                               {
-                                 name:"button.guarantor"
-                               }]
+                                name:"button.withdrawnbyclient"
+                              },
+                              {
+                                name:"button.delete"
+                              },
+                              {
+                                name:"button.guarantor"
+                              }]
                               
                             };
         }
@@ -89,9 +152,20 @@
                                 name:"button.writeoff"
                               },
                               {
+                                name:"button.close-rescheduled"
+                              },
+                              {
                                  name:"button.close"
                               }]
                               
+                            };
+        }
+        if (data.status.value == "Overpaid") {
+            scope.buttons = { singlebuttons : [{
+                                name:"button.transferFunds",
+                                icon :"icon-exchange"
+                              } 
+                            ]                              
                             };
         }
 
@@ -103,7 +177,7 @@
       });
     }
   });
-  mifosX.ng.application.controller('ViewClientLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', mifosX.controllers.ViewClientLoanDetailsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewClientLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewClientLoanDetailsController]).run(function($log) {
     $log.info("ViewClientLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));

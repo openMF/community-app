@@ -3,7 +3,7 @@
     <div class="pull-right">
       <div class="btn-group" >
           <span ng-repeat="button in buttons.singlebuttons">
-              <a  ng-show="button.name" ng-click="" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
+              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), clientloandetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
           </span>
           <span ng-show="buttons.options" class="btn-group">
               <a class="btn btn-primary dropdown-toggle">
@@ -12,7 +12,7 @@
               </a>
               <ul class="dropdown dropdown-menu">
                 <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                    <a ng-click="" >{{button.name | translate}}</a>
+                    <a ng-click="clickEvent(button.name.replace('button.',''), clientloandetails.id)">{{button.name | translate}}</a>
                 </li>
               </ul>
           </span>  
@@ -220,9 +220,8 @@
                 </tr>
               </tfoot>
             </table>
-
-
         </tab>
+
         <tab heading="{{'tab.transaction' | translate}}">
             <table class="table">
               <colgroup span="4"></colgroup>
@@ -253,6 +252,51 @@
                   <td>{{transaction.feeChargesPortion}}</td>
                   <td>{{transaction.penaltyChargesPortion}}</td>
                 </tbody>
+            </table>
+          </tab>
+          <tab heading="{{'tab.loancollaterals' | translate}}">
+            <table class="table">
+              <thead>
+                <th>{{'table.heading.type' | translate}}</th>
+                <th>{{'table.heading.description' | translate}}</th>
+                <th>{{'table.heading.value' | translate}}</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="collateral in clientloandetails.collateral">
+                  <td>
+                    <a ng-show="clientloandetails.status.pendingApproval" href="#/loan/{{clientloandetails.id}}/viewcollateral/{{collateral.id}}">{{collateral.type.name}}</a>
+                    <a ng-hide="clientloandetails.status.pendingApproval">{{collateral.type.name}}</a>
+                  </td>
+                  <td>{{collateral.description}}</td>
+                  <td>{{collateral.value}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </tab>
+
+          <tab heading="{{'tab.charges' | translate}}">
+            <table class="table">
+              <thead>
+                <th>{{'table.heading.name' | translate}}</th>
+                <th>{{'table.heading.fees.or.penalties' | translate}}</th>
+                <th>{{'table.heading.paymentdue.at' | translate}}</th>
+                <th>{{'table.heading.paymentdue.asof' | translate}}</th>
+                <th>{{'table.heading.calculation.type' | translate}}</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="charge in clientloandetails.charges">
+                  <td>
+                    <a href="#/loan/{{clientloandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{clientloandetails.status.value}}">{{charge.name}}</a>
+                  </td>
+                  <td>
+                    <span ng-show="charge.penalty">Penalty</span>
+                    <span ng-hide="charge.penalty">Fee</span>
+                  </td>
+                  <td>{{charge.chargeTimeType.value}}</td>
+                  <td>{{charge.dueDate}}</td>
+                  <td>{{charge.chargeCalculationType.value}}</td>
+                </tr>
+              </tbody>
             </table>
           </tab>
 
