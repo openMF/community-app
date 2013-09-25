@@ -54,6 +54,10 @@
           groupMeetingResource:defineResource(apiVer + "/groups/:groupId/meetings/:templateSource", {groupId:'@groupId',templateSource:'@templateSource'}, {
               getMeetingInfo: {method:'GET', params: {}}
           }),
+          attachMeetingResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId/calendars/:templateSource", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId',
+          templateSource:'@templateSource'}, {
+
+          }),
           runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource : '@reportSource'}, {
             get: {method: 'GET', params: {}, isArray:true},
             getReport: {method: 'GET', params: {}}
