@@ -276,6 +276,12 @@
       })
       .when('/transferclients/:id', {
         templateUrl: 'views/groups/transferclients.html'
+      })
+      .when('/centers', {
+        templateUrl: 'views/centers/centers.html'
+      })
+      .when('/viewcenter/:id', {
+        templateUrl:'views/centers/viewcenter.html'
       });
     $locationProvider.html5Mode(false);
   };

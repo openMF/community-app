@@ -178,6 +178,13 @@
           }),
           accountTransfersTemplateResource: defineResource(apiVer + "/accounttransfers/template", {}, {
               get: {method: 'GET', params: {}}
+          }),
+          centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId:'@centerId'}, {
+              getAll: {method: 'GET', params: {}, isArray: true}
+          }),
+          centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId:'@centerId',anotherresource:'@anotherresource'}, {
+            get: {method: 'GET', params: {}},
+            update: { method: 'PUT'}
           })
         };
       }];
