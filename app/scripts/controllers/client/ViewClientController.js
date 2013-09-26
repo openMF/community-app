@@ -58,17 +58,17 @@
 
             if(data.staffId) {
               scope.buttons.push({
-                name:"button.unassignloanofficer",
+                name:"button.unassignstaff",
                 href:"#/client",
-                subhref:"unassignloanofficer",
-                icon :"icon-male"
+                subhref:"unassignstaff",
+                icon :"icon-user"
               });
             } else {
               scope.buttons.push({
-                name:"button.assignloanofficer",
+                name:"button.assignstaff",
                 href:"#/client",
-                subhref:"assignloanofficer",
-                icon :"icon-male"
+                subhref:"assignstaff",
+                icon :"icon-user"
               });
             }
 
@@ -137,13 +137,14 @@
           }
         };
 
-        scope.resetNote = function() { 
-          this.formData = '';
-        }
 
         scope.saveNote = function() {   
-            resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData,function(data){
-            route.reload();
+            resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData , function(data){
+            //further we have to make changes of this.
+            temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
+            scope.clientNotes.push(temp);
+            scope.formData.note = "";
+            scope.predicate = '-id';
           });
         }
     }

@@ -16,9 +16,11 @@
             });
 
             //event for rule change
-            scope.resetCrAndDb = function () {
+            scope.resetCrAndDb = function (rule) {
               scope.formData.crAccounts = [];
               scope.formData.dbAccounts = [];
+              scope.formData.creditAccountTemplate = rule.creditAccounts[0];
+              scope.formData.debitAccountTemplate = rule.debitAccounts[0];
             }
 
             //events for credits
