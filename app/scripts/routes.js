@@ -31,6 +31,9 @@
       .when('/viewclient/:id', {
         templateUrl: 'views/clients/viewclient.html'
       })
+      .when('/client/:id/:action', {
+        templateUrl: 'views/clients/clientactions.html'  
+      })
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
       })
