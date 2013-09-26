@@ -5,6 +5,7 @@
 
             resourceFactory.centerResource.get({centerId: routeParams.id,associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
                 scope.center = data;
+                scope.meeting = data.collectionMeetingCalendar;
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts',genericResultSet: 'false',R_groupId: routeParams.id} , function(data) {
                 scope.summary = data[0];
@@ -15,7 +16,14 @@
             resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id} , function(data) {
                 scope.notes = data;
             });
-
+            scope.deletecenterpop = function(){
+                scope.choice = 3;
+            } ;
+            scope.delete = function(id){
+                resourceFactory.centerResource.delete({centerId: id}, {}, function(data) {
+                    location.path('/centers');
+                });
+            };
             scope.resetNote = function() {
                 this.formData = '';
             };

@@ -185,7 +185,14 @@
           centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId:'@centerId',anotherresource:'@anotherresource'}, {
             get: {method: 'GET', params: {}},
             update: { method: 'PUT'}
+          }),
+          centerMeetingResource:defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId:'@centerId',templateSource:'@templateSource'}, {
+            getMeetingInfo: {method:'GET', params: {}}
+          }),
+          centerTemplateResource: defineResource(apiVer + "/centers/template", {}, {
+            get: {method: 'GET', params: {}}
           })
+
         };
       }];
     }

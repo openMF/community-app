@@ -1,0 +1,54 @@
+<form class="form-horizontal well" ng-controller="AddGroupController">
+    <fieldset>
+        <legend>{{'label.addgroup' | translate}}</legend>
+
+        <div class="control-group">
+            <label class="control-label" for="staffid">{{ 'label.form.staff' | translate }}</label>
+            <div class="controls">
+                <select ng-model="formData.staffId" id="staffid">
+                    <option ng-repeat="staff in groupTemplate.staffOptions" value="{{staff.id}}">{{staff.displayName}}</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <div class="control-group">
+                <label class="control-label" for="fullname">{{ 'label.form.name' | translate }}</label>
+                <div class="controls">
+                    <input type="text" id="fullname" ng-model="formData.name">
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="externalid">{{ 'label.externalid' | translate }}</label>
+            <div class="controls">
+                <input type="text" id="externalid" ng-model="formData.externalId">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.clients' | translate }}</label>
+            <div class="controls">
+                <select multiple ng-model="formData.clientMembers">
+                        <option ng-repeat="client in groupTemplate.clientOptions" value="{{client.id}}">{{client.displayName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="activationdate">{{ 'label.form.activationdate' | translate }}</label>
+            <div class="controls">
+                <input type="text" id="activationdate" ng-model="formData.activationDate">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="active">{{ 'label.active' | translate }}</label>
+            <div class="controls">
+                <input type="checkbox" id="active" ng-model="formData.active">
+            </div>
+        </div>
+        <div class="offset2 paddedleft120">
+            <a href="#/viewcenter/{{groupTemplate.centerId}}" class="btn">{{ 'label.cancel' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="addGroup()">{{ 'label.save' | translate }}</button>
+        </div>
+    </fieldset>
+</form>
+
+
