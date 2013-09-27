@@ -9,12 +9,16 @@
           scope.collateralTypes = data.allowedCollateralTypes;
         });
 
+        scope.cancel = function() {
+          location.path('/viewloanaccount/' + scope.loanId);
+        };
+
         scope.submit = function() {
-			this.formData.locale = 'en';
-			resourceFactory.loanResource.put({resourceType:'collaterals', resourceId:scope.collateralId, loanId:scope.loanId}, this.formData, function(data){
-				location.path('/viewloanaccount/' + data.loanId);
-			});
-		};
+    			this.formData.locale = 'en';
+    			resourceFactory.loanResource.put({resourceType:'collaterals', resourceId:scope.collateralId, loanId:scope.loanId}, this.formData, function(data){
+    				location.path('/viewloanaccount/' + data.loanId);
+    			});
+    		};
 
     }
   });

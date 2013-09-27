@@ -18,6 +18,10 @@
           });
         };
 
+        scope.cancel = function() {
+          location.path('/viewloanaccount/' + scope.loanId);
+        };
+
         scope.submit = function() {
           this.formData.locale = 'en';
           resourceFactory.loanResource.save({resourceType:'charges', loanId:scope.loanId}, this.formData, function(data){
