@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientLoanDetailsController: function(scope, routeParams, resourceFactory, location) {
-      scope.$broadcast('ClientLoanAccountDataLoadingStartEvent');
+    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location) {
+      scope.$broadcast('LoanAccountDataLoadingStartEvent');
       scope.loandocuments = [];
 
       scope.clickEvent = function(eventName, accountId) {
@@ -30,7 +30,9 @@
           break;
           case "delete":
             resourceFactory.LoanAccountResource.delete({loanId:accountId}, {}, function(data){
-              location.path('/viewclient/' + data.clientId);
+              var destination = '/viewgroup/' + data.groupId;
+              if (data.clientId) destination = '/viewclient/' + data.clientId;
+              location.path(destination);
             });
           break;
           case "undoapproval":
@@ -55,7 +57,9 @@
             location.path('/loanaccount/' + accountId + '/close-rescheduled');
           break;
           case "transferFunds":
-            location.path('/accounttransfers/fromloans/'+accountId);
+            if (scope.loandetails.clientId) {
+              location.path('/accounttransfers/fromloans/'+accountId);
+            }
           break;
           case "close":
             location.path('/loanaccount/' + accountId + '/close');
@@ -64,9 +68,9 @@
       };
 
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
-          scope.clientloandetails = data;
+          scope.loandetails = data;
 
-          scope.$broadcast('ClientLoanAccountDataLoadingCompleteEvent');
+          scope.$broadcast('LoanAccountDataLoadingCompleteEvent');
 
           if (data.status.value == "Submitted and pending approval") {
             scope.buttons = { singlebuttons : [{
@@ -177,7 +181,7 @@
       });
     }
   });
-  mifosX.ng.application.controller('ViewClientLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewClientLoanDetailsController]).run(function($log) {
-    $log.info("ViewClientLoanDetailsController initialized");
+  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+    $log.info("ViewLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));

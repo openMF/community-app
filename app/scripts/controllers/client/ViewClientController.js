@@ -37,12 +37,12 @@
                               },
                               {
                                 name:"button.newloan",
-                                href:"#/newloanaccount",
+                                href:"#/newclientloanaccount",
                                 icon :"icon-plus"
                               },
                               {
                                 name:"link.new.savings.application",
-                                href:"#/new_saving_application",
+                                href:"#/new_client_saving_application",
                                 icon :"icon-plus"
                               },
                               {
