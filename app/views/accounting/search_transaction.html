@@ -6,13 +6,13 @@
       </ul>
     </div><br>
     <div class="row-fluid" >
-        <span class="input-append">
+        <span class="input-append grpinputicons" >
                 <input ng-model="formData.transactionId" type="text" placeholder="Search by transaction #" />
                 <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control"><i class="icon-chevron-down"></i></a></span>
                 <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
     </div>
-    <div collapse="isCollapsed" class="affix ext-sidenav trxsearchoverlay" width="100%">
+    <div collapse="isCollapsed" class="blockoverlay" width="100%">
         <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
         <div class="offset1">    <label>Account Name</label>
             <input ng-model="formData.glAccount" type="text" placeholder="Account Name" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" />
@@ -36,7 +36,8 @@
             <input ng-model="formData.fromDate" type="text" placeholder="From Date" />
             <label>{{ 'label.todate' | translate }}</label>
             <input ng-model="formData.toDate" type="text" placeholder="To Date" /><br/>
-            <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span></div>
+            <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span>
+        </div>
     </div>
 
     <div ng-show="displayResults" class="row-fluid">
