@@ -37,38 +37,44 @@
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
       })
-      .when('/newloanaccount/:id', {
-          templateUrl: 'views/clients/clientnewloanaccount.html'
+      .when('/newclientloanaccount/:clientId', {
+          templateUrl: 'views/loans/newloanaccount.html'
+      })
+      .when('/newgrouploanaccount/:groupId', {
+          templateUrl: 'views/loans/newloanaccount.html'
+      })
+      .when('/newjlgloanaccount/:groupId/:clientId', {
+          templateUrl: 'views/loans/newloanaccount.html'
       })
       .when('/viewloanaccount/:id', {
-        templateUrl: 'views/clients/viewclientloanaccountdetails.html'
+        templateUrl: 'views/loans/viewloanaccountdetails.html'
       })
       .when('/loanaccount/:id/:action', {
-        templateUrl: 'views/clients/clientloanaccountactions.html'
+        templateUrl: 'views/loans/loanaccountactions.html'
       })
       .when('/editloanaccount/:id', {
-        templateUrl: 'views/clients/editclientloanaccount.html'
+        templateUrl: 'views/loans/editloanaccount.html'
       })
       .when('/addloancharge/:id', {
-        templateUrl: 'views/clients/addloancharge.html'
+        templateUrl: 'views/loans/addloancharge.html'
       })
       .when('/addcollateral/:id', {
-        templateUrl: 'views/clients/addloancollateral.html'
+        templateUrl: 'views/loans/addloancollateral.html'
       })
       .when('/loan/:loanId/editcollateral/:id', {
-        templateUrl: 'views/clients/editloancollateral.html'
+        templateUrl: 'views/loans/editloancollateral.html'
       })
       .when('/loan/:loanId/viewcollateral/:id', {
-        templateUrl: 'views/clients/viewloancollateral.html'
+        templateUrl: 'views/loans/viewloancollateral.html'
       })
       .when('/loan/:loanId/viewcharge/:id', {
-        templateUrl: 'views/clients/viewloancharge.html'
+        templateUrl: 'views/loans/viewloancharge.html'
       })
       .when('/loan/:loanId/editcharge/:id', {
-        templateUrl: 'views/clients/editloancharge.html'
+        templateUrl: 'views/loans/editloancharge.html'
       })
       .when('/assignloanofficer/:id', {
-        templateUrl: 'views/clients/assignloanofficer.html'
+        templateUrl: 'views/loans/assignloanofficer.html'
       })
       .when('/organization', {
         templateUrl: 'views/administration/organization.html'  

@@ -96,6 +96,10 @@
           break;
         }
 
+        scope.cancel = function() {
+          location.path('/viewloanaccount/' + routeParams.id);
+        };
+
         scope.submit = function() {
           var params = {command:scope.action};
           if (scope.action != "undoapproval" && scope.action != "undodisbursal") {

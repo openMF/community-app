@@ -12,6 +12,10 @@
           scope.data = data;
         });
 
+        scope.cancel = function() {
+          location.path('/viewloanaccount/' + scope.loanId);
+        };
+
         scope.submit = function() {
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
