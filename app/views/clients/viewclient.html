@@ -23,7 +23,7 @@
   </ul>
     <div>
       <tabset  style="margin-bottom: 0px;">
-      <tab heading="Accounts">
+      <tab heading="{{'tab.general' | translate}}">
               <div class="row-fluid">
                   <div class="row-fluid primarydiv">
                       <div class="btn-group pull-right">
@@ -208,16 +208,20 @@
         <form>
             <div class="control-group">
               <div class="controls">
-                <textarea rows="1" class="field span10" id="textarea" placeholder="Enter note" ng-model="formData.note"></textarea>
-                <button class="btn btn-primary" type="submit" ng-click="saveNote()">Add Note</button>
-                <button class="btn btn-primary" ng-click="resetNote()">Reset</button>
+                     <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="Enter note" ng-model="formData.note"></textarea>
+                     <div class="notewrapper row-fluid">
+                        <span class="pull-right noteaddbuttonwrapper">
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">Add Note</button>
+                        </span>
+                     </div>
               </div>
             </div>  
         </form>
-        <div ng-repeat="clientNote in clientNotes">
+        <div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
           <div>
             <blockquote>
               <p>{{clientNote.note}}</p>
+              {{clientNote.id}}
               <small>Created by :&nbsp;{{clientNote.createdByUsername}}</small>
               <small>Created on :&nbsp;{{clientNote.createdOn}}</small>
             </blockquote>

@@ -1,0 +1,28 @@
+<div ng-controller="ClientActionsController">
+  <div>
+    <ul class="breadcrumb">
+      <li class="active">{{breadcrumbName | translate}}</li>
+    </ul>
+  </div>
+  <form class="form-horizontal well" ng-submit="submit()">
+      <div class="control-group" ng-show="showDateField">
+        <label class="control-label">{{labelName | translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="formData[modelName]">
+        </div>
+      </div>
+
+      <div class="control-group" ng-show="staffField">
+        <label class="control-label">{{labelName | translate}}</label>
+        <div class="controls">
+          <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
+          </select>
+        </div>
+      </div>
+
+      <div class="offset3">
+        <button type="reset" ng-click="cancel()" class="btn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>		
+  </form>
+</div>
