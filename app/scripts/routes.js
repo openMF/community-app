@@ -288,6 +288,21 @@
       })
       .when('/viewcenter/:id', {
         templateUrl:'views/centers/viewcenter.html'
+      })
+      .when('/createcenter', {
+        templateUrl: 'views/centers/createcenter.html'
+      })
+      .when('/editcenter/:id', {
+        templateUrl: 'views/centers/editcenter.html'
+      })
+      .when('/closecenter/:id', {
+        templateUrl: 'views/centers/closecenter.html'
+      })
+      .when('/addgroup', {
+        templateUrl: 'views/centers/addgroup.html'
+      })
+      .when('/centerattendance', {
+        templateUrl: 'views/centers/centerattendance.html'
       });
     $locationProvider.html5Mode(false);
   };
