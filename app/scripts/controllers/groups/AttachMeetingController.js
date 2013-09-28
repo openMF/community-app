@@ -5,11 +5,11 @@
                 templateSource : 'template'}, function(data) {
                 scope.groupCenterData = data;
 
-                //to display default in seleclt boxes 
+                //to display default in select boxes
                 scope.formData = {
                     repeating :'true',
                     repeats:'daily',
-                    repeatsEvery:'1',
+                    repeatsEvery:'1'
                 }
                 scope.periodValue = "day(s)";
                 scope.repeatsOptions = ["daily", "weekly", "monthly", "yearly"];
@@ -24,7 +24,7 @@
                 if(period == "weekly") {
                     scope.repeatsEveryOptions = ["1","2","3"];
                     scope.formData.repeatsOnDay = 'MO';
-                    scope.periodValue = "week(s)"
+                    scope.periodValue = "week(s)";
                     scope.repeatsOnOptions  = [
                     {name : "MON", value : "MO"},
                     {name : "TUE", value : "TU"},
@@ -36,11 +36,11 @@
                     ]
                 }
                 if(period == "monthly") {
-                    scope.periodValue = "month(s)"
+                    scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1","2","3","4", "5", "6", "7", "8", "9", "10", "11"];
                 }
                 if(period == "yearly") {
-                    scope.periodValue = "year(s)"
+                    scope.periodValue = "year(s)";
                     scope.repeatsEveryOptions = ["1","2","3"];
                 }
             }
@@ -51,9 +51,15 @@
                 this.formData.typeId = "1";
                 if(routeParams.entityType == "groups") {
                     this.formData.title = "groups_"+routeParams.id+"_CollectionMeeting";
+                    scope.r = "viewgroup/";
                 }
+                else if(routeParams.entityType == "centers") {
+                    this.formData.title = "centers_"+routeParams.id+"_CollectionMeeting";
+                    scope.r = "viewcenter/";
+                }
+
                 resourceFactory.attachMeetingResource.save({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id}, this.formData,function(data){
-                    location.path('/viewgroup/'+routeParams.id);
+                    location.path(scope.r + routeParams.id);
                 });
             };
         }
