@@ -43,8 +43,8 @@
       .when('/newgrouploanaccount/:groupId', {
           templateUrl: 'views/loans/newloanaccount.html'
       })
-      .when('/newjlgloanaccount/:groupId/:clientId', {
-          templateUrl: 'views/loans/newloanaccount.html'
+      .when('/newjlgloanaccount/:groupId', {
+          templateUrl: 'views/loans/newjlgloanaccount.html'
       })
       .when('/viewloanaccount/:id', {
         templateUrl: 'views/loans/viewloanaccountdetails.html'
