@@ -27,6 +27,7 @@ define(['underscore', 'mifosX'], function() {
       'loanAccount/EditLoanCollateralController',
       'loanAccount/ViewLoanChargeController',
       'loanAccount/EditLoanChargeController',
+      'loanAccount/NewJLGLoanAccAppController',
       'client/ClientController',
       'client/EditClientController',
       'client/ViewClientController',
