@@ -13,6 +13,12 @@
       .when('/products', {
         templateUrl: 'views/products/products.html'
       })
+      .when('/createloanproduct', {
+        templateUrl: 'views/products/createloanproduct.html'
+      })
+      .when('/editloanproduct/:id', {
+        templateUrl: 'views/products/editloanproduct.html'
+      })
       .when('/admin/roles', {
         templateUrl: 'views/administration/roles.html'
       })
