@@ -35,6 +35,8 @@ define(['underscore', 'mifosX'], function() {
       'client/TransactionClientController',
       'client/ClientActionsController',
       'product/LoanProductController',
+      'product/CreateLoanProductController',
+      'product/EditLoanProductController',
       'product/ChargeController',
       'product/ViewChargeController',
       'product/SavingProductController',

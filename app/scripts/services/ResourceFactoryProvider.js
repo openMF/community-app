@@ -68,8 +68,9 @@
             getAllDataTables: {method: 'GET', params: {}, isArray:true},
             getTableDetails: {method: 'GET', params: {}}
           }),
-          loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId", {loanProductId:'@loanProductId'}, {
-            getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
+          loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType:'@resourceType', loanProductId:'@loanProductId'}, {
+            getAllLoanProducts: {method: 'GET', params: {}, isArray:true},
+            put: {method: 'PUT', params: {}}
           }),
           chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId:'@chargeId'}, {
             getAllCharges: {method: 'GET', params: {}, isArray:true},
