@@ -106,7 +106,9 @@ define(['underscore', 'mifosX'], function() {
       'centers/EditCenterController',
       'centers/CloseCenterController',
       'centers/AddGroupController',
-      'centers/CenterAttendanceController'
+      'centers/CenterAttendanceController',
+      'product/CreateChargeController',
+      'product/EditChargeController'
     ],
     filters: [
       'StatusLookup'
