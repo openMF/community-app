@@ -309,6 +309,12 @@
       })
       .when('/centerattendance', {
         templateUrl: 'views/centers/centerattendance.html'
+      })
+      .when('/createcharge', {
+          templateUrl: 'views/products/createcharge.html'
+      })
+      .when('/editcharge/:id', {
+        templateUrl: 'views/products/editcharge.html'
       });
     $locationProvider.html5Mode(false);
   };

@@ -3,7 +3,7 @@
         ViewGroupController: function(scope, routeParams , route, location, resourceFactory) {
             scope.group = [];
             scope.template = [];
-
+            scope.choice = 0;
             resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
                 scope.group = data;
             });
@@ -39,6 +39,9 @@
                 resourceFactory.groupResource.get({groupId: id}, function(data){
                     route.reload();
                 });
+            };
+            scope.cancelDelete = function(){
+                scope.choice = 0;
             };
 
             scope.saveNote = function() {

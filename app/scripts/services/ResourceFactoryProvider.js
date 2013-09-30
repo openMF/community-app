@@ -72,7 +72,12 @@
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true}
           }),
           chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId:'@chargeId'}, {
-            getAllCharges: {method: 'GET', params: {}, isArray:true}
+            getAllCharges: {method: 'GET', params: {}, isArray:true},
+            getCharge: {method: 'GET', params: {}},
+            update: {method: 'PUT', params: {}}
+          }),
+          chargeTemplateResource: defineResource(apiVer + "/charges/template", {
+            get: {method: 'GET', params: {}, isArray:true}
           }),
           savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId", {savingProductId:'@savingProductId'}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
