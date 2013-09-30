@@ -1,0 +1,538 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="#/products">{{'link.admin.products' | translate}}</a> <span class="divider">/</span></li>
+    <li><a href="#/loanproducts">{{'link.products.loanproducts' | translate}}</a> <span class="divider">/</span></li>
+    <li class="active">{{'label.createloanproduct' | translate}}</li>
+  </ul>
+</div>
+<form class="well" ng-controller="CreateLoanProductController">
+	<div class="control-group">
+	    <table width="100%">
+	    	<tr class="control-group">
+          <td width="11%">
+            <label class="control-label"><h4>{{ 'label.heading.details' | translate }}</h4></label>
+          </td>
+          <td class="blockquoteresult" width="80%">
+            <table>
+              <tr>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.productname' | translate }}&nbsp;</label>
+                  <input type="text" ng-model="formData.name">
+                </td>
+                <td width="40%">
+                </td>
+              </tr>
+              <tr>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.description' | translate }}</label>
+                  <textarea rows="2" ng-model="formData.description"></textarea>
+                </td>
+                <td width="40%">
+                </td>
+              </tr>
+              <tr>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.fund' | translate }}&nbsp;</label>
+                  <select ng-model="formData.fundId" ng-options="fund.id as fund.name for fund in product.fundOptions" value="{{fund.id}}">
+                    <option style="display:none" value="">{{'label.select.fund' | translate}}</option>
+                  </select>
+                </td>
+                <td width="40%">
+                </td>
+              </tr>
+              <tr>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.startdate' | translate }}&nbsp;</label>
+                  <input type="text" ng-model="formData.startDate">
+                </td>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.closedate' | translate }}&nbsp;</label>
+                  <input type="text" ng-model="formData.closeDate">
+                </td>
+              </tr>
+              <tr>
+                <td width="40%">
+                  <label class="control-label" for="active">{{ 'label.includeinborrowerloancounter' | translate }}</label>
+                  <label class="checkbox">
+                    <input type="checkbox" ng-model="formData.includeInBorrowerCycle" ng-true-value="true" ng-false-value="false">
+                  </label>
+                </td>
+                <td width="40%"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+	    </table>
+	</div>
+
+  <div class="control-group">
+    <table width="100%">
+      <tr class="span2"></tr>
+      <tr class="control-group">
+        <td width="11%">
+          <label class="control-label"><h4>{{ 'label.heading.terms' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult" width="80%">
+          <table>
+            <tr>
+              <td width="40%">
+                <label class="control-label">{{ 'label.currency' | translate }}&nbsp;</label>
+                <select ng-model="formData.currencyCode" ng-options="currency.code as currency.name for currency in product.currencyOptions" value="{{currency.code}}">  
+              </td>
+              <td width="40%">
+                <label class="control-label">{{ 'label.decimalplaces' | translate }}&nbsp;</label>
+                <input type="text" class="input-small"ng-model="formData.digitsAfterDecimal">
+              </td>
+            </tr>
+            <tr>
+              <td width="40%">
+                <label class="control-label">{{ 'label.multiplesof' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.digitsAfterDecimal">
+              <td width="40%">
+              </td>
+            </tr>
+            <tr>
+              <td width="40%">
+                <label class="control-label">{{ 'label.currencyinmultiplesof' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.inMultiplesOf">
+              <td width="40%">
+              </td>
+            </tr>
+          </table>
+          <table>
+            <tr>
+              <td width="80%">
+                <table>
+                  <label class="control-label">{{ 'label.principal' | translate }}&nbsp;</label>
+                  <tr>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.minPrincipal">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.principal">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.maxPrincipal">
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{'label.minimum' | translate}}
+                    </td>
+                    <td>
+                      {{'label.default' | translate}}
+                    </td>
+                    <td>
+                      {{'label.maximum' | translate}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td width="80%">
+                <table>
+                  <label class="control-label">{{ 'label.numofrepayments' | translate }}&nbsp;</label>
+                  <tr>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.minNumberOfRepayments">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.numberOfRepayments">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.maxNumberOfRepayments">
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{'label.minimum' | translate}}
+                    </td>
+                    <td>
+                      {{'label.default' | translate}}
+                    </td>
+                    <td>
+                      {{'label.maximum' | translate}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%">
+                <label class="control-label">{{ 'label.repaidevery' | translate }}&nbsp;</label>
+                <input class="input-small" type="text" ng-model="formData.repaymentEvery">&nbsp;
+                <select class="input-small" ng-model="formData.repaymentFrequencyType" ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions" value="{{repaymentFrequencyType.id}}">
+              </td>
+              <td width="40%"></td>
+            </tr>
+            <tr>
+              <td width="80%">
+                <table>
+                  <label class="control-label">{{ 'label.nominalinterestrate' | translate }}&nbsp;</label>
+                  <tr>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.minInterestRatePerPeriod">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.interestRatePerPeriod">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.maxInterestRatePerPeriod">
+                    </th>
+                    <th>
+                       <select class="input-small" ng-model="formData.interestRateFrequencyType" ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in product.interestRateFrequencyTypeOptions" value="{{interestRateFrequencyType.id}}">
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{'label.minimum' | translate}}
+                    </td>
+                    <td>
+                      {{'label.default' | translate}}
+                    </td>
+                    <td>
+                      {{'label.maximum' | translate}}
+                    </td>
+                    <td>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="span2"></tr>
+
+      <tr class="control-group">
+        <td>
+          <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult" width="80%">
+          <table>
+            <tr>
+              <td width="40%">
+                <label class="control-label">{{ 'label.amortization' | translate }}&nbsp;</label>
+                <select ng-model="formData.amortizationType" ng-options="amortizationType.id as amortizationType.value for amortizationType in product.amortizationTypeOptions" value="{{amortizationType.id}}">
+              </td>
+              <td width="40%">
+                <label class="control-label">{{ 'label.interestmethod' | translate }}&nbsp;</label>
+                <select ng-model="formData.interestType" ng-options="interestType.id as interestType.value for interestType in product.interestTypeOptions" value="{{interestType.id}}">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label">{{ 'label.interestcalculationperiod' | translate }}&nbsp;</label>
+                <select ng-model="formData.interestCalculationPeriodType" ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions" value="{{interestCalculationPeriodType.id}}">
+              </td>
+              <td>
+                <label class="control-label">{{ 'label.arearstolerance' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.inArrearsTolerance">
+                {{formData.principalCurrencyCode}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label">{{ 'label.repaymentstrategy' | translate }}&nbsp;</label>
+                <select ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}">
+              </td>
+              <td>
+                <table>
+                  <label class="control-label">{{ 'label.grace' | translate }}&nbsp;</label>
+                  <tr>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.graceOnPrincipalPayment">&nbsp;
+                    </th>
+                    <th>
+                      <input type="text" class="input-small" ng-model="formData.graceOnInterestPayment">&nbsp;
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{'label.onprincipalpayment' | translate}}
+                    </td>
+                    <td>
+                      {{'label.oninterestpayment' | translate}}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label class="control-label">{{ 'label.interestfreeperiod' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.graceOnInterestCharged">
+              </td>
+              <td>
+                <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.interestChargedFromDate">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="span2"></tr>
+
+      <tr class="control-group">
+        <td>
+          <label class="control-label"><h4>{{ 'label.charges' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult">
+            <form>
+              <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in product.chargeOptions" value="{{charge.id}}">
+                <option style="display:none" value="">{{'label.select.charge' | translate}}</option>
+              </select>
+              <button class="btn btn-primary" ng-click="chargeSelected(chargeId)">{{ 'button.add' | translate }}</button>
+            </form>
+          <table class="table" width="100%">
+            <tr class="graybg">
+              <th>{{'table.heading.name' | translate}}</th>
+              <th>{{'table.heading.type' | translate}}</th>
+              <th></th>
+              <th>{{'table.heading.amount' | translate}}</th>
+              <th></th>
+              <th>{{'table.heading.collectedon' | translate}}</th>
+              <th></th>
+              <th>{{'table.heading.date' | translate}}</th>
+              <th></th>
+              <th>{{'table.heading.actions' | translate}}</th>
+            </tr>
+            <tr ng-repeat="charge in charges" >
+              <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+              <td>{{charge.chargeCalculationType.value}}</td>
+              <td></td>
+              <td>{{charge.amount}}</td>
+              <td></td>
+              <td>{{charge.chargeTimeType.value}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><a href="" ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+              <td></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="span2"></tr>
+      
+    </table>
+  </div>
+  
+  <div>
+    <table width="100%">
+      <tr class="control-group">
+        <td width="11%"></td>
+        <td width="40%">
+         <table>
+                <tr class="span2"></tr>
+                <tr>
+                    <td width="30%"></td>
+                    <td>
+                      <input type="radio" ng-model="formData.accountingRule" value="1">None<br/>
+                    <td>
+                    <td>
+                      <input type="radio" ng-model="formData.accountingRule" value="2">Cash<br/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+      </tr>
+      <tr ng-show="formData.accountingRule==2" class="form-horizontal well">
+        <td width="11%"></td>
+        <td width="40%">
+          <table>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.fundsource' | translate }}&nbsp;</label>
+                  <select ng-model="formData.fundSourceAccountId"  ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions" value="{{assetAccount.id}}">
+                  </select>
+                </td>
+            </tr>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.loanportfolio' | translate }}&nbsp;</label>
+                  <select ng-model="formData.loanPortfolioAccountId"  ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions" value="{{assetAccount.id}}">
+                  </select>
+                </td>
+              <td>
+              </td>
+            </tr>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.transfersinsuspenpense' | translate }}&nbsp;</label>
+                  <select ng-model="formData.transfersInSuspenseAccountId"  ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions" value="{{assetAccount.id}}">
+                  </select>
+                </td>
+              <td>
+              </td>
+            </tr>
+          </table>
+          <hr class="marginbottom">
+          <table>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.incomefrominterest' | translate }}&nbsp;</label>
+                <select ng-model="formData.interestOnLoanAccountId"  ng-options="incomeAccount.id as incomeAccount.name for incomeAccount in incomeAccountOptions" value="{{incomeAccount.id}}">
+                </select>
+              </td>
+              <td></td>
+            </tr>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.incomefromfees' | translate }}&nbsp;</label>
+                  <select ng-model="formData.incomeFromFeeAccountId"  ng-options="incomeAccount.id as incomeAccount.name for incomeAccount in incomeAccountOptions" value="{{incomeAccount.id}}">
+                  </select>
+                </td>
+              <td>
+              </td>
+            </tr>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.incomefrompenalties' | translate }}&nbsp;</label>
+                  <select ng-model="formData.incomeFromPenaltyAccountId"  ng-options="incomeAccount.id as incomeAccount.name for incomeAccount in incomeAccountOptions" value="{{incomeAccount.id}}">
+                  </select>
+                </td>
+              <td>
+              </td>
+            </tr>
+          </table>
+          <hr class="marginbottom">
+          <table>
+            <tr class="control-group">
+              <td>
+                <label class="control-label">{{ 'label.loseswrittenoff' | translate }}&nbsp;</label>
+                <select ng-model="formData.writeOffAccountId"  ng-options="expenseAccount.id as expenseAccount.name for expenseAccount in expenseAccountOptions" value="{{expenseAccount.id}}">
+                </select>
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr class="span2"></tr>
+          </table>
+          <table>
+            <tr class="control-group">
+              <td>
+                <h4>{{'label.advancedaccountingrules' | translate}}[<a ng-click="showOrHide(showOrHideValue)">{{showOrHideValue}}</a>]</h4></br>
+              </td>
+            </tr>
+            <tr class="control-group">
+              <td>
+                <table ng-show = "showOrHideValue == 'hide'">
+                  <tr>
+                    <td>{{'label.configurefundsourcesforpaymentchannels' | translate}}</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><button class="btn btn-primary" ng-click="addConfigureFundSource()">{{ 'button.add' | translate }}</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table class="table">
+                        <tr class="graybg">
+                             <th>{{'table.heading.paymenttype' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.fundsource' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.actions' | translate}}</th>
+                          </tr>
+                          <tr ng-repeat="configureFundOption in configureFundOptions">
+                            <td>
+                              <select ng-model="configureFundOption.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in configureFundOption.paymentTypeOptions" value="{{paymentType.id}}">
+                               </select>
+                            </td>
+                            <td></td>
+                            <td>
+                              <select ng-model="configureFundOption.fundSourceAccountId" ng-options="assetAccount.id as assetAccount.name for assetAccount in configureFundOption.assetAccountOptions" value="{{assetAccount.id}}">
+                              </select>
+                            </td>
+                            <td></td>
+                            <td><i class="icon-remove" ng-click="deleteFund($index)"></i></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'label.mapfeestoincomeaccounts' | translate}}</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><button class="btn btn-primary" ng-click="mapFees()">{{ 'button.add' | translate }}</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table class="table">
+                        <tr class="graybg">
+                             <th>{{'table.heading.fee' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.incomeaccount' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.actions' | translate}}</th>
+                          </tr>
+                          <tr ng-repeat="specificIncomeaccount in specificIncomeaccounts">
+                            <td>
+                              <select ng-model="specificIncomeaccount.chargeId" ng-options="charge.id as charge.name for charge in specificIncomeaccount.chargeOptions" value="{{charge.id}}">
+                               </select>
+                            </td>
+                            <td></td>
+                            <td>
+                              <select ng-model="specificIncomeaccount.incomeAccountId" ng-options="assetAccount.id as assetAccount.name for assetAccount in specificIncomeaccount.incomeAccountOptions" value="{{assetAccount.id}}">
+                               </select>
+                            </td>
+                            <td></td>
+                            <td><i class="icon-remove" ng-click="deleteFee($index)"></i></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'label.mappenaltiestospecificincomeaccounts' | translate}}</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><button class="btn btn-primary" ng-click="mapPenalty()">{{ 'button.add' | translate }}</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table class="table">
+                        <tr class="graybg">
+                             <th>{{'table.heading.penalty' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.incomeaccount' | translate}}</th>
+                             <th></th>
+                             <th>{{'table.heading.actions' | translate}}</th>
+                          </tr>
+                          <tr ng-repeat="penaltySpecificIncomeaccount in penaltySpecificIncomeaccounts">
+                            <td>
+                              <select ng-model="penaltySpecificIncomeaccount.chargeId" ng-options="charge.id as charge.name for charge in penaltySpecificIncomeaccount.chargeOptions" value="{{charge.id}}">
+                               </select>
+                            </td>
+                            <td></td>
+                            <td>
+                              <select ng-model="penaltySpecificIncomeaccount.incomeAccountId" ng-options="assetAccount.id as assetAccount.name for assetAccount in penaltySpecificIncomeaccount.incomeAccountOptions" value="{{assetAccount.id}}">
+                               </select>
+                            </td>
+                            <td></td>
+                            <td><i class="icon-remove" ng-click="deletePenalty($index)"></i></td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="offset6 paddedtop">
+    <button type="reset" class="btn" ng-click="cancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary" ng-click="submit()">Save</button>
+  </div>
+</form>
