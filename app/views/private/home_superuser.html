@@ -1,41 +1,27 @@
-    <h3>Dashboard</h3>
+    <h3 class="paddedleft">Dashboard</h3>
     <div data-ng-controller="SuperuserController">
         <div class="row">
-            <div class="span6 paddedleft80">
-                <panel title="Logins Per Session" >
-                    <div style="margin-left:40px;margin-top:-20px;">
-                        <nvd3-pie-chart
-                                data="exampleData"
-                                id="piechart"
-                                width="300"
-                                height="300"
-                                x="xFunction()"
-                                y="yFunction()"
-                                tooltips="true"
-                                color="colorFunction()">
-                            <svg height="230"></svg>
-                        </nvd3-pie-chart>
+            <div class="span10 paddedleft80">
+                <panelbig title="Client Trends" >
+                    <div style="margin-left:40px;margin-top:40px;">
+                        <nvd3-multi-bar-chart
+                                data="BarData"
+                                id="barchart"
+                                width="770"
+                                height="350"
+                                color="colorFunction()"
+                                showLegend="true">
+                            <svg></svg>
+                        </nvd3-multi-bar-chart>
                     </div>
-                </panel>
-            </div>
-            <div class="span6 paddedleft">
-                <panel title="Transactions">
-                    <nvd3-multi-bar-chart
-                            data="BarData"
-                            id="barchart"
-                            width="400"
-                            height="300"
-                            showLegend="true">
-                        <svg></svg>
-                    </nvd3-multi-bar-chart>
-                </panel>
+                </panelbig>
             </div>
         </div>
         <div class="row">
             <div class="span6 paddedleft80">
                 <panel title="Current">
                     <nvd3-stacked-area-chart
-                            data="BarData"
+                            data="stackData"
                             id="stackchart"
                             width="400"
                             height="300">
