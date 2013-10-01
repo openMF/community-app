@@ -5,12 +5,13 @@
 
             scope.formatdate = function(){
                 var bardate = new Date();
-                var curr_date = bardate.getDate() - 1;
-                var curr_month = bardate.getMonth() + 1;
                 scope.formattedDate = [];
                 for(var i=0; i<15;i++){
-                    var temp_date = curr_date-i;
-                    scope.formattedDate[i] = temp_date + "/" + curr_month;
+                    var temp_date = bardate.getDate();
+                    bardate.setDate(temp_date - 1);
+                    var curr_date = bardate.getDate();
+                    var curr_month = bardate.getMonth() +1;
+                    scope.formattedDate[i] = curr_date + "/" + curr_month;
                 }
             };
             scope.formatdate();
