@@ -196,6 +196,9 @@
           }),
           centerTemplateResource: defineResource(apiVer + "/centers/template", {}, {
             get: {method: 'GET', params: {}}
+          }),
+          assignStaffResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId'}, {
+            get: {method: 'GET', params: {}}
           })
 
         };

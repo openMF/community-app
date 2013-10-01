@@ -27,7 +27,22 @@
             scope.resetNote = function() {
                 this.formData = '';
             };
-
+            scope.unassignStaffpop = function()
+            {
+                scope.choice = 4;
+            };
+            scope.unassignStaff = function(id){
+                var staffData = new Object();
+                staffData.staffId = id;
+                resourceFactory.centerResource.save({centerId: routeParams.id,command: 'unassignStaff'}, staffData, function(data) {
+                    resourceFactory.centerResource.get({centerId: routeParams.id}, function(data){
+                        route.reload();
+                    });
+                });
+            };
+            scope.cancelDelete = function(){
+                scope.choice = 0;
+            };
             scope.saveNote = function() {
                 resourceFactory.groupNotesResource.save({groupId: routeParams.id}, this.formData,function(data){
                     route.reload();
