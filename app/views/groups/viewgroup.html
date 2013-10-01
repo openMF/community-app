@@ -41,6 +41,8 @@
                     <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.jlg.loan.application' | translate }}</a>
                     <a href="#/closegroup/{{group.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
                     <button class="btn btn-primary" data-ng-click="deleteGrouppop()" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
+                    <a href="#/assignstaff/{{group.id}}/groups" class="btn btn-primary" data-ng-hide="group.staffId">{{ 'label.assignstaff' | translate }}</a>
+                    <button class="btn btn-primary" data-ng-click="unassignStaffpop()" data-ng-show="group.staffId">{{ 'label.unassignstaff' | translate }}</button>
                 </div>
             </div>
             <br/>
@@ -49,8 +51,15 @@
                   <div class="offset3 paddedleft120">
                     <button type="button" class="btn" data-ng-click="cancelDelete()">{{ 'label.cancel' | translate }}</button>
                     <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(group.id)">{{ 'label.confirmdelete' | translate }}</button>
-                    <hr/>
                   </div>
+                  <hr/>
+                </form>
+                <form data-ng-switch-when="4">
+                    <div class="offset3 paddedleft120">
+                        <button type="button" class="btn" data-ng-click="cancelDelete()">{{ 'label.cancel' | translate }}</button>
+                        <button type="button" class="btn btn-primary paddedleft" data-ng-click="unassignStaff(group.staffId)">{{ 'label.confirm' | translate }}</button>
+                    </div>
+                    <hr/>
                 </form>
             </div>
             <div class="row-fluid">
@@ -70,6 +79,8 @@
                     <tr>
                         <td>{{ 'label.staff' | translate }}</td>
                         <td>{{group.staffName}}</td>
+                        <td>
+
                     </tr>
                     <tr>
                         <td>{{ 'label.nextmeetingon' | translate }}</td>

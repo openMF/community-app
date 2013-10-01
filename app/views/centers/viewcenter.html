@@ -34,12 +34,24 @@
                 <a ng-show="center.active" href="#/" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.centersavingapplication' | translate }}</a>
                 <a href="#/closecenter/{{center.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
                 <button class="btn btn-primary" data-ng-click="deletecenterpop()" data-ng-hide="center.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
-            </div>
+                <a href="#/assignstaff/{{center.id}}/centers" class="btn btn-primary" data-ng-hide="center.staffId">{{ 'label.assignstaff' | translate }}</a>
+                <button class="btn btn-primary" data-ng-click="unassignStaffpop()" data-ng-show="center.staffId">{{ 'label.unassignstaff' | translate }}</button>
+        </div>
         </div>
         <br/>
         <div data-ng-switch on="choice">
             <form data-ng-switch-when="3">
-                <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(center.id)">{{ 'label.confirmdelete' | translate }}</button>
+                <div class="offset3 paddedleft120">
+                    <button type="button" class="btn" data-ng-click="cancelDelete()">{{ 'label.cancel' | translate }}</button>
+                    <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(center.id)">{{ 'label.confirmdelete' | translate }}</button>
+                </div>
+                <hr/>
+            </form>
+            <form data-ng-switch-when="4">
+                <div class="offset3 paddedleft120">
+                    <button type="button" class="btn" data-ng-click="cancelDelete()">{{ 'label.cancel' | translate }}</button>
+                    <button type="button" class="btn btn-primary paddedleft" data-ng-click="unassignStaff(center.staffId)">{{ 'label.confirm' | translate }}</button>
+                </div>
                 <hr/>
             </form>
         </div>

@@ -30,8 +30,20 @@
                         route.reload();
                     });
                 });
-            }
-
+            };
+            scope.unassignStaffpop = function()
+            {
+                scope.choice = 4;
+            };
+            scope.unassignStaff = function(id){
+                var staffData = new Object();
+                staffData.staffId = id;
+                resourceFactory.groupResource.save({groupId: routeParams.id,command: 'unassignStaff'}, staffData, function(data) {
+                    resourceFactory.groupResource.get({groupId: routeParams.id}, function(data){
+                        route.reload();
+                    });
+                });
+            };
             scope.resetNote = function() {
                 this.formData = '';
             };
