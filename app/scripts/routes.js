@@ -321,6 +321,9 @@
       })
       .when('/editcharge/:id', {
         templateUrl: 'views/products/editcharge.html'
+      })
+      .when('/assignstaff/:id/:entityType', {
+        templateUrl: 'views/groups/assignstaff.html'
       });
     $locationProvider.html5Mode(false);
   };
