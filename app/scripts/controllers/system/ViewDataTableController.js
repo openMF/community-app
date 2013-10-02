@@ -1,13 +1,12 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewDataTableController: function(scope, routeParams , resourceFactory ) {
+    ViewDataTableController: function(scope, routeParams, resourceFactory, location) {
+
         resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName} , function(data) {
           
           var temp=[];
-          if(data.columnHeaderData[0].columnName == "id") {
-            data.columnHeaderData.splice(0,1);
-          }
-          if(data.columnHeaderData[0].columnName == "client_id") {
+          var colName = data.columnHeaderData[0].columnName;
+          if(colName == 'id' || colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
             data.columnHeaderData.splice(0,1);
           }
 
@@ -20,9 +19,15 @@
           }
             scope.datatable = data;
         });
+
+        scope.deleteTable = function () {
+          resourceFactory.DataTablesResource.delete({datatablename: routeParams.tableName}, {}, function(data){
+            location.path('/datatables');
+          });
+        }
     }
   });
-  mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams','ResourceFactory', mifosX.controllers.ViewDataTableController]).run(function($log) {
+  mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams','ResourceFactory', '$location', mifosX.controllers.ViewDataTableController]).run(function($log) {
     $log.info("ViewDataTableController initialized");
   });
 }(mifosX.controllers || {}));
