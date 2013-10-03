@@ -4,12 +4,12 @@
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
+            scope.choice = 0;
             resourceFactory.groupTemplateResource.get(function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
             });
-
             scope.changeOffice =function(officeId) {
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly : false, officeId : officeId
                 }, function(data) {
@@ -18,7 +18,15 @@
                 resourceFactory.groupTemplateResource.get({officeId : officeId }, function(data) {
                     scope.clients = data.clientOptions;
                 });
-            }
+            };
+            scope.setChoice = function(){
+                if(this.formData.active){
+                    scope.choice = 1;
+                }
+                else if(!this.formData.active){
+                    scope.choice = 0;
+                }
+            };
             scope.submit = function() {
                 this.formData.locale  = 'en';
                 this.formData.dateFormat =  'dd MMMM yyyy';
