@@ -1,4 +1,4 @@
-<div class="row alert-block span" ng-controller="OfficesController">
+<div class="row alert-block span" ng-controller="NavigationController">
 <table width="100%">
     <thead>
         <tr>
@@ -10,9 +10,9 @@
     <tbody>
         <tr>    
             <td width="35%">
-                <table class="table">
-                        <tr ng-repeat="office in offices  | filter:filterText">
-                            <td><a href="#/viewoffice/{{office.id}}">{{office.name}}</a></td>
+                <table>
+                        <tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selected}">
+                            <td><a ng-click="select(office.id)" >{{office.name}}</a></td>
                         </tr>
                 </table>
             </td>
