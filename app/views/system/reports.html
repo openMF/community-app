@@ -1,0 +1,35 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.managereports' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+        <a href="#/createreport" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.createreport' | translate}}</a>
+    </div>
+</div>
+
+<div class="row-fluid" ng-controller="ReportsController">
+    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+	<table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'table.heading.reportname' | translate}}</th>
+                <th>{{'table.heading.reporttype' | translate}}</th>
+                <th>{{'table.heading.reportsubtype' | translate}}</th>
+                <th>{{'table.heading.reportcategory' | translate}}</th>
+                <th>{{'table.heading.corereport' | translate}}</th>
+                <th>{{'table.heading.usereport' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="report in reports | filter:filterText">
+                <td><a href="#/system/viewreport/{{report.id}}">{{report.reportName}}</a></td>
+                <td>{{report.reportType}}</td>
+                <td>{{report.reportSubType}}</td>
+                <td>{{report.reportCategory}}</td>
+                <td>{{report.coreReport}}</td>
+                <td>{{report.useReport}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
