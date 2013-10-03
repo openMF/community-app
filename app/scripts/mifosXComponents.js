@@ -84,6 +84,8 @@ define(['underscore', 'mifosX'], function() {
       'system/ViewReportController',
       'system/CreateReportController',
       'system/EditReportController',
+      'system/CreateDataTableController',
+      'system/EditDataTableController',
       'organization/HolController',
       'organization/ViewHolController',
       'organization/AddHolController',

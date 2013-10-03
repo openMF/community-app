@@ -211,6 +211,12 @@
       .when('/viewdatatable/:tableName', {
         templateUrl: 'views/system/viewdatatable.html'
       })
+      .when('/createdatatable', {
+          templateUrl: 'views/system/createdatatable.html'
+      })
+      .when('/editdatatable/:tableName', {
+          templateUrl: 'views/system/editdatatable.html'
+      })
       .when('/addcode', {
           templateUrl: 'views/system/addcode.html'
       })

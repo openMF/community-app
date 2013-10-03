@@ -4,10 +4,8 @@
         resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName} , function(data) {
           
           var temp=[];
-          if(data.columnHeaderData[0].columnName == "id") {
-            data.columnHeaderData.splice(0,1);
-          }
-          if(data.columnHeaderData[0].columnName == "client_id") {
+          var colName = data.columnHeaderData[0].columnName;
+          if(colName == 'id' || colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
             data.columnHeaderData.splice(0,1);
           }
 
