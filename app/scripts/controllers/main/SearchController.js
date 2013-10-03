@@ -6,8 +6,10 @@
         resourceFactory.globalSearch.search( {query: routeParams.query} , function(data){
             scope.searchResults = data;
         });
-        scope.getClientDetails = function(clientId) { 
-            resourceFactory.clientResource.get({clientId:clientId} , function(data) {
+        scope.getClientDetails = function(clientId) {
+
+              scope.selected = clientId;
+              resourceFactory.clientResource.get({clientId:clientId} , function(data) {
               scope.group = '';
               scope.client = data;
 
@@ -16,7 +18,11 @@
               scope.clientAccounts = data;
             });
         }
+
         scope.getGroupDetails = function(groupId) { 
+
+            scope.selected = groupId;
+
             resourceFactory.groupResource.get({groupId:groupId} , function(data) {
               scope.client = '';
               scope.group = data;
