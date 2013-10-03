@@ -116,7 +116,8 @@ define(['underscore', 'mifosX'], function() {
       'centers/AddGroupController',
       'centers/CenterAttendanceController',
       'product/CreateChargeController',
-      'product/EditChargeController'
+      'product/EditChargeController',
+      'configurations/GlobalConfigurationController'
     ],
     filters: [
       'StatusLookup'
@@ -126,7 +127,9 @@ define(['underscore', 'mifosX'], function() {
       'OverlayDirective',
       'DialogDirective',
       'PanelDirective',
-      'BigPanelDirective'
+      'BigPanelDirective',
+      'OnBlurDirective',
+      'LateValidateDirective'
     ]
   };
 
