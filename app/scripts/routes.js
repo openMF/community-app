@@ -220,6 +220,18 @@
       .when('/editcode/:id', {
           templateUrl: 'views/system/editcode.html'
       })
+      .when('/reports', {
+          templateUrl: 'views/system/reports.html'
+      })
+      .when('/system/viewreport/:id', {
+          templateUrl: 'views/system/viewreport.html'
+      })
+      .when('/createreport', {
+          templateUrl: 'views/system/createreport.html'
+      })
+      .when('/editreport/:id', {
+          templateUrl: 'views/system/editreport.html'
+      })
       .when('/holidays', {
           templateUrl: 'views/organization/holidays.html'
       })

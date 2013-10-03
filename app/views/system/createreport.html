@@ -1,0 +1,121 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/reports">{{'label.managereports' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.createreport' | translate}}</li>
+    </ul>
+</div>
+<form class="well" ng-controller="CreateReportController">
+  <div class="control-group">
+    <table width="100%">
+      <tr class="control-group">
+        <td width="10%">
+          <label class="control-label"><h4>{{ 'label.heading.reportdetails' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult" width="90%">
+          <table>
+            <tr>
+              <td width="30%">
+                <label class="control-label">{{ 'label.reportname' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.reportName">
+              </td>
+              <td width="20%">
+                <label class="control-label">{{ 'label.reporttype' | translate }}&nbsp;</label>
+                <select ng-model="formData.reportType" class="input-small" ng-options="reportType for reportType in reportdetail.allowedReportTypes" value="">
+                </select>
+              </td>
+              <td width="20%">
+                <label class="control-label">{{ 'label.reportsubtype' | translate }}&nbsp;</label>
+                <select ng-model="formData.reportSubType" class="input-small" ng-options="reportSubType for reportSubType in reportdetail.allowedReportSubTypes" value="">
+                  <option style="display:none" value="">{{'label.select.one' | translate}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td width="30%">
+                <label class="control-label">{{ 'label.reportcategory' | translate }}&nbsp;</label>
+                <input type="text" ng-model="formData.reportCategory">
+              </td>
+              <td width="20%">
+              </td>
+              <td width="20%">
+                <label class="control-label">{{ 'label.userreportui' | translate }}</label>
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="formData.useReport" ng-true-value="true" ng-false-value="false">
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td width="30%">
+                <label class="control-label">{{ 'label.description' | translate }}</label>
+                <textarea rows="2" ng-model="formData.description"></textarea>
+              </td>
+              <td width="20%">
+              </td>
+              <td width="20%">
+              </td>
+            </tr>
+          </table>
+         </td>
+      </tr>
+
+      <tr class="span2"></tr>
+
+      <tr class="control-group">
+        <td width="10%">
+          <label class="control-label"><h4>{{ 'label.heading.sql' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult" width="90%">
+          <table>
+            <tr>
+              <td width="30%">
+                <label class="control-label">{{ 'label.sql' | translate }}</label>
+                <textarea rows="4" ng-model="formData.reportSql"></textarea>
+              </td>
+              <td width="20%">
+              </td>
+              <td width="20%">
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="span2"></tr>
+
+      <tr class="control-group">
+        <td width="10%">
+          <label class="control-label"><h4>{{ 'label.heading.reportparameters' | translate }}</h4></label>
+        </td>
+        <td class="blockquoteresult" width="90%">
+            <form>
+              <select ng-model="allowedParameterId">
+                <option value="">{{'label.select.allowedParameter' | translate}}</option>
+                <option ng-repeat="allowedParameter in reportdetail.allowedParameters" value="{{allowedParameter.id}}">{{allowedParameter.parameterName | translate}}</option>
+              </select>
+              <button class="btn btn-primary" ng-click="parameterSelected(allowedParameterId)"><i class="icon-plus icon-white"></i>{{ 'button.add' | translate }}</button> 
+            </form>
+          <table class="table" width="50%">
+            <tr class="graybg">
+              <th>{{'table.heading.parameter' | translate}}</th>
+              <th>{{'table.heading.parameternamepassedtopentaho' | translate}}</th>
+              <th>{{'table.heading.actions' | translate}}</th>
+            </tr>
+            <tr ng-repeat="reportParameter in reportParameters" >
+              <td>{{reportParameter.allowedParameterName | translate}}</td>
+              <td width="30%">
+                <input type="text" ng-model="reportParameter.reportParameterName">
+              </td>
+              <td><a ng-click="deleteParameter($index)"><i class="icon-remove icon-white"></i></a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="offset6">
+    <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
+    <button type="submit" class="btn btn-primary" ng-click="submit()">{{'button.save' | translate}}</button>
+  </div>
+</form>
+    
