@@ -68,7 +68,8 @@
           }),
           DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:clientId", {datatablename:'@datatablename',clientId:'@clientId'}, {
             getAllDataTables: {method: 'GET', params: {}, isArray:true},
-            getTableDetails: {method: 'GET', params: {}}
+            getTableDetails: {method: 'GET', params: {}},
+            update: {method: 'PUT'}
           }),
           loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType:'@resourceType', loanProductId:'@loanProductId'}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true},
