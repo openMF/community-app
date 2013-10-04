@@ -1,16 +1,24 @@
-<h3>Roles</h3>
-<div id="systemRoles" data-ng-controller="RoleController">
-  <table id="rolesTable" data-ng-show="roles.length > 0" data-mf-data-table="{sScrollY: 280, sPaginationType: 'full_numbers'}" data-mf-data-table-items="roles">
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.view.roles' | translate}}</li>
+    </ul>
+</div>
+<div class="pull-right">
+  <a href="#/admin/addrole" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'label.addrole' | translate}}</a>
+</div>
+<div class="row-fluid" data-ng-controller="RoleController">
+  <table class="table">
     <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
+      <tr class="graybg">
+        <th>{{'table.heading.name' | translate}}</th>
+        <th>{{'table.heading.description' | translate}}</th>
       </tr>
     </thead>
     <tbody>
       <tr data-ng-repeat="role in roles">
-        <td>{{role.name}}</td>
-        <td>{{user.description}}</td>
+        <td><a href="#/admin/viewrole/{{role.id}}">{{role.name}}</a></td>
+        <td>{{role.description}}</td>
       </tr>
     </tbody>
   </table>

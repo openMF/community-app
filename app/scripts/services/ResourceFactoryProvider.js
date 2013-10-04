@@ -14,10 +14,17 @@
           roleResource: defineResource(apiVer + "/roles/:roleId", {}, {
             getAllRoles: {method: 'GET', params: {}, isArray: true}
           }),
+          rolePermissionResource: defineResource(apiVer + "/roles/:roleId/permissions", {roleId:'@roleId'}, {
+            get: {method: 'GET', params: {}},
+            update: {method: 'PUT'}
+          }),
+          permissionResource: defineResource(apiVer + "/permissions", {}, {
+            get: {method: 'GET', params: {}, isArray: true},
+            update: {method: 'PUT'}
+          }),
           officeResource: defineResource(apiVer + "/offices/:officeId", {officeId:"@officeId"}, {
             getAllOffices: {method: 'GET', params: {}, isArray: true}
           }),
-
           clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId:'@clientId',anotherresource:'@anotherresource'}, {
             getAllClients: {method: 'GET', params: {}},
             getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
