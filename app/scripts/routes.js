@@ -19,8 +19,20 @@
       .when('/editloanproduct/:id', {
         templateUrl: 'views/products/editloanproduct.html'
       })
+      .when('/admin/viewrole/:id', {
+        templateUrl: 'views/administration/viewrole.html'
+      })
       .when('/admin/roles', {
         templateUrl: 'views/administration/roles.html'
+      })
+      .when('/admin/role/:id/edit', {
+        templateUrl: 'views/administration/editpermissions.html'
+      })
+      .when('/admin/addrole', {
+        templateUrl: 'views/administration/addrole.html'
+      })
+      .when('/admin/viewmctasks', {
+        templateUrl: 'views/administration/makerchecker.html'
       })
       .when('/admin/users', {
         templateUrl: 'views/administration/users.html'
