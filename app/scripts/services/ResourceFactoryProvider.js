@@ -210,12 +210,15 @@
           assignStaffResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId'}, {
             get: {method: 'GET', params: {}}
           }),
-          configurationResource:defineResource(apiVer + "/configurations", {
-            get: {method: 'GET', params: {}}
+          configurationResource:defineResource(apiVer + "/configurations",{}, {
+            get: {method: 'GET', params: {}},
+            update: {method: 'PUT', params: {}}
           }),
-          configurationUpdateResource:defineResource(apiVer + "/configurations?:configId", {configId: '@configId'}, {
+          cacheResource:defineResource(apiVer + "/caches",{}, {
+            get: {method: 'GET', params: {}, isArray:true},
             update: {method: 'PUT', params: {}}
           })
+
 
         };
       }];

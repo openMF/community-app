@@ -355,9 +355,6 @@
       .when('/assignstaff/:id/:entityType', {
         templateUrl: 'views/groups/assignstaff.html'
       })
-      .when('/configurations', {
-        templateUrl: 'views/administration/configurations.html'
-      })
       .when('/global', {
         templateUrl: 'views/administration/global.html'
       });
