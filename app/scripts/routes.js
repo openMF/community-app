@@ -360,6 +360,18 @@
       })
       .when('/global', {
         templateUrl: 'views/administration/global.html'
+      })
+      .when('/productmix', {
+        templateUrl: 'views/products/productmix/productmix.html'
+      })
+      .when('/viewproductmix/:id', {
+        templateUrl: 'views/products/productmix/viewproductmix.html'
+      })
+      .when('/editproductmix/:id', {
+        templateUrl: 'views/products/productmix/editproductmix.html'
+      })
+      .when('/addproductmix', {
+        templateUrl: 'views/products/productmix/addproductmix.html'
       });
     $locationProvider.html5Mode(false);
   };
