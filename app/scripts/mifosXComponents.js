@@ -17,6 +17,7 @@ define(['underscore', 'mifosX'], function() {
       'main/TaskController',
       'main/SearchController',
       'main/NavigationController',
+      'collection/EnterCollectionSheetController',
       'loanAccount/ViewLoanDetailsController',
       'loanAccount/NewLoanAccAppController',
       'loanAccount/LoanAccountActionsController',
