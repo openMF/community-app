@@ -80,6 +80,7 @@
           }),
           loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType:'@resourceType', loanProductId:'@loanProductId'}, {
             getAllLoanProducts: {method: 'GET', params: {}, isArray:true},
+            getProductmix: {method: 'GET', params: {}},
             put: {method: 'PUT', params: {}}
           }),
           chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId:'@chargeId'}, {
@@ -217,8 +218,10 @@
           cacheResource:defineResource(apiVer + "/caches",{}, {
             get: {method: 'GET', params: {}, isArray:true},
             update: {method: 'PUT', params: {}}
+          }),
+          loanProductTemplateResource: defineResource(apiVer + "/loanproducts/template", {}, {
+           get: {method: 'GET', params: {}}
           })
-
 
         };
       }];
