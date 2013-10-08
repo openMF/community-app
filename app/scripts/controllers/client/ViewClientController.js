@@ -3,6 +3,7 @@
     ViewClientController: function(scope, routeParams , route, location, resourceFactory) {
         scope.client = [];
         scope.identitydocuments = [];
+        scope.buttons = [];
 
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
@@ -106,18 +107,32 @@
 
         scope.dataTableChange = function(clientdatatable) {
           resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
-          clientId: routeParams.id, genericResultSet: 'true'} , function(data) {
+          entityId: routeParams.id, genericResultSet: 'true'} , function(data) {
             scope.datatabledetails = data;
             scope.datatabledetails.isData = data.data.length > 0 ? true : false;
             scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
-            if(!scope.datatabledetails.isMultirow && scope.datatabledetails.isData > 0) {
-              for(var i=0; i<data.columnHeaders.length; i++) {
-                scope.datatabledetails.columnHeaders[i].value = data.data[0].row[i];
-              }
+
+            for(var i in data.columnHeaders) {
+              if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                for (var j in scope.datatabledetails.columnHeaders[i].columnValues){
+                  for(var k in data.data) {
+                    if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
+                      data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
+                    }
+                  }
+                }
+              } 
             }
+
           });
-        }
-        
+        };
+
+        scope.deleteAll = function (apptableName, entityId) {
+          resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
+            route.reload();
+          });
+        };
+
         scope.isNotClosed = function(loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
             loanaccount.status.code === "loanStatusType.rejected") {

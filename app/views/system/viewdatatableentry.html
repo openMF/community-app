@@ -1,0 +1,34 @@
+<form class="form-horizontal" ng-controller="DataTableEntryController" ng-submit="submit()">
+	<div ng-show="isViewMode">
+		<h2>{{ 'label.view.datatable.entry' | translate }}</h2>
+		<div class="row pull-right btn-group">
+			<a ng-click="editDatatableEntry()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'button.edit' | translate }}</a>
+			<a ng-click="deleteDatatableEntry()" class="btn btn-danger"><i class="icon-trash icon-white"></i> {{ 'button.delete' | translate }}</a>
+		</div>
+		<h3>{{ 'label.datatable.name' | translate }}-<strong>{{tableName}}</strong></h3>
+		<hr>
+		<table width="100%">
+			<tr ng-repeat="column in columnHeaders">
+				<td width="30%">{{column.columnName}}:</td>
+				<td width="70%" valign="top">{{column.value}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="well" ng-hide="isViewMode">
+		<h2>{{ 'label.edit.datatable.entry' | translate }}</h2>
+		<fieldset>
+			<legend>{{ 'label.datatable.name' | translate }}-<strong>{{tableName}}</strong></legend>
+		</fieldset>
+		<div class="control-group" ng-repeat="columnHeader in columnHeaders">
+			<label class="control-label" for="colName">{{ columnHeader.columnName }}</label>
+			<div class="controls">
+				<input type="text" ng-hide="columnHeader.columnDisplayType == 'CODELOOKUP'" ng-model="formData[columnHeader.columnName]">
+				<select ng-show="columnHeader.columnDisplayType == 'CODELOOKUP'" ng-model="formData[columnHeader.columnName]" ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues" value="{{columnValue.id}}"></select>
+			</div>
+		</div>
+		<div class="offset2">
+			<a class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</a>
+			<button type="submit" class="btn btn-primary">{{ 'button.save' | translate }}</button>
+		</div>
+	</div>
+</form>
