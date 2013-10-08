@@ -191,6 +191,28 @@
     </div>
     </ul>
 </tab>
+    <tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" select="dataTableChange(centerdatatable)">
+        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(centerdatatable.registeredTableName, center.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
+        <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
+          <a href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
+        </span></br>
+        <table ng-show="datatabledetails.isData" class="table">
+          <thead>
+            <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+          </thead>
+            <tbody>
+              <tr ng-repeat="data in datatabledetails.data">
+                <td ng-repeat="row in data.row">
+                  <span ng-show="$index == 0">
+                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/{{data.row[0]}}" class="pointer" ng-show="datatabledetails.isMultirow">{{row}}</a>
+                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/" class="pointer" ng-hide="datatabledetails.isMultirow">{{row}}</a>
+                  </span>
+                  <span ng-hide="$index == 0">{{row}}</span>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </tab>
 </tabset>
 </div>
 </div>
