@@ -124,7 +124,10 @@ define(['underscore', 'mifosX'], function() {
       'centers/CenterAttendanceController',
       'product/CreateChargeController',
       'product/EditChargeController',
-      'configurations/GlobalConfigurationController'
+      'configurations/GlobalConfigurationController',
+      'product/productmix/ProductMixController',
+      'product/productmix/ViewProductMixController',
+      'product/productmix/AddProductMixController'
     ],
     filters: [
       'StatusLookup'

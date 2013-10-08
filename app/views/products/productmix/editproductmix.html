@@ -1,0 +1,28 @@
+<form data-ng-controller="ViewProductMixController" ng-submit="submit()">
+    <div class="paddedleft">
+        <h3>{{ 'label.editproductmix' | translate }}</h3>
+        <div class="row-fluid">
+            <div class="span3">
+                <label class="control-label">{{ 'label.allowedproducts' | translate }}</label>
+                <select multiple ng-model="allowed">
+                    <option ng-repeat="allowedProduct in allowedProducts" value="{{allowedProduct.id}}">{{allowedProduct.name}}</option>
+                </select>
+            </div>
+            <div class="paddedtop10 span1 paddedleft0">
+                <button type="button" class="btn btn-primary" data-ng-click="restrict()"><i class="icon-double-angle-right"></i></button><br/>
+                <button type="button" class="btn btn-primary" data-ng-click="allow()"><i class="icon-double-angle-left"></i></button>
+            </div>
+            <div class="span3">
+                <label class="control-label">{{ 'label.restrictedproducts' | translate }}</label>
+                <select multiple ng-model="restricted">
+                    <option ng-repeat="restrictedProduct in restrictedProducts" value="{{restrictedProduct.id}}">{{restrictedProduct.name}}</option>
+                </select>
+            </div>
+        </div>
+        <br/><hr/>
+        <div>
+            <a href="#/viewproductmix/{{productmix.productId}}" class="btn">{{ 'label.cancel' | translate }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
+        </div>
+    </div>
+</form>

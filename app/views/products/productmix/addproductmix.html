@@ -1,0 +1,39 @@
+<form class="form-horizontal well" ng-controller="AddProductMixController" ng-submit="submit()">
+    <fieldset>
+        <legend>{{'label.addproductmix' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.selectproduct' | translate }}</label>
+            <div class="controls">
+                <select ng-model="formData.productId">
+                    <option ng-repeat="product in products" data-ng-click="productInfo(product.id)" value="{{product.id}}">{{product.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="row-fluid" data-ng-show="formData.productId">
+                <div class="span3">
+                    <label class="control-label">{{ 'label.allowedproducts' | translate }}</label>
+                    <select multiple ng-model="allowed">
+                        <option ng-repeat="allowedProduct in allowedProducts" value="{{allowedProduct.id}}">{{allowedProduct.name}}</option>
+                    </select>
+                </div>
+                <div class="paddedtop10 span1 paddedleft0">
+                    <button type="button" class="btn btn-primary" data-ng-click="restrict()"><i class="icon-double-angle-right"></i></button><br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="allow()"><i class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="span3">
+                    <label class="control-label">{{ 'label.restrictedproducts' | translate }}</label>
+                    <select multiple ng-model="restricted">
+                        <option ng-repeat="restrictedProduct in restrictedProducts" value="{{restrictedProduct.id}}">{{restrictedProduct.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="offset2 paddedleft120">
+            <a href="#/productmix" class="btn">{{ 'label.cancel' | translate }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
+        </div>
+    </fieldset>
+</form>
+
+
