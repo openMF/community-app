@@ -229,6 +229,12 @@
       .when('/editdatatable/:tableName', {
           templateUrl: 'views/system/editdatatable.html'
       })
+      .when('/makedatatableentry/:tableName/:entityId', {
+          templateUrl: 'views/system/makedatatableentry.html'
+      })
+      .when('/viewdatatableentry/:tableName/:entityId/:resourceId', {
+          templateUrl: 'views/system/viewdatatableentry.html'
+      })
       .when('/addcode', {
           templateUrl: 'views/system/addcode.html'
       })

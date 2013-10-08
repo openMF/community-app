@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location) {
+    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route) {
       scope.$broadcast('LoanAccountDataLoadingStartEvent');
       scope.loandocuments = [];
 
@@ -179,9 +179,42 @@
       resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {
           scope.loandocuments = data;
       });
+
+      resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'} , function(data) {
+        scope.loandatatables = data;
+      });
+
+      scope.dataTableChange = function(datatable) {
+        resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
+        entityId: routeParams.id, genericResultSet: 'true'} , function(data) {
+          scope.datatabledetails = data;
+          scope.datatabledetails.isData = data.data.length > 0 ? true : false;
+          scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+
+          for(var i in data.columnHeaders) {
+            if (scope.datatabledetails.columnHeaders[i].columnCode) {
+              for (var j in scope.datatabledetails.columnHeaders[i].columnValues){
+                for(var k in data.data) {
+                  if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
+                    data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
+                  }
+                }
+              }
+            } 
+          }
+
+        });
+      };
+
+      scope.deleteAll = function (apptableName, entityId) {
+        resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
+          route.reload();
+        });
+      };
+
     }
   });
-  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));
