@@ -23,10 +23,12 @@
             update: {method: 'PUT'}
           }),
           officeResource: defineResource(apiVer + "/offices/:officeId", {officeId:"@officeId"}, {
-            getAllOffices: {method: 'GET', params: {}, isArray: true}
+            getAllOffices: {method: 'GET', params: {}, isArray: true},
+            update: { method: 'PUT'}
           }),
           clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId:'@clientId',anotherresource:'@anotherresource'}, {
             getAllClients: {method: 'GET', params: {}},
+            getClientClosureReasons: {method: 'GET', params: {}},
             getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
             update: { method: 'PUT'}
           }),
@@ -69,7 +71,8 @@
             getReport: {method: 'GET', params: {}}
           }),
           reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", {id:'@id', resourceType:'@resourceType'}, {
-            get: {method: 'GET', params: {id:'@id'}, isArray:true},
+            get: {method: 'GET', params: {id:'@id'}},
+            getReport: {method: 'GET', params: {id:'@id'}, isArray:true},
             getReportDetails: {method: 'GET', params: {id:'@id'}},
             update: {method: 'PUT', params: {}}
           }),
