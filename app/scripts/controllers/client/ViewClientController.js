@@ -21,10 +21,14 @@
                               },
                               {
                                 name:"button.delete",
+                                href:"#/client",
+                                subhref:"delete",
                                 icon :"icon-warning-sign"
                               },
                               {
                                 name:"button.close",
+                                href:"#/client",
+                                subhref:"close",
                                 icon :"icon-remove-circle"
                               }]
                             

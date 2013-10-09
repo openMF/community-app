@@ -24,6 +24,24 @@
               scope.formData.staffId = scope.staffOptions[0].id;
             });
           break;
+          case "close":
+            scope.labelName = 'label.closuredate';
+            scope.labelNameClosurereason = 'label.closurereason';
+            scope.breadcrumbName = 'label.close';
+            scope.modelName = 'closureDate';
+            scope.closureReasonField = true;
+            scope.showDateField = true;
+            console.log("testing hello");
+            resourceFactory.clientResource.get({anotherresource: 'template', commandParam : 'close'} , function(data) {
+              scope.closureReasons = data.closureReasons;
+              scope.formData.closureReasonId = scope.closureReasons[0].id;
+            });
+          break;
+          case "delete":
+            scope.breadcrumbName = 'label.delete';
+            scope.labelName = 'Are you sure?';
+            scope.showDeleteClient = true;
+          break;
           case "unassignloanofficer":
 
           break;
@@ -32,12 +50,12 @@
         scope.cancel = function() {
           location.path('/viewclient/' + routeParams.id);
         }
+
         scope.submit = function() {
+          this.formData.locale = 'en';
+          this.formData.dateFormat = 'dd MMMM yyyy';
 
           if (scope.action == "activate") {
-            this.formData.locale = 'en';
-            this.formData.dateFormat = 'dd MMMM yyyy';
-
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'activate'}, this.formData,function(data){
                 location.path('/viewclient/' + data.clientId);
             });
@@ -46,7 +64,19 @@
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'assignStaff'}, this.formData,function(data){
               location.path('/viewclient/' + data.clientId);
             });
-          } 
+          }
+          if (scope.action == "close") {
+            this.formData.closureDate = '05 August 2013';
+            resourceFactory.clientResource.save({clientId: routeParams.id, command : 'close'}, this.formData,function(data){
+                location.path('/viewclient/' + data.clientId);
+            });
+          }
+          if (scope.action == "delete") {
+            resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function(data){
+            location.path('/clients');
+            });
+          }
+
         };
     }
   });
