@@ -58,6 +58,7 @@ define(['underscore', 'mifosX'], function() {
       'organization/OfficesController',
       'organization/ViewOfficeController',
       'organization/CreateOfficeController',
+      'organization/EditOfficeController',
       'organization/CurrencyConfigController',
       'organization/CreateUserController',
       'organization/EditUserController',

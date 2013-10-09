@@ -2,7 +2,7 @@
   mifosX.controllers = _.extend(module, {
     ReportsController: function(scope, resourceFactory) {
         scope.reports = [];
-        resourceFactory.reportsResource.get(function(data) {
+        resourceFactory.reportsResource.getReport(function(data) {
             scope.reports = data;
         });
     }

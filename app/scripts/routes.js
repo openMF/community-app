@@ -124,6 +124,9 @@
       .when('/viewoffice/:id', {
         templateUrl: 'views/organization/viewoffice.html'
       })
+      .when('/editoffice/:id', {
+        templateUrl: 'views/organization/editoffice.html'
+      })
       .when('/tasks', {
         templateUrl: 'views/tasks.html'
       })
