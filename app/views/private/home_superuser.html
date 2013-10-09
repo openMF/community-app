@@ -1,8 +1,8 @@
     <h3 class="paddedleft">Dashboard</h3>
     <div data-ng-controller="SuperuserController">
         <div class="row">
-            <div class="span10 paddedleft80">
-                <panelbig title="Client Trends" >
+            <div class="span10 paddedleft90">
+                <panelbig title="Client Trends for {{bOfficeName}} ({{chartType}})" >
                     <div style="margin-left:40px;margin-top:40px;">
                         <nvd3-multi-bar-chart
                                 data="BarData"
@@ -14,38 +14,65 @@
                             <svg></svg>
                         </nvd3-multi-bar-chart>
                     </div>
+                    <div>
+                        <button type="button" class="btn btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>Week</button>
+                        <button type="button" class="btn btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>Month</button>
+                        <button type="button" class="btn btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>Days</button>
+                        <select class="input-small-tooltip pull-right" name="office1" ng-change="getDailyData()" id="office1" ng-model="officeId" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                            <option value="">--Office--</option>
+                        </select>
+                    </div>
                 </panelbig>
             </div>
         </div>
+        <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
+            <p>
+                <img src="images/loader.gif"/>&nbsp;
+            </p>
+        </div>
         <div class="row">
-            <div class="span6 paddedleft80">
-                <panel title="Current">
-                    <nvd3-stacked-area-chart
-                            data="stackData"
-                            id="stackchart"
-                            width="400"
-                            height="300">
-                        <svg></svg>
-                    </nvd3-stacked-area-chart>
-                </panel>
-            </div>
-            <div class="span6 paddedleft">
-                <panel title="Logins Per Session" >
-                    <div style="margin-left:40px;margin-top:-20px;">
+            <div class="span6 paddedleft90">
+                <panel title="Amount Collected for Today ({{cOfficeName}}) " >
+                    <div style="margin-left:5px;margin-top:-20px;">
                         <nvd3-pie-chart
-                                data="exampleData"
+                                data="collectedData"
                                 id="piechart1"
-                                width="300"
-                                height="300"
+                                width="380"
+                                height="370"
                                 x="xFunction()"
                                 y="yFunction()"
                                 tooltips="true"
                                 donut="true"
-                                donutRatio=".25"
-                                color="colorFunction()">
+                                donutRatio=".015"
+                                color="colorFunctionPie()">
+                             <svg height="230"></svg>
+                        </nvd3-pie-chart>
+                    </div>
+                    <select class="input-small-tooltip pull-right" name="office1" ng-change="getCollectionOffice()" id="office1" ng-model="officeIdCollection" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option value="">--Office--</option>
+                    </select>
+                </panel>
+            </div>
+            <div class="span6 paddedleft">
+                <panel title="Amount Disbursed for Today ({{dOfficeName}})" >
+                    <div style="margin-left:5px;margin-top:-15px;">
+                        <nvd3-pie-chart
+                                data="disbursedData"
+                                id="piechart2"
+                                width="380"
+                                height="370"
+                                x="xFunction()"
+                                y="yFunction()"
+                                tooltips="true"
+                                donut="true"
+                                donutRatio=".015"
+                                color="colorFunctionPie()">
                             <svg height="230"></svg>
                         </nvd3-pie-chart>
                     </div>
+                    <select class="input-small-tooltip pull-right" data-ng-options="office.id as office.name for office in offices" name="office2" data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2" ng-model="officeIdDisbursed">
+                        <option value="">--Office--</option>
+                    </select>
                 </panel>
             </div>
          </div>
