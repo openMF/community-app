@@ -20,7 +20,8 @@
             'nvd3':             '../bower_components/nvd3/nv.d3',
             'nvd3ChartDirectives': '../scripts/directives/angularjs-nvd3-directives',
             'styles':           '../styles',
-            'test':             '../../test/functional'
+            'test':             '../../test/functional',
+            'notificationWidget': '../scripts/modules/notificationWidget'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -35,9 +36,11 @@
             'd3': {exports: 'd3'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
+            'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
             'mifosX': {
                 deps: [
                     'angular',
+                    'jquery',
                     'angular-resource',
                     'angular-translate',
                     'angular-translate-loader-static-files',
@@ -47,7 +50,8 @@
                     'data-tables',
                     'blockUI',
                     'jquery-ui',
-                    'nvd3ChartDirectives'
+                    'nvd3ChartDirectives',
+                    'notificationWidget'
                 ],
                 exports: 'mifosX'
             }
