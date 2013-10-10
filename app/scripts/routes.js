@@ -251,6 +251,18 @@
       .when('/addcode', {
           templateUrl: 'views/system/addcode.html'
       })
+      .when('/jobs', {
+          templateUrl: 'views/system/schedulerjobs.html'
+      })
+      .when('/viewschedulerjob/:id', {
+          templateUrl: 'views/system/viewschedulerjob.html'
+      })
+      .when('/editschedulerjob/:id', {
+          templateUrl: 'views/system/editschedulerjob.html'
+      })
+      .when('/viewhistory/:id', {
+          templateUrl: 'views/system/viewschedulerjobhistory.html'
+      })
       .when('/codes', {
           templateUrl: 'views/system/codes.html'
       })

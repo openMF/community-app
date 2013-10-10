@@ -215,6 +215,15 @@
           centerTemplateResource: defineResource(apiVer + "/centers/template", {}, {
             get: {method: 'GET', params: {}}
           }),
+          jobsResource: defineResource(apiVer + "/jobs/:jobId/:resourceType", {jobId : '@jobId',resourceType : '@resourceType'}, {
+            get: {method: 'GET', params: {}, isArray: true},
+            getJobDetails: {method: 'GET', params: {}},
+            getJobHistory: {method: 'GET', params: {}},
+            update: {method: 'PUT', params: {}},
+          }),
+          schedulerResource: defineResource(apiVer + "/scheduler", {}, {
+            get: {method: 'GET', params: {}}
+          }),
           assignStaffResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId'}, {
             get: {method: 'GET', params: {}}
           }),
