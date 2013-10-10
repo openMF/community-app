@@ -131,7 +131,8 @@ define(['underscore', 'mifosX'], function() {
       'configurations/GlobalConfigurationController',
       'product/productmix/ProductMixController',
       'product/productmix/ViewProductMixController',
-      'product/productmix/AddProductMixController'
+      'product/productmix/AddProductMixController',
+      'organization/BulkLoanReassignmentController'
     ],
     filters: [
       'StatusLookup'
