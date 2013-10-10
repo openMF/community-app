@@ -28,6 +28,46 @@
 
       scope.optlang = scope.langs[0];
 
+      scope.isActive = function (route) {
+          if(route == 'clients'){
+              var temp = ['/clients','/groups','/centers'];
+              for(var i in temp){
+                  if(temp[i]==location.path()){
+                      return true;
+                  }
+              }
+          }
+          else if(route == 'acc'){
+              var temp1 = ['/accounting','/freqposting','/accounting_coa','/journalentry','/accounts_closure','/Searchtransaction','/accounting_rules'];
+              for(var i in temp1){
+                  if(temp1[i]==location.path()){
+                      return true;
+                  }
+              }
+          }
+          else if(route == 'rep'){
+              var temp2 = ['/reports/all','/reports/clients','/reports/loans','/reports/funds','/reports/accounting'];
+              for(var i in temp2){
+                  if(temp2[i]==location.path()){
+                      return true;
+                  }
+              }
+          }
+          else if(route == 'admin'){
+              var temp3 = ['/users/','/organization','/system','/products','/global'];
+              for(var i in temp3){
+                  if(temp3[i]==location.path()){
+                      return true;
+                  }
+              }
+          }
+          else
+          {
+          var active = route === location.path();
+          return active;
+          }
+      };
+
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
           scope.optlang = lang;
