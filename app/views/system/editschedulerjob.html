@@ -1,0 +1,42 @@
+
+<div ng-controller="EditSchedulerJobController">
+  	<div class="paddedbottom10">
+		<ul class="breadcrumb">
+	        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+	        <li><a href="#/jobs">{{'label.manageschedulerjobs' | translate}}</a> <span class="divider">/</span></li>
+	        <li><a href="#/viewschedulerjob/{{job.jobId}}">{{job.displayName}}</a> <span class="divider">/</span></li>
+	        <li class="active">{{'label.editschedulerjob' | translate}}</li>
+	    </ul>
+	</div>
+  	<form class="form-horizontal" ng-submit="submit()">
+	    <fieldset>
+	      <div class="control-group">
+	        <label class="control-label">{{ 'label.jobname' | translate }}</label>
+	        <div class="controls">
+	          <input type="text" ng-model="formData.displayName">
+	        </div>
+	      </div>
+
+	      <div class="control-group">
+	        <label class="control-label">{{ 'label.cornexpression' | translate }}</label>
+	        <div class="controls">
+	          <input type="text" ng-model="formData.cronExpression">
+	        </div>
+	      </div>
+	      
+	      <div class="control-group">
+            <label class="control-label">{{ 'label.isactivejob' | translate }}</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" ng-model="formData.active">
+              </label>
+            </div>
+          </div>
+
+	      <div class="offset3">
+	        <button type="reset" ng-click="cancel()" class="btn">{{'label.cancel' | translate}}</button></a>
+	        <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
+	      </div>
+	    </fieldset>
+  </form>
+</div>
