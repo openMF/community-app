@@ -4,6 +4,7 @@
         scope.client = [];
         scope.identitydocuments = [];
         scope.buttons = [];
+        scope.clientdocuments = [];
 
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
@@ -84,26 +85,26 @@
 
         resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
             scope.clientAccounts = data;
-
         });
 
         resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id} , function(data) {
             scope.clientNotes = data;
         });
-
-        resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'} , function(data) {
-            scope.identitydocuments = data;
-            for(var i = 0; i<scope.identitydocuments.length; i++) {
-              resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id} , function(data) {
-                for(var j = 0; j<scope.identitydocuments.length; j++) {
-                   if(data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId)
-                    {
-                      scope.identitydocuments[j].documents = data;
-                    }
-                }
-              });
-            }
-        });
+        scope.getClientIdentityDocuments = function () {
+          resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'} , function(data) {
+              scope.identitydocuments = data;
+              for(var i = 0; i<scope.identitydocuments.length; i++) {
+                resourceFactory.clientIdentifierResource.get({clientIdentityId: scope.identitydocuments[i].id} , function(data) {
+                  for(var j = 0; j<scope.identitydocuments.length; j++) {
+                     if(data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId)
+                      {
+                        scope.identitydocuments[j].documents = data;
+                      }
+                  }
+                });
+              }
+          });
+        };
 
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
           scope.clientdatatables = data;
@@ -135,6 +136,23 @@
           resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
             route.reload();
           });
+        };
+
+        scope.getClientDocuments = function () {
+          resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id} , function(data) {
+            scope.clientdocuments = data;
+          });
+        };
+
+        scope.deleteDocument = function (documentId, index) {
+          scope.clientdocuments.splice(index,1);
+          resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function(data) {
+            route.reload();
+          });
+        };
+
+        scope.downloadDocument = function(documentId) {
+
         };
 
         scope.isNotClosed = function(loanaccount) {
