@@ -6,7 +6,8 @@ define(['underscore'], function() {
       'font-awesome.min',
       'app',
       'nv.d3',
-      'jquery-ui/redmond/jquery-ui-1.10.3.custom'
+      'jquery-ui/redmond/jquery-ui-1.10.3.custom',
+      'angularjs-file-upload/war/common'
     ],
     less: [
       'mifosX'

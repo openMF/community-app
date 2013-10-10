@@ -55,6 +55,9 @@
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
       })
+      .when('/addclientdocument/:clientId', {
+          templateUrl: 'views/clients/addclientdocument.html'
+      })
       .when('/newclientloanaccount/:clientId', {
           templateUrl: 'views/loans/newloanaccount.html'
       })

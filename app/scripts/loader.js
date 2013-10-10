@@ -21,7 +21,8 @@
             'nvd3ChartDirectives': '../scripts/directives/angularjs-nvd3-directives',
             'styles':           '../styles',
             'test':             '../../test/functional',
-            'notificationWidget': '../scripts/modules/notificationWidget'
+            'notificationWidget': '../scripts/modules/notificationWidget',
+            'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -37,6 +38,7 @@
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
+            'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
             'mifosX': {
                 deps: [
                     'angular',
@@ -51,7 +53,8 @@
                     'blockUI',
                     'jquery-ui',
                     'nvd3ChartDirectives',
-                    'notificationWidget'
+                    'notificationWidget',
+                    'angularFileUpload'
                 ],
                 exports: 'mifosX'
             }

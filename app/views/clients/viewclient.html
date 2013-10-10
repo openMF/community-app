@@ -144,8 +144,8 @@
                 </div>
           </div>
       </tab>
-      <tab heading="Identify Documents">
-        <table class="table">
+      <tab heading="Identify Documents" select="getClientIdentityDocuments()">
+        <table class="table" ng-show="identitydocuments.length > 0">
             <thead>
               <th>{{'table.heading.uniqueidentification' | translate}}</th>
               <th>{{'table.heading.description' | translate}}</th>
@@ -163,6 +163,33 @@
                   <i class="icon-cloud-download"></i>&nbsp;
                   <i class="icon-edit"></i>&nbsp;
                   <i class="icon-remove"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </tab>
+      <tab heading="{{'tab.heading.client.documents' | translate}}" select="getClientDocuments()">
+        <div class="pull-right">
+          <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>
+        </div>
+        <br>
+        <table class="table" ng-show="clientdocuments.length > 0">
+            <thead>
+              <tr class="graybg">
+                <th>{{'table.heading.name' | translate}}</th>
+                <th>{{'table.heading.description' | translate}}</th>
+                <th>{{'table.heading.filename' | translate}}</th>
+                <th>{{'table.heading.actions' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="clientdocument in clientdocuments">
+                <td>{{clientdocument.name}}</td>
+                <td>{{clientdocument.description}}</td>
+                <td>{{clientdocument.fileName}}</td>
+                <td>
+                  <a class="pointer" ng-click="downloadDocument(clientdocument.id)"><i class="icon-cloud-download"></i></a>&nbsp;
+                  <a class="pointer" ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
             </tbody>
