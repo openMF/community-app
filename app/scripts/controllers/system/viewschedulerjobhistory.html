@@ -1,0 +1,25 @@
+<div class="row-fluid" ng-controller="ClientController">
+    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name/acct#/staff/office">
+	<table class="table">{{clients}}
+        <thead>
+            <tr class="graybg">
+                <th>{{'table.heading.version' | translate}}</th>
+                <th>{{'table.heading.runstarttime' | translate}}</th>
+                <th>{{'table.heading.status' | translate}}</th>
+                <th>{{'table.heading.runtype' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="history in jobhistory.currentPageItems  | filter:filterText">
+                <td>{{history.version}}</td>
+                <td>{{history.jobRunStartTime}}</td>  
+                <td>{{history.status}}</td>
+                <td>{{history.triggerType}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul class="pager">
+        <li class="previous"><a ng-click="jobhistory.previous()" href="" ng-disabled="!jobhistory.hasPrevious()">&larr; Prev</a></li>
+        <li class="next" ><a ng-click="jobhistory.next()" href="" ng-disabled="!jobhistory.hasNext()">Next &rarr;</a></li>
+    </ul>
+</div>
