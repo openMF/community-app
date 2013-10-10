@@ -1,0 +1,38 @@
+<form class="form-horizontal well" ng-controller="ClientDocumentController" ng-submit="submit()">
+	<div>
+		<ul class="breadcrumb">
+			<li><a href="#/clients">{{'link.clients' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/viewclient/{{clientId}}">{{'link.view.client' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{'link.upload.document' | translate}}</li>
+		</ul>
+	</div>
+	<fieldset>
+		<legend>{{'label.upload.client.document' | translate}}</legend>
+
+		<div class="control-group">
+			<label class="control-label" for="name">{{'label.name' | translate}}</label>
+			<div class="controls">
+				<input type="text" ng-model="formData.name" required="required">
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="description">{{'label.description' | translate}}</label>
+			<div class="controls">
+				<textarea rows="2" ng-model="formData.description"  required="required"></textarea>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="file">{{'label.select.file' | translate}}</label>
+			<div class="controls">
+				<input type="file" ng-file-select="onFileSelect($files)">
+			</div>
+		</div>
+
+		<div class="offset3">
+			<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
+			<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
+		</div>
+	</fieldset>
+</form>
