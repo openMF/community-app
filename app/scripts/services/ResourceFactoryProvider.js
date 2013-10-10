@@ -246,6 +246,10 @@
           }),
           loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource:'@templateSource'}, {
            get: {method: 'GET', params: {}}
+          }),
+          auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource:'@templateResource'}, {
+            get: {method: 'GET', params: {}},
+            search: {method: 'GET', params: {},isArray:true}
           })
 
         };

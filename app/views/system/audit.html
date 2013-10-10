@@ -1,0 +1,111 @@
+<div ng-controller="AuditController">
+    <div class="row-fluid" >
+        <span class="input-append grpinputicons" >
+                <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
+                <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+        </span>
+    </div>
+    <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
+        <p>
+            <img alt="loading" src="images/loader.gif"/>&nbsp;
+        </p>
+    </div>
+    <div collapse="isCollapsed" class="blockoverlay" width="100%">
+        <div class="control-group">
+            <div class="controls">
+                <select ng-model="formData.status">
+                    <option ng-repeat="status in template.processingResults" value="{{status.id}}">{{status.processingResult}}</option>
+                    <option value="">--Select Status--</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+            <div class="controls">
+                <input type="text" placeholder="{{'label.fromdate' | translate}}" ng-model="formData.fromDate">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+            <div class="controls">
+                <input type="text" ng-model="formData.toDate" placeholder="{{'label.todate' | translate}}">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <select ng-model="formData.user">
+                    <option value="">--Select User--</option>
+                    <option selected="selected" value="ALL">All</option>
+                    <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <select ng-model="formData.action">
+                    <option value="">--Select Action--</option>
+                    <option selected="selected" value="ALL">All</option>
+                    <option ng-repeat="action in template.actionNames" value="{{action}}">{{action}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <select ng-model="formData.entity">
+                    <option value="">--Select Entity--</option>
+                    <option selected="selected" value="ALL">All</option>
+                    <option ng-repeat="entity in template.entityNames" value="{{entity}}">{{entity}}</option>
+                 </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"></label>
+            <div class="controls">
+                <input type="text" placeholder="{{'label.resourceid' | translate}}" ng-model="formData.resourceId">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <select ng-model="formData.checkedBy">
+                    <option value="">--Select Checker--</option>
+                    <option selected="selected" value="ALL">All</option>
+                    <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="text" ng-model="formData.checkedFrom" placeholder="{{'label.checkedfrom' | translate}}">
+            </div>
+        </div>
+        <div class="control-group">
+             <div class="controls">
+                <input type="text" ng-model="formData.checkedTo" placeholder="{{'label.checkedto' | translate}}">
+            </div>
+        </div>
+    </div>
+    <div ng-show="displayResults" class="row-fluid">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.id' | translate}}</th>
+                <th>{{'label.status' | translate}}</th>
+                <th>{{'label.user' | translate}}</th>
+                <th>{{'label.action' | translate}}</th>
+                <th>{{'label.entity' | translate}}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="data in searchData">
+                <td>{{data.id}}</td>
+                <td>{{data.processingResult}}</td>
+                <td>{{data.maker}}</td>
+                <td>{{data.actionName}}</td>
+                <td>{{data.entityName}}</td>
+                <td><a href="#/viewaudit/{{data.id}}" class="pointer required">Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
