@@ -144,25 +144,34 @@
                 </div>
           </div>
       </tab>
-      <tab heading="Identify Documents" select="getClientIdentityDocuments()">
+      <tab heading="Identity Documents" select="getClientIdentityDocuments()">
+        <div class="pull-right btn-group">
+          <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'button.add' | translate }}</a>
+        </div>
+        <br>
         <table class="table" ng-show="identitydocuments.length > 0">
             <thead>
-              <th>{{'table.heading.uniqueidentification' | translate}}</th>
-              <th>{{'table.heading.description' | translate}}</th>
-              <th>{{'table.heading.identitydocuments' | translate}}</th>
-              <th>{{'table.heading.actions' | translate}}</th>
+              <tr class="graybg">
+                <th>{{'table.heading.uniqueidentification' | translate}}</th>
+                <th>{{'table.heading.description' | translate}}</th>
+                <th>{{'table.heading.type' | translate}}</th>
+                <th>{{'table.heading.identitydocuments' | translate}}</th>
+                <th>{{'table.heading.actions' | translate}}</th>
+              </tr>
             </thead>
             <tbody>
               <tr ng-repeat="document in identitydocuments">
                 <td>{{document.documentKey}}</td>
                 <td>{{document.description}}</td>
+                <td>{{document.documentType.name}}</td>
                 <td>
-                  <span ng-repeat="file in document.documents">{{file.fileName}}&nbsp;&nbsp;</span>
+                  <span ng-repeat="file in document.documents">
+                    <a class="pointer" ng-click="downloadClientIdentifierDocument(document.id, file.id)">{{file.fileName}}</a>&nbsp;&nbsp;
+                  </span>
                 </td>
                 <td>
-                  <i class="icon-cloud-download"></i>&nbsp;
-                  <i class="icon-edit"></i>&nbsp;
-                  <i class="icon-remove"></i>
+                  <a class="pointer" href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
+                  <a class="pointer" ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
             </tbody>

@@ -176,9 +176,11 @@
 
       });
 
-      resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {
-          scope.loandocuments = data;
-      });
+      scope.getLoanDocuments = function (){
+        resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {
+            scope.loandocuments = data;
+        });
+      };
 
       resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'} , function(data) {
         scope.loandatatables = data;
@@ -210,6 +212,16 @@
         resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
           route.reload();
         });
+      };
+
+      scope.deleteDocument = function (documentId, index) {
+        resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: documentId}, '', function(data) {
+          scope.loandocuments.splice(index,1);
+        });
+      };
+
+      scope.downloadDocument = function(documentId) {
+
       };
 
     }
