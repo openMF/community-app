@@ -1,0 +1,92 @@
+<form class="form-horizontal well" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
+    <fieldset>
+        <legend>{{'label.bulkloanreassignment' | translate}}</legend>
+        <table>
+            <tr>
+                <td>
+                    <div class="control-group">
+                        <label class="control-label" >{{ 'label.form.office' | translate }}</label>
+                        <div class="controls">
+                            <select name="office" id="office" ng-model="officeIdTemp" data-ng-options="office.id as office.name for office in offices" data-ng-change="getOfficers()">
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="control-group">
+                        <label class="control-label">{{ 'label.assignmentdate' | translate }}</label>
+                        <div class="controls">
+                            <input type="text" ng-model="formData.assignmentDate">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr data-ng-show="officerChoice">
+                <td>
+                    <div class="control-group">
+                        <label class="control-label" >{{ 'label.fromloanofficer' | translate }}</label>
+                        <div class="controls">
+                            <select ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="control-group">
+                        <label class="control-label" >{{ 'label.toloanofficer' | translate }}</label>
+                        <div class="controls">
+                            <select ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="row paddedleft">
+            <div class="span6">
+                <table data-ng-show="clients">
+                    <thead>
+                        <th>{{'label.clients' | translate}}</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="client in clients">
+                        <td>
+                            <table>
+                                <tr><td><strong>{{client.displayName}}</strong></td></tr>
+                                <tr ng-repeat="loan in client.loans">
+                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="span6">
+                <table data-ng-show="groups">
+                    <thead>
+                        <th>{{'label.groups' | translate}}</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="group in groups">
+                            <td>
+                            <table>
+                                <tr><td><strong>{{group.displayName}}</strong></td></tr>
+                                <tr ng-repeat="loan in group.loans">
+                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})</td>
+                                </tr>
+                            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="offset3">
+            <a href="#/offices"><button type="reset" class="btn">Cancel</button></a>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </fieldset>
+</form>

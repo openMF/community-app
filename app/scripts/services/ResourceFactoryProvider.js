@@ -227,6 +227,9 @@
           }),
           loanProductTemplateResource: defineResource(apiVer + "/loanproducts/template", {}, {
            get: {method: 'GET', params: {}}
+          }),
+          loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource:'@templateSource'}, {
+           get: {method: 'GET', params: {}}
           })
 
         };
