@@ -97,8 +97,9 @@
           chargeTemplateResource: defineResource(apiVer + "/charges/template", {
             get: {method: 'GET', params: {}, isArray:true}
           }),
-          savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId", {savingProductId:'@savingProductId'}, {
-            getAllSavingProducts: {method: 'GET', params: {}, isArray:true}
+          savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId/:resourceType", {savingProductId:'@savingProductId', resourceType:'@resourceType'}, {
+            getAllSavingProducts: {method: 'GET', params: {}, isArray:true},
+            update: {method: 'PUT', params: {}}
           }),
           loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType:'@resourceType', loanId:'@loanId', resourceId:'@resourceId'}, {
             getAllLoans: {method: 'GET', params: {}},

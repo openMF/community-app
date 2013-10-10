@@ -1,3 +1,4 @@
+
 (function(mifosX) {
   var defineRoutes = function($routeProvider, $locationProvider) {
     $routeProvider
@@ -18,6 +19,12 @@
       })
       .when('/editloanproduct/:id', {
         templateUrl: 'views/products/editloanproduct.html'
+      })
+      .when('/createsavingproduct', {
+        templateUrl: 'views/products/createsavingproduct.html'
+      })
+      .when('/editsavingproduct/:id', {
+        templateUrl: 'views/products/editsavingproduct.html'
       })
       .when('/admin/viewrole/:id', {
         templateUrl: 'views/administration/viewrole.html'
