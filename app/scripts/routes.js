@@ -384,6 +384,9 @@
       })
       .when('/addproductmix', {
         templateUrl: 'views/products/productmix/addproductmix.html'
+      })
+      .when('/bulkloan', {
+        templateUrl: 'views/organization/bulkloan.html'
       });
     $locationProvider.html5Mode(false);
   };
