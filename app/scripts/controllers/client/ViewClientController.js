@@ -145,9 +145,8 @@
         };
 
         scope.deleteDocument = function (documentId, index) {
-          scope.clientdocuments.splice(index,1);
           resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function(data) {
-            route.reload();
+            scope.clientdocuments.splice(index,1);
           });
         };
 
@@ -184,6 +183,16 @@
             scope.predicate = '-id';
           });
         }
+
+        scope.deleteClientIdentifierDocument = function (clientId, entityId, index){
+          resourceFactory.clientIdenfierResource.delete({clientId: clientId, id: entityId}, '', function(data) {
+            scope.identitydocuments.splice(index,1);
+          });
+        };
+
+        scope.downloadClientIdentifierDocument=function (identifierId, documentId){
+          console.log(identifierId,documentId);
+        };
     }
   });
   mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.ViewClientController]).run(function($log) {

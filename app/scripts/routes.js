@@ -65,6 +65,12 @@
       .when('/addclientdocument/:clientId', {
           templateUrl: 'views/clients/addclientdocument.html'
       })
+      .when('/addclientidentifier/:clientId', {
+        templateUrl: 'views/clients/addclientidentifier.html'
+      })
+      .when('/addclientidentifierdocument/:clientId/:resourceId', {
+        templateUrl: 'views/clients/addclientidentifierdocument.html'
+      })
       .when('/newclientloanaccount/:clientId', {
           templateUrl: 'views/loans/newloanaccount.html'
       })
@@ -103,6 +109,9 @@
       })
       .when('/assignloanofficer/:id', {
         templateUrl: 'views/loans/assignloanofficer.html'
+      })
+      .when('/addloandocument/:loanId', {
+        templateUrl: 'views/loans/addloandocument.html'
       })
       .when('/organization', {
         templateUrl: 'views/administration/organization.html'  

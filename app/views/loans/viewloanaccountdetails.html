@@ -300,8 +300,12 @@
             </table>
           </tab>
 
-        <tab heading="{{'tab.loandocuments' | translate}}">
-          <table class="table">
+        <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
+          <div class="pull-right">
+            <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>
+          </div>
+          <br>
+          <table class="table" ng-show="loandocuments.length > 0">
             <thead>
               <th>{{'table.heading.name' | translate}}</th>
               <th>{{'table.heading.description' | translate}}</th>
@@ -314,9 +318,8 @@
                 <td>{{document.description}}</td>
                 <td>{{document.fileName}}</td>
                 <td>
-                  <i class="icon-cloud-download"></i>&nbsp;
-                  <i class="icon-edit"></i>&nbsp;
-                  <i class="icon-remove"></i>
+                  <a class="pointer" ng-click="downloadDocument(loandetails.id)"><i class="icon-cloud-download"></i></a>&nbsp;
+                  <a class="pointer" ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
             </tbody>
