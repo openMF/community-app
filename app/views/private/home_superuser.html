@@ -33,7 +33,8 @@
         <div class="row">
             <div class="span6 paddedleft90">
                 <panel title="Amount Collected for Today ({{cOfficeName}}) " >
-                    <div style="margin-left:5px;margin-top:-20px;">
+                    <h3 class="required panel-error" data-ng-show="showCollectionerror">No Data Available</h3>
+                    <div data-ng-show="!showCollectionerror" style="margin-left:5px;margin-top:-20px;">
                         <nvd3-pie-chart
                                 data="collectedData"
                                 id="piechart1"
@@ -55,7 +56,8 @@
             </div>
             <div class="span6 paddedleft">
                 <panel title="Amount Disbursed for Today ({{dOfficeName}})" >
-                    <div style="margin-left:5px;margin-top:-15px;">
+                    <h3 class="required panel-error" data-ng-show="showDisbursementerror">No Data Available</h3>
+                    <div data-ng-show="!showDisbursementerror" style="margin-left:5px;margin-top:-15px;">
                         <nvd3-pie-chart
                                 data="disbursedData"
                                 id="piechart2"

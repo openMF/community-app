@@ -142,13 +142,15 @@
                                 icon :"icon-user"
                               },
                               {
+                                name:"button.makerepayment",
+                                icon:"icon-dollar"
+                              },
+                              {
                                 name:"button.undodisbursal",
                                 icon :"icon-undo"
                               } 
                             ],
-                              options: [{
-                                name:"button.makerepayment",
-                              },
+                              options: [
                               {
                                 name:"button.waiveinterest"
                               },

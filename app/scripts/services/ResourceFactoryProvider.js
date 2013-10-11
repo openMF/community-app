@@ -173,8 +173,9 @@
             reverse: {method: 'POST', params:{command:'reverse'}},
             search:{method: 'GET', params: {}}
           }),
-          accountingClosureResource: defineResource(apiVer + "/glclosures", {}, {
-            get: {method: 'GET', params: {}, isArray:true}
+          accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {accId:"@accId"}, {
+            get: {method: 'GET', params: {}, isArray:true},
+            getView: {method: 'GET', params: {}}
           }) ,
           codeResources: defineResource(apiVer + "/codes/:codeId", {codeId:"@codeId"}, {
                 getAllCodes: {method: 'GET', params: {}, isArray: true}
