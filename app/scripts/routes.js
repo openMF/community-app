@@ -394,6 +394,12 @@
       })
       .when('/bulkloan', {
         templateUrl: 'views/organization/bulkloan.html'
+      })
+      .when('/audit', {
+        templateUrl: 'views/system/audit.html'
+      })
+      .when('/viewaudit/:id', {
+        templateUrl: 'views/system/viewaudit.html'
       });
     $locationProvider.html5Mode(false);
   };
