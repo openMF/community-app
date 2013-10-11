@@ -202,23 +202,27 @@
             </tbody>
         </table>
     </tab>
-    <tab heading="{{ 'label.notes' | translate }}">
+    <tab heading="{{ 'tab.notes' | translate }}">
+        <br/>
         <form>
             <div class="control-group">
-                <div class="controls" data-ng-hide="group.status.value=='Closed'">
-                    <textarea rows="1" class="field span10" id="textarea" placeholder="{{ 'label.enternote' | translate }}" ng-model="formData.note"></textarea>
-                    <br/>
-                    <button class="btn btn-primary" ng-click="resetNote()">{{ 'label.reset' | translate }}</button>
-                    <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{ 'label.addnote' | translate }}</button>
+                <div class="controls">
+                    <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="{{ 'label.enternote' | translate }}" ng-model="formData.note"></textarea>
+                    <div class="notewrapper row-fluid">
+                        <span class="pull-right noteaddbuttonwrapper">
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{ 'label.addnote' | translate }}</button>
+                        </span>
+                    </div>
                 </div>
             </div>
         </form>
-        <div ng-repeat="groupNote in groupNotes">
+        <div ng-repeat="groupNote in groupNotes | orderBy:predicate:reverse">
             <div>
                 <blockquote>
                     <p>{{groupNote.note}}</p>
-                    <small>{{ 'label.createdby' | translate }} :&nbsp;{{groupNote.createdByUsername}}</small>
-                    <small>{{ 'label.createdon' | translate }} :&nbsp;{{groupNote.createdOn}}</small>
+                    {{groupNote.id}}
+                    <small>Created by :&nbsp;{{groupNote.createdByUsername}}</small>
+                    <small>Created on :&nbsp;{{groupNote.createdOn}}</small>
                 </blockquote>
             </div>
         </div>

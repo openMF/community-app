@@ -24,9 +24,6 @@
                     location.path('/centers');
                 });
             };
-            scope.resetNote = function() {
-                this.formData = '';
-            };
             scope.unassignStaffpop = function()
             {
                 scope.choice = 4;
@@ -45,7 +42,10 @@
             };
             scope.saveNote = function() {
                 resourceFactory.groupNotesResource.save({groupId: routeParams.id}, this.formData,function(data){
-                    route.reload();
+                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
+                    scope.notes.push(temp);
+                    scope.formData.note = "";
+                    scope.predicate = '-id';
                 });
             }
 
