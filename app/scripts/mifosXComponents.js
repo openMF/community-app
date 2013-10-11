@@ -82,6 +82,7 @@ define(['underscore', 'mifosX'], function() {
       'accounting/JournalEntryController',
       'accounting/SearchTransactionController',
       'accounting/AccountingClosureController',
+      'accounting/ViewAccountingClosureController',
       'accounting/AccountingRuleController',
       'accounting/AccCreateRuleController',
       'accounting/AccEditRuleController',

@@ -19,9 +19,8 @@
             scope.submit = function() {
                   this.formData.locale = 'en';
                   this.formData.dateFormat = 'dd MMMM yyyy';
-
                   resourceFactory.accountingClosureResource.save(this.formData,function(data){
-                    location.path('/closedaccountingDetails/'+scope.formData.officeId);
+                    location.path('/view_close_accounting/'+data.resourceId);
                   });
             }
 

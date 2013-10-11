@@ -221,7 +221,7 @@
       .when('/accounts_closure', {
         templateUrl: 'views/accounting/accounts_closure.html'
       })
-      .when('/closedaccountingDetails/:officeId', {
+      .when('/view_close_accounting/:id', {
         templateUrl: 'views/accounting/view_close_accounting.html'
       })
       .when('/accounting_rules', {
@@ -421,6 +421,9 @@
       })
       .when('/viewaudit/:id', {
         templateUrl: 'views/system/viewaudit.html'
+      })
+      .when('/createclosure', {
+        templateUrl: 'views/accounting/createclosure.html'
       });
     $locationProvider.html5Mode(false);
   };
