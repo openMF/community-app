@@ -13,6 +13,7 @@
 
         switch (scope.action) {
           case "approve":
+          console.log("approve");
             scope.title = 'label.approve.saving.account';
             scope.labelName = 'label.saving.account.approvedOnDate';
             scope.modelName = 'approvedOnDate';
@@ -104,6 +105,17 @@
             scope.isTransaction = true;
             scope.showPaymentDetails = false;
           break;
+          case "editsavingcharge":
+            scope.labelName = 'label.amount';
+            scope.modelName = "amount";
+            scope.showAmountField = true;
+            resourceFactory.savingsResource.get({accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, function(data) {
+              scope.formData.amount = data.amount;
+            });
+          break;
+          case "deletesavingcharge":
+            scope.showDelete = true;
+          break;
         }
 
         scope.submit = function() {
@@ -121,6 +133,14 @@
             resourceFactory.savingsTrxnsResource.save(params, this.formData, function(data){
               location.path('/viewsavingaccount/' + data.savingsId);
             });
+          } else if(scope.action == "editsavingcharge") {
+              resourceFactory.savingsResource.update({accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data) {
+                 location.path('/viewsavingaccount/' + data.savingsId);
+              });
+          }else if(scope.action == "deletesavingcharge") {
+              resourceFactory.savingsResource.delete({accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data) {
+                 location.path('/viewsavingaccount/' + data.savingsId);
+              });
           } else {
             params.accountId=scope.accountId;
             resourceFactory.savingsResource.save(params, this.formData, function(data){
