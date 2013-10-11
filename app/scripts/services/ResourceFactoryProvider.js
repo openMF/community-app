@@ -63,7 +63,7 @@
           groupAccountResource: defineResource(apiVer + "/groups/:groupId/accounts", {groupId:'@groupId'}, {
               getAll: {method: 'GET', params: {}}
           }),
-          groupNotesResource: defineResource(apiVer + "/groups/:groupId/notes", {groupId:'@groupId'}, {
+          groupNotesResource: defineResource(apiVer + "/groups/:groupId/notes/:noteId", {groupId:'@groupId',noteId:'@noteId'}, {
               getAllNotes: {method: 'GET', params: {}, isArray:true}
           }),
           groupTemplateResource: defineResource(apiVer + "/groups/template", {}, {
