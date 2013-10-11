@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    AccViewGLAccountContoller: function(scope, routeParams , location, resourceFactory ) {
+    AccViewGLAccountContoller: function(scope, routeParams , location, resourceFactory, route) {
         scope.glaccountdata = [];
         scope.accountOptions = [];
 
@@ -51,9 +51,15 @@
                 location.path('/accounting_coa');
           });
         };
+
+        scope.changeState = function (disabled){
+          resourceFactory.accountCoaResource.update({'glAccountId': routeParams.id},{disabled:!disabled},function(data){
+            route.reload();
+          });
+        };
     }
   });
-  mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', mifosX.controllers.AccViewGLAccountContoller]).run(function($log) {
+  mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', '$route', mifosX.controllers.AccViewGLAccountContoller]).run(function($log) {
     $log.info("AccViewGLAccountContoller initialized");
   });
 }(mifosX.controllers || {}));

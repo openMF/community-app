@@ -1,19 +1,21 @@
-<div  ng-controller="AccViewGLAccountContoller">
+<div ng-controller="AccViewGLAccountContoller">
 	<div class="paddedbottom10">
-	    <ul class="breadcrumb">
-	      <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
-	      <li><a href="#/accounting_coa">{{'label.coa' | translate}}</a> <span class="divider">/</span></li>
-	      <li class="active">{{glaccount.name}}</li>
-	    </ul>
+		<ul class="breadcrumb">
+			<li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/accounting_coa">{{'label.coa' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{glaccount.name}}</li>
+		</ul>
 	</div>
-  <div class="paddedbottom">
-	    <div class="pull-right">
-	      <div class="btn-group">
-	          <a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
-	          <a href="#" class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i> Delete</a>
-	      </div>
-	    </div>
-	  </div>
+	<div class="paddedbottom">
+		<div class="pull-right">
+			<div class="btn-group">
+				<a ng-hide="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-lock icon-white"></i> Disable</a>
+				<a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-unlock icon-white"></i> Enable</a>
+				<a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+				<a href="#" class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i> Delete</a>
+			</div>
+		</div>
+	</div>
 
 	<div class="row paddedleft">
 		<h3>{{glaccount.name}}</h3>
