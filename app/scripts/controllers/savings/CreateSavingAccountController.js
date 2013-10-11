@@ -7,14 +7,15 @@
         scope.isCollapsed = true;
         scope.clientId = routeParams.clientId;
         scope.groupId = routeParams.groupId;
-
+        scope.charges = [];
         scope.inparams = {};
         if (scope.clientId) {scope.inparams.clientId = scope.clientId};
         if (scope.groupId) {scope.inparams.groupId = scope.groupId};
+        if (scope.centerId) {scope.inparams.centerId = scope.centerId};
 
         resourceFactory.savingsTemplateResource.get(scope.inparams, function(data) {
             scope.products = data.productOptions;
-            scope.charges = data.chargeOptions;
+            scope.chargeOptions = data.chargeOptions;
             scope.clientName = data.clientName;
             scope.groupName = data.groupName;
         });
@@ -45,12 +46,41 @@
           });
         };
 
+        scope.addCharge = function(chargeId) {
+          if (chargeId) {
+            resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function(data){
+                data.chargeId = data.id;
+                scope.charges.push(data);
+                scope.chargeId = undefined;
+            });
+          }
+        }
+
+        scope.deleteCharge = function(index) {
+          scope.charges.splice(index,1);
+        }
+
         scope.submit = function() {
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";
+          this.formData.charges = [];
+
           if (scope.clientId) this.formData.clientId = scope.clientId;
           if (scope.groupId) this.formData.groupId = scope.groupId;
+          if (scope.centerId) this.formData.centerId = scope.centerId;
+
+          if (scope.charges.length > 0) {
+            for (var i in scope.charges) {
+              if(scope.charges[i].chargeTimeType.value=='Annual Fee') {
+                var feeOnMonthDay = scope.charges[i].feeOnMonthDay==undefined ? "" :scope.charges[i].feeOnMonthDay;
+                this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
+                 feeOnMonthDay:feeOnMonthDay});
+              } else {
+                this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount});
+              }
+            }
+          }
           resourceFactory.savingsResource.save(this.formData,function(data){
             location.path('/viewsavingaccount/' + data.savingsId);
           });

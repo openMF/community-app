@@ -316,7 +316,7 @@
       })
       .when('/viewsavingaccount/:id', {
         templateUrl: 'views/savings/view_saving_account_details.html'
-      })
+      }) 
       .when('/groups', {
         templateUrl: 'views/groups/groups.html'
       })
@@ -331,6 +331,12 @@
       })
       .when('/savingaccount/:id/:action', {
         templateUrl: 'views/savings/saving_account_actions.html'
+      })
+      .when('/savingaccountcharge/:id/:action/:chargeId', {
+        templateUrl: 'views/savings/saving_account_actions.html'
+      })
+      .when('/savingaccounts/:id/charges', {
+        templateUrl: 'views/savings/addnewsavingscharge.html'
       })
       .when('/viewaccounttransfers/:id', {
         templateUrl: 'views/accounttransfers/view_accounttransfer.html'

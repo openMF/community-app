@@ -148,7 +148,6 @@
               </tbody>
           </table>
         </tab>
-
         <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" select="dataTableChange(savingdatatable)">
             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
             <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
@@ -171,7 +170,48 @@
                 </tbody>
             </table>
         </tab>
-
+        <tab  ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
+          <table class="table" width="100%">
+            <tr class="graybg">
+                <th>{{'table.heading.name' | translate}}</th>
+                <th>{{'table.heading.feeorpenalty' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.paymentdueat' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.dueasof' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.calculationtype' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.due' | translate}}</th>
+                <th>{{'table.heading.paid' | translate}}</th>
+                <th>{{'table.heading.waived' | translate}}</th>
+                <th>{{'table.heading.outstanding' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.actions' | translate}}</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="charge in charges" >
+                <td>{{charge.name}}</td>
+                <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
+                <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                <td></td>
+                <td>{{charge.chargeTimeType.value}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{charge.chargeCalculationType.value}} - {{charge.percentage}}% of{{charge.currency.displaySymbol}}{{charge.amountPercentageAppliedTo}}</td>
+                <td></td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
+                <td></td>
+                <td><a href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i class="icon-pencil icon-white"></i></a>
+                <a href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i class="icon-remove icon-white"></i></a></td>
+                <td></td>
+            </tr>
+          </table>
+        </tab>
       </tabset>
     </div>
   </div>

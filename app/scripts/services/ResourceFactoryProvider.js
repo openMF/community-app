@@ -193,8 +193,13 @@
           savingsTemplateResource: defineResource(apiVer + "/savingsaccounts/template", {}, {
               get: {method: 'GET', params: {}}
           }),
-          savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId", {accountId:'@accountId'}, {
-              get: {method: 'GET', params: {accountId:'@accountId'}},
+          savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId/:resourceType/:chargeId",
+            {accountId:'@accountId', resourceType:'@resourceType', chargeId:'@chargeId'}, {
+              get: {method: 'GET', params: {}},
+              update: {method: 'PUT'}
+          }),
+          savingsChargeResource: defineResource(apiVer + "/savingsaccounts/:accountId/charges",{accountId:'@accountId'}, {
+              get: {method: 'GET', params: {}},
               update: {method: 'PUT'}
           }),
           savingsTrxnsTemplateResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/template", {savingsId:'@savingsId'}, {
