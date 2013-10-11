@@ -44,9 +44,6 @@
                     });
                 });
             };
-            scope.resetNote = function() {
-                this.formData = '';
-            };
             scope.cancel = function(id){
                 resourceFactory.groupResource.get({groupId: id}, function(data){
                     route.reload();
@@ -58,9 +55,12 @@
 
             scope.saveNote = function() {
                 resourceFactory.groupResource.save({groupId: routeParams.id, anotherresource: 'notes'}, this.formData,function(data){
-                    route.reload();
+                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
+                    scope.groupNotes.push(temp);
+                    scope.formData.note = "";
+                    scope.predicate = '-id';
                 });
-            }
+            };
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_group'} , function(data) {
                 scope.groupdatatables = data;
