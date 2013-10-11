@@ -1,0 +1,37 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/accounts_closure">{{'link.accountclosure' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.createclosure' | translate}}</li>
+    </ul>
+</div>
+<form class="form-horizontal well" ng-controller="AccountingClosureController" ng-submit="submit()">
+    <legend>{{ 'label.accounting.closure' | translate }}</legend>
+    <div class="control-group">
+        <label class="control-label">{{ 'label.office' | translate }}</label>
+        <div class="controls">
+            <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="updateLastClosed(formData.officeId)"
+                    required="required">
+                <option style="display:none" value="">{{'label.select.office' | translate}}</option>
+            </select>
+            <span ng-show="lastClosed">{{ 'label.previous.closedOn' | translate }} - {{lastClosed}}</span>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ 'label.accounting.closure.closing.date' | translate }}</label>
+        <div class="controls">
+            <input type="text" ng-model="formData.closingDate">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">{{ 'label.accounting.closure.comments' | translate }}</label>
+        <div class="controls">
+            <textarea rows="2" ng-model="formData.comments"></textarea>
+        </div>
+    </div>
+    <div class="offset3">
+        <a href="#/accounts_closure"><button type="reset" class="btn">{{ 'label.cancel' | translate }}</button></a>
+        <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
+    </div>
+</form>

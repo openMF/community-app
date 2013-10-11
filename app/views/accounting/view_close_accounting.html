@@ -1,28 +1,46 @@
-<div ng-controller="AccountingClosureController" >
-	<legend>{{ 'label.closed.accounting.details' | translate }}</legend>
-
-	<div class="pull-left">
-		<span for="officeId"><b>{{ 'label.office' | translate }}</b></span>
-		<select ng-model="formData.officeId" ng-change="closedAccountingDetails(formData.officeId)">
-			<option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
-		</select>
-	</div>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>{{ 'table.heading.officename' | translate }}</th>
-				<th>{{ 'label.accounting.closure.closing.date' | translate }}</th>
-				<th>{{ 'label.journalentry.comments' | translate }}</th>
-				<th>{{ 'label.close.accounting.created.by' | translate }}</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="accountClosure in accountClosures">
-				<td>{{accountClosure.officeName}}</td>
-				<td>{{accountClosure.closingDate}}</td>
-				<td>{{accountClosure.comments}}</td>
-				<td>{{accountClosure.createdByUsername}}</td>
-			</tr>
-		</tbody>
-	</table>
+<div ng-controller="ViewAccountingClosureController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/accounts_closure">{{'link.accountclosure' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{'label.viewclosure' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-primary" data-ng-click="deleteClosure()"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
+    </div>
+    <div>
+        <legend>{{ 'label.closed.accounting.details' | translate }}</legend>
+        <div class="paddedleft">
+            <table width="100%" >
+                <tr>
+                    <td><strong>{{ 'table.heading.officename' | translate }}:</strong></td>
+                    <td>{{accountClosure.officeName}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'label.accounting.closure.closing.date' | translate }}:</strong></td>
+                    <td>{{accountClosure.closingDate}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'label.close.accounting.created.by' | translate }}:</strong></td>
+                    <td>{{accountClosure.createdByUsername}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'label.updatedby' | translate }}:</strong></td>
+                    <td>{{accountClosure.lastUpdatedByUsername}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'label.updatedon' | translate }}:</strong></td>
+                    <td>{{accountClosure.lastUpdatedDate}}</td>
+                </tr>
+                <tr >
+                    <td><strong>{{ 'label.closurecreationdate' | translate }}:</strong></td>
+                    <td>{{accountClosure.createdDate}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'label.journalentry.comments' | translate }}:</strong></td>
+                    <td>{{accountClosure.comments}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

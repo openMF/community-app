@@ -1,37 +1,37 @@
-      <div>
-        <ul class="breadcrumb">
-          <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
-          <li class="active">{{'label.closingentries.title' | translate}}</li>
-        </ul>
-      </div>
-      <form class="form-horizontal well" ng-controller="AccountingClosureController" ng-submit="submit()">
-          <legend>{{ 'label.accounting.closure' | translate }}</legend>
-          <div class="control-group">
-            <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
-            <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="updateLastClosed(formData.officeId)"
-              required="required">
-                <option style="display:none" value="">{{'label.select.office' | translate}}</option>
-              </select>
-              <span ng-show="lastClosed">{{ 'label.previous.closedOn' | translate }} - {{lastClosed}}</span>
-            </div>
-          </div>
-        
-          <div class="control-group">
-            <label class="control-label" for="closingDate">{{ 'label.accounting.closure.closing.date' | translate }}</label>
-            <div class="controls">
-              <input type="text" ng-model="formData.closingDate">
-            </div>
-          </div>
+<div>
+    <ul class="breadcrumb">
+        <li class="active">{{'label.accountsclosure' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+        <a href="#/createclosure" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.createclosure' | translate}}</a>
+    </div>
+</div>
+<div ng-controller="AccountingClosureController" >
+    <legend>{{ 'label.closed.accounting.details' | translate }}</legend>
 
-          <div class="control-group">
-            <label class="control-label" for="comments">{{ 'label.accounting.closure.comments' | translate }}</label>
-            <div class="controls">
-              <textarea rows="2" ng-model="formData.comments"></textarea>
-            </div>
-          </div>
-          <div class="offset3">
-            <a href="#/accounting"><button type="reset" class="btn">{{ 'label.cancel' | translate }}</button></a>
-            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
-          </div>
-      </form>
+    <div class="pull-left">
+        <span for="officeId"><b>{{ 'label.office' | translate }}</b></span>
+        <select ng-model="formData.officeId" ng-change="closedAccountingDetails(formData.officeId)">
+            <option value="">--{{ 'label.filterbyoffice' | translate }}--</option>
+            <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+        </select>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{ 'table.heading.officename' | translate }}</th>
+            <th>{{ 'label.accounting.closure.closing.date' | translate }}</th>
+            <th>{{ 'label.journalentry.comments' | translate }}</th>
+            <th>{{ 'label.close.accounting.created.by' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="accountClosure in accountClosures">
+            <td><a href="#/view_close_accounting/{{accountClosure.id}}">{{accountClosure.officeName}}</a></td>
+            <td>{{accountClosure.closingDate}}</td>
+            <td>{{accountClosure.comments}}</td>
+            <td>{{accountClosure.createdByUsername}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

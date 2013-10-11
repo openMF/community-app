@@ -166,6 +166,10 @@
 
             resourceFactory.runReportsResource.get({reportSource: 'Demand_Vs_Collection',R_officeId:1, genericResultSet:false} , function(data) {
                 scope.collectionPieData = data[0];
+                scope.showCollectionerror = false;
+                if(data[0].AmountPaid == 0 && data[0].AmountDue == 0){
+                    scope.showCollectionerror = true;
+                }
                 scope.collectedData = [
                     {key:"Collected", y:scope.collectionPieData.AmountPaid},
                     {key:"Pending", y:scope.collectionPieData.AmountDue}
@@ -173,9 +177,9 @@
             });
             resourceFactory.runReportsResource.get({reportSource: 'Disbursal_Vs_Awaitingdisbursal',R_officeId:1, genericResultSet:false} , function(data) {
                 scope.disbursedPieData = data[0];
-                if(scope.disbursedPieData.amountToBeDisburse < 0)
-                {
-                    scope.disbursedPieData.amountToBeDisburse = 0;
+                scope.showDisbursementerror = false;
+                if(data[0].disbursedAmount == 0 && data[0].amountToBeDisburse == 0){
+                    scope.showDisbursementerror = true;
                 }
                 scope.disbursedData = [
                     {key:"Disbursed", y:scope.disbursedPieData.disbursedAmount},
@@ -314,11 +318,16 @@
                     }
                 }
                 resourceFactory.runReportsResource.get({reportSource: 'Demand_Vs_Collection',R_officeId:this.officeIdCollection, genericResultSet:false} , function(data) {
+                    scope.showCollectionerror = false;
                     scope.collectionPieData = data[0];
+                    if(data[0].AmountPaid == 0 && data[0].AmountDue == 0){
+                        scope.showCollectionerror = true;
+                    }
                     scope.collectedData = [
-                        {key:"Collected", y:scope.collectionPieData.AmountPaid},
-                        {key:"Pending", y:scope.collectionPieData.AmountDue}
+                    {key:"Collected", y:scope.collectionPieData.AmountPaid},
+                    {key:"Pending", y:scope.collectionPieData.AmountDue}
                     ];
+
                 });
 
             };
@@ -332,9 +341,9 @@
 
                 resourceFactory.runReportsResource.get({reportSource: 'Disbursal_Vs_Awaitingdisbursal',R_officeId:this.officeIdDisbursed, genericResultSet:false} , function(data) {
                     scope.disbursedPieData = data[0];
-                    if(scope.disbursedPieData.amountToBeDisburse < 0)
-                    {
-                        scope.disbursedPieData.amountToBeDisburse = 0;
+                    scope.showDisbursementerror = false;
+                    if(data[0].disbursedAmount == 0 && data[0].amountToBeDisburse == 0){
+                        scope.showDisbursementerror = true;
                     }
                     scope.disbursedData = [
                         {key:"Collected", y:scope.disbursedPieData.disbursedAmount},
