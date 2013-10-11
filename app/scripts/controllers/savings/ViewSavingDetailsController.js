@@ -41,6 +41,9 @@
           case "withdraw":
             location.path('/savingaccount/' + accountId + '/withdrawal');
           break;
+          case "addcharge":
+            location.path('/savingaccounts/' + accountId + '/charges');
+          break;
           case "calculateInterest":
             resourceFactory.savingsResource.save({accountId:accountId,command:'calculateInterest'}, {}, function(data){
               route.reload();
@@ -67,6 +70,12 @@
 
       resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function(data) {
           scope.savingaccountdetails = data;
+          if(scope.savingaccountdetails.charges) {
+            scope.charges = scope.savingaccountdetails.charges;
+            scope.chargeTableShow = true;
+          } else {
+            scope.chargeTableShow = false;
+          }
           scope.$broadcast('SavingAccountDataLoadingCompleteEvent');
 
           if (data.status.value == "Submitted and pending approval") {
@@ -83,6 +92,9 @@
                               },
                               {
                                  name:"button.withdrawnbyclient"
+                               },
+                               {
+                                 name:"button.addcharge"
                                },
                                {
                                  name:"button.delete"
