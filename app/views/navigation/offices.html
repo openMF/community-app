@@ -2,23 +2,33 @@
 <table width="100%">
     <thead>
         <tr>
-            <th>Offices&nbsp;&nbsp;&nbsp;<input ng-model="filterText" type="text" class="form-control input-small" placeholder="Filter by name"></th>
-            <th>Loan Officers&nbsp;&nbsp;&nbsp;<input ng-model="filterText" type="text" class="form-control input-small" placeholder="Filter by name"></th>
-            <th>Groups / Centers &nbsp;&nbsp;&nbsp;<input ng-model="filterText" type="text" class="form-control input-small" placeholder="Filter by name"></th>
+            <th>Offices&nbsp;&nbsp;&nbsp;<input ng-model="filterTextOffice" type="text" class="form-control input-small" placeholder="Filter by name"></th>
+            <th>Loan Officers&nbsp;&nbsp;&nbsp;<input ng-model="filterTextStaff" type="text" class="form-control input-small" placeholder="Filter by name"></th>
+            <th>Groups / Centers &nbsp;&nbsp;&nbsp;<input ng-model="filterTextGroup" type="text" class="form-control input-small" placeholder="Filter by name"></th>
         </tr>
     </thead>
     <tbody>
         <tr>    
-            <td width="35%">
+            <td width="30%">
                 <table>
-                        <tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selected}">
-                            <td><a ng-click="select(office.id)" >{{office.name}}</a></td>
-                        </tr>
+                    <tr ng-repeat="office in offices  | filter:filterTextOffice" ng-class="{graybg: office.id == selectedOffice}">
+                        <td><a ng-click="officeSelected(office.id)" >{{office.name}}</a></td>
+                    </tr>
                 </table>
             </td>
             <td width="30%">
+                <table class="topfixed">
+                    <tr ng-repeat="staff in staffs  | filter:filterTextStaff" ng-class="{graybg: staff.id == selectedStaff}">
+                        <td><a ng-click="staffSelected(staff.id)" >{{staff.displayName}}</a></td>
+                    </tr>
+                </table>
             </td>
-            <td width="35%">
+            <td width="35%" class="toprightfixed">
+                <table>
+                    <tr ng-repeat="groupsOrCenter in groupsOrCenters  | filter:filterTextGroup">
+                        <td>{{groupsOrCenter.name}}</td>
+                    </tr>
+                </table>
             </td>
         <tr>
     </tbody>    
