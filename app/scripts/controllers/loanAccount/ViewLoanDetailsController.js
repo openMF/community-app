@@ -64,6 +64,8 @@
           case "close":
             location.path('/loanaccount/' + accountId + '/close');
           break;
+          case "guarantor":
+            location.path('/guarantor/' + accountId);
         }
       };
 
@@ -123,7 +125,7 @@
                               },
                             ],
                               options: [{
-                                name:"button.disburse",
+                                name:"button.disburse"
                               },
                               {
                                name:"button.guarantor"
