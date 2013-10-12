@@ -256,6 +256,9 @@
           auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource:'@templateResource'}, {
             get: {method: 'GET', params: {}},
             search: {method: 'GET', params: {},isArray:true}
+          }),
+          guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId:'@loanId',templateResource:'@templateResource'}, {
+            get: {method: 'GET', params: {}}
           })
 
         };

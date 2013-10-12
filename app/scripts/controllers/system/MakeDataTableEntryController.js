@@ -14,6 +14,7 @@
         colName = data.columnHeaders[0].columnName;
         if(colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
           data.columnHeaders.splice(0,1);
+          scope.isCenter = colName ==  'center_id' ? true : false;
         }
         scope.columnHeaders = data.columnHeaders;
       });
@@ -31,9 +32,11 @@
           } else if ( data.clientId) {
             destination = '/viewclient/'+data.clientId;
           } else if ( data.groupId) {
-            destination = '/viewgroup/'+data.groupId;
-          } else if ( data.centerId) {
-            destination = '/viewcenter/'+data.centerId;
+              if (scope.isCenter) {
+                  destination = '/viewcenter/'+data.groupId;
+              } else {
+                  destination = '/viewgroup/'+data.groupId;
+              }
           } else if ( data.officeId) {
             destination = '/viewoffice/'+data.officeId;
           }
