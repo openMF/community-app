@@ -1,0 +1,109 @@
+<form class="form-horizontal well" ng-controller="GuarantorController">
+    <fieldset>
+        <legend class="bolder">{{'label.guarantor' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.existingclient' | translate }}</label>
+            <div class="controls">
+                <input type="checkbox" data-ng-model="temp" data-ng-change="checkClient()">
+            </div>
+        </div>
+        <div data-ng-show="temp">
+            <div class="control-group">
+                <label class="control-label">{{ 'label.clientname' | translate }}</label>
+                <div class="controls">
+                    <input typeahead-on-select="viewClient($item)" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.relationship' | translate }}</label>
+                <div class="controls">
+                    <select ng-model="formData.relationship" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="!temp">
+            <div class="control-group">
+                <label class="control-label">{{ 'label.relationship' | translate }}</label>
+                <div class="controls">
+                    <select ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}</label>
+                <div class="controls">
+                    <input type="text" id="firstname" ng-model="formData.firstname">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.form.lastname' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.lastname">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.dob' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.dob">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.address' | translate }}</label>
+                <div class="controls">
+                    <input type="text" placeholder="Line 1" ng-model="formData.addressline1"><br/>
+                    <input type="text" placeholder="Line 2" ng-model="formData.addressline2">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.city' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.city">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.zip' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.zip">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.mobile' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.mobile">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.residence' | translate }}</label>
+                <div class="controls">
+                    <input type="text" ng-model="formData.residence">
+                </div>
+            </div>
+        </div>
+        <div data-ng-show="clientview">
+            <h3>{{'label.clientdetails' | translate}}</h3>
+            <table width="100%" >
+                <tr>
+                    <td width="35%">{{'label.name' | translate}}</td>
+                    <td width="65%">{{client.displayName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.identifier' | translate }}</td>
+                    <td valign="top">{{client.id}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.office' | translate }}</td>
+                    <td>{{client.officeName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.activationDate' | translate }}</td>
+                    <td>{{client.activationDate}}:</td>
+                </tr>
+            </table>
+        </div>
+        <div class="offset2 paddedleft120">
+            <a href="#/viewloanaccount/{{loanId}}" class="btn">{{ 'label.cancel' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="submit()">{{ 'label.save' | translate }}</button>
+        </div>
+    </fieldset>
+</form>
+
+

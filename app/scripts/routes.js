@@ -430,6 +430,9 @@
       })
       .when('/createclosure', {
         templateUrl: 'views/accounting/createclosure.html'
+      })
+      .when('/guarantor/:id', {
+        templateUrl: 'views/loans/guarantor.html'
       });
     $locationProvider.html5Mode(false);
   };
