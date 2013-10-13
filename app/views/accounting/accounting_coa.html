@@ -9,27 +9,13 @@
 </div>
 
 <div class="row-fluid" ng-controller="AccCoaController">
-    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
-	<table class="table">
-        <thead>
-            <tr class="graybg">
-                <th>{{'table.heading.accname' | translate}}</th>
-                <th>{{'table.heading.glcode' | translate}}</th>
-                <th>{{'table.heading.acctype' | translate}}</th>
-                <th>{{'table.heading.disabled' | translate}}</th>
-                <th>{{'table.heading.manualentriesallowed' | translate}}</th>
-                <th>{{'table.heading.usedas' | translate}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="coadata in coadatas | orderBy:'type.value' | filter:filterText">
-                <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.name}}</a></td>
-                <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.glCode}}</a></td>
-                <td>{{coadata.type.value}}</td>
-                <td>{{coadata.disabled}}</td>
-                <td>{{coadata.manualEntriesAllowed}}</td>
-                <td>{{coadata.usage.value}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3 class="bolder">Chart Of Accounts</h3>
+    <div
+            data-angular-treeview="true"
+            data-tree-id="treeview"
+            data-tree-model="treedata"
+            data-node-id="id"
+            data-node-label="name"
+            data-node-children="children" >
+    </div>
 </div>

@@ -158,7 +158,8 @@ define(['underscore', 'mifosX'], function() {
       'PanelDirective',
       'BigPanelDirective',
       'OnBlurDirective',
-      'LateValidateDirective'
+      'LateValidateDirective',
+      'TreeviewDirective'
     ]
   };
 
