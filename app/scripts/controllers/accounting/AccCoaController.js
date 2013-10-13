@@ -76,7 +76,8 @@
                   parentNode.children.push(currentObj);
             }
           }
-          console.log(JSON.stringify(root));
+          scope.treedata = JSON.parse(JSON.stringify(root));
+
       });
     }
   });

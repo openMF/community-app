@@ -1,0 +1,46 @@
+(function(module) {
+    mifosX.directives = _.extend(module, {
+        TreeviewDirective: function($compile) {
+            return {
+                restrict: 'A',
+                link: function ( scope, element, attrs ) {
+                        var treeId = attrs.treeId;
+                        var treeModel = attrs.treeModel;
+                        var nodeId = attrs.nodeId || 'id';
+                        var nodeLabel = attrs.nodeLabel || 'label';
+                        var nodeChildren = attrs.nodeChildren || 'children';
+                        var template =
+                        '<ul>' +
+                            '<li data-ng-repeat="node in ' + treeModel + '">' +
+                            '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
+                            '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
+                            '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
+                            '<span data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+                            '<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
+                            '</li>' +
+                            '</ul>';
+
+                        if( treeId && treeModel ) {
+
+                            if( attrs.angularTreeview ) {
+                                scope[treeId] = scope[treeId] || {};
+                                scope[treeId].selectNodeHead = scope[treeId].selectNodeHead || function( selectedNode ){
+                                selectedNode.collapsed = !selectedNode.collapsed;
+                            };
+                            scope[treeId].selectNodeLabel = scope[treeId].selectNodeLabel || function( selectedNode ){
+                                selectedNode.collapsed = !selectedNode.collapsed;
+                                scope[treeId].currentNode = selectedNode;
+                            };
+                        }
+                        element.html('').append( $compile( template )( scope ) );
+                    }
+                }
+            };
+
+        }
+    });
+}(mifosX.directives || {}));
+
+mifosX.ng.application.directive("treeModel", ['$compile',mifosX.directives.TreeviewDirective]).run(function($log) {
+    $log.info("TreeviewDirective initialized");
+});
