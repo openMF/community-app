@@ -36,6 +36,7 @@
             resourceFactory.centerResource.get({'centerId' : centerId, associations : 'groupMembers,collectionMeetingCalendar' }, function(data) {
               scope.centerdetails = data;
               scope.groups = data.groupMembers;
+              if (data.collectionMeetingCalendar)
               scope.calendarId = data.collectionMeetingCalendar.id;
               centerOrGroupResource = "centerResource";
             });
@@ -94,6 +95,8 @@
                _.each(clientData.loans, function(loanData) {
                 if (loanData.totalDue != 0) {
                   var  temp = {
+                    clientId : clientData.clientId,
+                    productId : loanData.productId,
                     loanId : loanData.loanId,
                     transactionAmount : loanData.totalDue
                   }
@@ -110,6 +113,44 @@
               });
             });
           });
+        }
+
+        //client transaction amount is update this method will update both individual/all groups
+        //total for a specific product
+        scope.bulkRepaymentTransactionAmountChange = function(bulkRepaymentTransaction) {
+          if(bulkRepaymentTransaction.transactionAmount) {
+            _.each(scope.collectionSheetData.groups, function(groupData) {
+              _.each(groupData.clients, function(clientData) {
+                if (bulkRepaymentTransaction.clientId == clientData.clientId) {
+                   _.each(clientData.loans, function(clientLoan) {
+                      if (bulkRepaymentTransaction.loanId == clientLoan.loanId) {
+                        clientLoan.totalDue = bulkRepaymentTransaction.transactionAmount;
+                      }
+                   });
+                }
+              });
+            });
+            scope.groupTotalArray(scope.collectionSheetData);
+          }
+        }
+
+        //client disburse amount is update this method will update both individual/all groups
+        //total for a specific product
+        scope.bulkDisbursementAmountChange = function(bulkDisbursementTransaction) {
+          if(bulkDisbursementTransaction.transactionAmount) {
+            _.each(scope.collectionSheetData.groups, function(groupData) {
+              _.each(groupData.clients, function(clientData) {
+                if (bulkDisbursementTransaction.clientId == clientData.clientId) {
+                   _.each(clientData.loans, function(clientLoan) {
+                      if (bulkDisbursementTransaction.loanId == clientLoan.loanId && clientLoan.disbursementAmount) {
+                        clientLoan.disbursementAmount = bulkDisbursementTransaction.transactionAmount;
+                      }
+                   });
+                }
+              });
+            });
+            scope.groupTotalArray(scope.collectionSheetData);
+          }
         }
 
         scope.clientsAttendanceSelected = function(data) {
@@ -143,6 +184,8 @@
                _.each(clientData.loans, function(loanData) {
                 if (loanData.disbursementAmount) {
                   var  temp = {
+                    clientId : clientData.clientId,
+                    productId : loanData.productId,
                     loanId : loanData.loanId,
                     transactionAmount : loanData.disbursementAmount
                   }
@@ -178,11 +221,12 @@
            }
            return obj;
         }
-
+        //this method calculates both individual/all group total for a specific product
         scope.groupTotalArray = function(data) {
           var groupTotal = [];
           var loanProductTemp = {};
           scope.groupTotal = [];
+          scope.collectionSheetData = data;
           scope.loanProductArray = [];
           _.each(data.loanProducts, function(loanProduct) {
             loanProductTemp = {
@@ -203,9 +247,9 @@
                   _.each(loanProductArrayDup, function(loanProduct) {
                     if (loanProduct.productId == clientLoan.productId) {
                       if (clientLoan.disbursementAmount) {
-                        loanProduct.disbursementAmount = loanProduct.disbursementAmount + clientLoan.disbursementAmount;
+                        loanProduct.disbursementAmount = Number(loanProduct.disbursementAmount + clientLoan.disbursementAmount);
                       } else {
-                        loanProduct.transactionAmount = loanProduct.transactionAmount + clientLoan.totalDue;
+                        loanProduct.transactionAmount = Number(loanProduct.transactionAmount + clientLoan.totalDue);
                       }
                     }
                   });
@@ -234,6 +278,7 @@
           scope.formData.dateFormat = "dd MMMM yyyy";
           scope.formData.locale = "en";
           scope.formData.transactionDate = this.formData.transactionDate;
+          scope.formData.actualDisbursementDate = this.formData.transactionDate;
           scope.formData.clientsAttendance = scope.clientsAttendance;
           scope.formData.bulkDisbursementTransactions = scope.bulkDisbursementTransactions;
           scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
