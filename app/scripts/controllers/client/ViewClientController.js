@@ -203,8 +203,15 @@
         };
 
 		// inventure controller
-        scope.fetchInventureScore = function(clientId){
-          console.log(clientId);
+        scope.fetchInventureScore = function(){
+          console.log("HERE1: " + routeParams.id);
+
+          // get method to fetch inventure score
+          resourceFactory.inventureResource.getClientScore({clientId: routeParams.id} , function(data) {
+            scope.inventureOut = data;
+          });
+
+          console.log("HERE2");
         };
     }
   });
