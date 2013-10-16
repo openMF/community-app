@@ -1,10 +1,11 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        AttachMeetingController: function(scope, resourceFactory, location, routeParams) {
+        AttachMeetingController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             resourceFactory.attachMeetingResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id, 
                 templateSource : 'template'}, function(data) {
                 scope.groupCenterData = data;
-
+                scope.first = {};
+                scope.first.date = new Date();
                 //to display default in select boxes
                 scope.formData = {
                     repeating :'true',
@@ -46,6 +47,8 @@
             }
 
             scope.submit = function() {
+                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                this.formData.startDate = reqDate;
                 this.formData.locale = "en";
                 this.formData.dateFormat = "dd MMMM yyyy";
                 this.formData.typeId = "1";
@@ -64,7 +67,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AttachMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.AttachMeetingController]).run(function($log) {
+    mifosX.ng.application.controller('AttachMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', mifosX.controllers.AttachMeetingController]).run(function($log) {
         $log.info("AttachMeetingController initialized");
     });
 }(mifosX.controllers || {}));

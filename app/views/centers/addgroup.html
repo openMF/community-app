@@ -33,15 +33,22 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="activationdate">{{ 'label.form.activationdate' | translate }}</label>
-            <div class="controls">
-                <input type="text" id="activationdate" ng-model="formData.activationDate">
-            </div>
-        </div>
-        <div class="control-group">
             <label class="control-label" for="active">{{ 'label.active' | translate }}</label>
             <div class="controls">
-                <input type="checkbox" id="active" ng-model="formData.active">
+                <input type="checkbox" data-ng-click="setChoice()" id="active" ng-model="formData.active">
+            </div>
+        </div>
+        <div data-ng-switch on="choice">
+            <div class="control-group" data-ng-switch-when="1">
+                <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
+                <div class="controls">
+                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
+                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
+                            Required Field
+                        </small>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="offset2 paddedleft120">

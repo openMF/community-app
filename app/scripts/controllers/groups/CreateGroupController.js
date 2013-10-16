@@ -1,10 +1,12 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function(scope, resourceFactory, location) {
+        CreateGroupController: function(scope, resourceFactory, location,dateFilter) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
             scope.choice = 0;
+            scope.first = {};
+            scope.first.date = new Date();
             resourceFactory.groupTemplateResource.get(function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
@@ -28,6 +30,8 @@
                 }
             };
             scope.submit = function() {
+                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                this.formData.activationDate = reqDate;
                 this.formData.locale  = 'en';
                 this.formData.dateFormat =  'dd MMMM yyyy';
                 this.formData.active = this.formData.active || false;
@@ -37,7 +41,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateGroupController]).run(function($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.CreateGroupController]).run(function($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));

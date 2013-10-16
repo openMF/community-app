@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    CreateLoanProductController: function(scope, resourceFactory, location) {
+    CreateLoanProductController: function(scope, resourceFactory, location,dateFilter) {
         scope.formData = {};
         scope.charges = [];
         scope.showOrHideValue = "show";
@@ -8,7 +8,9 @@
         scope.specificIncomeaccounts = [];
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
-
+        scope.date = {};
+        scope.date.first = new Date();
+        scope.date.second = new Date();
         resourceFactory.loanProductResource.get({resourceType:'template'}, function(data) {
             scope.product = data;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
@@ -106,6 +108,8 @@
         } 
 
         scope.submit = function() {
+          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
           scope.paymentChannelToFundSourceMappings = [];
           scope.feeToIncomeAccountMappings = [];
           scope.penaltyToIncomeAccountMappings = [];
@@ -153,14 +157,15 @@
           this.formData.charges = scope.chargesSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
-
+          this.formData.startDate = reqFirstDate;
+          this.formData.closeDate = reqSecondDate;
           resourceFactory.loanProductResource.save(this.formData,function(data){
             location.path('/viewloanproduct/' + data.resourceId);
           });
         }
     }
   });
-  mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateLoanProductController]).run(function($log) {
+  mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.CreateLoanProductController]).run(function($log) {
     $log.info("CreateLoanProductController initialized");
   });
 }(mifosX.controllers || {}));

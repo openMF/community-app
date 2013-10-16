@@ -1,11 +1,12 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    AccFreqPostingController: function(scope, resourceFactory, location) {
+    AccFreqPostingController: function(scope, resourceFactory, location,dateFilter) {
 
             scope.formData = {};
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
-
+            scope.first = {};
+            scope.first.date = new Date();
             resourceFactory.accountingRulesResource.getAllRules({associations : 'all'}, function(data){
               scope.rules = data;
             });
@@ -53,10 +54,11 @@
 
             scope.submit = function() {
                   var jeTransaction = new Object();
+                  var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
                   jeTransaction.locale = 'en';
                   jeTransaction.dateFormat = 'dd MMMM yyyy';
                   jeTransaction.officeId=this.formData.officeId;
-                  jeTransaction.transactionDate = this.formData.transactionDate;
+                  jeTransaction.transactionDate = reqDate;
                   jeTransaction.referenceNumber = this.formData.referenceNumber;
                   jeTransaction.comments = this.formData.comments;
                   jeTransaction.accountingRule = this.formData.rule.id;
@@ -86,7 +88,7 @@
             }
     }
   });
-  mifosX.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.AccFreqPostingController]).run(function($log) {
+  mifosX.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.AccFreqPostingController]).run(function($log) {
     $log.info("AccFreqPostingController initialized");
   });
 }(mifosX.controllers || {}));
