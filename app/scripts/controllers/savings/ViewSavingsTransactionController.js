@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewTransactionController: function(scope, resourceFactory, location, routeParams) {
+    ViewSavingsTransactionController: function(scope, resourceFactory, location, routeParams) {
 
       resourceFactory.savingsTrxnsResource.get({savingsId:routeParams.accountId, transactionId:routeParams.id}, function(data){
         scope.transaction = data;
@@ -17,7 +17,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('ViewTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.ViewTransactionController]).run(function($log) {
-    $log.info("ViewTransactionController initialized");
+  mifosX.ng.application.controller('ViewSavingsTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.ViewSavingsTransactionController]).run(function($log) {
+    $log.info("ViewSavingsTransactionController initialized");
   });
 }(mifosX.controllers || {}));

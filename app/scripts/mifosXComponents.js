@@ -120,7 +120,7 @@ define(['underscore', 'mifosX'], function() {
       'savings/SavingAccountActionsController',
       'accounttransfers/ViewAccountTransferDetailsController',
       'accounttransfers/MakeAccountTransferController',
-      'savings/ViewTransactionController',
+      'savings/ViewSavingsTransactionController',
       'savings/AddNewSavingsChargeController',
       'groups/CreateGroupController',
       'groups/AddMemberController',

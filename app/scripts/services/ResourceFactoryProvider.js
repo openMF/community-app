@@ -130,6 +130,7 @@
             getLoanDocuments: {method: 'GET', params: {} , isArray: true}
           }),
           currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
+            get: {method: 'GET', params: {}},
             update: { method: 'PUT'}
           }),
           userListResource: defineResource(apiVer + "/users/:userId", {userId:'@userId'}, {

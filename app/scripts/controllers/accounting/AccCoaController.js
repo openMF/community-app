@@ -2,6 +2,7 @@
   mifosX.controllers = _.extend(module, {
     AccCoaController: function(scope, resourceFactory) {
       scope.coadata = [];
+      scope.isTreeView = false;
 
       scope.deepCopy = function (obj) {
          if (Object.prototype.toString.call(obj) === '[object Array]') {
