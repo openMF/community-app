@@ -10,6 +10,10 @@
               scope.rules = data;
             });
 
+            resourceFactory.currencyConfigResource.get({fields : 'selectedCurrencyOptions'}, function(data){
+              scope.currencyOptions = data.selectedCurrencyOptions;
+            });
+
             resourceFactory.officeResource.getAllOffices(function(data){
               scope.offices = data;
               scope.formData.officeId = scope.offices[0].id;  
@@ -56,6 +60,7 @@
                   jeTransaction.referenceNumber = this.formData.referenceNumber;
                   jeTransaction.comments = this.formData.comments;
                   jeTransaction.accountingRule = this.formData.rule.id;
+                  jeTransaction.currencyCode = this.formData.currencyCode;
 
                   //Construct credits array
                   jeTransaction.credits = [];
