@@ -205,11 +205,91 @@
 		// inventure controller
         scope.fetchInventureScore = function(){
           console.log("HERE1: " + routeParams.id);
+ 
+          // dummy data for the graph
+          var inventureScore = 635;
+          var natAverage = 527;
+          var industryAverage = 545;
+          scope.inventureScore = inventureScore;
+
+          // CHART1 - comparison chart control
+          var comparisonData = [
+            {
+              key: "Score Comparison",
+                values: [
+                  { 
+                    "label" : "National Average",
+                    "value" : natAverage
+                  }, 
+                  { 
+                    "label" : "Industry Average", 
+                    "value" : industryAverage
+                  }, 
+                  { 
+                    "label" : "This Client", 
+                    "value" : inventureScore
+                  }
+                ]
+              }
+            ];
+
+            // add graph function
+            nv.addGraph(function() {
+              var comparisonChart = nv.models.discreteBarChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .staggerLabels(true)
+                .tooltips(true)
+                .showValues(true);
+                
+                // set all display value to integer
+                comparisonChart.yAxis.tickFormat(d3.format('d'));
+                comparisonChart.valueFormat(d3.format('d'));
+
+                d3.select('#inventureBarChart svg')
+                  .datum(comparisonData)
+                  .transition().duration(1500)
+                  .call(comparisonChart);
+
+                nv.utils.windowResize(comparisonChart.update);
+                return comparisonChart;
+            });
+
+            // CHART2 - inventure score chart
+            nv.addGraph(function() {  
+              var bullet = nv.models.bulletChart()
+                .tooltips(false);
+
+              d3.select('#inventureBulletChart svg')
+                .datum(exampleData())
+                .transition().duration(1500)
+                .call(bullet);
+
+                nv.utils.windowResize(bullet.update);
+                return bullet;
+            });
+
+            function exampleData() {
+              return {
+                "title": "",
+                "ranges": [0, 850],
+                "measures": [inventureScore],
+                "markers": [0]};	
+            }
+
+/*
+          http({
+            method:'GET',
+            url: 'http://smsinventure.org/mifos/api/mifos_test.php'
+          }).then(function(imageData) {
+            scope.inventureOut = imageData;
+          });
 
           // get method to fetch inventure score
           resourceFactory.inventureResource.getClientScore({clientId: routeParams.id} , function(data) {
             scope.inventureOut = data;
           });
+*/
 
           console.log("HERE2");
         };
