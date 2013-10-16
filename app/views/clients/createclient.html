@@ -2,13 +2,13 @@
         <fieldset>
             <legend>{{'label.createclient' | translate}}</legend>
             <div class="control-group">
-              <label class="control-label" for="office">Office</label>
+              <label class="control-label">Office</label>
               <div class="controls">
                 <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(officeId)"></select>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="loanofficer">Loan Officer</label>
+              <label class="control-label">Loan Officer</label>
               <div class="controls">
                 <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                   <option value="">{{'label.select.loanofficer' | translate}}</option>
@@ -34,12 +34,25 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="active">Active</label>
+              <label class="control-label">Active</label>
               <div class="controls">
                 <label class="checkbox">
-                  <input type="checkbox" ng-model="formData.active" ng-true-value="true" ng-false-value="false">
+                  <input type="checkbox" ng-model="formData.active" data-ng-click="setChoice()">
                 </label>
               </div>
+            </div>
+            <div data-ng-switch on="choice">
+                <div class="control-group" data-ng-switch-when="1">
+                    <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
+                    <div class="controls">
+                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
+                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
+                            Required Field
+                        </small>
+                    </span>
+                    </div>
+                </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="file">{{'label.client.select.image' | translate}}</label>

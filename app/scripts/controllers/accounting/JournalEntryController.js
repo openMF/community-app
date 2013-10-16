@@ -1,11 +1,12 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    JournalEntryController: function(scope, resourceFactory, location) {
+    JournalEntryController: function(scope, resourceFactory, location,dateFilter) {
 
             scope.formData = {};
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
-
+            scope.first = {};
+            scope.first.date = new Date();
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
               scope.glAccounts = data;
             });
@@ -45,10 +46,11 @@
 
             scope.submit = function() {
                   var jeTransaction = new Object();
+                  var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
                   jeTransaction.locale = 'en';
                   jeTransaction.dateFormat = 'dd MMMM yyyy';
                   jeTransaction.officeId=this.formData.officeId;
-                  jeTransaction.transactionDate = this.formData.transactionDate;
+                  jeTransaction.transactionDate = reqDate;
                   jeTransaction.referenceNumber = this.formData.referenceNumber;
                   jeTransaction.comments = this.formData.comments;
                   jeTransaction.currencyCode = this.formData.currencyCode;
@@ -77,7 +79,7 @@
             }
     }
   });
-  mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.JournalEntryController]).run(function($log) {
+  mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.JournalEntryController]).run(function($log) {
     $log.info("JournalEntryController initialized");
   });
 }(mifosX.controllers || {}));

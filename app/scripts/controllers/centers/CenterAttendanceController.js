@@ -1,9 +1,11 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CenterAttendanceController: function(scope, resourceFactory , routeParams, location) {
+        CenterAttendanceController: function(scope, resourceFactory , routeParams, location,dateFilter) {
             scope.center = [];
             scope.tempData = {};
-
+            scope.formData = {};
+            scope.first = {};
+            scope.first.date = new Date();
             resourceFactory.centerResource.get({centerId: routeParams.centerId, associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
                 scope.center = data;
                 scope.meeting = data.collectionMeetingCalendar;
@@ -14,6 +16,8 @@
             });
 
             scope.attendanceUpdate = function(id){
+                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                this.formData.meetingDate = reqDate;
                 this.formData.clientsAttendance=[];
                 for(var i=0; i<scope.clients.length;i++)
                 {
@@ -30,7 +34,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CenterAttendanceController', ['$scope', 'ResourceFactory', '$routeParams','$location', mifosX.controllers.CenterAttendanceController]).run(function($log) {
+    mifosX.ng.application.controller('CenterAttendanceController', ['$scope', 'ResourceFactory', '$routeParams','$location','dateFilter', mifosX.controllers.CenterAttendanceController]).run(function($log) {
         $log.info("CenterAttendanceController initialized");
     });
 }(mifosX.controllers || {}));
