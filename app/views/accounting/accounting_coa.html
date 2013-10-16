@@ -3,19 +3,48 @@
     <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
     <li class="active">{{'label.coa' | translate}}</li>
   </ul>
-  <div class="pull-right">
-    <a href="#/createglaccount" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'button.addaccount' | translate}}</a>
-  </div>
 </div>
 
 <div class="row-fluid" ng-controller="AccCoaController">
+    <div class="pull-right">
+      <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-list icon-white"></i>List View</a>
+      <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>Tree View</a>
+      <a href="#/createglaccount" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'button.addaccount' | translate}}</a>
+    </div>
     <h3 class="bolder">Chart Of Accounts</h3>
-    <div
-            data-angular-treeview="true"
-            data-tree-id="treeview"
-            data-tree-model="treedata"
-            data-node-id="id"
-            data-node-label="name"
-            data-node-children="children" >
+    <div ng-hide="isTreeView">
+      <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+      <table class="table">
+        <thead>
+          <tr class="graybg">
+            <th>{{'table.heading.accname' | translate}}</th>
+            <th>{{'table.heading.glcode' | translate}}</th>
+            <th>{{'table.heading.acctype' | translate}}</th>
+            <th>{{'table.heading.disabled' | translate}}</th>
+            <th>{{'table.heading.manualentriesallowed' | translate}}</th>
+            <th>{{'table.heading.usedas' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="coadata in coadatas | orderBy:'type.value' | filter:filterText">
+            <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.name}}</a></td>
+            <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.glCode}}</a></td>
+            <td>{{coadata.type.value}}</td>
+            <td>{{coadata.disabled}}</td>
+            <td>{{coadata.manualEntriesAllowed}}</td>
+            <td>{{coadata.usage.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-show="isTreeView">
+      <div
+        data-angular-treeview="true"
+        data-tree-id="treeview"
+        data-tree-model="treedata"
+        data-node-id="id"
+        data-node-label="name"
+        data-node-children="children" >
+    </div>
     </div>
 </div>
