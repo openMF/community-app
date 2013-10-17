@@ -180,6 +180,12 @@
 
       });
 
+      scope.getLoanTemplateDocuments = function() {
+        resourceFactory.templateResource.get({entityId : 1, typeId : 0}, function(data) {
+          scope.loanTemplateData = data;
+        })
+      }
+
       scope.getLoanDocuments = function (){
         resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {
             scope.loandocuments = data;

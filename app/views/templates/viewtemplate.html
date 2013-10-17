@@ -1,0 +1,34 @@
+<div  ng-controller="ViewTemplateController">
+  <div class="paddedbottom10">
+    <ul class="breadcrumb">
+          <li><a href="#/templates">{{'link.admin.templates' | translate}}</a> <span class="divider">/</span></li>
+          <li class="active">{{template.name}}</li>
+    </ul>
+    <div class="pull-right">
+      <div class="btn-group">
+          <a href="#/edittemplate/{{template.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
+          <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Delete</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row paddedleft">
+    <h3>{{template.name}}</h3>
+    <table width="100%">
+      <tr>
+        <td>{{'label.entity' | translate }}</td>
+        <td>{{template.entity}}</td>
+      </tr>
+      <tr>
+        <td>{{ 'label.type' | translate }}</td>
+        <td>{{template.type}}</td>
+      </tr>
+      <tr ng-repeat="mapper in template.mappers">
+          <td>{{ 'label.mapperkey' | translate }}</td>
+          <td>{{mapper.mapperkey}}</td></br>
+          <td>{{ 'label.mappervalue' | translate }}</td>
+          <td>{{mapper.mappervalue}}</td>
+      </tr>
+  </table>
+</div>
+          

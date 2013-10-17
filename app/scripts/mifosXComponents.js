@@ -146,6 +146,11 @@ define(['underscore', 'mifosX'], function() {
       'organization/BulkLoanReassignmentController',
       'system/AuditController',
       'system/ViewAuditController',
+      'template/TemplateController',
+      'template/CreateTemplateController',
+      'template/ViewTemplateController',
+      'template/EditTemplateController',
+      'template/EntityTemplateController',
       'loanAccount/GuarantorController'
     ],
     filters: [
@@ -160,7 +165,8 @@ define(['underscore', 'mifosX'], function() {
       'BigPanelDirective',
       'OnBlurDirective',
       'LateValidateDirective',
-      'TreeviewDirective'
+      'TreeviewDirective',
+      'CkEditorDirective'
     ]
   };
 

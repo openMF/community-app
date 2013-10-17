@@ -248,6 +248,11 @@
             get: {method: 'GET', params: {}, isArray:true},
             update: {method: 'PUT', params: {}}
           }),
+          templateResource:defineResource(apiVer + "/templates/:templateId/:resourceType",{templateId: '@templateId', resourceType:'@resourceType'}, {
+            get: {method: 'GET', params: {}, isArray:true},
+            getTemplateDetails: {method: 'GET', params: {}},
+            update: {method: 'PUT', params: {}},
+          }),
           loanProductTemplateResource: defineResource(apiVer + "/loanproducts/template", {}, {
            get: {method: 'GET', params: {}}
           }),

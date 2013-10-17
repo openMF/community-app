@@ -1,0 +1,27 @@
+<div>
+    <ul class="breadcrumb">
+        <li class="active">{{'label.templates' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+        <a href="#/createtemplate" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{ 'link.create.new.template' | translate }}</a>
+    </div>
+</div>
+<div class="row-fluid" ng-controller="TemplateController">
+    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+	<table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{ 'table.heading.entity' | translate }}</th>
+                <th>{{ 'table.heading.type' | translate }}</th>
+                <th>{{ 'table.heading.name' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="template in templates | filter:filterText">
+                <td>{{template.entity}}</td>            
+                <td>{{template.type}}</td>        
+                <td><a href="#/viewtemplate/{{template.id}}">{{template.name}}</a></td>         
+            </tr>
+        </tbody>
+    </table>
+</div>
