@@ -22,6 +22,7 @@
             'styles':           '../styles',
             'test':             '../../test/functional',
             'notificationWidget': '../scripts/modules/notificationWidget',
+            'modified.datepicker': '../scripts/modules/datepicker',
             'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload'
         },
         shim: {
@@ -39,6 +40,7 @@
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
             'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
+            'modified.datepicker':{deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -54,7 +56,8 @@
                     'jquery-ui',
                     'nvd3ChartDirectives',
                     'notificationWidget',
-                    'angularFileUpload'
+                    'angularFileUpload',
+                    'modified.datepicker'
                 ],
                 exports: 'mifosX'
             }

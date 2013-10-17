@@ -12,7 +12,7 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label" for="name">{{ 'label.officename' | translate }}</label>
+                  <label class="control-label">{{ 'label.officename' | translate }}</label>
                   <div class="controls">
                     <input type="text" ng-model="formData.name">
                   </div>
@@ -22,7 +22,7 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label" for="office">{{ 'label.parentoffice' | translate }}</label>
+                  <label class="control-label">{{ 'label.parentoffice' | translate }}</label>
                   <div class="controls">
                     <select ng-model="formData.parentId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
                   </div>
@@ -31,8 +31,18 @@
             </tr>
             <tr>
               <td>
+                  <div class="control-group">
+                      <label class="control-label">{{ 'label.openedon' | translate }}</label>
+                      <div class="controls">
+                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                      </div>
+                  </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <div class="control-group">
-                  <label class="control-label" for="externalId">{{ 'label.externalId' | translate }}</label>
+                  <label class="control-label">{{ 'label.externalId' | translate }}</label>
                   <div class="controls">
                     <input type="text" name="externalId" ng-model="formData.externalId">
                   </div>

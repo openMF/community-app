@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EditLoanProductController: function(scope, resourceFactory, location, routeParams) {
+    EditLoanProductController: function(scope, resourceFactory, location, routeParams,dateFilter) {
         scope.formData = {};
         scope.charges = [];
         scope.showOrHideValue = "show";
@@ -8,7 +8,9 @@
         scope.specificIncomeaccounts = [];
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
-
+        scope.date = {};
+        scope.date.first = new Date();
+        scope.date.second = new Date();
         resourceFactory.loanProductResource.get({loanProductId : routeParams.id, template:'true'}, function(data) {
             scope.product = data;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
@@ -163,7 +165,8 @@
           scope.feeToIncomeAccountMappings = [];
           scope.penaltyToIncomeAccountMappings = [];
           scope.chargesSelected = [];
-
+          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
           var temp = '';
           //configure fund sources for payment channels 
           for (var i in scope.configureFundOptions) {
@@ -205,14 +208,15 @@
           this.formData.charges = scope.chargesSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
-
+          this.formData.startDate = reqFirstDate;
+          this.formData.closeDate = reqSecondDate;
           resourceFactory.loanProductResource.put({loanProductId : routeParams.id}, this.formData,function(data){
             location.path('/viewloanproduct/' + data.resourceId);
           });
         }
     }
   });
-  mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EditLoanProductController]).run(function($log) {
+  mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams','dateFilter', mifosX.controllers.EditLoanProductController]).run(function($log) {
     $log.info("EditLoanProductController initialized");
   });
 }(mifosX.controllers || {}));

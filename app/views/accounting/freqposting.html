@@ -8,14 +8,14 @@
         <fieldset>
           <legend>{{ 'label.journalentry.posting.title' | translate }}</legend>
           <div class="control-group">
-            <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
+            <label class="control-label">{{ 'label.office' | translate }}</label>
             <div class="controls">
               <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
               </select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="accountingRule">{{ 'label.journalentry.accounting.rules' | translate }}</label>
+            <label class="control-label">{{ 'label.journalentry.accounting.rules' | translate }}</label>
             <div class="controls">
               <select ng-model="formData.rule" ng-options="rule.name for rule in rules" ng-change="resetCrAndDb(formData.rule)" required="required">
                 <option style="display:none" value="">{{'label.select.accountingrule' | translate}}</option>
@@ -80,13 +80,13 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="transactionDate">{{ 'label.journalentry.transaction.date' | translate }}</label>
+            <label class="control-label" >{{ 'label.journalentry.transaction.date' | translate }}</label>
             <div class="controls">
-              <input type="text" id="transactionDate" ng-model="formData.transactionDate">
+                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="comments">{{ 'label.journalentry.comments' | translate }}</label>
+            <label class="control-label" >{{ 'label.journalentry.comments' | translate }}</label>
             <div class="controls">
               <input type="text" ng-model="formData.comments">
             </div>
