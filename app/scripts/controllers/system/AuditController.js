@@ -1,14 +1,23 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        AuditController: function(scope, resourceFactory) {
+        AuditController: function(scope, resourceFactory,dateFilter) {
             scope.formData = [];
             scope.isCollapsed = true;
+            scope.date = {};
+            scope.date.first = new Date();
+            scope.date.second = new Date();
+            scope.date.third = new Date();
+            scope.date.fourth = new Date();
             resourceFactory.auditResource.get({templateResource: 'searchtemplate'} , function(data) {
                 scope.template = data;
             });
             scope.search = function(){
                 scope.isCollapsed = true;
                 scope.displayResults = true;
+                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
+                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
                 var params = {};
                 if (scope.formData.action) { params.actionName = scope.formData.action; };
 
@@ -18,15 +27,15 @@
 
                 if (scope.formData.user) { params.makerId = scope.formData.user; };
 
-                if (scope.formData.fromDate) { params.makerDateTimeFrom = scope.formData.fromDate; };
+                if (scope.date.first) { params.makerDateTimeFrom = reqFirstDate; };
 
-                if (scope.formData.toDate) { params.makerDateTimeto = scope.formData.toDate; };
+                if (scope.date.second) { params.makerDateTimeto = reqSecondDate; };
 
                 if (scope.formData.checkedBy) { params.checkerId = scope.formData.checkedBy; };
 
-                if (scope.formData.checkedFrom) { params.checkerDateTimeFrom = scope.formData.checkedFrom; };
+                if (scope.date.third) { params.checkerDateTimeFrom = reqThirdDate; };
 
-                if (scope.formData.checkedTo) { params.checkerDateTimeTo = scope.formData.checkedTo; };
+                if (scope.date.fourth) { params.checkerDateTimeTo = reqFourthDate; };
                 resourceFactory.auditResource.search(params , function(data) {
                     scope.searchData = data;
                 });
@@ -34,7 +43,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory', mifosX.controllers.AuditController]).run(function($log) {
+    mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter', mifosX.controllers.AuditController]).run(function($log) {
         $log.info("AuditController initialized");
     });
 }(mifosX.controllers || {}));
