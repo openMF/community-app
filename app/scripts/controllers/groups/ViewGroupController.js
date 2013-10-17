@@ -4,7 +4,7 @@
             scope.group = [];
             scope.template = [];
             scope.choice = 0;
-            resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
+           resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
                 scope.group = data;
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts',genericResultSet: 'false',R_groupId: routeParams.id} , function(data) {

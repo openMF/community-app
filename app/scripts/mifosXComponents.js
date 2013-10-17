@@ -149,7 +149,8 @@ define(['underscore', 'mifosX'], function() {
       'loanAccount/GuarantorController'
     ],
     filters: [
-      'StatusLookup'
+      'StatusLookup',
+      'DateFormat'
     ],
     directives: [
       'DataTablesDirective',
