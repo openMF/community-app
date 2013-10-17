@@ -207,7 +207,7 @@
           console.log("HERE1: " + routeParams.id);
  
           // dummy data for the graph
-          var inventureScore = 635;
+          var inventureScore = 625;
           var natAverage = 527;
           var industryAverage = 545;
           scope.inventureScore = inventureScore;
@@ -219,15 +219,15 @@
                 values: [
                   { 
                     "label" : "National Average",
-                    "value" : natAverage
+                    "value" : (natAverage)
                   }, 
                   { 
                     "label" : "Industry Average", 
-                    "value" : industryAverage
+                    "value" : (industryAverage)
                   }, 
                   { 
                     "label" : "This Client", 
-                    "value" : inventureScore
+                    "value" : (inventureScore)
                   }
                 ]
               }
@@ -272,9 +272,9 @@
             function exampleData() {
               return {
                 "title": "",
-                "ranges": [0, 850],
-                "measures": [inventureScore],
-                "markers": [0]};	
+                "ranges": [0, 550],
+                "measures": [(inventureScore - 300)],
+                "markers": [(inventureScore - 300)]};	
             }
 
 /*
