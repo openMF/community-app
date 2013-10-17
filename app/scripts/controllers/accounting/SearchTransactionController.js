@@ -1,15 +1,17 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    SearchTransactionController: function(scope, resourceFactory , paginatorService) {
+    SearchTransactionController: function(scope, resourceFactory , paginatorService,dateFilter) {
 
         scope.filters = [{option: "All", value: ""},{option: "Manual Entries", value: true},{option: "System Entries", value: false}];
         scope.isCollapsed = true;
         scope.displayResults = false;
-
         scope.transactions = [];
         scope.glAccounts = [];
         scope.offices = [];
-
+        scope.date={};
+        scope.formData={};
+        scope.date.first = new Date();
+        scope.date.second = new Date();
         resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
           scope.glAccounts = data;
         });
@@ -19,6 +21,8 @@
         });
 
        var fetchFunction = function(offset, limit, callback) {
+          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
           var params = {};
           params.offset = offset;
           params.limit = limit;
@@ -33,9 +37,9 @@
 
           if (scope.formData.manualEntriesOnly) { params.manualEntriesOnly = scope.formData.manualEntriesOnly; };
 
-          if (scope.formData.fromDate) { params.fromDate = scope.formData.fromDate; };
+          if (scope.date.first) { params.fromDate = reqFirstDate; };
 
-          if (scope.formData.toDate) { params.toDate = scope.formData.toDate; };
+          if (scope.date.second) { params.toDate = reqSecondDate; };
 
           resourceFactory.journalEntriesResource.search(params, callback);
         };
@@ -48,7 +52,7 @@
 
     }
   });
-  mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', mifosX.controllers.SearchTransactionController]).run(function($log) {
+  mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService','dateFilter', mifosX.controllers.SearchTransactionController]).run(function($log) {
     $log.info("SearchTransactionController initialized");
   });
 }(mifosX.controllers || {}));

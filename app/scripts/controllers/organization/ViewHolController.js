@@ -5,6 +5,7 @@
             resourceFactory.holValueResource.getholvalues({officeId:1,holId: routeParams.id} , function(data) {
                 scope.holiday = data;
             });
+
         }
     });
     mifosX.ng.application.controller('ViewHolController', ['$scope','$routeParams', 'ResourceFactory', mifosX.controllers.ViewHolController]).run(function($log) {

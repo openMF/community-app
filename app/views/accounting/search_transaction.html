@@ -12,7 +12,7 @@
                 <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
     </div>
-    <div collapse="isCollapsed" class="blockoverlay" width="100%">
+    <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
         <div>
             <label>Account Name</label>
@@ -34,9 +34,9 @@
                 </div>
             </div>
             <label>{{ 'label.fromdate' | translate }}</label>
-            <input ng-model="formData.fromDate" type="text" placeholder="From Date" />
+            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             <label>{{ 'label.todate' | translate }}</label>
-            <input ng-model="formData.toDate" type="text" placeholder="To Date" /><br/>
+            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>Advance Search</a></span>
         </div>
     </div>

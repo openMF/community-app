@@ -3,30 +3,43 @@
         <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
         <li class="active">{{'label.manageholidays' | translate}}</li>
     </ul>
+
     <div class="pull-right">
         <a href="#/createholiday" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.createholiday' | translate}}</a>
     </div>
 </div>
-
 <div class="row-fluid" data-ng-controller="HolController">
+    <div class="control-group">
+        <div class="controls">
+            <select name="office" id="office" ng-model="formData.officeId" data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()" value="{{office.id}}" required>
+                <option value="">{{'label.selectoffice' | translate}}</option>
+            </select>
+                <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
+                    <small class="error" ng-show="creategroupform.office.$error.required">
+                        Required.
+                    </small>
+                </span>
+        </div>
+    </div>
+    <div data-ng-show="formData.officeId">
     <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by Office Name"/>
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>Holiday Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Alternate Working Day</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr data-ng-repeat="holiday in holidays | filter:filterText">
-            <td><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a></td>
-            <td>{{holiday.fromDate | DateFormat}}</td>
-            <td>{{holiday.toDate | DateFormat}}</td>
-            <td>{{holiday.repaymentsScheduleTO | DateFormat}}</td>
-        </tr>
-
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>Holiday Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Alternate Working Day</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="holiday in holidays | filter:filterText">
+                <td><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a></td>
+                <td>{{holiday.fromDate | DateFormat}}</td>
+                <td>{{holiday.toDate | DateFormat}}</td>
+                <td>{{holiday.repaymentsScheduleTO | DateFormat}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,6 +1,6 @@
       <form class="well" ng-controller="NewLoanAccAppController">
         <fieldset>
-          <legend>{{ 'form.legend.new.loan.application' | translate }}</legend>
+        <legend>{{ 'form.legend.new.loan.application' | translate }}</legend>
           <div class="control-group">
             <table width="80%">
               <tr class="control-group">
@@ -33,7 +33,7 @@
                   </td>
                   <td width="30%">
                     <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;</label>
-                    <input type="text" ng-model="formData.submittedOnDate">
+                      <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                   </td>
                 </tr>
                 <tr class="control-group">
@@ -62,7 +62,7 @@
                   <td width="88%">
                     <div class="control-group">
                       <label><i class="icon-calendar icon-white"></i> &nbsp;<strong>{{ 'label.meeting.details' | translate }}</strong></label>
-                      <label>{{ 'label.meeting.start.date' | translate }}&nbsp;{{calendar.startDate}}</label>
+                      <label>{{ 'label.meeting.start.date' | translate }}&nbsp;{{calendar.startDate | DateFormat}}</label>
                       <label>{{ 'label.meeting.repeats.on' | translate }}&nbsp;{{calendar.humanReadable}}</label>
                       <label><input type="checkbox" ng-model="formData.syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()">&nbsp;{{ 'label.meeting.sync.repayments.with.meeting' | translate }}</label>
                       <label><input type="checkbox" ng-model="formData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()">&nbsp;{{ 'label.meeting.sync.disbursement.date.with.meeting' | translate }}</label>
@@ -114,7 +114,7 @@
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.expecteddisbursementon' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.expectedDisbursementDate">
+                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                       </td>
                     </tr>
                     <tr>
@@ -169,13 +169,13 @@
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.interestChargedFromDate">
+                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label class="control-label">{{ 'label.firstrepaymenton' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.repaymentsStartingFromDate">
+                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                       </td>
                       <td></td>
                     </tr>
@@ -208,7 +208,7 @@
                       <td>{{charge.chargeCalculationType.value}}</td>
                       <td><input class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                       <td>{{charge.chargeTimeType.value}}</td>
-                      <td><input type="text" ng-model="charge.dueDate"  placeholder="{{'label.placeholder.duedate' | translate}}"></td>
+                      <td><input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate /></td>
                       <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>
                   </table>
