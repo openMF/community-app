@@ -34,7 +34,7 @@
       <table width="100%">
         <tr>
           <td width="20%">{{'label.activatedOn' | translate}}</td>
-          <td width="30%">{{savingaccountdetails.timeline.activatedOnDate}}</td>
+          <td width="30%">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}</td>
           <td width="20%">{{'label.currency' | translate}}</td>
           <td width="30%">{{savingaccountdetails.currency.name}}</td>
         </tr>
@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                   <td>{{'label.annaul.fee.due.on' | translate}}</td>
-                  <td>{{savingaccountdetails.annualFeeNextDueDate}}</td>
+                  <td>{{savingaccountdetails.annualFeeNextDueDate | DateFormat}}</td>
                 </tr>
             </tbody>
             </table>
@@ -132,7 +132,7 @@
                     <a ng-hide="transaction.transfer" href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
                     <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
                   </td>
-                  <td>{{transaction.date}}</td>
+                  <td>{{transaction.date | DateFormat}}</td>
                   <td>{{transaction.transactionType.value}}</td>
                   <td>
                     <div ng-show="isDebit(transaction.transactionType)">

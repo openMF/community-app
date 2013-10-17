@@ -42,7 +42,8 @@
             };
             scope.saveNote = function() {
                 resourceFactory.groupNotesResource.save({groupId: routeParams.id}, this.formData,function(data){
-                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
+                    var today = new Date();
+                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : today } ;
                     scope.notes.push(temp);
                     scope.formData.note = "";
                     scope.predicate = '-id';
