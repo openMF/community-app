@@ -27,7 +27,7 @@
       <table width="100%">
         <tr>
           <td width="20%">{{'label.disbursementdate' | translate}}</td>
-          <td width="30%">{{loandetails.timeline.actualDisbursementDate}}</td>
+          <td width="30%">{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
           <td width="20%">{{'label.currency' | translate}}</td>
           <td width="30%">{{loandetails.currency.name}}</td>
         </tr>
@@ -72,27 +72,27 @@
                 </tr>
                 <tr>
                   <td>{{'label.graceoninterestpayment' | translate}}</td>
-                  <td>{{loandetails.timeline.approvedOnDate}}</td>
+                  <td>{{loandetails.timeline.approvedOnDate | DateFormat}}</td>
                 </tr>
                 <tr>
                   <td>{{'label.submittedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.submittedOnDate}}</td>
+                  <td>{{loandetails.timeline.submittedOnDate | DateFormat }}</td>
                 </tr>
                 <tr>
                   <td>{{'label.approvedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.approvedOnDate}}</td>
+                  <td>{{loandetails.timeline.approvedOnDate | DateFormat}}</td>
                 </tr>
                 <tr>
                   <td>{{'label.disbursedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.actualDisbursementDate}}</td>
+                  <td>{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
                 </tr>
                 <tr>
                   <td>{{'label.matureson' | translate}}</td>
-                  <td>{{loandetails.timeline.expectedMaturityDate}}</td>
+                  <td>{{loandetails.timeline.expectedMaturityDate | DateFormat}}</td>
                 </tr>
                 <tr>
                   <td>{{'label.interestChargedFrom' | translate}}</td>
-                  <td>{{loandetails.timeline.interestChargedFromDate}}</td>
+                  <td>{{loandetails.timeline.interestChargedFromDate | DateFormat}}</td>
                 </tr>
             </tbody>
             </table>
@@ -189,8 +189,8 @@
               <tr ng-repeat="period in loandetails.repaymentSchedule.periods">
                 <td scope="row">{{period.period}}</td>
                 <td>{{period.daysInPeriod}}</td>
-                <td>{{period.dueDate}}</td>
-                <td>{{period.obligationsMetOnDate}}</td>
+                <td>{{period.dueDate | DateFormat}}</td>
+                <td>{{period.obligationsMetOnDate | DateFormat}}</td>
                 <td>&nbsp;</td>
 
                 <td>{{period.principalDue}}</td>
@@ -244,7 +244,7 @@
                 </thead>
                 <tbody>
                   <tr ng-repeat="transaction in loandetails.transactions">
-                  <td>{{transaction.date}}</td>
+                  <td>{{transaction.date | DateFormat}}</td>
                   <td>{{transaction.type.value}}</td>
                   <td>{{transaction.amount}}</td>
                   <td>{{transaction.principalPortion}}</td>
@@ -293,7 +293,7 @@
                     <span ng-hide="charge.penalty">Fee</span>
                   </td>
                   <td>{{charge.chargeTimeType.value}}</td>
-                  <td>{{charge.dueDate}}</td>
+                  <td>{{charge.dueDate | DateFormat}}</td>
                   <td>{{charge.chargeCalculationType.value}}</td>
                 </tr>
               </tbody>
@@ -356,7 +356,7 @@
             <blockquote>
               <p>{{note.note}}</p>
               <small>Updated by :&nbsp;{{note.updatedByUsername}}</small>
-              <small>Updated on :&nbsp;{{note.updatedOn}}</small>
+              <small>Updated on :&nbsp;{{note.updatedOn | DateFormat}}</small>
             </blockquote>
           </div>
         </tab>
