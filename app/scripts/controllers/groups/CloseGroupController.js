@@ -5,6 +5,7 @@
             scope.template = [];
             scope.first = {};
             scope.first.date = new Date();
+            scope.formData = {};
             resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
                 scope.group = data;
             });
