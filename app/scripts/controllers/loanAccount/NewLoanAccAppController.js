@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        NewLoanAccAppController: function(scope, routeParams, resourceFactory, location) {
+        NewLoanAccAppController: function(scope, routeParams, resourceFactory, location,dateFilter) {
 
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
@@ -9,7 +9,12 @@
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType : 'template'};
-
+            scope.date = {};
+            scope.date.first = new Date();
+            scope.date.second = new Date();
+            scope.date.third = new Date();
+            scope.date.fourth = new Date();
+            scope.date.fifth = new Date();
             if (scope.clientId) {
               scope.inparams.clientId = scope.clientId;
               scope.formData.clientId = scope.clientId;
@@ -154,6 +159,11 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
+                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
+                var reqFifthDate = dateFilter(scope.date.fifth,'dd MMMM yyyy');
 
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
@@ -174,12 +184,13 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
-
+                this.formData.interestChargedFromDate = reqThirdDate ;
+                this.formData.repaymentsStartingFromDate = reqFourthDate;
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = scope.inparams.templateType;
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "25 September 2013";
-                this.formData.submittedOnDate = this.formData.submittedOnDate || "25 September 2013";
+                this.formData.expectedDisbursementDate = reqSecondDate;
+                this.formData.submittedOnDate = reqFirstDate;
 
                 resourceFactory.loanResource.save(this.formData,function(data){
                   location.path('/viewloanaccount/' + data.loanId);
@@ -195,7 +206,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.NewLoanAccAppController]).run(function($log) {
+    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.NewLoanAccAppController]).run(function($log) {
         $log.info("NewLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
