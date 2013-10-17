@@ -3,10 +3,10 @@
         DateFormat: function (dateFilter) {
             return function(input) {
                 if(input){
-                    var tDateData =  input[0]+'/'+input[1]+'/'+input[2];
-                    var tDate = new Date(tDateData);
+                    var tDate = new Date(input);
                     return dateFilter(tDate,'dd MMMM yyyy');
                 }
+
             }
         }
     });

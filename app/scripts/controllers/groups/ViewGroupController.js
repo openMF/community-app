@@ -1,9 +1,10 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewGroupController: function(scope, routeParams , route, location, resourceFactory) {
+        ViewGroupController: function(scope, routeParams , route, location, resourceFactory,dateFilter) {
             scope.group = [];
             scope.template = [];
             scope.choice = 0;
+
            resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
                 scope.group = data;
             });
@@ -55,7 +56,8 @@
 
             scope.saveNote = function() {
                 resourceFactory.groupResource.save({groupId: routeParams.id, anotherresource: 'notes'}, this.formData,function(data){
-                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
+                    var today = new Date();
+                    temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : today } ;
                     scope.groupNotes.push(temp);
                     scope.formData.note = "";
                     scope.predicate = '-id';
@@ -94,7 +96,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.ViewGroupController]).run(function($log) {
+    mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory','dateFilter', mifosX.controllers.ViewGroupController]).run(function($log) {
         $log.info("ViewGroupController initialized");
     });
 }(mifosX.controllers || {}));
