@@ -204,13 +204,20 @@
 
 		// inventure controller
         scope.fetchInventureScore = function(){
-          console.log("HERE1: " + routeParams.id);
+          //console.log("HERE1: " + routeParams.id);
  
           // dummy data for the graph
-          var inventureScore = 625;
-          var natAverage = 527;
-          var industryAverage = 545;
+          var inventureScore = getRandomInt(450,800);
+          var natAverage = getRandomInt(450,800);
+          var industryAverage = getRandomInt(450,800);
+          var inventureMinScore = 300;
+          var inventureMaxScore = 850;
           scope.inventureScore = inventureScore;
+
+          // this part is used to see how the graph will be looked like
+          function getRandomInt (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+          }
 
           // CHART1 - comparison chart control
           var comparisonData = [
@@ -219,15 +226,15 @@
                 values: [
                   { 
                     "label" : "National Average",
-                    "value" : (natAverage - 300)
+                    "value" : (natAverage)
                   }, 
                   { 
                     "label" : "Industry Average", 
-                    "value" : (industryAverage - 300)
+                    "value" : (industryAverage)
                   }, 
                   { 
                     "label" : "This Client", 
-                    "value" : (inventureScore - 300)
+                    "value" : (inventureScore)
                   }
                 ]
               }
@@ -242,17 +249,18 @@
                 .tooltips(true)
                 .showValues(true);
                 
-                // set all display value to integer
-                comparisonChart.yAxis.tickFormat(d3.format('d'));
-                comparisonChart.valueFormat(d3.format('d'));
+              // set all display value to integer
+              comparisonChart.yAxis.tickFormat(d3.format('d'));
+              comparisonChart.valueFormat(d3.format('d'));
+              comparisonChart.forceY([inventureMinScore, inventureMaxScore]);
 
-                d3.select('#inventureBarChart svg')
-                  .datum(comparisonData)
-                  .transition().duration(1500)
-                  .call(comparisonChart);
+              d3.select('#inventureBarChart svg')
+                .datum(comparisonData)
+                .transition().duration(1500)
+                .call(comparisonChart);
 
-                nv.utils.windowResize(comparisonChart.update);
-                return comparisonChart;
+              nv.utils.windowResize(comparisonChart.update);
+              return comparisonChart;
             });
 
             // CHART2 - inventure score chart
@@ -261,18 +269,18 @@
                 .tooltips(false);
 
               d3.select('#inventureBulletChart svg')
-                .datum(exampleData())
+                .datum(scoreData())
                 .transition().duration(1500)
                 .call(bullet);
 
-                nv.utils.windowResize(bullet.update);
-                return bullet;
+              nv.utils.windowResize(bullet.update);
+              return bullet;
             });
 
-            function exampleData() {
+            function scoreData() {
               return {
                 "title": "",
-                "ranges": [0, 550],
+                "ranges": [(inventureMinScore - 300), (inventureMaxScore - 300)],
                 "measures": [(inventureScore - 300)],
                 "markers": [(inventureScore - 300)]};	
             }
@@ -291,7 +299,7 @@
           });
 */
 
-          console.log("HERE2");
+          //console.log("HERE2");
         };
     }
   });
