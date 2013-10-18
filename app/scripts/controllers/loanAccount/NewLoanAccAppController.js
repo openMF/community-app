@@ -121,11 +121,16 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
+                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
+                var reqFifthDate = dateFilter(scope.date.fifth,'dd MMMM yyyy');
 
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 
@@ -142,11 +147,13 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
 
+                this.formData.interestChargedFromDate = reqThirdDate ;
+                this.formData.repaymentsStartingFromDate = reqFourthDate;
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = scope.inparams.templateType;
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "25 September 2013";
-
+                this.formData.expectedDisbursementDate = reqSecondDate;
+                this.formData.submittedOnDate = reqFirstDate;
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;
                 scope.previewRepayment = true;
@@ -168,7 +175,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 

@@ -24,7 +24,6 @@
         
         scope.submit = function() {
              this.formData.locale = 'en';
-             this.formData.activationDate = '05 August 2013';
              this.formData.dateFormat = 'dd MMMM yyyy';
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
               if (scope.file) {

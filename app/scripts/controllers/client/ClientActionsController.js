@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ClientActionsController: function(scope, resourceFactory, location, routeParams) {
+    ClientActionsController: function(scope, resourceFactory, location, routeParams, dateFilter) {
 
         scope.action = routeParams.action || "";
         scope.clientId = routeParams.id;
@@ -31,7 +31,6 @@
             scope.modelName = 'closureDate';
             scope.closureReasonField = true;
             scope.showDateField = true;
-            console.log("testing hello");
             resourceFactory.clientResource.get({anotherresource: 'template', commandParam : 'close'} , function(data) {
               scope.closureReasons = data.closureReasons;
               scope.formData.closureReasonId = scope.closureReasons[0].id;
@@ -42,8 +41,9 @@
             scope.labelName = 'Are you sure?';
             scope.showDeleteClient = true;
           break;
-          case "unassignloanofficer":
-
+          case "unassignstaff":
+            scope.labelName = 'Are you sure?';
+            scope.showDeleteClient = true;
           break;
         }
 
@@ -56,17 +56,31 @@
           this.formData.dateFormat = 'dd MMMM yyyy';
 
           if (scope.action == "activate") {
+            if (this.formData.activationDate) {
+              this.formData["activationDate"] = dateFilter(this.formData["activationDate"],'dd MMMM yyyy');
+            }
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'activate'}, this.formData,function(data){
                 location.path('/viewclient/' + data.clientId);
             });
           }
           if (scope.action == "assignstaff") {
+            delete this.formData.locale;
+            delete this.formData.dateFormat;
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'assignStaff'}, this.formData,function(data){
               location.path('/viewclient/' + data.clientId);
             });
           }
+          if (scope.action == "unassignstaff") {
+            delete this.formData.locale;
+            delete this.formData.dateFormat;
+            resourceFactory.clientResource.save({clientId: routeParams.id, command : 'unassignstaff'}, {staffId:routeParams.staffId},function(data){
+              location.path('/viewclient/' + data.clientId);
+            });
+          }
           if (scope.action == "close") {
-            this.formData.closureDate = '05 August 2013';
+            if (this.formData.closureDate) {
+              this.formData["closureDate"] = dateFilter(this.formData["closureDate"],'dd MMMM yyyy');
+            }
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'close'}, this.formData,function(data){
                 location.path('/viewclient/' + data.clientId);
             });
@@ -80,7 +94,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ClientActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.ClientActionsController]).run(function($log) {
+  mifosX.ng.application.controller('ClientActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.ClientActionsController]).run(function($log) {
     $log.info("ClientActionsController initialized");
   });
 }(mifosX.controllers || {}));

@@ -51,7 +51,7 @@
                             </tr>
                             <tr>
                               <td>{{ 'label.activationdate' | translate }}</td>
-                              <td valign="top">{{client.activationDate}}</td>
+                              <td valign="top">{{client.activationDate | DateFormat}}</td>
                             </tr>
                             <tr>
                               <td>{{ 'label.officename' | translate }}</td>
@@ -167,12 +167,12 @@
                 <td>{{document.documentType.name}}</td>
                 <td>
                   <span ng-repeat="file in document.documents">
-                    <a class="pointer" ng-click="downloadClientIdentifierDocument(document.id, file.id)">{{file.fileName}}</a>&nbsp;&nbsp;
+                    <a ng-click="downloadClientIdentifierDocument(document.id, file.id)">{{file.fileName}}</a>&nbsp;&nbsp;
                   </span>
                 </td>
                 <td>
-                  <a class="pointer" href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
-                  <a class="pointer" ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
+                  <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
+                  <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
             </tbody>
@@ -207,8 +207,8 @@
                 <td>{{clientdocument.description}}</td>
                 <td>{{clientdocument.fileName}}</td>
                 <td>
-                  <a class="pointer" ng-click="downloadDocument(clientdocument.id)"><i class="icon-cloud-download"></i></a>&nbsp;
-                  <a class="pointer" ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
+                  <a ng-click="downloadDocument(clientdocument.id)"><i class="icon-cloud-download"></i></a>&nbsp;
+                  <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
             </tbody>
@@ -228,8 +228,8 @@
                 <tr ng-repeat="data in datatabledetails.data">
                   <td ng-repeat="row in data.row">
                     <span ng-show="$index == 0">
-                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/{{data.row[0]}}" class="pointer" ng-show="datatabledetails.isMultirow">{{row}}</a>
-                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/" class="pointer" ng-hide="datatabledetails.isMultirow">{{row}}</a>
+                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/{{data.row[0]}}" ng-show="datatabledetails.isMultirow">{{row}}</a>
+                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/" ng-hide="datatabledetails.isMultirow">{{row}}</a>
                     </span>
                     <span ng-hide="$index == 0">{{row}}</span>
                   </td>
@@ -258,7 +258,7 @@
               <p>{{clientNote.note}}</p>
               {{clientNote.id}}
               <small>Created by :&nbsp;{{clientNote.createdByUsername}}</small>
-              <small>Created on :&nbsp;{{clientNote.createdOn}}</small>
+              <small>Created on :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
             </blockquote>
           </div>
         </div>

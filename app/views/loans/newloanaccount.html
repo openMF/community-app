@@ -208,7 +208,9 @@
                       <td>{{charge.chargeCalculationType.value}}</td>
                       <td><input class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                       <td>{{charge.chargeTimeType.value}}</td>
-                      <td><input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate /></td>
+                      <td>
+                        <input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                      </td>
                       <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>
                   </table>
@@ -274,7 +276,7 @@
                 </tr>
                 <tr ng-repeat="period in repaymentscheduleinfo.periods">
                   <td>{{period.period}}</td>
-                  <td>{{period.dueDate}}</td>
+                  <td>{{period.dueDate | DateFormat}}</td>
                   <td>{{period.daysInPeriod}}</td>
                   <td>{{period.principalDisbursed}}</td>
                   <td>{{period.principalDue}}</td>
