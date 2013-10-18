@@ -6,7 +6,7 @@
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
             scope.first = {};
-            scope.first.date = new Date();
+
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
               scope.glAccounts = data;
             });

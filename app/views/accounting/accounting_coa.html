@@ -27,8 +27,14 @@
         </thead>
         <tbody>
           <tr ng-repeat="coadata in coadatas | orderBy:'type.value' | filter:filterText">
-            <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.name}}</a></td>
-            <td><a href="#/viewglaccount/{{coadata.id}}">{{coadata.glCode}}</a></td>
+            <td>
+              <a href="#/viewglaccount/{{coadata.id}}" ng-show="coadata.usage.id == 1">{{coadata.name}}</a>
+              <span ng-hide="coadata.usage.id == 1">{{coadata.name}}</span>
+            </td>
+            <td>
+              <a href="#/viewglaccount/{{coadata.id}}" ng-show="coadata.usage.id == 1">{{coadata.glCode}}</a>
+              <span ng-hide="coadata.usage.id == 1">{{coadata.glCode}}</span>
+            </td>
             <td>{{coadata.type.value}}</td>
             <td>{{coadata.disabled}}</td>
             <td>{{coadata.manualEntriesAllowed}}</td>

@@ -54,11 +54,11 @@
         scope.submit = function() {
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
+          if (this.formData[scope.modelName]) {
+            this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],'dd MMMM yyyy');
+          }
 
           if (scope.action == "activate") {
-            if (this.formData.activationDate) {
-              this.formData["activationDate"] = dateFilter(this.formData["activationDate"],'dd MMMM yyyy');
-            }
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'activate'}, this.formData,function(data){
                 location.path('/viewclient/' + data.clientId);
             });
@@ -78,9 +78,6 @@
             });
           }
           if (scope.action == "close") {
-            if (this.formData.closureDate) {
-              this.formData["closureDate"] = dateFilter(this.formData["closureDate"],'dd MMMM yyyy');
-            }
             resourceFactory.clientResource.save({clientId: routeParams.id, command : 'close'}, this.formData,function(data){
                 location.path('/viewclient/' + data.clientId);
             });

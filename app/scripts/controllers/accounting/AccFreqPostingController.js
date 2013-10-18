@@ -6,7 +6,9 @@
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
             scope.first = {};
-            scope.first.date = new Date();
+            scope.allowCreditEntries = true;
+            scope.allowDebitEntries = true;
+
             resourceFactory.accountingRulesResource.getAllRules({associations : 'all'}, function(data){
               scope.rules = data;
             });
@@ -26,6 +28,8 @@
               scope.formData.dbAccounts = [];
               scope.formData.creditAccountTemplate = rule.creditAccounts[0];
               scope.formData.debitAccountTemplate = rule.debitAccounts[0];
+              scope.allowCreditEntries = true;
+              scope.allowDebitEntries = true;
             }
 
             //events for credits
@@ -33,11 +37,19 @@
               if(scope.formData.crAmountTemplate != undefined){
                 scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName : scope.formData.creditAccountTemplate.name , crAmount : scope.formData.crAmountTemplate});
                 scope.formData.crAmountTemplate = undefined;
+                if (scope.formData.rule) {
+                  if (!scope.formData.rule.allowMultipleCreditEntries) {
+                    scope.allowCreditEntries = false;
+                  }
+                }
               }
             }
 
             scope.removeCrAccount = function(index) {
               scope.formData.crAccounts.splice(index,1);
+              if (scope.formData.crAccounts.length == 0) {
+                scope.allowCreditEntries = true;
+              }
             }
 
             //events for debits
@@ -45,11 +57,19 @@
               if(scope.formData.debitAmountTemplate != undefined){
                 scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName : scope.formData.debitAccountTemplate.name , debitAmount : scope.formData.debitAmountTemplate});
                 scope.formData.debitAmountTemplate = undefined;
+                if (scope.formData.rule) {
+                  if (!scope.formData.rule.allowMultipleDebitEntries) {
+                    scope.allowDebitEntries = false;
+                  }
+                }
               }
             }
 
             scope.removeDebitAccount = function(index) {
               scope.formData.dbAccounts.splice(index,1);
+              if (scope.formData.dbAccounts.length == 0) {
+                scope.allowDebitEntries = true;
+              }
             }
 
             scope.submit = function() {
