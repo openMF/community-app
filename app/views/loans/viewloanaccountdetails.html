@@ -1,5 +1,11 @@
 <div ng-controller="ViewLoanDetailsController">
-  <div class="row paddedtop">
+  <div>
+    <ul class="breadcrumb">
+      <li ng-show="loandetails.clientName"><a href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a> <span class="divider">/</span></li>
+      <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
+    </ul>
+  </div>
+  <div class="row">
     <div class="pull-right">
       <div class="btn-group" >
           <span ng-repeat="button in buttons.singlebuttons">
@@ -279,30 +285,48 @@
             </table>
           </tab>
 
-          <tab heading="{{'tab.charges' | translate}}">
-            <table class="table">
-              <thead>
+          <tab ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
+            <table class="table" width="100%">
+            <tr class="graybg">
                 <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.fees.or.penalties' | translate}}</th>
-                <th>{{'table.heading.paymentdue.at' | translate}}</th>
-                <th>{{'table.heading.paymentdue.asof' | translate}}</th>
-                <th>{{'table.heading.calculation.type' | translate}}</th>
-              </thead>
-              <tbody>
-                <tr ng-repeat="charge in loandetails.charges">
-                  <td>
-                    <a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a>
-                  </td>
-                  <td>
-                    <span ng-show="charge.penalty">Penalty</span>
-                    <span ng-hide="charge.penalty">Fee</span>
-                  </td>
-                  <td>{{charge.chargeTimeType.value}}</td>
-                  <td>{{charge.dueDate | DateFormat}}</td>
-                  <td>{{charge.chargeCalculationType.value}}</td>
-                </tr>
-              </tbody>
-            </table>
+                <th>{{'table.heading.feeorpenalty' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.paymentdueat' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.dueasof' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.calculationtype' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.due' | translate}}</th>
+                <th>{{'table.heading.paid' | translate}}</th>
+                <th>{{'table.heading.waived' | translate}}</th>
+                <th>{{'table.heading.outstanding' | translate}}</th>
+                <th></th>
+                <th>{{'table.heading.actions' | translate}}</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="charge in charges">
+                <td><a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a></td>
+                <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
+                <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                <td></td>
+                <td>{{charge.chargeTimeType.value}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{charge.chargeCalculationType.value}} - {{charge.percentage}}% of{{charge.currency.displaySymbol}}{{charge.amountPercentageAppliedTo}}</td>
+                <td></td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
+                <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
+                <td></td>
+                <td ng-show="chargeAction"><a href="#/loan/{{loandetails.id}}/editcharge/{{charge.id}}"><i class="icon-pencil icon-white"></i></a>
+                <a href="#/loanaccountcharge/{{loandetails.id}}/deleteloancharge/{{charge.id}}"><i class="icon-remove icon-white"></i></a></td>
+                <td ng-hide="!chargeAction"></td>
+                <td></td>
+            </tr>
+          </table>
           </tab>
 
         <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">

@@ -101,7 +101,8 @@
             update: {method: 'PUT', params: {}}
           }),
           chargeTemplateResource: defineResource(apiVer + "/charges/template", {
-            get: {method: 'GET', params: {}, isArray:true}
+            get: {method: 'GET', params: {}, isArray:true},
+            getChargeTemplates: {method: 'GET', params: {}},
           }),
           savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId/:resourceType", {savingProductId:'@savingProductId', resourceType:'@resourceType'}, {
             getAllSavingProducts: {method: 'GET', params: {}, isArray:true},
@@ -123,7 +124,7 @@
           loanTrxnsResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId", {loanId:'@loanId', transactionId:'@transactionId'}, {
               get: {method: 'GET', params: {}}
           }),
-          LoanAccountResource: defineResource(apiVer + "/loans/:loanId", {loanId:'@loanId'}, {
+          LoanAccountResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:chargeId", {loanId:'@loanId', resourceType:'@resourceType', chargeId:'@chargeId'}, {
             getLoanAccountDetails: {method: 'GET', params: {}}
           }),
           LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId:'@loanId',documentId:'@documentId'}, {
@@ -200,7 +201,7 @@
               get: {method: 'GET', params: {}},
               update: {method: 'PUT'}
           }),
-          savingsChargeResource: defineResource(apiVer + "/savingsaccounts/:accountId/charges",{accountId:'@accountId'}, {
+          savingsChargeResource: defineResource(apiVer + "/savingsaccounts/:accountId/charges/:resourceType",{accountId:'@accountId', resourceType:'@resourceType'}, {
               get: {method: 'GET', params: {}},
               update: {method: 'PUT'}
           }),

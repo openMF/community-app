@@ -2,6 +2,14 @@
     <fieldset>
         <legend>{{'label.editcharge' | translate}}</legend>
         <div class="control-group">
+            <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
+            <div class="controls">
+                <select ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-disabled="true">
+                </select>
+            </div>
+        </div>
+        <hr/>
+        <div class="control-group">
             <label class="control-label" for="name">{{'label.name' | translate}}</label>
             <div class="controls">
                 <input type="text" id="name" ng-model="formData.name">
@@ -11,13 +19,6 @@
             <label class="control-label">{{'label.form.currency' | translate}}</label>
             <div class="controls">
                 <select ng-model="formData.currencyCode" data-ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}">
                 </select>
             </div>
         </div>

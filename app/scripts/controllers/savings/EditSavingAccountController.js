@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EditSavingAccountController: function(scope, resourceFactory, location, routeParams) {
+    EditSavingAccountController: function(scope, resourceFactory, location, routeParams, dateFilter) {
         scope.products = [];
         scope.fieldOfficers = [];
         scope.formData = {};
@@ -22,6 +22,10 @@
           scope.formData.productId = data.savingsProductId;
           scope.products = data.productOptions;
           if(data.fieldOfficerId != 0)scope.formData.fieldOfficerId = data.fieldOfficerId;
+          if(data.timeline) {
+            var submittedOnDate = dateFilter(data.timeline.submittedOnDate, 'dd MMMM yyyy');
+            scope.formData.submittedOnDate = new Date(submittedOnDate);
+          }
           scope.fieldOfficers = data.fieldOfficerOptions;
           scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
           scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
@@ -88,6 +92,7 @@
         }
 
         scope.submit = function() {
+          if(this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";
@@ -110,7 +115,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EditSavingAccountController]).run(function($log) {
+  mifosX.ng.application.controller('EditSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditSavingAccountController]).run(function($log) {
     $log.info("EditSavingAccountController initialized");
   });
 }(mifosX.controllers || {}));

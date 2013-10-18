@@ -107,6 +107,11 @@
           break;
           case "modifytransaction":
           break;
+          case "deleteloancharge":
+            scope.showDelete = true;
+            scope.showNoteField = false;
+            scope.showDateField = false;
+          break;
         }
 
         scope.cancel = function() {
@@ -131,6 +136,10 @@
             resourceFactory.loanTrxnsResource.save(params, this.formData, function(data){
               location.path('/viewloanaccount/' + data.loanId);
             });
+          } else if(scope.action == "deleteloancharge") {
+              resourceFactory.LoanAccountResource.delete({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data) {
+                 location.path('/viewloanaccount/' + data.loanId);
+              });
           } else {
             params.loanId=scope.accountId;
             resourceFactory.LoanAccountResource.save(params, this.formData, function(data){
