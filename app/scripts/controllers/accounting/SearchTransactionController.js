@@ -10,8 +10,7 @@
         scope.offices = [];
         scope.date={};
         scope.formData={};
-        scope.date.first = new Date();
-        scope.date.second = new Date();
+
         resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
           scope.glAccounts = data;
         });

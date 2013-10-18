@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
 
-    RunReportsController: function(scope, routeParams, resourceFactory, location) {
+    RunReportsController: function(scope, routeParams, resourceFactory, location, dateFilter) {
 
       scope.isCollapsed = false; //displays options div on startup
       scope.hideTable = true; //hides the results div on startup
@@ -124,6 +124,11 @@
 
       scope.runReport = function (){
         scope.isCollapsed=true;
+        for(var i in scope.reportDateParams) {
+          if (scope.formData[scope.reportDateParams[i].inputName]) {
+            scope.formData[scope.reportDateParams[i].inputName] = dateFilter(scope.formData[scope.reportDateParams[i].inputName],'yyyy-MM-dd');
+          }
+        }
 
         switch(scope.reportType)
         {
@@ -154,7 +159,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.RunReportsController]).run(function($log) {
+  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.RunReportsController]).run(function($log) {
     $log.info("RunReportsController initialized");
   });
 }(mifosX.controllers || {}));
