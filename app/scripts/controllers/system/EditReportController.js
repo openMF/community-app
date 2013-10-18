@@ -12,7 +12,7 @@
         scope.submit = function() {
           this.formData.reportParameters = scope.temp;
           resourceFactory.reportsResource.update({id: routeParams.id}, this.formData,function(data){
-            location.path('/viewreport/' + data.resourceId);
+            location.path('/system/viewreport/' + data.resourceId);
           });
         };
     }

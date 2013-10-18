@@ -1,4 +1,8 @@
 <div ng-controller="AuditController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.audit' | translate}}</li>
+    </ul>
     <div class="row-fluid" >
         <span class="input-append grpinputicons" >
                 <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
@@ -14,21 +18,21 @@
         <div class="control-group">
             <div class="controls">
                 <select ng-model="formData.status">
-                    <option ng-repeat="status in template.processingResults" value="{{status.id}}">{{status.processingResult}}</option>
                     <option value="">--Select Status--</option>
+                    <option ng-repeat="status in template.processingResults" value="{{status.id}}">{{status.processingResult}}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input type="text" placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input type="text" placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
             </div>
         </div>
         <div class="control-group">
@@ -75,12 +79,12 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input type="text" placeholder="{{'label.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
             </div>
         </div>
         <div class="control-group">
              <div class="controls">
-                 <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                 <input type="text" placeholder="{{'label.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
              </div>
         </div>
     </div>

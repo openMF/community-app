@@ -36,14 +36,15 @@
         };
 
         scope.submit = function () {
-            
-                var currencies = []; 
+                var currencies = [];
+                var curr = {};
                 for(var i=0; i < scope.selectedCurrOptions.length; i++){
                     currencies.push(scope.selectedCurrOptions[i].code);
                 }
-                resourceFactory.currencyConfigResource.update(currencies , function(data){
-                console.log('test');
-              });
+                curr["currencies"] = currencies;
+                resourceFactory.currencyConfigResource.upd(curr , function(data){
+                    route.reload();
+                });
 
         };
 

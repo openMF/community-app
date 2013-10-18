@@ -49,7 +49,7 @@
           }
             this.formData.reportParameters = scope.temp;
             resourceFactory.reportsResource.save(this.formData,function(data){
-            location.path('/viewreport/' + data.resourceId);
+            location.path('/system/viewreport/' + data.resourceId);
           });
         };
     }

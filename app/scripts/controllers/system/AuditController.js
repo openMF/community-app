@@ -4,10 +4,6 @@
             scope.formData = [];
             scope.isCollapsed = true;
             scope.date = {};
-            scope.date.first = new Date();
-            scope.date.second = new Date();
-            scope.date.third = new Date();
-            scope.date.fourth = new Date();
             resourceFactory.auditResource.get({templateResource: 'searchtemplate'} , function(data) {
                 scope.template = data;
             });

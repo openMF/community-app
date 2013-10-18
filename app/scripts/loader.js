@@ -26,7 +26,7 @@
             'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload',
-            'ckEditor':          '../bower_components/ckeditor/ckeditor',
+            'ckEditor':         '../bower_components/ckeditor/ckeditor'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -45,7 +45,7 @@
             'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
             'modified.datepicker':{deps: ['angular']},
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
-            'ckEditor':{deps: ['angular','jquery'],exports:'ckEditor'},
+            'ckEditor':{deps:['jquery']},
             'mifosX': {
                 deps: [
                     'angular',
