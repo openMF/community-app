@@ -3,9 +3,11 @@
     EditOfficeController: function(scope, routeParams, resourceFactory, location,dateFilter) {
         scope.formData = {};
         scope.first = {};
-        scope.first.date = new Date();
         resourceFactory.officeResource.get({officeId: routeParams.id, template: 'true'} , function(data) {
-          scope.formData =
+            if(data.openingDate){
+            var editDate = dateFilter(data.openingDate,'dd MMMM yyyy');
+            scope.first.date = new Date(editDate); }
+            scope.formData =
           {
               name : data.name,
               externalId : data.externalId

@@ -4,7 +4,7 @@
             scope.holidays = [];
             scope.offices = [];
             scope.formData={officeId:1};
-            resourceFactory.holResource.getAllHols({officeId:1},function(data){
+            resourceFactory.holResource.getAllHols({officeId:scope.formData.officeId},function(data){
                 scope.holidays = data;
             });
             resourceFactory.officeResource.getAllOffices(function(data){

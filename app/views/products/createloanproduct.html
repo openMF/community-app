@@ -43,16 +43,16 @@
               <tr>
                 <td width="40%">
                   <label class="control-label">{{ 'label.startdate' | translate }}&nbsp;</label>
-                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
                 </td>
                 <td width="40%">
                   <label class="control-label">{{ 'label.closedate' | translate }}&nbsp;</label>
-                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
                 </td>
               </tr>
               <tr>
                 <td width="40%">
-                  <label class="control-label" for="active">{{ 'label.includeinborrowerloancounter' | translate }}</label>
+                  <label class="control-label">{{ 'label.includeinborrowerloancounter' | translate }}</label>
                   <label class="checkbox">
                     <input type="checkbox" ng-model="formData.includeInBorrowerCycle" ng-true-value="true" ng-false-value="false">
                   </label>
@@ -265,10 +265,6 @@
                 <label class="control-label">{{ 'label.interestfreeperiod' | translate }}&nbsp;</label>
                 <input type="text" ng-model="formData.graceOnInterestCharged">
               </td>
-              <td>
-                <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
-                <input type="text" ng-model="formData.interestChargedFromDate">
-              </td>
             </tr>
           </table>
         </td>
@@ -411,10 +407,15 @@
               <td>
                 <label class="control-label">{{ 'label.loseswrittenoff' | translate }}&nbsp;</label>
                 <select ng-model="formData.writeOffAccountId"  ng-options="expenseAccount.id as expenseAccount.name for expenseAccount in expenseAccountOptions" value="{{expenseAccount.id}}">
-                </select>
+                </select> <hr/>
               </td>
-              <td>
-              </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label">{{ 'label.overpaymentliability' | translate }}&nbsp;</label>
+                    <select ng-model="formData.overpaymentLiabilityAccountId"  ng-options="liability.id as liability.name for liability in liabilityOptions" value="{{liability.id}}">
+                    </select>
+                </td>
             </tr>
             <tr class="span2"></tr>
           </table>

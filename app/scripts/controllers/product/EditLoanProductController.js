@@ -9,14 +9,14 @@
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
         scope.date = {};
-        scope.date.first = new Date();
-        scope.date.second = new Date();
         resourceFactory.loanProductResource.get({loanProductId : routeParams.id, template:'true'}, function(data) {
             scope.product = data;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
             scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions;
             scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions;
             scope.charges = scope.product.charges || [];
+            if(data.startDate){scope.date.first = new Date(data.startDate);}
+            if(data.closeDate){scope.date.second = new Date(data.closeDate);}
             scope.formData = {
               name : scope.product.name,
               description : scope.product.description,
@@ -46,7 +46,7 @@
               graceOnPrincipalPayment : scope.product.graceOnPrincipalPayment,
               graceOnInterestPayment : scope.product.graceOnInterestPayment,
               graceOnInterestCharged : scope.product.graceOnInterestCharged,
-              accountingRule : scope.product.accountingRule.id,
+              accountingRule : scope.product.accountingRule.id
             }
 
             if(scope.formData.accountingRule == 1){

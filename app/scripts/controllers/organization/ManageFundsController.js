@@ -6,11 +6,7 @@
             scope.funds = data;
         });
 
-        scope.deleteFund =  function (id){
-          resourceFactory.fundsResource.delete({'fundId':id});
-        };
-
-       scope.addFund = function (){
+        scope.addFund = function (){
   
             if(scope.newfund != undefined ) {
                   resourceFactory.fundsResource.save({'name':scope.newfund} , function(data){

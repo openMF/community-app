@@ -9,13 +9,12 @@
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
         scope.date = {};
-        scope.date.first = new Date();
-        scope.date.second = new Date();
         resourceFactory.loanProductResource.get({resourceType:'template'}, function(data) {
             scope.product = data;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
             scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions;
             scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions;
+            scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions;
 
             scope.formData = {
               currencyCode : scope.product.currencyOptions[0].code,
@@ -36,6 +35,7 @@
               incomeFromPenaltyAccountId : scope.incomeAccountOptions[2].id,
               writeOffAccountId : scope.expenseAccountOptions[0].id,
               accountingRule : '1',
+              overpaymentLiabilityAccountId : scope.liabilityOptions[0].id
             }
             
         });
