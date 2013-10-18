@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
         EditGroupController: function(scope, resourceFactory,location, routeParams,dateFilter ) {
             scope.first = {};
-            scope.first.date = new Date();
             scope.managecode = routeParams.managecode;
             resourceFactory.groupResource.get({groupId: routeParams.id,associations:'clientMembers',template:'true'} , function(data) {
                 scope.editGroup = data;
@@ -11,6 +10,11 @@
                                     externalId:data.externalId,
                                     staffId:data.staffId
                                  };
+                if(data.activationDate){
+                    var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+                    scope.first.date = new Date(actDate);
+
+                }
             });
             scope.updateGroup = function(){
                 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');

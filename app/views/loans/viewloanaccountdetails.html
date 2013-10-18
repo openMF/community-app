@@ -301,7 +301,7 @@
           </tab>
 
         <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
-          <div class="pull-right">
+          <div class="pull-right" data-ng-show="choice">
             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>
           </div>
           <br>
@@ -337,10 +337,12 @@
         </tab>
         <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" select="dataTableChange(loandatatable)">
           <div>
-            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
-            <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-              <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
-            </span></br>
+            <span data-ng-show="choice">
+                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
+                <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
+                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
+                </span></br>
+            </span>
             <table ng-show="datatabledetails.isData" class="table">
               <thead>
                 <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>

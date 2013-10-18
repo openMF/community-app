@@ -5,7 +5,6 @@
                 templateSource : 'template'}, function(data) {
                 scope.groupCenterData = data;
                 scope.first = {};
-                scope.first.date = new Date();
                 //to display default in select boxes
                 scope.formData = {
                     repeating :'true',
