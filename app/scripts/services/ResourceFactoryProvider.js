@@ -267,6 +267,7 @@
           guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId:'@loanId',templateResource:'@templateResource'}, {
             get: {method: 'GET', params: {}}
           })
+
         };
       }];
     }
