@@ -214,6 +214,12 @@
           var inventureMaxScore = 850;
           scope.inventureScore = inventureScore;
 
+          // variable for inventure loan recommendation
+          scope.inventureAgricultureLimit = '21,000';
+          scope.inventureFishermenLimit = '27,500';
+          scope.inventureHousingLimit = '385,000';
+          scope.inventureBusinessLimit = '10,000';
+
           // this part is used to see how the graph will be looked like
           function getRandomInt (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
