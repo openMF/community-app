@@ -10,12 +10,7 @@
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType : 'template'};
             scope.date = {};
-            scope.date.first = new Date();
-            scope.date.second = new Date();
-            scope.date.third = new Date();
-            scope.date.fourth = new Date();
-            scope.date.fifth = new Date();
-            if (scope.clientId) {
+             if (scope.clientId) {
               scope.inparams.clientId = scope.clientId;
               scope.formData.clientId = scope.clientId;
             }
@@ -125,8 +120,6 @@
                 var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
                 var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
                 var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
-                var reqFifthDate = dateFilter(scope.date.fifth,'dd MMMM yyyy');
-
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
