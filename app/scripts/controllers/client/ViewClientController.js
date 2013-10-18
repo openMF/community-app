@@ -114,6 +114,12 @@
           });
         };
 
+        scope.getClientTemplateDocuments = function() {
+          resourceFactory.templateResource.get({entityId : 0, typeId : 0}, function(data) {
+            scope.clientTemplateData = data;
+          })
+        }
+
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
           scope.clientdatatables = data;
         });

@@ -326,6 +326,15 @@
           </table>
         </tab>
 
+        <tab heading="{{'tab.templatedocuments' | translate}}" select="getLoanTemplateDocuments()">
+          <table class="table">
+            <tr ng-repeat="templateData in loanTemplateData">
+              <td>
+                <a href="#/viewentityttemplate/{{templateData.id}}/loanId/{{loandetails.id}}">{{templateData.name}}</a>
+              </td>
+            </tr>
+          </table>
+        </tab>
         <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" select="dataTableChange(loandatatable)">
           <div>
             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>

@@ -24,7 +24,9 @@
             'notificationWidget': '../scripts/modules/notificationWidget',
             'modified.datepicker': '../scripts/modules/datepicker',
             'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload',
-            'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize'
+            'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
+            'angularFileUpload':   '../bower_components/angularjs-file-upload/angular-file-upload',
+            'ckEditor':          '../bower_components/ckeditor/ckeditor',
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -43,6 +45,7 @@
             'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
             'modified.datepicker':{deps: ['angular']},
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
+            'ckEditor':{deps: ['angular','jquery'],exports:'ckEditor'},
             'mifosX': {
                 deps: [
                     'angular',
@@ -60,7 +63,8 @@
                     'notificationWidget',
                     'angularFileUpload',
                     'modified.datepicker',
-                    'ngSanitize'
+                    'ngSanitize',
+                    'ckEditor'
                 ],
                 exports: 'mifosX'
             }

@@ -14,6 +14,18 @@
       .when('/products', {
         templateUrl: 'views/products/products.html'
       })
+      .when('/templates', {
+        templateUrl: 'views/templates/templates.html'
+      })
+      .when('/createtemplate', {
+        templateUrl: 'views/templates/createtemplate.html'
+      })
+      .when('/viewtemplate/:id', {
+        templateUrl: 'views/templates/viewtemplate.html'
+      })
+      .when('/edittemplate/:id', {
+        templateUrl: 'views/templates/edittemplate.html'
+      })
       .when('/createloanproduct', {
         templateUrl: 'views/products/createloanproduct.html'
       })
@@ -58,6 +70,9 @@
       })
       .when('/client/:id/:action', {
         templateUrl: 'views/clients/clientactions.html'  
+      })
+      .when('/viewentityttemplate/:templateId/:entityaction/:entityId', {
+        templateUrl: 'views/templates/entitytemplate.html'  
       })
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
