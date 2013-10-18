@@ -214,8 +214,6 @@
 
 		// *********************** InVenture controller ***********************
         scope.fetchInventureScore = function(){
-          //console.log("HERE1: " + routeParams.id);
- 
           // dummy data for the graph - DEBUG purpose
           var inventureScore = getRandomInt(450,800);
           var natAverage = getRandomInt(450,800);
@@ -302,22 +300,6 @@
 
           // this will be used to display the score on the viewclient.html
           scope.inventureScore = inventureScore;
-
-          /*
-          http({
-            method:'GET',
-            url: 'http://smsinventure.org/mifos/api/mifos_test.php'
-          }).then(function(imageData) {
-            scope.inventureOut = imageData;
-          });
-
-          // get method to fetch inventure score
-          resourceFactory.inventureResource.getClientScore({clientId: routeParams.id} , function(data) {
-            scope.inventureOut = data;
-          });
-          */
-
-          //console.log("HERE2");
         };
     }
   });
