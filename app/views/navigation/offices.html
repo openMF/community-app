@@ -1,36 +1,28 @@
 <div class="row alert-block span" ng-controller="NavigationController">
-<table width="100%">
-    <thead>
-        <tr>
-            <th>Offices&nbsp;&nbsp;&nbsp;<input ng-model="filterTextOffice" type="text" class="form-control input-small" placeholder="Filter by name"></th>
-            <th>Loan Officers&nbsp;&nbsp;&nbsp;<input ng-model="filterTextStaff" type="text" class="form-control input-small" placeholder="Filter by name"></th>
-            <th>Groups / Centers &nbsp;&nbsp;&nbsp;<input ng-model="filterTextGroup" type="text" class="form-control input-small" placeholder="Filter by name"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>    
-            <td width="30%">
-                <table>
-                    <tr ng-repeat="office in offices  | filter:filterTextOffice" ng-class="{graybg: office.id == selectedOffice}">
-                        <td><a ng-click="officeSelected(office.id)" >{{office.name}}</a></td>
-                    </tr>
-                </table>
-            </td>
-            <td width="30%">
-                <table class="topfixed">
-                    <tr ng-repeat="staff in staffs  | filter:filterTextStaff" ng-class="{graybg: staff.id == selectedStaff}">
-                        <td><a ng-click="staffSelected(staff.id)" >{{staff.displayName}}</a></td>
-                    </tr>
-                </table>
-            </td>
-            <td width="35%" class="toprightfixed">
-                <table>
-                    <tr ng-repeat="groupsOrCenter in groupsOrCenters  | filter:filterTextGroup">
-                        <td>{{groupsOrCenter.name}}</td>
-                    </tr>
-                </table>
-            </td>
-        <tr>
-    </tbody>    
-</table>
+    <div class="row">
+        <div class="span4 paddedleft">
+            <span><strong>Offices&nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextOffice" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
+            <table>
+                <tr ng-repeat="office in offices  | filter:filterTextOffice" ng-class="{graybg: office.id == selectedOffice}">
+                    <td><a ng-click="officeSelected(office.id)" >{{office.name}}</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="span4 paddedleft">
+            <span><strong>Loan Officers&nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextStaff" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
+            <table>
+                <tr ng-repeat="staff in staffs  | filter:filterTextStaff" ng-class="{graybg: staff.id == selectedStaff}">
+                    <td><a ng-click="staffSelected(staff.id)" >{{staff.displayName}}</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="span4 paddedleft">
+            <span><strong>Groups / Centers &nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextGroup" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
+            <table>
+                <tr ng-repeat="groupsOrCenter in groupsOrCenters  | filter:filterTextGroup">
+                    <td>{{groupsOrCenter.name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>

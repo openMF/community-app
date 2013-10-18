@@ -1,7 +1,5 @@
 <form class="form-horizontal well" ng-controller="EnterCollectionSheetController">
   <fieldset>
-    <legend>Create Employee</legend>
-
     <div class="control-group">
       <label class="control-label">{{ 'label.branchoffice' | translate }}</label>
       <div class="controls">
@@ -36,14 +34,17 @@
       </div>
     </div>
 
-    <span>
-  		<a class="ng-binding" ng-click="previewCollectionSheet()" ng-hide="previewRepayment">
-  		Collection sheet
-  		<i class="icon-circle-arrow-right"></i>
-  		</a>
-    </span>
+    <div>
+      <span>
+    		<a class="ng-binding" ng-click="previewCollectionSheet()" ng-hide="previewRepayment">
+    		Collection sheet
+    		<i class="icon-circle-arrow-right"></i>
+    		</a>
+      </span>
+    </div>
+    <div></div>
     <div style="float:left; max-width:850px; min-width:50px; overflow-x:auto!important; white-space:nowrap;">
-      <table class="well table" ng-show="collectionsheetdata" width="80%" style="float:left!important">
+      <table class="well table" ng-show="collectionsheetdata" width="100%" style="float:left!important">
         <thead>
           <tr>
             <th></th>
@@ -71,7 +72,7 @@
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
                 <span ng-repeat="bulkRepaymentTransaction in bulkRepaymentTransactions" ng-show="loan.loanId == bulkRepaymentTransaction.loanId">
-                  <input type="text" class="input-small" ng-model="bulkRepaymentTransaction.transactionAmount">
+                  <input type="text" class="input-small" ng-model="bulkRepaymentTransaction.transactionAmount" ng-change="bulkRepaymentTransactionAmountChange(bulkRepaymentTransaction)">
                   <input type="text" class="input-mini-small" ng-model="loan.currency.displaySymbol" disabled="disabled">
                 </span>
               </span>
@@ -79,7 +80,7 @@
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
                 <span ng-repeat="bulkDisbursementTransaction in bulkDisbursementTransactions" ng-show="loan.loanId == bulkDisbursementTransaction.loanId">
-                  <input type="text" class="input-small" ng-model="bulkDisbursementTransaction.transactionAmount">
+                  <input type="text" class="input-small" ng-model="bulkDisbursementTransaction.transactionAmount" ng-change="bulkDisbursementAmountChange(bulkDisbursementTransaction)">
                   <input type="text" class="input-mini-small" ng-model="loan.currency.displaySymbol" disabled="disabled">
                 </span>
               </span>
@@ -134,10 +135,11 @@
         </tfoot>
       </table>
     </div>
-    <div></div>
-    <div class="offset6 paddedtop">
-      <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
-      <button type="submit" class="btn btn-primary" ng-show="collectionsheetdata" ng-click="submit()">{{'button.save' | translate}}</button>
+    <div class="span12 paddedtop10">
+      <div class="offset6 paddedtop">
+        <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
+        <button type="submit" class="btn btn-primary" ng-show="collectionsheetdata" ng-click="submit()">{{'button.save' | translate}}</button>
+      </div>
     </div>
 	</fieldset>
 </form>
