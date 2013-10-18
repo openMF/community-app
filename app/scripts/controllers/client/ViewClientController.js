@@ -66,24 +66,28 @@
                               },
                               {
                                 name:"button.close",
+                                href:"#/client",
+                                subhref:"close",
                                 icon :"icon-remove-circle"
                               }]
             }
 
-            if(data.staffId) {
-              scope.buttons.push({
-                name:"button.unassignstaff",
-                href:"#/client",
-                subhref:"unassignstaff",
-                icon :"icon-user"
-              });
-            } else {
-              scope.buttons.push({
-                name:"button.assignstaff",
-                href:"#/client",
-                subhref:"assignstaff",
-                icon :"icon-user"
-              });
+            if (data.status.value == "Pending" || data.status.value == "Active"){
+              if(data.staffId) {
+                scope.buttons.push({
+                  name:"button.unassignstaff",
+                  href:"#/client",
+                  subhref:"unassignstaff?staffId="+data.staffId,
+                  icon :"icon-user"
+                });
+              } else {
+                scope.buttons.push({
+                  name:"button.assignstaff",
+                  href:"#/client",
+                  subhref:"assignstaff",
+                  icon :"icon-user"
+                });
+              }
             }
 
           resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {

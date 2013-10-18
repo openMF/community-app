@@ -26,7 +26,7 @@
                 </td>
                 <td>
                   <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;</label>
-                  <input type="text" ng-model="formData.submittedOnDate">
+                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
                 </td>
               </tr>
               <tr class="control-group">
@@ -104,7 +104,7 @@
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.expecteddisbursementon' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.expectedDisbursementDate">
+                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
                       </td>
                     </tr>
                     <tr>
@@ -159,13 +159,13 @@
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.interestChargedFromDate">
+                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.interestChargedFromDate" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label class="control-label">{{ 'label.firstrepaymenton' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.repaymentsStartingFromDate">
+                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
                       </td>
                       <td></td>
                     </tr>
@@ -197,7 +197,9 @@
                       <td>{{charge.chargeCalculationType.value}}</td>
                       <td><input class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                       <td>{{charge.chargeTimeType.value}}</td>
-                      <td><input type="text" ng-model="charge.dueDate"  placeholder="{{'label.placeholder.duedate' | translate}}"></td>
+                      <td>
+                        <input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                      </td>
                       <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>
                   </table>
@@ -263,7 +265,7 @@
                 </tr>
                 <tr ng-repeat="period in repaymentscheduleinfo.periods">
                   <td>{{period.period}}</td>
-                  <td>{{period.dueDate}}</td>
+                  <td>{{period.dueDate | DateFormat}}</td>
                   <td>{{period.daysInPeriod}}</td>
                   <td>{{period.principalDisbursed}}</td>
                   <td>{{period.principalDue}}</td>

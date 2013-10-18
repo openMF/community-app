@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    CreateClientController: function(scope, resourceFactory, location, http,dateFilter) {
+    CreateClientController: function(scope, resourceFactory, location, http, dateFilter) {
         scope.offices = [];
         scope.staffs = [];
         scope.first = {};
@@ -57,7 +57,7 @@
           };
     }
   });
-  mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http','dateFilter', mifosX.controllers.CreateClientController]).run(function($log) {
+  mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', mifosX.controllers.CreateClientController]).run(function($log) {
     $log.info("CreateClientController initialized");
   });
 }(mifosX.controllers || {}));

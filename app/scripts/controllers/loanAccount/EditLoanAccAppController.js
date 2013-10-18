@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanAccAppController: function(scope, routeParams, resourceFactory, location) {
+        EditLoanAccAppController: function(scope, routeParams, resourceFactory, location, dateFilter) {
 
             scope.previewRepayment = false;
             scope.formData = {};
@@ -64,8 +64,17 @@
 
             scope.previewClientLoanAccInfo = function() {
               scope.previewRepayment = false;
+              for (var i in scope.loanaccountinfo.charges) {
+                if (scope.loanaccountinfo.charges[i].dueDate) {
+                  scope.loanaccountinfo.charges[i].dueDate = new Date(scope.loanaccountinfo.charges[i].dueDate);
+                }
+              }
               scope.charges = scope.loanaccountinfo.charges || [];
 
+              scope.formData.submittedOnDate = new Date(scope.loanaccountinfo.timeline.submittedOnDate);
+              scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate);
+              scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate);
+              scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate);
               scope.formData.productId = scope.loanaccountinfo.loanProductId;
               scope.formData.fundId = scope.loanaccountinfo.fundId;
               scope.formData.principal = scope.loanaccountinfo.principal;
@@ -139,7 +148,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 
@@ -159,7 +168,9 @@
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = scope.templateType;
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "25 September 2013";
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');
+                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');
+                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');
 
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;
@@ -177,7 +188,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 
@@ -197,8 +208,10 @@
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = scope.templateType;
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "25 September 2013";
-                this.formData.submittedOnDate = this.formData.submittedOnDate || "25 September 2013";
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');
+                this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');
+                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');
+                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');
 
                 resourceFactory.loanResource.put({loanId : routeParams.id},this.formData,function(data){
                   location.path('/viewloanaccount/' + data.loanId);
@@ -210,7 +223,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditLoanAccAppController]).run(function($log) {
+    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function($log) {
         $log.info("EditLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
