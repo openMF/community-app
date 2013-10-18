@@ -70,6 +70,10 @@
 
       resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function(data) {
           scope.savingaccountdetails = data;
+          scope.status = data.status.value;
+          if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
+              scope.choice = true;
+          }
           if(scope.savingaccountdetails.charges) {
             scope.charges = scope.savingaccountdetails.charges;
             scope.chargeTableShow = true;

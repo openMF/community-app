@@ -31,7 +31,7 @@
             scope.unassignStaff = function(id){
                 var staffData = new Object();
                 staffData.staffId = id;
-                resourceFactory.centerResource.save({centerId: routeParams.id,command: 'unassignStaff'}, staffData, function(data) {
+                resourceFactory.groupResource.save({centerId: routeParams.id,anotherresource: 'unassignStaff'}, staffData, function(data) {
                     resourceFactory.centerResource.get({centerId: routeParams.id}, function(data){
                         route.reload();
                     });

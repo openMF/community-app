@@ -68,13 +68,14 @@
             location.path('/guarantor/' + accountId);
         }
       };
-
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.loandetails = data;
-
+          scope.status = data.status.value;
           scope.$broadcast('LoanAccountDataLoadingCompleteEvent');
-
-          if (data.status.value == "Submitted and pending approval") {
+          if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
+              scope.choice = true;
+          }
+              if (data.status.value == "Submitted and pending approval") {
             scope.buttons = { singlebuttons : [{
                                 name:"button.addloancharge",
                                 icon :"icon-plus-sign"
