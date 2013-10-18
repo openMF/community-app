@@ -281,14 +281,13 @@
         </div>
       </tab>
 
-      <!-- start of InVenture code -->
-      <!-- NOTES: might be a good idea to separate the style in css -->
+      <!-- ************************ start of InVenture code ************************ -->
       <tab class="inventureTabTitle" heading="InVenture Score" select="fetchInventureScore()">
 
         <!-- chart1 - comparison chart -->
         <div class="span6 paddedleft0 paddedtop">
-          <div style="border: 1.5px solid #DDDDDD; padding:15px;">
-            <div style="background-color: #E8E8E8; border-bottom: 1.5px solid #DDDDDD; padding: 10px 15px; margin: -15px -15px 15px;">
+          <div class="inventureMainBorder">
+            <div class="inventureCategoryTitle">
               <strong class="ng-binding">Score Comparison</strong>
             </div>
 
@@ -300,8 +299,8 @@
 
         <!-- chart2 - inventure score chart -->
         <div class="span5 paddedtop" style="width:440px;">
-          <div style="border: 1.5px solid #DDDDDD; padding:15px; height:175px;">
-            <div style="background-color: #E8E8E8; border-bottom: 1px solid #DDDDDD; padding: 10px 15px; margin: -15px -15px 15px;">
+          <div class="inventureMainBorder" style="height:175px;">
+            <div class="inventureCategoryTitle">
               <strong class="ng-binding">InVenture Score</strong>
             </div>
 
@@ -317,10 +316,10 @@
               <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
                 <tbody>
                   <tr>
-                    <td style="width:90px; text-align:center;">300-450<br><strong>Bad</strong></td>
-                    <td style="width:90px; text-align:center;">451-550<br><strong>Fair</strong></td>
-                    <td style="width:90px; text-align:center;">551-700<br><strong>Good</strong></td>
-                    <td style="width:90px; text-align:center;">701-850<br><strong>Excellent</strong></td>
+                    <td class="inventureBulletLegendCell">300-450<br><strong>Bad</strong></td>
+                    <td class="inventureBulletLegendCell">451-550<br><strong>Fair</strong></td>
+                    <td class="inventureBulletLegendCell">551-700<br><strong>Good</strong></td>
+                    <td class="inventureBulletLegendCell">701-850<br><strong>Excellent</strong></td>
                   </tr>
                 </tbody>
               </table>
@@ -328,83 +327,60 @@
           </div>
         </div>
 
-        <!-- chart3 - inventure checklist -->
+        <!-- chart3 - inventure loan recommendation -->
         <div class="span5" style="padding-top:20px; width:440px;">
-          <div style="border: 1.5px solid #DDDDDD; padding:15px; height:210px;">
-            <div style="background-color: #E8E8E8; border-bottom: 1px solid #DDDDDD; padding: 10px 15px; margin: -15px -15px 15px;">
+          <div class="inventureMainBorder" style="height:210px;">
+            <div class="inventureCategoryTitle">
               <strong class="ng-binding">InVenture Loan Recommendation</strong>
             </div>
 
-            <div id="inventureRecommendation" style="margin: 30px 0px 0px 0px;">
-              <table cellspacing="10" cellpadding="2" style="font-size: 18px; margin-left: auto; margin-right: auto;">
+            <div id="inventureRecommendation" style="margin: 20px 0px 0px 0px;">
+              <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
                 <tr>
-                  <td style="width:125px; height:30px; text-align:center; font-weight:bold; color:#333">Loan Type</td>
-                  <td style="width:7px; text-align:center; border-right: 2px solid #DDDDDD;"></td>
-                  <td style="width:7px; text-align:center;"></td>
-                  <td style="width:175px; height:30px; text-align:center; font-weight:bold; color:#333">Credit Limit &#8377; (Rs)</td>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">Loan Type</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">Credit Limit &#8377; (Rs)</td>
                 </tr>
-                <tr style="border-top: 3px solid #DDDDDD;">
-                  <td style="width:125px; text-align:center;">Agriculture</td>
-                  <td style="width:7px; text-align:center; border-right: 2px solid #DDDDDD;"></td>
-                  <td style="width:7px; text-align:center;"></td>
-                  <td style="width:175px; text-align:center;">{{inventureAgricultureLimit}}</td>
-                </tr>
-                <tr>
-                  <td style="width:125px; text-align:center;">Fishermen</td>
-                  <td style="width:7px; text-align:center; border-right: 2px solid #DDDDDD;"></td>
-                  <td style="width:7px; text-align:center;"></td>
-                  <td style="width:175px; text-align:center;">{{inventureFishermenLimit}}</td>
+                <tr class="inventureTableTopBorder">
+                  <td class="inventureRecommendationCellType">Agriculture</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureAgricultureLimit}}</td>
                 </tr>
                 <tr>
-                  <td style="width:125px; text-align:center;">Housing</td>
-                  <td style="width:7px; text-align:center; border-right: 2px solid #DDDDDD;"></td>
-                  <td style="width:7px; text-align:center;"></td>
-                  <td style="width:175px; text-align:center;">{{inventureHousingLimit}}</td>
+                  <td class="inventureRecommendationCellType">Fishermen</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureFishermenLimit}}</td>
                 </tr>
                 <tr>
-                  <td style="width:125px; text-align:center;">Business</td>
-                  <td style="width:7px; text-align:center; border-right: 2px solid #DDDDDD;"></td>
-                  <td style="width:7px; text-align:center;"></td>
-                  <td style="width:175px; text-align:center;">{{inventureBusinessLimit}}</td>
+                  <td class="inventureRecommendationCellType">Housing</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureHousingLimit}}</td>
+                </tr>
+                <tr>
+                  <td class="inventureRecommendationCellType">Business</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureBusinessLimit}}</td>
                 </tr>
               </table>
             </div>
           </div>
         </div>
 
-<!--
-        <div class="row">
-            <div class="span10 paddedleft90">
-              <panel title="Score Comparison" sytle="width:500px;">
-                <div id="inventureBarChart" style="margin-left:10px; margin-top:10px;">
-                    <svg style="width:800px; height:150px;"></svg>
--->
-<!--
-                  <nvd3-discrete-bar-chart
-                        data="InventureComparisonData"
-                        id="inventurecomparison"
-                        width="400"
-                        height="100"
-                        showLegend="true">
-                    <svg></svg>
-                  </nvd3-discrete-bar-chart>
--->
-<!--
-              </div>
-            </panel>
-          </div>
-        </div>
--->
-
-<!--
+        <!--
         <div>
           <small>Client Account Number: {{client.accountNo}}&nbsp;</small><br/>
           <small>Client ID: {{client.id}}&nbsp;</small><br/>
           <small>InVenture Response: {{inventureOut}}&nbsp;</small>
         </div>
--->
+        -->
 
       </tab>
+      <!-- ************************ end of InVenture code ************************ -->
     </tabset>
     </div>
   </div>

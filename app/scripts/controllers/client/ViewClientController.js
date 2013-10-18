@@ -202,25 +202,24 @@
           console.log(identifierId,documentId);
         };
 
-		// inventure controller
+		// *********************** InVenture controller ***********************
         scope.fetchInventureScore = function(){
           //console.log("HERE1: " + routeParams.id);
  
-          // dummy data for the graph
+          // dummy data for the graph - DEBUG purpose
           var inventureScore = getRandomInt(450,800);
           var natAverage = getRandomInt(450,800);
           var industryAverage = getRandomInt(450,800);
           var inventureMinScore = 300;
           var inventureMaxScore = 850;
-          scope.inventureScore = inventureScore;
 
-          // variable for inventure loan recommendation
+          // dummy data for inventure loan recommendation - DEBUG purpose
           scope.inventureAgricultureLimit = '21,000';
           scope.inventureFishermenLimit = '27,500';
           scope.inventureHousingLimit = '385,000';
           scope.inventureBusinessLimit = '10,000';
 
-          // this part is used to see how the graph will be looked like
+          // this part is used to generate data to see the look of the graph
           function getRandomInt (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
           }
@@ -246,52 +245,55 @@
               }
             ];
 
-            // add graph function
-            nv.addGraph(function() {
-              var comparisonChart = nv.models.discreteBarChart()
-                .x(function(d) { return d.label })
-                .y(function(d) { return d.value })
-                .staggerLabels(true)
-                .tooltips(true)
-                .showValues(true);
+          // add the comparison chart to the viewclient.html
+          nv.addGraph(function() {
+            var comparisonChart = nv.models.discreteBarChart()
+              .x(function(d) { return d.label })
+              .y(function(d) { return d.value })
+              .staggerLabels(true)
+              .tooltips(true)
+              .showValues(true);
                 
-              // set all display value to integer
-              comparisonChart.yAxis.tickFormat(d3.format('d'));
-              comparisonChart.valueFormat(d3.format('d'));
-              comparisonChart.forceY([inventureMinScore, inventureMaxScore]);
+            // set all display value to integer
+            comparisonChart.yAxis.tickFormat(d3.format('d'));
+            comparisonChart.valueFormat(d3.format('d'));
+            comparisonChart.forceY([inventureMinScore, inventureMaxScore]);
 
-              d3.select('#inventureBarChart svg')
-                .datum(comparisonData)
-                .transition().duration(1500)
-                .call(comparisonChart);
+            d3.select('#inventureBarChart svg')
+              .datum(comparisonData)
+              .transition().duration(1500)
+              .call(comparisonChart);
 
-              nv.utils.windowResize(comparisonChart.update);
-              return comparisonChart;
-            });
+            nv.utils.windowResize(comparisonChart.update);
+            return comparisonChart;
+          });
 
-            // CHART2 - inventure score chart
-            nv.addGraph(function() {  
-              var bullet = nv.models.bulletChart()
-                .tooltips(false);
+          // CHART2 - inventure score bullet chart control
+          nv.addGraph(function() {  
+            var bullet = nv.models.bulletChart()
+              .tooltips(false);
 
-              d3.select('#inventureBulletChart svg')
-                .datum(scoreData())
-                .transition().duration(1500)
-                .call(bullet);
+            d3.select('#inventureBulletChart svg')
+              .datum(scoreData())
+              .transition().duration(1500)
+              .call(bullet);
 
-              nv.utils.windowResize(bullet.update);
-              return bullet;
-            });
+            nv.utils.windowResize(bullet.update);
+            return bullet;
+          });
 
-            function scoreData() {
-              return {
-                "title": "",
-                "ranges": [(inventureMinScore - 300), (inventureMaxScore - 300)],
-                "measures": [(inventureScore - 300)],
-                "markers": [(inventureScore - 300)]};	
-            }
+          function scoreData() {
+            return {
+              "title": "",
+              "ranges": [(inventureMinScore - 300), (inventureMaxScore - 300)],
+              "measures": [(inventureScore - 300)],
+              "markers": [(inventureScore - 300)]};	
+          }
 
-/*
+          // this will be used to display the score on the viewclient.html
+          scope.inventureScore = inventureScore;
+
+          /*
           http({
             method:'GET',
             url: 'http://smsinventure.org/mifos/api/mifos_test.php'
@@ -303,7 +305,7 @@
           resourceFactory.inventureResource.getClientScore({clientId: routeParams.id} , function(data) {
             scope.inventureOut = data;
           });
-*/
+          */
 
           //console.log("HERE2");
         };
