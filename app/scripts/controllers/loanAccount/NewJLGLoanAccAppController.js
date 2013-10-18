@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        NewJLGLoanAccAppController: function(scope, routeParams, resourceFactory, location) {
+        NewJLGLoanAccAppController: function(scope, routeParams, resourceFactory, location, dateFilter) {
 
             scope.previewRepayment = false;
             scope.groupId = routeParams.groupId;
@@ -120,7 +120,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 
@@ -137,10 +137,14 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
 
+                if (this.formData.submittedOnDate){this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');}
+                if (this.formData.expectedDisbursementDate){this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');}
+                if (this.formData.interestChargedFromDate){this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');}
+                if (this.formData.repaymentsStartingFromDate){this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');}
+
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = 'jlg';
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "27 September 2013";
 
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;
@@ -160,7 +164,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:scope.charges[i].dueDate });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
                   }
                 }
 
@@ -180,15 +184,18 @@
                 this.formData.locale = 'en';
                 this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.loanType = 'jlg';
-                this.formData.expectedDisbursementDate = this.formData.expectedDisbursementDate || "27 September 2013";
-                this.formData.submittedOnDate = this.formData.submittedOnDate || "27 September 2013";
+                if (this.formData.submittedOnDate){this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');}
+                if (this.formData.expectedDisbursementDate){this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');}
+                if (this.formData.interestChargedFromDate){this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');}
+                if (this.formData.repaymentsStartingFromDate){this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');}
 
                 for (var i in scope.clients) {
                   if (scope.clients[i].selected) {
                     scope.isAtleastOneClientSelected =true;
                     this.formData.clientId= scope.clients[i].clientId;
                     this.formData.principal = scope.clients[i].amount;
-                    resourceFactory.loanResource.save(this.formData,function(data){});
+                    resourceFactory.loanResource.save({_:new Date().getTime()},this.formData,function(data){});
+
                   }
                 }
                 
@@ -204,7 +211,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.NewJLGLoanAccAppController]).run(function($log) {
+    mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewJLGLoanAccAppController]).run(function($log) {
         $log.info("NewJLGLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
