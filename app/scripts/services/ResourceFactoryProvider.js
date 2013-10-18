@@ -266,11 +266,7 @@
           }),
           guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId:'@loanId',templateResource:'@templateResource'}, {
             get: {method: 'GET', params: {}}
-          }),          
-          inventureResource: defineResource("smsinventure.org/mifos/api/mifos_test.php", {clientId:'@clientId'}, {
-            getClientScore: {method: 'GET', params: {}}
           })
-
         };
       }];
     }
