@@ -66,28 +66,24 @@
                               },
                               {
                                 name:"button.close",
-                                href:"#/client",
-                                subhref:"close",
                                 icon :"icon-remove-circle"
                               }]
             }
 
-            if (data.status.value == "Pending" || data.status.value == "Active"){
-              if(data.staffId) {
-                scope.buttons.push({
-                  name:"button.unassignstaff",
-                  href:"#/client",
-                  subhref:"unassignstaff?staffId="+data.staffId,
-                  icon :"icon-user"
-                });
-              } else {
-                scope.buttons.push({
-                  name:"button.assignstaff",
-                  href:"#/client",
-                  subhref:"assignstaff",
-                  icon :"icon-user"
-                });
-              }
+            if(data.staffId) {
+              scope.buttons.push({
+                name:"button.unassignstaff",
+                href:"#/client",
+                subhref:"unassignstaff",
+                icon :"icon-user"
+              });
+            } else {
+              scope.buttons.push({
+                name:"button.assignstaff",
+                href:"#/client",
+                subhref:"assignstaff",
+                icon :"icon-user"
+              });
             }
 
           resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {
@@ -117,12 +113,6 @@
               }
           });
         };
-
-        scope.getClientTemplateDocuments = function() {
-          resourceFactory.templateResource.get({entityId : 0, typeId : 0}, function(data) {
-            scope.clientTemplateData = data;
-          })
-        }
 
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
           scope.clientdatatables = data;
@@ -194,8 +184,8 @@
 
         scope.saveNote = function() {   
             resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData , function(data){
-            var today = new Date();
-            temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : today } ;
+            //further we have to make changes of this.
+            temp = { id: data.resourceId , note : scope.formData.note , createdByUsername : "test" , createdOn : "1380183750700" } ;
             scope.clientNotes.push(temp);
             scope.formData.note = "";
             scope.predicate = '-id';
