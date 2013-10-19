@@ -1,8 +1,8 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EditClientController: function(scope, routeParams, resourceFactory, location, http) {
+    EditClientController: function(scope, routeParams, resourceFactory, location, http,dateFilter) {
         scope.offices = [];
-
+        scope.date = {};
         resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'} , function(data) {
             scope.offices = data.officeOptions;
             scope.staffs = data.staffOptions; 
@@ -15,6 +15,11 @@
               accountNo : data.accountNo, 
               staffId : data.staffId
             };
+            var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+            scope.date.activationDate = new Date(actDate);
+            if(data.active){
+                scope.choice = 1;
+            }
 
         });
 
@@ -25,6 +30,7 @@
         scope.submit = function() {
              this.formData.locale = 'en';
              this.formData.dateFormat = 'dd MMMM yyyy';
+             if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
               if (scope.file) {
                 http.uploadFile({
@@ -45,7 +51,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http', mifosX.controllers.EditClientController]).run(function($log) {
+  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', mifosX.controllers.EditClientController]).run(function($log) {
     $log.info("EditClientController initialized");
   });
 }(mifosX.controllers || {}));
