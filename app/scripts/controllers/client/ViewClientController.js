@@ -8,6 +8,7 @@
 
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
+
             if (data.imagePresent) {
               http({
                 method:'GET',
@@ -169,9 +170,10 @@
         };
 
         scope.downloadDocument = function(documentId) {
-
+            resourceFactory.clientDocumentsResource.get({clientId: routeParams.id, documentId: documentId}, '', function(data) {
+                scope.clientdocuments.splice(index,1);
+            });
         };
-
         scope.isNotClosed = function(loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
             loanaccount.status.code === "loanStatusType.rejected") {
@@ -179,7 +181,6 @@
           } else{
              return true;
           }
-           
         };
 
         scope.isClosed = function(loanaccount) {

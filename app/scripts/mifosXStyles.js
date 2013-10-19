@@ -5,9 +5,7 @@ define(['underscore'], function() {
       'bootswatch',
       'font-awesome.min',
       'app',
-      'nv.d3',
-      'jquery-ui/redmond/jquery-ui-1.10.3.custom',
-      'angularjs-file-upload/war/common'
+      'nv.d3'
     ],
     less: [
       'mifosX'
