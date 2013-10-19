@@ -3,6 +3,7 @@
     TransactionClientController: function(scope, resourceFactory, routeParams, location) {
 
         scope.formData = {};
+        scope.clientId = routeParams.id;
         resourceFactory.officeResource.getAllOffices(function(data){
           scope.offices = data;
           scope.formData.destinationOfficeId = scope.offices[0].id;  

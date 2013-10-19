@@ -73,6 +73,36 @@
                               }]
             }
 
+            if (data.status.value == "Transfer in progress") {
+              scope.buttons = [{
+                                name:"button.accept.transfer",
+                                href:"#/client",
+                                subhref:"acceptclienttransfer",
+                                icon :"icon-check-sign"
+                              },
+                              {
+                                name:"button.reject.transfer",
+                                href:"#/client",
+                                subhref:"rejecttransfer",
+                                icon :"icon-remove"
+                              },
+                              {
+                                name:"button.undo.transfer",
+                                href:"#/client",
+                                subhref:"undotransfer",
+                                icon :"icon-undo"
+                              }]
+            }
+
+            if (data.status.value == "Transfer on hold") {
+              scope.buttons = [{
+                                name:"button.undo.transfer",
+                                href:"#/client",
+                                subhref:"undotransfer",
+                                icon :"icon-undo"
+                              }]
+            }
+
             if (data.status.value == "Pending" || data.status.value == "Active"){
               if(data.staffId) {
                 scope.buttons.push({

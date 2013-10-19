@@ -71,10 +71,10 @@
               }
               scope.charges = scope.loanaccountinfo.charges || [];
 
-              scope.formData.submittedOnDate = new Date(scope.loanaccountinfo.timeline.submittedOnDate);
-              scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate);
-              scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate);
-              scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate);
+              if (scope.loanaccountinfo.timeline.submittedOnDate) { scope.formData.submittedOnDate = new Date(scope.loanaccountinfo.timeline.submittedOnDate); }
+              if (scope.loanaccountinfo.timeline.expectedDisbursementDate) { scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate); }
+              if (scope.loanaccountinfo.interestChargedFromDate) { scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate); }
+              if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) { scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate); }
               scope.formData.productId = scope.loanaccountinfo.loanProductId;
               scope.formData.fundId = scope.loanaccountinfo.fundId;
               scope.formData.principal = scope.loanaccountinfo.principal;

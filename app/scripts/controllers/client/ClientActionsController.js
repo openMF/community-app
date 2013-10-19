@@ -45,6 +45,15 @@
             scope.labelName = 'Are you sure?';
             scope.showDeleteClient = true;
           break;
+          case "acceptclienttransfer":
+            scope.showNoteField = true;
+          break;
+          case "rejecttransfer":
+            scope.showNoteField = true;
+          break;
+          case "undotransfer":
+            scope.showNoteField = true;
+          break;
         }
 
         scope.cancel = function() {
@@ -87,7 +96,27 @@
             location.path('/clients');
             });
           }
-
+          if (scope.action == "acceptclienttransfer") {
+            delete this.formData.locale;
+            delete this.formData.dateFormat;
+            resourceFactory.clientResource.save({clientId: routeParams.id, command : 'acceptTransfer'}, this.formData, function(data){
+              location.path('/viewclient/' + data.clientId);
+            });
+          }
+          if (scope.action == "rejecttransfer") {
+            delete this.formData.locale;
+            delete this.formData.dateFormat;
+            resourceFactory.clientResource.save({clientId: routeParams.id, command : 'rejectTransfer'}, this.formData, function(data){
+              location.path('/viewclient/' + data.clientId);
+            });
+          }
+          if (scope.action == "undotransfer") {
+            delete this.formData.locale;
+            delete this.formData.dateFormat;
+            resourceFactory.clientResource.save({clientId: routeParams.id, command : 'withdrawTransfer'}, this.formData, function(data){
+              location.path('/viewclient/' + data.clientId);
+            });
+          }
         };
     }
   });
