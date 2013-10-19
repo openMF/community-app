@@ -55,7 +55,7 @@
             });
           break;
           case "applyAnnualFees":
-            location.path('/savingaccount/' + accountId + '/applyAnnualFees');
+            location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
           break;
           case "transferFunds":
             if (scope.savingaccountdetails.clientId) {
@@ -74,6 +74,7 @@
           if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
               scope.choice = true;
           }
+          scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
           if(scope.savingaccountdetails.charges) {
             scope.charges = scope.savingaccountdetails.charges;
             scope.chargeTableShow = true;
@@ -137,9 +138,6 @@
                                 name:"button.postInterest"
                               },
                               {
-                                name:"button.applyAnnualFees"
-                              },
-                              {
                                 name:"button.transferFunds"
                               },
                               {
@@ -147,6 +145,16 @@
                               }]
                               
                             };
+          if(data.charges) {
+            for (var i in scope.charges) {
+              if(scope.charges[i].name == "Annual fee - INR") {
+                scope.buttons.options.push({
+                                name:"button.applyAnnualFees"
+                              });
+                scope.annualChargeId = scope.charges[i].id;
+              }
+            }
+          }                            
         }
       });
 

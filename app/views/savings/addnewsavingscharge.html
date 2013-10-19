@@ -9,7 +9,7 @@
           <div class="control-group">
             <label class="control-label">{{ 'label.charges' | translate }}</label>
             <div class="controls">
-              <select ng-model="formData.chargeId"  ng-options="charge.id as charge.name for charge in chargeOptions" value="{{charge.id}}"
+              <select ng-model="formData.chargeId"  ng-options="charge.id as charge.name for charge in chargeOptions" value="{{formData.chargeId}}"
                ng-change="chargeSelected(formData.chargeId)">
                 <option style="display:none" value="">{{ 'label.select.charge' | translate }}</option>
               </select>
@@ -43,7 +43,7 @@
             <div class="control-group" ng-show="!withDrawCharge">
               <label class="control-label">{{ 'label.dueon' | translate }}</label>
               <div class="controls">
-                <input type="text" ng-model="feeOnMonthDay">
+                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.feeOnMonthDay" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
               </div>
             </div>
 

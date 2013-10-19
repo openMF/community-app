@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewChargeController: function(scope, routeParams , resourceFactory ) {
+    ViewChargeController: function(scope, routeParams , resourceFactory, location) {
         scope.charge = [];
         scope.choice = 0;
         resourceFactory.chargeResource.get({chargeId: routeParams.id} , function(data) {
@@ -20,7 +20,7 @@
         }
     }
   });
-  mifosX.ng.application.controller('ViewChargeController', ['$scope', '$routeParams','ResourceFactory', mifosX.controllers.ViewChargeController]).run(function($log) {
+  mifosX.ng.application.controller('ViewChargeController', ['$scope', '$routeParams','ResourceFactory', '$location', mifosX.controllers.ViewChargeController]).run(function($log) {
     $log.info("ViewChargeController initialized");
   });
 }(mifosX.controllers || {}));

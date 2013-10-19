@@ -1,7 +1,16 @@
 <form class="form-horizontal well" ng-controller="CreateChargeController" ng-submit="submit()">
     <fieldset>
-        <legend>{{'label.createcharge' | translate}}</legend>
         <div class="control-group">
+            <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
+            <div class="controls">
+                <select ng-model="formData.chargeAppliesTo"  ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-change="chargeAppliesToSelected(formData.chargeAppliesTo)">
+                  <option value="">{{'label.select.one' | translate}}</option>
+                </select>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <div class="control-group">
             <label class="control-label" for="name">{{'label.name' | translate}}</label>
             <div class="controls">
                 <input type="text" id="name" ng-model="formData.name">
@@ -10,40 +19,32 @@
         <div class="control-group">
             <label class="control-label">{{'label.currency' | translate}}</label>
             <div class="controls">
-                <select ng-model="formData.currencyCode">
-                    <option ng-repeat="currency in template.currencyOptions" value="{{currency.code}}">{{currency.name}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargeAppliesTo">
-                    <option ng-repeat="chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}">{{chargesapply.value}}</option>
+                <select ng-model="formData.currencyCode"  ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
+                  <option value="">{{'label.select.currency' | translate}}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label">{{'label.chargetimetype' | translate}}</label>
             <div class="controls">
-                <select ng-model="formData.chargeTimeType">
-                    <option ng-repeat="timetype in template.chargeTimeTypeOptions" value="{{timetype.id}}">{{timetype.value}}</option>
+                <select ng-model="formData.chargeTimeType"  ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions" value="{{timetype.id}}">
+                  <option value="">{{'label.select.one' | translate}}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label">{{'label.chargecalculation' | translate}}</label>
             <div class="controls">
-                <select ng-model="formData.chargeCalculationType">
-                    <option ng-repeat="chargecalculation in template.chargeCalculationTypeOptions" value="{{chargecalculation.id}}">{{chargecalculation.value}}</option>
+                <select ng-model="formData.chargeCalculationType"  ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in chargeCalculationTypeOptions" value="{{chargecalculation.id}}">
+                  <option value="">{{'label.select.one' | translate}}</option>
                 </select>
             </div>
         </div>
-        <div class="control-group">
+        <div class="control-group" ng-show="showChargePaymentByField">
             <label class="control-label">{{'label.chargepaymentby' | translate}}</label>
             <div class="controls">
-                <select ng-model="formData.chargePaymentMode">
-                    <option ng-repeat="chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">{{chargepayment.value}}</option>
+                <select ng-model="formData.chargePaymentMode"  ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">
+                  <option value="">{{'label.select.one' | translate}}</option>
                 </select>
             </div>
         </div>
@@ -57,7 +58,7 @@
             <label class="control-label" for="active">{{'label.active' | translate}}</label>
             <div class="controls">
                 <label class="checkbox">
-                    <input id="active" type="checkbox" ng-model="formData.active" ng-true-value="true" ng-false-value="false">
+                    <input id="active" type="checkbox" ng-model="formData.active" data-ng-click="setChoice()">
                 </label>
             </div>
         </div>

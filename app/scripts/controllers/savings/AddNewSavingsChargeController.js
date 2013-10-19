@@ -1,8 +1,8 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    AddNewSavingsChargeController: function(scope, resourceFactory, location, routeParams) {
+    AddNewSavingsChargeController: function(scope, resourceFactory, location, routeParams, dateFilter) {
         scope.offices = [];
-        resourceFactory.savingsResource.get({accountId : routeParams.id, resourceType : 'charges', template : 'template'}, function(data) {
+        resourceFactory.savingsChargeResource.get({accountId : routeParams.id, resourceType : 'template'}, function(data) {
             scope.chargeOptions = data.chargeOptions;
         });
 
@@ -23,7 +23,8 @@
           if(scope.withDrawCharge == true) {
             delete this.formData.feeOnMonthDay;
           } else {
-            this.formData.feeOnMonthDay = scope.feeOnMonthDay == undefined ? "" : scope.feeOnMonthDay;
+            this.formData.monthDayFormat = "dd MMM";
+            if (this.formData.feeOnMonthDay) this.formData.feeOnMonthDay = dateFilter(this.formData.feeOnMonthDay,'dd MMMM');
           }
           resourceFactory.savingsChargeResource.save({accountId : routeParams.id}, this.formData, function(data) {
             location.path('/viewsavingaccount/'+routeParams.id);
@@ -31,7 +32,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('AddNewSavingsChargeController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.AddNewSavingsChargeController]).run(function($log) {
+  mifosX.ng.application.controller('AddNewSavingsChargeController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.AddNewSavingsChargeController]).run(function($log) {
     $log.info("AddNewSavingsChargeController initialized");
   });
 }(mifosX.controllers || {}));

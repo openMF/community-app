@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    CreateSavingAccountController: function(scope, resourceFactory, location, routeParams) {
+    CreateSavingAccountController: function(scope, resourceFactory, location, routeParams, dateFilter) {
         scope.products = [];
         scope.fieldOfficers = [];
         scope.formData = {};
@@ -61,6 +61,7 @@
         }
 
         scope.submit = function() {
+          this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,'dd MMMM yyyy');
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";
@@ -87,7 +88,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.CreateSavingAccountController]).run(function($log) {
+  mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function($log) {
     $log.info("CreateSavingAccountController initialized");
   });
 }(mifosX.controllers || {}));

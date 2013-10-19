@@ -75,6 +75,15 @@
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.loandetails = data;
           scope.status = data.status.value;
+          scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
+
+          if(scope.loandetails.charges) {
+            scope.charges = scope.loandetails.charges;
+            scope.chargeTableShow = true;
+          } else {
+            scope.chargeTableShow = false;
+          }
+          
           scope.$broadcast('LoanAccountDataLoadingCompleteEvent');
           if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
               scope.choice = true;

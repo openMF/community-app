@@ -1,103 +1,109 @@
+<div  ng-controller="SavingAccountActionsController" >
   <div class="paddedbottom10">
     <ul class="breadcrumb">
       <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.view.saving.account' | translate}}</a> <span class="divider">/</span></li>
       <li class="active">{{action}}</li>
     </ul>
   </div>
-<form class="form-horizontal" ng-controller="SavingAccountActionsController" ng-submit="submit()">
-  <fieldset>
-    <legend>{{ title | translate}}</legend>
+  <form class="form-horizontal" ng-submit="submit()">
+    <fieldset>
+      <legend>{{ title | translate}}</legend>
 
-    <div class="control-group" ng-show="showDateField">
-      <label class="control-label" for="modelName">{{labelName | translate}}</label>
-      <div class="controls">
-        <input type="text" ng-model="formData[modelName]">
-      </div>
-    </div>
-
-    <div ng-show="isTransaction">
-      <div class="control-group">
-        <label class="control-label" for="transactionAmount">{{ 'label.saving.account.transactionAmount' | translate}}</label>
+      <div class="control-group" ng-show="showDateField">
+        <label class="control-label" for="modelName">{{labelName | translate}}</label>
         <div class="controls">
-          <input type="text" ng-model="formData.transactionAmount">
+          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="paymentTypeId">{{ 'label.saving.account.paymentTypeId' | translate}}</label>
+
+      <div ng-show="isTransaction">
+        <div class="control-group">
+          <label class="control-label" for="transactionAmount">{{ 'label.saving.account.transactionAmount' | translate}}</label>
+          <div class="controls">
+            <input type="text" ng-model="formData.transactionAmount">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="paymentTypeId">{{ 'label.saving.account.paymentTypeId' | translate}}</label>
+          <div class="controls">
+            <select ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"></select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">{{ 'label.saving.account.show.payment.details' | translate}}</label>
+          <div class="controls">
+            <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
+              <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
+              <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
+            </a>
+          </div>
+        </div>
+        <div collapse="!showPaymentDetails">
+          <div class="control-group">
+            <label class="control-label" for="accountNumber">{{ 'label.saving.account.accountNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.accountNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="checkNumber">{{ 'label.saving.account.checkNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.checkNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="routingCode">{{ 'label.saving.account.routingCode' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.routingCode">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="receiptNumber">{{ 'label.saving.account.receiptNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.receiptNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="bankNumber">{{ 'label.saving.account.bankNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.bankNumber">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="control-group" ng-show="showAnnualAmountField">
+        <label class="control-label">{{ 'label.amount' | translate}}</label>
         <div class="controls">
-          <select ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"></select>
+          <input type="text" ng-model="formData.amount">
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label">{{ 'label.saving.account.show.payment.details' | translate}}</label>
+      <div class="control-group" ng-show="showNoteField">
+        <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
         <div class="controls">
-          <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
-            <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
-            <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
-          </a>
+          <textarea rows="2" ng-model="formData.note"></textarea>
         </div>
       </div>
-      <div collapse="!showPaymentDetails">
-        <div class="control-group">
-          <label class="control-label" for="accountNumber">{{ 'label.saving.account.accountNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.accountNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="checkNumber">{{ 'label.saving.account.checkNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.checkNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="routingCode">{{ 'label.saving.account.routingCode' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.routingCode">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="receiptNumber">{{ 'label.saving.account.receiptNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.receiptNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="bankNumber">{{ 'label.saving.account.bankNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.bankNumber">
-          </div>
+      
+      <div class="control-group" ng-show="showAmountField">
+        <label class="control-label">{{ labelName | translate}}</label>
+        <div class="controls">
+          <input type="text" ng-model="formData.amount">
         </div>
       </div>
-    </div>
 
-    <div class="control-group" ng-show="showNoteField">
-      <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
-      <div class="controls">
-        <textarea rows="2" ng-model="formData.note"></textarea>
+      <div class="control-group" ng-show="showDelete">
+        <label class="control-label">Are you sure?</label>
       </div>
-    </div>
-    
-    <div class="control-group" ng-show="showAmountField">
-      <label class="control-label">{{ labelName | translate}}</label>
-      <div class="controls">
-        <input type="text" ng-model="formData.amount">
+      <div class="offset3" ng-show="showDelete">
+        <button type="reset" ng-click="submit()" class="btn">Confirm</button>
+        <button type="submit" ng-click="cancel()"class="btn btn-primary">cancel</button>
       </div>
-    </div>
 
-    <div class="control-group" ng-show="showDelete">
-      <label class="control-label">Are you sure?</label>
-    </div>
-    {{}}
-    <div class="offset3" ng-show="showDelete">
-      <button type="reset" ng-click="submit()" class="btn">Confirm</button>
-      <button type="submit" ng-click="cancel()"class="btn btn-primary">cancel</button>
-    </div>
+      <div class="offset3" ng-hide="showDelete">
+        <button type="reset" class="btn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
 
-    <div class="offset3" ng-hide="showDelete">
-      <button type="reset" class="btn">Cancel</button>
-      <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-
-  </fieldset>
-</form>
+    </fieldset>
+  </form>
+</div>

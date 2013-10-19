@@ -8,7 +8,6 @@
               isLoanOfficer: true, 
               officeId : scope.offices[0].id,
             };
-            scope.test = "<p>Hello</p>"
         });
         
         scope.submit = function() {   

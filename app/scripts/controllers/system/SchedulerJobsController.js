@@ -32,9 +32,17 @@
       }
 
       scope.runSelectedJobs = function() {
+        scope.sentForExecution = [];
+        for(var i in jobIdArray) {
+          for(var j in scope.jobs) {
+            if(scope.jobs[j].jobId == jobIdArray[i]) {
+              scope.sentForExecution.push(scope.jobs[j].displayName);
+            }
+          }
+        }
+
         for(var i in jobIdArray) {
           resourceFactory.jobsResource.save({jobId: jobIdArray[i], command : 'executeJob'}, {}, function(data){
-            scope.holidays = data;
           });
         }
       }
