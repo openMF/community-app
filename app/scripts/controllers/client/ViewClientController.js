@@ -242,6 +242,96 @@
         scope.downloadClientIdentifierDocument=function (identifierId, documentId){
           console.log(identifierId,documentId);
         };
+
+		// *********************** InVenture controller ***********************
+        scope.fetchInventureScore = function(){
+          // dummy data for the graph - DEBUG purpose
+          var inventureScore = getRandomInt(450,800);
+          var natAverage = getRandomInt(450,800);
+          var industryAverage = getRandomInt(450,800);
+          var inventureMinScore = 300;
+          var inventureMaxScore = 850;
+
+          // dummy data for inventure loan recommendation - DEBUG purpose
+          scope.inventureAgricultureLimit = '21,000';
+          scope.inventureFishermenLimit = '27,500';
+          scope.inventureHousingLimit = '385,000';
+          scope.inventureBusinessLimit = '10,000';
+
+          // this part is used to generate data to see the look of the graph
+          function getRandomInt (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+          }
+
+          // CHART1 - comparison chart control
+          var comparisonData = [
+            {
+              key: "Score Comparison",
+                values: [
+                  { 
+                    "label" : "National Average",
+                    "value" : (natAverage)
+                  }, 
+                  { 
+                    "label" : "Agriculture Average", 
+                    "value" : (industryAverage)
+                  }, 
+                  { 
+                    "label" : "This Client", 
+                    "value" : (inventureScore)
+                  }
+                ]
+              }
+            ];
+
+          // add the comparison chart to the viewclient.html
+          nv.addGraph(function() {
+            var comparisonChart = nv.models.discreteBarChart()
+              .x(function(d) { return d.label })
+              .y(function(d) { return d.value })
+              .staggerLabels(true)
+              .tooltips(true)
+              .showValues(true);
+                
+            // set all display value to integer
+            comparisonChart.yAxis.tickFormat(d3.format('d'));
+            comparisonChart.valueFormat(d3.format('d'));
+            comparisonChart.forceY([inventureMinScore, inventureMaxScore]);
+
+            d3.select('#inventureBarChart svg')
+              .datum(comparisonData)
+              .transition().duration(1500)
+              .call(comparisonChart);
+
+            nv.utils.windowResize(comparisonChart.update);
+            return comparisonChart;
+          });
+
+          // CHART2 - inventure score bullet chart control
+          nv.addGraph(function() {  
+            var bullet = nv.models.bulletChart()
+              .tooltips(false);
+
+            d3.select('#inventureBulletChart svg')
+              .datum(scoreData())
+              .transition().duration(1500)
+              .call(bullet);
+
+            nv.utils.windowResize(bullet.update);
+            return bullet;
+          });
+
+          function scoreData() {
+            return {
+              "title": "",
+              "ranges": [(inventureMinScore - 300), (inventureMaxScore - 300)],
+              "measures": [(inventureScore - 300)],
+              "markers": [(inventureScore - 300)]};	
+          }
+
+          // this will be used to display the score on the viewclient.html
+          scope.inventureScore = inventureScore;
+        };
     }
   });
   mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', mifosX.controllers.ViewClientController]).run(function($log) {

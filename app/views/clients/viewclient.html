@@ -289,6 +289,110 @@
           </table>
         </div>
       </tab>
+
+      <!-- ************************ start of InVenture code ************************ -->
+      <tab class="inventureTabTitle" heading="InVenture Score" select="fetchInventureScore()">
+
+        <!-- chart1 - comparison chart -->
+        <div class="span6 paddedleft0 paddedtop">
+          <div class="inventureMainBorder">
+            <div class="inventureCategoryTitle">
+              <strong class="ng-binding">Score Comparison</strong>
+            </div>
+
+            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
+              <a tooltip="The graph below compares an individual's data to averages in his/her key peer groups such as locale and industry."><img src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px" width="18px"></img></a>
+            </div>
+
+            <div id="inventureBarChart" style="margin: 20px -15px -15px; height:417px;">
+              <svg></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- chart2 - inventure score chart -->
+        <div class="span5 paddedtop" style="width:440px;">
+          <div class="inventureMainBorder" style="height:175px;">
+            <div class="inventureCategoryTitle">
+              <strong class="ng-binding">InVenture Score</strong>
+            </div>
+
+            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
+              <a tooltip=" InVenture calculates a person's overall risk using a combination of demographic, financial, and credit data to calculate a score ranging from 300 - 850."><img src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px" width="18px"></img></a>
+            </div>
+
+            <div id="score" style="margin: 30px 0 -15px;">
+              <p style="text-align: center; font-size: 25px;">InVenture Score: <strong>{{inventureScore}}</strong></p>
+            </div>
+
+            <div id="inventureBulletChart" style="margin: 25px 0px -25px -90px; width:500px; height:35px;">
+              <svg></svg>
+            </div>
+
+            <div id="inventureBulletChartLegend" style="margin: 30px 0px 0px -10px;">
+              <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+                <tbody>
+                  <tr>
+                    <td class="inventureBulletLegendCell">300-450<br><strong>Bad</strong></td>
+                    <td class="inventureBulletLegendCell">451-550<br><strong>Fair</strong></td>
+                    <td class="inventureBulletLegendCell">551-700<br><strong>Good</strong></td>
+                    <td class="inventureBulletLegendCell">701-850<br><strong>Excellent</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- chart3 - inventure loan recommendation -->
+        <div class="span5" style="padding-top:20px; width:440px;">
+          <div class="inventureMainBorder" style="height:210px;">
+            <div class="inventureCategoryTitle">
+              <strong class="ng-binding">InVenture Loan Recommendation</strong>
+            </div>
+
+            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
+              <a tooltip="InVenture uses all relevant data  to recommend a maximum credit amount & protect against over indebtedness."><img src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px" width="18px"></img></a>
+            </div>
+
+            <div id="inventureRecommendation" style="margin: 35px 0px 0px 0px;">
+              <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
+                <tr>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">Loan Type</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">Credit Limit &#8377; (Rs)</td>
+                </tr>
+                <tr class="inventureTableTopBorder">
+                  <td class="inventureRecommendationCellType">Agriculture</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureAgricultureLimit}}</td>
+                </tr>
+                <tr>
+                  <td class="inventureRecommendationCellType">Fishermen</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureFishermenLimit}}</td>
+                </tr>
+                <tr>
+                  <td class="inventureRecommendationCellType">Housing</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureHousingLimit}}</td>
+                </tr>
+                <tr>
+                  <td class="inventureRecommendationCellType">Business</td>
+                  <td class="inventureRecommendationCellLeftGap"></td>
+                  <td class="inventureRecommendationCellRightGap"></td>
+                  <td class="inventureRecommendationCellAmount">{{inventureBusinessLimit}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <!-- ************************ end of InVenture code ************************ -->
     </tabset>
     </div>
   </div>
