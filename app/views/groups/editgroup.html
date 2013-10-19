@@ -22,11 +22,13 @@
                         <input type="text" id="externalid"  ng-model="formData.externalId">
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label">{{'label.form.activationdate' | translate}}</label>
-                    <div class="controls">
-                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
-                    </div>
+                <div ng-hide="editGroup.status.value == 'Pending'">
+                    <div class="control-group">
+                        <label class="control-label">{{'label.form.activationdate' | translate}}</label>
+                        <div class="controls">
+                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                        </div>
+                    </div>                    
                 </div>
                 <div class="offset">
                     <a href="#/viewgroup/{{editGroup.id}}" class="btn">{{'label.cancel' | translate}}</a>
