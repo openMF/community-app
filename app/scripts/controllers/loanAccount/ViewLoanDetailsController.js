@@ -66,6 +66,10 @@
           break;
           case "guarantor":
             location.path('/guarantor/' + accountId);
+          break;
+          case "unassignloanofficer":
+            location.path('/loanaccount/' + accountId + '/unassignloanofficer');
+          break;
         }
       };
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
@@ -232,6 +236,10 @@
       };
 
       scope.downloadDocument = function(documentId) {
+
+      };
+
+      scope.unassignLoanOfficer = function () {
 
       };
 

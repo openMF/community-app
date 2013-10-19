@@ -98,6 +98,13 @@
             scope.title = 'label.close.loan.account';
             scope.labelName = 'label.loan.account.closedOnDate';
           break;
+          case "unassignloanofficer":
+            scope.title = 'label.unassignloanofficer';
+            scope.labelName = 'label.loan.offiecer.unassigneddate';
+            scope.modelName = 'unassignedDate';
+            scope.showNoteField = false;
+            scope.formData[scope.modelName] = new Date();
+          break;
           case "modifytransaction":
           break;
         }

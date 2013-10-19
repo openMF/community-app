@@ -18,6 +18,8 @@
                         "clientStatusType.active":"statusactive",
                         "clientStatusType.submitted.and.pending.approval":"statuspending",
                         "clientStatusTYpe.approved":"statusApproved",
+                        "clientStatusType.transfer.in.progress":"statustransferprogress",
+                        "clientStatusType.transfer.on.hold":"statustransferonhold",
                         "groupingStatusType.active":"statusactive",
                         "groupingStatusType.pending":"statuspending",
                         "groupingStatusType.submitted.and.pending.approval":"statuspending",
