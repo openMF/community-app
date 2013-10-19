@@ -248,10 +248,6 @@
 
       };
 
-      scope.unassignLoanOfficer = function () {
-
-      };
-
     }
   });
   mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {

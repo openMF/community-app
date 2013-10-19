@@ -6,7 +6,6 @@
             scope.data = {};
             scope.choice = 0;
             scope.first = {};
-            scope.first.date = new Date();
             resourceFactory.groupTemplateResource.get(function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
