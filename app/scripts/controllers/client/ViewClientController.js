@@ -242,7 +242,7 @@
                     "value" : (natAverage)
                   }, 
                   { 
-                    "label" : "Industry Average", 
+                    "label" : "Agriculture Average", 
                     "value" : (industryAverage)
                   }, 
                   { 
