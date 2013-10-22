@@ -1,6 +1,6 @@
 # prototype-app
 
-Repository for putting prototype work from Thoughtworks HSP around building single page web app
+Repository for putting prototype work from Thoughtworks HSP around building single page web app for Mifos X.
 
 ## Overview Video
 To get a good overview of the code layout, and recommendations going ahead on the Angular.js Prototype application, please watch this video recording of a session taken by Silvio from ThoughtWorks:
@@ -18,16 +18,18 @@ To get a good overview of the code layout, and recommendations going ahead on th
 
 2. Clone this respository to your local filesystem
 
-3. To download the dependencies, first install bower:
+3. To download the dependencies, and be able to build, first install bower & grunt:
 
 ```
 npm install -g bower
+npm install -g grunt-cli
 ```
 
-4. Next run a clean install on the project root folder:
+4. Next pull the runtime and build time dependencies by running bower and npm install on the project root folder:
 
 ```
 bower install
+npm install
 ```
 
 Done.
@@ -44,6 +46,8 @@ bower search <package>
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.
+
+
 
 ## Background
 
