@@ -23,26 +23,34 @@
 			    </div>
     		</tab>
 		    <tab heading="Loan Approval">
-		    	<div> 
-			        <table class="table condensed-table">
-			        <thead>
-			            <tr class="graybg">
-			                <th>Client Name</th>
-			                <th>Loan Acctno#</th>
-			                <th>Loan Product</th>
-			                <th>Principal</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <tr ng-repeat="loan in loans | filter : {status.pendingApproval :'true' }">
-							<td><a href=''>{{loan.clientName}}<a></td>
-			                <td><a href=''>{{loan.accountNo}}</a></td>
-			                <td>{{loan.loanProductName}}</td>
-			                <td>{{loan.principal}}</td>
-			            </tr>
-			        </tbody>
-			        </table>
-			    </div>
+				<table ng-repeat="office in offices" class="table condensed-table">
+					<tr ng-show="office.loans.length > 0"><td><strong>{{office.name}}</strong></td></tr>
+					<tr ng-show="office.loans.length > 0">
+						<td>
+							<table class="table condensed-table">
+								<thead>
+									<tr class="graybg">
+										<th>Client Name</th>
+										<th>Loan</th>
+										<th>Amount</th>
+										<th>Loan Purpose</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="loan in office.loans">
+										<td><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}<a></td>
+										<td><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a></td>
+										<td>{{loan.principal}}</td>
+										<td>{{loan.loanPurposeName}}</td>
+										<td><input type="checkbox" ng-model="loanTemplate[loan.id]"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<a class="btn btn-primary" ng-click="bulkApproval()">Approve</a>
 		    </tab>
 		    <tab heading="Loan Disbursal">
 		    	<div> 
