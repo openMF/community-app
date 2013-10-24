@@ -68,6 +68,8 @@
             scope.staffs = '';
             scope.staff = '';
             scope.group = '';
+            scope.center = '';
+            scope.client = '';
             scope.groupsOrCenters = '';
             scope.isCollapsed = true;
             scope.officerCollapsed = false;
@@ -98,7 +100,7 @@
             scope.office = '';
             scope.group = '';
             scope.client = ''
-            scope.staff = '';
+            scope.center = '';
             scope.loanOfficer = staffName;
             scope.selectedStaff = staffId;
             resourceFactory.runReportsResource.get({reportSource : 'GroupNamesByStaff', 'R_staffId' : staffId, genericResultSet : 'false'}, function(data){
@@ -140,8 +142,7 @@
             scope.office = '';
             scope.staff = '';
             scope.center = '';
-            scope.clients = '';
-            scope.group = '';
+            scope.client = '';
             scope.clientName = '';
         };
         scope.clientSelected= function(clientId,clientName) {
