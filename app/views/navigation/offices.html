@@ -1,35 +1,245 @@
 <div class="row alert-block span" ng-controller="NavigationController">
-    <div class="row">
-        <div class="span4 paddedleft">
-            <span><strong>Offices&nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextOffice" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
-            <table>
-                <tr ng-repeat="office in offices  | filter:filterTextOffice" ng-class="{graybg: office.id == selectedOffice}">
-                    <td><a ng-click="officeSelected(office.id)" >{{office.name}}</a></td>
-                </tr>
-            </table>
+    <input ng-model="filterText" type="text" class="span marginbottom3px" placeholder="{{'label.filterbyname' | translate}}">
+    <div class="span4">
+        <div>
+            <div class="collapse-header-main">
+                <strong>Offices&nbsp;&nbsp;({{officeName}})</strong>
+                <a class="collapse-button" ng-click="collapseOthers()"><i class="icon-chevron-up"  data-ng-show="!isCollapsed"></i><i class="icon-chevron-down"  data-ng-show="isCollapsed"></i></a>
+            </div>
+            <br/>
+            <div collapse="isCollapsed">
+                <table class="table table-striped">
+                    <tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selectedOffice}">
+                        <td><a ng-click="officeSelected(office.id,office.name)" >{{office.name}}</a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="span4 paddedleft">
-            <span><strong>Loan Officers&nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextStaff" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
-            <table>
-                <tr ng-repeat="staff in staffs  | filter:filterTextStaff" ng-class="{graybg: staff.id == selectedStaff}">
-                    <td><a ng-click="staffSelected(staff.id)" >{{staff.displayName}}</a></td>
-                </tr>
-            </table>
+        <div>
+            <div class="collapse-header">
+                <strong>Loan Officers<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong>
+                <a class="collapse-button" ng-click="collapseOfficerOthers()"><i class="icon-chevron-up"  data-ng-show="!officerCollapsed"></i><i class="icon-chevron-down"  data-ng-show="officerCollapsed"></i></a>
+            </div>
+            <br/>
+            <div collapse="officerCollapsed">
+                <table class="table table-striped">
+                    <tr ng-repeat="staff in staffs  | filter:filterText" ng-class="{graybg: staff.id == selectedStaff}">
+                        <td><a ng-click="staffSelected(staff.id,staff.displayName)" >{{staff.displayName}}</a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="span4 paddedleft">
-            <span><strong>Groups / Centers &nbsp;&nbsp;&nbsp;</strong><input ng-model="filterTextGroup" type="text" class="form-control input-small" placeholder="Filter by name"></span><br/>
-            <table>
-                <tr ng-repeat="groupsOrCenter in groupsOrCenters  | filter:filterTextGroup">
-                    <td>
-                        <div ng-show="groupsOrCenter.isCenter==1">
-                            <a href="#/viewcenter/{{groupsOrCenter.id}}">{{groupsOrCenter.name}}</a>
-                        </div>
-                        <div ng-show="groupsOrCenter.isCenter==2">
-                            <a href="#/viewgroup/{{groupsOrCenter.id}}">{{groupsOrCenter.name}}</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+        <div>
+            <div class="collapse-header">
+                <strong>Centers<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong>
+                <a class="collapse-button" ng-click="collapseCenterOthers()"><i class="icon-chevron-up"  data-ng-show="!centerCollapsed"></i><i class="icon-chevron-down"  data-ng-show="centerCollapsed"></i></a>
+            </div>
+            <br/>
+            <div collapse="centerCollapsed">
+                <table class="table table-striped">
+                    <tr ng-repeat="center in centers  | filter:filterText">
+                        <td><a ng-click="centerSelected(center.id,center.name)" >{{center.name}}</a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
+        <div>
+            <div class="collapse-header">
+                <strong>Groups<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong>
+                <a class="collapse-button" ng-click="collapseGroupOthers()"><i class="icon-chevron-up"  data-ng-show="!groupCollapsed"></i><i class="icon-chevron-down"  data-ng-show="groupCollapsed"></i></a>
+            </div>
+            <br/>
+            <div collapse="groupCollapsed">
+                <table class="table table-striped">
+                    <tr ng-repeat="group in groups  | filter:filterText">
+                        <td><a ng-click="groupSelected(group.id,group.name)" >{{group.name}}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="collapse-header">
+                <strong>Clients<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong>
+                <a class="collapse-button" ng-click="collapseclientOthers()"><i class="icon-chevron-up"  data-ng-show="!clientCollapsed"></i><i class="icon-chevron-down"  data-ng-show="clientCollapsed"></i></a>
+            </div>
+            <br/>
+            <div collapse="clientCollapsed">
+                <table class="table table-striped">
+                    <tr ng-repeat="client in clients  | filter:filterText">
+                        <td><a ng-click="clientSelected(client.id,client.displayName)" >{{client.displayName}}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <ul class="breadcrumb btn-silver nav-header">
+            <li>
+                <i class="icon-user icon-2x"  data-ng-show="client"></i>
+                <i class="icon-user icon-2x"  data-ng-show="staff"></i>
+                <i class="icon-group icon-2x" data-ng-show="group"></i>
+                <i class="icon-map-marker icon-2x" data-ng-show="center"></i>
+                <i class="icon-building icon-2x" data-ng-show="office"></i>
+            </li>
+            <li>
+                <h3 data-ng-show="office">
+                    &nbsp;
+                    {{officeName}}
+                </h3>
+                <h3 data-ng-show="client">
+                    &nbsp;
+                    {{clientName}}
+                    &nbsp;
+                    <i class="icon-circle {{client.status.code | StatusLookup}}"></i>
+                    &nbsp;
+                </h3>
+                <h3 data-ng-show="staff">
+                    &nbsp;
+                    {{loanOfficer}}
+                </h3>
+                <h3 data-ng-show="center">
+                    &nbsp;
+                    {{centerName}}
+                    &nbsp;
+                    <i class="icon-circle {{center.status.value | StatusLookup}}"></i>
+                    &nbsp;
+                </h3>
+                <h3 data-ng-show="group">
+                    &nbsp;
+                    {{groupName}}
+                    &nbsp;
+                    <i class="icon-circle {{group.status.value | StatusLookup}}"></i>
+                    &nbsp;
+                </h3>
+
+            </li>
+            <li data-ng-show="office"><span class="divider">|</span>
+                <i class="icon-barcode"></i>
+                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{office.id}}&nbsp;</small>
+            </li>
+            <li data-ng-show="staff"><span class="divider">|</span>
+                <i class="icon-barcode"></i>
+                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{staff.id}}&nbsp;</small>
+            </li>
+            <li data-ng-show="center"><span class="divider">|</span>
+                <i class="icon-barcode"></i>
+                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{center.id}}&nbsp;</small>
+            </li>
+            <li data-ng-show="group"><span class="divider">|</span>
+                <i class="icon-barcode"></i>
+                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{group.id}}&nbsp;</small>
+            </li>
+            <li data-ng-show="client"><span class="divider">|</span>
+                <i class="icon-barcode"></i>
+                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{client.id}}&nbsp;</small>
+            </li>
+        </ul>
+        <ul class="nav-info">
+            <li data-ng-show="office">
+                <table class="table table-striped" style="width:500px;">
+                    <tr data-ng-show="office.parentName">
+                        <td width="20%">{{ 'label.office.parentoffice' | translate }}</td>
+                        <td width="70%">{{office.parentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.office.openedon' | translate }}</td>
+                        <td>{{office.openingDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.office.externalid' | translate }}</td>
+                        <td>{{office.externalId}}</td>
+                    </tr>
+                </table>
+            </li>
+            <li data-ng-show="staff">
+                <table class="table table-striped">
+                    <tr data-ng-show="office.parentName">
+                        <td width="20%">{{ 'label.office.parentoffice' | translate }}</td>
+                        <td width="70%">{{office.parentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.office' | translate }}</td>
+                        <td>{{staff.officeName}}</td>
+                    </tr>
+                </table>
+            </li>
+            <li data-ng-show="center">
+                <table class="table table-striped">
+                    <tr data-ng-show="center.activationDate">
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{center.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="center.staffName">
+                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{center.staffName}}</td>
+                    </tr>
+                    <tr data-ng-show="center.collectionMeetingCalendar.nextTenRecurringDates[0]">
+                        <td>{{ 'label.nextmeetingon' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
+                        <td>{{ 'label.meetingfrequency' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+            </li>
+            <li data-ng-show="group">
+                <table class="table table-striped">
+                    <tr data-ng-show="group.activationDate">
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{group.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="group.staffName">
+                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{group.staffName}}</td>
+                    </tr>
+                    <tr data-ng-show="group.collectionMeetingCalendar.nextTenRecurringDates[0]">
+                        <td>{{ 'label.nextmeetingon' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+                        <td>{{ 'label.meetingfrequency' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+            </li>
+            <li data-ng-show="client">
+                <table class="table table-striped">
+                    <tr data-ng-show="client.firstname">
+                        <td width="35%">{{'label.firstname' | translate}}</td>
+                        <td width="65%">{{client.firstname}}</td>
+                    </tr>
+                    <tr data-ng-show="client.lastname">
+                        <td>{{'label.lastname' | translate}}</td>
+                        <td>{{client.lastname}}</td>
+                    </tr>
+                    <tr data-ng-show="client.accountNo">
+                        <td>{{ 'label.accountno' | translate }}</td>
+                        <td>{{client.accountNo}}</td>
+                    </tr>
+                    <tr data-ng-show="client.activationDate">
+                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td valign="top">{{client.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="client.officeName">
+                        <td>{{ 'label.officename' | translate }}</td>
+                        <td>{{client.officeName}}</td>
+                    </tr>
+                    <tr data-ng-show="client.staffName">
+                        <td>{{ 'label.loanofficer' | translate }}</td>
+                        <td>{{client.staffName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.memberof' | translate }}</td>
+                        <td>
+                            <span ng-repeat="group in client.groups" >{{group.name}}|&nbsp;</span>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+        <a data-ng-show="group" href="#/viewgroup/{{group.id}}"><i class="icon-align-justify"></i>Additional Information</a>
+        <a data-ng-show="center" href="#/viewcenter/{{center.id}}"><i class="icon-align-justify"></i>Additional Information</a>
+        <a data-ng-show="client" href="#/viewclient/{{client.id}}"><i class="icon-align-justify"></i>Additional Information</a>
     </div>
 </div>
