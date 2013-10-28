@@ -38,6 +38,9 @@
         var root = [];
         for(var i = 0; i < data.length; i++) {
           var currentObj = data[i];
+          if(currentObj.children){
+              currentObj.collapsed = "true";
+          }
           if(typeof currentObj.parentId === "undefined") {
                 root.push(currentObj);        
           } else {
