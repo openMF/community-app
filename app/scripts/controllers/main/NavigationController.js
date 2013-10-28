@@ -76,92 +76,101 @@
             scope.centerCollapsed = true;
             scope.clientCollapsed = true;
             scope.groupCollapsed = true;
-            resourceFactory.officeResource.get({officeId: officeId} , function(data) {
-                scope.office = data;
-            });
-          resourceFactory.employeeResource.getAllEmployees({'officeId' : officeId}, function(data){
-            scope.staffs = data;
-          });
             scope.loanOfficer = '';
             scope.centerName = '';
             scope.groupName = '';
             scope.clientName = '';
+            if(scope.staff=='' && scope.group=='' && scope.center=='' && scope.client==''){
+                resourceFactory.officeResource.get({officeId: officeId} , function(data) {
+                    scope.office = data;
+                });
+                resourceFactory.employeeResource.getAllEmployees({'officeId' : officeId}, function(data){
+                    scope.staffs = data;
+                });
+            }
         };
 
         scope.staffSelected= function(staffId,staffName) {
+            scope.office = '';
+            scope.group = '';
+            scope.client = ''
+            scope.center = '';
+            scope.centerName = '';
+            scope.groupName = '';
+            scope.clientName = '';
             scope.isCollapsed = true;
             scope.officerCollapsed = true;
             scope.centerCollapsed = false;
             scope.clientCollapsed = true;
             scope.groupCollapsed = true;
-            resourceFactory.employeeResource.get({staffId: staffId} , function(data) {
-                scope.staff = data;
-            });
-            scope.office = '';
-            scope.group = '';
-            scope.client = ''
-            scope.center = '';
-            scope.loanOfficer = staffName;
-            scope.selectedStaff = staffId;
-            resourceFactory.runReportsResource.get({reportSource : 'GroupNamesByStaff', 'R_staffId' : staffId, genericResultSet : 'false'}, function(data){
-              scope.centers = data;
-            });
-            scope.centerName = '';
-            scope.groupName = '';
-            scope.clientName = '';
+            if(scope.office=='' && scope.group=='' && scope.center=='' && scope.client==''){
+                resourceFactory.employeeResource.get({staffId: staffId} , function(data) {
+                    scope.staff = data;
+                });
+                scope.loanOfficer = staffName;
+                scope.selectedStaff = staffId;
+                resourceFactory.runReportsResource.get({reportSource : 'GroupNamesByStaff', 'R_staffId' : staffId, genericResultSet : 'false'}, function(data){
+                  scope.centers = data;
+                });
+            }
         };
         scope.centerSelected= function(centerId,centerName) {
-            scope.centerName = centerName;
-            scope.isCollapsed = true;
-            scope.officerCollapsed = true;
-            scope.centerCollapsed = true;
-            scope.clientCollapsed = true;
-            scope.groupCollapsed = false;
-            resourceFactory.centerResource.get({centerId: centerId,associations:'groupMembers'} , function(data) {
-                scope.groups = data.groupMembers;
-                scope.center = data;
-            });
             scope.office = '';
             scope.staff = '';
             scope.client = '';
             scope.group='';
             scope.groupName = '';
             scope.clientName = '';
+            scope.centerName = centerName;
+            scope.isCollapsed = true;
+            scope.officerCollapsed = true;
+            scope.centerCollapsed = true;
+            scope.clientCollapsed = true;
+            scope.groupCollapsed = false;
+            if(scope.office=='' && scope.group=='' && scope.staff=='' && scope.client==''){
+                resourceFactory.centerResource.get({centerId: centerId,associations:'groupMembers'} , function(data) {
+                    scope.groups = data.groupMembers;
+                    scope.center = data;
+                });
+            }
         };
         scope.groupSelected= function(groupId,groupName) {
+            scope.office = '';
+            scope.staff = '';
+            scope.center = '';
+            scope.client = '';
+            scope.clientName = '';
             scope.groupName = groupName;
             scope.isCollapsed = true;
             scope.officerCollapsed = true;
             scope.centerCollapsed = true;
             scope.clientCollapsed = false;
             scope.groupCollapsed = true;
-            resourceFactory.groupResource.get({groupId: groupId,associations:'all'} , function(data) {
-                scope.group = data;
-                scope.clients = data.clientMembers;
-            });
+            if(scope.office=='' && scope.center=='' && scope.staff=='' && scope.client==''){
+                resourceFactory.groupResource.get({groupId: groupId,associations:'all'} , function(data) {
+                    scope.group = data;
+                    scope.clients = data.clientMembers;
+                });
+            }
+        };
+        scope.clientSelected= function(clientId,clientName) {
             scope.office = '';
             scope.staff = '';
             scope.center = '';
-            scope.client = '';
-            scope.clientName = '';
-        };
-        scope.clientSelected= function(clientId,clientName) {
+            scope.group = '';
             scope.clientName = clientName;
             scope.isCollapsed = true;
             scope.officerCollapsed = true;
             scope.centerCollapsed = true;
             scope.clientCollapsed = false;
             scope.groupCollapsed = true;
-            resourceFactory.clientResource.get({clientId: clientId} , function(data) {
-                scope.client = data;
-            });
-            scope.office = '';
-            scope.staff = '';
-            scope.center = '';
-            scope.group = '';
+            if(scope.office=='' && scope.center=='' && scope.staff=='' && scope.group==''){
+                resourceFactory.clientResource.get({clientId: clientId} , function(data) {
+                    scope.client = data;
+                });
+            }
         };
-
-     }
+    }
   });
   mifosX.ng.application.controller('NavigationController', ['$scope', 'ResourceFactory', mifosX.controllers.NavigationController]).run(function($log) {
     $log.info("NavigationController initialized");
