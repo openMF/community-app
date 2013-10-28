@@ -70,6 +70,9 @@
           var root = [];
           for(var i = 0; i < glAccountsArray.length; i++) {
             var currentObj = glAccountsArray[i];
+              if(currentObj.children){
+                  currentObj.collapsed = "true";
+              }
             if(typeof currentObj.parentId === "undefined") {
                   root.push(currentObj);        
             } else {
@@ -78,6 +81,7 @@
             }
           }
           scope.treedata = root;
+
 
       });
     }
