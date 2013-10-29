@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewCenterController: function(scope, routeParams , route, location, resourceFactory) {
+        ViewCenterController: function(scope, routeParams , route, location, resourceFactory,$modal) {
             scope.center = [];
 
             resourceFactory.centerResource.get({centerId: routeParams.id,associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
@@ -16,29 +16,42 @@
             resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id} , function(data) {
                 scope.notes = data;
             });
-            scope.deletecenterpop = function(){
-                scope.choice = 3;
-            } ;
-            scope.delete = function(id){
-                resourceFactory.centerResource.delete({centerId: id}, {}, function(data) {
-                    location.path('/centers');
+            scope.deleteCenter = function () {
+                $modal.open({
+                    templateUrl: 'delete.html',
+                    controller: ModalInstanceDeleteCtrl
                 });
             };
-            scope.unassignStaffpop = function()
-            {
-                scope.choice = 4;
+            scope.unassignStaffCenter = function () {
+                $modal.open({
+                    templateUrl: 'unassignstaff.html',
+                    controller: ModalInstanceUnassignCtrl
+                });
             };
-            scope.unassignStaff = function(id){
-                var staffData = new Object();
-                staffData.staffId = id;
-                resourceFactory.groupResource.save({centerId: routeParams.id,anotherresource: 'unassignStaff'}, staffData, function(data) {
-                    resourceFactory.centerResource.get({centerId: routeParams.id}, function(data){
+            var ModalInstanceDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.centerResource.delete({centerId: routeParams.id}, {}, function(data) {
+                        location.path('/centers');
+                    });
+                    $modalInstance.close('activate');
+
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+            var ModalInstanceUnassignCtrl = function ($scope, $modalInstance) {
+                $scope.unassign = function (staffId) {
+                    var staffData = new Object();
+                    staffData.staffId = staffId;
+                    resourceFactory.groupResource.save({centerId: routeParams.id,anotherresource: 'unassignStaff'}, staffData, function(data) {
                         route.reload();
                     });
-                });
-            };
-            scope.cancelDelete = function(){
-                scope.choice = 0;
+                    $modalInstance.close('activate');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
             scope.saveNote = function() {
                 resourceFactory.groupNotesResource.save({groupId: routeParams.id}, this.formData,function(data){
@@ -81,7 +94,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.ViewCenterController]).run(function($log) {
+    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory','$modal', mifosX.controllers.ViewCenterController]).run(function($log) {
         $log.info("ViewCenterController initialized");
     });
 }(mifosX.controllers || {}));
