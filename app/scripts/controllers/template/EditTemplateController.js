@@ -26,12 +26,21 @@
         scope.formData.name = data.template.name;
 
         for(var i in data.template.mappers) {
-          scope.mappers.push({
-            mappersorder : data.template.mappers[i].mapperorder,
-            mapperskey : data.template.mappers[i].mapperkey,
-            mappersvalue : data.template.mappers[i].mappervalue,
-            disable : 'true',
-          });
+          if (i == 0) {
+            scope.mappers.push({
+              mappersorder : data.template.mappers[i].mapperorder,
+              mapperskey : data.template.mappers[i].mapperkey,
+              mappersvalue : data.template.mappers[i].mappervalue,
+              defaultAddIcon : 'true',
+            });
+          } else {
+            scope.mappers.push({
+              mappersorder : data.template.mappers[i].mapperorder,
+              mapperskey : data.template.mappers[i].mapperkey,
+              mappersvalue : data.template.mappers[i].mappervalue,
+              defaultAddIcon : 'false',
+            });
+          }
         }
 
         if (data.template.entity == "client") {
@@ -121,7 +130,7 @@
 
       scope.submit = function() {
         for(var i in scope.mappers) {
-          delete scope.mappers[i].disable;
+          delete scope.mappers[i].defaultAddIcon;
         }
         this.formData.mappers = scope.mappers;
         this.formData.text = CKEDITOR.instances.templateeditor.getData();

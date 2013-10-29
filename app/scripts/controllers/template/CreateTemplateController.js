@@ -15,7 +15,7 @@
             mappersorder : 0,
             mapperskey : "client",
             mappersvalue : "clients/{{clientId}}?tenantIdentifier=default",
-            disable : 'true',
+            defaultAddIcon : 'true',
           });
       });
 
@@ -52,7 +52,7 @@
             mappersorder : 0,
             mapperskey : "loan",
             mappersvalue : "loans/{{loanId}}?associations=all&tenantIdentifier=default",
-            disable : 'true',
+            defaultAddIcon : 'true',
           });
           scope.loanKeys();
           scope.templateKeyEntity = "Loan";
@@ -62,7 +62,7 @@
               mappersorder : 0,
               mapperskey : "client",
               mappersvalue : "clients/{{clientId}}?tenantIdentifier=default",
-              disable : 'true',
+              defaultAddIcon : 'true',
             });
             scope.clientKeys();
         }
@@ -94,12 +94,11 @@
 
       scope.submit = function() {
         for(var i in scope.mappers) {
-          delete scope.mappers[i].disable;
+          delete scope.mappers[i].defaultAddIcon;
         }
         this.formData.mappers = scope.mappers;
         this.formData.text = CKEDITOR.instances.templateeditor.getData();
         resourceFactory.templateResource.save(this.formData, function(data) {
-          console.log(data.resourceId)
           location.path('/viewtemplate/'+data.resourceId);
         });
       }

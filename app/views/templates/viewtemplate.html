@@ -7,27 +7,25 @@
     <div class="pull-right">
       <div class="btn-group">
           <a href="#/edittemplate/{{template.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
-          <a href="#" class="btn btn-primary"><i class="icon-trash icon-white"></i> Delete</a>
+          <a href="#" class="btn btn-primary" ng-click="deleteTemplate()"><i class="icon-trash icon-white"></i> Delete</a>
       </div>
     </div>
   </div>
 
   <div class="row paddedleft">
     <h3>{{template.name}}</h3>
-    <table width="100%">
+    <table width="80%">
       <tr>
-        <td>{{'label.entity' | translate }}</td>
-        <td>{{template.entity}}</td>
+        <td width="20%">{{'label.entity' | translate }}</td>
+        <td width="60%">{{template.entity}}</td>
       </tr>
       <tr>
         <td>{{ 'label.type' | translate }}</td>
         <td>{{template.type}}</td>
       </tr>
-      <tr ng-repeat="mapper in template.mappers">
-          <td>{{ 'label.mapperkey' | translate }}</td>
-          <td>{{mapper.mapperkey}}</td></br>
-          <td>{{ 'label.mappervalue' | translate }}</td>
-          <td>{{mapper.mappervalue}}</td>
+      <tr>
+        <td valign="top">{{ 'label.text' | translate }}</td>
+        <td ng-bind-html-unsafe="text"></td>
       </tr>
   </table>
 </div>

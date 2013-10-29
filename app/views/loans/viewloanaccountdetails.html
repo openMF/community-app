@@ -264,29 +264,30 @@
                   <td>{{transaction.penaltyChargesPortion}}</td>
                 </tbody>
             </table>
-          </tab>
-          <tab heading="{{'tab.loancollaterals' | translate}}">
-            <table class="table">
-              <thead>
-                <th>{{'table.heading.type' | translate}}</th>
-                <th>{{'table.heading.description' | translate}}</th>
-                <th>{{'table.heading.value' | translate}}</th>
-              </thead>
-              <tbody>
-                <tr ng-repeat="collateral in loandetails.collateral">
-                  <td>
-                    <a ng-show="loandetails.status.pendingApproval" href="#/loan/{{loandetails.id}}/viewcollateral/{{collateral.id}}">{{collateral.type.name}}</a>
-                    <a ng-hide="loandetails.status.pendingApproval">{{collateral.type.name}}</a>
-                  </td>
-                  <td>{{collateral.description}}</td>
-                  <td>{{collateral.value}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </tab>
+        </tab>
 
-          <tab ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
-            <table class="table" width="100%">
+        <tab heading="{{'tab.loancollaterals' | translate}}">
+          <table class="table">
+            <thead>
+              <th>{{'table.heading.type' | translate}}</th>
+              <th>{{'table.heading.description' | translate}}</th>
+              <th>{{'table.heading.value' | translate}}</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="collateral in loandetails.collateral">
+                <td>
+                  <a ng-show="loandetails.status.pendingApproval" href="#/loan/{{loandetails.id}}/viewcollateral/{{collateral.id}}">{{collateral.type.name}}</a>
+                  <a ng-hide="loandetails.status.pendingApproval">{{collateral.type.name}}</a>
+                </td>
+                <td>{{collateral.description}}</td>
+                <td>{{collateral.value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+
+        <tab ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
+          <table class="table" width="100%">
             <tr class="graybg">
                 <th>{{'table.heading.name' | translate}}</th>
                 <th>{{'table.heading.feeorpenalty' | translate}}</th>
@@ -327,7 +328,7 @@
                 <td></td>
             </tr>
           </table>
-          </tab>
+        </tab>
 
         <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
           <div class="pull-right" data-ng-show="choice">
@@ -355,14 +356,23 @@
           </table>
         </tab>
 
-        <tab heading="{{'tab.templatedocuments' | translate}}" select="getLoanTemplateDocuments()">
-          <table class="table">
-            <tr ng-repeat="templateData in loanTemplateData">
-              <td>
-                <a href="#/viewentityttemplate/{{templateData.id}}/loanId/{{loandetails.id}}">{{templateData.name}}</a>
-              </td>
-            </tr>
-          </table>
+        <tab heading="{{'tab.templates' | translate}}" select="getLoanTemplateDocuments()">
+          <div class="span"></div>
+          <div class="span2">
+            <table class="table">
+              <tr ng-repeat="templateData in loanTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
+                <td>
+                  <a ng-click="getLoanTemplate(templateData.id)">{{templateData.name}}</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="span9" ng-show="template">
+            <span ng-bind-html-unsafe="template"></span>
+            <span class="offset3 paddedtop10">
+              <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'button.print'| translate}}</a>
+            </span>
+          </div>
         </tab>
         <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" select="dataTableChange(loandatatable)">
           <div>
