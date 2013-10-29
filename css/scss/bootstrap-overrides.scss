@@ -1,0 +1,105 @@
+@media (min-width: 1200px) {
+  .row {
+    *zoom: 1;
+  }
+  .row:before,
+  .row:after {
+    display: table;
+    line-height: 0;
+    content: "";
+  }
+  .row:after {
+    clear: both;
+  }
+  .container,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container {
+    width: 940px;
+  }
+}
+
+
+/* 
+  Bootstrap 3 by default keeps the navbar visible on tablets.
+  From here onwards it's to get the navbar to collapse starting on 991px - tablets
+*/
+
+$grid-float-breakpoint: 992px;
+
+.navbar-nav {
+  @media (max-width: 991px) {
+    .open .dropdown-menu {
+      position: static;
+      float: none;
+      width: auto;
+      margin-top: 0;
+      background-color: transparent;
+      border: 0;
+      box-shadow: none;
+      > li > a,
+      .dropdown-header {
+        padding: 5px 15px 5px 25px;
+      }
+      > li > a {
+        &:hover,
+        &:focus {
+          background-image: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $grid-float-breakpoint) { 
+  .navbar {
+    .collapse {
+      display: block !important;
+    }    
+  }
+}
+@media (max-width: 991px) { 
+  .navbar {
+    .navbar-header {
+      float: none;
+    }
+    .navbar-toggle {
+      display: block;
+    }
+    .collapse {
+      display: none !important;
+    }
+    .navbar-collapse {
+      max-height: 340px;
+      overflow-x: visible;
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      -webkit-overflow-scrolling: touch;
+
+      &.in {
+        overflow-y: auto;
+      }
+    }
+    ul.navbar-nav {
+      padding: 0px 20px;
+      &.navbar-right {
+        float: left !important;
+      }
+      > li {
+        float: none;
+      }
+      .open .dropdown-menu > li > a {
+        color: #999;
+        line-height: 25px;
+        font-weight: bold;
+        padding: 5px 15px 5px 35px;
+        font-size: 15px;
+
+        &:hover {
+          color: #fff;
+          background: none;
+        }
+      }
+    }
+  }
+}
