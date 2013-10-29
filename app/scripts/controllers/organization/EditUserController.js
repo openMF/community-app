@@ -13,7 +13,6 @@
             scope.selectedRoles = data.selectedRoles;
 
         });
-        
         scope.submit = function() {
              delete this.formData.allowedOffices; // removing allowed office list
              delete this.formData.availableRoles; // removing allowed roles list 
@@ -34,8 +33,8 @@
              this.formData.roles = roles;
 
              resourceFactory.userListResource.update({'userId': userId},this.formData,function(data){
-             location.path('/viewuser/' + data.resourceId);
-          });
+                location.path('/viewuser/' + data.resourceId);
+             });
         };
     }
   });
