@@ -145,7 +145,7 @@
                 </div>
           </div>
       </tab>
-      <tab heading="Identity Documents" select="getClientIdentityDocuments()">
+      <tab heading="{{'tab.identities' | translate}}" select="getClientIdentityDocuments()">
         <div class="pull-right btn-group">
           <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'button.add' | translate }}</a>
         </div>
@@ -178,14 +178,23 @@
             </tbody>
           </table>
       </tab>
-      <tab heading="{{'tab.templatedocuments' | translate}}" select="getClientTemplateDocuments()">
-        <table class="table">
-          <tr ng-repeat="templateData in clientTemplateData">
-            <td>
-              <a href="#/viewentityttemplate/{{templateData.id}}/clientId/{{client.id}}">{{templateData.name}}</a>
-            </td>
-          </tr>
-        </table>
+      <tab heading="{{'tab.templates' | translate}}" select="getClientTemplateDocuments()">
+        <div class="span"></div>
+        <div class="span2">
+          <table class="table">
+            <tr ng-repeat="templateData in clientTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
+              <td>
+                <a ng-click="getClientTemplate(templateData.id)">{{templateData.name}}</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="span9" ng-show="template">
+          <span ng-bind-html-unsafe="template"></span>
+          <span class="offset3 paddedtop10">
+            <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'button.print'| translate}}</a>
+          </span>
+        </div>
       </tab>
       <tab heading="{{'tab.heading.client.documents' | translate}}" select="getClientDocuments()">
         <div class="pull-right">
@@ -264,7 +273,7 @@
         </div>
         </ul>
       </tab>
-      <tab heading="Closed Account">
+      <tab heading="{{'tab.closedaccount' | translate}}">
         <div> 
           <p>
             <b>Loan Accounts Overview</b>

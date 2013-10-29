@@ -155,6 +155,17 @@
           })
         }
 
+        scope.getClientTemplate = function(templateId) {
+          scope.selectedTemplate = templateId;
+          http({
+            method:'POST',
+            url: 'https://demo.openmf.org/mifosng-provider/api/v1/templates/'+templateId+'?clientId='+routeParams.id,
+            data: {}
+          }).then(function(data) {
+            scope.template = data.data;
+          });
+        }
+
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
           scope.clientdatatables = data;
         });

@@ -71,9 +71,6 @@
       .when('/client/:id/:action', {
         templateUrl: 'views/clients/clientactions.html'  
       })
-      .when('/viewentityttemplate/:templateId/:entityaction/:entityId', {
-        templateUrl: 'views/templates/entitytemplate.html'  
-      })
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
       })
