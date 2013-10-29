@@ -1,11 +1,16 @@
 <div class="row alert-block span" ng-controller="NavigationController">
     <ul class="breadcrumb silver">
         <li data-ng-show="officeName">{{officeName}}</li>
-        <li data-ng-show="loanOfficer"><i class="icon-arrow-right"></i>{{loanOfficer}}</li>
-        <li data-ng-show="centerName"><i class="icon-arrow-right"></i>{{centerName}}</li>
-        <li data-ng-show="groupName"><i class="icon-arrow-right"></i>{{groupName}}</li>
-        <li data-ng-show="clientName"><i class="icon-arrow-right"></i>{{clientName}}</li>
+        <li data-ng-show="loanOfficer">/&nbsp;{{loanOfficer}}</li>
+        <li data-ng-show="centerName">/&nbsp;{{centerName}}</li>
+        <li data-ng-show="groupName">/&nbsp;{{groupName}}</li>
+        <li data-ng-show="clientName">/&nbsp;{{clientName}}</li>
     </ul>
+    <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
+        <p>
+            <img alt="Loading Data" src="images/loader.gif"/>&nbsp;
+        </p>
+    </div>
     <input ng-model="filterText" type="text" class="span marginbottom3px" placeholder="{{'label.filterbyname' | translate}}">
     <div class="span4">
         <div>
@@ -143,7 +148,7 @@
         </ul>
         <ul class="nav-info">
             <li data-ng-show="office">
-                <table class="table table-striped table-font-nav" style="width:500px;">
+                <table class="table table-striped table-font-nav">
                     <tr data-ng-show="office.parentName">
                         <td width="20%">{{ 'label.office.parentoffice' | translate }}</td>
                         <td width="70%">{{office.parentName}}</td>
