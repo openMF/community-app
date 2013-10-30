@@ -31,9 +31,29 @@
                         <span ng-repeat="button in buttons">
                           <a  href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
                         </span>
+                          <button type="button" class="btn btn-primary" data-ng-click="deleteClient()" data-ng-show="client.status.value=='Pending'"><i class="icon-trash icon-white"></i>{{"label.delete" | translate}}</button>
+                          <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="client.staffId"><i class="icon-user icon-white"></i>{{"label.unassignstaff" | translate}}</button>
                       </div>
                   </div>
                   <br/>
+                  <script type="text/ng-template" id="deleteClient.html">
+                      <div class="modal-header silver">
+                          <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                      </div>
+                      <div class="modal-body modal-middle">
+                          <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                          <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                      </div>
+                  </script>
+                  <script type="text/ng-template" id="clientunassignstaff.html">
+                      <div class="modal-header silver">
+                          <h3 class="bolder">{{'label.unassignstaff' | translate}}</h3>
+                      </div>
+                      <div class="modal-body modal-middle">
+                          <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                          <button class="btn btn-primary" ng-click="unassign()">{{'label.confirm' | translate}}</button>
+                      </div>
+                  </script>
                   <div class="row-fluid">
                       <div class="span7">
                         <table  width="100%" >

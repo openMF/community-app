@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewProductMixController: function(scope, resourceFactory,routeParams,location) {
+        ViewProductMixController: function(scope, resourceFactory,routeParams,location,$modal) {
             scope.productmix = [];
             scope.choice = 0;
             scope.allowed = [];
@@ -11,16 +11,22 @@
                 scope.restrictedProducts = data.restrictedProducts;
             });
 
-            scope.deleteproductmixpop = function(){
-               scope.choice = 1;
-            };
-            scope.cancelDelete = function() {
-                scope.choice = 0;
-            };
-            scope.delete = function(){
-                resourceFactory.loanProductResource.delete({loanProductId:routeParams.id,resourceType:'productmix'},{},function(data) {
-                    location.path('/productmix');
+            scope.deleteProductmix = function () {
+                $modal.open({
+                    templateUrl: 'deleteproductmix.html',
+                    controller: ProductmixDeleteCtrl
                 });
+            };
+            var ProductmixDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.loanProductResource.delete({loanProductId:routeParams.id,resourceType:'productmix'},{},function(data) {
+                        location.path('/productmix');
+                    });
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
             scope.restrict = function(){
                 for(var i in this.allowed)
@@ -69,7 +75,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewProductMixController', ['$scope', 'ResourceFactory','$routeParams','$location', mifosX.controllers.ViewProductMixController]).run(function($log) {
+    mifosX.ng.application.controller('ViewProductMixController', ['$scope', 'ResourceFactory','$routeParams','$location','$modal', mifosX.controllers.ViewProductMixController]).run(function($log) {
         $log.info("ViewProductMixController initialized");
     });
 }(mifosX.controllers || {}));

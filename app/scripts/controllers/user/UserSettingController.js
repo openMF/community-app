@@ -8,7 +8,8 @@
                        {"name" : "French", "code":"fr"},
                        {"name" : "Spanish", "code":"es"},
                        {"name" : "Portuguese", "code":"pt"},
-                       {"name" : "Chinese", "code":"zh"},  
+                       {"name" : "Chinese", "code":"zh"},
+                       {"name" : "हिंदी", "code":"hn"}
                        ];
 
       scope.optlang = scope.langs[0];                       

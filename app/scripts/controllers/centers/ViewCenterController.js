@@ -2,9 +2,10 @@
     mifosX.controllers = _.extend(module, {
         ViewCenterController: function(scope, routeParams , route, location, resourceFactory,$modal) {
             scope.center = [];
-
+            scope.staffData = {};
             resourceFactory.centerResource.get({centerId: routeParams.id,associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
                 scope.center = data;
+                scope.staffData.staffId = data.staffId;
                 scope.meeting = data.collectionMeetingCalendar;
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts',genericResultSet: 'false',R_groupId: routeParams.id} , function(data) {
@@ -19,16 +20,16 @@
             scope.deleteCenter = function () {
                 $modal.open({
                     templateUrl: 'delete.html',
-                    controller: ModalInstanceDeleteCtrl
+                    controller: CenterDeleteCtrl
                 });
             };
             scope.unassignStaffCenter = function () {
                 $modal.open({
                     templateUrl: 'unassignstaff.html',
-                    controller: ModalInstanceUnassignCtrl
+                    controller: CenterUnassignCtrl
                 });
             };
-            var ModalInstanceDeleteCtrl = function ($scope, $modalInstance) {
+            var CenterDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.centerResource.delete({centerId: routeParams.id}, {}, function(data) {
                         location.path('/centers');
@@ -40,11 +41,9 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
-            var ModalInstanceUnassignCtrl = function ($scope, $modalInstance) {
-                $scope.unassign = function (staffId) {
-                    var staffData = new Object();
-                    staffData.staffId = staffId;
-                    resourceFactory.groupResource.save({centerId: routeParams.id,anotherresource: 'unassignStaff'}, staffData, function(data) {
+            var CenterUnassignCtrl = function ($scope, $modalInstance) {
+                $scope.unassign = function () {
+                    resourceFactory.groupResource.save({centerId: routeParams.id,command: 'unassignStaff'}, scope.staffData, function(data) {
                         route.reload();
                     });
                     $modalInstance.close('activate');

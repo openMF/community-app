@@ -9,14 +9,22 @@
 	<div class="paddedbottom">
 		<div class="pull-right">
 			<div class="btn-group">
-				<a ng-hide="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-lock icon-white"></i> Disable</a>
-				<a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-unlock icon-white"></i> Enable</a>
-				<a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> Edit</a>
-				<a href="#" class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i> Delete</a>
+				<a ng-hide="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-lock icon-white"></i>{{'label.disable' | translate}}</a>
+				<a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-unlock icon-white"></i>{{'label.enable' | translate}}</a>
+				<a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.edit' | translate}}</a>
+				<button class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</button>
 			</div>
 		</div>
 	</div>
-
+    <script type="text/ng-template" id="deleteglacc.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body modal-middle">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+        </div>
+    </script>
 	<div class="row paddedleft">
 		<h3>{{glaccount.name}}</h3>
 		<table width="100%">

@@ -18,19 +18,19 @@
             <div class="row-fluid primarydiv">
                 <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
                     <a href="#/editproductmix/{{productmix.productId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.edit' | translate }}</a>
-                    <button class="btn btn-primary" data-ng-click="deleteproductmixpop()"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
+                    <button class="btn btn-warning" data-ng-click="deleteProductmix()"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
                 </div>
             </div>
             <br/>
-            <div data-ng-switch on="choice">
-                <form data-ng-switch-when="1">
-                    <div class="offset3 paddedleft120">
-                        <button type="button" class="btn" data-ng-click="cancelDelete()">{{ 'label.cancel' | translate }}</button>
-                        <button type="button" class="btn btn-primary paddedleft" data-ng-click="delete(center.id)">{{ 'label.confirmdelete' | translate }}</button>
-                    </div>
-                    <hr/>
-                </form>
-            </div>
+            <script type="text/ng-template" id="deleteproductmix.html">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                </div>
+                <div class="modal-body modal-middle">
+                    <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                    <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                </div>
+            </script>
             <div class="row-fluid">
                 <div class="span6">
                     <table class="table table-striped" width="100%" >
