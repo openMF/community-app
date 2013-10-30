@@ -1,3 +1,4 @@
+/*global mifosX _  CKEDITOR */
 (function(module) {
   mifosX.controllers = _.extend(module, {
     CreateTemplateController: function(scope, resourceFactory, location) {
@@ -15,7 +16,7 @@
             mappersorder : 0,
             mapperskey : "client",
             mappersvalue : "clients/{{clientId}}?tenantIdentifier=default",
-            defaultAddIcon : 'true',
+            defaultAddIcon : 'true'
           });
       });
 
@@ -25,7 +26,7 @@
         scope.templateEntity = [{"entityName" : "Client",
                                   "templateKeys" : scope.templateKeys}];
         CKEDITOR.instances.templateeditor.setData('');
-      }
+      };
 
       scope.loanKeys = function() {
         CKEDITOR.instances.templateeditor.setData('');
@@ -43,11 +44,11 @@
                                 },{"entityName" : "Repayment Schedule",
                                   "templateKeys" : scope.repaymentTemplateKeys
                                 }];
-      }
+      };
 
       scope.entityChange = function(entityId) {
         scope.mappers.splice(0,1);
-        if ( entityId != 0) {
+        if ( entityId !== 0) {
           scope.mappers.push({
             mappersorder : 0,
             mapperskey : "loan",
@@ -66,11 +67,11 @@
             });
             scope.clientKeys();
         }
-      }
+      };
 
       scope.templateKeySelected = function(templateKey) {
         CKEDITOR.instances.templateeditor.insertText(templateKey);
-      }
+      };
 
       scope.addMapperKeyValue = function() {
         scope.mappers.push({
@@ -78,11 +79,11 @@
           mapperskey : "",
           mappersvalue : ""
         });
-      }
+      };
 
       scope.deleteMapperKeyValue = function(index) {
         scope.mappers.splice(index,1);
-      }
+      };
 
       scope.advanceOptionClick = function() {
         if(scope.advanceOption == 'false') {
@@ -90,7 +91,7 @@
         } else {
           scope.advanceOption = 'false';
         }
-      }
+      };
 
       scope.submit = function() {
         for(var i in scope.mappers) {
@@ -101,7 +102,7 @@
         resourceFactory.templateResource.save(this.formData, function(data) {
           location.path('/viewtemplate/'+data.resourceId);
         });
-      }
+      };
 
       
     }
