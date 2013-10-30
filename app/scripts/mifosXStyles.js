@@ -9,6 +9,7 @@ define(['underscore'], function() {
     ],
     less: [
       'mifosX'
+
     ]
   };
 
