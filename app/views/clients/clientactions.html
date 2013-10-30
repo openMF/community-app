@@ -1,14 +1,16 @@
 <div ng-controller="ClientActionsController">
   <div>
     <ul class="breadcrumb">
+      <li><a href="#/clients">{{'link.clients' | translate}}</a> <span class="divider">/</span></li>
+      <li><a href='#/viewclient/{{clientId}}'>{{'link.view.client' | translate}}</a> <span class="divider">/</span></li>
       <li class="active">{{breadcrumbName | translate}}</li>
     </ul>
   </div>
-  <form class="form-horizontal well" ng-submit="submit()">
+  <form name="clientactionform" novalidate="" class="form-horizontal well" ng-submit="submit()">
       <div class="control-group" ng-show="showDateField">
-        <label class="control-label">{{labelName | translate}}</label>
+        <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+          <input type="date" datepicker-pop="dd MMMM yyyy" name="modelName" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
         </div>
       </div>
 
@@ -21,7 +23,7 @@
       </div>
 
       <div class="control-group" ng-show="staffField">
-        <label class="control-label">{{labelName | translate}}</label>
+        <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
           <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
           </select>
@@ -46,7 +48,7 @@
 
       <div class="offset3" ng-show="!showDeleteClient">
         <button type="reset" ng-click="cancel()" class="btn">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" ng-disabled="!clientactionform.$valid" class="btn btn-primary">Save</button>
       </div>		
   </form>
 </div>

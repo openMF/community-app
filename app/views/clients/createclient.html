@@ -1,14 +1,14 @@
-      <form class="form-horizontal well" ng-controller="CreateClientController" ng-submit="submit()">
+      <form name="createclientform" novalidate="" class="form-horizontal well" ng-controller="CreateClientController" ng-submit="submit()">
         <fieldset>
             <legend>{{'label.createclient' | translate}}</legend>
             <div class="control-group">
-              <label class="control-label">Office</label>
+              <label class="control-label">{{'label.office' | translate}}<span class="required">*</span></label>
               <div class="controls">
-                <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(officeId)"></select>
+                <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(formData.officeId)"></select>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Loan Officer</label>
+              <label class="control-label">{{'label.staff' | translate}}</label>
               <div class="controls">
                 <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                   <option value="">{{'label.select.loanofficer' | translate}}</option>
@@ -16,25 +16,37 @@
               </div>
             </div>
   		      <div class="control-group">
-              <label class="control-label" for="firstname">First Name</label>
+              <label class="control-label" for="firstname">{{'label.firstname' | translate}}<span class="required">*</span></label>
               <div class="controls">
-                <input type="text" id="firstname" ng-model="formData.firstname">
+                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required ng-minlength=3 late-Validate/>
+                <span  ng-show="createclientform.firstname.$invalid">
+                    <small class="error" ng-show="createclientform.firstname.$error.req">
+                        Required Field
+                    </small>
+                    <small class="error" ng-show="createclientform.firstname.$error.minlength && !createclientform.firstname.$error.req">Your name is required to be at least 3 characters</small>
+                </span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="middlename">Middle Name</label>
+              <label class="control-label" for="middlename">{{'label.middlename' | translate}}</label>
               <div class="controls">
-                <input type="text" id="middlename" ng-model="formData.middlename">
+                <input type="text" id="middlename" ng-model="formData.middlename"/>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="lastname">Last Name</label>
+              <label class="control-label" for="lastname">{{'label.lastname' | translate}}<span class="required">*</span></label></label>
               <div class="controls">
-                <input type="text" id="lastname" ng-model="formData.lastname">
+                <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required ng-minlength=3 late-Validate/>
+                <span  ng-show="createclientform.lastname.$invalid">
+                    <small class="error" ng-show="createclientform.lastname.$error.req">
+                        Required Field
+                    </small>
+                    <small class="error" ng-show="createclientform.lastname.$error.minlength && !createclientform.lastname.$error.req">Your name is required to be at least 3 characters</small>
+                </span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Active</label>
+              <label class="control-label">{{'label.active' | translate}}</label>
               <div class="controls">
                 <label class="checkbox">
                   <input type="checkbox" ng-model="formData.active" data-ng-click="setChoice()">
@@ -45,12 +57,7 @@
                 <div class="control-group" data-ng-switch-when="1">
                     <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
-                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
-                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
-                            Required Field
-                        </small>
-                    </span>
+                      <input type="text" name="activationdate" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                     </div>
                 </div>
             </div>
@@ -63,7 +70,7 @@
             
             <div class="offset3">
               <a href="#/clients"><button type="reset" class="btn">Cancel</button></a>
-              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="submit" ng-disabled="!createclientform.$valid" class="btn btn-primary">Save</button>
             </div>
         </fieldset>
       </form>
