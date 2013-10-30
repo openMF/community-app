@@ -2,9 +2,11 @@
     mifosX.controllers = _.extend(module, {
         ClientIdentifierController: function(scope, routeParams , location, resourceFactory) {
             scope.clientId = routeParams.clientId;
+            scope.formData = {};
             scope.documenttypes = [];
             resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function(data) {
                 scope.documenttypes = data.allowedDocumentTypes;
+                scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
             });
 
             scope.submit = function () {

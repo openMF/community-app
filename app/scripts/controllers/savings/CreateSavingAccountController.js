@@ -86,6 +86,14 @@
             location.path('/viewsavingaccount/' + data.savingsId);
           });
         };
+
+        scope.cancel = function() {
+          if (scope.groupId) {
+            location.path('/viewgroup/' + scope.groupId);
+          } else if (scope.clientId) {
+            location.path('/viewclient/' + scope.clientId);
+          }
+        }
     }
   });
   mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function($log) {

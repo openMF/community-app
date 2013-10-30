@@ -1,4 +1,4 @@
-<form class="form-horizontal well" ng-controller="ClientIdentifierController" ng-submit="submit()">
+<div ng-controller="ClientIdentifierController">
 	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/clients">{{'link.clients' | translate}}</a> <span class="divider">/</span></li>
@@ -6,35 +6,41 @@
 			<li class="active">{{'link.add.clientidentifier' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{'label.add.client.identifier' | translate}}</legend>
+	<form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+		<fieldset>
+			<legend>{{'label.add.client.identifier' | translate}}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="documentTypeId">{{'label.document.type' | translate}}</label>
-			<div class="controls">
-				<select ng-model="formData.documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes" value="{{documenttype.id}}" required="required">
-					<option style="display:none" value="">{{'label.select.identitydocument.type' | translate}}</option>
-				</select>
+			<div class="control-group">
+				<label class="control-label" for="documentTypeId">{{'label.document.type' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<select ng-model="formData.documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes" value="{{documenttype.id}}" required="required">
+					</select>
+				</div>
 			</div>
-		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="documentKey">{{'label.unique.identification' | translate}}</label>
-			<div class="controls">
-				<input type="text" ng-model="formData.documentKey" required="required">
+			<div class="control-group">
+				<label class="control-label" for="documentKey">{{'label.unique.identification' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<input type="text" name="identification" ng-model="formData.documentKey" required="required" required late-Validate/>
+					<span  ng-show="clientidentifierform.identification.$invalid">
+	                    <small class="error" ng-show="clientidentifierform.identification.$error.req">
+	                        Required Field
+	                    </small>
+	                </span>
+				</div>
 			</div>
-		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="description">{{'label.description' | translate}}</label>
-			<div class="controls">
-				<textarea rows="2" ng-model="formData.description"></textarea>
+			<div class="control-group">
+				<label class="control-label" for="description">{{'label.description' | translate}}</label>
+				<div class="controls">
+					<textarea rows="2" ng-model="formData.description"></textarea>
+				</div>
 			</div>
-		</div>
 
-		<div class="offset3">
-			<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
-			<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
-		</div>
-	</fieldset>
-</form>
+			<div class="offset3">
+				<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
+				<button type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary">{{'button.save' | translate}}</button>
+			</div>
+		</fieldset>
+	</form>
+</div>

@@ -1,4 +1,4 @@
-      <form class="well" ng-controller="NewLoanAccAppController">
+      <form name="newloanaccountform" novalidate="" class="well" ng-controller="NewLoanAccAppController">
         <fieldset>
         <legend>{{ 'form.legend.new.loan.application' | translate }}</legend>
           <div class="control-group">
@@ -12,7 +12,7 @@
                   <input ng-show="groupName" type="text" value="{{groupName}}" readonly>
                 </td>
                 <td width="30%">
-                  <label class="control-label">{{ 'label.product' | translate }}&nbsp;</label>
+                  <label class="control-label">{{ 'label.product' | translate }}&nbsp;<span class="required">*</span></label>
                   <select ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" ng-change="loanProductChange(formData.productId)" required="required">
                     <option style="display:none" value="">{{'label.select.loan.product' | translate}}</option>
                   </select>
@@ -32,8 +32,8 @@
                     </select>
                   </td>
                   <td width="30%">
-                    <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;</label>
-                      <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
+                      <input type="text" id="submittedon" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                   </td>
                 </tr>
                 <tr class="control-group">
@@ -84,37 +84,62 @@
                   <table>
                     <tr>
                       <td width="40%">
-                        <label class="control-label">{{ 'table.heading.principal' | translate }}&nbsp;</label>
-                        <input type="text" ng-model="formData.principal">
+                        <label class="control-label">{{ 'table.heading.principal' | translate }}&nbsp;<span class="required">*</span></label>
+                        <input type="text" name="principal" ng-model="formData.principal" required ng-late-Validate/>
                         {{loanaccountinfo.currency.displaySymbol}}
+                        <span  ng-show="newloanaccountform.principal.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
                       </td>
                       <td width="40%">
-                        <label class="control-label">{{ 'label.loanterm' | translate }}&nbsp;</label>
-                        <input class="input-small" type="text" ng-model="formData.loanTermFrequency">
+                        <label class="control-label">{{ 'label.loanterm' | translate }}&nbsp;<span class="required">*</span></label>
+                        <input class="input-small" name="loanterm" type="text" ng-model="formData.loanTermFrequency" required ng-late-Validate/>
+                        <span  ng-show="newloanaccountform.loanterm.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
                         <select class="input-small" ng-model="formData.loanTermFrequencyType" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}">
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <label class="control-label">{{ 'label.numofrepayments' | translate }}&nbsp;</label>
-                        <input class="input-small" type="text" ng-model="formData.numberOfRepayments">
+                        <label class="control-label">{{ 'label.numofrepayments' | translate }}&nbsp;<span class="required">*</span></label>
+                        <input class="input-small" name="numofrepayments" type="text" ng-model="formData.numberOfRepayments" required ng-late-Validate/>
+                        <span  ng-show="newloanaccountform.numofrepayments.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
                       </td>
                       <td>
-                        <label class="control-label">{{ 'label.repaidevery' | translate }}&nbsp;</label>
-                        <input class="input-small" type="text" ng-model="formData.repaymentEvery">
+                        <label class="control-label">{{ 'label.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
+                        <input class="input-small" type="text" name="repaidevery" ng-model="formData.repaymentEvery" required ng-late-Validate/>
+                        <span  ng-show="newloanaccountform.repaidevery.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
                         <select class="input-small" ng-model="formData.repaymentFrequencyType" ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{repaymentFrequencyType.id}}">
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <label class="control-label">{{ 'label.nominalinterestrate' | translate }}&nbsp;</label>
-                        <input class="input-small" type="text" ng-model="formData.interestRatePerPeriod">
+                        <label class="control-label">{{ 'label.nominalinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
+                        <input class="input-small" type="text" name="nominalinterestrate" ng-model="formData.interestRatePerPeriod" required ng-late-Validate/>
+                        <span  ng-show="newloanaccountform.nominalinterestrate.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
                         <select class="input-small" ng-model="formData.interestRateFrequencyType" ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in loanaccountinfo.interestRateFrequencyTypeOptions" value="{{interestRateFrequencyType.id}}">
 
                       </td>
                       <td>
-                        <label class="control-label">{{ 'label.expecteddisbursementon' | translate }}&nbsp;</label>
-                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                        <label class="control-label">{{ 'label.expecteddisbursementon' | translate }}&nbsp;<span class="required">*</span></label>
+                          <input type="text" name="expecteddisbursementon" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                       </td>
                     </tr>
                     <tr>
@@ -131,7 +156,7 @@
                   <table>
                     <tr>
                       <td width="40%">
-                        <label class="control-label">{{ 'label.amortization' | translate }}&nbsp;</label>
+                        <label class="control-label">{{ 'label.amortization' | translate }}&nbsp;<span class="required">*</span></label>
                         <select ng-model="formData.amortizationType" ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions" value="{{amortizationType.id}}">
                       </td>
                       <td width="40%">
@@ -141,7 +166,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <label class="control-label">{{ 'label.interestcalculationperiod' | translate }}&nbsp;</label>
+                        <label class="control-label">{{ 'label.interestcalculationperiod' | translate }}&nbsp;<span class="required">*</span></label>
                         <select ng-model="formData.interestCalculationPeriodType" ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions" value="{{interestCalculationPeriodType.id}}">
                       </td>
                       <td>
@@ -153,7 +178,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <label class="control-label">{{ 'label.repaymentstrategy' | translate }}&nbsp;</label>
+                        <label class="control-label">{{ 'label.repaymentstrategy' | translate }}&nbsp;<span class="required">*</span></label>
                         <select ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}">
                       </td>
                       <td>
@@ -303,7 +328,7 @@
           
           <div class="offset6">
             <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
-            <button type="submit" class="btn btn-primary" ng-show="loanaccountinfo" ng-click="submit()">{{'button.save' | translate}}</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="!newloanaccountform.$valid" ng-show="loanaccountinfo" ng-click="submit()">{{'button.save' | translate}}</button>
           </div>
         </fieldset>
       </form>
