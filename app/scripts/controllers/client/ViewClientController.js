@@ -1,14 +1,14 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http) {
+    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http,$modal) {
         scope.client = [];
         scope.identitydocuments = [];
         scope.buttons = [];
         scope.clientdocuments = [];
-
+        scope.staffData = {};
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
-
+            scope.staffData.staffId = data.staffId;
             if (data.imagePresent) {
               http({
                 method:'GET',
@@ -28,12 +28,6 @@
                                 href:"#/client",
                                 subhref:"activate",
                                 icon :"icon-ok-sign"
-                              },
-                              {
-                                name:"button.delete",
-                                href:"#/client",
-                                subhref:"delete",
-                                icon :"icon-warning-sign"
                               },
                               {
                                 name:"button.close",
@@ -105,13 +99,9 @@
 
             if (data.status.value == "Pending" || data.status.value == "Active"){
               if(data.staffId) {
-                scope.buttons.push({
-                  name:"button.unassignstaff",
-                  href:"#/client",
-                  subhref:"unassignstaff?staffId="+data.staffId,
-                  icon :"icon-user"
-                });
-              } else {
+
+              }
+              else {
                 scope.buttons.push({
                   name:"button.assignstaff",
                   href:"#/client",
@@ -125,7 +115,40 @@
             scope.client.ClientSummary = data[0];
           });
         });
-
+        scope.deleteClient = function () {
+            $modal.open({
+                templateUrl: 'deleteClient.html',
+                controller: ClientDeleteCtrl
+            });
+        };
+        scope.unassignStaffCenter = function () {
+            $modal.open({
+                templateUrl: 'clientunassignstaff.html',
+                controller: ClientUnassignCtrl
+            });
+        };
+        var ClientDeleteCtrl = function ($scope, $modalInstance) {
+            $scope.delete = function () {
+                resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function(data){
+                    location.path('/clients');
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
+        var ClientUnassignCtrl = function ($scope, $modalInstance) {
+            $scope.unassign = function () {
+                resourceFactory.clientResource.save({clientId: routeParams.id, command : 'unassignstaff'}, scope.staffData,function(data){
+                    route.reload();
+                });
+                $modalInstance.close('unassign');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
         resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
             scope.clientAccounts = data;
         });
@@ -345,7 +368,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', mifosX.controllers.ViewClientController]).run(function($log) {
+  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', mifosX.controllers.ViewClientController]).run(function($log) {
     $log.info("ViewClientController initialized");
   });
 }(mifosX.controllers || {}));

@@ -7,14 +7,22 @@
 		<div class="pull-right">
 			<div class="btn-group" ng-show="showEditButtons">
 				<a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'button.edit' | translate}}</a>
-				<a ng-click="deleteCharge()" class="btn btn-danger"><i class="icon-trash icon-white"></i>{{'button.delete' | translate}}</a>
+				<button type="button" ng-click="deleteCharge()" class="btn btn-danger"><i class="icon-trash icon-white"></i>{{'button.delete' | translate}}</button>
 			</div>
 			<div class="btn-group" ng-show="showWaiveButton">
 				<a ng-click="waiveCharge()" class="btn btn-primary"><i class="icon-flag icon-white"></i> {{'button.waive' | translate}}</a>
 			</div>
 		</div>
 	</div>
-
+    <script type="text/ng-template" id="deletecharge.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body modal-middle">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+        </div>
+    </script>
 	<div class="row-fluid">
 		<h3>{{'label.loan.view.charge' | translate}}</h3>
 		<table width="100%">

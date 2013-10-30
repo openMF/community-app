@@ -1,26 +1,33 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewChargeController: function(scope, routeParams , resourceFactory, location) {
+    ViewChargeController: function(scope, routeParams , resourceFactory, location,$modal) {
         scope.charge = [];
         scope.choice = 0;
         resourceFactory.chargeResource.get({chargeId: routeParams.id} , function(data) {
             scope.charge = data;
         });
 
-        scope.deletepop = function(){
-            scope.choice = 1;
-        };
-        scope.cancel = function(){
-            scope.choice = 0;
-        };
-        scope.deleteCharge = function(){
-            resourceFactory.chargeResource.delete({chargeId: routeParams.id} , {}, function(data) {
-                location.path('/charges');
+        scope.deleteCharge = function () {
+            $modal.open({
+                templateUrl: 'deletech.html',
+                controller: ChDeleteCtrl
             });
-        }
+        };
+        var ChDeleteCtrl = function ($scope, $modalInstance) {
+            $scope.delete = function () {
+                resourceFactory.chargeResource.delete({chargeId: routeParams.id} , {}, function(data) {
+                    location.path('/charges');
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
+
     }
   });
-  mifosX.ng.application.controller('ViewChargeController', ['$scope', '$routeParams','ResourceFactory', '$location', mifosX.controllers.ViewChargeController]).run(function($log) {
+  mifosX.ng.application.controller('ViewChargeController', ['$scope', '$routeParams','ResourceFactory', '$location','$modal', mifosX.controllers.ViewChargeController]).run(function($log) {
     $log.info("ViewChargeController initialized");
   });
 }(mifosX.controllers || {}));

@@ -23,19 +23,19 @@
         <div class="row-fluid primarydiv">
 	      <div class="btn-group pull-right">
 	          <a href="#/editcharge/{{charge.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.edit' | translate}}</a>
-	          <button type="button" data-ng-click="deletepop()" class="btn btn-primary"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</button>
+	          <button type="button" data-ng-click="deleteCharge()" class="btn btn-warning"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</button>
 	      </div>
 	    </div>
 	</div>
-    <div ng-switch="choice">
-        <form data-ng-switch-when="1">
-          <div class="offset3 paddedleft120">
-            <button type="button" class="btn" data-ng-click="cancel()">{{ 'label.cancel' | translate }}</button>
-            <button type="button" class="btn btn-primary" data-ng-click="deleteCharge()">{{ 'label.confirmdelete' | translate }}</button>
-            <hr/>
-          </div>
-        </form>
-    </div>
+    <script type="text/ng-template" id="deletech.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body modal-middle">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+        </div>
+    </script>
 	<div class="row paddedleft">
 		<table width="40%">
 			<tr>

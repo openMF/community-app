@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    AccViewGLAccountContoller: function(scope, routeParams , location, resourceFactory, route) {
+    AccViewGLAccountContoller: function(scope, routeParams , location, resourceFactory, route,$modal) {
         scope.glaccountdata = [];
         scope.accountOptions = [];
 
@@ -47,11 +47,22 @@
         });
         
         scope.deleteGLAccount = function (){
-          resourceFactory.accountCoaResource.delete({glAccountId: routeParams.id} , {} , function(data) {
-                location.path('/accounting_coa');
-          });
+            $modal.open({
+                templateUrl: 'deleteglacc.html',
+                controller: GlAccDeleteCtrl
+            });
         };
-
+        var GlAccDeleteCtrl = function ($scope, $modalInstance) {
+            $scope.delete = function () {
+                resourceFactory.accountCoaResource.delete({glAccountId: routeParams.id} , {} , function(data) {
+                    location.path('/accounting_coa');
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
         scope.changeState = function (disabled){
           resourceFactory.accountCoaResource.update({'glAccountId': routeParams.id},{disabled:!disabled},function(data){
             route.reload();
@@ -59,7 +70,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', '$route', mifosX.controllers.AccViewGLAccountContoller]).run(function($log) {
+  mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', '$route','$modal', mifosX.controllers.AccViewGLAccountContoller]).run(function($log) {
     $log.info("AccViewGLAccountContoller initialized");
   });
 }(mifosX.controllers || {}));

@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    DataTableEntryController: function(scope, location, routeParams, route, resourceFactory) {
+    DataTableEntryController: function(scope, location, routeParams, route, resourceFactory,$modal) {
 
       scope.tableName = routeParams.tableName;
       scope.entityId = routeParams.entityId;
@@ -50,28 +50,39 @@
           }
         }
       };
-
-      scope.deleteDatatableEntry = function () {
-        resourceFactory.DataTablesResource.delete(reqparams, {}, function(data){
-          var destination = "";
-          if ( data.loanId) {
-            destination = '/viewloanaccount/'+data.loanId;
-          } else if ( data.savingsId) {
-            destination = '/viewsavingaccount/' + data.savingsId;
-          } else if ( data.clientId) {
-            destination = '/viewclient/'+data.clientId;
-          } else if ( data.groupId) {
-              if (scope.isCenter) {
-                  destination = '/viewcenter/'+data.groupId;
-              } else {
-                  destination = '/viewgroup/'+data.groupId;
-              }
-          } else if ( data.officeId) {
-            destination = '/viewoffice/'+data.officeId;
-          }
-          location.path(destination);
-        });
-      };
+        scope.deleteDatatableEntry = function (){
+            $modal.open({
+                templateUrl: 'deletedatatable.html',
+                controller: DatatableDeleteCtrl
+            });
+        };
+        var DatatableDeleteCtrl = function ($scope, $modalInstance) {
+            $scope.delete = function () {
+                resourceFactory.DataTablesResource.delete(reqparams, {}, function(data){
+                    var destination = "";
+                    if ( data.loanId) {
+                        destination = '/viewloanaccount/'+data.loanId;
+                    } else if ( data.savingsId) {
+                        destination = '/viewsavingaccount/' + data.savingsId;
+                    } else if ( data.clientId) {
+                        destination = '/viewclient/'+data.clientId;
+                    } else if ( data.groupId) {
+                        if (scope.isCenter) {
+                            destination = '/viewcenter/'+data.groupId;
+                        } else {
+                            destination = '/viewgroup/'+data.groupId;
+                        }
+                    } else if ( data.officeId) {
+                        destination = '/viewoffice/'+data.officeId;
+                    }
+                    location.path(destination);
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
 
       scope.cancel = function () {
         route.reload();
@@ -103,7 +114,7 @@
 
     }
   });
-  mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory', mifosX.controllers.DataTableEntryController]).run(function($log) {
+  mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory','$modal', mifosX.controllers.DataTableEntryController]).run(function($log) {
     $log.info("DataTableEntryController initialized");
   });
 }(mifosX.controllers || {}));

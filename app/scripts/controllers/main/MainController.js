@@ -23,7 +23,7 @@
                        {"name" : "Español", "code":"es"},
                        {"name" : "Português", "code":"pt"},
                        {"name" : "中文", "code":"zh"},
-                       {"name" : "हिंदी", "code":"hn"} ,
+                       {"name" : "हिंदी", "code":"hn"}
                        ];
 
       scope.optlang = scope.langs[0];

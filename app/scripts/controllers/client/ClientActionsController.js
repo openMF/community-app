@@ -91,11 +91,6 @@
                 location.path('/viewclient/' + data.clientId);
             });
           }
-          if (scope.action == "delete") {
-            resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function(data){
-            location.path('/clients');
-            });
-          }
           if (scope.action == "acceptclienttransfer") {
             delete this.formData.locale;
             delete this.formData.dateFormat;
