@@ -9,15 +9,17 @@
         </div>
         <div data-ng-show="temp">
             <div class="control-group">
-                <label class="control-label">{{ 'label.clientname' | translate }}</label>
+                <label class="control-label">{{ 'label.clientname' | translate }}<span class="required">*</span></label>
                 <div class="controls">
-                    <input typeahead-on-select="viewClient($item)" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8">
+                    <input typeahead-on-select="viewClient($item)" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8"></br>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">{{ 'label.relationship' | translate }}</label>
                 <div class="controls">
-                    <select ng-model="formData.relationship" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+                    <select ng-model="formData.relationship" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
+                        <option value="">{{'label.select.one' | translate}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -25,7 +27,9 @@
             <div class="control-group">
                 <label class="control-label">{{ 'label.relationship' | translate }}</label>
                 <div class="controls">
-                    <select ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+                    <select ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
+                        <option value="">{{'label.select.one' | translate}}</option>
+                    </select>
                 </div>
             </div>
             <div class="control-group">

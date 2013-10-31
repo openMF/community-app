@@ -1,94 +1,101 @@
-<form class="form-horizontal well" ng-controller="LoanAccountActionsController" ng-submit="submit()">
-  <div class="paddedbottom10">
+<div ng-controller="LoanAccountActionsController">
+  <div>
     <ul class="breadcrumb">
       <li><a href="#/viewloanaccount/{{accountId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
       <li class="active">{{action}}</li>
     </ul>
   </div>
-  <fieldset>
-    <legend>{{ title | translate}}</legend>
+  <form class="form-horizontal well" name="loanactionform" novalidate="" ng-submit="submit()">
+    <fieldset>
+      <legend>{{ title | translate}}</legend>
 
-    <div class="control-group" ng-show="showDateField">
-      <label class="control-label" for="modelName">{{labelName | translate}}</label>
-      <div class="controls">
-        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
-      </div>
-    </div>
-
-    <div class="control-group" ng-show="showAmountField">
-      <label class="control-label" for="transactionAmount">{{ 'label.loan.account.transactionAmount' | translate}}</label>
-      <div class="controls">
-        <input type="text" ng-model="formData.transactionAmount">
-      </div>
-    </div>
-
-    <div ng-show="isTransaction">
-      <div class="control-group">
-        <label class="control-label" for="paymentTypeId">{{ 'label.loan.account.paymentTypeId' | translate}}</label>
+      <div class="control-group" ng-show="showDateField">
+        <label class="control-label" for="modelName">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <select ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"></select>
+          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label">{{ 'label.loan.account.show.payment.details' | translate}}</label>
+
+      <div class="control-group" ng-show="showAmountField">
+        <label class="control-label" for="transactionAmount">{{ 'label.loan.account.transactionAmount' | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
-            <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
-            <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
-          </a>
+          <input type="text" name="amount" ng-model="formData.transactionAmount" required ng-late-Validate>
+          <span  ng-show="loanactionform.amount.$invalid">
+            <small class="error">
+                Required Field
+            </small>
+          </span>
         </div>
       </div>
-      <div collapse="!showPaymentDetails">
-        <div class="control-group">
-          <label class="control-label" for="accountNumber">{{ 'label.loan.account.accountNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.accountNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="checkNumber">{{ 'label.loan.account.checkNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.checkNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="routingCode">{{ 'label.loan.account.routingCode' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.routingCode">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="receiptNumber">{{ 'label.loan.account.receiptNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.receiptNumber">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label" for="bankNumber">{{ 'label.loan.account.bankNumber' | translate}}</label>
-          <div class="controls">
-            <input type="text" ng-model="formData.bankNumber">
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="control-group" ng-show="showNoteField">
-      <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
-      <div class="controls">
-        <textarea rows="2" ng-model="formData.note"></textarea>
+      <div ng-show="isTransaction">
+        <div class="control-group">
+          <label class="control-label" for="paymentTypeId">{{ 'label.loan.account.paymentTypeId' | translate}}<span class="required">*</span></label>
+          <div class="controls">
+            <select ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}"></select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">{{ 'label.loan.account.show.payment.details' | translate}}</label>
+          <div class="controls">
+            <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
+              <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
+              <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
+            </a>
+          </div>
+        </div>
+        <div collapse="!showPaymentDetails">
+          <div class="control-group">
+            <label class="control-label" for="accountNumber">{{ 'label.loan.account.accountNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.accountNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="checkNumber">{{ 'label.loan.account.checkNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.checkNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="routingCode">{{ 'label.loan.account.routingCode' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.routingCode">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="receiptNumber">{{ 'label.loan.account.receiptNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.receiptNumber">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="bankNumber">{{ 'label.loan.account.bankNumber' | translate}}</label>
+            <div class="controls">
+              <input type="text" ng-model="formData.bankNumber">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="control-group" ng-show="showDelete">
-        <label class="control-label">Are you sure?</label>
-    </div>
-    <div class="offset3" ng-show="showDelete">
-      <button type="reset" ng-click="submit()" class="btn">Confirm</button>
-      <button type="submit" ng-click="cancel()"class="btn btn-primary">cancel</button>
-    </div>
-    <div class="form-actions" ng-hide="showDelete">
-      <button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate}}</button>
-      <button type="submit" class="btn btn-primary">{{ 'button.save' | translate}}</button>
-    </div>
 
-  </fieldset>
-</form>
+      <div class="control-group" ng-show="showNoteField">
+        <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
+        <div class="controls">
+          <textarea rows="2" ng-model="formData.note"></textarea>
+        </div>
+      </div>
+      <div class="control-group" ng-show="showDelete">
+          <label class="control-label">Are you sure?</label>
+      </div>
+      <div class="offset3" ng-show="showDelete">
+        <button type="reset" ng-click="submit()" class="btn">Confirm</button>
+        <button type="submit" ng-click="cancel()"class="btn btn-primary">cancel</button>
+      </div>
+      <div class="offset3" ng-hide="showDelete">
+        <button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate}}</button>
+        <button type="submit" class="btn btn-primary">{{ 'button.save' | translate}}</button>
+      </div>
+
+    </fieldset>
+  </form>
+</div>

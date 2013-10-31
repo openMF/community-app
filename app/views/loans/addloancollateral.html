@@ -1,35 +1,37 @@
-<form class="form-horizontal well" ng-controller="AddLoanCollateralController" ng-submit="submit()">
-	<div class="paddedbottom10">
+<div ng-controller="AddLoanCollateralController">	
+	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{'label.add.loan.collateral' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{ 'label.add.loan.collateral' | translate }}</legend>
+	<form class="form-horizontal well" ng-submit="submit()">
+		<fieldset>
+			<legend>{{ 'label.add.loan.collateral' | translate }}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="collateralTypeId">{{ 'label.collateral.type' | translate }}</label>
-			<div class="controls">
-				<select ng-model="formData.collateralTypeId" ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes" value="{{collateralType.id}}"></select>
+			<div class="control-group">
+				<label class="control-label" for="collateralTypeId">{{ 'label.collateral.type' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<select ng-model="formData.collateralTypeId" ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes" value="{{collateralType.id}}"></select>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="value">{{ 'label.transaction.amount' | translate }}</label>
-			<div class="controls">
-				<input type="text" ng-model="formData.value">
+			<div class="control-group">
+				<label class="control-label" for="value">{{ 'label.transaction.amount' | translate }}</label>
+				<div class="controls">
+					<input type="text" ng-model="formData.value">
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="description">{{ 'label.transaction.description' | translate }}</label>
-			<div class="controls">
-				<textarea id="description" ng-model="formData.description" rows="4" cols=""></textarea>
+			<div class="control-group">
+				<label class="control-label" for="description">{{ 'label.transaction.description' | translate }}</label>
+				<div class="controls">
+					<textarea id="description" ng-model="formData.description" rows="4" cols=""></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="offset3">
-			<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
-			<button type="submit" class="btn btn-primary">{{ 'button.save' | translate }}</button>
-		</div>
+			<div class="offset3">
+				<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
+				<button type="submit" class="btn btn-primary">{{ 'button.save' | translate }}</button>
+			</div>
 
-	</fieldset>
-</form>
+		</fieldset>
+	</form>
+</div>

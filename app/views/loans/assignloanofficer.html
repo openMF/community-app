@@ -1,30 +1,32 @@
-<form class="form-horizontal well" ng-controller="AssignLoanOfficerController" ng-submit="submit()">
-	<div class="paddedbottom10">
+<div ng-controller="AssignLoanOfficerController">	
+	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{'label.assign.loan.officer' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{ 'label.assign.loan.officer' | translate }}</legend>
+	<form class="form-horizontal" name="assignloanofficerform" novalidate="" ng-submit="submit()">
+		<fieldset>
+			<legend>{{ 'label.assign.loan.officer' | translate }}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="toLoanOfficerId">{{ 'label.collateral.type' | translate }}</label>
-			<div class="controls">
-				<select ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
+			<div class="control-group">
+				<label class="control-label" for="toLoanOfficerId">{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<select ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="assignmentDate">{{ 'label.loanofficer.assignmentDate' | translate }}</label>
-			<div class="controls">
-				<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+			<div class="control-group">
+				<label class="control-label" for="assignmentDate">{{ 'label.loanofficer.assignmentDate' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+				</div>
 			</div>
-		</div>
 
-		<div class="offset3">
-			<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
-			<button type="submit" class="btn btn-primary">{{ 'button.save' | translate }}</button>
-		</div>
+			<div class="offset3">
+				<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
+				<button type="submit" ng-disabled="!assignloanofficerform.$valid" class="btn btn-primary">{{ 'button.save' | translate }}</button>
+			</div>
 
-	</fieldset>
-</form>
+		</fieldset>
+	</form>
+</div>
