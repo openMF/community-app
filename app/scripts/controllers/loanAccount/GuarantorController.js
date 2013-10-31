@@ -28,11 +28,12 @@
                 {
                     guarantor.guarantorTypeId = scope.template.guarantorTypeOptions[0].id;
                     guarantor.locale = 'en';
-                    guarantor.clientRelationshipTypeId = this.formData.relationship;
+                    if (this.formData) {
+                        guarantor.clientRelationshipTypeId = this.formData.relationship;
+                    }
                     guarantor.entityId = scope.client.id;
                 }
-                else
-                {
+                else if (this.formData) {
                     guarantor.addressLine1=this.formData.addressLine1;
                     guarantor.addressLine2=this.formData.addressLine2;
                     guarantor.city = this.formData.city;

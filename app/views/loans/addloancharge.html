@@ -1,48 +1,57 @@
-<form class="form-horizontal well" ng-controller="AddLoanChargeController" ng-submit="submit()">
-	<div class="paddedbottom10">
+<div ng-controller="AddLoanChargeController">	
+	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{'label.add.loan.charge' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{ 'label.add.loan.charge' | translate }}</legend>
+	<form class="form-horizontal well" novalidate="" name="loanchargeform" ng-submit="submit()">
+		<fieldset>
+			<legend>{{ 'label.add.loan.charge' | translate }}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="chargeId">{{ 'label.charge' | translate }}</label>
-			<div class="controls">
-				<select ng-model="formData.chargeId" ng-options="charge.id as charge.name for charge in charges" value="{{charge.id}}" ng-change="selectCharge()"></select>
+			<div class="control-group">
+				<label class="control-label" for="chargeId">{{ 'label.charge' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<select ng-model="formData.chargeId" ng-options="charge.id as charge.name for charge in charges" value="{{charge.id}}" ng-change="selectCharge()">
+						<option value="">{{'label.select.charge' | translate}}</option>
+					</select>
+				</div>
 			</div>
+			<div ng-hide="isCollapsed">
+				<div class="control-group">
+					<label class="control-label" for="amount">{{ 'label.transaction.amount' | translate }}<span class="required">*</span></label>
+					<div class="controls">
+						<input type="text" name="amount" ng-model="formData.amount" required ng-late-Validate>
+						<span  ng-show="loanchargeform.amount.$invalid">
+                          <small class="error">
+                              Required Field
+                          </small>
+                        </span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{{ 'label.charge.calculation' | translate }}</label>
+					<div class="controls">
+						<input type="text" value="{{chargeData.chargeCalculationType.value}}" readonly>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">{{ 'label.charge.calculation.time' | translate }}</label>
+					<div class="controls">
+						<input type="text" value="{{chargeData.chargeTimeType.value}}" readonly>
+					</div>
+				</div>
+				<div class="control-group" ng-show="chargeData.chargeTimeType.id==2">
+					<label class="control-label">{{ 'label.charge.due.date' | translate }}</label>
+					<div class="controls">
+						<input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="formData.dueDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<div class="offset3">
+			<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
+			<button type="submit" class="btn btn-primary" ng-disabled="!loanchargeform.$valid" ng-show="!isCollapsed">{{ 'button.save' | translate }}</button>
 		</div>
-		<div ng-hide="isCollapsed">
-			<div class="control-group">
-				<label class="control-label" for="amount">{{ 'label.transaction.amount' | translate }}</label>
-				<div class="controls">
-					<input type="text" ng-model="formData.amount">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ 'label.charge.calculation' | translate }}</label>
-				<div class="controls">
-					<input type="text" value="{{chargeData.chargeCalculationType.value}}" readonly>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ 'label.charge.calculation.time' | translate }}</label>
-				<div class="controls">
-					<input type="text" value="{{chargeData.chargeTimeType.value}}" readonly>
-				</div>
-			</div>
-			<div class="control-group" ng-show="chargeData.chargeTimeType.id==2">
-				<label class="control-label">{{ 'label.charge.due.date' | translate }}</label>
-				<div class="controls">
-					<input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="formData.dueDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
-				</div>
-			</div>
-		</div>
-	</fieldset>
-	<div class="offset3">
-		<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
-		<button type="submit" class="btn btn-primary" ng-show="!isCollapsed">{{ 'button.save' | translate }}</button>
-	</div>
-</form>
+	</form>
+</div>

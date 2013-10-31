@@ -9,6 +9,7 @@
 
         resourceFactory.loanResource.get({loanId:scope.loanId, template:true, fields:fields}, function(data) {
           scope.loanOfficers = data.loanOfficerOptions;
+          scope.formData.toLoanOfficerId = data.loanOfficerOptions[0].id;
           scope.data = data;
         });
 
