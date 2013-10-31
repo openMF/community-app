@@ -17,6 +17,7 @@
         });
 
         scope.collapseOthers = function(){
+            scope.filterText = '';
             scope.isCollapsed = !scope.isCollapsed;
             if(scope.isCollapsed==false){
             scope.officerCollapsed = true;
@@ -26,6 +27,7 @@
             }
         };
         scope.collapseOfficerOthers = function(){
+            scope.filterText = '';
             scope.officerCollapsed = !scope.officerCollapsed;
             if(scope.officerCollapsed==false){
                 scope.isCollapsed = true;
@@ -35,6 +37,7 @@
             }
         };
         scope.collapseCenterOthers = function(){
+            scope.filterText = '';
             scope.centerCollapsed = !scope.centerCollapsed;
             if(scope.centerCollapsed==false){
                 scope.isCollapsed = true;
@@ -44,6 +47,7 @@
             }
         };
         scope.collapseGroupOthers = function(){
+            scope.filterText = '';
             scope.groupCollapsed = !scope.groupCollapsed;
             if(scope.groupCollapsed==false){
                 scope.isCollapsed = true;
@@ -53,6 +57,7 @@
             }
         };
         scope.collapseClientOthers = function(){
+            scope.filterText = '';
             scope.clientCollapsed = !scope.clientCollapsed;
             if(scope.clientCollapsed==false){
                 scope.isCollapsed = true;
