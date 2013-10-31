@@ -132,6 +132,9 @@
                     scope.groups = data.groupMembers;
                     scope.center = data;
                 });
+                resourceFactory.centerAccountResource.get({centerId: centerId} , function(data) {
+                    scope.centerAccounts = data;
+                });
             }
         };
         scope.groupSelected= function(groupId,groupName) {
@@ -151,6 +154,9 @@
                     scope.group = data;
                     scope.clients = data.clientMembers;
                 });
+                resourceFactory.groupAccountResource.get({groupId: groupId} , function(data) {
+                    scope.groupAccounts = data;
+                });
             }
         };
         scope.clientSelected= function(clientId,clientName) {
@@ -167,6 +173,9 @@
             if(scope.office=='' && scope.center=='' && scope.staff=='' && scope.group==''){
                 resourceFactory.clientResource.get({clientId: clientId} , function(data) {
                     scope.client = data;
+                });
+                resourceFactory.clientAccountResource.get({clientId: clientId} , function(data) {
+                    scope.clientAccounts = data;
                 });
             }
         };
