@@ -2,20 +2,18 @@
     <div class="paddedleft">
         <h3>{{ 'label.addrole' | translate }}</h3>
         <div>
-            <label class="control-label">{{ 'label.client' | translate }}</label>
-            <select ng-model="formData.clientId">
-                <option ng-repeat="client in clients" value="{{client.id}}">{{client.displayName}}</option>
+            <label class="control-label">{{ 'label.client' | translate }}<span class="required">*</span></label>    
+            <select ng-model="formData.clientId" ng-options="client.id as client.displayName for client in clients" value="{{client.id}}">
             </select>
         </div>
         <div>
-            <label class="control-label">{{ 'label.role' | translate }}</label>
-            <select ng-model="formData.role">
-                <option ng-repeat="role in roles" value="{{role.id}}">{{role.name}}</option>
+            <label class="control-label">{{ 'label.role' | translate }}<span class="required">*</span></label>  
+            <select ng-model="formData.role" ng-options="role.id as role.name for role in roles" value="{{role.id}}">
             </select>
         </div>
         <br/>
-        <div>
-            <a href="#/viewgroup/{{group.id}}" class="btn btn-primary">{{ 'label.cancel' | translate }}</a>
+        <div class="offset1">
+            <a href="#/viewgroup/{{group.id}}" class="btn">{{ 'label.cancel' | translate }}</a>
             <button type="button" class="btn btn-primary" data-ng-click="addrole()">{{ 'label.add' | translate }}</button>
         </div>
     </div>

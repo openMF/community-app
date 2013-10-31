@@ -3,9 +3,11 @@
         AssignStaffController: function(scope, resourceFactory, location, routeParams) {
             scope.group = [];
             scope.staff = [];
+            scope.formData = {};
             resourceFactory.assignStaffResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id,template:'true'} , function(data) {
                 scope.group = data;
                 scope.staffs = data.staffOptions;
+                scope.formData.staffId = data.staffOptions[0].id;
             });
             scope.assignStaff = function(){
 

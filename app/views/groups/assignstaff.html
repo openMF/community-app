@@ -3,10 +3,9 @@
     <form>
         <table>
             <tr>
-                <td>{{'label.staff' | translate}}</td>
+                <td><label>{{'label.staff' | translate}}<span class="required">*</span></label></td>
                 <td>
-                    <select id="staffs" ng-model="formData.staffId">
-                        <option ng-repeat="staff in staffs" value="{{staff.id}}">{{staff.displayName}}</option>
+                    <select id="staffs" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                     </select>
                 </td>
             </tr>
