@@ -3,11 +3,11 @@
           <li class="active">Add Saving charge</li>
         </ul>
       </div>
-      <form class="form-horizontal" ng-controller="AddNewSavingsChargeController" ng-submit="submit()">
+      <form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController" ng-submit="submit()">
         <fieldset>
 
           <div class="control-group">
-            <label class="control-label">{{ 'label.charges' | translate }}</label>
+            <label class="control-label">{{ 'label.charges' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <select ng-model="formData.chargeId"  ng-options="charge.id as charge.name for charge in chargeOptions" value="{{formData.chargeId}}"
                ng-change="chargeSelected(formData.chargeId)">
@@ -18,9 +18,14 @@
 
           <div ng-show="chargeDetails">
             <div class="control-group">
-              <label class="control-label">{{ 'label.amount' | translate }}</label>
+              <label class="control-label">{{ 'label.amount' | translate }}<span class="required">*</span></label>
               <div class="controls">
-                <input type="text" ng-model="formData.amount">
+                <input type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
+                <span  ng-show="savingccountchargeform.amount.$invalid">
+                  <small class="error">
+                      Required Field
+                  </small>
+                </span>
               </div>
             </div>
 
@@ -41,7 +46,7 @@
             </div>
 
             <div class="control-group" ng-show="!withDrawCharge">
-              <label class="control-label">{{ 'label.dueon' | translate }}</label>
+              <label class="control-label">{{ 'label.dueon' | translate }}<span class="required">*</span></label>
               <div class="controls">
                 <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.feeOnMonthDay" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
               </div>
