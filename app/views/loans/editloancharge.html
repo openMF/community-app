@@ -1,24 +1,31 @@
-<form class="form-horizontal well" ng-controller="EditLoanChargeController" ng-submit="submit()">
-	<div class="paddedbottom10">
+<div ng-controller="EditLoanChargeController">
+	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{'label.edit.loan.charge' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{ 'label.edit.loan.charge' | translate }}</legend>
+	<form name="loanchargeform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+		<fieldset>
+			<legend>{{ 'label.edit.loan.charge' | translate }}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="amount">{{ 'label.transaction.amount' | translate }}</label>
-			<div class="controls">
-				<input type="text" ng-model="formData.amount">
+			<div class="control-group">
+				<label class="control-label" for="amount">{{ 'label.transaction.amount' | translate }}<span class="required">*</span></label>
+				<div class="controls">
+					<input type="text" name="amount" ng-model="formData.amount" required late-Validate/>
+					<span  ng-show="loanchargeform.amount.$invalid">
+	                    <small class="error">
+	                        Required Field
+	                    </small>
+	                </span>
+				</div>
 			</div>
-		</div>
 
-		<div class="offset3">
-			<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
-			<button type="submit" class="btn btn-primary">{{ 'button.save' | translate }}</button>
-		</div>
+			<div class="offset3">
+				<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
+				<button type="submit" ng-disabled="!loanchargeform.$valid" class="btn btn-primary">{{ 'button.save' | translate }}</button>
+			</div>
 
-	</fieldset>
-</form>
+		</fieldset>
+	</form>
+</div>

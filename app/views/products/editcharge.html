@@ -1,73 +1,75 @@
-<form class="form-horizontal well" ng-controller="EditChargeController" ng-submit="submit()">
-    <fieldset>
-        <legend>{{'label.editcharge' | translate}}</legend>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-disabled="true">
-                </select>
+<div ng-controller="EditChargeController">
+    <div class="control-group">
+        <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
+        <div class="controls">
+            <select ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-disabled="true">
+            </select>
+        </div>
+    </div>
+    <form class="form-horizontal well" ng-controller="EditChargeController" ng-submit="submit()">
+        <fieldset>
+            <legend>{{'label.editcharge' | translate}}</legend>
+            <hr/>
+            <div class="control-group">
+                <label class="control-label" for="name">{{'label.name' | translate}}</label>
+                <div class="controls">
+                    <input type="text" id="name" ng-model="formData.name">
+                </div>
             </div>
-        </div>
-        <hr/>
-        <div class="control-group">
-            <label class="control-label" for="name">{{'label.name' | translate}}</label>
-            <div class="controls">
-                <input type="text" id="name" ng-model="formData.name">
+            <div class="control-group">
+                <label class="control-label">{{'label.form.currency' | translate}}</label>
+                <div class="controls">
+                    <select ng-model="formData.currencyCode" data-ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.form.currency' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.currencyCode" data-ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
-                </select>
+            <div class="control-group">
+                <label class="control-label">{{'label.chargetimetype' | translate}}</label>
+                <div class="controls">
+                    <select ng-model="formData.chargeTimeType" data-ng-options="timetype.id as timetype.value for timetype in template.chargeTimeTypeOptions" value="{{timetype.id}}">
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargetimetype' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargeTimeType" data-ng-options="timetype.id as timetype.value for timetype in template.chargeTimeTypeOptions" value="{{timetype.id}}">
-                </select>
+            <div class="control-group">
+                <label class="control-label">{{'label.chargecalculation' | translate}}</label>
+                <div class="controls">
+                    <select ng-model="formData.chargeCalculationType" data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions" value="{{chargecalculation.id}}">
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargecalculation' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargeCalculationType" data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions" value="{{chargecalculation.id}}">
-                </select>
+            <div class="control-group">
+                <label class="control-label">{{'label.chargepaymentby' | translate}}</label>
+                <div class="controls">
+                    <select ng-model="formData.chargePaymentMode" data-ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">{{'label.chargepaymentby' | translate}}</label>
-            <div class="controls">
-                <select ng-model="formData.chargePaymentMode" data-ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">
-                </select>
+            <div class="control-group">
+                <label class="control-label" for="amount">{{'label.amount' | translate}}</label>
+                <div class="controls">
+                    <input type="text" id="amount" ng-model="formData.amount">
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="amount">{{'label.amount' | translate}}</label>
-            <div class="controls">
-                <input type="text" id="amount" ng-model="formData.amount">
+            <div class="control-group">
+                <label class="control-label" for="active">{{'label.active' | translate}}</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input id="active" type="checkbox" ng-model="formData.active">
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="active">{{'label.active' | translate}}</label>
-            <div class="controls">
-                <label class="checkbox">
-                    <input id="active" type="checkbox" ng-model="formData.active">
-                </label>
+            <div class="control-group">
+                <label class="control-label" for="ispenalty">{{'label.ispenalty' | translate}}</label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input id="ispenalty" type="checkbox" ng-model="formData.penalty">
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="ispenalty">{{'label.ispenalty' | translate}}</label>
-            <div class="controls">
-                <label class="checkbox">
-                    <input id="ispenalty" type="checkbox" ng-model="formData.penalty">
-                </label>
+            <div class="offset2 paddedleft80">
+                <a href="#/viewcharge/{{template.id}}" class="btn">{{'label.cancel' | translate}}</a>
+                <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
             </div>
-        </div>
-        <div class="offset2 paddedleft80">
-            <a href="#/viewcharge/{{template.id}}" class="btn">{{'label.cancel' | translate}}</a>
-            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
-        </div>
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</div>
