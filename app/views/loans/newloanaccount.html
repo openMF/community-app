@@ -1,4 +1,12 @@
-      <form name="newloanaccountform" novalidate="" class="well" ng-controller="NewLoanAccAppController">
+    <div ng-controller="NewLoanAccAppController">
+      <div>
+        <ul class="breadcrumb">
+          <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
+          <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a> <span class="divider">/</span></li>
+          <li class="active">{{'label.loan.application' | translate}}</li>
+        </ul>
+      </div>
+      <form name="newloanaccountform" novalidate="" class="well">
         <fieldset>
         <legend>{{ 'form.legend.new.loan.application' | translate }}</legend>
           <div class="control-group">
@@ -160,7 +168,7 @@
                         <select ng-model="formData.amortizationType" ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions" value="{{amortizationType.id}}">
                       </td>
                       <td width="40%">
-                        <label class="control-label">{{ 'label.interestmethod' | translate }}&nbsp;</label>
+                        <label class="control-label">{{ 'label.interestmethod' | translate }}&nbsp;</label><span class="required">*</span></label>
                         <select ng-model="formData.interestType" ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" value="{{interestType.id}}">
                       </td>
                     </tr>
@@ -332,3 +340,4 @@
           </div>
         </fieldset>
       </form>
+    </div>
