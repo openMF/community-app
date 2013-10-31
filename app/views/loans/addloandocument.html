@@ -1,37 +1,44 @@
-<form class="form-horizontal well" ng-controller="LoanDocumentController" ng-submit="submit()">
+<div ng-controller="LoanDocumentController">
 	<div>
 		<ul class="breadcrumb">
-			<li><a href="#/viewloanaccount/{{loanId}}">{{'link.view.loan' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{'link.upload.document' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{'label.upload.loan.document' | translate}}</legend>
+	<form class="form-horizontal well" name="loandocumentform" novalidate="" ng-submit="submit()">
+		<fieldset>
+			<legend>{{'label.upload.loan.document' | translate}}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="name">{{'label.name' | translate}}</label>
-			<div class="controls">
-				<input type="text" ng-model="formData.name" required="required">
+			<div class="control-group">
+				<label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<input type="text" name="name" ng-model="formData.name" required late-Validate/>
+					<span  ng-show="loandocumentform.name.$invalid">
+	                    <small class="error" ng-show="loandocumentform.name.$error.req">
+	                        Required Field
+	                    </small>
+	                </span>
+				</div>
 			</div>
-		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="description">{{'label.description' | translate}}</label>
-			<div class="controls">
-				<textarea rows="2" ng-model="formData.description"></textarea>
+			<div class="control-group">
+				<label class="control-label" for="description">{{'label.description' | translate}}</label>
+				<div class="controls">
+					<textarea rows="2" ng-model="formData.description"></textarea>
+				</div>
 			</div>
-		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="file">{{'label.select.file' | translate}}</label>
-			<div class="controls">
-				<input type="file" ng-file-select="onFileSelect($files)">
+			<div class="control-group">
+				<label class="control-label" for="file">{{'label.select.file' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<input type="file" ng-file-select="onFileSelect($files)">
+				</div>
 			</div>
-		</div>
 
-		<div class="offset3">
-			<a href="#/viewloanaccount/{{loanId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
-			<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
-		</div>
-	</fieldset>
-</form>
+			<div class="offset3">
+				<a href="#/viewloanaccount/{{loanId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
+				<button type="submit" ng-disabled="!loandocumentform.$valid" class="btn btn-primary">{{'button.save' | translate}}</button>
+			</div>
+		</fieldset>
+	</form>
+</div>
