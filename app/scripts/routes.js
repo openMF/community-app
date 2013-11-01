@@ -448,6 +448,9 @@
       })
       .when('/guarantor/:id', {
         templateUrl: 'views/loans/guarantor.html'
+      })
+      .when('/editguarantor/:id/:loanId',{
+        templateUrl: 'views/loans/editguarantor.html'
       });
     $locationProvider.html5Mode(false);
   };
