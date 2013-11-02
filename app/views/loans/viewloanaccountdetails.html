@@ -105,11 +105,85 @@
                   <td>{{'label.interestChargedFrom' | translate}}</td>
                   <td>{{loandetails.timeline.interestChargedFromDate | DateFormat}}</td>
                 </tr>
-            </tbody>
             </table>
           </div>
         </tab>
-
+        <tab heading="{{'label.guarantordetails' | translate}}" data-ng-show="$parent.guarantorDetails">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>{{'table.firstname' | translate}}</th>
+                        <th>{{'table.lastname' | translate}}</th>
+                        <th>{{'label.relationship' | translate}}</th>
+                        <th>{{'label.guarantortype' | translate}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="guarantor in guarantorDetails">
+                        <td>{{guarantor.firstname}}</td>
+                        <td>{{guarantor.lastname}}</td>
+                        <td>{{guarantor.clientRelationshipType.name}}</td>
+                        <td>{{guarantor.guarantorType.value}}</td>
+                        <td><a data-ng-click="showDetails(guarantor.id)">{{'label.details' | translate}}</a></td>
+                        <td><a data-ng-show="guarantor.guarantorType.id == 3" href="#/editguarantor/{{guarantor.id}}/{{guarantor.loanId}}" class="btn btn-primary"><i class="icon-edit"></i></a><button class="btn btn-warning" data-ng-click="deleteGroup(guarantor.id)" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <table data-ng-show="guarantorData">
+                <tr data-ng-show="guarantorData.firstname">
+                    <td>{{'label.firstname' | translate}}</td>
+                    <td>{{guarantorData.firstname}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.lastname">
+                    <td>{{'label.lastname' | translate}}</td>
+                    <td>{{guarantorData.lastname}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.clientRelationshipType.name">
+                    <td>{{'label.relationship' | translate}}:</td>
+                    <td>{{guarantorData.clientRelationshipType.name}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.guarantorType.value">
+                    <td>{{'label.guarantortype' | translate}}:</td>
+                    <td>{{guarantorData.guarantorType.value}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.joinedDate">
+                    <td>{{'label.joindate' | translate}}:</td>
+                    <td>{{guarantorData.joinedDate | DateFormat}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.officeName">
+                    <td>{{'label.belongsto' | translate}}:</td>
+                    <td>{{guarantorData.officeName}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.dob">
+                    <td>{{'label.dob' | translate}}:</td>
+                    <td>{{guarantorData.dob | DateFormat}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.mobileNumber">
+                    <td>{{'label.mobile' | translate}}:</td>
+                    <td>{{guarantorData.mobileNumber}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.housePhoneNumber">
+                    <td>{{'label.residence' | translate}}:</td>
+                    <td>{{guarantorData.housePhoneNumber}}</td>
+                </tr>
+                <tr data-ng-show="guarantorData.city">
+                    <td>{{'label.city' | translate}}:</td>
+                    <td>{{guarantorData.city}}</td>
+                </tr>
+            </table>
+        </tab>
+        <script type="text/ng-template" id="deleteguarantor.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.delete' | translate}}</h3>
+            </div>
+            <div class="modal-body modal-middle">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+            </div>
+        </script>
         <tab heading="{{'tab.summary' | translate}}">
           <table  class="table">
               <thead>

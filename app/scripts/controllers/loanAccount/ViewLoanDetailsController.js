@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http) {
+    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal) {
       scope.$broadcast('LoanAccountDataLoadingStartEvent');
       scope.loandocuments = [];
 
@@ -74,6 +74,7 @@
       };
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.loandetails = data;
+          scope.guarantorDetails = data.guarantors;
           scope.status = data.status.value;
           scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
 
@@ -190,10 +191,36 @@
                             ]                              
                             };
         }
-
-
       });
+      scope.showDetails = function(id){
+          resourceFactory.guarantorResource.get({loanId: routeParams.id,templateResource:id}, {}, function(data) {
+              scope.guarantorData = data;
+          });
 
+      };
+      scope.deleteGroup = function (id) {
+          scope.guarantorId = id;
+        $modal.open({
+            templateUrl: 'deleteguarantor.html',
+            controller: GuarantorDeleteCtrl,
+            resolve: {
+                id: function(){
+                    return scope.guarantorId;
+                }
+            }
+        });
+      };
+      var GuarantorDeleteCtrl = function ($scope, $modalInstance,id) {
+        $scope.delete = function () {
+            resourceFactory.guarantorResource.delete({loanId: routeParams.id,templateResource:id}, {}, function(data) {
+                route.reload();
+            });
+            $modalInstance.close('delete');
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+      };
       scope.getLoanTemplateDocuments = function() {
         resourceFactory.templateResource.get({entityId : 1, typeId : 0}, function(data) {
           scope.loanTemplateData = data;
@@ -261,7 +288,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));

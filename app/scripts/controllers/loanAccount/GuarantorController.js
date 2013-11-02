@@ -1,9 +1,10 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        GuarantorController: function(scope, resourceFactory, routeParams, location) {
+        GuarantorController: function(scope, resourceFactory, routeParams, location,dateFilter) {
             scope.template = {};
             scope.clientview = false;
             scope.temp = true;
+            scope.date = {};
 
             resourceFactory.guarantorResource.get({ loanId:routeParams.id,templateResource:'template'}, function(data) {
                 scope.template = data;
@@ -24,6 +25,7 @@
 
             scope.submit = function(){
                 var guarantor = {};
+                var reqDate = dateFilter(scope.date.first,'dd MMMM yyyy');
                 if(scope.temp==true)
                 {
                     guarantor.guarantorTypeId = scope.template.guarantorTypeOptions[0].id;
@@ -37,7 +39,7 @@
                     guarantor.addressLine1=this.formData.addressLine1;
                     guarantor.addressLine2=this.formData.addressLine2;
                     guarantor.city = this.formData.city;
-                    guarantor.dob=this.formData.dob;
+                    guarantor.dob=reqDate;
                     guarantor.zip=this.formData.zip;
                     guarantor.dateFormat="dd MMMM yyyy";
                     guarantor.locale='en';
@@ -54,7 +56,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.GuarantorController]).run(function($log) {
+    mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location','dateFilter', mifosX.controllers.GuarantorController]).run(function($log) {
         $log.info("GuarantorController initialized");
     });
 }(mifosX.controllers || {}));

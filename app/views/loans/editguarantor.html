@@ -1,0 +1,66 @@
+<form class="form-horizontal well" ng-controller="EditGuarantorController">
+    <fieldset>
+        <legend class="bolder">{{'label.guarantor' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.relationship' | translate }}</label>
+            <div class="controls">
+                <select ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}</label>
+            <div class="controls">
+                <input type="text" id="firstname" ng-model="formData.firstname">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.form.lastname' | translate }}</label>
+            <div class="controls">
+                <input type="text" ng-model="formData.lastname">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.dob' | translate }}</label>
+            <div class="controls">
+                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.address' | translate }}</label>
+            <div class="controls">
+                <input type="text" placeholder="Line 1" ng-model="formData.addressline1"><br/>
+                <input type="text" placeholder="Line 2" ng-model="formData.addressline2">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.city' | translate }}</label>
+            <div class="controls">
+                <input type="text" ng-model="formData.city">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.zip' | translate }}</label>
+            <div class="controls">
+                <input type="text" ng-model="formData.zip">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.mobile' | translate }}</label>
+            <div class="controls">
+                <input type="text" ng-model="formData.mobile">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.residence' | translate }}</label>
+            <div class="controls">
+                <input type="text" ng-model="formData.residence">
+            </div>
+        </div>
+        <div class="offset2 paddedleft120">
+            <a href="#/viewloanaccount/{{template.loanId}}" class="btn">{{ 'label.cancel' | translate }}</a>
+            <button type="button" class="btn btn-primary" data-ng-click="submit()">{{ 'label.save' | translate }}</button>
+        </div>
+    </fieldset>
+</form>
+
+

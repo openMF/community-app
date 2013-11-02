@@ -150,7 +150,8 @@ define(['underscore', 'mifosX'], function() {
       'template/CreateTemplateController',
       'template/ViewTemplateController',
       'template/EditTemplateController',
-      'loanAccount/GuarantorController'
+      'loanAccount/GuarantorController',
+      'loanAccount/EditGuarantorController'
     ],
     filters: [
       'StatusLookup',

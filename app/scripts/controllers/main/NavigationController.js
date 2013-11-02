@@ -70,6 +70,7 @@
         scope.officeSelected= function(officeId,office) {
             scope.officeName = office;
             scope.selectedOffice = officeId;
+            scope.filterText = '';
             scope.staffs = '';
             scope.staff = '';
             scope.group = '';
@@ -98,7 +99,8 @@
         scope.staffSelected= function(staffId,staffName) {
             scope.office = '';
             scope.group = '';
-            scope.client = ''
+            scope.client = '';
+            scope.filterText = '';
             scope.center = '';
             scope.centerName = '';
             scope.groupName = '';
@@ -124,6 +126,7 @@
             scope.staff = '';
             scope.client = '';
             scope.group='';
+            scope.filterText = '';
             scope.groupName = '';
             scope.clientName = '';
             scope.centerName = centerName;
@@ -144,6 +147,7 @@
         };
         scope.groupSelected= function(groupId,groupName) {
             scope.office = '';
+            scope.filterText = '';
             scope.staff = '';
             scope.center = '';
             scope.client = '';
@@ -166,6 +170,7 @@
         };
         scope.clientSelected= function(clientId,clientName) {
             scope.office = '';
+            scope.filterText = '';
             scope.staff = '';
             scope.center = '';
             scope.group = '';
