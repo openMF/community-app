@@ -1,5 +1,7 @@
 (function(mifosX) {
-  var defineHeaders = function($httpProvider , $translateProvider) {
+  var defineHeaders = function($httpProvider , $translateProvider , $location) {
+
+    console.log($location.path());
 
   	//Set headers
     $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
