@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    LoginFormController: function(scope, authenticationService  httpProvider) {
+    LoginFormController: function(scope, authenticationService , httpProvider) {
       scope.loginCredentials = {};
       scope.authenticationFailed = false;
       
