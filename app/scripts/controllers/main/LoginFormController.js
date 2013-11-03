@@ -1,10 +1,10 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    LoginFormController: function(scope, authenticationService , httpProvider) {
+    LoginFormController: function(scope, authenticationService  httpProvider) {
       scope.loginCredentials = {};
       scope.authenticationFailed = false;
       
-      $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'gk';
+      httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'gk';
 
       scope.login = function() {
         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
