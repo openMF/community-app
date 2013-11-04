@@ -10,20 +10,17 @@
 2. Clone this respository to your local filesystem (default branch in 'master')
 
 3. To download the dependencies, and be able to build, first install bower & grunt:
-
 ```
 npm install -g bower
 npm install -g grunt-cli
 ```
-
 4. Next pull the runtime and build time dependencies by running bower and npm install on the project root folder:
-
 ```
 bower install
 npm install
 ```
-
 5. Now open the 'index.html' file in FIREFOX browser. 
+
 6. Default username/password: mifos/password. This application will hit the demo server by default.
 
 You are done.
