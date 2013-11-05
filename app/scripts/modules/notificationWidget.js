@@ -54,10 +54,12 @@ angular.module('notificationWidget', [])
     // publish start request notification
     var requestStarted = function() {
         $rootScope.$broadcast(_START_REQUEST_);
+        $rootScope.blockUI = true;
     };
     // publish end request notification
     var requestEnded = function() {
         $rootScope.$broadcast(_END_REQUEST_);
+        $rootScope.blockUI = false;
     };
     // subscribe to start request notification
     var onRequestStarted = function($scope, handler){
