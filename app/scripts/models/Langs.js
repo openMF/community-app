@@ -4,7 +4,7 @@
             {"name" : "Français", "code":"fr"},
             {"name" : "Español", "code":"es"},
             {"name" : "Português", "code":"pt"},
-            {"name" : "中文", "code":"zh"},
+            {"name" : "中文", "code":"zh_cn"},
             {"name" : "हिंदी", "code":"hi"},
            ]
   });
