@@ -90,7 +90,8 @@
               scope.choice = true;
           }
               if (data.status.value == "Submitted and pending approval") {
-            scope.buttons = { singlebuttons : [{
+            scope.buttons = { singlebuttons : [
+                              {
                                 name:"button.addloancharge",
                                 icon :"icon-plus-sign"
                               },
@@ -99,18 +100,21 @@
                                 icon :"icon-link"
                               },
                               {
-                                name:"button.assignloanofficer",
-                                icon :"icon-user"
+                                name:"button.approve",
+                                icon :"icon-ok"
+                              },
+                              {
+                                name:"button.modifyapplication",
+                                icon :"icon-edit"
+                              },
+                              {
+                                name:"button.reject",
+                                icon :"icon-remove"
                               }
                             ],
-                              options: [{
-                                name:"button.modifyapplication",
-                              },
+                              options: [
                               {
-                                name:"button.approve"
-                              },
-                              {
-                                name:"button.reject"
+                                name:"button.assignloanofficer"
                               },
                               {
                                 name:"button.withdrawnbyclient"
