@@ -7,6 +7,9 @@
         scope.isCollapsed = true;
         scope.clientId = routeParams.clientId;
         scope.groupId = routeParams.groupId;
+        if (routeParams.centerEntity) {
+          scope.centerEntity = true;
+        }
         scope.charges = [];
         scope.inparams = {};
         if (scope.clientId) {scope.inparams.clientId = scope.clientId};

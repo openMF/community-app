@@ -5,11 +5,13 @@
             scope.staffs = [];
             scope.data = {};
             scope.first = {};
+            scope.formData = {};
             scope.first.date = new Date();
             resourceFactory.centerTemplateResource.get(function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
+                scope.formData.officeId = data.officeOptions[0].id;
             });
 
             scope.changeOffice =function(officeId) {
