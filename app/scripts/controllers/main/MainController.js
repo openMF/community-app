@@ -18,14 +18,8 @@
         location.path('/').replace();
       };
 
-      scope.langs   = [{"name" : "English" , "code" : "en"},
-                       {"name" : "Français", "code":"fr"},
-                       {"name" : "Español", "code":"es"},
-                       {"name" : "Português", "code":"pt"},
-                       {"name" : "中文", "code":"zh"},
-                       {"name" : "हिंदी", "code":"hn"}
-                       ];
-
+      scope.langs = mifosX.models.Langs;
+      
       scope.optlang = scope.langs[0];
 
       scope.isActive = function (route) {

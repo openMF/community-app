@@ -2,7 +2,8 @@ define(['underscore', 'mifosX'], function() {
   var components = {
     models: [
       'LoggedInUser',
-      'roleMap'
+      'roleMap',
+      'Langs'
     ],
     services: [
       'ResourceFactoryProvider',
