@@ -4,19 +4,19 @@
           <li class="active">{{'label.journalentry.posting.title' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="JournalEntryController" ng-submit="submit()">
+      <form name="journalpostingform" novalidate="" class="form-horizontal well" ng-controller="JournalEntryController" ng-submit="submit()">
         </div>
         <fieldset>
           <legend>{{ 'label.journalentry.posting.title' | translate }}</legend>
           <div class="control-group">
-            <label class="control-label">{{ 'label.office' | translate }}</label>
+            <label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
               </select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">{{ 'label.currency' | translate }}&nbsp;</label>
+            <label class="control-label">{{ 'label.currency' | translate }}&nbsp;<span class="required">*</span></label>
             <div class="controls">
               <select ng-model="formData.currencyCode" ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions" value="{{currency.code}}" required="required">
                 <option style="display:none" value="">{{'label.select.currency' | translate}}</option>
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}</label>
+            <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <table width="100%">
                 <tr>
@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">{{ 'label.journalentry.transaction.date' | translate }}</label>
+            <label class="control-label">{{ 'label.journalentry.transaction.date' | translate }}<span class="required">*</span></label>
             <div class="controls">
                 <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             </div>

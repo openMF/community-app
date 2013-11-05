@@ -5,7 +5,7 @@
           <li class="active">{{'label.createglaccount' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="AccCreateGLAccountController" ng-submit="submit()">
+      <form name="createglaccountingform" novalidate="" class="form-horizontal well" ng-controller="AccCreateGLAccountController" ng-submit="submit()">
         <fieldset>
           <legend>{{'label.createglaccount' | translate}}</legend>
           
@@ -13,9 +13,14 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label" for="name">{{'label.accountname' | translate}}</label>
+                  <label class="control-label" for="name">{{'label.accountname' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                      <input type="text" id="name" ng-model="formData.name">
+                      <input type="text" name="name" id="name" ng-model="formData.name" required late-Validate/>
+                      <span  ng-show="createglaccountingform.name.$invalid">
+                        <small class="error" ng-show="createglaccountingform.name.$error.req">
+                            Required Field
+                        </small>
+                      </span>
                     </div>
                 </div>
               </td>
@@ -23,9 +28,14 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label" for="glCode">{{'label.glcode' | translate}}</label>
+                  <label class="control-label" for="glCode">{{'label.glcode' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                      <input type="text" id="glCode" ng-model="formData.glCode">
+                      <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required late-Validate/>
+                      <span  ng-show="createglaccountingform.glCode.$invalid">
+                        <small class="error" ng-show="createglaccountingform.glCode.$error.req">
+                            Required Field
+                        </small>
+                      </span>
                     </div>
                 </div>
               </td>
