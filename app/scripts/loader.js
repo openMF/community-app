@@ -18,7 +18,7 @@
             'require-less':     '../bower_components/require-less/less',
             'd3':               '../bower_components/d3/d3',
             'nvd3':             '../bower_components/nvd3/nv.d3',
-            'nvd3ChartDirectives':'../scripts/directives/angularjs-nvd3-directives',
+            'nvd3ChartDirectives':'../scripts/modules/angularjs-nvd3-directives',
             'styles':           '../styles',
             'test':             '../../test/functional',
             'notificationWidget':'../scripts/modules/notificationWidget',
