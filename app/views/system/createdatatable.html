@@ -5,17 +5,22 @@
           <li class="active">{{'label.create.datatable' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="CreateDataTableController" ng-submit="submit()">
+      <form name="createdatatableform" novalidate="" class="form-horizontal well" ng-controller="CreateDataTableController" ng-submit="submit()">
         <fieldset>
           <legend>{{ 'label.create.datatable' | translate }}</legend>
           <div class="control-group">
-            <label class="control-label" for="datatableName">{{ 'label.datatable.name' | translate }}</label>
+            <label class="control-label" for="datatableName">{{ 'label.datatable.name' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" ng-model="formData.datatableName">
+              <input type="text" name="datatableName" ng-model="formData.datatableName" required late-Validate/>
+              <span  ng-show="createdatatableform.datatableName.$invalid">
+                <small class="error" ng-show="createdatatableform.datatableName.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="apptableName">{{ 'label.datatable.apptableName' | translate }}</label>
+            <label class="control-label" for="apptableName">{{ 'label.datatable.apptableName' | translate }}<span class="required">*</span></label>
             <div class="controls">
                <select ng-model="formData.apptableName" required="required">
                   <option style="display:none" value="">{{'label.select.apptableName' | translate}}</option>
@@ -33,7 +38,7 @@
             <span class="span1"></span><input type="checkbox" ng-model="formData.multiRow" />
           </div>
           <div class="control-group">
-            <label class="control-label">{{ 'label.add.columns' | translate }}</label>
+            <label class="control-label">{{ 'label.add.columns' | translate }}<span class="required">*</span></label>s
             <div class="controls">
               <input ng-model="datatableTemplate.columnName" type="text" placeholder="{{'label.column.name' | translate}}"/>&nbsp;&nbsp;
               <select ng-model="datatableTemplate.columnType">&nbsp;&nbsp;

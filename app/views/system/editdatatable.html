@@ -1,23 +1,24 @@
-      <form class="form-horizontal well" ng-controller="EditDataTableController" ng-submit="submit()">
-        <div>
-          <ul class="breadcrumb">
-            <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/datatables">{{'label.managedatatables' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/viewdatatable/{{datatable.registeredTableName}}">{{datatable.registeredTableName}}</a> <span class="divider">/</span></li>
-            <li class="active">{{'label.edit.datatable' | translate}}</li>
-          </ul>
-        </div>
+  <div ng-controller="EditDataTableController">
+      <div>
+        <ul class="breadcrumb">
+          <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
+          <li><a href="#/datatables">{{'label.managedatatables' | translate}}</a> <span class="divider">/</span></li>
+          <li><a href="#/viewdatatable/{{datatable.registeredTableName}}">{{datatable.registeredTableName}}</a> <span class="divider">/</span></li>
+          <li class="active">{{'label.edit.datatable' | translate}}</li>
+        </ul>
+      </div>
+      <form class="form-horizontal well" ng-submit="submit()">
 
         <fieldset>
           <legend>{{ 'label.edit.datatable' | translate }}</legend>
           <div class="control-group">
-            <label class="control-label">{{ 'label.datatable.name' | translate }}</label>
+            <label class="control-label">{{ 'label.datatable.name' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" value="{{datatable.registeredTableName}}" readonly>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">{{ 'label.datatable.apptableName' | translate }}</label>
+            <label class="control-label">{{ 'label.datatable.apptableName' | translate }}<span class="required">*</span></label>
             <div class="controls">
                <select ng-model="formData.apptableName" required="required">
                   <option style="display:none" value="">{{'label.select.apptableName' | translate}}</option>
@@ -108,3 +109,4 @@
           </div>
         </fieldset>
       </form>
+    </div>

@@ -4,35 +4,57 @@
               <li class="active">{{'label.createuser' | translate}}</li>
           </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="CreateUserController" ng-submit="submit()">
+      <form name="createuserform" novalidate="" class="form-horizontal" ng-controller="CreateUserController" ng-submit="submit()">
         <fieldset>
           <legend>{{'label.createuser' | translate}}</legend>
           <div class="control-group">
-            <label class="control-label" for="username">User Name</label>
+            <label class="control-label" for="username">{{'label.username' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="username" ng-model="formData.username">
+              <input type="text" id="username" name="username" ng-model="formData.username" required late-Validate/>
+              <span  ng-show="createuserform.username.$invalid">
+                <small class="error" ng-show="createuserform.username.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="firstname">First Name</label>
+            <label class="control-label" for="firstname">{{'label.firstname' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="firstname" ng-model="formData.firstname">
+              <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
+              <span  ng-show="createuserform.firstname.$invalid">
+                <small class="error" ng-show="createuserform.firstname.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="lastname">Last Name</label>
+            <label class="control-label" for="lastname">{{'label.lastname' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="lastname" ng-model="formData.lastname">
+              <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
+              <span  ng-show="createuserform.lastname.$invalid">
+                <small class="error" ng-show="createuserform.lastname.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="email">Email</label>
+            <label class="control-label" for="email">{{'label.email' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="email" ng-model="formData.email">
+              <input type="email" id="email" name="email" ng-model="formData.email" required late-Validate/>
+              <span  ng-show="createuserform.email.$invalid">
+                <small class="error" ng-show="createuserform.email.$error.req">
+                    Required Field
+                </small> 
+                <small class="error" ng-show="createuserform.email.$error.email &&  !createuserform.email.$error.req">
+                Not valid email!</small>
+              </span>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="sendPasswordToEmail">Auto generate password</label>
+            <label class="control-label" for="sendPasswordToEmail">{{'label.autogeneratepassword' | translate}}</label>
             <div class="controls">
               <label class="checkbox">
                 <input type="checkbox" ng-model="formData.sendPasswordToEmail">
@@ -41,26 +63,26 @@
           </div>
           <div ng-hide="formData.sendPasswordToEmail">
             <div class="control-group">
-              <label class="control-label" for="password">Password</label>
+              <label class="control-label" for="password">{{'label.password' | translate}}</label>
               <div class="controls">
                 <input type="text" id="password" ng-model="formData.password">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="repeatPassword">Repeat Password</label>
+              <label class="control-label" for="repeatPassword">{{'label.repeatpassword' | translate}}</label>
               <div class="controls">
                 <input type="text" id="repeatPassword" ng-model="formData.repeatPassword">
               </div>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="office">Office</label>
+            <label class="control-label" for="office">{{'label.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="role">Select roles</label>
+            <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select id="role" ng-model="formData.roles" multiple>
                 <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">{{availablerole.name}}</option>

@@ -5,16 +5,21 @@
         <li class="active">{{'label.createholiday' | translate}}</li>
     </ul>
 </div>
-<form class="form-horizontal well" ng-controller="AddHolController" ng-submit="submit()">
+<form name="addholidayform" novalidate="" class="form-horizontal well" ng-controller="AddHolController" ng-submit="submit()">
     <fieldset>
         <legend>{{'label.createholiday' | translate}}</legend>
         <table>
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label">{{ 'label.holiday.name' | translate }}</label>
+                        <label class="control-label">{{ 'label.holiday.name' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" ng-model="formData.name">
+                            <input type="text" name="name" ng-model="formData.name" required late-Validate/>
+                            <span  ng-show="addholidayform.name.$invalid">
+                                <small class="error" ng-show="addholidayform.name.$error.req">
+                                    Required Field
+                                </small>
+                            </span>
                         </div>
                     </div>
                 </td>
@@ -36,12 +41,12 @@
                     <div class="control-group">
                         <div class="span4 pull-left">
                             <div>
-                            <label class="control-label">{{ 'label.holiday.fromdate' | translate }}</label>
+                            <label class="control-label">{{ 'label.holiday.fromdate' | translate }}<span class="required">*</span></label>
                             <div class="controls">
                                 <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                             </div></div>
                             <div>
-                                <label class="control-label">{{ 'label.holiday.todate' | translate }}</label>
+                                <label class="control-label">{{ 'label.holiday.todate' | translate }}<span class="required">*</span></label>
                                 <div class="controls">
                                     <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                                 </div>
@@ -53,7 +58,7 @@
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label">{{ 'label.holiday.repaymentsheduleto' | translate }}</label>
+                        <label class="control-label">{{ 'label.holiday.repaymentsheduleto' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                         </div>
