@@ -268,6 +268,10 @@
           guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId:'@loanId',templateResource:'@templateResource'}, {
             get: {method: 'GET', params: {}},
             update: {method: 'PUT', params: {}}
+          }),
+          checkerInboxResource: defineResource(apiVer + "/makercheckers/:templateResource", {templateResource:'@templateResource'}, {
+            get: {method: 'GET', params: {}},
+            search: {method: 'GET', params: {},isArray:true}
           })
 
         };
