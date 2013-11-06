@@ -1,13 +1,14 @@
 <div>
     <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
         <li><a href="#/accounts_closure">{{'link.accountclosure' | translate}}</a> <span class="divider">/</span></li>
         <li class="active">{{'label.createclosure' | translate}}</li>
     </ul>
 </div>
-<form class="form-horizontal well" ng-controller="AccountingClosureController" ng-submit="submit()">
+<form name="createclosureform" novalidate="" class="form-horizontal well" ng-controller="AccountingClosureController" ng-submit="submit()">
     <legend>{{ 'label.accounting.closure' | translate }}</legend>
     <div class="control-group">
-        <label class="control-label">{{ 'label.office' | translate }}</label>
+        <label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
         <div class="controls">
             <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="updateLastClosed(formData.officeId)"
                     required="required">
@@ -18,7 +19,7 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label">{{ 'label.accounting.closure.closing.date' | translate }}</label>
+        <label class="control-label">{{ 'label.accounting.closure.closing.date' | translate }}<span class="required">*</span></label>
         <div class="controls">
             <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
         </div>

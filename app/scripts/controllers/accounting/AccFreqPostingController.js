@@ -81,7 +81,9 @@
                   jeTransaction.transactionDate = reqDate;
                   jeTransaction.referenceNumber = this.formData.referenceNumber;
                   jeTransaction.comments = this.formData.comments;
-                  jeTransaction.accountingRule = this.formData.rule.id;
+                  if ( this.formData.rule) {
+                    jeTransaction.accountingRule = this.formData.rule.id;
+                  }
                   jeTransaction.currencyCode = this.formData.currencyCode;
 
                   //Construct credits array
