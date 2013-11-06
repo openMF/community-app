@@ -5,15 +5,20 @@
           <li class="active">{{'label.editoffice' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="EditOfficeController" ng-submit="submit()">
+      <form name="editofficeform" novalidate="" class="form-horizontal well" ng-controller="EditOfficeController" ng-submit="submit()">
         <fieldset>
           <table>
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label" for="name">{{ 'label.officename' | translate }}</label>
+                  <label class="control-label" for="name">{{ 'label.officename' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <input type="text" ng-model="formData.name">
+                    <input type="text" name="name" ng-model="formData.name" required late-Validate/>
+                    <span  ng-show="editofficeform.name.$invalid">
+                      <small class="error">
+                          Required Field
+                      </small>
+                    </span>
                   </div>
                 </div>
               </td>
@@ -21,7 +26,7 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label">{{ 'label.openedon' | translate }}</label>
+                  <label class="control-label">{{ 'label.openedon' | translate }}<span class="required">*</span></label>
                   <div class="controls">
                       <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                   </div>

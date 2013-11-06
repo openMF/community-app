@@ -5,7 +5,7 @@
         <li class="active">{{'label.createreport' | translate}}</li>
     </ul>
 </div>
-<form class="well" ng-controller="CreateReportController">
+<form name="createreportrform" novalidate="" class="well" ng-controller="CreateReportController">
   <div class="control-group">
     <table width="100%">
       <tr class="control-group">
@@ -16,11 +16,16 @@
           <table>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.reportname' | translate }}&nbsp;</label>
-                <input type="text" ng-model="formData.reportName">
+                <label class="control-label">{{ 'label.reportname' | translate }}&nbsp;<span class="required">*</span></label>
+                <input type="text" name="reportName" ng-model="formData.reportName" required late-Validate/>
+                <span  ng-show="createreportrform.reportName.$invalid">
+                  <small class="error" ng-show="createreportrform.reportName.$error.req">
+                      Required Field
+                  </small>
+                </span>
               </td>
               <td width="20%">
-                <label class="control-label">{{ 'label.reporttype' | translate }}&nbsp;</label>
+                <label class="control-label">{{ 'label.reporttype' | translate }}&nbsp;<span class="required">*</span></label>
                 <select ng-model="formData.reportType" class="input-small" ng-options="reportType for reportType in reportdetail.allowedReportTypes" value="">
                 </select>
               </td>

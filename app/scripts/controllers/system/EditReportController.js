@@ -8,7 +8,6 @@
             scope.reportdetail = data;
             scope.formData.useReport = data.useReport;
         });
-        
         scope.submit = function() {
           this.formData.reportParameters = scope.temp;
           resourceFactory.reportsResource.update({id: routeParams.id}, this.formData,function(data){

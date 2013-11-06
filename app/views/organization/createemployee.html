@@ -5,12 +5,12 @@
           <li class="active">{{'label.createemployee' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="CreateEmployeeController" ng-submit="submit()">
+      <form name="createemployeeform" novalidate="" class="form-horizontal well" ng-controller="CreateEmployeeController" ng-submit="submit()">
         <fieldset>
           <legend>Create Employee</legend>
 
           <div class="control-group">
-            <label class="control-label" for="office">{{ 'label.office' | translate }}</label>
+            <label class="control-label" for="office">{{ 'label.office' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
               </select>
@@ -18,16 +18,26 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="firstname">{{ 'label.firstname' | translate }}</label>
+            <label class="control-label" for="firstname">{{ 'label.firstname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="firstname" ng-model="formData.firstname">
+              <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
+              <span  ng-show="createemployeeform.firstname.$invalid">
+                <small class="error" ng-show="createemployeeform.firstname.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="lastname">{{ 'label.lastname' | translate }}</label>
+            <label class="control-label" for="lastname">{{ 'label.lastname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="lastname" ng-model="formData.lastname">
+              <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
+              <span  ng-show="createemployeeform.lastname.$invalid">
+                <small class="error" ng-show="createemployeeform.lastname.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
           </div>
           

@@ -5,13 +5,18 @@
         <li class="active">{{'label.addcode' | translate}}</li>
     </ul>
 </div>
-<form class="form-horizontal well" ng-controller="AddCodeController" ng-submit="submit()">
+<form name="addcodeform" novalidate="" class="form-horizontal well" ng-controller="AddCodeController" ng-submit="submit()">
     <fieldset>
         <legend>{{'label.addcode' | translate}}</legend>
         <div>
-            <label class="control-label" for="codename">Code Name</label>
+            <label class="control-label" for="codename">{{'label.codename' | translate}}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="codename" ng-model="formData.name">
+                <input type="text" id="codename" name="codename" ng-model="formData.name" required late-Validate/>
+                <span  ng-show="addcodeform.codename.$invalid">
+                <small class="error" ng-show="addcodeform.codename.$error.req">
+                    Required Field
+                </small>
+              </span>
             </div>
         </div><br>
         <div class="offset3">
