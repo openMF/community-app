@@ -75,7 +75,7 @@
                     var params = {};
                     if (scope.formData.action) { params.actionName = scope.formData.action; };
 
-                    if (scope.formData.entity) { params.entityName = scope.formData.entity; };
+                    if (scope.formData.entity) { params.entityName =scope.formData.entity; };
 
                     if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
 
