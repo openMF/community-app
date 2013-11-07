@@ -75,6 +75,125 @@
 			    </div>
 		    </tab>
 		    <tab heading="{{'tab.checkerinbox' | translate}}">
+                <div class="row-fluid" >
+                    <span class="input-append grpinputicons" >
+                            <span><a ng-click="isCollapsed = !isCollapsed" class="btn blockoverlaywidth control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
+                            <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+                    </span>
+                </div>
+                <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <input type="text" placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <input type="text" placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <select ng-model="formData.user">
+                                <option value="">--Select User--</option>
+                                <option selected="selected" value="">All</option>
+                                <option ng-repeat="user in checkerTemplate.appUsers" value="{{user.id}}">{{user.username}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <select ng-model="formData.action">
+                                <option value="">--Select Action--</option>
+                                <option selected="selected" value="">All</option>
+                                <option ng-repeat="action in checkerTemplate.actionNames" value="{{action}}">{{action}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <select ng-model="formData.entity">
+                                <option value="">--Select Entity--</option>
+                                <option selected="selected" value="">All</option>
+                                <option ng-repeat="entity in checkerTemplate.entityNames" value="{{entity}}">{{entity}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <input type="text" placeholder="{{'label.resourceid' | translate}}" ng-model="formData.resourceId">
+                        </div>
+                    </div>
+                </div>
+                <script type="text/ng-template" id="deletechecker.html">
+                    <div class="modal-header silver">
+                        <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                    </div>
+                    <div class="modal-body modal-middle">
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                    </div>
+                </script>
+                <script type="text/ng-template" id="approvechecker.html">
+                    <div class="modal-header silver">
+                        <h3 class="bolder">{{'label.approve' | translate}}</h3>
+                    </div>
+                    <div class="modal-body modal-middle">
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+                    </div>
+                </script>
+                <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
+                    <div id="circularG">
+                        <div id="circularG_1" class="circularG">
+                        </div>
+                        <div id="circularG_2" class="circularG">
+                        </div>
+                        <div id="circularG_3" class="circularG">
+                        </div>
+                        <div id="circularG_4" class="circularG">
+                        </div>
+                        <div id="circularG_5" class="circularG">
+                        </div>
+                        <div id="circularG_6" class="circularG">
+                        </div>
+                        <div id="circularG_7" class="circularG">
+                        </div>
+                        <div id="circularG_8" class="circularG">
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="displayResults" class="row-fluid">
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.id' | translate}}</th>
+                            <th>{{'label.status' | translate}}</th>
+                            <th>{{'label.user' | translate}}</th>
+                            <th>{{'label.action' | translate}}</th>
+                            <th>{{'label.entity' | translate}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in searchData">
+                            <td>{{data.id}}</td>
+                            <td>{{data.processingResult}}</td>
+                            <td>{{data.maker}}</td>
+                            <td>{{data.actionName}}</td>
+                            <td>{{data.entityName}}</td>
+                            <td><a href="#/viewaudit/{{data.id}}" class="pointer required">{{'label.details' | translate}}</a></td>
+                            <td><button type="button" class="btn btn-success" data-ng-click="approveChecker(data.id)"><i class="icon-ok"></i></button> </td>
+                            <td><button type="button" class="btn btn-warning" data-ng-click="deleteChecker(data.id)"><i class="icon-remove"></i></button> </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 		    </tab>
     	</tabset>
 	</fieldset>

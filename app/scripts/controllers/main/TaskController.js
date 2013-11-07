@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    TaskController: function(scope, resourceFactory, route, dateFilter) {
+    TaskController: function(scope, resourceFactory, route, dateFilter,$modal) {
         
         scope.clients = [];
         scope.loans = [];
@@ -8,6 +8,92 @@
         var idToNodeMap = {};
         scope.formData = {};
         scope.loanTemplate = {};
+        scope.date = {};
+        scope.isCollapsed = true;
+        resourceFactory.checkerInboxResource.get({templateResource:'searchtemplate'},function(data){
+            scope.checkerTemplate = data;
+        });
+
+        scope.approveChecker = function (aid) {
+            $modal.open({
+                templateUrl: 'approvechecker.html',
+                controller: CheckerApproveCtrl,
+                resolve:{
+                    aId : function ()
+                    {
+                        return aid;
+                    }
+                }
+            });
+        };
+        var CheckerApproveCtrl = function ($scope, $modalInstance,aId) {
+            $scope.approve = function () {
+                resourceFactory.checkerInboxResource.save({templateResource: aId,command:'approve'},{}, function(data){
+                    scope.isCollapsed = true;
+                    scope.displayResults = true;
+                    var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
+                    var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
+                    var params = {};
+                    if (scope.formData.action) { params.actionName = scope.formData.action; };
+
+                    if (scope.formData.entity) { params.entityName = scope.formData.entity; };
+
+                    if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
+
+                    if (scope.formData.user) { params.makerId = scope.formData.user; };
+
+                    if (scope.date.from) { params.makerDateTimeFrom = reqFromDate; };
+
+                    if (scope.date.to) { params.makerDateTimeto = reqToDate; };
+                    resourceFactory.checkerInboxResource.search(params , function(data) {
+                        scope.searchData = data;
+                    });
+                });
+                $modalInstance.close('approve');
+            };
+        };
+
+        scope.deleteChecker = function (id) {
+            $modal.open({
+                templateUrl: 'deletechecker.html',
+                controller: CheckerDeleteCtrl,
+                resolve:{
+                    id: function ()
+                    {
+                        return id;
+                    }
+                }
+            });
+        };
+        var CheckerDeleteCtrl = function ($scope, $modalInstance,id) {
+            $scope.delete = function () {
+                resourceFactory.checkerInboxResource.delete({templateResource: id}, {}, function(data){
+                    scope.isCollapsed = true;
+                    scope.displayResults = true;
+                    var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
+                    var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
+                    var params = {};
+                    if (scope.formData.action) { params.actionName = scope.formData.action; };
+
+                    if (scope.formData.entity) { params.entityName = scope.formData.entity; };
+
+                    if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
+
+                    if (scope.formData.user) { params.makerId = scope.formData.user; };
+
+                    if (scope.date.from) { params.makerDateTimeFrom = reqFromDate; };
+
+                    if (scope.date.to) { params.makerDateTimeto = reqToDate; };
+                    resourceFactory.checkerInboxResource.search(params , function(data) {
+                        scope.searchData = data;
+                    });
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
 
         resourceFactory.officeResource.getAllOffices(function(data){
           scope.offices = data;
@@ -47,33 +133,55 @@
           scope.clients = data.pageItems;
         });
 
+        scope.search = function(){
+            scope.isCollapsed = true;
+            scope.displayResults = true;
+            var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
+            var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
+            var params = {};
+            if (scope.formData.action) { params.actionName = scope.formData.action; };
+
+            if (scope.formData.entity) { params.entityName = scope.formData.entity; };
+
+            if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
+
+            if (scope.formData.user) { params.makerId = scope.formData.user; };
+
+            if (scope.date.from) { params.makerDateTimeFrom = reqFromDate; };
+
+            if (scope.date.to) { params.makerDateTimeto = reqToDate; };
+            resourceFactory.checkerInboxResource.search(params , function(data) {
+                scope.searchData = data;
+            });
+        };
+
         scope.bulkApproval = function (){
-          scope.formData.approvedOnDate = dateFilter(new Date(),'dd MMMM yyyy');
-          scope.formData.dateFormat = "dd MMMM yyyy";
-          scope.formData.locale = "en";
-          var selectedAccounts = 0;
-          var approvedAccounts = 0;
-          _.each(scope.loanTemplate,function(value,key){
-              if(value==true) {
-                selectedAccounts++;
-              }
-          });
-          _.each(scope.loanTemplate,function(value,key){
-              if(value==true) {
-                resourceFactory.LoanAccountResource.save({command:'approve', loanId:key}, scope.formData, function(data){
-                  approvedAccounts++;
-                  scope.loanTemplate[key] = false;
-                  if (selectedAccounts == approvedAccounts) {
-                    route.reload();
+              scope.formData.approvedOnDate = dateFilter(new Date(),'dd MMMM yyyy');
+              scope.formData.dateFormat = "dd MMMM yyyy";
+              scope.formData.locale = "en";
+              var selectedAccounts = 0;
+              var approvedAccounts = 0;
+              _.each(scope.loanTemplate,function(value,key){
+                  if(value==true) {
+                    selectedAccounts++;
                   }
-                });
-              }
-          });
+              });
+              _.each(scope.loanTemplate,function(value,key){
+                  if(value==true) {
+                    resourceFactory.LoanAccountResource.save({command:'approve', loanId:key}, scope.formData, function(data){
+                      approvedAccounts++;
+                      scope.loanTemplate[key] = false;
+                      if (selectedAccounts == approvedAccounts) {
+                        route.reload();
+                      }
+                    });
+                  }
+              });
         };
 
     }
   });
-  mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', mifosX.controllers.TaskController]).run(function($log) {
+  mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter','$modal', mifosX.controllers.TaskController]).run(function($log) {
     $log.info("TaskController initialized");
   });
 }(mifosX.controllers || {}));
