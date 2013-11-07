@@ -1,9 +1,20 @@
 (function(mifosX) {
-  var defineHeaders = function($httpProvider , $translateProvider) {
+  var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider,TENANT ,CONTENT_TYPE , HOST ) {
+
+    // Set Host name, if accessed from file system
+
+    var protocol = window.location.protocol;
+    if (protocol === 'file:') {
+        ResourceFactoryProvider.setBaseUrl(HOST);
+        HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
+            return _.extend(config, {url: HOST + config.url});
+        });
+     }   
+
 
   	//Set headers
-    $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
-    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
+    $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+    $httpProvider.defaults.headers.common['Content-Type'] = CONTENT_TYPE;
 
 
     // Configure i18n and preffer language

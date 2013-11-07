@@ -1,11 +1,14 @@
 define(['mifosX', 'services/HttpServiceProvider', 'services/ResourceFactoryProvider'], {
   configure: function(url) {
-    var baseUrl = url || "https://demo.openmf.org";
+    
+    var baseUrl = url || "https://demo.openmf.com";
     mifosX.ng.services.config(['HttpServiceProvider', 'ResourceFactoryProvider', '$httpProvider', function(httpServiceProvider, resourceFactoryProvider, httpProvider) {
-      resourceFactoryProvider.setBaseUrl(baseUrl);
+     
+    // Below initialization has been moved to   InitialTask.js
+    /*resourceFactoryProvider.setBaseUrl(baseUrl);
       httpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
         return _.extend(config, {url: baseUrl + config.url});
-      });
+      });*/
 
       httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
     }]).run(function($log) {

@@ -23,6 +23,7 @@
             'test':             '../../test/functional',
             'notificationWidget':'../scripts/modules/notificationWidget',
             'modified.datepicker':'../scripts/modules/datepicker',
+            'configurations':'../scripts/modules/configurations',
             'angularFileUpload':'../bower_components/angularjs-file-upload/angular-file-upload',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor':         '../bower_components/ckeditor/ckeditor'
@@ -40,6 +41,7 @@
             'd3': {exports: 'd3'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
+            'configurations':{deps: ['angular']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
             'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
             'modified.datepicker':{deps: ['angular']},
@@ -63,7 +65,8 @@
                     'angularFileUpload',
                     'modified.datepicker',
                     'ngSanitize',
-                    'ckEditor'
+                    'ckEditor',
+                    'configurations'
                 ],
                 exports: 'mifosX'
             }
