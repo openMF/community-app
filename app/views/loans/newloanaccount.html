@@ -6,6 +6,11 @@
           <li class="active">{{'label.loan.application' | translate}}</li>
         </ul>
       </div>
+      <div class="error" ng-show="errorStatus || errorDetails">
+        <label>{{'label.error' | translate}}</label>
+        <label ng-show="errorStatus">{{errorStatus}}</label>
+        <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+      </div>
       <form name="newloanaccountform" novalidate="" class="well">
         <fieldset>
         <legend>{{ 'form.legend.new.loan.application' | translate }}</legend>
@@ -41,7 +46,7 @@
                   </td>
                   <td width="30%">
                     <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
-                      <input type="text" id="submittedon" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                      <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                   </td>
                 </tr>
                 <tr class="control-group">
@@ -93,7 +98,7 @@
                     <tr>
                       <td width="40%">
                         <label class="control-label">{{ 'table.heading.principal' | translate }}&nbsp;<span class="required">*</span></label>
-                        <input type="text" name="principal" ng-model="formData.principal" required ng-late-Validate/>
+                        <input type="text" id="principal" name="principal" ng-model="formData.principal" required ng-late-Validate/>
                         {{loanaccountinfo.currency.displaySymbol}}
                         <span  ng-show="newloanaccountform.principal.$invalid">
                           <small class="error">
@@ -147,7 +152,7 @@
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.expecteddisbursementon' | translate }}&nbsp;<span class="required">*</span></label>
-                          <input type="text" name="expecteddisbursementon" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                          <input id="expectedDisbursementDate" type="text" name="expecteddisbursementon" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                       </td>
                     </tr>
                     <tr>
