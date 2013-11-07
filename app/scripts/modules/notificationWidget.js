@@ -16,10 +16,18 @@ angular.module('notificationWidget', [])
         interceptor = ['$q', '$injector', '$location', '$rootScope', function ($q, $injector, $location, $rootScope) {
             var notificationChannel;
 
+            function removeErrors() {
+                var $inputs = $(':input');
+                $inputs.each(function() {
+                    $(this).removeClass("validationerror");
+                });
+            }
+
             function success(response) {
                 // clear previous errors for a success request.
                 delete $rootScope.errorStatus;
                 delete $rootScope.errorDetails;
+                removeErrors();
                 // get $http via $injector because of circular dependency problem
                 $http = $http || $injector.get('$http');
                 // don't send notification until all requests are complete
@@ -35,6 +43,7 @@ angular.module('notificationWidget', [])
             function error(response) {
                 // get $http via $injector because of circular dependency problem
                 $http = $http || $injector.get('$http');
+                removeErrors();
                 // don't send notification until all requests are complete
                 if ($http.pendingRequests.length < 1) {
                     // get requestNotificationChannel via $injector because of circular dependency problem

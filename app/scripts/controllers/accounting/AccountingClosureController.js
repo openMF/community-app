@@ -2,6 +2,7 @@
   mifosX.controllers = _.extend(module, {
     AccountingClosureController: function(scope, resourceFactory, location, translate, routeParams,dateFilter) {
             scope.first = {};
+            scope.formData = {};
             scope.first.date = new Date();
             scope.accountClosures=[];
             resourceFactory.officeResource.getAllOffices(function(data){

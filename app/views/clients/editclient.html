@@ -6,6 +6,11 @@
               <li class="active">{{'label.editclient' | translate}}</li>
           </ul>
         </div>
+        <div class="error" ng-show="errorStatus || errorDetails">
+          <label>{{'label.error' | translate}}</label>
+          <label ng-show="errorStatus">{{errorStatus}}</label>
+          <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+        </div>
         <fieldset>
           <legend>{{'label.editclient' | translate}}</legend>
           <table width="100%">
@@ -14,7 +19,7 @@
               <div class="control-group">
                 <label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
                 <div class="controls">
-                  <select ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" disabled="disabled">
+                  <select id="officeId" ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" disabled="disabled">
                 </select>
                 </div>
               </div>
@@ -26,7 +31,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.loanofficer' | translate }}</label>
                   <div class="controls">
-                    <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                    <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                       <option value="">{{'label.select.loanofficer' | translate}}</option>
                     </select>
                   </div>
@@ -39,7 +44,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.firstname' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <input type="text" name="firstname" ng-model="formData.firstname" required ng-minlength=3 late-Validate/>
+                    <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required ng-minlength=3 late-Validate/>
                     <span  ng-show="editclientform.firstname.$invalid">
                       <small class="error" ng-show="editclientform.firstname.$error.req">
                           Required Field
@@ -51,13 +56,13 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.middlename' | translate }}</label>
                   <div class="controls">
-                    <input type="text" ng-model="formData.middlename">
+                    <input id="middlename" type="text" ng-model="formData.middlename">
                   </div>
                 </div>
                 <div class="control-group">
                   <label class="control-label">{{ 'label.lastname' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <input type="text" name="lastname" ng-model="formData.lastname" required ng-minlength=3 late-Validate/>
+                    <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required ng-minlength=3 late-Validate/>
                     <span  ng-show="editclientform.lastname.$invalid">
                       <small class="error" ng-show="editclientform.lastname.$error.req">
                           Required Field
@@ -74,7 +79,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.accountno' | translate }}</label>
                   <div class="controls">
-                    <input type="text" ng-model="formData.accountNo">
+                    <input id="accountNo" type="text" ng-model="formData.accountNo">
                   </div>
                 </div>
               </td>
@@ -85,7 +90,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.externalid' | translate }}</label>
                   <div class="controls">
-                    <input type="text" ng-model="formData.externalId">
+                    <input id="externalId" type="text" ng-model="formData.externalId">
                   </div>
                 </div>
               </td>
@@ -97,7 +102,7 @@
                           <div class="control-group" data-ng-switch-when="1">
                               <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                               <div class="controls">
-                                  <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                                  <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                               </div>
                           </div>
                       </div>

@@ -5,20 +5,24 @@
         </ul>
       </div>
       <form name="journalpostingform" novalidate="" class="form-horizontal well" ng-controller="JournalEntryController" ng-submit="submit()">
+        <div class="error" ng-show="errorStatus || errorDetails">
+          <label>{{'label.error' | translate}}</label>
+          <label ng-show="errorStatus">{{errorStatus}}</label>
+          <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
         </div>
         <fieldset>
           <legend>{{ 'label.journalentry.posting.title' | translate }}</legend>
           <div class="control-group">
             <label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+              <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
               </select>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label">{{ 'label.currency' | translate }}&nbsp;<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.currencyCode" ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions" value="{{currency.code}}" required="required">
+              <select id="currencyCode" ng-model="formData.currencyCode" ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions" value="{{currency.code}}" required="required">
                 <option style="display:none" value="">{{'label.select.currency' | translate}}</option>
               </select>
             </div>
@@ -79,7 +83,7 @@
           <div class="control-group">
             <label class="control-label">{{ 'label.journalentry.transaction.date' | translate }}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             </div>
           </div>
           <div class="control-group">

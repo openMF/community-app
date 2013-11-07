@@ -7,6 +7,11 @@
           <li class="active">{{'label.accounting.rule.edit.title' | translate}}</li>
         </ul>
       </div>
+      <div class="error" ng-show="errorStatus || errorDetails">
+        <label>{{'label.error' | translate}}</label>
+        <label ng-show="errorStatus">{{errorStatus}}</label>
+        <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+      </div>
       <form name="editaccountruleform" novalidate="" class="form-horizontal" ng-submit="submit()">
         <fieldset>
           <legend>{{ 'label.accounting.rule.edit.title' | translate }}</legend>
@@ -24,13 +29,13 @@
           <div class="control-group">
             <label class="control-label">{{ 'label.office' | translate }}</label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+              <select ng-model="formData.officeId" id="officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label">{{ 'label.description' | translate }}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.description">
+              <input type="text" id="description" ng-model="formData.description">
             </div>
           </div>
           <div class="control-group">

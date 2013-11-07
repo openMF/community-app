@@ -6,6 +6,11 @@
         </ul>
       </div>
       <form name="createglaccountingform" novalidate="" class="form-horizontal well" ng-controller="AccCreateGLAccountController" ng-submit="submit()">
+        <div class="error" ng-show="errorStatus || errorDetails">
+          <label>{{'label.error' | translate}}</label>
+          <label ng-show="errorStatus">{{errorStatus}}</label>
+          <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+        </div>
         <fieldset>
           <legend>{{'label.createglaccount' | translate}}</legend>
           
@@ -15,7 +20,7 @@
                 <div class="control-group">
                   <label class="control-label" for="name">{{'label.accountname' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                      <input type="text" ng-autofocus="true" name="name" id="name" ng-model="formData.name" required late-Validate/>
+                      <input id="name" type="text" ng-autofocus="true" name="name" id="name" ng-model="formData.name" required late-Validate/>
                       <span  ng-show="createglaccountingform.name.$invalid">
                         <small class="error" ng-show="createglaccountingform.name.$error.req">
                             {{'label.requiredfield' | translate}}
@@ -45,7 +50,7 @@
                 <div class="control-group">
                   <label class="control-label" for="type">{{'label.accounttype' | translate}}</label>
                   <div class="controls">
-                    <select ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
+                    <select id="type" ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
                   </div>
                 </div>
               </td>
@@ -55,7 +60,7 @@
                 <div class="control-group">
                   <label class="control-label" for="tagId">{{'label.tag' | translate}}</label>
                   <div class="controls">
-                    <select ng-model="formData.tagId"  ng-options="type.id as type.name for type in types" value="{{type.id}}">
+                    <select id="tagId" ng-model="formData.tagId"  ng-options="type.id as type.name for type in types" value="{{type.id}}">
                       <option value="">{{'label.select.tag' | translate}}</option>
                     </select>
                   </div>
@@ -68,7 +73,7 @@
                 <div class="control-group">
                   <label class="control-label" for="usage">{{'label.accountusage' | translate}}</label>
                   <div class="controls">
-                    <select ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+                    <select id="usage" ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
                   </div>
                 </div>
               </td>
@@ -79,7 +84,7 @@
                 <div class="control-group">
                   <label class="control-label" for="parentId">{{'label.parent' | translate}}</label>
                   <div class="controls">
-                    <select ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                    <select id="parentId" ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
                       <option value="">{{'label.select.parent' | translate}}</option>
                     </select>
                   </div>
@@ -109,7 +114,6 @@
               </td>
           </tr>
           </table>
-
           
           <div class="offset3">
             <a href="#/accounting_coa"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>

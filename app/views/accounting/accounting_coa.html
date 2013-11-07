@@ -6,6 +6,11 @@
 </div>
 
 <div class="row-fluid" ng-controller="AccCoaController">
+    <div class="error" ng-show="errorStatus || errorDetails">
+      <label>{{'label.error' | translate}}</label>
+      <label ng-show="errorStatus">{{errorStatus}}</label>
+      <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+    </div>
     <div class="pull-right">
       <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-list icon-white"></i>{{'label.listview' | translate}}</a>
       <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>{{'label.treeview' | translate}}</a>
