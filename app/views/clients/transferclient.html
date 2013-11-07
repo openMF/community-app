@@ -6,13 +6,18 @@
 			<li class="active">{{'label.transferclient' | translate}}</li>
 		</ul>
 	</div>
+	<div class="error" ng-show="errorStatus || errorDetails">
+		<label>{{'label.error' | translate}}</label>
+		<label ng-show="errorStatus">{{errorStatus}}</label>
+		<label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+	</div>
 	<form class="form-horizontal well" ng-submit="submit()">
 		<br>
 		<fieldset>
 			<div class="control-group">
 				<label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-	                <select ng-model="formData.destinationOfficeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+	                <select id="destinationOfficeId" ng-model="formData.destinationOfficeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
 	             </div>
 			</div>
 			<div class="control-group">

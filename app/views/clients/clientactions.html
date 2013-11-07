@@ -6,18 +6,23 @@
       <li class="active">{{breadcrumbName | translate}}</li>
     </ul>
   </div>
+  <div class="error" ng-show="errorStatus || errorDetails">
+    <label>{{'label.error' | translate}}</label>
+    <label ng-show="errorStatus">{{errorStatus}}</label>
+    <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+  </div>
   <form name="clientactionform" novalidate="" class="form-horizontal well" ng-submit="submit()">
       <div class="control-group" ng-show="showDateField">
         <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="date" datepicker-pop="dd MMMM yyyy" name="modelName" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+          <input type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
         </div>
       </div>
 
       <div class="control-group" ng-show="closureReasonField">
         <label class="control-label">{{labelNameClosurereason | translate}}</label>
         <div class="controls">
-          <select ng-model="formData.closureReasonId"  ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}">
+          <select id="closureReasonId" ng-model="formData.closureReasonId"  ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}">
           </select>
         </div>
       </div>
@@ -25,7 +30,7 @@
       <div class="control-group" ng-show="staffField">
         <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
+          <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
           </select>
         </div>
       </div>
@@ -33,7 +38,7 @@
       <div class="control-group" ng-show="showNoteField">
         <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
         <div class="controls">
-          <textarea rows="2" ng-model="formData.note"></textarea>
+          <textarea rows="2" id="note" ng-model="formData.note"></textarea>
         </div>
       </div>
 

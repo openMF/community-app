@@ -7,13 +7,17 @@
 		</ul>
 	</div>
 	<form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+		<div class="error" ng-show="errorStatus || errorDetails">
+			<label>{{'label.error' | translate}}</label>
+			<label ng-show="errorStatus">{{errorStatus}}</label>
+			<label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
+		</div>
 		<fieldset>
 			<legend>{{'label.add.client.identifier' | translate}}</legend>
-
 			<div class="control-group">
 				<label class="control-label" for="documentTypeId">{{'label.document.type' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<select ng-model="formData.documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes" value="{{documenttype.id}}" required="required">
+					<select id="documentTypeId" ng-model="formData.documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes" value="{{documenttype.id}}" required="required">
 					</select>
 				</div>
 			</div>
@@ -21,7 +25,7 @@
 			<div class="control-group">
 				<label class="control-label" for="documentKey">{{'label.unique.identification' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="text" name="identification" ng-model="formData.documentKey" required="required" required late-Validate/>
+					<input id="documentKey" type="text" name="identification" ng-model="formData.documentKey" required="required" required late-Validate/>
 					<span  ng-show="clientidentifierform.identification.$invalid">
 	                    <small class="error" ng-show="clientidentifierform.identification.$error.req">
 	                        Required Field
@@ -33,7 +37,7 @@
 			<div class="control-group">
 				<label class="control-label" for="description">{{'label.description' | translate}}</label>
 				<div class="controls">
-					<textarea rows="2" ng-model="formData.description"></textarea>
+					<textarea id="description" rows="2" ng-model="formData.description"></textarea>
 				</div>
 			</div>
 
