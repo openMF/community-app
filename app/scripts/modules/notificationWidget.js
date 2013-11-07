@@ -13,10 +13,13 @@ angular.module('notificationWidget', [])
 // Declare an http interceptor that will signal the start and end of each request
 .config(['$httpProvider', function ($httpProvider) {
     var $http,
-        interceptor = ['$q', '$injector', function ($q, $injector) {
+        interceptor = ['$q', '$injector', '$location', '$rootScope', function ($q, $injector, $location, $rootScope) {
             var notificationChannel;
 
             function success(response) {
+                // clear previous errors for a success request.
+                delete $rootScope.errorStatus;
+                delete $rootScope.errorDetails;
                 // get $http via $injector because of circular dependency problem
                 $http = $http || $injector.get('$http');
                 // don't send notification until all requests are complete
@@ -38,6 +41,36 @@ angular.module('notificationWidget', [])
                     notificationChannel = notificationChannel || $injector.get('requestNotificationChannel');
                     // send a notification requests are complete
                     notificationChannel.requestEnded();
+                }
+                if (response.status === 0) {
+                    $rootScope.errorStatus='No connection. Verify application is running.';
+                } else if (response.status == 401) {
+                    $rootScope.errorStatus='Unauthorized';
+                } else if (response.status == 404) {
+                    $rootScope.errorStatus='Requested page not found. [404]';
+                } else if (response.status == 405) {
+                    $rootScope.errorStatus='HTTP verb not supported [405]';
+                } else if (response.status == 500) {
+                    $rootScope.errorStatus='Internal Server Error [500].';
+                } else {
+                    var jsonErrors = JSON.parse(JSON.stringify(response.data));
+                    var valErrors = jsonErrors.errors;
+                    var errorArray = new Array();
+                    var arrayIndex = 0;
+                    for(var i in valErrors) {
+                        var temp = valErrors[i];
+                        // add error class to input in dialog
+                        var fieldId = '#' + temp.parameterName;
+                        $(fieldId).addClass("validationerror");
+
+                        var errorObj = new Object();
+                        errorObj.field = temp.parameterName;
+                        errorObj.code = temp.userMessageGlobalisationCode;
+
+                        errorArray[arrayIndex] = errorObj;
+                        arrayIndex++
+                    };
+                    $rootScope.errorDetails = errorArray;
                 }
                 return $q.reject(response);
             }
