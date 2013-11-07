@@ -146,3 +146,4 @@ angular.module('notificationWidget', [])
         }
     };
 }]);
+
