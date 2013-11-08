@@ -6,7 +6,7 @@
 			<li class="active">{{'link.add.clientidentifier' | translate}}</li>
 		</ul>
 	</div>
-	<form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+	<form name="clientidentifierform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 		<div class="error" ng-show="errorStatus || errorDetails">
 			<label>{{'label.error' | translate}}</label>
 			<label ng-show="errorStatus">{{errorStatus}}</label>
@@ -26,11 +26,7 @@
 				<label class="control-label" for="documentKey">{{'label.unique.identification' | translate}}<span class="required">*</span></label>
 				<div class="controls">
 					<input id="documentKey" type="text" name="identification" ng-model="formData.documentKey" required="required" required late-Validate/>
-					<span  ng-show="clientidentifierform.identification.$invalid">
-	                    <small class="error" ng-show="clientidentifierform.identification.$error.req">
-	                        Required Field
-	                    </small>
-	                </span>
+					<form-validate valattributeform="clientidentifierform" valattribute="identification"/>
 				</div>
 			</div>
 
@@ -43,7 +39,7 @@
 
 			<div class="offset3">
 				<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
-				<button type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary">{{'button.save' | translate}}</button>
+				<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
 			</div>
 		</fieldset>
 	</form>

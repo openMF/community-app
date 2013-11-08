@@ -168,7 +168,9 @@ define(['underscore', 'mifosX'], function() {
       'LateValidateDirective',
       'TreeviewDirective',
       'CkEditorDirective',
-      'AutofocusDirective'
+      'AutofocusDirective',
+      'FormValidateDirective',
+      'FormSubmitValidateDirective'
     ]
   };
 
