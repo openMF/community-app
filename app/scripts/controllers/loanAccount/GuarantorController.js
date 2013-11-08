@@ -33,7 +33,9 @@
                     if (this.formData) {
                         guarantor.clientRelationshipTypeId = this.formData.relationship;
                     }
-                    guarantor.entityId = scope.client.id;
+                    if (scope.client) {
+                        guarantor.entityId = scope.client.id;
+                    }
                 }
                 else if (this.formData) {
                     guarantor.addressLine1=this.formData.addressLine1;

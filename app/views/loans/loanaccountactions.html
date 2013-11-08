@@ -5,7 +5,7 @@
       <li class="active">{{action}}</li>
     </ul>
   </div>
-  <form class="form-horizontal well" name="loanactionform" novalidate="" ng-submit="submit()">
+  <form class="form-horizontal well" name="loanactionform" novalidate="" rc-submit="submit()">
     <fieldset>
       <legend>{{ title | translate}}</legend>
 
@@ -19,12 +19,8 @@
       <div class="control-group" ng-show="showAmountField">
         <label class="control-label" for="transactionAmount">{{ 'label.loan.account.transactionAmount' | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="text" name="amount" ng-model="formData.transactionAmount" required ng-late-Validate>
-          <span  ng-show="loanactionform.amount.$invalid">
-            <small class="error">
-                Required Field
-            </small>
-          </span>
+          <input type="text" name="amount" ng-model="formData.transactionAmount" required late-Validate>
+          <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
       </div>
 

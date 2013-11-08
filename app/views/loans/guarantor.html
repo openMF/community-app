@@ -1,4 +1,4 @@
-<form class="form-horizontal well" ng-controller="GuarantorController">
+<form class="form-horizontal well" name="guaratorform" novalidate="" ng-controller="GuarantorController" rc-submit="submit()">
     <fieldset>
         <legend class="bolder">{{'label.guarantor' | translate}}</legend>
         <div class="control-group">
@@ -11,7 +11,8 @@
             <div class="control-group">
                 <label class="control-label">{{ 'label.clientname' | translate }}<span class="required">*</span></label>
                 <div class="controls">
-                    <input typeahead-on-select="viewClient($item)" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8"></br>
+                    <input typeahead-on-select="viewClient($item)" name="clientname" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8" required late-validate/>
+                    <form-validate valattributeform="guaratorform" valattribute="clientname"/>
                 </div>
             </div>
             <div class="control-group">
@@ -105,7 +106,7 @@
         </div>
         <div class="offset2 paddedleft120">
             <a href="#/viewloanaccount/{{loanId}}" class="btn">{{ 'label.cancel' | translate }}</a>
-            <button type="button" class="btn btn-primary" data-ng-click="submit()">{{ 'label.save' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
         </div>
     </fieldset>
 </form>
