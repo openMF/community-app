@@ -27,10 +27,9 @@ You are done.
 
 If you want to connect to local server then modify the constant in community-app\app\scripts\modules\configurations.js as below
 
-...
- constant('HOST','https://localhost:8443\:8443') //need to escape port number
-...
-
+```
+.constant('HOST','https://localhost:8443\:8443') //need to escape port number
+```
 
 
 
