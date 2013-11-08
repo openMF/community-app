@@ -5,10 +5,8 @@
       scope.newUserFormDialog = function() {
         scope.$broadcast('OpenUserFormDialog', {title: 'New User'});
       };
-      scope.$evalAsync(function() { scope.$broadcast('UserDataLoadingStartEvent'); });
       resourceFactory.userResource.getAllUsers({fields: "id,firstname,lastname,username,officeName"}, function(data) {
         scope.users = data;
-        scope.$broadcast('UserDataLoadingCompleteEvent');
       });
     }
   });

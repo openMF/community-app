@@ -3,10 +3,8 @@
     SavingProductController: function(scope, resourceFactory) {
 
         scope.products = [];
-        scope.$broadcast('SavingProductDataLoadingStartEvent');
         resourceFactory.savingProductResource.getAllSavingProducts(function(data) {
             scope.savingproducts = data;
-			scope.$broadcast('SavingProductDataLoadingCompleteEvent');
         });
 
     }

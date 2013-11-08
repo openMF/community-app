@@ -160,7 +160,6 @@ define(['underscore', 'mifosX'], function() {
     ],
     directives: [
       'DataTablesDirective',
-      'OverlayDirective',
       'DialogDirective',
       'PanelDirective',
       'BigPanelDirective',

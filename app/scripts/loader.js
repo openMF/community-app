@@ -2,9 +2,7 @@
     require.config({
         paths: {
             'jquery':           '../bower_components/jquery/jquery',
-            'jquery-ui':        '../bower_components/jquery-ui/ui/jquery-ui',
             'data-tables':      '../bower_components/datatables/media/js/jquery.dataTables',
-            'blockUI':          '../bower_components/blockui/jquery.blockUI',
             'angular':          '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-translate':'../bower_components/angular-translate/angular-translate',
@@ -37,7 +35,6 @@
             'angularuitpls': { deps: ['angular' ,'angularui' ] },
             'angular-mocks': { deps: ['angular'] },
             'webstorage': { deps: ['angular'] },
-            'jquery-ui': { deps: ['jquery'] },
             'd3': {exports: 'd3'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
@@ -58,8 +55,6 @@
                     'angularuitpls',
                     'webstorage',
                     'data-tables',
-                    'blockUI',
-                    'jquery-ui',
                     'nvd3ChartDirectives',
                     'notificationWidget',
                     'angularFileUpload',
