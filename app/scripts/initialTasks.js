@@ -15,7 +15,7 @@
      else{
           // For multi tenant hosting
           var hostname = window.location.hostname;
-          domains = hostname.spli('.');
+          domains = hostname.split('.');
 
           if(domains[0] == "demo"){
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
