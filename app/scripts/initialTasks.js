@@ -2,18 +2,31 @@
   var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider,TENANT ,CONTENT_TYPE , HOST ) {
 
     // Set Host name, if accessed from file system
-
     var protocol = window.location.protocol;
     if (protocol === 'file:') {
         ResourceFactoryProvider.setBaseUrl(HOST);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
             return _.extend(config, {url: HOST + config.url});
         });
+
+        $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+
+     }
+     else{
+          // For multi tenant hosting
+          var hostname = window.location.hostname;
+          domains = hostname.spli('.');
+
+          if(domains[0] == "demo"){
+                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+          }
+          else{
+                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = domains[0];
+          }
      }   
 
 
   	//Set headers
-    $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
     $httpProvider.defaults.headers.common['Content-Type'] = CONTENT_TYPE;
 
 
