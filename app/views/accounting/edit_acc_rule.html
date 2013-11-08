@@ -12,18 +12,14 @@
         <label ng-show="errorStatus">{{errorStatus}}</label>
         <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
       </div>
-      <form name="editaccountruleform" novalidate="" class="form-horizontal" ng-submit="submit()">
+      <form name="editaccountruleform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <fieldset>
           <legend>{{ 'label.accounting.rule.edit.title' | translate }}</legend>
           <div class="control-group">
             <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" ng-autofocus="true" id="name" name="name" ng-model="formData.name" required late-Validate/>
-              <span  ng-show="editaccountruleform.name.$invalid">
-                <small class="error">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="editaccountruleform" valattribute="name"/>
             </div>
           </div>
           <div class="control-group">

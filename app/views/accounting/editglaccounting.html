@@ -12,7 +12,7 @@
     <label ng-show="errorStatus">{{errorStatus}}</label>
     <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
   </div>
-  <form name="editglaccountingform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+  <form name="editglaccountingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
     <fieldset>
       <legend>{{'label.editglaccount' | translate}}</legend>
       
@@ -23,11 +23,7 @@
               <label class="control-label" for="name">{{'label.accountname' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                   <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
-                  <span  ng-show="editglaccountingform.name.$invalid">
-                    <small class="error">
-                        Required Field
-                    </small>
-                  </span>
+                  <form-validate valattributeform="editglaccountingform" valattribute="name"/>
                 </div>
             </div>
           </td>
@@ -38,11 +34,7 @@
               <label class="control-label" for="glCode">{{'label.glcode' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                   <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required late-Validate/>
-                  <span  ng-show="editglaccountingform.glCode.$invalid">
-                    <small class="error">
-                        Required Field
-                    </small>
-                  </span>
+                  <form-validate valattributeform="editglaccountingform" valattribute="glCode"/>
                 </div>
             </div>
           </td>
