@@ -452,6 +452,9 @@
       .when('/guarantor/:id', {
         templateUrl: 'views/loans/guarantor.html'
       })
+      .when('/viewcheckerinbox/:id',{
+        templateUrl: 'views/system/viewcheckerinbox.html'
+      })
       .when('/editguarantor/:id/:loanId',{
         templateUrl: 'views/loans/editguarantor.html'
       });

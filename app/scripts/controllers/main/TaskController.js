@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    TaskController: function(scope, resourceFactory, route, dateFilter,$modal) {
+    TaskController: function(scope, resourceFactory, route, dateFilter,$modal,location) {
         
         scope.clients = [];
         scope.loans = [];
@@ -9,90 +9,104 @@
         scope.formData = {};
         scope.loanTemplate = {};
         scope.date = {};
+        scope.checkData = [];
         scope.isCollapsed = true;
         resourceFactory.checkerInboxResource.get({templateResource:'searchtemplate'},function(data){
             scope.checkerTemplate = data;
         });
-
-        scope.approveChecker = function (aid) {
+        resourceFactory.checkerInboxResource.search(function(data) {
+            scope.searchData = data;
+        });
+        scope.approveChecker = function () {
             $modal.open({
                 templateUrl: 'approvechecker.html',
-                controller: CheckerApproveCtrl,
-                resolve:{
-                    aId : function ()
-                    {
-                        return aid;
-                    }
-                }
-            });
+                controller: CheckerApproveCtrl
+           });
         };
-        var CheckerApproveCtrl = function ($scope, $modalInstance,aId) {
+        var CheckerApproveCtrl = function ($scope, $modalInstance) {
+
             $scope.approve = function () {
-                resourceFactory.checkerInboxResource.save({templateResource: aId,command:'approve'},{}, function(data){
-                    scope.isCollapsed = true;
-                    scope.displayResults = true;
-                    var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
-                    var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
-                    var params = {};
-                    if (scope.formData.action) { params.actionName = scope.formData.action; };
-
-                    if (scope.formData.entity) { params.entityName = scope.formData.entity; };
-
-                    if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
-
-                    if (scope.formData.user) { params.makerId = scope.formData.user; };
-
-                    if (scope.date.from) { params.makerDateTimeFrom = reqFromDate; };
-
-                    if (scope.date.to) { params.makerDateTimeto = reqToDate; };
-                    resourceFactory.checkerInboxResource.search(params , function(data) {
-                        scope.searchData = data;
-                    });
+                var totalApprove = 0;
+                var approveCount = 0;
+                _.each(scope.checkData,function(value,key)
+                {
+                    if(value==true)
+                    {
+                      totalApprove++;
+                    }
                 });
+                _.each(scope.checkData,function(value,key)
+                {
+                    if(value==true)
+                    {
+
+                        resourceFactory.checkerInboxResource.save({templateResource: key,command:'approve'},{}, function(data){
+                          approveCount++;
+                          if(approveCount==totalApprove){
+                              scope.search();
+                          }
+                        },function(data){
+                          approveCount++;
+                          if(approveCount==totalApprove){
+                              scope.search();
+                          }
+                        });
+                    }
+                });
+                scope.checkData = {};
                 $modalInstance.close('approve');
+
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
             };
         };
 
-        scope.deleteChecker = function (id) {
+        scope.deleteChecker = function () {
             $modal.open({
                 templateUrl: 'deletechecker.html',
-                controller: CheckerDeleteCtrl,
-                resolve:{
-                    id: function ()
-                    {
-                        return id;
-                    }
-                }
+                controller: CheckerDeleteCtrl
             });
         };
-        var CheckerDeleteCtrl = function ($scope, $modalInstance,id) {
+        var CheckerDeleteCtrl = function ($scope, $modalInstance) {
             $scope.delete = function () {
-                resourceFactory.checkerInboxResource.delete({templateResource: id}, {}, function(data){
-                    scope.isCollapsed = true;
-                    scope.displayResults = true;
-                    var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
-                    var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
-                    var params = {};
-                    if (scope.formData.action) { params.actionName = scope.formData.action; };
-
-                    if (scope.formData.entity) { params.entityName =scope.formData.entity; };
-
-                    if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
-
-                    if (scope.formData.user) { params.makerId = scope.formData.user; };
-
-                    if (scope.date.from) { params.makerDateTimeFrom = reqFromDate; };
-
-                    if (scope.date.to) { params.makerDateTimeto = reqToDate; };
-                    resourceFactory.checkerInboxResource.search(params , function(data) {
-                        scope.searchData = data;
-                    });
+                var totalDelete = 0;
+                var deleteCount = 0
+                _.each(scope.checkData,function(value,key)
+                {
+                    if(value==true)
+                    {
+                        totalDelete++;
+                    }
                 });
+                _.each(scope.checkData,function(value,key)
+                {
+                    if(value==true)
+                    {
+
+                        resourceFactory.checkerInboxResource.delete({templateResource: key}, {}, function(data){
+                            deleteCount++;
+                            if(deleteCount==totalDelete){
+                                scope.search();
+                            }
+                        }, function(data){
+                            deleteCount++;
+                            if(deleteCount==totalDelete){
+                                scope.search();
+                            }
+                        });
+                    }
+                });
+                scope.checkData = {};
                 $modalInstance.close('delete');
             };
             $scope.cancel = function () {
                 $modalInstance.dismiss('cancel');
             };
+        };
+
+        scope.routeTo = function(id){
+          location.path('viewcheckerinbox/'+id);
         };
 
         resourceFactory.officeResource.getAllOffices(function(data){
@@ -135,7 +149,6 @@
 
         scope.search = function(){
             scope.isCollapsed = true;
-            scope.displayResults = true;
             var reqFromDate = dateFilter(scope.date.from,'yyyy-MM-dd');
             var reqToDate = dateFilter(scope.date.to,'yyyy-MM-dd');
             var params = {};
@@ -181,7 +194,7 @@
 
     }
   });
-  mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter','$modal', mifosX.controllers.TaskController]).run(function($log) {
+  mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter','$modal','$location', mifosX.controllers.TaskController]).run(function($log) {
     $log.info("TaskController initialized");
   });
 }(mifosX.controllers || {}));

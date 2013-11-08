@@ -80,6 +80,10 @@
                             <span><a ng-click="isCollapsed = !isCollapsed" class="btn blockoverlaywidth control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
                             <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
                     </span>
+                    <span class="pull-right">
+                        <td><button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.approve' | translate}}</button> </td>
+                        <td><button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.delete' | translate}}</button> </td>
+                    </span>
                 </div>
                 <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
                     <div class="control-group">
@@ -97,8 +101,8 @@
                     <div class="control-group">
                         <div class="controls">
                             <select ng-model="formData.user">
+                                <option value="">All</option>
                                 <option value="">--Select User--</option>
-                                <option selected="selected" value="">All</option>
                                 <option ng-repeat="user in checkerTemplate.appUsers" value="{{user.id}}">{{user.username}}</option>
                             </select>
                         </div>
@@ -106,8 +110,8 @@
                     <div class="control-group">
                         <div class="controls">
                             <select ng-model="formData.action">
+                                <option value="">All</option>
                                 <option value="">--Select Action--</option>
-                                <option selected="selected" value="">All</option>
                                 <option ng-repeat="action in checkerTemplate.actionNames" value="{{action}}">{{action}}</option>
                             </select>
                         </div>
@@ -115,8 +119,8 @@
                     <div class="control-group">
                         <div class="controls">
                             <select ng-model="formData.entity">
+                                <option value="">All</option>
                                 <option value="">--Select Entity--</option>
-                                <option selected="selected" value="">All</option>
                                 <option ng-repeat="entity in checkerTemplate.entityNames" value="{{entity}}">{{entity}}</option>
                             </select>
                         </div>
@@ -166,31 +170,30 @@
                         </div>
                     </div>
                 </div>
-                <div ng-show="displayResults" class="row-fluid">
+                <div ng-show="searchData" class="row-fluid">
                     <table class="table">
                         <thead>
-                        <tr class="graybg">
-                            <th>{{'label.id' | translate}}</th>
-                            <th>{{'label.status' | translate}}</th>
-                            <th>{{'label.user' | translate}}</th>
-                            <th>{{'label.action' | translate}}</th>
-                            <th>{{'label.entity' | translate}}</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                            <tr class="graybg">
+                                <th></th>
+                                <th>{{'label.id' | translate}}</th>
+                                <th>{{'label.madeondate' | translate}}</th>
+                                <th>{{'label.status' | translate}}</th>
+                                <th>{{'label.user' | translate}}</th>
+                                <th>{{'label.action' | translate}}</th>
+                                <th>{{'table.heading.entity' | translate}}</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="data in searchData">
-                            <td>{{data.id}}</td>
-                            <td>{{data.processingResult}}</td>
-                            <td>{{data.maker}}</td>
-                            <td>{{data.actionName}}</td>
-                            <td>{{data.entityName}}</td>
-                            <td><a href="#/viewaudit/{{data.id}}" class="pointer required">{{'label.details' | translate}}</a></td>
-                            <td><button type="button" class="btn btn-success" data-ng-click="approveChecker(data.id)"><i class="icon-ok"></i></button> </td>
-                            <td><button type="button" class="btn btn-warning" data-ng-click="deleteChecker(data.id)"><i class="icon-remove"></i></button> </td>
-                        </tr>
+                            <tr class="pointer-main" ng-repeat="data in searchData">
+                                <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | DateFormat}}</td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
+                                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
+
+                            </tr>
                         </tbody>
                     </table>
                 </div>
