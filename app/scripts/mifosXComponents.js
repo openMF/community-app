@@ -169,7 +169,9 @@ define(['underscore', 'mifosX'], function() {
       'TreeviewDirective',
       'CkEditorDirective',
       'AutofocusDirective',
-      'SummaryDirective'
+      'SummaryDirective',
+      'FormValidateDirective',
+      'FormSubmitValidateDirective'
     ]
   };
 

@@ -5,7 +5,7 @@
       <li class="active">{{'label.edit.saving.application' | translate}}</li>
     </ul>
   </div>
-  <form name="editsavingccountform" novalidate="" class="well" ng-submit="submit()">
+  <form name="editsavingccountform" novalidate="" class="well" rc-submit="submit()">
     <fieldset>
       <legend>{{ 'label.edit.saving.application' | translate }}</legend>
       <table width="80%">
@@ -57,11 +57,7 @@
                   <td width="50%">
                     <label class="control-label">{{ 'label.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
                     <input type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
-                    <span  ng-show="editsavingccountform.nominalannualinterestrate.$invalid">
-                      <small class="error">
-                          Required Field
-                      </small>
-                    </span>
+                    <form-validate valattributeform="editsavingccountform" valattribute="nominalannualinterestrate"/>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.currencyinmultiplesof' | translate }}&nbsp;</label>
@@ -88,7 +84,7 @@
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.daysinyears' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}">
+                    <select ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}"/>
                     </select>
                   </td>
                 </tr>
@@ -111,6 +107,7 @@
                     <label class="control-label">{{ 'label.lockinPeriodFrequency' | translate }}&nbsp;</label>
                     <input type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
                     <select ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
+                      <option value="">{{ 'label.select' | translate }}</option>
                     </select>
                   </td>
                 </tr>

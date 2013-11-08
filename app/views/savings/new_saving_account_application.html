@@ -7,7 +7,7 @@
       <li class="active">{{'label.saving.application' | translate}}</li>
     </ul>
   </div>
-  <form name="newsavingccountform" novalidate="" class="well" ng-submit="submit()">
+  <form name="newsavingccountform" novalidate="" class="well" rc-submit="submit()">
     <fieldset>
       <legend>{{ 'label.saving.application' | translate }}</legend>
       <table width="80%">
@@ -32,7 +32,7 @@
             <td width="50%">
               <label class="control-label">{{ 'label.loanofficer' | translate }}&nbsp;</label>
               <select ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
-                <option style="display:none" value="">{{'label.select.loanofficer' | translate}}</option>
+                <option value="">{{'label.select.loanofficer' | translate}}</option>
               </select>
             </td>
             <td width="50%">
@@ -60,12 +60,8 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
-                    <span  ng-show="newsavingccountform.nominalannualinterestrate.$invalid">
-                      <small class="error">
-                          Required Field
-                      </small>
-                    </span>
+                    <input type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required late-Validate/>
+                    <form-validate valattributeform="newsavingccountform" valattribute="nominalannualinterestrate"/>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.currencyinmultiplesof' | translate }}&nbsp;</label>
@@ -115,7 +111,7 @@
                     <label class="control-label">{{ 'label.lockinPeriodFrequency' | translate }}&nbsp;</label>
                     <input type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
                     <select ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
-                      <option style="display:none" value="">{{'label.select.one' | translate}}</option>
+                      <option value="">{{'label.select.one' | translate}}</option>
                     </select>
                   </td>
                 </tr>
@@ -135,7 +131,7 @@
             <td class="blockquoteresult" width="90%">
                 <form>
                   <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in chargeOptions" value="{{charge.id}}">
-                    <option style="display:none" value="">{{'label.select.charge' | translate}}</option>
+                    <option value="">{{'label.select.charge' | translate}}</option>
                   </select>
                   <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
                 </form>

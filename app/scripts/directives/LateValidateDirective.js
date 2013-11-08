@@ -1,4 +1,4 @@
-(function(module) {
+    (function(module) {
     mifosX.directives = _.extend(module, {
         LateValidateDirective: function() {
             return {
