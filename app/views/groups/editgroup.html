@@ -1,17 +1,13 @@
 <div ng-controller="EditGroupController">
     <div data-ng-switch on="managecode">
-        <form name="editgroupform" novalidate="" class="form-horizontal well" data-ng-switch-when="1">
+        <form name="editgroupform" novalidate="" class="form-horizontal well" rc-submit="updateGroup()" data-ng-switch-when="1">
             <fieldset>
                 <legend>{{'label.editgroup' | translate}}</legend>
                 <div class="control-group">
                     <label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
                     <div class="controls">
                         <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{editGroup.name}}" ng-model="formData.name" required late-Validate/>
-                        <span  ng-show="editgroupform.name.$invalid">
-                            <small class="error">
-                                Required Field
-                            </small>
-                        </span>
+                        <form-validate valattributeform="editgroupform" valattribute="name"/>
                     </div>
                 </div>
                 <div class="control-group info">
@@ -32,13 +28,13 @@
                     <div class="control-group">
                         <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                         </div>
                     </div>                    
                 </div>
                 <div class="offset3">
                     <a href="#/viewgroup/{{editGroup.id}}" class="btn">{{'label.cancel' | translate}}</a>
-                    <button type="button" class="btn btn-primary" data-ng-click="updateGroup()">{{'label.save' | translate}}</button>
+                    <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
                 </div>
             </fieldset>
         </form>
@@ -46,7 +42,7 @@
             <div class="paddedleft">
                 <div>
                     <label class="control-label">{{ 'label.enteractivationdate' | translate }}<span class="required">*</span></label>
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                 </div>
                 <br/>
                 <a href="#/viewgroup/{{editGroup.id}}" class="btn">{{'label.cancel' | translate}}</a>
