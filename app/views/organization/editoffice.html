@@ -6,6 +6,7 @@
         </ul>
       </div>
       <form name="editofficeform" novalidate="" class="form-horizontal well" ng-controller="EditOfficeController" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
           <table>
             <tr>
@@ -13,7 +14,7 @@
                 <div class="control-group">
                   <label class="control-label" for="name">{{ 'label.officename' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <input ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
                     <form-validate valattributeform="editofficeform" valattribute="name"/>
                   </div>
                 </div>
@@ -24,7 +25,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.openedon' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                      <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                      <input id="openingDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                   </div>
                 </div>
               </td>
@@ -34,7 +35,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.externalId' | translate }}</label>
                   <div class="controls">
-                    <input type="text" name="externalId" ng-model="formData.externalId">
+                    <input id="externalId" type="text" name="externalId" ng-model="formData.externalId">
                   </div>
                 </div>
               </td>

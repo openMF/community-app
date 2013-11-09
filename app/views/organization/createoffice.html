@@ -6,6 +6,7 @@
         </ul>
       </div>
       <form name="createofficeform" novalidate="" class="form-horizontal well" ng-controller="CreateOfficeController" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
           <legend>{{'label.createoffice' | translate}}</legend>
           <table>
@@ -14,7 +15,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.officename' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <input ng-autofocus="true"  type="text" name="name" ng-model="formData.name" required late-Validate/>
+                    <input id="name" ng-autofocus="true"  type="text" name="name" ng-model="formData.name" required late-Validate/>
                     <form-validate valattributeform="createofficeform" valattribute="name"/>
                   </div>
                 </div>
@@ -25,7 +26,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.parentoffice' | translate }}<span class="required">*</span></label>
                   <div class="controls">
-                    <select ng-model="formData.parentId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+                    <select id="parentId" ng-model="formData.parentId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
                   </div>
                 </div>
               </td>
@@ -35,7 +36,7 @@
                   <div class="control-group">
                       <label class="control-label">{{ 'label.openedon' | translate }}<span class="required">*</span></label>
                       <div class="controls">
-                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                          <input id="openingDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                       </div>
                   </div>
               </td>
@@ -45,7 +46,7 @@
                 <div class="control-group">
                   <label class="control-label">{{ 'label.externalId' | translate }}</label>
                   <div class="controls">
-                    <input type="text" name="externalId" ng-model="formData.externalId">
+                    <input id="externalId" type="text" name="externalId" ng-model="formData.externalId">
                   </div>
                 </div>
               </td>

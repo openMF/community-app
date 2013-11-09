@@ -1,4 +1,5 @@
 <div ng-controller="EditGroupController">
+    <api-validate></api-validate>
     <div data-ng-switch on="managecode">
         <form name="editgroupform" novalidate="" class="form-horizontal well" rc-submit="updateGroup()" data-ng-switch-when="1">
             <fieldset>
@@ -13,7 +14,7 @@
                 <div class="control-group info">
                     <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
                     <div class="controls">
-                        <select id="staffs" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions" value="{{staff.id}}">
+                        <select id="staffId" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions" value="{{staff.id}}">
                             <option value="">{{'label.select.staff' | translate}}</option>
                         </select>
                     </div>
@@ -21,14 +22,14 @@
                 <div class="control-group">
                     <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
                     <div class="controls">
-                        <input type="text" id="externalid"  ng-model="formData.externalId">
+                        <input type="text" id="externalId"  ng-model="formData.externalId">
                     </div>
                 </div>
                 <div ng-hide="editGroup.status.value == 'Pending'">
                     <div class="control-group">
                         <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                            <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                         </div>
                     </div>                    
                 </div>
@@ -42,7 +43,7 @@
             <div class="paddedleft">
                 <div>
                     <label class="control-label">{{ 'label.enteractivationdate' | translate }}<span class="required">*</span></label>
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                 </div>
                 <br/>
                 <a href="#/viewgroup/{{editGroup.id}}" class="btn">{{'label.cancel' | translate}}</a>

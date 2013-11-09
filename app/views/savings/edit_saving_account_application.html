@@ -5,6 +5,7 @@
       <li class="active">{{'label.edit.saving.application' | translate}}</li>
     </ul>
   </div>
+  <api-validate></api-validate>
   <form name="editsavingccountform" novalidate="" class="well" rc-submit="submit()">
     <fieldset>
       <legend>{{ 'label.edit.saving.application' | translate }}</legend>
@@ -18,7 +19,7 @@
           </td>
           <td width="50%">
             <label class="control-label">{{ 'label.product' | translate }}&nbsp;</label>
-            <select ng-model="formData.productId" ng-options="product.id as product.name for product in products" ng-change="changeProduct()" value="{{product.id}}"></select>
+            <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in products" ng-change="changeProduct()" value="{{product.id}}"></select>
           </td>
         </tr>
       </table>
@@ -27,13 +28,13 @@
           <tr class="control-group">
             <td width="50%">
               <label class="control-label">{{ 'label.field.officer' | translate }}&nbsp;</label>
-              <select ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
+              <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
                 <option style="display:none" value="">{{'label.select.loanofficer' | translate}}</option>
               </select>
             </td>
             <td width="50%">
               <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
-              <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+              <input id="submittedOnDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
             </td>
           </tr>
           <tr class="span2"></tr>
@@ -56,7 +57,7 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
+                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
                     <form-validate valattributeform="editsavingccountform" valattribute="nominalannualinterestrate"/>
                   </td>
                   <td width="50%">
@@ -67,24 +68,24 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interestcompoundingperiod' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
+                    <select id="interestCompoundingPeriodType" ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interestpostingperiod' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
+                    <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                 </tr>
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interest.calculated.using' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
+                    <select id="interestCalculationType" ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.daysinyears' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}"/>
+                    <select id="interestCalculationDaysInYearType" ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}"/>
                     </select>
                   </td>
                 </tr>
@@ -101,12 +102,12 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.minimumopeningbalance' | translate }}&nbsp;</label>
-                    <input type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
+                    <input id="minRequiredOpeningBalance" type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.lockinPeriodFrequency' | translate }}&nbsp;</label>
-                    <input type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
-                    <select ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
+                    <input id="lockinPeriodFrequency" type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
+                    <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
                       <option value="">{{ 'label.select' | translate }}</option>
                     </select>
                   </td>
@@ -143,9 +144,9 @@
                 <tr ng-repeat="charge in charges" >
                   <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                   <td>{{charge.chargeCalculationType.value}}</td>
-                  <td><input class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
+                  <td><input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                   <td>{{charge.chargeTimeType.value}}</td>
-                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'"><input class="input-small" type="text" ng-model="charge.feeOnMonthDay"  ></td>{{charge.feeOnMonthDay}}
+                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'"><input class="input-small" id="charges[{{$index}}].feeOnMonthDay" type="text" ng-model="charge.feeOnMonthDay"  ></td>{{charge.feeOnMonthDay}}
                   <td ng-hide="charge.chargeTimeType.value=='Annual Fee'"></td>
                   <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

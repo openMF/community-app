@@ -5,6 +5,7 @@
     </ul>
 </div>
 <form class="form-horizontal well" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.bulkloanreassignment' | translate}}</legend>
         <table>
@@ -25,7 +26,7 @@
                     <div class="control-group">
                         <label class="control-label">{{ 'label.assignmentdate' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                            <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                         </div>
                     </div>
                 </td>
@@ -35,7 +36,7 @@
                     <div class="control-group">
                         <label class="control-label" >{{ 'label.fromloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <select ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
+                            <select id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
                                 <option value="">{{'label.select.one' | translate}}</option>
                             </select>
                         </div>
@@ -45,7 +46,7 @@
                     <div class="control-group">
                         <label class="control-label" >{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <select ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
+                            <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
                                 <option value="">{{'label.select.one' | translate}}</option>
                             </select>
                         </div>

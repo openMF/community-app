@@ -6,13 +6,14 @@
     </ul>
   </div>
   <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
       <legend>{{ title | translate}}</legend>
 
       <div class="control-group" ng-show="showDateField">
         <label class="control-label" for="modelName">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+          <input id="{{modelName}}" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
         </div>
       </div>
 
@@ -20,14 +21,14 @@
         <div class="control-group">
           <label class="control-label" for="transactionAmount">{{ 'label.saving.account.transactionAmount' | translate}}<span class="required">*</span></label>
           <div class="controls">
-            <input type="text" name="transactionAmount" ng-model="formData.transactionAmount" required late-Validate/>
+            <input id="transactionAmount" type="text" name="transactionAmount" ng-model="formData.transactionAmount" required late-Validate/>
             <form-validate valattributeform="savingccountactionform" valattribute="transactionAmount"/>
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="paymentTypeId">{{ 'label.saving.account.paymentTypeId' | translate}}<span class="required">*</span></label>
           <div class="controls">
-            <select ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}">
+            <select id="paymentTypeId" ng-model="formData.paymentTypeId" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes" value="{{paymentType.id}}">
               <option value="">{{'label.select.one' | translate}}</option>
             </select>
           </div>
@@ -45,31 +46,31 @@
           <div class="control-group">
             <label class="control-label" for="accountNumber">{{ 'label.saving.account.accountNumber' | translate}}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.accountNumber">
+              <input id="accountNumber" type="text" ng-model="formData.accountNumber">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="checkNumber">{{ 'label.saving.account.checkNumber' | translate}}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.checkNumber">
+              <input id="checkNumber" type="text" ng-model="formData.checkNumber">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="routingCode">{{ 'label.saving.account.routingCode' | translate}}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.routingCode">
+              <input id="routingCode" type="text" ng-model="formData.routingCode">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="receiptNumber">{{ 'label.saving.account.receiptNumber' | translate}}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.receiptNumber">
+              <input id="receiptNumber" type="text" ng-model="formData.receiptNumber">
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="bankNumber">{{ 'label.saving.account.bankNumber' | translate}}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.bankNumber">
+              <input id="bankNumber" type="text" ng-model="formData.bankNumber">
             </div>
           </div>
         </div>
@@ -77,7 +78,7 @@
       <div class="control-group" ng-show="showAnnualAmountField">
         <label class="control-label">{{ 'label.amount' | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="text" name="amount" ng-model="formData.amount" required late-Validate/>
+          <input id="amount" type="text" name="amount" ng-model="formData.amount" required late-Validate/>
           <span  ng-show="savingccountactionform.amount.$invalid">
             <small class="error">
                 Required Field
@@ -88,14 +89,14 @@
       <div class="control-group" ng-show="showNoteField">
         <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
         <div class="controls">
-          <textarea rows="2" ng-model="formData.note"></textarea>
+          <textarea rows="2" id="note" ng-model="formData.note"></textarea>
         </div>
       </div>
       
       <div class="control-group" ng-show="showAmountField">
         <label class="control-label">{{ labelName | translate}}</label>
         <div class="controls">
-          <input type="text" ng-model="formData.amount">
+          <input type="text" id="amount" ng-model="formData.amount">
         </div>
       </div>
 

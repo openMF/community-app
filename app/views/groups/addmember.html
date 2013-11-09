@@ -1,11 +1,12 @@
 <form class="form-horizontal well" ng-controller="AddMemberController">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.addmember' | translate}}</legend>
 
         <div class="control-group">
             <label class="control-label" for="staffid">{{ 'label.form.staff' | translate }}</label>
             <div class="controls">
-                <select ng-model="formData.staffId" id="staffid">
+                <select ng-model="formData.staffId" id="staffId">
                     <option ng-repeat="staff in clientTemplate.staffOptions" value="{{staff.id}}">{{staff.displayName}}</option>
                 </select>
             </div>
@@ -51,7 +52,7 @@
         <div class="control-group">
             <label class="control-label" for="externalid">{{ 'label.externalid' | translate }}</label>
             <div class="controls">
-                <input type="text" id="externalid" ng-model="formData.externalId">
+                <input type="text" id="externalId" ng-model="formData.externalId">
             </div>
         </div>
         <div class="control-group">
@@ -64,7 +65,7 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                     <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
                         <small class="error" ng-show="creategroupform.activationdate.$error.req">
                             Required Field
@@ -79,5 +80,3 @@
         </div>
     </fieldset>
 </form>
-
-

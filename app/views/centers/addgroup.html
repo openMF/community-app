@@ -1,4 +1,5 @@
 <form class="form-horizontal well" ng-controller="AddGroupController">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.addgroup' | translate}}</legend>
 
@@ -27,7 +28,7 @@
         <div class="control-group">
             <label class="control-label">{{ 'label.clients' | translate }}</label>
             <div class="controls">
-                <select multiple ng-model="formData.clientMembers">
+                <select id="clientMembers" multiple ng-model="formData.clientMembers">
                         <option ng-repeat="client in groupTemplate.clientOptions" value="{{client.id}}">{{client.displayName}}</option>
                 </select>
             </div>
@@ -42,7 +43,7 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                     <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
                         <small class="error" ng-show="creategroupform.activationdate.$error.req">
                             Required Field
