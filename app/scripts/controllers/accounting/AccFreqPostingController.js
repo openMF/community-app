@@ -8,6 +8,8 @@
             scope.first = {};
             scope.allowCreditEntries = true;
             scope.allowDebitEntries = true;
+            scope.errorcreditevent = false;
+            scope.errordebitevent = false;
 
             resourceFactory.accountingRulesResource.getAllRules({associations : 'all'}, function(data){
               scope.rules = data;
@@ -35,6 +37,7 @@
             //events for credits
             scope.addCrAccount = function () {
               if(scope.formData.crAmountTemplate != undefined){
+                scope.errorcreditevent = false;
                 scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName : scope.formData.creditAccountTemplate.name , crAmount : scope.formData.crAmountTemplate});
                 scope.formData.crAmountTemplate = undefined;
                 if (scope.formData.rule) {
@@ -42,6 +45,8 @@
                     scope.allowCreditEntries = false;
                   }
                 }
+              } else {
+                scope.errorcreditevent = true;
               }
             }
 
@@ -55,6 +60,7 @@
             //events for debits
             scope.addDebitAccount = function () {
               if(scope.formData.debitAmountTemplate != undefined){
+                scope.errordebitevent = false;
                 scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName : scope.formData.debitAccountTemplate.name , debitAmount : scope.formData.debitAmountTemplate});
                 scope.formData.debitAmountTemplate = undefined;
                 if (scope.formData.rule) {
@@ -62,6 +68,8 @@
                     scope.allowDebitEntries = false;
                   }
                 }
+              } else {
+                scope.errordebitevent = true;
               }
             }
 

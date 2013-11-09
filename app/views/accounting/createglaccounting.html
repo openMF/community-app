@@ -6,7 +6,7 @@
     </ul>
 </div>
 <form name="createglaccountingform" novalidate="" class="form-horizontal well"
-      ng-controller="AccCreateGLAccountController" ng-submit="submit()">
+      ng-controller="AccCreateGLAccountController" rc-submit="submit()">
     <div class="error" ng-show="errorStatus || errorDetails">
         <label>{{'label.error' | translate}}</label>
         <label ng-show="errorStatus">{{errorStatus}}</label>
@@ -25,11 +25,7 @@
                         <div class="controls">
                             <input id="name" type="text" ng-autofocus="true" name="name" id="name"
                                    ng-model="formData.name" required late-Validate/>
-                      <span ng-show="createglaccountingform.name.$invalid">
-                        <small class="error" ng-show="createglaccountingform.name.$error.req">
-                            {{'label.requiredfield' | translate}}
-                        </small>
-                      </span>
+                            <form-validate valattributeform="createglaccountingform" valattribute="name"/>
                         </div>
                     </div>
                 </td>
@@ -43,11 +39,7 @@
                         <div class="controls">
                             <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required
                                    late-Validate/>
-                      <span ng-show="createglaccountingform.glCode.$invalid">
-                        <small class="error" ng-show="createglaccountingform.glCode.$error.req">
-                            {{'label.requiredfield' | translate}}
-                        </small>
-                      </span>
+                            <form-validate valattributeform="createglaccountingform" valattribute="glCode"/>
                         </div>
                     </div>
                 </td>
