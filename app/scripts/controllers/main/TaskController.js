@@ -17,6 +17,10 @@
         resourceFactory.checkerInboxResource.search(function(data) {
             scope.searchData = data;
         });
+        scope.viewUser = function(item){
+            scope.userTypeahead = true;
+            scope.formData.user = item.id;
+        };
         scope.approveChecker = function () {
             $modal.open({
                 templateUrl: 'approvechecker.html',
@@ -165,6 +169,10 @@
             if (scope.date.to) { params.makerDateTimeto = reqToDate; };
             resourceFactory.checkerInboxResource.search(params , function(data) {
                 scope.searchData = data;
+                if(scope.userTypeahead){
+                    scope.formData.user = '';
+                    scope.userTypeahead = false;
+                }
             });
         };
 

@@ -77,8 +77,9 @@
 		    <tab heading="{{'tab.checkerinbox' | translate}}">
                 <div class="row-fluid" >
                     <span class="input-append grpinputicons" >
-                            <span><a ng-click="isCollapsed = !isCollapsed" class="btn blockoverlaywidth control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
-                            <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+                        <input ng-autofocus="true" typeahead-on-select="viewUser($item)" placeholder="{{'label.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"/>
+                        <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
+                        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
                     </span>
                     <span class="pull-right">
                         <td><button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.approve' | translate}}</button> </td>
@@ -96,15 +97,6 @@
                         <label class="control-label"></label>
                         <div class="controls">
                             <input type="text" placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <select ng-model="formData.user">
-                                <option value="">All</option>
-                                <option value="">--Select User--</option>
-                                <option ng-repeat="user in checkerTemplate.appUsers" value="{{user.id}}">{{user.username}}</option>
-                            </select>
                         </div>
                     </div>
                     <div class="control-group">
@@ -131,6 +123,7 @@
                             <input type="text" placeholder="{{'label.resourceid' | translate}}" ng-model="formData.resourceId">
                         </div>
                     </div>
+                    <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.advancesearch' | translate}}</a></span>
                 </div>
                 <script type="text/ng-template" id="deletechecker.html">
                     <div class="modal-header silver">
