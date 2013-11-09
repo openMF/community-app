@@ -3,7 +3,7 @@
         CreateChargeController: function(scope, resourceFactory,location) {
             scope.template = [];
             scope.formData = {};
-            resourceFactory.chargeTemplateResource.getChargeTemplates(function(data) {
+            resourceFactory.chargeTemplateResource.get(function(data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;

@@ -1,4 +1,4 @@
-<div ng-controller="EditCodeController" ng-submit="submit()">
+<form name="editcodeform" novalidate="" ng-controller="EditCodeController" ng-submit="submit()">
   <div class="paddedbottom10">
       <ul class="breadcrumb">
           <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
@@ -9,9 +9,14 @@
   </div>
   <h3>{{'label.editcode' | translate}}</h3>
     <form>
-    <input ng-model="newEle.name" placeholder="Code Value" type="text"/>&nbsp;&nbsp;<input ng-model="newEle.position"
-                   placeholder="Position" type="text"/>&nbsp;&nbsp;
-        <a data-ng-click="addCv()" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.add' | translate }}</a>
+      <input name="codevalue" ng-model="newEle.name" placeholder="Code Value" type="text"/>&nbsp;&nbsp;
+      <input name="position" ng-model="newEle.position" placeholder="Position" type="text"/>&nbsp;&nbsp;
+      <a data-ng-click="addCv()" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.add' | translate }}</a>
+        <span  ng-show="createcenterform.name.$invalid || codevalueerror">
+          <small class="error" ng-show="createcenterform.name.$error.req || codevalueerror">
+              {{'label.'+labelerror | translate}}
+          </small>
+        </span>
       </form>
     <div data-ng-repeat="codevalue in codevalues">
         <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;<input disabled="" placeholder={{codevalue.position}}
@@ -21,4 +26,4 @@
         <p>{{ 'error.delete.failed' | translate }}</p>
     </div>
 
-</div>
+</form>

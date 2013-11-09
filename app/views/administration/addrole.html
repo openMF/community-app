@@ -6,7 +6,7 @@
 			<li class="active">{{'label.addrole' | translate}}</li>
 		</ul>
 	</div>
-	<form name="addroleform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+	<form name="addroleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 		<fieldset>
 			<legend>{{'label.addrole' | translate}}</legend>
 
@@ -14,11 +14,7 @@
 				<label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
 				<div class="controls">
 					<input type="text" name="name" ng-model="formData.name" required late-Validate/>
-					<span  ng-show="addroleform.name.$invalid">
-		                <small class="error" ng-show="addroleform.name.$error.req">
-		                    Required Field
-		                </small>
-		            </span>
+		            <form-validate valattributeform="addroleform" valattribute="name"/>
 				</div>
 			</div>
 
@@ -26,11 +22,7 @@
 				<label class="control-label" name="" for="description">{{'label.description' | translate}}<span class="required">*</span></label>
 				<div class="controls">
 					<textarea type="text" rows="2" name="description" ng-model="formData.description"  required late-Validate/>
-					<span  ng-show="addroleform.description.$invalid">
-		                <small class="error" ng-show="addroleform.description.$error.req">
-		                    Required Field
-		                </small>
-		            </span>
+					<form-validate valattributeform="addroleform" valattribute="description"/>
 				</div>
 			</div>
 

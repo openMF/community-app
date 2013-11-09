@@ -1,12 +1,13 @@
-<form class="form-horizontal well" ng-controller="AddProductMixController" ng-submit="submit()">
+<form name="addproductmixform" novalidate class="form-horizontal well" ng-controller="AddProductMixController" rc-submit="submit()">
     <fieldset>
         <legend>{{'label.addproductmix' | translate}}</legend>
         <div class="control-group">
             <label class="control-label">{{ 'label.selectproduct' | translate }}</label>
             <div class="controls">
-                <select ng-model="formData.productId">
-                    <option ng-repeat="product in products" data-ng-click="productInfo(product.id)" value="{{product.id}}">{{product.name}}</option>
+                <select name="product" ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" data-ng-change="productInfo(formData.productId)" required>
+                    <option  value="">{{'label.select.product' | translate}}</option>
                 </select>
+                <form-validate valattributeform="addproductmixform" valattribute="product"/>
             </div>
         </div>
         <div class="control-group">

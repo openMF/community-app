@@ -4,53 +4,35 @@
               <li class="active">{{'label.createuser' | translate}}</li>
           </ul>
       </div>
-      <form name="createuserform" novalidate="" class="form-horizontal" ng-controller="CreateUserController" ng-submit="submit()">
+      <form name="createuserform" novalidate="" class="form-horizontal" ng-controller="CreateUserController" rc-submit="submit()">
         <fieldset>
           <legend>{{'label.createuser' | translate}}</legend>
           <div class="control-group">
             <label class="control-label" for="username">{{'label.username' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="username" name="username" ng-model="formData.username" required late-Validate/>
-              <span  ng-show="createuserform.username.$invalid">
-                <small class="error" ng-show="createuserform.username.$error.req">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="createuserform" valattribute="username"/>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="firstname">{{'label.firstname' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
-              <span  ng-show="createuserform.firstname.$invalid">
-                <small class="error" ng-show="createuserform.firstname.$error.req">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="createuserform" valattribute="firstname"/>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="lastname">{{'label.lastname' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
-              <span  ng-show="createuserform.lastname.$invalid">
-                <small class="error" ng-show="createuserform.lastname.$error.req">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="createuserform" valattribute="lastname"/>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="email">{{'label.email' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="email" id="email" name="email" ng-model="formData.email" required late-Validate/>
-              <span  ng-show="createuserform.email.$invalid">
-                <small class="error" ng-show="createuserform.email.$error.req">
-                    Required Field
-                </small> 
-                <small class="error" ng-show="createuserform.email.$error.email &&  !createuserform.email.$error.req">
-                Not valid email!</small>
-              </span>
+              <form-validate valattributeform="createuserform" valattribute="email"/>
             </div>
           </div>
           <div class="control-group">
@@ -84,9 +66,10 @@
           <div class="control-group">
             <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <select id="role" ng-model="formData.roles" multiple>
+              <select id="role" ng-model="formData.roles" name="role" multiple required>
                 <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">{{availablerole.name}}</option>
               </select>
+              <form-validate valattributeform="createuserform" valattribute="role"/>
             </div>
           </div>
           <div class="offset3">

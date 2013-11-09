@@ -3,6 +3,10 @@
     CreateDataTableController: function(scope, routeParams , resourceFactory, location) {
 
       scope.columns = [];
+      scope.columnnameerror = false;
+      scope.columntypeerror = false;
+      scope.datatableTemplate = {};
+      scope.labelerror = "requiredfield";
 
       resourceFactory.codeResources.getAllCodes({}, function(data) {
         scope.codes = data;
@@ -10,10 +14,18 @@
 
       scope.addColumn = function () {
         if (scope.datatableTemplate.columnName && scope.datatableTemplate.columnType) {
+          scope.columnnameerror = false;
+          scope.columntypeerror = false;
           scope.columns.push({name:scope.datatableTemplate.columnName, type:scope.datatableTemplate.columnType, mandatory:false});
           scope.datatableTemplate.columnName = undefined;
           scope.datatableTemplate.columnType = undefined;
-        }
+        } else if (!scope.datatableTemplate.columnName) {
+          scope.columnnameerror = true;
+          scope.labelerror = "columnnameerr";
+        } else if (scope.datatableTemplate.columnName) {
+          scope.columntypeerror = true;
+          scope.labelerror = "columntypeerr";
+        } 
       };
 
       scope.removeColumn = function (index) {

@@ -5,7 +5,7 @@
           <li class="active">{{'label.createoffice' | translate}}</li>
         </ul>
       </div>
-      <form name="createofficeform" novalidate="" class="form-horizontal well" ng-controller="CreateOfficeController" ng-submit="submit()">
+      <form name="createofficeform" novalidate="" class="form-horizontal well" ng-controller="CreateOfficeController" rc-submit="submit()">
         <fieldset>
           <legend>{{'label.createoffice' | translate}}</legend>
           <table>
@@ -15,11 +15,7 @@
                   <label class="control-label">{{ 'label.officename' | translate }}<span class="required">*</span></label>
                   <div class="controls">
                     <input ng-autofocus="true"  type="text" name="name" ng-model="formData.name" required late-Validate/>
-                    <span  ng-show="createofficeform.name.$invalid">
-                      <small class="error" ng-show="createofficeform.name.$error.req">
-                          Required Field
-                      </small>
-                    </span>
+                    <form-validate valattributeform="createofficeform" valattribute="name"/>
                   </div>
                 </div>
               </td>
@@ -39,7 +35,7 @@
                   <div class="control-group">
                       <label class="control-label">{{ 'label.openedon' | translate }}<span class="required">*</span></label>
                       <div class="controls">
-                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                          <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                       </div>
                   </div>
               </td>
