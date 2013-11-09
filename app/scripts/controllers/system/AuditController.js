@@ -7,6 +7,10 @@
             resourceFactory.auditResource.get({templateResource: 'searchtemplate'} , function(data) {
                 scope.template = data;
             });
+            scope.viewUser = function(item){
+                scope.userTypeahead = true;
+                scope.formData.user = item.id;
+            };
             scope.search = function(){
                 scope.isCollapsed = true;
                 scope.displayResults = true;
@@ -34,6 +38,11 @@
                 if (scope.date.fourth) { params.checkerDateTimeTo = reqFourthDate; };
                 resourceFactory.auditResource.search(params , function(data) {
                     scope.searchData = data;
+                    if(scope.userTypeahead){
+                        scope.formData.user = '';
+                        scope.userTypeahead = false;
+                        scope.user = '';
+                    }
                 });
 
             };

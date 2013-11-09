@@ -5,10 +5,10 @@
     </ul>
     <div class="row-fluid" >
         <span class="input-append grpinputicons" >
-                <span><a ng-click="isCollapsed = !isCollapsed" class="btn blockoverlaywidth control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
-                <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+            <input ng-autofocus="true" typeahead-on-select="viewUser($item)" placeholder="{{'label.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
+            <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
+            <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
-    </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="control-group">
             <div class="controls">
@@ -82,6 +82,7 @@
                  <input type="text" placeholder="{{'label.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
              </div>
         </div>
+        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.advancesearch' | translate}}</a></span>
     </div>
     <div ng-show="displayResults" class="row-fluid">
         <table class="table">
