@@ -64,7 +64,9 @@
         }
 
         scope.submit = function() {
-          this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,'dd MMMM yyyy');
+          if (scope.date) {
+            this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,'dd MMMM yyyy');
+          }
           this.formData.locale = 'en';
           this.formData.dateFormat = 'dd MMMM yyyy';
           this.formData.monthDayFormat= "dd MMM";

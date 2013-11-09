@@ -9,7 +9,7 @@
                     scope.inputAttributeName = attr.valattribute;
                     var template = '<span  ng-show="'+scope.formNameAttribute+'.'+scope.inputAttributeName+'.$invalid">'+
                             '<small class="error" ng-show="'+scope.formNameAttribute+'.'+scope.inputAttributeName+'.$error.req || rc.'+scope.formNameAttribute+'.attempted">'+
-                                'Required Field'+                                                                  
+                               '{{'+"'label.requirefield'"+' | translate}}'+                                                                  
                             '</small>'+
                             '</span>' ;
                     elm.html('').append($compile(template)(scope));

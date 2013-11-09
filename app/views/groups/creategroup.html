@@ -1,4 +1,4 @@
-<form name="creategroupform" novalidate="" class="form-horizontal well" ng-controller="CreateGroupController" ng-submit="submit()">
+<form name="creategroupform" novalidate="" class="form-horizontal well" ng-controller="CreateGroupController" rc-submit="submit()">
     <fieldset>
         <legend class="bolder">{{'label.creategroup' | translate}}</legend>
         <div class="control-group">
@@ -7,22 +7,14 @@
                 <select name="office" id="office" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="changeOffice(formData.officeId)" required>
                     <option value="">{{'label.select.office' | translate}}</option>
                 </select>
-                <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
-                    <small class="error" ng-show="creategroupform.office.$error.required">
-                        Required.
-                    </small>
-                </span>
+                <form-validate valattributeform="creategroupform" valattribute="office"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="name">{{'label.form.name' | translate}}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="name" name="name" ng-model="formData.name" required ng-minlength=3 late-Validate/>
-                <span  ng-show="creategroupform.name.$invalid">
-                    <small class="error" ng-show="creategroupform.name.$error.req">
-                        Required Field
-                    </small>
-                </span>
+                <input type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
+                <form-validate valattributeform="creategroupform" valattribute="name"/>
             </div>
         </div>
         <div class="control-group">
@@ -51,12 +43,7 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
-                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
-                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
-                            Required Field
-                        </small>
-                    </span>
+                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                 </div>
             </div>
         </div>
@@ -64,16 +51,12 @@
             <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
             <div class="controls">
                 <input type="text" name="externalid" id="externalid" ng-model="formData.externalId" ng-pattern="/^[0-9]+[a-z]+$/">
-                <span ng-show="creategroupform.externalid.$invalid && creategroupform.externalid.$dirty">
-                <small class="error" ng-show="creategroupform.externalid.$error.pattern">
-                    Must be alphanumeric.
-                </small>
             </span>
             </div>
         </div>
         <div class="offset2 paddedleft120">
             <a href="#/groups" class="btn">{{'label.cancel' | translate}}</a>
-            <button type="submit" class="btn btn-primary" ng-disabled="!creategroupform.$valid">{{'label.save' | translate}}</button>
+            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
         </div>
     </fieldset>
 </form>

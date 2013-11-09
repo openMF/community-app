@@ -4,7 +4,7 @@
         <li class="active">{{'label.createcenter' | translate}}</li>
     </ul>
 </div>
-<form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController" ng-submit="submit()">
+<form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController" rc-submit="submit()">
     <fieldset>
         <legend>{{'label.createcenter' | translate}}</legend>
 
@@ -12,11 +12,7 @@
             <label class="control-label" for="name">{{'label.form.name' | translate}}<span class="required">*</span></label>
             <div class="controls">
                 <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required  late-Validate/>
-                <span  ng-show="createcenterform.name.$invalid">
-                    <small class="error" ng-show="createcenterform.name.$error.req">
-                        Required Field
-                    </small>
-                </span>
+                <form-validate valattributeform="createcenterform" valattribute="name"/>
             </div>
         </div>
         <div class="control-group">
@@ -44,12 +40,7 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
-                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
-                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
-                            Required Field
-                        </small>
-                    </span>
+                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                 </div>
             </div>
         </div>
