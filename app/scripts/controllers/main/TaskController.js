@@ -172,6 +172,7 @@
                 if(scope.userTypeahead){
                     scope.formData.user = '';
                     scope.userTypeahead = false;
+                    scope.user = '';
                 }
             });
         };

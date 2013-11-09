@@ -100,16 +100,30 @@ angular.module('notificationWidget', [])
     // private notification messages
     var _START_REQUEST_ = '_START_REQUEST_';
     var _END_REQUEST_ = '_END_REQUEST_';
-
+    var loader = document.getElementById('main');
+    var template = document.createElement('div');
+    template.innerHTML ='<div class="loading-widget-div">'+
+                        '<div id="circularG">'+
+                        '<div id="circularG_1" class="circularG"> </div>'+
+                        '<div id="circularG_2" class="circularG"></div>'+
+                        '<div id="circularG_3" class="circularG"></div>'+
+                        '<div id="circularG_4" class="circularG"></div>'+
+                        '<div id="circularG_5" class="circularG"></div>'+
+                        '<div id="circularG_6" class="circularG"></div>'+
+                        '<div id="circularG_7" class="circularG"></div>'+
+                        '<div id="circularG_8" class="circularG"></div>'+
+                        '</div></div>'
     // publish start request notification
     var requestStarted = function() {
         $rootScope.$broadcast(_START_REQUEST_);
         $rootScope.blockUI = true;
+        loader.appendChild(template);
     };
     // publish end request notification
     var requestEnded = function() {
         $rootScope.$broadcast(_END_REQUEST_);
         $rootScope.blockUI = false;
+        loader.removeChild(template);
     };
     // subscribe to start request notification
     var onRequestStarted = function($scope, handler){
