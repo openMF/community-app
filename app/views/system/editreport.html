@@ -5,7 +5,7 @@
         <li class="active">{{'label.editreport' | translate}}</li>
     </ul>
 </div>
-<form name="editreportrform" novalidate="" class="well" ng-controller="EditReportController">
+<form name="editreportrform" novalidate="" class="well" ng-controller="EditReportController" rc-submit="submit()">
   <div class="control-group">
     <table width="100%">
       <tr class="control-group">
@@ -18,11 +18,7 @@
               <td width="30%">
                 <label class="control-label">{{ 'label.reportname' | translate }}&nbsp;<span class="required">*</span></label>
                 <input type="text" name="reportName" ng-model="reportdetail.reportName" required late-Validate/>
-                <span  ng-show="editreportrform.reportName.$invalid">
-                  <small class="error">
-                      Required Field
-                  </small>
-                </span>
+                <form-validate valattributeform="editreportrform" valattribute="reportName"/>
               </td>
               <td width="20%">
                 <label class="control-label">{{ 'label.reporttype' | translate }}&nbsp;<span class="required">*</span></label>
@@ -74,8 +70,9 @@
           <table>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.sql' | translate }}</label>
-                <textarea rows="4" ng-model="reportdetail.reportSql"></textarea>
+                <label class="control-label">{{ 'label.sql' | translate }}<span class="required">*</span></label>
+                <textarea rows="4" name="sql" ng-model="reportdetail.reportSql" required></textarea>
+                <form-validate valattributeform="editreportrform" valattribute="sql"/>
               </td>
               <td width="20%">
               </td>
@@ -108,7 +105,7 @@
   </div>
   <div class="offset6">
     <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
-    <button type="submit" class="btn btn-primary" ng-click="submit()">{{'button.save' | translate}}</button>
+    <button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
   </div>
 </form>
     

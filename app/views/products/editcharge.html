@@ -1,53 +1,55 @@
 <div ng-controller="EditChargeController">
     <div class="control-group">
-        <label class="control-label">{{'label.chargesappliesto' | translate}}</label>
+        <label class="control-label">{{'label.chargesappliesto' | translate}}<span class="required">*</span></label>
         <div class="controls">
             <select ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-disabled="true">
             </select>
         </div>
     </div>
-    <form class="form-horizontal well" ng-controller="EditChargeController" ng-submit="submit()">
+    <form name="editchargeform" novalidate class="form-horizontal well" ng-controller="EditChargeController" rc-submit="submit()">
         <fieldset>
             <legend>{{'label.editcharge' | translate}}</legend>
             <hr/>
             <div class="control-group">
-                <label class="control-label" for="name">{{'label.name' | translate}}</label>
+                <label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input ng-autofocus="true" type="text" id="name" ng-model="formData.name">
+                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" required late-Validate/>
+                    <form-validate valattributeform="editchargeform" valattribute="name"/>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">{{'label.form.currency' | translate}}</label>
+                <label class="control-label">{{'label.form.currency' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select ng-model="formData.currencyCode" data-ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
                     </select>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">{{'label.chargetimetype' | translate}}</label>
+                <label class="control-label">{{'label.chargetimetype' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select ng-model="formData.chargeTimeType" data-ng-options="timetype.id as timetype.value for timetype in template.chargeTimeTypeOptions" value="{{timetype.id}}">
                     </select>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">{{'label.chargecalculation' | translate}}</label>
+                <label class="control-label">{{'label.chargecalculation' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select ng-model="formData.chargeCalculationType" data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions" value="{{chargecalculation.id}}">
                     </select>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">{{'label.chargepaymentby' | translate}}</label>
+                <label class="control-label">{{'label.chargepaymentby' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select ng-model="formData.chargePaymentMode" data-ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">
                     </select>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="amount">{{'label.amount' | translate}}</label>
+                <label class="control-label" for="amount">{{'label.amount' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" id="amount" ng-model="formData.amount">
+                    <input name="amount" type="text" id="amount" ng-model="formData.amount" required late-Validate/>
+                    <form-validate valattributeform="editchargeform" valattribute="amount"/>
                 </div>
             </div>
             <div class="control-group">

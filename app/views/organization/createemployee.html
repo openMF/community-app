@@ -5,7 +5,7 @@
           <li class="active">{{'label.createemployee' | translate}}</li>
         </ul>
       </div>
-      <form name="createemployeeform" novalidate="" class="form-horizontal well" ng-controller="CreateEmployeeController" ng-submit="submit()">
+      <form name="createemployeeform" novalidate="" class="form-horizontal well" ng-controller="CreateEmployeeController" rc-submit="submit()">
         <fieldset>
           <legend>{{'label.createemployee' | translate}}</legend>
 
@@ -21,11 +21,7 @@
             <label class="control-label" for="firstname">{{ 'label.firstname' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
-              <span  ng-show="createemployeeform.firstname.$invalid">
-                <small class="error" ng-show="createemployeeform.firstname.$error.req">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="createemployeeform" valattribute="firstname"/>
             </div>
           </div>
 
@@ -33,11 +29,7 @@
             <label class="control-label" for="lastname">{{ 'label.lastname' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
-              <span  ng-show="createemployeeform.lastname.$invalid">
-                <small class="error" ng-show="createemployeeform.lastname.$error.req">
-                    Required Field
-                </small>
-              </span>
+              <form-validate valattributeform="createemployeeform" valattribute="lastname"/>
             </div>
           </div>
           

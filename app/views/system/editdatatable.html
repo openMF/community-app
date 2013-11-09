@@ -7,7 +7,7 @@
       <li class="active">{{'label.edit.datatable' | translate}}</li>
     </ul>
   </div>
-  <form class="form-horizontal well" ng-submit="submit()">
+  <form name="editdatatableform" novalidate="" class="form-horizontal well" ng-submit="submit()">
 
     <fieldset>
       <legend>{{ 'label.edit.datatable' | translate }}</legend>
@@ -34,7 +34,7 @@
       <div class="control-group">
         <label class="control-label">{{ 'label.add.columns' | translate }}</label>
         <div class="controls">
-          <input ng-model="datatableTemplate.columnName" type="text" placeholder="{{'label.column.name' | translate}}"/>&nbsp;&nbsp;
+          <input name="columnname" ng-model="datatableTemplate.columnName" type="text" placeholder="{{'label.column.name' | translate}}"/>&nbsp;&nbsp;
           <select ng-model="datatableTemplate.columnType">&nbsp;&nbsp;
             <option style="display:none" value="">{{'label.select.columnType' | translate}}</option>
             <option value="string">{{'datatable.column.type.string' | translate}}</option>
@@ -45,6 +45,11 @@
             <option value="dropdown">{{'datatable.column.type.dropdown' | translate}}</option>
           </select>&nbsp;&nbsp;
           <a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
+          <span  ng-show="editdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+            <small class="error" ng-show="editdatatableform.columnname.$error.req || columnnameerror || columntypeerror">
+                {{ 'label.'+labelerror | translate }}
+            </small>
+          </span>
         </div>
       </div>
 
