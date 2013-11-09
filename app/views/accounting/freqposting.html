@@ -6,11 +6,7 @@
       </div>
 
       <form name="freqpostingform" novalidate="" class="form-horizontal well" ng-controller="AccFreqPostingController" rc-submit="submit()">
-        <div class="error" ng-show="errorStatus || errorDetails">
-          <label>{{'label.error' | translate}}</label>
-          <label ng-show="errorStatus">{{errorStatus}}</label>
-          <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
-        </div>
+        <api-validate></api-validate>
         <fieldset>
           <legend>{{ 'label.journalentry.posting.title' | translate }}</legend>
           <div class="control-group">
@@ -65,7 +61,7 @@
                     <br>
                     <div ng-repeat="crAccount in formData.crAccounts">
                       <input type="text" class="input-small"  ng-model="crAccount.crGlName" readonly>
-                      <input type="text" class="input-small"  ng-model="crAccount.crAmount">{{allowDebitEntries}}
+                      <input id="credits[{{$index}}]" type="text" class="input-small"  ng-model="crAccount.crAmount">{{allowDebitEntries}}
                       <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                     </div>
                   </td>
@@ -83,7 +79,7 @@
                     <br>
                     <div ng-repeat="dbAccount in formData.dbAccounts">
                       <input type="text" class="input-small"  ng-model="dbAccount.debitGlName" readonly>
-                      <input type="text" class="input-small"  ng-model="dbAccount.debitAmount">
+                      <input id="debits[{{$index}}]" type="text" class="input-small"  ng-model="dbAccount.debitAmount">
                       <a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                     </div>
                   </td>

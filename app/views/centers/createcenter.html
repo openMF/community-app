@@ -5,6 +5,7 @@
     </ul>
 </div>
 <form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController" rc-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.createcenter' | translate}}</legend>
 
@@ -18,14 +19,14 @@
         <div class="control-group">
             <label class="control-label" for="office">{{'label.form.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
-                <select id="office" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-click="changeOffice(office.id)">
+                <select id="officeId" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-click="changeOffice(office.id)">
                 </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
             <div class="controls">
-                <select id="staffs" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                <select id="staffId" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                     <option value="">{{'label.select.staff' | translate}}</option>
                 </select>
             </div>
@@ -40,14 +41,14 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                 </div>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
             <div class="controls">
-                <input type="text" id="externalid" ng-model="formData.externalId">
+                <input type="text" id="externalId" ng-model="formData.externalId">
             </div>
         </div>
         <div class="offset2 paddedleft120">

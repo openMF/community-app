@@ -6,6 +6,7 @@
     </ul>
 </div>
 <form name="addholidayform" novalidate="" class="form-horizontal well" ng-controller="AddHolController" rc-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.createholiday' | translate}}</legend>
         <table>
@@ -14,7 +15,7 @@
                     <div class="control-group">
                         <label class="control-label">{{ 'label.holiday.name' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <input ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
+                            <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
                             <form-validate valattributeform="addholidayform" valattribute="name"/>
                         </div>
                     </div>
@@ -25,7 +26,7 @@
                     <div class="control-group">
                         <label class="control-label">{{ 'label.holiday.applicableoffices' | translate }}</label>
                         <div class="controls">
-                            <select multiple ng-model="formData.officeId" name="office" required>
+                            <select id="officeId" multiple ng-model="formData.officeId" name="office" required>
                                 <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
                             </select>
                             <form-validate valattributeform="addholidayform" valattribute="office"/>
@@ -40,12 +41,12 @@
                             <div>
                             <label class="control-label">{{ 'label.holiday.fromdate' | translate }}<span class="required">*</span></label>
                             <div class="controls">
-                                <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                                <input id="fromDate"  type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                             </div></div>
                             <div>
                                 <label class="control-label">{{ 'label.holiday.todate' | translate }}<span class="required">*</span></label>
                                 <div class="controls">
-                                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                                    <input id="toDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +58,7 @@
                     <div class="control-group">
                         <label class="control-label">{{ 'label.holiday.repaymentsheduleto' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                            <input id="repaymentsRescheduledTo" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                         </div>
                     </div>
                 </td>
@@ -67,7 +68,7 @@
                     <div class="control-group">
                         <label class="control-label">{{ 'label.holiday.desc' | translate }}</label>
                         <div class="controls">
-                            <input type="text" data-ng-model="formData.description"/>
+                            <input id="" type="text" data-ng-model="formData.description"/>
                         </div>
                     </div>
                 </td>

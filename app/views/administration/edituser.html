@@ -6,8 +6,8 @@
           <li class="active">{{'label.edituser' | translate}}</li>
         </ul>
       </div>
-
       <form name="edituserform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
           <legend>{{'label.edituser' | translate}}</legend>
           
@@ -46,8 +46,7 @@
           <div class="control-group">
             <label class="control-label" for="office">{{'label.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+              <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
       		    </select>
             </div>
           </div>
@@ -55,7 +54,7 @@
           <div class="control-group">
             <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.selectedRoles" name="role"  ng-options="availablerole.name for availablerole in availableRoles" value="{{availablerole.id}}" multiple required>
+              <select id="selectedRoles" ng-model="formData.selectedRoles" name="role"  ng-options="availablerole.name for availablerole in availableRoles" value="{{availablerole.id}}" multiple required>
       		    </select>
               <form-validate valattributeform="edituserform" valattribute="role"/>
             </div>

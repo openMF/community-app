@@ -171,7 +171,8 @@ define(['underscore', 'mifosX'], function() {
       'AutofocusDirective',
       'SummaryDirective',
       'FormValidateDirective',
-      'FormSubmitValidateDirective'
+      'FormSubmitValidateDirective',
+      'ApiValidationDirective'
     ]
   };
 

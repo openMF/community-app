@@ -6,19 +6,20 @@
 		</ul>
 	</div>
 	<form class="form-horizontal" name="assignloanofficerform" novalidate="" ng-submit="submit()">
+		<api-validate></api-validate>
 		<fieldset>
 			<legend>{{ 'label.assign.loan.officer' | translate }}</legend>
 
 			<div class="control-group">
 				<label class="control-label" for="toLoanOfficerId">{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-					<select ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
+					<select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="assignmentDate">{{ 'label.loanofficer.assignmentDate' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+					<input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
 				</div>
 			</div>
 

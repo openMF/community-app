@@ -5,6 +5,7 @@
           </ul>
       </div>
       <form name="createuserform" novalidate="" class="form-horizontal" ng-controller="CreateUserController" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
           <legend>{{'label.createuser' | translate}}</legend>
           <div class="control-group">
@@ -60,13 +61,13 @@
           <div class="control-group">
             <label class="control-label" for="office">{{'label.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+              <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
-              <select id="role" ng-model="formData.roles" name="role" multiple required>
+              <select id="roles" ng-model="formData.roles" name="role" multiple required>
                 <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">{{availablerole.name}}</option>
               </select>
               <form-validate valattributeform="createuserform" valattribute="role"/>

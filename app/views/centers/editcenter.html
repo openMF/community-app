@@ -6,6 +6,7 @@
             <li class="active">{{'label.editcenter' | translate}}</li>
         </ul>
     </div>
+    <api-validate></api-validate>
     <div data-ng-switch on="managecode">
         <form name="editcenterform" novalidate="" class="form-horizontal well" data-ng-switch-when="2">
             <fieldset>
@@ -20,7 +21,7 @@
                 <div class="control-group info">
                     <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
                     <div class="controls">
-                        <select id="staffs" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                        <select id="staffId" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                             <option  value="">{{'label.select.staff' | translate}}</option>
                         </select>
                     </div>
@@ -28,13 +29,13 @@
                 <div class="control-group">
                     <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
                     <div class="controls">
-                        <input type="text" id="externalid"  ng-model="formData.externalId">
+                        <input type="text" id="externalId"  ng-model="formData.externalId">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                     <div class="controls">
-                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                        <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                     </div>
                 </div>
                 <div class="offset2 paddedleft120">
@@ -47,7 +48,7 @@
             <div class="paddedleft">
                 <div>
                     <label class="control-label">{{ 'label.enteractivationdate' | translate }}<span class="required">*</span></label>
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                 </div>
                 <br/>
                 <a href="#/viewgroup/{{edit.id}}" class="btn">{{'label.cancel' | translate}}</a>

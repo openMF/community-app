@@ -5,6 +5,7 @@
 			<li class="active">{{'link.upload.document' | translate}}</li>
 		</ul>
 	</div>
+	<api-validate></api-validate>
 	<form class="form-horizontal well" name="loandocumentform" novalidate="" ng-submit="submit()">
 		<fieldset>
 			<legend>{{'label.upload.loan.document' | translate}}</legend>
@@ -12,7 +13,7 @@
 			<div class="control-group">
 				<label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="text" name="name" ng-model="formData.name" required late-Validate/>
+					<input id="name" type="text" name="name" ng-model="formData.name" required late-Validate/>
 					<span  ng-show="loandocumentform.name.$invalid">
 	                    <small class="error" ng-show="loandocumentform.name.$error.req">
 	                        Required Field
@@ -24,14 +25,14 @@
 			<div class="control-group">
 				<label class="control-label" for="description">{{'label.description' | translate}}</label>
 				<div class="controls">
-					<textarea rows="2" ng-model="formData.description"></textarea>
+					<textarea rows="2" id="description" ng-model="formData.description"></textarea>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="file">{{'label.select.file' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="file" ng-file-select="onFileSelect($files)">
+					<input id="file" type="file" ng-file-select="onFileSelect($files)">
 				</div>
 			</div>
 

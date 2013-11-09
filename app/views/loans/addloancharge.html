@@ -6,13 +6,14 @@
 		</ul>
 	</div>
 	<form class="form-horizontal well" novalidate="" name="loanchargeform" ng-submit="submit()">
+		<api-validate></api-validate>
 		<fieldset>
 			<legend>{{ 'label.add.loan.charge' | translate }}</legend>
 
 			<div class="control-group">
 				<label class="control-label" for="chargeId">{{ 'label.charge' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-					<select ng-model="formData.chargeId" ng-options="charge.id as charge.name for charge in charges" value="{{charge.id}}" ng-change="selectCharge()">
+					<select id="chargeId" ng-model="formData.chargeId" ng-options="charge.id as charge.name for charge in charges" value="{{charge.id}}" ng-change="selectCharge()">
 						<option value="">{{'label.select.charge' | translate}}</option>
 					</select>
 				</div>
@@ -21,7 +22,7 @@
 				<div class="control-group">
 					<label class="control-label" for="amount">{{ 'label.transaction.amount' | translate }}<span class="required">*</span></label>
 					<div class="controls">
-						<input type="text" name="amount" ng-model="formData.amount" required ng-late-Validate>
+						<input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate>
 						<span  ng-show="loanchargeform.amount.$invalid">
                           <small class="error">
                               Required Field
@@ -44,7 +45,7 @@
 				<div class="control-group" ng-show="chargeData.chargeTimeType.id==2">
 					<label class="control-label">{{ 'label.charge.due.date' | translate }}</label>
 					<div class="controls">
-						<input type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="formData.dueDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+						<input id="dueDate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="formData.dueDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
 					</div>
 				</div>
 			</div>

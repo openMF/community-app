@@ -5,6 +5,7 @@
 			<li class="active">{{'legend.heading.account.transfers' | translate}}</li>
 		</ul>
 	</div>
+	<api-validate></api-validate>
 	<form class="form-horizontal well" name="accounttransferform" novalidate="" rc-submit="submit()">
 	  <fieldset>
 	    <legend>{{ 'legend.heading.account.transfers' | translate }}</legend>
@@ -35,7 +36,7 @@
 		<div class="control-group">
 			<label class="control-label" for="toOfficeId">{{ 'label.office' | translate }}<span class="required">*</span></label>
 			<div class="controls">
-				<select ng-model="formData.toOfficeId" name="office" ng-options="toOffice.id as toOffice.name for toOffice in toOffices" ng-change="changeEvent()" value="{{toOffice.id}}" required>
+				<select id="toOfficeId" ng-model="formData.toOfficeId" name="office" ng-options="toOffice.id as toOffice.name for toOffice in toOffices" ng-change="changeEvent()" value="{{toOffice.id}}" required>
 					<option value="">{{'label.select.one' | translate}}</option>
 				</select>
 				<form-validate valattributeform="accounttransferform" valattribute="office"/>
@@ -44,7 +45,7 @@
 		<div class="control-group">
 			<label class="control-label" for="toClientId">{{ 'label.transferred.client' | translate }}<span class="required">*</span></label>
 			<div class="controls">
-				<select ng-model="formData.toClientId" name="client" ng-options="toClient.id as toClient.displayName for toClient in toClients" ng-change="changeEvent()" value="{{toClient.id}}" required>
+				<select id="toClientId" ng-model="formData.toClientId" name="client" ng-options="toClient.id as toClient.displayName for toClient in toClients" ng-change="changeEvent()" value="{{toClient.id}}" required>
 					<option value="">{{'label.select.one' | translate}}</option>
 				</select>
 				<form-validate valattributeform="accounttransferform" valattribute="client"/>
@@ -53,7 +54,7 @@
 		<div class="control-group">
 			<label class="control-label" for="toAccountType">{{ 'label.transferred.account' | translate }}<span class="required">*</span></label>
 			<div class="controls">
-				<select ng-model="formData.toAccountType" name="account" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEvent()" value="{{toAccountType.id}}"
+				<select id="toAccountType" ng-model="formData.toAccountType" name="account" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEvent()" value="{{toAccountType.id}}"
 				required>
 					<option value="">{{'label.select.one' | translate}}</option>
 				</select>
@@ -63,7 +64,7 @@
 		<div class="control-group">
 			<label class="control-label" for="toAccountId">{{ 'label.transferred.accountnumber' | translate }}<span class="required">*</span></label>
 			<div class="controls">
-				<select ng-model="formData.toAccountId" name="accountnumber" ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts" ng-change="changeEvent()" value="{{toAccount.id}}" required>
+				<select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber" ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts" ng-change="changeEvent()" value="{{toAccount.id}}" required>
 					<option value="">{{'label.select.one' | translate}}</option>
 				</select>
 				<form-validate valattributeform="accounttransferform" valattribute="accountnumber"/>
@@ -79,7 +80,7 @@
 		<div class="control-group">
 			<label class="control-label" for="transferDate">{{ 'label.transaction.date' | translate }}<span class="required">*</span></label>
 			<div class="controls">
-				<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+				<input type="text" id="transferDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
 			</div>
 		</div>
 		<div class="control-group">
