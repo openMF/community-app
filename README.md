@@ -14,10 +14,12 @@
 npm install -g bower
 npm install -g grunt-cli
 ```
-4. Next pull the runtime and build time dependencies by running bower and npm install on the project root folder:
+4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder:
 ```
-bower install
-npm install
+ "bower install"
+```
+```
+ "npm install" 
 ```
 5. Now open the 'index.html' file in FIREFOX browser. 
 
