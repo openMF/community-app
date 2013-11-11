@@ -1,6 +1,6 @@
 ## Online Demo
 
-<a target="_blank" href="https://demo.openmf.org/prototype-app/app/">Access the online demo version here</a>
+<a target="_blank" href="https://demo.openmf.org/beta">Access the online demo version here</a>
 
 
 ## Building from source
