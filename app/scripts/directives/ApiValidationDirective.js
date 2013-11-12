@@ -11,7 +11,7 @@
                         '</label>'+
                         '<label ng-show="errorStatus">{{errorStatus}}</label>'+
                         '<label ng-hide="errorStatus" ng-repeat="error in errorDetails">'+
-                        '{{error.code | translate}}'+
+                        '{{error.code | translate:error.args}}'+
                         '</label></div>';
 
                     elm.html('').append($compile(template)(scope));
