@@ -3,6 +3,7 @@
         AddGroupController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             scope.first = {};
             scope.first.date = new Date();
+            scope.restrictDate = new Date();
             resourceFactory.groupTemplateResource.get({centerId: routeParams.centerId} , function(data) {
                 scope.groupTemplate = data;
             });

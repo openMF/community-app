@@ -5,6 +5,7 @@
         scope.fieldOfficers = [];
         scope.formData = {};
         scope.isCollapsed = true;
+        scope.restrictDate = new Date();
         scope.clientId = routeParams.clientId;
         scope.groupId = routeParams.groupId;
         if (routeParams.centerEntity) {

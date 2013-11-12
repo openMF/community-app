@@ -6,7 +6,7 @@
         scope.accountId = routeParams.id;
         scope.savingAccountId = routeParams.id;
         scope.formData = {};
-
+        scope.restrictDate = new Date();
         // Transaction UI Related
         scope.isTransaction = false;
         scope.showPaymentDetails =false;

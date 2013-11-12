@@ -11,6 +11,7 @@
         scope.checkData = [];
         scope.isCollapsed = true;
         scope.approveData = {};
+        scope.restrictDate = new Date();
         resourceFactory.checkerInboxResource.get({templateResource:'searchtemplate'},function(data){
             scope.checkerTemplate = data;
         });

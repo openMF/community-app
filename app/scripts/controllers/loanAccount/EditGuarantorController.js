@@ -4,6 +4,7 @@
             scope.template = {};
             scope.clientview = false;
             scope.date = {};
+            scope.restrictDate = new Date();
             resourceFactory.guarantorResource.get({ loanId: routeParams.loanId,templateResource:routeParams.id,template:true}, function(data) {
                 scope.template = data;
                 scope.date.first = new Date(data.dob)
