@@ -29,23 +29,34 @@
                         <button class="btn btn-primary" ng-click="approve(date.actDate)">{{'label.confirm' | translate}}</button>
                     </div>
                 </script>
-                <table class="table condensed-table">
-                    <thead>
-                        <tr class="graybg">
-                            <th></th>
-                            <th>{{'table.heading.name' | translate}}</th>
-                            <th>{{'label.group.accounts' | translate}}</th>
-                            <th>{{'table.heading.officename' | translate}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="pointer-main" ng-repeat="client in clients | filter : {active: 'false'} | filter:filterText">
-                          <td><input type="checkbox" data-ng-model="approveData[client.id]"/></td>
-                          <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.displayName}}</td>
-                          <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.accountNo}}</td>
-                          <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.officeName}}</td>
-                        </tr>
-                    </tbody>
+                <table class="table condensed-table" ng-repeat="(officeName,values) in groupedClients">
+                    <tr>
+                        <td>
+                            <strong>{{officeName}}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table condensed-table">
+                                <thead>
+                                <tr class="graybg">
+                                    <th></th>
+                                    <th>{{'table.heading.name' | translate}}</th>
+                                    <th>{{'label.group.accounts' | translate}}</th>
+                                    <th>{{'table.staffname' | translate}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="pointer-main" data-ng-repeat="client in values  | filter : {active: 'false'} | filter:filterText">
+                                    <td><input type="checkbox" data-ng-model="approveData[client.id]"/></td>
+                                    <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.displayName}}</td>
+                                    <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.accountNo}}</td>
+                                    <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
                 </table>
 			</tab>
 		    <tab heading="{{'label.loanapproval' | translate}}">

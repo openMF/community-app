@@ -1,7 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     TaskController: function(scope, resourceFactory, route, dateFilter,$modal,location) {
-        scope.act = false;
         scope.clients = [];
         scope.loans = [];
         scope.offices = [];
@@ -233,7 +232,7 @@
 
 
         resourceFactory.clientResource.getAllClients(function(data) {
-          scope.clients = data.pageItems;
+            scope.groupedClients = _.groupBy(data.pageItems, "officeName");
         });
 
         scope.search = function(){
