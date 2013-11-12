@@ -75,10 +75,14 @@ angular.module('notificationWidget', [])
                         var errorObj = new Object();
                         errorObj.field = temp.parameterName;
                         errorObj.code = temp.userMessageGlobalisationCode;
+                        errorObj.args = {params:[]};
+                        for(var j in temp.args) {
+                            errorObj.args.params.push({value : temp.args[j].value});
+                        }
 
                         errorArray[arrayIndex] = errorObj;
-                        arrayIndex++
-                    };
+                        arrayIndex++;
+                    }; 
                     $rootScope.errorDetails = errorArray;
                 }
                 return $q.reject(response);
