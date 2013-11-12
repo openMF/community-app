@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="staffId">{{'label.staff' | translate}}</label>
+            <label class="control-label" for="staffId">{{'label.form.staff' | translate}}</label>
             <div class="controls">
                 <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                     <option value="">{{'label.select.one' | translate}}</option>
@@ -27,11 +27,26 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label">{{'label.clients' | translate}}</label>
+            <label class="control-label" for="staffId">{{'label.addclients' | translate}}</label>
             <div class="controls">
-                <select multiple id="clientMembers" ng-model="formData.clientMembers">
-                    <option ng-repeat="member in clients" value="{{member.id}}">{{member.displayName}}</option>
-                </select>
+                <div class="row-fluid">
+                    <div class="span4">
+                        <label class="control-label">{{ 'label.availableclients' | translate }}</label>
+                        <select multiple id="clientMembers" ng-model="available">
+                            <option ng-repeat="member in clients" value="{{member.id}}">{{member.displayName}}</option>
+                        </select>
+                    </div>
+                    <div class="paddedtop10 span2 paddedleft0">
+                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i class="icon-double-angle-right"></i></button><br/>
+                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub()"><i class="icon-double-angle-left"></i></button>
+                    </div>
+                    <div class="span3 angled-textarea">
+                        <label class="control-label">{{ 'label.selectedclients' | translate }}</label>
+                        <select multiple ng-model="added">
+                            <option ng-repeat="client in addedClients" value="{{client.id}}">{{client.displayName}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="control-group">
