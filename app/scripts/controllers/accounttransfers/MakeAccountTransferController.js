@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     MakeAccountTransferController: function(scope, resourceFactory, location, routeParams, dateFilter) {
-
+      scope.restrictDate = new Date();
       var params = {fromAccountId : routeParams.accountId};
       var accountType = routeParams.accountType || '';
       if (accountType == 'fromsavings') params.fromAccountType = 2;

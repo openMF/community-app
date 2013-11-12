@@ -10,6 +10,7 @@
             scope.allowDebitEntries = true;
             scope.errorcreditevent = false;
             scope.errordebitevent = false;
+            scope.restrictDate = new Date();
 
             resourceFactory.accountingRulesResource.getAllRules({associations : 'all'}, function(data){
               scope.rules = data;

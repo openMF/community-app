@@ -6,6 +6,7 @@
             scope.data = {};
             scope.first = {};
             scope.formData = {};
+            scope.restrictDate = new Date();
             scope.first.date = new Date();
             resourceFactory.centerTemplateResource.get(function(data) {
                 scope.offices = data.officeOptions;

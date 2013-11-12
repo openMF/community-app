@@ -8,7 +8,7 @@
         scope.showDateField = true;
         scope.showNoteField = true;
         scope.showAmountField = false;
-
+        scope.restrictDate = new Date();
         // Transaction UI Related
         scope.isTransaction = false;
         scope.showPaymentDetails =false;

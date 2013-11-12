@@ -10,7 +10,7 @@
             scope.errordebitevent = false;
             scope.creditaccounttemplate = false;
             scope.debitaccounttemplate = false;
-
+            scope.restrictDate = new Date();
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
               scope.glAccounts = data;
             });

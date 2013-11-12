@@ -5,6 +5,7 @@
             scope.center = [];
             scope.first = {};
             scope.formData = {};
+            scope.restrictDate = new Date();
             scope.first.date = new Date();
             resourceFactory.centerResource.get({centerId: routeParams.id,associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
                 scope.center = data;
