@@ -32,7 +32,9 @@
         scope.submit = function() {
              this.formData.locale = 'en';
              this.formData.dateFormat = 'dd MMMM yyyy';
-             if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
+             if (scope.choice === 1) {
+              if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
+             }
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
               if (scope.file) {
                 http.uploadFile({
