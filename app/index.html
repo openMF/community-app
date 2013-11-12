@@ -27,9 +27,9 @@
         </div>
         <br/><br/>
         <div class="pull-right">
-            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.username' | translate }}" class="input-small" required>
-            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.password' | translate }}" class="input-small"  required>
-            <button class="btn btn-success" type="submit" data-ng-click="login()">{{ 'label.signin' | translate }}</button>
+            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.username' | translate }}" class="input-small" required id="uid">
+            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.password' | translate }}" class="input-small"  required id="pwd">
+            <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.signin' | translate }}</button>
         </div>
         <div class="pull-right" data-ng-show="authenticationFailed">
             <p>{{ 'error.login.failed' | translate }}</p>
@@ -151,7 +151,7 @@
                             </ul>
                         </li>
                         <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="icon-money"></i>{{ 'link.accounting' | translate }}</a></li>
-                        <li class="dropdown" id="preview-menu">
+                        <li class="dropdown" id="reports-menu">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('rep') }" href="#"><i class="icon-bar-chart"></i>{{ 'link.reports' | translate }}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#/reports/all">{{ 'link.reports.all' | translate }}</a></li>
@@ -175,8 +175,8 @@
                     </ul>
                     <ul class="nav pull-right" id="main-menu-right">
                         <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                        <li class="dropdown" id="preview-menu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{currentSession.user.name}}<b class="caret"></b></a>
+                        <li class="dropdown" id="user-menu">
+                            <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#">{{currentSession.user.name}}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="icon-user"></i>{{ 'link.profile' | translate }}</a></li>
                                 <li><a href="#/usersetting"><i class="icon-cog"></i>{{ 'link.settings' | translate }}</a></li>
