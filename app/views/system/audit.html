@@ -32,15 +32,6 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <select ng-model="formData.user">
-                    <option value="">--Select User--</option>
-                    <option selected="selected" value="ALL">All</option>
-                    <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
                 <select ng-model="formData.action">
                     <option value="">--Select Action--</option>
                     <option selected="selected" value="ALL">All</option>
@@ -93,17 +84,15 @@
                 <th>{{'label.user' | translate}}</th>
                 <th>{{'label.action' | translate}}</th>
                 <th>{{'label.entity' | translate}}</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="data in searchData">
-                <td>{{data.id}}</td>
-                <td>{{data.processingResult}}</td>
-                <td>{{data.maker}}</td>
-                <td>{{data.actionName}}</td>
-                <td>{{data.entityName}}</td>
-                <td><a href="#/viewaudit/{{data.id}}" class="pointer required">{{'label.details' | translate}}</a></td>
+            <tr class="pointer-main" ng-repeat="data in searchData">
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
             </tr>
             </tbody>
         </table>
