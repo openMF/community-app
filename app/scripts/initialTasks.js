@@ -1,12 +1,11 @@
 (function(mifosX) {
-  var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider,TENANT ,CONTENT_TYPE , HOST ) {
+  var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider,TENANT ,CONTENT_TYPE , HOST, API_URL_OVERRIDE ) {
 
-    // Set Host name, if accessed from file system
-    var protocol = window.location.protocol;
-    if (protocol === 'file:') {
+    // Fix API URL?
+    if (API_URL_OVERRIDE  === 'true') {
         ResourceFactoryProvider.setBaseUrl(HOST);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
-            return _.extend(config, {url: HOST + config.url});
+            return _.extend(config, {url: HOST + config.url });
         });
 
         $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
@@ -25,10 +24,12 @@
           }
      }   
 
+	// Enable CORS! (see e.g. http://enable-cors.org/) 
+	$httpProvider.defaults.useXDomain = true;
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   	//Set headers
     $httpProvider.defaults.headers.common['Content-Type'] = CONTENT_TYPE;
-
 
     // Configure i18n and preffer language
  	  //$translateProvider.translations('en', translationsEN);
