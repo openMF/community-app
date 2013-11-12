@@ -1,4 +1,5 @@
 apply plugin:"war"
+apply plugin:"maven"
 
 war {
 	// TODO This, for now, really *SHOULD* normally be:
@@ -18,3 +19,20 @@ war {
 	// this will instead have to package the result of that (and kick of Grunt, from Gradle):
 	//    from "dist"
 }
+
+assemble {
+    doFirst {
+        exec {
+            commandLine 'bower', 'install'
+        }
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = 'org.mifosplatform.angularui'
+        pom.artifactId = 'community-app'
+        pom.version = '1.0.0-SNAPSHOT'
+    }
+}
+
