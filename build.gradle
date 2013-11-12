@@ -1,6 +1,20 @@
 apply plugin:"war"
 
 war {
-	// webAppDirName = "app"
-	from "app"
+	// TODO This, for now, really *SHOULD* normally be:
+	//    from "app"
+	// but, because of pending https://github.com/openMF/community-app/issues/201
+	// we unfortunately need to package the entiry project (and then access /app), so:
+	from "."
+	exclude "build/**"
+	exclude "node_modules"
+	exclude "dist"
+	exclude ".settings"
+	exclude ".gradle"
+	exclude "app/WEB-INF/"
+	webInf { from 'app/WEB-INF' }  
+
+	// TODO Later, when the Grunt-based minification etc. works,
+	// this will instead have to package the result of that (and kick of Grunt, from Gradle):
+	//    from "dist"
 }
