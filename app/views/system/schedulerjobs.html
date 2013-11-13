@@ -7,48 +7,53 @@
     </div>
 </div>
 <div class="row-fluid" ng-controller="SchedulerJobsController">
-    <table>
+    <table class="table-condensed">
         <tr>
-            <td><h3>{{'label.schedulerstatus' | translate}}&nbsp;:&nbsp;{{schedulerstatus}}</h3></td>
+            <td><h3><strong>{{'label.schedulerstatus' | translate}}&nbsp;:</strong>&nbsp;{{schedulerstatus}}</h3></td>
             <td></td>
-            <td><button class="btn" ng-show="schedulerstatus=='Active'" ng-click="suspendJobs()">{{'label.suspend' | translate}}</button></td>
-            <td><button class="btn" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()">{{'table.heading.active' | translate}}</button></td>
+            <td>
+                <button class="btn-warning" ng-show="schedulerstatus=='Active'" ng-click="suspendJobs()"><i class="icon-remove icon-white"></i>{{'label.suspend' | translate}}</button>
+                <button class="btn-success" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</button>
+            </td>
         </tr>
     </table>
-    <table ng-show="sentForExecution">
-        <h4 ng-show="sentForExecution">{{'label.jobssentforexecution' | translate}}</h4>
+    <hr ng-show="sentForExecution"/>
+    <table ng-show="sentForExecution" class="table-condensed">
+        <tr  class="graybg" ng-show="sentForExecution">
+            <th>{{'label.jobssentforexecution' | translate}}<th>
+        </tr>
         <tr ng-repeat="jobexecution in sentForExecution">
             <td><i class="icon-check icon-white"></i>{{jobexecution}}</td>
         </tr>
     </table>
-	<table class="table">
+    <hr ng-show="sentForExecution"/>
+    <br ng-show="sentForExecution"/>
+	<table class="table table-striped">
         <thead>
             <tr class="graybg">
                 <th><input type="checkbox" ng-model="activeall" ng-true-value="true" ng-false-value="false"
-                     ng-click="selectAll(activeall)">{{'label.selectall' | translate}}</th>
+                     ng-click="selectAll(activeall)"></th>
                 <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.active' | translate}}</th>
                 <th>{{'table.heading.nextrun' | translate}}</th>
                 <th>{{'table.heading.previousrun' | translate}}</th>
                 <th>{{'table.heading.previousrunstatus' | translate}}</th>
-                <th>{{'table.heading.currentstatus' | translate}}</th>
+                <th>{{'table.heading.currentlyrunning' | translate}}</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="job in jobs">
+            <tr ng-repeat="job in jobs" class="pointer-main">
                 <td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false"
                      ng-click="runJobSelected(job.jobId, active)"></td>
-                <td><a href="#/viewschedulerjob/{{job.jobId}}">{{job.displayName}}</a></td>
-                <td>{{job.active}}</td>
-                <td>{{job.nextRunTime}}</td>
-                <td>{{job.lastRunHistory.jobRunStartTime}}</td>
-                <td>{{job.lastRunHistory.jobRunStartTime}}</td>
-                <td>{{job.currentlyRunning}}</td>
+                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
+                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.nextRunTime}}</td>
+                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.jobRunStartTime}}</td>
+                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.status}}</td>
+                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.currentlyRunning | YesOrNo}}</td>
             </tr>
         </tbody>
     </table>
-    <div class="offset3">
-      <button class="btn btn-primary" ng-click="runSelectedJobs()">{{'label.runselectedjobs' | translate}}</button>
-      <button class="btn btn-primary" ng-click="refresh()">{{'label.refresh' | translate}}</button>
+    <div class="offset">
+        <button class="btn btn-primary" ng-click="runSelectedJobs()"><i class="icon-play icon-white"></i>{{'label.runselectedjobs' | translate}}</button>
+        <button class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.refresh' | translate}}</button>
     </div>
 </div>

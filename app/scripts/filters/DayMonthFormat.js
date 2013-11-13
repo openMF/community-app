@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.filters = _.extend(module, {
-        DayMonthFormat: function (dateFilter) {
+        DayMonthFormat: function () {
             return function(input) {
                 if(input){
                     var MM;
