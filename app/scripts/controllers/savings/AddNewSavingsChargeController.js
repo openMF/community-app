@@ -2,6 +2,8 @@
   mifosX.controllers = _.extend(module, {
     AddNewSavingsChargeController: function(scope, resourceFactory, location, routeParams, dateFilter) {
         scope.offices = [];
+        scope.cancelRoute = routeParams.id;
+        scope.date ={};
         resourceFactory.savingsChargeResource.get({accountId : routeParams.id, resourceType : 'template'}, function(data) {
             scope.chargeOptions = data.chargeOptions;
         });
@@ -23,8 +25,8 @@
           if(scope.withDrawCharge == true) {
             delete this.formData.feeOnMonthDay;
           } else {
-            this.formData.monthDayFormat = "dd MMM";
-            if (this.formData.feeOnMonthDay) this.formData.feeOnMonthDay = dateFilter(this.formData.feeOnMonthDay,'dd MMMM');
+            this.formData.monthDayFormat = "dd MMMM";
+            if (scope.date.due) this.formData.feeOnMonthDay = dateFilter(scope.date.due,'dd MMMM');
           }
           resourceFactory.savingsChargeResource.save({accountId : routeParams.id}, this.formData, function(data) {
             location.path('/viewsavingaccount/'+routeParams.id);
