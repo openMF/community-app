@@ -14,9 +14,19 @@
      else{
           // For multi tenant hosting
           var hostname = window.location.hostname;
+          if (window.location.protocol === 'file:') {
+            hostname = HOST;
+            ResourceFactoryProvider.setBaseUrl(HOST);
+            HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
+                return _.extend(config, {url: HOST + config.url });
+            });
+          };
           domains = hostname.split('.');
-
+          domains[0] = domains[0].replace("https://","");
           if(domains[0] == "demo"){
+                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+          }
+          else if(domains[0] == "localhost"){
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
           }
           else{
