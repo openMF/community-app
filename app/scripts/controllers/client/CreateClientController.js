@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    CreateClientController: function(scope, resourceFactory, location, http, dateFilter) {
+    CreateClientController: function(scope, resourceFactory, location, http, dateFilter, HOST) {
         scope.offices = [];
         scope.staffs = [];
         scope.first = {};
@@ -40,7 +40,7 @@
             resourceFactory.clientResource.save(this.formData,function(data){
               if (scope.file) {
                 http.uploadFile({
-                  url: 'https://demo.openmf.org/mifosng-provider/api/v1/clients/'+data.clientId+'/images', 
+                  url: HOST + '/mifosng-provider/api/v1/clients/'+data.clientId+'/images', 
                   data: {},
                   file: scope.file
                 }).then(function(imageData) {
@@ -58,7 +58,7 @@
           };
     }
   });
-  mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', mifosX.controllers.CreateClientController]).run(function($log) {
+  mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', 'HOST', mifosX.controllers.CreateClientController]).run(function($log) {
     $log.info("CreateClientController initialized");
   });
 }(mifosX.controllers || {}));
