@@ -21,7 +21,6 @@
         
         scope.submit = function() {   
           this.formData.locale = "en";
-
           if(scope.withDrawCharge == true) {
             delete this.formData.feeOnMonthDay;
           } else {
