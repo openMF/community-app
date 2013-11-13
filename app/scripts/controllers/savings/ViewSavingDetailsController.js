@@ -1,7 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     ViewSavingDetailsController: function(scope, routeParams, resourceFactory, location, route,dateFilter) {
-      scope.charges = [];
       scope.isDebit = function (savingsTransactionType) {
         return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
       };
@@ -76,10 +75,6 @@
           scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
           if(scope.savingaccountdetails.charges) {
             scope.charges = scope.savingaccountdetails.charges;
-            for(var i in scope.charges) {
-               var temp = scope.charges[i].feeOnMonthDay[1]+'/'+scope.charges[i].feeOnMonthDay[0];
-               scope.charges[i].repeatsOn = temp;
-            }
             scope.chargeTableShow = true;
           } else {
             scope.chargeTableShow = false;
