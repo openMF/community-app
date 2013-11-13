@@ -158,7 +158,8 @@ define(['underscore', 'mifosX'], function() {
     filters: [
       'StatusLookup',
       'DateFormat',
-      'DayMonthFormat'
+      'DayMonthFormat',
+      'YesOrNo'
     ],
     directives: [
       'DataTablesDirective',
