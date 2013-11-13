@@ -29,43 +29,59 @@
               <form-validate valattributeform="createuserform" valattribute="lastname"/>
             </div>
           </div>
-          <div class="control-group">
-            <label class="control-label" for="email">{{'label.email' | translate}}<span class="required">*</span></label>
-            <div class="controls">
-              <input type="email" id="email" name="email" ng-model="formData.email" required late-Validate/>
-              <form-validate valattributeform="createuserform" valattribute="email"/>
-            </div>
+          <div data-ng-switch on="formData.sendPasswordToEmail">
+              <div data-ng-switch-when="true">
+                  <div class="control-group">
+                    <label class="control-label" for="email">{{'label.email' | translate}}<span class="required">*</span></label>
+                    <div class="controls">
+                      <input type="email" id="email" name="email" ng-model="formData.email" required late-Validate/>
+                      <form-validate valattributeform="createuserform" valattribute="email"/>
+                    </div>
+                  </div>
+              </div>
+              <div data-ng-switch-when="false">
+                  <div class="control-group" data-ng-show="!formData.sendPasswordToEmail">
+                    <label class="control-label" for="email1">{{'label.email' | translate}}</label>
+                    <div class="controls">
+                        <input type="email" id="email1" name="email1" ng-model="formData.email"/>
+                    </div>
+                  </div>
+              </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="sendPasswordToEmail">{{'label.autogeneratepassword' | translate}}</label>
+            <label class="control-label">{{'label.autogeneratepassword' | translate}}</label>
             <div class="controls">
               <label class="checkbox">
                 <input type="checkbox" ng-model="formData.sendPasswordToEmail">
               </label>
             </div>
           </div>
-          <div ng-hide="formData.sendPasswordToEmail">
-            <div class="control-group">
-              <label class="control-label" for="password">{{'label.password' | translate}}</label>
-              <div class="controls">
-                <input type="text" id="password" ng-model="formData.password">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="repeatPassword">{{'label.repeatpassword' | translate}}</label>
-              <div class="controls">
-                <input type="text" id="repeatPassword" ng-model="formData.repeatPassword">
-              </div>
+          <div data-ng-switch on="formData.sendPasswordToEmail">
+            <div data-ng-switch-when="false">
+                <div class="control-group">
+                  <label class="control-label" for="password">{{'label.password' | translate}}<span class="required">*</span></label>
+                  <div class="controls">
+                    <input type="password" id="password" name="password" ng-model="formData.password" required late-Validate>
+                    <form-validate valattributeform="createuserform" valattribute="password"/>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="repeatPassword">{{'label.repeatpassword' | translate}}<span class="required">*</span></label>
+                  <div class="controls">
+                    <input type="password" id="repeatPassword" name="repeatPassword" ng-model="formData.repeatPassword" required late-Validate>
+                    <form-validate valattributeform="createuserform" valattribute="repeatPassword"/>
+                  </div>
+                </div>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="office">{{'label.office' | translate}}<span class="required">*</span></label>
+            <label class="control-label">{{'label.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
+            <label class="control-label">{{'label.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select id="roles" ng-model="formData.roles" name="role" multiple required>
                 <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">{{availablerole.name}}</option>

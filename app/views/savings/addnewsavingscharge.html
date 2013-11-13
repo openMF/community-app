@@ -1,62 +1,61 @@
-      <div class="paddedbottom10">
-        <ul class="breadcrumb">
-          <li class="active">{{ 'label.addsavingcharges' | translate }}</li>
-        </ul>
+<div class="paddedbottom10">
+    <ul class="breadcrumb">
+      <li class="active">{{ 'label.addsavingcharges' | translate }}</li>
+    </ul>
+</div>
+<form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController" ng-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+      <div class="control-group">
+        <label class="control-label">{{ 'label.charges' | translate }}<span class="required">*</span></label>
+        <div class="controls">
+          <select ng-model="formData.chargeId" id="chargeId" ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions" value="{{formData.chargeId}}"
+           ng-change="chargeSelected(formData.chargeId)">
+            <option style="display:none" value="">{{ 'label.select.charge' | translate }}</option>
+          </select>
+        </div>
       </div>
-      <form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController" ng-submit="submit()">
-        <api-validate></api-validate>
-        <fieldset>
-          <div class="control-group">
-            <label class="control-label">{{ 'label.charges' | translate }}<span class="required">*</span></label>
-            <div class="controls">
-              <select ng-model="formData.chargeId" id="chargeId" ng-options="charge.id as charge.name for charge in chargeOptions" value="{{formData.chargeId}}"
-               ng-change="chargeSelected(formData.chargeId)">
-                <option style="display:none" value="">{{ 'label.select.charge' | translate }}</option>
-              </select>
-            </div>
+
+      <div ng-show="chargeDetails">
+        <div class="control-group">
+          <label class="control-label">{{ 'label.amount' | translate }}<span class="required">*</span></label>
+          <div class="controls">
+            <input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
+            <span  ng-show="savingccountchargeform.amount.$invalid">
+              <small class="error">
+                  Required Field
+              </small>
+            </span>
           </div>
+        </div>
 
-          <div ng-show="chargeDetails">
-            <div class="control-group">
-              <label class="control-label">{{ 'label.amount' | translate }}<span class="required">*</span></label>
-              <div class="controls">
-                <input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
-                <span  ng-show="savingccountchargeform.amount.$invalid">
-                  <small class="error">
-                      Required Field
-                  </small>
-                </span>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">{{ 'label.chargecalculation' | translate }}</label>
-              <div class="controls">
-                <select id="chargeCalculationType" ng-model="chargeCalculationType"  ng-options="chargeCalculation.id as chargeCalculation.value for chargeCalculation in chargeDetails.chargeCalculationTypeOptions" value="{{chargeCalculation.id}}" disabled="disabled">
-                </select>
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">{{ 'label.chargecalculation' | translate }}</label>
-              <div class="controls">
-                <select id="chargeTimeType" ng-model="chargeTimeType"  ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions" value="{{chargeTime.id}}" disabled="disabled">
-                </select>
-              </div>
-            </div>
-
-            <div class="control-group" ng-show="!withDrawCharge">
-              <label class="control-label">{{ 'label.dueon' | translate }}<span class="required">*</span></label>
-              <div class="controls">
-                <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.feeOnMonthDay" is-open="opened" min="minDate" max="'2020-06-22'"/>
-              </div>
-            </div>
-
-            <div class="offset3">
-              <button ng-click = "cancel()" class="btn">{{'label.cancel' | translate}}</button>
-              <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
-            </div>
+        <div class="control-group">
+          <label class="control-label">{{ 'label.chargecalculation' | translate }}</label>
+          <div class="controls">
+            <select id="chargeCalculationType" ng-model="chargeCalculationType"  ng-options="chargeCalculation.id as chargeCalculation.value for chargeCalculation in chargeDetails.chargeCalculationTypeOptions" value="{{chargeCalculation.id}}" disabled="disabled">
+            </select>
           </div>
-          
-        </fieldset>
-      </form>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">{{ 'label.chargecalculation' | translate }}</label>
+          <div class="controls">
+            <select id="chargeTimeType" ng-model="chargeTimeType"  ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions" value="{{chargeTime.id}}" disabled="disabled">
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group" ng-show="!withDrawCharge">
+          <label class="control-label">{{ 'label.dueon' | translate }}<span class="required">*</span></label>
+          <div class="controls">
+            <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM" ng-model="date.due" is-open="opened" min="minDate" max="'2020-06-22'"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="offset3">
+        <a href="#/viewsavingaccount/{{cancelRoute}}" class="btn">{{'label.cancel' | translate}}</a>
+        <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
+      </div>
+    </fieldset>
+</form>
