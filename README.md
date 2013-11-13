@@ -34,7 +34,6 @@ modify the constant in community-app\app\scripts\modules\configurations.js as be
 
 ```
 .constant('API_URL_OVERRIDE', 'true')
-.constant('HOST','https://localhost:8443\:8443') // need to escape port number
 .constant('HOST','https://demo.openmf.org')
 .constant('API_VERSION','/mifosng-provider/api/v1')
 ```
