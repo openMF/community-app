@@ -8,6 +8,13 @@
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id,template:true}, function(data) {
                 scope.template = data;
+
+                if (data.chargeAppliesTo.value === "Loan") {
+                    scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
+                } else if (data.chargeAppliesTo.value === "Savings") {
+                    scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
+                }
+                
                 scope.formData = {
                     name:data.name,
                     active:data.active,
