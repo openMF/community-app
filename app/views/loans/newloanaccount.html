@@ -168,7 +168,7 @@
                     <tr>
                       <td>
                         <label class="control-label">{{ 'label.repaymentstrategy' | translate }}&nbsp;<span class="required">*</span></label>
-                        <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}">
+                        <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}"/>
                       </td>
                       <td>
                         <label class="control-label">{{ 'label.grace' | translate }}&nbsp;</label>
@@ -182,16 +182,19 @@
                         <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
                       </td>
                       <td>
-                        <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
-                          <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                          <label class="control-label">{{ 'label.interestchargedfrom' | translate }}&nbsp;</label>
+                          <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <label class="control-label">{{ 'label.firstrepaymenton' | translate }}&nbsp;</label>
-                          <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                          <label class="control-label">{{ 'label.firstrepaymenton' | translate }}&nbsp;</label>
+                          <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
                       </td>
-                      <td></td>
+                      <td>
+                          <label class="control-label">{{ 'label.linksavings' | translate }}&nbsp;</label>
+                          <select id="linkAccountId" ng-model="formData.linkAccountId" ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" value="{{savingaccount.id}}"/>
+                      </td>
                     </tr>
                   </table>
                 </td>
@@ -223,7 +226,7 @@
                       <td><input id="{{charges[$index].amount}}" class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                       <td>{{charge.chargeTimeType.value}}</td>
                       <td>
-                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                       </td>
                       <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>
