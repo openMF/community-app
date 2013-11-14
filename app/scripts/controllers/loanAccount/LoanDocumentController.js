@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    LoanDocumentController: function(scope, location, http, routeParams) {
+    LoanDocumentController: function(scope, location, http, routeParams, API_VERSION) {
       scope.loanId = routeParams.loanId;
       scope.onFileSelect = function($files) {
         scope.file = $files[0];
@@ -8,7 +8,7 @@
 
       scope.submit = function () {
         http.uploadFile({
-          url: 'https://demo.openmf.org/mifosng-provider/api/v1/loans/'+scope.loanId+'/documents', 
+          url: API_VERSION + '/loans/'+scope.loanId+'/documents', 
           data: scope.formData,
           file: scope.file
         }).then(function(data) {
@@ -21,7 +21,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', mifosX.controllers.LoanDocumentController]).run(function($log) {
+  mifosX.ng.application.controller('LoanDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION', mifosX.controllers.LoanDocumentController]).run(function($log) {
     $log.info("LoanDocumentController initialized"); 
   });
 }(mifosX.controllers || {}));

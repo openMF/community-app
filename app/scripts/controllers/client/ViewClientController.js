@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http,$modal) {
+    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http, $modal, API_VERSION) {
         scope.client = [];
         scope.identitydocuments = [];
         scope.buttons = [];
@@ -12,7 +12,7 @@
             if (data.imagePresent) {
               http({
                 method:'GET',
-                url: 'https://demo.openmf.org/mifosng-provider/api/v1/clients/'+routeParams.id+'/images'
+                url: API_VERSION + '/clients/'+routeParams.id+'/images'
               }).then(function(imageData) {
                 scope.image = imageData.data;
               });
@@ -182,7 +182,7 @@
           scope.selectedTemplate = templateId;
           http({
             method:'POST',
-            url: 'https://demo.openmf.org/mifosng-provider/api/v1/templates/'+templateId+'?clientId='+routeParams.id,
+            url: API_VERSION + '/templates/'+templateId+'?clientId='+routeParams.id,
             data: {}
           }).then(function(data) {
             scope.template = data.data;
@@ -368,7 +368,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', mifosX.controllers.ViewClientController]).run(function($log) {
+  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION', mifosX.controllers.ViewClientController]).run(function($log) {
     $log.info("ViewClientController initialized");
   });
 }(mifosX.controllers || {}));

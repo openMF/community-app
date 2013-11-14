@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal) {
+    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http, $modal, API_VERSION) {
       scope.$broadcast('LoanAccountDataLoadingStartEvent');
       scope.loandocuments = [];
 
@@ -235,7 +235,7 @@
         scope.selectedTemplate = templateId;
         http({
           method:'POST',
-          url: 'https://demo.openmf.org/mifosng-provider/api/v1/templates/'+templateId+'?loanId='+routeParams.id,
+          url: API_VERSION + '/templates/'+templateId+'?loanId='+routeParams.id,
           data: {}
         }).then(function(data) {
           scope.template = data.data;
@@ -292,7 +292,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal', 'API_VERSION', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));
