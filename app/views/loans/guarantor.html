@@ -8,79 +8,81 @@
                 <input type="checkbox" data-ng-model="temp" data-ng-change="checkClient()">
             </div>
         </div>
-        <div data-ng-show="temp">
-            <div class="control-group">
-                <label class="control-label">{{ 'label.clientname' | translate }}<span class="required">*</span></label>
-                <div class="controls">
-                    <input typeahead-on-select="viewClient($item)" name="clientname" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8" required late-validate/>
-                    <form-validate valattributeform="guaratorform" valattribute="clientname"/>
+        <div data-ng-switch on="temp">
+            <div data-ng-switch-when="true">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.clientname' | translate }}<span class="required">*</span></label>
+                    <div class="controls">
+                        <input typeahead-on-select="viewClient($item)" name="clientname" type="text" ng-model="clientTemplate" typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8" required late-validate/>
+                        <form-validate valattributeform="guaratorform" valattribute="clientname"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.relationship' | translate }}</label>
+                    <div class="controls">
+                        <select id="relationship" ng-model="formData.relationship" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
+                            <option value="">{{'label.select.one' | translate}}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.relationship' | translate }}</label>
-                <div class="controls">
-                    <select id="relationship" ng-model="formData.relationship" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
-                        <option value="">{{'label.select.one' | translate}}</option>
-                    </select>
+            <div data-ng-switch-when="false">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.relationship' | translate }}</label>
+                    <div class="controls">
+                        <select id="relationshipType" ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
+                            <option value="">{{'label.select.one' | translate}}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div data-ng-show="!temp">
-            <div class="control-group">
-                <label class="control-label">{{ 'label.relationship' | translate }}</label>
-                <div class="controls">
-                    <select id="relationshipType" ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
-                        <option value="">{{'label.select.one' | translate}}</option>
-                    </select>
+                <div class="control-group">
+                    <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}</label>
+                    <div class="controls">
+                        <input type="text" id="firstname" ng-model="formData.firstname">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}</label>
-                <div class="controls">
-                    <input type="text" id="firstname" ng-model="formData.firstname">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.form.lastname' | translate }}</label>
+                    <div class="controls">
+                        <input id="lastname" type="text" ng-model="formData.lastname">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.form.lastname' | translate }}</label>
-                <div class="controls">
-                    <input id="lastname" type="text" ng-model="formData.lastname">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.dob' | translate }}</label>
+                    <div class="controls">
+                        <input id="dob" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="restrictDate"/>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.dob' | translate }}</label>
-                <div class="controls">
-                    <input id="dob" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="restrictDate"/>
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.address' | translate }}</label>
+                    <div class="controls">
+                        <input id="addressline1" type="text" placeholder="Line 1" ng-model="formData.addressline1"><br/>
+                        <input id="addressline2" type="text" placeholder="Line 2" ng-model="formData.addressline2">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.address' | translate }}</label>
-                <div class="controls">
-                    <input id="addressline1" type="text" placeholder="Line 1" ng-model="formData.addressline1"><br/>
-                    <input id="addressline2" type="text" placeholder="Line 2" ng-model="formData.addressline2">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.city' | translate }}</label>
+                    <div class="controls">
+                        <input id="city" type="text" ng-model="formData.city">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.city' | translate }}</label>
-                <div class="controls">
-                    <input id="city" type="text" ng-model="formData.city">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.zip' | translate }}</label>
+                    <div class="controls">
+                        <input id="zip" type="text" ng-model="formData.zip">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.zip' | translate }}</label>
-                <div class="controls">
-                    <input id="zip" type="text" ng-model="formData.zip">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.mobile' | translate }}</label>
+                    <div class="controls">
+                        <input id="mobile" type="text" ng-model="formData.mobile">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.mobile' | translate }}</label>
-                <div class="controls">
-                    <input id="mobile" type="text" ng-model="formData.mobile">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.residence' | translate }}</label>
-                <div class="controls">
-                    <input id="residence" type="text" ng-model="formData.residence">
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.residence' | translate }}</label>
+                    <div class="controls">
+                        <input id="residence" type="text" ng-model="formData.residence">
+                    </div>
                 </div>
             </div>
         </div>

@@ -189,7 +189,7 @@
                 </td>
                 <td class="blockquoteresult">
                     <form>
-                      <select ng-model="chargeFormData.chargeId" ng-options="charge.id as charge.name for charge in loanaccountinfo.chargeOptions" value="{{charge.id}}">
+                      <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name+'  '+'('+charge.currency.name+')') for charge in loanaccountinfo.chargeOptions" value="{{charge.id}}">
                       </select>
                       <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
                     </form>
@@ -208,7 +208,7 @@
                       <td><input class="input-small" id="{{charges[$index].amount}}" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                       <td>{{charge.chargeTimeType.value}}</td>
                       <td>
-                        <input id="{{charges[$index].dueDate}}" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                        <input id="{{charges[$index].dueDate}}" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                       </td>
                       <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                     </tr>
