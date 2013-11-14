@@ -4,15 +4,6 @@
 			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a><span class="divider">/</span></li>
 			<li class="active">{{ 'label.loan.view.charge' | translate}}({{charge.name}})</li>
 		</ul>
-		<div class="pull-right">
-			<div class="btn-group" ng-show="showEditButtons">
-				<a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'button.edit' | translate}}</a>
-				<button type="button" ng-click="deleteCharge()" class="btn btn-danger"><i class="icon-trash icon-white"></i>{{'button.delete' | translate}}</button>
-			</div>
-			<div class="btn-group" ng-show="showWaiveButton">
-				<a ng-click="waiveCharge()" class="btn btn-primary"><i class="icon-flag icon-white"></i> {{'button.waive' | translate}}</a>
-			</div>
-		</div>
 	</div>
     <script type="text/ng-template" id="deletecharge.html">
         <div class="modal-header silver">
@@ -23,7 +14,13 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
         </div>
     </script>
-	<div class="row-fluid">
+	<div class="form-horizontal well">
+        <div class="pull-right">
+            <div class="btn-group" ng-show="showEditButtons">
+                <a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'button.edit' | translate}}</a>
+                <button type="button" ng-click="deleteCharge()" class="btn btn-danger"><i class="icon-trash icon-white"></i>{{'button.delete' | translate}}</button>
+            </div>
+        </div>
 		<h3>{{'label.loan.view.charge' | translate}}</h3>
 		<table width="100%">
 			<tr>
@@ -33,8 +30,8 @@
 			<tr>
 				<td>{{'label.charge.type' | translate}}</td>
 				<td>
-					<span ng-show="charge.penalty">Penalty</span>
-                    <span ng-hide="charge.penalty">Fee</span>
+					<span ng-show="charge.penalty">{{'table.heading.penalty' | translate}}</span>
+                    <span ng-hide="charge.penalty">{{'table.heading.fee' | translate}}</span>
                 </td>
 			</tr>
 			<tr>
@@ -47,7 +44,7 @@
 			</tr>
 			<tr>
 				<td>{{'table.heading.paymentdue.asof' | translate}}</td>
-				<td>{{charge.dueDate}}</td>
+				<td>{{charge.dueDate | DateFormat}}</td>
 			</tr>
 			<tr>
 				<td>{{'table.heading.calculation.type' | translate}}</td>

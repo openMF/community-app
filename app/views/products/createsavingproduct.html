@@ -136,16 +136,14 @@
 	          		</table>
 	          	</td>
 	        </tr>
-	        
 	        <tr class="span2"></tr>
-
-      		<tr class="control-group">
+            <tr class="control-group">
 		        <td>
 		          <label class="control-label"><h4>{{ 'label.charges' | translate }}</h4></label>
 		        </td>
         		<td class="blockquoteresult">
             		<form>
-	              		<select ng-model="chargeId" ng-options="charge.id as charge.name for charge in product.chargeOptions" value="{{charge.id}}">
+	              		<select ng-model="chargeId" ng-options="charge.id as ((charge.name+' '+'('+charge.currency.name+')') for charge in product.chargeOptions" value="{{charge.id}}">
 	                		<option style="display:none" value="">{{'label.select.charge' | translate}}</option>
 	              		</select>
               			<button class="btn btn-primary" ng-click="chargeSelected(chargeId)">{{ 'button.add' | translate }}</button>

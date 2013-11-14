@@ -13,7 +13,7 @@
 			<div class="control-group">
 				<label class="control-label" for="chargeId">{{ 'label.charge' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-					<select id="chargeId" ng-model="formData.chargeId" ng-options="charge.id as charge.name for charge in charges" value="{{charge.id}}" ng-change="selectCharge()">
+					<select id="chargeId" ng-model="formData.chargeId" ng-options="charge.id as (charge.name+' '+'('+charge.currency.name+')') for charge in charges" value="{{charge.id}}" ng-change="selectCharge()">
 						<option value="">{{'label.select.charge' | translate}}</option>
 					</select>
 				</div>
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 				<div class="control-group" ng-show="chargeData.chargeTimeType.id==2">
-					<label class="control-label">{{ 'label.charge.due.date' | translate }}</label>
+					<label class="control-label">{{ 'label.charge.due.date' | translate }}<span class="required">*</span></label>
 					<div class="controls">
 						<input class="date-disable" readonly id="dueDate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.placeholder.duedate' | translate}}" ng-model="formData.dueDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
 					</div>
