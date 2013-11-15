@@ -3,16 +3,17 @@
       <li class="active">{{ 'label.addsavingcharges' | translate }}</li>
     </ul>
 </div>
-<form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController" ng-submit="submit()">
+<form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController" rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
       <div class="control-group">
         <label class="control-label">{{ 'label.charges' | translate }}<span class="required">*</span></label>
         <div class="controls">
-          <select ng-model="formData.chargeId" id="chargeId" ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions" value="{{formData.chargeId}}"
-           ng-change="chargeSelected(formData.chargeId)">
+          <select ng-model="formData.chargeId" id="chargeId" name="charge" ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions" value="{{formData.chargeId}}"
+           ng-change="chargeSelected(formData.chargeId)" required>
             <option style="display:none" value="">{{ 'label.select.charge' | translate }}</option>
           </select>
+          <form-validate valattributeform="savingccountchargeform" valattribute="charge"/>
         </div>
       </div>
 
@@ -21,11 +22,7 @@
           <label class="control-label">{{ 'label.amount' | translate }}<span class="required">*</span></label>
           <div class="controls">
             <input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
-            <span  ng-show="savingccountchargeform.amount.$invalid">
-              <small class="error">
-                  Required Field
-              </small>
-            </span>
+            <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
           </div>
         </div>
 
@@ -38,7 +35,7 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label">{{ 'label.chargecalculation' | translate }}</label>
+          <label class="control-label">{{ 'label.chargetimetype' | translate }}</label>
           <div class="controls">
             <select id="chargeTimeType" ng-model="chargeTimeType"  ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions" value="{{chargeTime.id}}" disabled="disabled">
             </select>
@@ -48,7 +45,7 @@
         <div class="control-group" ng-show="!withDrawCharge">
           <label class="control-label">{{ 'label.dueon' | translate }}<span class="required">*</span></label>
           <div class="controls">
-            <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM" ng-model="date.due" is-open="opened" min="minDate" max="'2020-06-22'"/>
+            <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.due" is-open="opened" min="minDate" max="'2020-06-22'"/>
           </div>
         </div>
       </div>

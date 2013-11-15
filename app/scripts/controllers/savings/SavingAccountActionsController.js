@@ -142,6 +142,10 @@
           break;
         }
 
+        scope.cancel = function () {
+          location.path('/viewsavingaccount/' + data.savingsId);
+        }
+        
         scope.submit = function() {
           var params = {command:scope.action};
           if (scope.action != "undoapproval") {

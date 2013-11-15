@@ -21,11 +21,13 @@
         
         scope.submit = function() {   
           this.formData.locale = "en";
-          if(scope.withDrawCharge == true) {
-            delete this.formData.feeOnMonthDay;
-          } else {
-            this.formData.monthDayFormat = "dd MMMM";
-            if (scope.date.due) this.formData.feeOnMonthDay = dateFilter(scope.date.due,'dd MMMM');
+          if(scope.withDrawCharge !== true) {
+            this.formData.dateFormat = "dd MMMM yyyy";
+            if (scope.date.due) {
+              this.formData.dueDate = dateFilter(scope.date.due,'dd MMMM yyyy');
+            } else {
+              this.formData.dueDate = "";
+            }
           }
           resourceFactory.savingsChargeResource.save({accountId : routeParams.id}, this.formData, function(data) {
             location.path('/viewsavingaccount/'+routeParams.id);
