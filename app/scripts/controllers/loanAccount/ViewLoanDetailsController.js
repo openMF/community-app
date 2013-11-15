@@ -139,7 +139,7 @@
         var DelChargeCtrl = function ($scope, $modalInstance,ids) {
             $scope.delete = function () {
                 resourceFactory.LoanAccountResource.delete({loanId : routeParams.id, resourceType : 'charges', chargeId : ids}, {}, function(data) {
-                    location.path('/viewloanaccount/' + data.loanId);
+                    route.reload();
                 });
                 $modalInstance.close('delete');
             };
@@ -157,13 +157,18 @@
           if(scope.loandetails.charges) {
             scope.charges = scope.loandetails.charges;
               for(var i in scope.charges){
-                 if(scope.charges[i].paid || scope.charges[i].waived)
+                 if(scope.charges[i].paid || scope.charges[i].waived ||scope.charges[i].chargeTimeType.value=='Disbursement' || scope.loandetails.status.value!='Active')
                  {
                      var actionFlag = true;
                  }
+                 else
+                 {
+                     var actionFlag = false;
+                 }
                  scope.charges[i].actionFlag = actionFlag;
               }
-            scope.chargeTableShow = true; a
+
+            scope.chargeTableShow = true;
           }
           else {
             scope.chargeTableShow = false;
