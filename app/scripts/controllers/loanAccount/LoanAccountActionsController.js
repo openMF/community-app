@@ -54,8 +54,11 @@
           case "repayment":
             scope.modelName = 'transactionDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'repayment'}, function(data){
+              console.log(data);
               scope.paymentTypes=data.paymentTypeOptions;
-              scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+              if (data.paymentTypeOptions.length > 0) {
+                scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+              }
               scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
