@@ -457,6 +457,9 @@
       })
       .when('/editguarantor/:id/:loanId',{
         templateUrl: 'views/loans/editguarantor.html'
+      })
+      .when('/expertsearch',{
+        templateUrl: 'views/expertsearch.html'
       });
     $locationProvider.html5Mode(false);
   };
