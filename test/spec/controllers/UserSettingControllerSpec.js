@@ -1,4 +1,4 @@
-describe("UserListController", function() {
+describe("UserSettingController", function() {
     var resourceCallback;
     beforeEach(function() {
         this.scope = {
@@ -14,12 +14,6 @@ describe("UserListController", function() {
         this.controller = new mifosX.controllers.UserListController(this.scope, this.resourceFactory);
     });
 
-    it("should call the userResource with the correct method", function() {
-        expect(this.resourceFactory.userListResource.getAllUsers).toHaveBeenCalled();
-    });
 
-    it("should populate the scope with the retrieved users", function() {
-        resourceCallback(["test_user1", "test_user2"]);
-        expect(this.scope.users).toEqual(["test_user1", "test_user2"]);
-    });
 });
+
