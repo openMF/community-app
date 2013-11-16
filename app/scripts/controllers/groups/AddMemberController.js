@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         AddMemberController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             scope.first = {};
+            scope.restrictDate = new Date();
             scope.first.date = new Date();
             resourceFactory.clientTemplateResource.get({officeId: routeParams.officeId} , function(data) {
                 scope.clientTemplate = data;

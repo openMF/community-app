@@ -1,12 +1,14 @@
 <div ng-controller="CreateSavingAccountController"> 
   <div>
     <ul class="breadcrumb">
-      <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
+      <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
+      <li ng-show="groupName&&!centerEntity"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
       <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a> <span class="divider">/</span></li>
       <li class="active">{{'label.saving.application' | translate}}</li>
     </ul>
   </div>
-  <form name="newsavingccountform" novalidate="" class="well" ng-submit="submit()">
+  <api-validate></api-validate>
+  <form name="newsavingccountform" novalidate="" class="well" rc-submit="submit()">
     <fieldset>
       <legend>{{ 'label.saving.application' | translate }}</legend>
       <table width="80%">
@@ -19,7 +21,7 @@
           </td>
           <td width="50%">
             <label class="control-label">{{ 'label.product' | translate }}&nbsp;<span class="required">*</span></label>
-            <select ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" ng-change="changeProduct()" required="required">
+            <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" ng-change="changeProduct()" required="required">
               <option style="display:none" value="">{{'label.select.saving.product' | translate}}</option>
             </select>
           </td>
@@ -30,13 +32,13 @@
           <tr class="control-group">
             <td width="50%">
               <label class="control-label">{{ 'label.loanofficer' | translate }}&nbsp;</label>
-              <select ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
-                <option style="display:none" value="">{{'label.select.loanofficer' | translate}}</option>
+              <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
+                <option value="">{{'label.select.loanofficer' | translate}}</option>
               </select>
             </td>
             <td width="50%">
               <label class="control-label">{{ 'label.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
-              <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+              <input id="submittedOnDate" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"/>
             </td>
           </tr>
           <tr class="span2"></tr>
@@ -59,12 +61,8 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
-                    <span  ng-show="newsavingccountform.nominalannualinterestrate.$invalid">
-                      <small class="error">
-                          Required Field
-                      </small>
-                    </span>
+                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required late-Validate/>
+                    <form-validate valattributeform="newsavingccountform" valattribute="nominalannualinterestrate"/>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.currencyinmultiplesof' | translate }}&nbsp;</label>
@@ -74,24 +72,24 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interestcompoundingperiod' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
+                    <select id="interestCompoundingPeriodType" ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interestpostingperiod' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
+                    <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                 </tr>
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.interest.calculated.using' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
+                    <select id="interestCalculationType" ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.daysinyears' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}">
+                    <select id="interestCalculationDaysInYearType" ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                 </tr>
@@ -108,13 +106,13 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.minimumopeningbalance' | translate }}&nbsp;</label>
-                    <input type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
+                    <input id="minRequiredOpeningBalance" type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.lockinPeriodFrequency' | translate }}&nbsp;</label>
-                    <input type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
-                    <select ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
-                      <option style="display:none" value="">{{'label.select.one' | translate}}</option>
+                    <input id="lockinPeriodFrequency" type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
+                    <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
+                      <option value="">{{'label.select.one' | translate}}</option>
                     </select>
                   </td>
                 </tr>
@@ -134,7 +132,7 @@
             <td class="blockquoteresult" width="90%">
                 <form>
                   <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in chargeOptions" value="{{charge.id}}">
-                    <option style="display:none" value="">{{'label.select.charge' | translate}}</option>
+                    <option value="">{{'label.select.charge' | translate}}</option>
                   </select>
                   <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
                 </form>
@@ -150,9 +148,9 @@
                 <tr ng-repeat="charge in charges" >
                   <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                   <td>{{charge.chargeCalculationType.value}}</td>
-                  <td><input class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
+                  <td><input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                   <td>{{charge.chargeTimeType.value}}</td>
-                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'"><input class="input-small" type="text" ng-model="charge.feeOnMonthDay"  ></td>
+                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'"><input id="charges[{{$index}}].feeOnMonthDay" class="input-small" type="text" ng-model="charge.feeOnMonthDay"  ></td>
                   <td ng-hide="charge.chargeTimeType.value=='Annual Fee'"></td>
                   <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>
@@ -162,8 +160,8 @@
         </table>
       </div>
       <div class="offset8">
-        <button type="reset" class="btn">Cancel</button>
-        <button type="submit" class="btn btn-primary" ng-show="!isCollapsed">Save</button>
+        <button type="reset" class="btn">{{ 'label.cancel' | translate }}</button>
+        <button type="submit" class="btn btn-primary" ng-show="!isCollapsed">{{ 'label.save' | translate }}</button>
       </div>
      
     </fieldset>

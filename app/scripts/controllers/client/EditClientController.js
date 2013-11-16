@@ -1,8 +1,9 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EditClientController: function(scope, routeParams, resourceFactory, location, http,dateFilter) {
+    EditClientController: function(scope, routeParams, resourceFactory, location, http, dateFilter, API_VERSION) {
         scope.offices = [];
         scope.date = {};
+        scope.restrictDate = new Date();
         scope.clientId = routeParams.id;
         resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'} , function(data) {
             scope.offices = data.officeOptions;
@@ -31,11 +32,13 @@
         scope.submit = function() {
              this.formData.locale = 'en';
              this.formData.dateFormat = 'dd MMMM yyyy';
-             if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
+             if (scope.choice === 1) {
+              if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
+             }
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
               if (scope.file) {
                 http.uploadFile({
-                  url: 'https://demo.openmf.org/mifosng-provider/api/v1/clients/'+data.clientId+'/images', 
+                  url: API_VERSION + '/clients/'+data.clientId+'/images', 
                   data: {},
                   file: scope.file
                 }).then(function(imageData) {
@@ -52,7 +55,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', mifosX.controllers.EditClientController]).run(function($log) {
+  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', 'API_VERSION', mifosX.controllers.EditClientController]).run(function($log) {
     $log.info("EditClientController initialized");
   });
 }(mifosX.controllers || {}));

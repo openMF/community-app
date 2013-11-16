@@ -5,6 +5,7 @@
             scope.clientview = false;
             scope.temp = true;
             scope.date = {};
+            scope.restrictDate = new Date();
 
             resourceFactory.guarantorResource.get({ loanId:routeParams.id,templateResource:'template'}, function(data) {
                 scope.template = data;
@@ -33,7 +34,9 @@
                     if (this.formData) {
                         guarantor.clientRelationshipTypeId = this.formData.relationship;
                     }
-                    guarantor.entityId = scope.client.id;
+                    if (scope.client) {
+                        guarantor.entityId = scope.client.id;
+                    }
                 }
                 else if (this.formData) {
                     guarantor.addressLine1=this.formData.addressLine1;

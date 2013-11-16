@@ -4,6 +4,7 @@
         scope.offices = [];
         scope.first = {};
         scope.first.date = new Date();
+        scope.restrictDate = new Date();
         resourceFactory.officeResource.getAllOffices(function(data) {
             scope.offices = data;
             scope.formData = {

@@ -4,6 +4,7 @@
             resourceFactory.attachMeetingResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id, 
                 templateSource : 'template'}, function(data) {
                 scope.groupCenterData = data;
+                scope.restrictDate = new Date();
                 scope.first = {};
                 //to display default in select boxes
                 scope.formData = {

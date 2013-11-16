@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MakeAccountTransferController: function(scope, resourceFactory, location, routeParams) {
-
+    MakeAccountTransferController: function(scope, resourceFactory, location, routeParams, dateFilter) {
+      scope.restrictDate = new Date();
       var params = {fromAccountId : routeParams.accountId};
       var accountType = routeParams.accountType || '';
       if (accountType == 'fromsavings') params.fromAccountType = 2;
@@ -18,6 +18,7 @@
         scope.transfer = data;
         scope.toOffices = data.toOfficeOptions;
         scope.toAccountTypes = data.toAccountTypeOptions;
+        scope.formData.transferAmount = data.transferAmount;
       });
 
       scope.changeEvent = function () {
@@ -33,6 +34,7 @@
           scope.toAccountTypes = data.toAccountTypeOptions;
           scope.toClients = data.toClientOptions;
           scope.toAccounts = data.toAccountOptions;
+          scope.formData.transferAmount = data.transferAmount;
         });
       };
 
@@ -48,7 +50,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('MakeAccountTransferController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.MakeAccountTransferController]).run(function($log) {
+  mifosX.ng.application.controller('MakeAccountTransferController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.MakeAccountTransferController]).run(function($log) {
     $log.info("MakeAccountTransferController initialized");
   });
 }(mifosX.controllers || {}));

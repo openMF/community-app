@@ -3,6 +3,9 @@
         EditCenterController: function(scope, resourceFactory,location, routeParams,dateFilter ) {
             scope.managecode = routeParams.managecode;
             scope.first = {};
+            scope.first.date = new Date();
+            scope.centerId = routeParams.id;
+            scope.restrictDate = new Date();
             resourceFactory.centerResource.get({centerId: routeParams.id,template: 'true'} , function(data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
@@ -11,8 +14,11 @@
                     externalId:data.externalId,
                     staffId:data.staffId
                 };
-                var newDate = dateFilter(data.activationDate,'dd MMMM yyyy');
-                scope.first.date = new Date(newDate);
+
+                if (data.activationDate) {
+                    var newDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+                    scope.first.date = new Date(newDate);
+                }
             });
 
             scope.updateGroup = function(){

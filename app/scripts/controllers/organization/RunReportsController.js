@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
 
-    RunReportsController: function(scope, routeParams, resourceFactory, location) {
+    RunReportsController: function(scope, routeParams, resourceFactory, location, API_VERSION) {
 
       scope.isCollapsed = false; //displays options div on startup
       scope.hideTable = true; //hides the results div on startup
@@ -178,7 +178,7 @@
 
             scope.hideTable=true;
             scope.hidePentahoReport = false;
-            scope.baseURL = "https://demo.openmf.org/mifosng-provider/api/v1/runreports/" + encodeURIComponent(scope.reportName); 
+            scope.baseURL = API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName); 
             scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
             var inQueryParameters = buildReportParms();
             if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
@@ -191,7 +191,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.RunReportsController]).run(function($log) {
+  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'API_VERSION', mifosX.controllers.RunReportsController]).run(function($log) {
     $log.info("RunReportsController initialized");
   });
 }(mifosX.controllers || {}));

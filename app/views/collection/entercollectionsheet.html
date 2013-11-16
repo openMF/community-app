@@ -3,7 +3,7 @@
     <div class="control-group">
       <label class="control-label">{{ 'label.branchoffice' | translate }}</label>
       <div class="controls">
-        <select ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"  ng-change="officeSelected(officeId)">
+        <select id="officeId" ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"  ng-change="officeSelected(officeId)">
           <option value="">{{'label.select.office' | translate}}</option>
         </select>
       </div>
@@ -12,7 +12,7 @@
     <div class="control-group">
       <label class="control-label">{{ 'label.center' | translate }}</label>
       <div class="controls">
-        <select ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)">
+        <select id="centerId" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)">
           <option value="">{{'label.select.center' | translate}}</option>
         </select>
       </div>
@@ -21,7 +21,7 @@
     <div class="control-group">
       <label class="control-label">{{ 'label.group' | translate }}</label>
       <div class="controls">
-        <select ng-model="groupId"  ng-options="group.id as group.name for group in groups" value="{{group.id}}" ng-change="groupSelected(groupId)">
+        <select id="groupId" ng-model="groupId"  ng-options="group.id as group.name for group in groups" value="{{group.id}}" ng-change="groupSelected(groupId)">
           <option value="">{{'label.select.group' | translate}}</option>
         </select>
       </div>
@@ -30,14 +30,14 @@
     <div class="control-group">
       <label class="control-label">{{ 'label.meetingcalendar' | translate }}</label>
       <div class="controls">
-        <input type="text" ng-model="formData.transactionDate">
+        <input id="transactionDate" type="text" ng-model="formData.transactionDate">
       </div>
     </div>
 
     <div>
       <span>
     		<a class="ng-binding" ng-click="previewCollectionSheet()" ng-hide="previewRepayment">
-    		Collection sheet
+                {{'label.collectionsheet' | translate}}
     		<i class="icon-circle-arrow-right"></i>
     		</a>
       </span>
@@ -94,7 +94,7 @@
             </td>
           </tr>
           <tr>
-            <td>group total</td>
+            <td>{{'label.grouptotal' | translate}}</td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
                 <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup" ng-show="loanproduct.id == loanProductArray.productId">
@@ -117,7 +117,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td>Total</td>
+            <td>{{'table.heading.total' | translate}}Total</td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
                 <input type="text" class="input-small" ng-model="total.transactionAmount">

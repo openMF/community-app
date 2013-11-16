@@ -5,29 +5,32 @@
           <li class="active">{{'label.createemployee' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-controller="CreateEmployeeController" ng-submit="submit()">
+      <form name="createemployeeform" novalidate="" class="form-horizontal well" ng-controller="CreateEmployeeController" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
-          <legend>Create Employee</legend>
+          <legend>{{'label.createemployee' | translate}}</legend>
 
           <div class="control-group">
-            <label class="control-label" for="office">{{ 'label.office' | translate }}</label>
+            <label class="control-label" for="office">{{ 'label.office' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+              <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
               </select>
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="firstname">{{ 'label.firstname' | translate }}</label>
+            <label class="control-label" for="firstname">{{ 'label.firstname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="firstname" ng-model="formData.firstname">
+              <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
+              <form-validate valattributeform="createemployeeform" valattribute="firstname"/>
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="lastname">{{ 'label.lastname' | translate }}</label>
+            <label class="control-label" for="lastname">{{ 'label.lastname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="lastname" ng-model="formData.lastname">
+              <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
+              <form-validate valattributeform="createemployeeform" valattribute="lastname"/>
             </div>
           </div>
           
@@ -44,6 +47,5 @@
             <a href="#/employees"><button type="reset" class="btn">{{'button.cancel'| translate}}</button></a>
             <button type="submit" class="btn btn-primary">{{'button.save'| translate}}</button>
           </div>
-          
         </fieldset>
       </form>

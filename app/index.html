@@ -27,9 +27,9 @@
         </div>
         <br/><br/>
         <div class="pull-right">
-            <input type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.username' | translate }}" class="input-small" required>
-            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.password' | translate }}" class="input-small"  required>
-            <button class="btn btn-success" type="submit" data-ng-click="login()">{{ 'label.signin' | translate }}</button>
+            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.username' | translate }}" class="input-small" required id="uid">
+            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.password' | translate }}" class="input-small"  required id="pwd">
+            <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.signin' | translate }}</button>
         </div>
         <div class="pull-right" data-ng-show="authenticationFailed">
             <p>{{ 'error.login.failed' | translate }}</p>
@@ -45,7 +45,7 @@
                 <h1>{{ 'label.product.name' | translate }}</h1>
                 <span>{{ 'label.product.version' | translate }}</span><br/>
                 <span>{{ 'label.product.status' | translate }}</span><br/>
-                <span>{{ 'label.product.aboutus1' | translate }}<a target="http://www.openmf.org/" href="http://www.openmf.org/">COSM</a>.
+                <span>{{ 'label.product.aboutus1' | translate }}<a target="http://www.openmf.org/" href="http://www.openmf.org/">{{ 'label.community.name' | translate }}</a>.
                 <a target="http://mifos.org/community" href="http://mifos.org/community">{{ 'label.product.aboutus2' | translate }}</a> {{ 'label.product.aboutus3' | translate }}</span><br/>
                 <span>{{ 'label.get.involved1' | translate }} <a target="http://mifos.org/community/news/how-you-can-get-involved" href="http://mifos.org/community/news/how-you-can-get-involved">{{ 'label.get.involved2' | translate }}</a></span>
             </td>
@@ -93,20 +93,46 @@
   </div>  
 </div>
 <!-- Navbar -->
-<div class="fullscreen" data-ng-hide="currentSession.user == null">
+<div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
+    <div class="loading-widget-div" data-ng-show="blockUI">
+        <div id="circularG">
+            <div id="circularG_1" class="circularG">
+            </div>
+            <div id="circularG_2" class="circularG">
+            </div>
+            <div id="circularG_3" class="circularG">
+            </div>
+            <div id="circularG_4" class="circularG">
+            </div>
+            <div id="circularG_5" class="circularG">
+            </div>
+            <div id="circularG_6" class="circularG">
+            </div>
+            <div id="circularG_7" class="circularG">
+            </div>
+            <div id="circularG_8" class="circularG">
+            </div>
+        </div>
+    </div>
     <nav>
-        <ul class="margin-nav nav-list ext-sidenav">
-            <li><a href="#/nav/offices"><i class="icon-compass icon-large"></i> Navigation</a></li>
+        <ul class="margin-nav nav nav-list ext-sidenav">
+            <li><a class="bolder black" href="#/nav/offices"><i class="icon-compass icon-large"></i>&nbsp;&nbsp;{{ 'label.navigation' | translate}}</a></li>
             <li class="divider"></li>
-            <li><a href="#/tasks"><i class="icon-bell-alt icon-large"></i> Tasks</a></li>
+            <li><a class="bolder black" href="#/tasks"><i class="icon-bell-alt icon-large"></i>&nbsp;&nbsp;{{ 'link.tasks' | translate}}</a></li>
             <li class="divider"></li>
-            <li><a href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i> Collection Sheet</a></li>
+            <li><a class="bolder black" href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.collectionsheet' | translate}}</a></li>
             <li class="divider"></li>
-            <li><a href="#/createclient"><i class="icon-user icon-large"></i> + Client </a></li>
+            <li><a class="bolder black" href="#/createclient"><i class="icon-user icon-large"></i> &nbsp;&nbsp;+ {{ 'apptable.m.client' | translate}} </a></li>
             <li class="divider"></li>
-            <li><a href="#/creategroup"><i class="icon-group icon-large"></i> + Group </a></li>
+            <li><a class="bolder black" href="#/creategroup"><i class="icon-group icon-large"></i> + {{ 'apptable.m.group' | translate}}</a></li>
             <li class="divider"></li>
-            <li><a href="#/createcenter"><i class="icon-group icon-large"></i> + Center </a></li>
+            <li><a class="bolder black" href="#/createcenter"><i class="icon-group icon-large"></i> + {{ 'apptable.m.center' | translate}}</a></li>
+            <li class="divider"></li>
+            <li><a class="bolder black" href="#/freqposting"><i class="icon-repeat icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.frequentpostings' | translate}}</a></li>
+            <li class="divider"></li>
+            <li><a class="bolder black" href="#/journalentry"><i class="icon-plus icon-large"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.addjournalentries' | translate}}</a></li>
+            <li class="divider"></li>
+            <li><a class="bolder black" href="#/accounts_closure"><i class="icon-folder-close icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.closingentries' | translate}}</a></li>
         </ul>
     </nav>
     <div class="navbar navbar-fixed-top">
@@ -125,7 +151,7 @@
                             </ul>
                         </li>
                         <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="icon-money"></i>{{ 'link.accounting' | translate }}</a></li>
-                        <li class="dropdown" id="preview-menu">
+                        <li class="dropdown" id="reports-menu">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('rep') }" href="#"><i class="icon-bar-chart"></i>{{ 'link.reports' | translate }}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#/reports/all">{{ 'link.reports.all' | translate }}</a></li>
@@ -149,8 +175,8 @@
                     </ul>
                     <ul class="nav pull-right" id="main-menu-right">
                         <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                        <li class="dropdown" id="preview-menu">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{currentSession.user.name}}<b class="caret"></b></a>
+                        <li class="dropdown" id="user-menu">
+                            <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#">{{currentSession.user.name}}<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="icon-user"></i>{{ 'link.profile' | translate }}</a></li>
                                 <li><a href="#/usersetting"><i class="icon-cog"></i>{{ 'link.settings' | translate }}</a></li>
@@ -166,13 +192,15 @@
         </div>
     </div>
     <div class="container whitebg fullscreen">
-        <div class="row-fluid whitebg">
-            <div class="span12 pull-right whitebg">
-                <div class="whitebg" ng-view></div>
-            </div>
-            <!-- Footer -->
-            <hr>
-        </div> <!-- /row-fluid -->
+        <div>
+            <div class="row-fluid whitebg">
+                <div class="span12 pull-right whitebg">
+                    <div class="whitebg" ng-view></div>
+                </div>
+                <!-- Footer -->
+                <hr>
+            </div> <!-- /row-fluid -->
+        </div><!-- /blockui-->
     </div><!-- /container -->
 </div>
 <!-- Le javascript -->

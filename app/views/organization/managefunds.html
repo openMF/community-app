@@ -4,17 +4,22 @@
         <li class="active">{{'label.managefunds' | translate}}</li>
     </ul>
 </div>
-<h3>Manage Funds</h3>
-<div class="row alert-block span" ng-controller="ManageFundsController">
+<h3>{{'label.managefunds' | translate}}</h3>
+<form name="managefundform" novalidate class="row alert-block span" ng-controller="ManageFundsController">
     <div>
-    	<input class="form-control input-xxlarge" 
+    	<input name="fund" ng-autofocus="true" class="form-control input-xxlarge"
          ng-model="newfund" 
-         placeholder="New Fund"
+         placeholder="{{'label.newfund' | translate}}"
          type="text"
          />&nbsp;&nbsp;<a ng-click='addFund()'><i class="icon-plus"></i></a>
+         <span  ng-show="managefundform.fund.$invalid || funderror">
+            <small class="error" ng-show="managefundform.fund.$error.req || funderror">
+                {{ 'label.requiredfield' | translate }}
+            </small>
+          </span>
 
      	<div ng-repeat="fund in funds">
 			<input disabled="" class="form-control input-xxlarge" placeholder={{fund.name}} type="text"/>
         </div>
     </div>	
-</div>
+</form>

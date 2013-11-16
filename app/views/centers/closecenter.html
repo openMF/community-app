@@ -1,14 +1,14 @@
 <form data-ng-controller="CloseCenterController">
+    <api-validate></api-validate>
     <div class="paddedleft">
         <h3>{{ 'label.confirm' | translate }}</h3>
         <div>
-            <label class="control-label">{{ 'label.closuredate' | translate }}</label>
-            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+            <label class="control-label">{{ 'label.closuredate' | translate }}<span class="required">*</span></label>
+            <input class="date-disable" readonly id="closureDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
         </div>
         <div>
-            <label class="control-label">{{ 'label.closurereasons' | translate }}</label>
-            <select ng-model="formData.closureReasonId">
-                <option ng-repeat="reason in template.closureReasons" value="{{reason.id}}">{{reason.name}}</option>
+            <label class="control-label">{{ 'label.closurereasons' | translate }}<span class="required">*</span></label>
+            <select id="closureReasonId" ng-model="formData.closureReasonId" ng-options="reason.id as reason.name for reason in template.closureReasons" value="{{reason.id}}">
             </select>
         </div>
         <br/>

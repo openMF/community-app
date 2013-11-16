@@ -6,18 +6,19 @@
       <li class="active">{{breadcrumbName | translate}}</li>
     </ul>
   </div>
+  <api-validate></api-validate>
   <form name="clientactionform" novalidate="" class="form-horizontal well" ng-submit="submit()">
       <div class="control-group" ng-show="showDateField">
         <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <input type="date" datepicker-pop="dd MMMM yyyy" name="modelName" ng-model="formData[modelName]" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+          <input class="date-disable" readonly type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
         </div>
       </div>
 
       <div class="control-group" ng-show="closureReasonField">
         <label class="control-label">{{labelNameClosurereason | translate}}</label>
         <div class="controls">
-          <select ng-model="formData.closureReasonId"  ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}">
+          <select id="closureReasonId" ng-model="formData.closureReasonId"  ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}">
           </select>
         </div>
       </div>
@@ -25,7 +26,7 @@
       <div class="control-group" ng-show="staffField">
         <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
-          <select ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
+          <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
           </select>
         </div>
       </div>
@@ -33,13 +34,13 @@
       <div class="control-group" ng-show="showNoteField">
         <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
         <div class="controls">
-          <textarea rows="2" ng-model="formData.note"></textarea>
+          <textarea rows="2" id="note" ng-model="formData.note"></textarea>
         </div>
       </div>
 
       <div class="offset3" ng-show="!showDeleteClient">
-        <button type="reset" ng-click="cancel()" class="btn">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" ng-click="cancel()" class="btn">{{'label.cancel' | translate}}</button>
+        <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
       </div>		
   </form>
 </div>

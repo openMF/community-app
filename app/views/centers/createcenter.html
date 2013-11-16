@@ -1,26 +1,33 @@
-<form class="form-horizontal well" ng-controller="CreateCenterController" ng-submit="submit()">
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/centers">{{'link.clients.centers' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.createcenter' | translate}}</li>
+    </ul>
+</div>
+<form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController" rc-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.createcenter' | translate}}</legend>
 
         <div class="control-group">
-            <label class="control-label" for="name">{{'label.form.name' | translate}}</label>
+            <label class="control-label" for="name">{{'label.form.name' | translate}}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="name" ng-model="formData.name">
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required  late-Validate/>
+                <form-validate valattributeform="createcenterform" valattribute="name"/>
             </div>
         </div>
-        <div class="control-group info">
-            <label class="control-label" for="office">{{'label.form.office' | translate}}</label>
+        <div class="control-group">
+            <label class="control-label" for="office">{{'label.form.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
-                <select id="office" ng-model="formData.officeId">
-                    <option ng-repeat="office in offices" value="{{office.id}}" ng-click="changeOffice(office.id)">{{office.name}}</option>
+                <select id="officeId" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-click="changeOffice(office.id)">
                 </select>
             </div>
         </div>
-        <div class="control-group info">
+        <div class="control-group">
             <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
             <div class="controls">
-                <select id="staffs" ng-model="formData.staffId">
-                    <option ng-repeat="staff in staffs" value="{{staff.id}}">{{staff.displayName}}</option>
+                <select id="staffId" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                    <option value="">{{'label.select.staff' | translate}}</option>
                 </select>
             </div>
         </div>
@@ -34,19 +41,14 @@
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
-                    <span ng-show="creategroupform.activationdate.$invalid && creategroupform.activationdate.$dirty">
-                        <small class="error" ng-show="creategroupform.activationdate.$error.req">
-                            Required Field
-                        </small>
-                    </span>
+                    <input class="date-disable" readonly id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
             <div class="controls">
-                <input type="text" id="externalid" ng-model="formData.externalId">
+                <input type="text" id="externalId" ng-model="formData.externalId">
             </div>
         </div>
         <div class="offset2 paddedleft120">

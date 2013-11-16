@@ -24,13 +24,16 @@
               nominalAnnualInterestRate : data.nominalAnnualInterestRate,
               minRequiredOpeningBalance : data.minRequiredOpeningBalance,
               lockinPeriodFrequency : data.lockinPeriodFrequency,
-              lockinPeriodFrequencyType : data.lockinPeriodFrequencyType.id,
               withdrawalFeeForTransfers : data.withdrawalFeeForTransfers == true ? 'true' : 'false',
               interestCompoundingPeriodType : data.interestCompoundingPeriodType.id,
               interestPostingPeriodType : data.interestPostingPeriodType.id,
               interestCalculationType : data.interestCalculationType.id,
               interestCalculationDaysInYearType : data.interestCalculationDaysInYearType.id,
               accountingRule : data.accountingRule.id,
+            }
+
+            if (data.lockinPeriodFrequencyType) {
+              scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
             }
 
             if(scope.formData.accountingRule == 1){

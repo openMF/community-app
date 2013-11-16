@@ -5,30 +5,32 @@
       <li class="active">{{'button.addrule' | translate}}</li>
     </ul>
 </div>
-<form class="form-horizontal well" ng-controller="AccCreateRuleController" ng-submit="submit()">
+<api-validate></api-validate>
+<form name="addaccountruleform" novalidate="" class="form-horizontal" ng-controller="AccCreateRuleController" rc-submit="submit()">
   <fieldset>
     <legend>{{ 'label.accounting.rule.title' | translate }}</legend>
     <div class="control-group">
-      <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}</label>
+      <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <input type="text" id="name" ng-model="formData.name">
+        <input type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
+        <form-validate valattributeform="addaccountruleform" valattribute="name"/>
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="officeId">{{ 'label.office' | translate }}</label>
+      <label class="control-label">{{ 'label.office' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+        <select ng-model="formData.officeId" id="officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
         </select>
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="description">{{ 'label.description' | translate }}</label>
+      <label class="control-label">{{ 'label.description' | translate }}</label>
       <div class="controls">
-        <textarea rows="2" ng-model="formData.description"></textarea>
+        <textarea id="description" rows="2" ng-model="formData.description"></textarea>
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}</label>
+      <label class="control-label">{{ 'label.journalentry.effected.entries' | translate }}<span class="required">*</span></label>
       <div class="controls">
         <table width="100%">
           <tr>
@@ -42,13 +44,13 @@
           <tr>
             <td width="50%">
               <span>{{ 'label.credit.rule.type' | translate }}</span> &nbsp;
-              <input type="radio" ng-model="creditRuleType" value="Account" ng-change="resetCredits()">Account &nbsp;&nbsp;&nbsp;
-              <input type="radio" ng-model="creditRuleType" value="tags" ng-change="resetCredits()">Tags
+              <input type="radio" ng-model="creditRuleType" value="Account" ng-change="resetCredits()">{{ 'label.account' | translate}} &nbsp;&nbsp;&nbsp;
+              <input type="radio" ng-model="creditRuleType" value="tags" ng-change="resetCredits()">{{ 'label.tags' | translate}}
             </td>
             <td width="50%">
               <span>{{ 'label.debit.rule.type' | translate }}</span>&nbsp;
-              <input type="radio" ng-model="debitRuleType" value="Account" ng-change="resetDebits()">Account &nbsp;&nbsp;&nbsp;
-              <input type="radio" ng-model="debitRuleType" value="tags" ng-change="resetDebits()">Tags
+              <input type="radio" ng-model="debitRuleType" value="Account" ng-change="resetDebits()">{{ 'label.account' | translate}} &nbsp;&nbsp;&nbsp;
+              <input type="radio" ng-model="debitRuleType" value="tags" ng-change="resetDebits()">{{ 'label.tags' | translate}}
             </td>
           </tr>
           <tr>
@@ -57,7 +59,7 @@
                 <select class="input-medium" ng-model="formData.accountToCredit" ng-options="creditAccount.name for creditAccount in glAccounts" ></select>
               </div>
               <div ng-show="creditRuleType=='tags'">
-                <label for="allowMultipleCreditEntries">{{ 'label.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
+                <label>{{ 'label.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
                 <select class="input-medium" ng-model="formData.creditTagTemplate" ng-options="creditTag.name for creditTag in creditTagOptions" ></select>
                 &nbsp; <a ng-click="addCreditTag()">&nbsp;<i class="icon-plus icon-white"></i></a>
                 <br>

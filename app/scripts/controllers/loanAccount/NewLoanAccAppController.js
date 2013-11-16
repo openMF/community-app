@@ -5,6 +5,7 @@
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
+            scope.restrictDate = new Date();
             scope.formData = {};
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals

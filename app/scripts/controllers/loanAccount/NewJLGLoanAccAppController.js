@@ -5,6 +5,7 @@
             scope.previewRepayment = false;
             scope.groupId = routeParams.groupId;
             scope.formData = {};
+            scope.restrictDate = new Date();
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = { resourceType:'template', templateType:'jlgbulk', lendingStrategy:300 };

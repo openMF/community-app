@@ -7,13 +7,13 @@
 		</ul>
 	</div>
 	<form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+		<api-validate></api-validate>
 		<fieldset>
 			<legend>{{'label.upload.client.document' | translate}}</legend>
-
 			<div class="control-group">
 				<label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="text" name="name" ng-model="formData.name" required late-Validate/>
+					<input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
 					<span  ng-show="clientidentifierform.name.$invalid">
 	                    <small class="error" ng-show="clientidentifierform.name.$error.req">
 	                        Required Field
@@ -23,9 +23,9 @@
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="file">{{'label.select.file' | translate}}<span class="required">*</span></label>
+				<label class="control-label" id="file" for="file">{{'label.select.file' | translate}}<span class="required">*</span></label>
 				<div class="controls">
-					<input type="file" ng-file-select="onFileSelect($files)">
+					<input type="file" id="file" ng-file-select="onFileSelect($files)">
 				</div>
 			</div>
 

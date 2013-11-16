@@ -20,8 +20,8 @@
 		<table class="table" ng-hide="hideview">
 	        <thead>
 	            <tr class="graybg">
-	                <th>Currency Name</th>
-	                <th>Currency Code</th>
+	                <th>{{'label.currencyname' | translate}}</th>
+	                <th>{{'label.currencycode' | translate}}</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -37,14 +37,15 @@
              ng-model="selected" 
              placeholder="New Currency"
              type="text"
+             ng-autofocus="true"
              typeahead="item as item.displayLabel for item in allCurrOptions | filter:$viewValue | limitTo:8" />&nbsp;&nbsp;<a ng-click='addCur()'><i class="icon-plus"></i></a>
 
          	<div ng-repeat="currency in selectedCurrOptions">
     			<input disabled="" class="form-control input-xxlarge" placeholder={{currency.displayLabel}}} type="text"/>&nbsp;&nbsp;<a ng-click='deleteCur(currency.code)'><i class="icon-remove"></i></a>
             </div>
             <div class="offset5">
-                <button type="reset" ng-click="cancel()" class="btn">Cancel</button>
-                <button type="submit" ng-click="submit()" class="btn btn-primary">Save</button>
+                <button type="reset" ng-click="cancel()" class="btn">{{'label.cancel' | translate}}</button>
+                <button type="submit" ng-click="submit()" class="btn btn-primary">{{'label.save' | translate}}</button>
             </div>
         </div>  
     </div>

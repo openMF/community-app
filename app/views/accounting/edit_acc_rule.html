@@ -7,25 +7,27 @@
           <li class="active">{{'label.accounting.rule.edit.title' | translate}}</li>
         </ul>
       </div>
-      <form class="form-horizontal well" ng-submit="submit()">
+      <api-validate></api-validate>
+      <form name="editaccountruleform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <fieldset>
           <legend>{{ 'label.accounting.rule.edit.title' | translate }}</legend>
           <div class="control-group">
-            <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}</label>
+            <label class="control-label" for="name">{{ 'label.accounting.rule.name' | translate }}<span class="required">*</span></label>
             <div class="controls">
-              <input type="text" id="name" ng-model="formData.name">
+              <input type="text" ng-autofocus="true" id="name" name="name" ng-model="formData.name" required late-Validate/>
+              <form-validate valattributeform="editaccountruleform" valattribute="name"/>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="office">{{ 'label.office' | translate }}</label>
+            <label class="control-label">{{ 'label.office' | translate }}</label>
             <div class="controls">
-              <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+              <select ng-model="formData.officeId" id="officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label" for="description">{{ 'label.description' | translate }}</label>
+            <label class="control-label">{{ 'label.description' | translate }}</label>
             <div class="controls">
-              <input type="text" ng-model="formData.description">
+              <input type="text" id="description" ng-model="formData.description">
             </div>
           </div>
           <div class="control-group">
@@ -58,7 +60,7 @@
                       <select class="input-medium" ng-model="formData.accountToCredit" ng-options="creditAccount.name for creditAccount in glAccounts" ></select>
                     </div>
                     <div ng-show="creditRuleType=='tags'">
-                      <label for="allowMultipleCreditEntries">{{ 'label.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
+                      <label>{{ 'label.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
                       <select class="input-medium" ng-model="formData.creditTagTemplate" ng-options="creditTag.name for creditTag in creditTagOptions" ></select>
                       &nbsp; <a ng-click="addCreditTag()">&nbsp;<i class="icon-plus icon-white"></i></a>
                       <br>
@@ -73,7 +75,7 @@
                       <select class="input-medium" ng-model="formData.accountToDebit" ng-options="debitAccount.name for debitAccount in glAccounts" ></select>
                     </div>
                     <div ng-show="debitRuleType=='tags'">
-                      <label for="allowMultipleDebitEntries">{{ 'label.allowMultipleDebitEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleDebitEntries"></label>
+                      <label>{{ 'label.allowMultipleDebitEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleDebitEntries"></label>
                       <select class="input-medium" ng-model="formData.debitTagTemplate" ng-options="debitTag.name for debitTag in debitTagOptions" ></select>
                       &nbsp; <a ng-click="addDebitTag()">&nbsp;<i class="icon-plus icon-white"></i></a>
                       <br>

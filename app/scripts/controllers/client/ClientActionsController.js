@@ -5,8 +5,9 @@
         scope.action = routeParams.action || "";
         scope.clientId = routeParams.id;
         scope.formData = {};
+        scope.restrictDate = new Date();
 
-        // Transaction UI Related
+         // Transaction UI Related
 
         switch (scope.action) {
           case "activate":

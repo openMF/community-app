@@ -76,6 +76,9 @@
             scope.group = '';
             scope.center = '';
             scope.client = '';
+            scope.centers='';
+            scope.clients= '';
+            scope.groups='';
             scope.groupsOrCenters = '';
             scope.isCollapsed = true;
             scope.officerCollapsed = false;
@@ -110,6 +113,8 @@
             scope.centerCollapsed = false;
             scope.clientCollapsed = true;
             scope.groupCollapsed = true;
+            scope.clients= '';
+            scope.groups='';
             if(scope.office=='' && scope.group=='' && scope.center=='' && scope.client==''){
                 resourceFactory.employeeResource.get({staffId: staffId} , function(data) {
                     scope.staff = data;
@@ -129,6 +134,7 @@
             scope.filterText = '';
             scope.groupName = '';
             scope.clientName = '';
+            scope.clients= '';
             scope.centerName = centerName;
             scope.isCollapsed = true;
             scope.officerCollapsed = true;

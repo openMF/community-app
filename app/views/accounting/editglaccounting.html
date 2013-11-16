@@ -7,17 +7,19 @@
       <li class="active">{{'label.editglaccount' | translate}}</li>
     </ul>
   </div>
-  <form class="form-horizontal well" ng-submit="submit()">
+  <api-validate></api-validate>
+  <form name="editglaccountingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
     <fieldset>
-      <legend>Edit GL Account</legend>
+      <legend>{{'label.editglaccount' | translate}}</legend>
       
       <table width="100%">
         <tr>
           <td>
             <div class="control-group">
-              <label class="control-label" for="name">{{'label.accountname' | translate}}</label>
+              <label class="control-label" for="name">{{'label.accountname' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                  <input type="text" id="name" ng-model="formData.name">
+                  <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
+                  <form-validate valattributeform="editglaccountingform" valattribute="name"/>
                 </div>
             </div>
           </td>
@@ -25,9 +27,10 @@
         <tr>
           <td>
             <div class="control-group">
-              <label class="control-label" for="glCode">{{'label.glcode' | translate}}</label>
+              <label class="control-label" for="glCode">{{'label.glcode' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                  <input type="text" id="glCode" ng-model="formData.glCode">
+                  <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required late-Validate/>
+                  <form-validate valattributeform="editglaccountingform" valattribute="glCode"/>
                 </div>
             </div>
           </td>
@@ -37,7 +40,7 @@
             <div class="control-group">
               <label class="control-label" for="type">{{ 'label.accounttype' | translate }}</label>
               <div class="controls">
-                <select ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
+                <select id="type" ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
               </div>
             </div>
           </td>
@@ -47,7 +50,7 @@
             <div class="control-group">
               <label class="control-label" for="tag">{{'label.tag' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.tagId"  ng-options="tag.id as tag.name for tag in tags" value="{{tag.id}}">
+                <select id="tagId" ng-model="formData.tagId"  ng-options="tag.id as tag.name for tag in tags" value="{{tag.id}}">
                   <option value="">{{'label.select.tag' | translate}}</option>
                 </select>
               </div>
@@ -59,7 +62,7 @@
             <div class="control-group">
               <label class="control-label" for="usage">{{'label.accountusage' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+                <select id="usage" ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
               </div>
             </div>
           </td>
@@ -69,7 +72,7 @@
             <div class="control-group">
               <label class="control-label" for="parent">{{'label.parent' | translate}}</label>
               <div class="controls">
-                <select ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+                <select id="parentId" ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
                   <option value="">{{'label.select.parent' | translate}}</option>
                 </select>
               </div>
@@ -102,8 +105,8 @@
 
       
       <div class="offset3">
-        <a href="#/viewglaccount/{{glAccountId}}"><button type="reset" class="btn">Cancel</button></a>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="#/viewglaccount/{{glAccountId}}"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
+        <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
       </div>
       
     </fieldset>

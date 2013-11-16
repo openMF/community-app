@@ -5,15 +5,17 @@
     </ul>
 </div>
 <form class="form-horizontal well" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
+    <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.bulkloanreassignment' | translate}}</legend>
         <table>
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.form.office' | translate }}</label>
+                        <label class="control-label" >{{ 'label.form.office' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <select name="office" id="office" ng-model="officeIdTemp" data-ng-options="office.id as office.name for office in offices" data-ng-change="getOfficers()">
+                                <option value="">{{'label.select.office' | translate}}</option>
                             </select>
                         </div>
                     </div>
@@ -22,9 +24,9 @@
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label">{{ 'label.assignmentdate' | translate }}</label>
+                        <label class="control-label">{{ 'label.assignmentdate' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                            <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                         </div>
                     </div>
                 </td>
@@ -32,18 +34,20 @@
             <tr data-ng-show="officerChoice">
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.fromloanofficer' | translate }}</label>
+                        <label class="control-label" >{{ 'label.fromloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <select ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
+                            <select id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
+                                <option value="">{{'label.select.one' | translate}}</option>
                             </select>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.toloanofficer' | translate }}</label>
+                        <label class="control-label" >{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
-                            <select ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
+                            <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
+                                <option value="">{{'label.select.one' | translate}}</option>
                             </select>
                         </div>
                     </div>
@@ -91,8 +95,8 @@
             </div>
         </div>
         <div class="offset3">
-            <a href="#/offices"><button type="reset" class="btn">Cancel</button></a>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="#/offices"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
         </div>
     </fieldset>
 </form>

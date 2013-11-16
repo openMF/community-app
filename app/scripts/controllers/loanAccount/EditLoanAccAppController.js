@@ -7,6 +7,7 @@
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.collaterals = [];
+            scope.restrictDate = new Date();
 
             resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting'}, function(data) {
                   scope.loanaccountinfo = data;

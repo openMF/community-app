@@ -113,10 +113,12 @@
             put: {method: 'PUT', params: {}}
           }),
           loanChargeTemplateResource: defineResource(apiVer + "/loans/:loanId/charges/template", {loanId:'@loanId'}, {
-            get: {method: 'GET', params: {}},
+            get: {method: 'GET', params: {}}
+          }),
+          loanChargesResource: defineResource(apiVer + "/loans/:loanId/charges/:chargeId", {loanId:'@loanId',chargeId:'@chargeId'}, {
           }),
           loanCollateralTemplateResource: defineResource(apiVer + "/loans/:loanId/collaterals/template", {loanId:'@loanId'}, {
-            get: {method: 'GET', params: {}},
+            get: {method: 'GET', params: {}}
           }),
           loanTrxnsTemplateResource: defineResource(apiVer + "/loans/:loanId/transactions/template", {loanId:'@loanId'}, {
               get: {method: 'GET', params: {}}
@@ -268,6 +270,10 @@
           guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId:'@loanId',templateResource:'@templateResource'}, {
             get: {method: 'GET', params: {}},
             update: {method: 'PUT', params: {}}
+          }),
+          checkerInboxResource: defineResource(apiVer + "/makercheckers/:templateResource", {templateResource:'@templateResource'}, {
+            get: {method: 'GET', params: {}},
+            search: {method: 'GET', params: {},isArray:true}
           })
 
         };

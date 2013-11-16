@@ -1,9 +1,9 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal) {
-      scope.$broadcast('LoanAccountDataLoadingStartEvent');
+      ViewLoanDetailsController: function(scope, routeParams, resourceFactory, location, route, http,$modal,dateFilter,API_VERSION) {
       scope.loandocuments = [];
-
+      scope.date = {};
+      scope.date.payDate = new Date();
       scope.clickEvent = function(eventName, accountId) {
         eventName = eventName || "";
         switch (eventName) {
@@ -72,6 +72,82 @@
           break;
         }
       };
+
+      scope.pay = function (id) {
+            $modal.open({
+                templateUrl: 'pay.html',
+                controller: PayCtrl,
+                resolve:{
+                    items: function () {
+                        return id;
+                    }
+                }
+            });
+      };
+
+      var PayCtrl = function ($scope, $modalInstance,items) {
+        $scope.approve = function () {
+            var reqDate = dateFilter(scope.date.payDate,'dd MMMM yyyy');
+            var payData = {};
+            payData.transactionDate = reqDate;
+            payData.locale = 'en';
+            payData.dateFormat = 'dd MMMM yyyy';
+            resourceFactory.loanChargesResource.save({loanId: routeParams.id,chargeId:items,command:'pay'}, payData, function(data) {
+                route.reload();
+            });
+            $modalInstance.close('pay');
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+      };
+      scope.waive = function (id) {
+        $modal.open({
+            templateUrl: 'waive.html',
+            controller: WaiveCtrl,
+            resolve:{
+                id: function () {
+                    return id;
+                }
+            }
+        });
+      };
+
+      var WaiveCtrl = function ($scope, $modalInstance,id) {
+            $scope.waived = function () {
+                resourceFactory.loanChargesResource.save({loanId: routeParams.id,chargeId:id,command:'waive'}, {}, function(data) {
+                    route.reload();
+                });
+                $modalInstance.close('waived');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+      };
+        scope.delCharge = function (id) {
+            $modal.open({
+                templateUrl: 'delcharge.html',
+                controller: DelChargeCtrl,
+                resolve:{
+                    ids: function () {
+                        return id;
+                    }
+                }
+            });
+        };
+
+        var DelChargeCtrl = function ($scope, $modalInstance,ids) {
+            $scope.delete = function () {
+                resourceFactory.LoanAccountResource.delete({loanId : routeParams.id, resourceType : 'charges', chargeId : ids}, {}, function(data) {
+                    route.reload();
+                });
+                $modalInstance.close('delete');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
+
       resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function(data) {
           scope.loandetails = data;
           scope.guarantorDetails = data.guarantors;
@@ -80,17 +156,30 @@
 
           if(scope.loandetails.charges) {
             scope.charges = scope.loandetails.charges;
+              for(var i in scope.charges){
+                 if(scope.charges[i].paid || scope.charges[i].waived ||scope.charges[i].chargeTimeType.value=='Disbursement' || scope.loandetails.status.value!='Active')
+                 {
+                     var actionFlag = true;
+                 }
+                 else
+                 {
+                     var actionFlag = false;
+                 }
+                 scope.charges[i].actionFlag = actionFlag;
+              }
+
             scope.chargeTableShow = true;
-          } else {
+          }
+          else {
             scope.chargeTableShow = false;
           }
           
-          scope.$broadcast('LoanAccountDataLoadingCompleteEvent');
           if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
               scope.choice = true;
           }
               if (data.status.value == "Submitted and pending approval") {
-            scope.buttons = { singlebuttons : [{
+            scope.buttons = { singlebuttons : [
+                              {
                                 name:"button.addloancharge",
                                 icon :"icon-plus-sign"
                               },
@@ -99,18 +188,21 @@
                                 icon :"icon-link"
                               },
                               {
-                                name:"button.assignloanofficer",
-                                icon :"icon-user"
+                                name:"button.approve",
+                                icon :"icon-ok"
+                              },
+                              {
+                                name:"button.modifyapplication",
+                                icon :"icon-edit"
+                              },
+                              {
+                                name:"button.reject",
+                                icon :"icon-remove"
                               }
                             ],
-                              options: [{
-                                name:"button.modifyapplication",
-                              },
+                              options: [
                               {
-                                name:"button.approve"
-                              },
-                              {
-                                name:"button.reject"
+                                name:"button.assignloanofficer"
                               },
                               {
                                 name:"button.withdrawnbyclient"
@@ -231,7 +323,7 @@
         scope.selectedTemplate = templateId;
         http({
           method:'POST',
-          url: 'https://demo.openmf.org/mifosng-provider/api/v1/templates/'+templateId+'?loanId='+routeParams.id,
+          url: API_VERSION + '/templates/'+templateId+'?loanId='+routeParams.id,
           data: {}
         }).then(function(data) {
           scope.template = data.data;
@@ -288,7 +380,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
+ mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http','$modal','dateFilter','API_VERSION', mifosX.controllers.ViewLoanDetailsController]).run(function($log) {
     $log.info("ViewLoanDetailsController initialized");
   });
 }(mifosX.controllers || {}));

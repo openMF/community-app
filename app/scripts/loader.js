@@ -2,9 +2,7 @@
     require.config({
         paths: {
             'jquery':           '../bower_components/jquery/jquery',
-            'jquery-ui':        '../bower_components/jquery-ui/ui/jquery-ui',
             'data-tables':      '../bower_components/datatables/media/js/jquery.dataTables',
-            'blockUI':          '../bower_components/blockui/jquery.blockUI',
             'angular':          '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-translate':'../bower_components/angular-translate/angular-translate',
@@ -18,11 +16,12 @@
             'require-less':     '../bower_components/require-less/less',
             'd3':               '../bower_components/d3/d3',
             'nvd3':             '../bower_components/nvd3/nv.d3',
-            'nvd3ChartDirectives':'../scripts/directives/angularjs-nvd3-directives',
+            'nvd3ChartDirectives':'../scripts/modules/angularjs-nvd3-directives',
             'styles':           '../styles',
             'test':             '../../test/functional',
             'notificationWidget':'../scripts/modules/notificationWidget',
             'modified.datepicker':'../scripts/modules/datepicker',
+            'configurations':'../scripts/modules/configurations',
             'angularFileUpload':'../bower_components/angularjs-file-upload/angular-file-upload',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor':         '../bower_components/ckeditor/ckeditor'
@@ -36,10 +35,10 @@
             'angularuitpls': { deps: ['angular' ,'angularui' ] },
             'angular-mocks': { deps: ['angular'] },
             'webstorage': { deps: ['angular'] },
-            'jquery-ui': { deps: ['jquery'] },
             'd3': {exports: 'd3'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
+            'configurations':{deps: ['angular']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
             'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
             'modified.datepicker':{deps: ['angular']},
@@ -56,14 +55,13 @@
                     'angularuitpls',
                     'webstorage',
                     'data-tables',
-                    'blockUI',
-                    'jquery-ui',
                     'nvd3ChartDirectives',
                     'notificationWidget',
                     'angularFileUpload',
                     'modified.datepicker',
                     'ngSanitize',
-                    'ckEditor'
+                    'ckEditor',
+                    'configurations'
                 ],
                 exports: 'mifosX'
             }

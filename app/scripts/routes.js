@@ -326,6 +326,9 @@
       .when('/new_group_saving_application/:groupId', {
         templateUrl: 'views/savings/new_saving_account_application.html'
       })
+      .when('/new_group_saving_application/:groupId/:centerEntity', {
+        templateUrl: 'views/savings/new_saving_account_application.html'
+      })
       .when('/new_jlg_saving_application/:groupId/:clientId', {
         templateUrl: 'views/savings/new_saving_account_application.html'
       })
@@ -448,6 +451,9 @@
       })
       .when('/guarantor/:id', {
         templateUrl: 'views/loans/guarantor.html'
+      })
+      .when('/viewcheckerinbox/:id',{
+        templateUrl: 'views/system/viewcheckerinbox.html'
       })
       .when('/editguarantor/:id/:loanId',{
         templateUrl: 'views/loans/editguarantor.html'

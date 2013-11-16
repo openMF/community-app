@@ -1,4 +1,4 @@
-<form class="form-horizontal well" ng-controller="CreateRoleController" ng-submit="submit()">
+<div ng-controller="CreateRoleController">
 	<div>
 		<ul class="breadcrumb">
 			<li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
@@ -6,26 +6,31 @@
 			<li class="active">{{'label.addrole' | translate}}</li>
 		</ul>
 	</div>
-	<fieldset>
-		<legend>{{'label.addrole' | translate}}</legend>
+	<form name="addroleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+		<api-validate></api-validate>
+		<fieldset>
+			<legend>{{'label.addrole' | translate}}</legend>
 
-		<div class="control-group">
-			<label class="control-label" for="name">{{'label.name' | translate}}</label>
-			<div class="controls">
-				<input type="text" ng-model="formData.name" required="required">
+			<div class="control-group">
+				<label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<input id="name" type="text" name="name" ng-model="formData.name" required late-Validate/>
+		            <form-validate valattributeform="addroleform" valattribute="name"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="control-group">
-			<label class="control-label" for="description">{{'label.description' | translate}}</label>
-			<div class="controls">
-				<textarea rows="2" ng-model="formData.description"  required="required"></textarea>
+			<div class="control-group">
+				<label class="control-label" name="" for="description">{{'label.description' | translate}}<span class="required">*</span></label>
+				<div class="controls">
+					<textarea id="description" type="text" rows="2" name="description" ng-model="formData.description"  required late-Validate/>
+					<form-validate valattributeform="addroleform" valattribute="description"/>
+				</div>
 			</div>
-		</div>
 
-		<div class="offset3">
-			<a href="#/admin/roles"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
-			<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
-		</div>
-	</fieldset>
-</form>
+			<div class="offset3">
+				<a href="#/admin/roles"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
+				<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
+			</div>
+		</fieldset>
+	</form>
+</div>

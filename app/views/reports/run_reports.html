@@ -1,4 +1,5 @@
 <div class="row alert-block form-horizontal span" ng-controller="RunReportsController">
+    <api-validate></api-validate>
     <div class="row alert-block span" >
         <h3><b>{{reportName}}</b>&nbsp;<a class="btn" ng-show="checkStatus()" ng-click="isCollapsed=!isCollapsed"><i class="icon-sort-down icon-white"></i></a></h3>
     </div>
@@ -8,7 +9,7 @@
         <div class="control-group info"  ng-repeat="reportParam in reportParams">
             <label class="control-label" for="{{reportParam.variable}}">{{ reportParam.label }}</label>
             <div class="controls">
-              <select class="input-xlarge" ng-model="formData[reportParam.inputName]" ng-change="getDependencies(reportParam)" required>
+              <select id="{{reportParam.inputName}}" class="input-xlarge" ng-model="formData[reportParam.inputName]" ng-change="getDependencies(reportParam)" required>
                 <option ng-show="reportParam.selectAll == 'Y'" value="-1">All</option>
                 <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">{{selectOption.name}}</option>
               </select>
@@ -17,21 +18,21 @@
         <div class="control-group info"  ng-repeat="reportDateParam in reportDateParams">
             <label class="control-label" for="{{reportDateParam.variable}}">{{ reportDateParam.label }}</label>
             <div class="controls">
-                <input type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             </div>
         </div>
         <div class="control-group info" ng-show="reportType == 'Pentaho'" >
             <label class="control-label" for="outputType">{{ 'label.report.output.type' | translate }}</label>
             <div class="controls">
               <select class="input-xlarge" ng-model="formData.outputType">
-                <option value="HTML">Show Report</option>
-                <option value="XLS">Export Excel Format</option>
-                <option value="CSV">Export CSV Format</option>
-                <option value="PDF">PDF Format</option>
+                <option value="HTML">{{ 'label.showreport' | translate }}</option>
+                <option value="XLS">{{ 'label.exportexcel' | translate }}</option>
+                <option value="CSV">{{ 'label.exportcsv' | translate }}</option>
+                <option value="PDF">{{ 'label.pdfformat' | translate }}</option>
               </select>
             </div>
         </div>
-        <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;Run</a></span> 
+        <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;{{ 'label.run' | translate }}</a></span>
     </div>
 
     <div collapse="hideTable" class="row alert-block span tab-content">

@@ -6,7 +6,11 @@
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
             scope.first = {};
-
+            scope.errorcreditevent = false;
+            scope.errordebitevent = false;
+            scope.creditaccounttemplate = false;
+            scope.debitaccounttemplate = false;
+            scope.restrictDate = new Date();
             resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
               scope.glAccounts = data;
             });
@@ -23,8 +27,18 @@
             //events for credits
             scope.addCrAccount = function () {
               if(scope.formData.crAmountTemplate != undefined){
-                scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName : scope.formData.creditAccountTemplate.name , crAmount : scope.formData.crAmountTemplate});
-                scope.formData.crAmountTemplate = undefined;
+                scope.errorcreditevent = false;
+                if (scope.formData.creditAccountTemplate) {
+                  scope.creditaccounttemplate = false;
+                  scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName : scope.formData.creditAccountTemplate.name , crAmount : scope.formData.crAmountTemplate});
+                  scope.formData.crAmountTemplate = undefined;
+                } else {
+                  scope.creditaccounttemplate = true;
+                  scope.labelcrediterror = 'selectcredit';
+                }
+              } else {
+                scope.errorcreditevent = true;
+                scope.labelcrediterror = 'requiredfield';
               }
             }
 
@@ -35,8 +49,18 @@
             //events for debits
             scope.addDebitAccount = function () {
               if(scope.formData.debitAmountTemplate != undefined){
-                scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName : scope.formData.debitAccountTemplate.name , debitAmount : scope.formData.debitAmountTemplate});
-                scope.formData.debitAmountTemplate = undefined;
+                scope.errordebitevent = false;
+                if (scope.formData.debitAccountTemplate) {
+                  scope.debitaccounttemplate = false;
+                  scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName : scope.formData.debitAccountTemplate.name , debitAmount : scope.formData.debitAmountTemplate});
+                  scope.formData.debitAmountTemplate = undefined;
+                } else {
+                    scope.debitaccounttemplate = true;
+                    scope.labeldebiterror = 'selectdebit';
+                }
+              } else {
+                scope.errordebitevent = true;
+                scope.labeldebiterror = 'requiredfield';
               }
             }
 

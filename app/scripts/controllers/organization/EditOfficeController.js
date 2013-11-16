@@ -3,6 +3,7 @@
     EditOfficeController: function(scope, routeParams, resourceFactory, location,dateFilter) {
         scope.formData = {};
         scope.first = {};
+        scope.restrictDate = new Date();
         resourceFactory.officeResource.get({officeId: routeParams.id, template: 'true'} , function(data) {
             if(data.openingDate){
             var editDate = dateFilter(data.openingDate,'dd MMMM yyyy');

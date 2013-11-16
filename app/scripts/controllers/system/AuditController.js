@@ -1,12 +1,21 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        AuditController: function(scope, resourceFactory,dateFilter) {
+        AuditController: function(scope, resourceFactory,dateFilter,location) {
             scope.formData = [];
             scope.isCollapsed = true;
             scope.date = {};
             resourceFactory.auditResource.get({templateResource: 'searchtemplate'} , function(data) {
                 scope.template = data;
             });
+            scope.viewUser = function(item){
+                scope.userTypeahead = true;
+                scope.formData.user = item.id;
+            };
+
+            scope.routeTo = function(id){
+                location.path('viewaudit/'+id);
+            };
+
             scope.search = function(){
                 scope.isCollapsed = true;
                 scope.displayResults = true;
@@ -34,12 +43,17 @@
                 if (scope.date.fourth) { params.checkerDateTimeTo = reqFourthDate; };
                 resourceFactory.auditResource.search(params , function(data) {
                     scope.searchData = data;
+                    if(scope.userTypeahead){
+                        scope.formData.user = '';
+                        scope.userTypeahead = false;
+                        scope.user = '';
+                    }
                 });
 
             };
         }
     });
-    mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter', mifosX.controllers.AuditController]).run(function($log) {
+    mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter','$location', mifosX.controllers.AuditController]).run(function($log) {
         $log.info("AuditController initialized");
     });
 }(mifosX.controllers || {}));

@@ -4,12 +4,15 @@
             scope.template = [];
             scope.center = [];
             scope.first = {};
+            scope.formData = {};
+            scope.restrictDate = new Date();
             scope.first.date = new Date();
             resourceFactory.centerResource.get({centerId: routeParams.id,associations:'groupMembers,collectionMeetingCalendar'} , function(data) {
                 scope.center = data;
             });
             resourceFactory.centerTemplateResource.get({command:'close'}, function(data){
                 scope.template = data;
+                scope.formData.closureReasonId = data.closureReasons[0].id;
             });
 
             scope.closeGroup = function(){

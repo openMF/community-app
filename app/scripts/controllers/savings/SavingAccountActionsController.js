@@ -6,7 +6,7 @@
         scope.accountId = routeParams.id;
         scope.savingAccountId = routeParams.id;
         scope.formData = {};
-
+        scope.restrictDate = new Date();
         // Transaction UI Related
         scope.isTransaction = false;
         scope.showPaymentDetails =false;
@@ -142,6 +142,10 @@
           break;
         }
 
+        scope.cancel = function () {
+          location.path('/viewsavingaccount/' + data.savingsId);
+        }
+        
         scope.submit = function() {
           var params = {command:scope.action};
           if (scope.action != "undoapproval") {

@@ -5,15 +5,10 @@
     </ul>
     <div class="row-fluid" >
         <span class="input-append grpinputicons" >
-                <span><a ng-click="isCollapsed = !isCollapsed" class="btn  control">{{'label.searchoptions' | translate}}<i class="icon-chevron-down"></i></a></span>
-                <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+            <input ng-autofocus="true" typeahead-on-select="viewUser($item)" placeholder="{{'label.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
+            <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
+            <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
-    </div>
-    <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
-        <p>
-            <img alt="loading" src="images/loader.gif"/>&nbsp;
-        </p>
-    </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="control-group">
             <div class="controls">
@@ -26,22 +21,13 @@
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
+                <input type="text" class="date-disable" readonly placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <select ng-model="formData.user">
-                    <option value="">--Select User--</option>
-                    <option selected="selected" value="ALL">All</option>
-                    <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
-                </select>
+                <input type="text" class="date-disable" readonly placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
@@ -79,14 +65,15 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="text" placeholder="{{'label.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                <input type="text" class="date-disable" readonly placeholder="{{'label.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
              <div class="controls">
-                 <input type="text" placeholder="{{'label.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
+                 <input type="text" class="date-disable" readonly placeholder="{{'label.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
              </div>
         </div>
+        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.advancesearch' | translate}}</a></span>
     </div>
     <div ng-show="displayResults" class="row-fluid">
         <table class="table">
@@ -97,17 +84,15 @@
                 <th>{{'label.user' | translate}}</th>
                 <th>{{'label.action' | translate}}</th>
                 <th>{{'label.entity' | translate}}</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="data in searchData">
-                <td>{{data.id}}</td>
-                <td>{{data.processingResult}}</td>
-                <td>{{data.maker}}</td>
-                <td>{{data.actionName}}</td>
-                <td>{{data.entityName}}</td>
-                <td><a href="#/viewaudit/{{data.id}}" class="pointer required">Details</a></td>
+            <tr class="pointer-main" ng-repeat="data in searchData">
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
             </tr>
             </tbody>
         </table>

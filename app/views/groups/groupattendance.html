@@ -1,11 +1,12 @@
 <div ng-controller="GroupAttendanceController">
     <form class="form-horizontal well">
+        <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.attendance' | translate}}</legend>
             <div class="control-group">
-                <label class="control-label">{{'label.meetingdate' | translate}}</label>
+                <label class="control-label">{{'label.meetingdate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />Next Meeting on:{{meeting.nextTenRecurringDates[0] | DateFormat}}
+                    <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'"/>Next Meeting on:{{meeting.nextTenRecurringDates[0] | DateFormat}}
                 </div>
             </div>
             <table class="table table-striped" width="100%">
@@ -21,8 +22,7 @@
                     <td>{{client.displayName}}</td>
                     <td>
                         <div>
-                            <select ng-model="tempData[client.id]">
-                                <option data-ng-repeat="attendance in attendanceOptions" value="{{attendance.id}}">{{attendance.value}}</option>
+                            <select ng-model="tempData[client.id]" ng-options="attendance.id as attendance.value for attendance in attendanceOptions" value="{{attendance.id}}">
                             </select>
                         </div>
                     </td>

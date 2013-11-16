@@ -396,14 +396,45 @@
                 <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
                 <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
                 <td></td>
-                <td ng-show="chargeAction"><a href="#/loan/{{loandetails.id}}/editcharge/{{charge.id}}"><i class="icon-pencil icon-white"></i></a>
-                <a href="#/loanaccountcharge/{{loandetails.id}}/deleteloancharge/{{charge.id}}"><i class="icon-remove icon-white"></i></a></td>
-                <td ng-hide="!chargeAction"></td>
+                <td>
+                    <a class="btn-primary" data-ng-hide="charge.actionFlag" data-ng-click="waive(charge.id)" title="waive"><i class="icon-flag icon-white"></i></a>
+                    <a class="btn-warning" data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)" title="delete"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn-success" data-ng-hide="charge.actionFlag" data-ng-click="pay(charge.id)" title="pay">{{"label.pay" | translate}}</a>
+                </td>
                 <td></td>
             </tr>
           </table>
         </tab>
-
+        <script type="text/ng-template" id="pay.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.enterpaymentdate' | translate}}</h3>
+            </div>
+            <div class="modal-body modal-big">
+                <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.payDate" is-open="opened" min="minDate" max="restrictDate"/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="waive.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.confirm' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="waived()">{{'label.confirm' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="delcharge.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.confirm' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+            </div>
+        </script>
         <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
           <div class="pull-right" data-ng-show="choice">
             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>

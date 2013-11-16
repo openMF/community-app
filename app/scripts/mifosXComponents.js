@@ -2,7 +2,8 @@ define(['underscore', 'mifosX'], function() {
   var components = {
     models: [
       'LoggedInUser',
-      'roleMap'
+      'roleMap',
+      'Langs'
     ],
     services: [
       'ResourceFactoryProvider',
@@ -151,22 +152,29 @@ define(['underscore', 'mifosX'], function() {
       'template/ViewTemplateController',
       'template/EditTemplateController',
       'loanAccount/GuarantorController',
-      'loanAccount/EditGuarantorController'
+      'loanAccount/EditGuarantorController',
+      'main/ViewCheckerinboxController'
     ],
     filters: [
       'StatusLookup',
-      'DateFormat'
+      'DateFormat',
+      'DayMonthFormat',
+      'YesOrNo'
     ],
     directives: [
       'DataTablesDirective',
-      'OverlayDirective',
       'DialogDirective',
       'PanelDirective',
       'BigPanelDirective',
       'OnBlurDirective',
       'LateValidateDirective',
       'TreeviewDirective',
-      'CkEditorDirective'
+      'CkEditorDirective',
+      'AutofocusDirective',
+      'SummaryDirective',
+      'FormValidateDirective',
+      'FormSubmitValidateDirective',
+      'ApiValidationDirective'
     ]
   };
 

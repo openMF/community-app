@@ -1,8 +1,8 @@
-    <h3 class="paddedleft">Dashboard</h3>
+    <h3 class="paddedleft">{{'label.dashboard' | translate}}</h3>
     <div data-ng-controller="SuperuserController">
         <div class="row">
             <div class="span10 paddedleft90">
-                <panelbig title="Client Trends for {{bOfficeName}} ({{chartType}})" >
+                <panelbig title="{{'label.clienttrendsfor' | translate}} {{bOfficeName}} ({{chartType}})" >
                     <div style="margin-left:40px;margin-top:40px;">
                         <nvd3-multi-bar-chart
                                 data="BarData"
@@ -15,9 +15,9 @@
                         </nvd3-multi-bar-chart>
                     </div>
                     <div>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>Week</button>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>Month</button>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>Days</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>{{'label.week' | translate}}</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>{{'label.month' | translate}}</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>{{'label.day' | translate}}</button>
                         <select class="input-small-tooltip pull-right" name="office1" ng-change="getDailyData()" id="office1" ng-model="officeId" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                             <option value="">--Office--</option>
                         </select>
@@ -25,30 +25,10 @@
                 </panelbig>
             </div>
         </div>
-        <div id="loadingWidget" class="loading-widget-div" style="padding: 0 .7em;" loading-Widget >
-            <div id="circularG">
-                <div id="circularG_1" class="circularG">
-                </div>
-                <div id="circularG_2" class="circularG">
-                </div>
-                <div id="circularG_3" class="circularG">
-                </div>
-                <div id="circularG_4" class="circularG">
-                </div>
-                <div id="circularG_5" class="circularG">
-                </div>
-                <div id="circularG_6" class="circularG">
-                </div>
-                <div id="circularG_7" class="circularG">
-                </div>
-                <div id="circularG_8" class="circularG">
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="span6 paddedleft90">
-                <panel title="Amount Collected for Today ({{cOfficeName}}) " >
-                    <h3 class="required panel-error" data-ng-show="showCollectionerror">No Data Available</h3>
+                <panel title="{{'label.amontcollectedfortoday' | translate}} ({{cOfficeName}}) " >
+                    <h3 class="required panel-error" data-ng-show="showCollectionerror">{{'label.nodata' | translate}}</h3>
                     <div data-ng-show="!showCollectionerror" style="margin-left:5px;margin-top:-20px;">
                         <nvd3-pie-chart
                                 data="collectedData"
@@ -70,8 +50,8 @@
                 </panel>
             </div>
             <div class="span6 paddedleft">
-                <panel title="Amount Disbursed for Today ({{dOfficeName}})" >
-                    <h3 class="required panel-error" data-ng-show="showDisbursementerror">No Data Available</h3>
+                <panel title="{{'label.amountdisbursedfortoday' | translate}}({{dOfficeName}})" >
+                    <h3 class="required panel-error" data-ng-show="showDisbursementerror">{{'label.nodata' | translate}}</h3>
                     <div data-ng-show="!showDisbursementerror" style="margin-left:5px;margin-top:-15px;">
                         <nvd3-pie-chart
                                 data="disbursedData"
