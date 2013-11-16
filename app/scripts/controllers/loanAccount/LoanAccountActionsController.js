@@ -45,6 +45,7 @@
             scope.modelName = 'actualDisbursementDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'disburse'}, function(data){
               scope.paymentTypes=data.paymentTypeOptions;
+              scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
               scope.formData[scope.modelName] = new Date();
             });
             scope.title = 'label.disburse.loan.account';

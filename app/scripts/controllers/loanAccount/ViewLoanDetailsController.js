@@ -218,21 +218,22 @@
         }
 
         if (data.status.value == "Approved") {
-            scope.buttons = { singlebuttons : [{
-                                name:"button.addloancharge",
-                                icon :"icon-plus-sign"
-                              },
+            scope.buttons = { singlebuttons : [
                               {
                                 name:"button.assignloanofficer",
                                 icon :"icon-user"
                               },
                               {
+                                name:"button.disburse",
+                                icon :"icon-flag"
+                              },
+                              {
                                 name:"button.undoapproval",
                                 icon :"icon-undo"
-                              },
+                              }
                             ],
                               options: [{
-                                name:"button.disburse"
+                                name:"button.addloancharge"
                               },
                               {
                                name:"button.guarantor"
