@@ -6,7 +6,7 @@ describe("UserListController", function() {
         };
 
         this.resourceFactory = {userListResource: {
-            getAllUsers: jasmine.createSpy('userResource.getAllUsers()').andCallFake(function(params, callback) {
+            getAllUsers: jasmine.createSpy('userResource.getAllUsers()').andCallFake(function(callback) {
                 resourceCallback = callback;
             })
         }};
@@ -20,6 +20,7 @@ describe("UserListController", function() {
 
     it("should populate the scope with the retrieved users", function() {
         resourceCallback(["test_user1", "test_user2"]);
+
         expect(this.scope.users).toEqual(["test_user1", "test_user2"]);
     });
 
