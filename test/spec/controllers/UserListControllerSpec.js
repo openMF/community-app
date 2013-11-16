@@ -23,5 +23,4 @@ describe("UserListController", function() {
 
         expect(this.scope.users).toEqual(["test_user1", "test_user2"]);
     });
-
 });
