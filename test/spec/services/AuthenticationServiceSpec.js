@@ -15,12 +15,12 @@ describe("AuthenticationService", function() {
 
     new mifosX.services.AuthenticationService(scope, httpService).authenticateWithUsernamePassword({
       username: "test_username",
-      password: "test_password",
+      password: "test_password"
     });
   });
 
   it("should pass the correct parameters to the post method", function() {
-    expect(httpService.post).toHaveBeenCalledWith("/authentication?username=test_username&password=test_password");
+    expect(httpService.post).toHaveBeenCalledWith("/mifosng-provider/api/v1/authentication?username=test_username&password=test_password");
   });
 
   it("should broadcast 'UserAuthenticationStartEvent'", function() {
