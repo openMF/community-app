@@ -15,8 +15,8 @@
                 scope.formData.officeId = data.officeOptions[0].id;
             });
 
-            scope.changeOffice =function(officeId) {
-                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly : false, officeId : officeId
+            scope.changeOffice =function() {
+                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly : false, officeId : scope.formData.officeId
                 }, function(data) {
                     scope.staffs = data.staffOptions;
                 });
