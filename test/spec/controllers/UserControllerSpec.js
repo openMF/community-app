@@ -24,13 +24,13 @@ describe("UserController", function() {
     expect(this.scope.$broadcast).toHaveBeenCalledWith('UserDataLoadingStartEvent');
   });
 
-  it("should call the userResource with the correct field selection", function() {
-    expect(this.resourceFactory.userResource.getAllUsers).toHaveBeenCalledWith({fields: "id,firstname,lastname,username,officeName"}, jasmine.any(Function));
-  });
+    it("should call the userResource with the correct field selection", function() {
+        expect(this.resourceFactory.userResource.getAllUsers).toHaveBeenCalledWith({fields: "id,firstname,lastname,username,officeName"}, jasmine.any(Function));
+    });
 
   it("should populate the scope with the retrieved users", function() {
     resourceCallback(["test_user1", "test_user2"]);
-    
+
     expect(this.scope.users).toEqual(["test_user1", "test_user2"]);
   });
 
