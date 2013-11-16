@@ -1,10 +1,21 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate) {
-      
-      scope.leftnav = false;
+    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService) {
+        scope.activity = {};
+        scope.activityQueue = [];
+        if(localStorageService.get('Location')){
+            scope.activityQueue = localStorageService.get('Location');
+        }
+        scope.$watch(function() {
+            return location.path();
+        }, function() {
+            scope.activity= location.path();
+            scope.activityQueue.push(scope.activity);
+            localStorageService.add('Location',scope.activityQueue);
+        });
 
-      scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
+        scope.leftnav = false;
+        scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
         location.path('/home').replace();
       });
@@ -77,6 +88,8 @@
     '$location',
     'SessionManager',
     '$translate',
+    '$rootScope',
+    'localStorageService',
     mifosX.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");

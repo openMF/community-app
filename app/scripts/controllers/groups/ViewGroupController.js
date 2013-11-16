@@ -18,12 +18,6 @@
             resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id} , function(data) {
                 scope.groupNotes = data;
             });
-            scope.deleteGrouppop = function(){
-                scope.choice = 3;
-            } ;
-            scope.delete = function(id){
-
-            };
             scope.delrole = function(id){
                 resourceFactory.groupResource.save({groupId: routeParams.id,command: 'unassignRole',roleId:id}, {}, function(data) {
                     resourceFactory.groupResource.get({groupId: routeParams.id}, function(data){
