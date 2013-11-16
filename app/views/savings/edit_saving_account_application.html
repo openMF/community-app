@@ -23,7 +23,7 @@
           </td>
         </tr>
       </table>
-      <div collapse="isCollapsed">
+      <div ng-show="data">
         <table width="80%">
           <tr class="control-group">
             <td width="50%">
@@ -131,6 +131,12 @@
                     <option style="display:none" value="">{{'label.select.charge' | translate}}</option>
                   </select>
                   <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
+                  <span  ng-show="errorchargeevent">
+                    <small class="error">
+                        {{'label.'+labelchargeerror | translate}}
+                    </small>
+                  </span>
+                </form>
                 </form>
               <table class="table" width="100%" ng-show="charges.length>0">
                 <tr class="graybg">
@@ -146,8 +152,20 @@
                   <td>{{charge.chargeCalculationType.value}}</td>
                   <td><input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"></td>
                   <td>{{charge.chargeTimeType.value}}</td>
-                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'"><input class="input-small" id="charges[{{$index}}].feeOnMonthDay" type="text" ng-model="charge.feeOnMonthDay"  ></td>{{charge.feeOnMonthDay}}
-                  <td ng-hide="charge.chargeTimeType.value=='Annual Fee'"></td>
+                  <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
+                    <input id="charges[{{$index}}].feeOnMonthDay" readonly class="date-disable" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                  </td>{{charge.feeOnMonthDay}}
+                  <td ng-show="charge.chargeTimeType.value=='Specified due date'">
+                    <input id="charges[{{$index}}].dueDate" readonly class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
+                  </td>
+                  <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+                    <input readonly class="date-disable" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                  </td>
+                  <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+                    <input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.feeInterval"/>
+                  </td>
+                  <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
+                  <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
                   <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>
               </table>
@@ -157,7 +175,7 @@
       </div>
       <div class="offset4">
         <button ng-click="cancel()" class="btn">{{ 'label.cancel' | translate }}</button>
-        <button type="submit" class="btn btn-primary" ng-show="!isCollapsed">{{ 'label.save' | translate }}</button>
+        <button type="submit" class="btn btn-primary" ng-show="data">{{ 'label.save' | translate }}</button>
       </div>
      
     </fieldset>
