@@ -8,6 +8,7 @@ describe("UserController", function() {
     this.resourceFactory = {userResource: {
       getAllUsers: jasmine.createSpy('userResource.getAllUsers()').andCallFake(function(params, callback) {
         resourceCallback = callback;
+          console.log(callback);
       })
     }};
 
