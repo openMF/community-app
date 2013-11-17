@@ -2,24 +2,21 @@
   var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider) {
      
 	 var mainLink = getLocation(window.location.href);
-    // Fix API URL?
     if (mainLink.hostname == "localhost" || mainLink.hostname == "" || mainLink.hostname == null || QueryParameters["baseApiUrl"]) {
 		var baseApiUrl = "";
 		if(QueryParameters["baseApiUrl"]) {
 		    baseApiUrl = QueryParameters["baseApiUrl"];
 		}
 		else{
-			baseApiUrl = 'https://demo.openmf.org';
+		    baseApiUrl = 'https://demo.openmf.org';
 		}
 		var queryLink = getLocation(baseApiUrl);
 		host = "https://" + queryLink.hostname;
 		if(host.toLowerCase().indexOf("localhost") >= 0)
 		    host = host.concat(':8443\:8443');
-		console.log(host);
         ResourceFactoryProvider.setBaseUrl(host);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
 			host = host.replace(":8443","");
-			console.log(host+config.url);
             return _.extend(config, {url: host + config.url });
         });
 
