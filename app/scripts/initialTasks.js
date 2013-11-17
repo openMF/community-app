@@ -1,14 +1,29 @@
 (function(mifosX) {
-  var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider,TENANT ,CONTENT_TYPE , HOST, API_URL_OVERRIDE ) {
-
+  var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider) {
+     
+	 var mainLink = getLocation(window.location.href);
     // Fix API URL?
-    if (API_URL_OVERRIDE  === 'true') {
-        ResourceFactoryProvider.setBaseUrl(HOST);
+    if (mainLink.hostname == "localhost" || mainLink.hostname == "" || mainLink.hostname == null || QueryParameters["baseApiUrl"]) {
+		var baseApiUrl = "";
+		if(QueryParameters["baseApiUrl"]) {
+		    baseApiUrl = QueryParameters["baseApiUrl"];
+		}
+		else{
+			baseApiUrl = 'https://demo.openmf.org';
+		}
+		var queryLink = getLocation(baseApiUrl);
+		host = "https://" + queryLink.hostname;
+		if(host.toLowerCase().indexOf("localhost") >= 0)
+		    host = host.concat(':8443\:8443');
+		console.log(host);
+        ResourceFactoryProvider.setBaseUrl(host);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
-            return _.extend(config, {url: HOST + config.url });
+			host = host.replace(":8443","");
+			console.log(host+config.url);
+            return _.extend(config, {url: host + config.url });
         });
 
-        $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+        $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
 
      }
      else{
@@ -18,7 +33,7 @@
           domains = hostname.split('.');
           console.log('domains---'+domains);
           if(domains[0] == "demo"){
-                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
+                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
                   console.log("demo server",domains[0]);
           }
           else{
@@ -33,7 +48,7 @@
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   	//Set headers
-    $httpProvider.defaults.headers.common['Content-Type'] = CONTENT_TYPE;
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 
     // Configure i18n and preffer language
  	  //$translateProvider.translations('en', translationsEN);
@@ -52,3 +67,25 @@
     $log.info("Initial tasks are done!");
   });
 }(mifosX || {}));
+
+getLocation = function(href) {
+    var l = document.createElement("a");
+    l.href = href;
+    return l;
+};
+
+QueryParameters = (function()
+{
+    var result = {};
+    if (window.location.search)
+    {
+        // split up the query string and store in an associative array
+        var params = window.location.search.slice(1).split("&");
+        for (var i = 0; i < params.length; i++)
+        {
+            var tmp = params[i].split("=");
+            result[tmp[0]] = unescape(tmp[1]);
+        }
+    }
+    return result;
+}());
