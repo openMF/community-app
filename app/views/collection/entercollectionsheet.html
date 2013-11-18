@@ -1,20 +1,23 @@
-<form class="form-horizontal well" ng-controller="EnterCollectionSheetController">
+<form name="collectionsheetform" novalidate class="form-horizontal well" ng-controller="EnterCollectionSheetController" rc-submit="">
+  <api-validate></api-validate>
   <fieldset>
     <div class="control-group">
-      <label class="control-label">{{ 'label.branchoffice' | translate }}</label>
+      <label class="control-label">{{ 'label.branchoffice' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <select id="officeId" ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"  ng-change="officeSelected(officeId)">
+        <select id="officeId" ng-model="officeId" name="office"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"  ng-change="officeSelected(officeId)" required>
           <option value="">{{'label.select.office' | translate}}</option>
         </select>
+        <form-validate valattributeform="collectionsheetform" valattribute="office"/>
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.center' | translate }}</label>
+      <label class="control-label">{{ 'label.center' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <select id="centerId" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)">
+        <select id="centerId" name="center" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)" required>
           <option value="">{{'label.select.center' | translate}}</option>
         </select>
+        <form-validate valattributeform="collectionsheetform" valattribute="center"/>
       </div>
     </div>
 
@@ -28,19 +31,14 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.meetingcalendar' | translate }}</label>
+      <label class="control-label">{{ 'label.meetingcalendar' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <input id="transactionDate" type="text" ng-model="formData.transactionDate">
+        <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy" ng-model="date.transactionDate" is-open="opened"/>
       </div>
     </div>
-
     <div>
-      <span>
-    		<a class="ng-binding" ng-click="previewCollectionSheet()" ng-hide="previewRepayment">
-                {{'label.collectionsheet' | translate}}
-    		<i class="icon-circle-arrow-right"></i>
-    		</a>
-      </span>
+      <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.collectionsheet' | translate}}
+        <i class="icon-circle-arrow-right"></i></button>
     </div>
     <div></div>
     <div style="float:left; max-width:850px; min-width:50px; overflow-x:auto!important; white-space:nowrap;">
@@ -136,7 +134,7 @@
       </table>
     </div>
     <div class="span12 paddedtop10">
-      <div class="offset6 paddedtop">
+      <div class="offset3 paddedtop">
         <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
         <button type="submit" class="btn btn-primary" ng-show="collectionsheetdata" ng-click="submit()">{{'button.save' | translate}}</button>
       </div>
