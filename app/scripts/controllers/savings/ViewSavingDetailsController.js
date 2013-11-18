@@ -115,7 +115,13 @@
                             ] 
                             };
         }
-
+        if (data.clientId) {
+          scope.buttons = { options : [{
+              name:"button.transferFunds"
+          }
+          ]
+          };
+        }
         if (data.status.value == "Active") {
             scope.buttons = { singlebuttons : [{
                                 name:"button.deposit",
@@ -132,9 +138,6 @@
                             ],
                               options: [{
                                 name:"button.postInterest"
-                              },
-                              {
-                                name:"button.transferFunds"
                               },
                               {
                                   name:"button.addcharge"

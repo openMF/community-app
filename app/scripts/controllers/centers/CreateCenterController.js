@@ -20,7 +20,7 @@
                 }, function(data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.centerTemplateResource.get({officeId : officeId }, function(data) {
+                resourceFactory.centerTemplateResource.get({officeId : scope.formData.officeId }, function(data) {
                     scope.groups = data.groupMembersOptions;
                 });
             };

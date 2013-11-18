@@ -143,7 +143,7 @@
         }
 
         scope.cancel = function () {
-          location.path('/viewsavingaccount/' + data.savingsId);
+          location.path('/viewsavingaccount/' + routeParams.id);
         }
         
         scope.submit = function() {
