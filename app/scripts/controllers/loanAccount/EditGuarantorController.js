@@ -7,15 +7,21 @@
             scope.restrictDate = new Date();
             resourceFactory.guarantorResource.get({ loanId: routeParams.loanId,templateResource:routeParams.id,template:true}, function(data) {
                 scope.template = data;
-                scope.date.first = new Date(data.dob)
                 scope.formData = {
-                    relationshipType: data.clientRelationshipType.id,
                     firstname: data.firstname,
                     lastname: data.lastname,
                     city: data.city,
                     zip: data.zip,
                     mobile: data.mobileNumber,
                     residence: data.housePhoneNumber
+                }
+
+                if (data.clientRelationshipType) {
+                    relationshipType: data.clientRelationshipType.id;
+                }
+
+                if (data.dob) {
+                    scope.date.first = new Date(dateFilter(data.dob, 'dd MMMM yyyy')); 
                 }
             });
             scope.submit = function(){
@@ -37,7 +43,7 @@
                 resourceFactory.guarantorResource.update({ loanId:routeParams.loanId,templateResource:routeParams.id},guarantor, function(data) {
                     location.path('viewloanaccount/'+routeParams.loanId);
                 });
-            }
+            };
         }
     });
     mifosX.ng.application.controller('EditGuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location','dateFilter', mifosX.controllers.EditGuarantorController]).run(function($log) {
