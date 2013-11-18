@@ -10,6 +10,7 @@
             scope.uniqueArray = [];
             scope.searchParams = [];
             scope.recents = [];
+
             //to retrieve last 8 recent activities
             for(var rev= scope.recent.length-1;rev>0;rev--){
                scope.recentArray.push(scope.recent[rev]);
@@ -24,8 +25,8 @@
             scope.unique(scope.recentArray);
             //recent activities retrieved
 
-            //retrieve last 9 recent activities
-            for(var l=0; l<9;l++){
+            //retrieve last 8 recent activities
+            for(var l=0; l<8;l++){
                 if(scope.uniqueArray[l]){
                     scope.recents.push(scope.uniqueArray[l]);
                 }
@@ -57,20 +58,20 @@
             //retrieving ends here
 
             //retrieve last 8 frequent actions
-            for(var freq = sortedArray.length-1; freq>sortedArray.length-10;freq--){
+            for(var freq = sortedArray.length-1; freq>sortedArray.length-9;freq--){
                 if(sortedArray[freq]){
                     scope.frequent.push(sortedArray[freq]);
                 }
             }
             // retrieved 8 frequent actions
 
-            scope.searchParams = ['create client','clients','create group','groups','centers','create center','configuration','tasks','templates',
+            scope.searchParams = ['create client','clients','create group','groups','centers','create center','configuration','tasks','templates','system users',
                                   'create template', 'create loan product', 'create saving product', 'roles', 'add role', 'configure maker checker tasks',
                                   'users', 'loan products', 'charges', 'saving products', 'offices', 'create office', 'currency configurations', 'user settings',
                                   'create user', 'employees', 'create employee', 'manage funds', 'offices', 'chart of accounts', 'frequent postings', 'Journal entry',
                                   'search transaction', 'account closure', 'accounting rules', 'add accounting rule', 'data tables', 'create data table', 'add code',
                                   'jobs', 'codes', 'reports', 'create report', 'holidays', 'create holiday', 'create charge', 'product mix', 'add member', 'add product mix',
-                                  'bulk loan reassignment', 'audit', 'create accounting closure', 'enter collection sheet'
+                                  'bulk loan reassignment', 'audit', 'create accounting closure', 'enter collection sheet','navigation','accounting','organization','system'
                                  ];
             scope.search = function(){
                switch(this.formData.search){
@@ -171,6 +172,16 @@
                    case 'audit': location.path('/audit');
                        break;
                    case 'create accounting closure': location.path('/createclosure');
+                       break;
+                   case 'navigation': location.path('/nav/offices');
+                       break;
+                   case 'accounting': location.path('/accounting');
+                       break;
+                   case 'organization': location.path('/organization');
+                       break;
+                   case 'system': location.path('/system');
+                       break;
+                   case 'system users': location.path('/admin/users');
                        break;
                    default: location.path('/home');
                }

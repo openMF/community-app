@@ -160,7 +160,8 @@ define(['underscore', 'mifosX'], function() {
       'StatusLookup',
       'DateFormat',
       'DayMonthFormat',
-      'YesOrNo'
+      'YesOrNo',
+      'UrlToString'
     ],
     directives: [
       'DataTablesDirective',
@@ -175,7 +176,8 @@ define(['underscore', 'mifosX'], function() {
       'SummaryDirective',
       'FormValidateDirective',
       'FormSubmitValidateDirective',
-      'ApiValidationDirective'
+      'ApiValidationDirective',
+      'ActivitiesDisplayPanelDirective'
     ]
   };
 
