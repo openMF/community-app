@@ -57,10 +57,10 @@
         templateUrl: 'views/administration/users.html'
       })
       .when('/clients', {
-        templateUrl: 'views/clients/clients.html'  
+        templateUrl: 'views/clients/clients.html'
       })
       .when('/createclient', {
-        templateUrl: 'views/clients/createclient.html'  
+        templateUrl: 'views/clients/createclient.html'
       })
       .when('/editclient/:id', {
         templateUrl : 'views/clients/editclient.html'
@@ -69,7 +69,7 @@
         templateUrl: 'views/clients/viewclient.html'
       })
       .when('/client/:id/:action', {
-        templateUrl: 'views/clients/clientactions.html'  
+        templateUrl: 'views/clients/clientactions.html'
       })
       .when('/transferclient/:id', {
         templateUrl: 'views/clients/transferclient.html'
@@ -129,10 +129,10 @@
         templateUrl: 'views/loans/addloandocument.html'
       })
       .when('/organization', {
-        templateUrl: 'views/administration/organization.html'  
+        templateUrl: 'views/administration/organization.html'
       })
       .when('/system', {
-        templateUrl: 'views/administration/system.html'  
+        templateUrl: 'views/administration/system.html'
       })
       .when('/loanproducts', {
         templateUrl: 'views/products/loanproducts.html'
@@ -169,7 +169,7 @@
       })
       .when('/search/:query', {
         templateUrl: 'views/search/glresults.html'
-      })  
+      })
       .when('/viewloanproduct/:id', {
         templateUrl: 'views/products/viewloanproduct.html'
       })
@@ -334,7 +334,7 @@
       })
       .when('/viewsavingaccount/:id', {
         templateUrl: 'views/savings/view_saving_account_details.html'
-      }) 
+      })
       .when('/groups', {
         templateUrl: 'views/groups/groups.html'
       })
