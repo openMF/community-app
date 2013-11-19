@@ -6,11 +6,12 @@
             <li class="active">{{code.name}}</li>
         </ul>
     </div>
+    <api-validate></api-validate>
     <div class="row">
         <div class="pull-right">
             <div class="btn-group">
-                <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.edit' | translate}}</a>
-                <a data-ng-click="delCode()" class="btn btn-primary" ng-show="code.systemDefined == false"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</a>
+                <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.addcodevalues' | translate}}</a>
+                <a data-ng-click="delCode()" class="btn btn-warning" ng-show="code.systemDefined == false"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</a>
             </div>
         </div>
     </div>
@@ -23,7 +24,16 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="row paddedleft">
+    <script type="text/ng-template" id="deletecodevalue.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body modal-middle">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="form-horizontal well">
         <h3>{{code.name}}</h3>
         <div>
             <table class="table" ui:sortable>
@@ -31,12 +41,14 @@
                     <tr>
                         <th>{{ 'label.form.name' | translate }}</th>
                         <th>{{ 'label.position' | translate }}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="codevalue in codevalues">
                         <td>{{codevalue.name}}</td>
                         <td>{{codevalue.position}}</td>
+                        <td><button class="btn-warning" type="button" data-ng-click="deleteCodeValue(codevalue.id)"><i class="icon-trash icon-white"></i></button> </td>
                     </tr>
                 </tbody>
             </table>

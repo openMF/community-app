@@ -5,6 +5,7 @@
             scope.clientview = false;
             scope.temp = true;
             scope.date = {};
+            scope.formData = {};
             scope.restrictDate = new Date();
 
             resourceFactory.guarantorResource.get({ loanId:routeParams.id,templateResource:'template'}, function(data) {
@@ -56,7 +57,7 @@
                 resourceFactory.guarantorResource.save({ loanId:routeParams.id},guarantor, function(data) {
                     location.path('viewloanaccount/'+routeParams.id);
                 });
-            }
+            };
         }
     });
     mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location','dateFilter', mifosX.controllers.GuarantorController]).run(function($log) {

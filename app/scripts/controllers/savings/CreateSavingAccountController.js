@@ -4,7 +4,6 @@
         scope.products = [];
         scope.fieldOfficers = [];
         scope.formData = {};
-        scope.isCollapsed = true;
         scope.restrictDate = new Date();
         scope.clientId = routeParams.clientId;
         scope.groupId = routeParams.groupId;
@@ -28,7 +27,6 @@
           scope.inparams.productId = scope.formData.productId;
           resourceFactory.savingsTemplateResource.get(scope.inparams, function(data) {
 
-            scope.isCollapsed = false;
             scope.data = data;
 
             scope.fieldOfficers = data.fieldOfficerOptions;
@@ -51,12 +49,27 @@
         };
 
         scope.addCharge = function(chargeId) {
+          scope.errorchargeevent = false;
           if (chargeId) {
             resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function(data){
                 data.chargeId = data.id;
+                if (data.chargeTimeType.value == "Annual Fee") {
+                    if (data.feeOnMonthDay) {
+                        data.feeOnMonthDay.push(2013);
+                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, 'dd MMMM yyyy'));
+                    }
+                } else if (data.chargeTimeType.value == "Monthly Fee") {
+                    if (data.feeOnMonthDay) {
+                        data.feeOnMonthDay.push(2013);
+                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, 'dd MMMM yyyy'));
+                    }
+                }
                 scope.charges.push(data);
                 scope.chargeId = undefined;
             });
+          } else {
+              scope.errorchargeevent = true;
+              scope.labelchargeerror = "selectcharge";
           }
         }
 
@@ -78,15 +91,20 @@
           if (scope.centerId) this.formData.centerId = scope.centerId;
 
           if (scope.charges.length > 0) {
-            for (var i in scope.charges) {
-              if(scope.charges[i].chargeTimeType.value=='Annual Fee') {
-                var feeOnMonthDay = scope.charges[i].feeOnMonthDay==undefined ? "" :scope.charges[i].feeOnMonthDay;
-                this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
-                 feeOnMonthDay:feeOnMonthDay});
-              } else {
-                this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount});
+              for (var i in scope.charges) {
+                  if(scope.charges[i].chargeTimeType.value=='Annual Fee') {
+                      this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
+                      feeOnMonthDay:dateFilter(scope.charges[i].feeOnMonthDay,'dd MMMM')});
+                  } else if(scope.charges[i].chargeTimeType.value=='Specified due date') {
+                      this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
+                      dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy')});
+                  }else if(scope.charges[i].chargeTimeType.value=='Monthly Fee') {
+                      this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
+                      feeOnMonthDay:dateFilter(scope.charges[i].feeOnMonthDay,'dd MMMM'), feeInterval : scope.charges[i].feeInterval});
+                  } else {
+                      this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount});
+                  }
               }
-            }
           }
           resourceFactory.savingsResource.save(this.formData,function(data){
             location.path('/viewsavingaccount/' + data.savingsId);

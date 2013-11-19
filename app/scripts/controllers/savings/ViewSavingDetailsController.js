@@ -134,9 +134,6 @@
                                 name:"button.postInterest"
                               },
                               {
-                                name:"button.transferFunds"
-                              },
-                              {
                                   name:"button.addcharge"
                               },
                               {
@@ -144,6 +141,11 @@
                               }]
                               
                             };
+            if (data.clientId) {
+                scope.buttons.options.push({
+                    name:"button.transferFunds"
+                });
+            }
           if(data.charges) {
             for (var i in scope.charges) {
               if(scope.charges[i].name == "Annual fee - INR") {
@@ -153,7 +155,7 @@
                 scope.annualChargeId = scope.charges[i].id;
               }
             }
-          }                            
+          }
         }
       });
 

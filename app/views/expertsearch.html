@@ -1,0 +1,46 @@
+<div id="expertsearch" data-ng-controller="ExpertSearchController">
+    <h3 class="paddedleft"><strong>{{'label.mifosxdashhome' | translate}}</strong></h3>
+    <input id="expert" type="text" data-ng-model="formData.search" placeholder="{{'label.searchactivities' | translate}}" class="span" typeahead-on-select="search()" ng-autofocus="true" typeahead="param as param for param in searchParams | filter:$viewValue | limitTo:8"/>
+    <hr/>
+    <br/>
+    <div class="form-horizontal">
+        <div class="control-group">
+            <div class="paddedleft">
+                <i class="icon-bolt icon-2x"></i><strong>{{'label.recentactivities' | translate}}</strong>
+            </div>
+            <hr/>
+            <div class="row span">
+                <div class="paddedleft120">
+                    <span data-ng-repeat="recent in recents">
+                        <span class="span3">
+                            <a href="#{{recent}}" title="{{recent}}">
+                                <ng-displaypanel title="{{recent | UrlToString | translate}}">
+                                    <span class="center"><span class="fa-middled"><i class="icon-4x icon-tasks" style="color:#808080"></i></span></span>
+                                </ng-displaypanel>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="paddedleft">
+                <br/><br/><i class="icon-laptop icon-2x"></i><strong>{{'label.frequentactivities' | translate}}</strong>
+            </div>
+            <hr/>
+            <div class="row span">
+                <div class="paddedleft120">
+                    <span data-ng-repeat="freq in frequent">
+                        <span class="span3">
+                            <a href="#{{freq}}" title="{{freq}}">
+                                <ng-displaypanel title="{{freq | UrlToString | translate}}">
+                                    <span class="center"><span class="fa-middled"><i class="icon-4x icon-tasks" style="color:#808080"></i></span></span>
+                                </ng-displaypanel>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

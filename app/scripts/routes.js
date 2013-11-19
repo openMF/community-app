@@ -344,6 +344,9 @@
       .when('/attachmeeting/:id/:entityType', {
         templateUrl: 'views/groups/attachmeeting.html'
       })
+      .when('/editcalendar/:entityType/:groupOrCenterId/:calendarId', {
+        templateUrl: 'views/groups/editmeeting.html'
+      })
       .when('/editsavingaccount/:id', {
         templateUrl: 'views/savings/edit_saving_account_application.html'
       })
@@ -457,6 +460,9 @@
       })
       .when('/editguarantor/:id/:loanId',{
         templateUrl: 'views/loans/editguarantor.html'
+      })
+      .when('/expertsearch',{
+        templateUrl: 'views/expertsearch.html'
       });
     $locationProvider.html5Mode(false);
   };

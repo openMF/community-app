@@ -1,23 +1,27 @@
-<form class="form-horizontal well" ng-controller="EditGuarantorController">
+<form class="form-horizontal well" name="editguaratorform" novalidate="" ng-controller="EditGuarantorController" rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
         <legend class="bolder">{{'label.guarantor' | translate}}</legend>
         <div class="control-group">
             <label class="control-label">{{ 'label.relationship' | translate }}</label>
             <div class="controls">
-                <select id="relationshipType" ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}"></select>
+                <select id="relationshipType" ng-model="formData.relationshipType" ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes" value="{{type.id}}">
+                    <option value="">{{'label.select.one' | translate}}</option>
+                </select>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}</label>
+            <label class="control-label" for="firstname">{{ 'label.form.firstname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="firstname" ng-model="formData.firstname">
+                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
+                <form-validate valattributeform="editguaratorform" valattribute="firstname"/>
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label">{{ 'label.form.lastname' | translate }}</label>
+            <label class="control-label">{{ 'label.form.lastname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-                <input id="lastname" type="text" ng-model="formData.lastname">
+                <input id="lastname" name="lastname" type="text" ng-model="formData.lastname" required late-Validate/>
+                <form-validate valattributeform="editguaratorform" valattribute="lastname"/>
             </div>
         </div>
         <div class="control-group">
@@ -59,7 +63,7 @@
         </div>
         <div class="offset2 paddedleft120">
             <a href="#/viewloanaccount/{{template.loanId}}" class="btn">{{ 'label.cancel' | translate }}</a>
-            <button type="button" class="btn btn-primary" data-ng-click="submit()">{{ 'label.save' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
         </div>
     </fieldset>
 </form>

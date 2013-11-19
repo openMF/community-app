@@ -24,7 +24,8 @@
             'configurations':'../scripts/modules/configurations',
             'angularFileUpload':'../bower_components/angularjs-file-upload/angular-file-upload',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
-            'ckEditor':         '../bower_components/ckeditor/ckeditor'
+            'ckEditor':         '../bower_components/ckeditor/ckeditor',
+            'LocalStorageModule':'../scripts/modules/localstorage'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -44,6 +45,7 @@
             'modified.datepicker':{deps: ['angular']},
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'ckEditor':{deps:['jquery']},
+            'LocalStorageModule':{deps:['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -61,7 +63,8 @@
                     'modified.datepicker',
                     'ngSanitize',
                     'ckEditor',
-                    'configurations'
+                    'configurations',
+                    'LocalStorageModule'
                 ],
                 exports: 'mifosX'
             }

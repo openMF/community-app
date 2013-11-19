@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams) {
+    EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams, dateFilter) {
         scope.offices = [];
         scope.centers = [];
         scope.groups = [];
@@ -11,8 +11,8 @@
         scope.formData = {};
         scope.centerId = '';
         scope.groupId = '';
+        scope.date = {};
         var centerOrGroupResource = '';
-        scope.formData.transactionDate = "20 September 2013";
         resourceFactory.officeResource.getAllOffices(function(data) {
             scope.offices = data;
         });
@@ -29,31 +29,43 @@
             scope.centers = '';
             scope.groups = '';
           }
-        }
+        };
 
         scope.centerSelected = function(centerId) {
           if(centerId) {
+            scope.collectionsheetdata = "";
             resourceFactory.centerResource.get({'centerId' : centerId, associations : 'groupMembers,collectionMeetingCalendar' }, function(data) {
               scope.centerdetails = data;
-              scope.groups = data.groupMembers;
-              if (data.collectionMeetingCalendar)
-              scope.calendarId = data.collectionMeetingCalendar.id;
+              if (data.groupMembers.length > 0) {
+                  scope.groups = data.groupMembers;
+              }
+              
+              if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
+                  scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,'dd MMMM yyyy'));
+              }
+              if (data.collectionMeetingCalendar) {
+                  scope.calendarId = data.collectionMeetingCalendar.id;
+              }
               centerOrGroupResource = "centerResource";
             });
           }
-        } 
+        }; 
 
         scope.groupSelected = function(groupId) {
           if(groupId) {
+            scope.collectionsheetdata = "";
             resourceFactory.groupResource.get({'groupId' : groupId, associations : 'collectionMeetingCalendar'}, function(data) {
               scope.groupdetails = data.pageItems;
               scope.calendarId = data.collectionMeetingCalendar.id;
+              if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
+                  scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,'dd MMMM yyyy'));
+              }
               centerOrGroupResource = "groupResource";
             });
           } else if(scope.centerId){
             centerOrGroupResource = "centerResource"
           }
-        }
+        };
 
         scope.previewCollectionSheet = function() {
           scope.formData.dateFormat = "dd MMMM yyyy";
@@ -62,8 +74,10 @@
           scope.bulkRepaymentTransactions = [];
           scope.bulkDisbursementTransactions = [];
           scope.clientsAttendance = [];
-          scope.formData.transactionDate = this.formData.transactionDate;
-          if (centerOrGroupResource == "centerResource") {
+          if (scope.date.transactionDate) {
+              scope.formData.transactionDate = dateFilter(scope.date.transactionDate,'dd MMMM yyyy');
+          }
+          if (centerOrGroupResource == "centerResource" && scope.calendarId !== "") {
             resourceFactory.centerResource.save({'centerId' : scope.centerId, command : 'generateCollectionSheet'}, scope.formData,function(data){
               scope.collectionsheetdata = data;
               scope.bulkRepaymentTransaction(data);
@@ -71,7 +85,7 @@
               scope.clientsAttendanceSelected(data);
               scope.groupTotalArray(data);
             });
-          } else if (centerOrGroupResource == "groupResource") {
+          } else if (centerOrGroupResource == "groupResource" && scope.calendarId !== "") {
               resourceFactory.groupResource.save({'groupId' : scope.groupId, command : 'generateCollectionSheet'}, scope.formData,function(data){
                 scope.collectionsheetdata = data;
                 scope.bulkRepaymentTransaction(data);
@@ -79,14 +93,13 @@
                 scope.clientsAttendanceSelected(data);
                 scope.groupTotalArray(data);
               });
-          } else {
-            scope.formData.transactionDate = "";
+          } else if (scope.calendarId !== "") {
             resourceFactory.groupResource.save({'groupId' : 0, command : 'generateCollectionSheet'}, scope.formData,function(data){
               scope.collectionsheetdata = data;
             });
           }
 
-        }
+        };
 
         scope.bulkRepaymentTransaction = function(data) {
           var checkEqualOrNot = 'false';
@@ -113,7 +126,7 @@
               });
             });
           });
-        }
+        };
 
         //client transaction amount is update this method will update both individual/all groups
         //total for a specific product
@@ -132,7 +145,7 @@
             });
             scope.groupTotalArray(scope.collectionSheetData);
           }
-        }
+        };
 
         //client disburse amount is update this method will update both individual/all groups
         //total for a specific product
@@ -151,7 +164,7 @@
             });
             scope.groupTotalArray(scope.collectionSheetData);
           }
-        }
+        };
 
         scope.clientsAttendanceSelected = function(data) {
           var checkEqualOrNot = 'false';      
@@ -175,7 +188,7 @@
               }
             });
           });
-        }
+        };
 
         scope.bulkDisbursementTransaction = function(data) {
           var checkEqualOrNot = 'false';
@@ -201,7 +214,7 @@
               });
             });
           });
-        }
+        };
 
 
         function deepCopy(obj) {
@@ -271,13 +284,19 @@
             });
           });
           scope.grandTotal = loanProductArrayTotal;
-        }
+        };
+
+        scope.cancel = function () {
+            location.path('/home/');
+        };
 
         scope.submit = function() {  
           scope.formData.calendarId = scope.calendarId;
           scope.formData.dateFormat = "dd MMMM yyyy";
           scope.formData.locale = "en";
-          scope.formData.transactionDate = this.formData.transactionDate;
+          if (scope.date.transactionDate) {
+              scope.formData.transactionDate = dateFilter(scope.date.transactionDate,'dd MMMM yyyy');;
+          }
           scope.formData.actualDisbursementDate = this.formData.transactionDate;
           scope.formData.clientsAttendance = scope.clientsAttendance;
           scope.formData.bulkDisbursementTransactions = scope.bulkDisbursementTransactions;
@@ -294,7 +313,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
+  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
     $log.info("EnterCollectionSheetController initialized");
   });
 }(mifosX.controllers || {}));

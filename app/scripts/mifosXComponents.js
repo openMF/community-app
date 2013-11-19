@@ -117,6 +117,7 @@ define(['underscore', 'mifosX'], function() {
       'groups/GroupController',
       'groups/ViewGroupController',
       'groups/AttachMeetingController',
+      'groups/EditMeetingController',
       'savings/EditSavingAccountController',
       'savings/SavingAccountActionsController',
       'accounttransfers/ViewAccountTransferDetailsController',
@@ -153,13 +154,15 @@ define(['underscore', 'mifosX'], function() {
       'template/EditTemplateController',
       'loanAccount/GuarantorController',
       'loanAccount/EditGuarantorController',
-      'main/ViewCheckerinboxController'
+      'main/ViewCheckerinboxController',
+      'main/ExpertSearchController'
     ],
     filters: [
       'StatusLookup',
       'DateFormat',
       'DayMonthFormat',
-      'YesOrNo'
+      'YesOrNo',
+      'UrlToString'
     ],
     directives: [
       'DataTablesDirective',
@@ -174,7 +177,8 @@ define(['underscore', 'mifosX'], function() {
       'SummaryDirective',
       'FormValidateDirective',
       'FormSubmitValidateDirective',
-      'ApiValidationDirective'
+      'ApiValidationDirective',
+      'ActivitiesDisplayPanelDirective'
     ]
   };
 
