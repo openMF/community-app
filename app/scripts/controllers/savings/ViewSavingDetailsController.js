@@ -115,13 +115,7 @@
                             ] 
                             };
         }
-        if (data.clientId) {
-          scope.buttons = { options : [{
-              name:"button.transferFunds"
-          }
-          ]
-          };
-        }
+
         if (data.status.value == "Active") {
             scope.buttons = { singlebuttons : [{
                                 name:"button.deposit",
@@ -147,6 +141,11 @@
                               }]
                               
                             };
+            if (data.clientId) {
+                scope.buttons.options.push({
+                    name:"button.transferFunds"
+                });
+            }
           if(data.charges) {
             for (var i in scope.charges) {
               if(scope.charges[i].name == "Annual fee - INR") {
@@ -156,7 +155,7 @@
                 scope.annualChargeId = scope.charges[i].id;
               }
             }
-          }                            
+          }
         }
       });
 
