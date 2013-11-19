@@ -19,17 +19,17 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="client in clients">
-                    <td>{{client.displayName}}</td>
+                    <td>{{client.displayName}}<span class="required">*</span></td>
                     <td>
                         <div>
-                            <select ng-model="tempData[client.id]" ng-options="attendance.id as attendance.value for attendance in attendanceOptions" value="{{attendance.id}}">
+                            <select ng-model="client.attendanceType" ng-options="attendance.id as attendance.value for attendance in attendanceOptions" value="{{attendance.id}}">
                             </select>
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div class="offset">
+            <div class="offset3">
                 <a href="#/viewgroup/{{group.id}}" class="btn">{{'label.cancel' | translate}}</a>
                 <button type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)">{{'label.save' | translate}}</button>
             </div>
