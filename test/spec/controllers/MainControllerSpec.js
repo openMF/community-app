@@ -1,7 +1,7 @@
 describe("MainController", function() {
   var eventListener, sessionCallback;
   beforeEach(function() {
-    this.scope = jasmine.createSpyObj("$scope", ['$on']);
+    this.scope = jasmine.createSpyObj("$scope", ['$on', '$watch']);
     this.scope.$on.andCallFake(function(event, listener) { eventListener = listener; });
     this.location = jasmine.createSpyObj("$location", ['path', 'replace']);
     this.location.path.andReturn(this.location);
@@ -10,7 +10,16 @@ describe("MainController", function() {
       sessionCallback = callback;
     });
 
-    this.controller = new mifosX.controllers.MainController(this.scope, this.location, this.sessionManager);
+    this.translate = jasmine.createSpy();
+    this.rootScope = jasmine.createSpy();
+    this.localStorageService = jasmine.createSpyObj("localStorageService", ["get"]);
+
+    this.controller = new mifosX.controllers.MainController(this.scope,
+                                                            this.location,
+                                                            this.sessionManager,
+                                                            this.translate,
+                                                            this.rootScope,
+                                                            this.localStorageService);
   });
 
   describe("on initialisation", function() {
