@@ -42,10 +42,17 @@
           </div>
         </div>
 
-        <div class="control-group" ng-show="!withDrawCharge">
+        <div class="control-group" ng-show="!withDrawCharge && !chargeTimeTypeAnnualOrMonth">
+          <label class="control-label">{{ 'label.dueforcollectedon' | translate }}<span class="required">*</span></label>
+          <div class="controls">
+            <input id="feeOnAnnualMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.specificduedate" is-open="opened"/>
+          </div>
+        </div>
+
+        <div class="control-group" ng-show="!withDrawCharge && chargeTimeTypeAnnualOrMonth">
           <label class="control-label">{{ 'label.dueon' | translate }}<span class="required">*</span></label>
           <div class="controls">
-            <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.due" is-open="opened" min="minDate" max="'2020-06-22'"/>
+            <input id="feeOnMonthDay" class="date-disable" readonly type="text" datepicker-pop="dd MMMM" ng-model="date.due" is-open="opened"/>
           </div>
         </div>
       </div>
