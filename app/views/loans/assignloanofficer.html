@@ -1,33 +1,30 @@
 <div ng-controller="AssignLoanOfficerController">	
 	<div>
 		<ul class="breadcrumb">
-			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.view.loan.account' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'label.assign.loan.officer' | translate}}</li>
+			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{'label.anchor.assignloanofficer' | translate}}</li>
 		</ul>
 	</div>
 	<form class="form-horizontal" name="assignloanofficerform" novalidate="" ng-submit="submit()">
 		<api-validate></api-validate>
 		<fieldset>
-			<legend>{{ 'label.assign.loan.officer' | translate }}</legend>
-
-			<div class="control-group">
-				<label class="control-label" for="toLoanOfficerId">{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
+			<legend>{{ 'label.heading.assignloanofficer' | translate }}</legend>
+            <div class="control-group">
+				<label class="control-label" for="toLoanOfficerId">{{ 'label.input.toloanofficer' | translate }}<span class="required">*</span></label>
 				<div class="controls">
 					<select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="assignmentDate">{{ 'label.loanofficer.assignmentDate' | translate }}<span class="required">*</span></label>
+				<label class="control-label" for="assignmentDate">{{ 'label.input.assignmentdate' | translate }}<span class="required">*</span></label>
 				<div class="controls">
 					<input class="date-disable" readonly id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
 				</div>
 			</div>
-
-			<div class="offset3">
-				<button type="reset" class="btn" ng-click="cancel()">{{ 'button.cancel' | translate }}</button>
-				<button type="submit" ng-disabled="!assignloanofficerform.$valid" class="btn btn-primary">{{ 'button.save' | translate }}</button>
+            <div class="offset3">
+				<button type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
+				<button type="submit" ng-disabled="!assignloanofficerform.$valid" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
 			</div>
-
-		</fieldset>
+        </fieldset>
 	</form>
 </div>

@@ -1,6 +1,6 @@
 <div class="row paddedleft" ng-controller="TaskController">
     <fieldset>
-		<legend>{{'label.pendingtasks' | translate}}</legend>
+		<legend>{{'label.heading.pendingtasks' | translate}}</legend>
     	<tabset>
     		<tab heading="{{'label.clientapproval' | translate}}">
                 <div class="head-affix">
@@ -11,7 +11,7 @@
                                 <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.filterbyname' | translate}}">
                             </th>
                             <th>
-                                <button type="button" class="btn btn-success" data-ng-click="approveClient()"><i class="icon-ok"></i>{{'label.approve' | translate}}</button>
+                                <button type="button" class="btn btn-success" data-ng-click="approveClient()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
                             </th>
                         </tr>
                         </thead>
@@ -19,14 +19,14 @@
                 </div>
                 <script type="text/ng-template" id="approveclient.html">
                     <div class="modal-header silver">
-                        <h3 class="bolder">{{'label.enteractivationdate' | translate}}</h3>
+                        <h3 class="bolder">{{'label.heading.enteractivationdate' | translate}}</h3>
                     </div>
                     <div class="modal-body modal-big">
                         <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened" min="minDate" max="restrictDate"/>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                        <button class="btn btn-primary" ng-click="approve(date.actDate)">{{'label.confirm' | translate}}</button>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="approve(date.actDate)">{{'label.button.confirm' | translate}}</button>
                     </div>
                 </script>
                 <table class="table condensed-table" ng-repeat="(officeName,values) in groupedClients">
@@ -41,9 +41,9 @@
                                 <thead>
                                 <tr class="graybg">
                                     <th></th>
-                                    <th>{{'table.heading.name' | translate}}</th>
-                                    <th>{{'label.group.accounts' | translate}}</th>
-                                    <th>{{'table.staffname' | translate}}</th>
+                                    <th>{{'label.heading.name' | translate}}</th>
+                                    <th>{{'label.heading.accnum' | translate}}</th>
+                                    <th>{{'label.heading.staff' | translate}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -68,7 +68,7 @@
                                 <input ng-autofocus="true" ng-model="filterText1" type="text" class="span marginbottom0px" placeholder="{{'label.filterbyname' | translate}}">
                             </th>
                             <th>
-                                <button type="button" class="btn btn-success" data-ng-click="approveLoan()"><i class="icon-ok"></i>{{'label.approve' | translate}}</button>
+                                <button type="button" class="btn btn-success" data-ng-click="approveLoan()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
                             </th>
                         </tr>
                         </thead>
@@ -76,11 +76,11 @@
                 </div>
                 <script type="text/ng-template" id="approveloan.html">
                     <div class="modal-header silver">
-                        <h3 class="bolder">{{'label.approve' | translate}}</h3>
+                        <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
                     </div>
                     <div class="modal-body modal-middle">
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                        <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
                     </div>
                 </script>
 				<table ng-repeat="office in offices" class="table condensed-table">
@@ -91,10 +91,10 @@
 								<thead>
 									<tr class="graybg">
                                         <th></th>
-										<th>{{'label.clientname' | translate}}</th>
-										<th>{{'label.loan' | translate}}</th>
-										<th>{{'label.amount' | translate}}</th>
-										<th>{{'label.loanpurpose' | translate}}</th>
+										<th>{{'label.heading.client' | translate}}</th>
+										<th>{{'label.heading.loan' | translate}}</th>
+										<th>{{'label.heading.amount' | translate}}</th>
+										<th>{{'label.heading.loanpurpose' | translate}}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -117,7 +117,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input ng-autofocus="true" ng-model="filterText2" type="text" class="span marginbottom0px" placeholder="{{'label.filterbyname' | translate}}">
+                                <input ng-autofocus="true" ng-model="filterText2" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}">
                             </th>
                         </tr>
                         </thead>
@@ -127,10 +127,10 @@
 			        <table class="table condensed-table">
                         <thead>
                             <tr class="graybg">
-                                <th>{{'label.clientname' | translate}}</th>
-                                <th>{{'label.loanaccountnum' | translate}}</th>
-                                <th>{{'label.loanproduct' | translate}}</th>
-                                <th>{{'table.heading.principal' | translate}}</th>
+                                <th>{{'label.heading.client' | translate}}</th>
+                                <th>{{'label.heading.loanaccountnum' | translate}}</th>
+                                <th>{{'label.heading.loanproduct' | translate}}</th>
+                                <th>{{'label.heading.principal' | translate}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -151,14 +151,14 @@
                         <tr>
                             <th>
                                 <span class="input-append grpinputicons" >
-                                    <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"/>
+                                    <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"/>
                                     <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
                                     <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
                                 </span>
 
                                 <span>
-                                    <button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.approve' | translate}}</button>
-                                    <button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.delete' | translate}}</button>
+                                    <button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
+                                    <button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
                                 </span>
                             </th>
                         </tr>
@@ -170,20 +170,20 @@
                     <div class="control-group">
                         <label class="control-label"></label>
                         <div class="controls">
-                            <input type="text" placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
+                            <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" />
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label"></label>
                         <div class="controls">
-                            <input type="text" placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                            <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
                             <select ng-model="formData.action">
-                                <option value="">All</option>
-                                <option value="">--Select Action--</option>
+                                <option value="">{{'label.all' | translate}}</option>
+                                <option value="">--{{'label.selectaction' | translate}}--</option>
                                 <option ng-repeat="action in checkerTemplate.actionNames" value="{{action}}">{{action}}</option>
                             </select>
                         </div>
@@ -191,8 +191,8 @@
                     <div class="control-group">
                         <div class="controls">
                             <select ng-model="formData.entity">
-                                <option value="">All</option>
-                                <option value="">--Select Entity--</option>
+                                <option value="">{{'label.all' | translate}}</option>
+                                <option value="">--{{'label.selectaction' | translate}}--</option>
                                 <option ng-repeat="entity in checkerTemplate.entityNames" value="{{entity}}">{{entity}}</option>
                             </select>
                         </div>
@@ -203,24 +203,24 @@
                             <input type="text" placeholder="{{'label.resourceid' | translate}}" ng-model="formData.resourceId">
                         </div>
                     </div>
-                    <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.advancesearch' | translate}}</a></span>
+                    <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
                 </div>
                 <script type="text/ng-template" id="deletechecker.html">
                     <div class="modal-header silver">
-                        <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
                     </div>
                     <div class="modal-body modal-middle">
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                        <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                     </div>
                 </script>
                 <script type="text/ng-template" id="approvechecker.html">
                     <div class="modal-header silver">
-                        <h3 class="bolder">{{'label.approve' | translate}}</h3>
+                        <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
                     </div>
                     <div class="modal-body modal-middle">
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                        <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
                     </div>
                 </script>
                 <div ng-show="searchData" class="row-fluid">
@@ -228,12 +228,12 @@
                         <thead>
                             <tr class="graybg">
                                 <th></th>
-                                <th>{{'label.id' | translate}}</th>
-                                <th>{{'label.madeondate' | translate}}</th>
-                                <th>{{'label.status' | translate}}</th>
-                                <th>{{'label.user' | translate}}</th>
-                                <th>{{'label.action' | translate}}</th>
-                                <th>{{'table.heading.entity' | translate}}</th>
+                                <th>{{'label.heading.id' | translate}}</th>
+                                <th>{{'label.heading.madeondate' | translate}}</th>
+                                <th>{{'label.heading.status' | translate}}</th>
+                                <th>{{'label.heading.user' | translate}}</th>
+                                <th>{{'label.heading.action' | translate}}</th>
+                                <th>{{'label.heading.entity' | translate}}</th>
                             </tr>
                         </thead>
                         <tbody>

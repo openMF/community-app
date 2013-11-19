@@ -1,19 +1,20 @@
 <div ng-controller="AuditController">
     <ul class="breadcrumb">
-        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
-        <li class="active">{{'label.audit' | translate}}</li>
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.anchor.audit' | translate}}</li>
     </ul>
     <div class="row-fluid" >
         <span class="input-append grpinputicons" >
-            <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
+            <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
             <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
             <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
         </span>
+    </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="control-group">
             <div class="controls">
                 <select ng-model="formData.status">
-                    <option value="">--Select Status--</option>
+                    <option value="">--{{'label.selectstatus' | translate}}--</option>
                     <option ng-repeat="status in template.processingResults" value="{{status.id}}">{{status.processingResult}}</option>
                 </select>
             </div>
@@ -21,20 +22,20 @@
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" class="date-disable" readonly placeholder="{{'label.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'"/>
+                <input type="text" class="date-disable" readonly placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" class="date-disable" readonly placeholder="{{'label.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
+                <input type="text" class="date-disable" readonly placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
                 <select ng-model="formData.action">
-                    <option value="">--Select Action--</option>
-                    <option selected="selected" value="ALL">All</option>
+                    <option value="">--{{'label.selectaction' | translate}}--</option>
+                    <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="action in template.actionNames" value="{{action}}">{{action}}</option>
                 </select>
             </div>
@@ -42,8 +43,8 @@
         <div class="control-group">
             <div class="controls">
                 <select ng-model="formData.entity">
-                    <option value="">--Select Entity--</option>
-                    <option selected="selected" value="ALL">All</option>
+                    <option value="">--{{'label.selectentity' | translate}}--</option>
+                    <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="entity in template.entityNames" value="{{entity}}">{{entity}}</option>
                  </select>
             </div>
@@ -57,33 +58,33 @@
         <div class="control-group">
             <div class="controls">
                 <select ng-model="formData.checkedBy">
-                    <option value="">--Select Checker--</option>
-                    <option selected="selected" value="ALL">All</option>
+                    <option value="">--{{'label.selectchecker' | translate}}--</option>
+                    <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="text" class="date-disable" readonly placeholder="{{'label.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
+                <input type="text" class="date-disable" readonly placeholder="{{'label.input.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
              <div class="controls">
-                 <input type="text" class="date-disable" readonly placeholder="{{'label.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
+                 <input type="text" class="date-disable" readonly placeholder="{{'label.input.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
              </div>
         </div>
-        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.advancesearch' | translate}}</a></span>
+        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
     </div>
     <div ng-show="displayResults" class="row-fluid">
         <table class="table">
             <thead>
             <tr class="graybg">
-                <th>{{'label.id' | translate}}</th>
-                <th>{{'label.status' | translate}}</th>
-                <th>{{'label.user' | translate}}</th>
-                <th>{{'label.action' | translate}}</th>
-                <th>{{'label.entity' | translate}}</th>
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.user' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+                <th>{{'label.heading.entity' | translate}}</th>
             </tr>
             </thead>
             <tbody>

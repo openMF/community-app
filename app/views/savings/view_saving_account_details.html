@@ -10,16 +10,16 @@
     <div class="pull-right">
       <div class="btn-group" >
           <span ng-repeat="button in buttons.singlebuttons">
-              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
+              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{'label.'+button.name | translate}}</a>
           </span>
           <span ng-show="buttons.options" class="btn-group">
               <a class="btn btn-primary dropdown-toggle">
-                  {{'button.more' | translate}}
+                  {{'label.button.more' | translate}}
                   <span class="caret"></span>
               </a>
               <ul class="dropdown dropdown-menu">
                 <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                    <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" >{{button.name | translate}}</a>
+                    <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" >{{'label.'+button.name | translate}}</a>
                 </li>
               </ul>
           </span>  
@@ -33,15 +33,15 @@
     <div class="row paddedleft">
       <table width="100%">
         <tr>
-          <td width="20%">{{'label.activatedOn' | translate}}</td>
+          <td width="20%">{{'label.heading.activatedon' | translate}}</td>
           <td width="30%">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}</td>
-          <td width="20%">{{'label.currency' | translate}}</td>
+          <td width="20%">{{'label.heading.currency' | translate}}</td>
           <td width="30%">{{savingaccountdetails.currency.name}}</td>
         </tr>
         <tr>
-          <td>{{'label.fieldofficer' | translate}}</td>
+          <td>{{'label.heading.fieldofficer' | translate}}</td>
           <td>{{savingaccountdetails.fieldOfficerName}}</td>
-          <td>{{'label.accountBalance' | translate}}</td>
+          <td>{{'label.heading.balance' | translate}}</td>
           <td>{{savingaccountdetails.summary.accountBalance}}</td>
         </tr>
       </table>
@@ -49,64 +49,64 @@
     <div class="row paddedleft">
       <hr class="marginbottom"/>
       <tabset >
-        <tab heading="{{'tab.accountdetail' | translate}}">
+        <tab heading="{{'label.heading.summary' | translate}}">
           <div> 
             <table width="100%">
                 <tr ng-show="savingaccountdetails.summary.totalDeposits">
-                  <td width="30%">{{'label.total.deposits' | translate}}</td>
+                  <td width="30%">{{'label.totaldeposits' | translate}}</td>
                   <td width="70%">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits}}</td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
-                  <td>{{'label.total.withdarawals' | translate}}</td>
+                  <td>{{'label.totalwithdarawals' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals}}</td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalWithdrawalFees">
-                  <td>{{'label.total.withdrawals.fees' | translate}}</td>
+                  <td>{{'label.totalwithdrawalsfees' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawalFees}}</td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalAnnualFees">
-                  <td>{{'label.total.annual.fees' | translate}}</td>
+                  <td>{{'label.totalannualfees' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalAnnualFees}}</td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
-                  <td>{{'label.total.interest.earned' | translate}}</td>
+                  <td>{{'label.totalinterestearned' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned}}</td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
-                  <td>{{'label.total.interest.posted' | translate}}</td>
+                  <td>{{'label.totalinterestposted' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted}}</td>
                 </tr>
                 <tr class="span2"></tr>
                 <tr>
-                  <td>{{'label.interest.rate' | translate}}</td>
+                  <td>{{'label.interestrate' | translate}}</td>
                   <td>{{savingaccountdetails.nominalAnnualInterestRate}}%</td>
                 </tr>
                 <tr>
-                  <td>{{'label.interest.compounding.period' | translate}}</td>
+                  <td>{{'label.interestcompoundingperiod' | translate}}</td>
                   <td>{{savingaccountdetails.interestCompoundingPeriodType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.interest.posting.period' | translate}}</td>
+                  <td>{{'label.interestpostingperiod' | translate}}</td>
                   <td>{{savingaccountdetails.interestPostingPeriodType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.interest.calculated.using' | translate}}</td>
+                  <td>{{'label.interestcalculatedusing' | translate}}</td>
                   <td>{{savingaccountdetails.interestCalculationType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.no.of.days.in.year' | translate}}</td>
+                  <td>{{'labelnoofdaysinyear' | translate}}</td>
                   <td>{{savingaccountdetails.interestCalculationDaysInYearType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.withdrawal.fee' | translate}}</td>
+                  <td>{{'label.withdrawalfee' | translate}}</td>
                   <td>{{savingaccountdetails.withdrawalFeeAmount}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFeeType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.annual.fee' | translate}}</td>
+                  <td>{{'label.annualfee' | translate}}</td>
                   <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFeeAmount}}&nbsp;{{'label.on' | translate}}&nbsp;{{savingaccountdetails.annualFeeOnMonthDay}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.annaul.fee.due.on' | translate}}</td>
+                  <td>{{'label.annaulfeedueon' | translate}}</td>
                   <td>{{savingaccountdetails.annualFeeNextDueDate | DateFormat}}</td>
                 </tr>
             </tbody>
@@ -118,12 +118,12 @@
             <colgroup span="4"></colgroup>
               <thead>
                 <tr>
-                  <th>{{'table.heading.transactionId' | translate}}</th>
-                  <th>{{'table.heading.transactiondate' | translate}}</th>
-                  <th>{{'table.heading.transactiontype' | translate}}</th>
-                  <th>{{'table.heading.debit' | translate}}</th>
-                  <th>{{'table.heading.credit' | translate}}</th>
-                  <th>{{'table.heading.balance' | translate}}</th>
+                  <th>{{'label.heading.transactionid' | translate}}</th>
+                  <th>{{'label.heading.transactiondate' | translate}}</th>
+                  <th>{{'label.heading.transactiontype' | translate}}</th>
+                  <th>{{'label.heading.debit' | translate}}</th>
+                  <th>{{'label.heading.credit' | translate}}</th>
+                  <th>{{'label.heading.balance' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -150,9 +150,9 @@
         </tab>
         <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" select="dataTableChange(savingdatatable)">
             <span data-ng-show="choice">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
+                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                 <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
+                  <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                 </span></br>
             </span>
             <table ng-show="datatabledetails.isData" class="table">
@@ -175,18 +175,17 @@
         <tab  ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
-                <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.feeorpenalty' | translate}}</th>   
-                <th>{{'table.heading.paymentdueat' | translate}}</th>
-                <th>{{'table.heading.dueasof' | translate}}</th>
-                <th>{{'label.repeatson' | translate}}</th>
-                <th>{{'label.repeatsevery' | translate}}</th>
-                <th>{{'table.heading.calculationtype' | translate}}</th>
-                <th>{{'table.heading.due' | translate}}</th>
-                <th>{{'table.heading.paid' | translate}}</th>
-                <th>{{'table.heading.waived' | translate}}</th>
-                <th>{{'table.heading.outstanding' | translate}}</th>
-                <th>{{'table.heading.actions' | translate}}</th>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.feeorpenalty' | translate}}</th>
+                <th>{{'label.heading.paymentdueat' | translate}}</th>
+                <th>{{'label.heading.dueasof' | translate}}</th>
+                <th>{{'label.heading.repeatson' | translate}}</th>
+                <th>{{'label.heading.calculationtype' | translate}}</th>
+                <th>{{'label.heading.due' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.waived' | translate}}</th>
+                <th>{{'label.heading.outstanding' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
             </tr>
             <tr ng-repeat="charge in charges" >
                 <td>{{charge.name}}</td>

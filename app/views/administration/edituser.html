@@ -1,18 +1,18 @@
     <div ng-controller="EditUserController">
       <div>
         <ul class="breadcrumb">
-          <li><a href="#/users">{{'link.admin.users' | translate}}</a> <span class="divider">/</span></li>
+          <li><a href="#/users">{{'label.anchor.users' | translate}}</a> <span class="divider">/</span></li>
           <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a> <span class="divider">/</span></li>
-          <li class="active">{{'label.edituser' | translate}}</li>
+          <li class="active">{{'label.anchor.edituser' | translate}}</li>
         </ul>
       </div>
       <form name="edituserform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-          <legend>{{'label.edituser' | translate}}</legend>
+          <legend>{{'label.heading.edituser' | translate}}</legend>
           
           <div class="control-group">
-            <label class="control-label" for="username">{{'label.username' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="username">{{'label.input.username' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="username" name="username" ng-model="formData.username" required late-Validate/>
               <form-validate valattributeform="edituserform" valattribute="username"/>
@@ -20,7 +20,7 @@
           </div>
           
           <div class="control-group">
-            <label class="control-label" for="firstname">{{'label.firstname' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="firstname">{{'label.input.firstname' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="firstname" name="firstname" value="{{user.firstname}}" ng-model="formData.firstname" required late-Validate/>
               <form-validate valattributeform="edituserform" valattribute="firstname"/>
@@ -28,7 +28,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="lastname">{{'label.lastname' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="lastname">{{'label.input.lastname' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="text" id="lastname" name="lastname" value="{{user.lastname}}" ng-model="formData.lastname" required late-Validate/>
               <form-validate valattributeform="edituserform" valattribute="lastname"/>
@@ -36,7 +36,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="email">{{'label.email' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="email">{{'label.input.email' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email" required late-Validate/>
               <form-validate valattributeform="edituserform" valattribute="email"/>
@@ -44,7 +44,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="office">{{'label.office' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="office">{{'label.input.office' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
       		    </select>
@@ -52,7 +52,7 @@
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="role">{{'label.selectroles' | translate}}<span class="required">*</span></label>
+            <label class="control-label" for="role">{{'label.input.selectroles' | translate}}<span class="required">*</span></label>
             <div class="controls">
               <select id="selectedRoles" ng-model="formData.selectedRoles" name="role"  ng-options="availablerole.name for availablerole in availableRoles" value="{{availablerole.id}}" multiple required>
       		    </select>
@@ -61,8 +61,8 @@
           </div>
 
           <div class="offset3">
-            <a href="#/viewuser/{{userId}}"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
-            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
+            <a href="#/viewuser/{{userId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
           </div>
         </fieldset>
       </form>

@@ -8,7 +8,7 @@
             scope.reportdetail = data;
             scope.formData.reportType = data.allowedReportTypes[0];
         });
-        
+
         scope.parameterSelected = function(allowedParameterId) {
           for(var i in scope.reportdetail.allowedParameters) {
             if (scope.reportdetail.allowedParameters[i].id == allowedParameterId) {

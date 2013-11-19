@@ -10,7 +10,7 @@
             <label class="control-label" for="{{reportParam.variable}}">{{ reportParam.label }}</label>
             <div class="controls">
               <select id="{{reportParam.inputName}}" class="input-xlarge" ng-model="formData[reportParam.inputName]" ng-change="getDependencies(reportParam)" required>
-                <option ng-show="reportParam.selectAll == 'Y'" value="-1">All</option>
+                <option ng-show="reportParam.selectAll == 'Y'" value="-1">{{ 'label.all' | translate }}</option>
                 <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">{{selectOption.name}}</option>
               </select>
             </div>
@@ -22,17 +22,17 @@
             </div>
         </div>
         <div class="control-group info" ng-show="reportType == 'Pentaho'" >
-            <label class="control-label" for="outputType">{{ 'label.report.output.type' | translate }}</label>
+            <label class="control-label" for="outputType">{{ 'label.input.outputtype' | translate }}</label>
             <div class="controls">
               <select class="input-xlarge" ng-model="formData.outputType">
-                <option value="HTML">{{ 'label.showreport' | translate }}</option>
-                <option value="XLS">{{ 'label.exportexcel' | translate }}</option>
-                <option value="CSV">{{ 'label.exportcsv' | translate }}</option>
-                <option value="PDF">{{ 'label.pdfformat' | translate }}</option>
+                <option value="HTML">{{ 'label.input.showreport' | translate }}</option>
+                <option value="XLS">{{ 'label.input.exportexcel' | translate }}</option>
+                <option value="CSV">{{ 'label.input.exportcsv' | translate }}</option>
+                <option value="PDF">{{ 'label.input.pdfformat' | translate }}</option>
               </select>
             </div>
         </div>
-        <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;{{ 'label.run' | translate }}</a></span>
+        <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;{{ 'label.button.run' | translate }}</a></span>
     </div>
 
     <div collapse="hideTable" class="row alert-block span tab-content">

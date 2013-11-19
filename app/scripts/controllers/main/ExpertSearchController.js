@@ -99,11 +99,11 @@
                        break;
                    case 'create saving product': location.path('/createsavingproduct');
                        break;
-                   case 'roles': location.path('/roles');
+                   case 'roles': location.path('/admin/roles');
                        break;
-                   case 'add role': location.path('addrole');
+                   case 'add role': location.path('/admin/addrole');
                        break;
-                   case 'configure maker checker tasks': location.path('/viewmctasks');
+                   case 'configure maker checker tasks': location.path('/admin/viewmctasks');
                        break;
                    case 'loan products': location.path('/loanproducts');
                        break;

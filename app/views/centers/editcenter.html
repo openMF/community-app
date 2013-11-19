@@ -1,25 +1,25 @@
 <div ng-controller="EditCenterController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/centers">{{'link.clients.centers' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href='#/viewcenter/{{centerId}}'>{{'link.view.center' | translate}}</a> <span class="divider">/</span></li>
-            <li class="active">{{'label.editcenter' | translate}}</li>
+            <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href='#/viewcenter/{{centerId}}'>{{'label.anchor.viewcenter' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{'label.anchor.editcenter' | translate}}</li>
         </ul>
     </div>
     <api-validate></api-validate>
     <div data-ng-switch on="managecode">
         <form name="editcenterform" novalidate="" class="form-horizontal well" data-ng-switch-when="2">
             <fieldset>
-                <legend>{{'label.editcenter' | translate}}</legend>
+                <legend>{{'label.heading.editcenter' | translate}}</legend>
                 <div class="control-group">
-                    <label class="control-label" for="name">{{'label.name' | translate}}<span class="required">*</span></label>
+                    <label class="control-label" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
                     <div class="controls">
                         <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{edit.name}}" ng-model="formData.name" required  late-Validate/>
                         <form-validate valattributeform="editcenterform" valattribute="name"/>
                     </div>
                 </div>
                 <div class="control-group info">
-                    <label class="control-label" for="staffs">{{'label.staff' | translate}}</label>
+                    <label class="control-label" for="staffs">{{'label.input.staff' | translate}}</label>
                     <div class="controls">
                         <select id="staffId" ng-model="formData.staffId" data-ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                             <option  value="">{{'label.select.staff' | translate}}</option>
@@ -27,32 +27,32 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="externalid">{{'label.externalid' | translate}}</label>
+                    <label class="control-label" for="externalid">{{'label.input.externalid' | translate}}</label>
                     <div class="controls">
                         <input type="text" id="externalId"  ng-model="formData.externalId">
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">{{'label.form.activationdate' | translate}}<span class="required">*</span></label>
+                    <label class="control-label">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
                     <div class="controls">
                         <input class="date-disable" readonly id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                     </div>
                 </div>
                 <div class="offset2 paddedleft120">
-                    <a href="#/viewcenter/{{edit.id}}" class="btn">{{'label.cancel' | translate}}</a>
-                    <button type="button" class="btn btn-primary" data-ng-click="updateGroup()">{{'label.save' | translate}}</button>
+                    <a href="#/viewcenter/{{edit.id}}" class="btn">{{'label.button.cancel' | translate}}</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="updateGroup()">{{'label.button.save' | translate}}</button>
                 </div>
             </fieldset>
         </form>
         <form ng-switch-when="1">
             <div class="paddedleft">
                 <div>
-                    <label class="control-label">{{ 'label.enteractivationdate' | translate }}<span class="required">*</span></label>
+                    <label class="control-label">{{ 'label.input.enteractivationdate' | translate }}<span class="required">*</span></label>
                     <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
                 <br/>
-                <a href="#/viewgroup/{{edit.id}}" class="btn">{{'label.cancel' | translate}}</a>
-                <button type="button" class="btn btn-primary" data-ng-click="activate()"><i class="icon-check-sign icon-white"></i>{{ 'label.activate' | translate }}</button>
+                <a href="#/viewgroup/{{edit.id}}" class="btn">{{'label.button.cancel' | translate}}</a>
+                <button type="button" class="btn btn-primary" data-ng-click="activate()"><i class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}</button>
             </div>
             <hr/>
         </form>
