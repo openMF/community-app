@@ -7,7 +7,7 @@
         <li>
             <h3>
                 &nbsp;
-                {{center.name}}
+                <strong>{{center.name}}</strong>
                 &nbsp;
                 <i class="icon-circle {{center.status.value | StatusLookup}}"></i>
                 &nbsp;
@@ -34,8 +34,8 @@
                 <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.centersavingapplication' | translate }}</a>
                 <a href="#/closecenter/{{center.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.close' | translate }}</a>
                 <button class="btn btn-primary" data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.delete' | translate }}</button>
-                <a href="#/assignstaff/{{center.id}}/centers" class="btn btn-primary" data-ng-hide="center.staffId">{{ 'label.assignstaff' | translate }}</a>
-                <button class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId">{{ 'label.unassignstaff' | translate }}</button>
+                <a href="#/assignstaff/{{center.id}}/centers" class="btn btn-primary" data-ng-hide="center.staffId"><i class="icon-user icon-white"></i>{{ 'label.assignstaff' | translate }}</a>
+                <button class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId"><i class="icon-user icon-white"></i>{{ 'label.unassignstaff' | translate }}</button>
         </div>
         </div>
         <br/>
@@ -127,24 +127,24 @@
         </div>
         <br/>
         <div data-ng-show="accounts.savingsAccounts">
-            <table class="table table-striped" width="100%">
+            <h3>{{ 'label.savingsaccountsoverview' | translate }}</h3>
+            <table class="table table-striped" width="100%" style="margin-top: -20px;">
                 <thead>
-                <label>{{ 'label.savingsaccountsoverview' | translate }}</label>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr class="graybg">
-                    <th>{{ 'label.products' | translate }}</th>
-                    <th>{{ 'label.form.accountno' | translate }}</th>
-                    <th>{{ 'label.balance' | translate }}</th>
-                    <th>{{ 'label.status' | translate }}</th>
-                </tr>
+                    <tr><td colspan="5">&nbsp;</td></tr>
+                    <tr class="graybg">
+                        <th>{{ 'label.products' | translate }}</th>
+                        <th>{{ 'label.form.accountno' | translate }}</th>
+                        <th>{{ 'label.balance' | translate }}</th>
+                        <th>{{ 'label.status' | translate }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="savingaccount in accounts.savingsAccounts">
-                    <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
-                    <td><a href="#/">{{savingaccount.accountNo}}</a></td>
-                    <td>{{savingaccount.accountBalance}}</td>
-                    <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
-                </tr>
+                    <tr ng-repeat="savingaccount in accounts.savingsAccounts">
+                        <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
+                        <td><a href="#/">{{savingaccount.accountNo}}</a></td>
+                        <td>{{savingaccount.accountBalance}}</td>
+                        <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
