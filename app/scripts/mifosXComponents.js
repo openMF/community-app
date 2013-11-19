@@ -117,6 +117,7 @@ define(['underscore', 'mifosX'], function() {
       'groups/GroupController',
       'groups/ViewGroupController',
       'groups/AttachMeetingController',
+      'groups/EditMeetingController',
       'savings/EditSavingAccountController',
       'savings/SavingAccountActionsController',
       'accounttransfers/ViewAccountTransferDetailsController',
