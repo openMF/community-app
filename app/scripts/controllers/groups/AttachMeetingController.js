@@ -3,44 +3,46 @@
         AttachMeetingController: function(scope, resourceFactory, location, routeParams,dateFilter) {
             resourceFactory.attachMeetingResource.get({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id, 
                 templateSource : 'template'}, function(data) {
+                scope.entityType = routeParams.entityType;
+                scope.groupOrCenterId = routeParams.id;
                 scope.groupCenterData = data;
                 scope.restrictDate = new Date();
                 scope.first = {};
+                scope.periodValue = "day(s)";
+                scope.repeatsOptions = [{id:1,value:"daily"}, {id:2,value:"weekly"}, {id:3,value:"monthly"}, {id:4,value:"yearly"}];
+                scope.repeatsEveryOptions = ["1","2","3"];
                 //to display default in select boxes
                 scope.formData = {
                     repeating :'true',
-                    repeats:'daily',
-                    repeatsEvery:'1'
+                    frequency:scope.repeatsOptions[0].id,
+                    interval:'1'
                 }
-                scope.periodValue = "day(s)";
-                scope.repeatsOptions = ["daily", "weekly", "monthly", "yearly"];
-                scope.repeatsEveryOptions = ["1","2","3"];
             });
 
             scope.selectedPeriod = function(period) {
-                if(period == "daily") {
+                if(period == 1) {
                     scope.repeatsEveryOptions = ["1","2","3"];
                     scope.periodValue = "day(s)"
                 }
-                if(period == "weekly") {
+                if(period == 2) {
                     scope.repeatsEveryOptions = ["1","2","3"];
-                    scope.formData.repeatsOnDay = 'MO';
+                    scope.formData.repeatsOnDay = '1';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions  = [
-                    {name : "MON", value : "MO"},
-                    {name : "TUE", value : "TU"},
-                    {name : "WED", value : "WE"},
-                    {name : "THU", value : "TH"},
-                    {name : "FRI", value : "FR"},
-                    {name : "SAT", value : "SA"},
-                    {name : "SUN", value : "SU"}
+                    {name : "MON", value : "1"},
+                    {name : "TUE", value : "2"},
+                    {name : "WED", value : "3"},
+                    {name : "THU", value : "4"},
+                    {name : "FRI", value : "5"},
+                    {name : "SAT", value : "6"},
+                    {name : "SUN", value : "7"}
                     ]
                 }
-                if(period == "monthly") {
+                if(period == 3) {
                     scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1","2","3","4", "5", "6", "7", "8", "9", "10", "11"];
                 }
-                if(period == "yearly") {
+                if(period == 4) {
                     scope.periodValue = "year(s)";
                     scope.repeatsEveryOptions = ["1","2","3"];
                 }

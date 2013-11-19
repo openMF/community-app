@@ -1,13 +1,13 @@
-<div ng-controller="AttachMeetingController">
+<div ng-controller="EditMeetingController">
     <ul class="breadcrumb" ng-show="entityType=='groups'">
       <li><a href="#/groups">{{'link.clients.groups' | translate}}</a> <span class="divider">/</span></li>
       <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'link.view.group' | translate}}</a> <span class="divider">/</span></li>
-      <li class="active">{{'link.attachmeeting' | translate }}</li>
+      <li class="active">{{'link.editmeeting' | translate }}</li>
     </ul>
     <ul class="breadcrumb" ng-show="entityType=='centers'">
       <li><a href="#/centers">{{'link.clients.centers' | translate}}</a> <span class="divider">/</span></li>
       <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'link.view.center' | translate}}</a> <span class="divider">/</span></li>
-      <li class="active">{{'link.attachmeeting' | translate }}</li>
+      <li class="active">{{'link.editmeeting' | translate }}</li>
     </ul>
     <api-validate></api-validate>
     <form ng-submit="submit()">
@@ -28,7 +28,7 @@
                         <label class="control-label">{{'label.repeat' | translate}}</label>
                     </td>
                     <td>
-                        <input type="checkbox" ng-model="formData.repeating" ng-true-value="true" ng-false-value="false">
+                        <input type="checkbox" ng-model="formData.repeating">
                     </td>
                     <td></td>
                     <td></td>
@@ -40,27 +40,26 @@
                     <td width="30%"></td>
                     <td>
                        <label class="control-label">{{'label.repeats' | translate}}</label>
-                       <select class="input-small" ng-model="formData.frequency"  ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions" ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"></select>
+                       <select class="input-small" ng-model="formData.frequency"  ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions" ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}" ng-disabled=true></select>
                     </td>
                     <td>
                        <label class="control-label">{{'label.repeatsevery' | translate}}</label>
-	                   <select class="input-small" ng-model="formData.interval"  ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions">{{repeatsEveryOption}}
-	                   </select>{{periodValue}}
+	                   <select class="input-small" ng-model="formData.interval"  ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions" ng-disabled=true value="{{repeatsEveryOption}}"></select>{{periodValue}}
                  	</td>
                 </tr>
             </table>
             <table width="40%">
-                <tr class="span2"></tr>
             	<tr ng-show="formData.repeating">
                     <td width="30%"></td>
-                	<td ng-show="formData.frequency=='2'"  ng-repeat="repeatsOnOption in repeatsOnOptions">
+                	<td ng-show="formData.frequency==2"  ng-repeat="repeatsOnOption in repeatsOnOptions">
 		      		 	<input type="radio" ng-model="formData.repeatsOnDay" value="{{repeatsOnOption.value}}"> {{repeatsOnOption.name}} <br/>
 					<td>
                 </tr>
             </table>
         </div>
         <div class="offset2">
-	        <button type="reset" class="btn">Cancel</button>
+	        <a ng-show="entityType=='groups'" class="btn" href="#/viewgroup/{{groupOrCenterId}}">Cancel</a>
+            <a ng-hide="entityType=='groups'" class="btn" href="#/viewcenter/{{groupOrCenterId}}">Cancel</a>
 	        <button type="submit" class="btn btn-primary">Save</button>
 	    </div>
     </form>
