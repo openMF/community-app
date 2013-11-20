@@ -94,13 +94,20 @@
       </div>
       
       <div class="control-group" ng-show="showAmountField">
-        <label class="control-label">{{ labelName | translate}}</label>
+        <label class="control-label">{{ labelName | translate}}<span class="required">*</span></label>
         <div class="controls">
           <input type="text" id="amount" ng-model="formData.amount">
         </div>
       </div>
 
-      <div class="control-group" ng-show="showDelete">
+      <div class="control-group" ng-show="paymentDatefield">
+        <label class="control-label" for="modelName">{{'label.paymentdate' | translate}}<span class="required">*</span></label>
+        <div class="controls">
+          <input id="{{modelName}}" type="text" class="date-disable" readonly datepicker-pop="dd MMMM yyyy" ng-model="formData[modelName]" is-open="opened"/>
+        </div>
+      </div>
+
+      <div class="control-group" ng-show="showDelete || waiveCharge">
         <label class="control-label">{{ 'label.areyousure' | translate }}</label>
       </div>
       <div class="offset3" ng-show="showDelete">
