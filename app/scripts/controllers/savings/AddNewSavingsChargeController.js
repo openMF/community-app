@@ -16,6 +16,7 @@
             scope.chargeDetails = data;
             scope.formData.amount = data.amount;
             scope.withDrawCharge = data.chargeTimeType.value === "Withdrawal Fee" ? true : false;
+            scope.formData.feeInterval = data.feeInterval;
             if (data.chargeTimeType.value === "Annual Fee" || data.chargeTimeType.value === "Monthly Fee") {
                 scope.chargeTimeTypeAnnualOrMonth = true;
             }

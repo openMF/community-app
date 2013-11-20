@@ -176,10 +176,11 @@
           <table class="table" width="100%">
             <tr class="graybg">
                 <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.feeorpenalty' | translate}}</th>
+                <th>{{'table.heading.feeorpenalty' | translate}}</th>   
                 <th>{{'table.heading.paymentdueat' | translate}}</th>
                 <th>{{'table.heading.dueasof' | translate}}</th>
                 <th>{{'label.repeatson' | translate}}</th>
+                <th>{{'label.repeatsevery' | translate}}</th>
                 <th>{{'table.heading.calculationtype' | translate}}</th>
                 <th>{{'table.heading.due' | translate}}</th>
                 <th>{{'table.heading.paid' | translate}}</th>
@@ -194,6 +195,7 @@
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td>{{charge.dueDate | DateFormat}}</td>
                 <td>{{charge.feeOnMonthDay | DayMonthFormat}}</td>
+                <td>{{charge.feeInterval}}</td>}
                 <td>{{charge.chargeCalculationType.value}} - {{charge.percentage}}% of{{charge.currency.displaySymbol}}{{charge.amountPercentageAppliedTo}}</td>
                 <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
                 <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
@@ -201,7 +203,12 @@
                 <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
                 <td ng-show="chargeAction"><a href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i class="icon-pencil icon-white"></i></a>
                 <a href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i class="icon-remove icon-white"></i></a></td>
-                <td ng-hide="!chargeAction"></td>
+                <td ng-hide="chargeAction">
+                  <span  ng-hide="charge.amountOutstanding == 0" ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
+                    <a title="{{'label.paycharge' | translate}}" href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i class="icon-check icon-white"></i></a>
+                    <a title="{{'label.waivecharge' | translate}}"  href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i class="icon-flag icon-white"></i></a>
+                  </span>
+                </td>
             </tr>
           </table>
         </tab>

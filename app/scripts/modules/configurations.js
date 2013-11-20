@@ -1,5 +1,5 @@
 angular.module('configurations', [])
-.constant('API_URL_OVERRIDE', 'flase')
+.constant('API_URL_OVERRIDE', 'false')
 .constant('TENANT','default')
 .constant('HOST','https://demo.openmf.org')
 .constant('API_VERSION','/mifosng-provider/api/v1')
