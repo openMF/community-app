@@ -45,7 +45,9 @@
             scope.modelName = 'actualDisbursementDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'disburse'}, function(data){
               scope.paymentTypes=data.paymentTypeOptions;
-              scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+              if (data.paymentTypeOptions.length > 0) {
+                scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+              }
               scope.formData[scope.modelName] = new Date();
             });
             scope.title = 'label.disburse.loan.account';
@@ -55,7 +57,6 @@
           case "repayment":
             scope.modelName = 'transactionDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'repayment'}, function(data){
-              console.log(data);
               scope.paymentTypes=data.paymentTypeOptions;
               if (data.paymentTypeOptions.length > 0) {
                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
