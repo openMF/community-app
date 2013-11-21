@@ -11,42 +11,58 @@
         scope.date = {};
         resourceFactory.loanProductResource.get({resourceType:'template'}, function(data) {
             scope.product = data;
-            scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
-            scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions;
-            scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions;
-            scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions;
+            scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
+            scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
+            scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
+            scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
 
-            scope.formData = {
-              currencyCode : scope.product.currencyOptions[0].code,
-              includeInBorrowerCycle : 'false',
-              digitsAfterDecimal : '2',
-              inMultiplesOf : '0',
-              repaymentFrequencyType : scope.product.repaymentFrequencyType.id,
-              interestRateFrequencyType : scope.product.interestRateFrequencyType.id,
-              amortizationType : scope.product.amortizationType.id,
-              interestType : scope.product.interestType.id,
-              interestCalculationPeriodType : scope.product.interestCalculationPeriodType.id,
-              transactionProcessingStrategyId : scope.product.transactionProcessingStrategyOptions[0].id,
-              fundSourceAccountId : scope.assetAccountOptions[0].id,
-              loanPortfolioAccountId : scope.assetAccountOptions[1].id,
-              transfersInSuspenseAccountId : scope.assetAccountOptions[2].id,
-              interestOnLoanAccountId : scope.incomeAccountOptions[0].id,
-              incomeFromFeeAccountId : scope.incomeAccountOptions[1].id,
-              incomeFromPenaltyAccountId : scope.incomeAccountOptions[2].id,
-              writeOffAccountId : scope.expenseAccountOptions[0].id,
-              accountingRule : '1',
-              overpaymentLiabilityAccountId : scope.liabilityOptions[0].id
+            scope.formData.currencyCode = scope.product.currencyOptions[0].code;
+            scope.formData.includeInBorrowerCycle = 'false';
+            scope.formData.digitsAfterDecimal = '2';
+            scope.formData.inMultiplesOf = '0';
+            scope.formData.repaymentFrequencyType = scope.product.repaymentFrequencyType.id;
+            scope.formData.interestRateFrequencyType = scope.product.interestRateFrequencyType.id;
+            scope.formData.amortizationType = scope.product.amortizationType.id;
+            scope.formData.interestType = scope.product.interestType.id;
+            scope.formData.interestCalculationPeriodType = scope.product.interestCalculationPeriodType.id;
+            scope.formData.transactionProcessingStrategyId = scope.product.transactionProcessingStrategyOptions[0].id;
+
+            if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
+              scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
             }
-            
+            if (scope.assetAccountOptions[1] && scope.assetAccountOptions[1].length > 1) {
+              scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
+            }
+            if (scope.assetAccountOptions[2] && scope.assetAccountOptions[2].length > 2) {
+              scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
+            }
+            if (scope.incomeAccountOptions[0] && scope.incomeAccountOptions[0].length > 0) {
+              scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
+            }
+            if (scope.incomeAccountOptions[1] && scope.incomeAccountOptions[1].length > 1) {
+              scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
+            }
+            if (scope.incomeAccountOptions[2] && scope.incomeAccountOptions[2].length > 2) {
+              scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
+            }
+            if (scope.expenseAccountOptions[0] && scope.expenseAccountOptions[0].length > 0) {
+              scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
+            } 
+            if (scope.liabilityOptions[0] && scope.liabilityOptions[0].length > 0) {
+              scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
+            } 
+            scope.formData.accountingRule = '1';
         });
 
         scope.chargeSelected = function(chargeId) {
-          resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData,function(data){
-              data.chargeId = data.id;
-              scope.charges.push(data);
-              //to charge select box empty
-              scope.chargeId = '';
-          });
+          if (chargeId) {
+            resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData,function(data){
+                data.chargeId = data.id;
+                scope.charges.push(data);
+                //to charge select box empty
+                scope.chargeId = '';
+            });
+          }
         }
 
         scope.deleteCharge = function(index) {
@@ -69,30 +85,37 @@
 
 
         scope.addConfigureFundSource = function() {
-          scope.configureFundOptions.push({
-            paymentTypeId : scope.product.paymentTypeOptions[0].id,
-            fundSourceAccountId : scope.assetAccountOptions[0].id,
-            paymentTypeOptions : scope.product.paymentTypeOptions,
-            assetAccountOptions : scope.assetAccountOptions
-          })
+          if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 && 
+            scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
+              scope.configureFundOptions.push({
+                paymentTypeId : scope.product.paymentTypeOptions[0].id,
+                fundSourceAccountId : scope.assetAccountOptions[0].id,
+                paymentTypeOptions : scope.product.paymentTypeOptions,
+                assetAccountOptions : scope.assetAccountOptions
+              });
+          };
         }
 
         scope.mapFees = function() {
-          scope.specificIncomeaccounts.push({
-            chargeId : scope.product.chargeOptions[0].id,
-            incomeAccountId : scope.incomeAccountOptions[0].id,
-            chargeOptions : scope.product.chargeOptions,
-            incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
-          })
+          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+              scope.specificIncomeaccounts.push({
+                chargeId : scope.product.chargeOptions[0].id,
+                incomeAccountId : scope.incomeAccountOptions[0].id,
+                chargeOptions : scope.product.chargeOptions,
+                incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
+              });
+          }
         }
 
         scope.mapPenalty = function() {
-          scope.penaltySpecificIncomeaccounts.push({
-            chargeId : scope.product.chargeOptions[0].id,
-            incomeAccountId : scope.incomeAccountOptions[0].id,
-            chargeOptions : scope.product.chargeOptions,
-            incomeAccountOptions : scope.incomeAccountOptions
-          })
+          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+            scope.penaltySpecificIncomeaccounts.push({
+              chargeId : scope.product.chargeOptions[0].id,
+              incomeAccountId : scope.incomeAccountOptions[0].id,
+              chargeOptions : scope.product.chargeOptions,
+              incomeAccountOptions : scope.incomeAccountOptions
+            });
+          }
         }
 
         scope.deleteFund = function(index) {

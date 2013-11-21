@@ -8,35 +8,35 @@
            
            //to display parent name
             if(data.type.value == "ASSET") {
-              scope.accountOptions = data.assetHeaderAccountOptions;
+              scope.accountOptions = data.assetHeaderAccountOptions || [];
               for(var i=0; i<scope.accountOptions.length; i++) {
                 if(scope.accountOptions[i].id == data.parentId) {
                   data.parentName = scope.accountOptions[i].name;
                 }
               }
             } else if(data.type.value == "LIABILITY") {
-                scope.accountOptions = data.liabilityHeaderAccountOptions;
+                scope.accountOptions = data.liabilityHeaderAccountOptions || [];
                 for(var i=0; i<scope.accountOptions.length; i++) {
                   if(scope.accountOptions[i].id == data.parentId) {
                     data.parentName = scope.accountOptions[i].name;
                   }
                 }
             } else if(data.type.value == "EQUITY") {
-                scope.accountOptions = data.equityHeaderAccountOptions;
+                scope.accountOptions = data.equityHeaderAccountOptions || [];
                 for(var i=0; i<scope.accountOptions.length; i++) {
                   if(scope.accountOptions[i].id == data.parentId) {
                     data.parentName = scope.accountOptions[i].name;
                   }
                 }
             } else if(data.type.value == "INCOME") {
-                scope.accountOptions = data.incomeHeaderAccountOptions;
+                scope.accountOptions = data.incomeHeaderAccountOptions || [];
                 for(var i=0; i<scope.accountOptions.length; i++) {
                   if(scope.accountOptions[i].id == data.parentId) {
                     data.parentName = scope.accountOptions[i].name;
                   }
                 }
             } else if(data.type.value == "EXPENSE") {
-                scope.accountOptions = data.expenseHeaderAccountOptions;
+                scope.accountOptions = data.expenseHeaderAccountOptions || [];
                 for(var i=0; i<scope.accountOptions.length; i++) {
                   if(scope.accountOptions[i].id == data.parentId) {
                     data.parentName = scope.accountOptions[i].name;
