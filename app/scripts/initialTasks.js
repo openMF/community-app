@@ -22,16 +22,12 @@
      } else {
           // For multi tenant hosting
           var hostname = window.location.hostname;
-
-          console.log('hostname---'+hostname);
-          domains = hostname.split('.');
-          console.log('domains---'+domains);
-          if(domains[0] == "demo") {
+          var domains = hostname.split('.');
+          if(hostname === 'demo')
+          if(domains[0] === 'demo') {
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = TENANT;
-                  console.log("demo server",domains[0]);
           } else {
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = domains[0];
-                  console.log("other than demo server", domains[0]);
           }
      }
 
@@ -56,6 +52,6 @@
   };
 
   mifosX.ng.application.config(defineHeaders).run(function($log) {
-    $log.info("Initial tasks are done!");
+    $log.info('Initial tasks are done!');
   });
 }(mifosX || {}));
