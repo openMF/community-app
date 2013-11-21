@@ -62,7 +62,7 @@ bower search <package>
 
 Just open test/SpecRunner.html in the browser.
 
-## Guideline for development
+## Guidelines for development
 
 * Before sending PR, do code quality check using JSHint
 * For adding locale, follow the guidelines given in this wiki (link)
