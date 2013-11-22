@@ -16,21 +16,30 @@ npm install -g grunt-cli
 ```
 4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder:
 ```
- "bower install"
+ bower install
 ```
 ```
- "npm install" 
+ npm install 
 ```
-5. Now open the 'index.html' file in FIREFOX browser. 
 
-6. Default username/password: mifos/password. This application will hit the demo server by default.
+5. Check the backend server HOST settings in the community-app\app\scripts\modules\configuration.js file. If you are connecting to a non local host, then you may need to change the API_URL_OVERRIDE value to *false*.
+
+6. Now open the 'index.html' file in FIREFOX browser. 
+
+7. Default username/password: mifos/password. This application will hit the demo server by default.
 
 You are done.
 
-Out of the box, the UI will connect to the mifosng-provider REST API running on the same host/port (API_URL_OVERRIDE === 'false').
-If you want to connect to the API running elsewhere, e.g. the https://demo.openmf.org running in the cloud, 
-e.g. so that someone with only JS skills who couldn't be bothered about having to set up the platform back-end locally can work on the UI,
-modify the constant in community-app\app\scripts\modules\configurations.js as below:
+### Connecting to a MifosX Platform running on a different host:
+Out of the box, the UI will connect to the MifosX Platform running on the *same* host/port because 
+the default value of API_URL_OVERRIDE is set to *false* in the configuration.js file.
+If you want to connect to a MifosX Platform running on a different host, e.g. the https://demo.openmf.org running in the cloud, 
+then modify the configuration API_URL_OVERRIDE and HOST in 
+```
+community-app\app\scripts\modules\configurations.js 
+```
+
+as below:
 
 ```
 .constant('API_URL_OVERRIDE', 'true')
