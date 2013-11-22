@@ -97,6 +97,10 @@
           case "modifytransaction":
             resourceFactory.savingsTrxnsResource.get({savingsId:scope.accountId, transactionId:routeParams.transactionId, template:'true'},
               function (data) {
+              scope.title = 'label.edit.saving.account.transaction';
+              scope.labelName = 'label.saving.account.transactionDate';
+              scope.modelName = 'transactionDate';
+              scope.formData[scope.modelName] = new Date(data.date) || new Date();
               scope.paymentTypes=data.paymentTypeOptions;
               scope.formData.transactionAmount = data.amount;
               if (data.paymentDetailData) {
@@ -110,9 +114,6 @@
                 scope.formData.bankNumber = data.paymentDetailData.bankNumber;
               }
             });
-            scope.title = 'label.edit.saving.account.transaction';
-            scope.labelName = 'label.saving.account.transactionDate';
-            scope.modelName = 'transactionDate';
             scope.showDateField = true;
             scope.showNoteField = false;
             scope.isTransaction = true;

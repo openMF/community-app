@@ -128,6 +128,9 @@
       .when('/addloandocument/:loanId', {
         templateUrl: 'views/loans/addloandocument.html'
       })
+      .when('/viewloantrxn/:accountId/trxnId/:id', {
+        templateUrl: 'views/loans/view_loan_transaction.html'
+      })
       .when('/organization', {
         templateUrl: 'views/administration/organization.html'
       })

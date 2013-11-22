@@ -313,12 +313,14 @@
               <colgroup span="4"></colgroup>
                 <thead>
                   <tr>
+                    <th>{{'table.heading.transactionId' | translate}}</th>
                     <th>{{'table.heading.transactiondate' | translate}}</th>
                     <th>{{'table.heading.transactiontype' | translate}}</th>
                     <th>{{'table.heading.amount' | translate}}</th>
                     <th colspan="4" scope="colgroup">{{'table.heading.breakdown' | translate}}</th>
                   </tr>
                   <tr>
+                    <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
@@ -330,6 +332,10 @@
                 </thead>
                 <tbody>
                   <tr ng-repeat="transaction in loandetails.transactions">
+                    <td>
+                      <a ng-show="transaction.type.id==2 || transaction.type.id==4" href="#/viewloantrxn/{{loandetails.id}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
+                      <span ng-hide="transaction.type.id==2 || transaction.type.id==4">{{transaction.id}}</span>
+                    </td>
                   <td>{{transaction.date | DateFormat}}</td>
                   <td>{{transaction.type.value}}</td>
                   <td>{{transaction.amount}}</td>
