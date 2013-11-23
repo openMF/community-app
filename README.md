@@ -30,7 +30,6 @@ npm install -g grunt-cli
 
 You are done.
 
-<<<<<<< HEAD
 ### Connecting to a MifosX Platform running on a different host:
 Out of the box, the UI will connect to the MifosX Platform running on the *same* host/port because 
 the default value of API_URL_OVERRIDE is set to *false* in the configuration.js file.
