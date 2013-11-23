@@ -112,6 +112,30 @@
             scope.formData[scope.modelName] = new Date();
           break;
           case "modifytransaction":
+            resourceFactory.loanTrxnsResource.get({loanId:scope.accountId, transactionId:routeParams.transactionId, template:'true'},
+              function (data) {
+              scope.title = 'label.edit.loan.account.transaction';
+              scope.labelName = 'label.loan.account.transactionDate';
+              scope.modelName = 'transactionDate';
+              scope.paymentTypes=data.paymentTypeOptions || [];
+              scope.formData.transactionAmount = data.amount;
+              scope.formData[scope.modelName] = new Date(data.date) || new Date();
+              if (data.paymentDetailData) {
+                if (data.paymentDetailData.paymentType) {
+                    scope.formData.paymentTypeId = data.paymentDetailData.paymentType.id;
+                }
+                scope.formData.accountNumber = data.paymentDetailData.accountNumber;
+                scope.formData.checkNumber = data.paymentDetailData.checkNumber;
+                scope.formData.routingCode = data.paymentDetailData.routingCode;
+                scope.formData.receiptNumber = data.paymentDetailData.receiptNumber;
+                scope.formData.bankNumber = data.paymentDetailData.bankNumber;
+              }
+            });
+            scope.showDateField = true;
+            scope.showNoteField = false;
+            scope.showAmountField = true;
+            scope.isTransaction = true;
+            scope.showPaymentDetails = false;
           break;
           case "deleteloancharge":
             scope.showDelete = true;
@@ -133,7 +157,7 @@
             this.formData.locale = 'en';
             this.formData.dateFormat = 'dd MMMM yyyy';
           }
-          if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close") {
+          if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close"  || scope.action == "modifytransaction") {
             if(scope.action == "modifytransaction") {
               params.command = 'modify';
               params.transactionId = routeParams.transactionId;

@@ -1,13 +1,15 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewRoleController: function(scope, routeParams, resourceFactory) {
+    ViewRoleController: function(scope, routeParams, resourceFactory, route) {
       scope.permissions = [];
       scope.groupings = [];
+      scope.formData = {};
+      var tempPermissionUIData = [];
       resourceFactory.rolePermissionResource.get({roleId:routeParams.id}, function(data) {
         scope.role = data;
+        scope.isDisabled=true;
 
         var currentGrouping = "";
-        var tempPermissionUIData = [];
         for (var i in data.permissionUsageData) {
           if (data.permissionUsageData[i].grouping != currentGrouping)
           {
@@ -16,9 +18,27 @@
             var newEntry = { permissions: [] };
             tempPermissionUIData[currentGrouping] = newEntry;
           }
-          var temp = { code:data.permissionUsageData[i].code, data:data.permissionUsageData[i].selected};
+          var temp = { code:data.permissionUsageData[i].code};
+          scope.formData[data.permissionUsageData[i].code] = data.permissionUsageData[i].selected;
           tempPermissionUIData[currentGrouping].permissions.push(temp);
         }
+
+        scope.editRoles = function () {
+          scope.isDisabled = false;
+        };
+
+        scope.cancel = function () {
+          scope.isDisabled = true;
+        };
+
+        scope.submit = function() {
+          var permissionData = {};
+          permissionData.permissions = this.formData;
+          resourceFactory.rolePermissionResource.update({roleId:routeParams.id},permissionData,function(data){
+            route.reload();
+            scope.isDisabled = true;
+          });
+        };
 
         scope.showPermissions = function (grouping) {
           if (scope.previousGrouping) {
@@ -53,7 +73,7 @@
       });
     }
   });
-  mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', mifosX.controllers.ViewRoleController]).run(function($log) {
+  mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route', mifosX.controllers.ViewRoleController]).run(function($log) {
     $log.info("ViewRoleController initialized"); 
   });
 }(mifosX.controllers || {}));
