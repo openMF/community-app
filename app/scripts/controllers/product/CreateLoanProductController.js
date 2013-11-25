@@ -18,7 +18,7 @@
 
             scope.formData.currencyCode = scope.product.currencyOptions[0].code;
             scope.formData.includeInBorrowerCycle = 'false';
-            scope.formData.useBorrowerCycle : 'false',
+            scope.formData.useBorrowerCycle = 'false';
             scope.formData.digitsAfterDecimal = '2';
             scope.formData.inMultiplesOf = '0';
             scope.formData.repaymentFrequencyType = scope.product.repaymentFrequencyType.id;
@@ -27,9 +27,9 @@
             scope.formData.interestType = scope.product.interestType.id;
             scope.formData.interestCalculationPeriodType = scope.product.interestCalculationPeriodType.id;
             scope.formData.transactionProcessingStrategyId = scope.product.transactionProcessingStrategyOptions[0].id;
-            scope.formData.principalVariationsForBorrowerCycle : scope.product.principalVariationsForBorrowerCycle,
-            scope.formData.interestRateVariationsForBorrowerCycle : scope.product.interestRateVariationsForBorrowerCycle,
-            scope.formData.numberOfRepaymentVariationsForBorrowerCycle : scope.product.numberOfRepaymentVariationsForBorrowerCycle
+            scope.formData.principalVariationsForBorrowerCycle = scope.product.principalVariationsForBorrowerCycle;
+            scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
+            scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
 
             if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
               scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
@@ -114,17 +114,17 @@
         scope.addPrincipalVariation = function() {
           scope.formData.principalVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
-          })
+          });
         }
         scope.addInterestRateVariation = function() {
           scope.formData.interestRateVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
-          })
+          });
         }
         scope.addNumberOfRepaymentVariation = function() {
           scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
-          })
+          });
         }
 
         scope.mapPenalty = function() {
