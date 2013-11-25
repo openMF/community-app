@@ -61,6 +61,15 @@
                 </td>
                 <td width="40%"></td>
               </tr>
+              <tr>
+                <td width="40%">
+                  <label class="control-label">{{ 'label.useborrowerloancounter' | translate }}</label>
+                  <label class="checkbox">
+                    <input type="checkbox" ng-model="formData.useBorrowerCycle"/>
+                  </label>
+                </td>
+                <td width="40%"></td>
+              </tr>
             </table>
           </td>
         </tr>
@@ -127,6 +136,55 @@
                 </table>
               </td>
             </tr>
+
+            <tr class="control-group">
+              <td>
+                <table ng-show = "formData.useBorrowerCycle">
+                <tr>
+                  <td>{{'label.principalCycleVariations' | translate}}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><button class="btn btn-primary" ng-click="addPrincipalVariation()">{{ 'button.add' | translate }}</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <table class="table">
+                      <tr class="graybg">
+                           <th></th> 
+                           <th>{{'label.cyclenumber' | translate}}</th>
+                           <th>{{'label.minimum' | translate}}</th>
+                           <th>{{'label.default' | translate}}</th>
+                           <th>{{'label.maximum' | translate}}</th>
+                           <th></th>
+                        </tr>
+                        <tr ng-repeat="borrowerCycleVariation in formData.principalVariationsForBorrowerCycle">
+                          <td>
+                            <select id="principalValueUsageCondition{{$index}}" class="input-small" ng-model="borrowerCycleVariation.valueConditionType" ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions" value="{{valueConditionType.id}}"/>
+                          </td>
+                          <td><input id="principalCycleNumber{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.borrowerCycleNumber" />
+                          </td>
+                          <td>
+                            <input type="hidden" id="principalborrowerCycleId{{$index}}" class="input-small" ng-model="borrowerCycleVariation.id" />
+                            <input type="text" id="minPrincipalPerCycle{{$index}}" class="input-small" ng-model="borrowerCycleVariation.minValue" />
+                          </td>
+                          <td>
+                            <input id="principalPerCycle{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.defaultValue" name="principalPerCycle{{$index}}" />
+
+                          </td>
+                          <td><input type="text" id="maxPrincipalPerCycle{{$index}}" class="input-small" ng-model="borrowerCycleVariation.maxValue"/></td>
+                          <td><i class="icon-remove" ng-click="deletePrincipalVariation($index)"></i>
+                          
+                          </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+
             <tr>
               <td width="80%">
                 <table>
@@ -157,6 +215,55 @@
                 </table>
               </td>
             </tr>
+
+            <tr class="control-group">
+              <td>
+                <table ng-show = "formData.useBorrowerCycle">
+                <tr>
+                  <td>{{'label.numerOfRepaymentCycleVariations' | translate}}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><button class="btn btn-primary" ng-click="addNumberOfRepaymentVariation()">{{ 'button.add' | translate }}</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <table class="table">
+                      <tr class="graybg">
+                           <th></th> 
+                           <th>{{'label.cyclenumber' | translate}}</th>
+                           <th>{{'label.minimum' | translate}}</th>
+                           <th>{{'label.default' | translate}}</th>
+                           <th>{{'label.maximum' | translate}}</th>
+                           <th></th>
+                        </tr>
+                        <tr ng-repeat="borrowerCycleVariation in formData.numberOfRepaymentVariationsForBorrowerCycle">
+                          <td>
+                            <select id="repaymentValueUsageCondition{{$index}}" class="input-small" ng-model="borrowerCycleVariation.valueConditionType" ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions" value="{{valueConditionType.id}}"/>
+                          </td>
+                          <td><input id="repaymentCycleNumber{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
+                          </td>
+                          <td>
+                            <input type="hidden" id="repaymentborrowerCycleId{{$index}}" class="input-small" ng-model="borrowerCycleVariation.id" />
+                            <input type="text" id="minrepaymentPerCycle{{$index}}"  class="input-small" ng-model="borrowerCycleVariation.minValue" />
+                          </td>
+                          <td>
+                            <input id="repaymentPerCycle{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.defaultValue" />
+
+                          </td>
+                          <td><input type="text" id="maxrepaymentPerCycle{{$index}}" class="input-small" ng-model="borrowerCycleVariation.maxValue"/></td>
+                          <td><i class="icon-remove" ng-click="deleterepaymentVariation($index)"></i>
+                          
+                          </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+
             <tr>
               <td width="40%">
                 <label class="control-label">{{ 'label.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
@@ -201,10 +308,59 @@
                 </table>
               </td>
             </tr>
+            <tr class="control-group">
+              <td>
+                <table ng-show = "formData.useBorrowerCycle">
+                <tr>
+                  <td>{{'label.interestRateCycleVariations' | translate}}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><button class="btn btn-primary" ng-click="addInterestRateVariation()">{{ 'button.add' | translate }}</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <table class="table">
+                      <tr class="graybg">
+                           <th></th> 
+                           <th>{{'label.cyclenumber' | translate}}</th>
+                           <th>{{'label.minimum' | translate}}</th>
+                           <th>{{'label.default' | translate}}</th>
+                           <th>{{'label.maximum' | translate}}</th>
+                           <th></th>
+                        </tr>
+                        <tr ng-repeat="borrowerCycleVariation in formData.interestRateVariationsForBorrowerCycle">
+                          <td>
+                            <select id="interestRateValueUsageCondition{{$index}}" class="input-small" ng-model="borrowerCycleVariation.valueConditionType" ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions" value="{{valueConditionType.id}}"/>
+                          </td>
+                          <td><input id="interestRateCycleNumber{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.borrowerCycleNumber" />
+                          </td>
+                          <td>
+                            <input type="hidden" id="interestRateborrowerCycleId{{$index}}" class="input-small" ng-model="borrowerCycleVariation.id" />
+                            <input type="text" id="mininterestRatePerCycle{{$index}}" class="input-small" ng-model="borrowerCycleVariation.minValue" />
+                          </td>
+                          <td>
+                            <input id="interestRatePerCycle{{$index}}" type="text" class="input-small" ng-model="borrowerCycleVariation.defaultValue" name="principalPerCycle{{$index}}" />
+
+                          </td>
+                          <td><input type="text" id="maxInterestRatePerCycle{{$index}}" class="input-small" ng-model="borrowerCycleVariation.maxValue"/></td>
+                          <td><i class="icon-remove" ng-click="deleteInterestRateVariation($index)"></i>
+                          
+                          </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
           </table>
         </td>
       </tr>
 
+
+      
       <tr class="span2"></tr>
 
       <tr class="control-group">

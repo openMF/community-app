@@ -18,6 +18,7 @@
 
             scope.formData.currencyCode = scope.product.currencyOptions[0].code;
             scope.formData.includeInBorrowerCycle = 'false';
+            scope.formData.useBorrowerCycle : 'false',
             scope.formData.digitsAfterDecimal = '2';
             scope.formData.inMultiplesOf = '0';
             scope.formData.repaymentFrequencyType = scope.product.repaymentFrequencyType.id;
@@ -26,6 +27,9 @@
             scope.formData.interestType = scope.product.interestType.id;
             scope.formData.interestCalculationPeriodType = scope.product.interestCalculationPeriodType.id;
             scope.formData.transactionProcessingStrategyId = scope.product.transactionProcessingStrategyOptions[0].id;
+            scope.formData.principalVariationsForBorrowerCycle : scope.product.principalVariationsForBorrowerCycle,
+            scope.formData.interestRateVariationsForBorrowerCycle : scope.product.interestRateVariationsForBorrowerCycle,
+            scope.formData.numberOfRepaymentVariationsForBorrowerCycle : scope.product.numberOfRepaymentVariationsForBorrowerCycle
 
             if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
               scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
@@ -107,6 +111,22 @@
           }
         }
 
+        scope.addPrincipalVariation = function() {
+          scope.formData.principalVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+        scope.addInterestRateVariation = function() {
+          scope.formData.interestRateVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+        scope.addNumberOfRepaymentVariation = function() {
+          scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+
         scope.mapPenalty = function() {
           if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
             scope.penaltySpecificIncomeaccounts.push({
@@ -129,6 +149,18 @@
         scope.deletePenalty = function(index) {
             scope.penaltySpecificIncomeaccounts.splice(index,1);
         } 
+
+        scope.deletePrincipalVariation = function(index) {
+            scope.formData.principalVariationsForBorrowerCycle.splice(index,1);
+        }
+
+        scope.deleteInterestRateVariation = function(index) {
+            scope.formData.interestRateVariationsForBorrowerCycle.splice(index,1);
+        }
+
+        scope.deleterepaymentVariation = function(index) {
+            scope.formData.numberOfRepaymentVariationsForBorrowerCycle.splice(index,1);
+        }
 
         scope.submit = function() {
           var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
@@ -183,8 +215,8 @@
           this.formData.startDate = reqFirstDate;
           this.formData.closeDate = reqSecondDate;
           resourceFactory.loanProductResource.save(this.formData,function(data){
-            location.path('/viewloanproduct/' + data.resourceId);
-          });
+             location.path('/viewloanproduct/' + data.resourceId);
+           });
         }
     }
   });
