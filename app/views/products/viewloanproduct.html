@@ -44,6 +44,10 @@
 				<td>{{'label.includeborrowercycle' | translate}} :</td>
 				<td colspan="3">{{loanproduct.includeInBorrowerCycle}}</td>
 			</tr>
+			<tr>
+				<td>{{'label.useborrowerloancounter' | translate}} :</td>
+				<td colspan="3">{{loanproduct.useBorrowerCycle}}</td>
+			</tr>
 			<tr><td colspan="4"><br/></td></tr>
 			<tr class="bottomborder"><td colspan="4"><strong>Terms</strong></td></tr>
 			<tr class="toppadding">
@@ -58,7 +62,6 @@
 				<td>{{'table.heading.principal' | translate}}:</td>
 				<td colspan="3">{{loanproduct.principal}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minPrincipal}}&nbsp;, Max :{{loanproduct.maxPrincipal}} )</td>
 			</tr>
-
 			<tr>
 				<td>{{'label.numofrepayments' | translate}}</td>
 				<td colspan="3">{{loanproduct.numberOfRepayments}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minNumberOfRepayments}}&nbsp;, Max:{{loanproduct.maxNumberOfRepayments}})</td>
@@ -71,6 +74,55 @@
 				<td>{{'label.nominalinterestrate' | translate}}</td>
 				<td colspan="3">{{loanproduct.interestRatePerPeriod}}&nbsp;&nbsp;&nbsp;( Min:{{loanproduct.minInterestRatePerPeriod}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}</td>
 			</tr>
+			<tr class = "bottomborder" ng-show="loanproduct.useBorrowerCycle">
+				<td colspan="4"><strong>{{'label.principalCycleVariations' | translate}}</strong></td>
+			</tr>
+           <tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+               <td>{{'label.cyclenumber' | translate}}</td>
+               <td>{{'label.minimum' | translate}}</td>
+               <td>{{'label.default' | translate}}</td>
+               <td>{{'label.maximum' | translate}}</td>
+               <td></td>
+            </tr>
+            <tr ng-repeat="borrowerCycleVariation in loanproduct.principalVariationsForBorrowerCycle">
+              <td>{{borrowerCycleVariation.valueConditionType.code | translate}}{{borrowerCycleVariation.borrowerCycleNumber}}</td>
+              <td>{{borrowerCycleVariation.minValue}}</td>
+              <td>{{borrowerCycleVariation.defaultValue}}</td>
+              <td>{{borrowerCycleVariation.maxValue}}</td>
+            </tr>
+		    <tr class = "bottomborder" ng-show="loanproduct.useBorrowerCycle">
+				<td colspan="4"><strong>{{'label.numerOfRepaymentCycleVariations' | translate}}</strong></td>
+			</tr>
+           <tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+               <td>{{'label.cyclenumber' | translate}}</td>
+               <td>{{'label.minimum' | translate}}</td>
+               <td>{{'label.default' | translate}}</td>
+               <td>{{'label.maximum' | translate}}</td>
+               <td></td>
+            </tr>
+            <tr ng-repeat="borrowerCycleVariation in loanproduct.numberOfRepaymentVariationsForBorrowerCycle">
+              <td>{{borrowerCycleVariation.valueConditionType.code | translate}}{{borrowerCycleVariation.borrowerCycleNumber}}</td>
+              <td>{{borrowerCycleVariation.minValue}}</td>
+              <td>{{borrowerCycleVariation.defaultValue}}</td>
+              <td>{{borrowerCycleVariation.maxValue}}</td>
+            </tr>
+            <tr class = "bottomborder" ng-show="loanproduct.useBorrowerCycle">
+				<td colspan="4"><strong>{{'label.interestRateCycleVariations' | translate}}</strong></td>
+			</tr>
+           <tr class="bottomborder graybg" ng-show="loanproduct.useBorrowerCycle">
+               <td>{{'label.cyclenumber' | translate}}</td>
+               <td>{{'label.minimum' | translate}}</td>
+               <td>{{'label.default' | translate}}</td>
+               <td>{{'label.maximum' | translate}}</td>
+               <td></td>
+            </tr>
+            <tr ng-repeat="borrowerCycleVariation in loanproduct.interestRateVariationsForBorrowerCycle">
+              <td>{{borrowerCycleVariation.valueConditionType.code | translate}}{{borrowerCycleVariation.borrowerCycleNumber}}</td>
+              <td>{{borrowerCycleVariation.minValue}}</td>
+              <td>{{borrowerCycleVariation.defaultValue}}</td>
+              <td>{{borrowerCycleVariation.maxValue}}</td>
+            </tr>
+
 			<tr><td colspan="4"><br/></td></tr>
 			<tr class="bottomborder"><td colspan="4"><strong>Settings</strong></td></tr>
 			<tr class="toppadding">

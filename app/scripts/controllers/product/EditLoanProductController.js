@@ -23,6 +23,7 @@
               fundId : scope.product.fundId,
               description : scope.product.description,
               includeInBorrowerCycle : scope.product.includeInBorrowerCycle,
+              useBorrowerCycle : scope.product.useBorrowerCycle,
               currencyCode : scope.product.currency.code,
               digitsAfterDecimal : scope.product.currency.decimalPlaces,
               inMultiplesOf : scope.product.currency.inMultiplesOf,
@@ -46,8 +47,45 @@
               graceOnPrincipalPayment : scope.product.graceOnPrincipalPayment,
               graceOnInterestPayment : scope.product.graceOnInterestPayment,
               graceOnInterestCharged : scope.product.graceOnInterestCharged,
-              accountingRule : scope.product.accountingRule.id
+              accountingRule : scope.product.accountingRule.id,
+              principalVariationsForBorrowerCycle : [],
+              interestRateVariationsForBorrowerCycle : [],
+              numberOfRepaymentVariationsForBorrowerCycle : []
             }
+
+            _.each(scope.product.principalVariationsForBorrowerCycle, function(variation){  
+                scope.formData.principalVariationsForBorrowerCycle.push({
+                  id : variation.id,
+                  borrowerCycleNumber : variation.borrowerCycleNumber,
+                  valueConditionType : variation.valueConditionType.id,
+                  minValue : variation.minValue,
+                  maxValue : variation.maxValue,
+                  defaultValue : variation.defaultValue
+                })
+              });
+
+            _.each(scope.product.interestRateVariationsForBorrowerCycle, function(variation){  
+                scope.formData.interestRateVariationsForBorrowerCycle.push({
+                  id : variation.id,
+                  borrowerCycleNumber : variation.borrowerCycleNumber,
+                  valueConditionType : variation.valueConditionType.id,
+                  minValue : variation.minValue,
+                  maxValue : variation.maxValue,
+                  defaultValue : variation.defaultValue
+                })
+              });
+
+            _.each(scope.product.numberOfRepaymentVariationsForBorrowerCycle, function(variation){  
+                scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
+                  id : variation.id,
+                  borrowerCycleNumber : variation.borrowerCycleNumber,
+                  valueConditionType : variation.valueConditionType.id,
+                  minValue : variation.minValue,
+                  maxValue : variation.maxValue,
+                  defaultValue : variation.defaultValue
+                })
+              });
+
 
             if(scope.formData.accountingRule == 1){
               scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
@@ -148,6 +186,23 @@
           })
         }
 
+        scope.addPrincipalVariation = function() {
+          scope.formData.principalVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+        scope.addInterestRateVariation = function() {
+          scope.formData.interestRateVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+        scope.addNumberOfRepaymentVariation = function() {
+          scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
+            valueConditionType : scope.product.valueConditionTypeOptions[0].id
+          })
+        }
+
+
         scope.deleteFund = function(index) {
           scope.configureFundOptions.splice(index,1);
         } 
@@ -159,6 +214,19 @@
         scope.deletePenalty = function(index) {
           scope.penaltySpecificIncomeaccounts.splice(index,1);
         } 
+
+        scope.deletePrincipalVariation = function(index) {
+            scope.formData.principalVariationsForBorrowerCycle.splice(index,1);
+        }
+
+        scope.deleteInterestRateVariation = function(index) {
+            scope.formData.interestRateVariationsForBorrowerCycle.splice(index,1);
+        }
+
+        scope.deleterepaymentVariation = function(index) {
+            scope.formData.numberOfRepaymentVariationsForBorrowerCycle.splice(index,1);
+        }
+
 
         scope.submit = function() {
           scope.paymentChannelToFundSourceMappings = [];
