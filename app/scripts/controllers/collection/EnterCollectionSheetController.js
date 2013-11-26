@@ -93,7 +93,7 @@
                 scope.clientsAttendanceSelected(data);
                 scope.groupTotalArray(data);
               });
-          } else if (scope.calendarId !== "") {
+          } else {
             resourceFactory.groupResource.save({'groupId' : 0, command : 'generateCollectionSheet'}, scope.formData,function(data){
               scope.collectionsheetdata = data;
             });

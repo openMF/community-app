@@ -14,10 +14,9 @@
     <div class="control-group">
       <label class="control-label">{{ 'label.center' | translate }}<span class="required">*</span></label>
       <div class="controls">
-        <select id="centerId" name="center" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)" required>
+        <select id="centerId" name="center" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)">
           <option value="">{{'label.select.center' | translate}}</option>
         </select>
-        <form-validate valattributeform="collectionsheetform" valattribute="center"/>
       </div>
     </div>
 
@@ -40,8 +39,8 @@
       <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.collectionsheet' | translate}}
         <i class="icon-circle-arrow-right"></i></button>
     </div>
-    <div></div>
-    <div style="float:left; max-width:850px; min-width:50px; overflow-x:auto!important; white-space:nowrap;">
+    <div class="paddedbottom"></div>
+    <div style="float:left; max-width:850px; min-width:800px; overflow-x:auto!important; white-space:nowrap;">
       <table class="well table" ng-show="collectionsheetdata" width="100%" style="float:left!important">
         <thead>
           <tr>
@@ -96,7 +95,7 @@
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
                 <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup" ng-show="loanproduct.id == loanProductArray.productId">
-                  <input type="text" class="input-small" ng-model="loanProductArray.transactionAmount">
+                  <input type="text" class="input-small" ng-model="loanProductArray.transactionAmount" disabled="disabled">
                   <input type="text" class="input-mini-small" ng-model="loanProductArray.displaySymbol" disabled="disabled">
                 </span>
               </span>
@@ -104,7 +103,7 @@
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
                 <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup" ng-show="loanproduct.id == loanProductArray.productId">
-                  <input type="text" class="input-small" ng-model="loanProductArray.disbursementAmount">
+                  <input type="text" class="input-small" ng-model="loanProductArray.disbursementAmount" disabled="disabled">
                   <input type="text" class="input-mini-small" ng-model="loanProductArray.displaySymbol" disabled="disabled">
                 </span>
               </span>
@@ -118,13 +117,13 @@
             <td>{{'table.heading.total' | translate}}Total</td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
-                <input type="text" class="input-small" ng-model="total.transactionAmount">
+                <input type="text" class="input-small" ng-model="total.transactionAmount" disabled="disabled">
                 <input type="text" class="input-mini-small" ng-model="total.displaySymbol" disabled="disabled">
               </span>
             </td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
-                <input type="text" class="input-small" ng-model="total.disbursementAmount">
+                <input type="text" class="input-small" ng-model="total.disbursementAmount" disabled="disabled">
                 <input type="text" class="input-mini-small" ng-model="total.displaySymbol" disabled="disabled">
               </span>
             </td>
