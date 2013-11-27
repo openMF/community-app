@@ -12,13 +12,10 @@ describe("ClientController", function() {
         this.paginatorService = jasmine.createSpyObj("paginatorService", ["paginate"]);
 
 
-//        spyOn(this.paginatorService, 'paginate').andCallThrough();
-
-
         this.controller = new mifosX.controllers.ClientController(this.scope, this.resourceFactory, this.paginatorService);
     });
 
-    it("should call the clientResource with the correct method", function() {
-        expect(this.resourceFactory.clientResource.getAllClients).toHaveBeenCalled();
+    it("should populate the scope with paginated clients", function() {
+        expect(this.paginatorService.paginate).toHaveBeenCalled();
     });
 });
