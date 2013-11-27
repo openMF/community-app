@@ -11,9 +11,8 @@ describe("ClientController", function() {
 
         this.paginatorService = jasmine.createSpyObj("paginatorService", ["paginate"]);
 
-        this.paginatorService.when("paginate").thenReturn( function() {
-            resourceFactory.clientResource.getAllClients();
-        })
+
+//        spyOn(this.paginatorService, 'paginate').andCallThrough();
 
 
         this.controller = new mifosX.controllers.ClientController(this.scope, this.resourceFactory, this.paginatorService);
