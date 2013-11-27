@@ -16,29 +16,29 @@
 
         switch (scope.action) {
           case "approve":
-            scope.title = 'label.approve.loan.account';
-            scope.labelName = 'label.loan.account.approvedOnDate';
+            scope.title = 'label.heading.approveloanaccount';
+            scope.labelName = 'label.input.approvedondate';
             scope.modelName = 'approvedOnDate';
             scope.formData[scope.modelName] = new Date();
           break;
           case "reject":
-            scope.title = 'label.reject.loan.account';
-            scope.labelName = 'label.loan.account.rejectedOnDate';
+            scope.title = 'label.heading.rejectloanaccount';
+            scope.labelName = 'label.input.rejectedondate';
             scope.modelName = 'rejectedOnDate';
             scope.formData[scope.modelName] = new Date();
           break;
           case "withdrawnByApplicant":
-            scope.title = 'label.withdraw.loan.account';
-            scope.labelName = 'label.loan.account.withdrawnOnDate';
+            scope.title = 'label.heading.withdrawloanaccount';
+            scope.labelName = 'label.input.withdrawnondate';
             scope.modelName = 'withdrawnOnDate';
             scope.formData[scope.modelName] = new Date();
           break;
           case "undoapproval":
-            scope.title = 'label.undoapprove.loan.account';
+            scope.title = 'label.heading.undoapproveloanaccount';
             scope.showDateField = false;
           break;
           case "undodisbursal":
-            scope.title = 'label.undodisburse.loan.account';
+            scope.title = 'label.heading.undodisburseloanaccount';
             scope.showDateField = false;
           break;
           case "disburse":
@@ -50,8 +50,8 @@
               }
               scope.formData[scope.modelName] = new Date();
             });
-            scope.title = 'label.disburse.loan.account';
-            scope.labelName = 'label.loan.account.disbursedOnDate';
+            scope.title = 'label.heading.disburseloanaccount';
+            scope.labelName = 'label.input.disbursedondate';
             scope.isTransaction = true;
           break;
           case "repayment":
@@ -64,8 +64,8 @@
               scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
-            scope.title = 'label.loan.repayments';
-            scope.labelName = 'label.loan.account.transactionDate';
+            scope.title = 'label.heading.loanrepayments';
+            scope.labelName = 'label.input.transactiondate';
             scope.isTransaction = true;
             scope.showAmountField = true;
           break;
@@ -76,8 +76,8 @@
               scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
-            scope.title = 'label.loan.waiveinterest';
-            scope.labelName = 'label.loan.account.interestwaivedOn';
+            scope.title = 'label.heading.loanwaiveinterest';
+            scope.labelName = 'label.input.interestwaivedon';
             scope.showAmountField = true;
           break;
           case "writeoff":
@@ -85,28 +85,28 @@
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'writeoff'}, function(data){
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
-            scope.title = 'label.writeoff.loan.account';
-            scope.labelName = 'label.loan.account.writeoffOnDate';
+            scope.title = 'label.heading.writeoffloanaccount';
+            scope.labelName = 'label.input.writeoffondate';
           break;
           case "close-rescheduled":
             scope.modelName = 'transactionDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'close-rescheduled'}, function(data){
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
-            scope.title = 'label.close.loan.account.asrescheduled';
-            scope.labelName = 'label.loan.account.closedOnDate';
+            scope.title = 'label.heading.closeloanaccountasrescheduled';
+            scope.labelName = 'label.input.closedondate';
           break;
           case "close":
             scope.modelName = 'transactionDate';
             resourceFactory.loanTrxnsTemplateResource.get({loanId:scope.accountId, command:'close'}, function(data){
               scope.formData[scope.modelName] = new Date(data.date) || new Date();
             });
-            scope.title = 'label.close.loan.account';
-            scope.labelName = 'label.loan.account.closedOnDate';
+            scope.title = 'label.heading.closeloanaccount';
+            scope.labelName = 'label.input.closedondate';
           break;
           case "unassignloanofficer":
-            scope.title = 'label.unassignloanofficer';
-            scope.labelName = 'label.loan.offiecer.unassigneddate';
+            scope.title = 'label.heading.unassignloanofficer';
+            scope.labelName = 'label.input.loanofficerunassigneddate';
             scope.modelName = 'unassignedDate';
             scope.showNoteField = false;
             scope.formData[scope.modelName] = new Date();

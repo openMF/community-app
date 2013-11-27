@@ -1,21 +1,21 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
-        <li class="active">{{'label.bulkloanreassignment' | translate}}</li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.anchor.bulkloanreassignment' | translate}}</li>
     </ul>
 </div>
 <form class="form-horizontal well" ng-controller="BulkLoanReassignmentController" ng-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
-        <legend>{{'label.bulkloanreassignment' | translate}}</legend>
+        <legend>{{'label.heading.bulkloanreassignment' | translate}}</legend>
         <table>
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.form.office' | translate }}<span class="required">*</span></label>
+                        <label class="control-label" >{{ 'label.input.office' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <select name="office" id="office" ng-model="officeIdTemp" data-ng-options="office.id as office.name for office in offices" data-ng-change="getOfficers()">
-                                <option value="">{{'label.select.office' | translate}}</option>
+                                <option value="">{{'label.selectoffice' | translate}}</option>
                             </select>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label">{{ 'label.assignmentdate' | translate }}<span class="required">*</span></label>
+                        <label class="control-label">{{ 'label.input.assignmentdate' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
                         </div>
@@ -34,20 +34,20 @@
             <tr data-ng-show="officerChoice">
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.fromloanofficer' | translate }}<span class="required">*</span></label>
+                        <label class="control-label" >{{ 'label.input.fromloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <select id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
-                                <option value="">{{'label.select.one' | translate}}</option>
+                                <option value="">{{'label.selectone' | translate}}</option>
                             </select>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.toloanofficer' | translate }}<span class="required">*</span></label>
+                        <label class="control-label" >{{ 'label.input.toloanofficer' | translate }}<span class="required">*</span></label>
                         <div class="controls">
                             <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers">
-                                <option value="">{{'label.select.one' | translate}}</option>
+                                <option value="">{{'label.selectone' | translate}}</option>
                             </select>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
             <div class="span6">
                 <table data-ng-show="clients">
                     <thead>
-                        <th>{{'label.clients' | translate}}</th>
+                        <th>{{'label.heading.clients' | translate}}</th>
                     </thead>
                     <tbody>
                     <tr ng-repeat="client in clients">
@@ -77,7 +77,7 @@
             <div class="span6">
                 <table data-ng-show="groups">
                     <thead>
-                        <th>{{'label.groups' | translate}}</th>
+                        <th>{{'label.heading.groups' | translate}}</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="group in groups">
@@ -95,8 +95,8 @@
             </div>
         </div>
         <div class="offset3">
-            <a href="#/offices"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
-            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
+            <a href="#/offices"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>
 </form>

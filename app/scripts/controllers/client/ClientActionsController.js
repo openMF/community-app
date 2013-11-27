@@ -11,14 +11,14 @@
 
         switch (scope.action) {
           case "activate":
-            scope.labelName = 'label.activationdate';
-            scope.breadcrumbName = 'label.activate';
+            scope.labelName = 'label.input.activationdate';
+            scope.breadcrumbName = 'label.anchor.activate';
             scope.modelName = 'activationDate';
             scope.showDateField = true;
           break;
           case "assignstaff":
-            scope.breadcrumbName = 'label.assignstaff';
-            scope.labelName = 'label.form.staff';
+            scope.breadcrumbName = 'label.anchor.assignstaff';
+            scope.labelName = 'label.input.staff';
             scope.staffField = true;
             resourceFactory.clientResource.get({clientId: routeParams.id, template : 'true'},function(data){
               scope.staffOptions = data.staffOptions;
@@ -26,9 +26,9 @@
             });
           break;
           case "close":
-            scope.labelName = 'label.closuredate';
-            scope.labelNameClosurereason = 'label.closurereason';
-            scope.breadcrumbName = 'label.close';
+            scope.labelName = 'label.input.closuredate';
+            scope.labelNameClosurereason = 'label.input.closurereason';
+            scope.breadcrumbName = 'label.anchor.close';
             scope.modelName = 'closureDate';
             scope.closureReasonField = true;
             scope.showDateField = true;
@@ -38,12 +38,12 @@
             });
           break;
           case "delete":
-            scope.breadcrumbName = 'label.delete';
-            scope.labelName = 'Are you sure?';
+            scope.breadcrumbName = 'label.anchor.delete';
+            scope.labelName = 'label.areyousure';
             scope.showDeleteClient = true;
           break;
           case "unassignstaff":
-            scope.labelName = 'Are you sure?';
+            scope.labelName = 'label.areyousure';
             scope.showDeleteClient = true;
           break;
           case "acceptclienttransfer":

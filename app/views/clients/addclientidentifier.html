@@ -1,17 +1,17 @@
 <div ng-controller="ClientIdentifierController">
 	<div>
 		<ul class="breadcrumb">
-			<li><a href="#/clients">{{'link.clients' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/viewclient/{{clientId}}">{{'link.view.client' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'link.add.clientidentifier' | translate}}</li>
+			<li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{'label.anchor.addclientidentities' | translate}}</li>
 		</ul>
 	</div>
 	<form name="clientidentifierform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 		<api-validate></api-validate>
 		<fieldset>
-			<legend>{{'label.add.client.identifier' | translate}}</legend>
+			<legend>{{'label.heading.addclientidentifier' | translate}}</legend>
 			<div class="control-group">
-				<label class="control-label" for="documentTypeId">{{'label.document.type' | translate}}<span class="required">*</span></label>
+				<label class="control-label" for="documentTypeId">{{'label.input.documenttype' | translate}}<span class="required">*</span></label>
 				<div class="controls">
 					<select id="documentTypeId" ng-model="formData.documentTypeId" ng-options="documenttype.id as documenttype.name for documenttype in documenttypes" value="{{documenttype.id}}" required="required">
 					</select>
@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="documentKey">{{'label.unique.identification' | translate}}<span class="required">*</span></label>
+				<label class="control-label" for="documentKey">{{'label.input.uniqueidentification' | translate}}<span class="required">*</span></label>
 				<div class="controls">
 					<input id="documentKey" type="text" name="identification" ng-model="formData.documentKey" required="required" required late-Validate/>
 					<form-validate valattributeform="clientidentifierform" valattribute="identification"/>
@@ -27,15 +27,15 @@
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="description">{{'label.description' | translate}}</label>
+				<label class="control-label" for="description">{{'label.input.description' | translate}}</label>
 				<div class="controls">
 					<textarea id="description" rows="2" ng-model="formData.description"></textarea>
 				</div>
 			</div>
 
 			<div class="offset3">
-				<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'button.cancel' | translate}}</button></a>
-				<button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
+				<a href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+				<button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
 			</div>
 		</fieldset>
 	</form>

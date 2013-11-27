@@ -19,18 +19,18 @@
             }
             if (data.status.value == "Pending") {
               scope.buttons = [{
-                                name:"button.edit",
+                                name:"label.button.edit",
                                 href:"#/editclient",
                                 icon :"icon-edit"
                               },
                               {
-                                name:"button.activate",
+                                name:"label.button.activate",
                                 href:"#/client",
                                 subhref:"activate",
                                 icon :"icon-ok-sign"
                               },
                               {
-                                name:"button.close",
+                                name:"label.button.close",
                                 href:"#/client",
                                 subhref:"close",
                                 icon :"icon-remove-circle"
@@ -40,27 +40,27 @@
 
             if (data.status.value == "Active") {
               scope.buttons = [{
-                                name:"button.edit",
+                                name:"label.button.edit",
                                 href:"#/editclient",
                                 icon :"icon-edit"
                               },
                               {
-                                name:"button.newloan",
+                                name:"label.button.newloan",
                                 href:"#/newclientloanaccount",
                                 icon :"icon-plus"
                               },
                               {
-                                name:"link.new.savings.application",
+                                name:"label.button.newsaving",
                                 href:"#/new_client_saving_application",
                                 icon :"icon-plus"
                               },
                               {
-                                name:"button.transferclient",
+                                name:"label.button.transferclient",
                                 href:"#/transferclient",
                                 icon :"icon-arrow-right"
                               },
                               {
-                                name:"button.close",
+                                name:"label.button.close",
                                 href:"#/client",
                                 subhref:"close",
                                 icon :"icon-remove-circle"
@@ -69,19 +69,19 @@
 
             if (data.status.value == "Transfer in progress") {
               scope.buttons = [{
-                                name:"button.accept.transfer",
+                                name:"label.button.accepttransfer",
                                 href:"#/client",
                                 subhref:"acceptclienttransfer",
                                 icon :"icon-check-sign"
                               },
                               {
-                                name:"button.reject.transfer",
+                                name:"label.button.rejecttransfer",
                                 href:"#/client",
                                 subhref:"rejecttransfer",
                                 icon :"icon-remove"
                               },
                               {
-                                name:"button.undo.transfer",
+                                name:"label.button.undotransfer",
                                 href:"#/client",
                                 subhref:"undotransfer",
                                 icon :"icon-undo"
@@ -90,7 +90,7 @@
 
             if (data.status.value == "Transfer on hold") {
               scope.buttons = [{
-                                name:"button.undo.transfer",
+                                name:"label.button.undotransfer",
                                 href:"#/client",
                                 subhref:"undotransfer",
                                 icon :"icon-undo"
@@ -103,7 +103,7 @@
               }
               else {
                 scope.buttons.push({
-                  name:"button.assignstaff",
+                  name:"label.button.assignstaff",
                   href:"#/client",
                   subhref:"assignstaff",
                   icon :"icon-user"

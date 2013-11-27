@@ -3,6 +3,7 @@
     MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService) {
         scope.activity = {};
         scope.activityQueue = [];
+
         if(localStorageService.get('Location')){
             scope.activityQueue = localStorageService.get('Location');
         }
@@ -23,8 +24,12 @@
       scope.search = function(){
           location.path('/search/' + scope.search.query );
       };
+        scope.text =    '<span>Mifos X is designed by <a href="http://www.openmf.org/">Mifos Initiative</a>.'+
+                        '<a href="http://mifos.org/community"> A global community</a> working together for poorest, especially women, gain access to financial services.</span><br/>'+
+                        '<span>Sound interesting?<a href="http://mifos.org/community/news/how-you-can-get-involved"> Get involved!</a></span>';
 
-      scope.logout = function() {
+
+        scope.logout = function() {
         scope.currentSession = sessionManager.clear();
         location.path('/').replace();
       };

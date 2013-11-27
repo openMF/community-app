@@ -1,7 +1,4 @@
-<div class="hide"
-  data-mf-dialog="{show: 'OpenUserFormDialog', hide: 'CloseUserForm,SubmitUserFormSuccess'}"
-  data-mf-dialog-options="{modal: true, width: 'auto'}">
-  <form name="userForm" data-ng-controller="UserFormController">
+<form name="userForm" data-ng-controller="UserFormController">
     <div data-ng-show="formInError">
       <div class="errorTitle">There were errors submitting the form:</div>
       <ul class="error" >
@@ -11,30 +8,30 @@
       </ul>
     </div>
     <div>
-      <label for="username">{{'label.username' | translate}}</label>
+      <label for="username">{{'label.input.username' | translate}}</label>
       <input ng-autofocus="true" id="username" name="username" type="text" data-ng-model="userFormData.username" placeholder="username"/>
     </div>
     <div>
-      <label for="firstname">{{'table.firstname' | translate}}</label>
+      <label for="firstname">{{'table.input.firstname' | translate}}</label>
       <input id="firstname" name="firstname" type="text" data-ng-model="userFormData.firstname" placeholder="firstname"/>
     </div>
     <div>
-      <label for="lastname">{{'table.lastname' | translate}}</label>
+      <label for="lastname">{{'table.input.lastname' | translate}}</label>
       <input id="lastname" name="lastname" type="text" data-ng-model="userFormData.lastname" placeholder="lastname"/>
     </div>
     <div>
-      <label for="email">{{'label.email' | translate}}</label>
+      <label for="email">{{'label.input.email' | translate}}</label>
       <input id="email" name="email" type="email" data-ng-model="userFormData.email" placeholder="email address"/>
     </div>
     <div>
-      <input type="checkbox" name="sendPasswordToEmail" data-ng-model="userFormData.sendPasswordToEmail"> <b>{{'label.generatepasswordandemailit' | translate}}</b>
+      <input type="checkbox" name="sendPasswordToEmail" data-ng-model="userFormData.sendPasswordToEmail"> <b>{{'label.input.generatepasswordandemailit' | translate}}</b>
     </div>
     <div>
-      <label for="office">{{'label.form.office' | translate}}</label>
+      <label for="office">{{'label.input.office' | translate}}</label>
       <select id="office" name="officeId" data-ng-model="userFormData.office" data-ng-options="o.name for o in offices"/>
     </div>
     <div>
-      <label>{{'label.roles' | translate}}</label>
+      <label>{{'label.input.roles' | translate}}</label>
       <div data-ng-repeat="role in roles">
         <div>
           <input type="checkbox" name="role_{{role.id}}" data-ng-model="userFormData.selectedRoles[role.id]"> <b>{{role.name}}</b>
@@ -45,11 +42,5 @@
       <input type='submit' value='Done' data-ng-click="submitUserForm()"/>
       <input type='submit' value='Cancel' data-ng-click="cancelUserForm()"/>
     </div>
-  </form>
-</div>
-<div class="hide"
-  data-mf-overlay="{show: 'SubmitUserFormStart', hide: 'SubmitUserFormSuccess,SubmitUserFormError'}">
-  <div class="overlay-msg page info">
-    <spam>Saving user data...</spam>
-  </div>
-</div>
+</form>
+

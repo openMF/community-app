@@ -1,8 +1,8 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/reports">{{'label.managereports' | translate}}</a> <span class="divider">/</span></li>
-        <li class="active">{{'label.editreport' | translate}}</li>
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/reports">{{'label.anchor.managereports' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.anchor.editreport' | translate}}</li>
     </ul>
 </div>
 <form name="editreportrform" novalidate="" class="well" ng-controller="EditReportController" rc-submit="submit()">
@@ -17,17 +17,17 @@
           <table>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.reportname' | translate }}&nbsp;<span class="required">*</span></label>
+                <label class="control-label">{{ 'label.input.reportname' | translate }}&nbsp;<span class="required">*</span></label>
                 <input id="reportName" type="text" name="reportName" ng-model="reportdetail.reportName" required late-Validate/>
                 <form-validate valattributeform="editreportrform" valattribute="reportName"/>
               </td>
               <td width="20%">
-                <label class="control-label">{{ 'label.reporttype' | translate }}&nbsp;<span class="required">*</span></label>
+                <label class="control-label">{{ 'label.input.reporttype' | translate }}&nbsp;<span class="required">*</span></label>
                 <select id="reportType" ng-model="reportdetail.reportType" class="input-small" ng-options="reportType for reportType in reportdetail.allowedReportTypes" value="">
                 </select>
               </td>
               <td width="20%">
-                <label class="control-label">{{ 'label.reportsubtype' | translate }}&nbsp;</label>
+                <label class="control-label">{{ 'label.input.reportsubtype' | translate }}&nbsp;</label>
                 <select ng-model="reportdetail.reportSubType" class="input-small" ng-options="reportSubType for reportSubType in reportdetail.allowedReportSubTypes" value="">
                   <option style="display:none" value="">{{'label.select.one' | translate}}</option>
                 </select>
@@ -35,13 +35,13 @@
             </tr>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.reportcategory' | translate }}&nbsp;</label>
+                <label class="control-label">{{ 'label.input.reportcategory' | translate }}&nbsp;</label>
                 <input type="text" ng-model="reportdetail.reportCategory">
               </td>
               <td width="20%">
               </td>
               <td width="20%">
-                <label class="control-label">{{ 'label.userreportui' | translate }}</label>
+                <label class="control-label">{{ 'label.input.userreportui' | translate }}</label>
                 <label class="checkbox">
                   <input type="checkbox" ng-model="formData.useReport">
                 </label>
@@ -49,7 +49,7 @@
             </tr>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.description' | translate }}</label>
+                <label class="control-label">{{ 'label.input.description' | translate }}</label>
                 <textarea rows="2" ng-model="reportdetail.description"></textarea>
               </td>
               <td width="20%">
@@ -71,7 +71,7 @@
           <table>
             <tr>
               <td width="30%">
-                <label class="control-label">{{ 'label.sql' | translate }}<span class="required">*</span></label>
+                <label class="control-label">{{ 'label.input.sql' | translate }}<span class="required">*</span></label>
                 <textarea rows="4" name="sql" ng-model="reportdetail.reportSql" required></textarea>
                 <form-validate valattributeform="editreportrform" valattribute="sql"/>
               </td>
@@ -92,8 +92,8 @@
         <td class="blockquoteresult" width="90%">
           <table class="table" width="50%">
             <tr class="graybg">
-              <th>{{'table.heading.parameter' | translate}}</th>
-              <th>{{'table.heading.parameternamepassedtopentaho' | translate}}</th>
+              <th>{{'label.heading.parameter' | translate}}</th>
+              <th>{{'label.heading.parameternamepassedtopentaho' | translate}}</th>
             </tr>
             <tr ng-repeat="reportParameter in reportdetail.reportParameters" >
               <td>{{reportParameter.parameterName | translate}}</td>
@@ -105,8 +105,8 @@
     </table>
   </div>
   <div class="offset6">
-    <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
-    <button type="submit" class="btn btn-primary">{{'button.save' | translate}}</button>
+    <button type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
   </div>
 </form>
     

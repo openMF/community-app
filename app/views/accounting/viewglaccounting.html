@@ -1,65 +1,60 @@
 <div ng-controller="AccViewGLAccountContoller">
 	<div class="paddedbottom10">
 		<ul class="breadcrumb">
-			<li><a href="#/accounting">{{'link.accounting' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/accounting_coa">{{'label.coa' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a> <span class="divider">/</span></li>
 			<li class="active">{{glaccount.name}}</li>
 		</ul>
 	</div>
 	<div class="paddedbottom">
 		<div class="pull-right">
 			<div class="btn-group">
-				<a ng-hide="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-lock icon-white"></i>{{'label.disable' | translate}}</a>
-				<a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-unlock icon-white"></i>{{'label.enable' | translate}}</a>
-				<a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.edit' | translate}}</a>
-				<button class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i>{{'label.delete' | translate}}</button>
+				<a ng-hide="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-lock icon-white"></i>{{'label.button.disable' | translate}}</a>
+				<a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)"><i class="icon-unlock icon-white"></i>{{'label.button.enable' | translate}}</a>
+				<a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+				<button class="btn btn-primary" ng-click="deleteGLAccount()"><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
 			</div>
 		</div>
 	</div>
-	<div class="error" ng-show="errorStatus || errorDetails">
-      <label>{{'label.error' | translate}}</label>
-      <label ng-show="errorStatus">{{errorStatus}}</label>
-      <label ng-hide="errorStatus" ng-repeat="error in errorDetails">{{error.code | translate}}</label>
-    </div>
-    <script type="text/ng-template" id="deleteglacc.html">
+	<script type="text/ng-template" id="deleteglacc.html">
         <div class="modal-header silver">
-            <h3 class="bolder">{{'label.delete' | translate}}</h3>
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
         </div>
         <div class="modal-body modal-middle">
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
 	<div class="row paddedleft">
 		<h3>{{glaccount.name}}</h3>
 		<table width="100%">
 			<tr>
-				<td width="30%">{{ 'label.glcode' | translate }}</td>
+				<td width="30%">{{ 'label.heading.glcode' | translate }}</td>
 				<td width="70%">{{glaccount.glCode}}</td>
 			</tr>
 			<tr>
-				<td>{{ 'label.accounttype' | translate }}</td>
+				<td>{{ 'label.heading.acctype' | translate }}</td>
 				<td>{{glaccount.type.value}}</td>
 			</tr>
 			<tr>
-				<td>{{ 'label.parentaccountname' | translate }}</td>
+				<td>{{ 'label.heading.parentaccountname' | translate }}</td>
 				<td>{{glaccount.parentName}}</td>
 			</tr>
 			<tr>
-				<td>{{ 'label.tag' | translate }}</td>
+				<td>{{ 'label.heading.tag' | translate }}</td>
 				<td>{{glaccount.tagId.name}}</td>
 			</tr>
 			<tr>
-				<td>{{ 'label.accountusage' | translate }}</td>
+				<td>{{ 'label.heading.accountusage' | translate }}</td>
 				<td>{{glaccount.usage.value}}</td>
 			</tr>
 			
 			<tr>
-				<td>{{ 'label.manualentriesallowed' | translate }}</td>
+				<td>{{ 'label.heading.manualentriesallowed' | translate }}</td>
 				<td>{{glaccount.manualEntriesAllowed}}</td>
 			</tr>
 			<tr>
-				<td>{{ 'label.description' | translate }}</td>
+				<td>{{ 'label.heading.description' | translate }}</td>
 				<td>{{glaccount.description}}</td>
 			</tr>
 		</table>

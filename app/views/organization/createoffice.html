@@ -1,19 +1,19 @@
       <div>
         <ul class="breadcrumb">
-          <li><a href="#/organization">{{'link.admin.organisation' | translate}}</a> <span class="divider">/</span></li>
-          <li><a href="#/offices">{{'label.manageoffices' | translate}}</a> <span class="divider">/</span></li>
-          <li class="active">{{'label.createoffice' | translate}}</li>
+          <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+          <li><a href="#/offices">{{'label.anchor.manageoffices' | translate}}</a> <span class="divider">/</span></li>
+          <li class="active">{{'label.anchor.createoffice' | translate}}</li>
         </ul>
       </div>
       <form name="createofficeform" novalidate="" class="form-horizontal well" ng-controller="CreateOfficeController" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-          <legend>{{'label.createoffice' | translate}}</legend>
+          <legend>{{'label.heading.createoffice' | translate}}</legend>
           <table>
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label">{{ 'label.officename' | translate }}<span class="required">*</span></label>
+                  <label class="control-label">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
                   <div class="controls">
                     <input id="name" ng-autofocus="true"  type="text" name="name" ng-model="formData.name" required late-Validate/>
                     <form-validate valattributeform="createofficeform" valattribute="name"/>
@@ -24,7 +24,7 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label">{{ 'label.parentoffice' | translate }}<span class="required">*</span></label>
+                  <label class="control-label">{{ 'label.input.parentoffice' | translate }}<span class="required">*</span></label>
                   <div class="controls">
                     <select id="parentId" ng-model="formData.parentId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
                   </div>
@@ -34,7 +34,7 @@
             <tr>
               <td>
                   <div class="control-group">
-                      <label class="control-label">{{ 'label.openedon' | translate }}<span class="required">*</span></label>
+                      <label class="control-label">{{ 'label.input.openedon' | translate }}<span class="required">*</span></label>
                       <div class="controls">
                           <input id="openingDate" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="restrictDate"/>
                       </div>
@@ -44,7 +44,7 @@
             <tr>
               <td>
                 <div class="control-group">
-                  <label class="control-label">{{ 'label.externalId' | translate }}</label>
+                  <label class="control-label">{{ 'label.input.externalid' | translate }}</label>
                   <div class="controls">
                     <input id="externalId" type="text" name="externalId" ng-model="formData.externalId">
                   </div>
@@ -53,8 +53,8 @@
             </tr>
           </table>
           <div class="offset3">
-            <a href="#/offices"><button type="reset" class="btn">{{'label.cancel' | translate}}</button></a>
-            <button type="submit" class="btn btn-primary">{{'label.save' | translate}}</button>
+            <a href="#/offices"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
           </div>
         </fieldset>
       </form>

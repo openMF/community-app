@@ -2,26 +2,26 @@
   <api-validate></api-validate>
   <fieldset>
     <div class="control-group">
-      <label class="control-label">{{ 'label.branchoffice' | translate }}<span class="required">*</span></label>
+      <label class="control-label">{{ 'label.input.branchoffice' | translate }}<span class="required">*</span></label>
       <div class="controls">
         <select id="officeId" ng-model="officeId" name="office"  ng-options="office.id as office.name for office in offices" value="{{office.id}}"  ng-change="officeSelected(officeId)" required>
-          <option value="">{{'label.select.office' | translate}}</option>
+          <option value="">{{'label.selectoffice' | translate}}</option>
         </select>
         <form-validate valattributeform="collectionsheetform" valattribute="office"/>
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.center' | translate }}<span class="required">*</span></label>
+      <label class="control-label">{{ 'label.input.center' | translate }}<span class="required">*</span></label>
       <div class="controls">
         <select id="centerId" name="center" ng-model="centerId"  ng-options="center.id as center.name for center in centers" value="{{center.id}}" ng-change="centerSelected(centerId)">
-          <option value="">{{'label.select.center' | translate}}</option>
+          <option value="">{{'label.selectcenter' | translate}}</option>
         </select>
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.group' | translate }}</label>
+      <label class="control-label">{{ 'label.input.group' | translate }}</label>
       <div class="controls">
         <select id="groupId" ng-model="groupId"  ng-options="group.id as group.name for group in groups" value="{{group.id}}" ng-change="groupSelected(groupId)">
           <option value="">{{'label.select.group' | translate}}</option>
@@ -30,13 +30,13 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.meetingcalendar' | translate }}<span class="required">*</span></label>
+      <label class="control-label">{{ 'label.input.meetingcalendar' | translate }}<span class="required">*</span></label>
       <div class="controls">
         <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy" ng-model="date.transactionDate" is-open="opened"/>
       </div>
     </div>
     <div>
-      <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.collectionsheet' | translate}}
+      <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' | translate}}
         <i class="icon-circle-arrow-right"></i></button>
     </div>
     <div class="paddedbottom"></div>
@@ -45,14 +45,14 @@
         <thead>
           <tr>
             <th></th>
-            <th scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">{{'label.duecollections' | translate}}</th>
-            <th scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">{{'label.issueswithdrawls' | translate}}</th>
+            <th scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">{{'label.heading.duecollections' | translate}}</th>
+            <th scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">{{'label.heading.issueswithdrawls' | translate}}</th>
           </tr>
           <tr>
-            <th>{{'label.borrowername' | translate}}</th>
+            <th>{{'label.heading.borrowername' | translate}}</th>
             <th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">{{loanproduct.name}}</th>
             <th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">{{loanproduct.name}}</th>
-            <th>{{'label.attendance' | translate}}</th>
+            <th>{{'label.heading.attendance' | translate}}</th>
           </tr>
         </thead>
         <tbody ng-repeat="group in collectionsheetdata.groups">
@@ -91,7 +91,7 @@
             </td>
           </tr>
           <tr>
-            <td>{{'label.grouptotal' | translate}}</td>
+            <td>{{'label.input.grouptotal' | translate}}</td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
                 <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup" ng-show="loanproduct.id == loanProductArray.productId">
@@ -114,7 +114,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td>{{'table.heading.total' | translate}}Total</td>
+            <td>{{'label.input.total' | translate}}Total</td>
             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
               <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
                 <input type="text" class="input-small" ng-model="total.transactionAmount" disabled="disabled">
@@ -134,8 +134,8 @@
     </div>
     <div class="span12 paddedtop10">
       <div class="offset3 paddedtop">
-        <button type="reset" class="btn" ng-click="cancel()">{{'button.cancel' | translate}}</button>
-        <button type="submit" class="btn btn-primary" ng-show="collectionsheetdata" ng-click="submit()">{{'button.save' | translate}}</button>
+        <button type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button type="submit" class="btn btn-primary" ng-show="collectionsheetdata" ng-click="submit()">{{'label.button.save' | translate}}</button>
       </div>
     </div>
 	</fieldset>

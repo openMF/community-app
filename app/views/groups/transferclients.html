@@ -2,23 +2,23 @@
     <api-validate></api-validate>
    <form name="tranferclientsform" novalidate="" rc-submit="transfer()">
         <div class="paddedleft">
-            <h3>{{ 'label.transferclientsbetweengroups' | translate }}</h3>
+            <h3>{{ 'label.heading.transferclientsbetweengroups' | translate }}</h3>
             <div>
-                <label class="control-label">{{ 'label.clients' | translate }}</label>
+                <label class="control-label">{{ 'label.input.clients' | translate }}</label>
                 <select multiple ng-model="tempData">
                     <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option>
                 </select>
             </div>
             <div class="control-group">
-                <label class="control-label">{{'label.inheritgrouploanofficer' | translate}}</label>
+                <label class="control-label">{{'label.input.inheritgrouploanofficer' | translate}}</label>
                 <div class="controls">
                     <input type="checkbox" ng-model="formData.inheritDestinationGroupLoanOfficer">
                 </div>
             </div>
             <div>
-                <label class="control-label">{{ 'label.destinationgroup' | translate }}<span class="required">*</span></label>
+                <label class="control-label">{{ 'label.input.destinationgroup' | translate }}<span class="required">*</span></label>
                 <select ng-model="formData.destinationGroupId" name="destinationgroup" ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}" data-ng-click="viewgroup(onegroup.id)" required>
-                    <option class="displaynone" value="">{{'label.select.group' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>
                 </select>
                 <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup"/>
             </div>
@@ -26,35 +26,35 @@
                 <table data-ng-switch-when="1">
                     <tr>
                         <td>
-                            <h3>{{'label.destinationgroupdetails' | translate}}</h3>
+                            <h3>{{'label.heading.destinationgroupdetails' | translate}}</h3>
                         </td>
                     </tr>
                     <tr>
-                        <td>{{'label.name' | translate}}</td>
+                        <td>{{'label.heading.name' | translate}}</td>
                         <td>{{groupdata.name}}</td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.groupidentification' | translate }}</td>
+                        <td>{{ 'label.heading.id' | translate }}</td>
                         <td>{{groupdata.id}}</td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.activationdate' | translate }}</td>
+                        <td>{{ 'label.heading.activationdate' | translate }}</td>
                         <td valign="top">{{groupdata.activationDate}}</td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.staff' | translate }}</td>
+                        <td>{{ 'label.heading.staff' | translate }}</td>
                         <td>{{groupdata.staffName}}</td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.list.externalid' | translate }}</td>
+                        <td>{{ 'label.heading.externalid' | translate }}</td>
                         <td>{{groupdata.externalId}}</td>
                     </tr>
                 </table>
             </div>
             <br/>
             <div>
-                <a href="#/viewgroup/{{group.id}}" class="btn">{{ 'label.cancel' | translate }}</a>
-                <button type="submit" class="btn btn-primary">{{ 'label.save' | translate }}</button>
+                <a href="#/viewgroup/{{group.id}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+                <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
             </div>
         </div>
         <hr/>

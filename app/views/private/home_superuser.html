@@ -1,8 +1,8 @@
-    <h3 class="paddedleft">{{'label.dashboard' | translate}}</h3>
+    <h3 class="paddedleft">{{'label.heading.dashboard' | translate}}</h3>
     <div data-ng-controller="SuperuserController">
         <div class="row">
             <div class="span10 paddedleft90">
-                <panelbig title="{{'label.clienttrendsfor' | translate}} {{bOfficeName}} ({{chartType}})" >
+                <panelbig title="{{'label.heading.clienttrendsfor' | translate}} {{bOfficeName}} ({{chartType}})" >
                     <div style="margin-left:40px;margin-top:40px;">
                         <nvd3-multi-bar-chart
                                 data="BarData"
@@ -15,11 +15,11 @@
                         </nvd3-multi-bar-chart>
                     </div>
                     <div>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>{{'label.week' | translate}}</button>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>{{'label.month' | translate}}</button>
-                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>{{'label.day' | translate}}</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>{{'label.button.week' | translate}}</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>{{'label.button.month' | translate}}</button>
+                        <button type="button" class="btn-silver btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>{{'label.button.day' | translate}}</button>
                         <select class="input-small-tooltip pull-right" name="office1" ng-change="getDailyData()" id="office1" ng-model="officeId" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                            <option value="">--Office--</option>
+                            <option value="">--{{'label.menu.office' | translate}}--</option>
                         </select>
                     </div>
                 </panelbig>
@@ -27,7 +27,7 @@
         </div>
         <div class="row">
             <div class="span6 paddedleft90">
-                <panel title="{{'label.amontcollectedfortoday' | translate}} ({{cOfficeName}}) " >
+                <panel title="{{'label.heading.amontcollectedfortoday' | translate}} ({{cOfficeName}}) " >
                     <h3 class="required panel-error" data-ng-show="showCollectionerror">{{'label.nodata' | translate}}</h3>
                     <div data-ng-show="!showCollectionerror" style="margin-left:5px;margin-top:-20px;">
                         <nvd3-pie-chart
@@ -45,7 +45,7 @@
                         </nvd3-pie-chart>
                     </div>
                     <select class="input-small-tooltip pull-right" name="office1" ng-change="getCollectionOffice()" id="office1" ng-model="officeIdCollection" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                        <option value="">--Office--</option>
+                        <option value="">--{{'label.menu.office' | translate}}--</option>
                     </select>
                 </panel>
             </div>
@@ -68,7 +68,7 @@
                         </nvd3-pie-chart>
                     </div>
                     <select class="input-small-tooltip pull-right" data-ng-options="office.id as office.name for office in offices" name="office2" data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2" ng-model="officeIdDisbursed">
-                        <option value="">--Office--</option>
+                        <option value="">--{{'label.menu.office' | translate}}--</option>
                     </select>
                 </panel>
             </div>

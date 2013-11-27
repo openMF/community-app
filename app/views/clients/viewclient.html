@@ -24,69 +24,65 @@
   </ul>
     <div>
       <tabset  style="margin-bottom: 0px;">
-      <tab heading="{{'tab.general' | translate}}">
+      <tab heading="{{'label.heading.general' | translate}}">
               <div class="row-fluid">
                   <div class="row-fluid primarydiv">
                       <div class="btn-group pull-right">
                         <span ng-repeat="button in buttons">
                           <a  href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
                         </span>
-                          <button type="button" class="btn btn-primary" data-ng-click="deleteClient()" data-ng-show="client.status.value=='Pending'"><i class="icon-trash icon-white"></i>{{"label.delete" | translate}}</button>
-                          <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="client.staffId"><i class="icon-user icon-white"></i>{{"label.unassignstaff" | translate}}</button>
+                          <button type="button" class="btn btn-primary" data-ng-click="deleteClient()" data-ng-show="client.status.value=='Pending'"><i class="icon-trash icon-white"></i>{{"label.button.delete" | translate}}</button>
+                          <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="client.staffId"><i class="icon-user icon-white"></i>{{"label.button.unassignstaff" | translate}}</button>
                       </div>
                   </div>
                   <br/>
                   <script type="text/ng-template" id="deleteClient.html">
                       <div class="modal-header silver">
-                          <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                          <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
                       </div>
                       <div class="modal-body modal-middle">
-                          <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                          <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                          <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                          <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                       </div>
                   </script>
                   <script type="text/ng-template" id="clientunassignstaff.html">
                       <div class="modal-header silver">
-                          <h3 class="bolder">{{'label.unassignstaff' | translate}}</h3>
+                          <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
                       </div>
                       <div class="modal-body modal-middle">
-                          <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                          <button class="btn btn-primary" ng-click="unassign()">{{'label.confirm' | translate}}</button>
+                          <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                          <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
                       </div>
                   </script>
                   <div class="row-fluid">
                       <div class="span7">
                         <table  width="100%" >
                             <tr data-ng-show="client.firstname">
-                              <td width="35%">{{'label.firstname' | translate}}</td>
+                              <td width="35%">{{'label.input.firstname' | translate}}:</td>
                               <td width="65%">{{client.firstname}}</td>
                             </tr>
                             <tr data-ng-show="client.lastname">
-                              <td>{{'label.lastname' | translate}}</td>
+                              <td>{{'label.input.lastname' | translate}}:</td>
                               <td>{{client.lastname}}</td>
                             </tr>
-                            <tr data-ng-show="client.fullname">
-                                <td>{{'label.fullname' | translate}}</td>
-                                <td>{{client.fullname}}</td>
-                            </tr>
                             <tr>
-                              <td>{{ 'label.accountno' | translate }}</td>
+                              <td>{{ 'label.input.accno' | translate }}:</td>
                               <td>{{client.accountNo}}</td>
                             </tr>
                             <tr>
-                              <td>{{ 'label.activationdate' | translate }}</td>
+                              <td>{{ 'label.input.activationdate' | translate }}:</td>
                               <td valign="top">{{client.activationDate | DateFormat}}</td>
                             </tr>
                             <tr>
-                              <td>{{ 'label.officename' | translate }}</td>
+                              <td>{{ 'label.input.office' | translate }}:</td>
                               <td>{{client.officeName}}</td>
                             </tr>
                             <tr>
-                              <td>{{ 'label.loanofficer' | translate }}</td>
+                              <td>{{ 'label.input.staff' | translate }}:</td>
                               <td>{{client.staffName}}</td>
                             </tr>
                             <tr>
-                              <td>{{ 'label.memberof' | translate }}</td>
+                              <td>{{ 'label.memberof' | translate }}:</td>
                               <td>
                                 <span ng-repeat="group in client.groups" > <a href="#/viewgroup/{{group.id}}">{{group.name}}</a> |&nbsp;</span>
                               </td>
@@ -97,7 +93,7 @@
                           <table class="table table-striped" width="100%" >
                             <thead>
                               <tr class="graybg">
-                                <th colspan="2">{{ 'label.performancehistory' | translate }}</th>
+                                <th colspan="2">{{ 'label.heading.performancehistory' | translate }}</th>
                               </tr>
                             </thead>
                             <tr>
@@ -127,10 +123,10 @@
                     <br/>
                     <table class="table">
                         <tr class="graybg">
-                            <th>{{'label.loanaccount' | translate}}</th>
-                            <th></th>
-                            <th>{{'label.loantype' | translate}}</th>
-                            <th>{{'label.status' | translate}}</th>
+                            <th>{{'label.heading.loanaccount' | translate}}</th>
+                            <th>{{'label.heading.accnum' | translate}}</th>
+                            <th>{{'label.heading.type' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
                             <th></th>
                         </tr>
                         <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed" >
@@ -150,10 +146,10 @@
                         </tr>
                         <tr><td colspan="5">&nbsp;</td></tr>
                         <tr class="graybg">
-                          <th>{{'apptable.m.savings.account' | translate}}</th>
-                          <th></th>
-                          <th>{{'label.balance' | translate}}</th>
-                          <th>{{'label.status' | translate}}</th>
+                          <th>{{'label.heading.savingaccount' | translate}}</th>
+                          <th>{{'label.heading.accnum' | translate}}</th>
+                          <th>{{'label.heading.balance' | translate}}</th>
+                          <th>{{'label.heading.status' | translate}}</th>
                           <th></th>
                         </tr>
                         <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
@@ -169,9 +165,9 @@
                 </div>
           </div>
       </tab>
-      <tab heading="{{'tab.identities' | translate}}" select="getClientIdentityDocuments()">
+      <tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()">
         <div class="pull-right btn-group">
-          <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'button.add' | translate }}</a>
+          <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.add' | translate }}</a>
         </div>
         <br>
         <table class="table" ng-show="identitydocuments.length > 0">
@@ -202,7 +198,7 @@
             </tbody>
           </table>
       </tab>
-      <tab heading="{{'tab.templates' | translate}}" select="getClientTemplateDocuments()">
+      <tab heading="{{'label.heading.templates' | translate}}" select="getClientTemplateDocuments()">
         <div class="span"></div>
         <div class="span2">
           <table class="table">
@@ -216,22 +212,22 @@
         <div class="span9" ng-show="template">
           <span ng-bind-html-unsafe="template"></span>
           <span class="offset3 paddedtop10">
-            <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'button.print'| translate}}</a>
+            <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'label.button.print'| translate}}</a>
           </span>
         </div>
       </tab>
-      <tab heading="{{'tab.heading.client.documents' | translate}}" select="getClientDocuments()">
+      <tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()">
         <div class="pull-right">
-          <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>
+          <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
         </div>
         <br>
         <table class="table" ng-show="clientdocuments.length > 0">
             <thead>
               <tr class="graybg">
-                <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.description' | translate}}</th>
-                <th>{{'table.heading.filename' | translate}}</th>
-                <th>{{'table.heading.actions' | translate}}</th>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.description' | translate}}</th>
+                <th>{{'label.heading.filename' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
               </tr>
             </thead>
             <tbody>
@@ -249,9 +245,9 @@
       </tab>
       <tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables" select="dataTableChange(clientdatatable)">
         <div>
-          <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(clientdatatable.registeredTableName, client.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
+          <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(clientdatatable.registeredTableName, client.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
           <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-            <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
+            <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
           </span></br>
           <table ng-show="datatabledetails.isData" class="table">
             <thead>
@@ -271,15 +267,15 @@
           </table>
         </div>
       </tab>
-      <tab heading="Notes">
+      <tab heading="{{ 'label.heading.notes' | translate }}">
         <br/>
         <form>
             <div class="control-group">
               <div class="controls">
-                     <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="Enter note" ng-model="formData.note"></textarea>
+                     <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
                      <div class="notewrapper row-fluid">
                         <span class="pull-right noteaddbuttonwrapper">
-                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">Add Note</button>
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{'label.button.add' | translate}}</button>
                         </span>
                      </div>
               </div>
@@ -290,17 +286,17 @@
             <blockquote>
               <p>{{clientNote.note}}</p>
               {{clientNote.id}}
-              <small>Created by :&nbsp;{{clientNote.createdByUsername}}</small>
-              <small>Created on :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
+              <small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
+              <small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
             </blockquote>
           </div>
         </div>
         </ul>
       </tab>
-      <tab heading="{{'tab.closedaccount' | translate}}">
+      <tab heading="{{'label.heading.closedaccount' | translate}}">
         <div> 
           <p>
-            <b>{{'label.loanaccountoverview' | translate}}</b>
+            <b>{{'label.heading.loanaccoverview' | translate}}</b>
           </p>
           <table class="table condensed-table">
           <thead>
@@ -330,7 +326,7 @@
         <div class="span6 paddedleft0 paddedtop">
           <div class="inventureMainBorder">
             <div class="inventureCategoryTitle">
-              <strong class="ng-binding">{{'label.scorecomparison' | translate}}</strong>
+              <strong class="ng-binding">Score comparison</strong>
             </div>
 
             <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
@@ -347,7 +343,7 @@
         <div class="span5 paddedtop" style="width:440px;">
           <div class="inventureMainBorder" style="height:175px;">
             <div class="inventureCategoryTitle">
-              <strong class="ng-binding">{{'label.inventurescore' | translate}}</strong>
+              <strong class="ng-binding">inventure score</strong>
             </div>
 
             <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
@@ -355,7 +351,7 @@
             </div>
 
             <div id="score" style="margin: 30px 0 -15px;">
-              <p style="text-align: center; font-size: 25px;">{{'label.inventurescore' | translate}}: <strong>{{inventureScore}}</strong></p>
+              <p style="text-align: center; font-size: 25px;">Inventure score: <strong>{{inventureScore}}</strong></p>
             </div>
 
             <div id="inventureBulletChart" style="margin: 25px 0px -25px -90px; width:500px; height:35px;">
@@ -366,10 +362,10 @@
               <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
                 <tbody>
                   <tr>
-                    <td class="inventureBulletLegendCell">300-450<br><strong>{{'label.bad' | translate}}</strong></td>
-                    <td class="inventureBulletLegendCell">451-550<br><strong>{{'label.fair' | translate}}</strong></td>
-                    <td class="inventureBulletLegendCell">551-700<br><strong>{{'label.good' | translate}}</strong></td>
-                    <td class="inventureBulletLegendCell">701-850<br><strong>{{'label.excellent' | translate}}</strong></td>
+                    <td class="inventureBulletLegendCell">300-450<br><strong>bad</strong></td>
+                    <td class="inventureBulletLegendCell">451-550<br><strong>fair</strong></td>
+                    <td class="inventureBulletLegendCell">551-700<br><strong>good</strong></td>
+                    <td class="inventureBulletLegendCell">701-850<br><strong>excellent</strong></td>
                   </tr>
                 </tbody>
               </table>
@@ -381,7 +377,7 @@
         <div class="span5" style="padding-top:20px; width:440px;">
           <div class="inventureMainBorder" style="height:210px;">
             <div class="inventureCategoryTitle">
-              <strong class="ng-binding">{{'label.inventureloanrecommend' | translate}}</strong>
+              <strong class="ng-binding">inventure loan recommend</strong>
             </div>
 
             <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
@@ -391,10 +387,10 @@
             <div id="inventureRecommendation" style="margin: 35px 0px 0px 0px;">
               <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
                 <tr>
-                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">{{'label.loantype' | translate}}</td>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">loan type</td>
                   <td class="inventureRecommendationCellLeftGap"></td>
                   <td class="inventureRecommendationCellRightGap"></td>
-                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">{{'label.creditlimit' | translate}}&#8377; (Rs)</td>
+                  <td class="inventureRecommendationCellType inventureRecommendationCellTitle">creadit limit&#8377; (Rs)</td>
                 </tr>
                 <tr class="inventureTableTopBorder">
                   <td class="inventureRecommendationCellType">Agriculture</td>

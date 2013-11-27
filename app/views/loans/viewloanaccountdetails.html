@@ -13,12 +13,12 @@
           </span>
           <span ng-show="buttons.options" class="btn-group">
               <a class="btn btn-primary dropdown-toggle">
-                {{ 'button.more' | translate}}
+                {{ 'label.button.more' | translate}}
                 <span class="caret"></span>
               </a>
               <ul class="dropdown dropdown-menu">
                 <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                    <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)">{{button.name | translate}}</a>
+                    <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)">{{'label.'+ button.name | translate}}</a>
                 </li>
               </ul>
           </span>  
@@ -32,26 +32,26 @@
     <div class="row paddedleft">
       <table width="100%">
         <tr>
-          <td width="20%">{{'label.disbursementdate' | translate}}</td>
+          <td width="20%">{{'label.heading.disbursementdate' | translate}}</td>
           <td width="30%">{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
-          <td width="20%">{{'label.currency' | translate}}</td>
+          <td width="20%">{{'label.heading.currency' | translate}}</td>
           <td width="30%">{{loandetails.currency.name}}</td>
         </tr>
         <tr>
-          <td>{{'label.loanofficer' | translate}}</td>
+          <td>{{'label.heading.loanofficer' | translate}}</td>
           <td>
             {{loandetails.loanOfficerName}}&nbsp;
             <span ng-show="loandetails.loanOfficerName">
               <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i class="icon-remove"></i></a>
             </span>
           </td>
-          <td>{{'label.disburseamount' | translate}}</td>
+          <td>{{'label.heading.disburseamount' | translate}}</td>
           <td>{{loandetails.principal}}</td>
         </tr>
         <tr>
-          <td>{{'label.loanpurpose' | translate}}</td>
+          <td>{{'label.heading.loanpurpose' | translate}}</td>
           <td>{{loandetails.loanPurposeName}}</td>
-          <td>{{'label.arrearsby' | translate}}</td>
+          <td>{{'label.heading.arrearsby' | translate}}</td>
           <td>{{loandetails.summary.totalOverdue}}</td>
         </tr>
       </table>
@@ -59,7 +59,7 @@
     <div class="row paddedleft">
       <hr class="marginbottom"/>
       <tabset >
-        <tab heading="{{'tab.accountdetail' | translate}}">
+        <tab heading="{{'label.heading.accountdetail' | translate}}">
           <div> 
             <table>
                 <tr>
@@ -67,43 +67,43 @@
                   <td width="60%">{{loandetails.transactionProcessingStrategyName}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.repayments' | translate}}</td>
+                  <td>{{'label.heading.repayments' | translate}}</td>
                   <td>{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.amortization' | translate}}</td>
+                  <td>{{'label.heading.amortization' | translate}}</td>
                   <td>{{loandetails.amortizationType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.interest' | translate}}</td>
+                  <td>{{'label.heading.interest' | translate}}</td>
                   <td>{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}} - {{loandetails.interestType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.graceonprincipalpayment' | translate}}</td>
+                  <td>{{'label.heading.graceonprincipalpayment' | translate}}</td>
                   <td>{{loandetails.graceOnPrincipalPayment}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.graceoninterestpayment' | translate}}</td>
+                  <td>{{'label.heading.graceoninterestpayment' | translate}}</td>
                   <td>{{loandetails.timeline.approvedOnDate | DateFormat}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.submittedondate' | translate}}</td>
+                  <td>{{'label.heading.submittedondate' | translate}}</td>
                   <td>{{loandetails.timeline.submittedOnDate | DateFormat }}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.approvedondate' | translate}}</td>
+                  <td>{{'label.heading.approvedondate' | translate}}</td>
                   <td>{{loandetails.timeline.approvedOnDate | DateFormat}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.disbursedondate' | translate}}</td>
+                  <td>{{'label.heading.disbursedondate' | translate}}</td>
                   <td>{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.matureson' | translate}}</td>
+                  <td>{{'label.heading.matureson' | translate}}</td>
                   <td>{{loandetails.timeline.expectedMaturityDate | DateFormat}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.interestChargedFrom' | translate}}</td>
+                  <td>{{'label.heading.interestChargedFrom' | translate}}</td>
                   <td>{{loandetails.timeline.interestChargedFromDate | DateFormat}}</td>
                 </tr>
             </table>
@@ -113,10 +113,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>{{'table.firstname' | translate}}</th>
-                        <th>{{'table.lastname' | translate}}</th>
-                        <th>{{'label.relationship' | translate}}</th>
-                        <th>{{'label.guarantortype' | translate}}</th>
+                        <th>{{'label.heading.firstname' | translate}}</th>
+                        <th>{{'label.heading.lastname' | translate}}</th>
+                        <th>{{'label.heading.relationship' | translate}}</th>
+                        <th>{{'label.heading.guarantortype' | translate}}</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -127,7 +127,7 @@
                         <td>{{guarantor.lastname}}</td>
                         <td>{{guarantor.clientRelationshipType.name}}</td>
                         <td>{{guarantor.guarantorType.value}}</td>
-                        <td><a data-ng-click="showDetails(guarantor.id)">{{'label.details' | translate}}</a></td>
+                        <td><a data-ng-click="showDetails(guarantor.id)">{{'label.heading.details' | translate}}</a></td>
                         <td><a data-ng-show="guarantor.guarantorType.id == 3" href="#/editguarantor/{{guarantor.id}}/{{guarantor.loanId}}" class="btn btn-primary"><i class="icon-edit"></i></a><button class="btn btn-warning" data-ng-click="deleteGroup(guarantor.id)" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i></button></td>
                     </tr>
                 </tbody>
@@ -135,72 +135,72 @@
             <hr/>
             <table data-ng-show="guarantorData">
                 <tr data-ng-show="guarantorData.firstname">
-                    <td>{{'label.firstname' | translate}}</td>
+                    <td>{{'label.heading.firstname' | translate}}</td>
                     <td>{{guarantorData.firstname}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.lastname">
-                    <td>{{'label.lastname' | translate}}</td>
+                    <td>{{'label.heading.lastname' | translate}}</td>
                     <td>{{guarantorData.lastname}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.clientRelationshipType.name">
-                    <td>{{'label.relationship' | translate}}:</td>
+                    <td>{{'label.heading.relationship' | translate}}:</td>
                     <td>{{guarantorData.clientRelationshipType.name}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.guarantorType.value">
-                    <td>{{'label.guarantortype' | translate}}:</td>
+                    <td>{{'label.heading.guarantortype' | translate}}:</td>
                     <td>{{guarantorData.guarantorType.value}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.joinedDate">
-                    <td>{{'label.joindate' | translate}}:</td>
+                    <td>{{'label.heading.joindate' | translate}}:</td>
                     <td>{{guarantorData.joinedDate | DateFormat}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.officeName">
-                    <td>{{'label.belongsto' | translate}}:</td>
+                    <td>{{'label.heading.office' | translate}}:</td>
                     <td>{{guarantorData.officeName}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.dob">
-                    <td>{{'label.dob' | translate}}:</td>
+                    <td>{{'label.heading.dob' | translate}}:</td>
                     <td>{{guarantorData.dob | DateFormat}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.mobileNumber">
-                    <td>{{'label.mobile' | translate}}:</td>
+                    <td>{{'label.heading.mobile' | translate}}:</td>
                     <td>{{guarantorData.mobileNumber}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.housePhoneNumber">
-                    <td>{{'label.residence' | translate}}:</td>
+                    <td>{{'label.heading.residence' | translate}}:</td>
                     <td>{{guarantorData.housePhoneNumber}}</td>
                 </tr>
                 <tr data-ng-show="guarantorData.city">
-                    <td>{{'label.city' | translate}}:</td>
+                    <td>{{'label.heading.city' | translate}}:</td>
                     <td>{{guarantorData.city}}</td>
                 </tr>
             </table>
         </tab>
         <script type="text/ng-template" id="deleteguarantor.html">
             <div class="modal-header silver">
-                <h3 class="bolder">{{'label.delete' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
             </div>
             <div class="modal-body modal-middle">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
-        <tab heading="{{'tab.summary' | translate}}">
+        <tab heading="{{'label.heading.summary' | translate}}">
           <table  class="table">
               <thead>
                 <tr>
                   <th class="empty"></th>
-                  <th>{{'table.heading.original' | translate}}</th>
-                  <th>{{'table.heading.paid' | translate}}</th>
-                  <th>{{'table.heading.waived' | translate}}</th>
-                  <th>{{'table.heading.writtenoff' | translate}}</th>
-                  <th>{{'table.heading.outstanding' | translate}}</th>
-                  <th>{{'table.heading.overdue' | translate}}</th>
+                    <th>{{'label.heading.original' | translate}}</th>
+                    <th>{{'label.heading.paid' | translate}}</th>
+                    <th>{{'label.heading.waived' | translate}}</th>
+                    <th>{{'label.heading.writtenoff' | translate}}</th>
+                    <th>{{'label.heading.outstanding' | translate}}</th>
+                    <th>{{'label.heading.overdue' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th>{{'table.heading.principal' | translate}}</th>
+                  <th>{{'label.heading.principal' | translate}}</th>
                   <td>{{loandetails.summary.principalDisbursed}}</td>
                   <td>{{loandetails.summary.principalPaid}}</td>
                   <td>&nbsp;</td>
@@ -209,7 +209,7 @@
                   <td>{{loandetails.summary.principalOverdue}}</td>
                 </tr>
                 <tr>
-                  <th>{{'table.heading.interest' | translate}}</th>
+                  <th>{{'label.heading.interest' | translate}}</th>
                   <td>{{loandetails.summary.interestCharged}}</td>
                   <td>{{loandetails.summary.interestPaid}}</td>
                   <td>{{loandetails.summary.interestWaived}}</td>
@@ -218,7 +218,7 @@
                   <td>{{loandetails.summary.interestOverdue}}</td>
                 </tr>
                 <tr>
-                  <th>{{'table.heading.fees' | translate}}</th>
+                  <th>{{'label.heading.fees' | translate}}</th>
                   <td>{{loandetails.summary.feeChargesCharged}}</td>
                   <td>{{loandetails.summary.feeChargesPaid}}</td>
                   <td>{{loandetails.summary.feeChargesWaived}}</td>
@@ -228,7 +228,7 @@
                 </tr>
 
                 <tr>
-                  <th>{{'table.heading.penalties' | translate}}</th>
+                  <th>{{'label.heading.penalties' | translate}}</th>
                   <td>{{loandetails.summary.penaltyChargesCharged}}</td>
                   <td>{{loandetails.summary.penaltyChargesPaid}}</td>
                   <td>{{loandetails.summary.penaltyChargesWaived}}</td>
@@ -239,7 +239,7 @@
               </tbody>
               <tfoot >
                 <tr>
-                  <th>{{'table.heading.total' | translate}}</th>
+                  <th>{{'label.heading.total' | translate}}</th>
                   <th>{{loandetails.summary.totalExpectedRepayment}}</th>
                   <th>{{loandetails.summary.totalRepayment}}</th>
                   <th>{{loandetails.summary.totalWaived}}</th>
@@ -251,24 +251,24 @@
             </table>
         </tab>
 
-        <tab heading="{{'tab.repaymentschedule' | translate}}">
+        <tab heading="{{'label.heading.repaymentschedule' | translate}}">
             <table class="table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">{{'table.heading.days' | translate}}</th>
-                  <th scope="col">{{'table.heading.date' | translate}}</th>
-                  <th scope="col">{{'table.heading.paiddate' | translate}}</th>
-                  <th scope="col">&nbsp;</th>
-                  
-                  <th scope="col">{{'table.heading.principaldue' | translate}}</th>
+                    <th scope="col">{{'label.heading.days' | translate}}</th>
+                    <th scope="col">{{'label.heading.date' | translate}}</th>
+                    <th scope="col">{{'label.heading.paiddate' | translate}}</th>
+                    <th scope="col">&nbsp;</th>
 
-                  <th scope="col">{{'table.heading.interest' | translate}}</th>
-                  <th scope="col">{{'table.heading.fees' | translate}}</th>
-                  <th scope="col">{{'table.heading.penalties' | translate}}</th>
+                    <th scope="col">{{'label.heading.principaldue' | translate}}</th>
 
-                  <th scope="col">{{'table.heading.totaldue' | translate}}</th>
-                  <th scope="col">{{'table.heading.balanceofloan' | translate}}</th>
+                    <th scope="col">{{'label.heading.interest' | translate}}</th>
+                    <th scope="col">{{'label.heading.fees' | translate}}</th>
+                    <th scope="col">{{'label.heading.penalties' | translate}}</th>
+
+                    <th scope="col">{{'label.heading.totaldue' | translate}}</th>
+                    <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -308,27 +308,26 @@
             </table>
         </tab>
 
-        <tab heading="{{'tab.transaction' | translate}}">
+        <tab heading="{{'label.heading.transaction' | translate}}">
             <table class="table">
               <colgroup span="4"></colgroup>
                 <thead>
-                  <tr>
-                    <th>{{'table.heading.transactionId' | translate}}</th>
-                    <th>{{'table.heading.transactiondate' | translate}}</th>
-                    <th>{{'table.heading.transactiontype' | translate}}</th>
-                    <th>{{'table.heading.amount' | translate}}</th>
-                    <th colspan="4" scope="colgroup">{{'table.heading.breakdown' | translate}}</th>
-                  </tr>
-                  <tr>
+                <tr>
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.transactiontype' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th colspan="4" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
+                </tr>
+                <tr>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">{{'table.heading.principal' | translate}}</th>
-                    <th scope="col">{{'table.heading.interest' | translate}}</th>
-                    <th scope="col">{{'table.heading.fees' | translate}}</th>
-                    <th scope="col">{{'table.heading.penalities' | translate}}</th>
-                  </tr>
+                    <th scope="col">{{'label.heading.principal' | translate}}</th>
+                    <th scope="col">{{'label.heading.interest' | translate}}</th>
+                    <th scope="col">{{'label.heading.fees' | translate}}</th>
+                    <th scope="col">{{'label.heading.penalities' | translate}}</th>
+                </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="transaction in loandetails.transactions">
@@ -347,7 +346,7 @@
             </table>
         </tab>
 
-        <tab heading="{{'tab.loancollaterals' | translate}}">
+        <tab heading="{{'label.heading.loancollaterals' | translate}}">
           <table class="table">
             <thead>
               <th>{{'table.heading.type' | translate}}</th>
@@ -370,21 +369,21 @@
         <tab ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
-                <th>{{'table.heading.name' | translate}}</th>
-                <th>{{'table.heading.feeorpenalty' | translate}}</th>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.feeorpenalty' | translate}}</th>
                 <th></th>
-                <th>{{'table.heading.paymentdueat' | translate}}</th>
+                <th>{{'label.heading.paymentdueat' | translate}}</th>
                 <th></th>
-                <th>{{'table.heading.dueasof' | translate}}</th>
+                <th>{{'label.heading.dueasof' | translate}}</th>
                 <th></th>
-                <th>{{'table.heading.calculationtype' | translate}}</th>
+                <th>{{'label.heading.calculationtype' | translate}}</th>
                 <th></th>
-                <th>{{'table.heading.due' | translate}}</th>
-                <th>{{'table.heading.paid' | translate}}</th>
-                <th>{{'table.heading.waived' | translate}}</th>
-                <th>{{'table.heading.outstanding' | translate}}</th>
+                <th>{{'label.heading.due' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.waived' | translate}}</th>
+                <th>{{'label.heading.outstanding' | translate}}</th>
                 <th></th>
-                <th>{{'table.heading.actions' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
                 <th></th>
             </tr>
             <tr ng-repeat="charge in charges">
@@ -406,7 +405,7 @@
                 <td>
                     <a class="btn-primary" data-ng-hide="charge.actionFlag" data-ng-click="waive(charge.id)" title="waive"><i class="icon-flag icon-white"></i></a>
                     <a class="btn-warning" data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)" title="delete"><i class="icon-remove icon-white"></i></a>
-                    <a class="btn-success" data-ng-show="charge.chargePayable" data-ng-click="pay(charge.id)" title="pay">{{"label.pay" | translate}}</a>
+                    <a class="btn-success" data-ng-show="charge.chargePayable" data-ng-click="pay(charge.id)" title="pay">{{"label.button.pay" | translate}}</a>
                 </td>
                 <td></td>
             </tr>
@@ -414,45 +413,45 @@
         </tab>
         <script type="text/ng-template" id="pay.html">
             <div class="modal-header silver">
-                <h3 class="bolder">{{'label.enterpaymentdate' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.enterpaymentdate' | translate}}</h3>
             </div>
             <div class="modal-body modal-big">
                 <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.payDate" is-open="opened" min="minDate" max="restrictDate"/>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
         <script type="text/ng-template" id="waive.html">
             <div class="modal-header silver">
-                <h3 class="bolder">{{'label.confirm' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
             </div>
             <div class="modal-body">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="waived()">{{'label.confirm' | translate}}</button>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="waived()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
         <script type="text/ng-template" id="delcharge.html">
             <div class="modal-header silver">
-                <h3 class="bolder">{{'label.confirm' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
             </div>
             <div class="modal-body">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="delete()">{{'label.confirm' | translate}}</button>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
         <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
           <div class="pull-right" data-ng-show="choice">
-            <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.upload' | translate}}</a>
+            <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
           </div>
           <br>
           <table class="table" ng-show="loandocuments.length > 0">
             <thead>
-              <th>{{'table.heading.name' | translate}}</th>
-              <th>{{'table.heading.description' | translate}}</th>
-              <th>{{'table.heading.filename' | translate}}</th>
-              <th>{{'table.heading.actions' | translate}}</th>
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.description' | translate}}</th>
+            <th>{{'label.heading.filename' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
             </thead>
             <tbody>
               <tr ng-repeat="document in loandocuments">
@@ -482,7 +481,7 @@
           <div class="span9" ng-show="template">
             <span ng-bind-html-unsafe="template"></span>
             <span class="offset3 paddedtop10">
-              <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'button.print'| translate}}</a>
+              <a href="javascript:window.print()" class="btn btn-primary primary large no-print">{{'label.button.print'| translate}}</a>
             </span>
           </div>
         </tab>
@@ -513,12 +512,12 @@
           </div>
         </tab>
 
-        <tab heading="{{'tab.notes' | translate}}">
+        <tab heading="{{'label.heading.notes' | translate}}">
           <div ng-repeat="note in loandetails.notes">
             <blockquote>
               <p>{{note.note}}</p>
-              <small>Updated by :&nbsp;{{note.updatedByUsername}}</small>
-              <small>Updated on :&nbsp;{{note.updatedOn | DateFormat}}</small>
+              <small>{{'label.heading.updatedby'| translate}} :&nbsp;{{note.updatedByUsername}}</small>
+              <small>{{'label.heading.updatedon'| translate}} :&nbsp;{{note.updatedOn | DateFormat}}</small>
             </blockquote>
           </div>
         </tab>
