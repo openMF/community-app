@@ -14,34 +14,34 @@
 
             switch (scope.action) {
                 case "approve":
-                    scope.title = 'label.approve.saving.account';
-                    scope.labelName = 'label.saving.account.approvedOnDate';
+                    scope.title = 'label.heading.approvesavingaccount';
+                    scope.labelName = 'label.input.savingaccountapprovedOnDate';
                     scope.modelName = 'approvedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     break;
                 case "reject":
-                    scope.title = 'label.reject.saving.account';
-                    scope.labelName = 'label.saving.account.rejectedOnDate';
+                    scope.title = 'label.heading.rejectsavingaccount';
+                    scope.labelName = 'label.input.rejectedon';
                     scope.modelName = 'rejectedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     break;
                 case "withdrawnByApplicant":
-                    scope.title = 'label.withdraw.saving.account';
-                    scope.labelName = 'label.saving.account.withdrawnOnDate';
+                    scope.title = 'label.heading.withdrawsavingaccount';
+                    scope.labelName = 'label.input.withdrawnon';
                     scope.modelName = 'withdrawnOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     break;
                 case "undoapproval":
-                    scope.title = 'label.undoapprove.saving.account';
+                    scope.title = 'label.heading.undoapprovesavingaccount';
                     scope.showDateField = false;
                     scope.showNoteField = true;
                     break;
                 case "activate":
-                    scope.title = 'label.activate.saving.account';
-                    scope.labelName = 'label.saving.account.activatedOnDate';
+                    scope.title = 'label.heading.activatesavingaccount';
+                    scope.labelName = 'label.input.activatedon';
                     scope.modelName = 'activatedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
@@ -50,8 +50,8 @@
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'deposit'}, function (data) {
                         scope.paymentTypes=data.paymentTypeOptions;
                     });
-                    scope.title = 'label.deposit.money.to.saving.account';
-                    scope.labelName = 'label.saving.account.transactionDate';
+                    scope.title = 'label.heading.depositmoneytosavingaccount';
+                    scope.labelName = 'label.input.transactiondate';
                     scope.modelName = 'transactionDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
@@ -62,8 +62,8 @@
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'withdrawal'}, function (data) {
                         scope.paymentTypes=data.paymentTypeOptions;
                     });
-                    scope.title = 'label.withdraw.money.from.saving.account';
-                    scope.labelName = 'label.saving.account.transactionDate';
+                    scope.title = 'label.heading.withdrawmoneyfromsavingaccount';
+                    scope.labelName = 'label.input.transactiondate';
                     scope.modelName = 'transactionDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
@@ -79,8 +79,8 @@
                                 scope.formData.dueDate = new Date(dueDate);
                             }
                         });
-                    scope.title = 'label.saving.account.apply.annualFee';
-                    scope.labelName = 'label.saving.account.annualFeeTransactionDate';
+                    scope.title = 'label.heading.savingaccountapplyannualFee';
+                    scope.labelName = 'label.input.annualfeetransactiondate';
                     scope.modelName = 'dueDate';
                     scope.showDateField = true;
                     scope.showAnnualAmountField = true;
@@ -88,8 +88,8 @@
                     scope.showNoteField = false;
                     break;
                 case "close":
-                    scope.title = 'label.close.saving.account';
-                    scope.labelName = 'label.saving.account.closedOnDate';
+                    scope.title = 'label.heading.closesavingaccount';
+                    scope.labelName = 'label.input.closedon';
                     scope.modelName = 'closedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
@@ -97,8 +97,8 @@
                 case "modifytransaction":
                     resourceFactory.savingsTrxnsResource.get({savingsId:scope.accountId, transactionId:routeParams.transactionId, template:'true'},
                         function (data) {
-                            scope.title = 'label.edit.saving.account.transaction';
-                            scope.labelName = 'label.saving.account.transactionDate';
+                            scope.title = 'label.heading.editsavingaccounttransaction';
+                            scope.labelName = 'label.input.transactiondate';
                             scope.modelName = 'transactionDate';
                             scope.formData[scope.modelName] = new Date(data.date) || new Date();
                             scope.paymentTypes=data.paymentTypeOptions;
@@ -131,7 +131,7 @@
                                 }
                                 var feeOnMonthDay = dateFilter(scope.dateArray, 'dd MMMM yyyy');
                                 scope.formData.feeOnMonthDayFullDate = new Date(feeOnMonthDay);
-                                scope.labelName = 'label.saving.account.transactionDate';
+                                scope.labelName = 'label.heading.savingaccounttransactionDate';
                                 scope.modelName = 'feeOnMonthDayFullDate';
                                 scope.showDateField = true;
                                 scope.showAnnualAmountField = true;
