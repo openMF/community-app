@@ -3,7 +3,7 @@
     ClientController: function(scope, resourceFactory , paginatorService) {
         
       scope.clients = [];
-      
+
       var fetchFunction = function(offset, limit, callback) {
         resourceFactory.clientResource.getAllClients({offset: offset, limit: limit} , callback);
       };
