@@ -82,7 +82,7 @@ Just open test/SpecRunner.html in the browser.
 ## Guidelines for development
 
 * Before sending PR, do code quality check using JSHint
-* For adding locale, follow the guidelines given in this wiki (link)
+* For adding locale, follow the guidelines given in this wiki (<a href="https://github.com/openMF/community-app/wiki/User-Interface-Guidelines:-Capitalization">link</a>)
 
 
 
