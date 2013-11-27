@@ -11,7 +11,6 @@ describe("ClientController", function() {
 
         this.paginatorService = jasmine.createSpyObj("paginatorService", ["paginate"]);
 
-
         this.controller = new mifosX.controllers.ClientController(this.scope, this.resourceFactory, this.paginatorService);
     });
 
