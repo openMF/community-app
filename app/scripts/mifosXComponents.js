@@ -61,7 +61,6 @@ define(['underscore', 'mifosX'], function() {
       'organization/RoleController',
       'organization/ViewRoleController',
       'organization/CreateRoleController',
-      'organization/EditPermissionsController',
       'organization/MakerCheckerController',
       'organization/OfficesController',
       'organization/ViewOfficeController',

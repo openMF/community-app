@@ -9,7 +9,7 @@
     <div class="pull-right">
       <div class="btn-group" >
           <span ng-repeat="button in buttons.singlebuttons">
-              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{button.name | translate}}</a>
+              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{'label.' + button.name | translate}}</a>
           </span>
           <span ng-show="buttons.options" class="btn-group">
               <a class="btn btn-primary dropdown-toggle">
@@ -63,19 +63,19 @@
           <div> 
             <table>
                 <tr>
-                  <td width="40%">{{'label.repaymentstrategy' | translate}}</td>
+                  <td width="40%">{{'label.heading.repaymentstrategy' | translate}}</td>
                   <td width="60%">{{loandetails.transactionProcessingStrategyName}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.repayments' | translate}}</td>
+                  <td>{{'label.heading.repayments' | translate}}:</td>
                   <td>{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.amortization' | translate}}</td>
+                  <td>{{'label.heading.amortization' | translate}}:</td>
                   <td>{{loandetails.amortizationType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.interest' | translate}}</td>
+                  <td>{{'label.heading.interest' | translate}}:</td>
                   <td>{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}} - {{loandetails.interestType.value}}</td>
                 </tr>
                 <tr>
@@ -109,7 +109,7 @@
             </table>
           </div>
         </tab>
-        <tab heading="{{'label.guarantordetails' | translate}}" data-ng-show="$parent.guarantorDetails">
+        <tab heading="{{'label.heading.guarantordetails' | translate}}" data-ng-show="$parent.guarantorDetails">
             <table class="table">
                 <thead>
                     <tr>
@@ -308,7 +308,7 @@
             </table>
         </tab>
 
-        <tab heading="{{'label.heading.transaction' | translate}}">
+        <tab heading="{{'label.heading.transactions' | translate}}">
             <table class="table">
               <colgroup span="4"></colgroup>
                 <thead>
@@ -366,7 +366,7 @@
           </table>
         </tab>
 
-        <tab ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
+        <tab ng-show="$parent.chargeTableShow" heading="{{'label.heading.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -441,7 +441,7 @@
                 <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
-        <tab heading="{{'tab.loandocuments' | translate}}" select="getLoanDocuments()">
+        <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
           <div class="pull-right" data-ng-show="choice">
             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
           </div>
@@ -467,7 +467,7 @@
           </table>
         </tab>
 
-        <tab heading="{{'tab.templates' | translate}}" select="getLoanTemplateDocuments()">
+        <tab heading="{{'label.heading.templates' | translate}}" select="getLoanTemplateDocuments()">
           <div class="span"></div>
           <div class="span2">
             <table class="table">
