@@ -4,21 +4,16 @@
           <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
           <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a> <span class="divider">/</span></li>
           <li><a href="#/viewcode/{{codeId}}">{{code.name}}</a> <span class="divider">/</span></li>
-          <li class="active">{{'label.anchor.editcode' | translate}}</li>
+          <li class="active">{{'label.anchor.addcodevalue' | translate}}</li>
       </ul>
   </div>
   <api-validate></api-validate>
-  <h3>{{'label.heading.editcode' | translate}}</h3>
+  <h3>{{'label.heading.addcodevalue' | translate}}</h3>
     <form>
       <input name="codevalue" ng-model="newEle.name" placeholder="{{ 'label.input.codevalue' | translate }}" type="text"/>&nbsp;&nbsp;
       <input name="position" ng-model="newEle.position" placeholder="{{ 'label.input.position' | translate }}" type="text"/>&nbsp;&nbsp;
       <a data-ng-click="addCv()" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.add' | translate }}</a>
-        <span  ng-show="createcenterform.name.$invalid || codevalueerror">
-          <small class="error" ng-show="createcenterform.name.$error.req || codevalueerror">
-              {{'label.'+labelerror | translate}}
-          </small>
-        </span>
-      </form>
+    </form>
     <div data-ng-repeat="codevalue in codevalues">
         <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;<input disabled="" placeholder={{codevalue.position}}
          type="text"/>&nbsp;&nbsp;<a ng-click='deleteCv(codevalue.id)'><i class="icon-remove"></i></a>

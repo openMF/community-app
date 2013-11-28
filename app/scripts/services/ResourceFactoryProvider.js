@@ -184,7 +184,8 @@
             getView: {method: 'GET', params: {}}
           }) ,
           codeResources: defineResource(apiVer + "/codes/:codeId", {codeId:"@codeId"}, {
-                getAllCodes: {method: 'GET', params: {}, isArray: true}
+              getAllCodes: {method: 'GET', params: {}, isArray: true},
+              update: { method: 'PUT', params: {}, isArray:true }
           }),
           codeValueResource: defineResource(apiVer + "/codes/:codeId/codevalues/:codevalueId", {codeId:'@codeId',codevalueId:'@codevalueId'}, {
             getAllCodeValues: {method: 'GET', params: {}, isArray:true},

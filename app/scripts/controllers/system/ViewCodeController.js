@@ -1,24 +1,60 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
         ViewCodeController: function(scope, routeParams , resourceFactory, location,$modal,route ) {
-                   scope.codevalues = [];
+            scope.codevalues = [];
+            scope.formData = [];
+            scope.newcode = {};
+            scope.codename = {};
              resourceFactory.codeResources.get({codeId: routeParams.id} , function(data) {
                 scope.code = data;
+                scope.codename.name = data.name;
             });
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id} , function(data) {
                 scope.codevalues = data;
             });
+
             scope.delCode = function (){
                 $modal.open({
                     templateUrl: 'deletecode.html',
                     controller: CodeDeleteCtrl
                 });
             };
+            scope.showEdit =  function(name,position,cv){
+                scope.formData = {
+                    name:name,
+                    position:position
+
+                }
+                cv.edit = ! cv.edit;
+            };
+            scope.editCodeValue = function (id){
+                resourceFactory.codeValueResource.update({codeId: routeParams.id, codevalueId: id},this.formData,function(data){
+                    route.reload();
+                });
+            };
+            scope.showEditCode = function(){
+                scope.newcode.edit = !scope.newcode.edit;
+                scope.codename.name = scope.code.name;
+            };
+            scope.updateCode = function(){
+                resourceFactory.codeResources.update({codeId: routeParams.id},this.codename,function(data){
+                    route.reload();
+                });
+            }
             var CodeDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.codeResources.delete({codeId: routeParams.id},{},function(data){
                         location.path('/codes');
                     });
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+            var EditCodeValueCtrl = function ($scope, $modalInstance,cid) {
+                $scope.edit = function () {
+
                     $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
