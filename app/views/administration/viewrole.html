@@ -8,10 +8,10 @@
 	</div>
 	<div ng-hide="isDisabled">
 		<ul class="breadcrumb">
-			<li><a href="#/system">{{'link.admin.system' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/admin/roles">{{'label.view.roles' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{ role.name | translate}}<span class="divider">/</span></li>
-			<li class="active">{{'label.edit' | translate}}</li>
+			<li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
+			<li class="active">{{ role.name}}<span class="divider">/</span></li>
+			<li class="active">{{'label.anchor.editrole' | translate}}</li>
 		</ul>
 	</div>
 	<api-validate></api-validate>
@@ -29,9 +29,9 @@
 		</table>
 	</div>
 	<hr>
-	<div class="pull-right">
+	<div class="pull-right" ng-show="isDisabled">
 		<div class="btn-group">
-			<a href="#/admin/role/{{role.id}}/edit" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
+			<a data-ng-click="editRoles()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
 		</div>
 	</div>
 	<h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong></h3>
@@ -48,7 +48,7 @@
 				<table width="100%">
 					<tr ng-repeat="permission in permissions.permissions">
 						<td width="50%"><label for="{{permission.code}}">{{permissionName(permission.code)}}</label></td>
-						<td><input id="{{permission.code}}" type="checkbox" ng-checked="permission.data" ng-disabled="true"></td>
+						<td><input id="{{permission.code}}" type="checkbox" data-ng-model="formData[permission.code]" ng-disabled="isDisabled"></td>
 					</tr>
 				</table>
 			</td>

@@ -44,9 +44,6 @@
       .when('/admin/roles', {
         templateUrl: 'views/administration/roles.html'
       })
-      .when('/admin/role/:id/edit', {
-        templateUrl: 'views/administration/editpermissions.html'
-      })
       .when('/admin/addrole', {
         templateUrl: 'views/administration/addrole.html'
       })
