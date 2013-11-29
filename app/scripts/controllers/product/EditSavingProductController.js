@@ -57,17 +57,17 @@
                 scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
               }
             } else {
-              scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccountId;
-              scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccountId;
-              scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccountId;
-              scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccountId;
-              scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccountId;
-              scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccountId;
+              scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
+              scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
+              scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
+              scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
+              scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
+              scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
 
               _.each(scope.product.paymentChannelToFundSourceMappings, function(fundSource){  
                 scope.configureFundOptions.push({
-                  paymentTypeId : fundSource.paymentTypeId,
-                  fundSourceAccountId : fundSource.fundSourceAccountId,
+                  paymentTypeId : fundSource.paymentType.id,
+                  fundSourceAccountId : fundSource.fundSourceAccount.id,
                   paymentTypeOptions : scope.product.paymentTypeOptions,
                   assetAccountOptions : scope.assetAccountOptions
                 })
@@ -75,8 +75,8 @@
 
               _.each(scope.product.feeToIncomeAccountMappings, function(fees){  
                 scope.specificIncomeaccounts.push({
-                  chargeId : fees.chargeId,
-                  incomeAccountId : fees.incomeAccountId,
+                  chargeId : fees.charge.id,
+                  incomeAccountId : fees.incomeAccount.id,
                   chargeOptions : scope.product.chargeOptions,
                   incomeAccountOptions : scope.incomeAccountOptions
                 })
@@ -84,9 +84,9 @@
 
               _.each(scope.product.penaltyToIncomeAccountMappings, function(penalty){  
                 scope.penaltySpecificIncomeaccounts.push({
-                  chargeId : fees.chargeId,
-                  incomeAccountId : fees.incomeAccountId,
-                  chargeOptions : scope.product.chargeOptions,
+                  chargeId : penalty.charge.id,
+                  incomeAccountId : penalty.incomeAccount.id,
+                  chargeOptions : scope.product.penaltyOptions,
                   incomeAccountOptions : scope.incomeAccountOptions
                 })
               });
