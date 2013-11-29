@@ -5,6 +5,7 @@
             scope.accounts = {};
             scope.officeIdTemp = {};
             scope.first = {};
+            scope.toOfficers = [];
             scope.first.date = new Date();
             resourceFactory.officeResource.getAllOffices(function(data) {
                 scope.offices = data;
@@ -13,9 +14,20 @@
                 scope.officerChoice = true;
                 resourceFactory.loanReassignmentResource.get({templateSource:'template',officeId:scope.officeIdTemp},function(data) {
                     scope.officers = data.loanOfficerOptions;
+
                 });
             };
+
             scope.getOfficerClients = function(){
+                var toOfficers = angular.copy(scope.officers);
+
+                for(var i in toOfficers){
+                    if(toOfficers[i].id==this.formData.fromLoanOfficerId){
+                        var index = i;
+                    }
+                }
+                toOfficers.splice(index,1);
+                scope.toOfficers = toOfficers;
                 resourceFactory.loanReassignmentResource.get({templateSource:'template',officeId:scope.officeIdTemp,fromLoanOfficerId:scope.formData.fromLoanOfficerId},function(data) {
                     scope.clients = data.accountSummaryCollection.clients;
                     scope.groups = data.accountSummaryCollection.groups;
