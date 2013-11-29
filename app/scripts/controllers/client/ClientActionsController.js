@@ -21,8 +21,10 @@
             scope.labelName = 'label.form.staff';
             scope.staffField = true;
             resourceFactory.clientResource.get({clientId: routeParams.id, template : 'true'},function(data){
-              scope.staffOptions = data.staffOptions;
-              scope.formData.staffId = scope.staffOptions[0].id;
+              if (data.staffOptions) {
+                  scope.staffOptions = data.staffOptions;
+                  scope.formData.staffId = scope.staffOptions[0].id;
+              }
             });
           break;
           case "close":

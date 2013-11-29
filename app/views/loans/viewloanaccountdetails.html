@@ -76,7 +76,7 @@
                 </tr>
                 <tr>
                   <td>{{'label.interest' | translate}}</td>
-                  <td>{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}} - {{loandetails.interestType.value}}</td>
+                  <td>{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</td>
                 </tr>
                 <tr>
                   <td>{{'label.graceonprincipalpayment' | translate}}</td>
@@ -104,7 +104,7 @@
                 </tr>
                 <tr>
                   <td>{{'label.interestChargedFrom' | translate}}</td>
-                  <td>{{loandetails.timeline.interestChargedFromDate | DateFormat}}</td>
+                  <td>{{loandetails.interestChargedFromDate | DateFormat}}</td>
                 </tr>
             </table>
           </div>
@@ -191,6 +191,7 @@
                 <tr>
                   <th class="empty"></th>
                   <th>{{'table.heading.original' | translate}}</th>
+                  <th>{{'table.heading.original' | translate}}</th>
                   <th>{{'table.heading.paid' | translate}}</th>
                   <th>{{'table.heading.waived' | translate}}</th>
                   <th>{{'table.heading.writtenoff' | translate}}</th>
@@ -253,22 +254,33 @@
 
         <tab heading="{{'tab.repaymentschedule' | translate}}">
             <table class="table">
+              <colgroup span="4"></colgroup>
               <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th colspan="5" scope="colgroup"></th>
+                  <th colspan="2" scope="colgroup">Loan Amount and Balance</th>
+                  <th colspan="3" scope="colgroup">Total Cost of Loan</th>
+                  <th colspan="5" scope="colgroup">Installment Totals</th>
+                </tr>
+                <tr>
+                  <th scope="col">#</th>  
                   <th scope="col">{{'table.heading.days' | translate}}</th>
                   <th scope="col">{{'table.heading.date' | translate}}</th>
                   <th scope="col">{{'table.heading.paiddate' | translate}}</th>
                   <th scope="col">&nbsp;</th>
                   
                   <th scope="col">{{'table.heading.principaldue' | translate}}</th>
+                  <th scope="col">{{'table.heading.balanceofloan' | translate}}</th>
 
                   <th scope="col">{{'table.heading.interest' | translate}}</th>
                   <th scope="col">{{'table.heading.fees' | translate}}</th>
                   <th scope="col">{{'table.heading.penalties' | translate}}</th>
 
+                  <th scope="col">{{'table.heading.due' | translate}}</th>
+                  <th scope="col">{{'table.heading.paid' | translate}}</th>
+                  <th scope="col">{{'table.heading.inadvance' | translate}}</th>
+                  <th scope="col">{{'table.heading.late' | translate}}</th>
                   <th scope="col">{{'table.heading.totaldue' | translate}}</th>
-                  <th scope="col">{{'table.heading.balanceofloan' | translate}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -277,16 +289,20 @@
                 <td>{{period.daysInPeriod}}</td>
                 <td>{{period.dueDate | DateFormat}}</td>
                 <td>{{period.obligationsMetOnDate | DateFormat}}</td>
-                <td>&nbsp;</td>
+                <td ng-show="period.obligationsMetOnDate"><i class="icon-check icon-white"></i></a></td>
+                <td ng-hide="period.obligationsMetOnDate"></td>
 
                 <td>{{period.principalDue}}</td>
-
+                <td>{{period.principalLoanBalanceOutstanding}}</td>
                 <td>{{period.interestOriginalDue}}</td>
                 <td>{{period.feeChargesDue}}</td>
                 <td>{{period.penaltyChargesDue}}</td>
 
-                <td>{{period.totalOriginalDueForPeriod}}</td>
-                <td>{{period.principalLoanBalanceOutstanding}}</td>
+                <td>{{period.totalDueForPeriod}}</td>
+                <td>{{period.totalPaidForPeriod}}</td>
+                <td>{{period.totalPaidInAdvanceForPeriod}}</td>
+                <td>{{period.totalPaidLateForPeriod}}</td>
+                <td>{{period.totalOutstandingForPeriod}}</td>
               </tr>
               </tbody>
               <tfoot class="ui-widget-header">
@@ -296,12 +312,16 @@
                   <th colspan="3">{{'table.heading.total' | translate}}</th>
 
                   <th>{{loandetails.repaymentSchedule.totalPrincipalExpected}}</th>
-
+                  <th>&nbsp;</th>
                   <th>{{loandetails.repaymentSchedule.totalInterestCharged}}</th>
                   <th>{{loandetails.repaymentSchedule.totalFeeChargesCharged}}</th>
                   <th>{{loandetails.repaymentSchedule.totalPenaltyChargesCharged}}</th>
 
                   <th>{{loandetails.repaymentSchedule.totalRepaymentExpected}}</th>
+                  <th>{{loandetails.repaymentSchedule.totalRepayment}}</th>
+                  <th>{{loandetails.repaymentSchedule.totalPaidInAdvance}}</th>
+                  <th>{{loandetails.repaymentSchedule.totalPaidLate}}</th>
+                  <th>{{loandetails.repaymentSchedule.totalOutstanding}}</th>
                   <th>&nbsp;</th>
                 </tr>
               </tfoot>
@@ -314,12 +334,14 @@
                 <thead>
                   <tr>
                     <th>{{'table.heading.transactionId' | translate}}</th>
+                    <th>{{'table.heading.office' | translate}}</th>
                     <th>{{'table.heading.transactiondate' | translate}}</th>
                     <th>{{'table.heading.transactiontype' | translate}}</th>
                     <th>{{'table.heading.amount' | translate}}</th>
-                    <th colspan="4" scope="colgroup">{{'table.heading.breakdown' | translate}}</th>
+                    <th colspan="5" scope="colgroup">{{'table.heading.breakdown' | translate}}</th>
                   </tr>
                   <tr>
+                    <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
@@ -336,6 +358,7 @@
                       <a ng-show="transaction.type.id==2 || transaction.type.id==4" href="#/viewloantrxn/{{loandetails.id}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
                       <span ng-hide="transaction.type.id==2 || transaction.type.id==4">{{transaction.id}}</span>
                     </td>
+                  <td>{{transaction.officeName}}</td>
                   <td>{{transaction.date | DateFormat}}</td>
                   <td>{{transaction.type.value}}</td>
                   <td>{{transaction.amount}}</td>
@@ -393,10 +416,10 @@
                 <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
                 <td></td>
                 <td>{{charge.chargeTimeType.value}}</td>
+                <td>{{charge.dueDate | DateFormat}}</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td>{{charge.chargeCalculationType.value}} - {{charge.percentage}}% of{{charge.currency.displaySymbol}}{{charge.amountPercentageAppliedTo}}</td>
+                <td>{{charge.chargeCalculationType.value}}</td>
                 <td></td>
                 <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
                 <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
@@ -404,35 +427,15 @@
                 <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
                 <td></td>
                 <td>
-                    <a class="btn-primary" data-ng-hide="charge.actionFlag" data-ng-click="waive(charge.id)" title="waive"><i class="icon-flag icon-white"></i></a>
-                    <a class="btn-warning" data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)" title="delete"><i class="icon-remove icon-white"></i></a>
-                    <a class="btn-success" data-ng-show="charge.chargePayable" data-ng-click="pay(charge.id)" title="pay">{{"label.pay" | translate}}</a>
+                    <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'" href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i class="icon-pencil icon-white"></i></a>
+                    <a title="{{'label.delete' | translate}}" class="btn-warning" data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)" title="delete"><i class="icon-remove icon-white"></i></a>
+                    <a class="btn-primary" data-ng-hide="charge.actionFlag" href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i class="icon-flag icon-white"></i></a>
+                    <a class="btn-success" data-ng-show="charge.chargePayable && status=='Active'" href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.pay" | translate}}</a>
                 </td>
                 <td></td>
             </tr>
           </table>
         </tab>
-        <script type="text/ng-template" id="pay.html">
-            <div class="modal-header silver">
-                <h3 class="bolder">{{'label.enterpaymentdate' | translate}}</h3>
-            </div>
-            <div class="modal-body modal-big">
-                <input class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.payDate" is-open="opened" min="minDate" max="restrictDate"/>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="approve()">{{'label.confirm' | translate}}</button>
-            </div>
-        </script>
-        <script type="text/ng-template" id="waive.html">
-            <div class="modal-header silver">
-                <h3 class="bolder">{{'label.confirm' | translate}}</h3>
-            </div>
-            <div class="modal-body">
-                <button class="btn btn-warning" ng-click="cancel()">{{'label.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="waived()">{{'label.confirm' | translate}}</button>
-            </div>
-        </script>
         <script type="text/ng-template" id="delcharge.html">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.confirm' | translate}}</h3>

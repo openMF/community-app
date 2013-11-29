@@ -73,57 +73,6 @@
         }
       };
 
-      scope.pay = function (id) {
-            $modal.open({
-                templateUrl: 'pay.html',
-                controller: PayCtrl,
-                resolve:{
-                    items: function () {
-                        return id;
-                    }
-                }
-            });
-      };
-
-      var PayCtrl = function ($scope, $modalInstance,items) {
-        $scope.approve = function () {
-            var reqDate = dateFilter(scope.date.payDate,'dd MMMM yyyy');
-            var payData = {};
-            payData.transactionDate = reqDate;
-            payData.locale = 'en';
-            payData.dateFormat = 'dd MMMM yyyy';
-            resourceFactory.loanChargesResource.save({loanId: routeParams.id,chargeId:items,command:'pay'}, payData, function(data) {
-                route.reload();
-            });
-            $modalInstance.close('pay');
-        };
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-      };
-      scope.waive = function (id) {
-        $modal.open({
-            templateUrl: 'waive.html',
-            controller: WaiveCtrl,
-            resolve:{
-                id: function () {
-                    return id;
-                }
-            }
-        });
-      };
-
-      var WaiveCtrl = function ($scope, $modalInstance,id) {
-            $scope.waived = function () {
-                resourceFactory.loanChargesResource.save({loanId: routeParams.id,chargeId:id,command:'waive'}, {}, function(data) {
-                    route.reload();
-                });
-                $modalInstance.close('waived');
-            };
-            $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
-      };
         scope.delCharge = function (id) {
             $modal.open({
                 templateUrl: 'delcharge.html',
@@ -248,10 +197,6 @@
                                 icon :"icon-plus-sign"
                               },
                               {
-                                name:"button.assignloanofficer",
-                                icon :"icon-user"
-                              },
-                              {
                                 name:"button.makerepayment",
                                 icon:"icon-dollar"
                               },
@@ -275,6 +220,14 @@
                               }]
                               
                             };
+              //loan officer not assigned to loan, below logic 
+              //helps to display otherwise not                
+              if (!data.loanOfficerName) {
+                  scope.buttons.singlebuttons.splice(1,0,{
+                                name:"button.assignloanofficer",
+                                icon :"icon-user"
+                              });
+              }
         }
         if (data.status.value == "Overpaid") {
             scope.buttons = { singlebuttons : [{

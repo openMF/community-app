@@ -142,6 +142,44 @@
             scope.showNoteField = false;
             scope.showDateField = false;
           break;
+          case "waivecharge":
+              resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, function(data){
+                  if (data.installmentChargeData) {
+                      scope.installmentCharges = data.installmentChargeData;
+                      scope.formData.installmentNumber = data.installmentChargeData[0].installmentNumber;
+                  }
+              });
+              scope.title = 'label.waive.loan.charge';
+              scope.labelName = 'label.select.installment';
+              scope.showNoteField = false;
+              scope.showDateField = false;
+              scope.waivechargeField = true;
+          break;
+          case "paycharge":
+              resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, command : 'pay'}, function(data){
+                  if (data.dueDate) {
+                      scope.formData.transactionDate = new Date(data.dueDate);
+                  }
+              });
+              scope.title = 'label.pay.loan.charge';
+              scope.labelName = 'label.paymentdate';
+              scope.showNoteField = false;
+              scope.showDateField = false;
+              scope.paymentDatefield = true;
+          break;
+          case "editcharge":
+              resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, function(data){
+                  if (data.amount && data.dueDate) {
+                      scope.formData.amount = data.amount;
+                      scope.formData.dueDate = new Date(data.dueDate);
+                  }
+              });
+              scope.title = 'label.editcharge';
+              scope.labelName = 'label.dueforcollectionon';
+              scope.showNoteField = false;
+              scope.showDateField = false;
+              scope.showEditCharge = true;
+          break;
         }
 
         scope.cancel = function() {
@@ -153,7 +191,7 @@
           if (this.formData[scope.modelName]) {
             this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],'dd MMMM yyyy');
           }
-          if (scope.action != "undoapproval" && scope.action != "undodisbursal") {
+          if (scope.action != "undoapproval" && scope.action != "undodisbursal" || scope.action === "paycharge") {
             this.formData.locale = 'en';
             this.formData.dateFormat = 'dd MMMM yyyy';
           }
@@ -169,6 +207,20 @@
           } else if(scope.action == "deleteloancharge") {
               resourceFactory.LoanAccountResource.delete({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data) {
                  location.path('/viewloanaccount/' + data.loanId);
+              });
+          }else if (scope.action === "waivecharge") {
+              resourceFactory.LoanAccountResource.save({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, 'command' :'waive'}, this.formData, function(data){
+                  location.path('/viewloanaccount/' + data.loanId);
+              });
+          }else if (scope.action === "paycharge") {
+              this.formData.transactionDate = dateFilter(this.formData.transactionDate,'dd MMMM yyyy');
+              resourceFactory.LoanAccountResource.save({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, 'command' :'pay'}, this.formData, function(data){
+                  location.path('/viewloanaccount/' + data.loanId);
+              });
+          }else if (scope.action === "editcharge") {
+              this.formData.dueDate = dateFilter(this.formData.dueDate,'dd MMMM yyyy');
+              resourceFactory.LoanAccountResource.update({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data){
+                  location.path('/viewloanaccount/' + data.loanId);
               });
           } else {
             params.loanId=scope.accountId;

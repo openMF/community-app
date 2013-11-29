@@ -128,7 +128,8 @@
               get: {method: 'GET', params: {}}
           }),
           LoanAccountResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:chargeId", {loanId:'@loanId', resourceType:'@resourceType', chargeId:'@chargeId'}, {
-            getLoanAccountDetails: {method: 'GET', params: {}}
+            getLoanAccountDetails: {method: 'GET', params: {}},
+            update: {method: 'PUT'}
           }),
           LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId:'@loanId',documentId:'@documentId'}, {
             getLoanDocuments: {method: 'GET', params: {} , isArray: true}

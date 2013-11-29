@@ -81,6 +81,30 @@
           <textarea id="note" rows="2" ng-model="formData.note"></textarea>
         </div>
       </div>
+      <div class="control-group" ng-show="waivechargeField">
+        <label class="control-label" for="note">{{ labelName | translate}}</label>
+        <div class="controls">
+          <select id="installmentNumber" ng-model="formData.installmentNumber"  ng-options="installmentCharge.installmentNumber as installmentCharge.installmentNumber for installmentCharge in installmentCharges" value="{{installmentCharge.installmentNumber}}"></select>
+        </div>
+      </div>
+      <div class="control-group" ng-show="paymentDatefield">
+        <label class="control-label" for="modelName">{{'label.paymentdate' | translate}}<span class="required">*</span></label>
+        <div class="controls">
+          <input id="{{modelName}}" type="text" class="date-disable" readonly datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"/>
+        </div>
+      </div>
+      <div class="control-group" ng-show="showEditCharge">
+        <label class="control-label">{{ 'label.amount' | translate}}<span class="required">*</span></label>
+        <div class="controls">
+          <input type="text" id="amount" ng-model="formData.amount">
+        </div>
+      </div>
+      <div class="control-group" ng-show="showEditCharge">
+        <label class="control-label" for="modelName">{{labelName | translate}}<span class="required">*</span></label>
+        <div class="controls">
+          <input id="{{modelName}}" type="text" class="date-disable" readonly datepicker-pop="dd MMMM yyyy" ng-model="formData.dueDate" is-open="opened"/>
+        </div>
+      </div>
       <div class="control-group" ng-show="showDelete">
           <label class="control-label">{{ 'label.areyousure' | translate}}</label>
       </div>
