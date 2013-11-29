@@ -52,7 +52,7 @@
         <div class="control-group">
             <label class="control-label"></label>
             <div class="controls">
-                <input type="text" placeholder="{{'label.resourceid' | translate}}" ng-model="formData.resourceId">
+                <input type="text" placeholder="{{'label.input.resourceid' | translate}}" ng-model="formData.resourceId">
             </div>
         </div>
         <div class="control-group">
@@ -77,23 +77,31 @@
         <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
     </div>
     <div ng-show="displayResults" class="row-fluid">
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.id' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
-                <th>{{'label.heading.user' | translate}}</th>
+                <th>{{'label.heading.madeby' | translate}}</th>
                 <th>{{'label.heading.action' | translate}}</th>
                 <th>{{'label.heading.entity' | translate}}</th>
+                <th>{{'label.heading.office' | translate}}</th>
+                <th>{{'label.heading.madedate' | translate}}</th>
+                <th>{{'label.heading.checker' | translate}}</th>
+                <th>{{'label.heading.checkeddate' | translate}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="data in searchData">
+            <tr ng-repeat="data in searchData">
                 <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
                 <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
                 <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
                 <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
                 <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.officeName}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | date:'d MMM y h:mm:ss'}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.checker}}</td>
+                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.checkedOnDate | date:'d MMM y h:mm:ss'}}</td>
             </tr>
             </tbody>
         </table>
