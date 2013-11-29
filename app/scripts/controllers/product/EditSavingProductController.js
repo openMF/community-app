@@ -11,6 +11,7 @@
 
         resourceFactory.savingProductResource.get({savingProductId :routeParams.id, template:'true'}, function(data) {
             scope.product = data;
+            scope.charges = data.charges;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
             scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
             scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
