@@ -19,16 +19,17 @@
                     controller: CodeDeleteCtrl
                 });
             };
-            scope.showEdit =  function(name,position,cv){
-                scope.formData = {
+            scope.showEdit =  function(id,name,position,cv){
+                scope.formData[id] = {
                     name:name,
                     position:position
 
                 }
                 cv.edit = ! cv.edit;
             };
-            scope.editCodeValue = function (id){
-                resourceFactory.codeValueResource.update({codeId: routeParams.id, codevalueId: id},this.formData,function(data){
+            scope.editCodeValue = function (id,cv){
+                resourceFactory.codeValueResource.update({codeId: routeParams.id, codevalueId: id},this.formData[id],function(data){
+                    cv.edit = ! cv.edit;
                     route.reload();
                 });
             };
