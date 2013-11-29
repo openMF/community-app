@@ -124,9 +124,9 @@
 
               _.each(scope.product.penaltyToIncomeAccountMappings, function(penalty){  
                 scope.penaltySpecificIncomeaccounts.push({
-                  chargeId : fees.charge.id,
-                  incomeAccountId : fees.incomeAccount.id,
-                  chargeOptions : scope.product.chargeOptions,
+                  chargeId : penalty.charge.id,
+                  incomeAccountId : penalty.incomeAccount.id,
+                  chargeOptions : scope.product.penaltyOptions,
                   incomeAccountOptions : scope.incomeAccountOptions
                 })
               });
