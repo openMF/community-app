@@ -151,9 +151,6 @@
             var inQueryParameters = buildReportParms();
             if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
           break;
-
-          default:
-              alert("System Error: Unknown Report Type: " + scope.reportType);
         }
         
       };
