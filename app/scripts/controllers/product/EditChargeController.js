@@ -5,16 +5,17 @@
             scope.showdatefield = false;
             scope.repeatEvery = false;
             scope.first = {};
-
+            scope.flag = false;
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id,template:true}, function(data) {
                 scope.template = data;
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
+                    scope.flag = false;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
+                    scope.flag = true;
                 }
-                
                 scope.formData = {
                     name:data.name,
                     active:data.active,
@@ -25,7 +26,6 @@
                     chargeCalculationType:data.chargeCalculationType.id,
                     amount:data.amount
                 };
-
                 //when chargeAppliesTo is savings, below logic is
                 //to display 'Due date' field, if chargeTimeType is
                 // 'annual fee' or 'monthly fee'
