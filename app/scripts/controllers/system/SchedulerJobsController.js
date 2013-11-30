@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    SchedulerJobsController: function(scope, resourceFactory, route,location) {
+    SchedulerJobsController: function(scope, resourceFactory, route,location,$modal) {
       var jobIdArray = [];
       resourceFactory.jobsResource.get(function(data) {
           scope.jobs = data;
@@ -21,9 +21,32 @@
           }
         }
       };
+      scope.errorLog = function(id){
+          scope.id = id;
+          $modal.open({
+              templateUrl: 'errorlog.html',
+              controller: ErrorLogCtrl,
+              resolve: {
+                  ids: function () {
+                      return id;
+                  }
+              }
+          });
+      };
+      var ErrorLogCtrl = function ($scope, $modalInstance,ids) {
+        for(var i in scope.jobs){
+            if(scope.jobs[i].jobId==ids){
+                var index = i;
+            }
+        }
+        $scope.error=scope.jobs[index].lastRunHistory.jobRunErrorLog;
+        $scope.cancel = function () {
+            $modalInstance.dismiss('close');
+        };
+      };
       scope.routeTo = function(id){
          location.path('/viewschedulerjob/'+id);
-      }
+      };
       scope.runJobSelected = function(jobId, active) {
         if(active == 'true') {
           jobIdArray.push(jobId);
@@ -46,26 +69,26 @@
           resourceFactory.jobsResource.save({jobId: jobIdArray[i], command : 'executeJob'}, {}, function(data){
           });
         }
-      }
+      };
 
       scope.suspendJobs = function() {
         resourceFactory.schedulerResource.save({command : 'stop'}, {}, function(data) {
           route.reload();
         });
-      }
+      };
 
       scope.activeJobs = function() {
         resourceFactory.schedulerResource.save({command : 'start'}, {}, function(data) {
           route.reload();
         });
-      }
+      };
 
       scope.refresh = function() {
         route.reload();
-      }
+      };
     }
   });
-  mifosX.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location', mifosX.controllers.SchedulerJobsController]).run(function($log) {
+  mifosX.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location','$modal', mifosX.controllers.SchedulerJobsController]).run(function($log) {
     $log.info("SchedulerJobsController initialized");
   });
 }(mifosX.controllers || {}));
