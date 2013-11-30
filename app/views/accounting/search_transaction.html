@@ -45,19 +45,25 @@
     	<table class="table">
             <thead>
                 <tr class="graybg">
+                    <th>{{'label.heading.entryid' | translate}}</th>
                     <th>{{'label.heading.office' | translate}}</th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.transactionid' | translate}}</th>
                     <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.createdby' | translate}}</th>
                     <th>{{'label.heading.account' | translate}}</th>
-                    <th>{{'label.heading.debit' | translate}}</th>
                     <th>{{'label.heading.credit' | translate}}</th>
+                    <th>{{'label.heading.debit' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="transaction in transactions.currentPageItems">
+                    <td>{{transaction.id}}</td>
                     <td>{{transaction.officeName}}</td>
                     <td>{{transaction.transactionDate | DateFormat}}</td>
+                    <td>{{transaction.transactionId}}</td>
                     <td>{{transaction.glAccountType.value}}</td>
+                    <td>{{transaction.createdByUserName}}</td>
                     <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
                     <td>
                         <div ng-show="transaction.entryType.value == 'CREDIT'">

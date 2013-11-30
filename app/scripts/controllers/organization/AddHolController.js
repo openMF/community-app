@@ -10,6 +10,7 @@
             resourceFactory.officeResource.getAllOffices(function(data) {
                 scope.offices = data;
             });
+            scope.minDat = new Date();
             scope.submit = function() {
                 var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
                 var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');

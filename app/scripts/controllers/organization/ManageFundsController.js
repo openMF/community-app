@@ -8,7 +8,6 @@
         });
 
         scope.addFund = function (){
-  
             if(scope.newfund != undefined ) {
               scope.funderror = false;
               resourceFactory.fundsResource.save({'name':scope.newfund} , function(data){
