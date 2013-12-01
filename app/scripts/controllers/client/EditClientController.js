@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EditClientController: function(scope, routeParams, resourceFactory, location, http, dateFilter, API_VERSION) {
+    EditClientController: function(scope, routeParams, resourceFactory, location, http, dateFilter, API_VERSION,$upload) {
         scope.offices = [];
         scope.date = {};
         scope.restrictDate = new Date();
@@ -37,7 +37,7 @@
              }
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
               if (scope.file) {
-                http.uploadFile({
+                $upload.upload({
                   url: API_VERSION + '/clients/'+data.clientId+'/images', 
                   data: {},
                   file: scope.file
@@ -55,7 +55,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', 'API_VERSION', mifosX.controllers.EditClientController]).run(function($log) {
+  mifosX.ng.application.controller('EditClientController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$http','dateFilter', 'API_VERSION','$upload', mifosX.controllers.EditClientController]).run(function($log) {
     $log.info("EditClientController initialized");
   });
 }(mifosX.controllers || {}));
