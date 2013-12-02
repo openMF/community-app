@@ -57,7 +57,8 @@
                 <tr>
                   <td>
                     <div ng-show="creditRuleType=='Account'">
-                      <select class="input-medium" ng-model="formData.accountToCredit" ng-options="creditAccount.name for creditAccount in glAccounts" ></select>
+                      <select class="input-medium" ng-model="formData.accountToCredit" ng-options="creditAccount.id as creditAccount.name for creditAccount in glAccounts"
+                       value="{{creditAccount.id}}"></select>
                     </div>
                     <div ng-show="creditRuleType=='tags'">
                       <label>{{ 'label.input.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
@@ -72,7 +73,8 @@
                   </td>
                   <td>
                     <div ng-show="debitRuleType=='Account'">
-                      <select class="input-medium" ng-model="formData.accountToDebit" ng-options="debitAccount.name for debitAccount in glAccounts" ></select>
+                      <select class="input-medium" ng-model="formData.accountToDebit" ng-options="debitAccount.id as debitAccount.name for debitAccount in glAccounts" 
+                      value="{{debitAccount.id}}"></select>
                     </div>
                     <div ng-show="debitRuleType=='tags'">
                       <label>{{ 'label.input.allowMultipleDebitEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" ng-model="formData.allowMultipleDebitEntries"></label>
