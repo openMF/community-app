@@ -193,6 +193,13 @@
                   }
                 }
 
+                //if there is no charge selected 
+                //for corresponding loan, then empty charge object
+                //sent to the server side.
+                if (!this.formData.charges) {
+                  this.formData.charges = {};
+                }
+
                 if (scope.collaterals.length > 0) {
                   scope.formData.collateral = [];
                   for (var i in scope.collaterals) {
