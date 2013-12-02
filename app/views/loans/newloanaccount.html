@@ -172,8 +172,22 @@
                   </td>
                   <td>
                     <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
-                    <input id="graceOnPrincipalPayment" class="input-small" type="text" ng-model="formData.graceOnPrincipalPayment">
-                    <input id="graceOnInterestPayment" class="input-small" type="text" ng-model="formData.graceOnInterestPayment">
+                    <table>
+                      <tr>
+                        <td>
+                          <input id="graceOnPrincipalPayment" class="input-small" type="text" ng-model="formData.graceOnPrincipalPayment">
+                        </td>
+                        <td></td>
+                        <td>
+                          <input id="graceOnInterestPayment" class="input-small" type="text" ng-model="formData.graceOnInterestPayment">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{ 'label.heading.loan.onprincipalpayment' | translate }}&nbsp;</td>
+                        <td></td>
+                        <td>{{ 'label.heading.loan.oninterestpayment' | translate }}&nbsp;</td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
                 <tr>
@@ -182,19 +196,16 @@
                     <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
                   </td>
                   <td>
-                      <label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}&nbsp;</label>
-                      <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
+                      <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
+                      <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                      <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
-                      <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
-                  </td>
-                  <td>
                       <label class="control-label">{{ 'label.input.linksavings' | translate }}&nbsp;</label>
                       <select id="linkAccountId" ng-model="formData.linkAccountId" ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" value="{{savingaccount.id}}"/>
                   </td>
+                  <td></td>
                 </tr>
               </table>
             </td>

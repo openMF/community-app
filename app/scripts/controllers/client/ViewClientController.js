@@ -240,6 +240,9 @@
         };
         scope.isNotClosed = function(loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
+            loanaccount.status.code === "loanStatusType.closed.obligations.met" || 
+            loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" || 
+            loanaccount.status.code === "loanStatusType.withdrawn.by.client" || 
             loanaccount.status.code === "loanStatusType.rejected") {
             return false;
           } else{
@@ -248,7 +251,10 @@
         };
 
         scope.isClosed = function(loanaccount) {
-          if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
+          if(loanaccount.status.code === "loanStatusType.closed.written.off" ||
+            loanaccount.status.code === "loanStatusType.closed.obligations.met" || 
+            loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" || 
+            loanaccount.status.code === "loanStatusType.withdrawn.by.client" || 
             loanaccount.status.code === "loanStatusType.rejected") {
             return true;
           } else{
