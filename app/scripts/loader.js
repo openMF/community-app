@@ -23,6 +23,7 @@
             'modified.datepicker':'../scripts/modules/datepicker',
             'configurations':'../scripts/modules/configurations',
             'angularFileUpload':'../bower_components/angularjs-file-upload/angular-file-upload',
+            'angularFileUploadShim':'../bower_components/angularjs-file-upload/angular-file-upload-shim',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor':         '../bower_components/ckeditor/ckeditor',
             'LocalStorageModule':'../scripts/modules/localstorage'
@@ -41,7 +42,7 @@
             'nvd3ChartDirectives': {deps: ['angular','nvd3']},
             'configurations':{deps: ['angular']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
-            'angularFileUpload':{deps: ['angular','jquery'],exports:'angularFileUpload'},
+            'angularFileUpload':{deps: ['angular','jquery','angularFileUploadShim'],exports:'angularFileUpload'},
             'modified.datepicker':{deps: ['angular']},
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'ckEditor':{deps:['jquery']},
@@ -64,7 +65,8 @@
                     'ngSanitize',
                     'ckEditor',
                     'configurations',
-                    'LocalStorageModule'
+                    'LocalStorageModule',
+                    'angularFileUploadShim'
                 ],
                 exports: 'mifosX'
             }
