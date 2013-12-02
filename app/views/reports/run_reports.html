@@ -1,7 +1,7 @@
 <div class="row alert-block form-horizontal span" ng-controller="RunReportsController">
     <api-validate></api-validate>
     <div class="row alert-block span" >
-        <h3><b>{{reportName}}</b>&nbsp;<a class="btn" ng-show="checkStatus()" ng-click="isCollapsed=!isCollapsed"><i class="icon-sort-down icon-white"></i></a></h3>
+        <h3><b>{{reportName}}</b>&nbsp;<a class="btn btn-primary" ng-show="checkStatus()" ng-click="isCollapsed=!isCollapsed">{{ 'label.button.parameters' | translate }}<i class="icon-sort-down icon-white"></i></a></h3>
     </div>
 
     <div ng-hide="isCollapsed" class="row alert-block span">
@@ -34,23 +34,25 @@
         </div>
         <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;{{ 'label.button.run' | translate }}</a></span>
     </div>
-
     <div data-ng-hide="hideTable">
-        <br>
-        <table class="table table-striped table-bordered">
-            <thead>
+        <div scroll>
+            <table class="table table-striped table-bordered" data-anchor>
+                <thead>
                 <tr class="graybg">
                     <th ng-repeat="columnHeader in reportData.columnHeaders" >{{columnHeader.columnName}}</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr ng-repeat="row in reportData.data" >
                     <td ng-repeat="col in row.row" >{{col}}</td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
 
+
+
+    </div>
     <div collapse="hidePentahoReport" class="row alert-block span tab-content">
         <br>
         <iframe id=rptLoadingFrame src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>';
