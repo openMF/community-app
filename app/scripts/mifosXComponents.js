@@ -178,7 +178,8 @@ define(['underscore', 'mifosX'], function() {
       'FormValidateDirective',
       'FormSubmitValidateDirective',
       'ApiValidationDirective',
-      'ActivitiesDisplayPanelDirective'
+      'ActivitiesDisplayPanelDirective',
+      'ScrollbarTopDirective'
     ]
   };
 
