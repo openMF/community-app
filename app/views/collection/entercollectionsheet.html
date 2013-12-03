@@ -1,6 +1,7 @@
-<form name="collectionsheetform" novalidate class="form-horizontal well" ng-controller="EnterCollectionSheetController" rc-submit="">
+<form name="collectionsheetform" novalidate class="form-horizontal" ng-controller="EnterCollectionSheetController" rc-submit="">
   <api-validate></api-validate>
-  <fieldset>
+  <h2><strong ng-show="val" class="display-save-message">{{'label.heading.savesuccessfully' | translate}}</strong></h2>
+  <fieldset ng-hide="val">
     <div class="control-group">
       <label class="control-label">{{ 'label.input.branchoffice' | translate }}<span class="required">*</span></label>
       <div class="controls">
@@ -21,7 +22,7 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label">{{ 'label.input.group' | translate }}</label>
+      <label class="control-label">{{ 'label.input.group' | translate }}<span class="required">*</span></label>
       <div class="controls">
         <select id="groupId" ng-model="groupId"  ng-options="group.id as group.name for group in groups" value="{{group.id}}" ng-change="groupSelected(groupId)">
           <option value="">{{'label.selectgroup' | translate}}</option>
