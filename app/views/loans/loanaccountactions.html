@@ -88,35 +88,34 @@
         </div>
       </div>
       <div class="control-group" ng-show="paymentDatefield">
-        <label class="control-label" for="modelName">{{'label.paymentdate' | translate}}<span class="required">*</span></label>
+        <label class="control-label" for="modelName">{{'label.input.paymentdate' | translate}}<span class="required">*</span></label>
         <div class="controls">
           <input id="{{modelName}}" type="text" class="date-disable" readonly datepicker-pop="dd MMMM yyyy" ng-model="formData.transactionDate" is-open="opened"/>
         </div>
       </div>
-      <div class="control-group" ng-show="showEditCharge">
-        <label class="control-label">{{ 'label.amount' | translate}}<span class="required">*</span></label>
+      <div class="control-group" ng-show="showEditChargeAmount">
+        <label class="control-label">{{ 'label.input.amount' | translate}}<span class="required">*</span></label>
         <div class="controls">
           <input type="text" id="amount" ng-model="formData.amount">
         </div>
       </div>
-      <div class="control-group" ng-show="showEditCharge">
-        <label class="control-label" for="modelName">{{labelName | translate}}<span class="required">*</span></label>
+      <div class="control-group" ng-show="showEditChargeDueDate">
+        <label class="control-label" for="modelName">{{'label.input.dueforcollectedon' | translate}}<span class="required">*</span></label>
         <div class="controls">
           <input id="{{modelName}}" type="text" class="date-disable" readonly datepicker-pop="dd MMMM yyyy" ng-model="formData.dueDate" is-open="opened"/>
         </div>
       </div>
-      <div class="control-group" ng-show="showDelete">
+      <div class="control-group" ng-show="showDelete || showwaiveforspecicficduedate">
           <label class="control-label">{{ 'label.areyousure' | translate}}</label>
       </div>
-      <div class="offset3" ng-show="showDelete">
-        <button type="reset" ng-click="submit()" class="btn">{{ 'label.button.confirm' | translate}}</button>
-        <button type="submit" ng-click="cancel()"class="btn btn-primary">{{ 'label.button.cancel' | translate}}</button>
+      <div class="offset3" ng-show="showDelete || showwaiveforspecicficduedate">
+        <button type="submit" ng-click="cancel()"class="btn">{{ 'label.button.cancel' | translate}}</button>
+        <button type="reset" ng-click="submit()" class="btn btn-primary">{{ 'label.button.confirm' | translate}}</button>
       </div>
-      <div class="offset3" ng-hide="showDelete">
+      <div class="offset3" ng-hide="showDelete || showwaiveforspecicficduedate">
         <button type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</button>
         <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate}}</button>
       </div>
-
     </fieldset>
   </form>
 </div>
