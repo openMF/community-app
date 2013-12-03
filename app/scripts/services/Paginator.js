@@ -13,9 +13,9 @@
               },
               _load: function() {
                   var self = this;
-                  fetchFunction(this.currentOffset, pageSize + 1, function(items) {
+                  fetchFunction(this.currentOffset, pageSize, function(items) {
                   self.currentPageItems = items.pageItems;
-                  self.hasNextVar = items.pageItems.length === pageSize + 1;;
+                  self.hasNextVar = items.pageItems.length === pageSize;
               });
               },
               hasNext: function() {
