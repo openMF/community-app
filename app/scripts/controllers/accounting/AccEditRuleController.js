@@ -31,7 +31,7 @@
         //update credits
         if (data.creditAccounts) {
           //if the selected type is account then creditAccounts array will have only 1 account, which is a selected account.
-          scope.formData.accountToCredit = data.creditAccounts[0];
+          scope.formData.accountToCredit = data.creditAccounts[0].id;
           scope.creditRuleType='Account';
         } else{
           //if the selected type is tags then push the tags into creditTags array
@@ -46,7 +46,7 @@
         //update debits
         if (data.debitAccounts) {
           //if the selected type is account then debitAccounts array will have only 1 account, which is a selected account.
-          scope.formData.accountToDebit = data.debitAccounts[0];
+          scope.formData.accountToDebit = data.debitAccounts[0].id;
           scope.debitRuleType='Account';
         } else{
           //if the selected type is tags then push the tags into debitTags array
@@ -103,7 +103,7 @@
                 accountingRule.creditTags.push(this.formData.creditTags[i].id);
               }
             } else{
-              accountingRule.accountToCredit = this.formData.accountToCredit.id;
+              accountingRule.accountToCredit = this.formData.accountToCredit;
             }
 
             //Construct debitTags array
@@ -114,7 +114,7 @@
                 accountingRule.debitTags.push(this.formData.debitTags[i].id);
               }
             } else{
-              accountingRule.accountToDebit = this.formData.accountToDebit.id;
+              accountingRule.accountToDebit = this.formData.accountToDebit;
             }
 
             resourceFactory.accountingRulesResource.update( {accountingRuleId:routeParams.id}, accountingRule, function(data){
