@@ -5,6 +5,9 @@
         scope.searchResults = [];
         resourceFactory.globalSearch.search( {query: routeParams.query} , function(data){
             scope.searchResults = data;
+            if(scope.searchResults.length<=0){
+                scope.flag = true;
+            }
         });
         scope.getClientDetails = function(clientId) {
 
