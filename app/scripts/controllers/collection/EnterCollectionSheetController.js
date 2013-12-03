@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams, dateFilter) {
+    EnterCollectionSheetController: function(scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout) {
         scope.offices = [];
         scope.centers = [];
         scope.groups = [];
@@ -16,7 +16,16 @@
         resourceFactory.officeResource.getAllOffices(function(data) {
             scope.offices = data;
         });
-        
+
+        if (localStorageService.get('Success') == 'true') {
+            scope.savesuccess = true;
+            localStorageService.remove('Success');
+            scope.val = true;
+            $timeout(function() {
+                  scope.val = false;
+              }, 3000);  
+              
+        }
         scope.officeSelected = function(officeId) {
           if(officeId) {
             resourceFactory.centerResource.get({'officeId' : officeId}, function(data) {
@@ -56,7 +65,9 @@
             scope.collectionsheetdata = "";
             resourceFactory.groupResource.get({'groupId' : groupId, associations : 'collectionMeetingCalendar'}, function(data) {
               scope.groupdetails = data.pageItems;
-              scope.calendarId = data.collectionMeetingCalendar.id;
+              if (data.collectionMeetingCalendar) {
+                  scope.calendarId = data.collectionMeetingCalendar.id;
+              }
               if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
                   scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,'dd MMMM yyyy'));
               }
@@ -303,17 +314,20 @@
           scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
           if (centerOrGroupResource == "centerResource") {
             resourceFactory.centerResource.save({'centerId' : scope.centerId, command : 'saveCollectionSheet'}, scope.formData,function(data){
-              location.path('/home/');
+              localStorageService.add('Success', true);
+              route.reload();
             });
           } else if (centerOrGroupResource == "groupResource") {
             resourceFactory.groupResource.save({'groupId' : scope.groupId, command : 'saveCollectionSheet'}, scope.formData,function(data){
-              location.path('#/home/');
+              localStorageService.add('Success', true);
+              route.reload();
             });
-          } 
+          }
         };
     }
   });
-  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
+  mifosX.ng.application.controller('EnterCollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
+   '$route', '$timeout', mifosX.controllers.EnterCollectionSheetController]).run(function($log) {
     $log.info("EnterCollectionSheetController initialized");
   });
 }(mifosX.controllers || {}));
