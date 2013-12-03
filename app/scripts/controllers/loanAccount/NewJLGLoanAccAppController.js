@@ -190,18 +190,28 @@
                 if (this.formData.interestChargedFromDate){this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');}
                 if (this.formData.repaymentsStartingFromDate){this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');}
 
+                //logic for proper redirecting
+                var selectedClients = 0;
+                var successfullyCreated = 0;
+
                 for (var i in scope.clients) {
                   if (scope.clients[i].selected) {
-                    scope.isAtleastOneClientSelected =true;
-                    this.formData.clientId= scope.clients[i].clientId;
-                    this.formData.principal = scope.clients[i].amount;
-                    resourceFactory.loanResource.save({_:new Date().getTime()},this.formData,function(data){});
-
+                    selectedClients = selectedClients + 1;
                   }
                 }
-                
-                if (scope.isAtleastOneClientSelected) {
-                  location.path('/viewgroup/' + scope.groupId);
+
+                for (var i in scope.clients) {
+                  if (scope.clients[i].selected) {
+                    this.formData.clientId= scope.clients[i].clientId;
+                    this.formData.principal = scope.clients[i].amount;
+                    resourceFactory.loanResource.save({_:new Date().getTime()},this.formData,function(data){
+                      successfullyCreated = successfullyCreated + 1;
+                      if (successfullyCreated == selectedClients) {
+                        location.path('/viewgroup/' + scope.groupId);
+                      };
+                    });
+
+                  }
                 }
             };
 

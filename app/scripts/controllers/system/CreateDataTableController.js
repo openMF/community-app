@@ -20,9 +20,11 @@
           scope.datatableTemplate.columnName = undefined;
           scope.datatableTemplate.columnType = undefined;
         } else if (!scope.datatableTemplate.columnName) {
+          scope.errorDetails = [];
           scope.columnnameerror = true;
           scope.labelerror = "columnnameerr";
         } else if (scope.datatableTemplate.columnName) {
+          scope.errorDetails = [];
           scope.columntypeerror = true;
           scope.labelerror = "columntypeerr";
         } 
@@ -42,13 +44,18 @@
       };
 
       scope.submit = function () {
-        if (scope.columns.length > 0) {
+        if (scope.columns.length == 0) {
+          scope.errorDetails = [];
+          scope.errorDetails.push({code:'error.msg.click.on.add.to.add.columns'});
+        }else {
+          //clear the errors caused because of line #46
+          scope.errorDetails = [];
           scope.formData.multiRow = scope.formData.multiRow || false;
           scope.formData.columns = scope.columns;
+          resourceFactory.DataTablesResource.save(this.formData,function(data){
+            location.path('/viewdatatable/' + data.resourceIdentifier);
+          });
         }
-        resourceFactory.DataTablesResource.save(this.formData,function(data){
-          location.path('/viewdatatable/' + data.resourceIdentifier);
-        });
       };
     }
   });

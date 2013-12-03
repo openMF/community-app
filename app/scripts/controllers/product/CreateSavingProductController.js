@@ -99,11 +99,11 @@
         }
 
         scope.mapPenalty = function() {
-          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+          if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
             scope.penaltySpecificIncomeaccounts.push({
-              chargeId : scope.product.chargeOptions[0].id,
+              chargeId : scope.product.penaltyOptions[0].id,
               incomeAccountId : scope.incomeAccountOptions[0].id,
-              chargeOptions : scope.product.chargeOptions,
+              penaltyOptions : scope.product.penaltyOptions,
               incomeAccountOptions : scope.incomeAccountOptions
             });
           }
@@ -119,7 +119,11 @@
 
         scope.deletePenalty = function(index) {
             scope.penaltySpecificIncomeaccounts.splice(index,1);
-        } 
+        }
+
+        scope.cancel = function (){
+          location.path('/savingproducts');
+        };
 
         scope.submit = function() {
           scope.paymentChannelToFundSourceMappings = [];
@@ -153,7 +157,7 @@
               chargeId : scope.penaltySpecificIncomeaccounts[i].chargeId,
               incomeAccountId : scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
             }
-            scope.penaltySpecificIncomeaccounts.push(temp);
+            scope.penaltyToIncomeAccountMappings.push(temp);
           }
 
           for (var i in scope.charges) {
@@ -165,7 +169,7 @@
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
-          this.formData.penaltyToIncomeAccountMappings = scope.penaltySpecificIncomeaccounts;
+          this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
           this.formData.charges = scope.chargesSelected;
           this.formData.locale = "en";
 

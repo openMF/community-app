@@ -67,11 +67,11 @@
                 scope.chargeId = '';
             });
           }
-        }
+        };
 
         scope.deleteCharge = function(index) {
             scope.charges.splice(index,1);
-        }
+        };
 
         //advanced accounting rule
         scope.showOrHide = function(showOrHideValue) {
@@ -85,7 +85,7 @@
           {
             scope.showOrHideValue = 'show';
           }
-        }
+        };
 
 
         scope.addConfigureFundSource = function() {
@@ -98,7 +98,7 @@
                 assetAccountOptions : scope.assetAccountOptions
               });
           };
-        }
+        };
 
         scope.mapFees = function() {
           if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
@@ -109,58 +109,62 @@
                 incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
               });
           }
-        }
+        };
 
         scope.addPrincipalVariation = function() {
           scope.formData.principalVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
           });
-        }
+        };
         scope.addInterestRateVariation = function() {
           scope.formData.interestRateVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
           });
-        }
+        };
         scope.addNumberOfRepaymentVariation = function() {
           scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
             valueConditionType : scope.product.valueConditionTypeOptions[0].id
           });
-        }
+        };
 
         scope.mapPenalty = function() {
-          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+          if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
             scope.penaltySpecificIncomeaccounts.push({
-              chargeId : scope.product.chargeOptions[0].id,
+              chargeId : scope.product.penaltyOptions[0].id,
               incomeAccountId : scope.incomeAccountOptions[0].id,
-              chargeOptions : scope.product.chargeOptions,
+              penaltyOptions : scope.product.penaltyOptions,
               incomeAccountOptions : scope.incomeAccountOptions
             });
           }
-        }
+        };
 
         scope.deleteFund = function(index) {
             scope.configureFundOptions.splice(index,1);
-        } 
+        };
 
         scope.deleteFee = function(index) {
             scope.specificIncomeaccounts.splice(index,1);
-        }
+        };
 
         scope.deletePenalty = function(index) {
             scope.penaltySpecificIncomeaccounts.splice(index,1);
-        } 
+        };
 
         scope.deletePrincipalVariation = function(index) {
             scope.formData.principalVariationsForBorrowerCycle.splice(index,1);
-        }
+        };
 
         scope.deleteInterestRateVariation = function(index) {
             scope.formData.interestRateVariationsForBorrowerCycle.splice(index,1);
-        }
+        };
 
         scope.deleterepaymentVariation = function(index) {
             scope.formData.numberOfRepaymentVariationsForBorrowerCycle.splice(index,1);
-        }
+        };
+
+        scope.cancel = function (){
+          location.path('/loanproducts');
+        };
 
         scope.submit = function() {
           var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
@@ -196,7 +200,7 @@
               chargeId : scope.penaltySpecificIncomeaccounts[i].chargeId,
               incomeAccountId : scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
             }
-            scope.penaltySpecificIncomeaccounts.push(temp);
+            scope.penaltyToIncomeAccountMappings.push(temp);
           }
 
           for (var i in scope.charges) {
@@ -208,7 +212,7 @@
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
-          this.formData.penaltyToIncomeAccountMappings = scope.penaltySpecificIncomeaccounts;
+          this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
           this.formData.charges = scope.chargesSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
@@ -217,7 +221,7 @@
           resourceFactory.loanProductResource.save(this.formData,function(data){
              location.path('/viewloanproduct/' + data.resourceId);
            });
-        }
+        };
     }
   });
   mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.CreateLoanProductController]).run(function($log) {

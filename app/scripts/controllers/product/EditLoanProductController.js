@@ -11,9 +11,10 @@
         scope.date = {};
         resourceFactory.loanProductResource.get({loanProductId : routeParams.id, template:'true'}, function(data) {
             scope.product = data;
-            scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions;
-            scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions;
-            scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions;
+            scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
+            scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
+            scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
+            scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
             scope.charges = scope.product.charges || [];
             if(data.startDate){scope.date.first = new Date(data.startDate);}
             if(data.closeDate){scope.date.second = new Date(data.closeDate);}
@@ -88,13 +89,30 @@
 
 
             if(scope.formData.accountingRule == 1){
-              scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
-              scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
-              scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
-              scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
-              scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
-              scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
-              scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
+              if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
+                scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
+              }
+              if (scope.assetAccountOptions[1] && scope.assetAccountOptions[1].length > 1) {
+                scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
+              }
+              if (scope.assetAccountOptions[2] && scope.assetAccountOptions[2].length > 2) {
+                scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
+              }
+              if (scope.incomeAccountOptions[0] && scope.incomeAccountOptions[0].length > 0) {
+                scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
+              }
+              if (scope.incomeAccountOptions[1] && scope.incomeAccountOptions[1].length > 1) {
+                scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
+              }
+              if (scope.incomeAccountOptions[2] && scope.incomeAccountOptions[2].length > 2) {
+                scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
+              }
+              if (scope.expenseAccountOptions[0] && scope.expenseAccountOptions[0].length > 0) {
+                scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
+              }
+              if (scope.liabilityOptions[0] && scope.liabilityOptions[0].length > 0) {
+                scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
+              }
             } else {
               scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
               scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
@@ -103,6 +121,7 @@
               scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
               scope.formData.incomeFromPenaltyAccountId = scope.product.accountingMappings.incomeFromPenaltyAccount.id;
               scope.formData.writeOffAccountId = scope.product.accountingMappings.writeOffAccount.id;
+              scope.formData.overpaymentLiabilityAccountId = scope.product.accountingMappings.overpaymentLiabilityAccount.id;
 
               _.each(scope.product.paymentChannelToFundSourceMappings, function(fundSource){  
                 scope.configureFundOptions.push({
@@ -260,7 +279,7 @@
               chargeId : scope.penaltySpecificIncomeaccounts[i].chargeId,
               incomeAccountId : scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
             }
-            scope.penaltySpecificIncomeaccounts.push(temp);
+            scope.penaltyToIncomeAccountMappings.push(temp);
           }
 
           for (var i in scope.charges) {
@@ -272,7 +291,7 @@
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
-          this.formData.penaltyToIncomeAccountMappings = scope.penaltySpecificIncomeaccounts;
+          this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
           this.formData.charges = scope.chargesSelected;
           this.formData.dateFormat = "dd MMMM yyyy";
           this.formData.locale = "en";
