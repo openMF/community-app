@@ -12,6 +12,7 @@
         scope.isCollapsed = true;
         scope.approveData = {};
         scope.restrictDate = new Date();
+
         resourceFactory.checkerInboxResource.get({templateResource:'searchtemplate'},function(data){
             scope.checkerTemplate = data;
         });
@@ -143,6 +144,9 @@
         });
 
         var ApproveClientCtrl = function ($scope, $modalInstance,items) {
+            $scope.restrictDate = new Date();
+            $scope.date = {};
+            $scope.date.actDate = new Date();
             $scope.approve = function (act) {
                 var activate = {}
                 activate.activationDate = dateFilter(act,'dd MMMM yyyy');
@@ -165,16 +169,12 @@
                         resourceFactory.clientResource.save({clientId: key, command : 'activate'}, activate,function(data){
                             clientCount++;
                             if(clientCount==totalClient){
-                                resourceFactory.clientResource.getAllClients(function(data) {
-                                    scope.clients = data.pageItems;
-                                });
+                                route.reload();
                             }
                         }, function(data){
                             clientCount++;
                             if(clientCount==totalClient){
-                                resourceFactory.clientResource.getAllClients(function(data) {
-                                    scope.clients = data.pageItems;
-                                });
+                                route.reload();
                             }
                         });
                     }
@@ -274,6 +274,7 @@
         var ApproveLoanCtrl = function ($scope, $modalInstance) {
             $scope.approve = function(){
               scope.bulkApproval();
+                route.reload();
                 $modalInstance.close('approve');
             };
             $scope.cancel = function () {
