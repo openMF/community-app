@@ -1,7 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
     ManageFundsController: function(scope, location, resourceFactory) {
-        scope.fundToggle = {};
         scope.funderror = false;
         scope.formData = [];
         resourceFactory.fundsResource.getAllFunds(function(data){
