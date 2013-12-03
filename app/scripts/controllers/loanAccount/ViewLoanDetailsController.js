@@ -286,8 +286,14 @@
 
       scope.getLoanDocuments = function (){
         resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {
+            for(var i in data){
+                var loandocs = {};
+                loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=default';
+                data[i].docUrl = loandocs;
+            }
             scope.loandocuments = data;
         });
+
       };
 
       resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'} , function(data) {

@@ -19,7 +19,16 @@
           </span>
 
      	<div ng-repeat="fund in funds">
-			<input disabled="" class="form-control input-xxlarge" placeholder={{fund.name}} type="text"/>
+            <table>
+                <tr>
+                    <input data-ng-hide="fund.edit" disabled="" class="form-control input-xxlarge" placeholder={{fund.name}} type="text"/>
+                    <input data-ng-show="fund.edit" class="form-control input-xxlarge" data-ng-model="formData[fund.id]" type="text"/>
+                    &nbsp;&nbsp;
+                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" data-ng-click="editFund(fund,fund.name,fund.id)" style="margin-top:-10px;"><i class="icon-edit icon-white"></i></button>
+                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" data-ng-click="saveFund(fund.id)" style="margin-top:-10px;">{{'label.button.save' | translate}}</button>
+                </tr>
+            </table>
+
         </div>
     </div>	
 </form>

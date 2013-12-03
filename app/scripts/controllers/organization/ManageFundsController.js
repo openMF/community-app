@@ -1,12 +1,21 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
     ManageFundsController: function(scope, location, resourceFactory) {
-        
+        scope.fundToggle = {};
         scope.funderror = false;
+        scope.formData = [];
         resourceFactory.fundsResource.getAllFunds(function(data){
             scope.funds = data;
         });
-
+        scope.editFund = function(fund,name,id){
+            fund.edit = !fund.edit;
+            scope.formData[id]=name;
+        };
+        scope.saveFund = function(id){
+            resourceFactory.fundsResource.update({fundId:id} ,{'name': this.formData[id]}, function(data){
+                location.path('/managefunds');
+            });
+        };
         scope.addFund = function (){
             if(scope.newfund != undefined ) {
               scope.funderror = false;

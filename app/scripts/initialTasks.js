@@ -1,6 +1,5 @@
 (function(mifosX) {
   var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider) {
-     
          var mainLink = getLocation(window.location.href);
     if (mainLink.hostname == "localhost" || mainLink.hostname == "" || mainLink.hostname == null || QueryParameters["baseApiUrl"]) {
                 var baseApiUrl = "";
