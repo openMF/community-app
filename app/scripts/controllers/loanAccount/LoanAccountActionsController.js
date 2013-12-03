@@ -144,16 +144,20 @@
           break;
           case "waivecharge":
               resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, function(data){
-                  if (data.installmentChargeData) {
+                  if (data.chargeTimeType.value !== "Specified due date" && data.installmentChargeData) {
                       scope.installmentCharges = data.installmentChargeData;
                       scope.formData.installmentNumber = data.installmentChargeData[0].installmentNumber;
+                      scope.waivechargeField = true;
+                  } else {
+                    scope.waivechargeField = false;
+                    scope.showwaiveforspecicficduedate = true;
                   }
               });
-              scope.title = 'label.waive.loan.charge';
-              scope.labelName = 'label.select.installment';
+              
+              scope.title = 'label.heading.waiveloancharge';
+              scope.labelName = 'label.input.installment';
               scope.showNoteField = false;
               scope.showDateField = false;
-              scope.waivechargeField = true;
           break;
           case "paycharge":
               resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, command : 'pay'}, function(data){
@@ -161,24 +165,26 @@
                       scope.formData.transactionDate = new Date(data.dueDate);
                   }
               });
-              scope.title = 'label.pay.loan.charge';
-              scope.labelName = 'label.paymentdate';
+              scope.title = 'label.heading.payloancharge';
               scope.showNoteField = false;
               scope.showDateField = false;
               scope.paymentDatefield = true;
           break;
           case "editcharge":
               resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, function(data){
-                  if (data.amount && data.dueDate) {
-                      scope.formData.amount = data.amount;
-                      scope.formData.dueDate = new Date(data.dueDate);
+                  if (data.amountOrPercentage) {
+                      scope.showEditChargeAmount = true;
+                      scope.formData.amount = data.amountOrPercentage;
+                      if (data.dueDate) { 
+                          scope.formData.dueDate = new Date(data.dueDate);
+                          scope.showEditChargeDueDate = true;
+                      }
                   }
+
               });
-              scope.title = 'label.editcharge';
-              scope.labelName = 'label.dueforcollectionon';
+              scope.title = 'label.heading.editcharge';
               scope.showNoteField = false;
               scope.showDateField = false;
-              scope.showEditCharge = true;
           break;
         }
 
