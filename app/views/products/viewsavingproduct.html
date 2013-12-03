@@ -92,12 +92,20 @@
 							<td colspan="3">{{savingproduct.accountingMappings.savingsControlAccount.name}}</td>
 						</tr>
 						<tr>
+							<td>{{'label.heading.transfersinsuspenpense' | translate}}({{'label.heading.liabilities' | translate}})</td>
+							<td colspan="3">{{savingproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+						</tr>
+						<tr>
 							<td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' | translate}})</td>
-							<td colspan="3">{{savingproduct.accountingMappings.savingsReferenceAccount.name}}</td>
+							<td colspan="3">{{savingproduct.accountingMappings.interestOnSavingsAccount.name}}</td>
 						</tr>
 						<tr>
 							<td>{{'label.heading.incomefromfee' | translate}}({{'label.heading.income' | translate}})</td>
 							<td colspan="3">{{savingproduct.accountingMappings.incomeFromFeeAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.incomefrompenalties' | translate}}({{'label.heading.income' | translate}})</td>
+							<td colspan="3">{{savingproduct.accountingMappings.incomeFromPenaltyAccount.name}}</td>
 						</tr>
 					    
 						<tr><td colspan="4"><br/></td></tr>
@@ -114,8 +122,37 @@
 				        </tr>
 				        <tr ng-repeat="paymentChannel in savingproduct.paymentChannelToFundSourceMappings">
 				            <td>{{paymentChannel.paymentType.name}}</td>
-				            <td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
+                			<td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
 				        </tr>
+				        <tr>
+			                <td colspan="4"></td>
+			            </tr>
+			            <tr class="toppadding bottomborder">
+			                <td colspan="4">{{'label.heading.feestospecificincome' | translate}}</td>
+			            </tr>
+			            <tr class="bottomborder graybg">
+			                <td>{{'label.heading.fees' | translate}}</td>
+			                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+			            </tr>
+			            <tr ng-repeat="feeToIncomeAccount in savingproduct.feeToIncomeAccountMappings">
+			                <td>{{feeToIncomeAccount.charge.name}}</td>
+			                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}</td>
+			            </tr>
+			            <tr>
+			                <td colspan="4"></td>
+			            </tr>
+			            <tr class="toppadding bottomborder">
+			                <td colspan="4">{{'label.heading.penaltiesspecifictoincomeacc' | translate}}</td>
+			            </tr>
+			            <tr class="bottomborder graybg">
+			                <td>{{'label.heading.penalty' | translate}}</td>
+			                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+			            </tr>
+			            <tr ng-repeat="penaltyToIncomeAccount in savingproduct.penaltyToIncomeAccountMappings">
+			                <td>{{penaltyToIncomeAccount.charge.name}}</td>
+			                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}</td>
+			            </tr>
+
 				    </table>
 		    	</td>
 			</tr>

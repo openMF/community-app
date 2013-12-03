@@ -168,7 +168,11 @@
 
         scope.deletePenalty = function(index) {
             scope.penaltySpecificIncomeaccounts.splice(index,1);
-        } 
+        }
+
+        scope.cancel = function (){
+          location.path('/viewsavingproduct/'+routeParams.id);
+        };
 
         scope.submit = function() {
           scope.paymentChannelToFundSourceMappings = [];
