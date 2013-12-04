@@ -20,7 +20,8 @@
             scope.labelName = 'label.input.activationdate';
             scope.breadcrumbName = 'label.anchor.activate';
             scope.modelName = 'activationDate';
-            scope.showDateField = true;
+            scope.showActivationDateField = true;
+            scope.showDateField = false;
           break;
           case "assignstaff":
             scope.breadcrumbName = 'label.anchor.assignstaff';
