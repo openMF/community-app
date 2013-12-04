@@ -208,9 +208,14 @@
                       successfullyCreated = successfullyCreated + 1;
                       if (successfullyCreated == selectedClients) {
                         location.path('/viewgroup/' + scope.groupId);
-                      };
+                      }else {
+                        for (var x in scope.clients) {
+                          if(scope.clients[x].clientId == data.clientId){
+                            scope.clients[x]['status'] = 'Created';
+                          }
+                        }
+                      }
                     });
-
                   }
                 }
             };
@@ -219,7 +224,7 @@
               if (scope.groupId) {
                 location.path('/viewgroup/' + scope.groupId);
               }
-            }
+            };
         }
     });
     mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewJLGLoanAccAppController]).run(function($log) {

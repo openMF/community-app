@@ -89,28 +89,28 @@
 
 
             if(scope.formData.accountingRule == 1){
-              if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
+              if (scope.assetAccountOptions.length > 0) {
                 scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
               }
-              if (scope.assetAccountOptions[1] && scope.assetAccountOptions[1].length > 1) {
+              if (scope.assetAccountOptions.length > 1) {
                 scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
               }
-              if (scope.assetAccountOptions[2] && scope.assetAccountOptions[2].length > 2) {
+              if (scope.assetAccountOptions.length > 2) {
                 scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
               }
-              if (scope.incomeAccountOptions[0] && scope.incomeAccountOptions[0].length > 0) {
+              if (scope.incomeAccountOptions.length > 0) {
                 scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
               }
-              if (scope.incomeAccountOptions[1] && scope.incomeAccountOptions[1].length > 1) {
+              if (scope.incomeAccountOptions.length > 1) {
                 scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
               }
-              if (scope.incomeAccountOptions[2] && scope.incomeAccountOptions[2].length > 2) {
+              if (scope.incomeAccountOptions.length > 2) {
                 scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
               }
-              if (scope.expenseAccountOptions[0] && scope.expenseAccountOptions[0].length > 0) {
+              if (scope.expenseAccountOptions.length > 0) {
                 scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
               }
-              if (scope.liabilityOptions[0] && scope.liabilityOptions[0].length > 0) {
+              if (scope.liabilityOptions.length > 0) {
                 scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
               }
             } else {
@@ -145,7 +145,7 @@
                 scope.penaltySpecificIncomeaccounts.push({
                   chargeId : penalty.charge.id,
                   incomeAccountId : penalty.incomeAccount.id,
-                  chargeOptions : scope.product.penaltyOptions,
+                  penaltyOptions : scope.product.penaltyOptions,
                   incomeAccountOptions : scope.incomeAccountOptions
                 })
               });
@@ -177,32 +177,38 @@
           }
         }
 
-
         scope.addConfigureFundSource = function() {
-          scope.configureFundOptions.push({
-            paymentTypeId : scope.product.paymentTypeOptions[0].id,
-            fundSourceAccountId : scope.assetAccountOptions[0].id,
-            paymentTypeOptions : scope.product.paymentTypeOptions,
-            assetAccountOptions : scope.assetAccountOptions
-          })
+          if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 && 
+            scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
+              scope.configureFundOptions.push({
+                paymentTypeId : scope.product.paymentTypeOptions[0].id,
+                fundSourceAccountId : scope.assetAccountOptions[0].id,
+                paymentTypeOptions : scope.product.paymentTypeOptions,
+                assetAccountOptions : scope.assetAccountOptions
+              });
+          }
         }
 
         scope.mapFees = function() {
-          scope.specificIncomeaccounts.push({
-            chargeId : scope.product.chargeOptions[0].id,
-            incomeAccountId : scope.incomeAccountOptions[0].id,
-            chargeOptions : scope.product.chargeOptions,
-            incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
-          })
+          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+            scope.specificIncomeaccounts.push({
+              chargeId : scope.product.chargeOptions[0].id,
+              incomeAccountId : scope.incomeAccountOptions[0].id,
+              chargeOptions : scope.product.chargeOptions,
+              incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
+            });
+          }
         }
 
         scope.mapPenalty = function() {
-          scope.penaltySpecificIncomeaccounts.push({
-            chargeId : scope.product.chargeOptions[0].id,
-            incomeAccountId : scope.incomeAccountOptions[0].id,
-            chargeOptions : scope.product.chargeOptions,
-            incomeAccountOptions : scope.incomeAccountOptions
-          })
+          if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
+            scope.penaltySpecificIncomeaccounts.push({
+              chargeId : scope.product.penaltyOptions[0].id,
+              incomeAccountId : scope.incomeAccountOptions[0].id,
+              penaltyOptions : scope.product.penaltyOptions,
+              incomeAccountOptions : scope.incomeAccountOptions
+            });
+          }
         }
 
         scope.addPrincipalVariation = function() {
