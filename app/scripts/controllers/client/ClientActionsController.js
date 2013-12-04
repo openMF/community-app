@@ -11,6 +11,12 @@
 
         switch (scope.action) {
           case "activate":
+            resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
+                scope.client = data;
+                if (data.timeline.submittedOnDate) {
+                    scope.mindate = new Date(data.timeline.submittedOnDate);
+                }
+            });
             scope.labelName = 'label.input.activationdate';
             scope.breadcrumbName = 'label.anchor.activate';
             scope.modelName = 'activationDate';
