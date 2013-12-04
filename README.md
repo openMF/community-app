@@ -79,10 +79,6 @@ bower search <package>
 
 Just open test/SpecRunner.html in the browser.
 
-## Guidelines for development
+## Contribution guidelines
 
-* Before sending PR, do code quality check using JSHint
-* For adding locale, follow the guidelines given in this wiki (<a href="https://github.com/openMF/community-app/wiki/User-Interface-Guidelines:-Capitalization">link</a>)
-
-
-
+Please read the <a href="https://github.com/openMF/community-app/blob/master/Contributing.md" >contribution guidelines</a>
