@@ -18,6 +18,7 @@
               });
             }
           }
+          scope.allowedParameterId = '';
         }
 
         function deepCopy(obj) {
