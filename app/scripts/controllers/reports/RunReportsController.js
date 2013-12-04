@@ -28,6 +28,10 @@
               i.className = 'selected-row';
           }
       }
+      if (scope.reportType == 'Pentaho') {
+        scope.formData.outputType = 'HTML';
+      };
+
       resourceFactory.runReportsResource.getReport({reportSource: 'FullParameterList', parameterType : true, R_reportListing: "'"+routeParams.name+"'"}, function(data){
         
         for (var i in data.data ) {
@@ -81,6 +85,8 @@
       }
 
       function intializeParams (paramData, params) {
+        scope.errorStatus = undefined;
+        scope.errorDetails = [];
         params.reportSource = paramData.name;
         params.parameterType = true;
         var successFunction = getSuccuessFunction(paramData);
@@ -112,6 +118,105 @@
         return collapsed;
       };
 
+      function invalidDate(checkDate) {
+        // validates for yyyy-mm-dd returns true if invalid, false is valid
+        var dateformat = /^\d{4}(\-|\/|\.)\d{1,2}\1\d{1,2}$/;
+
+        if(!(dateformat.test(checkDate))) {
+          return true;
+        } else{
+          var dyear = checkDate.substring(0,4);
+          var dmonth = checkDate.substring(5,7) - 1;
+          var dday = checkDate.substring(8);
+
+          var newDate=new Date(dyear,dmonth ,dday);
+          return !((dday==newDate.getDate()) && (dmonth==newDate.getMonth()) && (dyear==newDate.getFullYear()));
+        }
+      }
+
+      function removeErrors() {
+        var $inputs = $(':input');
+        $inputs.each(function() {
+            $(this).removeClass("validationerror");
+        });
+      }
+
+      function parameterValidationErrors() {
+        var tmpStartDate = "";
+        var tmpEndDate = "";
+        scope.errorDetails = [];
+        for (var i in scope.reqFields)
+        {
+          var paramDetails = scope.reqFields[i];
+          
+          switch(paramDetails.displayType)
+          {
+            case "select":
+              var selectedVal = scope.formData[paramDetails.inputName];
+              if (selectedVal==undefined || selectedVal == 0)
+              {
+                var fieldId = '#' + paramDetails.inputName;
+                $(fieldId).addClass("validationerror");
+                var errorObj = new Object();
+                errorObj.field = paramDetails.inputName;
+                errorObj.code = 'error.message.report.parameter.required';
+                errorObj.args = {params:[]};
+                errorObj.args.params.push({value : paramDetails.label});
+                scope.errorDetails.push(errorObj);
+              }
+                break;
+            case "date":
+              var tmpDate = scope.formData[paramDetails.inputName];
+              if (tmpDate==undefined || !(tmpDate > ""))
+              {
+                var fieldId = '#' + paramDetails.inputName;
+                $(fieldId).addClass("validationerror");
+                var errorObj = new Object();
+                errorObj.field = paramDetails.inputName;
+                errorObj.code = 'error.message.report.parameter.required';
+                errorObj.args = {params:[]};
+                errorObj.args.params.push({value : paramDetails.label});
+                scope.errorDetails.push(errorObj);
+              }
+              if (tmpDate && invalidDate(tmpDate) == true)
+              {
+                var fieldId = '#' + paramDetails.inputName;
+                $(fieldId).addClass("validationerror");
+                var errorObj = new Object();
+                errorObj.field = paramDetails.inputName;
+                errorObj.code = 'error.message.report.invalid.value.for.parameter';
+                errorObj.args = {params:[]};
+                errorObj.args.params.push({value : paramDetails.label});
+                scope.errorDetails.push(errorObj);
+              }
+
+              if (paramDetails.variable == "startDate") tmpStartDate = tmpDate;
+              if (paramDetails.variable == "endDate") tmpEndDate = tmpDate;
+                break;
+            default:
+              var errorObj = new Object();
+              errorObj.field = paramDetails.inputName;
+              errorObj.code = 'error.message.report.parameter.invalid';
+              errorObj.args = {params:[]};
+              errorObj.args.params.push({value : paramDetails.label});
+              scope.errorDetails.push(errorObj);
+              break;
+          }
+        }
+
+        if (tmpStartDate > "" && tmpEndDate > "")
+        {
+          if (tmpStartDate > tmpEndDate)
+          {
+                var errorObj = new Object();
+                  errorObj.field = paramDetails.inputName;
+                  errorObj.code = 'error.message.report.incorrect.values.for.date.fields';
+                  errorObj.args = {params:[]};
+                  errorObj.args.params.push({value : paramDetails.label});
+                  scope.errorDetails.push(errorObj);
+          }
+        }
+      }
       function buildReportParms() {
         var paramCount = 1;
         var reportParams = "";
@@ -131,36 +236,51 @@
       }
 
       scope.runReport = function (){
-        scope.isCollapsed=true;
+        //clear the previous errors
+        scope.errorDetails = [];
+        removeErrors();
+
+        //update date fields with proper dateformat
         for(var i in scope.reportDateParams) {
           if (scope.formData[scope.reportDateParams[i].inputName]) {
             scope.formData[scope.reportDateParams[i].inputName] = dateFilter(scope.formData[scope.reportDateParams[i].inputName],'yyyy-MM-dd');
           }
         }
 
-        switch(scope.reportType)
-        {
-          case "Table":
-            scope.hideTable=false;
-            scope.hidePentahoReport = true;
-            scope.formData.reportSource = scope.reportName;
-            resourceFactory.runReportsResource.getReport(scope.formData, function(data){
-              scope.reportData.columnHeaders = data.columnHeaders;
-              scope.reportData.data = data.data;
-            });
-          break;
-          
-          case "Pentaho":
+        //Custom validation for report parameters
+        parameterValidationErrors();
 
-            scope.hideTable=true;
-            scope.hidePentahoReport = false;
-            scope.baseURL = API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName); 
-            scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
-            var inQueryParameters = buildReportParms();
-            if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
-          break;
+        if (scope.errorDetails.length == 0) {
+          scope.isCollapsed=true;
+          switch(scope.reportType) {
+            case "Table":
+              scope.hideTable=false;
+              scope.hidePentahoReport = true;
+              scope.formData.reportSource = scope.reportName;
+              resourceFactory.runReportsResource.getReport(scope.formData, function(data){
+                scope.reportData.columnHeaders = data.columnHeaders;
+                scope.reportData.data = data.data;
+              });
+            break;
+            
+            case "Pentaho":
+              scope.hideTable=true;
+              scope.hidePentahoReport = false;
+              scope.baseURL = API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName); 
+              scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
+              var inQueryParameters = buildReportParms();
+              if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
+            break;
+            default:
+              var errorObj = new Object();
+              errorObj.field = scope.reportType;
+              errorObj.code = 'error.message.report.type.is.invalid';
+              errorObj.args = {params:[]};
+              errorObj.args.params.push({value : scope.reportType});
+              scope.errorDetails.push(errorObj);
+              break;
+          }
         }
-        
       };
     }
   });
