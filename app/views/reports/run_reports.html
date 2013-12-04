@@ -36,14 +36,14 @@
     </div>
     <div data-ng-hide="hideTable">
         <div scroll>
-            <table class="table table-striped table-bordered" data-anchor>
+            <table class="table table-bordered" data-anchor>
                 <thead>
                 <tr class="graybg">
-                    <th ng-repeat="columnHeader in reportData.columnHeaders" >{{columnHeader.columnName}}</th>
+                    <th ng-repeat="columnHeader in reportData.columnHeaders" ><div style="width: 180px;white-space:nowrap">{{columnHeader.columnName}}</div></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="row in reportData.data" >
+                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data">
                     <td ng-repeat="col in row.row" >{{col}}</td>
                 </tr>
                 </tbody>

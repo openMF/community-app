@@ -20,6 +20,14 @@
       scope.reportId = routeParams.reportId;
       scope.pentahoReportParameters = [];
 
+      scope.highlight = function(id){
+          var i = document.getElementById(id);
+          if(i.className == 'selected-row'){
+              i.className = 'text-pointer';
+          }else{
+              i.className = 'selected-row';
+          }
+      }
       resourceFactory.runReportsResource.getReport({reportSource: 'FullParameterList', parameterType : true, R_reportListing: "'"+routeParams.name+"'"}, function(data){
         
         for (var i in data.data ) {
