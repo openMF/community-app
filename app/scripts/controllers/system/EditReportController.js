@@ -2,11 +2,10 @@
   mifosX.controllers = _.extend(module, {
     EditReportController: function(scope, resourceFactory, location, routeParams) {
         scope.formData =  {};
-        scope.reportdetail = {};
-        scope.reportdetail.reportParameters = [];
 
         resourceFactory.reportsResource.getReportDetails({id : routeParams.id, template : 'true'}, function(data) {
             scope.reportdetail = data;
+            scope.reportdetail.reportParameters = data.reportParameters || [];
             scope.formData.useReport = data.useReport;
         });
 
