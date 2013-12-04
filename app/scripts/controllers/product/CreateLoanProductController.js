@@ -31,28 +31,28 @@
             scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
             scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
 
-            if (scope.assetAccountOptions[0] && scope.assetAccountOptions[0].length > 0) {
+            if (scope.assetAccountOptions[0]) {
               scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
             }
-            if (scope.assetAccountOptions[1] && scope.assetAccountOptions[1].length > 1) {
+            if (scope.assetAccountOptions[1]) {
               scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
             }
-            if (scope.assetAccountOptions[2] && scope.assetAccountOptions[2].length > 2) {
+            if (scope.assetAccountOptions[2]) {
               scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
             }
-            if (scope.incomeAccountOptions[0] && scope.incomeAccountOptions[0].length > 0) {
+            if (scope.incomeAccountOptions[0]) {
               scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
             }
-            if (scope.incomeAccountOptions[1] && scope.incomeAccountOptions[1].length > 1) {
+            if (scope.incomeAccountOptions[1]) {
               scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
             }
-            if (scope.incomeAccountOptions[2] && scope.incomeAccountOptions[2].length > 2) {
+            if (scope.incomeAccountOptions[2]) {
               scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
             }
-            if (scope.expenseAccountOptions[0] && scope.expenseAccountOptions[0].length > 0) {
+            if (scope.expenseAccountOptions[0]) {
               scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
             } 
-            if (scope.liabilityOptions[0] && scope.liabilityOptions[0].length > 0) {
+            if (scope.liabilityOptions[0]) {
               scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
             } 
             scope.formData.accountingRule = '1';

@@ -5,7 +5,7 @@
           <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
         </ul>
       </div>
-    <div class="row alert-block span" >
+    <div class="row-fluid" >
         <h3>{{ 'label.heading.transactionnumber' | translate }}&nbsp;<b>{{transactionNumber}}</b></h3>
         <div class="pull-right">
             <div class="btn-group">
@@ -14,10 +14,10 @@
         </div>
     </div>
 
-    <div class="row alert-block span">
-    	<table class="table" ui:sortable>
+    <div class="row-fluid">
+    	<table class="table">
             <thead>
-                <tr>
+                <tr class="graybg">
                     <th>{{'label.heading.office' | translate}}</th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.type' | translate}}</th>
@@ -29,7 +29,7 @@
             <tbody>
                 <tr ng-repeat="transaction in transactions">
                     <td>{{transaction.officeName}}</td>
-                    <td>{{transaction.transactionDate}}</td>
+                    <td>{{transaction.transactionDate | DateFormat}}</td>
                     <td>{{transaction.glAccountType.value}}</td>
                     <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>  
                     <td>
