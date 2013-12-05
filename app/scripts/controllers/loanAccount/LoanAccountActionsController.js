@@ -114,8 +114,8 @@
           case "modifytransaction":
             resourceFactory.loanTrxnsResource.get({loanId:scope.accountId, transactionId:routeParams.transactionId, template:'true'},
               function (data) {
-              scope.title = 'label.edit.loan.account.transaction';
-              scope.labelName = 'label.loan.account.transactionDate';
+              scope.title = 'label.heading.editloanaccounttransaction';
+              scope.labelName = 'label.input.transactiondate';
               scope.modelName = 'transactionDate';
               scope.paymentTypes=data.paymentTypeOptions || [];
               scope.formData.transactionAmount = data.amount;
