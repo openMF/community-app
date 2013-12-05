@@ -17,7 +17,7 @@
             </div>
             <div>
                 <label class="control-label">{{ 'label.input.destinationgroup' | translate }}<span class="required">*</span></label>
-                <select ng-model="formData.destinationGroupId" name="destinationgroup" ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}" data-ng-click="viewgroup(onegroup.id)" required>
+                <select ng-model="formData.destinationGroupId" name="destinationgroup" ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}" data-ng-change="viewgroup(formData.destinationGroupId)" required>
                     <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>
                 </select>
                 <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup"/>
@@ -39,7 +39,7 @@
                     </tr>
                     <tr>
                         <td>{{ 'label.heading.activationdate' | translate }}</td>
-                        <td valign="top">{{groupdata.activationDate}}</td>
+                        <td valign="top">{{groupdata.activationDate | DateFormat}}</td>
                     </tr>
                     <tr>
                         <td>{{ 'label.heading.staff' | translate }}</td>
