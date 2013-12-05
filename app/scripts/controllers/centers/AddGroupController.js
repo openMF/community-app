@@ -4,6 +4,7 @@
             scope.first = {};
             scope.first.date = new Date();
             scope.restrictDate = new Date();
+            scope.formData = {};
             resourceFactory.groupTemplateResource.get({centerId: routeParams.centerId} , function(data) {
                 scope.groupTemplate = data;
             });
@@ -15,12 +16,14 @@
                     scope.choice = 0;
                 }
             };
-            scope.addGroup = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-                this.formData.activationDate = reqDate;
+            scope.submit = function(){
+                if (scope.first.date) {
+                    var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                    this.formData.activationDate = reqDate;
+                    this.formData.dateFormat = 'dd MMMM yyyy';
+                }
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.centerId = routeParams.centerId ;
                 this.formData.officeId = routeParams.officeId;
                 resourceFactory.groupResource.save(this.formData,function(data) {

@@ -1,4 +1,4 @@
-<form class="form-horizontal well" ng-controller="AddMemberController">
+<form name="addmemeberform" novalidate="" class="form-horizontal well" ng-controller="AddMemberController" rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.addmember' | translate}}</legend>
@@ -12,9 +12,10 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="firstname">{{ 'label.input.firstname' | translate }}</label>
+            <label class="control-label" for="firstname">{{ 'label.input.firstname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="firstname" ng-model="formData.firstname">
+                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
+                <form-validate valattributeform="addmemeberform" valattribute="firstname"/>
             </div>
         </div>
         <div class="control-group">
@@ -24,9 +25,10 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="lastname">{{ 'label.input.lastname' | translate }}</label>
+            <label class="control-label" for="lastname">{{ 'label.input.lastname' | translate }}<span class="required">*</span></label>
             <div class="controls">
-                <input type="text" id="lastname" ng-model="formData.lastname">
+                <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
+                <form-validate valattributeform="addmemeberform" valattribute="lastname"/>
             </div>
         </div>
         <div class="control-group">
@@ -50,8 +52,8 @@
             </div>
         </div>
         <div class="offset2 paddedleft120">
-            <a href="#/viewgroup/{{clientTemplate.groupid}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
-            <button type="button" class="btn btn-primary" data-ng-click="addMember()">{{ 'label.button.save' | translate }}</button>
+            <a href="#/viewgroup/{{groupId}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>
 </form>

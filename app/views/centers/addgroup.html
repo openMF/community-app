@@ -1,4 +1,4 @@
-<form class="form-horizontal well" ng-controller="AddGroupController">
+<form name="addgroupform" novalidate="" class="form-horizontal well" ng-controller="AddGroupController" rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.addgroup' | translate}}</legend>
@@ -13,9 +13,10 @@
         </div>
         <div>
             <div class="control-group">
-                <label class="control-label" for="fullname">{{ 'label.input.name' | translate }}</label>
+                <label class="control-label" for="fullname">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
                 <div class="controls">
-                    <input type="text" id="fullname" ng-model="formData.name">
+                    <input type="text" id="fullname" name="fullname" ng-model="formData.name" required late-Validate/>
+                    <form-validate valattributeform="addgroupform" valattribute="fullname"/>
                 </div>
             </div>
         </div>
@@ -41,7 +42,7 @@
         </div>
         <div data-ng-switch on="choice">
             <div class="control-group" data-ng-switch-when="1">
-                <label class="control-label">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+                <label class="control-label">{{'label.input.activationdate' | translate}}</label>
                 <div class="controls">
                     <input class="date-disable" readonly id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                  </div>
@@ -49,7 +50,7 @@
         </div>
         <div class="offset2 paddedleft120">
             <a href="#/viewcenter/{{groupTemplate.centerId}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
-            <button type="button" class="btn btn-primary" data-ng-click="addGroup()">{{ 'label.button.save' | translate }}</button>
+            <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>
 </form>

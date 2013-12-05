@@ -4,6 +4,11 @@
             scope.first = {};
             scope.restrictDate = new Date();
             scope.first.date = new Date();
+            scope.formData = {};
+
+            if (routeParams.groupId) {
+                scope.groupId = routeParams.groupId;
+            }
             resourceFactory.clientTemplateResource.get({officeId: routeParams.officeId} , function(data) {
                 scope.clientTemplate = data;
             });
@@ -15,12 +20,14 @@
                     scope.choice = 0;
                 }
             };
-            scope.addMember = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-                this.formData.activationDate = reqDate;
+            scope.submit = function(){
+                if (scope.first.date) {
+                    var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                    this.formData.activationDate = reqDate;
+                    this.formData.dateFormat = 'dd MMMM yyyy';
+                }
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
                 this.formData.groupId = routeParams.groupId ;
                 this.formData.officeId = routeParams.officeId;
                 resourceFactory.clientResource.save(this.formData,function(data) {
