@@ -6,6 +6,7 @@
         scope.buttons = [];
         scope.clientdocuments = [];
         scope.staffData = {};
+        scope.haveFile = [];
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;
             scope.staffData.staffId = data.staffId;
@@ -164,7 +165,13 @@
                   for(var j = 0; j<scope.identitydocuments.length; j++) {
                      if(data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId)
                       {
-                        scope.identitydocuments[j].documents = data;
+                        for(var l in data){
+
+                            var loandocs = {};
+                            loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=default';
+                            data[l].docUrl = loandocs;
+                        }
+                          scope.identitydocuments[j].documents = data;
                       }
                   }
                 });
@@ -223,6 +230,12 @@
 
         scope.getClientDocuments = function () {
           resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id} , function(data) {
+              for(var l in data){
+
+                  var loandocs = {};
+                  loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=default';
+                  data[l].docUrl = loandocs;
+              }
             scope.clientdocuments = data;
           });
         };

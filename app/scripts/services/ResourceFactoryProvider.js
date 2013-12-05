@@ -2,9 +2,13 @@
   mifosX.services = _.extend(module, {
     ResourceFactoryProvider: function() {
       var baseUrl = "" , apiVer = "/mifosng-provider/api/v1";
-      this.setBaseUrl = function(url) {baseUrl = url;};
-      this.$get = ['$resource', function(resource) {
+      this.setBaseUrl = function(url) {
+          baseUrl = url;
+      };
+
+      this.$get = ['$resource','$rootScope', function(resource,$rootScope) {
         var defineResource = function(url, paramDefaults, actions) {
+            $rootScope.hostUrl = baseUrl;
           return resource(baseUrl + url, paramDefaults, actions);
         };
         return {
