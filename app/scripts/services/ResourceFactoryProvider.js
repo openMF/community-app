@@ -8,7 +8,8 @@
 
       this.$get = ['$resource','$rootScope', function(resource,$rootScope) {
         var defineResource = function(url, paramDefaults, actions) {
-            $rootScope.hostUrl = baseUrl;
+            var tempUrl = baseUrl;
+            $rootScope.hostUrl = tempUrl.replace(":8443","");
           return resource(baseUrl + url, paramDefaults, actions);
         };
         return {
