@@ -7,7 +7,11 @@
       scope.login = function() {
         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
       };
-
+      $('#pwd').keypress(function(e) {
+        if(e.which == 13) {
+            scope.login();
+        }
+      });
       scope.$on("UserAuthenticationFailureEvent", function(data) {
         scope.authenticationFailed = true;
       });

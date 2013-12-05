@@ -187,12 +187,15 @@
                 <td>{{document.documentType.name}}</td>
                 <td>
                   <span ng-repeat="file in document.documents">
-                    <a ng-click="downloadClientIdentifierDocument(document.id, file.id)">{{file.fileName}}</a>&nbsp;&nbsp;
+                    {{file.fileName}}&nbsp;&nbsp;
+                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}"><i class="icon-cloud-download"></i></a>
                   </span>
                 </td>
                 <td>
-                  <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
-                  <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
+                  <span>
+                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"><i class="icon-cloud-upload"></i></a>&nbsp;
+                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"><i class="icon-remove"></i></a>
+                  </span>
                 </td>
               </tr>
             </tbody>
@@ -236,7 +239,7 @@
                 <td>{{clientdocument.description}}</td>
                 <td>{{clientdocument.fileName}}</td>
                 <td>
-                  <a ng-click="downloadDocument(clientdocument.id)"><i class="icon-cloud-download"></i></a>&nbsp;
+                  <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
                   <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="icon-remove"></i></a>
                 </td>
               </tr>
