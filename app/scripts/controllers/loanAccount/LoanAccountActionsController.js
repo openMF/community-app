@@ -147,9 +147,9 @@
                   if (data.chargeTimeType.value !== "Specified due date" && data.installmentChargeData) {
                       scope.installmentCharges = data.installmentChargeData;
                       scope.formData.installmentNumber = data.installmentChargeData[0].installmentNumber;
-                      scope.waivechargeField = true;
+                      scope.installmentchargeField = true;
                   } else {
-                    scope.waivechargeField = false;
+                    scope.installmentchargeField = false;
                     scope.showwaiveforspecicficduedate = true;
                   }
               });
@@ -163,6 +163,11 @@
               resourceFactory.LoanAccountResource.get({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, command : 'pay'}, function(data){
                   if (data.dueDate) {
                       scope.formData.transactionDate = new Date(data.dueDate);
+                  }
+                  if (data.chargeTimeType.value === "Instalment Fee" && data.installmentChargeData) {
+                      scope.installmentCharges = data.installmentChargeData;
+                      scope.formData.installmentNumber = data.installmentChargeData[0].installmentNumber;
+                      scope.installmentchargeField = true;
                   }
               });
               scope.title = 'label.heading.payloancharge';
