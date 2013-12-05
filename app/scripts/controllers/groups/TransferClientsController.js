@@ -4,7 +4,7 @@
             scope.group = [];
             scope.tempData = [];
             resourceFactory.groupResource.get({} , function(data) {
-                scope.groups = data.pageItems;
+                scope.groups = _.reject(data.pageItems, function(group){ return group.id == routeParams.id; });
             });
             resourceFactory.groupResource.get({groupId: routeParams.id,associations:'all'} , function(data) {
                 scope.group = data;
