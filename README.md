@@ -75,6 +75,29 @@ You can search for them in http://sindresorhus.com/bower-components/ or even:
 bower search <package>
 ```
 
+## Running grunt tasks
+
+Grunt tasks are used to automate repetitive tasks like minification, compilation, unit testing, linting, production builds, etc
+
+Following are the tasks integrated.
+
+### Compilation
+
+Compile the JS files to detect errors and potential problems in JavaScript code. All errors output will be written to jshint-log.xml file which get created under project base directory.
+
+```
+grunt compile
+```
+
+### Build
+
+Build the code for production deployment.
+
+```
+grunt prod
+```
+
+
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.

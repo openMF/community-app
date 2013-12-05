@@ -10,7 +10,9 @@ module.exports = function(grunt) {
     mifosx: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist',
+      target: 'community-app',
+      test: 'test'
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -30,21 +32,21 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       prod: {
-        files: [{'<%= mifosx.dist %>/bower_components/angular-mocks/angular-mocks.min.js'
+        files: [{'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-mocks/angular-mocks.min.js'
           :['<%= mifosx.app %>/bower_components/angular-mocks/angular-mocks.js'],
-          '<%= mifosx.dist %>/bower_components/angular-webstorage/angular-webstorage.min.js'
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-webstorage/angular-webstorage.min.js'
           :['<%= mifosx.app %>/bower_components/angular-webstorage/angular-webstorage.js'],
-          '<%= mifosx.dist %>/bower_components/ckeditor/ckeditor.min.js'
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/ckeditor/ckeditor.min.js'
           :['<%= mifosx.app %>/bower_components/ckeditor/ckeditor.js'],
-          '<%= mifosx.dist %>/bower_components/datatables/media/js/jquery.dataTables.min.js'
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/datatables/media/js/jquery.dataTables.min.js'
           :['<%= mifosx.app %>/bower_components/datatables/media/js/jquery.dataTables.js'],
-          //'<%= mifosx.dist %>/bower_components/require-css/css.min.js'
+          //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/require-css/css.min.js'
           //:['<%= mifosx.app %>/bower_components/require-css/css.js'],
-          //'<%= mifosx.dist %>/bower_components/require-less/less.min.js'
+          //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/require-less/less.min.js'
           //:['<%= mifosx.app %>/bower_components/require-less/less.js'],
-          //'<%= mifosx.dist %>/bower_components/requirejs/requirejs.min.js'
+          //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/requirejs/requirejs.min.js'
           //:['<%= mifosx.app %>/bower_components/requirejs/require.js'],
-          '<%= mifosx.dist %>/bower_components/underscore/underscore.min.js'
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/underscore/underscore.min.js'
           :['<%= mifosx.app %>/bower_components/underscore/underscore.js']
         }]
       }
@@ -71,7 +73,7 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           cwd: '<%= mifosx.app %>',
-          dest: '<%= mifosx.dist %>',
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -94,14 +96,24 @@ module.exports = function(grunt) {
           ]
         },
         {
-          '<%= mifosx.dist %>/scripts/mifosXComponents.js':['<%= mifosx.app %>/scripts/mifosXComponents-build.js'],
-          '<%= mifosx.dist %>/scripts/loader.js':['<%= mifosx.app %>/scripts/loader-build.js']
+          expand: true,
+          dot: true,
+          cwd: '<%= mifosx.test %>',
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>/test',
+          src: [
+            '**/**'
+          ]
+        },
+        {
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/mifosXComponents.js':['<%= mifosx.app %>/scripts/mifosXComponents-build.js'],
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/loader.js':['<%= mifosx.app %>/scripts/loader-build.js']
+          //'<%= mifosx.dist %>/<%=mifosx.target%>':['<%= mifosx.test %>/**']
         },
         {
           expand: true,
           dot: true,
           cwd: '<%= mifosx.app %>/bower_components',
-          dest: '<%= mifosx.dist %>/bower_components',
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components',
           src: [
             '**/*min.js', 'require-css/*.js', 'require-less/*.js', 
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**'
@@ -114,7 +126,7 @@ module.exports = function(grunt) {
           expand: true,
           dot: true,
           cwd: '<%= mifosx.app %>',
-          dest: '<%= mifosx.dist %>',
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -127,6 +139,15 @@ module.exports = function(grunt) {
             'views/**',
             'images/**',
             'bower_components/**'
+          ]
+        },
+        {
+          expand: true,
+          dot: true,
+          cwd: '<%= mifosx.test %>',
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>/test',
+          src: [
+            '**/**'
           ]
         }]
       }
@@ -141,12 +162,12 @@ module.exports = function(grunt) {
       //
       dist: {
         files: {
-          '<%= mifosx.dist %>/scripts/controllers/controllers.js': ['<%= mifosx.app %>/scripts/controllers/**/*.js'],
-          '<%= mifosx.dist %>/scripts/directives/directives.js': ['<%= mifosx.app %>/scripts/directives/**/*.js'],
-          '<%= mifosx.dist %>/scripts/models/models.js': ['<%= mifosx.app %>/scripts/models/**/*.js'],
-          //'<%= mifosx.dist %>/scripts/services/services.js': ['<%= mifosx.app %>/scripts/services/**/*.js'],
-          '<%= mifosx.dist %>/scripts/filters/filters.js': ['<%= mifosx.app %>/scripts/filters/**/*.js'],
-          '<%= mifosx.dist %>/scripts/routes-initialTasks-webstorage-configuration.js': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/controllers/controllers.js': ['<%= mifosx.app %>/scripts/controllers/**/*.js'],
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/directives/directives.js': ['<%= mifosx.app %>/scripts/directives/**/*.js'],
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js': ['<%= mifosx.app %>/scripts/models/**/*.js'],
+          //'<%= mifosx.dist %>/<%=mifosx.target%>/scripts/services/services.js': ['<%= mifosx.app %>/scripts/services/**/*.js'],
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js': ['<%= mifosx.app %>/scripts/filters/**/*.js'],
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js': 
             ['<%= mifosx.app %>/scripts/routes.js', 
             '<%= mifosx.app %>/scripts/initialTasks.js', 
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
@@ -159,7 +180,7 @@ module.exports = function(grunt) {
         options: {
           baseUrl: '<%= mifosx.app %>',
           mainConfigFile: '<%= mifosx.app %>/scripts/loader.js',
-          out: '<%= mifosx.dist %>/loader.js'
+          out: '<%= mifosx.dist %>/<%=mifosx.target%>/loader.js'
         }
       }
     }
