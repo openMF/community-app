@@ -184,7 +184,7 @@
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
             </div>
-            <div class="modal-body modal-middle">
+            <div class="modal-body ">
                 <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                 <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
@@ -379,15 +379,16 @@
               <th>{{'label.heading.type' | translate}}</th>
               <th>{{'label.heading.description' | translate}}</th>
               <th>{{'label.heading.value' | translate}}</th>
+              <th></th>
             </thead>
             <tbody>
               <tr ng-repeat="collateral in loandetails.collateral">
                 <td>
-                  <a ng-show="loandetails.status.pendingApproval" href="#/loan/{{loandetails.id}}/viewcollateral/{{collateral.id}}">{{collateral.type.name}}</a>
-                  <a ng-hide="loandetails.status.pendingApproval">{{collateral.type.name}}</a>
+                  {{collateral.type.name}}
                 </td>
                 <td>{{collateral.description}}</td>
                 <td>{{collateral.value}}</td>
+                <td><a ng-show="loandetails.status.pendingApproval" style="text-decoration:none;" class="btn-primary" href="#/loan/{{loandetails.id}}/viewcollateral/{{collateral.id}}">{{'label.button.details' | translate}}</a></td>
               </tr>
             </tbody>
           </table>
@@ -496,9 +497,9 @@
         <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" select="dataTableChange(loandatatable)">
           <div>
             <span data-ng-show="choice">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i class="icon-trash icon-white"></i>{{'button.deleteall' | translate}}</a>
+                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                 <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'button.add' | translate}}</a>
+                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                 </span></br>
             </span>
             <table ng-show="datatabledetails.isData" class="table">
