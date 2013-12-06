@@ -1,0 +1,23 @@
+<div ng-controller="ClientClosedLoansAccountController"> 
+  <p>
+    <b>{{'label.heading.loanaccoverview' | translate}}</b>
+  </p>
+  <table class="table condensed-table">
+    <thead>
+        <tr>
+            <th>{{'label.heading.accnum' | translate}}</th>
+            <th>{{'label.heading.product' | translate}}</th>
+            <th>{{'label.heading.loantype' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isClosed" >
+          <td><a href="#/viewloanaccount/{{loanaccount.id}}"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>&nbsp;{{loanaccount.accountNo}}</a></td>
+          <td><a href="#/viewloanaccount/{{loanaccount.id}}">{{loanaccount.productName}}</a></td>
+          <td>{{loanaccount.loanType.value}}</td>
+          <td>{{loanaccount.status.value}}</td> 
+        </tr>
+    </tbody>
+  </table>
+</div>

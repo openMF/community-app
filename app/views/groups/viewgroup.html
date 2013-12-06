@@ -130,6 +130,8 @@
         <br/>
           <div data-ng-show="groupAccounts.loanAccounts">
             <h3>{{ 'label.heading.loanaccoverview' | translate }}</h3>
+            <br/>
+            <a href="#/groupclosedloanaccount/{{group.id}}" class="pull-right">{{ 'label.viewcloseloans' | translate }}</a>
             <table class="table table-striped" width="100%">
                   <thead>
                     <tr class="graybg">
@@ -139,7 +141,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts" >
+                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isLoanNotClosed" >
                         <td>
                             <a href="#/viewloanaccount/{{loanaccount.id}}">
                                 {{loanaccount.productName}}
@@ -152,15 +154,15 @@
                         </td>
                         <td><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
                     </tr>
+                    <tr><td colspan="5">&nbsp;</td></tr>
                 </tbody>
             </table>
           </div>
-        <br/>
           <div data-ng-show="groupAccounts.savingsAccounts">
+            <h3>{{'label.heading.savingsaccoverview' | translate }}</h3>
+            <a href="#/groupclosedsavingaccount/{{group.id}}" class="pull-right">{{ 'label.viewclosesavings' | translate }}</a>
             <table class="table table-striped" width="100%">
               <thead>
-                <h3>{{ 'label.heading.savingsaccoverview' | translate }}</h3>
-                <tr><td colspan="5">&nbsp;</td></tr>
                 <tr class="graybg">
                     <th>{{ 'label.heading.products' | translate }}</th>
                     <th>{{ 'label.heading.accnum' | translate }}</th>
@@ -169,7 +171,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts">
+                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts | filter:isSavingNotClosed">
                     <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
                     <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.accountNo}}</a></td>
                     <td>{{savingaccount.accountBalance}}</td>

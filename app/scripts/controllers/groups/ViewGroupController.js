@@ -73,7 +73,28 @@
                     scope.predicate = '-id';
                 });
             };
+            scope.isLoanNotClosed = function(loanaccount) {
+              if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
+                loanaccount.status.code === "loanStatusType.closed.obligations.met" || 
+                loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" || 
+                loanaccount.status.code === "loanStatusType.withdrawn.by.client" || 
+                loanaccount.status.code === "loanStatusType.rejected") {
+                return false;
+              } else{
+                 return true;
+              }
+            };
 
+            scope.isSavingNotClosed = function(savingaccount) {
+              if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" || 
+                savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                savingaccount.status.code === "savingsAccountStatusType.rejected") {
+                return false;
+              } else {
+                 return true;
+              }
+            };
+            
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_group'} , function(data) {
                 scope.groupdatatables = data;
             });
