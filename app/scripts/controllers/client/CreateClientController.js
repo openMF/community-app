@@ -37,6 +37,12 @@
             this.formData.active = this.formData.active || false;
             this.formData.dateFormat = 'dd MMMM yyyy';
             this.formData.activationDate = reqDate;
+
+            if (scope.first.submitondate) {
+                reqDate = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
+                this.formData.submittedOnDate = reqDate;
+            }
+            
             resourceFactory.clientResource.save(this.formData,function(data){
               if (scope.file) {
                 $upload.upload({
