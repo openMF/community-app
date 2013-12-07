@@ -3,7 +3,21 @@
     <div class="span5">
       <div ng-repeat="result in searchResults">
           <div class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}">
-            <span><a href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</span>
+            <span ng-show = "result.entityType  == 'LOAN'">
+                <a href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+            </span>
+            <span ng-show = "result.entityType  == 'CLIENT'">
+                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+            </span>
+            <span ng-show = "result.entityType  == 'GROUP'">
+                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+            </span>
+            <span ng-show = "result.entityType  == 'CENTER'">
+                <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+            </span>
+            <span ng-show = "result.entityType  == 'CLIENTIDENTIFIER'">
+                <a href="#/viewclient/{{result.parentId}}">{{result.entityName}}</a>&nbsp;</a>
+            </span>
             <span ng-show = "result.entityType  == 'CLIENT'">
               <a ng-click="getClientDetails(result.entityId)" title="{{'label.input.additionalinformation'| translate}}"><i class="icon-zoom-in"></i></a>
             </span>
@@ -14,7 +28,10 @@
               <a ng-click="getCenterDetails(result.entityId)" title="{{'label.input.additionalinformation'| translate}}"><i class="icon-zoom-in"></i></a>
             </span>
             <br>
-            <span>{{result.entityType}}&nbsp;,&nbsp;{{ 'label.heading.office' | translate }}:{{result.parentName}}</span><br>
+            <span data-ng-show="result.entityType  == 'CLIENT' ||result.entityType  == 'GROUP' || result.entityType  == 'CENTER' "><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{ 'label.heading.office' | translate }}</strong>:{{result.parentName}}</span>
+            <span data-ng-show="result.entityType  == 'CLIENTIDENTIFIER'"><strong>{{'label.heading.entity' | translate}}</strong>:{{'label.heading.clientid' | translate}}&nbsp;|&nbsp;<strong>{{ 'label.heading.client' | translate }}</strong>:{{result.parentName}}</span>
+            <span data-ng-show="result.entityType  == 'LOAN'"><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{ 'label.heading.client' | translate }}</strong>:{{result.parentName}}</span>
+            <span><br/></span>
           </div>
       </div>
     </div>

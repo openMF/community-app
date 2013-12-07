@@ -3,6 +3,9 @@
     SearchController: function(scope, routeParams , resourceFactory) {
         
         scope.searchResults = [];
+        if(routeParams.query=='undefined'){
+            routeParams.query = '';
+        }
         resourceFactory.globalSearch.search( {query: routeParams.query} , function(data){
             scope.searchResults = data;
             if(scope.searchResults.length<=0){
