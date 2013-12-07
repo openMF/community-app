@@ -70,6 +70,9 @@
           case "unassignloanofficer":
             location.path('/loanaccount/' + accountId + '/unassignloanofficer');
           break;
+          case "loanscreenreport":
+            location.path('/loanscreenreport/' + accountId);
+          break;
         }
       };
 
@@ -161,6 +164,8 @@
                               },
                               {
                                 name:"button.guarantor"
+                              },{
+                                name:"button.loanscreenreport"
                               }]
                               
                             };
@@ -186,6 +191,9 @@
                               },
                               {
                                name:"button.guarantor"
+                              },
+                              {
+                                name:"button.loanscreenreport"
                               }]
                               
                             };
@@ -217,6 +225,9 @@
                               },
                               {
                                  name:"button.close"
+                              },
+                              {
+                                name:"button.loanscreenreport"
                               }]
                               
                             };
@@ -267,22 +278,6 @@
             $modalInstance.dismiss('cancel');
         };
       };
-      scope.getLoanTemplateDocuments = function() {
-        resourceFactory.templateResource.get({entityId : 1, typeId : 0}, function(data) {
-          scope.loanTemplateData = data;
-        })
-      }
-
-      scope.getLoanTemplate = function(templateId) {
-        scope.selectedTemplate = templateId;
-        http({
-          method:'POST',
-          url: API_VERSION + '/templates/'+templateId+'?loanId='+routeParams.id,
-          data: {}
-        }).then(function(data) {
-          scope.template = data.data;
-        });
-      }
 
       scope.getLoanDocuments = function (){
         resourceFactory.LoanDocumentResource.getLoanDocuments({loanId: routeParams.id}, function(data) {

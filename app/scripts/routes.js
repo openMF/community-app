@@ -65,6 +65,9 @@
       .when('/viewclient/:id', {
         templateUrl: 'views/clients/viewclient.html'
       })
+      .when('/clientscreenreport/:clientId', {
+          templateUrl: 'views/clients/clientscreenreport.html'
+      })
       .when('/client/:id/:action', {
         templateUrl: 'views/clients/clientactions.html'
       })
@@ -73,6 +76,12 @@
       })
       .when('/addclientdocument/:clientId', {
           templateUrl: 'views/clients/addclientdocument.html'
+      })
+      .when('/clientclosedloanaccount/:clientId', {
+          templateUrl: 'views/clients/clientclosedloanaccount.html'
+      })
+      .when('/clientclosedsavingaccount/:clientId', {
+          templateUrl: 'views/clients/clientclosedsavingaccount.html'
       })
       .when('/addclientidentifier/:clientId', {
         templateUrl: 'views/clients/addclientidentifier.html'
@@ -100,6 +109,9 @@
       })
       .when('/editloanaccount/:id', {
         templateUrl: 'views/loans/editloanaccount.html'
+      })
+      .when('/loanscreenreport/:loanId', {
+        templateUrl: 'views/loans/loanscreenreport.html'
       })
       .when('/addloancharge/:id', {
         templateUrl: 'views/loans/addloancharge.html'
@@ -382,6 +394,12 @@
       })
       .when('/closegroup/:id', {
         templateUrl: 'views/groups/closegroup.html'
+      })
+      .when('/groupclosedloanaccount/:groupId', {
+        templateUrl: 'views/groups/groupclosedloanaccount.html'
+      })
+      .when('/groupclosedsavingaccount/:groupId', {
+        templateUrl: 'views/groups/groupclosedsavingaccount.html'
       })
       .when('/addrole/:id', {
         templateUrl: 'views/groups/addrole.html'

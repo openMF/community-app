@@ -1,0 +1,22 @@
+<div ng-controller="GroupClosedSavingsAccountController"> 
+  <p>
+    <b>{{'label.heading.savingsaccoverview' | translate}}</b>
+  </p>
+  <table class="table condensed-table">
+    <thead>
+      <tr>
+        <th>{{'label.heading.accnum' | translate}}</th>
+        <th>{{'label.heading.product' | translate}}</th>
+        <th>{{'label.heading.status' | translate}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts | filter:isSavingClosed">
+        <td><a href="#/viewsavingaccount/{{savingaccount.id}}"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.accountNo}}</a></td>
+        <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
+        <td>{{savingaccount.status.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

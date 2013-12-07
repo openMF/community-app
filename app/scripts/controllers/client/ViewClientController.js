@@ -112,6 +112,12 @@
               }
             }
 
+            scope.buttonsArray = {
+              options: [{
+                          name:"button.clientscreenreports"
+                        }]
+            };
+            scope.buttonsArray.singlebuttons = scope.buttons;
           resourceFactory.runReportsResource.get({reportSource: 'ClientSummary',genericResultSet: 'false',R_clientId: routeParams.id} , function(data) {
             scope.client.ClientSummary = data[0];
           });
@@ -179,23 +185,6 @@
           });
         };
 
-        scope.getClientTemplateDocuments = function() {
-          resourceFactory.templateResource.get({entityId : 0, typeId : 0}, function(data) {
-            scope.clientTemplateData = data;
-          })
-        }
-
-        scope.getClientTemplate = function(templateId) {
-          scope.selectedTemplate = templateId;
-          http({
-            method:'POST',
-            url: API_VERSION + '/templates/'+templateId+'?clientId='+routeParams.id,
-            data: {}
-          }).then(function(data) {
-            scope.template = data.data;
-          });
-        }
-
         resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'} , function(data) {
           scope.clientdatatables = data;
         });
@@ -251,30 +240,28 @@
                 scope.clientdocuments.splice(index,1);
             });
         };
-        scope.isNotClosed = function(loanaccount) {
+
+        scope.isLoanNotClosed = function (loanaccount) {
           if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
             loanaccount.status.code === "loanStatusType.closed.obligations.met" || 
             loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" || 
             loanaccount.status.code === "loanStatusType.withdrawn.by.client" || 
             loanaccount.status.code === "loanStatusType.rejected") {
             return false;
-          } else{
+          } else {
              return true;
           }
         };
 
-        scope.isClosed = function(loanaccount) {
-          if(loanaccount.status.code === "loanStatusType.closed.written.off" ||
-            loanaccount.status.code === "loanStatusType.closed.obligations.met" || 
-            loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" || 
-            loanaccount.status.code === "loanStatusType.withdrawn.by.client" || 
-            loanaccount.status.code === "loanStatusType.rejected") {
-            return true;
-          } else{
-             return false;
+        scope.isSavingNotClosed = function (savingaccount) {
+          if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" || 
+            savingaccount.status.code === "savingsAccountStatusType.closed" ||
+            savingaccount.status.code === "savingsAccountStatusType.rejected") {
+            return false;
+          } else {
+             return true;
           }
         };
-
 
         scope.saveNote = function() {   
             resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData , function(data){
