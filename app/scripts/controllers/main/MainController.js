@@ -33,8 +33,18 @@
       };
 
       scope.langs = mifosX.models.Langs;
-      
-      scope.optlang = scope.langs[0];
+        if(localStorageService.get('Language')){
+            var temp=localStorageService.get('Language');
+            for(var i in mifosX.models.Langs){
+                if(mifosX.models.Langs[i].code == temp.code){
+                    scope.optlang = mifosX.models.Langs[i];
+                }
+            }
+        } else{
+            scope.optlang = scope.langs[0];
+        }
+        translate.uses(scope.optlang.code);
+
 
       scope.isActive = function (route) {
           if(route == 'clients'){
@@ -78,7 +88,7 @@
 
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
-          scope.optlang = lang;
+          localStorageService.add('Language',lang);
       };
 
       sessionManager.restore(function(session) {
