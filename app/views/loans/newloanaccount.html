@@ -11,16 +11,16 @@
     <fieldset>
     <legend>{{ 'label.heading.loanapplication' | translate }}</legend>
       <div class="control-group">
-        <table width="80%">
+        <table width="100%">
           <tr class="control-group">
-            <td width="12%"></td>
-            <td width="30%">
+            <td width="14%"></td>
+            <td width="40%">
               <label ng-show="clientName" class="control-label">{{ 'label.input.applicant' | translate }}&nbsp;</label>
               <input ng-show="clientName" type="text" value="{{clientName}}" readonly>
               <label ng-show="groupName" class="control-label">{{ 'label.input.applicantgroup' | translate }}&nbsp;</label>
               <input ng-show="groupName" type="text" value="{{groupName}}" readonly>
             </td>
-            <td width="30%">
+            <td width="44%">
               <label class="control-label">{{ 'label.input.product' | translate }}&nbsp;<span class="required">*</span></label>
               <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" ng-change="loanProductChange(formData.productId)" required="required">
                 <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
@@ -31,16 +31,16 @@
         </table>
       </div>
       <div class="control-group">
-        <table ng-show="loanaccountinfo" ng-hide="previewRepayment" width="80%">
+        <table ng-show="loanaccountinfo" width="100%">
             <tr class="control-group">
-              <td  width="12%"></td>
-              <td width="30%">
+              <td  width="14%"></td>
+              <td width="40%">
                 <label class="control-label">{{ 'label.input.loanofficer' | translate }}&nbsp;</label>
                 <select id="loanOfficerId" ng-model="formData.loanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanaccountinfo.loanOfficerOptions" value="{{loanOfficer.id}}">
                   <option value="">{{'label.selectloanofficer' | translate}}</option>
                 </select>
               </td>
-              <td width="30%">
+              <td width="44%">
                 <label class="control-label">{{ 'label.input.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
                   <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
               </td>
@@ -61,10 +61,7 @@
               </td>
             </tr>
         </table>
-      </div>
-
-      <div ng-show="loanaccountinfo.calendarOptions" class="control-group">
-        <div ng-hide="previewRepayment">
+        <div ng-hide="previewRepayment" ng-show="loanaccountinfo.calendarOptions" class="control-group">
           <hr>
           <table width="100%">
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
@@ -82,24 +79,21 @@
           </table>
           <hr>
         </div>
-      </div>
-
-      <div class="control-group">
         <table ng-show="loanaccountinfo" ng-hide="previewRepayment" width="100%">
           <tr class="control-group">
-            <td width="11%">
+            <td width="10%">
               <label class="control-label"><h4>{{ 'label.heading.terms' | translate }}</h4></label>
             </td>
-            <td class="blockquoteresult" width="80%">
-              <table>
+            <td class="blockquoteresult" width="90%">
+              <table width="100%">
                 <tr>
-                  <td width="40%">
+                  <td width="50%">
                     <label class="control-label">{{ 'label.input.principal' | translate }}&nbsp;<span class="required">*</span></label>
                     <input type="text" id="principal" name="principal" ng-model="formData.principal" required late-Validate/>
                     {{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="newloanaccountform" valattribute="principal"/>
                   </td>
-                  <td width="40%">
+                  <td width="50%">
                     <label class="control-label">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span></label>
                     <input id="loanTermFrequency" class="input-small" name="loanterm" type="text" ng-model="formData.loanTermFrequency" required late-Validate/>
                     <select id="loanTermFrequencyType" class="input-small" ng-model="formData.loanTermFrequencyType" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}"/>
@@ -109,7 +103,7 @@
                 <tr>
                   <td>
                     <label class="control-label">{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="numberOfRepayments" class="input-small" name="numofrepayments" type="text" ng-model="formData.numberOfRepayments" required late-Validate/>
+                    <input id="numberOfRepayments" name="numofrepayments" type="text" ng-model="formData.numberOfRepayments" required late-Validate/>
                     <form-validate valattributeform="newloanaccountform" valattribute="numofrepayments"/>
                   </td>
                   <td>
@@ -138,92 +132,107 @@
           </tr>
           <tr class="span2"></tr>
           <tr class="control-group">
-            <td>
-              <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
+            <td width="10%" align="center">
+                <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
             </td>
-            <td class="blockquoteresult" width="80%">
-              <table>
-                <tr>
-                  <td width="40%">
-                    <label class="control-label">{{ 'label.input.amortization' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select id="amortizationType" ng-model="formData.amortizationType" ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions" value="{{amortizationType.id}}">
-                  </td>
-                  <td width="40%">
-                    <label class="control-label">{{ 'label.input.interestmethod' | translate }}&nbsp;</label><span class="required">*</span></label>
-                    <select id="interestType" ng-model="formData.interestType" ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" value="{{interestType.id}}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="control-label">{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType" ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions" value="{{interestCalculationPeriodType.id}}">
-                  </td>
-                  <td>
-                    {{formData.displaySymbol}}
-                    <label class="control-label">{{ 'label.input.arearstolerance' | translate }}&nbsp;</label>
-                    <input id="inArrearsTolerance" type="text" ng-model="formData.inArrearsTolerance">
-                    {{loanaccountinfo.currency.displaySymbol}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="control-label">{{ 'label.input.repaymentstrategy' | translate }}&nbsp;<span class="required">*</span></label>
-                    <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}"/>
-                  </td>
-                  <td>
-                    <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
-                    <table>
-                      <tr>
-                        <td>
-                          <input id="graceOnPrincipalPayment" class="input-small" type="text" ng-model="formData.graceOnPrincipalPayment">
+            <td class="blockquoteresult" width="90%">
+                <table width="100%">
+                    <tr>
+                        <td width="50%">
+                            <label class="control-label">{{ 'label.input.amortization' | translate }}&nbsp;<span class="required">*</span></label>
+                            <select id="amortizationType" ng-model="formData.amortizationType"
+                                ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions"
+                                value="{{amortizationType.id}}">
                         </td>
-                        <td></td>
-                        <td>
-                          <input id="graceOnInterestPayment" class="input-small" type="text" ng-model="formData.graceOnInterestPayment">
+                        <td width="50%">
+                            <label class="control-label">{{ 'label.input.interestmethod' | translate }}&nbsp;<span
+                                    class="required">*</span></label>
+                            <select id="interestType" ng-model="formData.interestType"
+                                    ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions"
+                                    value="{{interestType.id}}">
                         </td>
-                      </tr>
-                      <tr>
-                        <td>{{ 'label.heading.onprincipalpayment' | translate }}&nbsp;</td>
-                        <td></td>
-                        <td>{{ 'label.heading.oninterestpayment' | translate }}&nbsp;</td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="control-label">{{ 'label.input.interestfreeperiod' | translate }}&nbsp;</label>
-                    <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
-                  </td>
-                  <td>
-                      <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
-                      <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                      <label class="control-label">{{ 'label.input.linksavings' | translate }}&nbsp;</label>
-                      <select id="linkAccountId" ng-model="formData.linkAccountId" ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" value="{{savingaccount.id}}">
-                        <option value="">{{'label.menu.selectone' | translate}}</option>
-                      </select>
-                  </td>
-                  <td></td>
-                </tr>
-              </table>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span 
+                                    class="required">*</span></label>
+                            <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
+                                    ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions"
+                                    value="{{interestCalculationPeriodType.id}}">
+                          </td>
+                        </td>
+                        <td>
+                            {{formData.displaySymbol}}
+                            <label class="control-label">{{ 'label.input.arearstolerance' | translate }}&nbsp;</label>
+                            <input id="inArrearsTolerance" type="text" ng-model="formData.inArrearsTolerance">
+                            {{loanaccountinfo.currency.displaySymbol}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{ 'label.input.repaymentstrategy' | translate }}&nbsp;<span
+                                    class="required">*</span></label>
+                            <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
+                                    ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
+                                    value="{{transactionProcessingStrategy.id}}"/>
+                        </td>
+                        <td>
+                            <label class="control-label">{{ 'label.input.interestfreeperiod' | translate }}&nbsp;</label>
+                            <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
+                            <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
+                        </td>
+                        <td>
+                            <label class="control-label">{{ 'label.input.linksavings' | translate }}&nbsp;</label>
+                                <select id="linkAccountId" ng-model="formData.linkAccountId"
+                                        ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions"
+                                        value="{{savingaccount.id}}">
+                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                              </select>
+                          </td>
+                        </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{'label.input.onprincipalpayment' | translate}}&nbsp;</label>
+                            <input id="graceOnPrincipalPayment" type="text" ng-model="formData.graceOnPrincipalPayment">&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="control-label">{{'label.input.oninterestpayment' | translate}}&nbsp;</label>
+                            <input id="graceOnInterestPayment" type="text" ng-model="formData.graceOnInterestPayment">&nbsp;
+                        </td>
+                    </tr>
+                </table>
             </td>
           </tr>
           <tr class="span2"></tr>
           <tr class="control-group">
-            <td>
+            <td width="10%" align="center">
               <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
             </td>
-            <td class="blockquoteresult">
-                <form>
-                  <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions" value="{{charge.id}}">
-                    <option style="display:none" value="">{{'label.selectcharge' | translate}}</option>
-                  </select>
-                  <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
-                </form>
+            <td class="blockquoteresult" width="90%">
+              <table width="100%">
+                <tr>
+                  <td width="50%">
+                    <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions" value="{{charge.id}}">
+                       <option value="">{{'label.selectcharge' | translate}}</option>
+                    </select>
+                    <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
+                  </td>
+                  <td width="50%">
+                  </td>
+                </tr>
+              </table>
               <table class="table" width="100%" ng-show="charges.length>0">
                 <tr class="graybg">
                     <th>{{'label.heading.name' | translate}}</th>
@@ -248,17 +257,21 @@
           </tr>
           <tr class="span2"></tr>
           <tr class="control-group" ng-hide="groupId">
-            <td>
+            <td width="10%" align="center">
               <label class="control-label"><h4>{{ 'label.heading.collaterals' | translate }}</h4></label>
             </td>
-            <td class="blockquoteresult">
-                <form>
-                  <select ng-model="collateralFormData.collateralIdTemplate" ng-options="collateralTemplate.name for collateralTemplate in collateralOptions" value="{{collateralTemplate.id}}">
-                  </select>&nbsp;&nbsp;
-                  <input class="input-small" type="text" ng-model="collateralFormData.collateralValueTemplate"  placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
-                  <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" placeholder="{{'label.input.description' | translate}}">
-                  <a ng-click="addCollateral()">&nbsp;<i class="icon-plus icon-white"></i></a>
-                </form>
+            <td class="blockquoteresult" width="90%">
+               <table width="100%">
+                  <tr>
+                    <td>
+                      <select ng-model="collateralFormData.collateralIdTemplate" ng-options="collateralTemplate.name for collateralTemplate in collateralOptions" value="{{collateralTemplate.id}}"> 
+                      </select>&nbsp;&nbsp;
+                      <input class="input-small" type="text" ng-model="collateralFormData.collateralValueTemplate"  placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
+                      <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" placeholder="{{'label.input.description' | translate}}">
+                      <a ng-click="addCollateral()">&nbsp;<i class="icon-plus icon-white"></i></a>
+                    </td>
+                  </tr>
+              </table>
               <table class="table" width="100%" ng-show="collaterals.length>0">
                 <tr class="graybg">
                     <th>{{'label.heading.name' | translate}}</th>

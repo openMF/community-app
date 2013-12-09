@@ -28,7 +28,14 @@
           resourceFactory.savingsTemplateResource.get(scope.inparams, function(data) {
 
             scope.data = data;
+            scope.charges = data.charges;
 
+            for (var i in scope.charges) {
+                if (scope.charges[i].chargeTimeType.value === "Annual Fee" && scope.charges[i].feeOnMonthDay) {
+                    scope.charges[i].feeOnMonthDay.push('2013');
+                    scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay,'dd MMMM yyyy'));
+                }
+            }
             scope.fieldOfficers = data.fieldOfficerOptions;
             scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
             scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;

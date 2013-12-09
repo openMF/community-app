@@ -9,30 +9,32 @@
   <form name="editsavingccountform" novalidate="" class="well" rc-submit="submit()">
     <fieldset>
       <legend>{{ 'label.heading.editsavingapplication' | translate }}</legend>
-      <table width="80%">
+      <table width="100%">
         <tr class="control-group">
-          <td width="50%">
+          <td width="14%" align="center"></td>
+          <td width="40%">
             <label ng-show="clientName" class="control-label">{{ 'label.input.applicant' | translate }}&nbsp;</label>
             <input ng-show="clientName" type="text" value="{{clientName}}" readonly>
             <label ng-show="groupName" class="control-label">{{ 'label.input.applicantgroup' | translate }}&nbsp;</label>
             <input ng-show="groupName" type="text" value="{{groupName}}" readonly>
           </td>
-          <td width="50%">
+          <td width="44%">
             <label class="control-label">{{ 'label.input.product' | translate }}&nbsp;</label>
             <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in products" ng-change="changeProduct()" value="{{product.id}}"></select>
           </td>
         </tr>
       </table>
       <div ng-show="data">
-        <table width="80%">
+        <table width="100%">
           <tr class="control-group">
-            <td width="50%">
+            <td width="14%" align="center"></td>
+            <td width="40%">
               <label class="control-label">{{ 'label.input.fieldofficer' | translate }}&nbsp;</label>
               <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
                 <option style="display:none" value="">{{'label.selectloanofficer' | translate}}</option>
               </select>
             </td>
-            <td width="50%">
+            <td width="44%">
               <label class="control-label">{{ 'label.input.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
               <input id="submittedOnDate" class="date-disable" readonly type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"/>
             </td>
@@ -48,7 +50,7 @@
               <table width="100%">
                 <tr>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.currency' | translate }}&nbsp;<b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
+                    <label class="control-label">{{ 'label.input.currency' | translate }}&nbsp;<b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.heading.decimalplaces' | translate }}&nbsp;<b>{{data.currency.decimalPlaces}}</b></label>
@@ -57,12 +59,12 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.input.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" class="input-small" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
+                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" ng-model="formData.nominalAnnualInterestRate" required ng-late-Validate/>
                     <form-validate valattributeform="editsavingccountform" valattribute="nominalannualinterestrate"/>
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label>
-                    <input type="text" class="input-small" value="{{data.currency.inMultiplesOf}}" readonly>
+                    <input type="text" value="{{data.currency.inMultiplesOf}}" readonly>
                   </td>
                 </tr>
                 <tr>
@@ -102,7 +104,7 @@
                 <tr>
                   <td width="50%">
                     <label class="control-label">{{ 'label.input.minimumopeningbalance' | translate }}&nbsp;</label>
-                    <input id="minRequiredOpeningBalance" type="text" class="input-small" ng-model="formData.minRequiredOpeningBalance">
+                    <input id="minRequiredOpeningBalance" type="text" ng-model="formData.minRequiredOpeningBalance">
                   </td>
                   <td width="50%">
                     <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}&nbsp;</label>
@@ -126,17 +128,23 @@
               <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
             </td>
             <td class="blockquoteresult" width="90%">
-                <form>
-                  <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in data.chargeOptions" value="{{charge.id}}">
-                    <option style="display:none" value="">{{'label.selectcharge' | translate}}</option>
-                  </select>
-                  <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
-                  <span  ng-show="errorchargeevent">
-                    <small class="error">
-                        {{'label.'+labelchargeerror | translate}}
-                    </small>
-                  </span>
-                </form>
+              <table  width="100%">
+                <tr>
+                  <td width="50%">
+                    <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in data.chargeOptions" value="{{charge.id}}">
+                      <option style="display:none" value="">{{'label.selectcharge' | translate}}</option>
+                    </select>
+                    <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
+                    <span  ng-show="errorchargeevent">
+                      <small class="error">
+                          {{'label.'+labelchargeerror | translate}}
+                      </small>
+                    </span>
+                  </td>
+                  <td width="50%">
+                  </td>
+                </tr>
+              </table>
               <table class="table" width="100%" ng-show="charges.length>0">
                 <tr class="graybg">
                   <th>{{'label.heading.name' | translate}}</th>

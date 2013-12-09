@@ -440,40 +440,40 @@
 <tr class="span2"></tr>
 
 <tr class="control-group">
-    <td>
+    <td width="10%" align="center">
         <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
     </td>
-    <td class="blockquoteresult" width="80%">
-        <table>
+    <td class="blockquoteresult" width="90%">
+        <table width="100%">
             <tr>
-                <td width="40%">
-                    <label class="control-label">{{ 'label.input.amortization' | translate }}&nbsp;<span
-                            class="required">*</span></label>
+                <td width="50%">
+                    <label class="control-label">{{ 'label.input.amortization' | translate }}&nbsp;<span class="required">*</span></label>
                     <select id="amortizationType" ng-model="formData.amortizationType"
-                            ng-options="amortizationType.id as amortizationType.value for amortizationType in product.amortizationTypeOptions"
-                            value="{{amortizationType.id}}">
+                        ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions"
+                        value="{{amortizationType.id}}">
                 </td>
-                <td width="40%">
+                <td width="50%">
                     <label class="control-label">{{ 'label.input.interestmethod' | translate }}&nbsp;<span
                             class="required">*</span></label>
                     <select id="interestType" ng-model="formData.interestType"
-                            ng-options="interestType.id as interestType.value for interestType in product.interestTypeOptions"
+                            ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions"
                             value="{{interestType.id}}">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label class="control-label">{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span
+                    <label class="control-label">{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span 
                             class="required">*</span></label>
                     <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
-                            ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
+                            ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions"
                             value="{{interestCalculationPeriodType.id}}">
+                  </td>
                 </td>
                 <td>
                     {{formData.displaySymbol}}
                     <label class="control-label">{{ 'label.input.arearstolerance' | translate }}&nbsp;</label>
                     <input id="inArrearsTolerance" type="text" ng-model="formData.inArrearsTolerance">
-                    {{formData.principalCurrencyCode}}
+                    {{loanaccountinfo.currency.displaySymbol}}
                 </td>
             </tr>
             <tr>
@@ -489,6 +489,20 @@
                     <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
+                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
+                </td>
+                <td>
+                    <label class="control-label">{{ 'label.input.linksavings' | translate }}&nbsp;</label>
+                        <select id="linkAccountId" ng-model="formData.linkAccountId"
+                                ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions"
+                                value="{{savingaccount.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                      </select>
+                  </td>
+                </tr>
             <tr>
                 <td>
                     <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
