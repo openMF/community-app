@@ -2,7 +2,6 @@
     require.config({
         paths: {
             'jquery':           '../bower_components/jquery/jquery',
-            'data-tables':      '../bower_components/datatables/media/js/jquery.dataTables',
             'angular':          '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-translate':'../bower_components/angular-translate/angular-translate',
@@ -26,7 +25,8 @@
             'angularFileUploadShim':'../bower_components/angularjs-file-upload/angular-file-upload-shim',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor':         '../bower_components/ckeditor/ckeditor',
-            'LocalStorageModule':'../scripts/modules/localstorage'
+            'LocalStorageModule':'../scripts/modules/localstorage',
+            'ngCsv':            "../scripts/modules/csv"
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -47,6 +47,7 @@
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'ckEditor':{deps:['jquery']},
             'LocalStorageModule':{deps:['angular']},
+            'ngCsv':{deps:['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -57,7 +58,6 @@
                     'angularui',
                     'angularuitpls',
                     'webstorage',
-                    'data-tables',
                     'nvd3ChartDirectives',
                     'notificationWidget',
                     'angularFileUpload',
@@ -66,7 +66,8 @@
                     'ckEditor',
                     'configurations',
                     'LocalStorageModule',
-                    'angularFileUploadShim'
+                    'angularFileUploadShim',
+                    'ngCsv'
                 ],
                 exports: 'mifosX'
             }

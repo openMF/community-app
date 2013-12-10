@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
 
-    RunReportsController: function(scope, routeParams, resourceFactory, location, dateFilter, API_VERSION) {
+    RunReportsController: function(scope, routeParams, resourceFactory, location, dateFilter, API_VERSION,$rootScope) {
 
       scope.isCollapsed = false; //displays options div on startup
       scope.hideTable = true; //hides the results div on startup
@@ -14,7 +14,8 @@
       scope.reportData.columnHeaders = [];
       scope.reportData.data = [];
       scope.baseURL="";
-
+      scope.csvData = [];
+      scope.row = [];
       scope.reportName = routeParams.name;
       scope.reportType = routeParams.type;
       scope.reportId = routeParams.reportId;
@@ -260,13 +261,20 @@
               resourceFactory.runReportsResource.getReport(scope.formData, function(data){
                 scope.reportData.columnHeaders = data.columnHeaders;
                 scope.reportData.data = data.data;
+                  for(var i in data.columnHeaders){
+                      scope.row.push(data.columnHeaders[i].columnName);
+                  }
+                  scope.csvData.push(scope.row);
+                  for(var k in data.data){
+                      scope.csvData.push(data.data[k].row);
+                  }
               });
             break;
             
             case "Pentaho":
               scope.hideTable=true;
               scope.hidePentahoReport = false;
-              scope.baseURL = API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName); 
+              scope.baseURL = $rootScope.hostUrl +API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
               scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
               var inQueryParameters = buildReportParms();
               if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
@@ -284,7 +292,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'API_VERSION', mifosX.controllers.RunReportsController]).run(function($log) {
+  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'API_VERSION','$rootScope', mifosX.controllers.RunReportsController]).run(function($log) {
     $log.info("RunReportsController initialized");
   });
 }(mifosX.controllers || {}));
