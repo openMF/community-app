@@ -171,7 +171,6 @@ define(['underscore', 'mifosX'], function() {
       'UrlToString'
     ],
     directives: [
-      'DataTablesDirective',
       'DialogDirective',
       'PanelDirective',
       'BigPanelDirective',
