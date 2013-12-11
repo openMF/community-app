@@ -14,9 +14,16 @@
                 if(data.activationDate){
                     var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
                     scope.first.date = new Date(actDate);
-
                 }
+
             });
+
+            resourceFactory.groupResource.get({groupId: routeParams.id}, function(data) {
+                    if (data.timeline.submittedOnDate) {
+                        scope.mindate = new Date(data.timeline.submittedOnDate);
+                    }
+            });
+
             scope.updateGroup = function(){
                 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
                 this.formData.activationDate = reqDate;
@@ -26,6 +33,7 @@
                     location.path('/viewgroup/'+routeParams.id);
                 });
             };
+
             scope.activate = function(){
                 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
                 var newActivation = new Object();

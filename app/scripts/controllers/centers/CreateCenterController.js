@@ -35,6 +35,12 @@
             scope.submit = function() {
                 var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
                 this.formData.activationDate = reqDate;
+                
+                if (scope.first.submitondate) {
+                    reqDate = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
+                    this.formData.submittedOnDate = reqDate;
+                }
+
                 this.formData.locale  = 'en';
                 this.formData.dateFormat =  'dd MMMM yyyy';
                 this.formData.active = this.formData.active || false;
