@@ -481,6 +481,9 @@
       })
       .when('/expertsearch',{
         templateUrl: 'views/expertsearch.html'
+      })
+      .when('/profile',{
+        templateUrl: 'views/profile.html'
       });
     $locationProvider.html5Mode(false);
   };

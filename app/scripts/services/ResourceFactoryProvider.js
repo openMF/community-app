@@ -13,8 +13,9 @@
           return resource(baseUrl + url, paramDefaults, actions);
         };
         return {
-          userResource: defineResource(apiVer + "/users/:userId", {}, {
-            getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true}
+          userResource: defineResource(apiVer + "/users/:userId", {userId:'@userId'}, {
+            getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true},
+            getUser: {method:'GET',params:{}}
           }),
           roleResource: defineResource(apiVer + "/roles/:roleId", {}, {
             getAllRoles: {method: 'GET', params: {}, isArray: true}
