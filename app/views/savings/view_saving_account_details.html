@@ -94,20 +94,16 @@
                   <td>{{savingaccountdetails.interestCalculationType.value}}</td>
                 </tr>
                 <tr>
-                  <td>{{'labelnoofdaysinyear' | translate}}</td>
+                  <td>{{'label.noofdaysinyear' | translate}}</td>
                   <td>{{savingaccountdetails.interestCalculationDaysInYearType.value}}</td>
                 </tr>
-                <tr>
+                <tr data-ng-show="savingaccountdetails.withdrawalFee">
                   <td>{{'label.withdrawalfee' | translate}}</td>
-                  <td>{{savingaccountdetails.withdrawalFeeAmount}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFeeType.value}}</td>
+                  <td>{{savingaccountdetails.withdrawalFee.currency.displaySymbol}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFee.amount}}</td>
                 </tr>
-                <tr>
+                <tr data-ng-show="savingaccountdetails.annualFee">
                   <td>{{'label.annualfee' | translate}}</td>
-                  <td>{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFeeAmount}}&nbsp;{{'label.on' | translate}}&nbsp;{{savingaccountdetails.annualFeeOnMonthDay}}</td>
-                </tr>
-                <tr>
-                  <td>{{'label.annaulfeedueon' | translate}}</td>
-                  <td>{{savingaccountdetails.annualFeeNextDueDate | DateFormat}}</td>
+                  <td>{{savingaccountdetails.annualFee.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFee.amount}}&nbsp;{{'label.on' | translate}}&nbsp;{{annualdue | date:'d MMMM'}}</td>
                 </tr>
             </tbody>
             </table>
@@ -129,15 +125,15 @@
               <tbody>
                 <tr ng-repeat="transaction in savingaccountdetails.transactions">
                   <td>
-                    <a ng-hide="transaction.transfer" href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
-                    <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
+                      <a ng-hide="transaction.transfer" href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
+                      <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
                   </td>
-                  <td>{{transaction.date | DateFormat}}</td>
-                  <td>{{transaction.transactionType.value}}</td>
-                  <td>
-                    <div ng-show="isDebit(transaction.transactionType)">
-                      {{transaction.amount}}
-                    </div>
+                    <td>{{transaction.date | DateFormat}}</td>
+                    <td>{{transaction.transactionType.value}}</td>
+                    <td>
+                        <div ng-show="isDebit(transaction.transactionType)">
+                            {{transaction.amount}}
+                        </div>
                   </td>
                   <td>
                     <div ng-show="!isDebit(transaction.transactionType)">
@@ -172,7 +168,7 @@
                 </tbody>
             </table>
         </tab>
-        <tab  ng-show="$parent.chargeTableShow" heading="{{'tab.charges' | translate}}">
+        <tab  ng-show="$parent.chargeTableShow" heading="{{'label.heading.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -204,8 +200,8 @@
                 <a title="{{'label.delete' | translate}}" href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i class="icon-remove icon-white"></i></a></td>
                 <td ng-hide="chargeAction">
                   <span  ng-hide="charge.amountOutstanding == 0" ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
-                    <a title="{{'label.paycharge' | translate}}" href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i class="icon-check icon-white"></i></a>
-                    <a title="{{'label.waivecharge' | translate}}"  href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i class="icon-flag icon-white"></i></a>
+                    <a title="{{'label.button.paycharge' | translate}}" href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i class="icon-check icon-white"></i></a>
+                    <a title="{{'label.button.waivecharge' | translate}}"  href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i class="icon-flag icon-white"></i></a>
                   </span>
                 </td>
             </tr>
