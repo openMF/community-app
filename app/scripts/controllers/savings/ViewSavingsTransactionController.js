@@ -1,9 +1,12 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     ViewSavingsTransactionController: function(scope, resourceFactory, location, routeParams, dateFilter) {
-
+      scope.flag = false;
       resourceFactory.savingsTrxnsResource.get({savingsId:routeParams.accountId, transactionId:routeParams.id}, function(data){
         scope.transaction = data;
+        if(scope.transaction.transactionType.value=='Transfer' || scope.transaction.reversed=='true'){
+            scope.flag = true;
+        }
       });
 
       scope.undoTransaction = function(accountId, transactionId) {
