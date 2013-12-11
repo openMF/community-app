@@ -4,6 +4,7 @@
             scope.formData = [];
             scope.isCollapsed = true;
             scope.date = {};
+
             resourceFactory.auditResource.get({templateResource: 'searchtemplate'} , function(data) {
                 scope.template = data;
             });
@@ -28,6 +29,8 @@
 
                 if (scope.formData.entity) { params.entityName = scope.formData.entity; };
 
+                if(scope.formData.status) {params.processingResult = scope.formData.status;};
+
                 if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
 
                 if (scope.formData.user) { params.makerId = scope.formData.user; };
@@ -43,14 +46,23 @@
                 if (scope.date.fourth) { params.checkerDateTimeTo = reqFourthDate; };
                 resourceFactory.auditResource.search(params , function(data) {
                     scope.searchData = data;
+                    scope.row = [];
+                    scope.csvData = [];
                     if(scope.userTypeahead){
                         scope.formData.user = '';
                         scope.userTypeahead = false;
                         scope.user = '';
                     }
+                    scope.row = ['Id','Resource Id','Status','Office','Made on','Maker','Checked on','Checker','Entity','Action','Client'];
+                    scope.csvData.push(scope.row);
+                    for(var i in scope.searchData){
+                        scope.row = [scope.searchData[i].id,scope.searchData[i].resourceId,scope.searchData[i].processingResult,scope.searchData[i].officeName,dateFilter(scope.searchData[i].madeOnDate,'d MMMM y h:mm:ss'),scope.searchData[i].maker,dateFilter(scope.searchData[i].checkedOnDate,'d MMMM y h:mm:ss'),scope.searchData[i].checker,scope.searchData[i].entityName,scope.searchData[i].actionName,scope.searchData[i].clientName];
+                        scope.csvData.push(scope.row);
+                    }
                 });
 
             };
+
         }
     });
     mifosX.ng.application.controller('AuditController', ['$scope', 'ResourceFactory','dateFilter','$location', mifosX.controllers.AuditController]).run(function($log) {

@@ -13,9 +13,8 @@
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="control-group">
             <div class="controls">
-                <select ng-model="formData.status">
+                <select value="{{status.id}}" ng-model="formData.status" data-ng-options="status.id as status.processingResult | translate for status in template.processingResults">
                     <option value="">--{{'label.selectstatus' | translate}}--</option>
-                    <option ng-repeat="status in template.processingResults" value="{{status.id}}">{{status.processingResult}}</option>
                 </select>
             </div>
         </div>
@@ -76,34 +75,41 @@
         </div>
         <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
     </div>
-    <div ng-show="displayResults" class="row-fluid">
-        <table class="table table-bordered">
-            <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.id' | translate}}</th>
-                <th>{{'label.heading.status' | translate}}</th>
-                <th>{{'label.heading.madeby' | translate}}</th>
-                <th>{{'label.heading.action' | translate}}</th>
-                <th>{{'label.heading.entity' | translate}}</th>
-                <th>{{'label.heading.office' | translate}}</th>
-                <th>{{'label.heading.madedate' | translate}}</th>
-                <th>{{'label.heading.checker' | translate}}</th>
-                <th>{{'label.heading.checkeddate' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="data in searchData">
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.officeName}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | date:'d MMM y h:mm:ss'}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.checker}}</td>
-                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.checkedOnDate | date:'d MMM y h:mm:ss'}}</td>
-            </tr>
-            </tbody>
-        </table>
+    <div ng-show="displayResults">
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv' | translate }}</button>
+        </div>
+        <div scroll>
+            <table width="100%" style="width:1200px" class="table table-bordered" data-anchor>
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.id' | translate}}</th>
+                        <th>{{'label.heading.resourceid' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
+                        <th>{{'label.heading.madeby' | translate}}</th>
+                        <th>{{'label.heading.action' | translate}}</th>
+                        <th>{{'label.heading.entity' | translate}}</th>
+                        <th>{{'label.heading.office' | translate}}</th>
+                        <th>{{'label.heading.madedate' | translate}}</th>
+                        <th>{{'label.heading.checker' | translate}}</th>
+                        <th>{{'label.heading.checkeddate' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row" style="cursor: pointer" data-ng-click="routeTo(data.id)" ng-repeat="data in searchData">
+                        <td>{{data.id}}</td>
+                        <td>{{data.resourceId}}</td>
+                        <td>{{data.processingResult | translate}}</td>
+                        <td>{{data.maker}}</td>
+                        <td>{{data.actionName}}</td>
+                        <td>{{data.entityName}}</td>
+                        <td>{{data.officeName}}</td>
+                        <td>{{data.madeOnDate | date:'d MMM y h:mm:ss'}}</td>
+                        <td>{{data.checker}}</td>
+                        <td>{{data.checkedOnDate | date:'d MMM y h:mm:ss'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -1,0 +1,39 @@
+<div data-ng-controller="ProfileController">
+    <h3 class="paddedleft"><strong>{{ 'label.heading.userprofile' | translate }}</strong></h3>
+    <a href="#/admin/roles" style="margin-right: 10px" class="btn pull-right btn-primary">{{ 'label.button.viewpermissions' | translate }}</a>
+    <div class="span6">
+        <table class="table view-table table-bordered">
+            <tr>
+                <th>{{ 'label.heading.userid' | translate }}</th>
+                <td>{{userDetails.userId}}</td>
+            </tr>
+            <tr>
+                <th>{{ 'label.heading.username' | translate }}</th>
+                <td>{{userDetails.username}}</td>
+            </tr>
+            <tr>
+                <th>{{ 'label.heading.office' | translate }}</th>
+                <td>{{userDetails.officeName}}</td>
+            </tr>
+            <tr>
+                <th>{{ 'label.heading.status' | translate }}</th>
+                <td>{{status}}</td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <div class="span10">
+        <table class="table view-table table-bordered">
+            <tr class="graybg">
+                <th>{{ 'label.heading.role' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+            </tr>
+            <tr data-ng-repeat="role in userDetails.roles">
+                <td>{{role.name}}</td>
+                <td>{{role.description}}</td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+
+</div>
