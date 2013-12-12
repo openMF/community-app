@@ -10,7 +10,7 @@ describe("MainController", function() {
       sessionCallback = callback;
     });
 
-    this.translate = jasmine.createSpy();
+    this.translate = jasmine.createSpyObj("translate", ["uses"]);
     this.rootScope = jasmine.createSpy();
     this.localStorageService = jasmine.createSpyObj("localStorageService", ["get"]);
 
@@ -36,7 +36,7 @@ describe("MainController", function() {
   describe("on receving 'UserAuthenticationSuccessEvent'", function() {
     beforeEach(function() {
       this.sessionManager.get.andReturn("test_session");
-      
+
       eventListener({}, "test_data");
     });
 
@@ -52,7 +52,7 @@ describe("MainController", function() {
   describe("User logout", function() {
     beforeEach(function() {
       this.sessionManager.clear.andReturn("test_session");
-      
+
       this.scope.logout();
     });
 

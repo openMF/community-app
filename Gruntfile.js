@@ -26,6 +26,12 @@ module.exports = function(grunt) {
       all: ['Gruntfile.js', '<%= mifosx.app %>/scripts/**/*.js']
     },
 
+    karma: {
+      unit: {
+          configFile: 'karma.conf.js'
+      }
+    },
+
     //uglify the js files
     uglify: {
       options: {
@@ -194,6 +200,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-karma');
 
   // Default task(s).
       
@@ -201,5 +208,6 @@ module.exports = function(grunt) {
   grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('compile', ['jshint']);
+  grunt.registerTask('test', ['karma']);
 
 };

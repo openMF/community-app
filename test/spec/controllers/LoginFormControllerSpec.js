@@ -13,7 +13,7 @@ describe("LoginFormController", function() {
   it("should initialise the login credentials", function() {
     expect(this.scope.loginCredentials).toEqual({});
   });
-  
+
   it("should initialise the authenticationFailed flag", function() {
     expect(this.scope.authenticationFailed).toBeFalsy();
   });
