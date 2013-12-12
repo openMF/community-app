@@ -26,7 +26,8 @@
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize.min',
             'ckEditor':         '../bower_components/ckeditor/ckeditor.min',
             'LocalStorageModule':'../scripts/modules/localstorage',
- 			'ngCsv':            "../scripts/modules/csv"
+ 			'ngCsv':            "../scripts/modules/csv",
+            'chosen.jquery.min':   "../scripts/modules/chosen.jquery.min"
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -48,6 +49,7 @@
             'ckEditor':{deps:['jquery']},
             'LocalStorageModule':{deps:['angular']},
             'ngCsv':{deps:['angular']},
+            'chosen.jquery.min':{deps:['jquery']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -67,7 +69,8 @@
                     'configurations',
                     'LocalStorageModule',
                     'angularFileUploadShim',
-                    'ngCsv'
+                    'ngCsv',
+                    'chosen.jquery.min'
                 ],
                 exports: 'mifosX'
             }
