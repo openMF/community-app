@@ -32,10 +32,29 @@
                 <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}</a>
                 <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
                 <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
-                <a href="#/closecenter/{{center.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.button.close' | translate }}</a>
-                <button class="btn btn-primary" data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.button.delete' | translate }}</button>
-                <a href="#/assignstaff/{{center.id}}/centers" class="btn btn-primary" data-ng-hide="center.staffId"><i class="icon-user icon-white"></i>{{ 'label.button.assignstaff' | translate }}</a>
-                <button class="btn btn-primary" data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId"><i class="icon-user icon-white"></i>{{ 'label.button.unassignstaff' | translate }}</button>
+                <span class="btn-group">
+                      <a class="btn btn-primary dropdown-toggle">
+                          {{ 'label.button.more' | translate}}
+                          <span class="caret"></span>
+                      </a>
+                      <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
+                          <li>
+                              <a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId">{{ 'label.button.assignstaff' | translate }}</a>
+                          </li>
+                          <li>
+                              <a data-ng-click="unassignStaffCenter()" data-ng-show="center.staffId">{{ 'label.button.unassignstaff' | translate }}</a>
+                          </li>
+                          <li>
+                              <a data-ng-click="deleteCenter()" data-ng-hide="center.status.value=='Active'">{{ 'label.button.delete' | translate }}</a>
+                          </li>
+                          <li>
+                              <a href="#/closecenter/{{center.id}}">{{ 'label.button.close' | translate }}</a>
+                          </li>
+                          <li>
+                              <a href="#/attachmeeting/{{center.id}}/centers" data-ng-hide="center.collectionMeetingCalendar">{{ 'label.button.attachmeeting' | translate }}</a>
+                          </li>
+                      </ul>
+                  </span>
             </div>
         </div>
         <br/>
@@ -155,7 +174,7 @@
         <div class="row-fluid primarydiv" data-ng-hide="center.status.value == 'Closed'">
             <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}" class="btn btn-primary pull-right"><i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
             <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}" class="btn btn-primary pull-right" data-ng-show="center.collectionMeetingCalendar">{{ 'label.button.attendance' | translate }}</a>
-            <a href="#/attachmeeting/{{center.id}}/centers" class="btn btn-primary pull-right" data-ng-hide="center.collectionMeetingCalendar"><i class="icon-paper-clip icon-white"></i>{{ 'label.button.attachmeeting' | translate }}</a>
+
         </div>
     </div>
     <table class="table table-striped" width="100%">

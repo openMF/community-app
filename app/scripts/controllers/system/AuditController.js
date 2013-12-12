@@ -31,6 +31,8 @@
 
                 if(scope.formData.status) {params.processingResult = scope.formData.status;};
 
+                if(scope.formData.status==0) {params.processingResult = scope.formData.status;};
+
                 if (scope.formData.resourceId) { params.resourceId = scope.formData.resourceId; };
 
                 if (scope.formData.user) { params.makerId = scope.formData.user; };
@@ -46,6 +48,9 @@
                 if (scope.date.fourth) { params.checkerDateTimeTo = reqFourthDate; };
                 resourceFactory.auditResource.search(params , function(data) {
                     scope.searchData = data;
+                    if(scope.searchData==''){
+                        scope.flag = false;
+                    }else{scope.flag = true;}
                     scope.row = [];
                     scope.csvData = [];
                     if(scope.userTypeahead){

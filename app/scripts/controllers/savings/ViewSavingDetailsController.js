@@ -68,10 +68,6 @@
 
       resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function(data) {
           scope.savingaccountdetails = data;
-          var annualdue = [];
-          annualdue = data.annualFee.feeOnMonthDay;
-          annualdue.push(2013);
-          scope.annualdue = new Date(annualdue);
           scope.status = data.status.value;
           if(scope.status=="Submitted and pending approval" || scope.status=="Active" || scope.status=="Approved" ){
               scope.choice = true;
@@ -161,6 +157,10 @@
             }
           }
         }
+          var annualdueDate = [];
+          annualdueDate = data.annualFee.feeOnMonthDay;
+          annualdueDate.push(2013);
+          scope.annualdueDate = new Date(annualdueDate);
       });
 
       resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'} , function(data) {
