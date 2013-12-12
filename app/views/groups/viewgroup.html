@@ -34,11 +34,29 @@
                     <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
                     <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>
                     <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
-                    <a href="#/closegroup/{{group.id}}" class="btn btn-primary"><i class="icon-remove-circle icon-white"></i>{{ 'label.button.close' | translate }}</a>
-                    <a href="#/attachmeeting/{{group.id}}/groups" class="btn btn-primary pull-right" data-ng-hide="group.collectionMeetingCalendar"><i class="icon-paper-clip icon-white"></i>{{ 'label.button.attachmeeting' | translate }}</a>
-                    <button class="btn btn-primary" data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'"><i class="icon-trash icon-white"></i>{{ 'label.button.delete' | translate }}</button>
-                    <a href="#/assignstaff/{{group.id}}/groups" class="btn btn-primary" data-ng-hide="group.staffId">{{ 'label.button.assignstaff' | translate }}</a>
-                    <button class="btn btn-primary" data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId">{{ 'label.button.unassignstaff' | translate }}</button>
+                    <span class="btn-group">
+                      <a class="btn btn-primary dropdown-toggle">
+                          {{ 'label.button.more' | translate}}
+                          <span class="caret"></span>
+                      </a>
+                      <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
+                          <li>
+                              <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId">{{ 'label.button.assignstaff' | translate }}</a>
+                          </li>
+                          <li>
+                              <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId">{{ 'label.button.unassignstaff' | translate }}</a>
+                          </li>
+                          <li>
+                              <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'">{{ 'label.button.delete' | translate }}</a>
+                          </li>
+                          <li>
+                              <a href="#/closegroup/{{group.id}}">{{ 'label.button.close' | translate }}</a>
+                          </li>
+                          <li>
+                              <a href="#/attachmeeting/{{group.id}}/groups" data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' | translate }}</a>
+                          </li>
+                      </ul>
+                    </span>
                 </div>
             </div>
             <br/>
@@ -132,7 +150,7 @@
           <div data-ng-show="groupAccounts.loanAccounts">
             <h3>{{ 'label.heading.loanaccoverview' | translate }}</h3>
             <br/>
-            <a href="#/groupclosedloanaccount/{{group.id}}" class="pull-right">{{ 'label.viewcloseloans' | translate }}</a>
+            <a href="#/groupclosedloanaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedloans' | translate }}</a>
             <table class="table table-striped" width="100%">
                   <thead>
                     <tr class="graybg">
@@ -161,7 +179,7 @@
           </div>
           <div data-ng-show="groupAccounts.savingsAccounts">
             <h3>{{'label.heading.savingsaccoverview' | translate }}</h3>
-            <a href="#/groupclosedsavingaccount/{{group.id}}" class="pull-right">{{ 'label.viewclosesavings' | translate }}</a>
+            <a href="#/groupclosedsavingaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedsavings' | translate }}</a>
             <table class="table table-striped" width="100%">
               <thead>
                 <tr class="graybg">
