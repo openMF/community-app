@@ -76,10 +76,10 @@
         <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
     </div>
     <div ng-show="displayResults">
-        <div class="pull-right">
+        <div data-ng-show="flag" class="pull-right">
             <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv' | translate }}</button>
         </div>
-        <div scroll>
+        <div scroll data-ng-show="flag">
             <table width="100%" style="width:1200px" class="table table-bordered" data-anchor>
                 <thead>
                     <tr class="graybg">
@@ -111,5 +111,6 @@
                 </tbody>
             </table>
         </div>
+        <h3 data-ng-show="!flag" style="color:red;position: absolute;top: 40%;left: 45%;"><strong>{{ 'label.nodata' | translate }}</strong></h3>
     </div>
 </div>
