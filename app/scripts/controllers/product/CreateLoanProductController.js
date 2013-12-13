@@ -22,7 +22,7 @@
             scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
             scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
             scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
-
+            scope.penaltyOptions = scope.product.penaltyOptions || [];
             scope.formData.currencyCode = scope.product.currencyOptions[0].code;
             scope.formData.includeInBorrowerCycle = 'false';
             scope.formData.useBorrowerCycle = 'false';
@@ -99,27 +99,22 @@
 
         scope.addConfigureFundSource = function() {
             scope.frFlag = true;
-          if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 && 
-            scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
-              scope.configureFundOptions.push({
-                paymentTypeId : scope.product.paymentTypeOptions[0].id,
-                fundSourceAccountId : scope.assetAccountOptions[0].id,
-                paymentTypeOptions : scope.product.paymentTypeOptions,
-                assetAccountOptions : scope.assetAccountOptions
-              });
-          };
+            scope.configureFundOptions.push({
+              paymentTypeId : scope.product.paymentTypeOptions.length > 0 ? scope.product.paymentTypeOptions[0].id : '',
+              fundSourceAccountId : scope.assetAccountOptions.length > 0 ? scope.assetAccountOptions[0].id : '',
+              paymentTypeOptions : scope.product.paymentTypeOptions.length > 0 ? scope.product.paymentTypeOptions : [],
+              assetAccountOptions : scope.assetAccountOptions.length > 0 ? scope.assetAccountOptions : []
+            });
         };
 
         scope.mapFees = function() {
             scope.fiFlag = true;
-          if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
-              scope.specificIncomeaccounts.push({
-                chargeId : scope.product.chargeOptions[0].id,
-                incomeAccountId : scope.incomeAccountOptions[0].id,
-                chargeOptions : scope.product.chargeOptions,
-                incomeAccountOptions : scope.product.accountingMappingOptions.incomeAccountOptions
-              });
-          }
+            scope.specificIncomeaccounts.push({
+              chargeId : scope.product.chargeOptions.length > 0 ? scope.product.chargeOptions[0].id : '',
+              incomeAccountId : scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
+              chargeOptions : scope.product.chargeOptions.length > 0 ? scope.product.chargeOptions : [],
+              incomeAccountOptions : scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions : []
+            });
         };
 
         scope.addPrincipalVariation = function() {
@@ -143,14 +138,12 @@
 
         scope.mapPenalty = function() {
             scope.piFlag = true;
-          if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
             scope.penaltySpecificIncomeaccounts.push({
-              chargeId : scope.product.penaltyOptions[0].id,
-              incomeAccountId : scope.incomeAccountOptions[0].id,
-              penaltyOptions : scope.product.penaltyOptions,
-              incomeAccountOptions : scope.incomeAccountOptions
+              chargeId : scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
+              incomeAccountId : scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
+              penaltyOptions : scope.penaltyOptions.length > 0 ? scope.penaltyOptions : [],
+              incomeAccountOptions : scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions : []
             });
-          }
         };
 
         scope.deleteFund = function(index) {
