@@ -28,18 +28,11 @@
             <label class="control-label">{{ 'label.input.affectedglentries' | translate }}<span class="required">*</span></label>
             <div class="controls">
               <table width="100%">
-                <tr>
-                  <td width="50%">
-                    <strong>{{ 'label.input.credit' | translate }}</strong>
-                  </td>
-                  <td width="50%">
-                    <strong>{{ 'label.input.debit' | translate }}</strong>
-                  </td>
-                </tr>
+                <h4><strong>{{ 'label.input.credit' | translate }}</strong></h4>
                 <tr>
                   <td>
                     <div>
-                      <select class="input-small" ng-model="formData.creditAccountTemplate" ng-options="creditAccount.name for creditAccount in glAccounts" >
+                      <select chosen="glAccounts" ng-model="formData.creditAccountTemplate" ng-options="creditAccount.name for creditAccount in glAccounts" >
                         <option style="display:none" value="">{{'label.selectcredit' | translate}}</option>
                       </select>
                       &nbsp; <input type="text" class="input-small" name="creditamount"  ng-model="formData.crAmountTemplate">
@@ -52,15 +45,23 @@
                     </div>
                     <br>
                     <div ng-repeat="crAccount in formData.crAccounts">
-                      <input type="text" class="input-small"  ng-model="crAccount.crGlName" readonly>
+                      <input type="text" ng-model="crAccount.crGlName" readonly>&nbsp;&nbsp;
                       <input type="text" class="input-small"  ng-model="crAccount.crAmount">
-                      <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                      &nbsp;<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <select class="input-small" ng-model="formData.debitAccountTemplate" ng-options="debitAccount.name for debitAccount in glAccounts" >
-                      <option style="display:none" value="">{{'label.selectdebit' | translate}}</option>
+                  </td>
+                </tr>
+              </table>
+              <table width="100%">
+                <h4><strong>{{ 'label.input.debit' | translate }}</strong></h4>
+                <tr>
+                  <td>
+                      <div>
+                      <select chosen="glAccounts" ng-model="formData.debitAccountTemplate"
+                            ng-options="debitAccount.name for debitAccount in glAccounts" >
+                            <option style="display:none" value="">{{'label.selectdebit' | translate}}</option>
                       </select>
                       &nbsp; <input type="text" class="input-small" name="debitamount"  ng-model="formData.debitAmountTemplate">
                       &nbsp; <a ng-click="addDebitAccount()">&nbsp;<i class="icon-plus icon-white"></i></a>
@@ -72,11 +73,12 @@
                     </div>
                     <br>
                     <div ng-repeat="dbAccount in formData.dbAccounts">
-                      <input type="text" class="input-small"  ng-model="dbAccount.debitGlName" readonly>
+                      <input type="text" ng-model="dbAccount.debitGlName" readonly>&nbsp;&nbsp;
                       <input type="text" class="input-small"  ng-model="dbAccount.debitAmount">
-                      <a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                      &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                     </div>
                   </td>
+                  <td></td>
                 </tr>
               </table>
             </div>

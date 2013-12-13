@@ -6,7 +6,8 @@ define(['underscore'], function() {
       'font-awesome.min',
       'app',
       'nv.d3',
-      'style'
+      'style',
+      'chosen.min'
     ],
     less: [
       'mifosX'
