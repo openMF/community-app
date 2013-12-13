@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http, $modal, API_VERSION,$rootScope) {
+    ViewClientController: function(scope, routeParams , route, location, resourceFactory, http, $modal, API_VERSION,$rootScope,$upload) {
         scope.client = [];
         scope.identitydocuments = [];
         scope.buttons = [];
@@ -13,7 +13,7 @@
             if (data.imagePresent) {
               http({
                 method:'GET',
-                url: $rootScope.hostUrl +API_VERSION + '/clients/'+routeParams.id+'/images'
+                url: $rootScope.hostUrl + API_VERSION + '/clients/'+routeParams.id+'/images'
               }).then(function(imageData) {
                 scope.image = imageData.data;
               });
@@ -127,6 +127,36 @@
                 templateUrl: 'deleteClient.html',
                 controller: ClientDeleteCtrl
             });
+        };
+        scope.uploadPic = function () {
+            $modal.open({
+                templateUrl: 'uploadpic.html',
+                controller: UploadPicCtrl
+            });
+        };
+        var UploadPicCtrl = function ($scope, $modalInstance) {
+            $scope.onFileSelect = function($files) {
+                scope.file = $files[0];
+            };
+            $scope.upload = function () {
+                if (scope.file) {
+                    $upload.upload({
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/'+routeParams.id+'/images',
+                        data: {},
+                        file: scope.file
+                    }).then(function(imageData) {
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            route.reload();
+                        });
+                }
+                $modalInstance.close('upload');
+            };
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
         };
         scope.unassignStaffCenter = function () {
             $modal.open({
@@ -374,7 +404,7 @@
         };
     }
   });
-  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope', mifosX.controllers.ViewClientController]).run(function($log) {
+  mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope','$upload', mifosX.controllers.ViewClientController]).run(function($log) {
     $log.info("ViewClientController initialized");
   });
 }(mifosX.controllers || {}));

@@ -24,11 +24,6 @@
             }
 
         });
-
-        scope.onFileSelect = function($files) {
-          scope.file = $files[0];
-        };
-        
         scope.submit = function() {
              this.formData.locale = 'en';
              this.formData.dateFormat = 'dd MMMM yyyy';
@@ -36,22 +31,8 @@
               if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
              }
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
-              if (scope.file) {
-                $upload.upload({
-                  url: $rootScope.hostUrl +  API_VERSION + '/clients/'+data.clientId+'/images',
-                  data: {},
-                  file: scope.file
-                }).then(function(imageData) {
-                  // to fix IE not refreshing the model
-                  if (!scope.$$phase) {
-                    scope.$apply();
-                  }
-                  location.path('/viewclient/'+data.resourceId);
-                });
-              } else{
-                location.path('/viewclient/' + data.resourceId);
-              }
-          });
+               location.path('/viewclient/' + routeParams.id);
+             });
         };
     }
   });

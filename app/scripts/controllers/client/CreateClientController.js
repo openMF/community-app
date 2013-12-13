@@ -19,9 +19,6 @@
           });
         };
 
-        scope.onFileSelect = function($files) {
-          scope.file = $files[0];
-        };
         scope.setChoice = function(){
             if(this.formData.active){
                 scope.choice = 1;
@@ -43,22 +40,7 @@
             }
             
             resourceFactory.clientResource.save(this.formData,function(data){
-              if (scope.file) {
-                $upload.upload({
-                  url: $rootScope.hostUrl + API_VERSION + '/clients/'+data.clientId+'/images',
-                  data: {},
-                  file: scope.file
-                }).then(function(imageData) {
-                  // to fix IE not refreshing the model
-                  if (!scope.$$phase) {
-                    scope.$apply();
-                  }
-                  location.path('/viewclient/'+data.resourceId);
-                });
-              } else{
-                location.path('/viewclient/' + data.resourceId);
-              }
-              
+              location.path('/viewclient/' + data.clientId);
             });
           };
     }
