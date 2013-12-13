@@ -1,21 +1,56 @@
-<div class="well" ng-controller="ViewHolController">
-    <h3>{{holiday.name}}</h3>
-        <table >
-        <tr>
-            <td>{{ 'label.heading.name' | translate }}</td>
-            <td>{{holiday.name}}</td>
-        </tr>
-        <tr>
-            <td>{{ 'label.heading.fromdate' | translate }}</td>
-            <td>{{holiday.fromDate | DateFormat}}</td>
-        </tr>
-        <tr>
-            <td>{{ 'label.heading.todate' | translate }}</td>
-            <td>{{holiday.toDate | DateFormat}}</td>
-        </tr>
-        <tr>
-            <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
-            <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
-        </tr>
-    </table>
+<div ng-controller="ViewHolController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{holiday.name}}</li>
+        </ul>
+        <div class="pull-right">
+          <div class="btn-group">
+              <a ng-show="holidayStatusPending" data-ng-click="activateHoliday()" class="btn btn-primary"><i class="icon-check-sign icon-white"></i>
+                {{ 'label.button.activate' | translate }}</a>
+              <a href="#/editholiday/{{holiday.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
+              <a ng-hide="holidayStatusDeleted" data-ng-click="deleteHoliday()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.delete' | translate }}</a>
+          </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="activateHoliday.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.activateholiday' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="deleteHoliday.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.deleteholiday' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div>
+        <h3>{{holiday.name}}</h3>
+            <table >
+            <tr>
+                <td>{{ 'label.heading.name' | translate }}</td>
+                <td>{{holiday.name}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.fromdate' | translate }}</td>
+                <td>{{holiday.fromDate | DateFormat}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.todate' | translate }}</td>
+                <td>{{holiday.toDate | DateFormat}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
+                <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+            </tr>
+        </table>
+    </div>
 </div>

@@ -326,6 +326,9 @@
       .when('/viewholiday/:id', {
           templateUrl: 'views/organization/viewholiday.html'
       })
+      .when('/editholiday/:id', {
+          templateUrl: 'views/organization/editholiday.html'
+      })
       .when('/reports/:type', {
         templateUrl: 'views/reports/view_reports.html'
       })

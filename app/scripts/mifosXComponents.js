@@ -112,6 +112,7 @@ define(['underscore', 'mifosX'], function() {
       'system/ViewSchedulerJobHistoryController',
       'organization/HolController',
       'organization/ViewHolController',
+      'organization/EditHolidayController',
       'organization/AddHolController',
       'reports/ViewReportsController',
       'reports/RunReportsController',
