@@ -213,19 +213,19 @@ angular.module('modified.datepicker', ['strap.position'])
                     "  <thead>\n" +
                     "    <tr class=\"text-center\">\n" +
                     "      <th><button type=\"button\" class=\"btn-black pull-left\" ng-click=\"move(-1)\"><i class=\"icon-chevron-left\"></i></button></th>\n" +
-                    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn-black btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
+                    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn-black btn-block\" ng-click=\"toggleMode()\"><strong>{{title | translate}}</strong></button></th>\n" +
                     "      <th><button type=\"button\" class=\"btn-black pull-right\" ng-click=\"move(1)\"><i class=\"icon-chevron-right\"></i></button></th>\n" +
                     "    </tr>\n" +
                     "    <tr class=\"text-center\" ng-show=\"labels.length > 0\">\n" +
                     "      <th ng-show=\"showWeekNumbers\">#</th>\n" +
-                    "      <th ng-repeat=\"label in labels\">{{label}}</th>\n" +
+                    "      <th ng-repeat=\"label in labels\">{{label | translate}}</th>\n" +
                     "    </tr>\n" +
                     "  </thead>\n" +
                     "  <tbody>\n" +
                     "    <tr ng-repeat=\"row in rows\">\n" +
                     "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
                     "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-                    "        <button type=\"button\" style=\"width:100%;\" class=\"btn-silver\" ng-class=\"{'btn-silver-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label}}</span></button>\n" +
+                    "        <button type=\"button\" style=\"width:100%;\" class=\"btn-silver\" ng-class=\"{'btn-silver-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label | translate}}</span></button>\n" +
                     "      </td>\n" +
                     "    </tr>\n" +
                     "  </tbody>\n" +
