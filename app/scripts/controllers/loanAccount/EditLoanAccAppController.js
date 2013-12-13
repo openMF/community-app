@@ -100,6 +100,11 @@
                 scope.formData.syncRepaymentsWithMeeting = true;
               }
 
+              if (scope.loanaccountinfo.linkedAccount) {
+                  scope.formData.linkAccountId = scope.loanaccountinfo.linkedAccount.id;
+              }
+            
+
             }
             
             scope.addCharge = function() {
