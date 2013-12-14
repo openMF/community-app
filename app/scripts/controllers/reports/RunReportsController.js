@@ -6,6 +6,9 @@
       scope.isCollapsed = false; //displays options div on startup
       scope.hideTable = true; //hides the results div on startup
       scope.hidePentahoReport = true; //hides the results div on startup
+      scope.hideChart = true;
+      scope.piechart = false;
+      scope.barchart = false;
       scope.formData = {};
       scope.reportParams = new Array();
       scope.reportDateParams = new Array();
@@ -20,6 +23,7 @@
       scope.reportType = routeParams.type;
       scope.reportId = routeParams.reportId;
       scope.pentahoReportParameters = [];
+      scope.type="pie";
 
       scope.highlight = function(id){
           var i = document.getElementById(id);
@@ -235,7 +239,31 @@
         }
         return reportParams;
       }
-
+        scope.xFunction = function(){
+            return function(d) {
+                return d.key;
+            };
+        };
+        scope.yFunction = function(){
+            return function(d) {
+                return d.values;
+            };
+        };
+        scope.setTypePie = function(){
+            if(scope.type=='bar'){
+                scope.type = 'pie';
+            }
+        };
+        scope.setTypeBar = function(){
+            if(scope.type=='pie'){
+                scope.type = 'bar';
+            }
+        };
+        scope.colorFunctionPie = function() {
+            return function(d, i) {
+                return colorArrayPie[i];
+            };
+        };
       scope.runReport = function (){
         //clear the previous errors
         scope.errorDetails = [];
@@ -257,6 +285,7 @@
             case "Table":
               scope.hideTable=false;
               scope.hidePentahoReport = true;
+                scope.hideChart = true;
               scope.formData.reportSource = scope.reportName;
               resourceFactory.runReportsResource.getReport(scope.formData, function(data){
                 scope.reportData.columnHeaders = data.columnHeaders;
@@ -274,12 +303,41 @@
             case "Pentaho":
               scope.hideTable=true;
               scope.hidePentahoReport = false;
+              scope.hideChart = true;
               scope.baseURL = $rootScope.hostUrl +API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
               scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
               var inQueryParameters = buildReportParms();
               if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
-            break;
-            default:
+              break;
+              case "Chart":
+                  scope.hideTable = true;
+                  scope.hidePentahoReport = true;
+                  scope.hideChart = false;
+                  scope.formData.reportSource = scope.reportName;
+                  resourceFactory.runReportsResource.getReport(scope.formData, function(data){
+                      scope.reportData.columnHeaders = data.columnHeaders;
+                      scope.reportData.data = data.data;
+                      scope.chartData = [];
+                      scope.barData = [];
+                      var l = data.data.length;
+                      for(var i=0;i<l;i++){
+                          scope.row = {};
+                          scope.row.key = data.data[i].row[0];
+                          scope.row.values = data.data[i].row[1];
+                          scope.chartData.push(scope.row);
+                      }
+                      var x = {};
+                      x.key = "summary";
+                      x.values = [];
+                      for(var m=0;m<l;m++){
+                         var inner = [data.data[m].row[0],data.data[m].row[1]];
+                          x.values.push(inner);
+                      }
+                      scope.barData.push(x);
+                      console.log(scope.barData);
+                  });
+                  break;
+              default:
               var errorObj = new Object();
               errorObj.field = scope.reportType;
               errorObj.code = 'error.message.report.type.is.invalid';
