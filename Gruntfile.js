@@ -190,6 +190,27 @@ module.exports = function(grunt) {
           out: '<%= mifosx.dist %>/<%=mifosx.target%>/loader.js'
         }
       }
+    },
+
+    devcode: {
+      options: {
+        html: true,        // html files parsing?
+        js: false,          // javascript files parsing?
+        css: false,         // css files parsing?
+        clean: true,       // removes devcode comments even if code was not removed
+        block: {
+          open: 'devcode', // with this string we open a block of code
+          close: 'endcode' // with this string we close a block of code
+        },
+        dest: 'dist'       // default destination which overwrittes environment variable
+      },
+      dist : {             // settings for task used with 'devcode:dist'
+        options: {
+            source: 'dist/',
+            dest: 'dist/',
+            env: 'production'
+        }
+      }
     }
   });
 
@@ -201,11 +222,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-devcode');
 
   // Default task(s).
       
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod']);
+  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('compile', ['jshint']);
   grunt.registerTask('test', ['karma']);
