@@ -1,15 +1,25 @@
-<div class="row alert-block form-horizontal span" ng-controller="RunReportsController">
+<div class="paddedbottom10">
+    <ul class="breadcrumb">
+        <li><a href="#/reports">{{'label.anchor.reports' | translate}}</a> <span class="divider">/</span></li>
+        <li class="active">{{'label.anchor.runreport' | translate}}</li>
+    </ul>
+</div>
+<div ng-controller="RunReportsController">
     <api-validate></api-validate>
-    <div class="row alert-block span" >
-        <h3><b>{{reportName}}</b>&nbsp;<a class="btn btn-primary" ng-show="checkStatus()" ng-click="isCollapsed=!isCollapsed">{{ 'label.button.parameters' | translate }}<i class="icon-sort-down icon-white"></i></a></h3>
+    <div class="span gray-head" style="margin-left:0%;height:20px;margin-top: -10px;">
+          <span style="margin-left: 10px;font-size:20px;">
+                <strong>{{reportName}}</strong>
+                <button type="button" class="btn-primary pull-right" ng-show="checkStatus()" ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>{{ 'label.button.parameters' | translate }}</button>
+                <button type="button" data-ng-hide="hideChart" class="btn-primary pull-right" ng-click="setTypePie()">{{ 'label.input.piechart' | translate }}</button>
+                <button type="button" data-ng-hide="hideChart" class="btn-primary pull-right" ng-click="setTypeBar()">{{ 'label.input.barchart' | translate }}</button>
+          </span>
     </div>
-
     <div ng-hide="isCollapsed" class="row alert-block span">
         <br>
         <div class="control-group info"  ng-repeat="reportParam in reportParams">
             <label class="control-label" for="{{reportParam.variable}}">{{ reportParam.label }}</label>
             <div class="controls">
-              <select id="{{reportParam.inputName}}" class="input-xlarge" ng-model="formData[reportParam.inputName]" ng-change="getDependencies(reportParam)" required>
+              <select id="{{reportParam.inputName}}" class="input-xlarge" ng-model="formData[reportParam.inputName]"ng-change="getDependencies(reportParam)" required>
                 <option ng-show="reportParam.selectAll == 'Y'" value="-1">{{ 'label.all' | translate }}</option>
                 <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">{{selectOption.name}}</option>
               </select>
@@ -33,8 +43,55 @@
             </div>
         </div>
 
-        <span><a ng-click="runReport()" class="btn btn-primary control"><i class="icon-play icon-white"></i>&nbsp;&nbsp;{{ 'label.button.run' | translate }}</a></span>
+        <span class="offset3 paddedleft120"><a ng-click="runReport()" class="btn btn-primary control"></i>&nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
     </div>
+    <div style="visibility: hidden">
+        <table>
+            <tr>
+                <td width="30%"></td>
+                <td>
+                    <input type="radio" ng-model="type" value="pie">{{'label.input.pie' |
+                    translate}}<br/>
+                <td>
+                <td>
+                    <input type="radio" ng-model="type" value="bar">{{'label.input.bar' |
+                    translate}}<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-left:-75px;overflow:auto">
+        <div data-ng-hide="hideChart">
+            <div data-ng-show="type=='pie'">
+                <nvd3-pie-chart
+                        data="chartData"
+                        id="pie"
+                        width="1100"
+                        height="900"
+                        x="xFunction()"
+                        y="yFunction()"
+                        tooltips="true"
+                        showLegend="true"
+                        showLabels="true"
+                        labelType="percent">
+                    <svg height="1300"></svg>
+                </nvd3-pie-chart>
+            </div>
+            <div style="margin-left: 100px" data-ng-show="type=='bar'">
+                <nvd3-multi-bar-chart
+                        data="barData"
+                        id="barchart"
+                        width="1000"
+                        height="600"
+                        showValues="true"
+                        tooltips="true"
+                        rotateLabels="90">
+                    <svg></svg>
+                </nvd3-multi-bar-chart>
+            </div>
+        </div>
+    </div>
+
     <div data-ng-hide="hideTable">
         <div class="pull-right" ng-show="reportType == 'Table'" >
             <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv' | translate }}</button>
@@ -58,5 +115,4 @@
         <br>
         <iframe id=rptLoadingFrame src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>';
     </div>
-
 </div>

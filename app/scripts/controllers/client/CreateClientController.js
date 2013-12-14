@@ -27,8 +27,10 @@
                 scope.choice = 0;
             }
         };
+
         scope.submit = function() {
             var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+
             this.formData.locale = 'en';
             this.formData.active = this.formData.active || false;
             this.formData.dateFormat = 'dd MMMM yyyy';
