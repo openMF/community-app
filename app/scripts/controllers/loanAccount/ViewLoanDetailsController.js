@@ -105,7 +105,7 @@
           scope.guarantorDetails = data.guarantors;
           scope.status = data.status.value;
           scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
-
+          scope.decimals = data.currency.decimalPlaces;
           if(scope.loandetails.charges) {
             scope.charges = scope.loandetails.charges;
               for(var i in scope.charges){
