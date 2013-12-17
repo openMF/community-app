@@ -27,7 +27,8 @@
             'ckEditor':         '../bower_components/ckeditor/ckeditor',
             'LocalStorageModule':'../scripts/modules/localstorage',
             'ngCsv':            "../scripts/modules/csv",
-            'chosen.jquery.min':   "../scripts/modules/chosen.jquery.min"
+            'chosen.jquery.min':   "../scripts/modules/chosen.jquery.min",
+            'frAngular':        '../scripts/modules/KeyboardManager'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -50,6 +51,7 @@
             'LocalStorageModule':{deps:['angular']},
             'ngCsv':{deps:['angular']},
             'chosen.jquery.min':{deps:['jquery']},
+            'frAngular':{deps:['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -70,7 +72,8 @@
                     'LocalStorageModule',
                     'angularFileUploadShim',
                     'ngCsv',
-                    'chosen.jquery.min'
+                    'chosen.jquery.min',
+                    'frAngular'
                 ],
                 exports: 'mifosX'
             }

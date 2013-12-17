@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService) {
+    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService,keyboardManager) {
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
@@ -86,6 +86,40 @@
           }
       };
 
+        keyboardManager.bind('ctrl+alt+n', function() {
+            location.path('/nav/offices');
+        });
+        keyboardManager.bind('ctrl+alt+i', function() {
+            location.path('/tasks');
+        });
+        keyboardManager.bind('ctrl+alt+k', function() {
+            location.path('/entercollectionsheet');
+        });
+        keyboardManager.bind('ctrl+alt+c', function() {
+            location.path('/createclient');
+        });
+        keyboardManager.bind('ctrl+alt+g', function() {
+            location.path('/creategroup');
+        });
+        keyboardManager.bind('ctrl+alt+q', function() {
+            location.path('/createcenter');
+        });
+        keyboardManager.bind('ctrl+alt+f', function() {
+            location.path('/freqposting');
+        });
+        keyboardManager.bind('ctrl+alt+e', function() {
+            location.path('/accounts_closure');
+        });
+        keyboardManager.bind('ctrl+alt+j', function() {
+            location.path('/journalentry');
+        });
+        keyboardManager.bind('ctrl+alt+a', function() {
+            location.path('/accounting');
+        });
+        keyboardManager.bind('ctrl+alt+r', function() {
+            location.path('/reports/all');
+        });
+
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
           localStorageService.add('Language',lang);
@@ -103,6 +137,7 @@
     '$translate',
     '$rootScope',
     'localStorageService',
+    'keyboardManager',
     mifosX.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");
