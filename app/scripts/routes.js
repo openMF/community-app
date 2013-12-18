@@ -441,7 +441,7 @@
         templateUrl: 'views/products/editcharge.html'
       })
       .when('/entercollectionsheet', {
-        templateUrl: 'views/collection/entercollectionsheet.html'
+        templateUrl: 'views/collection/collectionsheet.html'
       })
       .when('/assignstaff/:id/:entityType', {
         templateUrl: 'views/groups/assignstaff.html'
