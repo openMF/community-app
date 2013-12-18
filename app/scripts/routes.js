@@ -490,7 +490,7 @@
       })
       .when('/viewMakerCheckerTask/:commandId',{
         templateUrl: 'views/system/viewMakerCheckerTask.html'
-      });
+      })
       .when('/help',{
         templateUrl: 'views/help.html'
       });
