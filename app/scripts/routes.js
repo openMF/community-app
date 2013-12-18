@@ -441,7 +441,7 @@
         templateUrl: 'views/products/editcharge.html'
       })
       .when('/entercollectionsheet', {
-        templateUrl: 'views/collection/entercollectionsheet.html'
+        templateUrl: 'views/collection/collectionsheet.html'
       })
       .when('/assignstaff/:id/:entityType', {
         templateUrl: 'views/groups/assignstaff.html'
@@ -487,15 +487,6 @@
       })
       .when('/profile',{
         templateUrl: 'views/profile.html'
-      })
-      .when('/viewMakerCheckerTask/:commandId',{
-        templateUrl: 'views/system/viewMakerCheckerTask.html'
-      })
-      .when('/help',{
-        templateUrl: 'views/help.html'
-      })
-      .when('/checkeractionperformed',{
-        templateUrl: 'views/system/checkerActionPerformed.html'
       });
     $locationProvider.html5Mode(false);
   };

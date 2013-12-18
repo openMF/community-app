@@ -18,7 +18,7 @@ define(['underscore', 'mifosX'], function() {
       'main/TaskController',
       'main/SearchController',
       'main/NavigationController',
-      'collection/EnterCollectionSheetController',
+      'collection/CollectionSheetController',
       'loanAccount/ViewLoanDetailsController',
       'loanAccount/NewLoanAccAppController',
       'loanAccount/LoanAccountActionsController',
@@ -163,16 +163,14 @@ define(['underscore', 'mifosX'], function() {
       'loanAccount/EditGuarantorController',
       'main/ViewCheckerinboxController',
       'main/ExpertSearchController',
-      'main/ProfileController',
-      'main/ViewMakerCheckerTaskController'
+      'main/ProfileController'
     ],
     filters: [
       'StatusLookup',
       'DateFormat',
       'DayMonthFormat',
       'YesOrNo',
-      'UrlToString',
-      'sort'
+      'UrlToString'
     ],
     directives: [
       'DialogDirective',

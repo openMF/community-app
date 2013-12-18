@@ -8,7 +8,8 @@
             };
 
             var fetchFunction = function(offset, limit, callback) {
-                resourceFactory.centerResource.get({offset: offset, limit: limit} , callback);
+                resourceFactory.centerResource.get({offset: offset, limit: limit, paged: 'true', 
+                                orderBy: 'name', sortOrder: 'ASC'} , callback);
             };
 
             scope.centers = paginatorService.paginate(fetchFunction, 14);
