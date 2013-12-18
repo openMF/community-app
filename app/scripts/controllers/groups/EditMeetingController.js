@@ -66,7 +66,10 @@
                 this.formData.locale = "en";
                 this.formData.dateFormat = "dd MMMM yyyy";
                 this.formData.typeId = "1";
-
+                if(this.formData.interval <0)
+                {
+                    scope.formData.interval = Math.abs(this.formData.interval);
+                }
                 resourceFactory.attachMeetingResource.update({groupOrCenter : routeParams.entityType, 
                     groupOrCenterId : routeParams.groupOrCenterId,templateSource : routeParams.calendarId}, this.formData,function(data){
                         var destURI = "";
