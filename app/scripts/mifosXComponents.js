@@ -163,7 +163,8 @@ define(['underscore', 'mifosX'], function() {
       'loanAccount/EditGuarantorController',
       'main/ViewCheckerinboxController',
       'main/ExpertSearchController',
-      'main/ProfileController'
+      'main/ProfileController',
+      'main/ViewMakerCheckerTaskController'
     ],
     filters: [
       'StatusLookup',
