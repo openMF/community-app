@@ -86,40 +86,57 @@
           }
       };
 
-        keyboardManager.bind('ctrl+alt+n', function() {
+        keyboardManager.bind('ctrl+shift+n', function() {
             location.path('/nav/offices');
         });
-        keyboardManager.bind('ctrl+alt+i', function() {
+        keyboardManager.bind('ctrl+shift+i', function() {
             location.path('/tasks');
         });
-        keyboardManager.bind('ctrl+alt+k', function() {
+        keyboardManager.bind('ctrl+shift+o', function() {
             location.path('/entercollectionsheet');
         });
-        keyboardManager.bind('ctrl+alt+c', function() {
+        keyboardManager.bind('ctrl+shift+c', function() {
             location.path('/createclient');
         });
-        keyboardManager.bind('ctrl+alt+g', function() {
+        keyboardManager.bind('ctrl+shift+g', function() {
             location.path('/creategroup');
         });
-        keyboardManager.bind('ctrl+alt+q', function() {
+        keyboardManager.bind('ctrl+shift+q', function() {
             location.path('/createcenter');
         });
-        keyboardManager.bind('ctrl+alt+f', function() {
+        keyboardManager.bind('ctrl+shift+f', function() {
             location.path('/freqposting');
         });
-        keyboardManager.bind('ctrl+alt+e', function() {
+        keyboardManager.bind('ctrl+shift+e', function() {
             location.path('/accounts_closure');
         });
-        keyboardManager.bind('ctrl+alt+j', function() {
+        keyboardManager.bind('ctrl+shift+j', function() {
             location.path('/journalentry');
         });
-        keyboardManager.bind('ctrl+alt+a', function() {
+        keyboardManager.bind('ctrl+shift+a', function() {
             location.path('/accounting');
         });
-        keyboardManager.bind('ctrl+alt+r', function() {
+        keyboardManager.bind('ctrl+shift+r', function() {
             location.path('/reports/all');
         });
-
+        keyboardManager.bind('ctrl+s', function() {
+            document.getElementById('save').click();
+        });
+        keyboardManager.bind('ctrl+r', function() {
+            document.getElementById('run').click();
+        });
+        keyboardManager.bind('ctrl+shift+x', function() {
+            document.getElementById('cancel').click();
+        });
+        keyboardManager.bind('ctrl+shift+l', function() {
+            document.getElementById('logout').click();
+        });
+        keyboardManager.bind('ctrl+shift+z', function() {
+            document.getElementById('search').focus();
+        });
+        keyboardManager.bind('ctrl+shift+h', function() {
+            document.getElementById('help').click();
+        });
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
           localStorageService.add('Language',lang);

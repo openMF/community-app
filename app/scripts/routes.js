@@ -491,6 +491,9 @@
       .when('/viewMakerCheckerTask/:commandId',{
         templateUrl: 'views/system/viewMakerCheckerTask.html'
       });
+      .when('/help',{
+        templateUrl: 'views/help.html'
+      });
     $locationProvider.html5Mode(false);
   };
   mifosX.ng.application.config(defineRoutes).run(function($log) {
