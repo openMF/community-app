@@ -160,7 +160,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isLoanNotClosed" >
+                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanNotClosed" >
                         <td>
                             <a href="#/viewloanaccount/{{loanaccount.id}}">
                                 {{loanaccount.productName}}
@@ -190,7 +190,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts | filter:isSavingNotClosed">
+                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts |orderBy:'productName':reverse | filter:isSavingNotClosed">
                     <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
                     <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.accountNo}}</a></td>
                     <td>{{savingaccount.accountBalance}}</td>

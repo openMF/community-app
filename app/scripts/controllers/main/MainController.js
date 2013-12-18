@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService) {
+    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService,keyboardManager) {
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
@@ -86,6 +86,57 @@
           }
       };
 
+        keyboardManager.bind('ctrl+shift+n', function() {
+            location.path('/nav/offices');
+        });
+        keyboardManager.bind('ctrl+shift+i', function() {
+            location.path('/tasks');
+        });
+        keyboardManager.bind('ctrl+shift+o', function() {
+            location.path('/entercollectionsheet');
+        });
+        keyboardManager.bind('ctrl+shift+c', function() {
+            location.path('/createclient');
+        });
+        keyboardManager.bind('ctrl+shift+g', function() {
+            location.path('/creategroup');
+        });
+        keyboardManager.bind('ctrl+shift+q', function() {
+            location.path('/createcenter');
+        });
+        keyboardManager.bind('ctrl+shift+f', function() {
+            location.path('/freqposting');
+        });
+        keyboardManager.bind('ctrl+shift+e', function() {
+            location.path('/accounts_closure');
+        });
+        keyboardManager.bind('ctrl+shift+j', function() {
+            location.path('/journalentry');
+        });
+        keyboardManager.bind('ctrl+shift+a', function() {
+            location.path('/accounting');
+        });
+        keyboardManager.bind('ctrl+shift+r', function() {
+            location.path('/reports/all');
+        });
+        keyboardManager.bind('ctrl+s', function() {
+            document.getElementById('save').click();
+        });
+        keyboardManager.bind('ctrl+r', function() {
+            document.getElementById('run').click();
+        });
+        keyboardManager.bind('ctrl+shift+x', function() {
+            document.getElementById('cancel').click();
+        });
+        keyboardManager.bind('ctrl+shift+l', function() {
+            document.getElementById('logout').click();
+        });
+        keyboardManager.bind('ctrl+shift+z', function() {
+            document.getElementById('search').focus();
+        });
+        keyboardManager.bind('ctrl+shift+h', function() {
+            document.getElementById('help').click();
+        });
       scope.changeLang = function (lang) {
           translate.uses(lang.code);
           localStorageService.add('Language',lang);
@@ -103,6 +154,7 @@
     '$translate',
     '$rootScope',
     'localStorageService',
+    'keyboardManager',
     mifosX.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");

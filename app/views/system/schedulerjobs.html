@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="job in jobs" class="pointer-main">
+            <tr ng-repeat="job in jobs | orderBy:'displayName':reverse" class="pointer-main">
                 <td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false"
                      ng-click="runJobSelected(job.jobId, active)"></td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
@@ -66,7 +66,7 @@
         </div>
     </script>
     <div class="offset">
-        <button class="btn btn-primary" ng-click="runSelectedJobs()"><i class="icon-play icon-white"></i>{{'label.button.runselectedjobs' | translate}}</button>
-        <button class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</button>
+        <button id="run" class="btn btn-primary" ng-click="runSelectedJobs()"><i class="icon-play icon-white"></i>{{'label.button.runselectedjobs' | translate}}</button>
+        <button id="cancel" class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</button>
     </div>
 </div>

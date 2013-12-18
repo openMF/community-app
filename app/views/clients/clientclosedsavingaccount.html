@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts | filter:isSavingClosed">
+      <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts| orderBy:'productName':reverse | filter:isSavingClosed">
         <td><a href="#/viewsavingaccount/{{savingaccount.id}}"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.accountNo}}</a></td>
         <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
         <td>{{savingaccount.status.value}}</td>

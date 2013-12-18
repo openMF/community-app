@@ -51,8 +51,9 @@
             </td>
         </tr>
     </table>
+    <hr>
     <div ng-hide="previewRepayment" ng-show="loanaccountinfo.calendarOptions" class="control-group">
-        <hr>
+
         <table width="100%">
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                 <td width="12%"></td>
@@ -67,7 +68,6 @@
                 </td>
             </tr>
         </table>
-        <hr>
     </div>
     <table ng-show="loanaccountinfo" ng-hide="previewRepayment" width="100%">
         <tr class="control-group">
@@ -107,8 +107,7 @@
                         <td>
                             <label class="control-label">{{ 'label.input.nominalinterestrate' | translate }}&nbsp;</label>
                             <input id="interestRatePerPeriod" class="input-small" name="nominalinterestrate" type="text" ng-model="formData.interestRatePerPeriod" required late-Validate/>
-                            <select id="interestRateFrequencyType" class="input-small" ng-model="formData.interestRateFrequencyType" ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in loanaccountinfo.interestRateFrequencyTypeOptions" value="{{interestRateFrequencyType.id}}"/>
-                            <form-validate valattributeform="editloanaccountform" valattribute="nominalinterestrate"/>
+                            &nbsp;&nbsp; {{loanaccountinfo.interestRateFrequencyType.value}}
                         </td>
                         <td>
                             <label class="control-label">{{ 'label.input.expecteddisbursementon' | translate }}&nbsp;<span class="required">*</span></label>
@@ -220,7 +219,9 @@
                     <tr ng-repeat="charge in charges" >
                         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                         <td>{{charge.chargeCalculationType.value}}</td>
-                        <td><input class="input-small" id="{{charges[$index].amount}}" type="text" ng-model="charge.amountOrPercentage"></td>
+                        <td>
+                            <input class="input-small" id="{{charges[$index].amount}}" type="text" ng-model="charge.amount">
+                        </td>
                         <td>{{charge.chargeTimeType.value}}</td>
                         <td>
                             <input id="{{charges[$index].dueDate}}" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
@@ -320,8 +321,8 @@
 </div>
 
 <div class="offset6">
-    <button type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button type="submit" class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' | translate}}</button>
+    <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button id="save" type="submit" class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' | translate}}</button>
 </div>
 </fieldset>
 </form>

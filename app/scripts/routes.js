@@ -487,6 +487,12 @@
       })
       .when('/profile',{
         templateUrl: 'views/profile.html'
+      })
+      .when('/viewMakerCheckerTask/:commandId',{
+        templateUrl: 'views/system/viewMakerCheckerTask.html'
+      })
+      .when('/help',{
+        templateUrl: 'views/help.html'
       });
     $locationProvider.html5Mode(false);
   };

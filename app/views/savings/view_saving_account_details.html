@@ -110,11 +110,11 @@
           </div>
         </tab>
         <tab heading="{{'label.heading.transactions' | translate}}">
-          <table class="table">
+          <table class="table table-bordered">
             <colgroup span="4"></colgroup>
               <thead>
                 <tr>
-                  <th>{{'label.heading.transactionid' | translate}}</th>
+                  <th>{{'label.heading.id' | translate}}</th>
                   <th>{{'label.heading.transactiondate' | translate}}</th>
                   <th>{{'label.heading.transactiontype' | translate}}</th>
                   <th>{{'label.heading.debit' | translate}}</th>
@@ -123,13 +123,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="transaction in savingaccountdetails.transactions">
-                  <td>
+                <tr ng-class="{strikeoff : transaction.reversed==true}" ng-repeat="transaction in savingaccountdetails.transactions">
+                  <td style="width: 50px;">
                       <a ng-hide="transaction.transfer" href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
                       <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
                   </td>
-                    <td>{{transaction.date | DateFormat}}</td>
-                    <td>{{transaction.transactionType.value}}</td>
+                    <td style="width: 130px;">{{transaction.date | DateFormat}}</td>
+                    <td style="width: 130px;">{{transaction.transactionType.value}}</td>
                     <td>
                         <div ng-show="isDebit(transaction.transactionType)">
                             {{transaction.amount}}

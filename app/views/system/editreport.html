@@ -64,23 +64,37 @@
       <tr class="span2"></tr>
 
       <tr class="control-group">
-        <td width="10%">
-          <label class="control-label"><h4>{{ 'label.heading.sql' | translate }}</h4></label>
+        <td width="8%">
+            <div data-ng-switch on="formData.reportType">
+                <div data-ng-switch-when="Pentaho"></div>
+                <div data-ng-switch-default>
+                    <label class="control-label"><h4>{{ 'label.heading.sql' | translate }}</h4></label>
+                </div>
+            </div>
         </td>
-        <td class="blockquoteresult" width="90%">
-          <table>
-            <tr>
-              <td width="30%">
-                <label class="control-label">{{ 'label.input.sql' | translate }}<span class="required">*</span></label>
-                <textarea rows="4" name="sql" ng-model="reportdetail.reportSql" required></textarea>
-                <form-validate valattributeform="editreportrform" valattribute="sql"/>
-              </td>
-              <td width="20%">
-              </td>
-              <td width="20%">
-              </td>
-            </tr>
-          </table>
+        <td width="90%">
+            <div data-ng-switch on="formData.reportType">
+                <div data-ng-switch-when="Pentaho">
+
+                </div>
+                <div data-ng-switch-default>
+                    <div style="margin-left: -4px;" class="blockquoteresult">
+                        <table>
+                            <tr>
+                                <td width="30%">
+                                    <label class="control-label">{{ 'label.input.sql' | translate }}<span class="required">*</span></label>
+                                    <textarea id="reportSql" rows="4" name="sql" ng-model="formData.reportSql" required></textarea>
+                                    <form-validate valattributeform="createreportrform" valattribute="sql"/>
+                                </td>
+                                <td width="20%">
+                                </td>
+                                <td width="20%">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </td>
       </tr>
 
@@ -126,8 +140,8 @@
     </table>
   </div>
   <div class="offset6">
-    <button type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+    <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
   </div>
 </form>
     

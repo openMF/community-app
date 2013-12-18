@@ -3,13 +3,14 @@
     CreateReportController: function(scope, resourceFactory, location) {
         scope.formData =  {};
         scope.reportParameters = [];
-
+        scope.flag = false;
         resourceFactory.reportsResource.getReportDetails({resourceType : 'template'}, function(data) {
             scope.reportdetail = data;
             scope.formData.reportType = data.allowedReportTypes[0];
         });
 
         scope.parameterSelected = function(allowedParameterId) {
+            scope.flag=true;
           for(var i in scope.reportdetail.allowedParameters) {
             if (scope.reportdetail.allowedParameters[i].id == allowedParameterId) {
               scope.reportParameters.push({parameterId : allowedParameterId, 

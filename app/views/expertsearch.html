@@ -1,46 +1,76 @@
-<div id="expertsearch" data-ng-controller="ExpertSearchController">
-    <h3 class="paddedleft"><strong>{{'label.heading.mifosxdashhome' | translate}}</strong></h3>
-    <input id="expert" type="text" data-ng-model="formData.search" placeholder="{{'label.input.searchactivities' | translate}}" class="span" typeahead-on-select="search()" ng-autofocus="true" typeahead="param as param for param in searchParams | filter:$viewValue | limitTo:8"/>
-    <hr/>
-    <br/>
-    <div class="form-horizontal">
-        <div class="control-group">
-            <div class="paddedleft">
-                <i class="icon-bolt icon-2x"></i><strong>{{'label.heading.recentactivities' | translate}}</strong>
-            </div>
-            <hr/>
-            <div class="row span">
-                <div class="paddedleft120">
-                    <span data-ng-repeat="recent in recents">
-                        <span class="span3">
-                            <a href="#{{recent}}" title="{{recent}}">
-                                <ng-displaypanel title="{{recent | UrlToString | translate}}">
-                                    <span class="center"><span class="fa-middled"><i class="icon-4x icon-tasks" style="color:#808080"></i></span></span>
-                                </ng-displaypanel>
-                            </a>
-                        </span>
-                    </span>
+<h3 class="paddedleft">{{'label.heading.dashboard' | translate}}</h3>
+<div data-ng-controller="SuperuserController">
+    <div class="row">
+        <div class="span10 paddedleft90">
+            <panelbig title="{{'label.heading.clienttrendsfor' | translate}} {{bOfficeName}} ({{chartType}})" >
+                <div style="margin-left:40px;margin-top:40px;">
+                    <nvd3-multi-bar-chart
+                            data="BarData"
+                            id="barchart"
+                            width="770"
+                            height="350"
+                            color="colorFunction()"
+                            showLegend="true">
+                        <svg></svg>
+                    </nvd3-multi-bar-chart>
                 </div>
-            </div>
+                <div>
+                    <button type="button" class="btn-silver btn-tooltip" data-ng-click="getWeeklyData()"><i class="icon-table"></i>{{'label.button.week' | translate}}</button>
+                    <button type="button" class="btn-silver btn-tooltip" data-ng-click="getMonthlyData()"><i class="icon-table"></i>{{'label.button.month' | translate}}</button>
+                    <button type="button" class="btn-silver btn-tooltip" data-ng-click="getDailyData()"><i class="icon-table"></i>{{'label.button.day' | translate}}</button>
+                    <select class="input-small-tooltip pull-right" name="office1" ng-change="getDailyData()" id="office1" ng-model="officeId" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option value="">--{{'label.menu.office' | translate}}--</option>
+                    </select>
+                </div>
+            </panelbig>
         </div>
-        <div class="control-group">
-            <div class="paddedleft">
-                <br/><br/><i class="icon-laptop icon-2x"></i><strong>{{'label.heading.frequentactivities' | translate}}</strong>
-            </div>
-            <hr/>
-            <div class="row span">
-                <div class="paddedleft120">
-                    <span data-ng-repeat="freq in frequent">
-                        <span class="span3">
-                            <a href="#{{freq}}" title="{{freq}}">
-                                <ng-displaypanel title="{{freq | UrlToString | translate}}">
-                                    <span class="center"><span class="fa-middled"><i class="icon-4x icon-tasks" style="color:#808080"></i></span></span>
-                                </ng-displaypanel>
-                            </a>
-                        </span>
-                    </span>
+    </div>
+    <div class="row">
+        <div class="span6 paddedleft90">
+            <panel title="{{'label.heading.amontcollectedfortoday' | translate}} ({{cOfficeName}}) " >
+                <h3 class="required panel-error" data-ng-show="showCollectionerror">{{'label.nodata' | translate}}</h3>
+                <div data-ng-show="!showCollectionerror" style="margin-left:5px;margin-top:-20px;">
+                    <nvd3-pie-chart
+                            data="collectedData"
+                            id="piechart1"
+                            width="380"
+                            height="370"
+                            x="xFunction()"
+                            y="yFunction()"
+                            tooltips="true"
+                            donut="true"
+                            donutRatio=".015"
+                            color="colorFunctionPie()">
+                        <svg height="230"></svg>
+                    </nvd3-pie-chart>
                 </div>
-            </div>
+                <select class="input-small-tooltip pull-right" name="office1" ng-change="getCollectionOffice()" id="office1" ng-model="officeIdCollection" data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option value="">--{{'label.menu.office' | translate}}--</option>
+                </select>
+            </panel>
+        </div>
+        <div class="span6 paddedleft">
+            <panel title="{{'label.heading.amountdisbursedfortoday' | translate}}({{dOfficeName}})" >
+                <h3 class="required panel-error" data-ng-show="showDisbursementerror">{{'label.nodata' | translate}}</h3>
+                <div data-ng-show="!showDisbursementerror" style="margin-left:5px;margin-top:-15px;">
+                    <nvd3-pie-chart
+                            data="disbursedData"
+                            id="piechart2"
+                            width="380"
+                            height="370"
+                            x="xFunction()"
+                            y="yFunction()"
+                            tooltips="true"
+                            donut="true"
+                            donutRatio=".015"
+                            color="colorFunctionPie()">
+                        <svg height="230"></svg>
+                    </nvd3-pie-chart>
+                </div>
+                <select class="input-small-tooltip pull-right" data-ng-options="office.id as office.name for office in offices" name="office2" data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2" ng-model="officeIdDisbursed">
+                    <option value="">--{{'label.menu.office' | translate}}--</option>
+                </select>
+            </panel>
         </div>
     </div>
 </div>
