@@ -5,118 +5,135 @@
       <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
     </ul>
   </div>
-  <div class="row">
-    <div class="pull-right">
-      <div class="btn-group" >
-          <span ng-repeat="button in buttons.singlebuttons">
-              <a  ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)" class="btn btn-primary" ><i class="{{button.icon}} icon-white" ></i>{{'label.' + button.name | translate}}</a>
-          </span>
-          <span ng-show="buttons.options" class="btn-group">
-              <a class="btn btn-primary dropdown-toggle">
-                {{ 'label.button.more' | translate}}
-                <span class="caret"></span>
-              </a>
-              <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                    <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)">{{'label.'+ button.name | translate}}</a>
-                </li>
-              </ul>
-          </span>  
-      </div>
-    </div>
-  </div>
   <div>
-    <div class="row">
-      <div class="paddedleft"><span class="pull-left"><h4><i class="icon-stop {{loandetails.status.code | StatusLookup}}"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</h4></span></div>
-    </div>
-    <div class="row paddedleft">
-      <table width="100%">
-        <tr>
-          <td width="20%">{{'label.heading.disbursementdate' | translate}}</td>
-          <td width="30%">{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
-          <td width="20%">{{'label.heading.currency' | translate}}</td>
-          <td width="30%">{{loandetails.currency.name}}</td>
-        </tr>
-        <tr>
-          <td>{{'label.heading.loanofficer' | translate}}</td>
-          <td>
-            {{loandetails.loanOfficerName}}&nbsp;
-            <span ng-show="loandetails.loanOfficerName">
-              <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i class="icon-remove"></i></a>
-            </span>
-          </td>
-          <td>{{'label.heading.disburseamount' | translate}}</td>
-          <td>{{loandetails.principal}}</td>
-        </tr>
-        <tr>
-          <td>{{'label.heading.loanpurpose' | translate}}</td>
-          <td>{{loandetails.loanPurposeName}}</td>
-          <td>{{'label.heading.arrearsby' | translate}}</td>
-          <td>{{loandetails.summary.totalOverdue}}</td>
-        </tr>
-      </table>
+      <div class="span gray-head" style="margin-left:0%;margin-top:-20px;">
+          <span style="margin-left: 10px;font-size:20px">
+                <strong><i class="icon-stop {{loandetails.status.code | StatusLookup}}"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
+          </span>
+          <span class="pull-right">
+              <div class="btn-group">
+                  <span ng-repeat="button in buttons.singlebuttons">
+                      <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
+                         class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.' + button.name |
+                          translate}}</a>
+                  </span>
+                  <span ng-show="buttons.options" class="btn-group">
+                      <a class="btn btn-primary dropdown-toggle">
+                          {{ 'label.button.more' | translate}}
+                          <span class="caret"></span>
+                      </a>
+                      <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
+                          <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                              <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)">{{'label.'+
+                                  button.name | translate}}</a>
+                          </li>
+                      </ul>
+                  </span>
+              </div>
+          </span>
+      </div>
+      <hr/><br/>
+    <div class="row-fluid span" style="margin-left:-1px;margin-top: -20px">
+        <div class="span6">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.disbursementdate' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.timeline.actualDisbursementDate | DateFormat}}<span data-ng-hide="loandetails.timeline.actualDisbursementDate">{{'label.heading.notavailable' | translate}}</span></span></td>
+                </tr>
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.currency' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.principal}}</span></td>
+                </tr>
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.loanofficer' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.loanOfficerName}}&nbsp;
+                        <span ng-show="loandetails.loanOfficerName">
+                          <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i class="icon-remove"></i></a>
+                        </span>
+                        <span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="span6">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.loanpurpose' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.loanPurposeName}}
+                    <span data-ng-hide="loandetails.loanPurposeName">{{'label.heading.notprovided' | translate}}</span></span></td>
+                </tr>
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.principal}}</span></td>
+                </tr>
+                <tr>
+                    <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span data-ng-hide="loandetails.summary.totalOverdue">{{'label.heading.notprovided' | translate}}</span></span></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div class="row paddedleft">
       <hr class="marginbottom"/>
       <tabset >
         <tab heading="{{'label.heading.accountdetail' | translate}}">
-          <div> 
-            <table>
+          <div class="span8" style="margin-left: 10px;margin-top: 30px;">
+            <table class="table table-bordered view-table">
                 <tr>
-                  <td width="40%">{{'label.heading.repaymentstrategy' | translate}}</td>
-                  <td width="60%">{{loandetails.transactionProcessingStrategyName}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.repaymentstrategy' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.transactionProcessingStrategyName}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.repayments' | translate}}:</td>
-                  <td>{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.repayments' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.numberOfRepayments}} every {{loandetails.repaymentEvery}}&nbsp;{{loandetails.repaymentFrequencyType.value}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.amortization' | translate}}:</td>
-                  <td>{{loandetails.amortizationType.value}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.amortization' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.interest' | translate}}:</td>
-                  <td>{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.interest' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.graceonprincipalpayment' | translate}}</td>
-                  <td>{{loandetails.graceOnPrincipalPayment}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.graceonprincipalpayment' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.graceOnPrincipalPayment}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.graceoninterestpayment' | translate}}</td>
-                  <td>{{loandetails.graceOnInterestPayment}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.graceoninterestpayment' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.graceOnInterestPayment}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.fundsource' | translate}}</td>
-                  <td>{{loandetails.fundName}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.fundsource' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.fundName}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.interestfreeperiod' | translate}}</td>
-                  <td>{{loandetails.graceOnInterestCharged}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.interestfreeperiod' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.graceOnInterestCharged}}</span></td>
                 </tr>
                 <tr>
-                    <td>{{'label.heading.interestcalculationperiod' | translate}}</td>
-                    <td>{{loandetails.interestCalculationPeriodType.value}}</td>
+                    <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.interestcalculationperiod' | translate}}</td>
+                    <td><span class="padded-td">{{loandetails.interestCalculationPeriodType.value}}</span></td>
                 </tr>
                 <tr>
-                    <td>{{'label.heading.interesttype' | translate}}</td>
-                    <td>{{loandetails.interestType.value}}</td>
+                    <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.interesttype' | translate}}</td>
+                    <td><span class="padded-td">{{loandetails.interestType.value}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.submittedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.submittedOnDate | DateFormat }}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.submittedondate' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.timeline.submittedOnDate | DateFormat }}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.approvedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.approvedOnDate | DateFormat}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.approvedondate' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.timeline.approvedOnDate | DateFormat}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.disbursedondate' | translate}}</td>
-                  <td>{{loandetails.timeline.actualDisbursementDate | DateFormat}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.disbursedondate' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.timeline.actualDisbursementDate | DateFormat}}</span></td>
                 </tr>
                 <tr>
-                  <td>{{'label.heading.matureson' | translate}}</td>
-                  <td>{{loandetails.timeline.expectedMaturityDate | DateFormat}}</td>
+                  <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.matureson' | translate}}</td>
+                  <td><span class="padded-td">{{loandetails.timeline.expectedMaturityDate | DateFormat}}</span></td>
                 </tr>
             </table>
           </div>
