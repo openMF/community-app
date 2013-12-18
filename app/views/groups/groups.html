@@ -17,9 +17,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="group in groups.currentPageItems  | filter:filterText">
+        <tr ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
             <td><a href="#/viewgroup/{{group.id}}">{{group.name}}</a></td>
-            <td>{{group.status.value}}</td>
+            <td><i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}</td>
             <td>{{group.officeName}}</td>
         </tr>
         </tbody>
