@@ -37,7 +37,15 @@ angular.module('notificationWidget', [])
                     // send a notification requests are complete
                     notificationChannel.requestEnded();
                 }
-                return response;
+                if(response.config && response.config.method=="GET"){
+                    return response;
+                }else {
+                    if (response.data && response.data.commandId && response.data.changes == undefined) {
+                        $location.path('/viewMakerCheckerTask/'+response.data.commandId);
+                    } else{
+                        return response;
+                    };
+                }
             }
 
             function error(response) {

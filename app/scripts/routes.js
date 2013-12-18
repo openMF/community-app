@@ -487,6 +487,9 @@
       })
       .when('/profile',{
         templateUrl: 'views/profile.html'
+      })
+      .when('/viewMakerCheckerTask/:commandId',{
+        templateUrl: 'views/system/viewMakerCheckerTask.html'
       });
     $locationProvider.html5Mode(false);
   };
