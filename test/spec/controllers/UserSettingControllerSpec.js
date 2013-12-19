@@ -22,7 +22,9 @@ describe("UserSettingController", function() {
     });
 
     it("should change the default language", function() {
+        this.scope.optlang = this.scope.langs[1];
         this.scope.changeLang(this.scope.langs[1]);
-        expect(this.translate.uses).toHaveBeenCalledWith("fr");
+        expect(this.translate.uses).toHaveBeenCalledWith('fr');
+        expect(this.localStorageService.add).toHaveBeenCalledWith('Language',{"name" : "Français", "code":"fr"});
     });
 });
