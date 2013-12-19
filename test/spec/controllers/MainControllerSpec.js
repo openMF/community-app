@@ -9,6 +9,7 @@ describe("MainController", function() {
     this.sessionManager.restore.andCallFake(function(callback) {
       sessionCallback = callback;
     });
+    this.keyboardManager= jasmine.createSpyObj('keyboardManager',['bind']);
 
     this.translate = jasmine.createSpyObj("translate", ["uses"]);
     this.rootScope = jasmine.createSpy();
@@ -19,7 +20,7 @@ describe("MainController", function() {
                                                             this.sessionManager,
                                                             this.translate,
                                                             this.rootScope,
-                                                            this.localStorageService);
+                                                            this.localStorageService, this.keyboardManager);
   });
 
   describe("on initialisation", function() {

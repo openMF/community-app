@@ -1,12 +1,17 @@
 describe("UserSettingController", function() {
-    var resourceCallback;
+
     beforeEach(function() {
         this.scope = {};
-
-        this.translate = jasmine.createSpyObj("translate", ["uses"]);
-
-        this.controller = new mifosX.controllers.UserSettingController(this.scope, this.translate);
+        this.translate = {
+            uses: jasmine.createSpy("translate.uses()")
+        };
+        this.localStorageService = {
+            get: jasmine.createSpy("localStorageService.get()").andReturn({"name" : "English" , "code" : "en"}),
+            add: jasmine.createSpy("localStorageService.add()")
+        };
+        this.controller = new mifosX.controllers.UserSettingController(this.scope, this.translate,this.localStorageService);
     });
+
 
     it("should populate the scope with available languages", function() {
         expect(this.scope.langs).not.toBeNull();
@@ -17,7 +22,9 @@ describe("UserSettingController", function() {
     });
 
     it("should change the default language", function() {
-        this.scope.changeLang('blah')
-        expect(this.scope.optlang).toEqual('blah')
+        this.scope.optlang = this.scope.langs[1];
+        this.scope.changeLang(this.scope.langs[1]);
+        expect(this.translate.uses).toHaveBeenCalledWith('fr');
+        expect(this.localStorageService.add).toHaveBeenCalledWith('Language',{"name" : "Français", "code":"fr"});
     });
 });
