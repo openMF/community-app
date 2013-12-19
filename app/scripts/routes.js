@@ -493,6 +493,9 @@
       })
       .when('/help',{
         templateUrl: 'views/help.html'
+      })
+      .when('/checkeractionperformed',{
+        templateUrl: 'views/system/checkerActionPerformed.html'
       });
     $locationProvider.html5Mode(false);
   };
