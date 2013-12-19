@@ -5,6 +5,7 @@
     </ul>
 </div>
 <div ng-controller="RunReportsController">
+
     <api-validate></api-validate>
     <div class="span gray-head" style="margin-left:0%;height:20px;margin-top: -10px;">
           <span style="margin-left: 10px;font-size:20px;">
@@ -17,18 +18,19 @@
     <div ng-hide="isCollapsed" class="row alert-block span">
         <br>
         <div class="control-group info"  ng-repeat="reportParam in reportParams">
-            <label class="control-label" for="{{reportParam.variable}}">{{ reportParam.label }}</label>
+            <label class="control-label" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
             <div class="controls">
               <select id="{{reportParam.inputName}}" class="input-xlarge" ng-model="formData[reportParam.inputName]"ng-change="getDependencies(reportParam)" required>
+                <option value="">--{{"label.menu.selectone" | translate}}--</option>
                 <option ng-show="reportParam.selectAll == 'Y'" value="-1">{{ 'label.all' | translate }}</option>
                 <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">{{selectOption.name}}</option>
               </select>
             </div>
         </div>
         <div class="control-group info"  ng-repeat="reportDateParam in reportDateParams">
-            <label class="control-label" for="{{reportDateParam.variable}}">{{ reportDateParam.label }}</label>
+            <label class="control-label" for="{{reportDateParam.variable}}">{{ reportDateParam.label | translate}}</label>
             <div class="controls">
-                <input id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                <input style="width: 257px" id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
             </div>
         </div>
         <div class="control-group info" ng-show="reportType == 'Pentaho'" >
