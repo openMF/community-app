@@ -136,10 +136,6 @@
                                 icon :"icon-plus-sign"
                               },
                               {
-                                name:"button.addcollateral",
-                                icon :"icon-link"
-                              },
-                              {
                                 name:"button.approve",
                                 icon :"icon-ok"
                               },
@@ -163,8 +159,12 @@
                                 name:"button.delete"
                               },
                               {
+                                  name:"button.addcollateral"
+                              },
+                              {
                                 name:"button.guarantor"
-                              },{
+                              },
+                              {
                                 name:"button.loanscreenreport"
                               }]
                               

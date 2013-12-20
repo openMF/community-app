@@ -96,8 +96,10 @@ module.exports = function(grunt) {
             '!scripts/mifosXComponents-build.js',
             '!scripts/loader.js',
             '!scripts/loader-build.js',
+            'styles/*.css',
+            '!scripts/mifosXStyles.js',
+            '!scripts/mifosXStyles-build.js',
             'global-translations/**',
-            'styles/**',
             '*.html',
             'views/**'
           ]
@@ -113,7 +115,8 @@ module.exports = function(grunt) {
         },
         {
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/mifosXComponents.js':['<%= mifosx.app %>/scripts/mifosXComponents-build.js'],
-          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/loader.js':['<%= mifosx.app %>/scripts/loader-build.js']
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/loader.js':['<%= mifosx.app %>/scripts/loader-build.js'],
+          '<%=mifosx.dist %>/<%=mifosx.target%>/scripts/mifosXStyles.js':['<%=mifosx.app%>/scripts/mifosXStyles-build.js']
           //'<%= mifosx.dist %>/<%=mifosx.target%>':['<%= mifosx.test %>/**']
         },
         {
@@ -159,6 +162,21 @@ module.exports = function(grunt) {
         }]
       }
     },
+
+      //hashing css & js
+      hashres: {
+          options: {
+              encoding: 'utf8',
+              fileNameFormat: '${name}.${hash}.${ext}',
+              renameFiles: true
+          },
+          css: {
+              options: {
+              },
+              dest: '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/mifosXStyles.js',
+              src: ['<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.css','!<%= mifosx.dist %>/<%=mifosx.target%>/styles/font-awesome.min.css']
+          }
+      },
     
     // concatinate JS files
     /** FIXME: Address issues with this task**/
@@ -174,7 +192,7 @@ module.exports = function(grunt) {
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js': ['<%= mifosx.app %>/scripts/models/**/*.js'],
           //'<%= mifosx.dist %>/<%=mifosx.target%>/scripts/services/services.js': ['<%= mifosx.app %>/scripts/services/**/*.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js': ['<%= mifosx.app %>/scripts/filters/**/*.js'],
-          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js':
             ['<%= mifosx.app %>/scripts/routes.js', 
             '<%= mifosx.app %>/scripts/initialTasks.js', 
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
@@ -223,11 +241,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-devcode');
-
+  grunt.loadNpmTasks('grunt-hashres');
   // Default task(s).
       
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist']);
+  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('compile', ['jshint']);
   grunt.registerTask('test', ['karma']);
