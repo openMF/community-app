@@ -86,7 +86,7 @@
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function() {
+    require(['mifosXComponents.js', 'mifosXStyles.js'], function() {
         require(['test/testInitializer'], function(testMode) {
             if (!testMode) {
                 angular.bootstrap(document, ['MifosX_Application']);
