@@ -46,11 +46,11 @@
                 </tr>
                 <tr>
                     <th class="table-bold-loan">{{'label.heading.loanofficer' | translate}}</th>
-                    <td><span class="padded-td">{{loandetails.loanOfficerName}}&nbsp;
+                    <td><span class="padded-td"><span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span>{{loandetails.loanOfficerName}}&nbsp;
                         <span ng-show="loandetails.loanOfficerName">
                           <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i class="icon-remove"></i></a>
                         </span>
-                        <span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span></span>
+                        </span>
                     </td>
                 </tr>
             </table>
@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
-                    <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span data-ng-hide="loandetails.summary.totalOverdue">{{'label.heading.notprovided' | translate}}</span></span></td>
+                    <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span></td>
                 </tr>
             </table>
         </div>
