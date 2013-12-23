@@ -17,15 +17,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
-            <td><a href="#/viewgroup/{{group.id}}">{{group.name}}</a></td>
-            <td><i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}</td>
-            <td>{{group.officeName}}</td>
+        <tr class="pointer-main" ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
+            <td data-ng-click="routeTo(group.id)"><i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}</td>
+            <td data-ng-click="routeTo(group.id)">{{group.officeName}}</td>
         </tr>
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a ng-click="groups.previous()" data-ng-hide="!groups.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next" ><a ng-click="groups.next()" data-ng-hide="!groups.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        <li class="previous"><a id="prev" ng-click="groups.previous()" data-ng-hide="!groups.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+        <li class="next" ><a id="next" ng-click="groups.next()" data-ng-hide="!groups.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
     </ul>
 </div>

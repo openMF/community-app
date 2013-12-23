@@ -19,17 +19,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
-                <td><a href="#/viewclient/{{client.id}}">{{client.displayName}}</a></td>
-                <td><a href="#/viewclient/{{client.id}}">{{client.accountNo}}</a></td>
-                <td><i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}</td>
-                <td>{{client.officeName}}</td>
-                <td>{{client.staffName}}</td>
+            <tr class="pointer-main" ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
+                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
+                <td class="pointer" data-ng-click="routeTo(client.id)"><i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
+                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
             </tr>
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next" ><a ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        <li class="previous"><a id="prev" ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+        <li class="next" ><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
     </ul>
 </div>

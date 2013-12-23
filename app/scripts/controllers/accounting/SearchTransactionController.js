@@ -10,7 +10,14 @@
         scope.offices = [];
         scope.date={};
         scope.formData={};
-
+        scope.highlight = function(id){
+            var i = document.getElementById(id);
+            if(i.className == 'selected-row'){
+                i.className = 'text-pointer';
+            }else{
+                i.className = 'selected-row';
+            }
+        };
         resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
           scope.glAccounts = data;
         });

@@ -18,7 +18,6 @@
             'styles':           '../styles',
             'test':             '../../test/functional',
             'notificationWidget':'../scripts/modules/notificationWidget',
-            'modified.datepicker':'../scripts/modules/datepicker',
             'configurations':'../scripts/modules/configurations',
             'angularFileUpload':'../bower_components/angularjs-file-upload/angular-file-upload',
             'angularFileUploadShim':'../bower_components/angularjs-file-upload/angular-file-upload-shim',
@@ -27,7 +26,8 @@
             'LocalStorageModule':'../scripts/modules/localstorage',
             'ngCsv':            "../scripts/modules/csv",
             'chosen.jquery.min':   "../scripts/modules/chosen.jquery.min",
-            'frAngular':        '../scripts/modules/KeyboardManager'
+            'frAngular':        '../scripts/modules/KeyboardManager',
+            'modified.datepicker':'../scripts/modules/datepicker'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -37,6 +37,7 @@
             'angularui': { deps: ['angular'] },
             'angularuitpls': { deps: ['angular' ,'angularui' ] },
             'angular-mocks': { deps: ['angular'] },
+            'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'webstorage': { deps: ['angular'] },
             'd3': {exports: 'd3'},
             'nvd3': { deps: ['d3']},
@@ -44,13 +45,12 @@
             'configurations':{deps: ['angular']},
             'notificationWidget':{deps: ['angular','jquery'],exports:'notificationWidget'},
             'angularFileUpload':{deps: ['angular','jquery','angularFileUploadShim'],exports:'angularFileUpload'},
-            'modified.datepicker':{deps: ['angular']},
-            'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'ckEditor':{deps:['jquery']},
             'LocalStorageModule':{deps:['angular']},
             'ngCsv':{deps:['angular']},
             'chosen.jquery.min':{deps:['jquery']},
             'frAngular':{deps:['angular']},
+            'modified.datepicker':{deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',

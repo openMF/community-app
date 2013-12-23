@@ -7,15 +7,7 @@
         </ul>
     </div>
     <api-validate></api-validate>
-    <div class="row">
-        <div class="pull-right">
-            <div class="btn-group">
-                <button type="button" data-ng-click="showEditCode()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}</button>
-                <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
-                <a data-ng-click="delCode()" class="btn btn-warning" ng-show="code.systemDefined == false"><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
-            </div>
-        </div>
-    </div>
+
     <script type="text/ng-template" id="deletecode.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -35,7 +27,16 @@
         </div>
     </script>
     <div class="form-horizontal well">
-        <h3  data-ng-hide="newcode.edit">{{code.name}}</h3>
+        <div class="row">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" data-ng-click="showEditCode()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}</button>
+                    <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
+                    <a data-ng-click="delCode()" class="btn btn-warning" ng-show="code.systemDefined == false"><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <h3  data-ng-hide="newcode.edit"><strong>{{code.name}}</strong></h3>
         <div data-ng-show="newcode.edit">
             <input type="text" data-ng-model="codename.name">
             <button type="button" class="btn" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}</button>
