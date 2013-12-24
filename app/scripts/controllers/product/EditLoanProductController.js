@@ -24,6 +24,7 @@
             if(data.closeDate){scope.date.second = new Date(data.closeDate);}
             scope.formData = {
               name : scope.product.name,
+              shortName : scope.product.shortName,
               description : scope.product.description,
               fundId : scope.product.fundId,
               description : scope.product.description,

@@ -9,16 +9,18 @@
 </div>
 
 <div class="row-fluid" ng-controller="SavingProductController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="Filter by name">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameshortname' | translate}}">
 	<table class="table">
         <thead>
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="savingproduct in savingproducts | orderBy:'name':reverse | filter:filterText">
                 <td><a href="#/viewsavingproduct/{{savingproduct.id}}">{{savingproduct.name}}</a></td>
+                <td>{{savingproduct.shortName}}</td>
             </tr>
         </tbody>
     </table>
