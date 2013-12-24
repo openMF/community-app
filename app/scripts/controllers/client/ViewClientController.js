@@ -6,6 +6,12 @@
         scope.buttons = [];
         scope.clientdocuments = [];
         scope.staffData = {};
+        scope.routeToLoan = function(id){
+          location.path('/viewloanaccount/' + id);
+        };
+        scope.routeToSaving = function(id){
+            location.path('/viewsavingaccount/' + id);
+        };
         scope.haveFile = [];
         resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
             scope.client = data;

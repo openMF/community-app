@@ -147,7 +147,7 @@
         <br/>
         <div data-ng-show="accounts.savingsAccounts">
             <h3>{{ 'label.heading.savingsaccoverview' | translate }}</h3>
-            <table class="table table-striped" width="100%" style="margin-top: -20px;">
+            <table class="table" width="100%" style="margin-top: -20px;">
                 <thead>
                     <tr><td colspan="5">&nbsp;</td></tr>
                     <tr class="graybg">
@@ -158,11 +158,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="savingaccount in accounts.savingsAccounts | orderBy:'productName':reverse">
-                        <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
-                        <td><a href="#/">{{savingaccount.accountNo}}</a></td>
-                        <td>{{savingaccount.accountBalance}}</td>
-                        <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                    <tr class="pointer-main" ng-repeat="savingaccount in accounts.savingsAccounts | orderBy:'productName':reverse">
+                        <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.productName}}</td>
+                        <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.accountBalance}}</td>
+                        <td class="pointer" data-ng-click="routeTo(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -177,17 +177,17 @@
 
         </div>
     </div>
-    <table class="table table-striped" width="100%">
+    <table class="table" width="100%">
         <thead>
         <th>{{'label.heading.name' | translate}}</th>
         <th>{{'label.heading.office' | translate}}</th>
         <th>{{ 'label.heading.status' | translate }}</th>
         </thead>
         <tbody>
-        <tr ng-repeat="group in center.groupMembers">
-            <td><a href="#/viewgroup/{{group.id}}">{{group.name}}</a></td>
-            <td><a href="#/viewgroup/{{group.id}}">{{group.officeName}}</a></td>
-            <td> <i class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}</td>
+        <tr class="pointer-main" ng-repeat="group in center.groupMembers">
+            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.name}}</td>
+            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.officeName}}</td>
+            <td class="pointer" data-ng-click="routeToGroup(group.id)"> <i class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}</td>
         </tr>
         </tbody>
     </table>

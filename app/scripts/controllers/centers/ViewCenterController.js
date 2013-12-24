@@ -8,6 +8,12 @@
                 scope.staffData.staffId = data.staffId;
                 scope.meeting = data.collectionMeetingCalendar;
             });
+            scope.routeTo = function(id){
+                location.path('/viewsavingaccount/' + id);
+            };
+            scope.routeToGroup = function(id){
+                location.path('/viewgroup/' + id);
+            }
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts',genericResultSet: 'false',R_groupId: routeParams.id} , function(data) {
                 scope.summary = data[0];
             });
