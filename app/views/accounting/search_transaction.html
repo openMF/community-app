@@ -57,7 +57,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="transaction in transactions.currentPageItems">
+                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="transaction in transactions.currentPageItems">
                     <td>{{transaction.id}}</td>
                     <td>{{transaction.officeName}}</td>
                     <td>{{transaction.transactionDate | DateFormat}}</td>
@@ -79,8 +79,8 @@
             </tbody>
         </table>
         <ul class="pager">
-            <li class="previous"><a ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-            <li class="next" ><a ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+            <li class="next" ><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
         </ul>
     </div>
 </div>
