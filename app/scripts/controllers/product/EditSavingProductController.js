@@ -18,6 +18,7 @@
             scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
             scope.formData = {
               name : data.name,
+              shortName : data.shortName,
               description : data.description,
               currencyCode : data.currency.code,
               digitsAfterDecimal : data.currency.decimalPlaces,
