@@ -86,55 +86,55 @@
           }
       };
 
-        keyboardManager.bind('shift+n', function() {
+        keyboardManager.bind('ctrl+shift+n', function() {
             location.path('/nav/offices');
         });
-        keyboardManager.bind('shift+i', function() {
+        keyboardManager.bind('ctrl+shift+i', function() {
             location.path('/tasks');
         });
-        keyboardManager.bind('shift+o', function() {
+        keyboardManager.bind('ctrl+shift+o', function() {
             location.path('/entercollectionsheet');
         });
-        keyboardManager.bind('shift+c', function() {
+        keyboardManager.bind('ctrl+shift+c', function() {
             location.path('/createclient');
         });
-        keyboardManager.bind('shift+g', function() {
+        keyboardManager.bind('ctrl+shift+g', function() {
             location.path('/creategroup');
         });
-        keyboardManager.bind('shift+q', function() {
+        keyboardManager.bind('ctrl+shift+q', function() {
             location.path('/createcenter');
         });
-        keyboardManager.bind('shift+f', function() {
+        keyboardManager.bind('ctrl+shift+f', function() {
             location.path('/freqposting');
         });
-        keyboardManager.bind('shift+e', function() {
+        keyboardManager.bind('ctrl+shift+e', function() {
             location.path('/accounts_closure');
         });
-        keyboardManager.bind('shift+j', function() {
+        keyboardManager.bind('ctrl+shift+j', function() {
             location.path('/journalentry');
         });
-        keyboardManager.bind('shift+a', function() {
+        keyboardManager.bind('ctrl+shift+a', function() {
             location.path('/accounting');
         });
-        keyboardManager.bind('shift+r', function() {
+        keyboardManager.bind('ctrl+shift+r', function() {
             location.path('/reports/all');
         });
-        keyboardManager.bind('shift+s', function() {
+        keyboardManager.bind('ctrl+s', function() {
             document.getElementById('save').click();
         });
         keyboardManager.bind('ctrl+r', function() {
             document.getElementById('run').click();
         });
-        keyboardManager.bind('shift+x', function() {
+        keyboardManager.bind('ctrl+shift+x', function() {
             document.getElementById('cancel').click();
         });
-        keyboardManager.bind('shift+l', function() {
+        keyboardManager.bind('ctrl+shift+l', function() {
             document.getElementById('logout').click();
         });
-        keyboardManager.bind('shift+z', function() {
+        keyboardManager.bind('alt+x', function() {
             document.getElementById('search').focus();
         });
-        keyboardManager.bind('shift+h', function() {
+        keyboardManager.bind('ctrl+shift+h', function() {
             document.getElementById('help').click();
         });
         keyboardManager.bind('ctrl+n', function() {
