@@ -4,7 +4,15 @@
         resourceFactory.templateResource.get({entityId : 1, typeId : 0}, function(data) {
             scope.loanTemplateData = data;
         });
-        
+        scope.print = function(template){
+            var templateWindow = window.open('', 'Screen Report', 'height=400,width=600');
+            templateWindow.document.write('<html><head>');
+            templateWindow.document.write('</head><body>');
+            templateWindow.document.write(template);
+            templateWindow.document.write('</body></html>');
+            templateWindow.print();
+            templateWindow.close();
+        };
         scope.getLoanTemplate = function(templateId) {
           scope.selectedTemplate = templateId;
           http({
