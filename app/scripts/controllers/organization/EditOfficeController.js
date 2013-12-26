@@ -4,14 +4,20 @@
         scope.formData = {};
         scope.first = {};
         scope.restrictDate = new Date();
+        resourceFactory.officeResource.getAllOffices(function(data) {
+            scope.parentId = scope.offices[0].id;
+        });
         resourceFactory.officeResource.get({officeId: routeParams.id, template: 'true'} , function(data) {
+            scope.offices = data.allowedParents;
+            scope.id = data.id;
             if(data.openingDate){
             var editDate = dateFilter(data.openingDate,'dd MMMM yyyy');
             scope.first.date = new Date(editDate); }
             scope.formData =
           {
               name : data.name,
-              externalId : data.externalId
+              externalId : data.externalId,
+              parentId : data.parentId
           }
         });
         

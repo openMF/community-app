@@ -172,7 +172,8 @@ define(['underscore', 'mifosX'], function() {
       'DayMonthFormat',
       'YesOrNo',
       'UrlToString',
-      'sort'
+      'sort',
+      'DotRemove',
     ],
     directives: [
       'DialogDirective',
