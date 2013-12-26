@@ -1,8 +1,9 @@
 describe("AuthenticationService", function() {
-  var scope, httpService, callbacks;
+  var scope, httpService, callbacks,localStorageService;
   beforeEach(function() {
     callbacks = {};
     scope = jasmine.createSpyObj("$rootScope", ['$broadcast']);
+    localStorageService= jasmine.createSpyObj('localStorageService',['add']);
     
     httpService = jasmine.createSpyObj("httpService", ['post', 'success', 'error']);
     httpService.post.andReturn(httpService);
@@ -13,7 +14,7 @@ describe("AuthenticationService", function() {
       });
     });
 
-    new mifosX.services.AuthenticationService(scope, httpService).authenticateWithUsernamePassword({
+    new mifosX.services.AuthenticationService(scope, httpService,localStorageService).authenticateWithUsernamePassword({
       username: "test_username",
       password: "test_password"
     });
