@@ -422,6 +422,30 @@
           </table>
         </tab>
 
+        <tab ng-show="$parent.loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
+          <table  width="100%">
+            <tr>
+              <td>
+                      {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount}}&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>
+                      <b>{{'label.heading.tranchedetails' | translate}}</b>
+              </td>
+            </tr>
+            <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
+                <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
+                <th align="left">{{'label.input.principal' | translate}}</th>
+            </tr>
+            <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
+                <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
+                <td>{{disbursementDetail.principal}}</td>
+            </tr>
+          </table>
+        </tab>
+
+
         <tab ng-show="$parent.chargeTableShow" heading="{{'label.heading.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
