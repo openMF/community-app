@@ -81,6 +81,21 @@
                 </div>
               </td>
             </tr>
+              <tr>
+                  <td>
+                      <div class="control-group">
+                          <label class="control-label" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+                          <div class="controls">
+                              <input type="number" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" />
+                                <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
+                                  <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
+                                      {{'label.mustbenumeric' | translate}}
+                                  </small>
+                                </span>
+                          </div>
+                      </div>
+                  </td>
+              </tr>
 
               <tr>
                   <td>
@@ -88,7 +103,7 @@
                           <div class="control-group" data-ng-switch-when="1">
                               <label class="control-label">{{'label.input.activationdate' | translate}}:<span class="required">*</span></label>
                               <div class="controls">
-                                  <input class="date-disable" readonly id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                                  <input  id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                               </div>
                           </div>
                       </div>

@@ -11,8 +11,7 @@
             'angularuitpls':    '../bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
             'underscore':       '../bower_components/underscore/underscore.min',
             'webstorage':       '../bower_components/angular-webstorage/angular-webstorage.min',
-            'require-css':      '../bower_components/require-css/css',  
-            'require-less':     '../bower_components/require-less/less',
+            'require-css':      '../bower_components/require-css/css',
             'd3':               '../bower_components/d3/d3.min',
             'nvd3':             '../bower_components/nvd3/nv.d3.min',
             'nvd3ChartDirectives':'../scripts/modules/angularjs-nvd3-directives',
@@ -83,16 +82,11 @@
                 name: 'css',
                 location: '../bower_components/require-css',
                 main: 'css'
-            },
-            {
-                name: 'less',
-                location: '../bower_components/require-less',
-                main: 'less'
             }
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function() {
+    require(['mifosXComponents.js', 'mifosXStyles.js'], function() {
         require(['test/testInitializer'], function(testMode) {
             if (!testMode) {
                 angular.bootstrap(document, ['MifosX_Application']);

@@ -119,10 +119,12 @@
         };
 
         scope.cancel = function() {
-          if (scope.groupId) {
-            location.path('/viewgroup/' + scope.groupId);
-          } else if (scope.clientId) {
+          if (scope.clientId) {
             location.path('/viewclient/' + scope.clientId);
+          } else if(scope.centerEntity){
+              location.path('/viewcenter/' + scope.groupId);
+          } else{
+              location.path('/viewgroup/' + scope.groupId);
           }
         }
     }

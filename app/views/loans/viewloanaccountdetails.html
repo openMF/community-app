@@ -6,11 +6,13 @@
     </ul>
   </div>
   <div>
-      <div class="span gray-head" style="margin-left:0%;margin-top:-20px;">
+      <div class="span gray-head" style="margin-left:0%;">
           <span style="margin-left: 10px;font-size:20px">
                 <strong><i class="icon-stop {{loandetails.status.code | StatusLookup}}"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
           </span>
-          <span class="pull-right">
+      </div>
+      <div class="row-fluid primarydiv">
+       <span class="pull-right">
               <div class="btn-group">
                   <span ng-repeat="button in buttons.singlebuttons">
                       <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
@@ -30,8 +32,9 @@
                       </ul>
                   </span>
               </div>
-          </span>
-      </div>
+       </span>
+       </div>
+
       <hr/><br/>
     <div class="row-fluid span" style="margin-left:-1px;margin-top: -20px">
         <div class="span6">
@@ -42,15 +45,15 @@
                 </tr>
                 <tr>
                     <th class="table-bold-loan">{{'label.heading.currency' | translate}}</th>
-                    <td><span class="padded-td">{{loandetails.principal}}</span></td>
+                    <td><span class="padded-td">{{loandetails.currency.name}}</span></td>
                 </tr>
                 <tr>
                     <th class="table-bold-loan">{{'label.heading.loanofficer' | translate}}</th>
-                    <td><span class="padded-td">{{loandetails.loanOfficerName}}&nbsp;
+                    <td><span class="padded-td"><span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span>{{loandetails.loanOfficerName}}&nbsp;
                         <span ng-show="loandetails.loanOfficerName">
                           <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i class="icon-remove"></i></a>
                         </span>
-                        <span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span></span>
+                        </span>
                     </td>
                 </tr>
             </table>
@@ -68,7 +71,7 @@
                 </tr>
                 <tr>
                     <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
-                    <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span data-ng-hide="loandetails.summary.totalOverdue">{{'label.heading.notprovided' | translate}}</span></span></td>
+                    <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span></td>
                 </tr>
             </table>
         </div>

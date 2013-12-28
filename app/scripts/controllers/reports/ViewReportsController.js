@@ -1,11 +1,10 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
 
-    ViewReportsController: function(scope, routeParams, resourceFactory, location) {
+    ViewReportsController: function(scope, routeParams, resourceFactory, location,route) {
 
       scope.reports = [];
       scope.type = routeParams.type;
-
       //to display type of report on breadcrumb
       var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
       scope.type = typeReport;
@@ -50,7 +49,7 @@
 
     }
   });
-  mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewReportsController]).run(function($log) {
+  mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$route', mifosX.controllers.ViewReportsController]).run(function($log) {
     $log.info("ViewReportsController initialized");
   });
 }(mifosX.controllers || {}));

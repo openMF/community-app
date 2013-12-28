@@ -131,11 +131,17 @@
         keyboardManager.bind('ctrl+shift+l', function() {
             document.getElementById('logout').click();
         });
-        keyboardManager.bind('ctrl+shift+z', function() {
+        keyboardManager.bind('alt+x', function() {
             document.getElementById('search').focus();
         });
         keyboardManager.bind('ctrl+shift+h', function() {
             document.getElementById('help').click();
+        });
+        keyboardManager.bind('ctrl+n', function() {
+            document.getElementById('next').click();
+        });
+        keyboardManager.bind('ctrl+p', function() {
+            document.getElementById('prev').click();
         });
       scope.changeLang = function (lang) {
           translate.uses(lang.code);

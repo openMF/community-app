@@ -15,7 +15,8 @@
               middlename : data.middlename,
               active : data.active,
               accountNo : data.accountNo, 
-              staffId : data.staffId
+              staffId : data.staffId,
+              mobileNo : data.mobileNo
             };
             var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
             scope.date.activationDate = new Date(actDate);

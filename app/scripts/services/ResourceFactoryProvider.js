@@ -92,6 +92,13 @@
             getReportDetails: {method: 'GET', params: {id:'@id'}},
             update: {method: 'PUT', params: {}}
           }),
+          xbrlMixtaxonomyResource: defineResource(apiVer + "/mixtaxonomy", {}, {
+            get: {method: 'GET', params: {}, isArray:true}
+          }),
+          xbrlMixMappingResource: defineResource(apiVer + "/mixmapping", {}, {
+            get: {method: 'GET', params: {}, isArray:true},
+            update: {method: 'PUT', params: {}}
+          }),
           DataTablesResource: defineResource(apiVer + "/datatables/:datatablename/:entityId/:resourceId", {datatablename:'@datatablename',entityId:'@entityId', resourceId:'@resourceId'}, {
             getAllDataTables: {method: 'GET', params: {}, isArray:true},
             getTableDetails: {method: 'GET', params: {}},

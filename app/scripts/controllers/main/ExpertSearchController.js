@@ -26,12 +26,14 @@
             //recent activities retrieved
 
             //retrieve last 8 recent activities
-            for(var l=0; l<8;l++){
+            for(var l=0; l<11;l++){
                 if(scope.uniqueArray[l]){
-                    scope.recents.push(scope.uniqueArray[l]);
+                    if(scope.uniqueArray[l]!='/'){ if(scope.uniqueArray[l]!='/home'){
+                      scope.recents.push(scope.uniqueArray[l]);
+                    }}
                 }
             }
-            // 9 recent activities retrieved
+            // 8 recent activities retrieved
 
             //count duplicates
             var i = scope.recent.length;
@@ -58,9 +60,11 @@
             //retrieving ends here
 
             //retrieve last 8 frequent actions
-            for(var freq = sortedArray.length-1; freq>sortedArray.length-9;freq--){
+            for(var freq = sortedArray.length-1; freq>sortedArray.length-11;freq--){
                 if(sortedArray[freq]){
-                    scope.frequent.push(sortedArray[freq]);
+                    if(sortedArray[freq]!='/'){ if(sortedArray[freq]!='/home'){
+                      scope.frequent.push(sortedArray[freq]);
+                    }}
                 }
             }
             // retrieved 8 frequent actions

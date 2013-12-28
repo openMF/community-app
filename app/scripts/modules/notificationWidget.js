@@ -40,9 +40,17 @@ angular.module('notificationWidget', [])
                 if(response.config && response.config.method=="GET"){
                     return response;
                 }else {
-                    if (response.data && response.data.commandId && response.data.changes == undefined) {
-                        $location.path('/viewMakerCheckerTask/'+response.data.commandId);
+                    if (response.data && response.data.commandId) {
+                        //Maker checker is enabled or performing actions of maker checker
+                        if (response.config.url.indexOf('makercheckers/') > 0) {
+                            //return response for maker checker actions(approve or delete)
+                            return response;
+                        } else{
+                            //redirect if maker checker is enabled
+                            $location.path('/viewMakerCheckerTask/'+response.data.commandId);
+                        }
                     } else{
+                        //when no maker checker enabled
                         return response;
                     };
                 }

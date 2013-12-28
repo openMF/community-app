@@ -21,6 +21,10 @@
         <i class="icon-building"></i>
         <small>{{ 'label.heading.office' | translate }}: "{{group.officeName}}" </small>
     </li>
+    <li data-ng-show="group.centerName"><span class="divider">|</span>
+       <i class="icon-map-marker"></i>
+       <small>{{ 'label.heading.center' | translate }}:"{{group.centerName}}" </small>
+    </li>
    </ul>
  </div>
  <div>
@@ -151,7 +155,7 @@
             <h3>{{ 'label.heading.loanaccoverview' | translate }}</h3>
             <br/>
             <a href="#/groupclosedloanaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedloans' | translate }}</a>
-            <table class="table table-striped" width="100%">
+            <table class="table" width="100%">
                   <thead>
                     <tr class="graybg">
                         <th>{{ 'label.heading.products' | translate }}</th>
@@ -160,18 +164,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanNotClosed" >
-                        <td>
-                            <a href="#/viewloanaccount/{{loanaccount.id}}">
-                                {{loanaccount.productName}}
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#/viewloanaccount/{{loanaccount.id}}">
-                                {{loanaccount.accountNo}}
-                            </a>
-                        </td>
-                        <td><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
+                    <tr class="pointer-main" ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanNotClosed" >
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
                     </tr>
                     <tr><td colspan="5">&nbsp;</td></tr>
                 </tbody>
@@ -180,7 +176,7 @@
           <div data-ng-show="groupAccounts.savingsAccounts">
             <h3>{{'label.heading.savingsaccoverview' | translate }}</h3>
             <a href="#/groupclosedsavingaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedsavings' | translate }}</a>
-            <table class="table table-striped" width="100%">
+            <table class="table" width="100%">
               <thead>
                 <tr class="graybg">
                     <th>{{ 'label.heading.products' | translate }}</th>
@@ -190,11 +186,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts |orderBy:'productName':reverse | filter:isSavingNotClosed">
-                    <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.productName}}</a></td>
-                    <td><a href="#/viewsavingaccount/{{savingaccount.id}}">{{savingaccount.accountNo}}</a></td>
-                    <td>{{savingaccount.accountBalance}}</td>
-                    <td><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                <tr class="pointer-main" ng-repeat="savingaccount in groupAccounts.savingsAccounts |orderBy:'productName':reverse | filter:isSavingNotClosed">
+                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
+                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}</td>
+                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
                 </tr>
               </tbody>
             </table>
@@ -211,17 +207,17 @@
                 <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right">{{ 'label.button.transferclients' | translate }}</a>
             </div>
         </div>
-        <table class="table table-striped" width="100%">
+        <table class="table" width="100%">
             <thead>
                  <th>{{'label.heading.accnum' | translate}}</th>
                  <th>{{'label.heading.name' | translate}}</th>
                  <th>{{ 'label.heading.status' | translate }}</th>
             </thead>
             <tbody>
-               <tr ng-repeat="member in group.clientMembers">
-                <td><a href="#/viewclient/{{member.id}}">{{member.accountNo}}</a></td>
-                <td><a href="#/viewclient/{{member.id}}">{{member.displayName}}</a></td>
-                <td> <i class="icon-stop {{member.status.code | StatusLookup}}"></i>{{member.status.value}}</td>
+               <tr class="pointer-main" ng-repeat="member in group.clientMembers">
+                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.accountNo}}</td>
+                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
+                <td class="pointer" data-ng-click="routeToMem(member.id)"> <i class="icon-stop {{member.status.code | StatusLookup}}"></i>{{member.status.value}}</td>
                </tr>
             </tbody>
         </table>

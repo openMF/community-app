@@ -8,10 +8,6 @@ define(['underscore'], function() {
       'nv.d3',
       'style',
       'chosen.min'
-    ],
-    less: [
-      'mifosX'
-
     ]
   };
 

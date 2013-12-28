@@ -17,15 +17,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="center in centers.currentPageItems| orderBy:'name':reverse  | filter:filterText">
-            <td><a href="#/viewcenter/{{center.id}}">{{center.name}}</a></td>
-            <td><i class="icon-stop {{center.status.code | StatusLookup}}"></i>{{center.status.value}}</td>
-            <td>{{center.officeName}}</td>
+        <tr class="pointer-main" ng-repeat="center in centers.currentPageItems| orderBy:'name':reverse  | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(center.id)"><i class="icon-stop {{center.status.code | StatusLookup}}"></i>{{center.status.value}}</td>
+            <td class="pointer" data-ng-click="routeTo(center.id)">{{center.officeName}}</td>
         </tr>
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a ng-click="centers.previous()" ng-hide="!centers.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next" ><a ng-click="centers.next()" ng-hide="!centers.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        <li class="previous"><a id="prev" ng-click="centers.previous()" ng-hide="!centers.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+        <li class="next" ><a id="next" ng-click="centers.next()" ng-hide="!centers.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
     </ul>
 </div>
