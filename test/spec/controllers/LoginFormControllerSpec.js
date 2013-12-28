@@ -6,6 +6,11 @@ describe("LoginFormController", function() {
       eventListener = listener;
     });
     this.authenticationService = jasmine.createSpyObj("AuthenticationService", ['$on']);
+    $ = jQuery = jasmine.createSpy('jQuery');
+    $.keypress = jasmine.createSpy('$.keypress()');
+    $.andCallFake(function(selector) {
+        return $;
+    });
 
     this.controller = new mifosX.controllers.LoginFormController(this.scope, this.authenticationService);
   });
