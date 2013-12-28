@@ -83,119 +83,173 @@
                 </div>
             </script>
             <div class="row-fluid">
-            <div class="span7">
+            <div class="span6">
                 <div data-ng-show="group.status.value=='Closed'">
                     <h3>{{'label.heading.groupclosed' | translate}}</h3>
                 </div>
-                <table width="100%" >
-                    <tr>
-                        <td width="35%">{{'label.heading.name' | translate}}</td>
-                        <td width="65%">{{group.name}}</td>
+                <table class="table view-table table-bordered">
+                    <tr data-ng-show="group.name">
+                        <td class="table-bold">{{'label.heading.name' | translate}}</td>
+                        <td><span class="padded-td">{{group.name}}</span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.activationdate' | translate }}</td>
-                        <td valign="top">{{group.activationDate | DateFormat}}</td>
+                        <td class="table-bold">{{ 'label.heading.activationdate' | translate }}</td>
+                        <td><span class="padded-td">{{group.activationDate | DateFormat}}<span data-ng-hide="group.activationDate">{{ 'label.notactivated' | translate }}</span></span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.staff' | translate }}</td>
-                        <td>{{group.staffName}}</td>
+                        <td class="table-bold">{{ 'label.heading.staff' | translate }}</td>
+                        <td><span class="padded-td">{{group.staffName}}<span data-ng-hide="group.staffName">{{ 'label.unassigned' | translate }}</span></span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.nextmeetingon' | translate }}</td>
-                        <td>{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+                        <td class="table-bold">{{ 'label.heading.nextmeetingon' | translate }}</td>
+                        <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
                             <a href="#/editcalendar/groups/{{group.id}}/{{group.collectionMeetingCalendar.id}}" ng-show="group.collectionMeetingCalendar"><i class="icon-edit icon-white"></i></a>
+                            <span style="margin-left:-7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span> </span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
-                        <td>{{group.collectionMeetingCalendar.humanReadable}}</td>
+                    <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+                        <td class="table-bold">{{ 'label.heading.meetingfrequency' | translate }}</td>
+                        <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
                     </tr>
                 </table>
             </div>
             <div class="span5">
-                <table class="table table-striped" width="100%" >
+                <table class="table paddedsummary table-striped">
                     <thead>
                     <tr class="graybg">
                         <th colspan="2">{{ 'label.heading.summary' | translate }}</th>
                     </tr>
                     </thead>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclient' | translate }}</td>
-                        <td width="40%">{{summary.activeClients}}</td>
+                        <td>{{ 'label.numofactiveclient' | translate }}</td>
+                        <td>{{summary.activeClients}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactivegrouploans' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                        <td>{{ 'label.numofactivegrouploans' | translate }}</td>
+                        <td>{{summary.activeGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclientloans' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                        <td>{{ 'label.numofactiveclientloans' | translate }}</td>
+                        <td>{{summary.activeGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactivegroupborrowers' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupBorrowers}}</td>
+                        <td>{{ 'label.numofactivegroupborrowers' | translate }}</td>
+                        <td>{{summary.activeGroupBorrowers}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclientborrowers' | translate }}</td>
-                        <td width="40%">{{summary.activeClientBorrowers}}</td>
+                        <td>{{ 'label.numofactiveclientborrowers' | translate }}</td>
+                        <td>{{summary.activeClientBorrowers}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
-                        <td width="40%">{{summary.overdueGroupLoans}}</td>
+                        <td>{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+                        <td>{{summary.overdueGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
-                        <td width="40%">{{summary.overdueClientLoans}}</td>
+                        <td>{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+                        <td>{{summary.overdueClientLoans}}</td>
                     </tr>
                 </table>
             </div>
         </div>
-        <br/>
-          <div data-ng-show="groupAccounts.loanAccounts">
-            <h3>{{ 'label.heading.loanaccoverview' | translate }}</h3>
-            <br/>
-            <a href="#/groupclosedloanaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedloans' | translate }}</a>
-            <table class="table" width="100%">
-                  <thead>
+        <div class="row-fluid">
+            <div class="pull-right" style="margin-top:10px ">
+              <span data-ng-show="groupAccounts.loanAccounts">
+                  <button data-ng-show="openLoan" type="button" class="btn-primary btn" data-ng-click="setLoan()">{{ 'label.button.viewclosedloans' | translate }}</button>
+                  <button data-ng-show="!openLoan" type="button" class="btn-primary btn" data-ng-click="setLoan()">{{ 'label.button.viewactiveloans' | translate }}</button>
+              </span>
+              <span data-ng-show="groupAccounts.savingsAccounts">
+                  <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn">{{ 'label.button.viewclosedsavings' | translate }}</button>
+                  <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn">{{ 'label.button.viewactivesavings' | translate }}</button>
+              </span>
+            </div>
+            <div data-ng-show="groupAccounts.loanAccounts">
+                <div class="span gray-head" style="margin-left:0%">
+                  <span style="margin-left: 10px;font-size:20px">
+                        <strong>{{ 'label.heading.loanaccoverview' | translate }}</strong>
+                  </span>
+                </div>
+                <br/>
+                <table class="table" data-ng-show="openLoan">
+                    <thead>
                     <tr class="graybg">
-                        <th>{{ 'label.heading.products' | translate }}</th>
-                        <th>{{ 'label.heading.groupaccounts' | translate }} No</th>
+                        <th style="width: 250px">{{ 'label.heading.products' | translate }}</th>
+                        <th style="width: 150px">{{'label.heading.accnum' | translate}}</th>
+                        <th style="width: 150px">{{'label.heading.type' | translate}}</th>
                         <th>{{ 'label.heading.status' | translate }}</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr class="pointer-main" ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanNotClosed" >
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="loanaccount in groupAccounts.loanAccounts | orderBy:'productName':reverse | filter:isLoanNotClosed" >
                         <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
                         <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
                         <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
                     </tr>
-                    <tr><td colspan="5">&nbsp;</td></tr>
-                </tbody>
-            </table>
-          </div>
-          <div data-ng-show="groupAccounts.savingsAccounts">
-            <h3>{{'label.heading.savingsaccoverview' | translate }}</h3>
-            <a href="#/groupclosedsavingaccount/{{group.id}}" class="pull-right">{{ 'label.button.viewclosedsavings' | translate }}</a>
-            <table class="table" width="100%">
-              <thead>
-                <tr class="graybg">
-                    <th>{{ 'label.heading.products' | translate }}</th>
-                    <th>{{ 'label.heading.accnum' | translate }}</th>
-                    <th>{{ 'label.heading.balance' | translate }}</th>
-                    <th>{{ 'label.heading.status' | translate }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="pointer-main" ng-repeat="savingaccount in groupAccounts.savingsAccounts |orderBy:'productName':reverse | filter:isSavingNotClosed">
-                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
-                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
-                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}</td>
-                    <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-    </div>
+                    </tbody>
+                </table>
+                <table class="table" data-ng-show="!openLoan">
+                    <thead>
+                    <tr class="graybg">
+                        <th style="width: 250px">{{ 'label.heading.products' | translate }}</th>
+                        <th style="width: 150px">{{'label.heading.accnum' | translate}}</th>
+                        <th style="width: 150px">{{'label.heading.type' | translate}}</th>
+                        <th>{{ 'label.heading.status' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanClosed" >
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div data-ng-show="groupAccounts.savingsAccounts">
+                  <div class="span gray-head" style="margin-left:0%">
+                      <span style="margin-left: 10px;font-size:20px">
+                            <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
+                      </span>
+                  </div>
+                  <br/>
+                  <table class="table" data-ng-show="openSaving">
+                      <thead>
+                        <tr class="graybg">
+                            <th style="width: 250px">{{ 'label.heading.products' | translate }}</th>
+                            <th style="width: 150px">{{ 'label.heading.accnum' | translate }}</th>
+                            <th style="width: 150px">{{ 'label.heading.balance' | translate }}</th>
+                            <th>{{ 'label.heading.status' | translate }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="pointer-main" ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}</td>
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <table class="table" data-ng-show="!openSaving">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width: 250px">{{ 'label.heading.products' | translate }}</th>
+                            <th style="width: 150px">{{ 'label.heading.accnum' | translate }}</th>
+                            <th>{{ 'label.heading.status' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingClosed">
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
+                            <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+            </div>
+            </div>
+      </div>
     </tab>
     <tab heading="{{ 'label.heading.members' | translate }}">
         <div class="row-fluid">
