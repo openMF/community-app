@@ -116,6 +116,8 @@ define(['underscore', 'mifosX'], function() {
       'organization/AddHolController',
       'reports/ViewReportsController',
       'reports/RunReportsController',
+      'reports/XBRLController',
+      'reports/XBRLReportController',
       'savings/CreateSavingAccountController',
       'savings/ViewSavingDetailsController',
       'private/SuperuserController',
