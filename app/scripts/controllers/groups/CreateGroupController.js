@@ -71,12 +71,13 @@
                 for(var i in scope.addedClients){
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
                 }
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-                this.formData.activationDate = reqDate;
-
+                if(this.formData.active){
+                    var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                    this.formData.activationDate = reqDate;
+                }
                 if (scope.first.submitondate) {
-                    reqDate = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
-                    this.formData.submittedOnDate = reqDate;
+                    reqDat = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
+                    this.formData.submittedOnDate = reqDat;
                 }
 
                 this.formData.locale  = 'en';
