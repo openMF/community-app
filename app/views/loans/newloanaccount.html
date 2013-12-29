@@ -9,7 +9,7 @@
   <api-validate></api-validate>
   <form name="newloanaccountform" novalidate="" rc-submit="submit()" class="well">
     <fieldset>
-    <legend>{{ 'label.heading.loanapplication' | translate }}</legend>
+    <legend><strong>{{ 'label.heading.loanapplication' | translate }}</strong></legend>
       <div class="control-group">
         <table width="100%">
           <tr class="control-group">
@@ -31,7 +31,7 @@
         </table>
       </div>
       <div class="control-group">
-        <table ng-show="loanaccountinfo" width="100%">
+        <table ng-show="loanaccountinfo" width="100%" style="margin-top: -35px">
             <tr class="control-group">
               <td  width="14%"></td>
               <td width="40%">
@@ -61,9 +61,8 @@
               </td>
             </tr>
         </table>
-        <div ng-hide="previewRepayment" ng-show="loanaccountinfo.calendarOptions" class="control-group">
-          <hr>
-          <table width="100%">
+        <div style="margin-left: 100px" ng-hide="previewRepayment" class="control-group">
+          <table ng-show="loanaccountinfo.calendarOptions">
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
               <td width="12%"></td>
               <td width="88%">
@@ -77,9 +76,11 @@
               </td>
             </tr>
           </table>
-          <hr>
         </div>
         <table ng-show="loanaccountinfo" ng-hide="previewRepayment" width="100%">
+          <tr>
+              <hr/>
+          </tr>
           <tr class="control-group">
             <td width="10%">
               <label class="control-label"><h4>{{ 'label.heading.terms' | translate }}</h4></label>

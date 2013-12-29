@@ -6,6 +6,8 @@
         scope.buttons = [];
         scope.clientdocuments = [];
         scope.staffData = {};
+        scope.openLoan = true;
+        scope.openSaving = true;
         scope.routeToLoan = function(id){
           location.path('/viewloanaccount/' + id);
         };
@@ -195,7 +197,40 @@
         resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
             scope.clientAccounts = data;
         });
-
+        scope.isClosed = function(loanaccount) {
+            if(loanaccount.status.code === "loanStatusType.closed.written.off" ||
+                loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
+                loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" ||
+                loanaccount.status.code === "loanStatusType.withdrawn.by.client" ||
+                loanaccount.status.code === "loanStatusType.rejected") {
+                return true;
+            } else{
+                return false;
+            }
+        };
+        scope.isSavingClosed = function(savingaccount) {
+            if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
+                savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                savingaccount.status.code === "savingsAccountStatusType.rejected") {
+                return true;
+            } else{
+                return false;
+            }
+        };
+        scope.setLoan = function(){
+            if(scope.openLoan){
+                scope.openLoan = false
+            }else{
+                scope.openLoan = true;
+            }
+        };
+        scope.setSaving = function(){
+            if(scope.openSaving){
+                scope.openSaving = false;
+            }else{
+                scope.openSaving = true;
+            }
+        };
         resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id} , function(data) {
             scope.clientNotes = data;
         });
