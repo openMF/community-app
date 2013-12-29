@@ -13,7 +13,7 @@
             scope.added = [];
             scope.formData = {};
             scope.formData.clientMembers = [];
-            resourceFactory.groupTemplateResource.get(function(data) {
+            resourceFactory.groupTemplateResource.get({orderBy: 'name', sortOrder: 'ASC'}, function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;

@@ -77,79 +77,84 @@
             </div>
         </script>
        <div class="row-fluid">
-            <div class="span7">
+            <div class="span6">
                 <div data-ng-show="center.status.value=='Closed'">
                     <h3>{{'label.heading.centerclosed' | translate}}</h3>
                 </div>
-                <table width="100%" >
+                <table class="table view-table table-bordered">
                     <tr>
-                        <td width="35%">{{'label.heading.name' | translate}}</td>
-                        <td width="65%">{{center.name}}</td>
+                        <td class="table-bold">{{'label.heading.name' | translate}}</td>
+                        <td><span class="padded-td">{{center.name}}</span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.activationdate' | translate }}</td>
-                        <td valign="top">{{center.activationDate | DateFormat}}</td>
+                        <td class="table-bold">{{ 'label.heading.activationdate' | translate }}</td>
+                        <td><span class="padded-td">{{center.activationDate | DateFormat}}<span data-ng-hide="center.activationDate">{{ 'label.notactivated' | translate }}</span></span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.staff' | translate }}</td>
-                        <td>{{center.staffName}}</td>
+                        <td class="table-bold">{{ 'label.heading.staff' | translate }}</td>
+                        <td><span class="padded-td">{{center.staffName}}<span data-ng-hide="center.staffName">{{ 'label.unassigned' | translate }}</span></span></td>
                     </tr>
                     <tr>
-                        <td>{{ 'label.heading.nextmeetingon' | translate }}</td>
-                        <td>{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+                        <td class="table-bold">{{ 'label.heading.nextmeetingon' | translate }}</td>
+                        <td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
                             <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}" ng-show="center.collectionMeetingCalendar"><i class="icon-edit icon-white"></i></a>
+                         <span style="margin-left:-7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
-                        <td>{{center.collectionMeetingCalendar.humanReadable}}</td>
+                    <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
+                        <td class="table-bold">{{ 'label.heading.meetingfrequency' | translate }}</td>
+                        <td><span class="padded-td">{{center.collectionMeetingCalendar.humanReadable}}</span></td>
                     </tr>
                 </table>
             </div>
             <div class="span5">
-                <table class="table table-striped" width="100%" >
+                <table class="table paddedsummary table-striped">
                     <thead>
                     <tr class="graybg">
                         <th colspan="2">{{ 'label.heading.summary' | translate }}</th>
                     </tr>
                     </thead>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclient' | translate }}</td>
-                        <td width="40%">{{summary.activeClients}}</td>
+                        <td>{{ 'label.numofactiveclient' | translate }}</td>
+                        <td>{{summary.activeClients}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactivegrouploans' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                        <td>{{ 'label.numofactivegrouploans' | translate }}</td>
+                        <td>{{summary.activeGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclientloans' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupLoans}}</td>
+                        <td>{{ 'label.numofactiveclientloans' | translate }}</td>
+                        <td>{{summary.activeGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactivegroupborrowers' | translate }}</td>
-                        <td width="40%">{{summary.activeGroupBorrowers}}</td>
+                        <td>{{ 'label.numofactivegroupborrowers' | translate }}</td>
+                        <td>{{summary.activeGroupBorrowers}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveclientborrowers' | translate }}</td>
-                        <td width="40%">{{summary.activeClientBorrowers}}</td>
+                        <td>{{ 'label.numofactiveclientborrowers' | translate }}</td>
+                        <td>{{summary.activeClientBorrowers}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
-                        <td width="40%">{{summary.overdueGroupLoans}}</td>
+                        <td>{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+                        <td>{{summary.overdueGroupLoans}}</td>
                     </tr>
                     <tr>
-                        <td width="60%">{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
-                        <td width="40%">{{summary.overdueClientLoans}}</td>
+                        <td>{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+                        <td>{{summary.overdueClientLoans}}</td>
                     </tr>
                 </table>
             </div>
         </div>
         <br/>
         <div data-ng-show="accounts.savingsAccounts">
-            <h3>{{ 'label.heading.savingsaccoverview' | translate }}</h3>
-            <table class="table" width="100%" style="margin-top: -20px;">
+            <div class="span gray-head" style="margin-left:0%">
+                  <span style="margin-left: 10px;font-size:20px">
+                        <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
+                  </span>
+            </div>
+            <br/>
+            <table class="table">
                 <thead>
-                    <tr><td colspan="5">&nbsp;</td></tr>
                     <tr class="graybg">
                         <th>{{ 'label.heading.products' | translate }}</th>
                         <th>{{ 'label.heading.accnum' | translate }}</th>

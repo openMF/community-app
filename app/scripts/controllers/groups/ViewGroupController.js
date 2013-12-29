@@ -5,6 +5,8 @@
             scope.template = [];
             scope.choice = 0;
             scope.staffData = {};
+            scope.openLoan = true;
+            scope.openSaving = true;
             scope.routeToLoan = function(id){
                 location.path('/viewloanaccount/' + id);
             };
@@ -81,6 +83,40 @@
                     scope.formData.note = "";
                     scope.predicate = '-id';
                 });
+            };
+            scope.isLoanClosed = function(loanaccount) {
+                if(loanaccount.status.code === "loanStatusType.closed.written.off" ||
+                    loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
+                    loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" ||
+                    loanaccount.status.code === "loanStatusType.withdrawn.by.client" ||
+                    loanaccount.status.code === "loanStatusType.rejected") {
+                    return true;
+                } else{
+                    return false;
+                }
+            };
+            scope.setLoan = function(){
+                if(scope.openLoan){
+                    scope.openLoan = false
+                }else{
+                    scope.openLoan = true;
+                }
+            };
+            scope.setSaving = function(){
+                if(scope.openSaving){
+                    scope.openSaving = false;
+                }else{
+                    scope.openSaving = true;
+                }
+            };
+            scope.isSavingClosed = function(savingaccount) {
+                if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
+                    savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.rejected") {
+                    return true;
+                } else{
+                    return false;
+                }
             };
             scope.isLoanNotClosed = function(loanaccount) {
               if(loanaccount.status.code === "loanStatusType.closed.written.off" || 
