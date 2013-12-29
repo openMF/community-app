@@ -61,6 +61,7 @@
           }),
           groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId:'@groupId',anotherresource:'@anotherresource'}, {
               get: {method: 'GET', params: {}},
+              getAllGroups: {method: 'GET', params: {}, isArray:true},
               update: { method: 'PUT'}
           }),
           groupSummaryResource: defineResource(apiVer + "/runreports/:reportSource",{reportSource: '@reportSource'}, {
@@ -243,6 +244,7 @@
           }),
           centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId:'@centerId',anotherresource:'@anotherresource'}, {
             get: {method: 'GET', params: {}},
+            getAllCenters: {method: 'GET', params: {}, isArray: true},
             update: { method: 'PUT'}
           }),
           centerMeetingResource:defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId:'@centerId',templateSource:'@templateSource'}, {
