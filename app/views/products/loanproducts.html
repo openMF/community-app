@@ -9,12 +9,12 @@
 </div>
 
 <div class="row-fluid" ng-controller="LoanProductController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynamefundname' | translate}}">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameshortname' | translate}}">
 	<table class="table">
         <thead>
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.fundname' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
                 <th>{{'label.heading.expirydate' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
             </tr>
@@ -22,7 +22,7 @@
         <tbody>
             <tr class="pointer-main" ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.fundName}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)"><i class="icon-stop {{loanproduct.status | StatusLookup}}"></i></td>
             </tr>
