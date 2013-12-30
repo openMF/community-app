@@ -22,8 +22,8 @@
         });
 
        var fetchFunction = function(offset, limit, callback) {
-          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+          var reqFirstDate = dateFilter(scope.date.first,scope.df);
+          var reqSecondDate = dateFilter(scope.date.second,scope.df);
           var params = {};
           params.offset = offset;
           params.limit = limit;

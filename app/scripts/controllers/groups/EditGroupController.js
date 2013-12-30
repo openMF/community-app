@@ -12,7 +12,7 @@
                                     staffId:data.staffId
                                  };
                 if(data.activationDate){
-                    var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+                    var actDate = dateFilter(data.activationDate,scope.df);
                     scope.first.date = new Date(actDate);
                 }
 
@@ -25,21 +25,21 @@
             });
 
             scope.updateGroup = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.activationDate = reqDate;
                 this.formData.locale = "en";
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.dateFormat = scope.df;
                 resourceFactory.groupResource.update({groupId:routeParams.id},this.formData , function(data) {
                     location.path('/viewgroup/'+routeParams.id);
                 });
             };
 
             scope.activate = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 var newActivation = new Object();
                 newActivation.activationDate = reqDate;
-                newActivation.locale = 'en' ;
-                newActivation.dateFormat = 'dd MMMM yyyy';
+                newActivation.locale = scope.optlang ;
+                newActivation.dateFormat = scope.df;
                 resourceFactory.groupResource.save({groupId : routeParams.id,command:'activate'},newActivation, function(data){
                     location.path('/viewgroup/'+routeParams.id);
                 });

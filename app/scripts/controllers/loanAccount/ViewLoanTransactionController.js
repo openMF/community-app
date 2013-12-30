@@ -9,8 +9,8 @@
 
       scope.undoTransaction = function(accountId, transactionId) {
         var params = {loanId:accountId, transactionId:transactionId, command:'undo'};
-        var formData = {dateFormat:'dd MMMM yyyy', locale:'en', transactionAmount:0};
-        formData.transactionDate = dateFilter(new Date(),'dd MMMM yyyy');
+        var formData = {dateFormat:scope.df, locale:scope.optlang, transactionAmount:0};
+        formData.transactionDate = dateFilter(new Date(),scope.df);
         resourceFactory.loanTrxnsResource.save(params, formData, function(data){
           location.path('/viewloanaccount/' + data.loanId);
         });

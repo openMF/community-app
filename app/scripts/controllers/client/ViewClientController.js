@@ -278,7 +278,7 @@
                 }
               } 
             }
-
+            if(scope.datatabledetails.isData){
             for(var i in data.columnHeaders){
                 if(!scope.datatabledetails.isMultirow){
                   var row = {};
@@ -286,11 +286,10 @@
                   row.value = data.data[0].row[i];
                   scope.singleRow.push(row);
                 }
-            }
+            }}
 
           });
         };
-
         scope.deleteAll = function (apptableName, entityId) {
           resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
             route.reload();

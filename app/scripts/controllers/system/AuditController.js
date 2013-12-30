@@ -20,10 +20,10 @@
             scope.search = function(){
                 scope.isCollapsed = true;
                 scope.displayResults = true;
-                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
-                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
-                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
+                var reqFirstDate = dateFilter(scope.date.first,scope.df);
+                var reqSecondDate = dateFilter(scope.date.second,scope.df);
+                var reqThirdDate = dateFilter(scope.date.third,scope.df);
+                var reqFourthDate = dateFilter(scope.date.fourth,scope.df);
                 var params = {};
                 if (scope.formData.action) { params.actionName = scope.formData.action; };
 

@@ -27,11 +27,11 @@
 
             scope.submit = function(){
                 var guarantor = {};
-                var reqDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.date.first,scope.df);
                 if(scope.temp==true)
                 {
                     guarantor.guarantorTypeId = scope.template.guarantorTypeOptions[0].id;
-                    guarantor.locale = 'en';
+                    guarantor.locale = scope.optlang.code;
                     if (this.formData) {
                         guarantor.clientRelationshipTypeId = this.formData.relationship;
                     }
@@ -46,7 +46,7 @@
                     guarantor.dob=reqDate;
                     guarantor.zip=this.formData.zip;
                     guarantor.dateFormat="dd MMMM yyyy";
-                    guarantor.locale='en';
+                    guarantor.locale=scope.optlang.code;
                     guarantor.firstname = this.formData.firstname;
                     guarantor.lastname = this.formData.lastname;
                     guarantor.mobileNumber = this.formData.mobile;

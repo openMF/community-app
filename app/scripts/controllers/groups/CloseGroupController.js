@@ -16,10 +16,10 @@
             });
 
             scope.closeGroup = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.closureDate = reqDate;
-                this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 resourceFactory.groupResource.save({groupId: routeParams.id ,command:'close'},this.formData, function(data){
                     location.path('/viewgroup/' + data.resourceId);
                 });

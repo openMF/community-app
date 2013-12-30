@@ -12,12 +12,12 @@
             });
             scope.minDat = new Date();
             scope.submit = function() {
-                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
-                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
+                var reqFirstDate = dateFilter(scope.date.first,scope.df);
+                var reqSecondDate = dateFilter(scope.date.second,scope.df);
+                var reqThirdDate = dateFilter(scope.date.third,scope.df);
                 var newholiday = new Object();
-                newholiday.locale = 'en';
-                newholiday.dateFormat = 'dd MMMM yyyy';
+                newholiday.locale = scope.optlang.code;
+                newholiday.dateFormat = scope.df;
                 newholiday.name = this.formData.name;
                 newholiday.fromDate = reqFirstDate;
                 newholiday.toDate = reqSecondDate;

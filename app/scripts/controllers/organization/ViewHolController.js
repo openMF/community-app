@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewHolController: function(scope,routeParams, resourceFactory, $modal, location, route) {
+        ViewHolController: function(scope, $rootScoperouteParams, resourceFactory, $modal, location, route) {
 
             resourceFactory.holValueResource.getholvalues({officeId:1,holId: routeParams.id} , function(data) {
                 scope.holiday = data;

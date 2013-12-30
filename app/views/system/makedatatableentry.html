@@ -11,15 +11,22 @@
 		<h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
 		<hr>
 		<div class="control-group" ng-repeat="columnHeader in columnHeaders">
-			<label class="control-label">{{ columnHeader.columnName }}<span ng-show="!columnHeader.isColumnNullable" class="required">*</span></label>
+			<label class="control-label" ng-hide="columnHeader.columnDisplayType == 'DATE'">{{ columnHeader.columnName }}<span ng-show="!columnHeader.isColumnNullable" class="required">*</span></label>
 			<div class="controls">
-				<input ng-autofocus="true" id="{{columnHeader.columnName}}" type="text" ng-hide="columnHeader.columnDisplayType == 'CODELOOKUP' || columnHeader.columnDisplayType == 'DATE'" id="activationDate" ng-model="formData[columnHeader.columnName]">
-				<select ng-show="columnHeader.columnDisplayType == 'CODELOOKUP'" id="{{columnHeader.columnName}}" ng-model="formData[columnHeader.columnName]" ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues" value="{{columnValue.id}}">
+                <input type="text" data-ng-show="columnHeader.columnDisplayType == 'STRING'" ng-model="formData[columnHeader.columnName]"/>
+                <input type="text" data-ng-show="columnHeader.columnDisplayType == 'INTEGER'" ng-model="formData[columnHeader.columnName]"/>
+                <input type="text" data-ng-show="columnHeader.columnDisplayType == 'TEXT'" ng-model="formData[columnHeader.columnName]"/>
+                <select ng-show="columnHeader.columnDisplayType == 'CODELOOKUP'" ng-model="formData[columnHeader.columnName]" ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues" value="{{columnValue.id}}">
 					<option value="">{{'label.selectone' | translate}}</option>
 				</select>
-				<input class="date-disable" ng-show="columnHeader.columnDisplayType == 'DATE'" readonly id="activationDate" type="text" name="activationdate" datepicker-pop="dd MMMM yyyy" ng-model="formData[columnHeader.columnName]" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-			</div>
+            </div>
 		</div>
+        <div class="control-group" ng-repeat="columnHeader in columnHeaders">
+            <label class="control-label" ng-show="columnHeader.columnDisplayType == 'DATE'">{{ columnHeader.columnName }}<span ng-show="!columnHeader.isColumnNullable" class="required">*</span></label>
+            <div class="controls">
+                <input ng-show="columnHeader.columnDisplayType == 'DATE'" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]" is-open="opened"/>
+            </div>
+        </div>
 		<div class="offset2">
 			<a id="cancel" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
 			<button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>

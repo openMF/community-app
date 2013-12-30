@@ -77,7 +77,7 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
-
+                    scope.singleRow = [];
                     for(var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues){
@@ -89,6 +89,15 @@
                             }
                         } 
                     }
+                    if(scope.datatabledetails.isData){
+                    for(var i in data.columnHeaders){
+                        if(!scope.datatabledetails.isMultirow){
+                            var row = {};
+                            row.key = data.columnHeaders[i].columnName;
+                            row.value = data.data[0].row[i];
+                            scope.singleRow.push(row);
+                        }
+                    } }
                 });
             };
 

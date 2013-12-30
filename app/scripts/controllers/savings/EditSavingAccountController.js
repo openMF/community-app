@@ -14,12 +14,12 @@
               for (var i in scope.charges) {
                   if(scope.charges[i].chargeTimeType.value=='Annual Fee') {
                       scope.charges[i].feeOnMonthDay.push(2013);
-                      scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay, 'dd MMMM yyyy'));
+                      scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay, scope.df));
                   } else if(scope.charges[i].chargeTimeType.value== "Monthly Fee") {
                       scope.charges[i].feeOnMonthDay.push(2013);
-                      scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay, 'dd MMMM yyyy'));
+                      scope.charges[i].feeOnMonthDay = new Date(dateFilter(scope.charges[i].feeOnMonthDay, scope.df));
                   } else if(scope.charges[i].chargeTimeType.value=='Specified due date') {
-                      scope.charges[i].dueDate = new Date(dateFilter(scope.charges[i].dueDate, 'dd MMMM yyyy'));
+                      scope.charges[i].dueDate = new Date(dateFilter(scope.charges[i].dueDate, scope.df));
                   } 
               }
           }
@@ -36,7 +36,7 @@
           scope.products = data.productOptions;
           if(data.fieldOfficerId != 0)scope.formData.fieldOfficerId = data.fieldOfficerId;
           if(data.timeline) {
-            var submittedOnDate = dateFilter(data.timeline.submittedOnDate, 'dd MMMM yyyy');
+            var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
             scope.formData.submittedOnDate = new Date(submittedOnDate);
           }
           scope.fieldOfficers = data.fieldOfficerOptions;
@@ -92,12 +92,12 @@
                 if (data.chargeTimeType.value == "Annual Fee") {
                     if (data.feeOnMonthDay) {
                         data.feeOnMonthDay.push(2013);
-                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, 'dd MMMM yyyy'));
+                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, scope.df));
                     }
                 } else if (data.chargeTimeType.value == "Monthly Fee") {
                     if (data.feeOnMonthDay) {
                         data.feeOnMonthDay.push(2013);
-                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, 'dd MMMM yyyy'));
+                        data.feeOnMonthDay = new Date(dateFilter(data.feeOnMonthDay, scope.df));
                     }
                 }
 
@@ -120,9 +120,9 @@
         }
 
         scope.submit = function() {
-          if(this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');
-          this.formData.locale = 'en';
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          if(this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
+          this.formData.locale = scope.optlang.code;
+          this.formData.dateFormat = scope.df;
           this.formData.monthDayFormat= "dd MMM";
           scope.formData.charges = [];
           if (scope.charges.length > 0) {
@@ -132,7 +132,7 @@
                       feeOnMonthDay:dateFilter(scope.charges[i].feeOnMonthDay,'dd MMMM')});
                   } else if(scope.charges[i].chargeTimeType.value=='Specified due date') {
                       this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
-                      dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy')});
+                      dueDate:dateFilter(scope.charges[i].dueDate,scope.df)});
                   }else if(scope.charges[i].chargeTimeType.value=='Monthly Fee') {
                       this.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount,
                       feeOnMonthDay:dateFilter(scope.charges[i].feeOnMonthDay,'dd MMMM'), feeInterval : scope.charges[i].feeInterval});

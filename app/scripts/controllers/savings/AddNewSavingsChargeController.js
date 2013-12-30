@@ -36,7 +36,7 @@
               } else {
                   this.formData.dateFormat = "dd MMMM yyyy";
                   if (scope.date.specificduedate) {
-                      this.formData.dueDate = dateFilter(scope.date.specificduedate,'dd MMMM yyyy');
+                      this.formData.dueDate = dateFilter(scope.date.specificduedate,scope.df);
                   } else {
                       this.formData.dueDate = "";
                   }

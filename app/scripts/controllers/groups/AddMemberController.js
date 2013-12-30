@@ -22,12 +22,12 @@
             };
             scope.submit = function(){
                 if (scope.first.date) {
-                    var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                    var reqDate = dateFilter(scope.first.date,scope.df);
                     this.formData.activationDate = reqDate;
-                    this.formData.dateFormat = 'dd MMMM yyyy';
+                    this.formData.dateFormat = scope.df;
                 }
                 this.formData.active = this.formData.active || false;
-                this.formData.locale = 'en';
+                this.formData.locale = scope.optlang.code;
                 this.formData.groupId = routeParams.groupId ;
                 this.formData.officeId = routeParams.officeId;
                 resourceFactory.clientResource.save(this.formData,function(data) {

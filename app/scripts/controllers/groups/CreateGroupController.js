@@ -72,16 +72,16 @@
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
                 }
                 if(this.formData.active){
-                    var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                    var reqDate = dateFilter(scope.first.date,scope.df);
                     this.formData.activationDate = reqDate;
                 }
                 if (scope.first.submitondate) {
-                    reqDat = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
+                    reqDat = dateFilter(scope.first.submitondate,scope.df);
                     this.formData.submittedOnDate = reqDat;
                 }
 
-                this.formData.locale  = 'en';
-                this.formData.dateFormat =  'dd MMMM yyyy';
+                this.formData.locale  = scope.optlang.code;
+                this.formData.dateFormat =  scope.df;
                 this.formData.active = this.formData.active || false;
                 resourceFactory.groupResource.save(this.formData,function(data){
                     location.path('/viewgroup/' + data.resourceId);
