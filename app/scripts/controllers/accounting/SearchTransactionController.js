@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    SearchTransactionController: function(scope, resourceFactory , paginatorService,dateFilter) {
+    SearchTransactionController: function(scope, resourceFactory , paginatorService,dateFilter,location) {
 
         scope.filters = [{option: "All", value: ""},{option: "Manual Entries", value: true},{option: "System Entries", value: false}];
         scope.isCollapsed = true;
@@ -10,13 +10,8 @@
         scope.offices = [];
         scope.date={};
         scope.formData={};
-        scope.highlight = function(id){
-            var i = document.getElementById(id);
-            if(i.className == 'selected-row'){
-                i.className = 'text-pointer';
-            }else{
-                i.className = 'selected-row';
-            }
+        scope.routeTo = function(id){
+           location.path('/viewtransactions/' + id);
         };
         resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed:true, usage:1, disabled:false}, function(data){
           scope.glAccounts = data;
@@ -58,7 +53,7 @@
 
     }
   });
-  mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService','dateFilter', mifosX.controllers.SearchTransactionController]).run(function($log) {
+  mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService','dateFilter','$location', mifosX.controllers.SearchTransactionController]).run(function($log) {
     $log.info("SearchTransactionController initialized");
   });
 }(mifosX.controllers || {}));
