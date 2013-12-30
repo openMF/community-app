@@ -41,6 +41,7 @@
             scope.previewClientLoanAccInfo = function() {
               scope.previewRepayment = false;
               scope.charges = scope.loanaccountinfo.charges || [];
+              scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
               scope.collaterals = [];
 
               if (scope.loanaccountinfo.calendarOptions) {
@@ -48,6 +49,7 @@
                 scope.formData.syncDisbursementWithMeeting = true;
               }
 
+              scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan
               scope.formData.productId = scope.loanaccountinfo.loanProductId;
               scope.formData.fundId = scope.loanaccountinfo.fundId;
               scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
@@ -87,6 +89,15 @@
             scope.deleteCharge = function(index) {
               scope.charges.splice(index,1);
             }
+
+            scope.addTranches = function() {
+              scope.formData.disbursementData.push({
+               });
+            };
+            scope.deleteTranches = function(index) {
+              scope.formData.disbursementData.splice(index,1);
+            }
+
 
             scope.syncRepaymentsWithMeetingchange = function() {
               if (!scope.formData.syncRepaymentsWithMeeting) {
@@ -174,6 +185,12 @@
                   for (var i in scope.collaterals) {
                     scope.formData.collateral.push({type:scope.collaterals[i].type,value:scope.collaterals[i].value, description:scope.collaterals[i].description});
                   };
+                }
+
+                if (scope.formData.disbursementData.length > 0) {
+                  for (var i in scope.formData.disbursementData) {
+                     scope.formData.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.disbursementData[i].expectedDisbursementDate,'dd MMMM yyyy');
+                  }
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
