@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        AddProductMixController: function(scope,resourceFactory,routeParams,location) {
+        AddProductMixController: function(scope, $rootScoperesourceFactory,routeParams,location) {
             scope.allowed = [];
             scope.restricted = [];
             scope.products = [];

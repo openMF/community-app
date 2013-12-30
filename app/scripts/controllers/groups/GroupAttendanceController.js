@@ -21,14 +21,14 @@
             });
 
             scope.attendanceUpdate = function (id) {
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.clientsAttendance = [];
                 for(var i=0; i<scope.clients.length;i++)
                 {
                     this.formData.clientsAttendance[i] ={clientId : scope.clients[i].id,attendanceType : scope.clients[i].attendanceType};
                 }
-                this.formData.locale = 'en' ;
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang ;
+                this.formData.dateFormat = scope.df;
                 this.formData.calendarId = id;
                 this.formData.meetingDate = reqDate;
                 resourceFactory.groupMeetingResource.save({groupId: routeParams.groupId,calenderId: routeParams.calendarId},this.formData, function(data) {

@@ -66,7 +66,7 @@
                   }
                   
                   if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
-                      scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,'dd MMMM yyyy'));
+                      scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,scope.df));
                   }
                   if (data.collectionMeetingCalendar) {
                       scope.calendarId = data.collectionMeetingCalendar.id;
@@ -85,7 +85,7 @@
                       scope.calendarId = data.collectionMeetingCalendar.id;
                   }
                   if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
-                      scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,'dd MMMM yyyy'));
+                      scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate,scope.df));
                   }
                   centerOrGroupResource = "groupResource";
                 });
@@ -100,7 +100,7 @@
             scope.formData.locale = "en";
             scope.formData.calendarId = scope.calendarId;
             if (scope.date.transactionDate) {
-                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,'dd MMMM yyyy');
+                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,scope.df);
             }
             if (centerOrGroupResource == "centerResource" && scope.calendarId !== "") {
                 resourceFactory.centerResource.save({'centerId' : scope.centerId, command : 'generateCollectionSheet'}, scope.formData,function(data){
@@ -275,7 +275,7 @@
             scope.formData.dateFormat = "dd MMMM yyyy";
             scope.formData.locale = "en";
             if (scope.date.transactionDate) {
-                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,'dd MMMM yyyy');;
+                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,scope.df);;
             }
             scope.formData.actualDisbursementDate = this.formData.transactionDate;
             scope.formData.clientsAttendance = scope.clientsAttendance;

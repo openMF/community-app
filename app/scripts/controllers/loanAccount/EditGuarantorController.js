@@ -21,19 +21,19 @@
                 }
 
                 if (data.dob) {
-                    scope.date.first = new Date(dateFilter(data.dob, 'dd MMMM yyyy')); 
+                    scope.date.first = new Date(dateFilter(data.dob, scope.df));
                 }
             });
             scope.submit = function(){
                 var guarantor = {};
-                var reqDate = dateFilter(scope.date.first,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.date.first,scope.df);
                 guarantor.addressLine1=this.formData.addressLine1;
                 guarantor.addressLine2=this.formData.addressLine2;
                 guarantor.city = this.formData.city;
                 guarantor.dob=reqDate;
                 guarantor.zip=this.formData.zip;
                 guarantor.dateFormat="dd MMMM yyyy";
-                guarantor.locale='en';
+                guarantor.locale=scope.optlang.code;
                 guarantor.firstname = this.formData.firstname;
                 guarantor.lastname = this.formData.lastname;
                 guarantor.mobileNumber = this.formData.mobile;

@@ -18,7 +18,7 @@
                 scope.view = 1;
             };
             scope.transfer = function(){
-                this.formData.locale = 'en';
+                this.formData.locale = scope.optlang.code;
                 this.formData.clients=[];
                 var temp = new Object();
                 for(var i=0; i<scope.tempData.length;i++)

@@ -29,15 +29,15 @@
         };
 
         scope.submit = function() {
-            var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+            var reqDate = dateFilter(scope.first.date,scope.df);
 
-            this.formData.locale = 'en';
+            this.formData.locale = scope.optlang.code;
             this.formData.active = this.formData.active || false;
-            this.formData.dateFormat = 'dd MMMM yyyy';
+            this.formData.dateFormat = scope.df;
             this.formData.activationDate = reqDate;
 
             if (scope.first.submitondate) {
-                reqDate = dateFilter(scope.first.submitondate,'dd MMMM yyyy');
+                reqDate = dateFilter(scope.first.submitondate,scope.df);
                 this.formData.submittedOnDate = reqDate;
             }
             

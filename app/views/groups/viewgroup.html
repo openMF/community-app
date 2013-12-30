@@ -328,28 +328,36 @@
         </table>
     </tab>
         <tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" select="dataTableChange(groupdatatable)">
-            <span data-ng-hide="group.status.value == 'Closed'">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(groupdatatable.registeredTableName, group.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-                <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                   <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                </span></br>
-            </span>
-            <table ng-show="datatabledetails.isData" class="table">
-              <thead>
-                <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
-              </thead>
-                <tbody>
-                  <tr ng-repeat="data in datatabledetails.data">
-                    <td ng-repeat="row in data.row">
-                      <span ng-show="$index == 0">
-                        <a href="#/viewdatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}/{{data.row[0]}}" ng-show="datatabledetails.isMultirow">{{row}}</a>
-                        <a href="#/viewdatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}/" ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                      </span>
-                      <span ng-hide="$index == 0">{{row}}</span>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
+            <div>
+                  <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(groupdatatable.registeredTableName, group.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                  <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
+                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                  </span></br>
+                        <div ng-show="datatabledetails.isData">
+                    <table class="table" data-ng-show="datatabledetails.isMultirow">
+                        <thead>
+                        <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in datatabledetails.data">
+                            <td ng-repeat="row in data.row">
+                    <span ng-show="$index == 0">
+                      <a href="#/viewdatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}/{{data.row[0]}}" ng-show="datatabledetails.isMultirow">{{row}}</a>
+                      <a href="#/viewdatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}/" ng-hide="datatabledetails.isMultirow">{{row}}</a>
+                    </span>
+                                <span ng-hide="$index == 0">{{row}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+                        <tr ng-repeat="value in singleRow">
+                            <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                            <td><span class="padded-td">{{value.value}}</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </tab>
    </tabset>
  </div>

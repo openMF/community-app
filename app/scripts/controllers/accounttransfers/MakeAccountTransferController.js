@@ -41,7 +41,7 @@
       scope.submit = function() {
         this.formData.locale = "en";
         this.formData.dateFormat = "dd MMMM yyyy";
-        if (this.formData.transferDate) this.formData.transferDate = dateFilter(this.formData.transferDate,'dd MMMM yyyy');
+        if (this.formData.transferDate) this.formData.transferDate = dateFilter(this.formData.transferDate,scope.df);
         this.formData.fromOfficeId = scope.transfer.fromClient.id;
         this.formData.fromClientId = scope.transfer.fromClient.officeId;
         resourceFactory.accountTransferResource.save(this.formData,function(data){

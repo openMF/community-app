@@ -1,11 +1,11 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    DataTableEntryController: function(scope, location, routeParams, route, resourceFactory,$modal) {
+    DataTableEntryController: function(scope, location, routeParams, route, resourceFactory,$modal,dateFilter) {
 
       scope.tableName = routeParams.tableName;
       scope.entityId = routeParams.entityId;
       scope.resourceId = routeParams.resourceId;
-
+      scope.formDat = {};
       scope.columnHeaders = [];
       scope.formData = {};
       scope.isViewMode = true;
@@ -38,9 +38,13 @@
           scope.columnHeaders.splice(0,1);
           scope.isCenter = colName ==  'center_id' ? true : false;
         }
-
         for(var i in scope.columnHeaders) {
-          scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
+
+          if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
+              scope.formDat[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
+          } else{
+              scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
+          }
           if (scope.columnHeaders[i].columnCode) {
             for (var j in scope.columnHeaders[i].columnValues){
               if (scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
@@ -89,8 +93,16 @@
       };
 
       scope.submit = function () {
-        this.formData.locale = 'en';
-        this.formData.dateFormat =  'dd MMMM yyyy';
+        this.formData.locale = scope.optlang.code;
+        this.formData.dateFormat =  scope.df;
+          for (var i=0; i < scope.columnHeaders.length; i++) {
+              if (!_.contains(_.keys(this.formData), scope.columnHeaders[i].columnName)) {
+                  this.formData[scope.columnHeaders[i].columnName] = "";
+              }
+              if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
+                  this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName],scope.df);
+              }
+          }
         resourceFactory.DataTablesResource.update(reqparams, this.formData, function(data){
           var destination = "";
           if ( data.loanId) {
@@ -114,7 +126,7 @@
 
     }
   });
-  mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory','$modal', mifosX.controllers.DataTableEntryController]).run(function($log) {
+  mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory','$modal','dateFilter', mifosX.controllers.DataTableEntryController]).run(function($log) {
     $log.info("DataTableEntryController initialized");
   });
 }(mifosX.controllers || {}));

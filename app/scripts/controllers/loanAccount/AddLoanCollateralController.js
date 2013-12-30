@@ -15,7 +15,7 @@
         };
 
         scope.submit = function() {
-          this.formData.locale = 'en';
+          this.formData.locale = scope.optlang.code;
           resourceFactory.loanResource.save({resourceType:'collaterals', loanId:scope.loanId}, this.formData, function(data){
             location.path('/loan/' + data.loanId +'/viewcollateral/'+data.resourceId);
           });

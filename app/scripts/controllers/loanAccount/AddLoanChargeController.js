@@ -23,10 +23,10 @@
         };
 
         scope.submit = function() {
-          this.formData.locale = 'en';
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          this.formData.locale = scope.optlang.code;
+          this.formData.dateFormat = scope.df;
           if (this.formData.dueDate) {
-            this.formData.dueDate = dateFilter(this.formData.dueDate,'dd MMMM yyyy'); 
+            this.formData.dueDate = dateFilter(this.formData.dueDate,scope.df);
           };
           resourceFactory.loanResource.save({resourceType:'charges', loanId:scope.loanId}, this.formData, function(data){
             location.path('/viewloanaccount/' + data.loanId);

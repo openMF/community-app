@@ -18,7 +18,7 @@
               staffId : data.staffId,
               mobileNo : data.mobileNo
             };
-            var actDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+            var actDate = dateFilter(data.activationDate,scope.df);
             scope.date.activationDate = new Date(actDate);
             if(data.active){
                 scope.choice = 1;
@@ -26,10 +26,10 @@
 
         });
         scope.submit = function() {
-             this.formData.locale = 'en';
-             this.formData.dateFormat = 'dd MMMM yyyy';
+             this.formData.locale = scope.optlang.code;
+             this.formData.dateFormat = scope.df;
              if (scope.choice === 1) {
-              if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,'dd MMMM yyyy');}
+              if(scope.date.activationDate){this.formData.activationDate = dateFilter(scope.date.activationDate,scope.df);}
              }
              resourceFactory.clientResource.update({'clientId': routeParams.id},this.formData,function(data){
                location.path('/viewclient/' + routeParams.id);

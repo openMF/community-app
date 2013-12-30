@@ -225,13 +225,14 @@
 </tab>
 </tab>
     <tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" select="dataTableChange(centerdatatable)">
-        <span data-ng-show="center.status.value=='Closed'">
+        <span>
             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(centerdatatable.registeredTableName, center.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
             <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
               <a href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
             </span></br>
         </span>
-        <table ng-show="datatabledetails.isData" class="table">
+      <div data-ng-show="datatabledetails.isData">
+        <table ng-show="datatabledetails.isMultirow" class="table">
           <thead>
             <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
           </thead>
@@ -247,6 +248,13 @@
               </tr>
             </tbody>
         </table>
+        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+            <tr ng-repeat="value in singleRow">
+                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                <td><span class="padded-td">{{value.value}}</span></td>
+            </tr>
+        </table>
+      </div>
     </tab>
 </tabset>
 </div>

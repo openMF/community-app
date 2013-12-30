@@ -60,7 +60,7 @@
             }
 
             scope.submit = function() {
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.startDate = reqDate;
                 this.formData.title = scope.calendarData.title;
                 this.formData.locale = "en";

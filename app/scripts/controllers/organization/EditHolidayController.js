@@ -19,25 +19,25 @@
               scope.holidayStatusActive = false;
             }
 
-            var fromDate = dateFilter(data.fromDate,'dd MMMM yyyy');
+            var fromDate = dateFilter(data.fromDate,scope.df);
             scope.date.fromDate = new Date(fromDate);
 
-            var toDate = dateFilter(data.toDate,'dd MMMM yyyy');
+            var toDate = dateFilter(data.toDate,scope.df);
             scope.date.toDate = new Date(toDate);
 
-            var repaymentsRescheduledTo = dateFilter(data.repaymentsRescheduledTo,'dd MMMM yyyy');
+            var repaymentsRescheduledTo = dateFilter(data.repaymentsRescheduledTo,scope.df);
             scope.date.repaymentsRescheduledTo = new Date(repaymentsRescheduledTo);
 
         });
 
         scope.submit = function() {
-          this.formData.locale = 'en';
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          this.formData.locale = scope.optlang.code;
+          this.formData.dateFormat = scope.df;
           if (!scope.holidayStatusActive) {
-              this.formData.fromDate = dateFilter(scope.date.fromDate,'dd MMMM yyyy');
-              this.formData.toDate = dateFilter(scope.date.toDate,'dd MMMM yyyy');
+              this.formData.fromDate = dateFilter(scope.date.fromDate,scope.df);
+              this.formData.toDate = dateFilter(scope.date.toDate,scope.df);
           }
-            this.formData.repaymentsRescheduledTo = dateFilter(scope.date.repaymentsRescheduledTo,'dd MMMM yyyy');
+            this.formData.repaymentsRescheduledTo = dateFilter(scope.date.repaymentsRescheduledTo,scope.df);
             resourceFactory.holValueResource.update({holId: routeParams.id},this.formData,function(data){
              location.path('/viewholiday/' + routeParams.id);
             });

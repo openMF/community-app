@@ -6,6 +6,16 @@
         if(localStorageService.get('Location')){
             scope.activityQueue = localStorageService.get('Location');
         }
+        scope.setDf = function(){
+            if(localStorageService.get('dateformat')){
+                scope.dateformat = localStorageService.get('dateformat');
+            }else{
+                localStorageService.add('dateformat','dd MMMM yyyy');
+                scope.dateformat = 'dd MMMM yyyy';
+            }
+            scope.df = scope.dateformat;
+        };
+        scope.setDf();
         scope.$watch(function() {
             return location.path();
         }, function() {
@@ -44,7 +54,6 @@
             scope.optlang = scope.langs[0];
         }
         translate.uses(scope.optlang.code);
-
 
       scope.isActive = function (route) {
           if(route == 'clients'){

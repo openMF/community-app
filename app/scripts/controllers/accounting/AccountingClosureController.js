@@ -20,9 +20,9 @@
             });
 
             scope.submit = function() {
-                  var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-                  this.formData.locale = 'en';
-                  this.formData.dateFormat = 'dd MMMM yyyy';
+                  var reqDate = dateFilter(scope.first.date,scope.df);
+                  this.formData.locale = scope.optlang.code;
+                  this.formData.dateFormat = scope.df;
                   this.formData.closingDate = reqDate;
                   resourceFactory.accountingClosureResource.save(this.formData,function(data){
                     location.path('/view_close_accounting/'+data.resourceId);

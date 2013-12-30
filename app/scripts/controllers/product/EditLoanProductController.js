@@ -276,8 +276,8 @@
           scope.feeToIncomeAccountMappings = [];
           scope.penaltyToIncomeAccountMappings = [];
           scope.chargesSelected = [];
-          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+          var reqFirstDate = dateFilter(scope.date.first,scope.df);
+          var reqSecondDate = dateFilter(scope.date.second,scope.df);
           var temp = '';
           //configure fund sources for payment channels 
           for (var i in scope.configureFundOptions) {

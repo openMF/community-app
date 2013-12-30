@@ -83,9 +83,9 @@
 
             scope.submit = function() {
                   var jeTransaction = new Object();
-                  var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-                  jeTransaction.locale = 'en';
-                  jeTransaction.dateFormat = 'dd MMMM yyyy';
+                  var reqDate = dateFilter(scope.first.date,scope.df);
+                  jeTransaction.locale = scope.optlang.code;
+                  jeTransaction.dateFormat = scope.df;
                   jeTransaction.officeId=this.formData.officeId;
                   jeTransaction.transactionDate = reqDate;
                   jeTransaction.referenceNumber = this.formData.referenceNumber;
