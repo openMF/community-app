@@ -361,8 +361,9 @@
         scope.downloadClientIdentifierDocument=function (identifierId, documentId){
           console.log(identifierId,documentId);
         };
-
+        // devcode: !production
 		// *********************** InVenture controller ***********************
+
         scope.fetchInventureScore = function(){
           // dummy data for the graph - DEBUG purpose
           var inventureScore = getRandomInt(450,800);
@@ -450,7 +451,7 @@
 
           // this will be used to display the score on the viewclient.html
           scope.inventureScore = inventureScore;
-        };
+        };    // endcode
     }
   });
   mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope','$upload', mifosX.controllers.ViewClientController]).run(function($log) {
