@@ -245,7 +245,7 @@ module.exports = function(grunt) {
     devcode: {
       options: {
         html: true,        // html files parsing?
-        js: false,          // javascript files parsing?
+        js: true,          // javascript files parsing?
         css: false,         // css files parsing?
         clean: true,       // removes devcode comments even if code was not removed
         block: {
