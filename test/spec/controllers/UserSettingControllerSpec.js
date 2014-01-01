@@ -1,7 +1,7 @@
 describe("UserSettingController", function() {
 
     beforeEach(function() {
-        this.scope = {};
+        this.scope = jasmine.createSpyObj("$scope", ['$watch']);
         this.translate = {
             uses: jasmine.createSpy("translate.uses()")
         };
