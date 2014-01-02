@@ -7,11 +7,12 @@
             };
 
             this.statusTypes = {
-                "Pending": [{
-                    name:"label.button.edit",
-                    href:"#/editclient",
-                    icon :"icon-edit"
-                },
+                "Pending": [
+                    {
+                        name:"label.button.edit",
+                        href:"#/editclient",
+                        icon :"icon-edit"
+                    },
                     {
                         name:"label.button.activate",
                         href:"#/client",
@@ -24,11 +25,12 @@
                         subhref:"close",
                         icon :"icon-remove-circle"
                     }],
-                "Active": [{
-                    name:"label.button.edit",
-                    href:"#/editclient",
-                    icon :"icon-edit"
-                },
+                "Active": [
+                    {
+                        name:"label.button.edit",
+                        href:"#/editclient",
+                        icon :"icon-edit"
+                    },
                     {
                         name:"label.button.newloan",
                         href:"#/newclientloanaccount",
@@ -50,12 +52,13 @@
                         subhref:"close",
                         icon :"icon-remove-circle"
                     }],
-                "Transfer in progress": [{
-                    name:"label.button.accepttransfer",
-                    href:"#/client",
-                    subhref:"acceptclienttransfer",
-                    icon :"icon-check-sign"
-                },
+                "Transfer in progress": [
+                    {
+                        name:"label.button.accepttransfer",
+                        href:"#/client",
+                        subhref:"acceptclienttransfer",
+                        icon :"icon-check-sign"
+                    },
                     {
                         name:"label.button.rejecttransfer",
                         href:"#/client",
@@ -68,12 +71,13 @@
                         subhref:"undotransfer",
                         icon :"icon-undo"
                     }],
-                "Transfer on hold": [{
-                    name:"label.button.undotransfer",
-                    href:"#/client",
-                    subhref:"undotransfer",
-                    icon :"icon-undo"
-                }]
+                "Transfer on hold": [
+                    {
+                        name:"label.button.undotransfer",
+                        href:"#/client",
+                        subhref:"undotransfer",
+                        icon :"icon-undo"
+                    }]
             }
         }
     });
