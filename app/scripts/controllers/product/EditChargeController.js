@@ -82,7 +82,7 @@
                         this.formData.feeOnMonthDay  = reqDate;
                     }
                 }
-                this.formData.locale = 'en';
+                this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;
                 this.formData.penalty = this.formData.penalty || false;
                 resourceFactory.chargeResource.update({chargeId: routeParams.id},this.formData,function(data){

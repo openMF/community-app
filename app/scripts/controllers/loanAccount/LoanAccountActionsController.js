@@ -200,11 +200,11 @@
         scope.submit = function() {
           var params = {command:scope.action};
           if (this.formData[scope.modelName]) {
-            this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],'dd MMMM yyyy');
+            this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],scope.df);
           }
           if (scope.action != "undoapproval" && scope.action != "undodisbursal" || scope.action === "paycharge") {
-            this.formData.locale = 'en';
-            this.formData.dateFormat = 'dd MMMM yyyy';
+            this.formData.locale = scope.optlang.code;
+            this.formData.dateFormat = scope.df;
           }
           if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close"  || scope.action == "modifytransaction") {
             if(scope.action == "modifytransaction") {
@@ -224,12 +224,12 @@
                   location.path('/viewloanaccount/' + data.loanId);
               });
           }else if (scope.action === "paycharge") {
-              this.formData.transactionDate = dateFilter(this.formData.transactionDate,'dd MMMM yyyy');
+              this.formData.transactionDate = dateFilter(this.formData.transactionDate,scope.df);
               resourceFactory.LoanAccountResource.save({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId, 'command' :'pay'}, this.formData, function(data){
                   location.path('/viewloanaccount/' + data.loanId);
               });
           }else if (scope.action === "editcharge") {
-              this.formData.dueDate = dateFilter(this.formData.dueDate,'dd MMMM yyyy');
+              this.formData.dueDate = dateFilter(this.formData.dueDate,scope.df);
               resourceFactory.LoanAccountResource.update({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data){
                   location.path('/viewloanaccount/' + data.loanId);
               });

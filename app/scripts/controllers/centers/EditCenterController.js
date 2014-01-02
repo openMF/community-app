@@ -16,26 +16,26 @@
                 };
 
                 if (data.activationDate) {
-                    var newDate = dateFilter(data.activationDate,'dd MMMM yyyy');
+                    var newDate = dateFilter(data.activationDate,scope.df);
                     scope.first.date = new Date(newDate);
                 }
             });
 
             scope.updateGroup = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.activationDate = reqDate;
                 this.formData.locale = "en";
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.dateFormat = scope.df;
                 resourceFactory.centerResource.update({centerId:routeParams.id},this.formData , function(data) {
                     location.path('/viewcenter/'+routeParams.id);
                 });
             };
             scope.activate = function(){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 var newActivation = new Object();
                 newActivation.activationDate = reqDate;
-                newActivation.locale = 'en' ;
-                newActivation.dateFormat = 'dd MMMM yyyy';
+                newActivation.locale = scope.optlang ;
+                newActivation.dateFormat = scope.df;
                 resourceFactory.centerResource.save({centerId : routeParams.id,command:'activate'},newActivation, function(data){
                     location.path('/viewcenter/'+routeParams.id);
                 });

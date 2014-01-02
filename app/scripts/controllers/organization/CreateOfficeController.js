@@ -13,9 +13,9 @@
         });
         
         scope.submit = function() {   
-          this.formData.locale = 'en';
-          var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          this.formData.locale = scope.optlang.code;
+          var reqDate = dateFilter(scope.first.date,scope.df);
+          this.formData.dateFormat = scope.df;
           this.formData.openingDate = reqDate;
           resourceFactory.officeResource.save(this.formData,function(data){
             location.path('/viewoffice/' + data.resourceId);

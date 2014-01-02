@@ -175,8 +175,8 @@
         };
 
         scope.submit = function() {
-          var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-          var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
+          var reqFirstDate = dateFilter(scope.date.first,scope.df);
+          var reqSecondDate = dateFilter(scope.date.second,scope.df);
           scope.paymentChannelToFundSourceMappings = [];
           scope.feeToIncomeAccountMappings = [];
           scope.penaltyToIncomeAccountMappings = [];

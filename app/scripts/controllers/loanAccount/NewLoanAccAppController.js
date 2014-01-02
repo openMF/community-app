@@ -117,14 +117,14 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
-                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
-                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
-                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
+                var reqFirstDate = dateFilter(scope.date.first,scope.df);
+                var reqSecondDate = dateFilter(scope.date.second,scope.df);
+                var reqThirdDate = dateFilter(scope.date.third,scope.df);
+                var reqFourthDate = dateFilter(scope.date.fourth,scope.df);
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
@@ -143,8 +143,8 @@
 
                 this.formData.interestChargedFromDate = reqThirdDate ;
                 this.formData.repaymentsStartingFromDate = reqFourthDate;
-                this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
@@ -160,16 +160,16 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
-                var reqFirstDate = dateFilter(scope.date.first,'dd MMMM yyyy');
-                var reqSecondDate = dateFilter(scope.date.second,'dd MMMM yyyy');
-                var reqThirdDate = dateFilter(scope.date.third,'dd MMMM yyyy');
-                var reqFourthDate = dateFilter(scope.date.fourth,'dd MMMM yyyy');
-                var reqFifthDate = dateFilter(scope.date.fifth,'dd MMMM yyyy');
+                var reqFirstDate = dateFilter(scope.date.first,scope.df);
+                var reqSecondDate = dateFilter(scope.date.second,scope.df);
+                var reqThirdDate = dateFilter(scope.date.third,scope.df);
+                var reqFourthDate = dateFilter(scope.date.fourth,scope.df);
+                var reqFifthDate = dateFilter(scope.date.fifth,scope.df);
 
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
@@ -187,8 +187,8 @@
                 delete this.formData.interestRateFrequencyType;
                 this.formData.interestChargedFromDate = reqThirdDate ;
                 this.formData.repaymentsStartingFromDate = reqFourthDate;
-                this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;

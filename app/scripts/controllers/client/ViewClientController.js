@@ -6,6 +6,14 @@
             scope.buttons = [];
             scope.clientdocuments = [];
             scope.staffData = {};
+            scope.openLoan = true;
+            scope.openSaving = true;
+            scope.routeToLoan = function(id){
+                location.path('/viewloanaccount/' + id);
+            };
+            scope.routeToSaving = function(id){
+                location.path('/viewsavingaccount/' + id);
+            };
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id} , function(data) {
                 scope.client = data;
@@ -189,7 +197,40 @@
             resourceFactory.clientAccountResource.get({clientId: routeParams.id} , function(data) {
                 scope.clientAccounts = data;
             });
-
+            scope.isClosed = function(loanaccount) {
+                if(loanaccount.status.code === "loanStatusType.closed.written.off" ||
+                    loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
+                    loanaccount.status.code === "loanStatusType.closed.reschedule.outstanding.amount" ||
+                    loanaccount.status.code === "loanStatusType.withdrawn.by.client" ||
+                    loanaccount.status.code === "loanStatusType.rejected") {
+                    return true;
+                } else{
+                    return false;
+                }
+            };
+            scope.isSavingClosed = function(savingaccount) {
+                if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
+                    savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.rejected") {
+                    return true;
+                } else{
+                    return false;
+                }
+            };
+            scope.setLoan = function(){
+                if(scope.openLoan){
+                    scope.openLoan = false
+                }else{
+                    scope.openLoan = true;
+                }
+            };
+            scope.setSaving = function(){
+                if(scope.openSaving){
+                    scope.openSaving = false;
+                }else{
+                    scope.openSaving = true;
+                }
+            };
             resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id} , function(data) {
                 scope.clientNotes = data;
             });
@@ -225,7 +266,7 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
-
+                    scope.singleRow = [];
                     for(var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues){
@@ -237,10 +278,18 @@
                             }
                         }
                     }
+                    if(scope.datatabledetails.isData){
+                        for(var i in data.columnHeaders){
+                            if(!scope.datatabledetails.isMultirow){
+                                var row = {};
+                                row.key = data.columnHeaders[i].columnName;
+                                row.value = data.data[0].row[i];
+                                scope.singleRow.push(row);
+                            }
+                        }}
 
                 });
             };
-
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename:apptableName, entityId:entityId, genericResultSet:'true'}, {}, function(data){
                     route.reload();
@@ -312,8 +361,9 @@
             scope.downloadClientIdentifierDocument=function (identifierId, documentId){
                 console.log(identifierId,documentId);
             };
-
+            // devcode: !production
             // *********************** InVenture controller ***********************
+
             scope.fetchInventureScore = function(){
                 // dummy data for the graph - DEBUG purpose
                 var inventureScore = getRandomInt(450,800);
@@ -401,7 +451,7 @@
 
                 // this will be used to display the score on the viewclient.html
                 scope.inventureScore = inventureScore;
-            };
+            };    // endcode
         }
     });
     mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http','$modal', 'API_VERSION','$rootScope','$upload', mifosX.controllers.ViewClientController]).run(function($log) {

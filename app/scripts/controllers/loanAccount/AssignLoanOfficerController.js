@@ -20,10 +20,10 @@
         };
 
         scope.submit = function() {
-          this.formData.locale = 'en';
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          this.formData.locale = scope.optlang.code;
+          this.formData.dateFormat = scope.df;
           this.formData.fromLoanOfficerId = scope.data.loanOfficerId || "";
-          this.formData.assignmentDate = dateFilter(this.formData.assignmentDate,'dd MMMM yyyy');
+          this.formData.assignmentDate = dateFilter(this.formData.assignmentDate,scope.df);
           resourceFactory.loanResource.save({command:'assignloanofficer', loanId:scope.loanId}, this.formData, function(data){
             location.path('/viewloanaccount/' + data.loanId);
           });

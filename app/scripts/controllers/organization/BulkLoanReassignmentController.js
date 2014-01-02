@@ -35,7 +35,7 @@
             };
 
             scope.submit = function() {
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 var loans = [];
                 _.each(scope.accounts,function(value,key){
                     if(value==true)

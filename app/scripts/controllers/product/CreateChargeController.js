@@ -74,7 +74,7 @@
                     delete this.formData.chargePaymentMode;
                 }
                 this.formData.active = this.formData.active || false;
-                this.formData.locale = 'en';
+                this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
                 resourceFactory.chargeResource.save(this.formData,function(data){
                     location.path('/viewcharge/' + data.resourceId);

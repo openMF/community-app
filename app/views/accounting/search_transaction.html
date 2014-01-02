@@ -57,20 +57,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="transaction in transactions.currentPageItems">
-                    <td>{{transaction.id}}</td>
-                    <td>{{transaction.officeName}}</td>
-                    <td>{{transaction.transactionDate | DateFormat}}</td>
-                    <td>{{transaction.transactionId}}</td>
-                    <td>{{transaction.glAccountType.value}}</td>
-                    <td>{{transaction.createdByUserName}}</td>
-                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                    <td>
+                <tr class="pointer-main" ng-repeat="transaction in transactions.currentPageItems">
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.id}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.officeName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.transactionDate | DateFormat}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.transactionId}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.glAccountType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.createdByUserName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
                         <div ng-show="transaction.entryType.value == 'DEBIT'">
                             {{transaction.amount}}
                         </div>
                     </td>
-                    <td>
+                    <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
                         <div ng-show="transaction.entryType.value == 'CREDIT'">
                             {{transaction.amount}}
                         </div>

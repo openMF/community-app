@@ -111,6 +111,10 @@
                         <td><span class="padded-td">{{client.staffName}}<span data-ng-hide="client.staffName">{{ 'label.unassigned' | translate }}</span></span></td>
                       </tr>
                       <tr>
+                          <th class="table-bold">{{ 'label.input.externalid' | translate }}</th>
+                          <td><span class="padded-td">{{client.externalId}}<span data-ng-hide="client.externalId">{{ 'label.notprovided' | translate }}</span></span></td>
+                      </tr>
+                      <tr>
                         <th class="table-bold">{{ 'label.heading.memberof' | translate }}</th>
                         <td>
                           <span class="padded-td" data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span>
@@ -312,22 +316,30 @@
           <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
             <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
           </span></br>
-          <table ng-show="datatabledetails.isData" class="table">
-            <thead>
-              <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
-            </thead>
-              <tbody>
-                <tr ng-repeat="data in datatabledetails.data">
-                  <td ng-repeat="row in data.row">
+          <div ng-show="datatabledetails.isData">
+              <table class="table" data-ng-show="datatabledetails.isMultirow">
+                  <thead>
+                  <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+                  </thead>
+                  <tbody>
+                  <tr ng-repeat="data in datatabledetails.data">
+                      <td ng-repeat="row in data.row">
                     <span ng-show="$index == 0">
                       <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/{{data.row[0]}}" ng-show="datatabledetails.isMultirow">{{row}}</a>
                       <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/" ng-hide="datatabledetails.isMultirow">{{row}}</a>
                     </span>
-                    <span ng-hide="$index == 0">{{row}}</span>
-                  </td>
-                </tr>
-              </tbody>
-          </table>
+                          <span ng-hide="$index == 0">{{row}}</span>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+              <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+                  <tr ng-repeat="value in singleRow">
+                      <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                      <td><span class="padded-td">{{value.value}}</span></td>
+                  </tr>
+              </table>
+          </div>
         </div>
       </tab>
       <tab heading="{{ 'label.heading.notes' | translate }}">
@@ -356,7 +368,7 @@
         </div>
         </ul>
       </tab>
-
+      <!-- devcode: !production -->
       <!-- ************************ start of InVenture code ************************ -->
       <tab class="inventureTabTitle" heading="{{'label.heading.inventurescore' | translate}}" select="fetchInventureScore()">
 
@@ -460,6 +472,7 @@
         </div>
       </tab>
       <!-- ************************ end of InVenture code ************************ -->
+      <!-- endcode -->
     </tabset>
     </div>
   </div>

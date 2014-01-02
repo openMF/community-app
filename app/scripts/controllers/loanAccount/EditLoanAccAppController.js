@@ -154,7 +154,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+                    scope.formData.charges.push({ chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
@@ -171,12 +171,12 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
 
-                this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
-                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');
-                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');
-                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
+                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,scope.df);
+                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
 
               resourceFactory.loanResource.save({command:'calculateLoanSchedule'}, this.formData,function(data){
                 scope.repaymentscheduleinfo = data;
@@ -194,7 +194,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,'dd MMMM yyyy') });
+                    scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
@@ -218,13 +218,13 @@
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
 
-                this.formData.locale = 'en';
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
-                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,'dd MMMM yyyy');
-                this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,'dd MMMM yyyy');
-                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,'dd MMMM yyyy');
-                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,'dd MMMM yyyy');
+                this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
+                this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
+                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate,scope.df);
+                this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
 
                 resourceFactory.loanResource.put({loanId : routeParams.id},this.formData,function(data){
                   location.path('/viewloanaccount/' + data.loanId);

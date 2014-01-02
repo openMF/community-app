@@ -16,7 +16,7 @@
             });
 
             scope.attendanceUpdate = function(id){
-                var reqDate = dateFilter(scope.first.date,'dd MMMM yyyy');
+                var reqDate = dateFilter(scope.first.date,scope.df);
                 this.formData.meetingDate = reqDate;
                 this.formData.clientsAttendance=[];
                 for(var i=0; i<scope.clients.length;i++)
@@ -24,8 +24,8 @@
                     this.formData.clientsAttendance[i] ={clientId:scope.clients[i].id,attendanceType:this.tempData[scope.clients[i].id]};
 
                 }
-                this.formData.locale = 'en' ;
-                this.formData.dateFormat = 'dd MMMM yyyy';
+                this.formData.locale = scope.optlang ;
+                this.formData.dateFormat = scope.df;
                 this.formData.calendarId = id;
                 resourceFactory.centerMeetingResource.save({centerId: routeParams.centerId,calendarId: routeParams.calendarId},this.formData, function(data) {
                     location.path('/viewcenter/' + routeParams.centerId);

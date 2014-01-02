@@ -149,9 +149,9 @@
             $scope.date.actDate = new Date();
             $scope.approve = function (act) {
                 var activate = {}
-                activate.activationDate = dateFilter(act,'dd MMMM yyyy');
-                activate.dateFormat = 'dd MMMM yyyy';
-                activate.locale = 'en';
+                activate.activationDate = dateFilter(act,scope.df);
+                activate.dateFormat = scope.df;
+                activate.locale = scope.optlang.code;
                 var totalClient = 0;
                 var clientCount = 0
                 _.each(items,function(value,key)
@@ -283,7 +283,7 @@
         }
 
         scope.bulkApproval = function (){
-              scope.formData.approvedOnDate = dateFilter(new Date(),'dd MMMM yyyy');
+              scope.formData.approvedOnDate = dateFilter(new Date(),scope.df);
               scope.formData.dateFormat = "dd MMMM yyyy";
               scope.formData.locale = "en";
               var selectedAccounts = 0;

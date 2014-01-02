@@ -71,10 +71,10 @@
         }
 
         scope.submit = function() {
-          this.formData.locale = 'en';
-          this.formData.dateFormat = 'dd MMMM yyyy';
+          this.formData.locale = scope.optlang.code;
+          this.formData.dateFormat = scope.df;
           if (this.formData[scope.modelName]) {
-            this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],'dd MMMM yyyy');
+            this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName],scope.df);
           }
 
           if (scope.action == "activate") {
