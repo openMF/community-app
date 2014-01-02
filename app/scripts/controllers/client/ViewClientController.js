@@ -27,83 +27,19 @@
                         });
                 }
                 if (data.status.value == "Pending") {
-                    scope.buttons = [{
-                        name:"label.button.edit",
-                        href:"#/editclient",
-                        icon :"icon-edit"
-                    },
-                        {
-                            name:"label.button.activate",
-                            href:"#/client",
-                            subhref:"activate",
-                            icon :"icon-ok-sign"
-                        },
-                        {
-                            name:"label.button.close",
-                            href:"#/client",
-                            subhref:"close",
-                            icon :"icon-remove-circle"
-                        }]
-
+                    scope.buttons = mifosX.models.clientStatus("Pending").getStatus();
                 }
 
                 if (data.status.value == "Active") {
-                    scope.buttons = [{
-                        name:"label.button.edit",
-                        href:"#/editclient",
-                        icon :"icon-edit"
-                    },
-                        {
-                            name:"label.button.newloan",
-                            href:"#/newclientloanaccount",
-                            icon :"icon-plus"
-                        },
-                        {
-                            name:"label.button.newsaving",
-                            href:"#/new_client_saving_application",
-                            icon :"icon-plus"
-                        },
-                        {
-                            name:"label.button.transferclient",
-                            href:"#/transferclient",
-                            icon :"icon-arrow-right"
-                        },
-                        {
-                            name:"label.button.close",
-                            href:"#/client",
-                            subhref:"close",
-                            icon :"icon-remove-circle"
-                        }]
+                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Active").getStatus();
                 }
 
                 if (data.status.value == "Transfer in progress") {
-                    scope.buttons = [{
-                        name:"label.button.accepttransfer",
-                        href:"#/client",
-                        subhref:"acceptclienttransfer",
-                        icon :"icon-check-sign"
-                    },
-                        {
-                            name:"label.button.rejecttransfer",
-                            href:"#/client",
-                            subhref:"rejecttransfer",
-                            icon :"icon-remove"
-                        },
-                        {
-                            name:"label.button.undotransfer",
-                            href:"#/client",
-                            subhref:"undotransfer",
-                            icon :"icon-undo"
-                        }]
+                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Transfer in progress").getStatus();
                 }
 
                 if (data.status.value == "Transfer on hold") {
-                    scope.buttons = [{
-                        name:"label.button.undotransfer",
-                        href:"#/client",
-                        subhref:"undotransfer",
-                        icon :"icon-undo"
-                    }]
+                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Transfer on hold").getStatus();
                 }
 
                 if (data.status.value == "Pending" || data.status.value == "Active"){
