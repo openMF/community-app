@@ -13,14 +13,15 @@ describe("MainController", function() {
 
     this.translate = jasmine.createSpyObj("translate", ["uses"]);
     this.rootScope = jasmine.createSpy();
-    this.localStorageService = jasmine.createSpyObj("localStorageService", ["get"]);
+    this.localStorageService = jasmine.createSpyObj("localStorageService", ["get", "add"]);
 
     this.controller = new mifosX.controllers.MainController(this.scope,
                                                             this.location,
                                                             this.sessionManager,
                                                             this.translate,
                                                             this.rootScope,
-                                                            this.localStorageService, this.keyboardManager);
+                                                            this.localStorageService,
+                                                            this.keyboardManager);
   });
 
   describe("on initialisation", function() {
@@ -31,6 +32,11 @@ describe("MainController", function() {
     it("should restore the session", function() {
       sessionCallback("test_session");
       expect(this.scope.currentSession).toEqual("test_session");
+    });
+
+    it("should set the dateformat in the scope" , function() {
+        expect(this.scope.dateformat).toEqual("dd MMMM yyyy");
+        expect(this.scope.df).toEqual("dd MMMM yyyy");
     });
   });
 

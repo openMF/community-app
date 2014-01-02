@@ -1,7 +1,7 @@
 describe("UserSettingController", function() {
 
     beforeEach(function() {
-        this.scope = {};
+        this.scope = jasmine.createSpyObj("$scope", ['$watch']);
         this.translate = {
             uses: jasmine.createSpy("translate.uses()")
         };
@@ -27,4 +27,5 @@ describe("UserSettingController", function() {
         expect(this.translate.uses).toHaveBeenCalledWith('fr');
         expect(this.localStorageService.add).toHaveBeenCalledWith('Language',{"name" : "Français", "code":"fr"});
     });
+
 });
