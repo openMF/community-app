@@ -27,4 +27,5 @@ describe("UserSettingController", function() {
         expect(this.translate.uses).toHaveBeenCalledWith('fr');
         expect(this.localStorageService.add).toHaveBeenCalledWith('Language',{"name" : "Français", "code":"fr"});
     });
+
 });
