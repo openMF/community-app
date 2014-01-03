@@ -111,6 +111,7 @@
               if (scope.chargeFormData.chargeId) {
                 resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function(data){
                     data.chargeId = data.id;
+                    data.id = null;
                     scope.charges.push(data);
                     scope.chargeFormData.chargeId = undefined;
                 });
