@@ -122,6 +122,15 @@
                            <a style="color: #555555" href="#/viewgroup/{{group.id}}">{{group.name}}</a>&nbsp;<span data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span><span ng-show="!$last">|</span>
                           </span>
                         </td>
+                      </tr>
+                      <tr>
+                          <th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
+                          <td><span class="padded-td">{{client.mobileNo}}<span data-ng-hide="client.mobileNo">{{ 'label.notprovided' | translate }}</span></span></td>
+                      </tr>
+                      <tr data-ng-show="client.status.value=='Closed'">
+                        <td class="table-bold">{{ 'label.heading.closedate' | translate }}</td>
+                        <td><span class="padded-td">{{client.timeline.closedOnDate | DateFormat}}</span></td>
+                    </tr>
                     </table>
                 </div>
 
