@@ -19,6 +19,10 @@
                     var newDate = dateFilter(data.activationDate,scope.df);
                     scope.first.date = new Date(newDate);
                 }
+
+                if (data.timeline.submittedOnDate) {
+                    scope.mindate = new Date(data.timeline.submittedOnDate);
+                }
             });
 
             scope.updateGroup = function(){

@@ -6,13 +6,12 @@
                 scope.holiday = data;
                 if (data.status.value === "Pending for activation") {
                     scope.holidayStatusPending = true;
-                } else {
-                    scope.holidayStatusPending = false;
-                }
-
-                if (data.status.value === "Deleted") {
+                } else if (data.status.value === "Active") {
+                    scope.holidayStatusActive = true;
+                } else if (data.status.value === "Deleted") {
                     scope.holidayStatusDeleted = true;
                 }
+
             });
 
             scope.activateHoliday = function () {
