@@ -1,9 +1,13 @@
 (function(module) {
     mifosX.models = _.extend(module, {
-        clientStatus: function(status) {
+        ClientStatus: function() {
 
-            this.getStatus = function() {
+            this.getStatus = function(status) {
                 return this.statusTypes[status];
+            };
+
+            this.getStatusTypes = function() {
+              return this.statusTypes;
             };
 
             this.statusTypes = {

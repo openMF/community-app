@@ -1,33 +1,33 @@
-describe("clientStatus", function() {
+describe("ClientStatus", function() {
 
     it ("should assign the correct information for a pending status", function() {
-        var clientStatus = new mifosX.models.clientStatus("Pending");
+        var clientStatus = new mifosX.models.ClientStatus();
         var pendingStatus = clientStatus.statusTypes["Pending"];
 
-        expect(clientStatus.getStatus()).toEqual(pendingStatus);
+        expect(clientStatus.getStatus("Pending")).toEqual(pendingStatus);
 
     });
 
     it ("should assign the correct information for an active status", function() {
-        var clientStatus = new mifosX.models.clientStatus("Active");
+        var clientStatus = new mifosX.models.ClientStatus();
         var activeStatus = clientStatus.statusTypes["Active"];
 
-        expect(clientStatus.getStatus()).toEqual(activeStatus);
+        expect(clientStatus.getStatus("Active")).toEqual(activeStatus);
 
     });
 
     it ("should assign the correct information for a status that is a transfer in progress", function() {
-        var clientStatus = new mifosX.models.clientStatus("Transfer in progress");
+        var clientStatus = new mifosX.models.ClientStatus();
         var transferInProgressStatus = clientStatus.statusTypes["Transfer in progress"];
 
-        expect(clientStatus.getStatus()).toEqual(transferInProgressStatus);
+        expect(clientStatus.getStatus("Transfer in progress")).toEqual(transferInProgressStatus);
 
     });
 
     it ("should assign the correct information for a status that is a transfer on hold", function() {
-        var clientStatus = new mifosX.models.clientStatus("Transfer on hold");
+        var clientStatus = new mifosX.models.ClientStatus();
         var transferOnHoldStatus = clientStatus.statusTypes["Transfer on hold"];
 
-        expect(clientStatus.getStatus()).toEqual(transferOnHoldStatus);
+        expect(clientStatus.getStatus("Transfer on hold")).toEqual(transferOnHoldStatus);
     });
 });

@@ -26,20 +26,21 @@
                             scope.image = imageData.data;
                         });
                 }
+
                 if (data.status.value == "Pending") {
-                    scope.buttons = mifosX.models.clientStatus("Pending").getStatus();
+                    scope.buttons = new mifosX.models.ClientStatus().getStatus("Pending");
                 }
 
                 if (data.status.value == "Active") {
-                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Active").getStatus();
+                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Active");
                 }
 
                 if (data.status.value == "Transfer in progress") {
-                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Transfer in progress").getStatus();
+                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Transfer in progress");
                 }
 
                 if (data.status.value == "Transfer on hold") {
-                    scope.buttons = scope.buttons = mifosX.models.clientStatus("Transfer on hold").getStatus();
+                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Transfer on hold");
                 }
 
                 if (data.status.value == "Pending" || data.status.value == "Active"){
