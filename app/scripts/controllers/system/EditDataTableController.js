@@ -81,7 +81,7 @@
           scope.columns[index].length = undefined;
         }
         if (scope.columns[index].type != 'dropdown') {
-          scope.columns[index].type = undefined;
+          scope.columns[index].code = undefined;
         }
       };
 

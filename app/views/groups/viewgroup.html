@@ -57,7 +57,9 @@
                               <a href="#/closegroup/{{group.id}}">{{ 'label.button.close' | translate }}</a>
                           </li>
                           <li>
+                            <span ng-hide="group.centerId">
                               <a href="#/attachmeeting/{{group.id}}/groups" data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' | translate }}</a>
+                            </span>
                           </li>
                       </ul>
                     </span>
@@ -114,6 +116,14 @@
                     <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
                         <td class="table-bold">{{ 'label.heading.meetingfrequency' | translate }}</td>
                         <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
+                    </tr>
+                    <tr data-ng-show="group.centerName">
+                        <td class="table-bold">{{ 'label.heading.center' | translate }}</td>
+                        <td><span class="padded-td"><a style="color: #555555" href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></span></td>
+                    </tr>
+                    <tr data-ng-show="group.status.value=='Closed'">
+                        <td class="table-bold">{{ 'label.heading.closedate' | translate }}</td>
+                        <td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
                     </tr>
                 </table>
             </div>

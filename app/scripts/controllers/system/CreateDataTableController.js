@@ -39,7 +39,7 @@
           scope.columns[index].length = undefined;
         }
         if (scope.columns[index].type != 'dropdown') {
-          scope.columns[index].type = undefined;
+          scope.columns[index].code = undefined;
         }
       };
 
@@ -48,8 +48,7 @@
           scope.errorDetails = [];
           scope.errorDetails.push({code:'error.msg.click.on.add.to.add.columns'});
         }else {
-          //clear the errors caused because of line #46
-          scope.errorDetails = [];
+          delete scope.errorDetails;
           scope.formData.multiRow = scope.formData.multiRow || false;
           scope.formData.columns = scope.columns;
           resourceFactory.DataTablesResource.save(this.formData,function(data){
