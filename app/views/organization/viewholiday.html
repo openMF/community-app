@@ -1,5 +1,5 @@
 <div ng-controller="ViewHolController">
-    <div class="paddedbottom10">
+    <div>
         <ul class="breadcrumb">
             <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
             <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a> <span class="divider">/</span></li>
@@ -24,12 +24,12 @@
             <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="well">
+    <div>
         <div class="pull-right">
             <div class="btn-group">
                 <a ng-show="holidayStatusPending" data-ng-click="activateHoliday()" class="btn btn-primary"><i class="icon-check-sign icon-white"></i>
                     {{ 'label.button.activate' | translate }}</a>
-                <a href="#/editholiday/{{holiday.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
+                <a ng-show="holidayStatusPending || holidayStatusActive" href="#/editholiday/{{holiday.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
                 <a ng-hide="holidayStatusDeleted" data-ng-click="deleteHoliday()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.delete' | translate }}</a>
             </div>
         </div>

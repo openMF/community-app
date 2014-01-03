@@ -13,10 +13,8 @@
             };
 
             scope.holidayStatusActive = false;
-            if (data.status.value === "Active" || data.status.value === "Deleted") {
-              scope.holidayStatusActiveDeleted = true;
-            } else {
-              scope.holidayStatusActive = false;
+            if (data.status.value === "Active") {
+              scope.holidayStatusActive = true;
             }
 
             var fromDate = dateFilter(data.fromDate,scope.df);
