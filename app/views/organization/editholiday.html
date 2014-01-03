@@ -11,58 +11,42 @@
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.editholiday' | translate}}</legend>
-            <table>
-                <tr>
-                    <td>
-                        <div class="control-group">
-                            <label class="control-label">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+           <div class="control-group">
+                <label class="control-label">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+                <div class="controls">
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
+                    <form-validate valattributeform="addholidayform" valattribute="name"/>
+                </div>
+            </div>
+            <div ng-hide="holidayStatusActive">
+                <div class="control-group" >
+                    <div class="span4 pull-left">
+                        <div>
+                        <label class="control-label">{{ 'label.input.fromdate' | translate }}<span class="required">*</span></label>
+                        <div class="controls">
+                            <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"/>
+                        </div></div>
+                        <div>
+                            <label class="control-label">{{ 'label.input.todate' | translate }}<span class="required">*</span></label>
                             <div class="controls">
-                                <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
-                                <form-validate valattributeform="addholidayform" valattribute="name"/>
+                                <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.toDate" is-open="opened1" min="minDate" max="'2020-06-22'"/>
                             </div>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="control-group" ng-hide="holidayStatusActiveDeleted">
-                            <div class="span4 pull-left">
-                                <div>
-                                <label class="control-label">{{ 'label.input.fromdate' | translate }}<span class="required">*</span></label>
-                                <div class="controls">
-                                    <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"/>
-                                </div></div>
-                                <div>
-                                    <label class="control-label">{{ 'label.input.todate' | translate }}<span class="required">*</span></label>
-                                    <div class="controls">
-                                        <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.toDate" is-open="opened1" min="minDate" max="'2020-06-22'"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="control-group" ng-hide="holidayStatusActiveDeleted">
-                            <label class="control-label">{{ 'label.input.repaymentsheduleto' | translate }}<span class="required">*</span></label>
-                            <div class="controls">
-                                <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.repaymentsRescheduledTo" is-open="opened2" min="minDate" max="'2020-06-22'"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="control-group">
-                            <label class="control-label">{{ 'label.input.description' | translate }}</label>
-                            <div class="controls">
-                                <input id="" type="text" data-ng-model="formData.description"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">{{ 'label.input.repaymentsheduleto' | translate }}<span class="required">*</span></label>
+                    <div class="controls">
+                        <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.repaymentsRescheduledTo" is-open="opened2" min="minDate" max="'2020-06-22'"/>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ 'label.input.description' | translate }}</label>
+                <div class="controls">
+                    <input id="" type="text" data-ng-model="formData.description"/>
+                </div>
+            </div>
             <div class="offset3">
                 <a id="cancel" href="#/viewholiday/{{holiday.id}}"><button class="btn">{{'label.button.cancel' | translate}}</button></a>
                 <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>

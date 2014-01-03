@@ -19,6 +19,10 @@
                     var newDate = dateFilter(data.activationDate,scope.df);
                     scope.first.date = new Date(newDate);
                 }
+
+                if (data.timeline.submittedOnDate) {
+                    scope.mindate = new Date(data.timeline.submittedOnDate);
+                }
             });
 
             scope.updateGroup = function(){
@@ -34,7 +38,7 @@
                 var reqDate = dateFilter(scope.first.date,scope.df);
                 var newActivation = new Object();
                 newActivation.activationDate = reqDate;
-                newActivation.locale = scope.optlang ;
+                newActivation.locale = "en";
                 newActivation.dateFormat = scope.df;
                 resourceFactory.centerResource.save({centerId : routeParams.id,command:'activate'},newActivation, function(data){
                     location.path('/viewcenter/'+routeParams.id);
