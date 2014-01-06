@@ -73,6 +73,7 @@
               scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
               scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
               scope.formData.fixedEmiAmount=scope.loanaccountinfo.fixedEmiAmount;
+              scope.formData.maxOutstandingLoanBalance=scope.loanaccountinfo.maxOutstandingLoanBalance;
              
             }
             

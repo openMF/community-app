@@ -105,6 +105,7 @@
               scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
               scope.formData.syncDisbursementWithMeeting = scope.loanaccountinfo.syncDisbursementWithMeeting;
               scope.formData.fixedEmiAmount=scope.loanaccountinfo.fixedEmiAmount;
+              scope.formData.maxOutstandingLoanBalance=scope.loanaccountinfo.maxOutstandingLoanBalance;
 
               if (scope.loanaccountinfo.meeting) {
                 scope.formData.syncRepaymentsWithMeeting = true;

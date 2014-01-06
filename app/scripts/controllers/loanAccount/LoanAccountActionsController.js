@@ -48,6 +48,7 @@
               if (data.paymentTypeOptions.length > 0) {
                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
               }
+			        scope.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date();
             });
             scope.title = 'label.heading.disburseloanaccount';
