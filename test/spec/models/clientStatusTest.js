@@ -30,4 +30,18 @@ describe("ClientStatus", function() {
 
         expect(clientStatus.getStatus("Transfer on hold")).toEqual(transferOnHoldStatus);
     });
+
+    describe("testing if a status is known", function() {
+        it ("should return true if statusTypes includes given status", function() {
+            var clientStatus = new mifosX.models.ClientStatus();
+
+            expect(clientStatus.statusKnown("Active")).toEqual(true);
+        });
+
+        it ("should return false if statusTypes does not include a given status", function() {
+            var clientStatus = new mifosX.models.ClientStatus();
+
+            expect(clientStatus.statusKnown("Not included status")).toEqual(false);
+        });
+    });
 });

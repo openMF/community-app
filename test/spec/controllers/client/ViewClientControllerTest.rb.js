@@ -1,8 +1,5 @@
 describe("ViewClientController", function() {
-    var clientResourceCallback,
-        clientAccountResourceCallback,
-        clientNotesResourceCallback,
-        dataTablesResourceCallback,
+    var clientResourceCallback, clientAccountResourceCallback, clientNotesResourceCallback, dataTablesResourceCallback,
         runReportsResourceCallback;
 
     beforeEach(function() {
@@ -66,4 +63,38 @@ describe("ViewClientController", function() {
         expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
         expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
     });
+
+    it("should set the value of scope buttons based on the status of the client", function() {
+        clientResourceCallback( {status: {value: "Active"} } );
+        var expectedPendingButtons = new mifosX.models.ClientStatus().getStatus("Active");
+
+        expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
+        expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
+    });
+
+    it("should set the value of scope buttons based on the status of the client", function() {
+        clientResourceCallback( {status: {value: "Transfer in progress"} } );
+        var expectedPendingButtons = new mifosX.models.ClientStatus().getStatus("Transfer in progress");
+
+        expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
+        expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
+    });
+
+    it("should set the value of scope buttons based on the status of the client", function() {
+        clientResourceCallback( {status: {value: "Transfer on hold"} } );
+        var expectedPendingButtons = new mifosX.models.ClientStatus().getStatus("Transfer on hold");
+
+        expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
+        expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
+    });
+
+    it("should add to the scope a button that assigns staff if the status of the client is active or pending", function() {
+        clientResourceCallback( {status: {value: "Transfer on hold"} } );
+        var expectedPendingButtons = new mifosX.models.ClientStatus().getStatus("Transfer on hold");
+
+        expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
+        expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
+    });
+
+
 });

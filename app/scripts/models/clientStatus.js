@@ -6,8 +6,12 @@
                 return this.statusTypes[status];
             };
 
-            this.getStatusTypes = function() {
-              return this.statusTypes;
+            this.allStatusTypes = function() {
+                return Object.keys(this.statusTypes);
+            };
+
+            this.statusKnown = function(status) {
+                return this.allStatusTypes().indexOf(status) > -1;
             };
 
             this.statusTypes = {
@@ -81,7 +85,13 @@
                         href:"#/client",
                         subhref:"undotransfer",
                         icon :"icon-undo"
-                    }]
+                    }],
+                "Assign Staff" : {
+                    name:"label.button.assignstaff",
+                    href:"#/client",
+                    subhref:"assignstaff",
+                    icon :"icon-user"
+                }
             }
         }
     });

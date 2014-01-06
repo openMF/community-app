@@ -27,20 +27,10 @@
                         });
                 }
 
-                if (data.status.value == "Pending") {
-                    scope.buttons = new mifosX.models.ClientStatus().getStatus("Pending");
-                }
+                var clientStatus = new mifosX.models.ClientStatus()
 
-                if (data.status.value == "Active") {
-                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Active");
-                }
-
-                if (data.status.value == "Transfer in progress") {
-                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Transfer in progress");
-                }
-
-                if (data.status.value == "Transfer on hold") {
-                    scope.buttons = scope.buttons = new mifosX.models.ClientStatus().getStatus("Transfer on hold");
+                if (clientStatus.statusKnown(data.status.value)) {
+                    scope.buttons = clientStatus.getStatus(data.status.value);
                 }
 
                 if (data.status.value == "Pending" || data.status.value == "Active"){
@@ -48,12 +38,7 @@
 
                     }
                     else {
-                        scope.buttons.push({
-                            name:"label.button.assignstaff",
-                            href:"#/client",
-                            subhref:"assignstaff",
-                            icon :"icon-user"
-                        });
+                        scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
                 }
 
