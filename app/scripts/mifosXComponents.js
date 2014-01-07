@@ -91,7 +91,7 @@ define(['underscore', 'mifosX'], function() {
       'accounting/AccEditRuleController',
       'accounting/ViewAccRuleController',
       'system/CodeController',
-      'system/EditCodeController',
+      'system/AddCodeValueController',
       'system/ViewCodeController',
       'system/AddCodeController',
       'system/ViewDataTableController',

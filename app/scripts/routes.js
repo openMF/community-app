@@ -302,8 +302,8 @@
       .when('/codes', {
           templateUrl: 'views/system/codes.html'
       })
-      .when('/editcode/:id', {
-          templateUrl: 'views/system/editcode.html'
+      .when('/addcodevalue/:id', {
+          templateUrl: 'views/system/addcodevalue.html'
       })
       .when('/reports', {
           templateUrl: 'views/system/reports.html'

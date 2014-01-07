@@ -54,6 +54,7 @@
               graceOnInterestPayment : scope.product.graceOnInterestPayment,
               graceOnInterestCharged : scope.product.graceOnInterestCharged,
               accountingRule : scope.product.accountingRule.id,
+              codeId : scope.product.codeId,
               principalVariationsForBorrowerCycle : [],
               interestRateVariationsForBorrowerCycle : [],
               numberOfRepaymentVariationsForBorrowerCycle : []
