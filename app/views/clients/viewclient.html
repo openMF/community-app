@@ -189,7 +189,7 @@
                           <th style="width: 200px">{{'label.heading.type' | translate}}</th>
                           <th>{{'label.heading.status' | translate}}</th>
                       </tr>
-                      <tr class="pointer-main" ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'productName':reverse | filter:isLoanNotClosed" >
+                      <tr class="pointer-main" ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed" >
                           <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
 
                               {{loanaccount.productName}}
@@ -211,7 +211,7 @@
                           <th style="width: 200px">{{'label.heading.type' | translate}}</th>
                           <th>{{'label.heading.status' | translate}}</th>
                       </tr>
-                      <tr class="pointer-main" ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'productName':reverse | filter:isClosed" >
+                      <tr class="pointer-main" ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isClosed" >
                           <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>
                           <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
                           <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
@@ -233,7 +233,7 @@
                           <th style="width: 200px">{{'label.heading.balance' | translate}}</th>
                           <th>{{'label.heading.status' | translate}}</th>
                       </tr>
-                      <tr class="pointer-main" ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
+                      <tr class="pointer-main" ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed">
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}</td>
@@ -246,7 +246,7 @@
                           <th style="width: 150px">{{'label.heading.accnum' | translate}}</th>
                           <th>{{'label.heading.status' | translate}}</th>
                       </tr>
-                      <tr class="pointer-main" ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingClosed">
+                      <tr class="pointer-main" ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed">
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
                           <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{savingaccount.status.value}}</td>

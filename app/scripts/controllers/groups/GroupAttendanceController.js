@@ -27,7 +27,7 @@
                 {
                     this.formData.clientsAttendance[i] ={clientId : scope.clients[i].id,attendanceType : scope.clients[i].attendanceType};
                 }
-                this.formData.locale = scope.optlang ;
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.calendarId = id;
                 this.formData.meetingDate = reqDate;
