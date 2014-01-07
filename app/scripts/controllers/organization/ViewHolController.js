@@ -1,18 +1,17 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        ViewHolController: function(scope, $rootScoperouteParams, resourceFactory, $modal, location, route) {
+        ViewHolController: function(scope, routeParams, resourceFactory, $modal, location, route) {
 
             resourceFactory.holValueResource.getholvalues({officeId:1,holId: routeParams.id} , function(data) {
                 scope.holiday = data;
                 if (data.status.value === "Pending for activation") {
                     scope.holidayStatusPending = true;
-                } else {
-                    scope.holidayStatusPending = false;
-                }
-
-                if (data.status.value === "Deleted") {
+                } else if (data.status.value === "Active") {
+                    scope.holidayStatusActive = true;
+                } else if (data.status.value === "Deleted") {
                     scope.holidayStatusDeleted = true;
                 }
+
             });
 
             scope.activateHoliday = function () {
@@ -55,7 +54,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewHolController', ['$scope','$routeParams', 'ResourceFactory', '$modal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function($log) {
+    mifosX.ng.application.controller('ViewHolController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function($log) {
         $log.info("ViewHolController initialized");
     });
 }(mifosX.controllers || {}));
