@@ -76,6 +76,4 @@ describe("ViewClientController", function() {
         expect(this.scope.buttons[0]).toEqual(expectedPendingButtons[0]);
         expect(this.scope.buttons[1]).toEqual(expectedPendingButtons[1]);
     });
-
-
 });
