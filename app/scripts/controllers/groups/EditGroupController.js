@@ -38,7 +38,7 @@
                 var reqDate = dateFilter(scope.first.date,scope.df);
                 var newActivation = new Object();
                 newActivation.activationDate = reqDate;
-                newActivation.locale = scope.optlang ;
+                newActivation.locale = scope.optlang.code;
                 newActivation.dateFormat = scope.df;
                 resourceFactory.groupResource.save({groupId : routeParams.id,command:'activate'},newActivation, function(data){
                     location.path('/viewgroup/'+routeParams.id);

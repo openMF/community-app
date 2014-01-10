@@ -24,7 +24,7 @@
                     this.formData.clientsAttendance[i] ={clientId:scope.clients[i].id,attendanceType:this.tempData[scope.clients[i].id]};
 
                 }
-                this.formData.locale = scope.optlang ;
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.calendarId = id;
                 resourceFactory.centerMeetingResource.save({centerId: routeParams.centerId,calendarId: routeParams.calendarId},this.formData, function(data) {

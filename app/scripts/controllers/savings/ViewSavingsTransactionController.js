@@ -11,7 +11,7 @@
 
       scope.undoTransaction = function(accountId, transactionId) {
         var params = {savingsId:accountId, transactionId:transactionId, command:'undo'};
-        var formData = {dateFormat:scope.df, locale:scope.optlang, transactionAmount:0};
+        var formData = {dateFormat:scope.df, locale:scope.optlang.code, transactionAmount:0};
         formData.transactionDate = dateFilter(new Date(),scope.df);
         resourceFactory.savingsTrxnsResource.save(params, formData, function(data){
           location.path('/viewsavingaccount/' + data.savingsId);
