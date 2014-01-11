@@ -48,12 +48,13 @@
               if (data.paymentTypeOptions.length > 0) {
                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
               }
-			        scope.transactionAmount = data.amount;
+			        scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date();
             });
             scope.title = 'label.heading.disburseloanaccount';
             scope.labelName = 'label.input.disbursedondate';
             scope.isTransaction = true;
+            scope.showAmountField = true;
           break;
           case "repayment":
             scope.modelName = 'transactionDate';

@@ -66,6 +66,10 @@
                     <span data-ng-hide="loandetails.loanPurposeName">{{'label.heading.notprovided' | translate}}</span></span></td>
                 </tr>
                 <tr>
+                    <th class="table-bold-loan">{{'label.heading.approvedamount' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.approvedPrincipal}}</span></td>
+                </tr>
+                <tr>
                     <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
                     <td><span class="padded-td">{{loandetails.principal}}</span></td>
                 </tr>
@@ -441,11 +445,13 @@
             </tr>
             <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
                 <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
+                <th align="left">{{'label.heading.approvedamount' | translate}}</th>
                 <th align="left">{{'label.input.principal' | translate}}</th>
                 <th align="left">&nbsp;</th>
             </tr>
             <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
                 <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
+                <td>{{disbursementDetail.approvedPrincipal}}</td>
                 <td>{{disbursementDetail.principal}}</td>
                 <td><div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i></div></td>
             </tr>
