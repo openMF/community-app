@@ -23,11 +23,15 @@
 
      }
      else{
-          // For multi tenant hosting
+
+
           var hostname = window.location.hostname;
           console.log('hostname---'+hostname);
           domains = hostname.split('.');
           console.log('domains---'+domains);
+       
+        if(domains.length = 3 && domains[1] == 'openmf'){
+          // For multi tenant hosting
           if(domains[0] == "demo"){
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
                   console.log("demo server",domains[0]);
@@ -37,6 +41,13 @@
                   console.log("other than demo server", domains[0]);
 
           }
+        }
+        else{
+                  $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+                  console.log("demo server",domains[0]);
+          
+        }
+        
      }
 
         // Enable CORS! (see e.g. http://enable-cors.org/)
