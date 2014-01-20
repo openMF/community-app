@@ -7,7 +7,13 @@
             routeParams.query = '';
         }
         resourceFactory.globalSearch.search( {query: routeParams.query} , function(data){
+          if (data.length > 200) {
+            scope.searchResults = data.slice(0,201);
+            scope.showMsg = true;
+          } else {
             scope.searchResults = data;
+          };
+            
             if(scope.searchResults.length<=0){
                 scope.flag = true;
             }
