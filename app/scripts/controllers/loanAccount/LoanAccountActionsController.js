@@ -50,6 +50,10 @@
               }
 			        scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date();
+              if(data.fixedEmiAmount){
+                scope.formData.fixedEmiAmount = data.fixedEmiAmount;  
+                scope.showEMIAmountField=true;
+              }
             });
             scope.title = 'label.heading.disburseloanaccount';
             scope.labelName = 'label.input.disbursedondate';

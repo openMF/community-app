@@ -458,8 +458,26 @@
                 <td>{{disbursementDetail.approvedPrincipal}}</td>
                 <td>{{disbursementDetail.principal}}</td>
                 <td><div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i></div>
-                  <a title="{{'label.edit' | translate}}" data-ng-show="disbursementDetail.actualDisbursementDate == null" href="#/loandisbursedetail/{{loandetails.id}}/editdisbursedate/{{disbursementDetail.id}}"><i class="icon-pencil icon-white"></i></a>
+                  <a title="{{'label.edit' | translate}}" data-ng-show="disbursementDetail.actualDisbursementDate == null && status =='Active' " href="#/loandisbursedetail/{{loandetails.id}}/editdisbursedate/{{disbursementDetail.id}}"><i class="icon-pencil icon-white"></i></a>
                 </td>
+            </tr>
+          </table>
+
+          <table  width="100%">
+            <tr>
+              <td>
+                      {{'label.input.fixedemiamountvariations' | translate}} : &nbsp;&nbsp;
+              </td>
+            </tr>
+          </table>
+          <table  width="100%">
+            <tr class="graybg" ng-show="loandetails.emiAmountVariations.length>0">
+                <th align="left">{{'label.input.emiamoutvariationfrom' | translate}}</th>
+                <th align="left">{{'label.input.fixedemiamount' | translate}}</th>
+            </tr>
+            <tr ng-repeat="emiVariations in loandetails.emiAmountVariations">
+                <td>{{emiVariations.termVariationApplicableFrom | DateFormat}}</td>
+                <td>{{emiVariations.termValue}}</td>
             </tr>
           </table>
         </tab>
