@@ -120,7 +120,7 @@
             }
 
             scope.deleteCharge = function(index) {
-              scope.charges.splice(index,1);amountOrPercentage=data.amount;
+              scope.charges.splice(index,1);
             }
 
             scope.syncRepaymentsWithMeetingchange = function() {
