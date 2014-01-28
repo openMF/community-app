@@ -502,6 +502,9 @@
       })
       .when('/checkeractionperformed',{
         templateUrl: 'views/system/checkerActionPerformed.html'
+      })
+      .when('/advsearch',{
+        templateUrl: 'views/search/advsearch.html'
       });
     $locationProvider.html5Mode(false);
   };
