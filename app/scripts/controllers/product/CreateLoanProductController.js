@@ -37,7 +37,7 @@
             scope.formData.principalVariationsForBorrowerCycle = scope.product.principalVariationsForBorrowerCycle;
             scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
             scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
-
+            scope.formData.multiDisburseLoan = 'false';
             if (scope.assetAccountOptions[0]) {
               scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
             }
