@@ -25,7 +25,14 @@
         </div>
       </div>
 
-      <div ng-show="isTransaction">
+      <div class="control-group" ng-show="showEMIAmountField">
+        <label class="control-label" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' | translate}}</label>
+        <div class="controls">
+          <input id="transactionAmount" type="text" name="amount" ng-model="formData.fixedEmiAmount">
+        </div>
+      </div>
+
+	    <div ng-show="isTransaction">
         <div class="control-group">
           <label class="control-label" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}<span class="required">*</span></label>
           <div class="controls">
@@ -105,6 +112,12 @@
           <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy" ng-model="formData.dueDate" is-open="opened"/>
         </div>
       </div>
+      <div class="control-group" ng-show="showEditDisburseDate">
+        <label class="control-label" for="modelName">{{'label.input.expecteddisbursementon' | translate}}<span class="required">*</span></label>
+        <div class="controls">
+          <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy" ng-model="formData.expectedDisbursementDate" is-open="opened"/>
+        </div>
+      </div>
       <div class="control-group" ng-show="showDelete || showwaiveforspecicficduedate">
           <label class="control-label">{{ 'label.areyousure' | translate}}</label>
       </div>
@@ -116,6 +129,7 @@
         <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</button>
         <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate}}</button>
       </div>
+
     </fieldset>
   </form>
 </div>
