@@ -112,6 +112,7 @@
                 resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function(data){
                     data.chargeId = data.id;
                     data.id = null;
+                    data.amountOrPercentage=data.amount;
                     scope.charges.push(data);
                     scope.chargeFormData.chargeId = undefined;
                 });
@@ -195,7 +196,7 @@
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];
                   for (var i in scope.charges) {
-                    scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amount, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
+                    scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
