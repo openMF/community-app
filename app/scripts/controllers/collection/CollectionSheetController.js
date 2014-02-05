@@ -15,6 +15,15 @@
             scope.offices = data;
         });
 
+        scope.productiveCollectionSheet = function () {
+            for (var i = 0; i < scope.offices.length; i++) {
+                if (scope.offices[i].id === scope.officeId) {
+                    scope.officeName = scope.offices[i].name;
+                }
+            }
+            scope.meetingDate = dateFilter(scope.date.transactionDate,scope.df);
+            location.path('/productivesheet/'+scope.officeId+'/'+scope.officeName+'/'+scope.meetingDate+'/'+scope.loanOfficerId);
+        }
 
         scope.officeSelected = function(officeId) {
             scope.officeId = officeId;
@@ -275,7 +284,7 @@
             scope.formData.dateFormat = "dd MMMM yyyy";
             scope.formData.locale = "en";
             if (scope.date.transactionDate) {
-                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,scope.df);;
+                scope.formData.transactionDate = dateFilter(scope.date.transactionDate,scope.df);
             }
             scope.formData.actualDisbursementDate = this.formData.transactionDate;
             scope.formData.clientsAttendance = scope.clientsAttendance;
