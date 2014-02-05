@@ -14,11 +14,13 @@
         scope.meetingDate = routeParams.meetingDate;
       
         resourceFactory.centerResource.getAllMeetingFallCenters(params, function (data) {
-            scope.staffCenterData = data[0].meetingFallCenters;
-            for (var i = 0; i < scope.staffCenterData.length; i++) {
-                centerIdArray.push({id : scope.staffCenterData[i].id, calendarId : scope.staffCenterData[i].id});
+            if (data[0]) {
+                scope.staffCenterData = data[0].meetingFallCenters;
+                for (var i = 0; i < scope.staffCenterData.length; i++) {
+                    centerIdArray.push({id : scope.staffCenterData[i].id, calendarId : scope.staffCenterData[i].collectionMeetingCalendar.id});
+                }
+                scope.getAllGroupsByCenter(data[0].meetingFallCenters[0].id, data[0].meetingFallCenters[0].collectionMeetingCalendar.id);
             }
-            scope.getAllGroupsByCenter(data[0].meetingFallCenters[0].id, data[0].meetingFallCenters[0].collectionMeetingCalendar.id);
         });
 
         scope.getAllGroupsByCenter = function (centerId, calendarId) {
@@ -169,18 +171,28 @@
             scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
             resourceFactory.centerResource.save({'centerId' : scope.centerId, command : 'saveCollectionSheet'}, scope.formData,function (data) {
                 scope.tempId = scope.centerId;
+                if (centerIdArray.length === 1) {
+                    location.path('/entercollectionsheet');
+                }
                 for (var i=0; i < centerIdArray.length; i++) {
-                    if (scope.centerId == centerIdArray[i].id && i+1 <= centerIdArray.length-1) {
-                        scope.selectedTab = centerIdArray[i+1];
-                        scope.getAllGroupsByCenter(centerIdArray[i+1].id, centerIdArray[i+1].calendarId);
-                        if (i+1 === centerIdArray.length-1) {
+                    if (scope.centerId === centerIdArray[i].id && scope.staffCenterData[i].id === scope.centerId && centerIdArray.length > 1) {
+                        scope.staffCenterData = _.without(scope.staffCenterData, scope.staffCenterData[i]);
+                        if (i === centerIdArray.length-1 && centerIdArray.length > 0) {
+                            scope.selectedTab = centerIdArray[0].id;
+                        } else {
+                            scope.selectedTab = centerIdArray[i+1].id;
+                            scope.getAllGroupsByCenter(deepCopy(centerIdArray[i+1].id), deepCopy(centerIdArray[i+1].calendarId));
+                        }
+                       
+                        centerIdArray =  _.without(centerIdArray, centerIdArray[i]);
+                        if (centerIdArray.length > 1) {
+                            scope.submitButtonShow = false;
+                        } else {
                             scope.submitButtonShow = true;
                         }
+                        
                         break;
                     }
-                }
-                if (scope.tempId === centerIdArray[centerIdArray.length-1].id) {
-                    location.path('/entercollectionsheet');
                 }
             });
         };
