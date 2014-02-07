@@ -1,15 +1,19 @@
 (function(module) {
   mifosX.services = _.extend(module, {
     ResourceFactoryProvider: function() {
-      var baseUrl = "" , apiVer = "/mifosng-provider/api/v1";
+      var baseUrl = "" , apiVer = "/mifosng-provider/api/v1", tenantIdentifier = "";
       this.setBaseUrl = function(url) {
           baseUrl = url;
       };
 
+      this.setTenantIdenetifier = function(tenant) {
+          tenantIdentifier = tenant;
+      }
       this.$get = ['$resource','$rootScope', function(resource,$rootScope) {
         var defineResource = function(url, paramDefaults, actions) {
             var tempUrl = baseUrl;
             $rootScope.hostUrl = tempUrl.replace(":8443","");
+            $rootScope.tenantIdentifier = tenantIdentifier;
           return resource(baseUrl + url, paramDefaults, actions);
         };
         return {
