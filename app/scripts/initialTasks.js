@@ -18,8 +18,13 @@
                         host = host.replace(":8443","");
             return _.extend(config, {url: host + config.url });
         });
-
-        $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+        if (QueryParameters["tenantIdentifier"]) {
+            $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = QueryParameters["tenantIdentifier"];
+            ResourceFactoryProvider.setTenantIdenetifier(QueryParameters["tenantIdentifier"]);
+        } else {
+            $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+            ResourceFactoryProvider.setTenantIdenetifier('default');
+        }
 
      }
      else{

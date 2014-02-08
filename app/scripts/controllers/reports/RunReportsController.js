@@ -305,7 +305,7 @@
               scope.hidePentahoReport = false;
               scope.hideChart = true;
               scope.baseURL = $rootScope.hostUrl +API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-              scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier=default";
+              scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier="+$rootScope.tenantIdentifier;
               var inQueryParameters = buildReportParms();
               if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
               break;
