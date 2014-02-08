@@ -18,16 +18,9 @@
                 }
                 scope.columnHeaders = data.columnHeaders;
 
-                //below logic helps if column name contains space then underscore will be  appended.
-                for (var i=0; i < scope.columnHeaders.length; i++) {
-                    scope.columnHeaders[i].columnName = spaceToUnderscore(scope.columnHeaders[i].columnName);
-                }
             });
 
-            //this function removes white space and add underscore
-            var spaceToUnderscore = function(str) {
-                return str.replace(/ /g, "`")
-            }
+            
 
             scope.cancel = function () {
                 location.path('/viewclient/'+ routeParams.entityId);
