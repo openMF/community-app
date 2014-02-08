@@ -39,16 +39,19 @@
           // For multi tenant hosting
           if(domains[0] == "demo"){
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+                  ResourceFactoryProvider.setTenantIdenetifier('default');
                   console.log("demo server",domains[0]);
           }
           else{
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = domains[0];
+                  ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
                   console.log("other than demo server", domains[0]);
 
           }
         }
         else{
                   $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+                  ResourceFactoryProvider.setTenantIdenetifier('default');
                   console.log("demo server",domains[0]);
           
         }
