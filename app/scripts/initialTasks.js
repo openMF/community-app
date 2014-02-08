@@ -27,8 +27,8 @@
         }
 
      }
-     else{
-
+     else if (window.location.hostname.indexOf('openmf.org') >= 0) {
+          console.log(window.location, window.location.hostname);
 
           var hostname = window.location.hostname;
           console.log('hostname---'+hostname);
@@ -56,6 +56,18 @@
           
         }
         
+     } else {
+
+          $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+          ResourceFactoryProvider.setTenantIdenetifier('default');
+          if(QueryParameters["tenantIdentifier"]) {
+              $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = QueryParameters["tenantIdentifier"];
+              ResourceFactoryProvider.setTenantIdenetifier(QueryParameters["tenantIdentifier"]);
+          }
+          host = "https://"+window.location.hostname+(location.port ? ':'+location.port : '');
+          HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
+              return _.extend(config, {url: host + config.url });
+          });
      }
 
         // Enable CORS! (see e.g. http://enable-cors.org/)
