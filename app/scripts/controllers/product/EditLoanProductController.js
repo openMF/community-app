@@ -56,7 +56,10 @@
               accountingRule : scope.product.accountingRule.id,
               principalVariationsForBorrowerCycle : [],
               interestRateVariationsForBorrowerCycle : [],
-              numberOfRepaymentVariationsForBorrowerCycle : []
+              numberOfRepaymentVariationsForBorrowerCycle : [],
+              multiDisburseLoan : scope.product.multiDisburseLoan,
+              maxTrancheCount : scope.product.maxTrancheCount,
+              outstandingLoanBalance : scope.product.outstandingLoanBalance
             }
 
             _.each(scope.product.principalVariationsForBorrowerCycle, function(variation){  

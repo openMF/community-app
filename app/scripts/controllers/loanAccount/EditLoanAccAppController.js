@@ -9,7 +9,7 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
 
-            resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting'}, function(data) {
+            resourceFactory.loanResource.get({loanId : routeParams.id, template:true, associations:'charges,collateral,meeting,multiDisburseDetails'}, function(data) {
                   scope.loanaccountinfo = data;
 
                   resourceFactory.loanResource.get({resourceType : 'template', templateType:'collateral', productId:data.loanProductId, fields:'id,loanCollateralOptions'}, function(data) {
@@ -70,12 +70,21 @@
                   scope.loanaccountinfo.charges[i].dueDate = new Date(scope.loanaccountinfo.charges[i].dueDate);
                 }
               }
+
+
               scope.charges = scope.loanaccountinfo.charges || [];
+              scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
+              if (scope.formData.disbursementData.length > 0) {
+                  for (var i in scope.formData.disbursementData) {
+                     scope.formData.disbursementData[i].expectedDisbursementDate = new Date(scope.formData.disbursementData[i].expectedDisbursementDate);
+                  }
+              }
 
               if (scope.loanaccountinfo.timeline.submittedOnDate) { scope.formData.submittedOnDate = new Date(scope.loanaccountinfo.timeline.submittedOnDate); }
               if (scope.loanaccountinfo.timeline.expectedDisbursementDate) { scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate); }
               if (scope.loanaccountinfo.interestChargedFromDate) { scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate); }
               if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) { scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate); }
+              scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan
               scope.formData.productId = scope.loanaccountinfo.loanProductId;
               scope.formData.fundId = scope.loanaccountinfo.fundId;
               scope.formData.principal = scope.loanaccountinfo.principal;
@@ -95,6 +104,8 @@
               scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
               scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
               scope.formData.syncDisbursementWithMeeting = scope.loanaccountinfo.syncDisbursementWithMeeting;
+              scope.formData.fixedEmiAmount=scope.loanaccountinfo.fixedEmiAmount;
+              scope.formData.maxOutstandingLoanBalance=scope.loanaccountinfo.maxOutstandingLoanBalance;
 
               if (scope.loanaccountinfo.meeting) {
                 scope.formData.syncRepaymentsWithMeeting = true;
@@ -122,6 +133,15 @@
             scope.deleteCharge = function(index) {
               scope.charges.splice(index,1);
             }
+
+            scope.addTranches = function() {
+              scope.formData.disbursementData.push({
+               });
+            };
+            scope.deleteTranches = function(index) {
+              scope.formData.disbursementData.splice(index,1);
+            }
+
 
             scope.syncRepaymentsWithMeetingchange = function() {
               if (!scope.formData.syncRepaymentsWithMeeting) {
@@ -192,6 +212,12 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+
+                if (scope.formData.disbursementData.length > 0) {
+                  for (var i in scope.formData.disbursementData) {
+                     scope.formData.disbursementData[i].expectedDisbursementDate = dateFilter(scope.formData.disbursementData[i].expectedDisbursementDate,'dd MMMM yyyy');
+                  }
+                }
 
                 if (scope.charges.length > 0) {
                   scope.formData.charges = [];

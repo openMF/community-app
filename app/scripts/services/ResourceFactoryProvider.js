@@ -149,6 +149,10 @@
             getLoanAccountDetails: {method: 'GET', params: {}},
             update: {method: 'PUT'}
           }),
+          LoanEditDisburseResource: defineResource(apiVer + "/loans/:loanId/disbursements/:disbursementId", {loanId:'@loanId', disbursementId:'@disbursementId'}, {
+            getLoanAccountDetails: {method: 'GET', params: {}},
+            update: {method: 'PUT'}
+          }),
           LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId:'@loanId',documentId:'@documentId'}, {
             getLoanDocuments: {method: 'GET', params: {} , isArray: true}
           }),
