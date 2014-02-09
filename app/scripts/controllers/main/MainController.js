@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService,keyboardManager) {
+    MainController: function(scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager) {
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
@@ -16,6 +16,36 @@
             scope.df = scope.dateformat;
         };
         scope.setDf();
+        $rootScope.setPermissions = function(permissions) {
+          $rootScope.permissionList = permissions;
+          localStorageService.add('userPermissions',permissions);
+          $rootScope.$broadcast('permissionsChanged')
+        };
+
+        $rootScope.hasPermission = function (permission) {
+          permission = permission.trim();
+          //FYI: getting all permissions from localstorage, because if scope changes permissions array will become undefined
+          $rootScope.permissionList = localStorageService.get('userPermissions');
+            //If user is a Super user return true
+            if ($rootScope.permissionList && _.contains($rootScope.permissionList,"ALL_FUNCTIONS")) {
+              return true;
+            } else if ($rootScope.permissionList && permission && permission != "") {
+              //If user have all read permission return true
+              if (permission.substring(0,5) == "READ_" && _.contains($rootScope.permissionList,"ALL_FUNCTIONS_READ")) {
+                  return true;
+              } else if (_.contains($rootScope.permissionList, permission)) {
+                //check for the permission if user doesn't have any special permissions
+                return true;
+              } else {
+                //return false if user doesn't have permission
+                return false;
+              }
+            } else {
+              //return false if no value assigned to has-permission directive
+              return false;
+            };
+        };
+
         scope.$watch(function() {
             return location.path();
         }, function() {
@@ -27,6 +57,7 @@
         scope.leftnav = false;
         scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
+        $rootScope.setPermissions(scope.currentSession.user.userPermissions);
         location.path('/home').replace();
       });
 
@@ -159,7 +190,12 @@
 
       sessionManager.restore(function(session) {
         scope.currentSession = session;
+        if (session.user != null) {
+          $rootScope.setPermissions(session.user.userPermissions);
+          localStorageService.add('userPermissions',session.user.userPermissions);
+        };
       });
+
     }
   });
   mifosX.ng.application.controller('MainController', [
