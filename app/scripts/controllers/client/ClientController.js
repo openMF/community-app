@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ClientController: function(scope, resourceFactory , paginatorService,location) {
+    ClientController: function(scope, resourceFactory, paginatorService, location) {
         
       scope.clients = [];
       scope.routeTo = function(id){
