@@ -11,8 +11,15 @@
       }
       this.$get = ['$resource','$rootScope', function(resource,$rootScope) {
         var defineResource = function(url, paramDefaults, actions) {
+            // Angularjs strips everything after colon(:) so we are appended port number,but to access resources with http request here removing port number.   
+            // follow this link for more info https://github.com/angular/angular.js/issues/1243
             var tempUrl = baseUrl;
-            $rootScope.hostUrl = tempUrl.replace(":8443","");
+            var port = "";
+            var split = tempUrl.split(':');
+            if (split.length == 4) {
+              port = ":"+split[3];
+            };
+            $rootScope.hostUrl = tempUrl.replace(port,"");
             $rootScope.tenantIdentifier = tenantIdentifier;
           return resource(baseUrl + url, paramDefaults, actions);
         };
