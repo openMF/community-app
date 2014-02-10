@@ -3,6 +3,7 @@
         var mainLink = getLocation(window.location.href);
         var baseApiUrl = "https://demo.openmf.org";
         var host = "";
+        var portNumber = "";
         //accessing from openmf server
         if (mainLink.hostname.indexOf('openmf.org') >= 0) {
             var hostname = window.location.hostname;
@@ -29,17 +30,12 @@
                 baseApiUrl = "https://"+mainLink.hostname+(mainLink.port ? ':'+mainLink.port : '');
             }
             
-            if(QueryParameters["baseApiUrl"]) { 
+            if (QueryParameters["baseApiUrl"]) { 
                 baseApiUrl = QueryParameters["baseApiUrl"];
             }
             var queryLink = getLocation(baseApiUrl);
             host = "https://"+queryLink.hostname+(queryLink.port ? ':'+queryLink.port : '');
-            // Angularjs strips everything after colon(:) so we are appending port number again
-            // follow this link for more info https://github.com/angular/angular.js/issues/1243 
-            if (queryLink.port) {              
-                host = host.concat('\:'+queryLink.port);
-            };
-            console.log('hostname from baseApiUrl = ',host);
+            portNumber = queryLink.port;
 
             $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
             ResourceFactoryProvider.setTenantIdenetifier('default');
@@ -49,8 +45,16 @@
             }
         }
 
+        // Angularjs strips everything after colon(:) so we are appending port number again
+        // follow this link for more info https://github.com/angular/angular.js/issues/1243 
+        if (portNumber && portNumber != "") {              
+            host = host.concat(':'+portNumber);
+        };
         ResourceFactoryProvider.setBaseUrl(host);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
+            if (portNumber && portNumber != ""){
+                host = host.replace(':'+portNumber, "");
+            }
           return _.extend(config, {url: host + config.url });
         });
 
