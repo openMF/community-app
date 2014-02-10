@@ -1,0 +1,148 @@
+<div class="paddedleft paddedtop" ng-controller="AdHocQuerySearchController">
+	<h3><strong>{{'label.heading.adhoc.search.query.for.loans' | translate}}</strong>&nbsp;
+		<a ng-show="showResults" class="btn btn-primary" ng-click="showResults=!showResults">
+          <i class="icon-plus icon-white"></i>
+        </a>
+    </h3>
+	<api-validate></api-validate>
+	<div ng-hide="showResults">
+		<table width="100%">
+			<tr>
+				<td  width="16%">
+					{{'label.input.adhoc.search.loanstatus' | translate}}
+				</td>
+				<td width="25%" class="paddedleft0">
+					<input id="allloans" type="checkbox" ng-true-value="all" ng-model="formData.allloans">&nbsp;{{'label.all' | translate}}<br>
+					<input id="activeloans" type="checkbox" ng-true-value="active" ng-model="formData.activeloans">&nbsp;{{'loanStatusType.active' | translate}}<br>
+					<input id="overpaidloans" type="checkbox" ng-true-value="overpaid" ng-model="formData.overpaidloans">&nbsp;{{'loanStatusType.overpaid' | translate}}
+				</td>
+				<td width="8%"></td>
+				<td width="40%">
+					<input id="arrearloans" type="checkbox" ng-true-value="arrears" ng-model="formData.arrearloans" ng-disabled="true">&nbsp;{{'loanStatusType.witharrears' | translate}}<br>
+					<input id="closedloans" type="checkbox" ng-true-value="closed" ng-model="formData.closedloans">&nbsp;{{'loanStatusType.closed.obligations.met' | translate}}<br>
+					<input id="writeoffloans" type="checkbox" ng-true-value="writeoff" ng-model="formData.writeoffloans">&nbsp;{{'loanStatusType.closed.written.off' | translate}}
+				</td>
+			</tr>
+			<tr class="span1"></tr>
+			<tr>
+				<td>{{'label.input.product' | translate}}</td>
+				<td class="paddedleft0">
+					<select multiple ng-model="formData.loanProducts">
+						<option ng-repeat="product in searchTemplate.loanProducts" value="{{product.id}}">{{product.name}}</option>
+					</select>
+				</td>
+				<td>
+					{{'label.office' | translate}}&nbsp;
+				</td>
+				<td>
+					<select multiple ng-model="formData.offices" class="width60">
+						<option ng-repeat="office in searchTemplate.offices" value="{{office.id}}">{{office.name}}</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>{{'label.input.date.filter' | translate}}</td>
+				<td class="paddedleft0">
+					<select id="loandatetype" ng-model="formData.loandatetype" ng-change="updateLoanDateType()">
+						<option value=""> --{{ 'label.selectone' | translate }}--</option>
+						<option value="approvalDate">{{ 'label.input.loan.approvaldate' | translate }}</option>
+						<option value="createdDate">{{ 'label.input.loan.createdondate' | translate }}</option>
+						<option value="disbursalDate">{{ 'label.input.loan.disbursaldate' | translate }}</option>
+					</select>
+				</td>
+				<td><span ng-show="showDateFields">{{"label.input.between" | translate}}</span></td>
+				<td>
+					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loanfromdate" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small" /> {{"label.and" | translate}}
+					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loantodate" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}"  class="input-small" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input id="percentage" type="checkbox" ng-model="formData.includeOutStandingAmountPercentage" class="pull-right">
+					{{"label.input.adhoc.search.loanoutstanding.percentage" | translate}}
+				</td>
+				<td class="paddedleft0">
+					<span ng-show="formData.includeOutStandingAmountPercentage">
+						<select id="percentagetype" ng-model="formData.outStandingAmountPercentageCondition" ng-change="updatePercentageType()">
+							<option value="between">{{"label.input.between" | translate}}</option>
+							<option value="<=">&lt;=</option>
+							<option value=">=">&gt;=</option>
+							<option value="<">&lt;</option>
+							<option value=">">&gt;</option>
+							<option value="=">=</option>
+						</select>
+					</span>
+				</td>
+				<td>
+					<span ng-show="formData.includeOutStandingAmountPercentage">{{formData.outStandingAmountPercentageCondition}}</span>
+				</td>
+				<td>
+					<span ng-show="formData.includeOutStandingAmountPercentage">
+						<span ng-hide="formData.outStandingAmountPercentageCondition == 'between'">
+							<input type="text" ng-model="formData.outStandingAmountPercentage" class="input-small"/>
+						</span>
+						<span ng-show="formData.outStandingAmountPercentageCondition == 'between'">
+							<input type="text" ng-model="formData.minOutStandingAmountPercentage" class="input-small"/> {{"label.and" | translate}}
+							<input type="text" ng-model="formData.maxOutStandingAmountPercentage" class="input-small"/>
+						</span>
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input id="outstandingamount" type="checkbox" ng-model="formData.includeOutstandingAmount" class="pull-right">{{"label.outstanding.amount" | translate}}
+				</td>
+				<td class="paddedleft0">
+					<span ng-show="formData.includeOutstandingAmount">
+						<select id="loandatetype" ng-show="formData.includeOutstandingAmount" ng-model="formData.outstandingAmountCondition" ng-change="updateOutstandingType()">
+							<option value="between">{{"label.input.between" | translate}}</option>
+							<option value="<=">&lt;=</option>
+							<option value=">=">&gt;=</option>
+							<option value="<">&lt;</option>
+							<option value=">">&gt;</option>
+							<option value="=">=</option>
+						</select>
+					</span>
+				</td>
+				<td><span ng-show="formData.includeOutstandingAmount">{{formData.outstandingAmountCondition}}</span></td>
+				<td>
+					<span ng-show="formData.includeOutstandingAmount">
+						<span ng-hide="formData.outstandingAmountCondition == 'between'">
+							<input type="text" ng-model="formData.outstandingAmount" class="input-small"/>
+						</span>
+						<span ng-show="formData.outstandingAmountCondition == 'between'">
+							<input type="text" ng-model="formData.minOutstandingAmount" class="input-small"/> {{"label.and" | translate}}
+							<input type="text" ng-model="formData.maxOutstandingAmount" class="input-small"/>
+						</span>
+					</span>
+				</td>
+			</tr>
+		</table>
+		<div class="offset1">
+			<button id="save" type="submit" class="btn btn-primary" ng-click="submit()">{{'label.button.summary' | translate}}</button>
+		</div>
+	</div>
+	<div ng-show="showResults">
+		<input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px">
+		<table class="table">
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.officeName' | translate}}</th>
+					<th>{{'label.heading.productname' | translate}}</th>
+					<th>{{'label.heading.count' | translate}}</th>
+					<th>{{'label.heading.loanoutstanding' | translate}}</th>
+					<th>{{'label.heading.percentage' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="result in searchResults | filter:filterText">
+					<td class="pointer">{{result.officeName}}</td>
+					<td class="pointer">{{result.loanProductName}}</td>
+					<td class="pointer">{{result.count}}</td>
+					<td class="pointer">{{result.loanOutStanding}}</td>
+					<td class="pointer">{{result.percentage}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

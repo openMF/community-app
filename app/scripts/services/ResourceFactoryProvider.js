@@ -174,6 +174,13 @@
                       isArray:true
                     }
           }),
+          globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
+            get: {method: 'GET', params: {}}
+          }),
+          globalAdHocSearchResource: defineResource(apiVer + "/search/advance", {}, {
+            get: {method: 'GET', params: {}},
+            search: { method: 'POST', isArray:true }
+          }),
           fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true},
             getFund: {method:'GET', params: {}},
