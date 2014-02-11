@@ -280,7 +280,7 @@
           schedulerResource: defineResource(apiVer + "/scheduler", {}, {
             get: {method: 'GET', params: {}}
           }),
-          assignStaffResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId'}, {
+          assignStaffResource:defineResource(apiVer + "/groups/:groupOrCenterId", {groupOrCenterId:'@groupOrCenterId'}, {
             get: {method: 'GET', params: {}}
           }),
           configurationResource:defineResource(apiVer + "/configurations",{}, {
