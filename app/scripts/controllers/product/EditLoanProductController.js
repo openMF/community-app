@@ -9,10 +9,12 @@
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
         scope.date = {};
+        var idToNodeMap = {};
+        var productOfficeIdArray = [];
         scope.irFlag = false;
         scope.pvFlag = false;
         scope.rvFlag = false;
-
+        var selectedOffices = [];
         resourceFactory.loanProductResource.get({loanProductId : routeParams.id, template:'true'}, function(data) {
             scope.product = data;
             scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -58,7 +60,7 @@
               interestRateVariationsForBorrowerCycle : [],
               numberOfRepaymentVariationsForBorrowerCycle : []
             }
-
+            selectedOffices = data.offices;
             _.each(scope.product.principalVariationsForBorrowerCycle, function(variation){  
                 scope.formData.principalVariationsForBorrowerCycle.push({
                   id : variation.id,
@@ -155,9 +157,87 @@
                 })
               });
             }
+
+            resourceFactory.officeResource.getAllOffices(function (data) {
+                  for (var i = 0; i < data.length; i++) {
+                      for (var j = 0; j < selectedOffices.length; j++) {
+                          if (data[i].id === selectedOffices[j].id) {
+                              productOfficeIdArray.push(selectedOffices[j].id);
+                              data[i].selectedCheckBox = 'true';
+                          } 
+                      }   
+                  }
+
+                  for (var i in data) {
+                      data[i].children = [];
+                      idToNodeMap[data[i].id] = data[i];
+                  }
+
+                  function sortByParentId(a, b) {
+                      return a.parentId - b.parentId;
+                  }
+
+                  data.sort(sortByParentId);
+
+                  var root = [];
+                  for(var i = 0; i < data.length; i++) {
+                      var currentObj = data[i];
+                      if (currentObj.children){
+                          currentObj.collapsed = "true";
+                      }
+                      if (typeof currentObj.parentId === "undefined") {
+                          root.push(currentObj);        
+                      } else {
+                          parentNode = idToNodeMap[currentObj.parentId];
+                          parentNode.children.push(currentObj);
+                      }
+                  }
+                  scope.treedata = root;
+              });
             
         });
+        
+        //getting deep clone object to call the getDeepCopyObject
+        var deepCloneObject = new mifosX.models.DeepClone();
 
+        scope.applyToOffice = function (node) {
+            if (node.selectedCheckBox === 'true') {
+                recurProductApplyToOffice(node);
+                productOfficeIdArray = _.uniq(productOfficeIdArray);
+            } else {
+                node.selectedCheckBox = 'false';
+                recurRemoveProductAppliedOffice(node);
+
+            }
+        };
+
+        function recurProductApplyToOffice (node) {
+            node.selectedCheckBox = 'true';
+            productOfficeIdArray.push(node.id);
+            if (node.children.length > 0) {
+                for(var i = 0; i < node.children.length; i++) {
+                    node.children[i].selectedCheckBox = 'true';
+                    productOfficeIdArray.push(node.children[i].id);
+                    if (node.children[i].children.length > 0) {
+                        recurProductApplyToOffice(node.children[i]);
+                    }
+                }
+            }
+        }
+
+        function recurRemoveProductAppliedOffice (node) {
+            productOfficeIdArray = _.without(productOfficeIdArray, node.id);
+            if (node.children.length > 0) {
+                for (var i = 0; i < node.children.length; i++) {
+                    node.children[i].selectedCheckBox = 'false';
+                    productOfficeIdArray = _.without(productOfficeIdArray, node.children[i].id);
+                    if (node.children[i].children.length > 0) {
+                        recurRemoveProductAppliedOffice(node.children[i]);
+                    }
+                }
+            }
+        }
+        
         scope.chargeSelected = function(chargeId) {
           resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData,function(data){
               data.chargeId = data.id;
@@ -311,6 +391,13 @@
               id : scope.charges[i].id
             }
             scope.chargesSelected.push(temp);
+          }
+
+          this.formData.offices = [];
+          for (var i in productOfficeIdArray) {
+              var temp = new Object();
+              temp.officeId = productOfficeIdArray[i];
+              this.formData.offices.push(temp);
           }
 
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
