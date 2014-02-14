@@ -4,7 +4,8 @@ define(['underscore', 'mifosX'], function () {
             'ClientStatus',
             'LoggedInUser',
             'roleMap',
-            'Langs'
+            'Langs',
+            'DeepClone'
         ],
         services: [
             'ResourceFactoryProvider',

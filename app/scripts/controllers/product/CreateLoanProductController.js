@@ -9,6 +9,8 @@
         scope.penaltySpecificIncomeaccounts = [];
         scope.configureFundOption = {};
         scope.date = {};
+        var idToNodeMap = {};
+        var productOfficeIdArray = [];
         scope.pvFlag = false;
         scope.rvFlag = false;
         scope.irFlag = false;
@@ -64,6 +66,74 @@
             } 
             scope.formData.accountingRule = '1';
         });
+        
+        //getting deep clone object to call the getDeepCopyObject
+        var deepCloneObject = new mifosX.models.DeepClone();
+
+        resourceFactory.officeResource.getAllOffices(function(data){
+            for (var i in data) {
+                data[i].children = [];
+                idToNodeMap[data[i].id] = data[i];
+            }
+            function sortByParentId(a, b) {
+                return a.parentId - b.parentId;
+            }
+
+            data.sort(sortByParentId);
+
+            var root = [];
+            for (var i = 0; i < data.length; i++) {
+                var currentObj = data[i];
+                if (currentObj.children) {
+                    currentObj.collapsed = "true";
+                }
+                if (typeof currentObj.parentId === "undefined") {
+                      root.push(currentObj);        
+                } else {
+                      parentNode = idToNodeMap[currentObj.parentId];
+                      parentNode.children.push(currentObj);
+                }
+            }
+            scope.treedata = root;
+        });
+
+        scope.applyToOffice = function (node) {
+            if (node.selectedCheckBox === 'true') {
+                recurProductApplyToOffice(node);
+                productOfficeIdArray = _.uniq(productOfficeIdArray);
+            } else {
+                node.selectedCheckBox = 'false';
+                recurRemoveProductAppliedOffice(node);
+
+            }
+        };
+
+        function recurProductApplyToOffice (node) {
+            node.selectedCheckBox = 'true';
+            productOfficeIdArray.push(node.id);
+            if (node.children.length > 0) {
+                for(var i = 0; i < node.children.length; i++) {
+                    node.children[i].selectedCheckBox = 'true';
+                    productOfficeIdArray.push(node.children[i].id);
+                    if (node.children[i].children.length > 0) {
+                        recurProductApplyToOffice(node.children[i]);
+                    }
+                }
+            }
+        }
+
+        function recurRemoveProductAppliedOffice (node) {
+            productOfficeIdArray = _.without(productOfficeIdArray, node.id);
+            if (node.children.length > 0) {
+                for (var i = 0; i < node.children.length; i++) {
+                    node.children[i].selectedCheckBox = 'false';
+                    productOfficeIdArray = _.without(productOfficeIdArray, node.children[i].id);
+                    if (node.children[i].children.length > 0) {
+                        recurRemoveProductAppliedOffice(node.children[i]);
+                    }
+                }
+            }
+        }
 
         scope.chargeSelected = function(chargeId) {
 
@@ -218,6 +288,13 @@
             scope.chargesSelected.push(temp);
           }
 
+          this.formData.offices = [];
+          for (var i in productOfficeIdArray) {
+              var temp = new Object();
+              temp.officeId = productOfficeIdArray[i];
+              this.formData.offices.push(temp);
+          }
+          delete this.formData.officeIdArray;
           this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
           this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
           this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;

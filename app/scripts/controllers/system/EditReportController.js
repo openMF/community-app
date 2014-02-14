@@ -21,23 +21,8 @@
           scope.allowedParameterId = '';
         }
 
-        function deepCopy(obj) {
-            if (Object.prototype.toString.call(obj) === '[object Array]') {
-                var out = [], i = 0, len = obj.length;
-                for ( ; i < len; i++ ) {
-                    out[i] = arguments.callee(obj[i]);
-                }
-                return out;
-            }
-            if (typeof obj === 'object') {
-                var out = {}, i;
-                for ( i in obj ) {
-                    out[i] = arguments.callee(obj[i]);
-                }
-                return out;
-            }
-            return obj;
-        }
+        //getting deep clone object to call the getDeepCopyObject
+        var deepCloneObject = new mifosX.models.DeepClone();
 
         scope.deleteParameter = function(index) {
           scope.reportdetail.reportParameters.splice(index,1);
@@ -47,7 +32,7 @@
            if (scope.reportdetail.coreReport === true) {
               this.formData.reportParameters = scope.temp;
           } else {
-              scope.temp = deepCopy(scope.reportdetail.reportParameters);
+              scope.temp = deepCloneObject.getDeepCopyObject(scope.reportdetail.reportParameters);
               scope.reportdetail.reportParameters = scope.temp;
 
               for(var i in scope.temp) {
