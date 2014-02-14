@@ -49,7 +49,7 @@
             };
             var CenterUnassignCtrl = function ($scope, $modalInstance) {
                 $scope.unassign = function () {
-                    resourceFactory.groupResource.save({centerId: routeParams.id,command: 'unassignStaff'}, scope.staffData, function(data) {
+                    resourceFactory.groupResource.save({groupId: routeParams.id,command: 'unassignStaff'}, scope.staffData, function(data) {
                         route.reload();
                     });
                     $modalInstance.close('activate');
