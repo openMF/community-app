@@ -32,8 +32,9 @@
                 <div class="row-fluid">
                     <div class="span4">
                         <label class="control-label">{{ 'label.input.availableclients' | translate }}</label>
+                        <input type="text" ng-model="availableClientName">
                         <select multiple id="clientMembers" ng-model="available">
-                            <option ng-repeat="member in clients" value="{{member.id}}">{{member.displayName}}</option>
+                            <option ng-repeat="member in clients | filter:availableClientName" value="{{member.id}}">{{member.displayName}}</option>
                         </select>
                     </div>
                     <div class="paddedtop10 span2 paddedleft0">
@@ -42,8 +43,9 @@
                     </div>
                     <div class="span3 angled-textarea">
                         <label class="control-label">{{ 'label.input.selectedclients' | translate }}</label>
+                        <input type="text" ng-model="selectedClientName">
                         <select multiple ng-model="added">
-                            <option ng-repeat="client in addedClients" value="{{client.id}}">{{client.displayName}}</option>
+                            <option ng-repeat="client in addedClients | filter:selectedClientName" value="{{client.id}}">{{client.displayName}}</option>
                         </select>
                     </div>
                 </div>
