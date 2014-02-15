@@ -5,7 +5,7 @@
       <div class="control-group">
         <table width="80%">
           <tr class="control-group">
-            <td width="12%"></td>
+            <td width="16%"></td>
             <td width="30%">
               <label class="control-label">{{ 'label.input.group' | translate }}&nbsp;</label>
               <input type="text" value="{{groupName}}" readonly>
@@ -61,7 +61,7 @@
       <div class="control-group">
         <table ng-show="loanaccountinfo" ng-hide="previewRepayment" width="80%">
             <tr class="control-group">
-              <td  width="12%"></td>
+              <td  width="16%"></td>
               <td width="30%">
                 <label class="control-label">{{ 'label.input.loanofficer' | translate }}&nbsp;</label>
                 <select id="loanOfficerId" ng-model="formData.loanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanaccountinfo.loanOfficerOptions" value="{{loanOfficer.id}}">
@@ -193,27 +193,44 @@
                     <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId" ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions" value="{{transactionProcessingStrategy.id}}">
                   </td>
                   <td>
-                    <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
-                    <input id="graceOnPrincipalPayment" class="input-small" type="text" ng-model="formData.graceOnPrincipalPayment">
-                    <input id="graceOnInterestPayment" class="input-small" type="text" ng-model="formData.graceOnInterestPayment">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
                     <label class="control-label">{{ 'label.input.interestfreeperiod' | translate }}&nbsp;</label>
                     <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
-                  </td>
-                  <td>
-                    <label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}&nbsp;</label>
-                    <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.interestChargedFromDate" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <label class="control-label">{{ 'label.input.firstrepaymenton' | translate }}&nbsp;</label>
-                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" late-Validate />
+                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                   </td>
-                  <td></td>
+                  <td>
+                    <label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}&nbsp;</label>
+                    <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.interestChargedFromDate" is-open="opened2" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                      <label class="control-label">{{ 'label.input.linksavings' | translate }}&nbsp;</label>
+                      <select id="linkAccountId" ng-model="formData.linkAccountId" ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" value="{{savingaccount.id}}">
+                         <option value="">{{'label.menu.selectone' | translate}}</option>
+                      </select>
+                    </td>
+                </tr>   
+                <tr>
+                    <td>
+                        <label class="control-label">{{ 'label.input.grace' | translate }}&nbsp;</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="control-label">{{'label.input.onprincipalpayment' | translate}}&nbsp;</label>
+                        <input id="graceOnPrincipalPayment" type="text" ng-model="formData.graceOnPrincipalPayment">&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="control-label">{{'label.input.oninterestpayment' | translate}}&nbsp;</label>
+                        <input id="graceOnInterestPayment" type="text" ng-model="formData.graceOnInterestPayment">&nbsp;
+                    </td>
                 </tr>
               </table>
             </td>
