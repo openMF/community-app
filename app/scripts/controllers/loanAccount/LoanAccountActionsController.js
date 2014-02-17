@@ -48,11 +48,17 @@
               if (data.paymentTypeOptions.length > 0) {
                 scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
               }
+			        scope.formData.transactionAmount = data.amount;
               scope.formData[scope.modelName] = new Date();
+              if(data.fixedEmiAmount){
+                scope.formData.fixedEmiAmount = data.fixedEmiAmount;  
+                scope.showEMIAmountField=true;
+              }
             });
             scope.title = 'label.heading.disburseloanaccount';
             scope.labelName = 'label.input.disbursedondate';
             scope.isTransaction = true;
+            scope.showAmountField = true;
           break;
           case "repayment":
             scope.modelName = 'transactionDate';
@@ -191,6 +197,15 @@
               scope.showNoteField = false;
               scope.showDateField = false;
           break;
+          case "editdisbursedate":
+              resourceFactory.LoanEditDisburseResource.get({loanId : routeParams.id, disbursementId : routeParams.disbursementId}, function(data){
+                  scope.formData.expectedDisbursementDate = new Date(data.expectedDisbursementDate);
+                  scope.showEditDisburseDate = true;
+              });
+              scope.title = 'label.heading.editdisbursedate';
+              scope.showNoteField = false;
+              scope.showDateField = false;
+          break;
         }
 
         scope.cancel = function() {
@@ -231,6 +246,11 @@
           }else if (scope.action === "editcharge") {
               this.formData.dueDate = dateFilter(this.formData.dueDate,scope.df);
               resourceFactory.LoanAccountResource.update({loanId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId}, this.formData, function(data){
+                  location.path('/viewloanaccount/' + data.loanId);
+              });
+          }else if (scope.action === "editdisbursedate") {
+              this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
+              resourceFactory.LoanEditDisburseResource.update({loanId : routeParams.id, disbursementId : routeParams.disbursementId}, this.formData, function(data){
                   location.path('/viewloanaccount/' + data.loanId);
               });
           } else {

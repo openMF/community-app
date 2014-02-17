@@ -191,6 +191,54 @@
             </td>
         </tr>
         <tr class="span2"></tr>
+          <tr class="control-group" ng-show="multiDisburseLoan">
+            <td width="10%" align="center">
+              <label class="control-label"><h4>{{ 'label.heading.tranchedetails' | translate }}</h4></label>
+            </td>
+            <td class="blockquoteresult" width="90%">
+              <table width="100%">
+                <tr>
+                   <td>
+                      <label class="control-label">{{'label.input.fixedemiamount' | translate}}&nbsp;</label>
+                      <input id="graceOnPrincipalPayment" type="text" ng-model="formData.fixedEmiAmount">&nbsp;
+                    </td>
+                </tr>
+              </table>
+              <table width="100%">
+                <tr>
+                   <td>
+                      <label class="control-label">{{'label.input.outstandingloanbalance' | translate}}&nbsp;</label>
+                      <input id="graceOnPrincipalPayment" type="text" ng-model="formData.maxOutstandingLoanBalance">&nbsp;
+                    </td>
+                </tr>
+              </table>
+              <table width="100%">
+                <tr>
+                  <td width="100%">
+                    <a class="btn btn-primary" ng-click="addTranches()">{{ 'label.button.addtranch' |
+                            translate }}</a>
+                  </td>
+                  
+                </tr>
+              </table>
+              <table class="table" width="100%" ng-show="formData.disbursementData.length>0">
+                <tr class="graybg">
+                    <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                    <th>{{'label.input.principal' | translate}}</th>
+                </tr>
+                <tr ng-repeat="disbursementDetail in formData.disbursementData" >
+                  <td>
+                    <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.input.expecteddisbursementon' | translate}}" ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"/>
+                  </td>
+                  <td><input id="{{disbursementDetail[$index].principal}}" class="input-small" type="text" ng-model="disbursementDetail.principal"  placeholder="{{'label.input.principal' | translate}}"></td>
+                  
+                  <td><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          
+        <tr class="span2"></tr>
         <tr class="control-group">
             <td width="10%" align="center">
                 <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>

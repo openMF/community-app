@@ -107,6 +107,9 @@
       .when('/loanaccountcharge/:id/:action/:chargeId', {
         templateUrl: 'views/loans/loanaccountactions.html'
       })
+	  .when('/loandisbursedetail/:id/:action/:disbursementId', {
+        templateUrl: 'views/loans/loanaccountactions.html'
+      })
       .when('/editloanaccount/:id', {
         templateUrl: 'views/loans/editloanaccount.html'
       })

@@ -231,6 +231,13 @@
                               }]
                               
                             };
+							
+			  if (data.canDisburse) {
+                  scope.buttons.singlebuttons.splice(1,0,{
+                                name:"button.disburse",
+                                icon :"icon-flag"
+                              });
+              }
               //loan officer not assigned to loan, below logic 
               //helps to display otherwise not                
               if (!data.loanOfficerName) {
