@@ -95,7 +95,7 @@
                 })
               });
 
-
+            scope.setFlag();
             if(scope.formData.accountingRule == 1){
               if (scope.assetAccountOptions.length > 0) {
                 scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
