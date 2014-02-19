@@ -27,7 +27,9 @@
                 scope.loanaccountinfo = data;
                 if(data.group.clientMembers) {
                   for (var i in data.group.clientMembers) {
-                    scope.clients.push({selected:true, clientId:data.group.clientMembers[i].id,  name:data.group.clientMembers[i].displayName, amount:data.principal});
+                    scope.clients.push({selected:true, clientId:data.group.clientMembers[i].id,  name:data.group.clientMembers[i].displayName, amount:data.memberVariations[data.group.clientMembers[i].id]['principal'],
+                      interest:data.memberVariations[data.group.clientMembers[i].id]['interestRatePerPeriod'],repayments:data.memberVariations[data.group.clientMembers[i].id]['numberOfRepayments'],
+                      frequency:data.memberVariations[data.group.clientMembers[i].id]['termFrequency'],frequencyType:data.repaymentFrequencyType.id});
                   }
                 }
                 scope.previewClientLoanAccInfo();
@@ -74,6 +76,10 @@
             scope.viewLoanSchedule = function (index) {
               scope.formData.clientId= scope.clients[index].clientId;
               scope.formData.principal = scope.clients[index].amount;
+              scope.formData.interestRatePerPeriod = scope.clients[index].interest;
+              scope.formData.numberOfRepayments = scope.clients[index].repayments;
+              scope.formData.loanTermFrequencyType = scope.clients[index].frequencyType;
+              scope.formData.loanTermFrequency = scope.clients[index].frequency;
               scope.previewRepayments();
             }
             
@@ -222,6 +228,10 @@
                   if (scope.clients[i].selected) {
                     this.formData.clientId= scope.clients[i].clientId;
                     this.formData.principal = scope.clients[i].amount;
+                    this.formData.interestRatePerPeriod = scope.clients[i].interest;
+                    this.formData.numberOfRepayments = scope.clients[i].repayments;
+                    this.formData.loanTermFrequencyType = scope.clients[i].frequencyType;
+                    this.formData.loanTermFrequency = scope.clients[i].frequency;
                     resourceFactory.loanResource.save({_:new Date().getTime()},this.formData,function(data){
                       successfullyCreated = successfullyCreated + 1;
                       if (successfullyCreated == selectedClients) {
