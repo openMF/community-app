@@ -36,6 +36,9 @@
                         <th>#</th>
                         <th>{{ 'label.input.name' | translate }}</th>
                         <th>{{ 'label.input.amount' | translate }}</th>
+                        <th>{{ 'label.input.interestrate' | translate }}</th>
+                        <th>{{ 'label.input.repayments' | translate }}</th>
+                        <th>{{ 'label.input.loanterm' | translate }}</th>
                         <th>{{ 'label.input.actions' | translate }}</th>
                         <th>{{ 'label.heading.status' | translate }}</th>
                       </tr>
@@ -45,6 +48,11 @@
                         <td><input type="checkbox" ng-model="client.selected"></td>
                         <td><label class="control-label">{{client.name}}</label></td>
                         <td><input class="input-small" type="text" ng-model="client.amount" ng-show="client.selected"></td>
+                        <td><input class="input-small" type="text" ng-model="client.interest" ng-show="client.selected"></td>
+                        <td><input class="input-small" type="text" ng-model="client.repayments" ng-show="client.selected"></td>
+                        <td><input class="input-small" type="text" ng-model="client.frequency" ng-show="client.selected">
+                            <select id="loanTermFrequencyType" class="input-small" ng-model="client.frequencyType" ng-show="client.selected" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}"></select>
+                        </td>
                         <td><a class="btn btn-primary" ng-click="viewLoanSchedule($index)" ng-show="client.selected">{{ 'label.anchor.viewschedule' | translate }}</a></td>
                         <td><strong>{{client.status}}</strong></td>
                       </tr>
@@ -125,33 +133,17 @@
                     <input id="expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"/>
                   </td>
                   <td width="40%">
-                    <label class="control-label">{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="loanTermFrequency" class="input-small" name="loanterm" type="text" ng-model="formData.loanTermFrequency"  required late-Validate/>
-                    <select id="loanTermFrequencyType" class="input-small" ng-model="formData.loanTermFrequencyType" ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{termFrequencyType.id}}"></select>
-                    <form-validate valattributeform="newjlgloanform" valattribute="loanterm"/>
+                    
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <label class="control-label">{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="numberOfRepayments" class="input-small" name="numofrepayments" type="text" ng-model="formData.numberOfRepayments" required late-Validate/>
-                    <form-validate valattributeform="newjlgloanform" valattribute="numofrepayments"/>
-                  </td>
+                  
                   <td>
                     <label class="control-label">{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label>
                     <input id="repaymentEvery" class="input-small" name="repaidevery" type="text" ng-model="formData.repaymentEvery" required late-Validate/>
                     <select id="repaymentFrequencyType" class="input-small" ng-model="formData.repaymentFrequencyType" ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions" value="{{repaymentFrequencyType.id}}"></select>
                     <form-validate valattributeform="newjlgloanform" valattribute="repaidevery"/>
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label class="control-label">{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="interestRatePerPeriod" class="input-small" name="nominalinterestrate" type="text" ng-model="formData.interestRatePerPeriod" required late-Validate/>
-                      &nbsp;&nbsp; {{loanaccountinfo.interestRateFrequencyType.value}}
-                      <form-validate valattributeform="newjlgloanform" valattribute="nominalinterestrate"/>
-                  </td>
-                  <td></td>
                 </tr>
                 <tr>
                 </tr>
