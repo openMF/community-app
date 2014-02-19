@@ -1,0 +1,76 @@
+<div ng-controller="ProductiveCollectionSheetController">
+	<div>
+	   	<div id="productive_sheet" class="whitebg" style="width:950px; height:850px; overflow: auto;">
+	   		<div class="paddedtop">
+		   		<span>{{'label.heading.branch' | translate}}&nbsp;:{{officeName}}</span>
+		   		<span class="paddedleft90">{{'label.input.meetingdate' | translate}}&nbsp;:{{meetingDate}}</span>
+		   	</div>
+	   		<div class="tabbable tabs-below paddedtop">
+		      	<ul class="nav nav-tabs nav-pills">
+			        <li ng-class="{statusactive: selectedTab == center.id}" ng-repeat="center in staffCenterData">
+			          <a ng-click="getAllGroupsByCenter(center.id, center.collectionMeetingCalendar.id)" >
+			            {{center.name}}
+			            <i ng-show="selectedTab == center.id" class="icon-circle statusprogresstab"></i>
+			            <i ng-show="selectedTab != center.id" class="icon-circle statusprogresspendingtab"></i>
+			          </a>
+			        </li>
+		      	</ul>
+		    </div>
+		    <table class="table table-bordered">
+		        <thead>
+		            <tr>
+		              <th></th>
+		              <th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">{{loanproduct.name}}/{{'label.heading.charges' | translate}}</th>
+		              <th>{{'label.heading.attendance' | translate}}</th>
+		            </tr>
+		        </thead>
+	          	<tbody ng-repeat="group in collectionsheetdata.groups">
+	              <tr>
+	                <td class="graybg">
+	                    <b>{{group.groupName}}</b>
+	                </td>
+	                <td scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
+	                <td colspan="1" scope="colgroup">&nbsp;</td>
+	              </tr>
+	              <tr ng-repeat="client in group.clients">
+	                <td>({{client.clientId}}){{client.clientName}}</td>
+	                <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+	                  <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
+	                    <input id="total" type="text" class="input-smaller"  ng-model="loan.totalDue" ng-change="bulkRepaymentTransactionAmountChange()">
+	                    <span ng-hide="loan.chargesDue" ng-init="loan.chargesDue = 0">
+	                    </span>
+	                    <input type="text" class="input-mini-small" ng-model="loan.chargesDue" ng-change="bulkRepaymentTransactionAmountChange()">
+	                  </span>
+	                </td>
+	                <td >
+	                    <select id="clientsAttendance[{{$index}}][attendanceType]" ng-model="client.attendanceType.id" class="input-smaller" ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions" value="{{attendance.id}}">
+	                    </select>
+	                </td>
+	              </tr>
+	              <tr>
+	                <td class="graybg" ng-show="collectionsheetdata.loanProducts">{{'label.input.grouptotal' | translate}}</td>
+	                  <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+	                    <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
+	                      <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup" ng-show="loanproduct.id == loanProductArray.productId">
+	                        <input type="text" class="input-smaller" ng-model="loanProductArray.transactionAmount" disabled="disabled">
+	                      </span>
+	                    </span>
+	                </td>
+	                <td></td>
+	              </tr>
+	            </tbody>
+	      	</table>
+	      	<div class="span12 paddedtop10">
+		        <div class="offset9 paddedtop">
+		          <button id="save" type="submit" class="btn btn-primary" ng-show="!submitButtonShow" ng-click="submit()">{{'label.button.submitandnextcenter' | translate}}</button>
+		          <button id="save" type="submit" class="btn btn-primary" ng-show="submitButtonShow" ng-click="submit()">{{'label.button.save' | translate}}</button>
+		        </div>
+	      	</div>
+	    </div>
+	    <div class="span12">
+	    	<div class="offset9 paddedtop">
+	  			<button class="btn btn-primary" ng-click="viewFullScreen()">{{'label.button.viewfullscreen' | translate}}</button>
+			</div>
+		</div>	
+	</div>
+</div>

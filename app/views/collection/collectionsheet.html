@@ -15,13 +15,26 @@
 		    </div>
 
 		    <div class="control-group">
+		      	<label class="control-label">{{ 'label.input.meetingcalendar' | translate }}<span class="required">*</span></label>
+		      	<div class="controls">
+		        	<input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy" ng-model="date.transactionDate" is-open="opened"/>
+		      	</div>
+		    </div>
+
+		    <div class="control-group">
 		      	<label class="control-label">{{ 'label.input.loanofficer' | translate }}<span class="required">*</span></label>
 		      	<div class="controls">
-		        	<select id="officeId" ng-model="loanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"  ng-change="loanOfficerSelected(loanOfficerId)" required>
+		        	<select id="loanOfficerId" ng-model="loanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"  ng-change="loanOfficerSelected(loanOfficerId)" required>
 		          		<option value="">{{'label.selectloanofficer' | translate}}</option>
 		        	</select>
 		      </div>
 		    </div>
+		    
+		    <div>
+	      		<button class="btn btn-primary" ng-click="productiveCollectionSheet()">{{'label.button.productivecollectionsheet' | translate}}
+	        	<i class="icon-circle-arrow-right"></i></button>
+	    	</div>
+
 
 		    <div class="control-group">
 		      	<label class="control-label">{{ 'label.input.center' | translate }}<span ng-show="centerMandatory" class="required">*</span></label>
@@ -41,12 +54,6 @@
 		      	</div>
 		    </div>
 
-		    <div class="control-group">
-		      	<label class="control-label">{{ 'label.input.meetingcalendar' | translate }}<span class="required">*</span></label>
-		      	<div class="controls">
-		        	<input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy" ng-model="date.transactionDate" is-open="opened"/>
-		      	</div>
-		    </div>
 		    <div>
 	      		<button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' | translate}}
 	        	<i class="icon-circle-arrow-right"></i></button>

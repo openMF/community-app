@@ -446,6 +446,9 @@
       .when('/editcharge/:id', {
         templateUrl: 'views/products/editcharge.html'
       })
+      .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId', {
+        templateUrl: 'views/collection/productivecollectionsheet.html'
+      })
       .when('/entercollectionsheet', {
         templateUrl: 'views/collection/collectionsheet.html'
       })

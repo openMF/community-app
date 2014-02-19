@@ -249,6 +249,7 @@
           centerResource: defineResource(apiVer + "/centers/:centerId/:anotherresource", {centerId:'@centerId',anotherresource:'@anotherresource'}, {
             get: {method: 'GET', params: {}},
             getAllCenters: {method: 'GET', params: {}, isArray: true},
+            getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
             update: { method: 'PUT'}
           }),
           centerMeetingResource:defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId:'@centerId',templateSource:'@templateSource'}, {
