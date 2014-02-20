@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService,keyboardManager) {
+    MainController: function(scope, location, sessionManager, translate,$rootScope,localStorageService,keyboardManager, $idle, $keepalive, $modal) {
         scope.activity = {};
         scope.activityQueue = [];
         if(localStorageService.get('Location')){
@@ -24,9 +24,25 @@
             localStorageService.add('Location',scope.activityQueue);
         });
 
+        //Logout the user if Idle
+        scope.started = false;
+        scope.$on('$idleTimeout', function() {
+            scope.logout();
+            $idle.unwatch();
+            scope.started = false;
+        });
+
+        scope.start = function(session) {
+            if(session){
+                $idle.watch();
+                scope.started = true;
+            }
+        };
+
         scope.leftnav = false;
         scope.$on("UserAuthenticationSuccessEvent", function(event, data) {
         scope.currentSession = sessionManager.get(data);
+        scope.start(scope.currentSession);
         location.path('/home').replace();
       });
 
@@ -158,7 +174,8 @@
       };
 
       sessionManager.restore(function(session) {
-        scope.currentSession = session;
+          scope.currentSession = session;
+          scope.start(scope.currentSession);
       });
     }
   });
@@ -169,7 +186,7 @@
     '$translate',
     '$rootScope',
     'localStorageService',
-    'keyboardManager',
+    'keyboardManager', '$idle', '$keepalive', '$modal',
     mifosX.controllers.MainController
   ]).run(function($log) {
     $log.info("MainController initialized");
