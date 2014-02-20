@@ -8,26 +8,12 @@
       scope.routeTo = function(id){
           location.path('/viewoffice/' + id);
       };
-      scope.deepCopy = function (obj) {
-        if (Object.prototype.toString.call(obj) === '[object Array]') {
-          var out = [], i = 0, len = obj.length;
-          for ( ; i < len; i++ ) {
-            out[i] = arguments.callee(obj[i]);
-          }
-          return out;
-        }
-        if (typeof obj === 'object') {
-          var out = {}, i;
-          for ( i in obj ) {
-            out[i] = arguments.callee(obj[i]);
-          }
-          return out;
-        }
-        return obj;
-      }
+
+      //getting deep clone object to call the getDeepCopyObject
+      var deepCloneObject = new mifosX.models.DeepClone();
 
       resourceFactory.officeResource.getAllOffices(function(data){
-        scope.offices = scope.deepCopy(data);
+        scope.offices = deepCloneObject.getDeepCopyObject(data);;
         for(var i in data){
           data[i].children = [];
           idToNodeMap[data[i].id] = data[i];

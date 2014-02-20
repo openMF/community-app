@@ -157,23 +157,8 @@
           	}
         };
 
-        function deepCopy(obj) {
-            if (Object.prototype.toString.call(obj) === '[object Array]') {
-                 var out = [], i = 0, len = obj.length;
-                 for ( ; i < len; i++ ) {
-                     out[i] = arguments.callee(obj[i]);
-                 }
-                 return out;
-            }
-            if (typeof obj === 'object') {
-                var out = {}, i;
-                for ( i in obj ) {
-                    out[i] = arguments.callee(obj[i]);
-                }
-                return out;
-            }
-            return obj;
-        }
+        //getting deep clone object to call the getDeepCopyObject
+        var deepCloneObject = new mifosX.models.DeepClone();
 
         scope.total = function (data) {
             scope.bulkRepaymentTransactions = [];
@@ -209,7 +194,7 @@
             scope.groupArray = scope.collectionsheetdata.groups;
             var gl = scope.groupArray.length;
             for (var i = 0; i < gl; i++) {
-                var loanProductArrayDup = deepCopy(scope.loanProductArray);
+                var loanProductArrayDup = deepCloneObject.getDeepCopyObject(scope.loanProductArray);
 
                 var temp = {};
                 temp.groupId = scope.groupArray[i].groupId;
@@ -253,7 +238,7 @@
                 scope.groupTotal.push(temp);
             }
 
-            var loanProductArrayTotal =  deepCopy(scope.loanProductArray);
+            var loanProductArrayTotal =  deepCloneObject.getDeepCopyObject(scope.loanProductArray);
             for (var i = 0; i < scope.groupTotal.length; i++) {
                 var groupProductTotal = scope.groupTotal[i];
                 for (var j = 0; j < groupProductTotal.loanProductArrayDup.length; j++) {
