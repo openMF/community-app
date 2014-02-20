@@ -1,5 +1,5 @@
 (function(mifosX) {
-    var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider) {
+    var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider, $idleProvider, $keepaliveProvider) {
         var mainLink = getLocation(window.location.href);
         var baseApiUrl = "https://demo.openmf.org";
         var host = "";
@@ -77,9 +77,15 @@
         $translateProvider.preferredLanguage('en');
         $translateProvider.fallbackLanguage('en');
 
+        //Timeout settings.
+        $idleProvider.idleDuration(30*60); //Idle time 30min
+        $idleProvider.warningDuration(10); //warning time(sec)
+        $keepaliveProvider.interval(15*60); //keep-alive ping
+
   };
-  mifosX.ng.application.config(defineHeaders).run(function($log) {
+  mifosX.ng.application.config(defineHeaders).run(function($log, $idle) {
     $log.info("Initial tasks are done!");
+    $idle.watch();
   });
 }(mifosX || {}));
 
