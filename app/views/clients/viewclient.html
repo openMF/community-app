@@ -333,10 +333,14 @@
       </tab>
       <tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables" select="dataTableChange(clientdatatable)">
         <div>
-          <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(clientdatatable.registeredTableName, client.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-          <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-            <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-          </span></br>
+          <div>
+            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(clientdatatable.registeredTableName, client.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+            <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
+              <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+            </span>
+          </div>
+          <br>
+          <br>
           <div ng-show="datatabledetails.isData">
               <table class="table" data-ng-show="datatabledetails.isMultirow">
                   <thead>
