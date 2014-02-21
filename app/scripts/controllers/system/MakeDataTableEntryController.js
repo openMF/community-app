@@ -20,7 +20,20 @@
 
             });
 
-            
+            //return input type
+            scope.fieldType = function(type){
+                var fieldType = "";
+                if(type){
+                    if(type == 'STRING' || type == 'INTEGER' || type == 'TEXT' || type == 'DECIMAL'){
+                        fieldType = 'TEXT';
+                    } else if(type == 'CODELOOKUP'){
+                        fieldType = 'SELECT';
+                    } else if(type == 'DATE'){
+                        fieldType = 'DATE';
+                    }
+                }
+                return fieldType;
+            };
 
             scope.cancel = function () {
                 location.path('/viewclient/'+ routeParams.entityId);
