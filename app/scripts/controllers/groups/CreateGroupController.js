@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function(scope, resourceFactory, location,dateFilter,routeParams,$rootScope,API_VERSION,http) {
+        CreateGroupController: function(scope, resourceFactory, location, dateFilter, routeParams, $rootScope, API_VERSION, http) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
