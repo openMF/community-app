@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function(scope, resourceFactory, location,dateFilter) {
+        CreateGroupController: function(scope, resourceFactory, location, dateFilter, routeParams, $rootScope, API_VERSION, http) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -13,6 +13,8 @@
             scope.added = [];
             scope.formData = {};
             scope.formData.clientMembers = [];
+            scope.selectedUserData={accountNo:"",mobileNo:"",image:"../app/images/blank_avatar.jpg"};
+
             resourceFactory.groupTemplateResource.get({orderBy: 'name', sortOrder: 'ASC'}, function(data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
@@ -49,6 +51,24 @@
                     }
                 }
             };
+            scope.userClicked=function(id){
+                resourceFactory.clientResource.get({clientId: id},function(data){
+                    console.log(data);
+                    scope.selectedUserData.mobileNo=data.mobileNo;
+                    scope.selectedUserData.accountNo=data.accountNo;
+                    if (data.imagePresent) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + id + '/images'
+                        }).then(function (imageData) {
+                                scope.selectedUserData.image = imageData.data;
+                                console.log(scope.image);
+                            });
+                    }else{
+                        scope.selectedUserData.image="../app/images/blank_avatar.jpg";
+                    }
+                });
+            }
             scope.changeOffice =function(officeId) {
                 scope.addedClients = [];
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly : false, officeId : officeId
@@ -89,7 +109,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.CreateGroupController]).run(function($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location',
+            'dateFilter','$routeParams','$rootScope','API_VERSION','$http', mifosX.controllers.CreateGroupController]).run(function($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));
