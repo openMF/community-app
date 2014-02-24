@@ -16,6 +16,7 @@
               active : data.active,
               accountNo : data.accountNo, 
               staffId : data.staffId,
+              externalId: data.externalId,
               mobileNo : data.mobileNo
             };
             var actDate = dateFilter(data.activationDate,scope.df);

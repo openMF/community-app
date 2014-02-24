@@ -107,6 +107,9 @@
       .when('/loanaccountcharge/:id/:action/:chargeId', {
         templateUrl: 'views/loans/loanaccountactions.html'
       })
+	  .when('/loandisbursedetail/:id/:action/:disbursementId', {
+        templateUrl: 'views/loans/loanaccountactions.html'
+      })
       .when('/editloanaccount/:id', {
         templateUrl: 'views/loans/editloanaccount.html'
       })
@@ -505,6 +508,9 @@
       })
       .when('/checkeractionperformed',{
         templateUrl: 'views/system/checkerActionPerformed.html'
+      })
+      .when('/advsearch',{
+        templateUrl: 'views/search/advsearch.html'
       });
     $locationProvider.html5Mode(false);
   };

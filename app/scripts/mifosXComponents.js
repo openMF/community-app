@@ -164,7 +164,8 @@ define(['underscore', 'mifosX'], function () {
             'main/ViewCheckerinboxController',
             'main/ExpertSearchController',
             'main/ProfileController',
-            'main/ViewMakerCheckerTaskController'
+            'main/ViewMakerCheckerTaskController',
+            'main/AdHocQuerySearchController'
         ],
         filters: [
             'StatusLookup',

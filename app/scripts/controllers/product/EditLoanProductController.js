@@ -56,7 +56,10 @@
               accountingRule : scope.product.accountingRule.id,
               principalVariationsForBorrowerCycle : [],
               interestRateVariationsForBorrowerCycle : [],
-              numberOfRepaymentVariationsForBorrowerCycle : []
+              numberOfRepaymentVariationsForBorrowerCycle : [],
+              multiDisburseLoan : scope.product.multiDisburseLoan,
+              maxTrancheCount : scope.product.maxTrancheCount,
+              outstandingLoanBalance : scope.product.outstandingLoanBalance
             }
 
             _.each(scope.product.principalVariationsForBorrowerCycle, function(variation){  
@@ -92,7 +95,7 @@
                 })
               });
 
-
+            scope.setFlag();
             if(scope.formData.accountingRule == 1){
               if (scope.assetAccountOptions.length > 0) {
                 scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;

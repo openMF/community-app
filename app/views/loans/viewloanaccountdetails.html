@@ -66,6 +66,10 @@
                     <span data-ng-hide="loandetails.loanPurposeName">{{'label.heading.notprovided' | translate}}</span></span></td>
                 </tr>
                 <tr>
+                    <th class="table-bold-loan">{{'label.heading.approvedamount' | translate}}</th>
+                    <td><span class="padded-td">{{loandetails.approvedPrincipal}}</span></td>
+                </tr>
+                <tr>
                     <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
                     <td><span class="padded-td">{{loandetails.principal}}</span></td>
                 </tr>
@@ -422,6 +426,63 @@
           </table>
         </tab>
 
+        <tab ng-show="$parent.loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
+          <table  width="100%">
+            <tr>
+              <td>
+                      {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount}}&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>
+                      {{'label.input.outstandingloanbalance' | translate}} : &nbsp;{{loandetails.maxOutstandingLoanBalance}}&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td>
+                      <b>{{'label.heading.tranchedetails' | translate}}</b>
+              </td>
+            </tr>
+          </table>
+          <table  width="100%">
+            <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
+                <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
+                <th align="left">{{'label.input.disbursedon' | translate}}</th>
+                <th align="left">{{'label.heading.approvedamount' | translate}}</th>
+                <th align="left">{{'label.input.principal' | translate}}</th>
+                <th align="left">&nbsp;</th>
+            </tr>
+            <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
+                <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
+                <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
+                <td>{{disbursementDetail.approvedPrincipal}}</td>
+                <td>{{disbursementDetail.principal}}</td>
+                <td><div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i></div>
+                  <a title="{{'label.edit' | translate}}" data-ng-show="disbursementDetail.actualDisbursementDate == null && status =='Active' " href="#/loandisbursedetail/{{loandetails.id}}/editdisbursedate/{{disbursementDetail.id}}"><i class="icon-pencil icon-white"></i></a>
+                </td>
+            </tr>
+          </table>
+
+          <table  width="100%">
+            <tr>
+              <td>
+                      {{'label.input.fixedemiamountvariations' | translate}} : &nbsp;&nbsp;
+              </td>
+            </tr>
+          </table>
+          <table  width="100%">
+            <tr class="graybg" ng-show="loandetails.emiAmountVariations.length>0">
+                <th align="left">{{'label.input.emiamoutvariationfrom' | translate}}</th>
+                <th align="left">{{'label.input.fixedemiamount' | translate}}</th>
+            </tr>
+            <tr ng-repeat="emiVariations in loandetails.emiAmountVariations">
+                <td>{{emiVariations.termVariationApplicableFrom | DateFormat}}</td>
+                <td>{{emiVariations.termValue}}</td>
+            </tr>
+          </table>
+        </tab>
+
+
         <tab ng-show="$parent.chargeTableShow" heading="{{'label.heading.charges' | translate}}">
           <table class="table" width="100%">
             <tr class="graybg">
@@ -444,8 +505,8 @@
             </tr>
             <tr ng-repeat="charge in charges">
                 <td><a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a></td>
-                <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
-                <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                <td ng-show="charge.penalty">{{"penalty"}}</td>
+                <td ng-hide="charge.penalty">{{"fee"}}</td>
                 <td></td>
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td></td>

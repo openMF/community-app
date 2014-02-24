@@ -11,8 +11,15 @@
       }
       this.$get = ['$resource','$rootScope', function(resource,$rootScope) {
         var defineResource = function(url, paramDefaults, actions) {
+            // Angularjs strips everything after colon(:) so we are appended port number,but to access resources with http request here removing port number.   
+            // follow this link for more info https://github.com/angular/angular.js/issues/1243
             var tempUrl = baseUrl;
-            $rootScope.hostUrl = tempUrl.replace(":8443","");
+            var port = "";
+            var split = tempUrl.split(':');
+            if (split.length == 4) {
+              port = ":"+split[3];
+            };
+            $rootScope.hostUrl = tempUrl.replace(port,"");
             $rootScope.tenantIdentifier = tenantIdentifier;
           return resource(baseUrl + url, paramDefaults, actions);
         };
@@ -149,6 +156,10 @@
             getLoanAccountDetails: {method: 'GET', params: {}},
             update: {method: 'PUT'}
           }),
+          LoanEditDisburseResource: defineResource(apiVer + "/loans/:loanId/disbursements/:disbursementId", {loanId:'@loanId', disbursementId:'@disbursementId'}, {
+            getLoanAccountDetails: {method: 'GET', params: {}},
+            update: {method: 'PUT'}
+          }),
           LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId:'@loanId',documentId:'@documentId'}, {
             getLoanDocuments: {method: 'GET', params: {} , isArray: true}
           }),
@@ -173,6 +184,13 @@
                       params: { query: '@query'} ,
                       isArray:true
                     }
+          }),
+          globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
+            get: {method: 'GET', params: {}}
+          }),
+          globalAdHocSearchResource: defineResource(apiVer + "/search/advance", {}, {
+            get: {method: 'GET', params: {}},
+            search: { method: 'POST', isArray:true }
           }),
           fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true},
@@ -267,10 +285,10 @@
           schedulerResource: defineResource(apiVer + "/scheduler", {}, {
             get: {method: 'GET', params: {}}
           }),
-          assignStaffResource:defineResource(apiVer + "/:groupOrCenter/:groupOrCenterId", {groupOrCenter:'@groupOrCenter', groupOrCenterId:'@groupOrCenterId'}, {
+          assignStaffResource:defineResource(apiVer + "/groups/:groupOrCenterId", {groupOrCenterId:'@groupOrCenterId'}, {
             get: {method: 'GET', params: {}}
           }),
-          configurationResource:defineResource(apiVer + "/configurations",{}, {
+          configurationResource:defineResource(apiVer + "/configurations/:id", {id: '@id'}, {
             get: {method: 'GET', params: {}},
             update: {method: 'PUT', params: {}}
           }),

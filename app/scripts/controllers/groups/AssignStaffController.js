@@ -17,7 +17,7 @@
                 else if(routeParams.entityType == "centers") {
                     scope.r = "viewcenter/";
                 }
-                resourceFactory.assignStaffResource.save({groupOrCenter : routeParams.entityType, groupOrCenterId : routeParams.id,command: 'assignStaff'},this.formData, function(data) {
+                resourceFactory.assignStaffResource.save({groupOrCenterId : routeParams.id,command: 'assignStaff'},this.formData, function(data) {
                     location.path(scope.r +data.groupId);
                 });
             };

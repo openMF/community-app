@@ -18,7 +18,7 @@
                 });
             });
 
-            scope.enable = function(name) {
+            scope.enable = function(id,name) {
                 if(name=='Is Cache Enabled'){
                     var temp = {};
                     temp.cacheType = 2;
@@ -28,14 +28,13 @@
                 }
                 else
                 {
-                var temp = {};
-                temp[name] = 'true';
-                resourceFactory.configurationResource.update(temp,'',function(data) {
-                    route.reload();
-                });
+                    var temp = {'enabled':'true'};
+                    resourceFactory.configurationResource.update({'id':id}, temp, function(data) {
+                        route.reload();
+                    });
                 }
             };
-            scope.disable = function(name) {
+            scope.disable = function(id,name) {
                 if(name=='Is Cache Enabled'){
                     var temp = {};
                     temp.cacheType = 1;
@@ -45,11 +44,10 @@
                 }
                 else
                 {
-                var temp = {};
-                temp[name] = 'false';
-                resourceFactory.configurationResource.update(temp,'',function(data) {
-                    route.reload();
-                });
+                    var temp = {'enabled':'false'};
+                    resourceFactory.configurationResource.update({'id':id}, temp, function(data) {
+                        route.reload();
+                    });
                 }
             };
 
