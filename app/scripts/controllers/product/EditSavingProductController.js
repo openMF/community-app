@@ -32,6 +32,8 @@
               interestCalculationType : data.interestCalculationType.id,
               interestCalculationDaysInYearType : data.interestCalculationDaysInYearType.id,
               accountingRule : data.accountingRule.id,
+              allowOverdraft : data.allowOverdraft == true ? 'true' : 'false',
+              overdraftLimit : data.overdraftLimit,
             }
 
             if (data.lockinPeriodFrequencyType) {
@@ -42,6 +44,9 @@
 
               if (scope.assetAccountOptions.length > 0) {
                 scope.formData.savingsReferenceAccountId = scope.assetAccountOptions[0].id;
+              }
+              if (scope.assetAccountOptions.length > 1) {
+                scope.formData.overdraftPortfolioControlId = scope.assetAccountOptions[1].id;
               }
               if (scope.liabilityAccountOptions.length > 0) {
                 scope.formData.savingsControlAccountId = scope.liabilityAccountOptions[0].id;
@@ -55,8 +60,14 @@
               if (scope.incomeAccountOptions.length > 1) {
                 scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[1].id;
               }
+              if (scope.incomeAccountOptions.length > 2) {
+                scope.formData.incomeFromInterestId = scope.incomeAccountOptions[2].id;
+              }
               if (scope.expenseAccountOptions.length > 0) {
                 scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
+              }
+              if (scope.expenseAccountOptions.length > 1) {
+                scope.formData.writeOffAccountId = scope.expenseAccountOptions[1].id;
               }
             } else {
               scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
@@ -65,6 +76,9 @@
               scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
               scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
               scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
+              scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
+              scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
+              scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
 
               _.each(scope.product.paymentChannelToFundSourceMappings, function(fundSource){  
                 scope.configureFundOptions.push({
