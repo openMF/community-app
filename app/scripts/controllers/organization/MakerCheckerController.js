@@ -43,6 +43,7 @@
         };
 
         scope.formatName = function (string) {
+          string = string || "";
           if (string.indexOf('portfolio_') > -1) {
             string = string.replace("portfolio_", "");
           }

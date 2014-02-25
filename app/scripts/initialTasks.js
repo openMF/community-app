@@ -45,17 +45,8 @@
             }
         }
 
-        // Angularjs strips everything after colon(:) so we are appending port number again
-        // follow this link for more info https://github.com/angular/angular.js/issues/1243 
-        if (portNumber && portNumber != "") {
-            host = host.concat(':' + portNumber);
-        }
-        ;
         ResourceFactoryProvider.setBaseUrl(host);
         HttpServiceProvider.addRequestInterceptor('demoUrl', function (config) {
-            if (portNumber && portNumber != "") {
-                host = host.replace(':' + portNumber, "");
-            }
             return _.extend(config, {url: host + config.url });
         });
 
