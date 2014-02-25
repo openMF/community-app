@@ -1,7 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
 
-    RunReportsController: function(scope, routeParams, resourceFactory, location, dateFilter, API_VERSION,$rootScope) {
+    RunReportsController: function(scope, routeParams, resourceFactory, location, dateFilter, API_VERSION,$rootScope, $sce) {
 
       scope.isCollapsed = false; //displays options div on startup
       scope.hideTable = true; //hides the results div on startup
@@ -306,8 +306,11 @@
               scope.hideChart = true;
               scope.baseURL = $rootScope.hostUrl +API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
               scope.baseURL += "?output-type="+encodeURIComponent(scope.formData.outputType)+"&tenantIdentifier="+$rootScope.tenantIdentifier;
+
               var inQueryParameters = buildReportParms();
               if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
+              // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+              scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
               break;
               case "Chart":
                   scope.hideTable = true;
@@ -350,7 +353,7 @@
       };
     }
   });
-  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'API_VERSION','$rootScope', mifosX.controllers.RunReportsController]).run(function($log) {
+  mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'API_VERSION','$rootScope', '$sce', mifosX.controllers.RunReportsController]).run(function($log) {
     $log.info("RunReportsController initialized");
   });
 }(mifosX.controllers || {}));
