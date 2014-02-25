@@ -109,6 +109,27 @@
                       </div>
                   </td>
               </tr>
+              <tr>
+                <td>
+                  <div class="control-group" ng-show="showSavingOptions">
+                   <label class="control-label">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
+                   <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct" ng-true-value="true" ng-false-value="false">
+                 </div>
+                </td>
+              </tr>
+              <tr>
+              <td>
+                <div class="control-group" ng-show="opensavingsproduct">
+                  <label class="control-label">{{ 'label.input.savingproduct' | translate }}:</label>
+                  <div class="controls">
+                    <select id="savingsProductId" ng-model="formData.savingsProductId"  ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts" value="{{savingProduct.id}}">
+                      <option value="">{{'label.menu.selectsavingproduct' | translate}}</option>
+                    </select>
+                  </div>
+                </div>
+                </td>
+            </tr>
+
         </table>
           <div class="offset3">
             <a id="cancel" href='#/viewclient/{{clientId}}'><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>

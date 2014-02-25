@@ -3,19 +3,28 @@
     CreateClientController: function(scope, resourceFactory, location, http, dateFilter, API_VERSION,$upload,$rootScope) {
         scope.offices = [];
         scope.staffs = [];
+        scope.savingproducts = [];
         scope.first = {};
         scope.first.date = new Date();
         scope.formData = {};
         scope.restrictDate = new Date();
+        scope.showSavingOptions = 'false';
+        scope.opensavingsproduct = 'false';
         resourceFactory.clientTemplateResource.get(function(data) {
             scope.offices = data.officeOptions;
             scope.staffs = data.staffOptions;
             scope.formData.officeId = scope.offices[0].id;
+            scope.savingproducts = data.savingProductOptions;
+            if(data.savingProductOptions.length > 0){
+                scope.showSavingOptions = 'true';
+            }
         });
+
         scope.changeOffice =function(officeId) {
           resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly : false, officeId : officeId
               }, function(data) {
             scope.staffs = data.staffOptions;
+            scope.savingproducts = data.savingProductOptions;
           });
         };
 
@@ -39,6 +48,10 @@
             if (scope.first.submitondate) {
                 reqDate = dateFilter(scope.first.submitondate,scope.df);
                 this.formData.submittedOnDate = reqDate;
+            }
+
+            if(scope.opensavingsproduct == 'false'){
+                this.formData.savingsProductId = null;
             }
             
             resourceFactory.clientResource.save(this.formData,function(data){

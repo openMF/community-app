@@ -27,6 +27,9 @@
             if (scope.assetAccountOptions.length > 0) {
               scope.formData.savingsReferenceAccountId = scope.assetAccountOptions[0].id;
             }
+            if (scope.assetAccountOptions.length > 1) {
+                scope.formData.overdraftPortfolioControlId = scope.assetAccountOptions[1].id;
+              }
             if (scope.liabilityAccountOptions.length > 0) {
               scope.formData.savingsControlAccountId = scope.liabilityAccountOptions[0].id;
             }
@@ -39,8 +42,14 @@
             if (scope.incomeAccountOptions.length > 1) {
               scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[1].id;
             }
+            if (scope.incomeAccountOptions.length > 2) {
+                scope.formData.incomeFromInterestId = scope.incomeAccountOptions[2].id;
+            }
             if (scope.expenseAccountOptions.length > 0) {
               scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
+            }
+            if (scope.expenseAccountOptions.length > 1) {
+                scope.formData.writeOffAccountId = scope.expenseAccountOptions[1].id;
             }
             scope.formData.accountingRule = '1';
             
