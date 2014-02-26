@@ -114,7 +114,7 @@
               if (scope.loanaccountinfo.linkedAccount) {
                   scope.formData.linkAccountId = scope.loanaccountinfo.linkedAccount.id;
               }
-            
+
 
             }
             
@@ -225,22 +225,15 @@
                   }
                 }
 
+                scope.formData.charges = [];
                 if (scope.charges.length > 0) {
-                  scope.formData.charges = [];
                   for (var i in scope.charges) {
                     scope.formData.charges.push({id : scope.charges[i].id, chargeId:scope.charges[i].chargeId, amount:scope.charges[i].amountOrPercentage, dueDate:dateFilter(scope.charges[i].dueDate,scope.df) });
                   }
                 }
 
-                //if there is no charge selected 
-                //for corresponding loan, then empty charge object
-                //sent to the server side.
-                if (!this.formData.charges) {
-                  this.formData.charges = {};
-                }
-
+                scope.formData.collateral = [];
                 if (scope.collaterals.length > 0) {
-                  scope.formData.collateral = [];
                   for (var i in scope.collaterals) {
                     scope.formData.collateral.push({type:scope.collaterals[i].type,value:scope.collaterals[i].value, description:scope.collaterals[i].description});
                   };
