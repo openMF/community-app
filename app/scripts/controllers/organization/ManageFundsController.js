@@ -3,22 +3,33 @@
     ManageFundsController: function(scope, location, resourceFactory) {
         scope.funderror = false;
         scope.formData = [];
-        resourceFactory.fundsResource.getAllFunds(function(data){
-            scope.funds = data;
+        scope.formFundData = {};
+        resourceFactory.fundsResource.getTemplate({anotherPath : 'template', codeName : 'fundType'} , function(data) {
+            scope.codevalues = data.fundTypeOptions;
+            scope.formFundData.fundTypeId = scope.codevalues[0].id;
+            resourceFactory.fundsResource.getAllFunds(function(data){
+                scope.funds = data;
+            });
         });
-        scope.editFund = function(fund,name,id){
+
+        scope.editFund = function(fund, name, id, fundTypeId){
             fund.edit = !fund.edit;
-            scope.formData[id]=name;
+            for (var i = 0; i <scope.funds.length; i++) {
+                if (scope.funds[i].id == id) {
+                    scope.funds[i].name = name;
+                    scope.funds[i].fundTypeId = fundTypeId;
+                }
+            }
         };
-        scope.saveFund = function(id){
-            resourceFactory.fundsResource.update({fundId:id} ,{'name': this.formData[id]}, function(data){
+        scope.saveFund = function(id, name, fundTypeId){
+            resourceFactory.fundsResource.update({fundId:id} ,{'name': name, 'fundTypeId' : fundTypeId}, function(data){
                 location.path('/managefunds');
             });
         };
         scope.addFund = function (){
-            if(scope.newfund != undefined ) {
+            if(scope.formFundData.name != undefined ) {
               scope.funderror = false;
-              resourceFactory.fundsResource.save({'name':scope.newfund} , function(data){
+              resourceFactory.fundsResource.save(scope.formFundData, function(data){
                   location.path('/managefunds');
               });
             } else {

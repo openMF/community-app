@@ -6,12 +6,14 @@
 </div>
 <h3>{{'label.heading.managefunds' | translate}}</h3>
 <form name="managefundform" novalidate class="row alert-block span" ng-controller="ManageFundsController">
+    <api-validate></api-validate>
     <div>
-    	<input name="fund" ng-autofocus="true" class="form-control input-xxlarge"
-         ng-model="newfund" 
+    	<input name="fund" ng-autofocus="true" class="form-control input-xlarge"
+         ng-model="formFundData.name" 
          placeholder="{{'label.input.newfund' | translate}}"
          type="text"
-         />&nbsp;&nbsp;<a ng-click='addFund()'><i class="icon-plus"></i></a>
+         />&nbsp;&nbsp;&nbsp;<select ng-model="formFundData.fundTypeId" ng-options="codeValue.id as codeValue.name for codeValue in codevalues" value="{{codeValue.id}}">
+              </select>&nbsp;&nbsp;<a ng-click='addFund()'><i class="icon-plus"></i></a>
          <span  ng-show="managefundform.fund.$invalid || funderror">
             <small class="error" ng-show="managefundform.fund.$error.req || funderror">
                 {{ 'label.requiredfield' | translate }}
@@ -21,11 +23,14 @@
      	<div ng-repeat="fund in funds">
             <table>
                 <tr>
-                    <input data-ng-hide="fund.edit" disabled="" class="form-control input-xxlarge" placeholder={{fund.name}} type="text"/>
-                    <input data-ng-show="fund.edit" class="form-control input-xxlarge" data-ng-model="formData[fund.id]" type="text"/>
+                    <input data-ng-hide="fund.edit" disabled="" class="form-control input-xlarge" placeholder={{fund.name}} type="text"/>
+                    <input data-ng-show="fund.edit" class="form-control input-xlarge" data-ng-model="fund.name" type="text"/>
                     &nbsp;&nbsp;
-                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" data-ng-click="editFund(fund,fund.name,fund.id)" style="margin-top:-10px;"><i class="icon-edit icon-white"></i></button>
-                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" data-ng-click="saveFund(fund.id)" style="margin-top:-10px;">{{'label.button.save' | translate}}</button>
+                    <select data-ng-hide="fund.edit" disabled="" ng-model="fund.fundTypeId" ng-options="codeValue.id as codeValue.name for codeValue in codevalues" value="{{codeValue.id}}">
+                    </select>
+                    <select data-ng-show="fund.edit" ng-model="fund.fundTypeId" ng-options="codeValue.id as codeValue.name for codeValue in codevalues" value="{{codeValue.id}}"></select>&nbsp;&nbsp;
+                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" data-ng-click="editFund(fund, fund.name, fund.id, fund.fundTypeId)" style="margin-top:-10px;"><i class="icon-edit icon-white"></i></button>&nbsp;&nbsp;
+                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" data-ng-click="saveFund(fund.id, fund.name, fund.fundTypeId)" style="margin-top:-10px;">{{'label.button.save' | translate}}</button>
                 </tr>
             </table>
 
