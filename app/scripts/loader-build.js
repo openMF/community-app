@@ -4,6 +4,7 @@
             'jquery':           '../bower_components/jquery/jquery.min',
             'angular':          '../bower_components/angular/angular.min',
             'angular-resource': '../bower_components/angular-resource/angular-resource.min',
+            'angular-route':    '../bower_components/angular-route/angular-route.min',
             'angular-translate':'../bower_components/angular-translate/angular-translate.min',
             'angular-translate-loader-static-files':'../bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min',
             'angular-mocks':    '../bower_components/angular-mocks/angular-mocks.min',
@@ -33,6 +34,7 @@
         shim: {
             'angular': { exports: 'angular' },
             'angular-resource': { deps: ['angular'] },
+            'angular-route': { deps: ['angular'] },
             'angular-translate': { deps: ['angular'] },
             'angular-translate-loader-static-files': {deps: ['angular' , 'angular-translate'] },
             'angularui': { deps: ['angular'] },
@@ -57,6 +59,7 @@
                 deps: [
                     'angular',
                     'jquery',
+                    'angular-route',
                     'angular-resource',
                     'angular-translate',
                     'angular-translate-loader-static-files',
