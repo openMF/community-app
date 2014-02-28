@@ -8,15 +8,15 @@
         scope.first.date = new Date();
         scope.formData = {};
         scope.restrictDate = new Date();
-        scope.showSavingOptions = 'false';
-        scope.opensavingsproduct = 'false';
+        scope.showSavingOptions = false;
+        scope.opensavingsproduct = false;
         resourceFactory.clientTemplateResource.get(function(data) {
             scope.offices = data.officeOptions;
             scope.staffs = data.staffOptions;
             scope.formData.officeId = scope.offices[0].id;
             scope.savingproducts = data.savingProductOptions;
             if(data.savingProductOptions.length > 0){
-                scope.showSavingOptions = 'true';
+                scope.showSavingOptions = true;
             }
         });
 
@@ -50,7 +50,7 @@
                 this.formData.submittedOnDate = reqDate;
             }
 
-            if(scope.opensavingsproduct == 'false'){
+            if(!scope.opensavingsproduct){
                 this.formData.savingsProductId = null;
             }
             

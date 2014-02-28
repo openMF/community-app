@@ -10,6 +10,7 @@
                         "loanStatusType.submitted.and.pending.approval" : "statuspending",
                         "loanStatusType.approved" : "statusApproved",
                         "loanStatusType.active" : "statusactive",
+                        "loanStatusType.overpaid": "statusoverpaid",
                         "savingsAccountStatusType.submitted.and.pending.approval":"statuspending",
                         "savingsAccountStatusType.approved":"statusApproved",
                         "savingsAccountStatusType.active":"statusactive",
