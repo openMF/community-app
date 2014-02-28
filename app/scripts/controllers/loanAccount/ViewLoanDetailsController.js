@@ -4,6 +4,11 @@
       scope.loandocuments = [];
       scope.date = {};
       scope.date.payDate = new Date();
+      scope.routeTo = function(loanId, transactionId, transactionTypeId){
+        if (transactionTypeId == 2 || transactionTypeId == 4) {
+          location.path('/viewloantrxn/'+loanId+'/trxnId/'+transactionId);
+        };
+      };
       scope.clickEvent = function(eventName, accountId) {
         eventName = eventName || "";
         switch (eventName) {
