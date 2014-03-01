@@ -38,9 +38,26 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+            <div class="controls">
+                <input type="number" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" />
+                <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
+                  <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
+                      {{'label.mustbenumeric' | translate}}
+                  </small>
+                </span>
+            </div>
+        </div>
+		<div class="control-group">
+			<label class="control-label">{{'label.input.submittedon' | translate}}</label>
+			<div class="controls">
+				<input  id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"/>
+			</div>
+		</div>
+        <div class="control-group">
             <label class="control-label" for="active">{{ 'label.input.active' | translate }}</label>
             <div class="controls">
-                <input type="checkbox" id="active" ng-model="formData.active" data-ng-click="setChoice()">
+                <input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()">
             </div>
         </div>
         <div data-ng-switch on="choice">
