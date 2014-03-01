@@ -32,7 +32,7 @@
         <thead>
             <tr class="graybg">
                 <th><input type="checkbox" ng-model="activeall" ng-true-value="true" ng-false-value="false"
-                     ng-click="selectAll(activeall)"></th>
+                     ng-change="selectAll(activeall)"></th>
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.heading.nextrun' | translate}}</th>
                 <th>{{'label.heading.previousrun' | translate}}</th>
@@ -44,7 +44,7 @@
         <tbody>
             <tr ng-repeat="job in jobs | orderBy:'displayName':reverse" class="pointer-main">
                 <td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false"
-                     ng-click="runJobSelected(job.jobId, active)"></td>
+                     ng-change="runJobSelected(job.jobId, active)"></td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.nextRunTime}}</td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.jobRunStartTime}}</td>
