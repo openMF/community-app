@@ -185,10 +185,11 @@
             get: {method: 'GET', params: {}},
             search: { method: 'POST', isArray:true }
           }),
-          fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId:'@fundId'}, {
+          fundsResource: defineResource(apiVer + "/funds/:fundId/:anotherPath", {fundId:'@fundId', anotherPath:'@anotherPath'}, {
             getAllFunds: {method: 'GET', params: {}, isArray: true},
             getFund: {method:'GET', params: {}},
-            update: {method: 'PUT', params: {}}
+            update: {method: 'PUT', params: {}},
+            getTemplate : {method: 'GET', params: {}}
           }),
           accountingRulesResource: defineResource(apiVer + "/accountingrules/:accountingRuleId", {accountingRuleId:'@accountingRuleId'}, {
             getAllRules: {method: 'GET', params: {associations : 'all'}, isArray: true},
