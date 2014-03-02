@@ -1,7 +1,7 @@
 define(['Q', 'underscore', 'mifosX'], function (Q) {
     var components = {
         models: [
-            'ClientStatus',
+            'clientStatus',
             'LoggedInUser',
             'roleMap',
             'Langs'
