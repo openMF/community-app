@@ -5,6 +5,14 @@
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
 
+            scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
+                if (accountTransfer) {
+                    location.path('/viewaccounttransfers/' + transferId);
+                } else {
+                    location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
+                }
+            };
+
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
@@ -216,8 +224,12 @@
                 location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
         }
-    });
+    })
+    ;
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
-}(mifosX.controllers || {}));
+}
+    (mifosX.controllers || {})
+    )
+;

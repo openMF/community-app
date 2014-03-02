@@ -177,24 +177,34 @@
         <tbody>
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
             ng-repeat="transaction in savingaccountdetails.transactions">
-            <td style="width: 50px;">
-                <a ng-hide="transaction.transfer"
-                   href="#/viewsavingtrxn/{{transaction.accountId}}/trxnId/{{transaction.id}}">{{transaction.id}}</a>
-                <a ng-show="transaction.transfer" href="#/viewaccounttransfers/{{transaction.transfer.id}}">{{transaction.id}}</a>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.id}}
             </td>
-            <td style="width: 130px;">{{transaction.date | DateFormat}}</td>
-            <td style="width: 130px;">{{transaction.transactionType.value}}</td>
-            <td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.date | DateFormat}}
+            </td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.transactionType.value}}
+            </td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 <div ng-show="isDebit(transaction.transactionType)">
                     {{transaction.amount}}
                 </div>
             </td>
-            <td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 <div ng-show="!isDebit(transaction.transactionType)">
                     {{transaction.amount}}
                 </div>
             </td>
-            <td>{{transaction.runningBalance}}</td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.runningBalance}}
+            </td>
         </tr>
         </tbody>
     </table>
