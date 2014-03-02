@@ -3,31 +3,41 @@
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
         <li class="active">{{'label.anchor.audit' | translate}}</li>
     </ul>
-    <div class="row-fluid" >
-        <span class="input-append grpinputicons" >
-            <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
-            <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
-            <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
+    <div class="row-fluid">
+        <span class="input-append grpinputicons">
+            <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)"
+                   placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user"
+                   typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
+            <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i
+                    class="icon-chevron-down"></i></a></span>
+            <span><a ng-click="search()" class="btn btn-primary control"><i
+                    class="icon-search icon-white"></i></a></span>
         </span>
     </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="control-group">
             <div class="controls">
-                <select value="{{status.id}}" ng-model="formData.status" data-ng-options="status.id as status.processingResult | translate for status in template.processingResults">
+                <select value="{{status.id}}" ng-model="formData.status"
+                        data-ng-options="status.id as status.processingResult | translate for status in template.processingResults">
                     <option value="">--{{'label.selectstatus' | translate}}--</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
+
             <div class="controls">
-                <input type="text" sort placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'"/>
+                <input type="text" sort placeholder="{{'label.input.fromdate' | translate}}"
+                       datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate"
+                       max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
+
             <div class="controls">
-                <input type="text" sort placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
+                <input type="text" sort placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
+                       ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
@@ -45,13 +55,15 @@
                     <option value="">--{{'label.selectentity' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="entity in template.entityNames" value="{{entity}}">{{entity}}</option>
-                 </select>
+                </select>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label"></label>
+
             <div class="controls">
-                <input type="text" placeholder="{{'label.input.resourceid' | translate}}" ng-model="formData.resourceId">
+                <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
+                       ng-model="formData.resourceId">
             </div>
         </div>
         <div class="control-group">
@@ -65,52 +77,61 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <input type="text" sort placeholder="{{'label.input.checkedfrom' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
+                <input type="text" sort placeholder="{{'label.input.checkedfrom' | translate}}"
+                       datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate"
+                       max="'2020-06-22'"/>
             </div>
         </div>
         <div class="control-group">
-             <div class="controls">
-                 <input type="text" sort placeholder="{{'label.input.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'"/>
-             </div>
+            <div class="controls">
+                <input type="text" sort placeholder="{{'label.input.checkedto' | translate}}"
+                       datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate"
+                       max="'2020-06-22'"/>
+            </div>
         </div>
-        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
+        <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch'
+            | translate}}</a></span>
     </div>
     <div ng-show="displayResults">
         <div data-ng-show="flag" class="pull-right">
-            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv' | translate }}</button>
+            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv'
+                | translate }}
+            </button>
         </div>
         <div scroll data-ng-show="flag">
             <table width="100%" style="width:1200px" class="table table-bordered" data-anchor>
                 <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.id' | translate}}</th>
-                        <th>{{'label.heading.resourceid' | translate}}</th>
-                        <th>{{'label.heading.status' | translate}}</th>
-                        <th>{{'label.heading.madeby' | translate}}</th>
-                        <th>{{'label.heading.action' | translate}}</th>
-                        <th>{{'label.heading.entity' | translate}}</th>
-                        <th>{{'label.heading.office' | translate}}</th>
-                        <th>{{'label.heading.madedate' | translate}}</th>
-                        <th>{{'label.heading.checker' | translate}}</th>
-                        <th>{{'label.heading.checkeddate' | translate}}</th>
-                    </tr>
+                <tr class="graybg">
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.resourceid' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.madeby' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                    <th>{{'label.heading.entity' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                    <th>{{'label.heading.madedate' | translate}}</th>
+                    <th>{{'label.heading.checker' | translate}}</th>
+                    <th>{{'label.heading.checkeddate' | translate}}</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr class="highlight-row" style="cursor: pointer" data-ng-click="routeTo(data.id)" ng-repeat="data in searchData">
-                        <td>{{data.id}}</td>
-                        <td>{{data.resourceId}}</td>
-                        <td>{{data.processingResult | translate}}</td>
-                        <td>{{data.maker}}</td>
-                        <td>{{data.actionName}}</td>
-                        <td>{{data.entityName}}</td>
-                        <td>{{data.officeName}}</td>
-                        <td>{{data.madeOnDate | date:'d MMM y h:mm:ss'}}</td>
-                        <td>{{data.checker}}</td>
-                        <td>{{data.checkedOnDate | date:'d MMM y h:mm:ss'}}</td>
-                    </tr>
+                <tr class="highlight-row" style="cursor: pointer" data-ng-click="routeTo(data.id)"
+                    ng-repeat="data in searchData">
+                    <td>{{data.id}}</td>
+                    <td>{{data.resourceId}}</td>
+                    <td>{{data.processingResult | translate}}</td>
+                    <td>{{data.maker}}</td>
+                    <td>{{data.actionName}}</td>
+                    <td>{{data.entityName}}</td>
+                    <td>{{data.officeName}}</td>
+                    <td>{{data.madeOnDate | date:'d MMM y h:mm:ss'}}</td>
+                    <td>{{data.checker}}</td>
+                    <td>{{data.checkedOnDate | date:'d MMM y h:mm:ss'}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
-        <h3 data-ng-show="!flag" style="color:red;position: absolute;top: 40%;left: 45%;"><strong>{{ 'label.nodata' | translate }}</strong></h3>
+        <h3 data-ng-show="!flag" style="color:red;position: absolute;top: 40%;left: 45%;"><strong>{{ 'label.nodata' |
+            translate }}</strong></h3>
     </div>
 </div>

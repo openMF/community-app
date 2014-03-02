@@ -1,59 +1,64 @@
 <form ng-controller="ViewTransactionController">
     <div>
         <ul class="breadcrumb">
-          <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
-          <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
         </ul>
-      </div>
-    <div class="row-fluid" >
+    </div>
+    <div class="row-fluid">
         <h3><strong>{{ 'label.heading.transactionnumber' | translate }}&nbsp;<b>{{transactionNumber}}</b></strong></h3>
 
         <div class="pull-right">
-            <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate }}</strong></span>
+            <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
+                }}</strong></span>
+
             <div class="btn-group">
-                <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary"><i class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
+                <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary"><i
+                        class="icon-undo icon-white"></i>{{'label.button.reverse' | translate}}</a>
             </div>
         </div>
     </div>
     <script type="text/ng-template" id="confirmation.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.transactionreverse' | translate}}</h3>
-            <h4><strong class="required">{{ 'label.heading.transactionnumber' | translate }}&nbsp;:&nbsp;&nbsp;<b>{{transactionnumber}}</b></strong></h4>
+            <h4><strong class="required">{{ 'label.heading.transactionnumber' | translate }}&nbsp;:&nbsp;&nbsp;<b>{{transactionnumber}}</b></strong>
+            </h4>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="redirect()">{{'label.button.redirecttonewtrx' | translate}}</button>
+            <button class="btn btn-primary" ng-click="redirect()">{{'label.button.redirecttonewtrx' | translate}}
+            </button>
         </div>
     </script>
     <div class="row-fluid">
-    	<table class="table">
+        <table class="table">
             <thead>
-                <tr class="graybg">
-                    <th>{{'label.heading.office' | translate}}</th>
-                    <th>{{'label.heading.transactiondate' | translate}}</th>
-                    <th>{{'label.heading.type' | translate}}</th>
-                    <th>{{'label.heading.account' | translate}}</th>
-                    <th>{{'label.heading.debit' | translate}}</th>
-                    <th>{{'label.heading.credit' | translate}}</th>
-                </tr>
+            <tr class="graybg">
+                <th>{{'label.heading.office' | translate}}</th>
+                <th>{{'label.heading.transactiondate' | translate}}</th>
+                <th>{{'label.heading.type' | translate}}</th>
+                <th>{{'label.heading.account' | translate}}</th>
+                <th>{{'label.heading.debit' | translate}}</th>
+                <th>{{'label.heading.credit' | translate}}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="transaction in transactions">
-                    <td>{{transaction.officeName}}</td>
-                    <td>{{transaction.transactionDate | DateFormat}}</td>
-                    <td>{{transaction.glAccountType.value}}</td>
-                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                    <td>
-                        <div ng-show="transaction.entryType.value == 'DEBIT'">
-                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
-                        </div>
-                    </td>
-                    <td>
-                        <div ng-show="transaction.entryType.value == 'CREDIT'">
-                            {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
-                        </div>
-                    </td>
-                </tr>
+            <tr ng-repeat="transaction in transactions">
+                <td>{{transaction.officeName}}</td>
+                <td>{{transaction.transactionDate | DateFormat}}</td>
+                <td>{{transaction.glAccountType.value}}</td>
+                <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                <td>
+                    <div ng-show="transaction.entryType.value == 'DEBIT'">
+                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
+                    </div>
+                </td>
+                <td>
+                    <div ng-show="transaction.entryType.value == 'CREDIT'">
+                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

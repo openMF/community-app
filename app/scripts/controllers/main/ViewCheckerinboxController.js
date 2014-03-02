@@ -1,14 +1,14 @@
-(function(module) {
+(function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCheckerinboxController: function(scope, resourceFactory, routeParams,location,$modal) {
+        ViewCheckerinboxController: function (scope, resourceFactory, routeParams, location, $modal) {
             scope.details = {};
-            resourceFactory.auditResource.get({templateResource: routeParams.id} , function(data) {
+            resourceFactory.auditResource.get({templateResource: routeParams.id}, function (data) {
                 scope.details = data;
                 scope.commandAsJson = data.commandAsJson;
                 var obj = JSON.parse(scope.commandAsJson);
                 scope.jsondata = [];
-                _.each(obj,function(value,key){
-                    scope.jsondata.push({name:key,property:value});
+                _.each(obj, function (value, key) {
+                    scope.jsondata.push({name: key, property: value});
                 });
             });
             scope.checkerApprove = function () {
@@ -20,8 +20,8 @@
             var ApproveCtrl = function ($scope, $modalInstance) {
 
                 $scope.approve = function () {
-                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id,command:'approve'},{}, function(data){
-                      location.path('/checkeractionperformed');
+                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: 'approve'}, {}, function (data) {
+                        location.path('/checkeractionperformed');
                     });
                     $modalInstance.close('approve');
                 };
@@ -38,7 +38,7 @@
             };
             var DeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
-                    resourceFactory.checkerInboxResource.delete({templateResource: routeParams.id}, {}, function(data){
+                    resourceFactory.checkerInboxResource.delete({templateResource: routeParams.id}, {}, function (data) {
                         location.path('/checkeractionperformed');
                     });
                     $modalInstance.close('delete');
@@ -49,7 +49,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams','$location','$modal', mifosX.controllers.ViewCheckerinboxController]).run(function($log) {
+    mifosX.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.ViewCheckerinboxController]).run(function ($log) {
         $log.info("ViewCheckerinboxController initialized");
     });
 }(mifosX.controllers || {}));

@@ -1,5 +1,5 @@
-(function(mifosX) {
-    var defineHeaders = function($httpProvider , $translateProvider, ResourceFactoryProvider ,HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL) {
+(function (mifosX) {
+    var defineHeaders = function ($httpProvider, $translateProvider, ResourceFactoryProvider, HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL) {
         var mainLink = getLocation(window.location.href);
         var baseApiUrl = "https://demo.openmf.org";
         var host = "";
@@ -73,7 +73,7 @@
         $idleProvider.warningDuration(WARN_DURATION); //warning time(sec)
         $keepaliveProvider.interval(KEEPALIVE_INTERVAL); //keep-alive ping
     };
-    mifosX.ng.application.config(defineHeaders).run(function($log, $idle) {
+    mifosX.ng.application.config(defineHeaders).run(function ($log, $idle) {
         $log.info("Initial tasks are done!");
         $idle.watch();
     });

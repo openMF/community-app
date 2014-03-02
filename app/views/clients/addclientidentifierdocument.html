@@ -1,38 +1,48 @@
 <div ng-controller="UploadClientIdentifierDocumentController">
-	<div>
-		<ul class="breadcrumb">
-			<li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
-		</ul>
-	</div>
-	<form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
-		<api-validate></api-validate>
-		<fieldset>
-			<legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
-			<div class="control-group">
-				<label class="control-label" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
-				<div class="controls">
-					<input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required late-Validate/>
-					<span  ng-show="clientidentifierform.name.$invalid">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span>
+            </li>
+            <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
+        </ul>
+    </div>
+    <form name="clientidentifierform" novalidate="" class="form-horizontal well" ng-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
+            <div class="control-group">
+                <label class="control-label" for="name">{{'label.input.name' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required
+                           late-Validate/>
+					<span ng-show="clientidentifierform.name.$invalid">
 	                    <small class="error" ng-show="clientidentifierform.name.$error.req">
-	                        Required Field
-	                    </small>
+                            Required Field
+                        </small>
 	                </span>
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="control-group">
-				<label class="control-label" for="file">{{'label.input.selectfile' | translate}}<span class="required">*</span></label>
-				<div class="controls">
-					<input type="file" id="file" ng-file-select="onFileSelect($files)">
-				</div>
-			</div>
+            <div class="control-group">
+                <label class="control-label" for="file">{{'label.input.selectfile' | translate}}<span
+                        class="required">*</span></label>
 
-			<div class="offset3">
-				<a id="cancel" href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
-				<button id="save" type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary">{{'label.button.save' | translate}}</button>
-			</div>
-		</fieldset>
-	</form>
+                <div class="controls">
+                    <input type="file" id="file" ng-file-select="onFileSelect($files)">
+                </div>
+            </div>
+
+            <div class="offset3">
+                <a id="cancel" href="#/viewclient/{{clientId}}">
+                    <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary">
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
 </div>

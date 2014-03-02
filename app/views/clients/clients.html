@@ -6,31 +6,39 @@
 <div class="row-fluid" ng-controller="ClientController">
     <api-validate></api-validate>
     <div class="pull-right" has-permission='CREATE_CLIENT'>
-        <a href="#/createclient"  class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
+        <a href="#/createclient" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createclient'
+            | translate}}</a>
     </div>
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameaccno' | translate}}">
-	<table class="table">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbynameaccno' | translate}}">
+    <table class="table">
         <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.clientno' | translate}}</th>
-                <th>{{'label.heading.status' | translate}}</th>
-                <th>{{'label.heading.office' | translate}}</th>
-                <th>{{'label.heading.staff' | translate}}</th>
-            </tr>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.clientno' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.staff' | translate}}</th>
+        </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
-                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
-                <td class="pointer" data-ng-click="routeTo(client.id)"><i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}</td>
-                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
-                <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
-            </tr>
+        <tr class="pointer-main"
+            ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)"><i
+                    class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
+            </td>
+            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
+        </tr>
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a id="prev" ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next" ><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        <li class="previous"><a id="prev" ng-click="clients.previous()" href=""
+                                ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+        </li>
+        <li class="next"><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next'
+            | translate}} &rarr;</a></li>
     </ul>
 </div>

@@ -1,13 +1,13 @@
-    (function(module) {
+(function (module) {
     mifosX.directives = _.extend(module, {
-        LateValidateDirective: function() {
+        LateValidateDirective: function () {
             return {
                 restrict: 'A',
                 require: 'ngModel',
-                link: function(scope, elm, attr, ctrl) {
+                link: function (scope, elm, attr, ctrl) {
                     if (attr.type === 'radio' || attr.type === 'checkbox') return;
-                    elm.bind('blur', function() {
-                        scope.$apply(function() {
+                    elm.bind('blur', function () {
+                        scope.$apply(function () {
                             if (elm.val() == "") {
                                 ctrl.$setValidity('req', false);
                             } else {
@@ -21,6 +21,6 @@
     });
 }(mifosX.directives || {}));
 
-mifosX.ng.application.directive("lateValidate", [mifosX.directives.LateValidateDirective]).run(function($log) {
+mifosX.ng.application.directive("lateValidate", [mifosX.directives.LateValidateDirective]).run(function ($log) {
     $log.info("LateValidateDirective initialized");
 });

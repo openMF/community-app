@@ -1,10 +1,11 @@
 <div ng-controller="ViewLoanChargeController">
-	<div class="paddedbottom10">
-		<ul class="breadcrumb">
-			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a><span class="divider">/</span></li>
-			<li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
-		</ul>
-	</div>
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a><span
+                    class="divider">/</span></li>
+            <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
+        </ul>
+    </div>
     <script type="text/ng-template" id="deletecharge.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -14,31 +15,34 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-	<div class="form-horizontal well">
+    <div class="form-horizontal well">
         <div class="pull-right">
             <div class="btn-group" ng-show="showEditButtons">
-                <a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i> {{'label.button.edit' | translate}}</a>
-                <button type="button" ng-click="deleteCharge()" class="btn btn-danger"><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+                <a href="#/loan/{{loanId}}/editcharge/{{chargeId}}" class="btn btn-primary"><i
+                        class="icon-edit icon-white"></i> {{'label.button.edit' | translate}}</a>
+                <button type="button" ng-click="deleteCharge()" class="btn btn-danger"><i
+                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+                </button>
             </div>
         </div>
-		<h3>{{'label.anchor.viewcharge' | translate}}</h3>
-		<table width="100%">
-			<tr>
-				<td width="20%">{{'label.heading.name' | translate}}</td>
-				<td width="80%">{{charge.name}}</td>
-			</tr>
-			<tr>
-				<td>{{'label.heading.chargetype' | translate}}</td>
-				<td>
-					<span ng-show="charge.penalty">{{'label.heading.penalty' | translate}}</span>
+        <h3>{{'label.anchor.viewcharge' | translate}}</h3>
+        <table width="100%">
+            <tr>
+                <td width="20%">{{'label.heading.name' | translate}}</td>
+                <td width="80%">{{charge.name}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.chargetype' | translate}}</td>
+                <td>
+                    <span ng-show="charge.penalty">{{'label.heading.penalty' | translate}}</span>
                     <span ng-hide="charge.penalty">{{'label.heading.fees' | translate}}</span>
                 </td>
-			</tr>
-			<tr>
-				<td>{{'label.heading.currency' | translate}}</td>
-				<td>{{charge.currency.name}}</td>
-			</tr>
-			<tr>
+            </tr>
+            <tr>
+                <td>{{'label.heading.currency' | translate}}</td>
+                <td>{{charge.currency.name}}</td>
+            </tr>
+            <tr>
                 <td>{{'label.heading.paymentdueat' | translate}}</td>
                 <td>{{charge.chargeTimeType.value}}</td>
             </tr>
@@ -65,7 +69,7 @@
             <tr>
                 <td>{{'label.heading.outstanding' | translate}}</td>
                 <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountOutstanding}}</td>
-			</tr>
-		</table>
-	</div>
+            </tr>
+        </table>
+    </div>
 </div>

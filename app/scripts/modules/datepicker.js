@@ -33,7 +33,7 @@ angular.module('strap.position', [])
         var parentOffsetEl = function (element) {
             var docDomEl = $document[0];
             var offsetParent = element.offsetParent || docDomEl;
-            while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent) ) {
+            while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent)) {
                 offsetParent = offsetParent.offsetParent;
             }
             return offsetParent || docDomEl;
@@ -72,7 +72,7 @@ angular.module('strap.position', [])
                     width: element.prop('offsetWidth'),
                     height: element.prop('offsetHeight'),
                     top: boundingClientRect.top + ($window.pageYOffset || $document[0].body.scrollTop || $document[0].documentElement.scrollTop),
-                    left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft  || $document[0].documentElement.scrollLeft)
+                    left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft || $document[0].documentElement.scrollLeft)
                 };
             }
         };
@@ -95,17 +95,17 @@ angular.module('modified.datepicker', ['strap.position'])
         maxDate: null
     })
 
-    .controller('DatepickController', ['$scope', '$attrs', 'dateFilter', 'datepickerConf', function($scope, $attrs, dateFilter, dtConfig) {
+    .controller('DatepickController', ['$scope', '$attrs', 'dateFilter', 'datepickerConf', function ($scope, $attrs, dateFilter, dtConfig) {
         var format = {
-                day:        getValue($attrs.dayFormat,        dtConfig.dayFormat),
-                month:      getValue($attrs.monthFormat,      dtConfig.monthFormat),
-                year:       getValue($attrs.yearFormat,       dtConfig.yearFormat),
-                dayHeader:  getValue($attrs.dayHeaderFormat,  dtConfig.dayHeaderFormat),
-                dayTitle:   getValue($attrs.dayTitleFormat,   dtConfig.dayTitleFormat),
+                day: getValue($attrs.dayFormat, dtConfig.dayFormat),
+                month: getValue($attrs.monthFormat, dtConfig.monthFormat),
+                year: getValue($attrs.yearFormat, dtConfig.yearFormat),
+                dayHeader: getValue($attrs.dayHeaderFormat, dtConfig.dayHeaderFormat),
+                dayTitle: getValue($attrs.dayTitleFormat, dtConfig.dayTitleFormat),
                 monthTitle: getValue($attrs.monthTitleFormat, dtConfig.monthTitleFormat)
             },
-            startingDay = getValue($attrs.startingDay,      dtConfig.startingDay),
-            yearRange =   getValue($attrs.yearRange,        dtConfig.yearRange);
+            startingDay = getValue($attrs.startingDay, dtConfig.startingDay),
+            yearRange = getValue($attrs.yearRange, dtConfig.yearRange);
 
         this.minDate = dtConfig.minDate ? new Date(dtConfig.minDate) : null;
         this.maxDate = dtConfig.maxDate ? new Date(dtConfig.maxDate) : null;
@@ -114,7 +114,7 @@ angular.module('modified.datepicker', ['strap.position'])
             return angular.isDefined(value) ? $scope.$parent.$eval(value) : defaultValue;
         }
 
-        function getDaysInMonth( year, month ) {
+        function getDaysInMonth(year, month) {
             return new Date(year, month, 0).getDate();
         }
 
@@ -123,7 +123,7 @@ angular.module('modified.datepicker', ['strap.position'])
             var current = startDate, i = 0;
             while (i < n) {
                 dates[i++] = new Date(current);
-                current.setDate( current.getDate() + 1 );
+                current.setDate(current.getDate() + 1);
             }
             return dates;
         }
@@ -135,21 +135,21 @@ angular.module('modified.datepicker', ['strap.position'])
         this.modes = [
             {
                 name: 'day',
-                getVisibleDates: function(date, selected) {
+                getVisibleDates: function (date, selected) {
                     var year = date.getFullYear(), month = date.getMonth(), firstDayOfMonth = new Date(year, month, 1);
                     var difference = startingDay - firstDayOfMonth.getDay(),
-                        numDisplayedFromPreviousMonth = (difference > 0) ? 7 - difference : - difference,
+                        numDisplayedFromPreviousMonth = (difference > 0) ? 7 - difference : -difference,
                         firstDate = new Date(firstDayOfMonth), numDates = 0;
 
-                    if ( numDisplayedFromPreviousMonth > 0 ) {
-                        firstDate.setDate( - numDisplayedFromPreviousMonth + 1 );
+                    if (numDisplayedFromPreviousMonth > 0) {
+                        firstDate.setDate(-numDisplayedFromPreviousMonth + 1);
                         numDates += numDisplayedFromPreviousMonth; // Previous
                     }
                     numDates += getDaysInMonth(year, month + 1); // Current
                     numDates += (7 - numDates % 7) % 7; // Next
 
                     var days = getDates(firstDate, numDates), labels = new Array(7);
-                    for (var i = 0; i < numDates; i ++) {
+                    for (var i = 0; i < numDates; i++) {
                         var dt = new Date(days[i]);
                         days[i] = makeDate(dt, format.day, (selected && selected.getDate() === dt.getDate() && selected.getMonth() === dt.getMonth() && selected.getFullYear() === dt.getFullYear()), dt.getMonth() !== month);
                     }
@@ -158,39 +158,39 @@ angular.module('modified.datepicker', ['strap.position'])
                     }
                     return { objects: days, title: dateFilter(date, format.dayTitle), labels: labels };
                 },
-                compare: function(date1, date2) {
-                    return (new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() ) - new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() ) );
+                compare: function (date1, date2) {
+                    return (new Date(date1.getFullYear(), date1.getMonth(), date1.getDate()) - new Date(date2.getFullYear(), date2.getMonth(), date2.getDate()) );
                 },
                 split: 7,
                 step: { months: 1 }
             },
             {
                 name: 'month',
-                getVisibleDates: function(date, selected) {
+                getVisibleDates: function (date, selected) {
                     var months = new Array(12), year = date.getFullYear();
-                    for ( var i = 0; i < 12; i++ ) {
+                    for (var i = 0; i < 12; i++) {
                         var dt = new Date(year, i, 1);
                         months[i] = makeDate(dt, format.month, (selected && selected.getMonth() === i && selected.getFullYear() === year));
                     }
                     return { objects: months, title: dateFilter(date, format.monthTitle) };
                 },
-                compare: function(date1, date2) {
-                    return new Date( date1.getFullYear(), date1.getMonth() ) - new Date( date2.getFullYear(), date2.getMonth() );
+                compare: function (date1, date2) {
+                    return new Date(date1.getFullYear(), date1.getMonth()) - new Date(date2.getFullYear(), date2.getMonth());
                 },
                 split: 3,
                 step: { years: 1 }
             },
             {
                 name: 'year',
-                getVisibleDates: function(date, selected) {
+                getVisibleDates: function (date, selected) {
                     var years = new Array(yearRange), year = date.getFullYear(), startYear = parseInt((year - 1) / yearRange, 10) * yearRange + 1;
-                    for ( var i = 0; i < yearRange; i++ ) {
+                    for (var i = 0; i < yearRange; i++) {
                         var dt = new Date(startYear + i, 0, 1);
                         years[i] = makeDate(dt, format.year, (selected && selected.getFullYear() === dt.getFullYear()));
                     }
                     return { objects: years, title: [years[0].label, years[yearRange - 1].label].join(' - ') };
                 },
-                compare: function(date1, date2) {
+                compare: function (date1, date2) {
                     return date1.getFullYear() - date2.getFullYear();
                 },
                 split: 5,
@@ -198,44 +198,43 @@ angular.module('modified.datepicker', ['strap.position'])
             }
         ];
 
-        this.isDisabled = function(date, mode) {
+        this.isDisabled = function (date, mode) {
             var currentMode = this.modes[mode || 0];
             return ((this.minDate && currentMode.compare(date, this.minDate) < 0) || (this.maxDate && currentMode.compare(date, this.maxDate) > 0) || ($scope.dateDisabled && $scope.dateDisabled({date: date, mode: currentMode.name})));
         };
     }])
 
-    .directive( 'datepick', ['dateFilter', '$parse', 'datepickerConf', '$log', function (dateFilter, $parse, datepickerConf, $log) {
+    .directive('datepick', ['dateFilter', '$parse', 'datepickerConf', '$log', function (dateFilter, $parse, datepickerConf, $log) {
         return {
             restrict: 'EA',
             replace: true,
-            template:
-                "<table>\n" +
-                    "  <thead>\n" +
-                    "    <tr class=\"text-center\">\n" +
-                    "      <th><button type=\"button\" class=\"btn-black pull-left\" ng-click=\"move(-1)\"><i class=\"icon-chevron-left\"></i></button></th>\n" +
-                    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn-black btn-block\" ng-click=\"toggleMode()\"><strong>{{title | translate}}</strong></button></th>\n" +
-                    "      <th><button type=\"button\" class=\"btn-black pull-right\" ng-click=\"move(1)\"><i class=\"icon-chevron-right\"></i></button></th>\n" +
-                    "    </tr>\n" +
-                    "    <tr class=\"text-center\" ng-show=\"labels.length > 0\">\n" +
-                    "      <th ng-show=\"showWeekNumbers\">#</th>\n" +
-                    "      <th ng-repeat=\"label in labels\">{{label | translate}}</th>\n" +
-                    "    </tr>\n" +
-                    "  </thead>\n" +
-                    "  <tbody>\n" +
-                    "    <tr ng-repeat=\"row in rows\">\n" +
-                    "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
-                    "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-                    "        <button type=\"button\" style=\"width:100%;\" class=\"btn-silver\" ng-class=\"{'btn-silver-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label | translate}}</span></button>\n" +
-                    "      </td>\n" +
-                    "    </tr>\n" +
-                    "  </tbody>\n" +
-                    "</table>\n" ,
+            template: "<table>\n" +
+                "  <thead>\n" +
+                "    <tr class=\"text-center\">\n" +
+                "      <th><button type=\"button\" class=\"btn-black pull-left\" ng-click=\"move(-1)\"><i class=\"icon-chevron-left\"></i></button></th>\n" +
+                "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn-black btn-block\" ng-click=\"toggleMode()\"><strong>{{title | translate}}</strong></button></th>\n" +
+                "      <th><button type=\"button\" class=\"btn-black pull-right\" ng-click=\"move(1)\"><i class=\"icon-chevron-right\"></i></button></th>\n" +
+                "    </tr>\n" +
+                "    <tr class=\"text-center\" ng-show=\"labels.length > 0\">\n" +
+                "      <th ng-show=\"showWeekNumbers\">#</th>\n" +
+                "      <th ng-repeat=\"label in labels\">{{label | translate}}</th>\n" +
+                "    </tr>\n" +
+                "  </thead>\n" +
+                "  <tbody>\n" +
+                "    <tr ng-repeat=\"row in rows\">\n" +
+                "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
+                "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
+                "        <button type=\"button\" style=\"width:100%;\" class=\"btn-silver\" ng-class=\"{'btn-silver-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label | translate}}</span></button>\n" +
+                "      </td>\n" +
+                "    </tr>\n" +
+                "  </tbody>\n" +
+                "</table>\n",
             scope: {
                 dateDisabled: '&'
             },
             require: ['datepick', '?^ngModel'],
             controller: 'DatepickController',
-            link: function(scope, element, attrs, ctrls) {
+            link: function (scope, element, attrs, ctrls) {
                 var datepickerCtrl = ctrls[0], ngModel = ctrls[1];
 
                 if (!ngModel) {
@@ -246,8 +245,8 @@ angular.module('modified.datepicker', ['strap.position'])
                 var mode = 0, selected = new Date(), showWeeks = datepickerConf.showWeeks;
 
                 if (attrs.showWeeks) {
-                    scope.$parent.$watch($parse(attrs.showWeeks), function(value) {
-                        showWeeks = !! value;
+                    scope.$parent.$watch($parse(attrs.showWeeks), function (value) {
+                        showWeeks = !!value;
                         updateShowWeekNumbers();
                     });
                 } else {
@@ -255,13 +254,13 @@ angular.module('modified.datepicker', ['strap.position'])
                 }
 
                 if (attrs.min) {
-                    scope.$parent.$watch($parse(attrs.min), function(value) {
+                    scope.$parent.$watch($parse(attrs.min), function (value) {
                         datepickerCtrl.minDate = value ? new Date(value) : null;
                         refill();
                     });
                 }
                 if (attrs.max) {
-                    scope.$parent.$watch($parse(attrs.max), function(value) {
+                    scope.$parent.$watch($parse(attrs.max), function (value) {
                         datepickerCtrl.maxDate = value ? new Date(value) : null;
                         refill();
                     });
@@ -280,23 +279,23 @@ angular.module('modified.datepicker', ['strap.position'])
                     return arrays;
                 }
 
-                function refill( updateSelected ) {
+                function refill(updateSelected) {
                     var date = null, valid = true;
 
-                    if ( ngModel.$modelValue ) {
-                        date = new Date( ngModel.$modelValue );
+                    if (ngModel.$modelValue) {
+                        date = new Date(ngModel.$modelValue);
 
-                        if ( isNaN(date) ) {
+                        if (isNaN(date)) {
                             valid = false;
                             $log.error('Datepicker directive: "ng-model" value must be a Date object, a number of milliseconds since 01.01.1970 or a string representing an RFC2822 or ISO 8601 date.');
-                        } else if ( updateSelected ) {
+                        } else if (updateSelected) {
                             selected = date;
                         }
                     }
                     ngModel.$setValidity('date', valid);
 
                     var currentMode = datepickerCtrl.modes[mode], data = currentMode.getVisibleDates(selected, date);
-                    angular.forEach(data.objects, function(obj) {
+                    angular.forEach(data.objects, function (obj) {
                         obj.disabled = datepickerCtrl.isDisabled(obj.date, mode);
                     });
 
@@ -313,31 +312,31 @@ angular.module('modified.datepicker', ['strap.position'])
                     refill();
                 }
 
-                ngModel.$render = function() {
-                    refill( true );
+                ngModel.$render = function () {
+                    refill(true);
                 };
 
-                scope.select = function( date ) {
-                    if ( mode === 0 ) {
-                        var dt = new Date( ngModel.$modelValue );
-                        dt.setFullYear( date.getFullYear(), date.getMonth(), date.getDate() );
-                        ngModel.$setViewValue( dt );
-                        refill( true );
+                scope.select = function (date) {
+                    if (mode === 0) {
+                        var dt = new Date(ngModel.$modelValue);
+                        dt.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+                        ngModel.$setViewValue(dt);
+                        refill(true);
                     } else {
                         selected = date;
-                        setMode( mode - 1 );
+                        setMode(mode - 1);
                     }
                 };
-                scope.move = function(direction) {
+                scope.move = function (direction) {
                     var step = datepickerCtrl.modes[mode].step;
-                    selected.setMonth( selected.getMonth() + direction * (step.months || 0) );
-                    selected.setFullYear( selected.getFullYear() + direction * (step.years || 0) );
+                    selected.setMonth(selected.getMonth() + direction * (step.months || 0));
+                    selected.setFullYear(selected.getFullYear() + direction * (step.years || 0));
                     refill();
                 };
-                scope.toggleMode = function() {
-                    setMode( (mode + 1) % datepickerCtrl.modes.length );
+                scope.toggleMode = function () {
+                    setMode((mode + 1) % datepickerCtrl.modes.length);
                 };
-                scope.getWeekNumber = function(row) {
+                scope.getWeekNumber = function (row) {
                     return ( mode === 0 && scope.showWeekNumbers && row.length === 7 ) ? getISO8601WeekNumber(row[0].date) : null;
                 };
 
@@ -363,25 +362,26 @@ angular.module('modified.datepicker', ['strap.position'])
             return {
                 restrict: 'EA',
                 require: 'ngModel',
-                link: function(originalScope, element, attrs, ngModel) {
+                link: function (originalScope, element, attrs, ngModel) {
 
                     var closeOnDateSelection = angular.isDefined(attrs.closeOnDateSelection) ? scope.$eval(attrs.closeOnDateSelection) : datepickerPopConfig.closeOnDateSelection;
                     var dateFormat = attrs.datepickerPop || datepickerPopConfig.dateFormat;
 
                     // create a child scope for the datepicker directive so we are not polluting original scope
                     var scope = originalScope.$new();
-                    originalScope.$on('$destroy', function() {
+                    originalScope.$on('$destroy', function () {
                         scope.$destroy();
                     });
 
                     function formatDate(value) {
                         return (value) ? dateFilter(value, dateFormat) : null;
                     }
+
                     ngModel.$formatters.push(formatDate);
 
                     // TODO: reverse from dateFilter string to Date object
                     function parseDate(value) {
-                        if ( value ) {
+                        if (value) {
                             var date = new Date(value);
                             if (!isNaN(date)) {
                                 return date;
@@ -389,20 +389,21 @@ angular.module('modified.datepicker', ['strap.position'])
                         }
                         return value;
                     }
+
                     ngModel.$parsers.push(parseDate);
 
                     var getIsOpen, setIsOpen;
-                    if ( attrs.open ) {
+                    if (attrs.open) {
                         getIsOpen = $parse(attrs.open);
                         setIsOpen = getIsOpen.assign;
 
                         originalScope.$watch(getIsOpen, function updateOpen(value) {
-                            scope.isOpen = !! value;
+                            scope.isOpen = !!value;
                         });
                     }
                     scope.isOpen = getIsOpen ? getIsOpen(originalScope) : false; // Initial state
 
-                    function setOpen( value ) {
+                    function setOpen(value) {
                         if (setIsOpen) {
                             setIsOpen(originalScope, !!value);
                         } else {
@@ -410,17 +411,17 @@ angular.module('modified.datepicker', ['strap.position'])
                         }
                     }
 
-                    var documentClickBind = function(event) {
+                    var documentClickBind = function (event) {
                         if (scope.isOpen && event.target !== element[0]) {
-                            scope.$apply(function() {
+                            scope.$apply(function () {
                                 setOpen(false);
                             });
                         }
                     };
 
-                    var elementFocusBind = function() {
-                        scope.$apply(function() {
-                            setOpen( true );
+                    var elementFocusBind = function () {
+                        scope.$apply(function () {
+                            setOpen(true);
                         });
                     };
 
@@ -438,17 +439,17 @@ angular.module('modified.datepicker', ['strap.position'])
                     var $setModelValue = $parse(attrs.ngModel).assign;
 
                     // Inner change
-                    scope.dateSelection = function() {
+                    scope.dateSelection = function () {
                         $setModelValue(originalScope, scope.date);
                         if (closeOnDateSelection) {
-                            setOpen( false );
+                            setOpen(false);
                         }
                     };
 
                     // Outter change
-                    scope.$watch(function() {
+                    scope.$watch(function () {
                         return ngModel.$modelValue;
-                    }, function(value) {
+                    }, function (value) {
                         if (angular.isString(value)) {
                             var date = parseDate(value);
 
@@ -465,12 +466,13 @@ angular.module('modified.datepicker', ['strap.position'])
 
                     function addWatchableAttribute(attribute, scopeProperty, datepickerAttribute) {
                         if (attribute) {
-                            originalScope.$watch($parse(attribute), function(value){
+                            originalScope.$watch($parse(attribute), function (value) {
                                 scope[scopeProperty] = value;
                             });
                             datepickerEl.attr(datepickerAttribute || scopeProperty, scopeProperty);
                         }
                     }
+
                     addWatchableAttribute(attrs.min, 'min');
                     addWatchableAttribute(attrs.max, 'max');
                     if (attrs.showWeeks) {
@@ -488,7 +490,7 @@ angular.module('modified.datepicker', ['strap.position'])
                         scope.position.top = scope.position.top + element.prop('offsetHeight');
                     }
 
-                    scope.$watch('isOpen', function(value) {
+                    scope.$watch('isOpen', function (value) {
                         if (value) {
                             updatePosition();
                             $document.bind('click', documentClickBind);
@@ -499,15 +501,15 @@ angular.module('modified.datepicker', ['strap.position'])
                             element.bind('focus', elementFocusBind);
                         }
 
-                        if ( setIsOpen ) {
+                        if (setIsOpen) {
                             setIsOpen(originalScope, value);
                         }
                     });
 
-                    scope.today = function() {
+                    scope.today = function () {
                         $setModelValue(originalScope, new Date());
                     };
-                    scope.clear = function() {
+                    scope.clear = function () {
                         $setModelValue(originalScope, null);
                     };
 
@@ -516,17 +518,16 @@ angular.module('modified.datepicker', ['strap.position'])
             };
         }])
 
-    .directive('datepickerPopWrap', [function() {
+    .directive('datepickerPopWrap', [function () {
         return {
-            restrict:'E',
+            restrict: 'E',
             replace: true,
             transclude: true,
-            template:
-                "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\" class=\"dropdown-menu\">\n" +
-                    "	<li ng-transclude></li>\n" +
-                 "</ul>",
-            link:function (scope, element, attrs) {
-                element.bind('click', function(event) {
+            template: "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\" class=\"dropdown-menu\">\n" +
+                "	<li ng-transclude></li>\n" +
+                "</ul>",
+            link: function (scope, element, attrs) {
+                element.bind('click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                 });

@@ -1,19 +1,24 @@
-<form name="addgroupform" novalidate="" class="form-horizontal well" ng-controller="AddGroupController" rc-submit="submit()">
+<form name="addgroupform" novalidate="" class="form-horizontal well" ng-controller="AddGroupController"
+      rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.addgroup' | translate}}</legend>
 
         <div class="control-group">
             <label class="control-label" for="staffid">{{ 'label.input.staff' | translate }}</label>
+
             <div class="controls">
                 <select ng-model="formData.staffId" id="staffid">
-                    <option ng-repeat="staff in groupTemplate.staffOptions" value="{{staff.id}}">{{staff.displayName}}</option>
+                    <option ng-repeat="staff in groupTemplate.staffOptions" value="{{staff.id}}">{{staff.displayName}}
+                    </option>
                 </select>
             </div>
         </div>
         <div>
             <div class="control-group">
-                <label class="control-label" for="fullname">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+                <label class="control-label" for="fullname">{{ 'label.input.name' | translate }}<span
+                        class="required">*</span></label>
+
                 <div class="controls">
                     <input type="text" id="fullname" name="fullname" ng-model="formData.name" required late-Validate/>
                     <form-validate valattributeform="addgroupform" valattribute="fullname"/>
@@ -22,12 +27,14 @@
         </div>
         <div class="control-group">
             <label class="control-label" for="externalid">{{ 'label.input.externalid' | translate }}</label>
+
             <div class="controls">
                 <input type="text" id="externalid" ng-model="formData.externalId">
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="staffId">{{'label.input.addclients' | translate}}</label>
+
             <div class="controls">
                 <div class="row-fluid">
                     <div class="span4">
@@ -37,13 +44,17 @@
                         </select>
                     </div>
                     <div class="paddedtop10 span2 paddedleft0">
-                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i class="icon-double-angle-right"></i></button><br/>
-                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub()"><i class="icon-double-angle-left"></i></button>
+                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i
+                                class="icon-double-angle-right"></i></button>
+                        <br/>
+                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub()"><i
+                                class="icon-double-angle-left"></i></button>
                     </div>
                     <div class="span3 angled-textarea">
                         <label class="control-label">{{ 'label.input.selectedclients' | translate }}</label>
                         <select multiple ng-model="added">
-                            <option ng-repeat="client in addedClients" value="{{client.id}}">{{client.displayName}}</option>
+                            <option ng-repeat="client in addedClients" value="{{client.id}}">{{client.displayName}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -51,12 +62,15 @@
         </div>
         <div class="control-group">
             <label class="control-label">{{'label.input.submittedon' | translate}}:</label>
+
             <div class="controls">
-                <input  id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy" ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
             </div>
         </div>
         <div class="control-group">
             <label class="control-label" for="active">{{ 'label.input.active' | translate }}</label>
+
             <div class="controls">
                 <input type="checkbox" data-ng-click="setChoice()" id="active" ng-model="formData.active">
             </div>
@@ -64,13 +78,16 @@
         <div data-ng-switch on="choice">
             <div class="control-group" data-ng-switch-when="1">
                 <label class="control-label">{{'label.input.activationdate' | translate}}</label>
+
                 <div class="controls">
-                    <input  id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                 </div>
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                           is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                </div>
             </div>
         </div>
         <div class="offset2 paddedleft120">
-            <a id="cancel" href="#/viewcenter/{{groupTemplate.centerId}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+            <a id="cancel" href="#/viewcenter/{{groupTemplate.centerId}}" class="btn">{{ 'label.button.cancel' |
+                translate }}</a>
             <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>

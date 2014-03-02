@@ -4,28 +4,31 @@
         <li class="active">{{'label.anchor.loanproducts' | translate}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/createloanproduct" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createloanproduct' | translate}}</a>
+        <a href="#/createloanproduct" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createloanproduct'
+            | translate}}</a>
     </div>
 </div>
 
 <div class="row-fluid" ng-controller="LoanProductController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameshortname' | translate}}">
-	<table class="table">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbynameshortname' | translate}}">
+    <table class="table">
         <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.shortname' | translate}}</th>
-                <th>{{'label.heading.expirydate' | translate}}</th>
-                <th>{{'label.heading.status' | translate}}</th>
-            </tr>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.shortname' | translate}}</th>
+            <th>{{'label.heading.expirydate' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
+        </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
-                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
-                <td class="pointer" data-ng-click="routeTo(loanproduct.id)"><i class="icon-stop {{loanproduct.status | StatusLookup}}"></i></td>
-            </tr>
+        <tr class="pointer-main" ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
+            <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeTo(loanproduct.id)"><i
+                    class="icon-stop {{loanproduct.status | StatusLookup}}"></i></td>
+        </tr>
         </tbody>
     </table>
 </div>

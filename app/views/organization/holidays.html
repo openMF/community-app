@@ -5,13 +5,16 @@
     </ul>
 
     <div class="pull-right">
-        <a href="#/createholiday" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createholiday' | translate}}</a>
+        <a href="#/createholiday" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createholiday'
+            | translate}}</a>
     </div>
 </div>
 <div class="row-fluid" data-ng-controller="HolController">
     <div class="control-group">
         <div class="controls">
-            <select name="office" id="office" ng-model="formData.officeId" data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()" value="{{office.id}}" required>
+            <select name="office" id="office" ng-model="formData.officeId"
+                    data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()"
+                    value="{{office.id}}" required>
                 <option value="">{{'label.selectoffice' | translate}}</option>
             </select>
                 <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
@@ -22,7 +25,8 @@
         </div>
     </div>
     <div data-ng-show="formData.officeId">
-    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}"/>
+        <input ng-model="filterText" type="text" class="span marginbottom0px"
+               placeholder="{{'label.input.filterbyname' | translate}}"/>
         <table class="table">
             <thead>
             <tr class="graybg">
@@ -38,7 +42,9 @@
                 <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.repaymentsRescheduledTo |
+                    DateFormat}}
+                </td>
                 <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.status.value}}</td>
             </tr>
             </tbody>

@@ -12,9 +12,13 @@
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+                        <label class="control-label">{{ 'label.input.office' | translate }}<span
+                                class="required">*</span></label>
+
                         <div class="controls">
-                            <select name="office" id="office" ng-model="officeIdTemp" data-ng-options="office.id as office.name for office in offices" data-ng-change="getOfficers()">
+                            <select name="office" id="office" ng-model="officeIdTemp"
+                                    data-ng-options="office.id as office.name for office in offices"
+                                    data-ng-change="getOfficers()">
                                 <option value="">{{'label.selectoffice' | translate}}</option>
                             </select>
                         </div>
@@ -24,9 +28,13 @@
             <tr>
                 <td>
                     <div class="control-group">
-                        <label class="control-label">{{ 'label.input.assignmentdate' | translate }}<span class="required">*</span></label>
+                        <label class="control-label">{{ 'label.input.assignmentdate' | translate }}<span
+                                class="required">*</span></label>
+
                         <div class="controls">
-                            <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" required late-Validate />
+                            <input id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                   is-open="opened" min="minDate" max="'2020-06-22'"
+                                   date-disabled="disabled(date, mode)" required late-Validate/>
                         </div>
                     </div>
                 </td>
@@ -34,9 +42,13 @@
             <tr data-ng-show="officerChoice">
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.input.fromloanofficer' | translate }}<span class="required">*</span></label>
+                        <label class="control-label">{{ 'label.input.fromloanofficer' | translate }}<span
+                                class="required">*</span></label>
+
                         <div class="controls">
-                            <select id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId" data-ng-options="officer.id as officer.displayName for officer in officers" ng-change="getOfficerClients()" >
+                            <select id="fromLoanOfficerId" ng-model="formData.fromLoanOfficerId"
+                                    data-ng-options="officer.id as officer.displayName for officer in officers"
+                                    ng-change="getOfficerClients()">
                                 <option value="">{{'label.selectone' | translate}}</option>
                             </select>
                         </div>
@@ -44,9 +56,12 @@
                 </td>
                 <td>
                     <div class="control-group">
-                        <label class="control-label" >{{ 'label.input.toloanofficer' | translate }}<span class="required">*</span></label>
+                        <label class="control-label">{{ 'label.input.toloanofficer' | translate }}<span
+                                class="required">*</span></label>
+
                         <div class="controls">
-                            <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" data-ng-options="toOfficer.id as toOfficer.displayName for toOfficer in toOfficers">
+                            <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId"
+                                    data-ng-options="toOfficer.id as toOfficer.displayName for toOfficer in toOfficers">
                                 <option value="">{{'label.selectone' | translate}}</option>
                             </select>
                         </div>
@@ -58,15 +73,18 @@
             <div class="span6">
                 <table data-ng-show="clients">
                     <thead>
-                        <th>{{'label.heading.clients' | translate}}</th>
+                    <th>{{'label.heading.clients' | translate}}</th>
                     </thead>
                     <tbody>
                     <tr ng-repeat="client in clients">
                         <td>
                             <table>
-                                <tr><td><strong>{{client.displayName}}</strong></td></tr>
+                                <tr>
+                                    <td><strong>{{client.displayName}}</strong></td>
+                                </tr>
                                 <tr ng-repeat="loan in client.loans">
-                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})</td>
+                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+                                    </td>
                                 </tr>
                             </table>
                         </td>
@@ -77,25 +95,30 @@
             <div class="span6">
                 <table data-ng-show="groups">
                     <thead>
-                        <th>{{'label.heading.groups' | translate}}</th>
+                    <th>{{'label.heading.groups' | translate}}</th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="group in groups">
-                            <td>
+                    <tr ng-repeat="group in groups">
+                        <td>
                             <table>
-                                <tr><td><strong>{{group.displayName}}</strong></td></tr>
+                                <tr>
+                                    <td><strong>{{group.displayName}}</strong></td>
+                                </tr>
                                 <tr ng-repeat="loan in group.loans">
-                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})</td>
+                                    <td><input class="pull-left" type="checkbox" ng-model="accounts[loan.id]">&nbsp;&nbsp;{{loan.productName}}({{loan.accountNo}})
+                                    </td>
                                 </tr>
                             </table>
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="offset3">
-            <a href="#/offices"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+            <a href="#/offices">
+                <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+            </a>
             <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>

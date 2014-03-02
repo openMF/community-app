@@ -4,7 +4,8 @@
     </ul>
 </div>
 <div class="row-fluid" ng-controller="GlobalConfigurationController">
-    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}">
+    <input ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbyname' | translate}}">
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -17,8 +18,11 @@
         <tr ng-repeat="config in configs | orderBy:'name':reverse | filter:filterText">
             <td>{{config.name}}</a></td>
             <td>{{config.enabled}}</td>
-            <td><button type="button" class="btn btn-success flag" data-ng-hide="config.enabled" data-ng-click="enable(config.id, config.name)"><i class="icon-flag-alt"></i></button>
-                <button type="button" class="btn btn-danger flag" data-ng-show="config.enabled" data-ng-click="disable(config.id, config.name)"><i class="icon-remove"></i></button>
+            <td>
+                <button type="button" class="btn btn-success flag" data-ng-hide="config.enabled"
+                        data-ng-click="enable(config.id, config.name)"><i class="icon-flag-alt"></i></button>
+                <button type="button" class="btn btn-danger flag" data-ng-show="config.enabled"
+                        data-ng-click="disable(config.id, config.name)"><i class="icon-remove"></i></button>
             </td>
         </tr>
         </tbody>

@@ -1,51 +1,49 @@
-(function(module) {
+(function (module) {
     mifosX.controllers = _.extend(module, {
-        GlobalConfigurationController: function(scope, resourceFactory , location,route) {
+        GlobalConfigurationController: function (scope, resourceFactory, location, route) {
             scope.configs = [];
-            resourceFactory.configurationResource.get(function(data) {
-                for(var i in data.globalConfiguration){
+            resourceFactory.configurationResource.get(function (data) {
+                for (var i in data.globalConfiguration) {
                     scope.configs.push(data.globalConfiguration[i])
                 }
-                resourceFactory.cacheResource.get(function(data) {
-                    for(var i in data ){
-                        if(data[i].cacheType.id==2){
+                resourceFactory.cacheResource.get(function (data) {
+                    for (var i in data) {
+                        if (data[i].cacheType.id == 2) {
                             var cache = {};
                             cache.name = 'Is Cache Enabled';
-                            cache.enabled =  data[i].enabled;
+                            cache.enabled = data[i].enabled;
                         }
                     }
                     scope.configs.push(cache);
                 });
             });
 
-            scope.enable = function(id,name) {
-                if(name=='Is Cache Enabled'){
+            scope.enable = function (id, name) {
+                if (name == 'Is Cache Enabled') {
                     var temp = {};
                     temp.cacheType = 2;
-                    resourceFactory.cacheResource.update(temp,function(data) {
-                     route.reload();
+                    resourceFactory.cacheResource.update(temp, function (data) {
+                        route.reload();
                     });
                 }
-                else
-                {
-                    var temp = {'enabled':'true'};
-                    resourceFactory.configurationResource.update({'id':id}, temp, function(data) {
+                else {
+                    var temp = {'enabled': 'true'};
+                    resourceFactory.configurationResource.update({'id': id}, temp, function (data) {
                         route.reload();
                     });
                 }
             };
-            scope.disable = function(id,name) {
-                if(name=='Is Cache Enabled'){
+            scope.disable = function (id, name) {
+                if (name == 'Is Cache Enabled') {
                     var temp = {};
                     temp.cacheType = 1;
-                    resourceFactory.cacheResource.update(temp,function(data) {
+                    resourceFactory.cacheResource.update(temp, function (data) {
                         route.reload();
                     });
                 }
-                else
-                {
-                    var temp = {'enabled':'false'};
-                    resourceFactory.configurationResource.update({'id':id}, temp, function(data) {
+                else {
+                    var temp = {'enabled': 'false'};
+                    resourceFactory.configurationResource.update({'id': id}, temp, function (data) {
                         route.reload();
                     });
                 }
@@ -53,7 +51,7 @@
 
         }
     });
-    mifosX.ng.application.controller('GlobalConfigurationController', ['$scope', 'ResourceFactory', '$location','$route', mifosX.controllers.GlobalConfigurationController]).run(function($log) {
+    mifosX.ng.application.controller('GlobalConfigurationController', ['$scope', 'ResourceFactory', '$location', '$route', mifosX.controllers.GlobalConfigurationController]).run(function ($log) {
         $log.info("GlobalConfigurationController initialized");
     });
 }(mifosX.controllers || {}));

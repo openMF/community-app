@@ -1,6 +1,6 @@
-(function(module) {
+(function (module) {
     mifosX.directives = _.extend(module, {
-        ActivitiesDisplayPanelDirective: function() {
+        ActivitiesDisplayPanelDirective: function () {
             return {
                 restrict: "E",
                 transclude: true,
@@ -8,17 +8,16 @@
                     title: "@"
                 },
 
-                template:
-                    "<div class='display-panel' style='margin-top:15px;'>" +
-                        "<div class='summary-header'>" +
-                        "<div class='display-header-text'>{{title}}</div></div>" +
-                        "<div ng-transclude></div></div>"
+                template: "<div class='display-panel' style='margin-top:15px;'>" +
+                    "<div class='summary-header'>" +
+                    "<div class='display-header-text'>{{title}}</div></div>" +
+                    "<div ng-transclude></div></div>"
             };
 
         }
     });
 }(mifosX.directives || {}));
 
-mifosX.ng.application.directive("ngDisplaypanel", [mifosX.directives.ActivitiesDisplayPanelDirective]).run(function($log) {
+mifosX.ng.application.directive("ngDisplaypanel", [mifosX.directives.ActivitiesDisplayPanelDirective]).run(function ($log) {
     $log.info("ActivitiesDisplayPanelDirective initialized");
 });

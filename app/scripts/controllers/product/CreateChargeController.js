@@ -1,6 +1,6 @@
-(function(module) {
+(function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateChargeController: function(scope, resourceFactory,location, dateFilter) {
+        CreateChargeController: function (scope, resourceFactory, location, dateFilter) {
             scope.template = [];
             scope.formData = {};
             scope.first = {};
@@ -9,14 +9,14 @@
             scope.repeatEvery = false;
             scope.first.date = new Date();
 
-            resourceFactory.chargeTemplateResource.get(function(data) {
+            resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
             });
 
-            scope.chargeAppliesToSelected = function(chargeAppliesId) {
+            scope.chargeAppliesToSelected = function (chargeAppliesId) {
                 if (chargeAppliesId == 1) {
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
@@ -32,7 +32,7 @@
             //'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 if (scope.showChargePaymentByField === false) {
-                    for(var i in scope.chargeTimeTypeOptions) {
+                    for (var i in scope.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.chargeTimeTypeOptions[i].id) {
                             if (scope.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                 scope.showdatefield = true;
@@ -50,23 +50,23 @@
                 }
             }
 
-            scope.setChoice = function(){
-                if(this.formData.active){
+            scope.setChoice = function () {
+                if (this.formData.active) {
                     scope.choice = 1;
                 }
-                else if(!this.formData.active){
+                else if (!this.formData.active) {
                     scope.choice = 0;
                 }
             };
 
-            scope.submit = function() {
+            scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
                 //the formData
                 if (scope.showChargePaymentByField === false) {
                     if (scope.showdatefield === true) {
-                        var reqDate = dateFilter(scope.first.date,'dd MMMM');
+                        var reqDate = dateFilter(scope.first.date, 'dd MMMM');
                         this.formData.monthDayFormat = 'dd MMM';
-                        this.formData.feeOnMonthDay  = reqDate;
+                        this.formData.feeOnMonthDay = reqDate;
                     }
                 }
 
@@ -76,13 +76,13 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
-                resourceFactory.chargeResource.save(this.formData,function(data){
+                resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory','$location', 'dateFilter', mifosX.controllers.CreateChargeController]).run(function($log) {
+    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateChargeController]).run(function ($log) {
         $log.info("CreateChargeController initialized");
     });
 }(mifosX.controllers || {}));

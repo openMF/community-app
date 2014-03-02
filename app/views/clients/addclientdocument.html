@@ -1,39 +1,49 @@
-<form name="clientdocumentform" novalidate="" class="form-horizontal" ng-controller="ClientDocumentController" rc-submit="submit()">
-	<div>
-		<ul class="breadcrumb">
-			<li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
-		</ul>
-	</div>
-	<api-validate></api-validate>
-	<fieldset>
-		<legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
-		<div class="control-group">
-			<label class="control-label" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
-			<div class="controls">
-				<input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
-				<form-validate valattributeform="clientdocumentform" valattribute="name"/>
-			</div>
-		</div>
+<form name="clientdocumentform" novalidate="" class="form-horizontal" ng-controller="ClientDocumentController"
+      rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span>
+            </li>
+            <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <fieldset>
+        <legend>{{'label.heading.uploadclientdocument' | translate}}</legend>
+        <div class="control-group">
+            <label class="control-label" for="name">{{'label.input.name' | translate}}<span
+                    class="required">*</span></label>
 
-		<div class="control-group">
-			<label class="control-label">{{'label.input.description' | translate}}</label>
-			<div class="controls">
-				<textarea rows="2" ng-model="formData.description"></textarea>
-			</div>
-		</div>
+            <div class="controls">
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required
+                       late-Validate/>
+                <form-validate valattributeform="clientdocumentform" valattribute="name"/>
+            </div>
+        </div>
 
-		<div class="control-group">
-			<label class="control-label" for="file">{{'label.input.selectfile' | translate}}<span class="required">*</span></label>
-			<div class="controls">
-				<input type="file" id="file" ng-file-select="onFileSelect($files)">
-			</div>
-		</div>
+        <div class="control-group">
+            <label class="control-label">{{'label.input.description' | translate}}</label>
 
-		<div class="offset3">
-			<a id="cancel" href="#/viewclient/{{clientId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
-			<button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
-		</div>
-	</fieldset>
+            <div class="controls">
+                <textarea rows="2" ng-model="formData.description"></textarea>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="file">{{'label.input.selectfile' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="controls">
+                <input type="file" id="file" ng-file-select="onFileSelect($files)">
+            </div>
+        </div>
+
+        <div class="offset3">
+            <a id="cancel" href="#/viewclient/{{clientId}}">
+                <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+            </a>
+            <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+        </div>
+    </fieldset>
 </form>

@@ -1,8 +1,8 @@
-(function(module) {
+(function (module) {
     mifosX.directives = _.extend(module, {
-        ScrollbarTopDirective: function() {
+        ScrollbarTopDirective: function () {
             return {
-                link: function(scope, element, attrs) {
+                link: function (scope, element, attrs) {
                     // ng-repeat delays the actual width of the element.
                     // this listens for the change and updates the scroll bar
                     function widthListener() {
@@ -18,12 +18,12 @@
                         $div1.width($div2.width());
 
                         // sync the real scrollbar with the virtual one.
-                        $wrapper1.scroll(function(){
+                        $wrapper1.scroll(function () {
                             $wrapper2.scrollLeft($wrapper1.scrollLeft());
                         });
 
                         // sync the virtual scrollbar with the real one.
-                        $wrapper2.scroll(function(){
+                        $wrapper2.scroll(function () {
                             $wrapper1.scrollLeft($wrapper2.scrollLeft());
                         });
                     }
@@ -33,7 +33,7 @@
                         listener;
 
                     // so that when you go to a new link it stops listening
-                    element.on('remove', function() {
+                    element.on('remove', function () {
                         clearInterval(listener);
                     });
 
@@ -68,7 +68,7 @@
                         overflowX: "scroll"
                     });
 
-                    listener = setInterval(function() {
+                    listener = setInterval(function () {
                         widthListener();
                     }, 650);
 
@@ -80,6 +80,6 @@
     });
 }(mifosX.directives || {}));
 
-mifosX.ng.application.directive("scroll", [mifosX.directives.ScrollbarTopDirective]).run(function($log) {
+mifosX.ng.application.directive("scroll", [mifosX.directives.ScrollbarTopDirective]).run(function ($log) {
     $log.info("ScrollbarTopDirective initialized");
 });

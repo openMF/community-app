@@ -4,24 +4,31 @@
         <li class="active">{{'label.anchor.managedatatables' | translate}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/createdatatable" class="btn btn-primary"><i class="icon-plus icon-white"></i> {{'label.button.createdatatable' | translate}}</a>
+        <a href="#/createdatatable" class="btn btn-primary"><i class="icon-plus icon-white"></i>
+            {{'label.button.createdatatable' | translate}}</a>
     </div>
 </div>
 
 <div class="row-fluid" ng-controller="DataTableController">
-    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}">
+    <input ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbyname' | translate}}">
     <table class="table">
         <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.datatablename' | translate}}</th>
-                <th>{{'label.heading.associatedwith' | translate}}</th>
-            </tr>
+        <tr class="graybg">
+            <th>{{'label.heading.datatablename' | translate}}</th>
+            <th>{{'label.heading.associatedwith' | translate}}</th>
+        </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.registeredTableName}}</td>
-                <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.applicationTableName}}</td>
-            </tr>
+        <tr class="pointer-main"
+            ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
+                {{datatable.registeredTableName}}
+            </td>
+            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
+                {{datatable.applicationTableName}}
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

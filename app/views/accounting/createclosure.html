@@ -1,17 +1,22 @@
 <div>
     <ul class="breadcrumb">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/accounts_closure">{{'label.anchor.accountsclosure' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/accounts_closure">{{'label.anchor.accountsclosure' | translate}}</a> <span
+                class="divider">/</span></li>
         <li class="active">{{'label.anchor.createclosure' | translate}}</li>
     </ul>
 </div>
-<form name="createclosureform" novalidate="" class="form-horizontal well" ng-controller="AccountingClosureController" ng-submit="submit()">
+<form name="createclosureform" novalidate="" class="form-horizontal well" ng-controller="AccountingClosureController"
+      ng-submit="submit()">
     <api-validate></api-validate>
     <legend>{{ 'label.heading.createclosure' | translate }}</legend>
     <div class="control-group">
         <label class="control-label">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+
         <div class="controls">
-            <select id="officeId" ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="updateLastClosed(formData.officeId)" required="required">
+            <select id="officeId" ng-model="formData.officeId"
+                    ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                    ng-change="updateLastClosed(formData.officeId)" required="required">
                 <option style="display:none" value="">{{'label.selectoffice' | translate}}</option>
             </select>
             <span ng-show="lastClosed">{{ 'label.input.previouslyclosedon' | translate }} - {{lastClosed | DateFormat}}</span>
@@ -20,19 +25,24 @@
 
     <div class="control-group">
         <label class="control-label">{{ 'label.input.closingdate' | translate }}<span class="required">*</span></label>
+
         <div class="controls">
-            <input class="date-disable" id="closingDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
+            <input class="date-disable" id="closingDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                   is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
         </div>
     </div>
 
     <div class="control-group">
         <label class="control-label">{{ 'label.input.comments' | translate }}</label>
+
         <div class="controls">
             <textarea rows="2" ng-model="formData.comments"></textarea>
         </div>
     </div>
     <div class="offset3">
-        <a id="cancel" href="#/accounts_closure"><button type="reset" class="btn">{{ 'label.button.cancel' | translate }}</button></a>
+        <a id="cancel" href="#/accounts_closure">
+            <button type="reset" class="btn">{{ 'label.button.cancel' | translate }}</button>
+        </a>
         <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
     </div>
 </form>

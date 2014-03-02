@@ -3,11 +3,13 @@
         <li class="active">{{'label.anchor.groups' | translate}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/creategroup" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
+        <a href="#/creategroup" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.creategroup'
+            | translate}}</a>
     </div>
 </div>
 <div class="row-fluid" ng-controller="GroupController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameheadoffice' | translate}}">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbynameheadoffice' | translate}}">
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -17,15 +19,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
+        <tr class="pointer-main"
+            ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
-            <td data-ng-click="routeTo(group.id)"><i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}</td>
+            <td data-ng-click="routeTo(group.id)"><i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}
+            </td>
             <td data-ng-click="routeTo(group.id)">{{group.officeName}}</td>
         </tr>
         </tbody>
     </table>
     <ul class="pager">
-        <li class="previous"><a id="prev" ng-click="groups.previous()" data-ng-hide="!groups.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next" ><a id="next" ng-click="groups.next()" data-ng-hide="!groups.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        <li class="previous"><a id="prev" ng-click="groups.previous()" data-ng-hide="!groups.hasPrevious()">&larr;
+            {{'label.button.previous' | translate}}</a></li>
+        <li class="next"><a id="next" ng-click="groups.next()" data-ng-hide="!groups.hasNext()">{{'label.button.next' |
+            translate}} &rarr;</a></li>
     </ul>
 </div>

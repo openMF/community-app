@@ -1,8 +1,8 @@
-(function(module) {
+(function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewHolController: function(scope, routeParams, resourceFactory, $modal, location, route) {
+        ViewHolController: function (scope, routeParams, resourceFactory, $modal, location, route) {
 
-            resourceFactory.holValueResource.getholvalues({officeId:1,holId: routeParams.id} , function(data) {
+            resourceFactory.holValueResource.getholvalues({officeId: 1, holId: routeParams.id}, function (data) {
                 scope.holiday = data;
                 if (data.status.value === "Pending for activation") {
                     scope.holidayStatusPending = true;
@@ -23,7 +23,7 @@
 
             var activateHolidayCtrl = function ($scope, $modalInstance) {
                 $scope.activate = function () {
-                    resourceFactory.holValueResource.save({holId: routeParams.id, command: 'Activate'}, {}, function(data){
+                    resourceFactory.holValueResource.save({holId: routeParams.id, command: 'Activate'}, {}, function (data) {
                         route.reload();
                     });
                     $modalInstance.close('activate');
@@ -42,7 +42,7 @@
 
             var deleteHolidayCtrl = function ($scope, $modalInstance) {
                 $scope.activate = function () {
-                    resourceFactory.holValueResource.delete({holId: routeParams.id}, {}, function(data){
+                    resourceFactory.holValueResource.delete({holId: routeParams.id}, {}, function (data) {
                         location.path('holidays');
                     });
                     $modalInstance.close('activate');
@@ -54,7 +54,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewHolController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function($log) {
+    mifosX.ng.application.controller('ViewHolController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function ($log) {
         $log.info("ViewHolController initialized");
     });
 }(mifosX.controllers || {}));

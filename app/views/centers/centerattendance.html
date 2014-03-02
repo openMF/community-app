@@ -3,14 +3,20 @@
         <fieldset>
             <legend>{{'label.heading.attendance' | translate}}</legend>
             <div class="control-group">
-                <label class="control-label">{{'label.input.meetingdate' | translate}}<span class="required">*</span></label>
+                <label class="control-label">{{'label.input.meetingdate' | translate}}<span
+                        class="required">*</span></label>
+
                 <div class="controls">
-                    <input  type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'"/>Next Meeting on:{{meeting.nextTenRecurringDates[0] | DateFormat}}
+                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
+                           min="minDate" max="'2020-06-22'"/>Next Meeting on:{{meeting.nextTenRecurringDates[0] |
+                    DateFormat}}
                 </div>
             </div>
             <table class="table table-striped" width="100%">
                 <thead>
-                <tr><td colspan="5">&nbsp;</td></tr>
+                <tr>
+                    <td colspan="5">&nbsp;</td>
+                </tr>
                 <tr class="graybg">
                     <th>{{ 'label.heading.name' | translate }}</th>
                     <th>{{ 'label.heading.attendance' | translate }}</th>
@@ -22,7 +28,9 @@
                     <td>
                         <div>
                             <select ng-model="tempData[client.id]">
-                                <option data-ng-repeat="attendance in attendanceOptions" value="{{attendance.id}}">{{attendance.value}}</option>
+                                <option data-ng-repeat="attendance in attendanceOptions" value="{{attendance.id}}">
+                                    {{attendance.value}}
+                                </option>
                             </select>
                         </div>
                     </td>
@@ -31,7 +39,9 @@
             </table>
             <div class="offset2 paddedleft120">
                 <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)">{{'label.button.save' | translate}}</button>
+                <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)">
+                    {{'label.button.save' | translate}}
+                </button>
             </div>
         </fieldset>
     </form>

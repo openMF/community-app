@@ -3,28 +3,30 @@
         <li class="active">{{'label.anchor.users' | translate}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/createuser" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createuser' | translate}}</a>
+        <a href="#/createuser" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createuser' |
+            translate}}</a>
     </div>
 </div>
 
 <div class="row-fluid" ng-controller="UserListController">
-    <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}">
-	<table class="table">
+    <input ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbyname' | translate}}">
+    <table class="table">
         <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.firstname' | translate}}</th>
-                <th>{{'label.heading.lastname' | translate}}</th>
-                <th>{{'label.heading.email' | translate}}</th>
-                <th>{{'label.heading.office' | translate}}</th>
-            </tr>
+        <tr class="graybg">
+            <th>{{'label.heading.firstname' | translate}}</th>
+            <th>{{'label.heading.lastname' | translate}}</th>
+            <th>{{'label.heading.email' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+        </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="user in users| orderBy:'firstname':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}}</td>
-                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastname}}</td>
-                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
-                <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
-            </tr>
+        <tr class="pointer-main" ng-repeat="user in users| orderBy:'firstname':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}}</td>
+            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastname}}</td>
+            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
+            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
+        </tr>
         </tbody>
     </table>
 </div>

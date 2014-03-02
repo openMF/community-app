@@ -1,99 +1,127 @@
-<div ng-controller="MakeAccountTransferController">	
-	<div>
-		<ul class="breadcrumb">
-			<li><a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewsavingaccount' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'label.anchor.accounttransfers' | translate}}</li>
-		</ul>
-	</div>
-	<api-validate></api-validate>
-	<form class="form-horizontal well" name="accounttransferform" novalidate="" rc-submit="submit()">
-	  <fieldset>
-	    <legend>{{ 'label.heading.accounttransfers' | translate }}</legend>
-	    <div class="row paddedleft">
-	    	<label><strong>{{ 'label.heading.transferringfrom' | translate}}</strong></label>
-			<table width="100%">
-				<tr>
-					<td width="20%">{{'label.heading.applicant' | translate}}</td>
-					<td width="30%">{{transfer.fromClient.displayName}}</td>
-					<td width="20%">{{'label.heading.office' | translate}}</td>
-					<td width="30%">{{transfer.fromOffice.name}}</td>
-				</tr>
-				<tr>
-					<td>{{'label.heading.fromaccount' | translate}}</td>
-					<td>{{transfer.fromAccount.productName}}&nbsp;-&nbsp;#{{transfer.fromAccount.accountNo}}</td>
-					<td>{{'label.heading.fromaccounttype' | translate}}</td>
-					<td>{{transfer.fromAccountType.value}}</td>
-				</tr>
-				<tr>
-					<td>{{'label.heading.currency' | translate}}</td>
-					<td>{{transfer.currency.name}}</td>
-					<td class="span2"></td>
-				</tr>
-			</table>
-	    </div>
-	    <hr>
-	    <label><strong>{{ 'label.heading.transferringto' | translate}}</strong><span class="required">*</span></label>
-		<div class="control-group">
-			<label class="control-label" for="toOfficeId">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<select id="toOfficeId" ng-model="formData.toOfficeId" name="office" ng-options="toOffice.id as toOffice.name for toOffice in toOffices" ng-change="changeEvent()" value="{{toOffice.id}}" required>
-					<option value="">{{'label.selectone' | translate}}</option>
-				</select>
-				<form-validate valattributeform="accounttransferform" valattribute="office"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="toClientId">{{ 'label.input.client' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<select id="toClientId" ng-model="formData.toClientId" name="client" ng-options="toClient.id as toClient.displayName for toClient in toClients" ng-change="changeEvent()" value="{{toClient.id}}" required>
-					<option value="">{{'label.selectone' | translate}}</option>
-				</select>
-				<form-validate valattributeform="accounttransferform" valattribute="client"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="toAccountType">{{ 'label.input.accounttype' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<select id="toAccountType" ng-model="formData.toAccountType" name="account" ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes" ng-change="changeEvent()" value="{{toAccountType.id}}"
-				required>
-					<option value="">{{'label.selectone' | translate}}</option>
-				</select>
-				<form-validate valattributeform="accounttransferform" valattribute="account"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="toAccountId">{{ 'label.input.account' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber" ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts" ng-change="changeEvent()" value="{{toAccount.id}}" required>
-					<option value="">{{'label.selectone' | translate}}</option>
-				</select>
-				<form-validate valattributeform="accounttransferform" valattribute="accountnumber"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="transferAmount">{{ 'label.input.amount' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<input type="text" id="transferAmount" name="transferAmount" ng-model="formData.transferAmount" required late-validate/>
-				<form-validate valattributeform="accounttransferform" valattribute="transferAmount"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="transferDate">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<input  type="text" id="transferDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="transferDescription">{{ 'label.input.description' | translate }}<span class="required">*</span></label>
-			<div class="controls">
-				<input type="text" id="transferDescription" name="transferDescription" ng-model="formData.transferDescription" required late-validate/>
-				<form-validate valattributeform="accounttransferform" valattribute="transferDescription"/>
-			</div>
-		</div>
-	    <div class="offset3">
-	      <button id="cancel" type="reset" class="btn">{{ 'label.button.cancel' | translate }}</button>
-	      <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
-	    </div>
-	  </fieldset>
-	</form>
+<div ng-controller="MakeAccountTransferController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewsavingaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewsavingaccount' |
+                translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{'label.anchor.accounttransfers' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="accounttransferform" novalidate="" rc-submit="submit()">
+        <fieldset>
+            <legend>{{ 'label.heading.accounttransfers' | translate }}</legend>
+            <div class="row paddedleft">
+                <label><strong>{{ 'label.heading.transferringfrom' | translate}}</strong></label>
+                <table width="100%">
+                    <tr>
+                        <td width="20%">{{'label.heading.applicant' | translate}}</td>
+                        <td width="30%">{{transfer.fromClient.displayName}}</td>
+                        <td width="20%">{{'label.heading.office' | translate}}</td>
+                        <td width="30%">{{transfer.fromOffice.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.fromaccount' | translate}}</td>
+                        <td>{{transfer.fromAccount.productName}}&nbsp;-&nbsp;#{{transfer.fromAccount.accountNo}}</td>
+                        <td>{{'label.heading.fromaccounttype' | translate}}</td>
+                        <td>{{transfer.fromAccountType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{transfer.currency.name}}</td>
+                        <td class="span2"></td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <label><strong>{{ 'label.heading.transferringto' | translate}}</strong><span
+                    class="required">*</span></label>
+
+            <div class="control-group">
+                <label class="control-label" for="toOfficeId">{{ 'label.input.office' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <select id="toOfficeId" ng-model="formData.toOfficeId" name="office"
+                            ng-options="toOffice.id as toOffice.name for toOffice in toOffices"
+                            ng-change="changeEvent()" value="{{toOffice.id}}" required>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="accounttransferform" valattribute="office"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="toClientId">{{ 'label.input.client' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <select id="toClientId" ng-model="formData.toClientId" name="client"
+                            ng-options="toClient.id as toClient.displayName for toClient in toClients"
+                            ng-change="changeEvent()" value="{{toClient.id}}" required>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="accounttransferform" valattribute="client"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="toAccountType">{{ 'label.input.accounttype' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <select id="toAccountType" ng-model="formData.toAccountType" name="account"
+                            ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes"
+                            ng-change="changeEvent()" value="{{toAccountType.id}}"
+                            required>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="accounttransferform" valattribute="account"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="toAccountId">{{ 'label.input.account' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber"
+                            ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts"
+                            ng-change="changeEvent()" value="{{toAccount.id}}" required>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="accounttransferform" valattribute="accountnumber"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="transferAmount">{{ 'label.input.amount' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input type="text" id="transferAmount" name="transferAmount" ng-model="formData.transferAmount"
+                           required late-validate/>
+                    <form-validate valattributeform="accounttransferform" valattribute="transferAmount"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="transferDate">{{ 'label.input.transactiondate' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input type="text" id="transferDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate"
+                           is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="transferDescription">{{ 'label.input.description' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input type="text" id="transferDescription" name="transferDescription"
+                           ng-model="formData.transferDescription" required late-validate/>
+                    <form-validate valattributeform="accounttransferform" valattribute="transferDescription"/>
+                </div>
+            </div>
+            <div class="offset3">
+                <button id="cancel" type="reset" class="btn">{{ 'label.button.cancel' | translate }}</button>
+                <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
 </div>

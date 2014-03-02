@@ -1,10 +1,10 @@
-describe("ClientController", function() {
+describe("ClientController", function () {
     var resourceCallback;
-    beforeEach(function() {
+    beforeEach(function () {
         this.scope = jasmine.createSpyObj("$scope", ['$clients']);
 
         this.resourceFactory = {clientResource: {
-            getAllClients: jasmine.createSpy('clientResource.getAllClients()').andCallFake(function(callback) {
+            getAllClients: jasmine.createSpy('clientResource.getAllClients()').andCallFake(function (callback) {
                 resourceCallback = callback;
             })
         }};
@@ -14,7 +14,7 @@ describe("ClientController", function() {
         this.controller = new mifosX.controllers.ClientController(this.scope, this.resourceFactory, this.paginatorService);
     });
 
-    it("should populate the scope with paginated clients", function() {
+    it("should populate the scope with paginated clients", function () {
         expect(this.paginatorService.paginate).toHaveBeenCalled();
     });
 });

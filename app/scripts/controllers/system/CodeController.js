@@ -1,16 +1,16 @@
-(function(module) {
+(function (module) {
     mifosX.controllers = _.extend(module, {
-        CodeController: function(scope, resourceFactory,location) {
+        CodeController: function (scope, resourceFactory, location) {
             scope.codes = [];
-            resourceFactory.codeResources.getAllCodes(function(data){
+            resourceFactory.codeResources.getAllCodes(function (data) {
                 scope.codes = data;
             });
-            scope.routeTo = function(id){
-                location.path('/viewcode/'+id);
+            scope.routeTo = function (id) {
+                location.path('/viewcode/' + id);
             }
-       }
-     });
-    mifosX.ng.application.controller('CodeController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.CodeController]).run(function($log) {
+        }
+    });
+    mifosX.ng.application.controller('CodeController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CodeController]).run(function ($log) {
         $log.info("CodeController initialized");
     });
 }(mifosX.controllers || {}));

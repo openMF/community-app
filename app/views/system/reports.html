@@ -4,31 +4,34 @@
         <li class="active">{{'label.anchor.managereports' | translate}}</li>
     </ul>
     <div class="pull-right">
-        <a href="#/createreport" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createreport' | translate}}</a>
+        <a href="#/createreport" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createreport'
+            | translate}}</a>
     </div>
 </div>
 <div class="row-fluid" ng-controller="ReportsController">
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbyname' | translate}}">
-	<table class="table">
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px"
+           placeholder="{{'label.input.filterbyname' | translate}}">
+    <table class="table">
         <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.reportname' | translate}}</th>
-                <th>{{'label.heading.reporttype' | translate}}</th>
-                <th>{{'label.heading.reportsubtype' | translate}}</th>
-                <th>{{'label.heading.reportcategory' | translate}}</th>
-                <th>{{'label.heading.corereport' | translate}}</th>
-                <th>{{'label.heading.userreport' | translate}}</th>
-            </tr>
+        <tr class="graybg">
+            <th>{{'label.heading.reportname' | translate}}</th>
+            <th>{{'label.heading.reporttype' | translate}}</th>
+            <th>{{'label.heading.reportsubtype' | translate}}</th>
+            <th>{{'label.heading.reportcategory' | translate}}</th>
+            <th>{{'label.heading.corereport' | translate}}</th>
+            <th>{{'label.heading.userreport' | translate}}</th>
+        </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="report in reports | orderBy:'reportName':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(report.id)"><a href="#/system/viewreport/{{report.id}}">{{report.reportName}}</a></td>
-                <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportType}}</td>
-                <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportSubType}}</td>
-                <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportCategory}}</td>
-                <td class="pointer" data-ng-click="routeTo(report.id)">{{report.coreReport}}</td>
-                <td class="pointer" data-ng-click="routeTo(report.id)">{{report.useReport}}</td>
-            </tr>
+        <tr class="pointer-main" ng-repeat="report in reports | orderBy:'reportName':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(report.id)"><a href="#/system/viewreport/{{report.id}}">{{report.reportName}}</a>
+            </td>
+            <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportType}}</td>
+            <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportSubType}}</td>
+            <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportCategory}}</td>
+            <td class="pointer" data-ng-click="routeTo(report.id)">{{report.coreReport}}</td>
+            <td class="pointer" data-ng-click="routeTo(report.id)">{{report.useReport}}</td>
+        </tr>
         </tbody>
     </table>
 </div>

@@ -1,61 +1,65 @@
-<div class="row-fluid" data-ng-controller="ViewRoleController">	
-	<div ng-show="isDisabled">
-		<ul class="breadcrumb">
-			<li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{'label.anchor.viewrole' | translate}}</li>
-		</ul>
-	</div>
-	<div ng-hide="isDisabled">
-		<ul class="breadcrumb">
-			<li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
-			<li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
-			<li class="active">{{ role.name}}<span class="divider">/</span></li>
-			<li class="active">{{'label.anchor.editrole' | translate}}</li>
-		</ul>
-	</div>
-	<api-validate></api-validate>
-	<form class="well" ng-submit="submit()">
-		<div class="row-fluid">
-			<table width="100%">
-			<tr>
-				<td width="20%">{{'label.heading.name' | translate}}</td>
-				<td width="80%">{{role.name}}</td>
-			</tr>
-			<tr>
-				<td>{{'label.heading.description' | translate}}</td>
-				<td>{{role.description}}</td>
-			</tr>
-		</table>
-	</div>
-	<hr>
-	<div class="pull-right" ng-show="isDisabled">
-		<div class="btn-group">
-			<a data-ng-click="editRoles()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
-		</div>
-	</div>
-	<h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong></h3>
-	<table width="100%">
-		<tr>
-			<td width="15%"  valign="top">
-				<table>
-					<tr ng-repeat="grouping in groupings" ng-class="{graybg: grouping == previousGrouping}">
-						<td><a ng-click="showPermissions(grouping);"><span>{{formatName(grouping)}}</span></a></td>
-					</tr>
-				</table>
-			</td>
-			<td width="85%" valign="top">
-				<table width="100%">
-					<tr ng-repeat="permission in permissions.permissions">
-						<td width="50%"><label for="{{permission.code}}">{{permissionName(permission.code)}}</label></td>
-						<td><input id="{{permission.code}}" type="checkbox" data-ng-model="formData[permission.code]" ng-disabled="isDisabled"></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
-    <div class="offset3" ng-hide="isDisabled">
-        <a class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</a>
-        <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate}}</button>
+<div class="row-fluid" data-ng-controller="ViewRoleController">
+    <div ng-show="isDisabled">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{'label.anchor.viewrole' | translate}}</li>
+        </ul>
     </div>
+    <div ng-hide="isDisabled">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
+            <li class="active">{{ role.name}}<span class="divider">/</span></li>
+            <li class="active">{{'label.anchor.editrole' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="well" ng-submit="submit()">
+        <div class="row-fluid">
+            <table width="100%">
+                <tr>
+                    <td width="20%">{{'label.heading.name' | translate}}</td>
+                    <td width="80%">{{role.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.description' | translate}}</td>
+                    <td>{{role.description}}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="pull-right" ng-show="isDisabled">
+            <div class="btn-group">
+                <a data-ng-click="editRoles()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
+                    'label.button.edit' | translate }}</a>
+            </div>
+        </div>
+        <h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong>
+        </h3>
+        <table width="100%">
+            <tr>
+                <td width="15%" valign="top">
+                    <table>
+                        <tr ng-repeat="grouping in groupings" ng-class="{graybg: grouping == previousGrouping}">
+                            <td><a ng-click="showPermissions(grouping);"><span>{{formatName(grouping)}}</span></a></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="85%" valign="top">
+                    <table width="100%">
+                        <tr ng-repeat="permission in permissions.permissions">
+                            <td width="50%"><label for="{{permission.code}}">{{permissionName(permission.code)}}</label>
+                            </td>
+                            <td><input id="{{permission.code}}" type="checkbox"
+                                       data-ng-model="formData[permission.code]" ng-disabled="isDisabled"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="offset3" ng-hide="isDisabled">
+            <a class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</a>
+            <button type="submit" class="btn btn-primary">{{ 'label.button.save' | translate}}</button>
+        </div>
 </div>

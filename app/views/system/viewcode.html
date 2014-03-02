@@ -30,45 +30,62 @@
         <div class="row">
             <div class="pull-right">
                 <div class="btn-group">
-                    <button type="button" data-ng-click="showEditCode()" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}</button>
-                    <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
-                    <a data-ng-click="delCode()" class="btn btn-warning" ng-show="code.systemDefined == false"><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+                    <button type="button" data-ng-click="showEditCode()" class="btn btn-primary"><i
+                            class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}
+                    </button>
+                    <a href="#/editcode/{{code.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues'
+                        | translate}}</a>
+                    <a data-ng-click="delCode()" class="btn btn-warning" ng-show="code.systemDefined == false"><i
+                            class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
                 </div>
             </div>
         </div>
-        <h3  data-ng-hide="newcode.edit"><strong>{{code.name}}</strong></h3>
+        <h3 data-ng-hide="newcode.edit"><strong>{{code.name}}</strong></h3>
+
         <div data-ng-show="newcode.edit">
             <input type="text" data-ng-model="codename.name">
-            <button type="button" class="btn" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}</button>
-            <button type="button" class="btn btn-primary" data-ng-click="updateCode()">{{'label.button.save' | translate}}</button>
+            <button type="button" class="btn" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary" data-ng-click="updateCode()">{{'label.button.save' |
+                translate}}
+            </button>
             <hr/>
         </div>
         <div>
             <table class="table" ui:sortable>
                 <thead>
-                    <tr>
-                        <th>{{ 'label.heading.name' | translate }}</th>
-                        <th>{{ 'label.heading.position' | translate }}</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>{{ 'label.heading.name' | translate }}</th>
+                    <th>{{ 'label.heading.position' | translate }}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="codevalue in codevalues">
-                        <td>
-                            <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
-                            <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name" type="text"/>
-                        </td>
-                        <td>
-                            <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
-                            <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position" type="text"/>
-                        </td>
-                        <td>
-                            <button data-ng-hide="codevalue.edit" class="btn-primary" type="button" data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.position,codevalue)"><i class="icon-edit icon-white"></i></button>
-                            <button data-ng-show="codevalue.edit" class="btn-primary" type="button" data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' | translate}}</button>
-                            <button data-ng-hide="codevalue.edit" class="btn-warning" type="button" data-ng-click="deleteCodeValue(codevalue.id)"><i class="icon-trash icon-white"></i></button>
-                        </td>
-                    </tr>
+                <tr data-ng-repeat="codevalue in codevalues">
+                    <td>
+                        <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
+                        <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
+                        <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
+                               type="text"/>
+                    </td>
+                    <td>
+                        <button data-ng-hide="codevalue.edit" class="btn-primary" type="button"
+                                data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.position,codevalue)"><i
+                                class="icon-edit icon-white"></i></button>
+                        <button data-ng-show="codevalue.edit" class="btn-primary" type="button"
+                                data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
+                            translate}}
+                        </button>
+                        <button data-ng-hide="codevalue.edit" class="btn-warning" type="button"
+                                data-ng-click="deleteCodeValue(codevalue.id)"><i class="icon-trash icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

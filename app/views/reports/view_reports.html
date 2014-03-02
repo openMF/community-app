@@ -7,21 +7,28 @@
 
     <div>
         <br><br>
-        <input ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{ 'label.input.filterbyname' | translate }}">
-    	<table class="table">
+        <input ng-model="filterText" type="text" class="span marginbottom0px"
+               placeholder="{{ 'label.input.filterbyname' | translate }}">
+        <table class="table">
             <thead>
-                <tr class="graybg">
-                    <th>{{ 'label.heading.name' | translate }}</th>
-                    <th>{{ 'label.heading.type' | translate }}</th>
-                    <th>{{ 'label.heading.category' | translate }}</th>
-                </tr>
+            <tr class="graybg">
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.type' | translate }}</th>
+                <th>{{ 'label.heading.category' | translate }}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr class="pointer-main" ng-repeat="report in reports| orderBy:'report_name':reverse | filter:filterText">
-                    <td class="pointer"><a href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_name}}</a></td>
-                    <td class="pointer"><a href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_type}}</a></td>
-                    <td class="pointer"><a href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_category}}</a></td>
-                </tr>
+            <tr class="pointer-main" ng-repeat="report in reports| orderBy:'report_name':reverse | filter:filterText">
+                <td class="pointer"><a
+                        href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_name}}</a>
+                </td>
+                <td class="pointer"><a
+                        href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_type}}</a>
+                </td>
+                <td class="pointer"><a
+                        href="#/run_report/{{report.report_name}}?reportId={{report.report_id}}&type={{report.report_type}}">{{report.report_category}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
