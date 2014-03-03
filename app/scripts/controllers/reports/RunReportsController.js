@@ -13,6 +13,7 @@
             scope.reportParams = new Array();
             scope.reportDateParams = new Array();
             scope.reqFields = new Array();
+            scope.reportTextParams = new Array();
             scope.reportData = {};
             scope.reportData.columnHeaders = [];
             scope.reportData.data = [];
@@ -58,6 +59,8 @@
                         intializeParams(temp, {});
                     } else if (temp.displayType == 'date') {
                         scope.reportDateParams.push(temp);
+                    } else if (temp.displayType == 'text') {
+                        scope.reportTextParams.push(temp);
                     }
                 }
             });
@@ -194,7 +197,21 @@
                             if (paramDetails.variable == "startDate") tmpStartDate = tmpDate;
                             if (paramDetails.variable == "endDate") tmpEndDate = tmpDate;
                             break;
+                        case "text":
+                            var selectedVal = scope.formData[paramDetails.inputName];
+                            if (selectedVal == undefined || selectedVal == 0) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.parameter.required';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+                            break;
                         default:
+                            console.log(paramDetails.displayType);
                             var errorObj = new Object();
                             errorObj.field = paramDetails.inputName;
                             errorObj.code = 'error.message.report.parameter.invalid';
