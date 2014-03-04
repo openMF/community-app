@@ -1,8 +1,8 @@
-
 'use strict';
 
 module.exports = function(grunt) {
-
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -16,8 +16,7 @@ module.exports = function(grunt) {
     },
     watch: {
         js: {
-            files: ['<%= mifosx.app %>/scripts/{,*/}*.js'],
-            //tasks: ['newer:jshint:all'],
+            files: ['<%= mifosx.app %>/scripts/**/*.js'],
             options: {
                 livereload: true
             }
@@ -30,10 +29,10 @@ module.exports = function(grunt) {
                 livereload: '<%= connect.options.livereload %>'
             },
             files: [
-                '<%= mifosx.app %>/{,*/}*.html',
+                '<%= mifosx.app %>/**/*.html',
                 '<%= mifosx.app %>/{,*/}*.json',
-                '<%= mifosx.app %>/{,*/}*.js',
-                '<%= mifosx.app %>/{,*/}*.css',
+                '<%= mifosx.app %>/**/*.js',
+                '<%= mifosx.app %>/**/*.css',
                 '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
             ]
         }
@@ -42,13 +41,12 @@ module.exports = function(grunt) {
     connect: {
         options: {
             port:  9000,
-            // Change this to '0.0.0.0' to access the server from outside.
-            hostname: 'localhost',
-            livereload: 35729
+            hostname: '0.0.0.0',
+            livereload: 35729,
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
         },
         livereload: {
             options: {
-                open: true,
                 base: [
                     '.tmp',
                     '<%= mifosx.app %>'
@@ -56,13 +54,25 @@ module.exports = function(grunt) {
             }
         }
     },
+    // w3c html calidation
+    validation: {
+        options: {
+            reset: true,
+            relaxerror: ['no document type declaration; will parse without validation', 'document type does not allow element \\"[A-Z]+\\" here']
+        },
+        files: {
+            src: [
+                '<%= mifosx.app  %>/views/{,*/}*.html',
+                '<%= mifosx.app  %>/index.html'
+                ]
+        }
+    },
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
-        node: true,
-        jshintrc: true,
-        reporter:'checkstyle',
-        reporterOutput:'jshint-log.xml'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish'),
+        force: true
       },
       all: ['Gruntfile.js', '<%= mifosx.app %>/scripts/**/*.js']
     },
@@ -312,23 +322,11 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-devcode');
-  grunt.loadNpmTasks('grunt-hashres');
-  grunt.loadNpmTasks('grunt-text-replace');
 
   // Run development server using grunt serve
   grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
-
+  // Validate JavaScript and HTML files
+  grunt.registerTask('validate', ['jshint:all', 'validation']);
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
