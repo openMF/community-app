@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         },
         files: {
             src: [
-                '<%= mifosx.app  %>/views/{,*/}*.html',
+                //'<%= mifosx.app  %>/views/{,*/}*.html', // you can enable to validate all html documents, but it's probably not needed
                 '<%= mifosx.app  %>/index.html'
                 ]
         }
