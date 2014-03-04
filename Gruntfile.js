@@ -331,7 +331,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
-  grunt.registerTask('compile', ['jshint']);
   grunt.registerTask('test', ['karma']);
 
 };
