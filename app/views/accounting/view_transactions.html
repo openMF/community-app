@@ -30,11 +30,65 @@
             </button>
         </div>
     </script>
+    <script type="text/ng-template" id="viewjournalentry.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.viewjournalentry' | translate}}</h3>
+            <table class="modalwidth600">
+                <tr>
+                    <td class="width31">{{'label.input.office' | translate}}</td>
+                    <td>{{transaction.officeName}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.entryid' | translate}}</td>
+                    <td>{{transaction.id}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.transactionid' | translate}}</td>
+                    <td>{{transaction.transactionId}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.transactiondate' | translate}}</td>
+                    <td>{{transaction.transactionDate | DateFormat}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.type' | translate}}</td>
+                    <td>{{transaction.glAccountType.value}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.account' | translate}}</td>
+                    <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                </tr>
+                <tr>
+                    <td>{{transaction.entryType.code | translate}}</td>
+                    <td>{{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}</td>
+                </tr>
+                <tr ng-show="transaction.referenceNumber">
+                    <td>{{'label.input.referencenumber' | translate}}</td>
+                    <td>{{transaction.referenceNumber}}</td>
+                </tr>
+                <tr ng-show="transaction.comments">
+                    <td>{{'label.input.comments' | translate}}</td>
+                    <td>{{transaction.comments}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.createdby' | translate}}</td>
+                    <td>{{transaction.createdByUserName}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.createdon' | translate}}</td>
+                    <td>{{transaction.createdDate | DateFormat}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </script>
     <div class="row-fluid">
         <table class="table">
             <thead>
             <tr class="graybg">
-                <th>{{'label.heading.office' | translate}}</th>
+                <th>{{'label.heading.entryid' | translate}}</th>
                 <th>{{'label.heading.transactiondate' | translate}}</th>
                 <th>{{'label.heading.type' | translate}}</th>
                 <th>{{'label.heading.account' | translate}}</th>
@@ -43,17 +97,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="transaction in transactions">
-                <td>{{transaction.officeName}}</td>
-                <td>{{transaction.transactionDate | DateFormat}}</td>
-                <td>{{transaction.glAccountType.value}}</td>
-                <td>{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
-                <td>
+            <tr class="pointer-main" ng-repeat="transaction in transactions">
+                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
+                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.transactionDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
+                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
+                <td class="pointer" data-ng-click="showTransaction(transaction)">
                     <div ng-show="transaction.entryType.value == 'DEBIT'">
                         {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
                     </div>
                 </td>
-                <td>
+                <td class="pointer" data-ng-click="showTransaction(transaction)">
                     <div ng-show="transaction.entryType.value == 'CREDIT'">
                         {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
                     </div>
