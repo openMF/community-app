@@ -34,6 +34,27 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.showTransaction = function (transaction) {
+                scope.transaction = transaction;
+                $modal.open({
+                    templateUrl: 'viewjournalentry.html',
+                    controller: ViewJournalEntryCtrl,
+                    resolve: {
+                        transaction: function () {
+                            return scope.transaction;
+                        }
+                    }
+                });
+            };
+
+            var ViewJournalEntryCtrl = function ($scope, $modalInstance, transaction) {
+                $scope.transaction = transaction;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             scope.reverseTransaction = function (transactionId) {
 
                 resourceFactory.journalEntriesResource.reverse({transactionId: transactionId}, function (data) {
