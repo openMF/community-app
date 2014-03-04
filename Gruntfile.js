@@ -72,6 +72,7 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish'),
+        reporterOutput:'jshint-log.xml',
         force: true
       },
       all: ['Gruntfile.js', '<%= mifosx.app %>/scripts/**/*.js']
@@ -211,6 +212,7 @@ module.exports = function(grunt) {
           ]
         }]
       },
+        // this won't be necessary after fixing dependencies
         server: {
             expand: true,
             dot: true,
