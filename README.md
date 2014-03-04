@@ -34,7 +34,11 @@ npm install -g grunt-cli
 
 5. Check the backend server HOST settings in the community-app\app\scripts\modules\configuration.js file. If you are connecting to a non local host, then you may need to change the API_URL_OVERRIDE value to *false*.
 
-6. Now open the 'index.html' file in FIREFOX browser. 
+6. To preview the app run
+```
+ grunt serve
+```
+   or open the 'index.html' file in FIREFOX browser.
 
 7. Default username/password: mifos/password. This application will hit the demo server by default.
 
@@ -63,12 +67,13 @@ Grunt tasks are used to automate repetitive tasks like minification, compilation
 
 Following are the tasks integrated.
 
-### Compilation
+### Validate JS and HTML
 
-Compile the JS files to detect errors and potential problems in JavaScript code. All errors output will be written to jshint-log.xml file which get created under project base directory.
+Validate the JS files to detect errors and potential problems in JavaScript code. All errors output will be written to jshint-log.xml file which get created under project base directory.
+Checks the markup validity of HTML files. All errors output will be written to console.
 
 ```
-grunt compile
+grunt validate
 ```
 
 ### Build
@@ -79,6 +84,14 @@ Build the code for production deployment.
 grunt prod
 ```
 
+### Serve
+
+Use this for development.
+Start a static server and open the project in the default browser. The application will hit the demo server.
+
+```
+grunt serve
+```
 
 ## Running the tests
 
