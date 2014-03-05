@@ -55,6 +55,22 @@
                     scope.labelName = 'label.areyousure';
                     scope.showDeleteClient = true;
                     break;
+                case "updatedefaultaccount":
+                    scope.breadcrumbName = 'label.anchor.updatedefaultaccount';
+                    scope.labelName = 'label.input.savingsaccount';
+                    scope.savingsField = false;
+                    resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'}, function (data) {
+                        if (data.savingAccountOptions) {
+                            scope.savingsField = true;
+                            scope.savingAccountOptions = data.savingAccountOptions;
+                            scope.formData.savingsAccountId = scope.savingAccountOptions[0].id;
+                            if(data.savingsAccountId){
+                                scope.formData.savingsAccountId = data.savingsAccountId;
+                            }
+                            
+                        }
+                    });
+                    break;
                 case "acceptclienttransfer":
                     scope.showNoteField = true;
                     break;
@@ -119,6 +135,13 @@
                     delete this.formData.locale;
                     delete this.formData.dateFormat;
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'withdrawTransfer'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "updatedefaultaccount") {
+                    delete this.formData.locale;
+                    delete this.formData.dateFormat;
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'updateSavingsAccount'}, this.formData, function (data) {
                         location.path('/viewclient/' + data.clientId);
                     });
                 }

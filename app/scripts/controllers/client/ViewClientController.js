@@ -42,6 +42,10 @@
                     }
                 }
 
+                if(data.status.value == "Active"){
+                    scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
+                }
+
                 scope.buttonsArray = {
                     options: [
                         {
