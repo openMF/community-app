@@ -21,6 +21,10 @@
                 resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Loan', parameterType: true, genericResultSet: false}, function (data) {
                     scope.reports = scope.getReports(data);
                 });
+            } else if (routeParams.type == 'savings') {
+                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Savings', parameterType: true, genericResultSet: false}, function (data) {
+                    scope.reports = scope.getReports(data);
+                });
             } else if (routeParams.type == 'funds') {
                 resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Fund', parameterType: true, genericResultSet: false}, function (data) {
                     scope.reports = scope.getReports(data);

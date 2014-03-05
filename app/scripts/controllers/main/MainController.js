@@ -123,7 +123,7 @@
                     }
                 }
                 else if (route == 'rep') {
-                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting'];
+                    var temp2 = ['/reports/all', '/reports/clients', '/reports/loans', '/reports/funds', '/reports/accounting', 'reports/savings'];
                     for (var i in temp2) {
                         if (temp2[i] == location.path()) {
                             return true;
