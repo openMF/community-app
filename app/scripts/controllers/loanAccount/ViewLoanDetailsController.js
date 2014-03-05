@@ -137,39 +137,49 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.addloancharge",
-                            icon: "icon-plus-sign"
+                            icon: "icon-plus-sign",
+                            taskPermissionName: 'CREATE_LOANCHARGE'
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok"
+                            icon: "icon-ok",
+                            taskPermissionName: 'APPROVE_LOAN'
                         },
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-edit"
+                            icon: "icon-edit",
+                            taskPermissionName: 'UPDATE_LOAN'
                         },
                         {
                             name: "button.reject",
-                            icon: "icon-remove"
+                            icon: "icon-remove",
+                            taskPermissionName: 'REJECT_LOAN'
                         }
                     ],
                         options: [
                             {
-                                name: "button.assignloanofficer"
+                                name: "button.assignloanofficer",
+                                taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                             },
                             {
-                                name: "button.withdrawnbyclient"
+                                name: "button.withdrawnbyclient",
+                                taskPermissionName: 'WITHDRAW_LOAN'
                             },
                             {
-                                name: "button.delete"
+                                name: "button.delete",
+                                taskPermissionName: 'DELETE_LOAN'
                             },
                             {
-                                name: "button.addcollateral"
+                                name: "button.addcollateral",
+                                taskPermissionName: 'CREATE_COLLATERAL'
                             },
                             {
-                                name: "button.guarantor"
+                                name: "button.guarantor",
+                                taskPermissionName: 'CREATE_GUARANTOR'
                             },
                             {
-                                name: "button.loanscreenreport"
+                                name: "button.loanscreenreport",
+                                taskPermissionName: 'READ_LOAN'
                             }
                         ]
 
@@ -180,26 +190,32 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.assignloanofficer",
-                            icon: "icon-user"
+                            icon: "icon-user",
+                            taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                         },
                         {
                             name: "button.disburse",
-                            icon: "icon-flag"
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSE_LOAN'
                         },
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo"
+                            icon: "icon-undo",
+                            taskPermissionName: 'APPROVALUNDO_LOAN'
                         }
                     ],
                         options: [
                             {
-                                name: "button.addloancharge"
+                                name: "button.addloancharge",
+                                taskPermissionName: 'CREATE_LOANCHARGE'
                             },
                             {
-                                name: "button.guarantor"
+                                name: "button.guarantor",
+                                taskPermissionName: 'CREATE_GUARANTOR'
                             },
                             {
-                                name: "button.loanscreenreport"
+                                name: "button.loanscreenreport",
+                                taskPermissionName: 'READ_LOAN'
                             }
                         ]
 
@@ -210,32 +226,40 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.addloancharge",
-                            icon: "icon-plus-sign"
+                            icon: "icon-plus-sign",
+                            taskPermissionName: 'CREATE_LOANCHARGE'
                         },
                         {
                             name: "button.makerepayment",
-                            icon: "icon-dollar"
+                            icon: "icon-dollar",
+                            taskPermissionName: 'REPAYMENT_LOAN'
                         },
                         {
                             name: "button.undodisbursal",
-                            icon: "icon-undo"
+                            icon: "icon-undo",
+                            taskPermissionName: 'DISBURSALUNDO_LOAN'
                         }
                     ],
                         options: [
                             {
-                                name: "button.waiveinterest"
+                                name: "button.waiveinterest",
+                                taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
                             },
                             {
-                                name: "button.writeoff"
+                                name: "button.writeoff",
+                                taskPermissionName: 'WRITEOFF_LOAN'
                             },
                             {
-                                name: "button.close-rescheduled"
+                                name: "button.close-rescheduled",
+                                taskPermissionName: 'CLOSEASRESCHEDULED_LOAN'
                             },
                             {
-                                name: "button.close"
+                                name: "button.close",
+                                taskPermissionName: 'CLOSE_LOAN'
                             },
                             {
-                                name: "button.loanscreenreport"
+                                name: "button.loanscreenreport",
+                                taskPermissionName: 'READ_LOAN'
                             }
                         ]
 
@@ -244,7 +268,8 @@
                     if (data.canDisburse) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: "button.disburse",
-                            icon: "icon-flag"
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSE_LOAN'
                         });
                     }
                     //loan officer not assigned to loan, below logic
@@ -252,7 +277,8 @@
                     if (!data.loanOfficerName) {
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: "button.assignloanofficer",
-                            icon: "icon-user"
+                            icon: "icon-user",
+                            taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                         });
                     }
                 }
@@ -260,7 +286,8 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.transferFunds",
-                            icon: "icon-exchange"
+                            icon: "icon-exchange",
+                            taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
                         }
                     ]
                     };

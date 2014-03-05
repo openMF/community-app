@@ -69,6 +69,17 @@
                 </select>
             </div>
         </div>
+        <div class="control-group info">
+            <label class="control-label" for="decimalsChoice">{{ 'label.input.decimalplace' | translate }}</label>
+            <select id="decimalsChoice"  class="input-xlarge" ng-model="decimalsChoice">
+                <option value="">{{ 'label.input.no.decimalplaces' | translate }}</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
+        </div>
 
         <span class="offset3 paddedleft120"><a id="run" ng-click="runReport()" class="btn btn-primary control"></i>
             &nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
@@ -136,7 +147,7 @@
                 <tbody>
                 <!-- http://www.anujgakhar.com/2013/06/15/duplicates-in-a-repeater-are-not-allowed-in-angularjs/ -->
                 <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index">
-                    <td ng-repeat="col in row.row track by $index">{{col}}</td>
+                    <td ng-repeat="col in row.row track by $index">{{col | FormatNumber:decimalsChoice}}</td>
                 </tr>
                 </tbody>
             </table>

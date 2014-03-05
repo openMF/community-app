@@ -33,16 +33,16 @@
 <div class="row-fluid">
 <div class="row-fluid primarydiv">
     <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
-        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary"
+        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP' 
            data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{
             'label.button.activate' | translate }}</a>
-        <a href="#/editgroup/{{group.id}}?managecode=1" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
+        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
             'label.button.edit' | translate }}</a>
-        <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" class="btn btn-primary"><i
+        <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" has-permission='CREATE_SAVINGSACCOUNT' class="btn btn-primary"><i
                 class="icon-plus icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
-        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary"><i
+        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary" has-permission='CREATE_LOAN'><i
                 class="icon-plus icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>
-        <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" class="btn btn-primary"><i
+        <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
                 class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
                     <span class="btn-group">
                       <a class="btn btn-primary dropdown-toggle">
@@ -51,23 +51,23 @@
                       </a>
                       <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
                           <li>
-                              <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId">{{
+                              <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
                                   'label.button.assignstaff' | translate }}</a>
                           </li>
                           <li>
-                              <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId">{{
+                              <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{
                                   'label.button.unassignstaff' | translate }}</a>
                           </li>
                           <li>
-                              <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'">{{
+                              <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'" has-permission='DELETE_GROUP'>{{
                                   'label.button.delete' | translate }}</a>
                           </li>
                           <li>
-                              <a href="#/closegroup/{{group.id}}">{{ 'label.button.close' | translate }}</a>
+                              <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
                           </li>
                           <li>
                             <span ng-hide="group.centerId">
-                              <a href="#/attachmeeting/{{group.id}}/groups"
+                              <a href="#/attachmeeting/{{group.id}}/groups" has-permission='CREATE_MEETING' 
                                  data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
                                   translate }}</a>
                             </span>
@@ -306,16 +306,16 @@
 <tab heading="{{ 'label.heading.members' | translate }}">
     <div class="row-fluid">
         <div class="row-fluid primarydiv" data-ng-hide="group.status.value == 'Closed'">
-            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right"><i
+            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
                     class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
-            <a href="#/membermanage/{{group.id}}?managecode=2" class="btn btn-primary pull-right">{{
+            <a href="#/membermanage/{{group.id}}?managecode=2" class="btn btn-primary pull-right" has-permission='DISASSOCIATECLIENTS_GROUP'>{{
                 'label.button.disassociatemember' | translate }}</a>
-            <a href="#/membermanage/{{group.id}}?managecode=1" class="btn btn-primary pull-right">{{
+            <a href="#/membermanage/{{group.id}}?managecode=1" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>{{
                 'label.button.associatemember' | translate }}</a>
-            <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}"
+            <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING'
                data-ng-show="group.collectionMeetingCalendar" class="btn btn-primary pull-right">{{
                 'label.button.attendance' | translate }}</a>
-            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right">{{
+            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>{{
                 'label.button.transferclients' | translate }}</a>
         </div>
     </div>
@@ -336,7 +336,7 @@
         </tbody>
     </table>
 </tab>
-<tab heading="{{ 'label.heading.notes' | translate }}">
+<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE'>
     <br/>
 
     <form>
@@ -347,7 +347,7 @@
 
                 <div class="notewrapper row-fluid">
                         <span class="pull-right noteaddbuttonwrapper">
-                            <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{ 'label.button.add' |
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_GROUPNOTE'>{{ 'label.button.add' |
                                 translate }}
                             </button>
                         </span>
@@ -370,7 +370,7 @@
 <tab heading="{{ 'label.heading.committee' | translate }}">
     <div class="row-fluid">
         <div class="row-fluid primarydiv" data-ng-hide="group.status.value == 'Closed'">
-            <a href="#/addrole/{{group.id}}" class="btn btn-primary pull-right"><i
+            <a href="#/addrole/{{group.id}}" has-permission='ASSIGNROLE_GROUP' class="btn btn-primary pull-right"><i
                     class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
         </div>
     </div>
@@ -389,7 +389,7 @@
             <td><a href="#viewclient/{{member.id}}">{{grouprole.clientName}}</a></td>
             <td>{{grouprole.clientId}}</td>
             <td>
-                <button type="button" class="btn btn-primary" data-ng-hide="group.status.value == 'Closed'"
+                <button type="button" class="btn btn-primary" data-ng-hide="group.status.value == 'Closed'" has-permission='UNASSIGNROLE_GROUP'
                         data-ng-click="delrole(grouprole.id)">{{ 'label.button.unassign' | translate }}
                 </button>
             </td>
@@ -397,14 +397,14 @@
         </tbody>
     </table>
 </tab>
-<tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables"
+<tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_DATATABLE' 
      select="dataTableChange(groupdatatable)">
     <div>
-        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_DATATABLE' 
            ng-click="deleteAll(groupdatatable.registeredTableName, group.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
             | translate}}</a>
                   <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}"
+                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}" has-permission='CREATE_DATATABLE' 
                        class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' |
                         translate}}</a>
                   </span></br>

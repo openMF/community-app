@@ -8,13 +8,13 @@
                 }
                 resourceFactory.cacheResource.get(function (data) {
                     for (var i in data) {
-                        if (data[i].cacheType.id == 2) {
+                        if (data[i].cacheType && data[i].cacheType.id == 2) {
                             var cache = {};
                             cache.name = 'Is Cache Enabled';
                             cache.enabled = data[i].enabled;
+                            scope.configs.push(cache);
                         }
                     }
-                    scope.configs.push(cache);
                 });
             });
 

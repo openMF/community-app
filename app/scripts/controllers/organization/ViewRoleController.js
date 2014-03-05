@@ -34,8 +34,10 @@
                     var permissionData = {};
                     permissionData.permissions = this.formData;
                     resourceFactory.rolePermissionResource.update({roleId: routeParams.id}, permissionData, function (data) {
+                        scope.logout();
                         route.reload();
                         scope.isDisabled = true;
+
                     });
                 };
 

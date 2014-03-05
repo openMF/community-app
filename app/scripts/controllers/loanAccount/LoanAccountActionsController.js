@@ -20,26 +20,31 @@
                     scope.labelName = 'label.input.approvedondate';
                     scope.modelName = 'approvedOnDate';
                     scope.formData[scope.modelName] = new Date();
+                    scope.taskPermissionName = 'APPROVE_LOAN';
                     break;
                 case "reject":
                     scope.title = 'label.heading.rejectloanaccount';
                     scope.labelName = 'label.input.rejectedondate';
                     scope.modelName = 'rejectedOnDate';
                     scope.formData[scope.modelName] = new Date();
+                    scope.taskPermissionName = 'REJECT_LOAN';
                     break;
                 case "withdrawnByApplicant":
                     scope.title = 'label.heading.withdrawloanaccount';
                     scope.labelName = 'label.input.withdrawnondate';
                     scope.modelName = 'withdrawnOnDate';
                     scope.formData[scope.modelName] = new Date();
+                    scope.taskPermissionName = 'WITHDRAW_LOAN';
                     break;
                 case "undoapproval":
                     scope.title = 'label.heading.undoapproveloanaccount';
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'APPROVALUNDO_LOAN';
                     break;
                 case "undodisbursal":
                     scope.title = 'label.heading.undodisburseloanaccount';
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'DISBURSALUNDO_LOAN';
                     break;
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
@@ -59,6 +64,7 @@
                     scope.labelName = 'label.input.disbursedondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
+                    scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
@@ -74,6 +80,7 @@
                     scope.labelName = 'label.input.transactiondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
+                    scope.taskPermissionName = 'REPAYMENT_LOAN';
                     break;
                 case "waiveinterest":
                     scope.modelName = 'transactionDate';
@@ -85,6 +92,7 @@
                     scope.title = 'label.heading.loanwaiveinterest';
                     scope.labelName = 'label.input.interestwaivedon';
                     scope.showAmountField = true;
+                    scope.taskPermissionName = 'WAIVEINTERESTPORTION_LOAN';
                     break;
                 case "writeoff":
                     scope.modelName = 'transactionDate';
@@ -93,6 +101,7 @@
                     });
                     scope.title = 'label.heading.writeoffloanaccount';
                     scope.labelName = 'label.input.writeoffondate';
+                    scope.taskPermissionName = 'WRITEOFF_LOAN';
                     break;
                 case "close-rescheduled":
                     scope.modelName = 'transactionDate';
@@ -101,6 +110,7 @@
                     });
                     scope.title = 'label.heading.closeloanaccountasrescheduled';
                     scope.labelName = 'label.input.closedondate';
+                    scope.taskPermissionName = 'CLOSEASRESCHEDULED_LOAN';
                     break;
                 case "close":
                     scope.modelName = 'transactionDate';
@@ -109,6 +119,7 @@
                     });
                     scope.title = 'label.heading.closeloanaccount';
                     scope.labelName = 'label.input.closedondate';
+                    scope.taskPermissionName = 'CLOSE_LOAN';
                     break;
                 case "unassignloanofficer":
                     scope.title = 'label.heading.unassignloanofficer';
@@ -116,6 +127,7 @@
                     scope.modelName = 'unassignedDate';
                     scope.showNoteField = false;
                     scope.formData[scope.modelName] = new Date();
+                    scope.taskPermissionName = 'REMOVELOANOFFICER_LOAN';
                     break;
                 case "modifytransaction":
                     resourceFactory.loanTrxnsResource.get({loanId: scope.accountId, transactionId: routeParams.transactionId, template: 'true'},
@@ -142,11 +154,13 @@
                     scope.showAmountField = true;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
+                    scope.taskPermissionName = 'ADJUST_LOAN';
                     break;
                 case "deleteloancharge":
                     scope.showDelete = true;
                     scope.showNoteField = false;
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'DELETE_LOANCHARGE';
                     break;
                 case "waivecharge":
                     resourceFactory.LoanAccountResource.get({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, function (data) {
@@ -164,6 +178,7 @@
                     scope.labelName = 'label.input.installment';
                     scope.showNoteField = false;
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'WAIVE_LOANCHARGE';
                     break;
                 case "paycharge":
                     resourceFactory.LoanAccountResource.get({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, command: 'pay'}, function (data) {
@@ -180,6 +195,7 @@
                     scope.showNoteField = false;
                     scope.showDateField = false;
                     scope.paymentDatefield = true;
+                    scope.taskPermissionName = 'PAY_LOANCHARGE';
                     break;
                 case "editcharge":
                     resourceFactory.LoanAccountResource.get({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, function (data) {
@@ -196,6 +212,7 @@
                     scope.title = 'label.heading.editcharge';
                     scope.showNoteField = false;
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'UPDATE_LOANCHARGE';
                     break;
                 case "editdisbursedate":
                     resourceFactory.LoanEditDisburseResource.get({loanId: routeParams.id, disbursementId: routeParams.disbursementId}, function (data) {
@@ -205,6 +222,7 @@
                     scope.title = 'label.heading.editdisbursedate';
                     scope.showNoteField = false;
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'UPDATE_DISBURSEMENTDETAIL';
                     break;
             }
 

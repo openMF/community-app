@@ -11,7 +11,7 @@
                ng-model="newfund"
                placeholder="{{'label.input.newfund' | translate}}"
                type="text"
-                />&nbsp;&nbsp;<a ng-click='addFund()'><i class="icon-plus"></i></a>
+                />&nbsp;&nbsp;<a ng-click='addFund()' has-permission='CREATE_FUND'><i class="icon-plus"></i></a>
          <span ng-show="managefundform.fund.$invalid || funderror">
             <small class="error" ng-show="managefundform.fund.$error.req || funderror">
                 {{ 'label.requiredfield' | translate }}
@@ -26,10 +26,10 @@
                     <input data-ng-show="fund.edit" class="form-control input-xxlarge" data-ng-model="formData[fund.id]"
                            type="text"/>
                     &nbsp;&nbsp;
-                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary"
+                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" has-permission='UPDATE_FUND'
                             data-ng-click="editFund(fund,fund.name,fund.id)" style="margin-top:-10px;"><i
                             class="icon-edit icon-white"></i></button>
-                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button"
+                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" has-permission='UPDATE_FUND'
                             data-ng-click="saveFund(fund.id)" style="margin-top:-10px;">{{'label.button.save' |
                         translate}}
                     </button>

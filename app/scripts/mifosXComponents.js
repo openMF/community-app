@@ -175,6 +175,7 @@ define(['underscore', 'mifosX'], function () {
             'UrlToString',
             'sort',
             'DotRemove',
+            'FormatNumber'
         ],
         directives: [
             'DialogDirective',

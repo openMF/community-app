@@ -6,6 +6,7 @@
             scope.clientId = routeParams.id;
             scope.formData = {};
             scope.restrictDate = new Date();
+            scope.taskPermissionName = 'ALL_FUNCTIONS';
 
             // Transaction UI Related
 
@@ -22,6 +23,7 @@
                     scope.modelName = 'activationDate';
                     scope.showActivationDateField = true;
                     scope.showDateField = false;
+                    scope.taskPermissionName = 'ACTIVATE_CLIENT';
                     break;
                 case "assignstaff":
                     scope.breadcrumbName = 'label.anchor.assignstaff';
@@ -33,6 +35,7 @@
                             scope.formData.staffId = scope.staffOptions[0].id;
                         }
                     });
+                    scope.taskPermissionName = 'ASSIGNSTAFF_CLIENT';
                     break;
                 case "close":
                     scope.labelName = 'label.input.closuredate';
@@ -45,15 +48,18 @@
                         scope.closureReasons = data.closureReasons;
                         scope.formData.closureReasonId = scope.closureReasons[0].id;
                     });
+                    scope.taskPermissionName = 'CLOSE_CLIENT';
                     break;
                 case "delete":
                     scope.breadcrumbName = 'label.anchor.delete';
                     scope.labelName = 'label.areyousure';
                     scope.showDeleteClient = true;
+                    scope.taskPermissionName = 'DELETE_CLIENT';
                     break;
                 case "unassignstaff":
                     scope.labelName = 'label.areyousure';
                     scope.showDeleteClient = true;
+                    scope.taskPermissionName = 'UNASSIGNSTAFF_CLIENT';
                     break;
                 case "updatedefaultaccount":
                     scope.breadcrumbName = 'label.anchor.updatedefaultaccount';
@@ -73,12 +79,15 @@
                     break;
                 case "acceptclienttransfer":
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'ACCEPTTRANSFER_CLIENT';
                     break;
                 case "rejecttransfer":
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'REJECTTRANSFER_CLIENT';
                     break;
                 case "undotransfer":
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'WITHDRAWTRANSFER_CLIENT';
                     break;
             }
 

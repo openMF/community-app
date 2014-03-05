@@ -221,7 +221,7 @@
                     }),
                     codeValueResource: defineResource(apiVer + "/codes/:codeId/codevalues/:codevalueId", {codeId: '@codeId', codevalueId: '@codevalueId'}, {
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT', params: {}, isArray: true }
+                        update: { method: 'PUT', params: {} }
                     }),
                     holResource: defineResource(apiVer + "/holidays", {}, {
                         getAllHols: {method: 'GET', params: {}, isArray: true}

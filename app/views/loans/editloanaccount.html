@@ -281,7 +281,7 @@
             <tr ng-repeat="charge in charges">
                 <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                 <td>{{charge.chargeCalculationType.value}}</td>
-                <td><input id="{{charges[$index].amount}}" class="input-small" type="text" ng-model="charge.amount"
+                <td><input id="{{charges[$index].amount}}" class="input-small" type="text" ng-model="charge.amountOrPercentage"
                            placeholder="{{'label.input.amount' | translate}}"></td>
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td>
@@ -376,7 +376,7 @@
 </div>
 <div class="offset6">
     <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button id="save" type="submit" class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
+    <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_LOAN' ng-show="loanaccountinfo">{{'label.button.save' |
         translate}}
     </button>
 </div>

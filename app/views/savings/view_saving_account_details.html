@@ -18,7 +18,7 @@
         <div class="pull-right">
             <div class="btn-group">
               <span ng-repeat="button in buttons.singlebuttons">
-                  <a ng-show="button.name"
+                  <a ng-show="button.name" has-permission='{{taskPermissionName}}' 
                      ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
                      class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
                       translate}}</a>
@@ -30,8 +30,7 @@
                   </a>
                   <ul class="dropdown dropdown-menu">
                       <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                          <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)">{{'label.'+button.name
-                              | translate}}</a>
+                          <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
                       </li>
                   </ul>
               </span>
