@@ -95,6 +95,12 @@
                     href: "#/client",
                     subhref: "assignstaff",
                     icon: "icon-user"
+                },
+                "Update Saving Account": {
+                    name: "label.button.updatedefaultsavings",
+                    href: "#/client",
+                    subhref: "updatedefaultaccount",
+                    icon: "icon-edit"
                 }
             }
         }
