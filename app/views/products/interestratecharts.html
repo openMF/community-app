@@ -1,0 +1,45 @@
+<div ng-controller="InterestRateChartController">
+  <div>
+    <ul class="breadcrumb">
+      <li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
+      <li><a href="{{'#/' + productsLink }}">{{'label.anchor.' + productsLink  | translate}}</a> <span
+              class="divider">/</span></li>
+      <li><a href="#/{{viewProductLink}}/{{productId}}">{{productName}}</a> <span class="divider">/</span></li>
+      <li class="active">{{'label.anchor.interestratecharts' | translate}}</li>
+    </ul>
+    <div class="pull-right">
+      <a href="#/createinterestratechart/{{productId}}/{{productName}}/{{productType}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createinterestratechart'
+        | translate}}</a>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <legend>{{'label.heading.interestratecharts' | translate}}</legend>
+
+    <div ng-repeat="chart in charts | orderBy:'fromDate':!reverse">
+      <span>{{'label.heading.interestratechart.valid.from' | translate}} : {{chart.fromDate | DateFormat}}</span>
+      &nbsp;&nbsp;<span>{{'label.heading.interestratechart.valid.to' | translate}} : {{chart.endDate | DateFormat}}
+    </span>
+        <div class="pull-right">
+          <div class="btn-group">
+            <a href="#/editinterestratecharts/{{chart.id}}/{{productId}}/{{productName}}/{{productType}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+          </div>
+        </div>
+      <table width="98%" class="table table-bordered">
+        <tr class="bottomborder graybg">
+          <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+          <td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+          <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+          <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+        </tr>
+        <tr ng-repeat="chartSlab in chart.chartSlabs">
+          <td>{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
+          <td>{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+          <td>{{chartSlab.annualInterestRate}}</td>
+          <td>{{chartSlab.description}}</td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+  </div>
+</div>

@@ -121,11 +121,24 @@
                     }),
                     chargeTemplateResource: defineResource(apiVer + "/charges/template", {
                         get: {method: 'GET', params: {}, isArray: true},
-                        getChargeTemplates: {method: 'GET', params: {}},
+                        getChargeTemplates: {method: 'GET', params: {}}
                     }),
                     savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId/:resourceType", {savingProductId: '@savingProductId', resourceType: '@resourceType'}, {
                         getAllSavingProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
+                    }),
+                    fixedDepositProductResource: defineResource(apiVer + "/fixeddepositproducts/:productId/:resourceType", {productId:'@productId', resourceType:'@resourceType'}, {
+                        getAllFixedDepositProducts: {method: 'GET', params: {}, isArray:true},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    recurringDepositProductResource: defineResource(apiVer + "/recurringdepositproducts/:productId/:resourceType", {productId:'@productId', resourceType:'@resourceType'}, {
+                        getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray:true},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    interestRateChartResource: defineResource(apiVer + "/interestratecharts/:chartId/:resourceType", {chartId:'@chartId', resourceType:'@resourceType'}, {
+                        getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template'} , isArray:true},
+                        update: {method: 'PUT', params: {}},
+                        getAllInterestRateCharts: {method: 'GET', params: {productId:'@productId'}, isArray:true}
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
                         getAllLoans: {method: 'GET', params: {}},
@@ -248,6 +261,26 @@
                     savingsTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId: '@savingsId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {savingsId: '@savingsId', transactionId: '@transactionId'}}
                     }),
+                    fixedDepositAccountResource: defineResource(apiVer + "/fixeddepositaccounts/:accountId/:resourceType", {accountId:'@accountId', resourceType:'@resourceType'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT'}
+                    }),
+                    fixedDepositAccountTemplateResource: defineResource(apiVer + "/fixeddepositaccounts/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    fixedDepositTrxnsTemplateResource: defineResource(apiVer + "/fixeddepositaccounts/:savingsId/transactions/template", {savingsId:'@savingsId'}, {
+                        get: {method: 'GET', params: {savingsId:'@savingsId'}}
+                    }),
+                    recurringDepositAccountResource: defineResource(apiVer + "/recurringdepositaccounts/:accountId/:resourceType", {accountId:'@accountId', resourceType:'@resourceType'}, {
+                          get: {method: 'GET', params: {}},
+                          update: {method: 'PUT'}
+                    }),
+                    recurringDepositAccountTemplateResource: defineResource(apiVer + "/recurringdepositaccounts/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    recurringDepositTrxnsTemplateResource: defineResource(apiVer + "/recurringdepositaccounts/:savingsId/transactions/template", {savingsId:'@savingsId'}, {
+                        get: {method: 'GET', params: {savingsId:'@savingsId'}}
+                    }),
                     accountTransferResource: defineResource(apiVer + "/accounttransfers/:transferId", {transferId: '@transferId'}, {
                         get: {method: 'GET', params: {transferId: '@transferId'}}
                     }),
@@ -273,7 +306,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getJobDetails: {method: 'GET', params: {}},
                         getJobHistory: {method: 'GET', params: {}},
-                        update: {method: 'PUT', params: {}},
+                        update: {method: 'PUT', params: {}}
                     }),
                     schedulerResource: defineResource(apiVer + "/scheduler", {}, {
                         get: {method: 'GET', params: {}}
@@ -292,7 +325,7 @@
                     templateResource: defineResource(apiVer + "/templates/:templateId/:resourceType", {templateId: '@templateId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getTemplateDetails: {method: 'GET', params: {}},
-                        update: {method: 'PUT', params: {}},
+                        update: {method: 'PUT', params: {}}
                     }),
                     loanProductTemplateResource: defineResource(apiVer + "/loanproducts/template", {}, {
                         get: {method: 'GET', params: {}}
@@ -312,7 +345,6 @@
                         get: {method: 'GET', params: {}},
                         search: {method: 'GET', params: {}, isArray: true}
                     })
-
                 };
             }];
         }

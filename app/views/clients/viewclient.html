@@ -52,6 +52,12 @@
                           <li>
                               <a data-ng-click="uploadPic()">{{'label.button.uploadpic' | translate}}</a>
                           </li>
+                          <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
+                              <a href="#/newclientfixeddepositaccount/{{client.id}}">{{'label.newfixeddepositaccount' | translate}}</a>
+                          </li>
+                          <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
+                              <a href="#/newclientrecurringdepositaccount/{{client.id}}">{{'label.newrecurringdepositaccount' | translate}}</a>
+                          </li>
                       </ul>
                   </span>
     </div>
@@ -266,11 +272,11 @@
             </tr>
             <tr class="pointer-main"
                 ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed">
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountNo}}</td>
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance}}
                 </td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)"><i
                         class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{savingaccount.status.value}}
                 </td>
             </tr>
@@ -284,12 +290,12 @@
             </tr>
             <tr class="pointer-main"
                 ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed">
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountNo}}</td>
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
                     <i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{savingaccount.status.value}}
                 </td>
-                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">
+                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
                     <span data-ng-show="savingaccount.timeline.closedOnDate">{{savingaccount.timeline.closedOnDate | DateFormat}}</span>
                 </td>
             </tr>
