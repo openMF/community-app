@@ -1,3 +1,4 @@
+
 (function (mifosX) {
     var defineHeaders = function ($httpProvider, $translateProvider, ResourceFactoryProvider, HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL) {
         var mainLink = getLocation(window.location.href);
@@ -19,7 +20,6 @@
                 $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = domains[0];
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
                 console.log("other than demo server", domains[0]);
-
             }
             host = "https://" + mainLink.hostname;
             console.log('hostname from mainLink = ', host);

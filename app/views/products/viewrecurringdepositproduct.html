@@ -1,0 +1,246 @@
+<div class="row paddedleft" ng-controller="ViewRecurringDepositProductController">
+	<div id="viewlptop">
+		<div class="paddedbottom10">
+			<ul class="breadcrumb">
+				<li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
+		        <li><a href="#/recurringdepositproducts">{{'label.anchor.recurringdepositproducts' | translate}}</a> <span class="divider">/</span></li>
+		        <li class="active">{{depositproduct.name}}</li>
+		    </ul>
+		</div>
+	</div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <a href="#/editrecurringdepositproduct/{{depositproduct.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+        </div>
+    </div>
+	<div>
+		<legend>{{depositproduct.name}}</legend>
+		<table  width="100%">
+			<tr>
+	        	<td>
+	        		<a name="test" class="old-syle-anchor">&nbsp;</a>
+	        	</td>
+	        </tr>
+			<tr class="bottomborder">
+				<td colspan="4">	
+					<strong>{{'label.heading.details' | translate}}</strong>
+				</td>
+			</tr>
+			<tr class="toppadding">
+				<td>{{'label.heading.description' | translate}}</td>
+				<td colspan="3">{{depositproduct.description}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.shortname' | translate}} :</td>
+				<td colspan="3">{{depositproduct.shortName}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td colspan="4"><strong>{{'label.heading.items' | translate}}</strong></td></tr>
+			<tr class="toppadding">
+				<td>{{'label.heading.currency' | translate}}</td>
+				<td colspan="3">{{depositproduct.currency.name}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.decimalplaces' | translate}}</td>
+				<td colspan="3">{{depositproduct.currency.decimalPlaces}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.currencyinmultiplesof' | translate}}</td>
+				<td colspan="3">{{depositproduct.currency.inMultiplesOf}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.nominalannualinterestrate' | translate}}</td>
+				<td colspan="3">{{depositproduct.nominalAnnualInterestRate}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.interestcompoundingperiod' | translate}}</td>
+				<td colspan="3">{{depositproduct.interestCompoundingPeriodType.value}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.interestpostingperiod' | translate}}</td>
+				<td colspan="3">{{depositproduct.interestPostingPeriodType.value}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.interestcalculatedusing' | translate}}</td>
+				<td colspan="3">{{depositproduct.interestCalculationType.value}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.daysinyears' | translate}}</td>
+				<td colspan="3">{{depositproduct.interestCalculationDaysInYearType.value}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td colspan="4"><strong>{{'label.heading.settings' | translate}}</strong></td></tr>
+			<tr class="toppadding">
+				<td>{{'label.heading.minimumopeningbalance' | translate}}</td>
+				<td colspan="3">{{depositproduct.minRequiredOpeningBalance}}</td>
+			</tr>
+			<tr>
+				<td>{{'label.heading.lockinPeriodFrequency' | translate}}</td>
+				<td>{{depositproduct.lockinPeriodFrequency}} {{depositproduct.lockinPeriodFrequencyType.value}}</td>&nbsp;
+			</tr>
+      <tr>
+        <td>{{'label.heading.minimumdepositterm' | translate}}</td>
+        <td>{{depositproduct.minDepositTerm}}</td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.maximumdepositterm' | translate}}</td>
+        <td>{{depositproduct.maxDepositTerm}}</td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.deposittermtype' | translate}}</td>
+        <td>{{depositproduct.depositTermType.value}}</td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.inmultiplesofdeposit' | translate}}</td>
+        <td>{{depositproduct.inMultiplesOfDepositTerm}}  -  {{depositproduct.inMultiplesOfDepositTermType.value}}</td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.recurringdeposittype' | translate}}</td>
+        <td>{{depositproduct.recurringDepositType.value}} </td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.recurringdepositfrequency' | translate}}</td>
+        <td>Every &nbsp; &nbsp; &nbsp; {{depositproduct.recurringDepositFrequency}} &nbsp; &nbsp; {{depositproduct.recurringDepositFrequencyType.value}}</td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.interestfreeperiodapplicable' | translate}}</td>
+        <td>from &nbsp; {{depositproduct.interestFreeFromPeriod}} &nbsp;&nbsp; - {{depositproduct.interestFreeToPeriod}} &nbsp; &nbsp; {{depositproduct.interestFreePeriodFrequencyType.value}}</td>
+      </tr>
+      <tr >
+        <td>{{'label.heading.preclosurepenalapplicable' | translate}}</td>
+        <td>{{depositproduct.preClosurePenalInterest}} &nbsp; &nbsp; % &nbsp; &nbsp; On &nbsp;&nbsp; {{depositproduct.preClosurePenalInterestOnType.value}}</td>
+      </tr>
+			<tr>
+			    <td colspan="4"><br/></td>
+			</tr>
+      <tr class="bottomborder"><td colspan="4"><strong>{{'label.heading.interestchart' | translate}}</strong></td></tr>
+      <tr>
+        <td colspan="4">
+          <div class="pull-right">
+              <a href="#/interestratecharts/{{depositproduct.id}}/{{depositproduct.name}}/recurringdepositproduct">{{'label.anchor.interestratechartviewedit' | translate}}</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{'label.heading.interestratechart.valid.from' | translate}} : {{depositproduct.activeChart.fromDate | DateFormat}}</td>
+        <td>{{'label.heading.interestratechart.valid.to' | translate}} : {{depositproduct.activeChart.endDate | DateFormat}}</td>&nbsp;
+      </tr>
+      <tr class="bottomborder graybg">
+        <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+        <td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+        <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+        <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+      </tr>
+      <tr ng-repeat="chartSlabs in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
+        <td>{{chartSlabs.fromPeriod}} - {{chartSlabs.toPeriod}} {{chartSlabs.periodType.value}}</td>
+        <td>{{chartSlabs.amountRangeFrom}} - {{chartSlabs.amountRangeTo}}</td>
+        <td>{{chartSlabs.annualInterestRate}}</td>
+        <td>{{chartSlabs.description}}</td>
+      </tr>
+      <tr>
+        <td colspan="4"><br/></td>
+      </tr>
+      <tr class="bottomborder">
+			    <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
+			</tr>
+			<tr class="bottomborder graybg">
+			    <td>{{'label.heading.name' | translate}}</td>
+			    <td>{{'label.heading.type' | translate}}</td>
+			    <td>{{'label.heading.amount' | translate}}</td>
+			    <td>{{'label.heading.collectedon' | translate}}</td>
+			</tr>
+			<tr ng-repeat="charge in depositproduct.charges">
+			    <td>{{charge.name}}</td>
+			    <td>{{charge.chargeCalculationType.value}}</td>
+			    <td>{{charge.amount}}</td>
+			    <td>{{charge.chargeTimeType.value}}</td>
+			</tr>
+			<tr><td colspan="4"><br/></td></tr>
+			<tr class="bottomborder"><td><strong>{{'label.heading.accounting' | translate}}</strong></td><td colspan="3"><span ng-hide="hasAccounting">{{'label.none' | translate}}</span></td></tr>
+			<tr>
+				<td colspan="4">
+					<table width="100%" ng-show="hasAccounting">
+						<tr class="toppadding">
+							<td>{{'label.heading.savingsreference' | translate}}({{'label.heading.assets' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.savingsReferenceAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.savingscontrol' | translate}}({{'label.heading.liabilities' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.savingsControlAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.transfersinsuspenpense' | translate}}({{'label.heading.liabilities' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.interestOnSavingsAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.incomefromfee' | translate}}({{'label.heading.income' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.incomeFromFeeAccount.name}}</td>
+						</tr>
+						<tr>
+							<td>{{'label.heading.incomefrompenalties' | translate}}({{'label.heading.income' | translate}})</td>
+							<td colspan="3">{{depositproduct.accountingMappings.incomeFromPenaltyAccount.name}}</td>
+						</tr>
+					    
+						<tr><td colspan="4"><br/></td></tr>
+						<tr>
+							<td>
+								<strong>{{'label.heading.advancedaccountingrules' | translate}}</strong>
+							</td>
+						</tr>
+
+						<tr class="toppadding bottomborder"><td colspan="4">{{'label.heading.configurefundsourcesforpaymentchannels' | translate}}</td></tr>
+				        <tr class="bottomborder graybg">
+				            <td>{{'label.heading.paymenttype' | translate}}</td>
+				            <td colspan="3">{{'label.heading.fundsource' | translate}}</td>
+				        </tr>
+				        <tr ng-repeat="paymentChannel in depositproduct.paymentChannelToFundSourceMappings">
+				            <td>{{paymentChannel.paymentType.name}}</td>
+                			<td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
+				        </tr>
+				        <tr>
+			                <td colspan="4"></td>
+			            </tr>
+			            <tr class="toppadding bottomborder">
+			                <td colspan="4">{{'label.heading.feestospecificincome' | translate}}</td>
+			            </tr>
+			            <tr class="bottomborder graybg">
+			                <td>{{'label.heading.fees' | translate}}</td>
+			                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+			            </tr>
+			            <tr ng-repeat="feeToIncomeAccount in depositproduct.feeToIncomeAccountMappings">
+			                <td>{{feeToIncomeAccount.charge.name}}</td>
+			                <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}</td>
+			            </tr>
+			            <tr>
+			                <td colspan="4"></td>
+			            </tr>
+			            <tr class="toppadding bottomborder">
+			                <td colspan="4">{{'label.heading.penaltiesspecifictoincomeacc' | translate}}</td>
+			            </tr>
+			            <tr class="bottomborder graybg">
+			                <td>{{'label.heading.penalty' | translate}}</td>
+			                <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+			            </tr>
+			            <tr ng-repeat="penaltyToIncomeAccount in depositproduct.penaltyToIncomeAccountMappings">
+			                <td>{{penaltyToIncomeAccount.charge.name}}</td>
+			                <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}</td>
+			            </tr>
+
+				    </table>
+		    	</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+				</td>
+				<td class="pull-right">
+					<a ng-click="scrollto('viewlptop')"><i class="icon-upload"></i>{{'label.button.top' | translate}}</a>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</div>

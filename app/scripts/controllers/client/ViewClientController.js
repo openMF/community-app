@@ -11,8 +11,14 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
-            scope.routeToSaving = function (id) {
-                location.path('/viewsavingaccount/' + id);
+            scope.routeToSaving = function (id, depositTypeCode) {
+                if (depositTypeCode === "depositAccountType.savingsDeposit"){
+                    location.path('/viewsavingaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.fixedDeposit"){
+                    location.path('/viewfixeddepositaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.recurringDeposit"){
+                    location.path('/viewrecurringdepositaccount/' + id);
+                }
             };
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
@@ -26,7 +32,6 @@
                             scope.image = imageData.data;
                         });
                 }
-
                 var clientStatus = new mifosX.models.ClientStatus()
 
                 if (clientStatus.statusKnown(data.status.value)) {
