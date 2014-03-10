@@ -1,50 +1,50 @@
 <div ng-controller="ClientActionsController">
   <div>
     <ul class="breadcrumb">
-      <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-      <li><a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span></li>
+      <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> </li>
+      <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> </li>
       <li class="active">{{breadcrumbName | translate}}</li>
     </ul>
   </div>
   <api-validate></api-validate>
   <form name="clientactionform" novalidate="" class="form-horizontal well" ng-submit="submit()">
-      <div class="control-group" ng-show="showDateField">
-        <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
-        <div class="controls">
-          <input  type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
+      <div class="form-group" ng-show="showDateField">
+        <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+        <div class="col-sm-3">
+          <input type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate" class="form-control">
         </div>
       </div>
-      <div class="control-group" ng-show="showActivationDateField">
-        <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
-        <div class="controls">
-          <input  type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="mindate" max="restrictDate"/>
+      <div class="form-group" ng-show="showActivationDateField">
+        <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+        <div class="col-sm-3">
+          <input type="date" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName" ng-model="formData[modelName]" min="mindate" max="restrictDate" class="form-control">
         </div>
       </div>
-      <div class="control-group" ng-show="closureReasonField">
-        <label class="control-label">{{labelNameClosurereason | translate}}<span class="required">*</span></label>
-        <div class="controls">
-          <select id="closureReasonId" ng-model="formData.closureReasonId"  ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}">
+      <div class="form-group" ng-show="closureReasonField">
+        <label class="control-label col-sm-2">{{labelNameClosurereason | translate}}<span class="required">*</span></label>
+        <div class="col-sm-3">
+          <select id="closureReasonId" ng-model="formData.closureReasonId" ng-options="closureReason.id as closureReason.name for closureReason in closureReasons" value="{{closureReason.id}}" class="form-control">
           </select>
         </div>
       </div>
 
-      <div class="control-group" ng-show="staffField">
-        <label class="control-label">{{labelName | translate}}<span class="required">*</span></label>
-        <div class="controls">
-          <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
+      <div class="form-group" ng-show="staffField">
+        <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+        <div class="col-sm-3">
+          <select id="staffId" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}" class="form-control">
           </select>
         </div>
       </div>
 
-      <div class="control-group" ng-show="showNoteField">
-        <label class="control-label" for="note">{{ 'label.note' | translate}}</label>
-        <div class="controls">
+      <div class="form-group" ng-show="showNoteField">
+        <label class="control-label col-sm-2" for="note">{{ 'label.note' | translate}}</label>
+        <div class="col-sm-3">
           <textarea rows="2" id="note" ng-model="formData.note"></textarea>
         </div>
       </div>
 
-      <div class="offset3" ng-show="!showDeleteClient">
-        <button id="cancel" type="reset" ng-click="cancel()" class="btn">{{'label.button.cancel' | translate}}</button>
+      <div class="col-lg-offset-3" ng-show="!showDeleteClient">
+        <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
         <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
       </div>		
   </form>

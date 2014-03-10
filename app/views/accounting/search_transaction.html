@@ -1,47 +1,52 @@
 <div ng-controller="SearchTransactionController">
     <div>
       <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> </li>
         <li class="active">{{'label.anchor.searchjournalentries' | translate}}</li>
       </ul>
     </div><br>
-    <div class="row-fluid" >
-        <span class="input-append grpinputicons" >
-                <input ng-model="formData.transactionId" type="text" placeholder="{{'label.input.searchbytransaction' | translate}}" />
-                <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i class="icon-chevron-down"></i></a></span>
-                <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
-        </span>
+    <div class="form-inline">
+        <div class="form-group">
+            <span class="input-append grpinputicons">
+                <input ng-model="formData.transactionId" type="text" placeholder="{{'label.input.searchbytransaction' | translate}}" class="form-control">
+                <span><button ng-click="isCollapsed = !isCollapsed" class="btn control btn-default"><i class="icon-chevron-down"></i></button></span>
+                <button ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i></button>
+            </span>
+        </div>
     </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
-        <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
+        <br><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
         <div>
-            <label>{{'label.input.accountname' | translate}}</label>
-            <input ng-autofocus="true" ng-model="formData.glAccount" type="text" placeholder="Account Name" autocomplete="off" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" />
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.office' | translate }}</label>
-                <div class="controls">
-                  <select ng-model="formData.officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+            <div class="form-group">
+                <label>{{'label.input.accountname' | translate}}</label>
+                <input ng-autofocus="true" ng-model="formData.glAccount" type="text" placeholder="Account Name" autocomplete="off" typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>{{ 'label.input.office' | translate }}</label>
+                  <select ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}" class="form-control">
                       <option style="display:none" value="">{{'label.selectoffice' | translate}}</option>
                   </select>
-                </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.additionalfilter' | translate }}</label>
-                <div class="controls">
-                  <select ng-model="formData.manualEntriesOnly"  ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
+            <div class="form-group">
+                <label>{{ 'label.input.additionalfilter' | translate }}</label>
+                  <select ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}" class="form-control">
                       <option style="display:none" value="">{{'label.selectfilter' | translate}}</option>
                   </select>
                 </div>
             </div>
-            <label>{{ 'label.input.fromdate' | translate }}</label>
-            <input class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" readonly />
-            <label>{{ 'label.input.todate' | translate }}</label>
-            <input class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" readonly /><br>
+            <div class="form-group">
+                <label>{{ 'label.input.fromdate' | translate }}</label>
+                <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" readonly="">
+            </div>
+            <div class="form-group">
+                <label>{{ 'label.input.todate' | translate }}</label>
+                <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" readonly="">
+            </div>
             <span><a ng-click="searchTransaction()" class="btn btn-primary control"><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
         </div>
     </div>
 
-    <div ng-show="displayResults" class="row-fluid">
+    <div ng-show="displayResults" class="row">
     	<table class="table">
             <thead>
                 <tr class="graybg">
@@ -79,8 +84,8 @@
             </tbody>
         </table>
         <ul class="pager">
-            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-            <li class="next" ><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">← {{'label.button.previous' | translate}}</a></li>
+            <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} →</a></li>
         </ul>
     </div>
 </div>

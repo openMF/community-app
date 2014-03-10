@@ -6,72 +6,72 @@
         <li data-ng-show="groupName">/&nbsp;{{groupName}}</li>
         <li data-ng-show="clientName">/&nbsp;{{clientName}}</li>
     </ul>
-    <input ng-model="filterText" type="text" class="span marginbottom3px" placeholder="{{'label.input.filterbyname' | translate}}"/>
-    <div class="span4">
+    <input ng-model="filterText" type="text" class="span form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <div class="marginbuttontop16px col-sm-4 col-md-4">
         <div>
             <div>
-                <button type="button" class="collapse-header-main" data-ng-click="collapseOthers()"><strong>{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pull-right"><i class="icon-chevron-up"  data-ng-show="!isCollapsed"></i><i class="icon-chevron-down"  data-ng-show="isCollapsed"></i></span></button>
+                <button type="button" class="collapse-header-main" data-ng-click="collapseOthers()"><strong>{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pull-right"><i class="icon-chevron-up" data-ng-show="!isCollapsed"></i><i class="icon-chevron-down" data-ng-show="isCollapsed"></i></span></button>
             </div>
             <div collapse="isCollapsed">
                 <table class="table table-striped">
-                    <tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selectedOffice}">
-                        <td><a ng-click="officeSelected(office.id,office.name)" >{{office.name}}</a></td>
+                    <tbody><tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selectedOffice}">
+                        <td><a ng-click="officeSelected(office.id,office.name)">{{office.name}}</a></td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
         </div>
         <div>
             <div>
-                <button type="button" class="collapse-header" data-ng-click="collapseOfficerOthers()"><strong>{{'label.button.loanofficers' | translate}}<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong><span class="pull-right"><i class="icon-chevron-up"  data-ng-show="!officerCollapsed"></i><i class="icon-chevron-down"  data-ng-show="officerCollapsed"></i></span></button>
+                <button type="button" class="collapse-header" data-ng-click="collapseOfficerOthers()"><strong>{{'label.button.loanofficers' | translate}}<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong><span class="pull-right"><i class="icon-chevron-up" data-ng-show="!officerCollapsed"></i><i class="icon-chevron-down" data-ng-show="officerCollapsed"></i></span></button>
             </div>
             <div collapse="officerCollapsed">
                 <table class="table table-striped">
-                    <tr ng-repeat="staff in staffs  | filter:filterText" ng-class="{graybg: staff.id == selectedStaff}">
-                        <td><a ng-click="staffSelected(staff.id,staff.displayName)" >{{staff.displayName}}</a></td>
+                    <tbody><tr ng-repeat="staff in staffs  | filter:filterText" ng-class="{graybg: staff.id == selectedStaff}">
+                        <td><a ng-click="staffSelected(staff.id,staff.displayName)">{{staff.displayName}}</a></td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
         </div>
         <div>
             <div>
-                <button type="button" class="collapse-header" data-ng-click="collapseCenterOthers()"><strong>{{'label.button.centers' | translate}}<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong><span class="pull-right"><i class="icon-chevron-up"  data-ng-show="!centerCollapsed"></i><i class="icon-chevron-down"  data-ng-show="centerCollapsed"></i></span></button>
+                <button type="button" class="collapse-header" data-ng-click="collapseCenterOthers()"><strong>{{'label.button.centers' | translate}}<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong><span class="pull-right"><i class="icon-chevron-up" data-ng-show="!centerCollapsed"></i><i class="icon-chevron-down" data-ng-show="centerCollapsed"></i></span></button>
             </div>
             <div collapse="centerCollapsed">
                 <table class="table table-striped">
-                    <tr ng-repeat="center in centers  | filter:filterText">
-                        <td><a ng-click="centerSelected(center.id,center.name)" >{{center.name}}</a></td>
+                    <tbody><tr ng-repeat="center in centers  | filter:filterText">
+                        <td><a ng-click="centerSelected(center.id,center.name)">{{center.name}}</a></td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
         </div>
         <div>
             <div>
-                <button type="button" class="collapse-header" data-ng-click="collapseGroupOthers()"><strong>{{'label.button.groups' | translate}}<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong><span class="pull-right"><i class="icon-chevron-up"  data-ng-show="!groupCollapsed"></i><i class="icon-chevron-down"  data-ng-show="groupCollapsed"></i></span></button>
+                <button type="button" class="collapse-header" data-ng-click="collapseGroupOthers()"><strong>{{'label.button.groups' | translate}}<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong><span class="pull-right"><i class="icon-chevron-up" data-ng-show="!groupCollapsed"></i><i class="icon-chevron-down" data-ng-show="groupCollapsed"></i></span></button>
             </div>
             <div collapse="groupCollapsed">
                 <table class="table table-striped">
-                    <tr ng-repeat="group in groups  | filter:filterText">
-                        <td><a ng-click="groupSelected(group.id,group.name)" >{{group.name}}</a></td>
+                    <tbody><tr ng-repeat="group in groups  | filter:filterText">
+                        <td><a ng-click="groupSelected(group.id,group.name)">{{group.name}}</a></td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
         </div>
         <div>
             <div>
-                <button type="button" class="collapse-header" data-ng-click="collapseclientOthers()"><strong>{{'label.button.clients' | translate}}<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong><span class="pull-right"><i class="icon-chevron-up"  data-ng-show="!clientCollapsed"></i><i class="icon-chevron-down"  data-ng-show="clientCollapsed"></i></span></button>
+                <button type="button" class="collapse-header" data-ng-click="collapseclientOthers()"><strong>{{'label.button.clients' | translate}}<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong><span class="pull-right"><i class="icon-chevron-up" data-ng-show="!clientCollapsed"></i><i class="icon-chevron-down" data-ng-show="clientCollapsed"></i></span></button>
             </div>
             <div collapse="clientCollapsed">
                 <table class="table table-striped">
-                    <tr ng-repeat="client in clients  | filter:filterText">
-                        <td><a ng-click="clientSelected(client.id,client.displayName)" >{{client.displayName}}</a></td>
+                    <tbody><tr ng-repeat="client in clients  | filter:filterText">
+                        <td><a ng-click="clientSelected(client.id,client.displayName)">{{client.displayName}}</a></td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
         </div>
     </div>
-    <div class="span7">
+    <div class="col-sm-7 col-md-7">
        <div ng-show="office">
-            <br/>
+            <br>
             <div class="black">
                 <span class="pull-left">
                   <i class="icon-building icon-3x"></i>
@@ -84,7 +84,7 @@
                 </span>
             </div>
             <table class="table table-font-nav">
-                <tr data-ng-show="office.parentName">
+                <tbody><tr data-ng-show="office.parentName">
                     <td width="20%">{{ 'label.heading.parentoffice' | translate }}</td>
                     <td width="70%">{{office.parentName}}</td>
                 </tr>
@@ -96,14 +96,14 @@
                     <td>{{ 'label.heading.externalid' | translate }}</td>
                     <td>{{office.externalId}}</td>
                 </tr>
-            </table>
+            </tbody></table>
            <div class="row">
-               <div class="span5">
+               <div class="col-sm-5 col-md-5">
                     <ng-summary title="# {{ 'label.heading.staff' | translate }}">
                         <h1 class="center">07</h1>
                     </ng-summary>
                </div>
-               <div class="span5">
+               <div class="col-sm-5 col-md-5">
                     <ng-summary title="# Staff">
                        <h1 class="center">07</h1>
                     </ng-summary>
@@ -111,7 +111,7 @@
            </div>
        </div>
        <div ng-show="staff">
-           <br/>
+           <br>
            <div class="black">
                 <span class="pull-left">
                   <i class="icon-user icon-3x"></i>
@@ -124,7 +124,7 @@
                 </span>
            </div>
            <table class="table table-font-nav">
-               <tr data-ng-show="office.parentName">
+               <tbody><tr data-ng-show="office.parentName">
                    <td width="20%">{{ 'label.office.parentoffice' | translate }}</td>
                    <td width="70%">{{office.parentName}}</td>
                </tr>
@@ -132,10 +132,10 @@
                    <td>{{ 'label.heading.office' | translate }}</td>
                    <td>{{staff.officeName}}</td>
                </tr>
-           </table>
+           </tbody></table>
        </div>
        <div ng-show="center">
-            <br/>
+            <br>
             <div>
                 <a class="black" href="#/viewcenter/{{center.id}}">
                     <span class="pull-left">
@@ -152,9 +152,9 @@
                     </span>
                 </a>
             </div>
-            <br/>
+            <br>
             <table class="table table-font-nav">
-                <tr data-ng-show="center.activationDate">
+                <tbody><tr data-ng-show="center.activationDate">
                     <td>{{ 'label.heading.activationdate' | translate }}</td>
                     <td valign="top">{{center.activationDate | DateFormat}}</td>
                 </tr>
@@ -170,17 +170,17 @@
                     <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
                     <td>{{center.collectionMeetingCalendar.humanReadable}}</td>
                 </tr>
-            </table>
-            <br/>
-            <table  width="100%" class="table">
-                <tr class="graybg">
+            </tbody></table>
+            <br>
+            <table width="100%" class="table">
+                <tbody><tr class="graybg">
                     <th>{{'label.heading.loanaccount'| translate}}</th>
                     <th></th>
                     <th>{{'label.heading.loantype'| translate}}</th>
                     <th>{{'label.heading.status'| translate}}</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="loanaccount in centerAccounts.loanAccounts | filter:isNotClosed" >
+                <tr ng-repeat="loanaccount in centerAccounts.loanAccounts | filter:isNotClosed">
                     <td>
                         {{loanaccount.productName}}
                     </td>
@@ -210,12 +210,12 @@
                         <i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
                     </td>
                 </tr>
-            </table>
+            </tbody></table>
        </div>
        <div ng-show="client">
-            <br/>
+            <br>
             <div>
-                <a class="black"  href="#/viewclient/{{client.id}}">
+                <a class="black" href="#/viewclient/{{client.id}}">
                     <span class="pull-left">
                       <i class="icon-user icon-3x"></i>
                     </span>
@@ -230,9 +230,9 @@
                     </span>
                 </a>
             </div>
-            <br/>
+            <br>
             <table class="table table-font-nav">
-                <tr data-ng-show="client.firstname">
+                <tbody><tr data-ng-show="client.firstname">
                     <td width="35%">{{'label.heading.firstname' | translate}}</td>
                     <td width="65%">{{client.firstname}}</td>
                 </tr>
@@ -256,28 +256,28 @@
                     <td>{{ 'label.heading.staff' | translate }}</td>
                     <td>{{client.staffName}}</td>
                 </tr>
-            </table>
-            <hr/>
+            </tbody></table>
+            <hr>
             <table>
-               <tr>
-                    <td  class="table-font-nav">{{ 'label.heading.memberof' | translate }}</td>
+               <tbody><tr>
+                    <td class="table-font-nav">{{ 'label.heading.memberof' | translate }}</td>
                     <td>
                         <span ng-repeat="group in client.groups">
                             {{group.name}}&nbsp;<span ng-show="!$last">|</span>
                         </span>
                     </td>
                </tr>
-            </table>
-            <hr/>
-            <table  width="100%" class="table">
-                <tr class="graybg">
+            </tbody></table>
+            <hr>
+            <table width="100%" class="table">
+                <tbody><tr class="graybg">
                     <th>{{'label.heading.loanaccount'| translate}}</th>
                     <th></th>
                     <th>{{'label.heading.loantype'| translate}}</th>
                     <th>{{'label.heading.status'| translate}}</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed" >
+                <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed">
                     <td>
                         {{loanaccount.productName}}
                     </td>
@@ -307,10 +307,10 @@
                         <i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
                     </td>
                 </tr>
-            </table>
+            </tbody></table>
        </div>
        <div ng-show="group">
-            <br/>
+            <br>
             <div>
                 <a class="black" href="#/viewgroup/{{group.id}}">
                     <span class="pull-left">
@@ -327,9 +327,9 @@
                     </span>
                 </a>
             </div>
-            <br/>
+            <br>
             <table class="table table-font-nav">
-                <tr data-ng-show="group.activationDate">
+                <tbody><tr data-ng-show="group.activationDate">
                     <td>{{ 'label.heading.activationdate' | translate }}</td>
                     <td valign="top">{{group.activationDate | DateFormat}}</td>
                 </tr>
@@ -345,17 +345,17 @@
                     <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
                     <td>{{group.collectionMeetingCalendar.humanReadable}}</td>
                 </tr>
-            </table>
-            <br/>
-            <table  width="100%" class="table">
-                <tr class="graybg">
+            </tbody></table>
+            <br>
+            <table width="100%" class="table">
+                <tbody><tr class="graybg">
                     <th>{{'label.heading.loanaccount'| translate}}</th>
                     <th></th>
                     <th>{{'label.heading.loantype'| translate}}</th>
                     <th>{{'label.heading.status'| translate}}</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isNotClosed" >
+                <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isNotClosed">
                     <td>
                         {{loanaccount.productName}}
                     </td>
@@ -385,7 +385,7 @@
                         <i class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
                     </td>
                 </tr>
-            </table>
+            </tbody></table>
        </div>
     </div>
 </div>

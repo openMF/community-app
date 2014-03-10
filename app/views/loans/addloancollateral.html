@@ -1,7 +1,7 @@
 <div ng-controller="AddLoanCollateralController">	
 	<div>
 		<ul class="breadcrumb">
-			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> </li>
 			<li class="active">{{'label.anchor.addloancollateral' | translate}}</li>
 		</ul>
 	</div>
@@ -10,26 +10,26 @@
 		<fieldset>
 			<legend>{{ 'label.heading.addloancollateral' | translate }}</legend>
 
-			<div class="control-group">
-				<label class="control-label" for="collateralTypeId">{{ 'label.input.collateraltype' | translate }}<span class="required">*</span></label>
-				<div class="controls">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="collateralTypeId">{{ 'label.input.collateraltype' | translate }}<span class="required">*</span></label>
+				<div class="col-sm-3">
 					<select id="collateralTypeId" ng-model="formData.collateralTypeId" ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes" value="{{collateralType.id}}"></select>
 				</div>
 			</div>
-			<div class="control-group">
-				<label class="control-label" for="value">{{ 'label.input.amount' | translate }}</label>
-				<div class="controls">
-					<input id="value" type="text" ng-model="formData.value">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="value">{{ 'label.input.amount' | translate }}</label>
+				<div class="col-sm-3">
+					<input id="value" type="text" ng-model="formData.value" class="form-control">
 				</div>
 			</div>
-			<div class="control-group">
-				<label class="control-label" for="description">{{ 'label.input.description' | translate }}</label>
-				<div class="controls">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="description">{{ 'label.input.description' | translate }}</label>
+				<div class="col-sm-3">
 					<textarea id="description" ng-model="formData.description" rows="4" cols=""></textarea>
 				</div>
 			</div>
-			<div class="offset3">
-				<button id="cancel" type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
+			<div class="col-lg-offset-3">
+				<button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
 				<button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
 			</div>
 

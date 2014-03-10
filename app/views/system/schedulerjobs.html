@@ -1,14 +1,14 @@
 <div class="paddedbottom10">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> </li>
             <li class="active">{{'label.anchor.manageschedulerjobs' | translate}}</li>
         </ul>
     </div>
 </div>
-<div class="row-fluid" ng-controller="SchedulerJobsController">
+<div class="row" ng-controller="SchedulerJobsController">
     <table class="table-condensed">
-        <tr>
+        <tbody><tr>
             <td><h3><strong>{{'label.heading.schedulerstatus' | translate}}&nbsp;:</strong>&nbsp;{{schedulerstatus}}</h3></td>
             <td></td>
             <td>
@@ -16,23 +16,22 @@
                 <button class="btn-success" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()"><i class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}</button>
             </td>
         </tr>
-    </table>
-    <hr ng-show="sentForExecution"/>
+    </tbody></table>
+    <hr ng-show="sentForExecution">
     <table ng-show="sentForExecution" class="table-condensed">
-        <tr  class="graybg" ng-show="sentForExecution">
-            <th>{{'label.heading.jobssentforexecution' | translate}}<th>
-        </tr>
+        <tbody><tr class="graybg" ng-show="sentForExecution">
+            <th>{{'label.heading.jobssentforexecution' | translate}}</th><th>
+        </th></tr>
         <tr ng-repeat="jobexecution in sentForExecution">
             <td><i class="icon-check icon-white"></i>{{jobexecution}}</td>
         </tr>
-    </table>
-    <hr ng-show="sentForExecution"/>
-    <br ng-show="sentForExecution"/>
+    </tbody></table>
+    <hr ng-show="sentForExecution">
+    <br ng-show="sentForExecution">
 	<table class="table">
         <thead>
             <tr class="graybg">
-                <th><input type="checkbox" ng-model="activeall" ng-true-value="true" ng-false-value="false"
-                     ng-click="selectAll(activeall)"></th>
+                <th><input type="checkbox" ng-model="activeall" ng-true-value="true" ng-false-value="false" ng-click="selectAll(activeall)"></th>
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.heading.nextrun' | translate}}</th>
                 <th>{{'label.heading.previousrun' | translate}}</th>
@@ -43,8 +42,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="job in jobs | orderBy:'displayName':reverse" class="pointer-main">
-                <td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false"
-                     ng-click="runJobSelected(job.jobId, active)"></td>
+                <td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false" ng-click="runJobSelected(job.jobId, active)"></td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.nextRunTime}}</td>
                 <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.jobRunStartTime}}</td>

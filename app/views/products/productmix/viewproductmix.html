@@ -7,21 +7,21 @@
                     {{productmix.productName}}
                 </h3>
             </li>
-            <li><span class="divider">|</span>
+            <li>
                 <i class="icon-barcode"></i>
                 <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{productmix.productId}}&nbsp;</small>
             </li>
         </ul>
     </div>
     <div>
-        <div class="row-fluid">
-            <div class="row-fluid primarydiv">
+        <div class="row">
+            <div class="primarydiv row">
                 <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
                     <a href="#/editproductmix/{{productmix.productId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
                     <button class="btn btn-warning" data-ng-click="deleteProductmix()"><i class="icon-trash icon-white"></i>{{ 'label.button.delete' | translate }}</button>
                 </div>
             </div>
-            <br/>
+            <br>
             <script type="text/ng-template" id="deleteproductmix.html">
                 <div class="modal-header silver">
                     <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -31,33 +31,32 @@
                     <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                 </div>
             </script>
-            <div class="row-fluid">
-                <div class="span6">
-                    <table class="table table-striped" width="100%" >
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <table class="table table-striped" width="100%">
                         <thead>
                         <tr class="graybg">
                             <th colspan="2">{{ 'label.heading.allowedproducts' | translate }}</th>
                         </tr>
                         </thead>
-                        <tr data-ng-repeat="allowed in productmix.allowedProducts">
+                        <tbody><tr data-ng-repeat="allowed in productmix.allowedProducts">
                             <td width="40%">{{allowed.name}}</td>
                         </tr>
-                    </table>
+                    </tbody></table>
                 </div>
-                <div class="span6">
-                    <table class="table table-striped" width="100%" >
+                <div class="col-sm-6 col-md-6">
+                    <table class="table table-striped" width="100%">
                         <thead>
                         <tr class="graybg">
                             <th colspan="2">{{ 'label.heading.restrictedproducts' | translate }}</th>
                         </tr>
                         </thead>
-                        <tr data-ng-repeat="restricted in productmix.restrictedProducts">
+                        <tbody><tr data-ng-repeat="restricted in productmix.restrictedProducts">
                             <td width="40%">{{restricted.name}}</td>
                         </tr>
-                    </table>
+                    </tbody></table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -1,13 +1,13 @@
 <div ng-controller="ViewChargeController">
 	<div class="paddedbottom10">
 	    <ul class="breadcrumb">
-	    	<li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
-	    	<li><a href="#/charges">{{'label.anchor.charges' | translate}}</a> <span class="divider">/</span></li>
+	    	<li><a href="#/products">{{'label.anchor.products' | translate}}</a> </li>
+	    	<li><a href="#/charges">{{'label.anchor.charges' | translate}}</a> </li>
 	        <li class="active">{{charge.name}}</li>
         </ul>
     </div>
     <div class="well">
-        <div class="row-fluid">
+        <div class="row">
           <h3><strong>{{charge.name}}</strong></h3>
           <div class="btn-group pull-right">
               <a href="#/editcharge/{{charge.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
@@ -25,7 +25,7 @@
         </script>
         <div class="row paddedleft">
             <table width="40%">
-                <tr>
+                <tbody><tr>
                     <td>{{'label.heading.chargetype' | translate}}</td>
                     <td>
                         <div ng-switch="charge.penalty">
@@ -33,7 +33,7 @@
                             <div ng-switch-when="true">{{'label.heading.penalty' | translate}}</div>
                         </div>
                     </td>
-                <tr>
+                </tr><tr>
                     <td>{{'label.heading.currency' | translate}}</td>
                     <td>{{charge.currency.name}}</td>
                 </tr>
@@ -61,7 +61,7 @@
                     <td>{{'label.heading.chargepaymentmode' | translate}}:</td>
                     <td>{{charge.chargePaymentMode.value}}</td>
                 </tr>
-            </table>
+            </tbody></table>
         </div>
     </div>
 </div>

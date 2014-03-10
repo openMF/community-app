@@ -4,27 +4,27 @@
         <div class="paddedleft">
             <h3>{{ 'label.heading.transferclientsbetweengroups' | translate }}</h3>
             <div>
-                <label class="control-label">{{ 'label.input.clients' | translate }}</label>
-                <select multiple ng-model="tempData">
+                <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}</label>
+                <select multiple="" ng-model="tempData">
                     <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option>
                 </select>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{'label.input.inheritgrouploanofficer' | translate}}</label>
-                <div class="controls">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.inheritgrouploanofficer' | translate}}</label>
+                <div class="col-sm-3">
                     <input type="checkbox" ng-model="formData.inheritDestinationGroupLoanOfficer">
                 </div>
             </div>
             <div>
-                <label class="control-label">{{ 'label.input.destinationgroup' | translate }}<span class="required">*</span></label>
-                <select ng-model="formData.destinationGroupId" name="destinationgroup" ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}" data-ng-change="viewgroup(formData.destinationGroupId)" required>
+                <label class="control-label col-sm-2">{{ 'label.input.destinationgroup' | translate }}<span class="required">*</span></label>
+                <select ng-model="formData.destinationGroupId" name="destinationgroup" ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}" data-ng-change="viewgroup(formData.destinationGroupId)" required="">
                     <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>
                 </select>
-                <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup"/>
-            </div>
-            <div data-ng-switch on="view">
+                <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup">
+            </form-validate></div>
+            <div data-ng-switch="" on="view">
                 <table data-ng-switch-when="1">
-                    <tr>
+                    <tbody><tr>
                         <td>
                             <h3>{{'label.heading.destinationgroupdetails' | translate}}</h3>
                         </td>
@@ -49,14 +49,14 @@
                         <td>{{ 'label.heading.externalid' | translate }}</td>
                         <td>{{groupdata.externalId}}</td>
                     </tr>
-                </table>
+                </tbody></table>
             </div>
-            <br/>
+            <br>
             <div>
-                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
                 <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
             </div>
         </div>
-        <hr/>
-   </form>
+        <hr>
+    </form>
 </div>

@@ -1,9 +1,9 @@
 <div ng-controller="CreateSavingAccountController"> 
   <div>
     <ul class="breadcrumb">
-      <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
-      <li ng-show="groupName&&!centerEntity"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> <span class="divider">/</span></li>
-      <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a> <span class="divider">/</span></li>
+      <li ng-show="centerEntity"><a href="#/viewcenter/{{groupId}}">{{groupName}}</a> </li>
+      <li ng-show="groupName&amp;&amp;!centerEntity"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a> </li>
+      <li ng-show="clientName"><a href="#/viewclient/{{clientId}}">{{clientName}}</a> </li>
       <li class="active">{{'label.anchor.savingapplication' | translate}}</li>
     </ul>
   </div>
@@ -12,107 +12,107 @@
     <fieldset>
       <legend>{{ 'label.heading.savingapplication' | translate }}</legend>
       <table width="100%">
-        <tr class="control-group">
+        <tbody><tr class="form-group">
           <td width="14%" align="center"></td>
           <td width="40%">
-            <label ng-show="clientName" class="control-label">{{ 'label.input.applicant' | translate }}&nbsp;</label>
-            <input ng-show="clientName" type="text" value="{{clientName}}" readonly>
-            <label ng-show="groupName" class="control-label">{{ 'label.input.applicantgroup' | translate }}&nbsp;</label>
-            <input ng-show="groupName" type="text" value="{{groupName}}" readonly>
+            <label ng-show="clientName" class="control-label col-sm-2">{{ 'label.input.applicant' | translate }}&nbsp;</label>
+            <input ng-show="clientName" type="text" value="{{clientName}}" readonly="" class="form-control">
+            <label ng-show="groupName" class="control-label col-sm-2">{{ 'label.input.applicantgroup' | translate }}&nbsp;</label>
+            <input ng-show="groupName" type="text" value="{{groupName}}" readonly="" class="form-control">
           </td>
           <td width="44%">
-            <label class="control-label">{{ 'label.input.product' | translate }}&nbsp;<span class="required">*</span></label>
+            <label class="control-label col-sm-2">{{ 'label.input.product' | translate }}&nbsp;<span class="required">*</span></label>
             <select id="productId" ng-model="formData.productId" ng-options="product.id as product.name for product in products" value="{{product.id}}" ng-change="changeProduct()" required="required">
               <option style="display:none" value="">{{'label.selectsavingproduct' | translate}}</option>
             </select>
           </td>
         </tr>
-      </table>
+      </tbody></table>
       <div ng-show="data">
         <table width="100%">
-          <tr class="control-group">
+          <tbody><tr class="form-group">
             <td width="14%" align="center"></td>
             <td width="40%">
-              <label class="control-label">{{ 'label.input.fieldofficer' | translate }}&nbsp;</label>
+              <label class="control-label col-sm-2">{{ 'label.input.fieldofficer' | translate }}&nbsp;</label>
               <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
                 <option value="">{{'label.selectfieldofficer' | translate}}</option>
               </select>
             </td>
             <td width="44%">
-              <label class="control-label">{{ 'label.input.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
-              <input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"/>
+              <label class="control-label col-sm-2">{{ 'label.input.submittedon' | translate }}&nbsp;<span class="required">*</span></label>
+              <input id="submittedOnDate" sort="" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate" class="form-control">
             </td>
           </tr>
           <tr class="span2"></tr>
-        </table>
+        </tbody></table>
         <table width="100%">
-          <tr class="control-group">
+          <tbody><tr class="form-group">
             <td width="10%" align="center">
-              <label class="control-label"><h4>{{ 'label.heading.terms' | translate }}</h4></label>
+              <label class="control-label col-sm-2"><h4>{{ 'label.heading.terms' | translate }}</h4></label>
             </td>
             <td class="blockquoteresult" width="90%">
               <table width="100%">
-                <tr>
+                <tbody><tr>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.heading.currency' | translate }}&nbsp;<b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
+                    <label class="control-label col-sm-2">{{ 'label.heading.currency' | translate }}&nbsp;<b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
                   </td>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.heading.decimalplaces' | translate }}&nbsp;<b>{{data.currency.decimalPlaces}}</b></label>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="50%">
-                    <label class="control-label">{{ 'label.input.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
-                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" ng-model="formData.nominalAnnualInterestRate" required late-Validate/>
-                    <form-validate valattributeform="newsavingccountform" valattribute="nominalannualinterestrate"/>
-                  </td>
-                  <td width="50%">
-                    <label class="control-label">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label>
-                    <input type="text" value="{{data.currency.inMultiplesOf}}" readonly>
+                    <label class="control-label col-sm-2">{{ 'label.heading.decimalplaces' | translate }}&nbsp;<b>{{data.currency.decimalPlaces}}</b></label>
                   </td>
                 </tr>
                 <tr>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.interestcompoundingperiod' | translate }}&nbsp;<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{ 'label.input.nominalannualinterestrate' | translate }}&nbsp;<span class="required">*</span></label>
+                    <input id="nominalAnnualInterestRate" type="text" name="nominalannualinterestrate" ng-model="formData.nominalAnnualInterestRate" required="" late-validate="" class="form-control">
+                    <form-validate valattributeform="newsavingccountform" valattribute="nominalannualinterestrate">
+                  </form-validate></td>
+                  <td width="50%">
+                    <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label>
+                    <input type="text" value="{{data.currency.inMultiplesOf}}" readonly="" class="form-control">
+                  </td>
+                </tr>
+                <tr>
+                  <td width="50%">
+                    <label class="control-label col-sm-2">{{ 'label.input.interestcompoundingperiod' | translate }}&nbsp;<span class="required">*</span></label>
                     <select id="interestCompoundingPeriodType" ng-model="formData.interestCompoundingPeriodType" ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.interestpostingperiod' | translate }}&nbsp;<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{ 'label.input.interestpostingperiod' | translate }}&nbsp;<span class="required">*</span></label>
                     <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType" ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                 </tr>
                 <tr>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.interestcalculatedusing' | translate }}&nbsp;<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{ 'label.input.interestcalculatedusing' | translate }}&nbsp;<span class="required">*</span></label>
                     <select id="interestCalculationType" ng-model="formData.interestCalculationType" ng-options="type.id as type.value for type in data.interestCalculationTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.daysinyears' | translate }}&nbsp;<span class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{ 'label.input.daysinyears' | translate }}&nbsp;<span class="required">*</span></label>
                     <select id="interestCalculationDaysInYearType" ng-model="formData.interestCalculationDaysInYearType" ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions" value="{{type.id}}">
                     </select>
                   </td>
                 </tr>
-              </table>
+              </tbody></table>
             </td>
           </tr>
           <tr class="span2"></tr>
-          <tr class="control-group">
+          <tr class="form-group">
             <td width="10%" align="center">
-              <label class="control-label"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
+              <label class="control-label col-sm-2"><h4>{{ 'label.heading.settings' | translate }}</h4></label>
             </td>
             <td class="blockquoteresult" width="90%">
               <table width="100%">
-                <tr>
+                <tbody><tr>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.minimumopeningbalance' | translate }}&nbsp;</label>
-                    <input id="minRequiredOpeningBalance" type="text" ng-model="formData.minRequiredOpeningBalance">
+                    <label class="control-label col-sm-2">{{ 'label.input.minimumopeningbalance' | translate }}&nbsp;</label>
+                    <input id="minRequiredOpeningBalance" type="text" ng-model="formData.minRequiredOpeningBalance" class="form-control">
                   </td>
                   <td width="50%">
-                    <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}&nbsp;</label>
-                    <input id="lockinPeriodFrequency" type="text" class="input-small" ng-model="formData.lockinPeriodFrequency">&nbsp;
+                    <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate }}&nbsp;</label>
+                    <input id="lockinPeriodFrequency" type="text" class="input-small form-control" ng-model="formData.lockinPeriodFrequency">&nbsp;
                     <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType" class="input-small" ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions" value="{{type.id}}">
                       <option value="">{{'label.selectone' | translate}}</option>
                     </select>
@@ -120,26 +120,26 @@
                 </tr>
                 <tr>
                   <td width="50%">
-                    <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers"> &nbsp;<span class="control-label">{{ 'label.input.withdrawalfeefotransfers' | translate }}&nbsp;</span>
+                    <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers"> &nbsp;<span class="control-label col-sm-2">{{ 'label.input.withdrawalfeefotransfers' | translate }}&nbsp;</span>
                   </td>
                 </tr>
-              </table>
+              </tbody></table>
             </td>
           </tr>
           <tr class="span2"></tr>
-          <tr class="control-group">
+          <tr class="form-group">
             <td width="10%" align="center">
-              <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
+              <label class="control-label col-sm-2"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
             </td>
             <td class="blockquoteresult" width="90%">
               <table width="100%">
-                <tr>
+                <tbody><tr>
                     <td width="50%">
                       <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in chargeOptions" value="{{charge.id}}">
                         <option value="">{{'label.selectcharge' | translate}}</option>
                       </select>
                       <a ng-click="addCharge(chargeId)"><i class="icon-plus icon-white"></i></a>
-                      <span  ng-show="errorchargeevent">
+                      <span ng-show="errorchargeevent">
                         <small class="error">
                             {{'label.'+labelchargeerror | translate}}
                         </small>
@@ -148,9 +148,9 @@
                     <td width="50%">
                     </td>
                 </tr>
-              </table>
-              <table class="table" width="100%" ng-show="charges.length>0">
-                <tr class="graybg">
+              </tbody></table>
+              <table class="table" width="100%" ng-show="charges.length&gt;0">
+                <tbody><tr class="graybg">
                     <th>{{'label.heading.name' | translate}}</th>
                     <th>{{'label.heading.type' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
@@ -159,34 +159,34 @@
                     <th>{{'label.heading.repaymentsevery' | translate}}</th>
                     <th>{{'label.heading.actions' | translate}}</th>
                 </tr>
-                <tr ng-repeat="charge in charges" >
+                <tr ng-repeat="charge in charges">
                   <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                   <td>{{charge.chargeCalculationType.value}}</td>
-                  <td><input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.amount"  placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+                  <td><input id="charges[{{$index}}].amount" class="input-small form-control" type="text" ng-model="charge.amount" placeholder="{{'label.placeholder.amount' | translate}}"></td>
                   <td>{{charge.chargeTimeType.value}}</td>
                   <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
-                    <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium" readonly class="date-disable" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                    <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium form-control" readonly="" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened">
                   </td>
                   <td ng-show="charge.chargeTimeType.value=='Specified due date'">
-                    <input id="charges[{{$index}}].dueDate" class="input-medium" readonly class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
+                    <input id="charges[{{$index}}].dueDate" class="input-medium form-control" readonly="" type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened">
                   </td>
                   <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-                    <input readonly class="date-disable" class="input-medium" readonly class="date-disable" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                    <input readonly="" class="date-disable form-control" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened">
                   </td>
                   <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-                    <input id="charges[{{$index}}].amount" class="input-small" type="text" ng-model="charge.feeInterval"/>
+                    <input id="charges[{{$index}}].amount" class="input-small form-control" type="text" ng-model="charge.feeInterval">
                   </td>
                   <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
                   <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
                   <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>
-              </table>
+              </tbody></table>
             </td>
           </tr>
-        </table>
+        </tbody></table>
       </div>
-      <div class="offset6">
-        <button id="cancel" ng-click="cancel()" class="btn">{{ 'label.button.cancel' | translate }}</button>
+      <div class="col-lg-offset-6">
+        <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
         <button id="save" type="submit" class="btn btn-primary" ng-show="data">{{ 'label.button.save' | translate }}</button>
       </div>
      

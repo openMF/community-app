@@ -1,9 +1,9 @@
 <div ng-controller="AccEditGLAccountController">
   <div>
     <ul class="breadcrumb">
-      <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
-      <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a> <span class="divider">/</span></li>
-      <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a> <span class="divider">/</span></li>
+      <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> </li>
+      <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a> </li>
+      <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a> </li>
       <li class="active">{{'label.anchor.editglaccount' | translate}}</li>
     </ul>
   </div>
@@ -13,44 +13,44 @@
       <legend>{{'label.heading.editglaccount' | translate}}</legend>
       
       <table width="100%">
-        <tr>
+        <tbody><tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="name">{{'label.input.accountname' | translate}}<span class="required">*</span></label>
-                <div class="controls">
-                  <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required late-Validate/>
-                  <form-validate valattributeform="editglaccountingform" valattribute="name"/>
-                </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="name">{{'label.input.accountname' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                  <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required="" late-validate="" class="form-control">
+                  <form-validate valattributeform="editglaccountingform" valattribute="name">
+                </form-validate></div>
             </div>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="glCode">{{'label.input.glcode' | translate}}<span class="required">*</span></label>
-                <div class="controls">
-                  <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required late-Validate/>
-                  <form-validate valattributeform="editglaccountingform" valattribute="glCode"/>
-                </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="glCode">{{'label.input.glcode' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                  <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" required="" late-validate="" class="form-control">
+                  <form-validate valattributeform="editglaccountingform" valattribute="glCode">
+                </form-validate></div>
             </div>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="type">{{ 'label.input.accounttype' | translate }}</label>
-              <div class="controls">
-                <select id="type" ng-model="formData.type"  ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
-              </div>
-            </div>
-          </td>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="type">{{ 'label.input.accounttype' | translate }}</label>
+              <div class="col-sm-3">
+                <select id="type" ng-model="formData.type" ng-change="changeType(formData.type)" ng-options="accountType.id as accountType.value for accountType in accountTypes" value="{{accountType.id}}">
+              
+            
+          </select></div></div></td>
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="tag">{{'label.input.tag' | translate}}</label>
-              <div class="controls">
-                <select id="tagId" ng-model="formData.tagId"  ng-options="tag.id as tag.name for tag in tags" value="{{tag.id}}">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="tag">{{'label.input.tag' | translate}}</label>
+              <div class="col-sm-3">
+                <select id="tagId" ng-model="formData.tagId" ng-options="tag.id as tag.name for tag in tags" value="{{tag.id}}">
                   <option value="">{{'label.selecttag' | translate}}</option>
                 </select>
               </div>
@@ -59,20 +59,20 @@
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="usage">{{'label.input.accountusage' | translate}}</label>
-              <div class="controls">
-                <select id="usage" ng-model="formData.usage"  ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
-              </div>
-            </div>
-          </td>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="usage">{{'label.input.accountusage' | translate}}</label>
+              <div class="col-sm-3">
+                <select id="usage" ng-model="formData.usage" ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+              
+            
+          </select></div></div></td>
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="parent">{{'label.input.parent' | translate}}</label>
-              <div class="controls">
-                <select id="parentId" ng-model="formData.parentId"  ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="parent">{{'label.input.parent' | translate}}</label>
+              <div class="col-sm-3">
+                <select id="parentId" ng-model="formData.parentId" ng-options="headerType.id as headerType.name for headerType in headerTypes" value="{{headerType.id}}">
                   <option value="">{{'label.selectparent' | translate}}</option>
                 </select>
               </div>
@@ -81,29 +81,29 @@
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="manualEntriesAllowed">{{'label.input.manualentriesallowed' | translate}}</label>
-                <div class="controls">
-                  <label class="checkbox">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="manualEntriesAllowed">{{'label.input.manualentriesallowed' | translate}}</label>
+                <div class="col-sm-3">
+                  <div class="checkbox"><label class="">
                     <input type="checkbox" ng-model="formData.manualEntriesAllowed">
-                  </label>
+                  </label></div>
                 </div>
             </div>
           </td>
         </tr>
         <tr>
           <td>
-            <div class="control-group">
-              <label class="control-label" for="description">{{'label.input.description' | translate}}</label>
-                <div class="controls">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
+                <div class="col-sm-3">
                   <textarea id="description" name="description" ng-model="formData.description" rows="4" cols=""></textarea>
                 </div>
             </div>
           </td>
       </tr>
-      </table>
-      <div class="offset3">
-        <a id="cancel" href="#/viewglaccount/{{glAccountId}}"><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+      </tbody></table>
+      <div class="col-lg-offset-3">
+        <a id="cancel" href="#/viewglaccount/{{glAccountId}}"><button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button></a>
         <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
       </div>
     </fieldset>
