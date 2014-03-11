@@ -19,6 +19,7 @@
                     scope.modelName = 'approvedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'APPROVE_SAVINGSACCOUNT';
                     break;
                 case "reject":
                     scope.title = 'label.heading.rejectsavingaccount';
@@ -26,6 +27,7 @@
                     scope.modelName = 'rejectedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'REJECT_SAVINGSACCOUNT';
                     break;
                 case "withdrawnByApplicant":
                     scope.title = 'label.heading.withdrawsavingaccount';
@@ -33,11 +35,13 @@
                     scope.modelName = 'withdrawnOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'WITHDRAW_SAVINGSACCOUNT';
                     break;
                 case "undoapproval":
                     scope.title = 'label.heading.undoapprovesavingaccount';
                     scope.showDateField = false;
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'APPROVALUNDO_SAVINGSACCOUNT';
                     break;
                 case "activate":
                     scope.title = 'label.heading.activatesavingaccount';
@@ -45,6 +49,7 @@
                     scope.modelName = 'activatedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
+                    scope.taskPermissionName = 'ACTIVATE_SAVINGSACCOUNT';
                     break;
                 case "deposit":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'deposit'}, function (data) {
@@ -57,6 +62,7 @@
                     scope.showNoteField = false;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
+                    scope.taskPermissionName = 'DEPOSIT_SAVINGSACCOUNT';
                     break;
                 case "withdrawal":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'withdrawal'}, function (data) {
@@ -69,6 +75,7 @@
                     scope.showNoteField = false;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
+                    scope.taskPermissionName = 'WITHDRAWAL_SAVINGSACCOUNT';
                     break;
                 case "applyAnnualFees":
                     resourceFactory.savingsResource.get({accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId},
@@ -86,6 +93,7 @@
                     scope.showAnnualAmountField = true;
                     scope.showAmountField = false;
                     scope.showNoteField = false;
+                    scope.taskPermissionName = 'APPLYANNUALFEE_SAVINGSACCOUNT';
                     break;
                 case "close":
                     scope.title = 'label.heading.closesavingaccount';
@@ -93,6 +101,7 @@
                     scope.modelName = 'closedOnDate';
                     scope.showDateField = true;
                     scope.showNoteField = true;
+                    scope.taskPermissionName = 'CLOSE_SAVINGSACCOUNT';
                     break;
                 case "modifytransaction":
                     resourceFactory.savingsTrxnsResource.get({savingsId: scope.accountId, transactionId: routeParams.transactionId, template: 'true'},
@@ -118,6 +127,7 @@
                     scope.showNoteField = false;
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
+                    scope.taskPermissionName = 'ADJUSTTRANSACTION_SAVINGSACCOUNT';
                     break;
                 case "editsavingcharge":
                     resourceFactory.savingsResource.get({accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId},
@@ -144,9 +154,11 @@
                                 scope.showAmountField = true;
                             }
                         });
+                    scope.taskPermissionName = 'UPDATE_SAVINGSACCOUNTCHARGE';
                     break;
                 case "deletesavingcharge":
                     scope.showDelete = true;
+                    scope.taskPermissionName = 'DELETE_SAVINGSACCOUNTCHARGE';
                     break;
                 case "paycharge":
                     scope.formData.dueDate = new Date();
@@ -158,9 +170,11 @@
                     scope.showAmountField = true;
                     scope.paymentDatefield = true;
                     scope.modelName = 'dueDate';
+                    scope.taskPermissionName = 'PAY_SAVINGSACCOUNTCHARGE';
                     break;
                 case "waive":
                     scope.waiveCharge = true;
+                    scope.taskPermissionName = 'WAIVE_SAVINGSACCOUNTCHARGE';
                     break;
             }
 

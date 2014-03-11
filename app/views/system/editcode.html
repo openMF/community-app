@@ -15,14 +15,13 @@
                type="text"/>&nbsp;&nbsp;
         <input name="position" ng-model="newEle.position" placeholder="{{ 'label.input.position' | translate }}"
                type="text"/>&nbsp;&nbsp;
-        <a data-ng-click="addCv()" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.add' |
+        <a data-ng-click="addCv()" class="btn btn-primary" has-permission='CREATE_CODEVALUE'><i class="icon-plus icon-white"></i>{{ 'label.button.add' |
             translate }}</a>
     </form>
     <div data-ng-repeat="codevalue in codevalues">
-        <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;<input disabled=""
-                                                                                          placeholder={{codevalue.position}}
-                                                                                          type="text"/>&nbsp;&nbsp;<a
-            ng-click='deleteCv(codevalue.id)'><i class="icon-remove"></i></a>
+        <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.position}} type="text"/>&nbsp;&nbsp;
+        <a ng-click='deleteCv(codevalue.id)' has-permission='DELETE_CODEVALUE'><i class="icon-remove"></i></a>
     </div>
     <div class="pull-right" data-ng-show="stat">
         <p>{{ 'label.systemdefinedcodedeletefailed' | translate }}</p>

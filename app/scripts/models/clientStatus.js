@@ -19,47 +19,55 @@
                     {
                         name: "label.button.edit",
                         href: "#/editclient",
-                        icon: "icon-edit"
+                        icon: "icon-edit",
+                        taskPermissionName: "UPDATE_CLIENT"
                     },
                     {
                         name: "label.button.activate",
                         href: "#/client",
                         subhref: "activate",
-                        icon: "icon-ok-sign"
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "ACTIVATE_CLIENT"
                     },
                     {
                         name: "label.button.close",
                         href: "#/client",
                         subhref: "close",
-                        icon: "icon-remove-circle"
+                        icon: "icon-remove-circle",
+                        taskPermissionName: "CLOSE_CLIENT"
                     }
                 ],
                 "Active": [
                     {
                         name: "label.button.edit",
                         href: "#/editclient",
-                        icon: "icon-edit"
+                        icon: "icon-edit",
+                        taskPermissionName: "UPDATE_CLIENT"
                     },
                     {
                         name: "label.button.newloan",
                         href: "#/newclientloanaccount",
-                        icon: "icon-plus"
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_LOAN"
                     },
                     {
                         name: "label.button.newsaving",
                         href: "#/new_client_saving_application",
-                        icon: "icon-plus"
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_SAVINGSACCOUNT"
                     },
                     {
                         name: "label.button.transferclient",
                         href: "#/transferclient",
-                        icon: "icon-arrow-right"
+                        icon: "icon-arrow-right",
+                        taskPermissionName: "PROPOSETRANSFER_CLIENT"
                     },
                     {
                         name: "label.button.close",
                         href: "#/client",
                         subhref: "close",
-                        icon: "icon-remove-circle"
+                        icon: "icon-remove-circle",
+                        taskPermissionName: "CLOSE_CLIENT"
                     }
                 ],
                 "Transfer in progress": [
@@ -67,19 +75,22 @@
                         name: "label.button.accepttransfer",
                         href: "#/client",
                         subhref: "acceptclienttransfer",
-                        icon: "icon-check-sign"
+                        icon: "icon-check-sign",
+                        taskPermissionName: "ACCEPTTRANSFER_CLIENT"
                     },
                     {
                         name: "label.button.rejecttransfer",
                         href: "#/client",
                         subhref: "rejecttransfer",
-                        icon: "icon-remove"
+                        icon: "icon-remove",
+                        taskPermissionName: "REJECTTRANSFER_CLIENT"
                     },
                     {
                         name: "label.button.undotransfer",
                         href: "#/client",
                         subhref: "undotransfer",
-                        icon: "icon-undo"
+                        icon: "icon-undo",
+                        taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
                     }
                 ],
                 "Transfer on hold": [
@@ -87,20 +98,23 @@
                         name: "label.button.undotransfer",
                         href: "#/client",
                         subhref: "undotransfer",
-                        icon: "icon-undo"
+                        icon: "icon-undo",
+                        taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
                     }
                 ],
                 "Assign Staff": {
                     name: "label.button.assignstaff",
                     href: "#/client",
                     subhref: "assignstaff",
-                    icon: "icon-user"
+                    icon: "icon-user",
+                    taskPermissionName: "ASSIGNSTAFF_CLIENT"
                 },
                 "Update Saving Account": {
                     name: "label.button.updatedefaultsavings",
                     href: "#/client",
                     subhref: "updatedefaultaccount",
-                    icon: "icon-edit"
+                    icon: "icon-edit",
+                    taskPermissionName: "UPDATESAVINGSACCOUNT_CLIENT"
                 }
             }
         }

@@ -91,25 +91,31 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-pencil "
+                            icon: "icon-pencil ",
+                            taskPermissionName:"UPDATE_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok-sign"
+                            icon: "icon-ok-sign",
+                            taskPermissionName:"APPROVE_SAVINGSACCOUNT"
                         }
                     ],
                         options: [
                             {
-                                name: "button.reject"
+                                name: "button.reject",
+                                taskPermissionName:"REJECT_SAVINGSACCOUNT"
                             },
                             {
-                                name: "button.withdrawnbyclient"
+                                name: "button.withdrawnbyclient",
+                                taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                             },
                             {
-                                name: "button.addcharge"
+                                name: "button.addcharge",
+                                taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
                             },
                             {
-                                name: "button.delete"
+                                name: "button.delete",
+                                taskPermissionName:"DELETE_SAVINGSACCOUNT"
                             }
                         ]
                     };
@@ -119,11 +125,13 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo"
+                            icon: "icon-undo",
+                            taskPermissionName:"APPROVALUNDO_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.activate",
-                            icon: "icon-ok-sign"
+                            icon: "icon-ok-sign",
+                            taskPermissionName:"ACTIVATE_SAVINGSACCOUNT"
                         }
                     ]
                     };
@@ -133,50 +141,60 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.deposit",
-                            icon: "icon-arrow-right"
+                            icon: "icon-arrow-right",
+                            taskPermissionName:"DEPOSIT_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.withdraw",
-                            icon: "icon-arrow-left"
+                            icon: "icon-arrow-left",
+                            taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table"
+                            icon: "icon-table",
+                            taskPermissionName:"CALCULATEINTEREST_SAVINGSACCOUNT"
                         }
                     ],
                         options: [
                             {
-                                name: "button.postInterest"
+                                name: "button.postInterest",
+                                taskPermissionName:"POSTINTEREST_SAVINGSACCOUNT"
                             },
                             {
-                                name: "button.addcharge"
+                                name: "button.addcharge",
+                                taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
                             },
                             {
-                                name: "button.close"
+                                name: "button.close",
+                                taskPermissionName:"CLOSE_SAVINGSACCOUNT"
                             }
                         ]
 
                     };
                     if (data.clientId) {
                         scope.buttons.options.push({
-                            name: "button.transferFunds"
+                            name: "button.transferFunds",
+                            taskPermissionName:"CREATE_ACCOUNTTRANSFER"
                         });
                     }
                     if (data.charges) {
                         for (var i in scope.charges) {
                             if (scope.charges[i].name == "Annual fee - INR") {
                                 scope.buttons.options.push({
-                                    name: "button.applyAnnualFees"
+                                    name: "button.applyAnnualFees",
+                                    taskPermissionName:"APPLYANNUALFEE_SAVINGSACCOUNT"
                                 });
                                 scope.annualChargeId = scope.charges[i].id;
                             }
                         }
                     }
                 }
-                var annualdueDate = [];
-                annualdueDate = data.annualFee.feeOnMonthDay;
-                annualdueDate.push(2013);
-                scope.annualdueDate = new Date(annualdueDate);
+                if (data.annualFee) {
+                    var annualdueDate = [];
+                    annualdueDate = data.annualFee.feeOnMonthDay;
+                    annualdueDate.push(new Date().getFullYear());
+                    scope.annualdueDate = new Date(annualdueDate);
+                };
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {

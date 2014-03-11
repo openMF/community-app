@@ -13,10 +13,10 @@
             </h3></td>
             <td></td>
             <td>
-                <button class="btn-warning" ng-show="schedulerstatus=='Active'" ng-click="suspendJobs()"><i
+                <button class="btn-warning" ng-show="schedulerstatus=='Active'" ng-click="suspendJobs()" has-permission='UPDATE_SCHEDULER'><i
                         class="icon-remove icon-white"></i>{{'label.button.suspend' | translate}}
                 </button>
-                <button class="btn-success" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()"><i
+                <button class="btn-success" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()" has-permission='UPDATE_SCHEDULER'><i
                         class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}
                 </button>
             </td>
@@ -75,8 +75,7 @@
         </div>
     </script>
     <div class="offset">
-        <button id="run" class="btn btn-primary" ng-click="runSelectedJobs()"><i class="icon-play icon-white"></i>{{'label.button.runselectedjobs'
-            | translate}}
+        <button id="run" class="btn btn-primary" has-permission='UPDATE_SCHEDULER' ng-click="runSelectedJobs()"><i class="icon-play icon-white"></i>{{'label.button.runselectedjobs' | translate}}
         </button>
         <button id="cancel" class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.button.refresh'
             | translate}}

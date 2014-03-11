@@ -7,7 +7,7 @@
                 <li class="active">{{'label.anchor.currencyconfig' | translate}}</li>
             </ul>
             <div class="pull-right">
-                <a ng-click="hideview = !hideview" class="btn btn-primary" id="edit-currency"><i
+                <a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency"><i
                         class="icon-plus icon-white"></i>{{'label.button.addedit' | translate}}</a>
             </div>
         </div>
@@ -43,7 +43,7 @@
                    ng-autofocus="true"
                    autocomplete="off"
                    typeahead="item as item.displayLabel for item in allCurrOptions | filter:$viewValue | limitTo:8"/>&nbsp;&nbsp;<a
-                id="add-currency" ng-click='addCur()'><i class="icon-plus"></i></a>
+                id="add-currency" ng-click='addCur()' has-permission='UPDATE_CURRENCY'><i class="icon-plus"></i></a>
 
             <div ng-repeat="currency in selectedCurrOptions">
                 <input disabled="" class="form-control input-xxlarge" placeholder={{currency.displayLabel}}
@@ -52,8 +52,7 @@
             <div class="offset5">
                 <button id="cancel" type="reset" ng-click="cancel()" class="btn">{{'label.button.cancel' | translate}}
                 </button>
-                <button id="save" type="submit" ng-click="submit()" class="btn btn-primary">{{'label.button.save' |
-                    translate}}
+                <button id="save" type="submit" ng-click="submit()" class="btn btn-primary">{{'label.button.save' | translate}}
                 </button>
             </div>
         </div>
