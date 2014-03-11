@@ -49,6 +49,7 @@ By default, when the app is running in the local filesystem or on http://localho
 The UI will connect to the mifosng-provider REST API running on the same host/port when running in the cloud.
 
 If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as a query parameter,
+
 e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
 ## Adding dependencies
