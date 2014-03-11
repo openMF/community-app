@@ -15,9 +15,9 @@ Travis
 
 ## Building from source
 
-1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
+1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
 
-2. Clone this repository to your local filesystem (default branch in 'master')
+2. Clone this repository to your local filesystem (default branch in 'develop')
 
 3. To download the dependencies, and be able to build, first install bower & grunt:
 ```
@@ -32,15 +32,13 @@ npm install -g grunt-cli
  npm install 
 ```
 
-5. Check the backend server HOST settings in the community-app\app\scripts\modules\configuration.js file. If you are connecting to a non local host, then you may need to change the API_URL_OVERRIDE value to *false*.
-
-6. To preview the app run
+5. To preview the app run
 ```
  grunt serve
 ```
    or open the 'index.html' file in FIREFOX browser.
 
-7. Default username/password: mifos/password. This application will hit the demo server by default.
+6. Default username/password: mifos/password. This application will hit the demo server by default.
 
 You are done.
 
