@@ -134,8 +134,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data">
-                    <td ng-repeat="col in row.row">{{col}}</td>
+                <!-- http://www.anujgakhar.com/2013/06/15/duplicates-in-a-repeater-are-not-allowed-in-angularjs/ -->
+                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index">
+                    <td ng-repeat="col in row.row track by $index">{{col}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -144,6 +145,5 @@
     <div collapse="hidePentahoReport" class="row alert-block span tab-content">
         <br>
         <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
-        ';
     </div>
 </div>
