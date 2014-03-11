@@ -15,14 +15,14 @@ Travis
 
 ## Building from source
 
-1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to downloand installer for your OS.
+1. Note: Ensure you have ```npm``` installed - go to http://nodejs.org/download/ to downloand installer for your OS (or use your Linux package installer such as ```sudo apt-get install npm```).  Now type ```node``` (NOT nodejs; because bower still uses node) - ok?  If NOK, if you are on certain Linux distros (incl. e.g. Ubuntu 13.10), please try ```apt-get install nodejs-legacy``` - better, hopefully.
 
 2. Clone this repository to your local filesystem (default branch in 'master')
 
 3. To download the dependencies, and be able to build, first install bower & grunt:
 ```
-npm install -g bower
-npm install -g grunt-cli
+sudo npm install -g bower
+sudo npm install -g grunt-cli
 ```
 4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder:
 ```
