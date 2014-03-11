@@ -1,8 +1,8 @@
-
 'use strict';
 
 module.exports = function(grunt) {
-
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -14,14 +14,66 @@ module.exports = function(grunt) {
       target: 'community-app',
       test: 'test'
     },
-
+    watch: {
+        js: {
+            files: ['<%= mifosx.app %>/scripts/**/*.js'],
+            options: {
+                livereload: true
+            }
+        },
+        gruntfile: {
+            files: ['Gruntfile.js']
+        },
+        livereload: {
+            options: {
+                livereload: '<%= connect.options.livereload %>'
+            },
+            files: [
+                '<%= mifosx.app %>/**/*.html',
+                '<%= mifosx.app %>/{,*/}*.json',
+                '<%= mifosx.app %>/**/*.js',
+                '<%= mifosx.app %>/**/*.css',
+                '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+            ]
+        }
+    },
+     // The actual grunt server settings
+    connect: {
+        options: {
+            port:  9000,
+            hostname: '0.0.0.0',
+            livereload: 35729,
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
+        },
+        livereload: {
+            options: {
+                base: [
+                    '.tmp',
+                    '<%= mifosx.app %>'
+                ]
+            }
+        }
+    },
+    // w3c html calidation
+    validation: {
+        options: {
+            reset: true,
+            relaxerror: ['no document type declaration; will parse without validation', 'document type does not allow element \\"[A-Z]+\\" here']
+        },
+        files: {
+            src: [
+                '<%= mifosx.app  %>/views/{,*/}*.html', // Validating templates may not be of much use.
+                '<%= mifosx.app  %>/index.html'
+                ]
+        }
+    },
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
-        node: true,
-        jshintrc: true,
-        reporter:'checkstyle',
-        reporterOutput:'jshint-log.xml'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish'),
+        reporterOutput:'jshint-log.xml',
+        force: true
       },
       all: ['Gruntfile.js', '<%= mifosx.app %>/scripts/**/*.js']
     },
@@ -67,7 +119,8 @@ module.exports = function(grunt) {
             '!<%= mifosx.dist %>/.git*'
           ]
         }]
-      }
+      },
+      server: '.tmp'
     },
 
     // Copies remaining files to places other tasks can use
@@ -123,7 +176,7 @@ module.exports = function(grunt) {
           cwd: '<%= mifosx.app %>/bower_components',
           dest: '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components',
           src: [
-            '**/*min.js', 'require-css/*.js', 'require-less/*.js', 
+            '**/*min.js', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**'
           ]
         }
@@ -158,7 +211,15 @@ module.exports = function(grunt) {
             '**/**'
           ]
         }]
-      }
+      },
+        // this won't be necessary after fixing dependencies
+        server: {
+            expand: true,
+            dot: true,
+            cwd: '<%= mifosx.test %>',
+            dest: '.tmp/test',
+            src: '**/**'
+        }
     },
 
       //hashing css & js
@@ -209,7 +270,6 @@ module.exports = function(grunt) {
               }]
           }
       },
-    
     // concatinate JS files
     /** FIXME: Address issues with this task**/
     concat: {
@@ -225,8 +285,8 @@ module.exports = function(grunt) {
           //'<%= mifosx.dist %>/<%=mifosx.target%>/scripts/services/services.js': ['<%= mifosx.app %>/scripts/services/**/*.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js': ['<%= mifosx.app %>/scripts/filters/**/*.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js':
-            ['<%= mifosx.app %>/scripts/routes.js', 
-            '<%= mifosx.app %>/scripts/initialTasks.js', 
+            ['<%= mifosx.app %>/scripts/routes.js',
+            '<%= mifosx.app %>/scripts/initialTasks.js',
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
         }
       }
@@ -264,23 +324,15 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-devcode');
-  grunt.loadNpmTasks('grunt-hashres');
-  grunt.loadNpmTasks('grunt-text-replace');
+
+  // Run development server using grunt serve
+  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  // Validate JavaScript and HTML files
+  grunt.registerTask('validate', ['jshint:all', 'validation']);
   // Default task(s).
-      
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
-  grunt.registerTask('compile', ['jshint']);
   grunt.registerTask('test', ['karma']);
 
 };
