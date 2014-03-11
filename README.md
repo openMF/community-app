@@ -17,13 +17,14 @@ Travis
 
 1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
 
-2. Clone this repository to your local filesystem (default branch in 'develop')
+2. Clone this repository to your local filesystem (default branch is 'develop')
 
 3. To download the dependencies, and be able to build, first install bower & grunt:
 ```
 npm install -g bower
 npm install -g grunt-cli
 ```
+
 4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder:
 ```
  bower install
@@ -32,7 +33,7 @@ npm install -g grunt-cli
  npm install 
 ```
 
-5. To preview the app run
+5. To preview the app, run the following command on the project root folder:
 ```
  grunt serve
 ```
@@ -47,8 +48,8 @@ You are done.
 By default, when the app is running in the local filesystem or on http://localhost, it will connect to demo.openmf.org.
 The UI will connect to the mifosng-provider REST API running on the same host/port when running in the cloud.
 
-If you want to connect to the API running elsewhere, then append the baseApiUrl as a query parameter,
-e.g. http://localhost:9090/app/index.html?baseApiUrl=https://localhost:8443/#/.
+If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as a query parameter,
+e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
 ## Adding dependencies
 
