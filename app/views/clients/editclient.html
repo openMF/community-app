@@ -1,8 +1,8 @@
-      <form name="editclientform" novalidate="" class="form-horizontal" ng-controller="EditClientController" rc-submit="submit()">
+<form name="editclientform" novalidate="" class="form-horizontal" ng-controller="EditClientController" rc-submit="submit()">
         <div>
           <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> </li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> </li>
               <li class="active">{{'label.anchor.editclient' | translate}}</li>
           </ul>
         </div>
@@ -10,12 +10,12 @@
         <fieldset>
           <legend>{{'label.heading.editclient' | translate}}</legend>
           <table width="100%">
-            <tr>
+            <tbody><tr>
               <td>
-              <div class="control-group">
+              <div class="form-group">
                 <label class="control-label">{{ 'label.heading.office' | translate }}:<span class="required">*</span></label>
                 <div class="controls">
-                  <select id="officeId" ng-model="officeId"  ng-options="office.id as office.name for office in offices" value="{{office.id}}" disabled="disabled">
+                  <select id="officeId" ng-model="officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}" disabled="disabled">
                 </select>
                 </div>
               </div>
@@ -24,10 +24,10 @@
 
             <tr>
               <td>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.heading.staff' | translate }}:</label>
                   <div class="controls">
-                    <select id="staffId" ng-model="formData.staffId"  ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                    <select id="staffId" ng-model="formData.staffId" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                       <option value="">{{'label.menu.selectloanofficer' | translate}}</option>
                     </select>
                   </div>
@@ -37,35 +37,35 @@
 
             <tr>
               <td>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.input.firstname' | translate }}:<span class="required">*</span></label>
                   <div class="controls">
-                    <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required late-Validate/>
-                    <form-validate valattributeform="editclientform" valattribute="firstname"/>
-                  </div>
+                    <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required="" late-validate="" class="form-control">
+                    <form-validate valattributeform="editclientform" valattribute="firstname">
+                  </form-validate></div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.input.middlename' | translate }}:</label>
                   <div class="controls">
-                    <input id="middlename" type="text" ng-model="formData.middlename">
+                    <input id="middlename" type="text" ng-model="formData.middlename" class="form-control">
                   </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.input.lastname' | translate }}:<span class="required">*</span></label>
                   <div class="controls">
-                    <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
-                    <form-validate valattributeform="editclientform" valattribute="lastname"/>
-                  </div>
+                    <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required="" late-validate="" class="form-control">
+                    <form-validate valattributeform="editclientform" valattribute="lastname">
+                  </form-validate></div>
                 </div>
               </td>
             </tr>
             
             <tr>
               <td>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.input.accno' | translate }}:</label>
                   <div class="controls">
-                    <input id="accountNo" type="text" ng-model="formData.accountNo">
+                    <input id="accountNo" type="text" ng-model="formData.accountNo" class="form-control">
                   </div>
                 </div>
               </td>
@@ -73,21 +73,21 @@
 
             <tr>
               <td>
-                <div class="control-group">
+                <div class="form-group">
                   <label class="control-label">{{ 'label.input.externalid' | translate }}:</label>
                   <div class="controls">
-                    <input id="externalId" type="text" ng-model="formData.externalId">
+                    <input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
                   </div>
                 </div>
               </td>
             </tr>
               <tr>
                   <td>
-                      <div class="control-group">
+                      <div class="form-group">
                           <label class="control-label" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
                           <div class="controls">
-                              <input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" />
-                                <span ng-show="editclientform.mobileNo.$invalid && editclientform.mobileNo.$dirty">
+                              <input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control">
+                                <span ng-show="editclientform.mobileNo.$invalid &amp;&amp; editclientform.mobileNo.$dirty">
                                   <small class="required" ng-show="editclientform.mobileNo.$error.pattern">
                                       {{'label.mustbenumeric' | translate}}
                                   </small>
@@ -99,19 +99,19 @@
 
               <tr>
                   <td>
-                      <div data-ng-switch on="choice">
-                          <div class="control-group" data-ng-switch-when="1">
+                      <div data-ng-switch="" on="choice">
+                          <div class="form-group" data-ng-switch-when="1">
                               <label class="control-label">{{'label.input.activationdate' | translate}}:<span class="required">*</span></label>
                               <div class="controls">
-                                  <input  id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                                  <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.activationDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control">
                               </div>
                           </div>
                       </div>
                   </td>
               </tr>
-        </table>
-          <div class="offset3">
-            <a id="cancel" href='#/viewclient/{{clientId}}'><button type="reset" class="btn">{{'label.button.cancel' | translate}}</button></a>
+        </tbody></table>
+          <div class="col-lg-offset-3">
+            <a id="cancel" href="#/viewclient/{{clientId}}"><button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button></a>
             <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
           </div>
           

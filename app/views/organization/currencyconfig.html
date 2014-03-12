@@ -2,7 +2,7 @@
     <div>
         <div ng-hide="hideview">
             <ul class="breadcrumb">
-                <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+                <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
                 <li class="active">{{'label.anchor.currencyconfig' | translate}}</li>
             </ul>
             <div class="pull-right">
@@ -11,12 +11,12 @@
         </div>
         <div ng-show="hideview">
             <ul class="breadcrumb">
-                <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+                <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
                 <li class="active">{{'label.anchor.editcurrencyconfig' | translate}}</li>
             </ul>
         </div>
     </div>
-    <div class="row-fluid">
+    <div class="row">
 		<table class="table" ng-hide="hideview">
 	        <thead>
 	            <tr class="graybg">
@@ -33,19 +33,13 @@
 	    </table>
         <div ng-show="hideview">
             <br>
-        	<input class="form-control input-xxlarge" id="new-currency"
-             ng-model="selected" 
-             placeholder="New Currency"
-             type="text"
-             ng-autofocus="true"
-             autocomplete="off"
-             typeahead="item as item.displayLabel for item in allCurrOptions | filter:$viewValue | limitTo:8" />&nbsp;&nbsp;<a id="add-currency" ng-click='addCur()'><i class="icon-plus"></i></a>
+        	<input class="form-control input-xxlarge" id="new-currency" ng-model="selected" placeholder="New Currency" type="text" ng-autofocus="true" autocomplete="off" typeahead="item as item.displayLabel for item in allCurrOptions | filter:$viewValue | limitTo:8">&nbsp;&nbsp;<a id="add-currency" ng-click="addCur()"><i class="icon-plus"></i></a>
 
          	<div ng-repeat="currency in selectedCurrOptions">
-    			<input disabled="" class="form-control input-xxlarge" placeholder={{currency.displayLabel}} type="text"/>&nbsp;&nbsp;<a ng-click='deleteCur(currency.code)'><i class="icon-remove"></i></a>
+    			<input disabled="" class="form-control input-xxlarge" placeholder="{{currency.displayLabel}}" type="text">&nbsp;&nbsp;<a ng-click="deleteCur(currency.code)"><i class="icon-remove"></i></a>
             </div>
-            <div class="offset5">
-                <button id="cancel" type="reset" ng-click="cancel()" class="btn">{{'label.button.cancel' | translate}}</button>
+            <div class="col-lg-offset-5">
+                <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 <button id="save" type="submit" ng-click="submit()" class="btn btn-primary">{{'label.button.save' | translate}}</button>
             </div>
         </div>  

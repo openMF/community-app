@@ -7,8 +7,8 @@
 	<api-validate></api-validate>
 	<div ng-hide="showResults">
 		<table width="100%">
-			<tr>
-				<td  width="16%">
+			<tbody><tr>
+				<td width="16%">
 					{{'label.input.adhoc.search.loanstatus' | translate}}
 				</td>
 				<td width="25%" class="paddedleft0">
@@ -27,7 +27,7 @@
 			<tr>
 				<td>{{'label.input.product' | translate}}</td>
 				<td class="paddedleft0">
-					<select multiple ng-model="formData.loanProducts">
+					<select multiple="" ng-model="formData.loanProducts">
 						<option ng-repeat="product in searchTemplate.loanProducts" value="{{product.id}}">{{product.name}}</option>
 					</select>
 				</td>
@@ -35,7 +35,7 @@
 					{{'label.office' | translate}}&nbsp;
 				</td>
 				<td>
-					<select multiple ng-model="formData.offices" class="width60">
+					<select multiple="" ng-model="formData.offices" class="width60">
 						<option ng-repeat="office in searchTemplate.offices" value="{{office.id}}">{{office.name}}</option>
 					</select>
 				</td>
@@ -52,8 +52,8 @@
 				</td>
 				<td><span ng-show="showDateFields">{{"label.input.between" | translate}}</span></td>
 				<td>
-					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loanfromdate" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small" /> {{"label.and" | translate}}
-					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loantodate" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}"  class="input-small" />
+					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loanfromdate" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" class="input-small form-control"> {{"label.and" | translate}}
+					<input ng-show="showDateFields" type="text" datepicker-pop="yyyy-MM-dd" ng-model="formData.loantodate" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" class="input-small form-control">
 				</td>
 			</tr>
 			<tr>
@@ -65,10 +65,10 @@
 					<span ng-show="formData.includeOutStandingAmountPercentage">
 						<select id="percentagetype" ng-model="formData.outStandingAmountPercentageCondition" ng-change="updatePercentageType()">
 							<option value="between">{{"label.input.between" | translate}}</option>
-							<option value="<=">&lt;=</option>
-							<option value=">=">&gt;=</option>
-							<option value="<">&lt;</option>
-							<option value=">">&gt;</option>
+							<option value="&lt;=">&lt;=</option>
+							<option value="&gt;=">&gt;=</option>
+							<option value="&lt;">&lt;</option>
+							<option value="&gt;">&gt;</option>
 							<option value="=">=</option>
 						</select>
 					</span>
@@ -79,11 +79,11 @@
 				<td>
 					<span ng-show="formData.includeOutStandingAmountPercentage">
 						<span ng-hide="formData.outStandingAmountPercentageCondition == 'between'">
-							<input type="text" ng-model="formData.outStandingAmountPercentage" class="input-small"/>
+							<input type="text" ng-model="formData.outStandingAmountPercentage" class="input-small form-control">
 						</span>
 						<span ng-show="formData.outStandingAmountPercentageCondition == 'between'">
-							<input type="text" ng-model="formData.minOutStandingAmountPercentage" class="input-small"/> {{"label.and" | translate}}
-							<input type="text" ng-model="formData.maxOutStandingAmountPercentage" class="input-small"/>
+							<input type="text" ng-model="formData.minOutStandingAmountPercentage" class="input-small form-control"> {{"label.and" | translate}}
+							<input type="text" ng-model="formData.maxOutStandingAmountPercentage" class="input-small form-control">
 						</span>
 					</span>
 				</td>
@@ -96,10 +96,10 @@
 					<span ng-show="formData.includeOutstandingAmount">
 						<select id="loandatetype" ng-show="formData.includeOutstandingAmount" ng-model="formData.outstandingAmountCondition" ng-change="updateOutstandingType()">
 							<option value="between">{{"label.input.between" | translate}}</option>
-							<option value="<=">&lt;=</option>
-							<option value=">=">&gt;=</option>
-							<option value="<">&lt;</option>
-							<option value=">">&gt;</option>
+							<option value="&lt;=">&lt;=</option>
+							<option value="&gt;=">&gt;=</option>
+							<option value="&lt;">&lt;</option>
+							<option value="&gt;">&gt;</option>
 							<option value="=">=</option>
 						</select>
 					</span>
@@ -108,22 +108,22 @@
 				<td>
 					<span ng-show="formData.includeOutstandingAmount">
 						<span ng-hide="formData.outstandingAmountCondition == 'between'">
-							<input type="text" ng-model="formData.outstandingAmount" class="input-small"/>
+							<input type="text" ng-model="formData.outstandingAmount" class="input-small form-control">
 						</span>
 						<span ng-show="formData.outstandingAmountCondition == 'between'">
-							<input type="text" ng-model="formData.minOutstandingAmount" class="input-small"/> {{"label.and" | translate}}
-							<input type="text" ng-model="formData.maxOutstandingAmount" class="input-small"/>
+							<input type="text" ng-model="formData.minOutstandingAmount" class="input-small form-control"> {{"label.and" | translate}}
+							<input type="text" ng-model="formData.maxOutstandingAmount" class="input-small form-control">
 						</span>
 					</span>
 				</td>
 			</tr>
-		</table>
-		<div class="offset1">
+		</tbody></table>
+		<div class="col-lg-offset-1">
 			<button id="save" type="submit" class="btn btn-primary" ng-click="submit()">{{'label.button.summary' | translate}}</button>
 		</div>
 	</div>
 	<div ng-show="showResults">
-		<input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px">
+		<input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px form-control">
 		<table class="table">
 			<thead>
 				<tr class="graybg">

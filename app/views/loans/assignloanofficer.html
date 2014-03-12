@@ -1,7 +1,7 @@
 <div ng-controller="AssignLoanOfficerController">	
 	<div>
 		<ul class="breadcrumb">
-			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span class="divider">/</span></li>
+			<li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> </li>
 			<li class="active">{{'label.anchor.assignloanofficer' | translate}}</li>
 		</ul>
 	</div>
@@ -9,20 +9,20 @@
 		<api-validate></api-validate>
 		<fieldset>
 			<legend>{{ 'label.heading.assignloanofficer' | translate }}</legend>
-            <div class="control-group">
+            <div class="form-group">
 				<label class="control-label" for="toLoanOfficerId">{{ 'label.input.toloanofficer' | translate }}<span class="required">*</span></label>
 				<div class="controls">
 					<select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId" ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers" value="{{loanOfficer.id}}"></select>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label" for="assignmentDate">{{ 'label.input.assignmentdate' | translate }}<span class="required">*</span></label>
 				<div class="controls">
-					<input sort id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
+					<input sort="" id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control">
 				</div>
 			</div>
-            <div class="offset3">
-				<button id="cancel" type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
+            <div class="col-lg-offset-3">
+				<button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</button>
 				<button id="save" type="submit" ng-disabled="!assignloanofficerform.$valid" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
 			</div>
         </fieldset>

@@ -1,18 +1,18 @@
 <div>
 	<ul class="breadcrumb">
-		<li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+		<li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
 		<li class="active">{{'label.anchor.manageoffices' | translate}}</li>
 	</ul>
 </div>
 
-<div class="row-fluid" ng-controller="OfficesController">
+<div class="row" ng-controller="OfficesController">
 	<div class="pull-right">
 		<a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-list icon-white"></i>{{'label.button.listview' | translate}}</a>
 		<a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
 		<a href="#/createoffice" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createoffice' | translate}}</a>
 	</div>
 	<div ng-hide="isTreeView">
-		<input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+		<input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
 		<table class="table">
 			<thead>
 				<tr class="graybg">
@@ -33,13 +33,7 @@
 		</table>
 	</div>
 	<div ng-show="isTreeView">
-		<div
-		data-angular-treeview="true"
-		data-tree-id="treeview"
-		data-tree-model="treedata"
-		data-node-id="id"
-		data-node-label="name"
-		data-node-children="children" >
+		<div data-angular-treeview="true" data-tree-id="treeview" data-tree-model="treedata" data-node-id="id" data-node-label="name" data-node-children="children">
 		</div>
 	</div>
 </div>

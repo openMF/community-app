@@ -2,95 +2,95 @@
     <api-validate></api-validate>
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a> </li>
+            <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a> </li>
             <li class="active">{{'label.anchor.editcharge' | translate}}</li>
         </ul>
     </div>
-    <form name="editchargeform" novalidate class="form-horizontal" rc-submit="submit()">
+    <form name="editchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <fieldset>
             <legend>{{'label.heading.editcharge' | translate}}</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">{{'label.input.chargesappliesto' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select id="chargeAppliesTo" ng-model="formData.chargeAppliesTo" data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions" value="{{chargesapply.id}}" ng-disabled="true">
                     </select>
                 </div>
             </div>
-            <hr/>
-            <div class="control-group">
+            <hr>
+            <div class="form-group">
                 <label class="control-label" for="name">{{'label.input.name' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" required late-Validate/>
-                    <form-validate valattributeform="editchargeform" valattribute="name"/>
-                </div>
+                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" required="" late-validate="" class="form-control">
+                    <form-validate valattributeform="editchargeform" valattribute="name">
+                </form-validate></div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">{{'label.input.currency' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select id="currencyCode" ng-model="formData.currencyCode" data-ng-options="currency.code as currency.name for currency in template.currencyOptions" value="{{currency.code}}">
                     </select>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">{{'label.input.chargetimetype' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select id="chargeTimeType" ng-model="formData.chargeTimeType" data-ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions" value="{{timetype.id}}" ng-change="chargeTimeChange(formData.chargeTimeType)">
                     </select>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label">{{'label.input.chargecalculation' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select id="chargeCalculationType" ng-model="formData.chargeCalculationType" data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions" value="{{chargecalculation.id}}">
                     </select>
                 </div>
             </div>
-            <div class="control-group" ng-hide="showdatefield || flag">
+            <div class="form-group" ng-hide="showdatefield || flag">
                 <label class="control-label">{{'label.input.chargepaymentby' | translate}}<span class="required">*</span></label>
                 <div class="controls">
                     <select id="chargePaymentMode" ng-model="formData.chargePaymentMode" data-ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions" value="{{chargepayment.id}}">
                     </select>
                 </div>
             </div>
-            <div class="control-group" ng-show="showdatefield">
+            <div class="form-group" ng-show="showdatefield">
                 <label class="control-label">{{'label.input.duedate' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                  <input id="duedate" type="text" datepicker-pop="dd MMMM" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'"/>
+                  <input id="duedate" type="text" datepicker-pop="dd MMMM" ng-model="first.date" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control">
                 </div>
             </div>
-            <div class="control-group" ng-show="repeatEvery">
+            <div class="form-group" ng-show="repeatEvery">
                 <label class="control-label" for="feeInterval">{{'label.input.repeatsevery' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input class="input-small" id="feeInterval" name="feeInterval" type="text" ng-model="formData.feeInterval" ng-required="repeatEvery" late-Validate/>{{'label.input.months' | translate}}
-                    <form-validate valattributeform="editchargeform" valattribute="feeInterval"/>
-                </div>
+                    <input class="input-small form-control" id="feeInterval" name="feeInterval" type="text" ng-model="formData.feeInterval" ng-required="repeatEvery" late-validate="">{{'label.input.months' | translate}}
+                    <form-validate valattributeform="editchargeform" valattribute="feeInterval">
+                </form-validate></div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="amount">{{'label.input.amount' | translate}}<span class="required">*</span></label>
                 <div class="controls">
-                    <input name="amount" type="text" id="amount" ng-model="formData.amount" required late-Validate/>
-                    <form-validate valattributeform="editchargeform" valattribute="amount"/>
-                </div>
+                    <input name="amount" type="text" id="amount" ng-model="formData.amount" required="" late-validate="" class="form-control">
+                    <form-validate valattributeform="editchargeform" valattribute="amount">
+                </form-validate></div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="active">{{'label.input.active' | translate}}</label>
                 <div class="controls">
-                    <label class="checkbox">
+                    <div class="checkbox"><label class="">
                         <input id="active" type="checkbox" ng-model="formData.active">
-                    </label>
+                    </label></div>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 <label class="control-label" for="ispenalty">{{'label.input.ispenalty' | translate}}</label>
                 <div class="controls">
-                    <label class="checkbox">
+                    <div class="checkbox"><label class="">
                         <input id="ispenalty" type="checkbox" ng-model="formData.penalty">
-                    </label>
+                    </label></div>
                 </div>
             </div>
-            <div class="offset2 paddedleft80">
-                <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn">{{'label.button.cancel' | translate}}</a>
+            <div class="paddedleft80 col-lg-offset-2">
+                <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
