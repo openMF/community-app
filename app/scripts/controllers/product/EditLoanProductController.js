@@ -57,6 +57,7 @@
                     graceOnPrincipalPayment: scope.product.graceOnPrincipalPayment,
                     graceOnInterestPayment: scope.product.graceOnInterestPayment,
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
+                    graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
                     accountingRule: scope.product.accountingRule.id,
                     principalVariationsForBorrowerCycle: [],
                     interestRateVariationsForBorrowerCycle: [],
