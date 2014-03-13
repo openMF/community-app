@@ -36,8 +36,7 @@
             };
             if (scope.reportType == 'Pentaho') {
                 scope.formData.outputType = 'HTML';
-            }
-            ;
+            };
 
             resourceFactory.runReportsResource.getReport({reportSource: 'FullParameterList', parameterType: true, R_reportListing: "'" + routeParams.name + "'"}, function (data) {
 
@@ -301,6 +300,8 @@
                             scope.hideChart = true;
                             scope.formData.reportSource = scope.reportName;
                             resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
+                                //clear the csvData array for each request
+                                scope.csvData = [];
                                 scope.reportData.columnHeaders = data.columnHeaders;
                                 scope.reportData.data = data.data;
                                 for (var i in data.columnHeaders) {
