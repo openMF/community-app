@@ -460,6 +460,9 @@
             .when('/global', {
                 templateUrl: 'views/administration/global.html'
             })
+            .when('/configurations/:configId/editconfig', {
+                templateUrl: 'views/administration/editGlobalConfiguration.html'
+            })
             .when('/productmix', {
                 templateUrl: 'views/products/productmix/productmix.html'
             })

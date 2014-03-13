@@ -12,6 +12,8 @@
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.enabled' | translate}}</th>
             <th></th>
+            <th>{{'label.heading.value' | translate}}</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -23,7 +25,14 @@
                         data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-flag-alt"></i></button>
                 <button type="button" class="btn btn-danger flag" data-ng-show="config.enabled"
                         data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-remove"></i></button>
+                
             </td>
+            <td>{{config.value}}</td>
+            <td>
+                <a title="{{'label.edit' | translate}}"  data-ng-show="config.showEditvalue"  
+                   href="#/configurations/{{config.id}}/editconfig"><i
+                        class="icon-pencil icon-white"></i></a>
+            </td>                   
         </tr>
         </tbody>
     </table>
