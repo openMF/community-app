@@ -24,7 +24,7 @@
             'angularFileUpload': '../bower_components/angularjs-file-upload/angular-file-upload.min',
             'angularFileUploadShim': '../bower_components/angularjs-file-upload/angular-file-upload-shim.min',
             'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize.min',
-            'ckEditor': '../bower_components/ckeditor/ckeditor.min',
+            'ckEditor': '../bower_components/ckeditor/ckeditor',
             'ngIdle': '../bower_components/ng-idle/angular-idle.min',
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",

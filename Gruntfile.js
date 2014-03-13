@@ -94,8 +94,8 @@ module.exports = function(grunt) {
           :['<%= mifosx.app %>/bower_components/angular-mocks/angular-mocks.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-webstorage/angular-webstorage.min.js'
           :['<%= mifosx.app %>/bower_components/angular-webstorage/angular-webstorage.js'],
-          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/ckeditor/ckeditor.min.js'
-          :['<%= mifosx.app %>/bower_components/ckeditor/ckeditor.js'],
+          //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/ckeditor/ckeditor.min.js'
+          //:['<%= mifosx.app %>/bower_components/ckeditor/ckeditor.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/datatables/media/js/jquery.dataTables.min.js'
           :['<%= mifosx.app %>/bower_components/datatables/media/js/jquery.dataTables.js'],
           //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/require-css/css.min.js'
@@ -176,7 +176,7 @@ module.exports = function(grunt) {
           cwd: '<%= mifosx.app %>/bower_components',
           dest: '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components',
           src: [
-            '**/*min.js', 'require-css/*.js', 'require-less/*.js',
+            '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**'
           ]
         }
