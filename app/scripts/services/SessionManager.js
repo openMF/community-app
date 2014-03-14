@@ -4,9 +4,13 @@
             var EMPTY_SESSION = {};
 
             this.get = function (data) {
-                webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions});
-                httpService.setAuthorization(data.base64EncodedAuthenticationKey);
-                return {user: new mifosX.models.LoggedInUser(data)};
+                if (data.shouldRenewPassword) {
+                    httpService.setAuthorization(data.base64EncodedAuthenticationKey);
+                } else{
+                    webStorage.add("sessionData", {userId: data.userId, authenticationKey: data.base64EncodedAuthenticationKey, userPermissions: data.permissions});
+                    httpService.setAuthorization(data.base64EncodedAuthenticationKey);
+                    return {user: new mifosX.models.LoggedInUser(data)};
+                };
             }
 
             this.clear = function () {

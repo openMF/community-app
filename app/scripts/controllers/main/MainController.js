@@ -72,12 +72,18 @@
 
             scope.leftnav = false;
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
-                scope.currentSession = sessionManager.get(data);
-                scope.start(scope.currentSession);
-                if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
-                    $rootScope.setPermissions(scope.currentSession.user.userPermissions);
-                }
-                location.path('/home').replace();
+                scope.authenticationFailed = false;
+                scope.resetPassword = data.shouldRenewPassword;
+                if (sessionManager.get(data)) {
+                    scope.currentSession = sessionManager.get(data);
+                    scope.start(scope.currentSession);
+                    if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
+                        $rootScope.setPermissions(scope.currentSession.user.userPermissions);
+                    }
+                    location.path('/home').replace();
+                } else{
+                     scope.loggedInUserId = data.userId;
+                };
             });
 
             scope.search = function () {
@@ -89,6 +95,7 @@
 
             scope.logout = function () {
                 scope.currentSession = sessionManager.clear();
+                scope.resetPassword = false;
                 location.path('/').replace();
             };
 
