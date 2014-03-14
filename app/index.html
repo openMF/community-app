@@ -26,13 +26,24 @@
             </span>
         </div>
         <br/><br/>
-        <div class="pull-right">
-            <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-small" required id="uid">
-            <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-small"  required id="pwd">
-            <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+        <div ng-hide="resetPassword">
+            <div class="pull-right">
+                <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-small" required id="uid">
+                <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-small"  required id="pwd">
+                <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+            </div>
+            <div class="pull-right" data-ng-show="authenticationFailed">
+                <p>{{ 'error.login.failed' | translate }}</p>
+            </div>
         </div>
-        <div class="pull-right" data-ng-show="authenticationFailed">
-            <p>{{ 'error.login.failed' | translate }}</p>
+        <div ng-show="resetPassword">
+            <div class="pull-right">
+                <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+                <br/>
+                <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-small"  required id="password">
+                <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-small"  required id="repeatPassword">
+                <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
+            </div>
         </div>
     </div>
     <div class="row span8 offset2 paddedbottom">
