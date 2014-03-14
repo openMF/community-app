@@ -4,6 +4,7 @@
             scope.configs = [];
             resourceFactory.configurationResource.get(function (data) {
                 for (var i in data.globalConfiguration) {
+                    data.globalConfiguration[i].showEditvalue = true;
                     scope.configs.push(data.globalConfiguration[i])
                 }
                 resourceFactory.cacheResource.get(function (data) {
@@ -12,6 +13,7 @@
                             var cache = {};
                             cache.name = 'Is Cache Enabled';
                             cache.enabled = data[i].enabled;
+                            cache.showEditvalue = false;
                             scope.configs.push(cache);
                         }
                     }

@@ -149,6 +149,7 @@ define(['underscore', 'mifosX'], function () {
             'product/CreateChargeController',
             'product/EditChargeController',
             'configurations/GlobalConfigurationController',
+            'configurations/EditConfigurationController',
             'product/productmix/ProductMixController',
             'product/productmix/ViewProductMixController',
             'product/productmix/AddProductMixController',
