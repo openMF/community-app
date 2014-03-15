@@ -7,8 +7,7 @@
 
             scope.login = function () {
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
-                //clearing username and password fields
-                scope.loginCredentials = {};
+                delete scope.loginCredentials.password;
             };
 
             $('#pwd').keypress(function (e) {

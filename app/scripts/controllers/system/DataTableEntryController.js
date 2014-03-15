@@ -83,9 +83,9 @@
                         } else if (data.officeId) {
                             destination = '/viewoffice/' + data.officeId;
                         }
+                        $modalInstance.close('delete');
                         location.path(destination);
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

@@ -38,9 +38,9 @@
             var CenterDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.centerResource.delete({centerId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('activate');
                         location.path('/centers');
                     });
-                    $modalInstance.close('activate');
 
                 };
                 $scope.cancel = function () {
@@ -50,9 +50,9 @@
             var CenterUnassignCtrl = function ($scope, $modalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.groupResource.save({groupId: routeParams.id, command: 'unassignStaff'}, scope.staffData, function (data) {
+                        $modalInstance.close('activate');
                         route.reload();
                     });
-                    $modalInstance.close('activate');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

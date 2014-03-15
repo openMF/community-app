@@ -159,7 +159,7 @@
                     currencyConfigResource: defineResource(apiVer + "/currencies", {}, {
                         get: {method: 'GET', params: {}},
                         update: { method: 'PUT'},
-                        upd: { method: 'PUT', params: {}, isArray: true}
+                        upd: { method: 'PUT', params: {}}
                     }),
                     userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
                         getAllUsers: {method: 'GET', params: {}, isArray: true},

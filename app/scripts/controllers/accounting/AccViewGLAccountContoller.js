@@ -55,9 +55,9 @@
             var GlAccDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.accountCoaResource.delete({glAccountId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/accounting_coa');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

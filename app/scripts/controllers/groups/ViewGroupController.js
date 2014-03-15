@@ -51,9 +51,9 @@
             var GroupUnassignCtrl = function ($scope, $modalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.groupResource.save({groupId: routeParams.id, command: 'unassignstaff'}, scope.staffData, function (data) {
+                        $modalInstance.close('unassign');
                         route.reload();
                     });
-                    $modalInstance.close('unassign');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -62,9 +62,9 @@
             var GroupDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.groupResource.delete({groupId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/groups');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

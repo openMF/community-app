@@ -27,8 +27,8 @@
             var ConfirmationCtrl = function ($scope, $modalInstance, id) {
                 $scope.transactionnumber = id.transactionId;
                 $scope.redirect = function () {
-                    location.path('/viewtransactions/' + id.transactionId);
                     $modalInstance.close('delete');
+                    location.path('/viewtransactions/' + id.transactionId);
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

@@ -24,9 +24,9 @@
             var activateHolidayCtrl = function ($scope, $modalInstance) {
                 $scope.activate = function () {
                     resourceFactory.holValueResource.save({holId: routeParams.id, command: 'Activate'}, {}, function (data) {
+                        $modalInstance.close('activate');
                         route.reload();
                     });
-                    $modalInstance.close('activate');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -43,9 +43,9 @@
             var deleteHolidayCtrl = function ($scope, $modalInstance) {
                 $scope.activate = function () {
                     resourceFactory.holValueResource.delete({holId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('activate');
                         location.path('holidays');
                     });
-                    $modalInstance.close('activate');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

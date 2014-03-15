@@ -16,9 +16,9 @@
             var ChDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.chargeResource.delete({chargeId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/charges');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
