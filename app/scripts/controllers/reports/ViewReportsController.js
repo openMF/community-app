@@ -51,6 +51,9 @@
                 return reports;
             };
 
+            scope.routeTo = function (report) {
+                location.path('/run_report/'+report.report_name).search({reportId: report.report_id, type:report.report_type});
+            };
 
         }
     });

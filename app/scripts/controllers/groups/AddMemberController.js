@@ -21,13 +21,17 @@
                 }
             };
             scope.submit = function () {
+                this.formData.dateFormat = scope.df;
+                this.formData.locale = scope.optlang.code;
                 if (scope.first.date) {
                     var reqDate = dateFilter(scope.first.date, scope.df);
                     this.formData.activationDate = reqDate;
-                    this.formData.dateFormat = scope.df;
+                }
+                if (scope.first.submitondate) {
+                    reqDate = dateFilter(scope.first.submitondate, scope.df);
+                    this.formData.submittedOnDate = reqDate;
                 }
                 this.formData.active = this.formData.active || false;
-                this.formData.locale = scope.optlang.code;
                 this.formData.groupId = routeParams.groupId;
                 this.formData.officeId = routeParams.officeId;
                 resourceFactory.clientResource.save(this.formData, function (data) {
