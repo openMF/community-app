@@ -32,9 +32,9 @@
             var TableDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.DataTablesResource.delete({datatablename: routeParams.tableName}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/datatables');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

@@ -97,9 +97,9 @@
             var DelChargeCtrl = function ($scope, $modalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: ids}, {}, function (data) {
+                        $modalInstance.close('delete');
                         route.reload();
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -314,9 +314,9 @@
             var GuarantorDeleteCtrl = function ($scope, $modalInstance, id) {
                 $scope.delete = function () {
                     resourceFactory.guarantorResource.delete({loanId: routeParams.id, templateResource: id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         route.reload();
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

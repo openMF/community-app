@@ -22,9 +22,9 @@
             var ChargeDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.loanResource.delete({ resourceType: 'charges', loanId: scope.loanId, resourceId: scope.chargeId}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/viewloanaccount/' + scope.loanId);
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

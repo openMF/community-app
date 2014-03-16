@@ -14,11 +14,11 @@
             var TemplateDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.templateResource.delete({templateId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/templates');
                         // added dummy request param because Content-Type header gets removed
                         // if the request does not contain any data (a request body)
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

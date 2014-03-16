@@ -85,10 +85,10 @@
                                 if (!scope.$$phase) {
                                     scope.$apply();
                                 }
+                                $modalInstance.close('upload');
                                 route.reload();
                             });
                     }
-                    $modalInstance.close('upload');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -103,9 +103,9 @@
             var ClientDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/clients');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -114,9 +114,9 @@
             var ClientUnassignCtrl = function ($scope, $modalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'unassignstaff'}, scope.staffData, function (data) {
+                        $modalInstance.close('unassign');
                         route.reload();
                     });
-                    $modalInstance.close('unassign');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

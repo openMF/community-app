@@ -15,9 +15,9 @@
             var AccDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.accountingClosureResource.delete({accId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/accounts_closure');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

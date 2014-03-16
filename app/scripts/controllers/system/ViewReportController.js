@@ -14,9 +14,9 @@
             var NoncoreReportDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.reportsResource.delete({id: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/reports');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

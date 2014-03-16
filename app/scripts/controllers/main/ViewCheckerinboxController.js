@@ -21,9 +21,9 @@
 
                 $scope.approve = function () {
                     resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: 'approve'}, {}, function (data) {
+                        $modalInstance.close('approve');
                         location.path('/checkeractionperformed');
                     });
-                    $modalInstance.close('approve');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -39,9 +39,9 @@
             var DeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.checkerInboxResource.delete({templateResource: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/checkeractionperformed');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

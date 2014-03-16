@@ -45,9 +45,9 @@
             var CodeDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.codeResources.delete({codeId: routeParams.id}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/codes');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -76,9 +76,9 @@
             var CodeValueDeleteCtrl = function ($scope, $modalInstance, cvid) {
                 $scope.delete = function () {
                     resourceFactory.codeValueResource.delete({codeId: routeParams.id, codevalueId: cvid}, {}, function (data) {
+                        $modalInstance.close('delete');
                         route.reload();
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

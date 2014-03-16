@@ -20,9 +20,9 @@
             var ProductmixDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                     resourceFactory.loanProductResource.delete({loanProductId: routeParams.id, resourceType: 'productmix'}, {}, function (data) {
+                        $modalInstance.close('delete');
                         location.path('/productmix');
                     });
-                    $modalInstance.close('delete');
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
