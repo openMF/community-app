@@ -6,7 +6,9 @@
                     return input;
                 } else {
                     //TODO- Add number formatting also
-                    return $filter('number')(input, fractionSize);
+                    if (input != "" && input != undefined) {
+                        return $filter('number')(input, fractionSize);
+                    };
                 };
             }
         }
