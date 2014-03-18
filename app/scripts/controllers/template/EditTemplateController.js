@@ -24,6 +24,7 @@
 
                 scope.templateKeyEntity = data.template.entity;
                 scope.formData.name = data.template.name;
+                scope.formData.text = data.template.text;
 
                 for (var i in data.template.mappers) {
                     if (i == 0) {

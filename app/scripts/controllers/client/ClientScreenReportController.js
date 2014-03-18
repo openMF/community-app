@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientScreenReportController: function (scope, resourceFactory, location, $http, API_VERSION, routeParams, $rootScope) {
+        ClientScreenReportController: function (scope, resourceFactory, location, $http, API_VERSION, routeParams, $rootScope, $sce) {
+            scope.clientId = routeParams.clientId;
             resourceFactory.templateResource.get({entityId: 0, typeId: 0}, function (data) {
                 scope.clientTemplateData = data;
             });
@@ -13,7 +14,6 @@
                 templateWindow.print();
                 templateWindow.close();
             };
-
             scope.getClientTemplate = function (templateId) {
                 scope.selectedTemplate = templateId;
                 $http({
@@ -21,12 +21,12 @@
                     url: $rootScope.hostUrl + API_VERSION + '/templates/' + templateId + '?clientId=' + routeParams.clientId,
                     data: {}
                 }).then(function (data) {
-                        scope.template = data.data;
-                    });
+                    scope.template = $sce.trustAsHtml(data.data);
+                });
             };
         }
     });
-    mifosX.ng.application.controller('ClientScreenReportController', ['$scope', 'ResourceFactory', '$location', '$http', 'API_VERSION', '$routeParams', '$rootScope', mifosX.controllers.ClientScreenReportController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientScreenReportController', ['$scope', 'ResourceFactory', '$location', '$http', 'API_VERSION', '$routeParams', '$rootScope', '$sce', mifosX.controllers.ClientScreenReportController]).run(function ($log) {
         $log.info("ClientScreenReportController initialized");
     });
 }(mifosX.controllers || {}));
