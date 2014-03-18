@@ -1,9 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewTemplateController: function (scope, routeParams, resourceFactory, location, $modal) {
+        ViewTemplateController: function (scope, routeParams, resourceFactory, location, $modal, $sce) {
             resourceFactory.templateResource.getTemplateDetails({templateId: routeParams.id}, function (data) {
                 scope.template = data;
-                scope.text = data.text;
+                scope.templateText = $sce.trustAsHtml(data.text);
             });
             scope.deleteTemplate = function () {
                 $modal.open({
@@ -26,7 +26,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewTemplateController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewTemplateController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTemplateController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$sce', mifosX.controllers.ViewTemplateController]).run(function ($log) {
         $log.info("ViewTemplateController initialized");
     });
 }(mifosX.controllers || {}));
