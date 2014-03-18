@@ -2,6 +2,7 @@ define(['underscore'], function() {
   var styles = {
     css: [
       'bootstrap.min',
+      'bootstrap-ext',
       'bootswatch',
       'font-awesome.min',
       'app',

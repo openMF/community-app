@@ -1,45 +1,44 @@
-<div class="row paddedleft" ng-controller="TaskController">
+<div class="row" ng-controller="TaskController">
     <fieldset>
 		<legend>{{'label.heading.pendingtasks' | translate}}</legend>
     	<tabset>
         <tab heading="{{'label.heading.checkerinbox' | translate}}">
             <div class="head-affix">
                 <table class="table condensed-table">
-                    <thead>
-                    <tr>
-                        <th>
-                                <span class="input-append grpinputicons">
-                                    <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8" class="form-control">
-                                    <span><a ng-click="isCollapsed = !isCollapsed" class="btn control btn-default"><i class="icon-chevron-down"></i></a></span>
-                                    <span><a ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></a></span>
-                                </span>
-
-                                <span>
-                                    <button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
-                                    <button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
-                                </span>
-                        </th>
-                    </tr>
-                    </thead>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <span class="input-append grpinputicons">
+                                <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8" class="input-sm form-control">
+                                <button type="button" ng-click="isCollapsed = !isCollapsed" class="btn control btn-default"><i class="icon-chevron-down"></i></button>
+                                <button type="button" ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></button>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <span>
+                                <button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
+                                <button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
+                            </span>
+                        </div>
+                    </div>
                 </table>
             </div>
             <br>
             <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
                 <div class="form-group">
-                    <label class="control-label"></label>
-                    <div class="controls">
+                    <label class="control-label col-sm-2"></label>
+                    <div class="col-sm-3">
                         <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label"></label>
-                    <div class="controls">
+                    <label class="control-label col-sm-2"></label>
+                    <div class="col-sm-3">
                         <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="controls">
-                        <select ng-model="formData.action">
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-model="formData.action">
                             <option value="">{{'label.all' | translate}}</option>
                             <option value="">--{{'label.selectaction' | translate}}--</option>
                             <option ng-repeat="action in checkerTemplate.actionNames" value="{{action}}">{{action}}</option>
@@ -47,8 +46,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="controls">
-                        <select ng-model="formData.entity">
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-model="formData.entity">
                             <option value="">{{'label.all' | translate}}</option>
                             <option value="">--{{'label.selectaction' | translate}}--</option>
                             <option ng-repeat="entity in checkerTemplate.entityNames" value="{{entity}}">{{entity}}</option>
@@ -56,8 +55,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label"></label>
-                    <div class="controls">
+                    <label class="control-label col-sm-2"></label>
+                    <div class="col-sm-3">
                         <input type="text" placeholder="{{'label.input.resourceid' | translate}}" ng-model="formData.resourceId" class="form-control">
                     </div>
                 </div>
@@ -81,7 +80,7 @@
                     <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
                 </div>
             </script>
-            <div ng-show="searchData" class="row">
+            <div ng-show="searchData" class="">
                 <table class="table" style="margin-top: -20px;">
                     <thead>
                     <tr class="graybg">
@@ -114,7 +113,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                                <input ng-autofocus="true" ng-model="filterText" type="text" class="input-sm span form-control" placeholder="{{'label.input.filterbyname' | translate}}">
                             </th>
                             <th>
                                 <button type="button" class="btn btn-success" data-ng-click="approveClient()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
@@ -171,7 +170,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input ng-autofocus="true" ng-model="filterText1" type="text" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                                <input ng-autofocus="true" ng-model="filterText1" type="text" class="span input-sm form-control" placeholder="{{'label.input.filterbyname' | translate}}">
                             </th>
                             <th>
                                 <button type="button" class="btn btn-success" data-ng-click="approveLoan()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
@@ -223,7 +222,7 @@
                         <thead>
                         <tr>
                             <th>
-                                <input ng-autofocus="true" ng-model="filterText2" type="text" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                                <input ng-autofocus="true" ng-model="filterText2" type="text" class="span input-sm form-control" placeholder="{{'label.input.filterbyname' | translate}}">
                             </th>
                         </tr>
                         </thead>

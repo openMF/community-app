@@ -10,16 +10,20 @@
 <div ng-controller="AccountingClosureController">
     <legend>{{ 'label.heading.closedaccountingdetails' | translate }}</legend>
 
-    <div class="pull-left">
-        <span for="officeId"><b>{{ 'label.input.office' | translate }}</b></span>
-        <select ng-model="formData.officeId" ng-change="closedAccountingDetails(formData.officeId)">
-            <option value="">--{{ 'label.menu.filterbyoffice' | translate }}--</option>
-            <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
-        </select>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="officeId"><b>{{ 'label.input.office' | translate }}</b></label>
+            <div class="col-sm-3">
+                <select ng-model="formData.officeId" ng-change="closedAccountingDetails(formData.officeId)" class="form-control">
+                    <option value="">--{{ 'label.menu.filterbyoffice' | translate }}--</option>
+                    <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+                </select>
+            </div>
+        </div>
     </div>
     <table class="table">
         <thead>
-        <tr>
+        <tr class="graybg">
             <th>{{ 'label.heading.office' | translate }}</th>
             <th>{{ 'label.heading.accountingclosuredate' | translate }}</th>
             <th>{{ 'label.heading.comments' | translate }}</th>
