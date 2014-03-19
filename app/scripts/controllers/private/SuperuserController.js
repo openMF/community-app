@@ -117,8 +117,8 @@
                 }
             };
 
-            resourceFactory.runReportsResource.get({reportSource: 'ClientTrendsByDay', R_officeId: 1, genericResultSet: false}, function (data) {
-                scope.client = data;
+            resourceFactory.runReportsResource.get({reportSource: 'ClientTrendsByDay', R_officeId: 1, genericResultSet: false}, function (clientData) {
+                scope.client = clientData;
                 scope.days = [];
                 scope.tempDate = [];
                 scope.fcount = [];
@@ -126,26 +126,30 @@
                     scope.days[i] = scope.client[i].days;
                 }
                 for (var i in scope.days) {
-                    var tday = scope.days[i][2];
-                    var tmonth = scope.days[i][1];
-                    var tyear = scope.days[i][0];
-                    scope.tempDate[i] = tday + "/" + tmonth;
+                    if (scope.days[i] && scope.days[i].length > 2) {
+                        var tday = scope.days[i][2];
+                        var tmonth = scope.days[i][1];
+                        var tyear = scope.days[i][0];
+                        scope.tempDate[i] = tday + "/" + tmonth;
+                    }
                 }
                 scope.getFcount(scope.formattedDate, scope.tempDate, scope.client);
-                resourceFactory.runReportsResource.get({reportSource: 'LoanTrendsByDay', R_officeId: 1, genericResultSet: false}, function (data) {
+                resourceFactory.runReportsResource.get({reportSource: 'LoanTrendsByDay', R_officeId: 1, genericResultSet: false}, function (loanData) {
                     scope.ldays = [];
                     scope.ltempDate = [];
                     scope.lcount = [];
-                    for (var i in data) {
-                        scope.ldays[i] = data[i].days;
+                    for (var i in loanData) {
+                        scope.ldays[i] = loanData[i].days;
                     }
                     for (var i in scope.ldays) {
-                        var tday = scope.ldays[i][2];
-                        var tmonth = scope.ldays[i][1];
-                        var tyear = scope.ldays[i][0];
-                        scope.ltempDate[i] = tday + "/" + tmonth;
-                    }
-                    scope.getLcount(scope.formattedDate, scope.ltempDate, data);
+                        if (scope.ldays[i] && scope.ldays[i].length > 2) {
+                            var tday = scope.ldays[i][2];
+                            var tmonth = scope.ldays[i][1];
+                            var tyear = scope.ldays[i][0];
+                            scope.ltempDate[i] = tday + "/" + tmonth;
+                        }
+                    };
+                    scope.getLcount(scope.formattedDate, scope.ltempDate, loanData);
                     scope.getBarData(scope.formattedDate, scope.fcount, scope.lcount);
                 });
             });
@@ -155,27 +159,34 @@
             });
 
             resourceFactory.runReportsResource.get({reportSource: 'Demand_Vs_Collection', R_officeId: 1, genericResultSet: false}, function (data) {
-                scope.collectionPieData = data[0];
-                scope.showCollectionerror = false;
-                if (data[0].AmountPaid == 0 && data[0].AmountDue == 0) {
+                if (data && data.length > 0) {
+                    scope.collectionPieData = data[0];
+                    scope.showCollectionerror = false;
+                    if (data[0].AmountPaid == 0 && data[0].AmountDue == 0) {
+                        scope.showCollectionerror = true;
+                    }
+                    scope.collectedData = [
+                        {key: "Collected", y: scope.collectionPieData.AmountPaid},
+                        {key: "Pending", y: scope.collectionPieData.AmountDue}
+                    ];
+                } else{
                     scope.showCollectionerror = true;
-                }
-                scope.collectedData = [
-                    {key: "Collected", y: scope.collectionPieData.AmountPaid},
-                    {key: "Pending", y: scope.collectionPieData.AmountDue}
-                ];
+                };
             });
             resourceFactory.runReportsResource.get({reportSource: 'Disbursal_Vs_Awaitingdisbursal', R_officeId: 1, genericResultSet: false}, function (data) {
-                scope.disbursedPieData = data[0];
-                scope.showDisbursementerror = false;
-                if (data[0].disbursedAmount == 0 && data[0].amountToBeDisburse == 0) {
+                if (data && data.length > 0) {
+                    scope.disbursedPieData = data[0];
+                    scope.showDisbursementerror = false;
+                    if (data[0].disbursedAmount == 0 && data[0].amountToBeDisburse == 0) {
+                        scope.showDisbursementerror = true;
+                    }
+                    scope.disbursedData = [
+                        {key: "Disbursed", y: scope.disbursedPieData.disbursedAmount},
+                        {key: "Pending", y: scope.disbursedPieData.amountToBeDisburse}
+                    ];
+                } else{
                     scope.showDisbursementerror = true;
-                }
-                scope.disbursedData = [
-                    {key: "Disbursed", y: scope.disbursedPieData.disbursedAmount},
-                    {key: "Pending", y: scope.disbursedPieData.amountToBeDisburse}
-                ];
-
+                };
             });
 
             scope.getDailyData = function () {
@@ -195,10 +206,12 @@
                         scope.days[i] = scope.client[i].days;
                     }
                     for (var i in scope.days) {
-                        var tday = scope.days[i][2];
-                        var tmonth = scope.days[i][1];
-                        var tyear = scope.days[i][0];
-                        scope.tempDate[i] = tday + "/" + tmonth;
+                        if (scope.days[i] && scope.days[i].length > 2) {
+                            var tday = scope.days[i][2];
+                            var tmonth = scope.days[i][1];
+                            var tyear = scope.days[i][0];
+                            scope.tempDate[i] = tday + "/" + tmonth;
+                        }
                     }
                     scope.getFcount(scope.formattedDate, scope.tempDate, scope.client);
                     resourceFactory.runReportsResource.get({reportSource: 'LoanTrendsByDay', R_officeId: scope.id, genericResultSet: false}, function (data) {
@@ -209,10 +222,12 @@
                             scope.ldays[i] = data[i].days;
                         }
                         for (var i in scope.ldays) {
-                            var tday = scope.ldays[i][2];
-                            var tmonth = scope.ldays[i][1];
-                            var tyear = scope.ldays[i][0];
-                            scope.ltempDate[i] = tday + "/" + tmonth;
+                            if (scope.ldays[i] && scope.ldays[i].length > 2) {
+                                var tday = scope.ldays[i][2];
+                                var tmonth = scope.ldays[i][1];
+                                var tyear = scope.ldays[i][0];
+                                scope.ltempDate[i] = tday + "/" + tmonth;
+                            }
                         }
                         scope.getLcount(scope.formattedDate, scope.ltempDate, data);
                         scope.getBarData(scope.formattedDate, scope.fcount, scope.lcount);
