@@ -7,6 +7,7 @@
                 scope.reportdetail = data;
                 scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
+                scope.formData.reportType = data.reportType;
             });
 
             scope.parameterSelected = function (allowedParameterId) {
