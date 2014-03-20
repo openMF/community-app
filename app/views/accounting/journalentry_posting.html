@@ -37,12 +37,12 @@
 
             <div class="controls">
                 <table width="100%">
-                    <h4><strong>{{ 'label.input.credit' | translate }}</strong></h4>
+                    <h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
                     <tr>
                         <td>
                             <div>
                                 <select chosen="glAccounts" ng-model="formData.creditAccountTemplate"
-                                        ng-options="creditAccount.name for creditAccount in glAccounts">
+                                        ng-options="(creditAccount.name + '('+ creditAccount.glCode + ')') for creditAccount in glAccounts">
                                     <option style="display:none" value="">{{'label.selectcredit' | translate}}</option>
                                 </select>
                                 &nbsp; <input type="text" class="input-small" name="creditamount"
@@ -68,12 +68,12 @@
                     </tr>
                 </table>
                 <table width="100%">
-                    <h4><strong>{{ 'label.input.debit' | translate }}</strong></h4>
+                    <h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
                     <tr>
                         <td>
                             <div>
                                 <select chosen="glAccounts" ng-model="formData.debitAccountTemplate"
-                                        ng-options="debitAccount.name for debitAccount in glAccounts">
+                                        ng-options="(debitAccount.name +'('+ debitAccount.glCode +')') for debitAccount in glAccounts">
                                     <option style="display:none" value="">{{'label.selectdebit' | translate}}</option>
                                 </select>
                                 &nbsp; <input type="text" class="input-small" name="debitamount"

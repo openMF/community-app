@@ -19,6 +19,10 @@
                 scope.accountClosures = data;
             });
 
+            scope.routeTo = function (id) {
+                location.path('/view_close_accounting/' + id);
+            };
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.locale = scope.optlang.code;
