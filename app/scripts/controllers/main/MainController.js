@@ -222,6 +222,56 @@
                 }
                 ;
             });
+
+            //scopes for introjs
+            scope.CompletedEvent = function () { console.log("Completed Event called"); };
+
+            scope.ExitEvent = function () { console.log("Exit Event called");};
+
+            scope.ChangeEvent = function () { console.log("Change Event called"); };
+
+            scope.BeforeChangeEvent = function () { console.log("Before Change Event called"); };
+
+            scope.IntroOptions = {
+                   steps:[
+                       {
+                           element: '#main-menu-right',
+                           intro: "Your Account.",
+                           position: 'left'
+                       },
+                       {
+                           element: '#search',
+                           intro: "Search",                                                  
+                       },
+                       {
+                           element: '#main-menu-left',
+                           intro: "<strong>Basic</strong> navigation <em>items</em>",                                                  
+                       },
+                       {
+                           element: '#expert',
+                           intro: 'Search <strong>mifosX</strong> components here',
+                           position: 'top'
+                           
+                       },
+                       {
+                           element: '#step5',
+                           intro: "Your most <em>recent</em> items.",
+                           position: 'top'                           
+                       },
+                       {
+                           element: '#step6',
+                           intro: 'Your most <em>frequent</em> items.',
+                           position: 'top'
+                       }
+                   ],
+                    showStepNumbers: false,
+                    exitOnOverlayClick: true,
+                    exitOnEsc:true,
+                    nextLabel: '<strong>NEXT!</strong>',
+                    prevLabel: '<span style="color:green">Previous</span>',
+                    skipLabel: 'Exit',
+                    doneLabel: 'Thanks'
+               };
         }
     });
     mifosX.ng.application.controller('MainController', [

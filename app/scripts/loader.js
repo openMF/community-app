@@ -30,7 +30,9 @@
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
-            'Q': '../bower_components/q/q'
+            'Q': '../bower_components/q/q',
+            'intro': '../scripts/intro',
+            'angular-intro': '../bower_components/angular-intro.js/angular-intro'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -57,6 +59,8 @@
             'frAngular': {deps: ['angular']},
             'modified.datepicker': {deps: ['angular']},
             'Q': {deps: ['angular']},
+            'intro': {exports: 'intro'},
+            'angular-intro': {deps: ['intro', 'angular'], exports: 'angular-intro'},
             'mifosX': {
                 deps: [
                     'angular',
@@ -81,7 +85,9 @@
                     'ngCsv',
                     'chosen.jquery.min',
                     'frAngular',
-                    'Q'
+                    'Q',
+                    'intro',
+                    'angular-intro'
                 ],
                 exports: 'mifosX'
             }
@@ -104,4 +110,5 @@
             });
         });
     });
+
 }());

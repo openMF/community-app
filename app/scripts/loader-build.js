@@ -30,7 +30,9 @@
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
-            'Q': '../bower_components/q/q.min'
+            'Q': '../bower_components/q/q.min',
+            'intro': '../scripts/intro',
+            'angular-intro': '../bower_components/angular-intro.js/build/angular-intro.min'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -57,6 +59,8 @@
             'chosen.jquery.min': {deps: ['jquery']},
             'frAngular': {deps: ['angular']},
             'Q': {deps: ['angular']},
+            'intro': {exports: 'intro'},
+            'angular-intro': {deps: ['intro', 'angular'], exports: 'angular-intro'},
             'mifosX': {
                 deps: [
                     'angular',
@@ -81,7 +85,9 @@
                     'ngCsv',
                     'chosen.jquery.min',
                     'frAngular',
-                    'Q'
+                    'Q',
+                    'intro',
+                    'angular-intro'
                 ],
                 exports: 'mifosX'
             }
