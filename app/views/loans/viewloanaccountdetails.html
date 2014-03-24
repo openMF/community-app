@@ -8,6 +8,61 @@
     </ul>
 </div>
 <div>
+<div ng-show="report">
+    <table width="100%" class="paddedtop">
+        <tr>
+            <th width="20%" class="ng-binding">{{'label.input.fromdate' | translate}}<span
+                class="required">*</span></th>
+            <th width="5%"></th>
+            <th width="20%" class="ng-binding">{{'label.input.todate' | translate}}<span
+                class="required">*</span></th>
+            <th width="10%"></th>
+        </tr>
+        <tr>
+            <td width="20%">
+                <input id="startDate" class="date-disable" readonly type="text"
+                       datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
+                       max="restrictDate"/>
+            </td>
+            <td width="5%"></td>
+            <td width="20%">
+                <input id="startDate" class="date-disable" readonly type="text"
+                       datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
+                       max="restrictDate"/>
+            </td>
+            <td width="30%" style="padding-bottom:11px">
+                <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' |
+                    translate}}
+                </button>
+            </td>
+            <td width="40%" style="padding-bottom:11px">
+                <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.loandetails' |
+                    translate}}
+                </button>
+            </td>
+        </tr>
+        <tr data-ng-show="savingaccountdetails.allowOverdraft">
+            <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
+            <td><span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<div ng-hide="hidePentahoReport" id="printtxn" class="row alert-block span tab-content">
+    <a href="#" onclick="printReport();">{{'label.button.print' |
+                    translate}}
+    </a>
+    <script>
+        function printReport() {
+            window.print(); 
+            window.close();
+            
+        }
+    </script>
+    <br>
+    <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+</div>
+<div ng-hide="report">
 <div class="span gray-head" style="margin-left:0%;">
           <span style="margin-left: 10px;font-size:20px">
                 <strong> <i ng-hide="loandetails.inArrears"
@@ -407,6 +462,7 @@
 </tab>
 
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions">
+    <button class="btn btn-primary offset10" ng-click="export()">{{'label.button.export' | translate}}</button>
     <table class="table">
         <colgroup span="4"></colgroup>
         <thead>
@@ -695,6 +751,7 @@
     </div>
 </tab>
 </tabset>
+</div>
 </div>
 </div>
 </div>
