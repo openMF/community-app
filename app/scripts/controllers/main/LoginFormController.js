@@ -18,7 +18,7 @@
 
             $('#repeatPassword').keypress(function (e) {
                 if (e.which == 13) {
-                    scope.login();
+                    scope.updatePassword();
                 }
             });
 
