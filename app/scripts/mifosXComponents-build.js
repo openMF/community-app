@@ -1,4 +1,4 @@
-define(['underscore', 'mifosX'], function () {
+define(['Q', 'underscore', 'mifosX'], function (Q) {
     var components = {
         models: [
             'models.js'
@@ -21,11 +21,17 @@ define(['underscore', 'mifosX'], function () {
         ]
     };
 
-    require(_.reduce(_.keys(components), function (list, group) {
-        return list.concat(_.map(components[group], function (name) {
-            return group + "/" + name;
-        }));
-    }, [
-        'routes-initialTasks-webstorage-configuration.js'
-    ]));
+    return function() {
+        var defer = Q.defer();
+        require(_.reduce(_.keys(components), function (list, group) {
+            return list.concat(_.map(components[group], function (name) {
+                return group + "/" + name;
+            }));
+        }, [
+            'routes-initialTasks-webstorage-configuration.js'
+        ]), function(){
+            defer.resolve();
+        });
+        return defer.promise;
+    }
 });

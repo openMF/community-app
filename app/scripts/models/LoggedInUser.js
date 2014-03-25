@@ -2,6 +2,7 @@
     mifosX.models = _.extend(module, {
         LoggedInUser: function (data) {
             this.name = data.username;
+            this.userId = data.userId;
             this.userPermissions = data.userPermissions || data.permissions || [];
 
             this.getHomePageIdentifier = function () {

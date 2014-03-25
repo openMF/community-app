@@ -29,7 +29,8 @@
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
-            'frAngular': '../scripts/modules/KeyboardManager'
+            'frAngular': '../scripts/modules/KeyboardManager',
+            'Q': '../bower_components/q/q.min'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -55,6 +56,7 @@
             'ngCsv': {deps: ['angular']},
             'chosen.jquery.min': {deps: ['jquery']},
             'frAngular': {deps: ['angular']},
+            'Q': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -78,7 +80,8 @@
                     'angularFileUploadShim',
                     'ngCsv',
                     'chosen.jquery.min',
-                    'frAngular'
+                    'frAngular',
+                    'Q'
                 ],
                 exports: 'mifosX'
             }
@@ -92,11 +95,13 @@
         ]
     });
 
-    require(['mifosXComponents.js', 'mifosXStyles.js'], function () {
-        require(['test/testInitializer'], function (testMode) {
-            if (!testMode) {
-                angular.bootstrap(document, ['MifosX_Application']);
-            }
+    require(['mifosXComponents.js', 'mifosXStyles.js'], function (componentsInit) {
+        componentsInit().then(function(){
+            require(['test/testInitializer'], function (testMode) {
+                if (!testMode) {
+                    angular.bootstrap(document, ['MifosX_Application']);
+                }
+            });
         });
     });
 }());

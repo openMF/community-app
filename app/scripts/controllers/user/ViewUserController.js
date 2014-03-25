@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ViewUserController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.user = [];
+            scope.formData = {};
             resourceFactory.userListResource.get({userId: routeParams.id}, function (data) {
                 scope.user = data;
             });
@@ -21,7 +22,11 @@
                 $scope.save = function (staffId) {
                     resourceFactory.userListResource.update({'userId': routeParams.id}, this.formData, function (data) {
                         $modalInstance.close('activate');
-                        route.reload();
+                        if (data.resourceId == scope.currentSession.user.userId) {
+                            scope.logout();
+                        } else{
+                            route.reload();
+                        };
                     });
                 };
                 $scope.cancel = function () {

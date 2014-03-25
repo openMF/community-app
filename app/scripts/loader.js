@@ -29,7 +29,8 @@
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
-            'modified.datepicker': '../scripts/modules/datepicker'
+            'modified.datepicker': '../scripts/modules/datepicker',
+            'Q': '../bower_components/q/q'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -55,6 +56,7 @@
             'chosen.jquery.min': {deps: ['jquery']},
             'frAngular': {deps: ['angular']},
             'modified.datepicker': {deps: ['angular']},
+            'Q': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -78,7 +80,8 @@
                     'angularFileUploadShim',
                     'ngCsv',
                     'chosen.jquery.min',
-                    'frAngular'
+                    'frAngular',
+                    'Q'
                 ],
                 exports: 'mifosX'
             }
@@ -92,11 +95,13 @@
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function () {
-        require(['test/testInitializer'], function (testMode) {
-            if (!testMode) {
-                angular.bootstrap(document, ['MifosX_Application']);
-            }
+    require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
+        componentsInit().then(function(){
+            require(['test/testInitializer'], function (testMode) {
+                if (!testMode) {
+                    angular.bootstrap(document, ['MifosX_Application']);
+                }
+            });
         });
     });
 }());
