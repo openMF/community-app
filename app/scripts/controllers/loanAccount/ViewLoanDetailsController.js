@@ -1,7 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION) {
+        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
             scope.loandocuments = [];
+            scope.report = false;
+            scope.hidePentahoReport = true;
+            scope.formData = {};
             scope.date = {};
             scope.date.payDate = new Date();
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
@@ -109,6 +112,8 @@
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
                 scope.loandetails = data;
                 scope.guarantorDetails = data.guarantors;
+                scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
+                scope.date.toDate = new Date();
                 scope.status = data.status.value;
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.decimals = data.currency.decimalPlaces;
@@ -371,6 +376,49 @@
                 });
             };
 
+            scope.export = function () {
+                scope.report = true;
+            };
+
+            scope.viewLoanDetails = function () {
+                scope.report = false;
+            };
+
+            scope.viewprintdetails = function () {
+                scope.hidePentahoReport = true;
+                scope.formData.outputType = 'HTML';
+                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                var reportParams = "";
+                scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
+                scope.endDate = dateFilter(scope.date.toDate, 'yyyy-MM-dd');
+                var paramName = "R_startDate";
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.startDate)+ "&";
+                paramName = "R_endDate";
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.endDate)+ "&";
+                paramName = "R_selectLoan";
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.loandetails.accountNo);
+                if (reportParams > "") {
+                    scope.baseURL += "&" + reportParams;
+                }
+                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                scope.popup('#printtxn')
+            };
+
+            scope.popup = function (elem) {
+                setTimeout(function() { 
+                    var mywindow = window.open('', 'my div', 'height=800,width=1200');
+                    mywindow.document.write('<html><head><title>my div</title>');
+                    mywindow.document.write('</head><body >');
+                    mywindow.document.write($(elem).html());
+                    mywindow.document.write('</body></html>');
+                }, 800);
+                
+                return true; 
+            };
+
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
                     route.reload();
@@ -389,7 +437,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
 }(mifosX.controllers || {}));

@@ -1,160 +1,44 @@
 <div ng-controller="ViewSavingDetailsController">
-<div>
-    <ul class="breadcrumb">
-        <li ng-show="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <span class="divider">/</span></li>
-        <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
-            <span class="divider">/</span></li>
-        <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
-    </ul>
-</div>
-<div>
-    <div class="span gray-head" style="margin-left:0%;">
-          <span style="margin-left: 10px;font-size:20px">
-                <strong><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
-          </span>
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+                <span class="divider">/</span></li>
+            <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+                <span class="divider">/</span></li>
+            <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
+        </ul>
     </div>
-    <div class="row-fluid primarydiv">
-        <div class="pull-right">
-            <div class="btn-group">
-              <span ng-repeat="button in buttons.singlebuttons">
-                  <a ng-show="button.name" has-permission='{{button.taskPermissionName}}' 
-                     ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                     class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
-                      translate}}</a>
-              </span>
-              <span ng-show="buttons.options" class="btn-group">
-                  <a class="btn btn-primary dropdown-toggle">
-                      {{'label.button.more' | translate}}
-                      <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown dropdown-menu">
-                      <li class="{{button.icon}}" ng-repeat="button in buttons.options">
-                          <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
-                      </li>
-                  </ul>
-              </span>
-            </div>
-        </div>
-    </div>
-</div>
-<br/>
-<hr/>
-<div class="row-fluid span" style="margin-left:-1px;margin-top: -20px">
-    <div class="span6">
-        <table class="table table-striped table-bordered">
+    <div ng-show="report">
+        <table width="100%" class="paddedtop">
             <tr>
-                <td>{{'label.heading.activatedon' | translate}}</td>
-                <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
-                        data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
-                </td>
-
+                <th width="20%" class="ng-binding">{{'label.input.fromdate' | translate}}<span
+                    class="required">*</span></th>
+                <th width="5%"></th>
+                <th width="20%" class="ng-binding">{{'label.input.todate' | translate}}<span
+                    class="required">*</span></th>
+                <th width="10%"></th>
             </tr>
             <tr>
-                <td>{{'label.heading.currency' | translate}}</td>
-                <td>{{savingaccountdetails.currency.name}}</td>
-            </tr>
-        </table>
-    </div>
-    <div class="span6">
-        <table class="table table-bordered table-striped">
-            <tr>
-                <td>{{'label.heading.fieldofficer' | translate}}</td>
-                <td>{{savingaccountdetails.fieldOfficerName}}<span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>
+                <td width="20%">
+                    <input id="startDate" class="date-disable" readonly type="text"
+                           datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
+                           max="restrictDate"/>
                 </td>
-            </tr>
-            <tr>
-                <td>{{'label.heading.balance' | translate}}</td>
-                <td>{{savingaccountdetails.summary.accountBalance}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
-<div class="row paddedleft">
-<hr class="marginbottom"/>
-<tabset>
-<tab heading="{{'label.heading.summary' | translate}}">
-    <div class="span8" style="margin-left: 10px;margin-top: 30px;">
-        <table class="table table-bordered view-table">
-            <tr ng-show="savingaccountdetails.summary.totalDeposits">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totaldeposits' | translate}}
+                <td width="5%"></td>
+                <td width="20%">
+                    <input id="startDate" class="date-disable" readonly type="text"
+                           datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
+                           max="restrictDate"/>
                 </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits}}</span>
+                <td width="30%" style="padding-bottom:11px">
+                    <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' |
+                        translate}}
+                    </button>
                 </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalwithdarawals' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalWithdrawalFees">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalwithdrawalsfees' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawalFees}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalAnnualFees">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalannualfees' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalAnnualFees}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalinterestearned' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalinterestposted' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestrate' | translate}}</td>
-                <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}%</span></td>
-            </tr>
-            <tr>
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestcompoundingperiod' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestCompoundingPeriodType.value}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestpostingperiod' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestPostingPeriodType.value}}</span></td>
-            </tr>
-            <tr>
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestcalculatedusing' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span></td>
-            </tr>
-            <tr>
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.noofdaysinyear' | translate}}
-                </td>
-                <td><span
-                        class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
-                </td>
-            </tr>
-            <tr data-ng-show="savingaccountdetails.withdrawalFee">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.withdrawalfee' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.withdrawalFee.currency.displaySymbol}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFee.amount}}</span>
-                </td>
-            </tr>
-            <tr data-ng-show="savingaccountdetails.annualFee">
-                <td style="font-weight: normal" class="table-bold-acc">{{'label.annualfee' | translate}}</td>
-                <td><span class="padded-td">{{savingaccountdetails.annualFee.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFee.amount}}&nbsp;{{'label.on' | translate}}&nbsp;{{annualdueDate | date:'d MMMM'}}</span>
+                <td width="40%" style="padding-bottom:11px">
+                    <button ng-click="viewSavingDetails()" class="btn btn-primary ng-binding">{{'label.button.savingdetails' |
+                        translate}}
+                    </button>
                 </td>
             </tr>
             <tr data-ng-show="savingaccountdetails.allowOverdraft">
@@ -164,158 +48,325 @@
             </tr>
         </table>
     </div>
-</tab>
-<tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions">
-    <table class="table table-bordered">
-        <colgroup span="4"></colgroup>
-        <thead>
-        <tr>
-            <th>{{'label.heading.id' | translate}}</th>
-            <th>{{'label.heading.transactiondate' | translate}}</th>
-            <th>{{'label.heading.transactiontype' | translate}}</th>
-            <th>{{'label.heading.debit' | translate}}</th>
-            <th>{{'label.heading.credit' | translate}}</th>
-            <th>{{'label.heading.balance' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
-            ng-repeat="transaction in savingaccountdetails.transactions">
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                {{transaction.id}}
-            </td>
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                {{transaction.date | DateFormat}}
-            </td>
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                {{transaction.transactionType.value}}
-            </td>
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                <div ng-show="isDebit(transaction.transactionType)">
-                    {{transaction.amount}}
-                </div>
-            </td>
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                <div ng-show="!isDebit(transaction.transactionType)">
-                    {{transaction.amount}}
-                </div>
-            </td>
-            <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                {{transaction.runningBalance}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</tab>
-<tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
-     select="dataTableChange(savingdatatable)">
-            <span data-ng-show="choice">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-                   ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
-                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-                <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}"
-                     class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                </span></br>
-            </span>
-
-    <div data-ng-show="datatabledetails.isData">
-        <table ng-show="datatabledetails.isMultirow" class="table">
-            <thead>
-            <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
-            </thead>
-            <tbody>
-            <tr ng-repeat="data in datatabledetails.data">
-                <td ng-repeat="row in data.row">
-                          <span ng-show="$index == 0">
-                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/{{data.row[0]}}"
-                               ng-show="datatabledetails.isMultirow">{{row}}</a>
-                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/"
-                               ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                          </span>
-                    <span ng-hide="$index == 0">{{row}}</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
-            <tr ng-repeat="value in singleRow">
-                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
-                <td><span class="padded-td">{{value.value}}</span></td>
-            </tr>
-        </table>
+    <div ng-hide="hidePentahoReport" id="printtxn" class="row alert-block span tab-content">
+        <a href="#" onclick="printReport();">{{'label.button.print' |
+                        translate}}
+        </a>
+        <script>
+            function printReport() {
+                window.print(); 
+                window.close();
+                
+            }
+        </script>
+        <br>
+        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
     </div>
-</tab>
-<tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
-    <table class="table" width="100%">
-        <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.feeorpenalty' | translate}}</th>
-            <th></th>
-            <th>{{'label.heading.paymentdueat' | translate}}</th>
-            <th></th>
-            <th>{{'label.heading.dueasof' | translate}}</th>
-            <th>{{'label.heading.repeatson' | translate}}</th>
-            <th>{{'label.heading.calculationtype' | translate}}</th>
-            <th></th>
-            <th>{{'label.heading.due' | translate}}</th>
-            <th>{{'label.heading.paid' | translate}}</th>
-            <th>{{'label.heading.waived' | translate}}</th>
-            <th>{{'label.heading.outstanding' | translate}}</th>
-            <th></th>
-            <th>{{'label.heading.actions' | translate}}</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="charge in charges">
-            <td>
-                <a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a>
-            </td>
-            <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
-            <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
-            <td></td>
-            <td>{{charge.chargeTimeType.value}}</td>
-            <td></td>
-            <td>{{charge.dueDate | DateFormat}}</td>
-            <td>{{charge.feeOnMonthDay | DayMonthFormat}}</td>
-            <td>{{charge.chargeCalculationType.value}}</td>
-            <td></td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
-            <td></td>
-            <td>
-                        <span ng-show="chargeAction">
-                            <a title="{{'label.edit' | translate}}"
-                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
-                                    class="icon-pencil icon-white"></i></a>
-                            <a title="{{'label.delete' | translate}}"
-                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
-                                    class="icon-remove icon-white"></i></a>
-                        </span>
-                        <span ng-hide="chargeAction">
-                            <span ng-hide="charge.amountOutstanding == 0"
-                                  ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
-                                <a title="{{'label.button.paycharge' | translate}}"
-                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
-                                        class="icon-check icon-white"></i></a>
-                                <a title="{{'label.button.waivecharge' | translate}}"
-                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
-                                        class="icon-flag icon-white"></i></a>
-                            </span>
-                        </span>
-            </td>
-            <td></td>
-        </tr>
-    </table>
-</tab>
-</tabset>
-</div>
-</div>
+    <div ng-hide="report">
+        <div>
+            <div class="span gray-head" style="margin-left:0%;">
+                  <span style="margin-left: 10px;font-size:20px">
+                        <strong><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                  </span>
+            </div>
+            <div class="row-fluid primarydiv">
+                <div class="pull-right">
+                    <div class="btn-group">
+                      <span ng-repeat="button in buttons.singlebuttons">
+                          <a ng-show="button.name" has-permission='{{button.taskPermissionName}}' 
+                             ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
+                             class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
+                              translate}}</a>
+                      </span>
+                      <span ng-show="buttons.options" class="btn-group">
+                          <a class="btn btn-primary dropdown-toggle">
+                              {{'label.button.more' | translate}}
+                              <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown dropdown-menu">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                                  <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
+                              </li>
+                          </ul>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <hr/>
+        <div class="row-fluid span" style="margin-left:-1px;margin-top: -20px">
+            <div class="span6">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td>{{'label.heading.activatedon' | translate}}</td>
+                        <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
+                                data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{savingaccountdetails.currency.name}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="span6">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.fieldofficer' | translate}}</td>
+                        <td>{{savingaccountdetails.fieldOfficerName}}<span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.balance' | translate}}</td>
+                        <td>{{savingaccountdetails.summary.accountBalance}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row paddedleft">
+            <hr class="marginbottom"/>
+            <tabset>
+                <tab heading="{{'label.heading.summary' | translate}}">
+                    <div class="span8" style="margin-left: 10px;margin-top: 30px;">
+                        <table class="table table-bordered view-table">
+                            <tr ng-show="savingaccountdetails.summary.totalDeposits">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totaldeposits' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalwithdarawals' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalWithdrawalFees">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalwithdrawalsfees' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawalFees}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalAnnualFees">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalannualfees' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalAnnualFees}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalinterestearned' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.totalinterestposted' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestrate' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}%</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestcompoundingperiod' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.interestCompoundingPeriodType.value}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestpostingperiod' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.interestPostingPeriodType.value}}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.interestcalculatedusing' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.noofdaysinyear' | translate}}
+                                </td>
+                                <td><span
+                                        class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.withdrawalFee">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.withdrawalfee' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.withdrawalFee.currency.displaySymbol}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFee.amount}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.annualFee">
+                                <td style="font-weight: normal" class="table-bold-acc">{{'label.annualfee' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.annualFee.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFee.amount}}&nbsp;{{'label.on' | translate}}&nbsp;{{annualdueDate | date:'d MMMM'}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </tab>
+                <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions">
+                    <button class="btn btn-primary offset10" ng-click="export()">{{'label.button.export' | translate}}</button>
+                    <table class="table table-bordered">
+                        <colgroup span="4"></colgroup>
+                        <thead>
+                        <tr>
+                            <th>{{'label.heading.id' | translate}}</th>
+                            <th>{{'label.heading.transactiondate' | translate}}</th>
+                            <th>{{'label.heading.transactiontype' | translate}}</th>
+                            <th>{{'label.heading.debit' | translate}}</th>
+                            <th>{{'label.heading.credit' | translate}}</th>
+                            <th>{{'label.heading.balance' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
+                            ng-repeat="transaction in savingaccountdetails.transactions">
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                {{transaction.id}}
+                            </td>
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                {{transaction.date | DateFormat}}
+                            </td>
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                {{transaction.transactionType.value}}
+                            </td>
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                <div ng-show="isDebit(transaction.transactionType)">
+                                    {{transaction.amount}}
+                                </div>
+                            </td>
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                <div ng-show="!isDebit(transaction.transactionType)">
+                                    {{transaction.amount}}
+                                </div>
+                            </td>
+                            <td class="pointer"
+                                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                {{transaction.runningBalance}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </tab>
+                <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
+                     select="dataTableChange(savingdatatable)">
+                    <span data-ng-show="choice">
+                        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                           ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
+                                class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                        <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
+                          <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}"
+                             class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                        </span></br>
+                    </span>
+
+                    <div data-ng-show="datatabledetails.isData">
+                        <table ng-show="datatabledetails.isMultirow" class="table">
+                            <thead>
+                            <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="data in datatabledetails.data">
+                                <td ng-repeat="row in data.row">
+                                          <span ng-show="$index == 0">
+                                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/{{data.row[0]}}"
+                                               ng-show="datatabledetails.isMultirow">{{row}}</a>
+                                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/"
+                                               ng-hide="datatabledetails.isMultirow">{{row}}</a>
+                                          </span>
+                                    <span ng-hide="$index == 0">{{row}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+                            <tr ng-repeat="value in singleRow">
+                                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                                <td><span class="padded-td">{{value.value}}</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </tab>
+                <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+                    <table class="table" width="100%">
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.feeorpenalty' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.paymentdueat' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.dueasof' | translate}}</th>
+                            <th>{{'label.heading.repeatson' | translate}}</th>
+                            <th>{{'label.heading.calculationtype' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.due' | translate}}</th>
+                            <th>{{'label.heading.paid' | translate}}</th>
+                            <th>{{'label.heading.waived' | translate}}</th>
+                            <th>{{'label.heading.outstanding' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                            <th></th>
+                        </tr>
+                        <tr ng-repeat="charge in charges">
+                            <td>
+                                <a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a>
+                            </td>
+                            <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
+                            <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                            <td></td>
+                            <td>{{charge.chargeTimeType.value}}</td>
+                            <td></td>
+                            <td>{{charge.dueDate | DateFormat}}</td>
+                            <td>{{charge.feeOnMonthDay | DayMonthFormat}}</td>
+                            <td>{{charge.chargeCalculationType.value}}</td>
+                            <td></td>
+                            <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
+                            <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
+                            <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
+                            <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
+                            <td></td>
+                            <td>
+                                        <span ng-show="chargeAction">
+                                            <a title="{{'label.edit' | translate}}"
+                                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
+                                                    class="icon-pencil icon-white"></i></a>
+                                            <a title="{{'label.delete' | translate}}"
+                                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
+                                                    class="icon-remove icon-white"></i></a>
+                                        </span>
+                                        <span ng-hide="chargeAction">
+                                            <span ng-hide="charge.amountOutstanding == 0"
+                                                  ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
+                                                <a title="{{'label.button.paycharge' | translate}}"
+                                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
+                                                        class="icon-check icon-white"></i></a>
+                                                <a title="{{'label.button.waivecharge' | translate}}"
+                                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
+                                                        class="icon-flag icon-white"></i></a>
+                                            </span>
+                                        </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </tab>
+            </tabset>
+        </div>
+    </div>
 </div>
