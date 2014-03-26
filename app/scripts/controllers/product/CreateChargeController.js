@@ -21,10 +21,13 @@
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
+                    scope.showFrequencyOptions = true;
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
+                    scope.showFrequencyOptions = false;
+                    scope.addfeefrequency = false;
                 }
             }
             //when chargeAppliesTo is savings, below logic is
@@ -68,6 +71,11 @@
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
+                }
+
+                if(scope.formData.chargeAppliesTo === 1 && scope.addfeefrequency == 'false'){
+                    scope.formData.feeFrequency = null;
+                    scope.formData.feeInterval = null;
                 }
 
                 if (!scope.showChargePaymentByField) {

@@ -604,6 +604,23 @@
     </table>
 </tab>
 
+<tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
+    <table class="table" width="100%">
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.type' | translate}}</th>
+            <th>{{'label.heading.amount' | translate}}</th>
+            <th>{{'label.heading.collectedon' | translate}}</th>
+        </tr>
+        <tr ng-repeat="charge in loandetails.overdueCharges">
+            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                <td>{{charge.chargeCalculationType.value}}</td>
+                <td>{{charge.amount}}</td>
+                <td>{{charge.chargeTimeType.value}}</td>
+        </tr>
+    </table>
+</tab>
+
 
 <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
     <table class="table" width="100%">

@@ -12,10 +12,13 @@
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
                     scope.flag = false;
+                    scope.showFrequencyOptions = true;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.flag = true;
+                    scope.showFrequencyOptions = false;
                 }
+
                 scope.formData = {
                     name: data.name,
                     active: data.active,
@@ -26,6 +29,13 @@
                     chargeCalculationType: data.chargeCalculationType.id,
                     amount: data.amount
                 };
+
+                if(data.feeFrequency){
+                    scope.addfeefrequency = 'true';
+                    scope.formData.feeFrequency = data.feeFrequency.id;
+                    scope.formData.feeInterval = data.feeInterval;
+                }
+
                 //when chargeAppliesTo is savings, below logic is
                 //to display 'Due date' field, if chargeTimeType is
                 // 'annual fee' or 'monthly fee'
@@ -81,6 +91,9 @@
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
+                }else if(scope.addfeefrequency == 'false'){
+                    scope.formData.feeFrequency = null;
+                    scope.formData.feeInterval = null;
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;

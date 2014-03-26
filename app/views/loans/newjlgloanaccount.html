@@ -369,6 +369,28 @@
         </table>
     </td>
 </tr>
+<tr class="span2" ng-show="loanaccountinfo.overdueCharges.length>0"></tr>
+<tr class="control-group" ng-show="loanaccountinfo.overdueCharges.length>0">
+    <td>
+        <label class="control-label"><h4>{{ 'label.heading.overduepenalitycharge' | translate }}</h4></label>
+    </td>
+    <td class="blockquoteresult">
+        <table class="table" width="100%" >
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.type' | translate}}</th>
+                <th>{{'label.heading.amount' | translate}}</th>
+                <th>{{'label.heading.collectedon' | translate}}</th>
+            </tr>
+            <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
+                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                <td>{{charge.chargeCalculationType.value}}</td>
+                <td>{{charge.amount}}</td>
+                <td>{{charge.chargeTimeType.value}}</td>
+            </tr>
+        </table>
+    </td>
+</tr>
 <tr class="span2"></tr>
 <tr class="control-group">
     <td>

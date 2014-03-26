@@ -26,6 +26,14 @@
                 if (data.closeDate) {
                     scope.date.second = new Date(data.closeDate);
                 }
+                scope.penaltyOptions = scope.product.penaltyOptions || [];
+                scope.overduecharges = [];
+                for (var i in scope.penaltyOptions) {
+                    if(scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment')
+                    {
+                        scope.overduecharges.push(scope.penaltyOptions[i]);
+                    }
+                }
                 scope.formData = {
                     name: scope.product.name,
                     shortName: scope.product.shortName,
@@ -172,6 +180,7 @@
                     scope.charges.push(data);
                     //to charge select box empty
                     scope.chargeId = '';
+                    scope.penalityId = '';
                 });
             };
 
