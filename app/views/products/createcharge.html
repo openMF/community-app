@@ -97,6 +97,35 @@
                                min="minDate" max="'2020-06-22'"/>
                     </div>
                 </div>
+                <div class="control-group" ng-show="showFrequencyOptions">
+                            <label class="control-label">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
+                            <input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency" ng-true-value="true"
+                                   ng-false-value="false">
+                </div>
+
+                <div class="control-group" ng-show="addfeefrequency ">
+                    <label class="control-label" for="feeFrequency">{{'label.input.feefrequency' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="controls">
+                        <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
+                            ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
+                            value="{{frequency.id}}">
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
+                    </div>
+                </div>
+                <div class="control-group" ng-show="addfeefrequency">
+                    <label class="control-label" for="feeInterval">{{'label.input.frequencyInterval' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="controls">
+                        <input class="input-small" id="feeIntervalLoan" name="feeIntervalLoan" type="text"
+                               ng-model="formData.feeInterval" late-Validate/>
+                        <form-validate valattributeform="createchargeform" valattribute="feeIntervalLoan"/>
+                    </div>
+                </div>
                 <div class="control-group" ng-show="repeatEvery">
                     <label class="control-label" for="feeInterval">{{'label.input.repeatsevery' | translate}}<span
                             class="required">*</span></label>

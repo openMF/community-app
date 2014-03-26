@@ -217,7 +217,7 @@
     <td>{{'label.heading.amount' | translate}}</td>
     <td>{{'label.heading.collectedon' | translate}}</td>
 </tr>
-<tr ng-repeat="charge in loanproduct.charges">
+<tr ng-repeat="charge in loanproduct.charges" ng-hide="charge.penalty">
     <td>{{charge.name}}</td>
     <td>{{charge.chargeCalculationType.value}}</td>
     <td>{{charge.amount}}</td>
@@ -226,6 +226,25 @@
 <tr>
     <td colspan="4"><br/></td>
 </tr>
+<tr class="bottomborder">
+    <td colspan="4"><strong>{{'label.heading.overduepenalitycharge' | translate}}</strong></td>
+</tr>
+<tr class="bottomborder graybg">
+    <td>{{'label.heading.name' | translate}}</td>
+    <td>{{'label.heading.type' | translate}}</td>
+    <td>{{'label.heading.amount' | translate}}</td>
+    <td>{{'label.heading.collectedon' | translate}}</td>
+</tr>
+<tr ng-repeat="charge in loanproduct.charges" ng-show="charge.penalty">
+    <td>{{charge.name}}</td>
+    <td>{{charge.chargeCalculationType.value}}</td>
+    <td>{{charge.amount}}</td>
+    <td>{{charge.chargeTimeType.value}}</td>
+</tr>
+<tr>
+    <td colspan="4"><br/></td>
+</tr>
+
 <tr class="bottomborder">
     <td><strong>{{'label.heading.accounting' | translate}}</strong></td>
     <td colspan="3">

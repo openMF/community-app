@@ -75,6 +75,9 @@
                         }
                         scope.formData.transactionAmount = data.amount;
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        if(data.penaltyChargesPortion>0){
+                            scope.showPenaltyPortionDisplay = true;
+                        }
                     });
                     scope.title = 'label.heading.loanrepayments';
                     scope.labelName = 'label.input.transactiondate';

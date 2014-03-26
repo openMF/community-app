@@ -13,6 +13,7 @@
             scope.rvFlag = false;
             scope.irFlag = false;
             scope.chargeFlag = false;
+            scope.penalityFlag = false;
             scope.frFlag = false;
             scope.fiFlag = false;
             scope.piFlag = false;
@@ -23,6 +24,13 @@
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
+                scope.overduecharges = [];
+                for (var i in scope.penaltyOptions) {
+                    if(scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment')
+                    {
+                        scope.overduecharges.push(scope.penaltyOptions[i]);
+                    }
+                }
                 scope.formData.currencyCode = scope.product.currencyOptions[0].code;
                 scope.formData.includeInBorrowerCycle = 'false';
                 scope.formData.useBorrowerCycle = 'false';
@@ -68,12 +76,18 @@
             scope.chargeSelected = function (chargeId) {
 
                 if (chargeId) {
-                    scope.chargeFlag = true;
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
                         //to charge select box empty
-                        scope.chargeId = '';
+                        
+                        if(data.penalty){
+                            scope.penalityFlag = true;
+                            scope.penalityId = '';
+                        }else{
+                            scope.chargeFlag = true;
+                            scope.chargeId = '';
+                        }
                     });
                 }
             };

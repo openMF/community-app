@@ -594,7 +594,7 @@
                             <th></th>
                             <th>{{'label.heading.actions' | translate}}</th>
                         </tr>
-                        <tr ng-repeat="charge in charges">
+                        <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
                             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                             <td>{{charge.chargeCalculationType.value}}</td>
                             <td></td>
@@ -612,6 +612,61 @@
         </table>
     </td>
 </tr>
+<tr class="span2"></tr>
+
+
+<tr>
+    <td>
+        <label class="control-label"><h4>{{ 'label.heading.overduepenalitycharge' | translate }}</h4></label>
+    </td>
+    <td class="blockquoteresult">
+        <table>
+            <tr>
+                <td>
+                    <select id="penalityId" ng-model="penalityId"
+                            ng-options="penality.id as penality.name for penality in overduecharges"
+                            value="{{penality.id}}" >
+                        <option style="display:none" value="">{{'label.selectoverduecharge' | translate}}</option>
+                    </select>
+                    <button type="button" style="margin-top: -10px;" class="btn btn-primary"
+                            ng-click="chargeSelected(penalityId)">{{ 'label.button.add' | translate }}
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table" width="100%" style="width: 650px">
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.type' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th></th>
+                            <th>{{'label.heading.collectedon' | translate}}</th>
+                            <th></th>
+                            <th></th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="charge in charges" ng-show="charge.penalty">
+                            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                            <td>{{charge.chargeCalculationType.value}}</td>
+                            <td></td>
+                            <td>{{charge.amount}}</td>
+                            <td></td>
+                            <td>{{charge.chargeTimeType.value}}</td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="" ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></a></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+
 <tr class="span2"></tr>
 <tr class="control-group">
     <td width="11%"></td>
