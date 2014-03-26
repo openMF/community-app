@@ -3,10 +3,12 @@
 
         ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal) {
             scope.flag = false;
+            scope.manualEntry = false;
             resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId}, function (data) {
                 scope.transactionNumber = routeParams.transactionId;
                 scope.transactions = data.pageItems;
                 for (var i in data.pageItems) {
+                    scope.manualEntry = data.pageItems[i].manualEntry;
                     if (data.pageItems[i].reversed == false) {
                         scope.flag = true;
                     }

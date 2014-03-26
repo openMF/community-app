@@ -51,10 +51,12 @@
                 <table width="100%">
                     <tr>
                         <td width="50%">
-                            <strong>{{ 'label.input.credit' | translate }}</strong>
+                            <strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;
+                            <a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
                         <td width="50%">
-                            <strong>{{ 'label.input.debit' | translate }}</strong>
+                            <strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;
+                            <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
                     </tr>
                     <tr>
@@ -77,7 +79,7 @@
                             <div ng-repeat="crAccount in formData.crAccounts">
                                 <input type="text" class="input-small" ng-model="crAccount.crGlName" readonly>
                                 <input id="credits[{{$index}}]" type="text" class="input-small"
-                                       ng-model="crAccount.crAmount">{{allowDebitEntries}}
+                                       ng-model="crAccount.crAmount">
                                 <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                             </div>
                         </td>
@@ -128,7 +130,7 @@
             <label class="control-label">{{ 'label.input.comments' | translate }}</label>
 
             <div class="controls">
-                <input type="text" ng-model="formData.comments">
+                <textarea type="text" rows="2" name="comments" ng-model="formData.comments"></textarea>
             </div>
         </div>
         <div class="offset3">

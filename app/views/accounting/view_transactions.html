@@ -6,9 +6,9 @@
         </ul>
     </div>
     <div class="row-fluid">
-        <h3><strong>{{ 'label.heading.transactionnumber' | translate }}&nbsp;<b>{{transactionNumber}}</b></strong></h3>
+        <h3><strong>{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;<b>{{transactionNumber}}</b></strong></h3>
 
-        <div class="pull-right">
+        <div class="pull-right" ng-show="manualEntry">
             <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
                 }}</strong></span>
 
@@ -85,12 +85,25 @@
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
     </script>
+    <table class="width100">
+        <tr>
+            <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
+            <td class="width36">{{transactions[0].officeName}}</td>
+            <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
+            <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
+        </tr>
+        <tr>
+            <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
+            <td class="width36">{{transactions[0].createdByUserName}}</td>
+            <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
+            <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
+        </tr>
+    </table>
     <div class="row-fluid">
         <table class="table">
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.entryid' | translate}}</th>
-                <th>{{'label.heading.transactiondate' | translate}}</th>
                 <th>{{'label.heading.type' | translate}}</th>
                 <th>{{'label.heading.account' | translate}}</th>
                 <th>{{'label.heading.debit' | translate}}</th>
@@ -100,7 +113,6 @@
             <tbody>
             <tr class="pointer-main" ng-repeat="transaction in transactions">
                 <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.id}}</td>
-                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.transactionDate | DateFormat}}</td>
                 <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountType.value}}</td>
                 <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
                 <td class="pointer" data-ng-click="showTransaction(transaction)">

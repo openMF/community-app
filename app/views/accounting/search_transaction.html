@@ -7,7 +7,7 @@
     </div>
     <br>
 
-    <div class="row-fluid">
+    <div class="row-fluid" ng-show="isCollapsed" >
         <span class="input-append grpinputicons">
                 <input ng-model="formData.transactionId" type="text"
                        placeholder="{{'label.input.searchbytransaction' | translate}}"/>
@@ -16,46 +16,33 @@
                         class="icon-search icon-white"></i></a></span>
         </span>
     </div>
-    <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
-        <br/><!-- The span is displaying the first line of the hiding div, making the first line of div as blank solved my problem -->
-        <div>
-            <label>{{'label.input.accountname' | translate}}</label>
-            <input ng-autofocus="true" ng-model="formData.glAccount" type="text" placeholder="Account Name"
-                   autocomplete="off"
-                   typeahead="glAccount as glAccount.name for glAccount in glAccounts | filter:$viewValue | limitTo:8"/>
-
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.office' | translate }}</label>
-
-                <div class="controls">
-                    <select ng-model="formData.officeId" ng-options="office.id as office.name for office in offices"
-                            value="{{office.id}}">
+    <div ng-hide="isCollapsed" width="100%">
+        <table>
+            <tr>
+                <td>
+                    <input ng-autofocus="true" ng-model="formData.glAccount" type="text" placeholder="{{'label.input.accountname' | translate}}" autocomplete="off" typeahead="glAccount as (glAccount.name + '(' + glAccount.glCode + ')') for glAccount in glAccounts | filter:$viewValue | limitTo:8"/>
+                </td>
+                <td>
+                    <select ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                         <option style="display:none" value="">{{'label.selectoffice' | translate}}</option>
                     </select>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.additionalfilter' | translate }}</label>
-
-                <div class="controls">
-                    <select ng-model="formData.manualEntriesOnly"
-                            ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
+                </td>
+                <td>
+                    <select ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
                         <option style="display:none" value="">{{'label.selectfilter' | translate}}</option>
                     </select>
-                </div>
-            </div>
-            <label>{{ 'label.input.fromdate' | translate }}</label>
-            <input class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened"
-                   min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)" readonly/>
-            <label>{{ 'label.input.todate' | translate }}</label>
-            <input class="date-disable" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second"
-                   is-open="opened1" min="minDate" max="'2020-06-22'" date-disabled="disabled(date, mode)"
-                   readonly/><br>
-            <span><a ng-click="searchTransaction()" class="btn btn-primary control" has-permission='READ_JOURNALENTRY'><i
-                    class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
-        </div>
+                </td>
+                <td>
+                    <input class="input-small" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" />
+                </td>
+                <td>
+                    <input class="input-small" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" />
+                </td>
+            </tr>
+        </table>
+        <center><a ng-click="searchTransaction()" class="btn btn-primary control" has-permission='READ_JOURNALENTRY'><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></center>
     </div>
-
+    <br>
     <div ng-show="displayResults" class="row-fluid">
         <table class="table">
             <thead>

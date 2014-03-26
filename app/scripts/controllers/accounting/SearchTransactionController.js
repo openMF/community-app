@@ -37,32 +37,26 @@
                 if (scope.formData.transactionId) {
                     params.transactionId = scope.formData.transactionId;
                 }
-                ;
 
                 if (scope.formData.glAccount) {
                     params.glAccountId = scope.formData.glAccount.id;
                 }
-                ;
 
                 if (scope.formData.officeId) {
                     params.officeId = scope.formData.officeId;
                 }
-                ;
 
-                if (scope.formData.manualEntriesOnly) {
+                if (scope.formData.manualEntriesOnly == true || scope.formData.manualEntriesOnly == false) {
                     params.manualEntriesOnly = scope.formData.manualEntriesOnly;
                 }
-                ;
 
                 if (scope.date.first) {
                     params.fromDate = reqFirstDate;
                 }
-                ;
 
                 if (scope.date.second) {
                     params.toDate = reqSecondDate;
                 }
-                ;
 
                 resourceFactory.journalEntriesResource.search(params, callback);
             };
