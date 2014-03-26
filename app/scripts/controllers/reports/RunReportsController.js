@@ -319,7 +319,7 @@
                             scope.hidePentahoReport = false;
                             scope.hideChart = true;
                             scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-                            scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code+"&dateFormat="+scope.df;
+                            scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
 
                             var inQueryParameters = buildReportParms();
                             if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
