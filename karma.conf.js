@@ -24,7 +24,24 @@ module.exports = function (config) {
 
         // test results reporter to use
         // possible values: dots || progress || growl
-        reporters : ['progress'],
+        reporters : ['progress', 'coverage'],
+
+        preprocessors: {
+          './app/scripts/**/*.js' : ['coverage']
+        },
+
+        junitReporter : {
+            outputFile: 'karma-reports/test-unit.xml',
+            suite: 'unit'
+        },
+
+        coverageReporter: {
+          reporters:[
+            {type : 'cobertura', dir : 'karma-reports/'},
+            {type : 'text',      dir : 'karma-reports/', file : 'coverage.txt'},
+            {type : 'html',      dir : 'karma-reports/' }
+          ]
+        },
 
         // web server port
         port : 8080,
