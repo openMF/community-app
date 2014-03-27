@@ -25,9 +25,9 @@
     <div>
       <tabset style="margin-bottom: 0;overflow: hidden">
       <tab heading="{{'label.heading.general' | translate}}">
-          <div class="row">
+          <div class="col-md-12 col-sm-12">
             <div class="primarydiv row">
-                <div class="btn-group pull-right">
+                <div class="pull-right">
                   <span ng-repeat="button in buttonsArray.singlebuttons">
                     <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>
                   </span>
@@ -165,7 +165,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="pull-right" style="margin-top:10px ">
+                <div class="pull-right">
                       <span data-ng-show="clientAccounts.loanAccounts">
                           <button data-ng-show="openLoan" type="button" class="btn-primary btn" data-ng-click="setLoan()">{{ 'label.button.viewclosedloans' | translate }}</button>
                           <button data-ng-show="!openLoan" type="button" class="btn-primary btn" data-ng-click="setLoan()">{{ 'label.button.viewactiveloans' | translate }}</button>
@@ -369,11 +369,11 @@
       </tab>
       <tab heading="{{ 'label.heading.notes' | translate }}">
         <br>
-        <form>
+        <form class="form-horizontal">
             <div class="form-group">
-              <div class="col-sm-3">
-                     <textarea rows="1" class="field span marginbottom0px" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-                     <div class="notewrapper row">
+              <div class="col-sm-12">
+                     <textarea rows="2" class="field form-control marginbottom0px" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
+                     <div class="notewrapper col-sm-12">
                         <span class="pull-right noteaddbuttonwrapper">
                             <button class="btn btn-primary" type="submit" ng-click="saveNote()">{{'label.button.add' | translate}}</button>
                         </span>
@@ -381,17 +381,16 @@
               </div>
             </div>  
         </form>
-        <div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
-          <div>
-            <blockquote>
-              <p>{{clientNote.note}}</p>
-              {{clientNote.id}}
-              <small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
-              <small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
-            </blockquote>
-          </div>
+        <div class="col-md-12">
+            <div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
+                <blockquote>
+                  <p>{{clientNote.note}}</p>
+                  {{clientNote.id}}
+                  <small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
+                  <small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
+                </blockquote>
+            </div>
         </div>
-        
       </tab>
       <!-- devcode: !production -->
       <!-- ************************ start of InVenture code ************************ -->
