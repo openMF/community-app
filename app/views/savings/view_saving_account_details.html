@@ -48,19 +48,14 @@
             </tr>
         </table>
     </div>
-    <div ng-hide="hidePentahoReport" id="printtxn" class="row alert-block span tab-content">
-        <a href="#" onclick="printReport();">{{'label.button.print' |
-                        translate}}
-        </a>
-        <script>
-            function printReport() {
-                window.print(); 
-                window.close();
-                
-            }
-        </script>
-        <br>
-        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+
+    <div ng-hide="hidePentahoReport" ng-show="report" class="row alert-block span tab-content">
+        <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
+                        translate}}</button>
+        <div id="printcontent">
+            <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+        </div>
+        </button>
     </div>
     <div ng-hide="report">
         <div>
