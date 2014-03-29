@@ -378,6 +378,7 @@
 
             scope.export = function () {
                 scope.report = true;
+                scope.printbtn = false;
             };
 
             scope.viewLoanDetails = function () {
@@ -385,6 +386,7 @@
             };
 
             scope.viewprintdetails = function () {
+                scope.printbtn = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'HTML';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
@@ -404,20 +406,13 @@
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
-                scope.popup('#printtxn')
+                
             };
 
-            scope.popup = function (elem) {
-                setTimeout(function() { 
-                    var mywindow = window.open('', 'my div', 'height=800,width=1200');
-                    mywindow.document.write('<html><head><title>my div</title>');
-                    mywindow.document.write('</head><body >');
-                    mywindow.document.write($(elem).html());
-                    mywindow.document.write('</body></html>');
-                }, 800);
-                
-                return true; 
-            };
+            scope.printReport = function () {
+                window.print();
+                window.close();
+            }
 
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
