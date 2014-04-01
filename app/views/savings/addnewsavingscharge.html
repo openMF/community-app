@@ -7,10 +7,10 @@
       rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
 
-            <div class="controls">
+            <div class="col-sm-3">
                 <select ng-model="formData.chargeId" id="chargeId" name="charge"
                         ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions"
                         value="{{formData.chargeId}}"
@@ -22,20 +22,20 @@
         </div>
 
         <div ng-show="chargeDetails">
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.amount' | translate }}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
                     <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.chargecalculation' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.chargecalculation' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <select id="chargeCalculationType" ng-model="chargeCalculationType"
                             ng-options="chargeCalculation.id as chargeCalculation.value for chargeCalculation in chargeDetails.chargeCalculationTypeOptions"
                             value="{{chargeCalculation.id}}" disabled="disabled">
@@ -43,39 +43,39 @@
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.chargetimetype' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.chargetimetype' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <select id="chargeTimeType" ng-model="chargeTimeType"
                             ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions"
                             value="{{chargeTime.id}}" disabled="disabled">
                     </select>
                 </div>
             </div>
-            <div class="control-group" ng-show="!withDrawCharge && !chargeTimeTypeAnnualOrMonth">
-                <label class="control-label">{{ 'label.input.dueforcollectedon' | translate }}<span
+            <div class="form-group" ng-show="!withDrawCharge && !chargeTimeTypeAnnualOrMonth">
+                <label class="control-label col-sm-2">{{ 'label.input.dueforcollectedon' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <input id="feeOnAnnualMonthDay" sort type="text" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.specificduedate" is-open="opened"/>
                 </div>
             </div>
-            <div class="control-group" ng-show="!withDrawCharge && chargeTimeTypeAnnualOrMonth">
-                <label class="control-label">{{ 'label.input.dueon' | translate }}<span
+            <div class="form-group" ng-show="!withDrawCharge && chargeTimeTypeAnnualOrMonth">
+                <label class="control-label col-sm-2">{{ 'label.input.dueon' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <input id="feeOnMonthDay" sort type="text" datepicker-pop="dd MMMM" ng-model="date.due"
                            is-open="opened"/>
                 </div>
             </div>
-            <div class="control-group" ng-show="chargeTimeType.value == 'Monthly Fee' ">
-                <label class="control-label">{{ 'label.repeatsevery' | translate }}<span
+            <div class="form-group" ng-show="chargeTimeType.value == 'Monthly Fee' ">
+                <label class="control-label col-sm-2">{{ 'label.repeatsevery' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <input type="text" class="input-small" ng-model="formData.feeInterval"/>
                 </div>
             </div>
