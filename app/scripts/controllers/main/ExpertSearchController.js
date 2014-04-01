@@ -11,6 +11,9 @@
             scope.searchParams = [];
             scope.recents = [];
 
+            //calls the introJs start function
+            scope.CallMe();
+
             //to retrieve last 8 recent activities
             for (var rev = scope.recent.length - 1; rev > 0; rev--) {
                 scope.recentArray.push(scope.recent[rev]);
