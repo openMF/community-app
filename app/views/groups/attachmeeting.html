@@ -1,14 +1,12 @@
 <div ng-controller="AttachMeetingController">
     <ul class="breadcrumb" ng-show="entityType=='groups'">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a> <span
-                class="divider">/</span></li>
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
     </ul>
     <ul class="breadcrumb" ng-show="entityType=='centers'">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a> <span
-                class="divider">/</span></li>
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.attachmeeting' | translate }}</li>
     </ul>
     <api-validate></api-validate>
@@ -22,7 +20,7 @@
                     </td>
                     <td width="20%">
                         <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'"/>
+                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control"/>
                     </td>
                     <td width="20%"></td>
                     <td width="20%"></td>
@@ -46,13 +44,13 @@
                     <td width="30%"></td>
                     <td>
                         <label class="control-label col-sm-2">{{'label.input.repeats' | translate}}</label>
-                        <select class="input-small" ng-model="formData.frequency"
+                        <select class="input-sm form-control" ng-model="formData.frequency"
                                 ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
                                 ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"></select>
                     </td>
                     <td>
                         <label class="control-label col-sm-2">{{'label.input.repeatsevery' | translate}}</label>
-                        <select class="input-small" ng-model="formData.interval"
+                        <select class="input-sm form-control" ng-model="formData.interval"
                                 ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions">{{repeatsEveryOption}}
                         </select>{{periodValue}}
                     </td>
@@ -69,10 +67,10 @@
                 </tr>
             </table>
         </div>
-        <div class="offset2">
-            <a ng-show="entityType=='groups'" href="#/viewgroup/{{groupOrCenterId}}" class="btn">{{'label.button.cancel'
+        <div class="col-md-offset-2">
+            <a ng-show="entityType=='groups'" href="#/viewgroup/{{groupOrCenterId}}" class="btn btn-default">{{'label.button.cancel'
                 | translate}}</a>
-            <a id="cancel" ng-show="entityType=='centers'" href="#/viewcenter/{{groupOrCenterId}}" class="btn">{{'label.button.cancel'
+            <a id="cancel" ng-show="entityType=='centers'" href="#/viewcenter/{{groupOrCenterId}}" class="btn btn-default">{{'label.button.cancel'
                 | translate}}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
         </div>

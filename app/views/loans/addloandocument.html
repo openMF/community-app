@@ -1,8 +1,7 @@
 <div ng-controller="LoanDocumentController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
         </ul>
     </div>
@@ -16,7 +15,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" type="text" name="name" ng-model="formData.name" required late-Validate/>
+                    <input id="name" type="text" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
                     <form-validate valattributeform="loandocumentform" valattribute="name"/>
                 </div>
             </div>
@@ -25,7 +24,7 @@
                 <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <textarea rows="2" id="description" ng-model="formData.description"></textarea>
+                    <textarea rows="2" id="description" ng-model="formData.description" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -34,13 +33,13 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="file" type="file" ng-file-select="onFileSelect($files)">
+                    <input id="file" type="file" ng-file-select="onFileSelect($files)" class="form-control">
                 </div>
             </div>
 
-            <div class="offset3">
+            <div class="col-md-offset-3">
                 <a id="cancel" href="#/viewloanaccount/{{loanId}}">
-                    <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
                 <button id="save" type="submit" ng-disabled="!loandocumentform.$valid" has-permission='CREATE_DOCUMENT' class="btn btn-primary">
                     {{'label.button.save' | translate}}

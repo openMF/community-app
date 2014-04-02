@@ -1,9 +1,8 @@
-<div ng-controller="EditUserController">
+<div class="row" ng-controller="EditUserController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/users">{{'label.anchor.users' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
+            <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a></li>
             <li class="active">{{'label.anchor.edituser' | translate}}</li>
         </ul>
     </div>
@@ -17,7 +16,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="username" name="username" ng-model="formData.username" required
+                    <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required
                            late-Validate/>
                     <form-validate valattributeform="edituserform" valattribute="username"/>
                 </div>
@@ -29,7 +28,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" id="firstname" name="firstname" value="{{user.firstname}}"
-                           ng-model="formData.firstname" required late-Validate/>
+                           ng-model="formData.firstname" class="form-control" required late-Validate/>
                     <form-validate valattributeform="edituserform" valattribute="firstname"/>
                 </div>
             </div>
@@ -40,7 +39,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" id="lastname" name="lastname" value="{{user.lastname}}"
-                           ng-model="formData.lastname" required late-Validate/>
+                           ng-model="formData.lastname" class="form-control" required late-Validate/>
                     <form-validate valattributeform="edituserform" valattribute="lastname"/>
                 </div>
             </div>
@@ -50,7 +49,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email"
+                    <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email" class="form-control"
                            required late-Validate/>
                     <form-validate valattributeform="edituserform" valattribute="email"/>
                 </div>
@@ -61,7 +60,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="officeId" ng-model="formData.officeId"
+                    <select id="officeId" ng-model="formData.officeId" class="form-control"
                             ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                     </select>
                 </div>
@@ -73,15 +72,15 @@
                 <div class="col-sm-3">
                     <select id="role" ng-model="formData.selectedRoles" name="role"
                             ng-options="availablerole.name for availablerole in availableRoles"
-                            value="{{availablerole.id}}" multiple required>
+                            value="{{availablerole.id}}" class="form-control" multiple required>
                     </select>
                     <form-validate valattributeform="edituserform" valattribute="role"/>
                 </div>
             </div>
 
-            <div class="offset3">
+            <div class="col-md-offset-3">
                 <a id="cancel" href="#/viewuser/{{userId}}">
-                    <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_USER'>{{'label.button.save' | translate}}</button>
             </div>

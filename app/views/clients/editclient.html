@@ -1,10 +1,9 @@
-<form name="editclientform" novalidate="" class="form-horizontal" ng-controller="EditClientController"
+<form name="editclientform" novalidate="" class="row form-horizontal" ng-controller="EditClientController"
       rc-submit="submit()">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span>
-            </li>
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{'label.anchor.editclient' | translate}}</li>
         </ul>
     </div>
@@ -19,7 +18,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <select id="officeId" ng-model="officeId"
+                            <select id="officeId" ng-model="officeId"  class="form-control"
                                     ng-options="office.id as office.name for office in offices" value="{{office.id}}"
                                     disabled="disabled">
                             </select>
@@ -34,7 +33,7 @@
                         <label class="control-label col-sm-2">{{ 'label.heading.staff' | translate }}:</label>
 
                         <div class="col-sm-3">
-                            <select id="staffId" ng-model="formData.staffId"
+                            <select id="staffId" ng-model="formData.staffId"  class="form-control"
                                     ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                                 <option value="">{{'label.menu.selectloanofficer' | translate}}</option>
                             </select>
@@ -50,7 +49,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required
+                            <input type="text" id="firstname" name="firstname" ng-model="formData.firstname"  class="form-control" required
                                    late-Validate/>
                             <form-validate valattributeform="editclientform" valattribute="firstname"/>
                         </div>
@@ -59,7 +58,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.middlename' | translate }}:</label>
 
                         <div class="col-sm-3">
-                            <input id="middlename" type="text" ng-model="formData.middlename">
+                            <input id="middlename" type="text" ng-model="formData.middlename" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -67,7 +66,7 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required
+                            <input type="text" id="lastname" name="lastname" ng-model="formData.lastname"  class="form-control" required
                                    late-Validate/>
                             <form-validate valattributeform="editclientform" valattribute="lastname"/>
                         </div>
@@ -81,7 +80,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.accno' | translate }}:</label>
 
                         <div class="col-sm-3">
-                            <input id="accountNo" type="text" ng-model="formData.accountNo">
+                            <input id="accountNo" type="text" ng-model="formData.accountNo" class="form-control">
                         </div>
                     </div>
                 </td>
@@ -93,7 +92,7 @@
                         <label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:</label>
 
                         <div class="col-sm-3">
-                            <input id="externalId" type="text" ng-model="formData.externalId">
+                            <input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
                         </div>
                     </div>
                 </td>
@@ -104,7 +103,7 @@
                         <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
 
                         <div class="col-sm-3">
-                            <input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/"/>
+                            <input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control"/>
                                 <span ng-show="editclientform.mobileNo.$invalid && editclientform.mobileNo.$dirty">
                                   <small class="required" ng-show="editclientform.mobileNo.$error.pattern">
                                       {{'label.mustbenumeric' | translate}}
@@ -125,7 +124,7 @@
                             <div class="col-sm-3">
                                 <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy"
                                        ng-model="date.activationDate" is-open="opened" min="'2000-01-01'"
-                                       max="restrictDate"/>
+                                       max="restrictDate"  class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -135,7 +134,7 @@
                 <td>
                     <div class="form-group" ng-show="showSavingOptions">
                         <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
-                        <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct"
+                        <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct"  class="form-control"
                                ng-true-value="true" ng-false-value="false">
                     </div>
                 </td>
@@ -148,7 +147,7 @@
                         <div class="col-sm-3">
                             <select id="savingsProductId" ng-model="formData.savingsProductId"
                                     ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts"
-                                    value="{{savingProduct.id}}">
+                                    value="{{savingProduct.id}}"  class="form-control">
                                 <option value="">{{'label.menu.selectsavingproduct' | translate}}</option>
                             </select>
                         </div>
@@ -157,9 +156,9 @@
             </tr>
 
         </table>
-        <div class="offset3">
-            <a id="cancel" href='#/viewclient/{{clientId}}'>
-                <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+        <div class="col-md-offset-3">
+            <a id="cancel" href="#/viewclient/{{clientId}}">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
             </a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_CLIENT'>{{'label.button.save' | translate}}</button>
         </div>

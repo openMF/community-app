@@ -1,11 +1,11 @@
-<div>
+<div class="row">
     <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.addjournalentry' | translate}}</li>
     </ul>
 </div>
 
-<form name="freqpostingform" novalidate="" class="form-horizontal well" ng-controller="AccFreqPostingController"
+<form name="freqpostingform" novalidate="" class="row form-horizontal well" ng-controller="AccFreqPostingController"
       rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
@@ -47,22 +47,23 @@
             <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
 
-            <div class="col-sm-3">
+            <div class="col-sm-9">
+                <div class="form-inline">
                 <table width="100%">
                     <tr>
                         <td width="50%">
-                            <strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;
+                            <label>{{ 'label.input.credit' | translate }}</label>&nbsp;
                             <a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
                         <td width="50%">
-                            <strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;
+                            <label>{{ 'label.input.debit' | translate }}</label>&nbsp;
                             <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div ng-show="formData.rule.creditAccounts.length > 0">
-                                <select class="input-small" ng-model="formData.creditAccountTemplate"
+                                <select class="input-sm form-control" ng-model="formData.creditAccountTemplate"
                                         ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts"></select>
                                 &nbsp; <input type="text" class="input-sm form-control" name="creditamount"
                                               ng-model="formData.crAmountTemplate">
@@ -77,7 +78,7 @@
                             <br>
 
                             <div ng-repeat="crAccount in formData.crAccounts">
-                                <input type="text" class="input-small" ng-model="crAccount.crGlName" readonly>
+                                <input type="text" class="input-sm form-control" ng-model="crAccount.crGlName" readonly>
                                 <input id="credits[{{$index}}]" type="text" class="input-sm form-control"
                                        ng-model="crAccount.crAmount">
                                 <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
@@ -85,7 +86,7 @@
                         </td>
                         <td>
                             <div ng-show="formData.rule.debitAccounts.length > 0">
-                                <select class="input-small" ng-model="formData.debitAccountTemplate"
+                                <select class="input-sm form-control" ng-model="formData.debitAccountTemplate"
                                         ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts"></select>
                                 &nbsp; <input type="text" class="input-sm form-control" name="debitamount"
                                               ng-model="formData.debitAmountTemplate">
@@ -115,14 +116,14 @@
             <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 
             <div class="col-sm-3">
-                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber">
+                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
             <div class="col-sm-3">
-                <input class="date-disable" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
+                <input class="date-disable form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
                        ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
             </div>
         </div>
@@ -130,11 +131,11 @@
             <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
 
             <div class="col-sm-3">
-                <textarea type="text" rows="2" name="comments" ng-model="formData.comments"></textarea>
+                <textarea type="text" rows="2" name="comments" ng-model="formData.comments" class="form-control"></textarea>
             </div>
         </div>
-        <div class="col-lg-offset-3">
-            <a id="cancel" href="#/accounting" class="btn">{{ 'label.button.cancel' | translate }}</a>
+        <div class="col-md-offset-3">
+            <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>

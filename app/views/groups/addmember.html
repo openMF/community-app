@@ -8,7 +8,7 @@
             <label class="control-label col-sm-2" for="staffid">{{ 'label.input.staff' | translate }}:</label>
 
             <div class="col-sm-3">
-                <select ng-model="formData.staffId" id="staffId">
+                <select ng-model="formData.staffId" id="staffId"  class="form-control">
                     <option ng-repeat="staff in clientTemplate.staffOptions" value="{{staff.id}}">
                         {{staff.displayName}}
                     </option>
@@ -20,7 +20,7 @@
                     class="required">*</span></label>
 
             <div class="col-sm-3">
-                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required
+                <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control" required
                        late-Validate/>
                 <form-validate valattributeform="addmemeberform" valattribute="firstname"/>
             </div>
@@ -29,7 +29,7 @@
             <label class="control-label col-sm-2" for="middlename">{{ 'label.input.middlename' | translate }}</label>
 
             <div class="col-sm-3">
-                <input type="text" id="middlename" ng-model="formData.middlename">
+                <input type="text" id="middlename" ng-model="formData.middlename" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
@@ -37,7 +37,7 @@
                     class="required">*</span></label>
 
             <div class="col-sm-3">
-                <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" required late-Validate/>
+                <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control" required late-Validate/>
                 <form-validate valattributeform="addmemeberform" valattribute="lastname"/>
             </div>
         </div>
@@ -45,14 +45,14 @@
             <label class="control-label col-sm-2" for="externalid">{{ 'label.input.externalid' | translate }}</label>
 
             <div class="col-sm-3">
-                <input type="text" id="externalId" ng-model="formData.externalId">
+                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
 
             <div class="col-sm-3">
-                <input type="number" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"/>
+                <input type="number" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" class="form-control"/>
                 <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                   <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
                       {{'label.mustbenumeric' | translate}}
@@ -65,7 +65,7 @@
 
             <div class="col-sm-3">
                 <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
-                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate"/>
+                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
@@ -81,12 +81,12 @@
 
                 <div class="col-sm-3">
                     <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                           is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
             </div>
         </div>
-        <div class="offset2 paddedleft120">
-            <a href="#/viewgroup/{{groupId}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+        <div class="col-md-offset-2 paddedleft120">
+            <a href="#/viewgroup/{{groupId}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CLIENT'>{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>

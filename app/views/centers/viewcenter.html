@@ -1,9 +1,9 @@
-<div ng-controller="ViewCenterController">
+<div class="row" ng-controller="ViewCenterController">
 <div>
     <ul class="breadcrumb">
-        <li>
+        <span>
             <i class="icon-map-marker icon-2x"></i>
-        </li>
+        </span>
         <li>
             <h3>
                 &nbsp;
@@ -13,11 +13,11 @@
                 &nbsp;
             </h3>
         </li>
-        <li><span class="divider">|</span>
+        <li>
             <i class="icon-barcode"></i>
             <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{center.id}}&nbsp;</small>
         </li>
-        <li><span class="divider">|</span>
+        <li>
             <i class="icon-building"></i>
             <small>{{ 'label.heading.office' | translate }} "{{center.officeName}}"</small>
         </li>
@@ -26,9 +26,9 @@
 <div>
 <tabset style="margin-bottom: 0;">
 <tab heading="{{ 'label.heading.general' | translate }}">
-    <div class="row-fluid">
-        <div class="row-fluid primarydiv">
-            <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
+    <div>
+        <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
+            <div class="btn-group pull-right">
                 <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
                 <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
                     <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
@@ -39,7 +39,7 @@
                           {{ 'label.button.more' | translate}}
                           <span class="caret"></span>
                       </a>
-                      <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
+                      <ul class="dropdown dropdown-menu dropdown-menu-right">
                           <li>
                               <a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
                                   'label.button.assignstaff' | translate }}</a>
@@ -85,8 +85,8 @@
                 <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
-        <div class="row-fluid">
-            <div class="span6">
+        <div class="row marginbuttontop16px">
+            <div class="col-sm-6 col-md-6">
                 <div data-ng-show="center.status.value=='Closed'">
                     <h3>{{'label.heading.centerclosed' | translate}}</h3>
                 </div>
@@ -125,7 +125,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="span5">
+            <div class="col-sm-5 col-md-5">
                 <table class="table paddedsummary table-striped">
                     <thead>
                     <tr class="graybg">
@@ -197,8 +197,8 @@
     </div>
 </tab>
 <tab heading="{{ 'label.heading.groups' | translate }}">
-    <div class="row-fluid">
-        <div class="row-fluid primarydiv" data-ng-hide="center.status.value == 'Closed'">
+    <div class="col-sm-12 col-md-12">
+        <div class="row primarydiv" data-ng-hide="center.status.value == 'Closed'">
             <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i
                     class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
             <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}"
@@ -229,11 +229,11 @@
 
     <form>
         <div class="form-group">
-            <div class="col-sm-3">
-                <textarea rows="1" class="field span marginbottom0px" id="textarea"
+            <div class="col-sm-12 col-md-12">
+                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
                           placeholder="{{ 'label.input.enternote' | translate }}" ng-model="formData.note"></textarea>
 
-                <div class="notewrapper row-fluid">
+                <div class="notewrapper col-md-12">
                         <span class="pull-right noteaddbuttonwrapper">
                             <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_GROUPNOTE'>{{ 'label.button.add' | translate }} </button>
                         </span>
@@ -241,16 +241,17 @@
             </div>
         </div>
     </form>
-    <div ng-repeat="note in notes | orderBy:predicate:reverse">
-        <div>
-            <blockquote>
-                <p>{{note.note}}</p>
-                {{note.id}}
-                <small>{{'label.createdby' | translate}} :&nbsp;{{note.createdByUsername}}</small>
-                <small>{{'label.createdon' | translate}} :&nbsp;{{note.createdOn | DateFormat}}</small>
-            </blockquote>
-        </div>
-    </div>
+	<div class="col-md-12">
+		<br/>
+		<div ng-repeat="note in notes | orderBy:predicate:reverse">
+	        <blockquote>
+	            <p>{{note.note}}</p>
+	            {{note.id}}
+	            <small>{{'label.createdby' | translate}} :&nbsp;{{note.createdByUsername}}</small>
+	            <small>{{'label.createdon' | translate}} :&nbsp;{{note.createdOn | DateFormat}}</small>
+	        </blockquote>
+		</div>
+	</div>
     </ul>
 </tab>
 </tab>

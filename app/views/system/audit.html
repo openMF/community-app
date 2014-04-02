@@ -1,18 +1,20 @@
 <div ng-controller="AuditController">
     <ul class="breadcrumb">
-        <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.audit' | translate}}</li>
     </ul>
-    <div class="row-fluid">
-        <span class="input-append grpinputicons">
-            <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)"
-                   placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user"
-                   typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
-            <span><a ng-click="isCollapsed = !isCollapsed" class="btn control"><i
-                    class="icon-chevron-down"></i></a></span>
-            <span><a ng-click="search()" class="btn btn-primary control" has-permission='READ_AUDIT'><i
-                    class="icon-search icon-white"></i></a></span>
-        </span>
+    <div class="form-inline">
+        <div class="form-group">
+			<span class="input-append grpinputicons">
+				<input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)"
+				       placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" class="form-control"
+				       typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
+				<span><a ng-click="isCollapsed = !isCollapsed" class="btn btn-default"><i
+				        class="icon-chevron-down"></i></a></span>
+				<span><a ng-click="search()" class="btn btn-primary control" has-permission='READ_AUDIT'><i
+				        class="icon-search icon-white"></i></a></span>
+			</span>
+		</div>
     </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
         <div class="form-group">
@@ -29,7 +31,7 @@
             <div class="col-sm-3">
                 <input type="text" sort placeholder="{{'label.input.fromdate' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate"
-                       max="'2020-06-22'"/>
+                       max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
@@ -37,12 +39,12 @@
 
             <div class="col-sm-3">
                 <input type="text" sort placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
-                       ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
+                       ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-3">
-                <select ng-model="formData.action">
+                <select ng-model="formData.action" class="form-control">
                     <option value="">--{{'label.selectaction' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="action in template.actionNames" value="{{action}}">{{action}}</option>
@@ -51,7 +53,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-3">
-                <select ng-model="formData.entity">
+                <select ng-model="formData.entity" class="form-control">
                     <option value="">--{{'label.selectentity' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="entity in template.entityNames" value="{{entity}}">{{entity}}</option>
@@ -63,12 +65,12 @@
 
             <div class="col-sm-3">
                 <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
-                       ng-model="formData.resourceId">
+                       ng-model="formData.resourceId" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-3">
-                <select ng-model="formData.checkedBy">
+                <select ng-model="formData.checkedBy" class="form-control">
                     <option value="">--{{'label.selectchecker' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
                     <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
@@ -79,14 +81,14 @@
             <div class="col-sm-3">
                 <input type="text" sort placeholder="{{'label.input.checkedfrom' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate"
-                       max="'2020-06-22'"/>
+                       max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-3">
                 <input type="text" sort placeholder="{{'label.input.checkedto' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate"
-                       max="'2020-06-22'"/>
+                       max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <span><a ng-click="search()" class="btn btn-primary control" has-permission='READ_AUDIT'><i class="icon-search icon-white"></i>{{'label.button.advancesearch' | translate}}</a></span>
