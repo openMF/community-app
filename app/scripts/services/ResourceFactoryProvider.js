@@ -233,11 +233,10 @@
                     savingsTemplateResource: defineResource(apiVer + "/savingsaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId/:resourceType/:chargeId",
-                        {accountId: '@accountId', resourceType: '@resourceType', chargeId: '@chargeId'}, {
-                            get: {method: 'GET', params: {}},
-                            update: {method: 'PUT'}
-                        }),
+                    savingsResource: defineResource(apiVer + "/savingsaccounts/:accountId/:resourceType/:chargeId", {accountId: '@accountId', resourceType: '@resourceType', chargeId: '@chargeId'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT'}
+                    }),
                     savingsChargeResource: defineResource(apiVer + "/savingsaccounts/:accountId/charges/:resourceType", {accountId: '@accountId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT'}

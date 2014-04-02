@@ -17,6 +17,10 @@
                 }
             };
 
+            scope.viewCharge = function (id){
+                location.path('/savings/'+scope.savingaccountdetails.id+'/viewcharge/'+id).search({'status':scope.savingaccountdetails.status.value});
+            }
+
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {

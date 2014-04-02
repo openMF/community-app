@@ -358,6 +358,9 @@
             .when('/viewsavingaccount/:id', {
                 templateUrl: 'views/savings/view_saving_account_details.html'
             })
+            .when('/savings/:savingId/viewcharge/:id', {
+                templateUrl: 'views/savings/viewsavingscharge.html'
+            })
             .when('/groups', {
                 templateUrl: 'views/groups/groups.html'
             })
