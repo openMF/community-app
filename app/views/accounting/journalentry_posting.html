@@ -13,7 +13,7 @@
             <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
 
             <div class="col-sm-5">
-                <select id="officeId" ng-model="formData.officeId"
+                <select id="officeId" ng-model="formData.officeId" class="form-control"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                 </select>
             </div>
@@ -23,7 +23,7 @@
                     class="required">*</span></label>
 
             <div class="col-sm-5">
-                <select id="currencyCode" name="currency" ng-model="formData.currencyCode"
+                <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
                         ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
                         value="{{currency.code}}" required>
                     <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
@@ -93,12 +93,12 @@
             <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 
             <div class="col-sm-5">
-                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber">
+                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label ng-binding" for="paymentTypeId">
+            <label class="control-label col-sm-2 ng-binding" for="paymentTypeId">
                 Payment type
                 <span class="required">*</span>
             </label>
@@ -169,10 +169,10 @@
             <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
 
             <div class="col-sm-5">
-                <textarea rows="2" ng-model="formData.comments"></textarea>
+                <textarea rows="2" ng-model="formData.comments" class="form-control"></textarea>
             </div>
         </div>
-        <div class="col-lg-offset-3">
+        <div class="col-md-offset-3">
             <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
         </div>

@@ -1,9 +1,8 @@
-<div ng-controller="ClientIdentifierController">
+<div class="row" ng-controller="ClientIdentifierController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span>
-            </li>
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{'label.anchor.addclientidentities' | translate}}</li>
         </ul>
     </div>
@@ -18,7 +17,7 @@
                 <div class="col-sm-3">
                     <select id="documentTypeId" ng-model="formData.documentTypeId"
                             ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
-                            value="{{documenttype.id}}" required="required">
+                            value="{{documenttype.id}}" required="required" class="form-control">
                     </select>
                 </div>
             </div>
@@ -29,7 +28,7 @@
 
                 <div class="col-sm-3">
                     <input id="documentKey" type="text" name="identification" ng-model="formData.documentKey"
-                           required="required" required late-Validate/>
+                           required="required" class="form-control" required late-Validate/>
                     <form-validate valattributeform="clientidentifierform" valattribute="identification"/>
                 </div>
             </div>
@@ -38,13 +37,13 @@
                 <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <textarea id="description" rows="2" ng-model="formData.description"></textarea>
+                    <textarea id="description" rows="2" ng-model="formData.description" class="form-control"></textarea>
                 </div>
             </div>
 
-            <div class="offset3">
+            <div class="col-md-offset-3">
                 <a id="cancel" href="#/viewclient/{{clientId}}">
-                    <button type="reset" class="btn">{{'label.button.cancel' | translate}}</button>
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
                 <button id="save" type="submit" has-permission='CREATE_CLIENTIDENTIFIER' class="btn btn-primary">{{'label.button.save' | translate}}</button>
             </div>

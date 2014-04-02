@@ -11,25 +11,25 @@
         <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
         <hr/>
         <div class="form-group" ng-repeat="columnHeader in columnHeaders">
-            <label class="control-label col-sm-2">{{ columnHeader.columnName }}<span ng-show="!columnHeader.isColumnNullable"
+            <label class="control-label col-sm-3">{{ columnHeader.columnName }}<span ng-show="!columnHeader.isColumnNullable"
                                                                             class="required">*</span></label>
 
             <div class="col-sm-3">
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
-                       ng-model="formData[columnHeader.columnName]"/>
+                       ng-model="formData[columnHeader.columnName]" class="form-control"/>
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
-                       is-open="opened{{$index}}"/>
+                       is-open="opened{{$index}}" class="form-control"/>
                 <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                         ng-model="formData[columnHeader.columnName]"
                         ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
-                        value="{{columnValue.id}}">
+                        value="{{columnValue.id}}" class="form-control">
                     <option value="">{{'label.selectone' | translate}}</option>
                 </select>
             </div>
         </div>
-        <div class="offset2">
-            <a id="cancel" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
+        <div class="col-md-offset-2">
+            <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_DATATABLE'>{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>

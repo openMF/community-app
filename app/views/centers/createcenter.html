@@ -1,6 +1,6 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
         <li class="active">{{'label.anchor.createcenter' | translate}}</li>
     </ul>
 </div>
@@ -15,7 +15,7 @@
                     class="required">*</span></label>
 
             <div class="col-sm-3">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" required
+                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
                        late-Validate/>
                 <form-validate valattributeform="createcenterform" valattribute="name"/>
             </div>
@@ -26,7 +26,7 @@
             <div class="col-sm-3">
                 <select id="officeId" ng-model="formData.officeId"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-                        ng-change="changeOffice()">
+                        ng-change="changeOffice()" class="form-control">
                 </select>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
             <div class="col-sm-3">
                 <select id="staffId" ng-model="formData.staffId"
-                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control">
                     <option value="">{{'label.menu.selectstaff' | translate}}</option>
                 </select>
             </div>
@@ -53,7 +53,7 @@
 
                 <div class="col-sm-3">
                     <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                           is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
 
             <div class="col-sm-3">
-                <input type="text" id="externalId" ng-model="formData.externalId">
+                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
@@ -69,11 +69,11 @@
 
             <div class="col-sm-3">
                 <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
-                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
             </div>
         </div>
-        <div class="offset2 paddedleft120">
-            <a id="cancel" href="#/centers" class="btn">{{'label.button.cancel' | translate}}</a>
+        <div class="col-md-offset-2 paddedleft120">
+            <a id="cancel" href="#/centers" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CENTER'>{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>

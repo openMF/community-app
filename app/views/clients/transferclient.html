@@ -1,9 +1,8 @@
-<div ng-controller="TransactionClientController">
+<div class="row" ng-controller="TransactionClientController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a> <span class="divider">/</span>
-            </li>
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{'label.anchor.transferclient' | translate}}</li>
         </ul>
     </div>
@@ -16,7 +15,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="destinationOfficeId" ng-model="formData.destinationOfficeId"
+                    <select id="destinationOfficeId" ng-model="formData.destinationOfficeId" class="form-control"
                             ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
                 </div>
             </div>
@@ -24,11 +23,11 @@
                 <label class="control-label col-sm-2">{{'label.input.notes' | translate}}:</label>
 
                 <div class="col-sm-3">
-                    <textarea ng-model="formData.note"></textarea>
+                    <textarea class="form-control" ng-model="formData.note"></textarea>
                 </div>
             </div>
-            <div class="offset3">
-                <a href='#/viewclient/{{clientId}}' class="btn">{{'label.button.cancel' | translate}}</a>
+            <div class="col-md-offset-3">
+                <a href='#/viewclient/{{clientId}}' class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" has-permission='PROPOSETRANSFER_CLIENT' class="btn btn-primary">{{'label.button.save' | translate}}</button>
             </div>
 
