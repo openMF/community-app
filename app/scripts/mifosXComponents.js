@@ -131,6 +131,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounttransfers/MakeAccountTransferController',
             'savings/ViewSavingsTransactionController',
             'savings/AddNewSavingsChargeController',
+            'savings/ViewSavingChargeController',
             'groups/CreateGroupController',
             'groups/AddMemberController',
             'groups/EditGroupController',

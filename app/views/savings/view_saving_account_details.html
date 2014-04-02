@@ -298,7 +298,7 @@
                         </table>
                     </div>
                 </tab>
-                <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+                <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
                     <table class="table" width="100%">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
@@ -318,44 +318,42 @@
                             <th>{{'label.heading.actions' | translate}}</th>
                             <th></th>
                         </tr>
-                        <tr ng-repeat="charge in charges">
+                        <tr class="pointer-main" ng-repeat="charge in charges">
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.name}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-show="'charge.penalty'==true">{{"penalty"}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)"></td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.chargeTimeType.value}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)"></td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.dueDate | DateFormat}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.feeOnMonthDay | DayMonthFormat}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.chargeCalculationType.value}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)"></td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)"></td>
                             <td>
-                                <a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a>
-                            </td>
-                            <td ng-show="'charge.penalty'==true">{{"penalty"}}</td>
-                            <td ng-hide="'charge.penalty'==true">{{"fee"}}</td>
-                            <td></td>
-                            <td>{{charge.chargeTimeType.value}}</td>
-                            <td></td>
-                            <td>{{charge.dueDate | DateFormat}}</td>
-                            <td>{{charge.feeOnMonthDay | DayMonthFormat}}</td>
-                            <td>{{charge.chargeCalculationType.value}}</td>
-                            <td></td>
-                            <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
-                            <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
-                            <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
-                            <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
-                            <td></td>
-                            <td>
-                                        <span ng-show="chargeAction">
-                                            <a title="{{'label.edit' | translate}}"
-                                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
-                                                    class="icon-pencil icon-white"></i></a>
-                                            <a title="{{'label.delete' | translate}}"
-                                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
-                                                    class="icon-remove icon-white"></i></a>
-                                        </span>
-                                        <span ng-hide="chargeAction">
-                                            <span ng-hide="charge.amountOutstanding == 0"
-                                                  ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
-                                                <a title="{{'label.button.paycharge' | translate}}"
-                                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
-                                                        class="icon-check icon-white"></i></a>
-                                                <a title="{{'label.button.waivecharge' | translate}}"
-                                                   href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
-                                                        class="icon-flag icon-white"></i></a>
-                                            </span>
-                                        </span>
+                                <span ng-show="chargeAction">
+                                    <a title="{{'label.edit' | translate}}" has-permission="UPDATE_SAVINGSACCOUNTCHARGE"
+                                       href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
+                                            class="icon-pencil icon-white"></i></a>
+                                    <a title="{{'label.delete' | translate}}" has-permission="DELETE_SAVINGSACCOUNTCHARGE"
+                                       href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
+                                            class="icon-remove icon-white"></i></a>
+                                </span>
+                                <span ng-hide="chargeAction">
+                                    <span ng-hide="charge.amountOutstanding == 0"
+                                          ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
+                                        <a title="{{'label.button.paycharge' | translate}}" has-permission="PAY_SAVINGSACCOUNTCHARGE"
+                                           href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
+                                                class="icon-check icon-white"></i></a>
+                                        <a title="{{'label.button.waivecharge' | translate}}" has-permission="WAIVE_SAVINGSACCOUNTCHARGE"
+                                           href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
+                                                class="icon-flag icon-white"></i></a>
+                                    </span>
+                                </span>
                             </td>
                             <td></td>
                         </tr>
