@@ -3,6 +3,7 @@
         ViewCenterController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.center = [];
             scope.staffData = {};
+            scope.formData = {};
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 scope.staffData.staffId = data.staffId;
@@ -71,6 +72,14 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center'}, function (data) {
                 scope.centerdatatables = data;
             });
+
+            scope.viewDataTable = function (registeredTableName,data){
+                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.center.id+"/";
+                if (scope.datatabledetails.isMultirow) {
+                    locationURI = locationURI + data.row[0];
+                };
+                location.path(locationURI);
+            };
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName, entityId: routeParams.id, genericResultSet: 'true'}, function (data) {

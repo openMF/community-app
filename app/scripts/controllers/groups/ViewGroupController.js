@@ -3,6 +3,7 @@
         ViewGroupController: function (scope, routeParams, route, location, resourceFactory, dateFilter, $modal) {
             scope.group = [];
             scope.template = [];
+            scope.formData = {};
             scope.choice = 0;
             scope.staffData = {};
             scope.openLoan = true;
@@ -74,6 +75,13 @@
                 resourceFactory.groupResource.get({groupId: id}, function (data) {
                     route.reload();
                 });
+            };
+            scope.viewDataTable = function (registeredTableName,data){
+                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.group.id+"/";
+                if (scope.datatabledetails.isMultirow) {
+                    locationURI = locationURI + data.row[0];
+                };
+                location.path(locationURI);
             };
             scope.saveNote = function () {
                 resourceFactory.groupResource.save({groupId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {

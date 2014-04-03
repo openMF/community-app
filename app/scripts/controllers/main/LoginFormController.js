@@ -10,17 +10,18 @@
                 delete scope.loginCredentials.password;
             };
 
+            /*This logic is no longer required as enter button is binded with text field for submit.
             $('#pwd').keypress(function (e) {
                 if (e.which == 13) {
                     scope.login();
                 }
-            });
+            });*/
 
-            $('#repeatPassword').keypress(function (e) {
+            /*$('#repeatPassword').keypress(function (e) {
                 if (e.which == 13) {
                     scope.updatePassword();
                 }
-            });
+            });*/
 
             scope.$on("UserAuthenticationFailureEvent", function (data) {
                 scope.authenticationFailed = true;
