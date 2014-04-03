@@ -7,6 +7,7 @@
             {"name": "Português", "code": "pt"},
             {"name": "中文", "code": "zh_cn"},
             {"name": "हिंदी", "code": "hi"},
+            {"name": "ქართული", "code": "ka"}
         ]
     });
 }(mifosX.models || {}));
