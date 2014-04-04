@@ -28,8 +28,16 @@
             scope.officeSelected = function (officeId) {
                 scope.officeId = officeId;
                 if (officeId) {
-                    resourceFactory.employeeResource.getAllEmployees({loanOfficersOnly: 'true', officeId: officeId}, function (data) {
+                    resourceFactory.employeeResource.getAllEmployees({officeId: officeId}, function (data) {
                         scope.loanOfficers = data;
+                    });
+
+                    resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                        scope.centers = data;
+                    });
+
+                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                        scope.groups = data;
                     });
                 }
             };
@@ -48,16 +56,10 @@
                 if (loanOfficerId) {
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
-                        if (data.length > 0) {
-                            scope.centerMandatory = true;
-                        }
                     });
 
                     resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.groups = data;
-                        if (data.length > 0 && scope.centers.length < 0) {
-                            scope.groupMandatory = true;
-                        }
                     });
                 } else {
                     scope.centers = '';
@@ -75,7 +77,9 @@
                         }
 
                         if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
-                            scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate, scope.df));
+                            if (!scope.date.transactionDate) {
+                                scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate, scope.df));
+                            }
                         }
                         if (data.collectionMeetingCalendar) {
                             scope.calendarId = data.collectionMeetingCalendar.id;
@@ -94,7 +98,10 @@
                             scope.calendarId = data.collectionMeetingCalendar.id;
                         }
                         if (data.collectionMeetingCalendar && data.collectionMeetingCalendar.recentEligibleMeetingDate) {
-                            scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate, scope.df));
+                            if (!scope.date.transactionDate) {
+                                scope.date.transactionDate = new Date(dateFilter(data.collectionMeetingCalendar.recentEligibleMeetingDate, scope.df));
+
+                            }
                         }
                         centerOrGroupResource = "groupResource";
                     });

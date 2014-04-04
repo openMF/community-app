@@ -7,6 +7,9 @@
             params.meetingDate = routeParams.meetingDate;
             params.officeId = routeParams.officeId;
             params.staffId = routeParams.staffId;
+            if (params.staffId === "undefined") {
+                params.staffId = null;
+            }
             var centerIdArray = [];
             scope.submitButtonShow = false;
             scope.completedCenter = false;
