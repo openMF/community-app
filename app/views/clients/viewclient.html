@@ -23,7 +23,7 @@
     </li>
 </ul>
 <div>
-<tabset style="margin-bottom: 0;overflow: hidden">
+<tabset class="overflowhidden marginbottom0">
 <tab heading="{{'label.heading.general' | translate}}">
 <div class="col-md-12 col-sm-12">
 <div class="row primarydiv">
@@ -139,7 +139,7 @@
                 <td>
                     <span class="padded-td" data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span>
                           <span class="padded-td" ng-repeat="group in client.groups">
-                           <a style="color: #555555" href="#/viewgroup/{{group.id}}">{{group.name}}</a>&nbsp;<span
+                           <a class="list-group-item-text" href="#/viewgroup/{{group.id}}">{{group.name}}</a>&nbsp;<span
                                   data-ng-hide="client.groups">{{ 'label.unassigned' | translate }}</span><span
                                   ng-show="!$last">|</span>
                           </span>
@@ -158,7 +158,7 @@
     </div>
 
     <div class="col-sm-5 col-md-5">
-        <table class="table paddedsummary table-striped" width="100%">
+        <table class="width100 table paddedsummary table-striped">
             <thead>
             <tr class="graybg">
                 <th colspan="2">{{ 'label.heading.performancehistory' | translate }}</th>
@@ -189,54 +189,36 @@
 </div>
 <div class="row">
     <div class="pull-right">
-                      <span data-ng-show="clientAccounts.loanAccounts">
-                          <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm"
-                                  data-ng-click="setLoan()">{{ 'label.button.viewclosedloans' | translate }}
-                          </button>
-                          <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm"
-                                  data-ng-click="setLoan()">{{ 'label.button.viewactiveloans' | translate }}
-                          </button>
-                      </span>
-                      <span data-ng-show="clientAccounts.savingsAccounts">
-                          <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()"
-                                  class="btn-primary btn btn-sm">{{ 'label.button.viewclosedsavings' | translate }}
-                          </button>
-                          <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()"
-                                  class="btn-primary btn btn-sm">{{ 'label.button.viewactivesavings' | translate }}
-                          </button>
-                      </span>
+        <span data-ng-show="clientAccounts.loanAccounts">
+            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{ 'label.button.viewclosedloans' | translate }}
+            </button>
+            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{ 'label.button.viewactiveloans' | translate }}
+            </button>
+        </span>
     </div>
     <div data-ng-show="clientAccounts.loanAccounts">
-        <div class="span gray-head" style="margin-left:0%">
-                      <span style="margin-left: 10px;font-size:20px">
+        <div class="span gray-head">
+                      <span class="boldlabel">
                             <strong>{{ 'label.heading.loanaccoverview' | translate }}</strong>
                       </span>
         </div>
         <br/>
         <table class="table" data-ng-show="openLoan">
             <tr class="graybg">
-                <th style="width: 250px">{{'label.heading.loanaccount' | translate}}</th>
-                <th style="width: 150px">{{'label.heading.accnum' | translate}}</th>
-                <th style="width: 200px">{{'label.heading.type' | translate}}</th>
+                <th>{{'label.heading.loanaccount' | translate}}</th>
+                <th>{{'label.heading.accnum' | translate}}</th>
+                <th>{{'label.heading.type' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
             </tr>
             <tr class="pointer-main"
                 ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
-                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-
-                    {{loanaccount.productName}}
-
-                </td>
-                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-
-                    {{loanaccount.accountNo}}
-
-                </td>
+                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>
+                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
-                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i ng-hide="loanaccount.inArrears"
-                        class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i> 
-                        <i ng-show="loanaccount.inArrears"
-                        class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>&nbsp;&nbsp;{{loanaccount.status.value}}
+                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+                    <i ng-hide="loanaccount.inArrears" class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
+                    <i ng-show="loanaccount.inArrears" class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>&nbsp;&nbsp;
+                    {{loanaccount.status.value}}
                 </td>
             </tr>
         </table>
@@ -263,17 +245,27 @@
         </table>
     </div>
     <div data-ng-show="clientAccounts.savingsAccounts">
-        <div class="span gray-head" style="margin-left:0%">
-                      <span style="margin-left: 10px;font-size:20px">
-                            <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
-                      </span>
+        <div class="pull-right">
+            <span data-ng-show="clientAccounts.savingsAccounts">
+                <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">
+                    {{ 'label.button.viewclosedsavings' | translate }}
+                </button>
+                <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">
+                    {{ 'label.button.viewactivesavings' | translate }}
+                </button>
+            </span>
+        </div>
+        <div class="span gray-head">
+            <span class="boldlabel">
+                <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
+            </span>
         </div>
         <br/>
         <table class="table" data-ng-show="openSaving">
             <tr class="graybg">
-                <th style="width: 250px">{{'label.heading.savingaccount' | translate}}</th>
-                <th style="width: 150px">{{'label.heading.accnum' | translate}}</th>
-                <th style="width: 200px">{{'label.heading.balance' | translate}}</th>
+                <th>{{'label.heading.savingaccount' | translate}}</th>
+                <th>{{'label.heading.accnum' | translate}}</th>
+                <th>{{'label.heading.balance' | translate}}</th>
                 <th>{{'label.heading.status' | translate}}</th>
             </tr>
             <tr class="pointer-main"
@@ -351,8 +343,8 @@
 </tab>
 <tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
     <div class="pull-right">
-        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i class="icon-plus icon-white"></i>{{'label.button.upload'
-            | translate}}</a>
+        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i class="icon-plus icon-white"></i>
+            {{'label.button.upload' | translate}}</a>
     </div>
     <br>
     <table class="table" ng-show="clientdocuments.length > 0">
@@ -398,22 +390,14 @@
                 <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
                 </thead>
                 <tbody>
-                <tr ng-repeat="data in datatabledetails.data">
-                    <td ng-repeat="row in data.row">
-                    <span ng-show="$index == 0">
-                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/{{data.row[0]}}"
-                         ng-show="datatabledetails.isMultirow">{{row}}</a>
-                      <a href="#/viewdatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}/"
-                         ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                    </span>
-                        <span ng-hide="$index == 0">{{row}}</span>
-                    </td>
-                </tr>
+                    <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                        <td class="pointer" ng-repeat="row in data.row track by $index" ng-click="viewDataTable(clientdatatable.registeredTableName,data)">{{row}}</td>
+                    </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+            <table class="table table-bordered width450px" data-ng-show="!datatabledetails.isMultirow">
                 <tr ng-repeat="value in singleRow">
-                    <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                    <td class="graybg table-font-nav">{{value.key}}</td>
                     <td><span class="padded-td">{{value.value}}</span></td>
                 </tr>
             </table>

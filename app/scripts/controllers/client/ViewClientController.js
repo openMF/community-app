@@ -6,6 +6,7 @@
             scope.buttons = [];
             scope.clientdocuments = [];
             scope.staffData = {};
+            scope.formData = {};
             scope.openLoan = true;
             scope.openSaving = true;
             scope.routeToLoan = function (id) {
@@ -27,7 +28,7 @@
                         });
                 }
 
-                var clientStatus = new mifosX.models.ClientStatus()
+                var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
@@ -240,6 +241,14 @@
                 resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function (data) {
                     scope.clientdocuments.splice(index, 1);
                 });
+            };
+
+            scope.viewDataTable = function (registeredTableName,data){
+                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/";
+                if (scope.datatabledetails.isMultirow) {
+                    locationURI = locationURI + data.row[0];
+                };
+                location.path(locationURI);
             };
 
             scope.downloadDocument = function (documentId) {

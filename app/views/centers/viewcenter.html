@@ -24,7 +24,7 @@
     </ul>
 </div>
 <div>
-<tabset style="margin-bottom: 0;">
+<tabset>
 <tab heading="{{ 'label.heading.general' | translate }}">
     <div>
         <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
@@ -111,8 +111,7 @@
                         <td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
                             <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}"
                                ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="icon-edit icon-white"></i></a>
-                         <span style="margin-left:-7px"
-                               data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+                         <span class="marginleftn7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
                         </td>
                     </tr>
                     <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
@@ -166,8 +165,8 @@
         <br/>
 
         <div data-ng-show="accounts.savingsAccounts">
-            <div class="span gray-head" style="margin-left:0%">
-                  <span style="margin-left: 10px;font-size:20px">
+            <div class="span gray-head">
+                  <span class="boldlabel">
                         <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
                   </span>
             </div>
@@ -206,23 +205,23 @@
                 'label.button.attendance' | translate }}</a>
 
         </div>
+        <table class="table width100">
+            <thead>
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{ 'label.heading.status' | translate }}</th>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="group in center.groupMembers">
+                <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.name}}</td>
+                <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.officeName}}</td>
+                <td class="pointer" data-ng-click="routeToGroup(group.id)"><i
+                        class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="table" width="100%">
-        <thead>
-        <th>{{'label.heading.name' | translate}}</th>
-        <th>{{'label.heading.office' | translate}}</th>
-        <th>{{ 'label.heading.status' | translate }}</th>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="group in center.groupMembers">
-            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.name}}</td>
-            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.officeName}}</td>
-            <td class="pointer" data-ng-click="routeToGroup(group.id)"><i
-                    class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </tab>
 <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE'>
     <br/>
@@ -272,22 +271,14 @@
             <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
             </thead>
             <tbody>
-            <tr ng-repeat="data in datatabledetails.data">
-                <td ng-repeat="row in data.row">
-                  <span ng-show="$index == 0">
-                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/{{data.row[0]}}"
-                       ng-show="datatabledetails.isMultirow">{{row}}</a>
-                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/"
-                       ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                  </span>
-                    <span ng-hide="$index == 0">{{row}}</span>
-                </td>
-            </tr>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                    <td ng-repeat="row in data.row track by $index" class="pointer" ng-click="viewDataTable(centerdatatable.registeredTableName,data)">{{row}}</td>
+                </tr>
             </tbody>
         </table>
-        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+        <table class="table table-bordered width450px" data-ng-show="!datatabledetails.isMultirow">
             <tr ng-repeat="value in singleRow">
-                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                <td class="graybg table-font-nav">{{value.key}}</td>
                 <td><span class="padded-td">{{value.value}}</span></td>
             </tr>
         </table>
