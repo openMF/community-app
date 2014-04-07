@@ -8,6 +8,7 @@
             scope.first = {};
             scope.first.date = new Date();
             scope.restrictDate = new Date();
+            scope.first.submitondate = new Date();
             scope.addedClients = [];
             scope.available = [];
             scope.added = [];

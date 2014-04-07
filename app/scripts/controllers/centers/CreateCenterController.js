@@ -8,6 +8,7 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.first.date = new Date();
+            scope.first.submitondate = new Date();
             resourceFactory.centerTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;

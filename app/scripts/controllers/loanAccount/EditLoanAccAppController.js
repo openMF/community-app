@@ -52,6 +52,10 @@
 
             });
 
+            scope.$watch("formData.expectedDisbursementDate", function(newValue, oldValue) {
+                scope.formData.interestChargedFromDate=scope.formData.expectedDisbursementDate;
+            });
+
             scope.loanProductChange = function (loanProductId) {
 
                 var inparams = { resourceType: 'template', productId: loanProductId, templateType: scope.templateType };
