@@ -253,6 +253,17 @@
                     accountTransfersTemplateResource: defineResource(apiVer + "/accounttransfers/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                     standingInstructionResource: defineResource(apiVer + "/standinginstructions/:standingInstructionId", {standingInstructionId: '@standingInstructionId'}, {
+                        get: {method: 'GET', params: {standingInstructionId: '@standingInstructionId'}},
+                        getTransactions: {method: 'GET', params: {standingInstructionId: '@standingInstructionId',associations: 'transactions'}},
+                        withTemplate: {method: 'GET', params: {standingInstructionId: '@standingInstructionId',associations: 'template'}},
+                        search: {method: 'GET', params: {}},
+                        update: { method: 'PUT',params: {command:'update'}},
+                        cancel: { method: 'PUT',params: {command:'delete'}}
+                    }),
+                     standingInstructionTemplateResource: defineResource(apiVer + "/standinginstructions/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),

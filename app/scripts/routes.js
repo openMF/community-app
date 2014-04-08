@@ -16,6 +16,21 @@
             .when('/templates', {
                 templateUrl: 'views/templates/templates.html'
             })
+            .when('/createstandinginstruction/:officeId/:clientId/:accountType', {
+                templateUrl: 'views/accounttransfers/create_standinginstruction.html'
+            })
+            .when('/editstandinginstruction/:instructionId/:from', {
+                templateUrl: 'views/accounttransfers/edit_standinginstruction.html'
+            })
+            .when('/viewstandinginstruction/:instructionId', {
+                templateUrl: 'views/accounttransfers/view_standinginstruction.html'
+            })
+            .when('/liststandinginstructions/:officeId/:clientId', {
+                templateUrl: 'views/accounttransfers/list_standinginstruction.html'
+            })
+            .when('/listaccounttransactions/:instructionId', {
+                templateUrl: 'views/accounttransfers/list_transactions.html'
+            })          
             .when('/createtemplate', {
                 templateUrl: 'views/templates/createtemplate.html'
             })
