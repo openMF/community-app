@@ -11,6 +11,7 @@
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType: 'template'};
             scope.date = {};
+            scope.date.first = new Date();
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
                 scope.formData.clientId = scope.clientId;
@@ -31,6 +32,9 @@
                 scope.inparams.templateType = 'individual';
             }
 
+            scope.$watch("date.second", function(newValue, oldValue) {
+                scope.date.third=scope.date.second;
+            });
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
                 if (data.clientName) {

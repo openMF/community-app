@@ -6,6 +6,7 @@
             scope.groupId = routeParams.groupId;
             scope.formData = {};
             scope.restrictDate = new Date();
+            scope.formData.submittedOnDate = new Date();
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = { resourceType: 'template', templateType: 'jlgbulk', lendingStrategy: 300 };
@@ -20,6 +21,10 @@
                 if (data.group) {
                     scope.groupName = data.group.name;
                 }
+            });
+
+            scope.$watch("formData.expectedDisbursementDate", function(newValue, oldValue) {
+                scope.formData.interestChargedFromDate=scope.formData.expectedDisbursementDate;
             });
 
             scope.loanProductChange = function (loanProductId) {

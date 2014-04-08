@@ -6,6 +6,7 @@
             scope.savingproducts = [];
             scope.first = {};
             scope.first.date = new Date();
+            scope.first.submitondate = new Date();
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;

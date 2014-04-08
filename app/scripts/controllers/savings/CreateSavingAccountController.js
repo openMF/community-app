@@ -5,6 +5,8 @@
             scope.fieldOfficers = [];
             scope.formData = {};
             scope.restrictDate = new Date();
+            scope.date = {};
+            scope.date.submittedOnDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
             if (routeParams.centerEntity) {
