@@ -11,10 +11,13 @@
                 params.staffId = null;
             }
             var centerIdArray = [];
-            scope.submitButtonShow = false;
+            scope.submitNextShow = true;
+            scope.submitShow = false;
             scope.completedCenter = false;
             scope.officeName = routeParams.officeName;
             scope.meetingDate = routeParams.meetingDate;
+            var submittedStaffId = [];
+            scope.details = false;
 
             resourceFactory.centerResource.getAllMeetingFallCenters(params, function (data) {
                 if (data[0]) {
@@ -26,8 +29,21 @@
                 }
             });
 
+            scope.detailsShow = function() {
+                if (scope.details) {
+                    scope.details = false;
+                } else {
+                    scope.details = true;
+                }
+            }
+
             scope.getAllGroupsByCenter = function (centerId, calendarId) {
-                scope.submitButtonShow = false;
+                scope.submitNextShow = true;
+                scope.submitShow = false;
+                if (centerIdArray.length-1 === submittedStaffId.length || centerIdArray.length === 1) {
+                    scope.submitNextShow = false;
+                    scope.submitShow = true;
+                }
                 scope.selectedTab = centerId;
                 scope.centerId = centerId;
                 scope.calendarId = calendarId;
@@ -36,6 +52,13 @@
                 scope.formData.locale = "en";
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.transactionDate = routeParams.meetingDate;
+                for (var i = 0; i < submittedStaffId.length; i++) {
+                    if (centerId == submittedStaffId[i].id) {
+                        scope.submitNextShow = false;
+                        scope.submitShow = false;
+                        break;
+                    }
+                }
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.collectionsheetdata = data;
                     scope.clientsAttendanceArray(data.groups);
@@ -173,30 +196,28 @@
                 scope.formData.bulkDisbursementTransactions = [];
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
-                    scope.tempId = scope.centerId;
-                    if (centerIdArray.length === 1) {
+                    for (var i = 0; i < centerIdArray.length; i++) {
+                        if (scope.centerId === centerIdArray[i].id && centerIdArray.length > 1) {
+                            scope.staffCenterData[i].submitted = true;
+                            submittedStaffId.push({id: scope.staffCenterData[i].id});
+                        }
+                    }
+
+                    if (centerIdArray.length === submittedStaffId.length) {
                         location.path('/entercollectionsheet');
                     }
+
+                    if (centerIdArray.length-1 === submittedStaffId.length) {
+                        scope.submitNextShow = false;
+                        scope.submitShow = true;
+                    }
                     for (var i = 0; i < centerIdArray.length; i++) {
-                        if (scope.centerId === centerIdArray[i].id && scope.staffCenterData[i].id === scope.centerId && centerIdArray.length > 1) {
-                            scope.staffCenterData = _.without(scope.staffCenterData, scope.staffCenterData[i]);
-                            if (i === centerIdArray.length - 1 && centerIdArray.length > 0) {
-                                scope.selectedTab = centerIdArray[0].id;
-                            } else {
-                                scope.selectedTab = centerIdArray[i + 1].id;
-                                scope.getAllGroupsByCenter(deepCopy(centerIdArray[i + 1].id), deepCopy(centerIdArray[i + 1].calendarId));
-                            }
-
-                            centerIdArray = _.without(centerIdArray, centerIdArray[i]);
-                            if (centerIdArray.length > 1) {
-                                scope.submitButtonShow = false;
-                            } else {
-                                scope.submitButtonShow = true;
-                            }
-
+                        if (!scope.staffCenterData[i].submitted) {
+                            scope.getAllGroupsByCenter(deepCopy(scope.staffCenterData[i].id), deepCopy(scope.staffCenterData[i].collectionMeetingCalendar.id));
                             break;
                         }
                     }
+                    
                 });
             };
         }
