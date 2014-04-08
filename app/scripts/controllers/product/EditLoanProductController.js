@@ -72,6 +72,7 @@
                     numberOfRepaymentVariationsForBorrowerCycle: [],
                     multiDisburseLoan: scope.product.multiDisburseLoan,
                     maxTrancheCount: scope.product.maxTrancheCount,
+                    codeId : scope.product.codeId,
                     outstandingLoanBalance: scope.product.outstandingLoanBalance
                 }
 

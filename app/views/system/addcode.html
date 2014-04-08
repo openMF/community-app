@@ -10,7 +10,7 @@
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.addcode' | translate}}</legend>
-        <<div class="form-group">
+        <div class="form-group">
             <label class="control-label col-sm-2" for="codename">{{'label.input.codename' | translate}}<span
                     class="required">*</span></label>
 
@@ -18,14 +18,18 @@
                 <input type="text" id="codename" name="codename" ng-model="formData.name" class="form-control" required late-Validate/>
                 <form-validate valattributeform="addcodeform" valattribute="codename"/>
             </div>
+        </div><br>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="category">{{ 'label.input.category' | translate }}</label>
+            <div class="col-sm-3">
+              <select id="officeId" ng-model="formData.categoryId" class="form-control" ng-options="category.id as category.name for category in categoryOptions" value="{{category.id}}">
+                <option value="">{{'label.menu.selectone' | translate}}</option>
+              </select>
+            </div>
         </div>
-        <br>
-
-        <div class="col-md-offset-3">
-            <a href="#/codes">
-                <button class="btn btn-default">{{'label.button.cancel' | translate}}</button>
-            </a>
-            <button type="submit" class="btn btn-primary" has-permission='CREATE_CODE'>{{'label.button.save' | translate}}</button>
+        <div class="col-xs-offset-3">
+            <a href="#/codes"><button class="btn">{{'label.button.cancel' | translate}}</button></a>
+            <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>
 </form>

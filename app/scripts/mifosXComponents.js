@@ -198,7 +198,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ChosenComboboxDirective'
         ]
     };
-
+    
     return function() {
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
