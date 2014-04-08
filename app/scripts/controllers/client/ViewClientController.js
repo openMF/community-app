@@ -219,6 +219,13 @@
 
                 });
             };
+
+            scope.viewstandinginstruction = function () {
+                location.path('/liststandinginstructions/'+scope.client.officeId+'/'+scope.client.id);
+            };
+            scope.createstandinginstruction = function () {
+                location.path('/createstandinginstruction/'+scope.client.officeId+'/'+scope.client.id+'/fromsavings');
+            };
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
                     route.reload();
