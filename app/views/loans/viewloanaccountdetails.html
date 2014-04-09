@@ -705,7 +705,37 @@
         </tbody>
     </table>
 </tab>
+<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
+    <br/>
 
+    <form>
+        <div class="form-group">
+            <div class="col-sm-12 col-md-12">
+                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                          placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
+
+                <div class="notewrapper col-sm-12 col-md-12">
+                        <span class="pull-right noteaddbuttonwrapper">
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_LOANNOTE'>{{'label.button.add' |
+                                translate}}
+                            </button>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-12">
+        <br/>
+        <div ng-repeat="loanNote in loanNotes | orderBy:predicate:reverse">
+            <blockquote>
+              <p>{{loanNote.note}}</p>
+              {{loanNote.id}}
+              <small>{{'label.createdby' | translate}} :&nbsp;{{loanNote.createdByUsername}}</small>
+              <small>{{'label.createdon' | translate}} :&nbsp;{{loanNote.createdOn  | DateFormat}}</small>
+            </blockquote>
+        </div>
+    </div>
+</tab>
 <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables"
      select="dataTableChange(loandatatable)">
     <div>
@@ -714,7 +744,7 @@
                    ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i
                         class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                 <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}"
+                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?fromEntity=loan"
                      class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                 </span></br>
             </span>
@@ -745,16 +775,6 @@
                 </tr>
             </table>
         </div>
-    </div>
-</tab>
-
-<tab heading="{{'label.heading.notes' | translate}}" ng-show="loandetails.notes">
-    <div ng-repeat="note in loandetails.notes">
-        <blockquote>
-            <p>{{note.note}}</p>
-            <small>{{'label.heading.updatedby'| translate}} :&nbsp;{{note.updatedByUsername}}</small>
-            <small>{{'label.heading.updatedon'| translate}} :&nbsp;{{note.updatedOn | DateFormat}}</small>
-        </blockquote>
     </div>
 </tab>
 </tabset>

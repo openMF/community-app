@@ -298,6 +298,21 @@
                     };
                 }
             });
+
+            resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
+                scope.loanNotes = data;
+            });
+
+            scope.saveNote = function () {
+                resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
+                    var today = new Date();
+                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
+                    scope.loanNotes.push(temp);
+                    scope.formData.note = "";
+                    scope.predicate = '-id';
+                });
+            };
+
             scope.showDetails = function (id) {
                 resourceFactory.guarantorResource.get({loanId: routeParams.id, templateResource: id}, {}, function (data) {
                     scope.guarantorData = data;
@@ -353,6 +368,13 @@
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cd_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cv_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {

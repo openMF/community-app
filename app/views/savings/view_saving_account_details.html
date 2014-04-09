@@ -263,7 +263,7 @@
                            ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
                                 class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                         <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                          <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}"
+                          <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=savings"
                              class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                         </span></br>
                     </span>
@@ -356,6 +356,36 @@
                         </tr>
                     </table>
                 </tab>
+                <!-- <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_SAVINGNOTE'>
+                    <br/>
+
+                    <form>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-12">
+                                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
+                                          placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
+
+                                <div class="notewrapper col-sm-12 col-md-12">
+                                        <span class="pull-right noteaddbuttonwrapper">
+                                            <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_SAVINGNOTE'>{{'label.button.add' | translate}}
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12">
+                        <br/>
+                        <div ng-repeat="savingNote in savingNotes | orderBy:predicate:reverse">
+                            <blockquote>
+                              <p>{{savingNote.note}}</p>
+                              {{savingNote.id}}
+                              <small>{{'label.createdby' | translate}} :&nbsp;{{savingNote.createdByUsername}}</small>
+                              <small>{{'label.createdon' | translate}} :&nbsp;{{savingNote.createdOn  | DateFormat}}</small>
+                            </blockquote>
+                        </div>
+                    </div>
+                </tab> -->
             </tabset>
         </div>
     </div>
