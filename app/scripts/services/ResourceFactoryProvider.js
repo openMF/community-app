@@ -220,6 +220,9 @@
                         getAllCodes: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+                    codeTemplateResource: defineResource(apiVer + "/codes/template", {}, {
+                        getAllCodeValues: {method: 'GET', params: {}, isArray: true}
+                    }),
                     codeValueResource: defineResource(apiVer + "/codes/:codeId/codevalues/:codevalueId", {codeId: '@codeId', codevalueId: '@codevalueId'}, {
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
