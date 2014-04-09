@@ -9,7 +9,7 @@
 </div>
 <div class="row" ng-controller="CenterController">
     <input ng-autofocus="true" ng-model="filterText" type="text" class="span form-control"
-           placeholder="{{'label.input.filterbynameheadoffice' | translate}}">
+           placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -23,7 +23,7 @@
             ng-repeat="center in centers.currentPageItems| orderBy:'name':reverse  | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
             <td class="pointer" data-ng-click="routeTo(center.id)"><i
-                    class="icon-stop {{center.status.code | StatusLookup}}"></i>{{center.status.value}}
+                    class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
             </td>
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.officeName}}</td>
         </tr>
