@@ -10,92 +10,85 @@
     <api-validate></api-validate>
     <fieldset>
         <legend>{{'label.heading.createholiday' | translate}}</legend>
-        <table>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
 
-                        <div class="col-sm-3">
-                            <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
-                                   required late-Validate/>
-                            <form-validate valattributeform="addholidayform" valattribute="name"/>
-                        </div>
+        <div class="row paddedleft">
+            <div class="col-md-5 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">{{ 'label.input.name' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="controls form-inline">
+                        <input class="form-control" id="name" ng-autofocus="true" name="name"
+                               ng-model="formData.name" required="" late-validate="" type="text">
+                        <form-validate valattributeform="addholidayform" valattribute="name">
+                        </form-validate>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <div class="span4 pull-left">
-                            <div>
-                                <label class="control-label col-sm-2">{{ 'label.input.fromdate' | translate }}<span
-                                        class="required">*</span></label>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">{{ 'label.input.description' | translate }}</label>
 
-                                <div class="col-sm-3">
-                                    <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy"
-                                           ng-model="date.first" is-open="opened" min="minDat" max="'2050-06-22'"/>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="control-label col-sm-2">{{ 'label.input.todate' | translate }}<span
-                                        class="required">*</span></label>
-
-                                <div class="col-sm-3">
-                                    <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy"
-                                           ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="controls form-inline">
+                        <input id="description" class="form-control" type="text" data-ng-model="formData.description"/>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.repaymentsheduleto' | translate }}<span
-                                class="required">*</span></label>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">{{ 'label.input.fromdate' | translate }}<span
+                            class="required">*</span></label>
 
-                        <div class="col-sm-3">
-                            <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
-                                   ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
-                        </div>
+                    <div class="controls form-inline">
+                        <input id="fromDate" class="form-control" sort type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="date.first" is-open="opened" min="minDat" max="'2050-06-22'"/>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">{{ 'label.input.todate' | translate }}<span
+                            class="required">*</span></label>
 
-                        <div class="col-sm-3">
-                            <input id="" type="text" data-ng-model="formData.description"/>
-                        </div>
+                    <div class="controls form-inline">
+                        <input id="toDate" class="form-control" sort type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"/>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.applicableoffices' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label">{{ 'label.input.repaymentsheduleto' | translate }}<span
+                            class="required">*</span></label>
 
-                        <div
-                                data-angular-treeview="true"
-                                data-tree-id="holidaytreeview"
-                                data-tree-model="treedata"
-                                data-node-id="id"
-                                data-node-label="name"
-                                data-node-children="children">
-                        </div>
+                    <div class="controls form-inline">
+                        <input id="repaymentsRescheduledTo" class="form-control" sort type="text"
+                               datepicker-pop="dd MMMM yyyy"
+                               ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'"/>
                     </div>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-3"></div>
+        </div>
+        <div class="row paddedleft">
+            <div class="form-group col-md-12">
+                <label class="control-label">{{ 'label.input.applicableoffices' | translate }}</label>
+
+                <div
+                        data-angular-treeview="true"
+                        data-tree-id="holidaytreeview"
+                        data-tree-model="treedata"
+                        data-node-id="id"
+                        data-node-label="name"
+                        data-node-children="children">
+                </div>
+            </div>
+        </div>
         <div class="col-md-offset-3">
-            <a id="cancel" href="#/holidays">
-                <button class="btn btn-default">{{'label.button.cancel' | translate}}</button>
-            </a>
-            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_HOLIDAY'>{{'label.button.save' | translate}}</button>
+            <a id="cancel" class="btn btn-default" href="#/holidays">{{'label.button.cancel' | translate}}</a>
+            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_HOLIDAY'>
+                {{'label.button.save' | translate}}
+            </button>
         </div>
 
     </fieldset>
