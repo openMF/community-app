@@ -1,11 +1,11 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.managefunds' | translate}}</li>
     </ul>
 </div>
 <h3>{{'label.heading.managefunds' | translate}}</h3>
-<form name="managefundform" novalidate class="row alert-block span" ng-controller="ManageFundsController">
+<form name="managefundform" novalidate class="form-inline" ng-controller="ManageFundsController">
     <div>
         <input name="fund" ng-autofocus="true" class="form-control input-xxlarge"
                ng-model="newfund"
@@ -19,23 +19,18 @@
           </span>
 
         <div ng-repeat="fund in funds">
-            <table>
-                <tr>
-                    <input data-ng-hide="fund.edit" disabled="" class="form-control input-xxlarge"
-                           placeholder={{fund.name}} type="text"/>
-                    <input data-ng-show="fund.edit" class="form-control input-xxlarge" data-ng-model="formData[fund.id]"
-                           type="text"/>
-                    &nbsp;&nbsp;
-                    <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" has-permission='UPDATE_FUND'
-                            data-ng-click="editFund(fund,fund.name,fund.id)" style="margin-top:-10px;"><i
-                            class="icon-edit icon-white"></i></button>
-                    <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" has-permission='UPDATE_FUND'
-                            data-ng-click="saveFund(fund.id)" style="margin-top:-10px;">{{'label.button.save' |
-                        translate}}
-                    </button>
-                </tr>
-            </table>
-
+            <input data-ng-hide="fund.edit" disabled="" class="form-control input-xxlarge"
+                   placeholder={{fund.name}} type="text"/>
+            <input data-ng-show="fund.edit" class="form-control input-xxlarge" data-ng-model="formData[fund.id]"
+                   type="text"/>
+            &nbsp;&nbsp;
+            <button data-ng-hide="fund.edit" type="button" class="form-control btn-primary" has-permission='UPDATE_FUND'
+                    data-ng-click="editFund(fund,fund.name,fund.id)" style="margin-top:-10px;"><i
+                    class="icon-edit icon-white"></i></button>
+            <button data-ng-show="fund.edit" class="form-control btn btn-primary" type="button" has-permission='UPDATE_FUND'
+                    data-ng-click="saveFund(fund.id)" style="margin-top:-10px;">{{'label.button.save' |
+                translate}}
+            </button>
         </div>
     </div>
 </form>
