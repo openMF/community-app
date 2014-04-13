@@ -1,8 +1,8 @@
 <div ng-controller="CreateChargeController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
             <li class="active">{{'label.anchor.createcharge' | translate}}</li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
                 <div class="col-sm-3">
                     <select id="chargeAppliesTo" name="chargeappliesto" ng-model="formData.chargeAppliesTo"
                             ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions"
-                            value="{{chargesapply.id}}" ng-change="chargeAppliesToSelected(formData.chargeAppliesTo)"
+                            value="{{chargesapply.id}}" ng-change="chargeAppliesToSelected(formData.chargeAppliesTo)" class="form-control"
                             required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
@@ -30,7 +30,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input name="name" type="text" id="name" ng-model="formData.name" required late-Validate/>
+                        <input name="name" type="text" id="name" ng-model="formData.name" class="form-control" required late-Validate/>
                         <form-validate valattributeform="createchargeform" valattribute="name"/>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="col-sm-3">
                         <select id="currencyCode" name="currency" ng-model="formData.currencyCode"
                                 ng-options="currency.code as currency.name for currency in template.currencyOptions"
-                                value="{{currency.code}}" required>
+                                value="{{currency.code}}" class="form-control" required>
                             <option value="">{{'label.selectcurrency' | translate}}</option>
                         </select>
                         <form-validate valattributeform="createchargeform" valattribute="currency"/>
@@ -54,7 +54,7 @@
                     <div class="col-sm-3">
                         <select id="chargeTimeType" name="chargetimetype" ng-model="formData.chargeTimeType"
                                 ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions"
-                                value="{{timetype.id}}" ng-change="chargeTimeChange(formData.chargeTimeType)" required>
+                                value="{{timetype.id}}" ng-change="chargeTimeChange(formData.chargeTimeType)" class="form-control" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                         <form-validate valattributeform="createchargeform" valattribute="chargetimetype"/>
@@ -68,7 +68,7 @@
                         <select id="chargeCalculationType" name="chargecalculation"
                                 ng-model="formData.chargeCalculationType"
                                 ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in chargeCalculationTypeOptions"
-                                value="{{chargecalculation.id}}" required>
+                                value="{{chargecalculation.id}}" class="form-control" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                         <form-validate valattributeform="createchargeform" valattribute="chargecalculation"/>
@@ -82,7 +82,7 @@
                         <select id="chargePaymentMode" name="showchargepaymentbyfield"
                                 ng-model="formData.chargePaymentMode"
                                 ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions"
-                                value="{{chargepayment.id}}" ng-required="showChargePaymentByField">
+                                value="{{chargepayment.id}}" ng-required="showChargePaymentByField" class="form-control">
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                         <form-validate valattributeform="createchargeform" valattribute="showchargepaymentbyfield"/>
@@ -94,13 +94,17 @@
 
                     <div class="col-sm-3">
                         <input id="duedate" type="text" datepicker-pop="dd MMMM" ng-model="first.date" is-open="opened"
-                               min="minDate" max="'2020-06-22'"/>
+                               min="minDate" max="'2020-06-22'" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group" ng-show="showFrequencyOptions">
-                            <label class="control-label col-sm-2">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
-                            <input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency" ng-true-value="true"
+                	<label class="control-label col-sm-2">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
+					<div class="col-sm-3">
+                        <label class="checkbox">
+							<input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency" ng-true-value="true"
                                    ng-false-value="false">
+						</label>
+					</div>
                 </div>
 
                 <div class="form-group" ng-show="addfeefrequency ">
@@ -110,7 +114,7 @@
                     <div class="col-sm-3">
                         <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
                             ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
-                            value="{{frequency.id}}">
+                            value="{{frequency.id}}" class="form-control">
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
                     <form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
@@ -121,7 +125,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input class="input-small" id="feeIntervalLoan" name="feeIntervalLoan" type="text"
+                        <input class="input-sm form-control" id="feeIntervalLoan" name="feeIntervalLoan" type="text"
                                ng-model="formData.feeInterval" late-Validate/>
                         <form-validate valattributeform="createchargeform" valattribute="feeIntervalLoan"/>
                     </div>
@@ -131,7 +135,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input class="input-small" id="feeInterval" name="feeInterval" type="text"
+                        <input class="input-sm form-control" id="feeInterval" name="feeInterval" type="text"
                                ng-model="formData.feeInterval" ng-required="repeatEvery" late-Validate/>{{'label.input.months'
                         | translate}}
                         <form-validate valattributeform="createchargeform" valattribute="feeInterval"/>
@@ -142,7 +146,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="amount" name="amount" type="text" ng-model="formData.amount" required late-Validate/>
+                        <input id="amount" name="amount" type="text" ng-model="formData.amount" class="form-control" required late-Validate/>
                         <form-validate valattributeform="createchargeform" valattribute="amount"/>
                     </div>
                 </div>
@@ -166,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-offset-2 paddedleft80">
+            <div class="col-md-offset-3">
                 <a id="cancel" href="#/charges">
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>

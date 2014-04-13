@@ -1,11 +1,9 @@
 <div ng-controller="EditHolidayController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span>
-            </li>
-            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a> <span class="divider">/</span>
-            </li>
-            <li><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a> <span class="divider">/</span></li>
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+            <li><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a></li>
             <li class="active">{{'label.anchor.editholiday' | translate}}</li>
         </ul>
     </div>
@@ -17,20 +15,20 @@
                 <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" class="form-control" required
                            late-Validate/>
                     <form-validate valattributeform="addholidayform" valattribute="name"/>
                 </div>
             </div>
             <div ng-hide="holidayStatusActive">
                 <div class="form-group">
-                    <div class="span4 pull-left">
+                    <div class="col-sm-4 col-md-4 pull-left">
                         <div>
                             <label class="control-label col-sm-2">{{ 'label.input.fromdate' | translate }}<span class="required">*</span></label>
 
                             <div class="col-sm-3">
                                 <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy"
-                                       ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"/>
+                                       ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'" class="form-control"/>
                             </div>
                         </div>
                         <div>
@@ -39,7 +37,7 @@
 
                             <div class="col-sm-3">
                                 <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.toDate"
-                                       is-open="opened1" min="minDate" max="'2020-06-22'"/>
+                                       is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -51,7 +49,7 @@
                     <div class="col-sm-3">
                         <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
                                ng-model="date.repaymentsRescheduledTo" is-open="opened2" min="minDate"
-                               max="'2020-06-22'"/>
+                               max="'2020-06-22'" class="form-control"/>
                     </div>
                 </div>
             </div>
@@ -59,7 +57,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input id="" type="text" data-ng-model="formData.description"/>
+                    <input id="" type="text" data-ng-model="formData.description" class="form-control"/>
                 </div>
             </div>
             <div class="col-md-offset-3">

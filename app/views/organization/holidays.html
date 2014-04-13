@@ -1,6 +1,6 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.manageholidays' | translate}}</li>
     </ul>
 
@@ -9,10 +9,10 @@
             | translate}}</a>
     </div>
 </div>
-<div class="row-fluid" data-ng-controller="HolController">
-    <div class="form-group">
+<div data-ng-controller="HolController">
+    <div class="row">
         <div class="col-sm-3">
-            <select name="office" id="office" ng-model="formData.officeId"
+            <select name="office" id="office" ng-model="formData.officeId" class="form-control input-sm"
                     data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()"
                     value="{{office.id}}" required>
                 <option value="">{{'label.selectoffice' | translate}}</option>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div data-ng-show="formData.officeId">
-        <input ng-model="filterText" type="text" class="span marginbottom0px"
+        <input ng-model="filterText" type="text" class="form-control span marginbottom0px"
                placeholder="{{'label.input.filterbyname' | translate}}"/>
         <table class="table">
             <thead>

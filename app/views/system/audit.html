@@ -7,43 +7,43 @@
         <div class="form-group">
 			<span class="input-append grpinputicons">
 				<input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)"
-				       placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" class="form-control"
+				       placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" class="form-control input-sm"
 				       typeahead="users.username as users.username for users in template.appUsers | filter:$viewValue | limitTo:8"/>
-				<span><a ng-click="isCollapsed = !isCollapsed" class="btn btn-default"><i
-				        class="icon-chevron-down"></i></a></span>
-				<span><a ng-click="search()" class="btn btn-primary control" has-permission='READ_AUDIT'><i
-				        class="icon-search icon-white"></i></a></span>
+				<span><button ng-click="isCollapsed = !isCollapsed" class="btn btn-default"><i
+				        class="icon-chevron-down"></i></button></span>
+				<span><button ng-click="search()" class="btn btn-primary control" has-permission='READ_AUDIT'><i
+				        class="icon-search icon-white"></i></button></span>
 			</span>
 		</div>
     </div>
     <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
-        <div class="form-group">
-            <div class="col-sm-3">
-                <select value="{{status.id}}" ng-model="formData.status"
+        <div class="control-group">
+            <div class="controls">
+                <select value="{{status.id}}" ng-model="formData.status" class="form-control"
                         data-ng-options="status.id as status.processingResult | translate for status in template.processingResults">
                     <option value="">--{{'label.selectstatus' | translate}}--</option>
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <div class="control-group">
             <label class="control-label col-sm-2"></label>
 
-            <div class="col-sm-3">
+            <div class="controls">
                 <input type="text" sort placeholder="{{'label.input.fromdate' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate"
                        max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
-        <div class="form-group">
+        <div class="control-group">
             <label class="control-label col-sm-2"></label>
 
-            <div class="col-sm-3">
+            <div class="controls">
                 <input type="text" sort placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
                        ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-3">
+            <div class="controls">
                 <select ng-model="formData.action" class="form-control">
                     <option value="">--{{'label.selectaction' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-3">
+            <div class="controls">
                 <select ng-model="formData.entity" class="form-control">
                     <option value="">--{{'label.selectentity' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
@@ -63,13 +63,13 @@
         <div class="form-group">
             <label class="control-label col-sm-2"></label>
 
-            <div class="col-sm-3">
+            <div class="controls">
                 <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
                        ng-model="formData.resourceId" class="form-control">
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-3">
+            <div class="controls">
                 <select ng-model="formData.checkedBy" class="form-control">
                     <option value="">--{{'label.selectchecker' | translate}}--</option>
                     <option selected="selected" value="ALL">{{'label.all' | translate}}</option>
@@ -78,14 +78,14 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-3">
+            <div class="controls">
                 <input type="text" sort placeholder="{{'label.input.checkedfrom' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.third" is-open="opened2" min="minDate"
                        max="'2020-06-22'" class="form-control"/>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-3">
+            <div class="controls">
                 <input type="text" sort placeholder="{{'label.input.checkedto' | translate}}"
                        datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate"
                        max="'2020-06-22'" class="form-control"/>
