@@ -26,8 +26,7 @@
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
-                    if(scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment')
-                    {
+                    if (scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment') {
                         scope.overduecharges.push(scope.penaltyOptions[i]);
                     }
                 }
@@ -80,11 +79,11 @@
                         data.chargeId = data.id;
                         scope.charges.push(data);
                         //to charge select box empty
-                        
-                        if(data.penalty){
+
+                        if (data.penalty) {
                             scope.penalityFlag = true;
                             scope.penalityId = '';
-                        }else{
+                        } else {
                             scope.chargeFlag = true;
                             scope.chargeId = '';
                         }
@@ -185,6 +184,21 @@
             scope.cancel = function () {
                 location.path('/loanproducts');
             };
+
+
+            scope.isAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                    return true;
+                }
+                return false;
+            }
 
             scope.submit = function () {
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
