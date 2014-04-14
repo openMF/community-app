@@ -61,13 +61,15 @@
                     </tr>
                     <tr>
                         <td width="40%">
-                            <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}&nbsp;</label>
+                            <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate
+                                }}&nbsp;</label>
                             <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first"
                                    is-open="opened" min="minDate" max="'2020-06-22'"
                                    date-disabled="disabled(date, mode)"/>
                         </td>
                         <td width="40%">
-                            <label class="control-label col-sm-2">{{ 'label.input.closedate' | translate }}&nbsp;</label>
+                            <label class="control-label col-sm-2">{{ 'label.input.closedate' | translate
+                                }}&nbsp;</label>
                             <input id="closeDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second"
                                    is-open="opened1" min="minDate" max="'2020-06-22'"
                                    date-disabled="disabled(date, mode)"/>
@@ -75,7 +77,8 @@
                     </tr>
                     <tr>
                         <td width="40%">
-                            <label class="control-label col-sm-2" for="active">{{ 'label.input.includeinborrowerloancounter' |
+                            <label class="control-label col-sm-2" for="active">{{
+                                'label.input.includeinborrowerloancounter' |
                                 translate }}</label>
                             <label class="checkbox">
                                 <input type="checkbox" id="includeInBorrowerCycle"
@@ -117,8 +120,9 @@
             </tr>
             <tr>
                 <td width="40%">
-                    <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;<span
-                            class="required">*</span></label>
+                    <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate
+                        }}&nbsp;<span
+                                class="required">*</span></label>
                     <input type="text" id="inMultiplesOf" name="multiplesof" ng-model="formData.inMultiplesOf" required
                            late-validate/>
                     <form-validate valattributeform="editloanproductform" valattribute="multiplesof"/>
@@ -497,7 +501,8 @@
                             value="{{transactionProcessingStrategy.id}}"/>
                 </td>
                 <td>
-                    <label class="control-label col-sm-2">{{ 'label.input.interestfreeperiod' | translate }}&nbsp;</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.interestfreeperiod' | translate
+                        }}&nbsp;</label>
                     <input id="graceOnInterestCharged" type="text" ng-model="formData.graceOnInterestCharged">
                 </td>
             </tr>
@@ -512,7 +517,8 @@
                     <input id="graceOnPrincipalPayment" type="text" ng-model="formData.graceOnPrincipalPayment">&nbsp;
                 </td>
                 <td>
-                    <label class="control-label col-sm-2">{{ 'label.input.no.of.overdue.days.to.move.loan.into.arrears' | translate }}&nbsp;</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.no.of.overdue.days.to.move.loan.into.arrears'
+                        | translate }}&nbsp;</label>
                     <input id="graceOnArrearsAgeing" placeholder="{{'label.input.onduedate' | translate}}"
                            type="text" ng-model="formData.graceOnArrearsAgeing">&nbsp;
                 </td>
@@ -551,7 +557,8 @@
             </tr>
             <tr ng-show="formData.multiDisburseLoan">
                 <td>
-                    <label class="control-label col-sm-2">{{ 'label.input.outstandingloanbalance' | translate }}&nbsp;</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.outstandingloanbalance' | translate
+                        }}&nbsp;</label>
                     <input type="text" id="outstandingLoanBalance" name="outstandingLoanBalance"
                            ng-model="formData.outstandingLoanBalance"/>
                 </td>
@@ -625,7 +632,7 @@
                 <td>
                     <select id="penalityId" ng-model="penalityId"
                             ng-options="penality.id as penality.name for penality in overduecharges"
-                            value="{{penality.id}}" >
+                            value="{{penality.id}}">
                         <option style="display:none" value="">{{'label.selectoverduecharge' | translate}}</option>
                     </select>
                     <button type="button" style="margin-top: -10px;" class="btn btn-primary"
@@ -690,9 +697,17 @@
         <td>
             <input type="radio" ng-model="formData.accountingRule" value="2">{{'label.input.cash' | translate}}<br/>
         </td>
+        <td>
+            <input type="radio" ng-model="formData.accountingRule" value="3">{{'label.input.periodicaccrual' |
+            translate}}<br/>
+        </td>
+        <td>
+            <input type="radio" ng-model="formData.accountingRule" value="4">{{'label.input.upfrontaccrual' |
+            translate}}<br/>
+        </td>
     </tr>
 </table>
-<div ng-show="formData.accountingRule==2">
+<div ng-show="isAccountingEnabled()">
 <table width="50%">
     <tr>
         <td>
@@ -720,7 +735,40 @@
                     value="{{assetAccount.id}}">
             </select>
         </td>
+    </tr>
+    <tr class="form-group" ng-show="isAccrualAccountingEnabled()">
         <td>
+            <label class="control-label col-sm-2">{{ 'label.input.receivableinterest' | translate }}&nbsp;</label>
+            <a tooltip="{{'label.tooltip.receivableinterest' | translate}}"><i
+                    class="icon-question-sign  icon-white"></i></a>
+            <select id="receivableInterestAccountId" ng-model="formData.receivableInterestAccountId"
+                    chosen="assetAccountOptions"
+                    ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                    value="{{assetAccount.id}}">
+            </select>
+        </td>
+    </tr>
+    <tr class="form-group" ng-show="isAccrualAccountingEnabled()">
+        <td>
+            <label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}&nbsp;</label>
+            <a tooltip="{{'label.tooltip.receivablefees' | translate}}"><i
+                    class="icon-question-sign  icon-white"></i></a>
+            <select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId" chosen="assetAccountOptions"
+                    ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                    value="{{assetAccount.id}}">
+            </select>
+        </td>
+    </tr>
+    <tr class="form-group" ng-show="isAccrualAccountingEnabled()">
+        <td>
+            <label class="control-label col-sm-2">{{ 'label.input.receivablepenalties' | translate }}&nbsp;</label>
+            <a tooltip="{{'label.tooltip.receivablepenalties' | translate}}"><i
+                    class="icon-question-sign  icon-white"></i></a>
+            <select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId"
+                    chosen="assetAccountOptions"
+                    ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                    value="{{assetAccount.id}}">
+            </select>
         </td>
     </tr>
     <tr class="form-group">
@@ -964,8 +1012,11 @@
 </div>
 
 <div class="col-md-offset-6 paddedtop">
-    <a id="cancel" href="#/viewloanproduct/{{product.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-    <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'>{{'label.button.save' | translate}}</button>
+    <a id="cancel" href="#/viewloanproduct/{{product.id}}" class="btn btn-default">{{'label.button.cancel' |
+        translate}}</a>
+    <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'>{{'label.button.save' |
+        translate}}
+    </button>
 </div>
 </form>
 </div>

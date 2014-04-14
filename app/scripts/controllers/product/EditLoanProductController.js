@@ -137,6 +137,10 @@
                 } else {
                     scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
+                    scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccountId.id;
+                    scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccountId.id;
+                    scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccountId.id;
+
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
                     scope.formData.incomeFromFeeAccountId = scope.product.accountingMappings.incomeFromFeeAccount.id;
@@ -276,6 +280,21 @@
             scope.deleterepaymentVariation = function (index) {
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle.splice(index, 1);
             };
+
+            scope.isAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                    return true;
+                }
+                return false;
+            }
+
             scope.setFlag = function () {
                 if (scope.formData.principalVariationsForBorrowerCycle) {
                     scope.pvFlag = true;
