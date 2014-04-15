@@ -137,9 +137,11 @@
                 } else {
                     scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
-                    scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccountId.id;
-                    scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccountId.id;
-                    scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccountId.id;
+                    if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
+                        scope.formData.receivableInterestAccountId = scope.product.accountingMappings.receivableInterestAccount.id;
+                        scope.formData.receivableFeeAccountId = scope.product.accountingMappings.receivableFeeAccount.id;
+                        scope.formData.receivablePenaltyAccountId = scope.product.accountingMappings.receivablePenaltyAccount.id;
+                    }
 
                     scope.formData.transfersInSuspenseAccountId = scope.product.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.interestOnLoanAccountId = scope.product.accountingMappings.interestOnLoanAccount.id;
@@ -179,13 +181,15 @@
             });
 
             scope.chargeSelected = function (chargeId) {
-                resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
-                    data.chargeId = data.id;
-                    scope.charges.push(data);
-                    //to charge select box empty
-                    scope.chargeId = '';
-                    scope.penalityId = '';
-                });
+                if(chargeId){
+                    resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
+                        data.chargeId = data.id;
+                        scope.charges.push(data);
+                        //to charge select box empty
+                        scope.chargeId = '';
+                        scope.penalityId = '';
+                    });
+                }
             };
 
             scope.deleteCharge = function (index) {
@@ -328,7 +332,7 @@
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
@@ -337,7 +341,7 @@
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
                 }
