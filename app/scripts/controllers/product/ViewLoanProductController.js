@@ -10,7 +10,7 @@
                     scope.isAccountingEnabled = true;
                 }
 
-                if (data.accountingRule.id == 3 || ata.accountingRule.id == 4) {
+                if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
                 }
             });
