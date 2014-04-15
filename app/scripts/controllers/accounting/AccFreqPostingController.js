@@ -11,6 +11,7 @@
             scope.errorcreditevent = false;
             scope.errordebitevent = false;
             scope.restrictDate = new Date();
+            scope.showPaymentDetails = false;
 
             resourceFactory.accountingRulesResource.getAllRules({associations: 'all'}, function (data) {
                 scope.rules = data;

@@ -5,7 +5,7 @@
             scope.first = {};
             scope.restrictDate = new Date();
             resourceFactory.officeResource.getAllOffices(function (data) {
-                scope.parentId = scope.offices[0].id;
+                scope.parentId = data[0].id;
             });
             resourceFactory.officeResource.get({officeId: routeParams.id, template: 'true'}, function (data) {
                 scope.offices = data.allowedParents;

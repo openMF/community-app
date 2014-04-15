@@ -12,7 +12,7 @@
         <fieldset>
             <legend>{{'label.heading.editglaccount' | translate}}</legend>
 
-            <table width="100%">
+            <table class="width100">
                 <tr>
                     <td>
                         <div class="form-group">
@@ -22,6 +22,8 @@
                             <div class="col-sm-3">
                                 <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control"
                                        required late-Validate/>
+                            </div>
+                            <div class="col-sm-2">
                                 <form-validate valattributeform="editglaccountingform" valattribute="name"/>
                             </div>
                         </div>
@@ -36,6 +38,8 @@
                             <div class="col-sm-3">
                                 <input type="text" id="glCode" name="glCode" ng-model="formData.glCode" class="form-control" required
                                        late-Validate/>
+                            </div>
+                            <div class="col-sm-2">
                                 <form-validate valattributeform="editglaccountingform" valattribute="glCode"/>
                             </div>
                         </div>
@@ -49,7 +53,7 @@
                             <div class="col-sm-3">
                                 <select id="type" ng-model="formData.type" ng-change="changeType(formData.type)"
                                         ng-options="accountType.id as accountType.value for accountType in accountTypes"
-                                        value="{{accountType.id}}" class="form-control">
+                                        value="{{accountType.id}}" class="form-control"></select>
                             </div>
                         </div>
                     </td>
@@ -57,7 +61,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tag">{{'label.input.tag' | translate}}</label>
+                            <label class="control-label col-sm-2" for="tagId">{{'label.input.tag' | translate}}</label>
 
                             <div class="col-sm-3">
                                 <select id="tagId" ng-model="formData.tagId" class="form-control"
@@ -76,7 +80,7 @@
                             <div class="col-sm-3">
                                 <select id="usage" ng-model="formData.usage"
                                         ng-options="usageType.id as usageType.value for usageType in usageTypes"
-                                        value="{{usageType.id}}" class="form-control">
+                                        value="{{usageType.id}}" class="form-control"></select>
                             </div>
                         </div>
                     </td>
@@ -84,7 +88,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="parent">{{'label.input.parent' | translate}}</label>
+                            <label class="control-label col-sm-2" for="parentId">{{'label.input.parent' | translate}}</label>
 
                             <div class="col-sm-3">
                                 <select id="parentId" ng-model="formData.parentId"
@@ -104,7 +108,7 @@
 
                             <div class="col-sm-3">
                                 <label class="checkbox">
-                                    <input type="checkbox" ng-model="formData.manualEntriesAllowed" class="form-control">
+                                    <input id="manualEntriesAllowed" type="checkbox" ng-model="formData.manualEntriesAllowed" class="form-control">
                                 </label>
                             </div>
                         </div>
