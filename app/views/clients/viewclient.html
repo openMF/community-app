@@ -1,8 +1,8 @@
 <div class="row" ng-controller="ViewClientController">
 <ul class="breadcrumb">
     <span>
-        <img ng-hide="client.imagePresent" src="../app/images/blank_avatar.jpg" alt="Avatar" width="40">
-        <img ng-show="client.imagePresent" src="{{image}}" alt="Avatar" width="40">
+        <img ng-hide="client.imagePresent" ng-src="../../images/client-image-placeholder.png" alt="Avatar" width="40">
+        <img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar" width="40">
     </span>
     <li>
         <h3>
@@ -29,15 +29,18 @@
 <div class="row primarydiv">
     <div class="pull-right">
                   <span ng-repeat="button in buttonsArray.singlebuttons">
-                    <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
+                    <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"
+                       has-permission='{{button.taskPermissionName}}'><i
                             class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>
                   </span>
         <button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
-                data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i class="icon-trash icon-white"></i>{{"label.button.delete"
+                data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
+                class="icon-trash icon-white"></i>{{"label.button.delete"
             | translate}}
         </button>
         <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()"
-                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff" |
+                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
+            |
             translate}}
         </button>
                   <span ng-show="buttonsArray.options" class="btn-group">
@@ -47,16 +50,21 @@
                       </a>
                       <ul class="dropdown dropdown-menu dropdown-menu-right">
                           <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
-                              <a href="#/clientscreenreport/{{client.id}}" has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name | translate}}</a>
+                              <a href="#/clientscreenreport/{{client.id}}"
+                                 has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
+                                  translate}}</a>
                           </li>
                           <li>
-                              <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic' | translate}}</a>
+                              <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic'
+                                  | translate}}</a>
                           </li>
                           <li data-ng-show="clientAccounts.savingsAccounts">
-                              <a data-ng-click="viewstandinginstruction()" has-permission='CREATE_STANDINGINSTRUCTION'>{{'label.button.viewstandinginstruction' | translate}}</a>
+                              <a data-ng-click="viewstandinginstruction()" has-permission='CREATE_STANDINGINSTRUCTION'>{{'label.button.viewstandinginstruction'
+                                  | translate}}</a>
                           </li>
                           <li data-ng-show="clientAccounts.savingsAccounts">
-                              <a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction' | translate}}</a>
+                              <a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction'
+                                  | translate}}</a>
                           </li>
                       </ul>
                   </span>
@@ -124,7 +132,8 @@
             <tr>
                 <th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
                 <td><span class="padded-td">{{client.timeline.activatedOnDate | DateFormat}}<span
-                        data-ng-hide="client.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span></span></td>
+                        data-ng-hide="client.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span></span>
+                </td>
             </tr>
             <tr data-ng-show="client.officeName">
                 <th class="table-bold">{{ 'label.input.office' | translate }}</th>
@@ -196,9 +205,11 @@
 <div class="row">
     <div class="pull-right">
         <span data-ng-show="clientAccounts.loanAccounts">
-            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{ 'label.button.viewclosedloans' | translate }}
+            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+                'label.button.viewclosedloans' | translate }}
             </button>
-            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{ 'label.button.viewactiveloans' | translate }}
+            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+                'label.button.viewactiveloans' | translate }}
             </button>
         </span>
     </div>
@@ -223,7 +234,8 @@
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
                     <i ng-hide="loanaccount.inArrears" class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
-                    <i ng-show="loanaccount.inArrears" class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>&nbsp;&nbsp;
+                    <i ng-show="loanaccount.inArrears"
+                       class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>&nbsp;&nbsp;
                     {{loanaccount.status.value}}
                 </td>
             </tr>
@@ -253,10 +265,12 @@
     <div data-ng-show="clientAccounts.savingsAccounts">
         <div class="pull-right">
             <span data-ng-show="clientAccounts.savingsAccounts">
-                <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">
+                <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()"
+                        class="btn-primary btn btn-sm">
                     {{ 'label.button.viewclosedsavings' | translate }}
                 </button>
-                <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">
+                <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()"
+                        class="btn-primary btn btn-sm">
                     {{ 'label.button.viewactivesavings' | translate }}
                 </button>
             </span>
@@ -308,9 +322,11 @@
 </div>
 </div>
 </tab>
-<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()" has-permission='READ_CLIENTIDENTIFIER'>
+<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
+     has-permission='READ_CLIENTIDENTIFIER'>
     <div class="pull-right btn-group">
-        <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
+        <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
+           has-permission='CREATE_CLIENTIDENTIFIER'><i class="icon-plus icon-white"></i>{{
             'label.button.add' | translate }}</a>
     </div>
     <br>
@@ -332,14 +348,17 @@
             <td>
                   <span ng-repeat="file in document.documents">
                     {{file.fileName}}&nbsp;&nbsp;
-                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}"  has-permission='READ_DOCUMENT'><i class="icon-cloud-download"></i></a>
+                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
+                            class="icon-cloud-download"></i></a>
                   </span>
             </td>
             <td>
                   <span>
-                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}" has-permission='CREATE_DOCUMENT'><i
+                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"
+                         has-permission='CREATE_DOCUMENT'><i
                               class="icon-cloud-upload"></i></a>&nbsp;
-                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)" has-permission='DELETE_CLIENTIDENTIFIER'><i
+                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
+                         has-permission='DELETE_CLIENTIDENTIFIER'><i
                               class="icon-remove"></i></a>
                   </span>
             </td>
@@ -349,7 +368,8 @@
 </tab>
 <tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
     <div class="pull-right">
-        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i class="icon-plus icon-white"></i>
+        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
+                class="icon-plus icon-white"></i>
             {{'label.button.upload' | translate}}</a>
     </div>
     <br>
@@ -384,7 +404,8 @@
                     class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
             <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
               <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}?fromEntity=client"
-                 class="btn btn-primary" has-permission='CREATE_DATATABLE'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                 class="btn btn-primary" has-permission='CREATE_DATATABLE'><i class="icon-plus icon-white"></i>{{'label.button.add'
+                  | translate}}</a>
             </span>
         </div>
         <br>
@@ -396,9 +417,11 @@
                 <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
                 </thead>
                 <tbody>
-                    <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
-                        <td class="pointer" ng-repeat="row in data.row track by $index" ng-click="viewDataTable(clientdatatable.registeredTableName,data)">{{row}}</td>
-                    </tr>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                    <td class="pointer" ng-repeat="row in data.row track by $index"
+                        ng-click="viewDataTable(clientdatatable.registeredTableName,data)">{{row}}
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <table class="table table-bordered width450px" data-ng-show="!datatabledetails.isMultirow">
@@ -421,7 +444,8 @@
 
                 <div class="notewrapper col-sm-12 col-md-12">
                         <span class="pull-right noteaddbuttonwrapper">
-                            <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_CLIENTNOTE'>{{'label.button.add' |
+                            <button class="btn btn-primary" type="submit" ng-click="saveNote()"
+                                    has-permission='CREATE_CLIENTNOTE'>{{'label.button.add' |
                                 translate}}
                             </button>
                         </span>
@@ -431,12 +455,13 @@
     </form>
     <div class="col-md-12">
         <br/>
+
         <div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
             <blockquote>
-              <p>{{clientNote.note}}</p>
-              {{clientNote.id}}
-              <small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
-              <small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn  | DateFormat}}</small>
+                <p>{{clientNote.note}}</p>
+                {{clientNote.id}}
+                <small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
+                <small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn | DateFormat}}</small>
             </blockquote>
         </div>
     </div>
