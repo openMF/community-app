@@ -1,0 +1,90 @@
+<div class="paddedbottom10">
+    <ul class="breadcrumb">
+        <li class="active">{{ 'label.anchor.add.recurring.deposit.charges' | translate }}</li>
+    </ul>
+</div>
+<form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewRecurringDepositChargeController"
+      rc-submit="submit()">
+    <api-validate></api-validate>
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
+
+            <div class="controls">
+                <select ng-model="formData.chargeId" id="chargeId" name="charge"
+                        ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions"
+                        value="{{formData.chargeId}}"
+                        ng-change="chargeSelected(formData.chargeId)" required>
+                    <option style="display:none" value="">{{ 'label.selectcharge' | translate }}</option>
+                </select>
+                <form-validate valattributeform="savingccountchargeform" valattribute="charge"/>
+            </div>
+        </div>
+
+        <div ng-show="chargeDetails">
+            <div class="control-group">
+                <label class="control-label">{{ 'label.input.amount' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input id="amount" type="text" name="amount" ng-model="formData.amount" required ng-late-Validate/>
+                    <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">{{ 'label.input.chargecalculation' | translate }}</label>
+
+                <div class="controls">
+                    <select id="chargeCalculationType" ng-model="chargeCalculationType"
+                            ng-options="chargeCalculation.id as chargeCalculation.value for chargeCalculation in chargeDetails.chargeCalculationTypeOptions"
+                            value="{{chargeCalculation.id}}" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">{{ 'label.input.chargetimetype' | translate }}</label>
+
+                <div class="controls">
+                    <select id="chargeTimeType" ng-model="chargeTimeType"
+                            ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions"
+                            value="{{chargeTime.id}}" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="control-group" ng-show="!withDrawCharge && !chargeTimeTypeAnnualOrMonth">
+                <label class="control-label">{{ 'label.input.dueforcollectedon' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input id="feeOnAnnualMonthDay" sort type="text" datepicker-pop="dd MMMM yyyy"
+                           ng-model="date.specificduedate" is-open="opened"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="!withDrawCharge && chargeTimeTypeAnnualOrMonth">
+                <label class="control-label">{{ 'label.input.dueon' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input id="feeOnMonthDay" sort type="text" datepicker-pop="dd MMMM" ng-model="date.due"
+                           is-open="opened"/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="chargeTimeType.value == 'Monthly Fee' ">
+                <label class="control-label">{{ 'label.repeatsevery' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="controls">
+                    <input type="text" class="input-small" ng-model="formData.feeInterval"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="offset3">
+            <a id="cancel" href="#/viewrecurringdepositaccount/{{cancelRoute}}" class="btn">{{'label.button.cancel' |
+                translate}}</a>
+            <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+        </div>
+    </fieldset>
+</form>

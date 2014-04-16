@@ -12,8 +12,14 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
-            scope.routeToSaving = function (id) {
-                location.path('/viewsavingaccount/' + id);
+            scope.routeToSaving = function (id, depositTypeCode) {
+                if (depositTypeCode === "depositAccountType.savingsDeposit"){
+                    location.path('/viewsavingaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.fixedDeposit"){
+                    location.path('/viewfixeddepositaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.recurringDeposit"){
+                    location.path('/viewrecurringdepositaccount/' + id);
+                }
             };
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
@@ -140,6 +146,7 @@
             scope.isSavingClosed = function (savingaccount) {
                 if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
                     savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.pre.mature.closure" ||
                     savingaccount.status.code === "savingsAccountStatusType.rejected") {
                     return true;
                 } else {
@@ -286,6 +293,7 @@
             scope.isSavingNotClosed = function (savingaccount) {
                 if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
                     savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.pre.mature.closure" ||
                     savingaccount.status.code === "savingsAccountStatusType.rejected") {
                     return false;
                 } else {
