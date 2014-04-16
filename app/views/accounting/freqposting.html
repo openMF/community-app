@@ -27,6 +27,8 @@
                         ng-change="resetCrAndDb(formData.rule)" class="form-control" required>
                     <option style="display:none" value="">{{'label.selectaccountingrule' | translate}}</option>
                 </select>
+            </div>
+            <div class="col-sm-3">
                 <form-validate valattributeform="freqpostingform" valattribute="rule"/>
             </div>
         </div>
@@ -40,6 +42,8 @@
                         value="{{currency.code}}" class="form-control" required>
                     <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
                 </select>
+            </div>
+            <div class="col-sm-3">
                 <form-validate valattributeform="freqpostingform" valattribute="currency"/>
             </div>
         </div>
@@ -47,7 +51,7 @@
             <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
 
-            <div class="col-sm-9">
+            <div class="col-sm-12">
                 <div class="form-inline">
                 <table width="100%">
                     <tr>
@@ -75,9 +79,9 @@
                         </small>
                       </span>
                             </div>
-                            <br>
+                            </br>
 
-                            <div ng-repeat="crAccount in formData.crAccounts">
+                            <div ng-repeat="crAccount in formData.crAccounts" class="paddedbottom10">
                                 <input type="text" class="input-sm form-control" ng-model="crAccount.crGlName" readonly>
                                 <input id="credits[{{$index}}]" type="text" class="input-sm form-control"
                                        ng-model="crAccount.crAmount">
@@ -98,9 +102,9 @@
                         </small>
                       </span>
                             </div>
-                            <br>
+                            </br>
 
-                            <div ng-repeat="dbAccount in formData.dbAccounts">
+                            <div ng-repeat="dbAccount in formData.dbAccounts" class="paddedbottom10">
                                 <input type="text" class="input-sm form-control" ng-model="dbAccount.debitGlName" readonly>
                                 <input id="debits[{{$index}}]" type="text" class="input-sm form-control"
                                        ng-model="dbAccount.debitAmount">

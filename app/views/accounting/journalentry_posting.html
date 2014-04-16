@@ -22,20 +22,22 @@
             <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}&nbsp;<span
                     class="required">*</span></label>
 
-            <div class="col-sm-3	">
+            <div class="col-sm-3">
                 <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
                         ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
                         value="{{currency.code}}" required>
                     <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
                 </select>
-                <form-validate valattributeform="journalpostingform" valattribute="currency"/>
             </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="journalpostingform" valattribute="currency"/>
+            </div>            
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-6">
             	<h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
 				<div class="row">
                     <div class="col-sm-6">
@@ -57,7 +59,7 @@
                     </div>
                 </div>
                 <br>
-                <div ng-repeat="crAccount in formData.crAccounts">
+                <div ng-repeat="crAccount in formData.crAccounts" class="form-inline paddedbottom10">
                   <input type="text" ng-model="crAccount.crGlName" readonly="" class="form-control">&nbsp;&nbsp;
                   <input type="text" class="input-small form-control" ng-model="crAccount.crAmount">
                   &nbsp;<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
@@ -82,7 +84,7 @@
                     </div>
                 </div>
                 <br>
-                <div ng-repeat="dbAccount in formData.dbAccounts">
+                <div ng-repeat="dbAccount in formData.dbAccounts" class="form-inline paddedbottom10">
                   <input type="text" ng-model="dbAccount.debitGlName" readonly="" class="form-control">&nbsp;&nbsp;
                   <input type="text" class="input-small form-control" ng-model="dbAccount.debitAmount">
                   &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>

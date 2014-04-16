@@ -14,9 +14,10 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="name" name="name"
-                           ng-model="formData.name" required/>
-                             <form-validate valattributeform="standinginstructionform" valattribute="name"/>
+                    <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="standinginstructionform" valattribute="name"/>
                 </div>
             </div>
             <div class="form-group">
@@ -30,9 +31,11 @@
 
                 <div class="col-sm-3">
                     <select id="transferType" ng-model="formData.transferType" name="transferType"
-                        ng-options="transferType.id as transferType.value for transferType in standinginstruction.transferTypeOptions" value="{{transferType.id}}" ng-change="changeEvent()" required>
+                        ng-options="transferType.id as transferType.value for transferType in standinginstruction.transferTypeOptions" value="{{transferType.id}}" ng-change="changeEvent()" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="transferType"/>
                 </div>
             </div>
@@ -42,9 +45,11 @@
 
                 <div class="col-sm-3">
                    <select id="priority" ng-model="formData.priority" name="priority"
-                        ng-options="priority.id as priority.value for priority in standinginstruction.priorityOptions" value="{{priority.id}}" required>
+                        ng-options="priority.id as priority.value for priority in standinginstruction.priorityOptions" value="{{priority.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="priority"/>
                 </div>
             </div>
@@ -54,9 +59,11 @@
 
                 <div class="col-sm-3">
                    <select id="status" ng-model="formData.status" name="status"
-                        ng-options="status.id as status.value for status in standinginstruction.statusOptions" value="{{status.id}}" required>
+                        ng-options="status.id as status.value for status in standinginstruction.statusOptions" value="{{status.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="status"/>
                 </div>
             </div>
@@ -67,10 +74,12 @@
                 <div class="col-sm-3">
                     <select id="fromAccountType" ng-model="formData.fromAccountType" name="fromAccountType"
                             ng-options="fromAccountType.id as fromAccountType.value for fromAccountType in standinginstruction.fromAccountTypeOptions"
-                            ng-change="changeEvent()" value="{{fromAccountType.id}}"
+                            ng-change="changeEvent()" value="{{fromAccountType.id}}" class="form-control"
                             required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="fromAccountType"/>
                 </div>
             </div>
@@ -81,9 +90,11 @@
                 <div class="col-sm-3">
                     <select id="fromAccountId" ng-model="formData.fromAccountId" name="fromAccount"
                             ng-options="fromAccount.id as (fromAccount.productName+' - '+fromAccount.accountNo) for fromAccount in standinginstruction.fromAccountOptions"
-                            ng-change="changeEvent()" value="{{toAccount.id}}" required>
+                            ng-change="changeEvent()" value="{{toAccount.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="fromAccount"/>
                 </div>
             </div>
@@ -94,10 +105,12 @@
                 <div class="col-sm-3">
                     <select id="destination" ng-model="destination" name="destination"
                                     ng-options="destination.id as destination.name for destination in destinationOptions"
-                                    ng-change="changedestination()" value="{{destination.id}}" required>
+                                    ng-change="changedestination()" value="{{destination.id}}" class="form-control" required>
                                 <option value="">{{'label.selectone' | translate}}</option>
                             </select>
-                            <form-validate valattribute="destination"/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattribute="destination"/>
                 </div>
             </div>
             <div class="form-group">
@@ -107,9 +120,11 @@
                 <div class="col-sm-3" ng-show="allowclientedit">
                     <select id="toOfficeId" ng-model="formData.toOfficeId" name="toOfficeId"
                             ng-options="toOffice.id as toOffice.name for toOffice in standinginstruction.toOfficeOptions"
-                            ng-change="changeEvent()" value="{{toOffice.id}}" ng-readonly="allowclientedit" required>
+                            ng-change="changeEvent()" value="{{toOffice.id}}" ng-readonly="allowclientedit" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="office"/>
                 </div>
                 <div class="col-sm-3" ng-hide="allowclientedit">{{standinginstruction.toOffice.name}}</div>
@@ -121,9 +136,11 @@
                 <div class="col-sm-3" ng-show="allowclientedit">
                     <select id="toClientId" ng-model="formData.toClientId" name="client"
                             ng-options="toClient.id as toClient.displayName for toClient in standinginstruction.toClientOptions"
-                            ng-change="changeEvent()" value="{{toClient.id}}" required>
+                            ng-change="changeEvent()" value="{{toClient.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="client"/>
                 </div>
                 <div class="col-sm-3" ng-hide="allowclientedit">{{standinginstruction.toClient.displayName}}</div>
@@ -135,10 +152,12 @@
                 <div class="col-sm-3">
                     <select id="toAccountType" ng-model="formData.toAccountType" name="account"
                             ng-options="toAccountType.id as toAccountType.value for toAccountType in standinginstruction.toAccountTypeOptions"
-                            ng-change="changeEvent()" value="{{toAccountType.id}}"
+                            ng-change="changeEvent()" value="{{toAccountType.id}}" class="form-control"
                             required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="account"/>
                 </div>
             </div>
@@ -149,9 +168,11 @@
                 <div class="col-sm-3">
                     <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber"
                             ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in standinginstruction.toAccountOptions"
-                            ng-change="changeEvent()" value="{{toAccount.id}}" required>
+                            ng-change="changeEvent()" value="{{toAccount.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="accountnumber"/>
                 </div>
             </div>
@@ -162,9 +183,11 @@
                 <div class="col-sm-3">
                     <select id="instructionType" ng-model="formData.instructionType" name="instructionType"
                             ng-options="instructionType.id as (instructionType.value) for instructionType in standinginstruction.instructionTypeOptions"
-                            value="{{instructionType.id}}" required>
+                            value="{{instructionType.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="instructionType"/>
                 </div>
 
@@ -172,7 +195,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.amount' | translate }}</label>
                 <div class="col-sm-3">
-                    <input type="text" id="transferAmount" name="transferAmount" ng-model="formData.amount"/>
+                    <input type="text" id="transferAmount" name="transferAmount" ng-model="formData.amount" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -181,13 +204,13 @@
 
                 <div class="col-sm-3">
                     <input type="text" id="validFrom" datepicker-pop="dd MMMM yyyy" ng-model="formData.validFrom"
-                           is-open="opened" min="restrictDate" />
+                           is-open="opened" min="restrictDate" class="form-control"/>
                 </div>
                  <label class="control-label col-sm-2" for="validTill">{{ 'label.heading.to' | translate }}</label>
 
                 <div class="col-sm-3">
                     <input type="text" id="validTill" datepicker-pop="dd MMMM yyyy" ng-model="formData.validTill"
-                           is-open="opened" min="restrictDate"/>
+                           is-open="opened" min="restrictDate" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -196,9 +219,11 @@
                 <div class="col-sm-3">
                     <select id="recurrenceType" ng-model="formData.recurrenceType" name="recurrenceType"
                             ng-options="recurrenceType.id as (recurrenceType.value) for recurrenceType in standinginstruction.recurrenceTypeOptions"
-                            value="{{recurrenceType.id}}" required>
+                            value="{{recurrenceType.id}}" class="form-control" required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="standinginstructionform" valattribute="recurrenceType"/>
                 </div>
             </div>
@@ -206,7 +231,7 @@
                 <label class="control-label col-sm-2" for="recurrenceInterval">{{ 'label.heading.recurrenceinterval' | translate }}</label>
                 <div class="col-sm-3">
                     <input type="text" id="recurrenceInterval" name="recurrenceInterval"
-                           ng-model="formData.recurrenceInterval" />
+                           ng-model="formData.recurrenceInterval" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -214,7 +239,7 @@
                 <div class="col-sm-3">
                     <select id="recurrenceFrequency" ng-model="formData.recurrenceFrequency" name="recurrenceFrequency"
                             ng-options="recurrenceFrequency.id as (recurrenceFrequency.value) for recurrenceFrequency in standinginstruction.recurrenceFrequencyOptions"
-                            value="{{recurrenceFrequency.id}}" >
+                            value="{{recurrenceFrequency.id}}" class="form-control">
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
                 </div>
@@ -224,7 +249,7 @@
                 <div class="col-sm-3">
                     <input type="text" id="recurrenceOnMonthDay" name="recurrenceOnMonthDay"
                            ng-model="recurrenceOnMonthDay" datepicker-pop="dd MMMM" 
-                           is-open="opened"/>
+                           is-open="opened" class="form-control"/>
                     
                 </div>
             </div>
