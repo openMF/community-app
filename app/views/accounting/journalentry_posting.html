@@ -26,7 +26,7 @@
                 <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
                         ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
                         value="{{currency.code}}" required>
-                    <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.selectcurrency' | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-3">
@@ -43,7 +43,7 @@
                     <div class="col-sm-6">
 		                <select chosen="glAccounts" ng-model="formData.creditAccountTemplate"
 		                        ng-options="(creditAccount.name + '('+ creditAccount.glCode + ')') for creditAccount in glAccounts" class="form-control">
-		                    <option style="display:none" value="">{{'label.selectcredit' | translate}}</option>
+		                    <option class="displaynone" value="">{{'label.selectcredit' | translate}}</option>
 		                </select>
                     </div>
                     <div class="col-sm-4">
@@ -64,11 +64,12 @@
                   <input type="text" class="input-small form-control" ng-model="crAccount.crAmount">
                   &nbsp;<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                 </div>
+                <h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
 				<div class="row">
                     <div class="col-sm-6">
 		                <select chosen="glAccounts" ng-model="formData.debitAccountTemplate"
 		                        ng-options="(debitAccount.name +'('+ debitAccount.glCode +')') for debitAccount in glAccounts" class="form-control">
-		                    <option style="display:none" value="">{{'label.selectdebit' | translate}}</option>
+		                    <option class="displaynone" value="">{{'label.selectdebit' | translate}}</option>
 		                </select>
                     </div>
                     <div class="col-sm-4">
@@ -94,7 +95,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
             </div>
         </div>
@@ -105,7 +106,7 @@
                 <span class="required">*</span>
             </label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <select id="paymentTypeId" class="form-control ng-pristine ng-valid" value=""
                         ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
                         ng-model="formData.paymentTypeId">
@@ -115,7 +116,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
                     <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
                     <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
@@ -126,35 +127,35 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input id="accountNumber" type="text" ng-model="formData.accountNumber" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="checkNumber">{{ 'label.input.checknumber' | translate}}</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input id="checkNumber" type="text" ng-model="formData.checkNumber" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="routingCode">{{ 'label.input.routingcode' | translate}}</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input id="routingCode" type="text" ng-model="formData.routingCode" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="receiptNumber">{{ 'label.input.receiptnumber' | translate}}</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input id="receiptNumber" type="text" ng-model="formData.receiptNumber" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
 
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input id="bankNumber" type="text" ng-model="formData.bankNumber" class="form-control">
                 </div>
             </div>
@@ -162,7 +163,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <input class="date-disable form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
                        ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
             </div>
@@ -170,7 +171,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
 
-            <div class="col-sm-5">
+            <div class="col-sm-3">
                 <textarea rows="2" ng-model="formData.comments" class="form-control"></textarea>
             </div>
         </div>

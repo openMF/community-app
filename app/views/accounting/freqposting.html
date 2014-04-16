@@ -25,7 +25,7 @@
             <div class="col-sm-3">
                 <select id="rule" name="rule" ng-model="formData.rule" ng-options="rule.name for rule in rules"
                         ng-change="resetCrAndDb(formData.rule)" class="form-control" required>
-                    <option style="display:none" value="">{{'label.selectaccountingrule' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.selectaccountingrule' | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-3">
@@ -40,7 +40,7 @@
                 <select id="currencyCode" name="currency" ng-model="formData.currencyCode"
                         ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
                         value="{{currency.code}}" class="form-control" required>
-                    <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.selectcurrency' | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-3">
@@ -53,13 +53,13 @@
 
             <div class="col-sm-12">
                 <div class="form-inline">
-                <table width="100%">
+                <table class="width100">
                     <tr>
-                        <td width="50%">
+                        <td class="width50">
                             <label>{{ 'label.input.credit' | translate }}</label>&nbsp;
                             <a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
-                        <td width="50%">
+                        <td class="width50">
                             <label>{{ 'label.input.debit' | translate }}</label>&nbsp;
                             <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
                         </td>
@@ -114,6 +114,7 @@
                         </td>
                     </tr>
                 </table>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -121,6 +122,66 @@
 
             <div class="col-sm-3">
                 <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2 ng-binding" for="paymentTypeId">
+                Payment type
+                <span class="required">*</span>
+            </label>
+
+            <div class="col-sm-3">
+                <select id="paymentTypeId" class="form-control ng-pristine ng-valid" value=""
+                        ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+                        ng-model="formData.paymentTypeId">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
+
+            <div class="col-sm-3">
+                <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
+                    <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
+                    <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
+                </a>
+            </div>
+        </div>
+        <div collapse="!showPaymentDetails">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="accountNumber" type="text" ng-model="formData.accountNumber" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="checkNumber">{{ 'label.input.checknumber' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="checkNumber" type="text" ng-model="formData.checkNumber" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="routingCode">{{ 'label.input.routingcode' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="routingCode" type="text" ng-model="formData.routingCode" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="receiptNumber">{{ 'label.input.receiptnumber' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="receiptNumber" type="text" ng-model="formData.receiptNumber" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="bankNumber" type="text" ng-model="formData.bankNumber" class="form-control">
+                </div>
             </div>
         </div>
         <div class="form-group">
