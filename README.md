@@ -45,13 +45,14 @@ You are done.
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running in the local filesystem or on http://localhost, it will connect to demo.openmf.org.
-The UI will connect to the mifosng-provider REST API running on the same host/port when running in the cloud.
+By default, when the app is running in the local filesystem, it will connect to the platform deployed on demo.openmf.org.
+
+The UI will connect to the mifosng-provider REST API running on the same host/port when deployed on a server.
 
 If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as a query parameter,
 
 e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
-
+e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
 ## Adding dependencies
 
 You can also add more dependencies on bower.json. 
