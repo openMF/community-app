@@ -5,10 +5,6 @@
                 <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
                 <li class="active">{{'label.anchor.currencyconfig' | translate}}</li>
             </ul>
-            <div class="pull-right row">
-                <a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency"><i
-                        class="icon-plus icon-white"></i>{{'label.button.addedit' | translate}}</a>
-            </div>
         </div>
         <div ng-show="hideview">
             <ul class="breadcrumb">
@@ -17,7 +13,11 @@
             </ul>
         </div>
     </div>
-    <div class="row">
+    <div>
+        <div class="pull-right">
+            <a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency"><i
+                    class="icon-plus icon-white"></i>{{'label.button.addedit' | translate}}</a>
+        </div><br>
         <table class="table" ng-hide="hideview">
             <thead>
             <tr class="graybg">
@@ -57,7 +57,7 @@
 					<a ng-click='deleteCur(currency.code)' has-permission='UPDATE_CURRENCY'><i class="icon-remove"></i></a>
 				</div>
             </div>
-            <div class="col-md-offset-5">
+            <div class="col-md-offset-1">
                 <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
                 </button>
                 <button id="save" type="submit" ng-click="submit()" has-permission='UPDATE_CURRENCY' class="btn btn-primary">{{'label.button.save' | translate}}

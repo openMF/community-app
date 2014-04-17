@@ -13,6 +13,10 @@
             scope.toAccountTypes = [];
             scope.toAccounts = [];
 
+            scope.back = function () {
+                window.history.back();
+            };
+
             scope.formData = {fromAccountId: params.fromAccountId, fromAccountType: params.fromAccountType};
             resourceFactory.accountTransfersTemplateResource.get(params, function (data) {
                 scope.transfer = data;

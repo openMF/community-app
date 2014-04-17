@@ -12,12 +12,12 @@
             <legend>{{ 'label.heading.accounttransfers' | translate }}</legend>
             <div class="row paddedleft">
                 <label><strong>{{ 'label.heading.transferringfrom' | translate}}</strong></label>
-                <table width="100%">
+                <table class="width100">
                     <tr>
-                        <td width="20%">{{'label.heading.applicant' | translate}}</td>
-                        <td width="30%">{{transfer.fromClient.displayName}}</td>
-                        <td width="20%">{{'label.heading.office' | translate}}</td>
-                        <td width="30%">{{transfer.fromOffice.name}}</td>
+                        <td class="width20">{{'label.heading.applicant' | translate}}</td>
+                        <td class="width30">{{transfer.fromClient.displayName}}</td>
+                        <td class="width20">{{'label.heading.office' | translate}}</td>
+                        <td class="width30">{{transfer.fromOffice.name}}</td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.fromaccount' | translate}}</td>
@@ -28,7 +28,6 @@
                     <tr>
                         <td>{{'label.heading.currency' | translate}}</td>
                         <td>{{transfer.currency.name}}</td>
-                        <td class="span2"></td>
                     </tr>
                 </table>
             </div>
@@ -41,7 +40,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toOfficeId" ng-model="formData.toOfficeId" name="office"
+                    <select id="toOfficeId" ng-model="formData.toOfficeId" name="office" class="form-control"
                             ng-options="toOffice.id as toOffice.name for toOffice in toOffices"
                             ng-change="changeEvent()" value="{{toOffice.id}}" required>
                         <option value="">{{'label.selectone' | translate}}</option>
@@ -54,7 +53,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toClientId" ng-model="formData.toClientId" name="client"
+                    <select id="toClientId" ng-model="formData.toClientId" name="client" class="form-control"
                             ng-options="toClient.id as toClient.displayName for toClient in toClients"
                             ng-change="changeEvent()" value="{{toClient.id}}" required>
                         <option value="">{{'label.selectone' | translate}}</option>
@@ -67,7 +66,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toAccountType" ng-model="formData.toAccountType" name="account"
+                    <select id="toAccountType" ng-model="formData.toAccountType" name="account" class="form-control"
                             ng-options="toAccountType.id as toAccountType.value for toAccountType in toAccountTypes"
                             ng-change="changeEvent()" value="{{toAccountType.id}}"
                             required>
@@ -81,7 +80,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber"
+                    <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber" class="form-control"
                             ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in toAccounts"
                             ng-change="changeEvent()" value="{{toAccount.id}}" required>
                         <option value="">{{'label.selectone' | translate}}</option>
@@ -94,8 +93,10 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="transferAmount" name="transferAmount" ng-model="formData.transferAmount"
+                    <input type="text" id="transferAmount" name="transferAmount" ng-model="formData.transferAmount" class="form-control"
                            required late-validate/>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="accounttransferform" valattribute="transferAmount"/>
                 </div>
             </div>
@@ -104,7 +105,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="transferDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate"
+                    <input type="text" id="transferDate" datepicker-pop="dd MMMM yyyy" ng-model="formData.transferDate" class="form-control"
                            is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
@@ -113,13 +114,15 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="transferDescription" name="transferDescription"
-                           ng-model="formData.transferDescription" required late-validate/>
+                    <textarea type="text" id="transferDescription" name="transferDescription" class="form-control" rows="2"
+                           ng-model="formData.transferDescription" required late-validate></textarea>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="accounttransferform" valattribute="transferDescription"/>
                 </div>
             </div>
             <div class="col-md-offset-3">
-                <a id="cancel" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <a id="cancel" class="btn btn-default" data-ng-click="back()">{{ 'label.button.cancel' | translate }}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ACCOUNTTRANSFER'>{{ 'label.button.save' | translate }}</button>
             </div>
         </fieldset>

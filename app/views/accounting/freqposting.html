@@ -50,22 +50,21 @@
         <div class="form-group" data-ng-show="formData.rule">
             <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
+            <div class="col-sm-4">
+                <label class="control-label">{{ 'label.input.credit' | translate }}</label>&nbsp;
+                <a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
+            </div>
+            <div class="col-sm-4 paddedleft72px">
+                <label class="control-label">{{ 'label.input.debit' | translate }}</label>&nbsp;
+                <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
+            </div>
 
-            <div class="col-sm-12">
+            <div class="col-sm-11">
+                <div class="col-sm-2"></div>
                 <div class="form-inline">
                 <table class="width100">
                     <tr>
-                        <td class="width50">
-                            <label>{{ 'label.input.credit' | translate }}</label>&nbsp;
-                            <a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
-                        </td>
-                        <td class="width50">
-                            <label>{{ 'label.input.debit' | translate }}</label>&nbsp;
-                            <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td class="width45">
                             <div ng-show="formData.rule.creditAccounts.length > 0">
                                 <select class="input-sm form-control" ng-model="formData.creditAccountTemplate"
                                         ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts"></select>
@@ -73,11 +72,11 @@
                                               ng-model="formData.crAmountTemplate">
                                 &nbsp; <a ng-click="addCrAccount()" ng-show="allowCreditEntries">&nbsp;<i
                                     class="icon-plus icon-white"></i></a>
-                      <span ng-show="freqpostingform.creditamount.$invalid || errorcreditevent">
-                        <small class="error" ng-show="freqpostingform.creditamount.$error.req || errorcreditevent">
-                            {{'label.requiredfield' | translate}}
-                        </small>
-                      </span>
+                                <span ng-show="freqpostingform.creditamount.$invalid || errorcreditevent">
+                                    <small class="error" ng-show="freqpostingform.creditamount.$error.req || errorcreditevent">
+                                        {{'label.requiredfield' | translate}}
+                                    </small>
+                                </span>
                             </div>
                             </br>
 
@@ -88,7 +87,7 @@
                                 <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
                             </div>
                         </td>
-                        <td>
+                        <td class="paddingleft0px">
                             <div ng-show="formData.rule.debitAccounts.length > 0">
                                 <select class="input-sm form-control" ng-model="formData.debitAccountTemplate"
                                         ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts"></select>
