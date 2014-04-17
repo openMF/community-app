@@ -66,6 +66,7 @@
                     graceOnInterestPayment: scope.product.graceOnInterestPayment,
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
                     graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
+                    overdueDaysForNPA: scope.product.overdueDaysForNPA,
                     accountingRule: scope.product.accountingRule.id,
                     principalVariationsForBorrowerCycle: [],
                     interestRateVariationsForBorrowerCycle: [],
