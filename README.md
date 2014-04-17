@@ -45,13 +45,14 @@ You are done.
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running in the local filesystem, it will connect to the platform deployed on demo.openmf.org.
+By default, when the app is running from the local filesystem, it will connect to the platform (mifosng-provider REST API) deployed on demo.openmf.org.
 
-The UI will connect to the mifosng-provider REST API running on the same host/port when deployed on a server.
+The app connects to the platform running on the same host/port when deployed on a server.
 
-If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as a query parameter,
+If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters,
 
 e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
+
 e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
 ## Adding dependencies
 
