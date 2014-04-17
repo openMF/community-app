@@ -1,12 +1,9 @@
 <div ng-controller="EditLoanAccAppController">
 <div>
     <ul class="breadcrumb">
-        <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a> <span
-                class="divider">/</span></li>
-        <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a> <span
-                class="divider">/</span></li>
-        <li><a href="#/viewloanaccount/{{loanaccountinfo.id}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span
-                class="divider">/</span></li>
+        <li ng-show="groupName"><a href="#/viewgroup/{{groupId}}"><strong>'{{groupName}}'</strong></a></li>
+        <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
+        <li><a href="#/viewloanaccount/{{loanaccountinfo.id}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
         <li class="active">{{'label.anchor.modifyloanapplication' | translate}}</li>
     </ul>
 </div>
@@ -110,7 +107,7 @@
                 <td class="width36 paddedbottom10">
                     <input id="loanTermFrequency" class="form-control" name="loanterm" type="text"
                            ng-model="formData.loanTermFrequency" required late-Validate/>
-                    <select id="loanTermFrequencyType" class="form-control width170px" ng-model="formData.loanTermFrequencyType"
+                    <select id="loanTermFrequencyType" class="form-control" ng-model="formData.loanTermFrequencyType"
                             ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{termFrequencyType.id}}"/>
                     <form-validate valattributeform="editloanaccountform" valattribute="loanterm"/>
@@ -128,7 +125,7 @@
                 <td class="paddedbottom10">
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
                            ng-model="formData.repaymentEvery" required late-Validate/>
-                    <select id="repaymentFrequencyType" class="form-control width170px" ng-model="formData.repaymentFrequencyType"
+                    <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
@@ -351,8 +348,8 @@
     <span><a ng-show="previewRepayment" ng-click="previewRepayment=!previewRepayment"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo'
         | translate}}</i></a><br><br></span>
 </div>
-<div class="form-group">
-    <table class="table" ng-show="previewRepayment">
+<div>
+    <table class="table width100" ng-show="previewRepayment">
         <thead>
         <th colspan="3" scope="col"></th>
         <th colspan="3" scope="col">{{'label.heading.loanamountandbalance' | translate}}</th>

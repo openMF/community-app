@@ -48,7 +48,7 @@
             </tr>
         </table>
         <hr/>
-        <table class="width80 table">
+        <table class="width80">
             <thead>
             <tr>
                 <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
@@ -57,23 +57,31 @@
             </thead>
             <tbody>
             <tr>
+                <!--
+                app.css line 931-934
+                .container td:first-child {    padding-left: 20px;  }
+                .container th:first-child {    padding-left: 20px;  }
+                .container td:last-child {    padding-right: 20px;  }
+                .container th:last-child {    padding-right: 20px;  }
+                The above piece of code is overriding the defined style, for now adding the inline style
+                -->
                 <td>
                     <table>
                         <tr ng-repeat="crAccount in rule.creditAccounts">
-                            <td class="paddedleftn20px">{{crAccount.name}}({{crAccount.glCode}})</td>
+                            <td style="padding-left: 0px;">{{crAccount.name}}({{crAccount.glCode}})</td>
                         </tr>
                         <tr ng-repeat="creditTag in rule.creditTags">
-                            <td class="paddedleftn20px">{{creditTag.tag.name}}</td>
+                            <td style="padding-left: 0px;">{{creditTag.tag.name}}</td>
                         </tr>
                     </table>
                 </td>
                 <td>
                     <table>
                         <tr ng-repeat="dbAccount in rule.debitAccounts">
-                            <td class="paddedleftn20px">{{dbAccount.name}}({{dbAccount.glCode}})</td>
+                            <td style="padding-left: 0px;">{{dbAccount.name}}({{dbAccount.glCode}})</td>
                         </tr>
                         <tr ng-repeat="debitTag in rule.debitTags">
-                            <td class="paddedleftn20px">{{debitTag.tag.name}}</td>
+                            <td style="padding-left: 0px;">{{debitTag.tag.name}}</td>
                         </tr>
                     </table>
                 </td>
