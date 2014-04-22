@@ -73,7 +73,6 @@
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
                 scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
-                scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
@@ -220,7 +219,6 @@
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
-                delete this.formData.interestRateFrequencyType;
                 this.formData.interestChargedFromDate = reqThirdDate;
                 this.formData.repaymentsStartingFromDate = reqFourthDate;
                 this.formData.locale = scope.optlang.code;
