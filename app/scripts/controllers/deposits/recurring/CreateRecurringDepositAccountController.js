@@ -15,6 +15,7 @@
             scope.chart = {};
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
+            //scope.formData.expectedFirstDepositOnDate = {};
 
             scope.charges = [];
             scope.inparams = {};
@@ -75,20 +76,11 @@
                         scope.endDate.date = new Date(endDate);
                     }
 
-                    var interestFreePeriodFrequencyTypeId = (_.isNull(data.interestFreePeriodFrequencyType) || _.isUndefined(data.interestFreePeriodFrequencyType)) ? '' : data.interestFreePeriodFrequencyType.id;
                     var preClosurePenalInterestOnTypeId = (_.isNull(data.preClosurePenalInterestOnType) || _.isUndefined(data.preClosurePenalInterestOnType)) ? '' : data.preClosurePenalInterestOnType.id;
                     var minDepositTermTypeId = (_.isNull(data.minDepositTermType) || _.isUndefined(data.minDepositTermType)) ? '' : data.minDepositTermType.id;
                     var maxDepositTermTypeId = (_.isNull(data.maxDepositTermType) || _.isUndefined(data.maxDepositTermType)) ? '' : data.maxDepositTermType.id;
                     var inMultiplesOfDepositTermTypeId = (_.isNull(data.inMultiplesOfDepositTermType) || _.isUndefined(data.inMultiplesOfDepositTermType)) ? '' : data.inMultiplesOfDepositTermType.id;
 
-
-                    scope.formData.recurringDepositTypeId = scope.data.recurringDepositTypeOptions[0].id;
-                    scope.formData.recurringDepositFrequencyTypeId = scope.data.recurringDepositFrequencyTypeOptions[0].id;
-
-                    scope.formData.interestFreePeriodApplicable = data.interestFreePeriodApplicable;
-                    scope.formData.interestFreeFromPeriod = data.interestFreeFromPeriod;
-                    scope.formData.interestFreeToPeriod = data.interestFreeToPeriod;
-                    scope.formData.interestFreePeriodFrequencyTypeId = interestFreePeriodFrequencyTypeId;
                     scope.formData.preClosurePenalApplicable = data.preClosurePenalApplicable;
                     scope.formData.preClosurePenalInterest = data.preClosurePenalInterest;
                     scope.formData.preClosurePenalInterestOnTypeId = preClosurePenalInterestOnTypeId;
@@ -98,8 +90,10 @@
                     scope.formData.maxDepositTermTypeId = maxDepositTermTypeId;
                     scope.formData.inMultiplesOfDepositTerm = data.inMultiplesOfDepositTerm;
                     scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
-                    scope.formData.recurringDepositFrequency = data.recurringDepositFrequency;
-
+                    scope.formData.isMandatoryDeposit = data.isMandatoryDeposit;
+                    scope.formData.allowWithdrawal = data.allowWithdrawal;
+                    //alert(data.allowWithdrawal + '='+ data.isMandatoryDeposit + '='+data.adjustAdvanceTowardsFuturePayments);
+                    scope.formData.adjustAdvanceTowardsFuturePayments = data.adjustAdvanceTowardsFuturePayments;
                 });
             };
 
@@ -165,6 +159,11 @@
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
+                this.formData.isCalendarInherited = (_.isNull(this.formData.isCalendarInherited) || _.isUndefined(this.formData.isCalendarInherited)) ? false : this.formData.isCalendarInherited;
+
+                if (scope.formData.expectedFirstDepositOnDate) {
+                    this.formData.expectedFirstDepositOnDate = dateFilter(scope.formData.expectedFirstDepositOnDate, scope.df);
+                }
 
                 resourceFactory.recurringDepositAccountResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositaccount/' + data.savingsId);

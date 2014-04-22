@@ -37,7 +37,7 @@
                     scope.formData.groupId = data.groupId;
                     scope.groupName = data.groupName;
                 }
-                scope.formData.productId = data.savingsProductId;
+                scope.formData.productId = data.depositProductId;
                 scope.products = data.productOptions;
                 scope.savingsAccounts = data.savingsAccounts;
                 if (data.linkedAccount) {

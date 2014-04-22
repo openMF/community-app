@@ -53,7 +53,7 @@
     <td colspan="3">{{depositproduct.minDepositAmount}}</td>
 </tr>
 <tr>
-    <td>{{'label.input.depositAmount' | translate}}</td>
+    <td>{{'label.input.default.deposit.amount' | translate}}</td>
     <td colspan="3">{{depositproduct.depositAmount}}</td>
 </tr>
 <tr>
@@ -156,13 +156,19 @@
     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
     <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
-    <td colspan="2">{{'label.heading.interestratedetails.description' | translate}}</td>
+    <td>{{'label.heading.interestratedetails.interestforfemale' | translate}}</td>
+    <td>{{'label.heading.interestratedetails.interestforchildren' | translate}}</td>
+    <td>{{'label.heading.interestratedetails.interestforseniorcitizen' | translate}}</td>
+    <td>{{'label.heading.interestratedetails.description' | translate}}</td>
 </tr>
-<tr ng-repeat="chartSlabs in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
-    <td>{{chartSlabs.fromPeriod}} - {{chartSlabs.toPeriod}} {{chartSlabs.periodType.value}}</td>
+<tr ng-repeat="chartSlab in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
+    <td>{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
     <!--<td>{{chartSlabs.amountRangeFrom}} - {{chartSlabs.amountRangeTo}}</td>-->
-    <td>{{chartSlabs.annualInterestRate}}</td>
-    <td colspan="2">{{chartSlabs.description}}</td>
+    <td>{{chartSlab.annualInterestRate}}</td>
+    <td>{{chartSlab.interestRateForFemale}}</td>
+    <td>{{chartSlab.interestRateForChildren}}</td>
+    <td>{{chartSlab.interestRateForSeniorCitizen}}</td>
+    <td>{{chartSlabs.description}}</td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>

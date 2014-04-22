@@ -45,10 +45,10 @@
                     interestCalculationType: data.interestCalculationType.id,
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
-                    interestFreePeriodApplicable: data.interestFreePeriodApplicable,
-                    interestFreeFromPeriod: data.interestFreeFromPeriod,
-                    interestFreeToPeriod: data.interestFreeToPeriod,
-                    interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
+//                    interestFreePeriodApplicable: data.interestFreePeriodApplicable,
+//                    interestFreeFromPeriod: data.interestFreeFromPeriod,
+//                    interestFreeToPeriod: data.interestFreeToPeriod,
+//                    interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
                     preClosurePenalApplicable: data.preClosurePenalApplicable,
                     preClosurePenalInterest: data.preClosurePenalInterest,
                     preClosurePenalInterestOnTypeId: preClosurePenalInterestOnTypeId,
@@ -356,6 +356,9 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
+                    interestRateForFemale: chartSlab.interestRateForFemale,
+                    interestRateForChildren: chartSlab.interestRateForChildren,
+                    interestRateForSeniorCitizen: chartSlab.interestRateForSeniorCitizen,
                     locale: scope.optlang.code
                 }
 
