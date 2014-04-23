@@ -1,20 +1,13 @@
 <div ng-controller="ViewProductMixController">
     <div>
         <ul class="breadcrumb">
-            <li>
-                <h3>
-                    &nbsp;
-                    {{productmix.productName}}
-                </h3>
-            </li>
-            <li>
-                <i class="icon-barcode"></i>
-                <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{productmix.productId}}&nbsp;</small>
-            </li>
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/productmix">{{'label.anchor.productmix' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewproductmix' | translate}}</li>
         </ul>
     </div>
     <div>
-        <div class="col-md-12 primarydiv">
+        <div class="width100">
             <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
                 <a href="#/editproductmix/{{productmix.productId}}" class="btn btn-primary" has-permission='UPDATE_PRODUCTMIX'><i
                         class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
@@ -35,7 +28,7 @@
                 <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
-        <div class="row">
+        <div class="row paddedtop">
             <div class="col-sm-6 col-md-6">
                 <table class="table table-striped" width="100%">
                     <thead>
@@ -44,7 +37,7 @@
                     </tr>
                     </thead>
                     <tr data-ng-repeat="allowed in productmix.allowedProducts">
-                        <td width="40%">{{allowed.name}}</td>
+                        <td class="width40">{{allowed.name}}</td>
                     </tr>
                 </table>
             </div>
@@ -56,7 +49,7 @@
                     </tr>
                     </thead>
                     <tr data-ng-repeat="restricted in productmix.restrictedProducts">
-                        <td width="40%">{{restricted.name}}</td>
+                        <td class="width40">{{restricted.name}}</td>
                     </tr>
                 </table>
             </div>
