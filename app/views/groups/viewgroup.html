@@ -65,7 +65,7 @@
                           <li>
                               <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
                           </li>
-                          <li>
+                          <li data-ng-show="group.status.value=='Active'">
                             <span ng-hide="group.centerId">
                               <a href="#/attachmeeting/{{group.id}}/groups" has-permission='CREATE_MEETING' 
                                  data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
@@ -229,7 +229,7 @@
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i ng-hide="loanaccount.inArrears"
                         class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i> 
                         <i ng-show="loanaccount.inArrears"
-                        class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>{{loanaccount.status.value}}
+                        class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>&nbsp;{{loanaccount.status.value}}
                 </td>
             </tr>
             </tbody>
@@ -250,7 +250,7 @@
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.accountNo}}</td>
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
                 <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"><i
-                        class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>{{loanaccount.status.value}}
+                        class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>&nbsp;{{loanaccount.status.value}}
                 </td>
             </tr>
             </tbody>
@@ -280,7 +280,7 @@
                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}
                 </td>
                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i
-                        class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}
+                        class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;{{savingaccount.status.value}}
                 </td>
             </tr>
             </tbody>
@@ -299,7 +299,7 @@
                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountNo}}</td>
                 <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)"><i
-                        class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>{{savingaccount.status.value}}
+                        class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>&nbsp;{{savingaccount.status.value}}
                 </td>
             </tr>
             </tbody>

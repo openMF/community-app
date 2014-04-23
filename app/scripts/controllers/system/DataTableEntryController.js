@@ -41,6 +41,21 @@
                 scope.columnHeaders = data.columnHeaders;
             });
 
+            //return input type
+            scope.fieldType = function (type) {
+                var fieldType = "";
+                if (type) {
+                    if (type == 'STRING' || type == 'INTEGER' || type == 'TEXT' || type == 'DECIMAL') {
+                        fieldType = 'TEXT';
+                    } else if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                        fieldType = 'SELECT';
+                    } else if (type == 'DATE') {
+                        fieldType = 'DATE';
+                    }
+                }
+                return fieldType;
+            };
+
             scope.editDatatableEntry = function () {
                 scope.isViewMode = false;
                 var colName = scope.columnHeaders[0].columnName;

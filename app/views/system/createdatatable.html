@@ -27,7 +27,7 @@
 
             <div class="col-sm-3">
                 <select id="apptableName" ng-model="formData.apptableName" name="apptable" class="form-control" required>
-                    <option style="display:none" value="">{{'label.selectone' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
                     <option value="m_client">{{'label.client' | translate}}</option>
                     <option value="m_group">{{'label.group' | translate}}</option>
                     <option value="m_center">{{'label.center' | translate}}</option>
@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.multirow' | translate }}</label>
-            <span class="span1"></span><input type="checkbox" ng-model="formData.multiRow"/>
+            <div class="form-inline col-sm-3"><input type="checkbox" ng-model="formData.multiRow"/></div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.addcolumns' | translate }}<span
@@ -55,7 +55,7 @@
 				</div>
 				<div class="col-sm-3">
 		            <select name="columnType" ng-model="datatableTemplate.columnType" class="form-control" >&nbsp;&nbsp;
-		                <option style="display:none" value="">{{'label.selectcolumntype' | translate}}</option>
+		                <option class="displaynone" value="">{{'label.selectcolumntype' | translate}}</option>
 		                <option value="String">{{'label.string' | translate}}</option>
 		                <option value="Number">{{'label.number' | translate}}</option>
 		                <option value="Decimal">{{'label.decimal' | translate}}</option>
@@ -64,25 +64,25 @@
 		                <option value="Dropdown">{{'label.dropdown' | translate}}</option>
 		            </select>
 				</div>
-				<div class="col-sm-1">
-                	<a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
-				</div>
-		      <span ng-show="createdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
-		        <small class="error"
-		               ng-show="createdatatableform.columnname.$error.req || columnnameerror || columntypeerror || rc.createdatatableform.attempted">
-		            {{ 'label.'+labelerror | translate }}
-		        </small>
-		      </span>
+                <div class="col-sm-3">
+                    <a ng-click="addColumn()"><i class="icon-plus icon-white"></i></a>
+                    <span ng-show="createdatatableform.columnname.$invalid || columnnameerror || columntypeerror">
+                    <small class="error"
+                           ng-show="createdatatableform.columnname.$error.req || columnnameerror || columntypeerror || rc.createdatatableform.attempted">
+                        {{ 'label.'+labelerror | translate }}
+                    </small>
+                    </span>
+                </div>
             </div>
         </div>
 
-        <table ng-show="columns.length > 0" width="100%">
+        <table ng-show="columns.length > 0" class="width100">
             <tr class="form-group">
-                <td width="11%">
+                <td class="width11">
                     <label class="control-label col-sm-2"><h4>{{ 'label.heading.columns' | translate }}</h4></label>
                 </td>
-                <td class="blockquoteresult">
-                    <table ng-show="columns.length > 0">
+                <td class="blockquoteresult width86">
+                    <table ng-show="columns.length > 0" class="table width100">
                         <thead>
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
@@ -100,7 +100,7 @@
                             <td>
                                 <select ng-model="column.type" class="input-sm form-control"
                                         ng-change="updateDepenedencies($index)">
-                                    <option style="display:none" value="">{{'label.selectcolumntype' | translate}}
+                                    <option class="displaynone" value="">{{'label.selectcolumntype' | translate}}
                                     </option>
                                     <option value="String">{{'label.string' | translate}}</option>
                                     <option value="Number">{{'label.number' | translate}}</option>

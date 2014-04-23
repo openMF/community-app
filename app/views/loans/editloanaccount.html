@@ -265,6 +265,7 @@
             </table>
         </div>
         <hr/>
+        <div class="col-md-12">
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
         <select ng-model="chargeFormData.chargeId" class="form-control width170px"
                 ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions"
@@ -272,6 +273,7 @@
             <option value="">{{'label.selectcharge' | translate}}</option>
         </select>
         <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
+        </div>
         <table class="table" class="width100" ng-show="charges.length>0">
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -296,32 +298,34 @@
             </tr>
         </table>
         <div ng-show="loanaccountinfo.overdueCharges.length>0">
-                <label><strong>{{ 'label.heading.overduepenalitycharge' | translate }}</strong></label>
-                <table class="table" class="width100" >
-                    <tr class="graybg">
-                        <th>{{'label.heading.name' | translate}}</th>
-                        <th>{{'label.heading.type' | translate}}</th>
-                        <th>{{'label.heading.amount' | translate}}</th>
-                        <th>{{'label.heading.collectedon' | translate}}</th>
-                    </tr>
-                    <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
-                        <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-                        <td>{{charge.chargeCalculationType.value}}</td>
-                        <td>{{charge.amount}}</td>
-                        <td>{{charge.chargeTimeType.value}}</td>
-                    </tr>
-                </table>
-            </div>
-        <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>
-        <select ng-model="collateralFormData.collateralIdTemplate" class="form-control width170px"
-                ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
-                value="{{collateralTemplate.id}}">
-        </select>&nbsp;&nbsp;
-        <input class="form-control" type="text" ng-model="collateralFormData.collateralValueTemplate"
-               placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
-        <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" class="form-control"
-               placeholder="{{'label.input.description' | translate}}">
-        <a ng-click="addCollateral()">&nbsp;<i class="icon-plus icon-white"></i></a>
+            <label><strong>{{ 'label.heading.overduepenalitycharge' | translate }}</strong></label>
+            <table class="table" class="width100">
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.collectedon' | translate}}</th>
+                </tr>
+                <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
+                    <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                    <td>{{charge.chargeCalculationType.value}}</td>
+                    <td>{{charge.amount}}</td>
+                    <td>{{charge.chargeTimeType.value}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-12 paddedtop">
+            <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>
+            <select ng-model="collateralFormData.collateralIdTemplate" class="form-control width170px"
+                    ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
+                    value="{{collateralTemplate.id}}">
+            </select>&nbsp;&nbsp;
+            <input class="form-control" type="text" ng-model="collateralFormData.collateralValueTemplate"
+                   placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
+            <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" class="form-control"
+                   placeholder="{{'label.input.description' | translate}}">
+            <a ng-click="addCollateral()">&nbsp;<i class="icon-plus icon-white"></i></a>
+        </div>
         <table class="table" class="width100" ng-show="collaterals.length>0">
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>

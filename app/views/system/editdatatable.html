@@ -24,7 +24,7 @@
 
                 <div class="col-sm-3">
                     <select id="apptableName" ng-model="formData.apptableName" class="form-control" required="required">
-                        <option style="display:none" value="">{{'label.selectone' | translate}}</option>
+                        <option class="width100" value="">{{'label.selectone' | translate}}</option>
                         <option value="m_client">{{'label.client' | translate}}</option>
                         <option value="m_group">{{'label.group' | translate}}</option>
                         <option value="m_center">{{'label.center' | translate}}</option>
@@ -44,7 +44,7 @@
 					</div>
 					<div class="col-sm-3">
 		                <select ng-model="datatableTemplate.columnType" class="form-control">&nbsp;&nbsp;
-		                    <option style="display:none" value="">{{'label.selectcolumntype' | translate}}</option>
+		                    <option class="width100" value="">{{'label.selectcolumntype' | translate}}</option>
 		                    <option value="string">{{'label.string' | translate}}</option>
 		                    <option value="number">{{'label.number' | translate}}</option>
 		                    <option value="decimal">{{'label.decimal' | translate}}</option>
@@ -65,23 +65,23 @@
                 </div>
             </div>
 
-            <table ng-show="columns.length > 0" width="100%">
+            <table ng-show="columns.length > 0" class="width100">
                 <tr class="form-group">
-                    <td width="11%">
+                    <td class="width11">
                         <label class="control-label col-sm-2"><h4>{{ 'label.heading.columns' | translate }}</h4></label>
                     </td>
-                    <td class="blockquoteresult" width="89%">
-                        <table ng-show="columns.length > 0">
+                    <td class="blockquoteresult width86">
+                        <table ng-show="columns.length > 0" class="table width100">
                             <thead>
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
-                                <th>{{'label.heading.newname' | translate}}</th>
-                                <th>{{'label.heading.type' | translate}}</th>
-                                <th>{{'label.heading.mandatory' | translate}}</th>
-                                <th>{{'label.heading.length' | translate}}</th>
-                                <th>{{'label.heading.code' | translate}}</th>
-                                <th>{{'label.heading.newcode' | translate}}</th>
-                                <th>{{'label.heading.actions' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.newname' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.type' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.mandatory' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.length' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.code' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.newcode' | translate}}</th>
+                                <th class="paddedleft0">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -91,15 +91,15 @@
                                            placeholder="{{'label.input.columnname' | translate}}"
                                            ng-readonly="column.originalName"/>
                                 </td>
-                                <td>
+                                <td class="paddedleft0">
                                     <input ng-model="column.newName" class="input-sm form-control" type="text"
                                            placeholder="{{'label.input.columnname' | translate}}"
                                            ng-show="column.originalName"/>
                                 </td>
-                                <td>
+                                <td class="paddedleft0">
                                     <select ng-model="column.type" required="required" class="input-sm form-control"
                                             ng-disabled="column.originalName" ng-change="updateDepenedencies($index)">
-                                        <option style="display:none" value="">{{'label.selectcolumntype' | translate}}
+                                        <option class="displaynone" value="">{{'label.selectcolumntype' | translate}}
                                         </option>
                                         <option value="string">{{'label.string' | translate}}</option>
                                         <option value="number">{{'label.number' | translate}}</option>
@@ -109,23 +109,23 @@
                                         <option value="dropdown">{{'label.dropdown' | translate}}</option>
                                     </select>
                                 </td>
-                                <td align="center"><input ng-model="column.mandatory" type="checkbox"/></td>
-                                <td>
+                                <td align="center" class="paddedleft0"><input ng-model="column.mandatory" type="checkbox"/></td>
+                                <td class="paddedleft0">
                                     <input ng-show="column.type == 'string'" ng-model="column.length" type="text"
                                            class="input-sm form-control"/>
                                 </td>
-                                <td>
+                                <td class="paddedleft0">
                                     <select ng-show="column.type == 'dropdown'" ng-model="column.code"
                                             ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                             class="input-sm form-control" ng-disabled="column.originalName"/>
                                 </td>
-                                <td>
+                                <td class="paddedleft0">
                                     <select ng-show="column.type == 'dropdown'" ng-disabled="!column.originalName"
                                             ng-model="column.newCode"
                                             ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                             class="input-sm form-control"/>
                                 </td>
-                                <td align="center"><a ng-click="removeColumn($index)"><i
+                                <td class="paddedleft0" align="center"><a ng-click="removeColumn($index)"><i
                                         class="icon-remove icon-white"></i></a></td>
                             </tr>
                             </tbody>
