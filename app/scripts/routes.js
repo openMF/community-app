@@ -109,6 +109,9 @@
             .when('/newgrouploanaccount/:groupId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
+            .when('/newindividualjlgloanaccount/:groupId/:clientId', {
+                templateUrl: 'views/loans/newloanaccount.html'
+            })
             .when('/newjlgloanaccount/:groupId', {
                 templateUrl: 'views/loans/newjlgloanaccount.html'
             })

@@ -148,6 +148,14 @@
                 }
             };
 
+            scope.isActiveMember = function (status) {
+                if (status == 'clientStatusType.active') {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_group'}, function (data) {
                 scope.groupdatatables = data;
             });

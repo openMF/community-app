@@ -63,6 +63,14 @@
                 }
             };
 
+            scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
+                if (accountTransfer) {
+                    location.path('/viewaccounttransfers/' + transferId);
+                } else {
+                    location.path('/viewfixeddepositaccounttrxn/' + accountId + '/' + transactionId);
+                }
+            };
+
             resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
                 scope.status = data.status.value;
