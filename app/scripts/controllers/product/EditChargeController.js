@@ -27,7 +27,8 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    isMandatory: data.isMandatory
                 };
 
                 if(data.feeFrequency){
