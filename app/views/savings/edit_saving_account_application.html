@@ -27,7 +27,7 @@
         </td>
         <td class="width36 paddedbottom10">
             <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
+                   ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
                    class="form-control"/>
         </td>
     </tr>
@@ -180,7 +180,7 @@
     <hr/>
     <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
     <select ng-model="chargeId"
-            ng-options="charge.id as charge.name for charge in chargeOptions"
+            ng-options="charge.id as charge.name for charge in data.chargeOptions"
             value="{{charge.id}}" class="form-control">
         <option value="">{{'label.selectcharge' | translate}}</option>
     </select>
@@ -228,7 +228,7 @@
             </td>
             <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
             <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
-            <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+            <td><a ng-click="deleteCharge($index)" ng-hide="charge.isMandatory"><i class="icon-remove icon-white"></i></a></td>
         </tr>
     </table>
 </div>

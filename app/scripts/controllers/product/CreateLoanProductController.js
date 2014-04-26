@@ -70,6 +70,7 @@
                     scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
                 }
                 scope.formData.accountingRule = '1';
+
             });
 
             scope.chargeSelected = function (chargeId) {
