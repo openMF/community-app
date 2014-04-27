@@ -65,6 +65,24 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}</label>
+
+            <div class="col-sm-3">
+                <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                       ng-model="first.dateofbirth" is-open="opened1" max="restrictDate"  class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.gender' | translate}}</label>
+
+            <div class="col-sm-3">
+                <select id="genderId" ng-model="formData.genderId"  class="form-control"
+                        ng-options="gender.id as gender.name for gender in genderOptions" value="{{gender.id}}">
+                    <option value="">--{{'label.menu.gender' | translate}}--</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}</label>
 
             <div class="col-sm-3">
@@ -87,6 +105,25 @@
                     <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
                            is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="showSavingOptions">
+            <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
+
+            <div class="col-sm-1">
+                <input id="opensavingsproduct" type="checkbox" ng-model="opensavingsproduct" ng-true-value="true"
+                       ng-false-value="false">
+            </div>
+        </div>
+        <div class="form-group" ng-show="opensavingsproduct">
+            <label class="control-label col-sm-2">{{'label.input.savingproduct' | translate}}</label>
+
+            <div class="col-sm-3">
+                <select id="savingsProductId" ng-model="formData.savingsProductId"
+                        ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts"
+                        value="{{savingProduct.id}}"  class="form-control">
+                    <option value="">--{{'label.menu.selectsavingproduct' | translate}}--</option>
+                </select>
             </div>
         </div>
         <div class="col-md-offset-2 paddedleft">

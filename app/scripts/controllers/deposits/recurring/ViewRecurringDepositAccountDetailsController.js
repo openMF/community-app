@@ -214,6 +214,14 @@
                 scope.savingdatatables = data;
             });
 
+            scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
+                if (accountTransfer) {
+                    location.path('/viewaccounttransfers/' + transferId);
+                } else {
+                    location.path('/viewrecurringdepositaccounttrxn/' + accountId + '/' + transactionId);
+                }
+            };
+
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
