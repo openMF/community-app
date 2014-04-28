@@ -91,6 +91,7 @@
                     scope.choice = true;
                 }
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
+                scope.chargePayAction = data.status.value == "Active" ? true : false;
                 if (scope.savingaccountdetails.charges) {
                     scope.charges = scope.savingaccountdetails.charges;
                     scope.chargeTableShow = true;
@@ -142,6 +143,11 @@
                             name: "button.activate",
                             icon: "icon-ok-sign",
                             taskPermissionName:"ACTIVATE_SAVINGSACCOUNT"
+                        },
+                        {
+                            name: "button.addcharge",
+                            icon: "icon-plus",
+                            taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
                         }
                     ]
                     };

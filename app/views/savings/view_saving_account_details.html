@@ -254,15 +254,15 @@
                         </tbody>
                     </table>
                 </tab>
-                <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
+                <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
                      select="dataTableChange(savingdatatable)">
                     <span data-ng-show="choice">
-                        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_{{savingdatatable.registeredTableName}}'
                            ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
                                 class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
                         <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
                           <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=savings"
-                             class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                             class="btn btn-primary" has-permission='CREATE_{{savingdatatable.registeredTableName}}'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                         </span></br>
                     </span>
 
@@ -338,7 +338,7 @@
                                        href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
                                             class="icon-remove icon-white"></i></a>
                                 </span>
-                                <span ng-hide="chargeAction">
+                                <span ng-show="chargePayAction">
                                     <span ng-hide="charge.amountOutstanding == 0"
                                           ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
                                         <a title="{{'label.button.paycharge' | translate}}" has-permission="PAY_SAVINGSACCOUNTCHARGE"

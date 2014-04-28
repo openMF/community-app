@@ -207,7 +207,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewfixeddepositproduct/' + routeParams.id);
+                location.path('/viewfixeddepositproduct/' + routeParams.productId);
             };
 
             scope.submit = function () {

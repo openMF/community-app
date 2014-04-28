@@ -404,14 +404,14 @@
         </table>
     </div>
 </tab>
-<tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_DATATABLE' 
+<tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_{{groupdatatable.registeredTableName}}'
      select="dataTableChange(groupdatatable)">
     <div>
-        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_DATATABLE' 
+        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_{{groupdatatable.registeredTableName}}'
            ng-click="deleteAll(groupdatatable.registeredTableName, group.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
             | translate}}</a>
                   <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group" has-permission='CREATE_DATATABLE' 
+                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group" has-permission='CREATE_{{groupdatatable.registeredTableName}}'
                        class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
                   </span></br>
         <div ng-show="datatabledetails.isData">

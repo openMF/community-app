@@ -402,15 +402,15 @@
     </table>
 </tab>
 <tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
-     select="dataTableChange(clientdatatable)" has-permission='READ_DATATABLE'>
+     select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
     <div>
         <div>
             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-               ng-click="deleteAll(clientdatatable.registeredTableName, client.id)" has-permission='DELETE_DATATABLE'><i
+               ng-click="deleteAll(clientdatatable.registeredTableName, client.id)" has-permission='DELETE_{{clientdatatable.registeredTableName}}'><i
                     class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
             <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
               <a href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}?fromEntity=client"
-                 class="btn btn-primary" has-permission='CREATE_DATATABLE'><i class="icon-plus icon-white"></i>{{'label.button.add'
+                 class="btn btn-primary" has-permission='CREATE_{{clientdatatable.registeredTableName}}'><i class="icon-plus icon-white"></i>{{'label.button.add'
                   | translate}}</a>
             </span>
         </div>
