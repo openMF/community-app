@@ -50,6 +50,9 @@
                     case "disburse":
                         location.path('/loanaccount/' + accountId + '/disburse');
                         break;
+                    case "disbursetosavings":
+                        location.path('/loanaccount/' + accountId + '/disbursetosavings');
+                        break;
                     case "undodisbursal":
                         location.path('/loanaccount/' + accountId + '/undodisbursal');
                         break;
@@ -204,6 +207,11 @@
                             taskPermissionName: 'DISBURSE_LOAN'
                         },
                         {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        },
+                        {
                             name: "button.undoapproval",
                             icon: "icon-undo",
                             taskPermissionName: 'APPROVALUNDO_LOAN'
@@ -275,6 +283,11 @@
                             name: "button.disburse",
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSE_LOAN'
+                        });
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
                         });
                     }
                     //loan officer not assigned to loan, below logic
