@@ -70,7 +70,8 @@
             var DelInstructionCtrl = function ($scope, $modalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
-                        $scope.searchTransaction();
+                        scope.searchTransaction();
+                        $modalInstance.close('delete');
                     });
                 };
                 $scope.cancel = function () {
