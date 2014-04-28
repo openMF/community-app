@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ListStandingInstructionController: function (scope, resourceFactory, paginatorService,routeParams, dateFilter, location) {
+        ListStandingInstructionController: function (scope, resourceFactory, paginatorService,routeParams, dateFilter, location,$modal) {
             scope.restrictDate = new Date();
             var params = {officeId:routeParams.officeId,clientId: routeParams.clientId};
             if(routeParams.clientId){
@@ -54,14 +54,34 @@
                 scope.isCollapsed = false;
             };
 
-            scope.deletestandinginstruction = function(id){
-                resourceFactory.standingInstructionResource.cancel({standingInstructionId: id}, function (data) {
-                    scope.searchTransaction();
+
+            scope.deletestandinginstruction = function (id) {
+                $modal.open({
+                    templateUrl: 'delInstruction.html',
+                    controller: DelInstructionCtrl,
+                    resolve: {
+                        ids: function () {
+                            return id;
+                        }
+                    }
                 });
-            }
+            };
+
+            var DelInstructionCtrl = function ($scope, $modalInstance, ids) {
+                $scope.delete = function () {
+                    resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
+                        scope.searchTransaction();
+                        $modalInstance.close('delete');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
         }
     });
-    mifosX.ng.application.controller('ListStandingInstructionController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams','dateFilter', '$location', mifosX.controllers.ListStandingInstructionController]).run(function ($log) {
+    mifosX.ng.application.controller('ListStandingInstructionController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams','dateFilter', '$location','$modal', mifosX.controllers.ListStandingInstructionController]).run(function ($log) {
         $log.info("ListStandingInstructionController initialized");
     });
 }(mifosX.controllers || {}));
