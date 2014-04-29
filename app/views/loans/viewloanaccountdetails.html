@@ -462,11 +462,12 @@
 </tab>
 
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions">
-    <button class="btn btn-primary offset10" ng-click="export()">{{'label.button.export' | translate}}</button>
+    <button class="btn btn-primary pull-right" ng-click="export()">{{'label.button.export' | translate}}</button>
+    <br>
     <table class="table">
         <colgroup span="4"></colgroup>
         <thead>
-        <tr>
+        <tr class="graybg">
             <th>{{'label.heading.id' | translate}}</th>
             <th>{{'label.heading.office' | translate}}</th>
             <th>{{'label.heading.transactiondate' | translate}}</th>
@@ -524,27 +525,21 @@
     <table class="table">
         <thead>
         <th>{{'label.heading.type' | translate}}</th>
-        <th>{{'label.heading.description' | translate}}</th>
         <th>{{'label.heading.value' | translate}}</th>
-        <th></th>
+        <th>{{'label.heading.description' | translate}}</th>
         </thead>
         <tbody>
-        <tr ng-repeat="collateral in loandetails.collateral">
-            <td>
-                {{collateral.type.name}}
-            </td>
-            <td>{{collateral.description}}</td>
-            <td>{{collateral.value}}</td>
-            <td><a ng-show="loandetails.status.pendingApproval" style="text-decoration:none;" class="btn-primary"
-                   href="#/loan/{{loandetails.id}}/viewcollateral/{{collateral.id}}">{{'label.button.details' |
-                translate}}</a></td>
+        <tr ng-repeat="collateral in loandetails.collateral" class="pointer-main">
+            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.type.name}}</td>
+            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.value}}</td>
+            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.description}}</td>
         </tr>
         </tbody>
     </table>
 </tab>
 
 <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
-    <table width="100%">
+    <table class="width100">
         <tr>
             <td>
                 {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount}}&nbsp;
@@ -561,7 +556,7 @@
             </td>
         </tr>
     </table>
-    <table width="100%">
+    <table class="width100">
         <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
             <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
             <th align="left">{{'label.input.disbursedon' | translate}}</th>
@@ -585,14 +580,14 @@
         </tr>
     </table>
 
-    <table width="100%">
+    <table class="width100">
         <tr>
             <td>
                 {{'label.input.fixedemiamountvariations' | translate}} : &nbsp;&nbsp;
             </td>
         </tr>
     </table>
-    <table width="100%">
+    <table class="width100 table">
         <tr class="graybg" ng-show="loandetails.emiAmountVariations.length>0">
             <th align="left">{{'label.input.emiamoutvariationfrom' | translate}}</th>
             <th align="left">{{'label.input.fixedemiamount' | translate}}</th>
@@ -605,7 +600,7 @@
 </tab>
 
 <tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
-    <table class="table" width="100%">
+    <table class="table width100">
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.type' | translate}}</th>
@@ -623,42 +618,30 @@
 
 
 <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
-    <table class="table" width="100%">
+    <table class="table width100">
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.feeorpenalty' | translate}}</th>
-            <th></th>
             <th>{{'label.heading.paymentdueat' | translate}}</th>
-            <th></th>
             <th>{{'label.heading.dueasof' | translate}}</th>
-            <th></th>
             <th>{{'label.heading.calculationtype' | translate}}</th>
-            <th></th>
             <th>{{'label.heading.due' | translate}}</th>
             <th>{{'label.heading.paid' | translate}}</th>
             <th>{{'label.heading.waived' | translate}}</th>
             <th>{{'label.heading.outstanding' | translate}}</th>
-            <th></th>
             <th>{{'label.heading.actions' | translate}}</th>
-            <th></th>
         </tr>
-        <tr ng-repeat="charge in charges">
-            <td><a href="#/loan/{{loandetails.id}}/viewcharge/{{charge.id}}?loanstatus={{loandetails.status.value}}">{{charge.name}}</a>
-            </td>
-            <td ng-show="charge.penalty">{{"penalty"}}</td>
-            <td ng-hide="charge.penalty">{{"fee"}}</td>
-            <td></td>
-            <td>{{charge.chargeTimeType.value}}</td>
-            <td></td>
-            <td>{{charge.dueDate | DateFormat}}</td>
-            <td></td>
-            <td>{{charge.chargeCalculationType.value}}</td>
-            <td></td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amount}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
-            <td>{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
-            <td></td>
+        <tr ng-repeat="charge in charges" class="pointer-main">
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
+            <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
+            <td ng-hide="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"fee"}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeTimeType.value}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.dueDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeCalculationType.value}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
             <td>
                 <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                    href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
@@ -673,7 +656,6 @@
                    href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.button.pay" |
                     translate}}</a>
             </td>
-            <td></td>
         </tr>
     </table>
 </tab>
@@ -725,19 +707,17 @@
                           placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
 
                 <div class="notewrapper col-sm-12 col-md-12">
-                        <span class="pull-right noteaddbuttonwrapper">
-                            <button class="btn btn-primary" type="submit" ng-click="saveNote()"
-                                    has-permission='CREATE_LOANNOTE'>{{'label.button.add' |
-                                translate}}
-                            </button>
-                        </span>
+                    <span class="pull-right noteaddbuttonwrapper">
+                        <button class="btn btn-primary" type="submit" ng-click="saveNote()"
+                                has-permission='CREATE_LOANNOTE'>{{'label.button.add' | translate}}
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
     </form>
     <div class="col-md-12">
         <br/>
-
         <div ng-repeat="loanNote in loanNotes | orderBy:predicate:reverse">
             <blockquote>
                 <p>{{loanNote.note}}</p>
