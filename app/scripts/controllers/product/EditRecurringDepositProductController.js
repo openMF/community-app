@@ -210,7 +210,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewrecurringdepositproduct/' + routeParams.id);
+                location.path('/viewrecurringdepositproduct/' + routeParams.productId);
             };
 
             scope.submit = function () {

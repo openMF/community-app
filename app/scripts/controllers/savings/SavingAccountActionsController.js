@@ -147,7 +147,7 @@
                                 scope.showAnnualAmountField = true;
                                 scope.showAmountField = false;
                             } else {
-                                scope.labelName = 'label.amount';
+                                scope.labelName = 'label.input.amount';
                                 scope.modelName = 'amount';
                                 scope.showDateField = false;
                                 scope.showAnnualAmountField = false;
@@ -166,7 +166,7 @@
                         command: 'paycharge'}, function (data) {
                         scope.formData.amount = data.amountOutstanding;
                     });
-                    scope.labelName = 'label.amount';
+                    scope.labelName = 'label.input.amount';
                     scope.showAmountField = true;
                     scope.paymentDatefield = true;
                     scope.modelName = 'dueDate';

@@ -4,14 +4,19 @@
 
             scope.savingId = routeParams.savingId;
             scope.chargeId = routeParams.id;
-            if (routeParams.status == 'Submitted and pending approval') {
-                scope.showEditButtons = true;
-            }
-            if (routeParams.status == 'Active') {
-                scope.showWaiveButton = true;
-            }
+
             resourceFactory.savingsResource.get({ resourceType: 'charges', accountId: scope.savingId, chargeId: scope.chargeId}, function (data) {
                 scope.charge = data;
+                if (routeParams.status == 'Submitted and pending approval') {
+                    scope.showEditButtons = true;
+                }
+                if (routeParams.status == 'Active') {
+                    scope.showWaiveButton = true;
+                    if(scope.charge.amountOutstanding == 0){
+                        scope.showWaiveButton = false;
+                    }
+                }
+
             });
             scope.deleteCharge = function () {
                 $modal.open({

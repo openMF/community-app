@@ -1,7 +1,7 @@
 <div ng-controller="ViewSavingChargeController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/savingaccount/{{savingId}}">{{'label.anchor.viewsavingaccount' | translate}}</a><span
+            <li><a href="#/viewsavingaccount/{{savingId}}">{{'label.anchor.viewsavingaccount' | translate}}</a><span
                     class="divider">/</span></li>
             <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
         </ul>
@@ -24,7 +24,7 @@
                     <i class="icon-edit icon-white"></i> {{'label.button.edit' | translate}}</a>
                 <a ng-click="deleteCharge()" class="btn btn-danger" has-permission='DELETE_SAVINGSACCOUNTCHARGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}} </a>
             </div>
-            <div class="btn-group" ng-hide="showEditButtons">
+            <div class="btn-group" ng-show="showWaiveButton">
                 <a class="btn btn-primary" has-permission="PAY_SAVINGSACCOUNTCHARGE" href="#/savingaccountcharge/{{savingId}}/paycharge/{{charge.id}}">
                     <i class="icon-check icon-white"></i>{{'label.button.paycharge' | translate}}</a>
                 <a class="btn btn-danger" has-permission="WAIVE_SAVINGSACCOUNTCHARGE" href="#/savingaccountcharge/{{savingId}}/waive/{{charge.id}}">

@@ -8,7 +8,7 @@
             <div class="form-inline">
                 <div class="form-group">
                     <span class="input-append grpinputicons">
-                        <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8" class="input-sm form-control">
+                        <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8" class="form-control">
                         <button type="button" ng-click="isCollapsed = !isCollapsed" class="btn control btn-default"><i class="icon-chevron-down"></i></button>
                         <button type="button" ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></button>
                     </span>
@@ -22,17 +22,13 @@
             </div>
         </table>
     </div>
-    <br/>
-
-    <div collapse="isCollapsed" class="blockoverlay" width="100%" style="overflow-y: scroll">
+    <div collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
         <div class="form-group">
-            <label class="control-label col-sm-2"></label>
             <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy"
                    ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'"
                    date-disabled="disabled(date, mode)" class="form-control"/>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2"></label>
             <div>
                 <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
                        ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'"
@@ -58,14 +54,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2"></label>
             <div>
                 <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
                        ng-model="formData.resourceId" class="form-control">
             </div>
         </div>
         <span><a ng-click="search()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.advancesearch'
-            | translate}}</a></span>
+            | translate}}</a>
+            <br/><br/>
+        </span>
     </div>
     <script type="text/ng-template" id="deletechecker.html">
         <div class="modal-header silver">
