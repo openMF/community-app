@@ -1,8 +1,7 @@
 <div ng-controller="AddLoanChargeController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li class="active">{{'label.anchor.addloancharge' | translate}}</li>
         </ul>
     </div>
@@ -16,7 +15,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="chargeId" ng-model="formData.chargeId"
+                    <select id="chargeId" ng-model="formData.chargeId" class="form-control"
                             ng-options="charge.id as (charge.name+' '+'('+charge.currency.name+')') for charge in charges"
                             value="{{charge.id}}" ng-change="selectCharge()">
                         <option value="">{{'label.selectcharge' | translate}}</option>
@@ -29,8 +28,10 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="amount" type="text" name="amount" ng-model="formData.amount" required
+                        <input id="amount" type="text" class="form-control" name="amount" ng-model="formData.amount" required
                                ng-late-Validate>
+                    </div>
+                    <div class="col-sm-3">
 						<span ng-show="loanchargeform.amount.$invalid">
                           <small class="error">
                               {{ 'label.requiredfield' | translate }}
@@ -42,14 +43,14 @@
                     <label class="control-label col-sm-2">{{ 'label.input.chargecalculation' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" value="{{chargeData.chargeCalculationType.value}}" readonly>
+                        <input type="text" class="form-control" value="{{chargeData.chargeCalculationType.value}}" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.chargetime' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" value="{{chargeData.chargeTimeType.value}}" readonly>
+                        <input type="text" class="form-control" value="{{chargeData.chargeTimeType.value}}" readonly>
                     </div>
                 </div>
                 <div class="form-group" ng-show="chargeData.chargeTimeType.id==2">
@@ -57,7 +58,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="dueDate" type="text" datepicker-pop="dd MMMM yyyy"
+                        <input id="dueDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="formData.dueDate"
                                is-open="opened" min="minDate" max="'2020-06-22'"/>
                     </div>

@@ -1,4 +1,4 @@
-<div>
+<div data-ng-controller="CodeController">
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.managecodes' | translate}}</li>
@@ -8,9 +8,8 @@
             translate }}
         </a>
     </div>
-</div>
-<div data-ng-controller="CodeController">
-    <br>
+    <input ng-autofocus="true" ng-model="filterText" type="text" class="marginbottom0px form-control"
+           placeholder="{{'label.input.filterbyname' | translate}}">
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -19,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-code" data-ng-repeat="code in codes">
+        <tr class="pointer-code" data-ng-repeat="code in codes | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(code.id)">{{code.name}}</td>
             <td class="pointer" data-ng-click="routeTo(code.id)">{{code.systemDefined}}</td>
         </tr>

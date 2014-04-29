@@ -420,6 +420,14 @@
                 scope.report = false;
             };
 
+            scope.viewLoanCollateral = function (collateralId){
+                location.path('/loan/'+scope.loandetails.id+'/viewcollateral/'+collateralId).search({status:scope.loandetails.status.value});
+            };
+
+            scope.viewLoanChargeDetails = function (chargeId) {
+                location.path('/loan/'+scope.loandetails.id+'/viewcharge/'+chargeId).search({loanstatus:scope.loandetails.status.value});
+            };
+
             scope.viewprintdetails = function () {
                 scope.printbtn = true;
                 scope.hidePentahoReport = true;
