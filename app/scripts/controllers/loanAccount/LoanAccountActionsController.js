@@ -66,6 +66,22 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
+                case "disbursetosavings":
+                    scope.modelName = 'actualDisbursementDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburseToSavings'}, function (data) {
+                       scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date();
+                        if (data.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = data.fixedEmiAmount;
+                            scope.showEMIAmountField = true;
+                        }
+                    });
+                    scope.title = 'label.heading.disburseloanaccount';
+                    scope.labelName = 'label.input.disbursedondate';
+                    scope.isTransaction = false;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'DISBURSETOSAVINGS_LOAN';
+                    break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
