@@ -7,6 +7,7 @@
             scope.formData = {};
             scope.date = {};
             scope.date.payDate = new Date();
+            scope.hideAccrualTransactions = '';
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
