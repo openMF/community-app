@@ -1,31 +1,28 @@
 <div ng-controller="EditMeetingController">
     <ul class="breadcrumb" ng-show="entityType=='groups'">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a> <span
-                class="divider">/</span></li>
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.editmeeting' | translate }}</li>
     </ul>
     <ul class="breadcrumb" ng-show="entityType=='centers'">
-        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a> <span class="divider">/</span></li>
-        <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a> <span
-                class="divider">/</span></li>
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.editmeeting' | translate }}</li>
     </ul>
     <api-validate></api-validate>
     <form ng-submit="submit()">
-        <div class="control-group">
-            <table width="80%" class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label offset2"><h3>{{'label.heading.editmeeting' | translate}}</h3></label>
+            <table class="form-horizontal width40">
                 <tr>
-                    <td width="20%">
+                    <td class="width40">
                         <label class="control-label">{{'label.input.meetingstartdate' | translate}}<span
                                 class="required">*</span></label>
                     </td>
-                    <td width="20%">
+                    <td class="width60">
                         <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                               is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                               is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                     </td>
-                    <td width="20%"></td>
-                    <td width="20%"></td>
                 </tr>
                 <tr>
                     <td>
@@ -34,28 +31,26 @@
                     <td>
                         <input type="checkbox" ng-model="formData.repeating">
                     </td>
-                    <td></td>
-                    <td></td>
                 </tr>
             </table>
-            <span ng-show="formData.repeating"><label class="control-label offset2"><h3>{{'label.heading.repeatdetails'
+            <span ng-show="formData.repeating"><label class="control-label offset2"><h3 class="paddedleft paddedtop">{{'label.heading.repeatdetails'
                 | translate}}</h3></label></span>
-            <table width="40%" ng-show="formData.repeating">
+            <table class="width40" ng-show="formData.repeating">
                 <tr>
-                    <td width="30%"></td>
-                    <td>
+                    <td class="width30">
                         <label class="control-label">{{'label.input.repeats' | translate}}</label>
-                        <select class="input-small" ng-model="formData.frequency"
+                        <select class="input-sm form-control" ng-model="formData.frequency"
                                 ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
                                 ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"
                                 ng-disabled=true></select>
                     </td>
-                    <td>
+                    <td class="width30 paddedleft">
                         <label class="control-label">{{'label.input.repeatsevery' | translate}}</label>
-                        <select class="input-small" ng-model="formData.interval"
+                        <select class="input-sm form-control" ng-model="formData.interval"
                                 ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions"
-                                ng-disabled=true value="{{repeatsEveryOption}}"></select>{{periodValue}}
+                                ng-disabled=true value="{{repeatsEveryOption}}"></select>
                     </td>
+                    <td class="width40 paddedleft"><label class="paddedtop25px">{{periodValue}}</label></td>
                 </tr>
             </table>
             <table width="40%">
@@ -68,10 +63,10 @@
                 </tr>
             </table>
         </div>
-        <div class="offset2">
-            <a id="cancel" ng-show="entityType=='groups'" class="btn" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
+        <div class="col-md-offset-2">
+            <a id="cancel" ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
                 | translate}}</a>
-            <a ng-hide="entityType=='groups'" class="btn" href="#/viewcenter/{{groupOrCenterId}}">{{'label.button.cancel'
+            <a ng-hide="entityType=='groups'" class="btn btn-default" href="#/viewcenter/{{groupOrCenterId}}">{{'label.button.cancel'
                 | translate}}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
         </div>

@@ -7,6 +7,7 @@
             scope.formData = {};
             scope.date = {};
             scope.date.payDate = new Date();
+            scope.hideAccrualTransactions = '';
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
@@ -49,6 +50,9 @@
                         break;
                     case "disburse":
                         location.path('/loanaccount/' + accountId + '/disburse');
+                        break;
+                    case "disbursetosavings":
+                        location.path('/loanaccount/' + accountId + '/disbursetosavings');
                         break;
                     case "undodisbursal":
                         location.path('/loanaccount/' + accountId + '/undodisbursal');
@@ -204,6 +208,11 @@
                             taskPermissionName: 'DISBURSE_LOAN'
                         },
                         {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        },
+                        {
                             name: "button.undoapproval",
                             icon: "icon-undo",
                             taskPermissionName: 'APPROVALUNDO_LOAN'
@@ -276,6 +285,11 @@
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSE_LOAN'
                         });
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.disbursetosavings",
+                            icon: "icon-flag",
+                            taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+                        });
                     }
                     //loan officer not assigned to loan, below logic
                     //helps to display otherwise not
@@ -298,6 +312,21 @@
                     };
                 }
             });
+
+            resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
+                scope.loanNotes = data;
+            });
+
+            scope.saveNote = function () {
+                resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
+                    var today = new Date();
+                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
+                    scope.loanNotes.push(temp);
+                    scope.formData.note = "";
+                    scope.predicate = '-id';
+                });
+            };
+
             scope.showDetails = function (id) {
                 resourceFactory.guarantorResource.get({loanId: routeParams.id, templateResource: id}, {}, function (data) {
                     scope.guarantorData = data;
@@ -353,6 +382,13 @@
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cd_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cv_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
@@ -383,6 +419,14 @@
 
             scope.viewLoanDetails = function () {
                 scope.report = false;
+            };
+
+            scope.viewLoanCollateral = function (collateralId){
+                location.path('/loan/'+scope.loandetails.id+'/viewcollateral/'+collateralId).search({status:scope.loandetails.status.value});
+            };
+
+            scope.viewLoanChargeDetails = function (chargeId) {
+                location.path('/loan/'+scope.loandetails.id+'/viewcharge/'+chargeId).search({loanstatus:scope.loandetails.status.value});
             };
 
             scope.viewprintdetails = function () {

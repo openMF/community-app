@@ -3,6 +3,7 @@
         MakeDataTableEntryController: function (scope, location, routeParams, resourceFactory, dateFilter) {
             scope.tableName = routeParams.tableName;
             scope.entityId = routeParams.entityId;
+            scope.fromEntity = routeParams.fromEntity;
             scope.columnHeaders = [];
             scope.formData = {};
             scope.formDat = {};
@@ -17,6 +18,20 @@
                 if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
                     data.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
+                }
+
+                for (var i = 0; i < data.columnHeaders.length; i++) {
+                    if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                        var temp = data.columnHeaders[i].columnName.split("_cd_");
+                        data.columnHeaders[i].code = temp[0];
+                        data.columnHeaders[i].columnName = temp[1];
+                        data.columnHeaders[i].codeType = "_cd_";
+                    } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                        var temp = data.columnHeaders[i].columnName.split("_cv_");
+                        data.columnHeaders[i].code = temp[0];
+                        data.columnHeaders[i].columnName = temp[1];
+                        data.columnHeaders[i].codeType = "_cv_";
+                    }
                 }
                 scope.columnHeaders = data.columnHeaders;
 
@@ -38,7 +53,17 @@
             };
 
             scope.cancel = function () {
-                location.path('/viewclient/' + routeParams.entityId);
+                if (scope.fromEntity == 'client') {
+                    location.path('/viewclient/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'group') {                    
+                    location.path('/viewgroup/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'center') {                    
+                    location.path('/viewcenter/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'loan') {                    
+                    location.path('/viewloanaccount/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'savings') {                    
+                    location.path('/viewsavingaccount/' + routeParams.entityId).search({});
+                };
             };
             scope.submit = function () {
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
@@ -52,6 +77,9 @@
                     }
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], scope.df);
+                    } else if (scope.columnHeaders[i].columnDisplayType == 'CODELOOKUP' || scope.columnHeaders[i].columnDisplayType == 'CODEVALUE') {
+                        this.formData[scope.columnHeaders[i].code+scope.columnHeaders[i].codeType+scope.columnHeaders[i].columnName]=this.formData[scope.columnHeaders[i].columnName];
+                        delete scope.formData[scope.columnHeaders[i].columnName];
                     }
                 }
 

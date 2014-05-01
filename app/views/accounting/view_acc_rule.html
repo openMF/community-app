@@ -1,17 +1,18 @@
 <div ng-controller="ViewAccRuleController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a></li>
             <li class="active">{{rule.name}}</li>
         </ul>
     </div>
     <div>
         <div class="pull-right">
             <div class="btn-group">
-                <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-                <a class="btn btn-primary" ng-click="deleteRule()" has-permission='DELETE_ACCOUNTINGRULE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+                <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                <a class="btn btn-danger" ng-click="deleteRule()" has-permission='DELETE_ACCOUNTINGRULE'><i
+                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
             </div>
         </div>
     </div>
@@ -47,30 +48,40 @@
             </tr>
         </table>
         <hr/>
-        <table width="100%">
+        <table class="width80">
             <thead>
-            <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
-            <th align="left">{{ 'label.heading.debitaccountdetails' | translate }}</th>
+            <tr>
+                <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
+                <th>{{ 'label.heading.debitaccountdetails' | translate }}</th>
+            </tr>
             </thead>
             <tbody>
             <tr>
+                <!--
+                app.css line 931-934
+                .container td:first-child {    padding-left: 20px;  }
+                .container th:first-child {    padding-left: 20px;  }
+                .container td:last-child {    padding-right: 20px;  }
+                .container th:last-child {    padding-right: 20px;  }
+                The above piece of code is overriding the defined style, for now adding the inline style
+                -->
                 <td>
-                    <table align="center">
+                    <table>
                         <tr ng-repeat="crAccount in rule.creditAccounts">
-                            <td>{{crAccount.name}}({{crAccount.glCode}})</td>
+                            <td style="padding-left: 0px;">{{crAccount.name}}({{crAccount.glCode}})</td>
                         </tr>
                         <tr ng-repeat="creditTag in rule.creditTags">
-                            <td>{{creditTag.tag.name}}</td>
+                            <td style="padding-left: 0px;">{{creditTag.tag.name}}</td>
                         </tr>
                     </table>
                 </td>
                 <td>
-                    <table align="left">
+                    <table>
                         <tr ng-repeat="dbAccount in rule.debitAccounts">
-                            <td>{{dbAccount.name}}({{dbAccount.glCode}})</td>
+                            <td style="padding-left: 0px;">{{dbAccount.name}}({{dbAccount.glCode}})</td>
                         </tr>
                         <tr ng-repeat="debitTag in rule.debitTags">
-                            <td>{{debitTag.tag.name}}</td>
+                            <td style="padding-left: 0px;">{{debitTag.tag.name}}</td>
                         </tr>
                     </table>
                 </td>

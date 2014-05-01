@@ -16,6 +16,21 @@
             .when('/templates', {
                 templateUrl: 'views/templates/templates.html'
             })
+            .when('/createstandinginstruction/:officeId/:clientId/:accountType', {
+                templateUrl: 'views/accounttransfers/create_standinginstruction.html'
+            })
+            .when('/editstandinginstruction/:instructionId/:from', {
+                templateUrl: 'views/accounttransfers/edit_standinginstruction.html'
+            })
+            .when('/viewstandinginstruction/:instructionId', {
+                templateUrl: 'views/accounttransfers/view_standinginstruction.html'
+            })
+            .when('/liststandinginstructions/:officeId/:clientId', {
+                templateUrl: 'views/accounttransfers/list_standinginstruction.html'
+            })
+            .when('/listaccounttransactions/:instructionId', {
+                templateUrl: 'views/accounttransfers/list_transactions.html'
+            })          
             .when('/createtemplate', {
                 templateUrl: 'views/templates/createtemplate.html'
             })
@@ -94,6 +109,9 @@
             .when('/newgrouploanaccount/:groupId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
+            .when('/newindividualjlgloanaccount/:groupId/:clientId', {
+                templateUrl: 'views/loans/newloanaccount.html'
+            })
             .when('/newjlgloanaccount/:groupId', {
                 templateUrl: 'views/loans/newjlgloanaccount.html'
             })
@@ -162,6 +180,39 @@
             })
             .when('/viewsavingproduct/:id', {
                 templateUrl: 'views/products/viewsavingproduct.html'
+            })
+            .when('/fixeddepositproducts', {
+              templateUrl: 'views/products/fixeddepositproducts.html'
+            })
+            .when('/viewfixeddepositproduct/:productId', {
+              templateUrl: 'views/products/viewfixeddepositproduct.html'
+            })
+            .when('/createfixeddepositproduct', {
+              templateUrl: 'views/products/createfixeddepositproduct.html'
+            })
+            .when('/editfixeddepositproduct/:productId', {
+              templateUrl: 'views/products/editfixeddepositproduct.html'
+            })
+            .when('/recurringdepositproducts', {
+              templateUrl: 'views/products/recurringdepositproducts.html'
+            })
+            .when('/viewrecurringdepositproduct/:productId', {
+              templateUrl: 'views/products/viewrecurringdepositproduct.html'
+            })
+            .when('/createrecurringdepositproduct', {
+              templateUrl: 'views/products/createrecurringdepositproduct.html'
+            })
+            .when('/editrecurringdepositproduct/:productId', {
+              templateUrl: 'views/products/editrecurringdepositproduct.html'
+            })
+            .when('/createinterestratechart/:productId/:productName/:productType', {
+              templateUrl: 'views/products/createinterestratechart.html'
+            })
+            .when('/interestratecharts/:productId/:productName/:productType', {
+              templateUrl: 'views/products/interestratecharts.html'
+            })
+            .when('/editinterestratecharts/:chartId/:productId/:productName/:productType', {
+              templateUrl: 'views/products/editinterestratechart.html'
             })
             .when('/offices', {
                 templateUrl: 'views/organization/offices.html'
@@ -358,6 +409,9 @@
             .when('/viewsavingaccount/:id', {
                 templateUrl: 'views/savings/view_saving_account_details.html'
             })
+            .when('/savings/:savingId/viewcharge/:id', {
+                templateUrl: 'views/savings/viewsavingscharge.html'
+            })
             .when('/groups', {
                 templateUrl: 'views/groups/groups.html'
             })
@@ -390,6 +444,48 @@
             })
             .when('/viewsavingtrxn/:accountId/trxnId/:id', {
                 templateUrl: 'views/savings/view_saving_transaction.html'
+            })
+            .when('/newclientfixeddepositaccount/:clientId', {
+              templateUrl: 'views/deposits/fixed/newapplication.html'
+            })
+            .when('/viewfixeddepositaccount/:id', {
+              templateUrl: 'views/deposits/fixed/viewaccountdetails.html'
+            })
+            .when('/editfixeddepositaccount/:id', {
+              templateUrl: 'views/deposits/fixed/edit_account_application.html'
+            })
+            .when('/fixeddepositaccount/:id/charges', {
+                templateUrl: 'views/deposits/fixed/add_new_fixed_deposit_charge.html'
+            })
+            .when('/fixeddepositaccount/:id/:action', {
+              templateUrl: 'views/deposits/fixed/fixed_deposit_account_actions.html'
+            })
+            .when('/fixeddepositaccountcharge/:id/:action/:chargeId', {
+                templateUrl: 'views/deposits/fixed/fixed_deposit_account_actions.html'
+            })
+            .when('/viewfixeddepositaccounttrxn/:accountId/:transactionId', {
+                templateUrl: 'views/deposits/fixed/view_fixed_deposit_transaction.html'
+            })
+            .when('/newclientrecurringdepositaccount/:clientId', {
+              templateUrl: 'views/deposits/recurring/newapplication.html'
+            })
+            .when('/viewrecurringdepositaccount/:id', {
+              templateUrl: 'views/deposits/recurring/viewaccountdetails.html'
+            })
+            .when('/editrecurringdepositaccount/:id', {
+              templateUrl: 'views/deposits/recurring/edit_account_application.html'
+            })
+            .when('/recurringdepositaccount/:id/charges', {
+                templateUrl: 'views/deposits/recurring/add_new_recurring_deposit_charge.html'
+            })
+            .when('/recurringdepositaccount/:id/:action', {
+              templateUrl: 'views/deposits/recurring/recurring_deposit_account_actions.html'
+            })
+            .when('/recurringdepositaccountcharge/:id/:action/:chargeId', {
+                templateUrl: 'views/deposits/recurring/recurring_deposit_account_actions.html'
+            })
+            .when('/viewrecurringdepositaccounttrxn/:accountId/:transactionId', {
+                templateUrl: 'views/deposits/recurring/view_recurring_deposit_transaction.html'
             })
             .when('/viewgroup/:id', {
                 templateUrl: 'views/groups/viewgroup.html'

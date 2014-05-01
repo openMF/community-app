@@ -1,6 +1,6 @@
 <div>
     <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.addjournalentry' | translate}}</li>
     </ul>
 </div>
@@ -9,122 +9,114 @@
     <api-validate></api-validate>
     <fieldset>
         <legend>{{ 'label.heading.addjournalentry' | translate }}</legend>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
 
-            <div class="controls">
-                <select id="officeId" ng-model="formData.officeId"
+            <div class="col-sm-3">
+                <select id="officeId" ng-model="formData.officeId" class="form-control"
                         ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                 </select>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.currency' | translate }}&nbsp;<span
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}&nbsp;<span
                     class="required">*</span></label>
 
-            <div class="controls">
-                <select id="currencyCode" name="currency" ng-model="formData.currencyCode"
+            <div class="col-sm-3">
+                <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
                         ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
                         value="{{currency.code}}" required>
-                    <option style="display:none" value="">{{'label.selectcurrency' | translate}}</option>
+                    <option class="displaynone" value="">{{'label.selectcurrency' | translate}}</option>
                 </select>
-                <form-validate valattributeform="journalpostingform" valattribute="currency"/>
             </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="journalpostingform" valattribute="currency"/>
+            </div>            
         </div>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.affectedglentries' | translate }}<span
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
 
-            <div class="controls">
-                <table width="100%">
-                    <h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
-                    <tr>
-                        <td>
-                            <div>
-                                <select chosen="glAccounts" ng-model="formData.creditAccountTemplate"
-                                        ng-options="(creditAccount.name + '('+ creditAccount.glCode + ')') for creditAccount in glAccounts">
-                                    <option style="display:none" value="">{{'label.selectcredit' | translate}}</option>
-                                </select>
-                                &nbsp; <input type="text" class="input-small" name="creditamount"
-                                              ng-model="formData.crAmountTemplate">
-                                &nbsp; <a ng-click="addCrAccount()">&nbsp;<i class="icon-plus icon-white"></i></a>
-                      <span ng-show="journalpostingform.creditamount.$invalid || errorcreditevent || creditaccounttemplate">
-                        <small class="error"
-                               ng-show="freqpostingform.creditamount.$error.req || errorcreditevent || creditaccounttemplate">
+            <div class="col-sm-6">
+            	<h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
+				<div class="row">
+                    <div class="col-sm-5">
+		                <select chosen="glAccounts" ng-model="formData.creditAccountTemplate"
+		                        ng-options="(creditAccount.name + '('+ creditAccount.glCode + ')') for creditAccount in glAccounts" class="form-control">
+		                    <option class="displaynone" value="">{{'label.selectcredit' | translate}}</option>
+		                </select>
+                    </div>
+                    <div class="col-sm-4">
+						<input type="text" class="input-sm form-control" name="creditamount" ng-model="formData.crAmountTemplate">
+                    </div>
+                    <div class="col-sm-3">
+                        <a ng-click="addCrAccount()">&nbsp;<i class="icon-plus icon-white"></i></a>
+                        <span ng-show="journalpostingform.creditamount.$invalid || errorcreditevent || creditaccounttemplate">
+                        <small class="error" ng-show="freqpostingform.creditamount.$error.req || errorcreditevent || creditaccounttemplate">
                             {{'label.'+labelcrediterror | translate}}
                         </small>
-                      </span>
-                            </div>
-                            <br>
-
-                            <div ng-repeat="crAccount in formData.crAccounts">
-                                <input type="text" ng-model="crAccount.crGlName" readonly>&nbsp;&nbsp;
-                                <input type="text" class="input-small" ng-model="crAccount.crAmount">
-                                &nbsp;<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
-                            </div>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                    <h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
-                    <tr>
-                        <td>
-                            <div>
-                                <select chosen="glAccounts" ng-model="formData.debitAccountTemplate"
-                                        ng-options="(debitAccount.name +'('+ debitAccount.glCode +')') for debitAccount in glAccounts">
-                                    <option style="display:none" value="">{{'label.selectdebit' | translate}}</option>
-                                </select>
-                                &nbsp; <input type="text" class="input-small" name="debitamount"
-                                              ng-model="formData.debitAmountTemplate">
-                                &nbsp; <a ng-click="addDebitAccount()">&nbsp;<i class="icon-plus icon-white"></i></a>
-                      <span ng-show="freqpostingform.debitamount.$invalid || errordebitevent || debitaccounttemplate">
-                        <small class="error"
-                               ng-show="freqpostingform.debitamount.$error.req || errordebitevent || debitaccounttemplate">
-                            {{'label.'+labeldebiterror | translate}}
-                        </small>
-                      </span>
-                            </div>
-                            <br>
-
-                            <div ng-repeat="dbAccount in formData.dbAccounts">
-                                <input type="text" ng-model="dbAccount.debitGlName" readonly>&nbsp;&nbsp;
-                                <input type="text" class="input-small" ng-model="dbAccount.debitAmount">
-                                &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i
-                                    class="icon-remove icon-white"></i></a>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
+                        </span>
+                    </div>
+                </div>
+                <br>
+                <div ng-repeat="crAccount in formData.crAccounts" class="form-inline paddedbottom10">
+                  <input type="text" ng-model="crAccount.crGlName" readonly="" class="form-control">&nbsp;&nbsp;
+                  <input type="text" class="input-small form-control" ng-model="crAccount.crAmount">
+                  &nbsp;<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                </div>
+                <h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;<a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a></h4>
+				<div class="row">
+                    <div class="col-sm-5">
+		                <select chosen="glAccounts" ng-model="formData.debitAccountTemplate"
+		                        ng-options="(debitAccount.name +'('+ debitAccount.glCode +')') for debitAccount in glAccounts" class="form-control">
+		                    <option class="displaynone" value="">{{'label.selectdebit' | translate}}</option>
+		                </select>
+                    </div>
+                    <div class="col-sm-4">
+						<input type="text" class="input-sm form-control" name="debitamount" ng-model="formData.debitAmountTemplate">
+                    </div>
+                    <div class="col-sm-3">
+                        <a ng-click="addDebitAccount()">&nbsp;<i class="icon-plus icon-white"></i></a>
+                        <span ng-show="freqpostingform.debitamount.$invalid || errordebitevent || debitaccounttemplate">
+                            <small class="error" ng-show="freqpostingform.debitamount.$error.req || errordebitevent || debitaccounttemplate">
+                                {{'label.'+labeldebiterror | translate}}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <br>
+                <div ng-repeat="dbAccount in formData.dbAccounts" class="form-inline paddedbottom10">
+                  <input type="text" ng-model="dbAccount.debitGlName" readonly="" class="form-control">&nbsp;&nbsp;
+                  <input type="text" class="input-small form-control" ng-model="dbAccount.debitAmount">
+                  &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                </div>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 
-            <div class="controls">
-                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber">
+            <div class="col-sm-3">
+                <input type="text" id="referenceNumber" ng-model="formData.referenceNumber" class="form-control">
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label ng-binding" for="paymentTypeId">
+        <div class="form-group">
+            <label class="control-label col-sm-2 ng-binding" for="paymentTypeId">
                 Payment type
                 <span class="required">*</span>
             </label>
 
-            <div class="controls">
-                <select id="paymentTypeId" class="ng-pristine ng-valid" value=""
+            <div class="col-sm-3">
+                <select id="paymentTypeId" class="form-control ng-pristine ng-valid" value=""
                         ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
                         ng-model="formData.paymentTypeId">
                 </select>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
 
-            <div class="controls">
+            <div class="col-sm-3">
                 <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
                     <i ng-show="showPaymentDetails" class="icon-minus icon-white"></i>
                     <i ng-show="!showPaymentDetails" class="icon-plus icon-white"></i>
@@ -132,59 +124,59 @@
             </div>
         </div>
         <div collapse="!showPaymentDetails">
-            <div class="control-group">
-                <label class="control-label" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
 
-                <div class="controls">
-                    <input id="accountNumber" type="text" ng-model="formData.accountNumber">
+                <div class="col-sm-3">
+                    <input id="accountNumber" type="text" ng-model="formData.accountNumber" class="form-control">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="checkNumber">{{ 'label.input.checknumber' | translate}}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="checkNumber">{{ 'label.input.checknumber' | translate}}</label>
 
-                <div class="controls">
-                    <input id="checkNumber" type="text" ng-model="formData.checkNumber">
+                <div class="col-sm-3">
+                    <input id="checkNumber" type="text" ng-model="formData.checkNumber" class="form-control">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="routingCode">{{ 'label.input.routingcode' | translate}}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="routingCode">{{ 'label.input.routingcode' | translate}}</label>
 
-                <div class="controls">
-                    <input id="routingCode" type="text" ng-model="formData.routingCode">
+                <div class="col-sm-3">
+                    <input id="routingCode" type="text" ng-model="formData.routingCode" class="form-control">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="receiptNumber">{{ 'label.input.receiptnumber' | translate}}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="receiptNumber">{{ 'label.input.receiptnumber' | translate}}</label>
 
-                <div class="controls">
-                    <input id="receiptNumber" type="text" ng-model="formData.receiptNumber">
+                <div class="col-sm-3">
+                    <input id="receiptNumber" type="text" ng-model="formData.receiptNumber" class="form-control">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
 
-                <div class="controls">
-                    <input id="bankNumber" type="text" ng-model="formData.bankNumber">
+                <div class="col-sm-3">
+                    <input id="bankNumber" type="text" ng-model="formData.bankNumber" class="form-control">
                 </div>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span class="required">*</span></label>
 
-            <div class="controls">
-                <input class="date-disable" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
+            <div class="col-sm-3">
+                <input class="date-disable form-control" id="transactionDate" type="text" datepicker-pop="dd MMMM yyyy"
                        ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label">{{ 'label.input.comments' | translate }}</label>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.comments' | translate }}</label>
 
-            <div class="controls">
-                <textarea rows="2" ng-model="formData.comments"></textarea>
+            <div class="col-sm-3">
+                <textarea rows="2" ng-model="formData.comments" class="form-control"></textarea>
             </div>
         </div>
-        <div class="offset3">
-            <a id="cancel" href="#/accounting" class="btn">{{ 'label.button.cancel' | translate }}</a>
+        <div class="col-md-offset-3">
+            <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
             <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
         </div>
     </fieldset>

@@ -11,6 +11,11 @@
             }
             resourceFactory.clientTemplateResource.get({officeId: routeParams.officeId}, function (data) {
                 scope.clientTemplate = data;
+                scope.savingproducts = data.savingProductOptions;
+                scope.genderOptions = data.genderOptions;
+                if (data.savingProductOptions.length > 0) {
+                    scope.showSavingOptions = true;
+                }
             });
             scope.setChoice = function () {
                 if (this.formData.active) {

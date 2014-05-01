@@ -6,13 +6,20 @@
             scope.buttons = [];
             scope.clientdocuments = [];
             scope.staffData = {};
+            scope.formData = {};
             scope.openLoan = true;
             scope.openSaving = true;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
-            scope.routeToSaving = function (id) {
-                location.path('/viewsavingaccount/' + id);
+            scope.routeToSaving = function (id, depositTypeCode) {
+                if (depositTypeCode === "depositAccountType.savingsDeposit"){
+                    location.path('/viewsavingaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.fixedDeposit"){
+                    location.path('/viewfixeddepositaccount/' + id);
+                }else if (depositTypeCode === "depositAccountType.recurringDeposit"){
+                    location.path('/viewrecurringdepositaccount/' + id);
+                }
             };
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
@@ -27,7 +34,7 @@
                         });
                 }
 
-                var clientStatus = new mifosX.models.ClientStatus()
+                var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
@@ -139,6 +146,7 @@
             scope.isSavingClosed = function (savingaccount) {
                 if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
                     savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.pre.mature.closure" ||
                     savingaccount.status.code === "savingsAccountStatusType.rejected") {
                     return true;
                 } else {
@@ -196,6 +204,13 @@
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cd_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cv_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
@@ -217,6 +232,13 @@
                     }
 
                 });
+            };
+
+            scope.viewstandinginstruction = function () {
+                location.path('/liststandinginstructions/'+scope.client.officeId+'/'+scope.client.id);
+            };
+            scope.createstandinginstruction = function () {
+                location.path('/createstandinginstruction/'+scope.client.officeId+'/'+scope.client.id+'/fromsavings');
             };
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
@@ -242,6 +264,14 @@
                 });
             };
 
+            scope.viewDataTable = function (registeredTableName,data){
+                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/";
+                if (scope.datatabledetails.isMultirow) {
+                    locationURI = locationURI + data.row[0];
+                };
+                location.path(locationURI);
+            };
+
             scope.downloadDocument = function (documentId) {
                 resourceFactory.clientDocumentsResource.get({clientId: routeParams.id, documentId: documentId}, '', function (data) {
                     scope.clientdocuments.splice(index, 1);
@@ -263,6 +293,7 @@
             scope.isSavingNotClosed = function (savingaccount) {
                 if (savingaccount.status.code === "savingsAccountStatusType.withdrawn.by.applicant" ||
                     savingaccount.status.code === "savingsAccountStatusType.closed" ||
+                    savingaccount.status.code === "savingsAccountStatusType.pre.mature.closure" ||
                     savingaccount.status.code === "savingsAccountStatusType.rejected") {
                     return false;
                 } else {

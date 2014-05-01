@@ -1,8 +1,7 @@
 <div ng-controller="EditLoanCollateralController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li><a href="#/loan/{{loanId}}/viewcollateral/{{collateralId}}">{{'label.anchor.loanviewcollateral' |
                 translate}}</a><span class="divider">/</span></li>
             <li class="active">{{'label.anchor.editloancollateral' | translate}}</li>
@@ -13,32 +12,32 @@
         <fieldset>
             <legend>{{ 'label.anchor.editloancollateral' | translate }}</legend>
 
-            <div class="control-group">
-                <label class="control-label" for="collateralTypeId">{{ 'label.input.type' | translate }}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="collateralTypeId">{{ 'label.input.type' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
-                    <select id="collateralTypeId" ng-model="formData.collateralTypeId"
+                <div class="col-sm-3">
+                    <select id="collateralTypeId" ng-model="formData.collateralTypeId" class="form-control"
                             ng-options="collateralType.id as collateralType.name for collateralType in collateralTypes"
                             value="{{collateralType.id}}"></select>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="value">{{ 'label.input.amount' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="value">{{ 'label.input.amount' | translate }}</label>
 
-                <div class="controls">
-                    <input id="value" type="text" ng-model="formData.value">
+                <div class="col-sm-3">
+                    <input id="value" type="text" class="form-control" ng-model="formData.value">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="description">{{ 'label.input.description' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="description">{{ 'label.input.description' | translate }}</label>
 
-                <div class="controls">
-                    <textarea id="description" ng-model="formData.description" rows="4" cols=""></textarea>
+                <div class="col-sm-3">
+                    <textarea id="description" ng-model="formData.description" class="form-control" rows="4" cols=""></textarea>
                 </div>
             </div>
-            <div class="offset3">
-                <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{ 'label.button.cancel' | translate
+            <div class="col-md-offset-3">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
                     }}
                 </button>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_COLLATERAL'>{{ 'label.button.save' | translate }}</button>

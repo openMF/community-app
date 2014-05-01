@@ -7,11 +7,11 @@
         translate}}</strong></h2>
     <fieldset ng-hide="val || noData">
         <div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.branchoffice' | translate }}<span class="required">*</span></label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.branchoffice' | translate }}<span class="required">*</span></label>
 
-                <div class="controls">
-                    <select id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect"
+                <div class="col-sm-5">
+                    <select id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
                             ng-options="office.id as office.name for office in offices" value="{{office.id}}"
                             ng-change="officeSelected(officeId)" required>
                         <option value="">{{'label.selectoffice' | translate}}</option>
@@ -20,23 +20,23 @@
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.meetingcalendar' | translate }}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.meetingcalendar' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-5">
                     <input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy"
-                           ng-model="date.transactionDate" is-open="opened"/>
+                           ng-model="date.transactionDate" is-open="opened" class="form-control"/>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.loanofficer' | translate }}<span class="required">*</span></label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-5">
                     <select id="loanOfficerId" ng-model="loanOfficerId"
                             ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-                            value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" required>
+                            value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control" required>
                         <option value="">{{'label.selectloanofficer' | translate}}</option>
                     </select>
                 </div>
@@ -49,26 +49,24 @@
             </div>
 
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.center' | translate }}<span ng-show="centerMandatory"
-                                                                                         class="required">*</span></label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-5">
                     <select id="centerId" name="center" ng-model="centerId"
                             ng-options="center.id as center.name for center in centers" value="{{center.id}}"
-                            ng-change="centerSelected(centerId)">
+                            ng-change="centerSelected(centerId)" class="form-control">
                         <option value="">{{'label.selectcenter' | translate}}</option>
                     </select>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.group' | translate }}<span ng-show="groupMandatory"
-                                                                                        class="required">*</span></label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-5">
                     <select id="groupId" ng-model="groupId" ng-options="group.id as group.name for group in groups"
-                            value="{{group.id}}" ng-change="groupSelected(groupId)">
+                            value="{{group.id}}" ng-change="groupSelected(groupId)" class="form-control">
                         <option value="">{{'label.selectgroup' | translate}}</option>
                     </select>
                 </div>
@@ -82,8 +80,7 @@
         </div>
         <div class="paddedbottom"></div>
         <div class="span">
-            <div class="span2" ng-hide="noData" ng-show="collectionsheetdata"
-                 style="float:left; max-width:200px; min-width:200px; overflow-x:auto!important; white-space:nowrap;">
+            <div class="col-sm-3 col-md-3" ng-hide="noData" ng-show="collectionsheetdata">
                 <div>
                     <table class="table table-bordered" ng-show="collectionsheetdata" data-anchor>
                         <thead>
@@ -128,7 +125,7 @@
                     </table>
                 </div>
             </div>
-            <div class="span9">
+            <div class="col-sm-9 col-md-9">
                 <div ng-show="collectionsheetdata"
                      style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
                     <table class="table table-bordered">
@@ -155,17 +152,17 @@
                         <tr ng-repeat="client in group.clients">
                             <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 									<span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
-										<input id="total" type="text" class="input-smaller" ng-model="loan.totalDue"
+										<input id="total" type="text" class="input-sm form-control" ng-model="loan.totalDue"
                                                ng-change="bulkRepaymentTransactionAmountChange()">
 										<span ng-hide="loan.chargesDue" ng-init="loan.chargesDue = 0">
 										</span>
-										<input type="text" class="input-mini-small" ng-model="loan.chargesDue"
+										<input type="text" class="input-mini-sm form-control" ng-model="loan.chargesDue"
                                                ng-change="bulkRepaymentTransactionAmountChange()">
 									</span>
                             </td>
                             <td>
                                 <select id="clientsAttendance[{{$index}}][attendanceType]"
-                                        ng-model="client.attendanceType.id" class="input-smaller"
+                                        ng-model="client.attendanceType.id" class="input-sm form-control"
                                         ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
                                         value="{{attendance.id}}">
                                 </select>
@@ -177,7 +174,7 @@
                                         ng-show="grouptotal.groupId == group.groupId">
 				                    <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup"
                                           ng-show="loanproduct.id == loanProductArray.productId">
-				                      <input type="text" class="input-smaller"
+				                      <input type="text" class="input-sm form-control"
                                              ng-model="loanProductArray.transactionAmount" disabled="disabled">
 				                    </span>
 				                  </span>
@@ -189,7 +186,7 @@
                         <tr>
                             <td style="height:30px" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 				                  <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
-				                    <input type="text" class="input-smaller" ng-model="total.transactionAmount"
+				                    <input type="text" class="input-sm form-control" ng-model="total.transactionAmount"
                                            disabled="disabled">
 				                  </span>
                             </td>
@@ -202,7 +199,7 @@
             <br>
             <br>
         </div>
-        <div ng-hide="noData" ng-show="collectionsheetdata" class="span3 paddedtop10">
+        <div ng-hide="noData" ng-show="collectionsheetdata" class="col-sm-3 col-md-3 paddedtop10">
             <strong><h4 style="background-color: #D6D6C2">{{'label.heading.totalduecollections' | translate}}</h4>
             </strong>
 
@@ -212,9 +209,9 @@
                 {{loanDueTotalCollection.currencySymbol}}
             </div>
         </div>
-        <div class="span12 paddedtop10">
-            <div class="offset3 paddedtop">
-                <button id="cancel" type="reset" class="btn" ng-click="cancel()">{{'label.button.cancel' | translate}}
+        <div class="col-sm-12 col-md-12 paddedtop10">
+            <div class="col-md-offset-3 paddedtop">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}
                 </button>
                 <button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
                         ng-click="submit()">{{'label.button.save' | translate}}

@@ -3,6 +3,7 @@
         ViewGroupController: function (scope, routeParams, route, location, resourceFactory, dateFilter, $modal) {
             scope.group = [];
             scope.template = [];
+            scope.formData = {};
             scope.choice = 0;
             scope.staffData = {};
             scope.openLoan = true;
@@ -75,6 +76,13 @@
                     route.reload();
                 });
             };
+            scope.viewDataTable = function (registeredTableName,data){
+                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.group.id+"/";
+                if (scope.datatabledetails.isMultirow) {
+                    locationURI = locationURI + data.row[0];
+                };
+                location.path(locationURI);
+            };
             scope.saveNote = function () {
                 resourceFactory.groupResource.save({groupId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
                     var today = new Date();
@@ -140,6 +148,14 @@
                 }
             };
 
+            scope.isActiveMember = function (status) {
+                if (status == 'clientStatusType.active') {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_group'}, function (data) {
                 scope.groupdatatables = data;
             });
@@ -152,6 +168,13 @@
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cd_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cv_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {

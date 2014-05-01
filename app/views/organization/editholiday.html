@@ -1,11 +1,9 @@
 <div ng-controller="EditHolidayController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> <span class="divider">/</span>
-            </li>
-            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a> <span class="divider">/</span>
-            </li>
-            <li><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a> <span class="divider">/</span></li>
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+            <li><a href="#/viewholiday/{{holiday.id}}">{{holiday.name}}</a></li>
             <li class="active">{{'label.anchor.editholiday' | translate}}</li>
         </ul>
     </div>
@@ -13,58 +11,60 @@
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.editholiday' | translate}}</legend>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
 
-                <div class="controls">
-                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" required
+                <div class="col-sm-3">
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" class="form-control" required
                            late-Validate/>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="addholidayform" valattribute="name"/>
                 </div>
             </div>
             <div ng-hide="holidayStatusActive">
-                <div class="control-group">
-                    <div class="span4 pull-left">
-                        <div>
-                            <label class="control-label">{{ 'label.input.fromdate' | translate }}<span class="required">*</span></label>
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.input.fromdate' | translate }}<span
+                                class="required">*</span></label>
 
-                            <div class="controls">
-                                <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy"
-                                       ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"/>
-                            </div>
+                        <div class="col-sm-3">
+                            <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+                                   ng-model="date.fromDate" is-open="opened" min="minDat" max="'2050-06-22'"
+                                   class="form-control"/>
                         </div>
-                        <div>
-                            <label class="control-label">{{ 'label.input.todate' | translate }}<span
-                                    class="required">*</span></label>
+                    </div>
+                    <div>
+                        <label class="control-label col-sm-1">{{ 'label.input.todate' | translate }}<span
+                                class="required">*</span></label>
 
-                            <div class="controls">
-                                <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.toDate"
-                                       is-open="opened1" min="minDate" max="'2020-06-22'"/>
-                            </div>
+                        <div class="col-sm-3">
+                            <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.toDate"
+                                   is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
                         </div>
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label">{{ 'label.input.repaymentsheduleto' | translate }}<span
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.repaymentsheduleto' | translate }}<span
                             class="required">*</span></label>
 
-                    <div class="controls">
+                    <div class="col-sm-3">
                         <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
                                ng-model="date.repaymentsRescheduledTo" is-open="opened2" min="minDate"
-                               max="'2020-06-22'"/>
+                               max="'2020-06-22'" class="form-control"/>
                     </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.description' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
 
-                <div class="controls">
-                    <input id="" type="text" data-ng-model="formData.description"/>
+                <div class="col-sm-3">
+                    <input id="" type="text" data-ng-model="formData.description" class="form-control"/>
                 </div>
             </div>
-            <div class="offset3">
+            <div class="col-md-offset-3">
                 <a id="cancel" href="#/viewholiday/{{holiday.id}}">
-                    <button class="btn">{{'label.button.cancel' | translate}}</button>
+                    <button class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_HOLIDAY'>{{'label.button.save' | translate}}</button>
             </div>

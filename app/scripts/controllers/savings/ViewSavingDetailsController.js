@@ -17,6 +17,10 @@
                 }
             };
 
+            scope.viewCharge = function (id){
+                location.path('/savings/'+scope.savingaccountdetails.id+'/viewcharge/'+id).search({'status':scope.savingaccountdetails.status.value});
+            }
+
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
@@ -87,6 +91,7 @@
                     scope.choice = true;
                 }
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
+                scope.chargePayAction = data.status.value == "Active" ? true : false;
                 if (scope.savingaccountdetails.charges) {
                     scope.charges = scope.savingaccountdetails.charges;
                     scope.chargeTableShow = true;
@@ -138,6 +143,11 @@
                             name: "button.activate",
                             icon: "icon-ok-sign",
                             taskPermissionName:"ACTIVATE_SAVINGSACCOUNT"
+                        },
+                        {
+                            name: "button.addcharge",
+                            icon: "icon-plus",
+                            taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
                         }
                     ]
                     };
@@ -206,6 +216,20 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
+            /*// Saving notes not yet implemented
+            resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
+                scope.savingNotes = data;
+            });
+
+            scope.saveNote = function () {
+                resourceFactory.savingsResource.save({accountId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
+                    var today = new Date();
+                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
+                    scope.savingNotes.push(temp);
+                    scope.formData.note = "";
+                    scope.predicate = '-id';
+                });
+            };*/
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
@@ -216,6 +240,13 @@
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
+                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cd_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
+                                var temp = data.columnHeaders[i].columnName.split("_cv_");
+                                data.columnHeaders[i].columnName = temp[1];
+                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {

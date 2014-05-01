@@ -15,6 +15,7 @@
                 scope.staffs = data.staffOptions;
                 scope.formData.officeId = scope.offices[0].id;
                 scope.savingproducts = data.savingProductOptions;
+                scope.genderOptions = data.genderOptions;
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }
@@ -45,9 +46,14 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.activationDate = reqDate;
 
+
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
                     this.formData.submittedOnDate = reqDate;
+                }
+
+                if (scope.first.dateOfBirth) {
+                    this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
                 }
 
                 if (!scope.opensavingsproduct) {

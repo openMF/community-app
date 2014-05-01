@@ -1,10 +1,9 @@
 <div ng-controller="AccEditRuleController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a> <span
-                    class="divider">/</span></li>
-            <li><a href="#/viewaccrule/{{accountingRuleId}}">{{formData.name}}</a> <span class="divider">/</span></li>
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a></li>
+            <li><a href="#/viewaccrule/{{accountingRuleId}}">{{formData.name}}</a></li>
             <li class="active">{{'label.anchor.editaccountingrule' | translate}}</li>
         </ul>
     </div>
@@ -12,53 +11,55 @@
     <form name="editaccountruleform" novalidate="" class="form-horizontal" rc-submit="submit()">
         <fieldset>
             <legend>{{ 'label.heading.editaccountingrule' | translate }}</legend>
-            <div class="control-group">
-                <label class="control-label" for="name">{{ 'label.input.accountingrulename' | translate }}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{ 'label.input.accountingrulename' | translate }}<span
                         class="required">*</span></label>
 
-                <div class="controls">
-                    <input type="text" ng-autofocus="true" id="name" name="name" ng-model="formData.name" required
+                <div class="col-sm-3">
+                    <input type="text" ng-autofocus="true" id="name" name="name" ng-model="formData.name" class="form-control" required
                            late-Validate/>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="editaccountruleform" valattribute="name"/>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.office' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <select ng-model="formData.officeId" id="officeId"
-                            ng-options="office.id as office.name for office in offices" value="{{office.id}}"></select>
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}" class="form-control"></select>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.description' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
 
-                <div class="controls">
-                    <input type="text" id="description" ng-model="formData.description">
+                <div class="col-sm-3">
+                    <input type="text" id="description" ng-model="formData.description" class="form-control"/>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label">{{ 'label.input.affectedglentries' | translate }}</label>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}</label>
 
-                <div class="controls">
-                    <table width="100%">
+                <div class="col-sm-9">
+                    <table class="width100">
                         <tr>
-                            <td width="50%">
+                            <td class="width50">
                                 <strong>{{ 'label.input.credit' | translate }}</strong>
                             </td>
-                            <td width="50%">
+                            <td class="width50">
                                 <strong>{{ 'label.input.debit' | translate }}</strong>
                             </td>
                         </tr>
                         <tr>
-                            <td width="50%">
+                            <td class="width50">
                                 <span>{{ 'label.input.creditruletype' | translate }}</span> &nbsp;
                                 <input type="radio" ng-model="creditRuleType" value="Account"
                                        ng-change="resetCredits()">{{ 'label.input.account' | translate}} &nbsp;&nbsp;&nbsp;
                                 <input type="radio" ng-model="creditRuleType" value="tags" ng-change="resetCredits()">{{
                                 'label.input.tags' | translate}}
                             </td>
-                            <td width="50%">
+                            <td class="width50">
                                 <span>{{ 'label.input.debitruletype' | translate }}</span>&nbsp;
                                 <input type="radio" ng-model="debitRuleType" value="Account" ng-change="resetDebits()">{{
                                 'label.input.account' | translate}} &nbsp;&nbsp;&nbsp;
@@ -113,8 +114,8 @@
                     </table>
                 </div>
             </div>
-            <div class="offset3">
-                <a id="cancel" href="#/viewaccrule/{{accountingRuleId}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewaccrule/{{accountingRuleId}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'>{{ 'label.button.save' | translate }}</button>
             </div>
         </fieldset>

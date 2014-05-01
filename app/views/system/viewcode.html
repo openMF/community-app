@@ -34,7 +34,7 @@
         <div class="row">
             <div class="pull-right">
                 <div class="btn-group">
-                    <button type="button" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i
+                    <button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i
                             class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}
                     </button>
                     <a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
@@ -46,8 +46,10 @@
         <h3 data-ng-hide="newcode.edit"><strong>{{code.name}}</strong></h3>
 
         <div data-ng-show="newcode.edit">
-            <input type="text" data-ng-model="codename.name">
-            <button type="button" class="btn" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
+            <div class="col-sm-3">
+                <input type="text" data-ng-model="codename.name" class="form-control"/>
+            </div>
+            <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
             </button>
             <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' |
                 translate}}
@@ -69,12 +71,12 @@
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
                         <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name"
-                               type="text"/>
+                               type="text" class="form-control"/>
                     </td>
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
                         <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
-                               type="text"/>
+                               type="text" class="form-control"/>
                     </td>
                     <td>
                         <button data-ng-hide="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE' 

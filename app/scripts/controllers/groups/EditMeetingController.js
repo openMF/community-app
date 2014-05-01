@@ -15,14 +15,20 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
-                scope.repeatsEveryOptions = ["1", "2", "3"];
+                scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
                 //to display default in select boxes
                 scope.formData = {
                     repeating: scope.calendarData.repeating,
                     frequency: scope.calendarData.frequency.id,
-                    interval: scope.calendarData.interval
+                    interval: Math.abs(scope.calendarData.interval)
                 }
+                for(var i in scope.repeatsEveryOptions){
+                    if (scope.formData.interval == scope.repeatsEveryOptions[i]){
+                        scope.formData.interval = scope.repeatsEveryOptions[i];
+                    }
+                }
+                console.log(scope.formData);
                 //update interval option
                 for (var i in scope.repeatsEveryOptions) {
                     if (scope.repeatsEveryOptions[i] == scope.calendarData.interval) {

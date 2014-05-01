@@ -1,26 +1,29 @@
-<form class="well" data-ng-controller="CloseCenterController">
+<form class="form-horizontal well" data-ng-controller="CloseCenterController">
     <api-validate></api-validate>
     <div class="paddedleft">
         <h3><strong>{{ 'label.heading.confirm' | translate }}</strong></h3>
 
-        <div>
-            <label class="control-label">{{ 'label.input.closuredate' | translate }}<span
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.closuredate' | translate }}<span
                     class="required">*</span></label>
+            <div class="col-sm-3">
             <input id="closureDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
-                   min="'2000-01-01'" max="restrictDate"/>
+                   min="'2000-01-01'" max="restrictDate" class="form-control"/>
+            </div>
         </div>
-        <div>
-            <label class="control-label">{{ 'label.input.closurereason' | translate }}<span
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.closurereason' | translate }}<span
                     class="required">*</span></label>
-            <select id="closureReasonId" ng-model="formData.closureReasonId"
+            <div class="col-sm-3">
+            <select id="closureReasonId" ng-model="formData.closureReasonId" class="form-control col-sm-3"
                     ng-options="reason.id as reason.name for reason in template.closureReasons" value="{{reason.id}}">
-            </select>
+            </select></div>
         </div>
         <br/>
 
-        <div class="offset1">
-            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn">{{ 'label.button.cancel' | translate }}</a>
-            <button id="save" type="button" class="btn btn-primary" data-ng-click="closeGroup()" has-permission='CLOSE_CENTER'>{{ 'label.button.close'
+        <div class="col-md-offset-2 paddedleft">
+            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default paddedleft">{{ 'label.button.cancel' | translate }}</a>
+            <button id="save" type="button" class="btn btn-primary" data-ng-click="closeGroup()" has-permission='CLOSE_CENTER'>{{ 'label.button.confirm'
                 | translate }}
             </button>
         </div>

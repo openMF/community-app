@@ -1,9 +1,9 @@
-<div ng-controller="ViewCenterController">
+<div class="row" ng-controller="ViewCenterController">
 <div>
     <ul class="breadcrumb">
-        <li>
+        <span>
             <i class="icon-map-marker icon-2x"></i>
-        </li>
+        </span>
         <li>
             <h3>
                 &nbsp;
@@ -13,22 +13,22 @@
                 &nbsp;
             </h3>
         </li>
-        <li><span class="divider">|</span>
+        <li>
             <i class="icon-barcode"></i>
             <small>{{ 'label.uniquelyidentifiedwithid' | translate }} {{center.id}}&nbsp;</small>
         </li>
-        <li><span class="divider">|</span>
+        <li>
             <i class="icon-building"></i>
             <small>{{ 'label.heading.office' | translate }} "{{center.officeName}}"</small>
         </li>
     </ul>
 </div>
 <div>
-<tabset style="margin-bottom: 0;">
+<tabset>
 <tab heading="{{ 'label.heading.general' | translate }}">
-    <div class="row-fluid">
-        <div class="row-fluid primarydiv">
-            <div class="btn-group pull-right" data-ng-hide="center.status.value == 'Closed'">
+    <div>
+        <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
+            <div class="btn-group pull-right">
                 <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
                 <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
                     <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
@@ -39,7 +39,7 @@
                           {{ 'label.button.more' | translate}}
                           <span class="caret"></span>
                       </a>
-                      <ul style='margin-left:-98px;' class="dropdown dropdown-menu">
+                      <ul class="dropdown dropdown-menu dropdown-menu-right">
                           <li>
                               <a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
                                   'label.button.assignstaff' | translate }}</a>
@@ -55,7 +55,7 @@
                           <li>
                               <a href="#/closecenter/{{center.id}}" has-permission='CLOSE_CENTER'>{{ 'label.button.close' | translate }}</a>
                           </li>
-                          <li>
+                          <li data-ng-show="center.status.value=='Active'">
                               <a href="#/attachmeeting/{{center.id}}/centers" data-ng-hide="center.collectionMeetingCalendar" has-permission='CREATE_MEETING'>{{ 'label.button.attachmeeting' | translate }}</a>
                           </li>
                       </ul>
@@ -85,8 +85,8 @@
                 <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
             </div>
         </script>
-        <div class="row-fluid">
-            <div class="span6">
+        <div class="row marginbuttontop16px">
+            <div class="col-sm-6 col-md-6">
                 <div data-ng-show="center.status.value=='Closed'">
                     <h3>{{'label.heading.centerclosed' | translate}}</h3>
                 </div>
@@ -111,8 +111,7 @@
                         <td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
                             <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}"
                                ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="icon-edit icon-white"></i></a>
-                         <span style="margin-left:-7px"
-                               data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+                         <span class="marginleftn7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
                         </td>
                     </tr>
                     <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
@@ -125,7 +124,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="span5">
+            <div class="col-sm-5 col-md-5">
                 <table class="table paddedsummary table-striped">
                     <thead>
                     <tr class="graybg">
@@ -166,8 +165,8 @@
         <br/>
 
         <div data-ng-show="accounts.savingsAccounts">
-            <div class="span gray-head" style="margin-left:0%">
-                  <span style="margin-left: 10px;font-size:20px">
+            <div class="span gray-head">
+                  <span class="boldlabel">
                         <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
                   </span>
             </div>
@@ -197,8 +196,8 @@
     </div>
 </tab>
 <tab heading="{{ 'label.heading.groups' | translate }}">
-    <div class="row-fluid">
-        <div class="row-fluid primarydiv" data-ng-hide="center.status.value == 'Closed'">
+    <div class="col-sm-12 col-md-12">
+        <div class="row primarydiv" data-ng-hide="center.status.value == 'Closed'">
             <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i
                     class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
             <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}"
@@ -206,34 +205,34 @@
                 'label.button.attendance' | translate }}</a>
 
         </div>
+        <table class="table width100">
+            <thead>
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{ 'label.heading.status' | translate }}</th>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="group in center.groupMembers">
+                <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.name}}</td>
+                <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.officeName}}</td>
+                <td class="pointer" data-ng-click="routeToGroup(group.id)"><i
+                        class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{group.status.value}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="table" width="100%">
-        <thead>
-        <th>{{'label.heading.name' | translate}}</th>
-        <th>{{'label.heading.office' | translate}}</th>
-        <th>{{ 'label.heading.status' | translate }}</th>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="group in center.groupMembers">
-            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.name}}</td>
-            <td class="pointer" data-ng-click="routeToGroup(group.id)">{{group.officeName}}</td>
-            <td class="pointer" data-ng-click="routeToGroup(group.id)"><i
-                    class="icon-stop {{group.status.code | StatusLookup}}"></i>{{group.status.value}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </tab>
 <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE'>
     <br/>
 
     <form>
-        <div class="control-group">
-            <div class="controls">
-                <textarea rows="1" class="field span marginbottom0px" id="textarea"
+        <div class="form-group">
+            <div class="col-sm-12 col-md-12">
+                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
                           placeholder="{{ 'label.input.enternote' | translate }}" ng-model="formData.note"></textarea>
 
-                <div class="notewrapper row-fluid">
+                <div class="notewrapper col-md-12">
                         <span class="pull-right noteaddbuttonwrapper">
                             <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_GROUPNOTE'>{{ 'label.button.add' | translate }} </button>
                         </span>
@@ -241,27 +240,28 @@
             </div>
         </div>
     </form>
-    <div ng-repeat="note in notes | orderBy:predicate:reverse">
-        <div>
-            <blockquote>
-                <p>{{note.note}}</p>
-                {{note.id}}
-                <small>{{'label.createdby' | translate}} :&nbsp;{{note.createdByUsername}}</small>
-                <small>{{'label.createdon' | translate}} :&nbsp;{{note.createdOn | DateFormat}}</small>
-            </blockquote>
-        </div>
-    </div>
+	<div class="col-md-12">
+		<br/>
+		<div ng-repeat="note in notes | orderBy:predicate:reverse">
+	        <blockquote>
+	            <p>{{note.note}}</p>
+	            {{note.id}}
+	            <small>{{'label.createdby' | translate}} :&nbsp;{{note.createdByUsername}}</small>
+	            <small>{{'label.createdon' | translate}} :&nbsp;{{note.createdOn | DateFormat}}</small>
+	        </blockquote>
+		</div>
+	</div>
     </ul>
 </tab>
 </tab>
-<tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_DATATABLE' 
+<tab heading="{{centerdatatable.registeredTableName}}" ng-repeat="centerdatatable in centerdatatables" has-permission='READ_{{centerdatatable.registeredTableName}}'
      select="dataTableChange(centerdatatable)">
         <span>
             <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" ng-click="deleteAll(centerdatatable.registeredTableName, center.id)" 
-            has-permission='DELETE_DATATABLE'><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+            has-permission='DELETE_{{centerdatatable.registeredTableName}}'><i class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
             <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-              <a href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}"
-                 class="btn btn-primary" has-permission='CREATE_DATATABLE'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+              <a href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}?fromEntity=center"
+                 class="btn btn-primary" has-permission='CREATE_{{centerdatatable.registeredTableName}}'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
             </span></br>
         </span>
 
@@ -271,22 +271,14 @@
             <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
             </thead>
             <tbody>
-            <tr ng-repeat="data in datatabledetails.data">
-                <td ng-repeat="row in data.row">
-                  <span ng-show="$index == 0">
-                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/{{data.row[0]}}"
-                       ng-show="datatabledetails.isMultirow">{{row}}</a>
-                    <a href="#/viewdatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}/"
-                       ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                  </span>
-                    <span ng-hide="$index == 0">{{row}}</span>
-                </td>
-            </tr>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                    <td ng-repeat="row in data.row track by $index" class="pointer" ng-click="viewDataTable(centerdatatable.registeredTableName,data)">{{row}}</td>
+                </tr>
             </tbody>
         </table>
-        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+        <table class="table table-bordered width450px" data-ng-show="!datatabledetails.isMultirow">
             <tr ng-repeat="value in singleRow">
-                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                <td class="graybg table-font-nav">{{value.key}}</td>
                 <td><span class="padded-td">{{value.value}}</span></td>
             </tr>
         </table>

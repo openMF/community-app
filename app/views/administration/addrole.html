@@ -1,8 +1,8 @@
 <div ng-controller="CreateRoleController">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a> <span class="divider">/</span></li>
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
             <li class="active">{{'label.anchor.addrole' | translate}}</li>
         </ul>
     </div>
@@ -11,29 +11,33 @@
         <fieldset>
             <legend>{{'label.heading.addrole' | translate}}</legend>
 
-            <div class="control-group">
-                <label class="control-label" for="name">{{'label.input.name' | translate}}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
                         class="required">*</span></label>
 
-                <div class="controls">
-                    <input id="name" type="text" name="name" ng-model="formData.name" required late-Validate/>
+                <div class="col-sm-3">
+                    <input id="name" type="text" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="addroleform" valattribute="name"/>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label class="control-label" name="" for="description">{{'label.input.description' | translate}}<span
+            <div class="form-group">
+                <label class="control-label col-sm-2" name="" for="description">{{'label.input.description' | translate}}<span
                         class="required">*</span></label>
 
-                <div class="controls">
+                <div class="col-sm-3">
                     <textarea id="description" type="text" rows="2" name="description" ng-model="formData.description"
-                              required late-Validate></textarea>
+                              class="form-control" required late-Validate></textarea>
+                </div>
+                <div class="col-sm-3">
                     <form-validate valattributeform="addroleform" valattribute="description"/>
                 </div>
             </div>
 
-            <div class="offset3">
-                <a id="cancel" href="#/admin/roles" class="btn">{{'label.button.cancel' | translate}}</a>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/admin/roles" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ROLE'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>
