@@ -12,7 +12,7 @@
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
 
-            resourceFactory.fixedDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges'}, function (data) {
+            resourceFactory.fixedDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges, linkedAccount'}, function (data) {
                 scope.data = data;
                 scope.charges = data.charges || [];
                 if (scope.charges) {
@@ -39,6 +39,10 @@
                 }
                 scope.formData.productId = data.savingsProductId;
                 scope.products = data.productOptions;
+                scope.savingsAccounts = data.savingsAccounts;
+                if (data.linkedAccount) {
+                    scope.formData.linkAccountId = data.linkedAccount.id;
+                }
                 if (data.fieldOfficerId != 0)scope.formData.fieldOfficerId = data.fieldOfficerId;
                 if (data.timeline) {
                     var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
@@ -150,7 +154,7 @@
                     scope.formData.maxDepositTermTypeId = maxDepositTermTypeId;
                     scope.formData.inMultiplesOfDepositTerm = data.inMultiplesOfDepositTerm;
                     scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
-
+                    scope.linkAccountId = data.linkAccountId;
                 });
             }
 
@@ -325,7 +329,7 @@
             removeEmptyValues = function (objArray) {
                 _.each(objArray, function (v, k) {
                     //alert(k + ':' + v);
-                    if (_.isNull(v) || _.isUndefined(v) || v === '') {
+                    if ((_.isNull(v) || _.isUndefined(v) || v === '') && (k != 'linkAccountId')) {
                         //alert('remove' + k + ':' + v);
                         delete objArray[k];
                     }
