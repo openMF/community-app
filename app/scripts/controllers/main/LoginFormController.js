@@ -7,8 +7,16 @@
 
             scope.login = function () {
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
-                delete scope.loginCredentials.password;
+               // delete scope.loginCredentials.password;
             };
+
+            scope.$on("UserAuthenticationFailureEvent", function (event, data) {
+                delete scope.loginCredentials.password;
+            });
+
+            scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
+                delete scope.loginCredentials.password;
+            });
 
             /*This logic is no longer required as enter button is binded with text field for submit.
             $('#pwd').keypress(function (e) {
