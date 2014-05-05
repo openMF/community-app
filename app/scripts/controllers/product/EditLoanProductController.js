@@ -185,11 +185,20 @@
                 if(chargeId){
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
                         data.chargeId = data.id;
+                        data.isMandatory = false;
                         scope.charges.push(data);
                         //to charge select box empty
                         scope.chargeId = '';
                         scope.penalityId = '';
                     });
+                }
+            };
+
+            scope.isChargeMandatory = function (isMandatory, chargeId) {
+                for (var i=0; i<scope.charges.length; i++) {
+                    if (scope.charges[i].chargeId === chargeId) {
+                        scope.charges[i].isMandatory = isMandatory;
+                    }
                 }
             };
 
@@ -349,7 +358,14 @@
 
                 for (var i in scope.charges) {
                     temp = {
-                        id: scope.charges[i].id
+                        id: scope.charges[i].id,
+                        isMandatory: scope.charges[i].isMandatory
+                    }
+                    if (scope.charges[i].productChargeId) {
+                        temp.productChargeId = scope.charges[i].productChargeId;
+                    } else {
+                        temp.productChargeId = '';
+
                     }
                     scope.chargesSelected.push(temp);
                 }
