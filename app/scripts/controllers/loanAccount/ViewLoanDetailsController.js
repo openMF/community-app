@@ -66,6 +66,9 @@
                     case "writeoff":
                         location.path('/loanaccount/' + accountId + '/writeoff');
                         break;
+                    case "recoverypayment":
+                        location.path('/loanaccount/' + accountId + '/recoverypayment');
+                        break;
                     case "close-rescheduled":
                         location.path('/loanaccount/' + accountId + '/close-rescheduled');
                         break;
@@ -307,6 +310,16 @@
                             name: "button.transferFunds",
                             icon: "icon-exchange",
                             taskPermissionName: 'CREATE_ACCOUNTTRANSFER'
+                        }
+                    ]
+                    };
+                }
+                if (data.status.value == "Closed (written off)") {
+                    scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.recoverypayment",
+                            icon: "icon-briefcase",
+                            taskPermissionName: 'RECOVERYPAYMENT_LOAN'
                         }
                     ]
                     };

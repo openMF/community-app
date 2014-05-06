@@ -243,6 +243,22 @@
                     scope.showDateField = false;
                     scope.taskPermissionName = 'UPDATE_DISBURSEMENTDETAIL';
                     break;
+                case "recoverypayment":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'recoverypayment'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date();
+                    });
+                    scope.title = 'label.heading.recoverypayment';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'RECOVERYPAYMENT_LOAN';
+                    break;
             }
 
             scope.cancel = function () {
@@ -258,7 +274,7 @@
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
-                if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close" || scope.action == "modifytransaction") {
+                if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;
