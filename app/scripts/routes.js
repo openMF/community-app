@@ -337,6 +337,9 @@
             .when('/viewdatatableentry/:tableName/:entityId/:resourceId', {
                 templateUrl: 'views/system/viewdatatableentry.html'
             })
+            .when('/viewsingledatatableentry/:tableName/:entityId', {
+                templateUrl: 'views/system/viewdatatableentry.html'
+            })
             .when('/addcode', {
                 templateUrl: 'views/system/addcode.html'
             })

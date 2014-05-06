@@ -24,6 +24,7 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {
                     http({
@@ -201,6 +202,8 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
+                    scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
@@ -230,7 +233,6 @@
                             }
                         }
                     }
-
                 });
             };
 
@@ -265,11 +267,11 @@
             };
 
             scope.viewDataTable = function (registeredTableName,data){
-                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/";
                 if (scope.datatabledetails.isMultirow) {
-                    locationURI = locationURI + data.row[0];
-                };
-                location.path(locationURI);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/"+data.row[0]);
+                }else{
+                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.client.id);
+                }
             };
 
             scope.downloadDocument = function (documentId) {

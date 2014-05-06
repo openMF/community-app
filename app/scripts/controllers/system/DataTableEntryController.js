@@ -2,13 +2,22 @@
     mifosX.controllers = _.extend(module, {
         DataTableEntryController: function (scope, location, routeParams, route, resourceFactory, $modal, dateFilter) {
 
-            scope.tableName = routeParams.tableName;
-            scope.entityId = routeParams.entityId;
-            scope.resourceId = routeParams.resourceId;
+            if (routeParams.tableName) {
+                scope.tableName = routeParams.tableName;
+            }
+            if (routeParams.entityId) {
+                scope.entityId = routeParams.entityId;
+            }
+            if (routeParams.resourceId) {
+                scope.resourceId = routeParams.resourceId;
+            }
             scope.formDat = {};
             scope.columnHeaders = [];
             scope.formData = {};
             scope.isViewMode = true;
+            if(routeParams.mode && routeParams.mode == 'edit'){
+                scope.isViewMode = false;
+            }
 
             var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
             if (scope.resourceId) {
@@ -39,6 +48,10 @@
                     }
                 }
                 scope.columnHeaders = data.columnHeaders;
+
+                if(routeParams.mode && routeParams.mode == 'edit'){
+                    scope.editDatatableEntry();
+                }
             });
 
             //return input type
@@ -119,7 +132,12 @@
             };
 
             scope.cancel = function () {
-                route.reload();
+                if(routeParams.mode){
+                    window.history.back();
+                } else{
+                    route.reload();
+                }
+
             };
 
             scope.submit = function () {

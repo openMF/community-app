@@ -735,31 +735,31 @@
 <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
      select="dataTableChange(loandatatable)">
     <div>
-            <span data-ng-show="choice">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_{{loandatatable.registeredTableName}}'
-                   ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i
-                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-                <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?fromEntity=loan" has-permission='CREATE_{{loandatatable.registeredTableName}}'
-                     class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                </span></br>
-            </span>
-
+        <div data-ng-show="choice" class="btn-group pull-right">
+            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+               has-permission='DELETE_{{loandatatable.registeredTableName}}'
+               ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i
+                    class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+            <a data-ng-show="showDataTableAddButton"
+               href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?fromEntity=loan"
+               has-permission='CREATE_{{loandatatable.registeredTableName}}' class="btn btn-primary"><i
+                    class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+            <a data-ng-show="showDataTableEditButton"
+               ng-href="#/viewsingledatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?mode=edit"
+               class="btn btn-primary" has-permission='UPDATE_{{loandatatable.registeredTableName}}'><i
+                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+        </div>
+        <br>
+        <br>
         <div ng-show="datatabledetails.isData">
             <table data-ng-show="datatabledetails.isMultirow" class="table">
                 <thead>
                 <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
                 </thead>
                 <tbody>
-                <tr ng-repeat="data in datatabledetails.data">
-                    <td ng-repeat="row in data.row">
-                          <span ng-show="$index == 0">
-                            <a href="#/viewdatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}/{{data.row[0]}}"
-                               ng-show="datatabledetails.isMultirow">{{row}}</a>
-                            <a href="#/viewdatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}/"
-                               ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                          </span>
-                        <span ng-hide="$index == 0">{{row}}</span>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                    <td class="pointer" ng-repeat="row in data.row track by $index"
+                        ng-click="viewDataTable(loandatatable.registeredTableName,data)">{{row}}
                     </td>
                 </tr>
                 </tbody>
