@@ -256,45 +256,45 @@
                 </tab>
                 <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
                      select="dataTableChange(savingdatatable)">
-                    <span data-ng-show="choice">
-                        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_{{savingdatatable.registeredTableName}}'
+                    <div data-ng-show="choice" class="btn-group pull-right">
+                        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                           has-permission='DELETE_{{savingdatatable.registeredTableName}}'
                            ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
                                 class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-                        <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                          <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=savings"
-                             class="btn btn-primary" has-permission='CREATE_{{savingdatatable.registeredTableName}}'><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                        </span></br>
-                    </span>
-
+                        <a data-ng-show="showDataTableAddButton"
+                           href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=savings"
+                           class="btn btn-primary" has-permission='CREATE_{{savingdatatable.registeredTableName}}'><i
+                                class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                        <a data-ng-show="showDataTableEditButton"
+                           ng-href="#/viewsingledatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?mode=edit"
+                           class="btn btn-primary" has-permission='UPDATE_{{savingdatatable.registeredTableName}}'><i
+                                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                    </div>
+                    <br>
+                    <br>
                     <div data-ng-show="datatabledetails.isData">
                         <table ng-show="datatabledetails.isMultirow" class="table">
                             <thead>
                             <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="data in datatabledetails.data">
-                                <td ng-repeat="row in data.row">
-                                          <span ng-show="$index == 0">
-                                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/{{data.row[0]}}"
-                                               ng-show="datatabledetails.isMultirow">{{row}}</a>
-                                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/"
-                                               ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                                          </span>
-                                    <span ng-hide="$index == 0">{{row}}</span>
+                            <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                                <td class="pointer" ng-repeat="row in data.row track by $index"
+                                    ng-click="viewDataTable(savingdatatable.registeredTableName,data)">{{row}}
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
+                        <table class="table table-bordered width450px" data-ng-hide="datatabledetails.isMultirow">
                             <tr ng-repeat="value in singleRow">
-                                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
+                                <td class="graybg table-font-nav">{{value.key}}</td>
                                 <td><span class="padded-td">{{value.value}}</span></td>
                             </tr>
                         </table>
                     </div>
                 </tab>
                 <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
-                    <table class="table" width="100%">
+                    <table class="table width100">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
                             <th>{{'label.heading.feeorpenalty' | translate}}</th>

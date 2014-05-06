@@ -407,25 +407,36 @@
 <tab heading="{{groupdatatable.registeredTableName}}" ng-repeat="groupdatatable in groupdatatables" has-permission='READ_{{groupdatatable.registeredTableName}}'
      select="dataTableChange(groupdatatable)">
     <div>
-        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right" has-permission='DELETE_{{groupdatatable.registeredTableName}}'
-           ng-click="deleteAll(groupdatatable.registeredTableName, group.id)"><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
-            | translate}}</a>
-                  <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                    <a href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group" has-permission='CREATE_{{groupdatatable.registeredTableName}}'
-                       class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                  </span></br>
+        <div data-ng-hide="isClosedGroup" class="btn-group pull-right">
+            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+               ng-click="deleteAll(groupdatatable.registeredTableName, group.id)" has-permission='DELETE_{{groupdatatable.registeredTableName}}'><i
+                    class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+            <a data-ng-show="showDataTableAddButton"
+               ng-href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group"
+               class="btn btn-primary" has-permission='CREATE_{{groupdatatable.registeredTableName}}'><i
+                    class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+            <a data-ng-show="showDataTableEditButton"
+               ng-href="#/viewsingledatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?mode=edit"
+               class="btn btn-primary" has-permission='UPDATE_{{groupdatatable.registeredTableName}}'><i
+                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+        </div>
+        <br>
+        <br>
+
         <div ng-show="datatabledetails.isData">
             <table class="table" data-ng-show="datatabledetails.isMultirow">
                 <thead>
                 <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
                 </thead>
                 <tbody>
-                    <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
-                        <td ng-repeat="row in data.row track by $index" class="pointer" ng-click="viewDataTable(groupdatatable.registeredTableName,data)">{{row}}</td>
-                    </tr>
+                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                    <td class="pointer" ng-repeat="row in data.row track by $index"
+                        ng-click="viewDataTable(groupdatatable.registeredTableName,data)">{{row}}
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered width450px" data-ng-show="!datatabledetails.isMultirow">
+            <table class="table table-bordered width450px" data-ng-hide="datatabledetails.isMultirow">
                 <tr ng-repeat="value in singleRow">
                     <td class="graybg table-font-nav">{{value.key}}</td>
                     <td><span class="padded-td">{{value.value}}</span></td>

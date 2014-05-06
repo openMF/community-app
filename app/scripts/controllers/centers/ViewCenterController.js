@@ -6,6 +6,7 @@
             scope.formData = {};
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
+                scope.isClosedCenter = scope.center.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 scope.meeting = data.collectionMeetingCalendar;
             });
@@ -72,13 +73,12 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_center'}, function (data) {
                 scope.centerdatatables = data;
             });
-
             scope.viewDataTable = function (registeredTableName,data){
-                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.center.id+"/";
                 if (scope.datatabledetails.isMultirow) {
-                    locationURI = locationURI + data.row[0];
-                };
-                location.path(locationURI);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.center.id+"/"+data.row[0]);
+                }else{
+                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.center.id);
+                }
             };
 
             scope.dataTableChange = function (datatable) {
@@ -86,6 +86,8 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
+                    scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
