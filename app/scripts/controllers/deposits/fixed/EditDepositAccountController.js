@@ -97,7 +97,11 @@
                 scope.formData.maxDepositTermTypeId = maxDepositTermTypeId;
                 scope.formData.inMultiplesOfDepositTerm = data.inMultiplesOfDepositTerm;
                 scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
-
+                if(data.transferInterestToSavings) {
+                    scope.formData.transferInterestToSavings = 'true';
+                }else{
+                    scope.formData.transferInterestToSavings = 'false';
+                }
             });
 
             scope.changeProduct = function () {
