@@ -6,7 +6,7 @@
             scope.isAccrualAccountingEnabled = false;
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
-                if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || ata.accountingRule.id == 4) {
+                if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccountingEnabled = true;
                 }
 
