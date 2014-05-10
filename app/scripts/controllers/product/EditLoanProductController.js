@@ -110,32 +110,7 @@
                 });
 
                 scope.setFlag();
-                if (scope.formData.accountingRule == 1) {
-                    if (scope.assetAccountOptions.length > 0) {
-                        scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
-                    }
-                    if (scope.assetAccountOptions.length > 1) {
-                        scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
-                    }
-                    if (scope.assetAccountOptions.length > 2) {
-                        scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 0) {
-                        scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 1) {
-                        scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 2) {
-                        scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
-                    }
-                    if (scope.expenseAccountOptions.length > 0) {
-                        scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
-                    }
-                    if (scope.liabilityOptions.length > 0) {
-                        scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
-                    }
-                } else {
+                if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {
                     scope.formData.fundSourceAccountId = scope.product.accountingMappings.fundSourceAccount.id;
                     scope.formData.loanPortfolioAccountId = scope.product.accountingMappings.loanPortfolioAccount.id;
                     if (scope.formData.accountingRule == 3 || scope.formData.accountingRule == 4) {

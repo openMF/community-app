@@ -23,16 +23,20 @@
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
             };
-            scope.approveChecker = function () {
+            scope.approveOrRejectChecker = function (action) {
                 if (scope.checkData) {
                     $modal.open({
                         templateUrl: 'approvechecker.html',
-                        controller: CheckerApproveCtrl
+                        controller: CheckerApproveCtrl,
+                        resolve: {
+                            action: function () {
+                                return action;
+                            }
+                        }
                     });
                 }
             };
-            var CheckerApproveCtrl = function ($scope, $modalInstance) {
-
+            var CheckerApproveCtrl = function ($scope, $modalInstance, action) {
                 $scope.approve = function () {
                     var totalApprove = 0;
                     var approveCount = 0;
@@ -44,7 +48,7 @@
                     _.each(scope.checkData, function (value, key) {
                         if (value == true) {
 
-                            resourceFactory.checkerInboxResource.save({templateResource: key, command: 'approve'}, {}, function (data) {
+                            resourceFactory.checkerInboxResource.save({templateResource: key, command: action}, {}, function (data) {
                                 approveCount++;
                                 if (approveCount == totalApprove) {
                                     scope.search();
@@ -209,7 +213,7 @@
 
                         var finalArray = [];
                         for (var i in scope.offices) {
-                            if (scope.offices[i].loans.length > 0) {
+                            if (scope.offices[i].loans && scope.offices[i].loans.length > 0) {
                                 finalArray.push(scope.offices[i]);
                             }
                         }

@@ -11,16 +11,20 @@
                     scope.jsondata.push({name: key, property: value});
                 });
             });
-            scope.checkerApprove = function () {
+            scope.approveOrRejectChecker = function (action) {
                 $modal.open({
                     templateUrl: 'approve.html',
-                    controller: ApproveCtrl
+                    controller: ApproveCtrl,
+                    resolve: {
+                        action: function () {
+                            return action;
+                        }
+                    }
                 });
             };
-            var ApproveCtrl = function ($scope, $modalInstance) {
-
+            var ApproveCtrl = function ($scope, $modalInstance, action) {
                 $scope.approve = function () {
-                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: 'approve'}, {}, function (data) {
+                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
                         $modalInstance.close('approve');
                         location.path('/checkeractionperformed');
                     });
