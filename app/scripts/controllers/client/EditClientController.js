@@ -33,7 +33,9 @@
                 }
 
                 var actDate = dateFilter(data.activationDate, scope.df);
+                var subDate = dateFilter(data.submittedOnDate, scope.df);
                 scope.date.activationDate = new Date(actDate);
+                scope.date.submittedOnDate = new Date(subDate);
                 if (data.active) {
                     scope.choice = 1;
                     scope.showSavingOptions = 'false';
@@ -46,6 +48,9 @@
                 this.formData.dateFormat = scope.df;
                 if (scope.opensavingsproduct == 'false') {
                     this.formData.savingsProductId = null;
+                }
+                if (scope.date.submittedOnDate) {
+                    this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate, scope.df);
                 }
                 if (scope.choice === 1) {
                     if (scope.date.activationDate) {
