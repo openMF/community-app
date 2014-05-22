@@ -63,6 +63,8 @@
                     location.path('/viewloanaccount/' + routeParams.entityId).search({});
                 } else if (scope.fromEntity == 'savings') {                    
                     location.path('/viewsavingaccount/' + routeParams.entityId).search({});
+                } else if (scope.fromEntity == 'office') {
+                    location.path('/viewoffice/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
