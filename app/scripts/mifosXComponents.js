@@ -206,7 +206,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UrlToString',
             'sort',
             'DotRemove',
-            'FormatNumber'
+            'FormatNumber',
+            'TranslateDataTableColumn'
         ],
         directives: [
             'DialogDirective',
