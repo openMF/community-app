@@ -77,7 +77,7 @@
                 }
 
                 colName = scope.columnHeaders[0].columnName;
-                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+                if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id' || colName == 'appuser_id') {
                     scope.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
@@ -119,6 +119,8 @@
                             } else {
                                 destination = '/viewgroup/' + data.groupId;
                             }
+                        } else if (data.userId) {
+                            destination = '/viewuser/' + data.userId;
                         } else if (data.officeId) {
                             destination = '/viewoffice/' + data.officeId;
                         }
@@ -168,6 +170,8 @@
                         } else {
                             destination = '/viewgroup/' + data.groupId;
                         }
+                    } else if (data.userId) {
+                        destination = '/viewuser/' + data.userId;
                     } else if (data.officeId) {
                         destination = '/viewoffice/' + data.officeId;
                     }
