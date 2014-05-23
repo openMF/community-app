@@ -4,9 +4,17 @@
         <li class="active">{{'label.anchor.viewcheckerinbox' | translate}}</li>
     </ul>
     <div class="pull-right form-group">
-        <button type="button" class="btn btn-success" has-permission='ALL_FUNCTIONS' data-ng-click="approveOrRejectChecker('approve')"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
-        <button type="button" class="btn btn-warning" has-permission='ALL_FUNCTIONS' data-ng-click="checkerDelete()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
-        <button type="button" class="btn btn-primary" has-permission='ALL_FUNCTIONS' data-ng-click="approveOrRejectChecker('reject')"><i class="icon-remove"></i>{{'label.button.reject' | translate}}</button>
+        <button type="button" class="btn btn-success" has-permission='ALL_FUNCTIONS'
+                data-ng-click="approveOrRejectChecker('approve')"><i class="icon-ok"></i>{{'label.button.approve' |
+            translate}}
+        </button>
+        <button type="button" class="btn btn-warning" has-permission='ALL_FUNCTIONS' data-ng-click="checkerDelete()"><i
+                class="icon-trash"></i>{{'label.button.delete' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" has-permission='ALL_FUNCTIONS'
+                data-ng-click="approveOrRejectChecker('reject')"><i class="icon-remove"></i>{{'label.button.reject' |
+            translate}}
+        </button>
     </div>
 
     <h3 class="paddedleft bolder">{{'label.heading.viewcheckerinbox' | translate}}</h3>
@@ -19,7 +27,7 @@
             </tr>
             <tr>
                 <td><strong>{{ 'label.heading.status' | translate }}:</strong></td>
-                <td>{{details.processingResult}}</td>
+                <td>{{details.processingResult | translate}}</td>
             </tr>
             <tr>
                 <td><strong>{{ 'label.heading.user' | translate }}:</strong></td>
@@ -78,8 +86,8 @@
         </div>
     </script>
     <hr/>
-    <div scroll>
-        <table class="table" data-ng-show="details.commandAsJson" data-anchor>
+    <div data-ng-show="template==='DEFAULTTEMPLATE'">
+        <table class="table full-width" data-ng-show="details.commandAsJson" data-anchor>
             <thead>
             <tr class="graybg">
                 <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.heading.command' | translate }}</th>
@@ -90,6 +98,66 @@
             <tr data-ng-repeat="json in jsondata">
                 <td class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name}}</strong></td>
                 <td class="width80">{{json.property}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div data-ng-show="template==='CLIENTTEMPLATE'">
+        <table class="table" data-ng-show="details.commandAsJson" data-anchor>
+            <thead>
+            <tr class="graybg">
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.heading.command' | translate }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-show="client.office">
+                <td class="width20"><strong>{{ 'label.input.office' | translate }}</strong></td>
+                <td class="width80">{{client.office}}</td>
+            </tr>
+            <tr data-ng-show="client.staff">
+                <td class="width20"><strong>{{ 'label.input.staff' | translate }}</strong></td>
+                <td class="width80">{{client.staff.lastname}}, {{client.staff.firstname}}</td>
+            </tr>
+            <tr data-ng-show="client.firstName">
+                <td class="width20"><strong>{{'label.input.firstname' | translate}}</strong></td>
+                <td class="width80">{{client.firstName}}</td>
+            </tr>
+            <tr data-ng-show="client.middleName">
+                <td class="width20"><strong>{{'label.input.middlename' | translate}}</strong></td>
+                <td class="width80">{{client.middleName}}</td>
+            </tr>
+            <tr data-ng-show="client.lastName">
+                <td class="width20"><strong>{{'label.input.lastname' | translate}}</strong></td>
+                <td class="width80">{{client.lastName}}</td>
+            </tr>
+            <tr data-ng-show="client.mobileNo">
+                <td class="width20"><strong>{{ 'label.input.mobilenumber' | translate }}</strong></td>
+                <td class="width80">{{client.mobileNo}}</td>
+            </tr>
+            <tr data-ng-show="client.dateOfBirth">
+                <td class="width20"><strong>{{ 'label.input.dateofbirth' | translate }}</strong></td>
+                <td class="width80">{{client.dateOfBirth | date}}</td>
+            </tr>
+            <tr data-ng-show="client.gender">
+                <td class="width20"><strong>{{ 'label.input.gender' | translate }}</strong></td>
+                <td class="width80">{{client.gender.name}}</td>
+            </tr>
+            <tr data-ng-show="client.externalId">
+                <td class="width20"><strong>{{ 'label.input.externalid' | translate }}</strong></td>
+                <td class="width80">{{client.externalId}}</td>
+            </tr>
+            <tr data-ng-show="client.active">
+                <td class="width20"><strong>{{ 'label.input.active' | translate }}</strong></td>
+                <td class="width80">{{client.active}}</td>
+            </tr>
+            <tr data-ng-show="client.activationDate">
+                <td class="width20"><strong>{{ 'label.input.activationdate' | translate }}</strong></td>
+                <td class="width80">{{client.activationDate | date}}</td>
+            </tr>
+            <tr data-ng-show="client.submittedOnDate">
+                <td class="width20"><strong>{{ 'label.input.submittedon' | translate }}</strong></td>
+                <td class="width80">{{client.submittedOnDate | date}}</td>
             </tr>
             </tbody>
         </table>
