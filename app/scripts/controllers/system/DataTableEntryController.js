@@ -27,20 +27,16 @@
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 for (var i in data.columnHeaders) {
                     if (data.columnHeaders[i].columnCode) {
-                        if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
-                            var temp = data.columnHeaders[i].columnName.split("_cd_");
-                            data.columnHeaders[i].code = temp[0];
-                            data.columnHeaders[i].columnName = temp[1];
-                            data.columnHeaders[i].codeType = "_cd_";
-                        } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
-                            var temp = data.columnHeaders[i].columnName.split("_cv_");
-                            data.columnHeaders[i].code = temp[0];
-                            data.columnHeaders[i].columnName = temp[1];
-                            data.columnHeaders[i].codeType = "_cv_";
-                        }
+                        //logic for display codeValue instead of codeId in view datatable details
                         for (var j in data.columnHeaders[i].columnValues) {
-                            if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
-                                data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
+                            if(data.columnHeaders[i].columnDisplayType=='CODELOOKUP'){
+                                if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
+                                    data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
+                                }
+                            } else if(data.columnHeaders[i].columnDisplayType=='CODEVALUE'){
+                                if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].value) {
+                                    data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
+                                }
                             }
                         }
                     } else {
@@ -48,7 +44,6 @@
                     }
                 }
                 scope.columnHeaders = data.columnHeaders;
-
                 if(routeParams.mode && routeParams.mode == 'edit'){
                     scope.editDatatableEntry();
                 }
@@ -81,6 +76,7 @@
                     scope.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
+
                 for (var i in scope.columnHeaders) {
 
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
@@ -91,7 +87,11 @@
                     if (scope.columnHeaders[i].columnCode) {
                         for (var j in scope.columnHeaders[i].columnValues) {
                             if (scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
-                                scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].id;
+                                if(scope.columnHeaders[i].columnDisplayType=='CODELOOKUP'){
+                                    scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].id;
+                                } else if(scope.columnHeaders[i].columnDisplayType=='CODEVALUE'){
+                                    scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].value;
+                                }
                             }
                         }
                     }
@@ -149,9 +149,6 @@
                     }
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], scope.df);
-                    } else if (scope.columnHeaders[i].columnDisplayType == 'CODELOOKUP' || scope.columnHeaders[i].columnDisplayType == 'CODEVALUE') {
-                        this.formData[scope.columnHeaders[i].code+scope.columnHeaders[i].codeType+scope.columnHeaders[i].columnName]=this.formData[scope.columnHeaders[i].columnName];
-                        delete scope.formData[scope.columnHeaders[i].columnName];
                     };
                 }
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
