@@ -4,7 +4,7 @@
             scope.first = {};
             scope.managecode = routeParams.managecode;
             scope.restrictDate = new Date();
-            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
+            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.editGroup = data;
                 scope.formData = {
                     name: data.name,

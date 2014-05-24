@@ -31,6 +31,8 @@
                 scope.inparams.templateType = 'individual';
             }
 
+            scope.inparams.staffInSelectedOfficeOnly = true;
+
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
                 if (data.clientName) {

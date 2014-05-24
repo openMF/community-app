@@ -7,7 +7,7 @@
             scope.accountId = routeParams.id;
             scope.charges = [];
             scope.restrictDate = new Date();
-            resourceFactory.savingsResource.get({accountId: scope.accountId, template: 'true', associations: 'charges'}, function (data) {
+            resourceFactory.savingsResource.get({accountId: scope.accountId, template: 'true', associations: 'charges',staffInSelectedOfficeOnly:'true'}, function (data) {
                 scope.data = data;
                 scope.charges = data.charges || [];
                 if (scope.charges) {

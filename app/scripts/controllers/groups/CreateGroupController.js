@@ -13,7 +13,7 @@
             scope.added = [];
             scope.formData = {};
             scope.formData.clientMembers = [];
-            resourceFactory.groupTemplateResource.get({orderBy: 'name', sortOrder: 'ASC'}, function (data) {
+            resourceFactory.groupTemplateResource.get({orderBy: 'name', sortOrder: 'ASC',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
@@ -47,7 +47,7 @@
             };
             scope.changeOffice = function (officeId) {
                 scope.addedClients = [];
-                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId
+                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });

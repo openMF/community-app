@@ -8,7 +8,7 @@
             scope.clientId = routeParams.id;
             scope.showSavingOptions = 'false';
             scope.opensavingsproduct = 'false';
-            resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'}, function (data) {
+            resourceFactory.clientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;

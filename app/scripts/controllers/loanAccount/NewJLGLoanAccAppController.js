@@ -8,6 +8,7 @@
             scope.restrictDate = new Date();
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
+            scope.staffInSelectedOfficeOnly = true;
             scope.inparams = { resourceType: 'template', templateType: 'jlgbulk', lendingStrategy: 300 };
 
             if (scope.groupId) {
