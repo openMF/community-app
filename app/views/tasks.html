@@ -1,6 +1,7 @@
 <div class="row" ng-controller="TaskController">
 <fieldset>
 <legend>{{'label.heading.pendingtasks' | translate}}</legend>
+<api-validate></api-validate>
 <tabset>
 <tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' >
     <div class="head-affix">
@@ -10,14 +11,14 @@
                     <span class="input-append grpinputicons">
                         <input ng-autofocus="true" autocomplete="off" typeahead-on-select="viewUser($item)" placeholder="{{'label.input.searchbyuser' | translate}}" type="text" ng-model="user" typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8" class="form-control">
                         <button type="button" ng-click="isCollapsed = !isCollapsed" class="btn control btn-default"><i class="icon-chevron-down"></i></button>
-                        <button type="button" ng-click="search()" has-permission='CHECKER_SUPER_USER' class="btn btn-primary control"><i class="icon-search icon-white"></i></button>
+                        <button type="button" ng-click="search()" class="btn btn-primary control"><i class="icon-search icon-white"></i></button>
                     </span>
                 </div>
                 <div class="form-group">
                     <span>
-                        <button type="button" class="btn btn-success" has-permission='CHECKER_SUPER_USER' data-ng-click="approveOrRejectChecker('approve')"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
-                        <button type="button" class="btn btn-danger" has-permission='CHECKER_SUPER_USER' data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
-                        <button type="button" class="btn btn-warning" has-permission='CHECKER_SUPER_USER' data-ng-click="approveOrRejectChecker('reject')"><i class="icon-remove"></i>{{'label.button.reject' | translate}}</button>
+                        <button type="button" class="btn btn-success" data-ng-click="approveOrRejectChecker('approve')"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
+                        <button type="button" class="btn btn-warning" data-ng-click="approveOrRejectChecker('reject')"><i class="icon-remove"></i>{{'label.button.reject' | translate}}</button>
                     </span>
                 </div>
             </div>
@@ -60,7 +61,7 @@
                        ng-model="formData.resourceId" class="form-control">
             </div>
         </div>
-        <span><a ng-click="search()" has-permission='CHECKER_SUPER_USER' class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.advancesearch'
+        <span><a ng-click="search()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.advancesearch'
             | translate}}</a>
             <br/><br/>
         </span>
