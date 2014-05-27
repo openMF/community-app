@@ -45,7 +45,9 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="well">
+<tabset class="overflowhidden marginbottom0">
+    <tab heading="{{'label.heading.general' | translate}}">
+        <div class="col-md-12 col-sm-12">
         <div class="pull-right">
             <div class="btn-group">
                 <a href="#/edituser/{{user.id}}" class="btn btn-primary" has-permission='UPDATE_USER'><i class="icon-edit icon-white"></i>
@@ -58,8 +60,8 @@
                 </button>
             </div>
         </div>
-        <h3><strong>{{user.firstname}}&nbsp;{{user.lastname}}</strong></h3>
-        <table width="100%">
+            <h3><strong>{{user.firstname}}&nbsp;{{user.lastname}}</strong></h3>
+            <table width="100%">
             <tr>
                 <td width="20%">{{'label.heading.loginname' | translate}}:</td>
                 <td width="80%">{{user.username}}</td>
@@ -96,7 +98,51 @@
                     </table>
                 </td>
             </tr>
+
         </table>
+        </div>
+        </tab>
+    <tab heading="{{userdatatable.registeredTableName}}" ng-repeat="userdatatable in userdatatables"
+         select="dataTableChange(userdatatable)" has-permission='READ_{{userdatatable.registeredTableName}}'>
+        <div>
+            <div class="btn-group pull-right">
+                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+                   ng-click="deleteAll(userdatatable.registeredTableName, user.id)" has-permission='DELETE_{{userdatatable.registeredTableName}}'><i
+                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                <a data-ng-show="showDataTableAddButton"
+                   ng-href="#/makedatatableentry/{{userdatatable.registeredTableName}}/{{user.id}}?fromEntity=user"
+                   class="btn btn-primary" has-permission='CREATE_{{userdatatable.registeredTableName}}'><i
+                        class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                <a data-ng-show="showDataTableEditButton"
+                   ng-href="#/viewsingledatatableentry/{{userdatatable.registeredTableName}}/{{user.id}}?mode=edit"
+                   class="btn btn-primary" has-permission='UPDATE_{{userdatatable.registeredTableName}}'><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+            </div>
+            <br>
+            <br>
+            <div ng-show="datatabledetails.isData">
+                <table class="table" data-ng-show="datatabledetails.isMultirow">
+                    <thead>
+                    <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+                        <td class="pointer" ng-repeat="row in data.row track by $index"
+                            ng-click="viewDataTable(userdatatable.registeredTableName,data)">{{row}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered width450px" data-ng-hide="datatabledetails.isMultirow">
+                    <tr ng-repeat="value in singleRow">
+                        <td class="graybg table-font-nav">{{value.key}}</td>
+                        <td><span class="padded-td">{{value.value}}</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </tab>
+    </tabset>
     </div>
 </div>
           
