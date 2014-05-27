@@ -1,0 +1,48 @@
+<div class="row">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.officeglaccount' | translate}}</li>
+    </ul>
+</div>
+<div class="pull-right">
+    <a href="#/createofficeglmapping" class="btn btn-primary" has-permission='CREATE_OFFICEGLACCOUNT'><i class="icon-plus icon-white"></i> {{"label.button.addofficeglaccount" |
+        translate}}</a>
+</div>
+
+<div class="row" ng-controller="AccOGMController">
+    <api-validate></api-validate>
+    <h3 class="bolder">{{'label.heading.officeglaccounts' | translate}}</h3>
+
+    <div>
+        <input ng-model="filterText" type="text" class="form-control marginbottom0px"
+               placeholder="{{'label.input.filterbyAccountGlcodeOffice' | translate}}">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.account' | translate}}</th>
+                <th>{{'label.heading.glcode' | translate}}</th>
+                <th>{{'label.heading.officeName' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="mappingData in mappingDatas.currentPageItems | orderBy:'officeData.name' | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(mappingData.id)">
+                    {{mappingData.glAccountData.name}}
+                </td>
+                <td class="pointer" data-ng-click="routeTo(mappingData.id)">
+                    {{mappingData.glAccountData.glCode}}
+                </td>
+                <td class="pointer" data-ng-click="routeTo(mappingData.id)">{{mappingData.officeData.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="mappingDatas.previous()" href=""
+                                    ng-disabled="!mappingDatas.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="mappingDatas.next()" href="" ng-disabled="!mappingDatas.hasNext()">{{'label.button.next'
+                | translate}}</a></li>
+        </ul>
+    </div>
+
+</div>

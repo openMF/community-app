@@ -196,7 +196,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/ExpertSearchController',
             'main/ProfileController',
             'main/ViewMakerCheckerTaskController',
-            'main/AdHocQuerySearchController'
+            'main/AdHocQuerySearchController',
+            'accounting/AccOGMController',
+            'accounting/AccCreateOfficeGLAccountController',
+            'accounting/AccEditOfficeGLAccountController',
+            'accounting/AccViewOfficeGLAccountController'
         ],
         filters: [
             'StatusLookup',
