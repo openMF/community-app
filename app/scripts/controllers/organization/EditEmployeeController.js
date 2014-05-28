@@ -11,7 +11,8 @@
                     lastname: data.lastname,
                     isLoanOfficer: data.isLoanOfficer,
                     officeId: data.officeId,
-                    mobileNo: data.mobileNo
+                    mobileNo: data.mobileNo,
+                    isActive: data.isActive
                 };
 
             });

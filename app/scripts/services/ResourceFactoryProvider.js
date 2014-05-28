@@ -182,7 +182,7 @@
                     userTemplateResource: defineResource(apiVer + "/users/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId: '@staffId'}, {
+                    employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId: '@staffId',status:"all"}, {
                         getAllEmployees: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),
