@@ -25,6 +25,8 @@
             }
             ;
 
+            scope.inparams.staffInSelectedOfficeOnly = true;
+            
             resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
                 scope.chargeOptions = data.chargeOptions;

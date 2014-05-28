@@ -8,7 +8,7 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.first.date = new Date();
-            resourceFactory.centerTemplateResource.get(function (data) {
+            resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
@@ -16,7 +16,7 @@
             });
 
             scope.changeOffice = function () {
-                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: scope.formData.officeId
+                resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });

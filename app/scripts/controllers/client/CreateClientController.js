@@ -10,7 +10,7 @@
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
-            resourceFactory.clientTemplateResource.get(function (data) {
+            resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.formData.officeId = scope.offices[0].id;
@@ -22,7 +22,7 @@
             });
 
             scope.changeOffice = function (officeId) {
-                resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId
+                resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.savingproducts = data.savingProductOptions;

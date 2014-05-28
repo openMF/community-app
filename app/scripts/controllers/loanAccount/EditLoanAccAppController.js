@@ -9,7 +9,7 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
 
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails'}, function (data) {
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -61,6 +61,8 @@
                 if (scope.groupId) {
                     inparams.groupId = scope.groupId;
                 }
+
+                inparams.staffInSelectedOfficeOnly = true;
 
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
