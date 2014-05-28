@@ -22,7 +22,6 @@
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                var interestFreePeriodFrequencyTypeId = (_.isNull(data.interestFreePeriodFrequencyType) || _.isUndefined(data.interestFreePeriodFrequencyType)) ? '' : data.interestFreePeriodFrequencyType.id;
                 var preClosurePenalInterestOnTypeId = (_.isNull(data.preClosurePenalInterestOnType) || _.isUndefined(data.preClosurePenalInterestOnType)) ? '' : data.preClosurePenalInterestOnType.id;
                 var minDepositTermTypeId = (_.isNull(data.minDepositTermType) || _.isUndefined(data.minDepositTermType)) ? '' : data.minDepositTermType.id;
                 var maxDepositTermTypeId = (_.isNull(data.maxDepositTermType) || _.isUndefined(data.maxDepositTermType)) ? '' : data.maxDepositTermType.id;
@@ -45,22 +44,18 @@
                     interestCalculationType: data.interestCalculationType.id,
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
-                    interestFreePeriodApplicable: data.interestFreePeriodApplicable,
-                    interestFreeFromPeriod: data.interestFreeFromPeriod,
-                    interestFreeToPeriod: data.interestFreeToPeriod,
-                    interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
                     preClosurePenalApplicable: data.preClosurePenalApplicable,
                     preClosurePenalInterest: data.preClosurePenalInterest,
                     preClosurePenalInterestOnTypeId: preClosurePenalInterestOnTypeId,
-                    recurringDepositTypeId: data.recurringDepositType.id,
-                    recurringDepositFrequencyTypeId: data.recurringDepositFrequencyType.id,
-                    recurringDepositFrequency: data.recurringDepositFrequency,
                     minDepositTerm: data.minDepositTerm,
                     maxDepositTerm: data.maxDepositTerm,
                     minDepositTermTypeId: minDepositTermTypeId,
                     maxDepositTermTypeId: maxDepositTermTypeId,
                     inMultiplesOfDepositTerm: data.inMultiplesOfDepositTerm,
-                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId
+                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId,
+                    isMandatoryDeposit:data.isMandatoryDeposit,
+                    allowWithdrawal:data.allowWithdrawal,
+                    adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments
                 }
 
                 scope.chart = scope.product.activeChart;
@@ -359,6 +354,9 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
+                    interestRateForFemale: chartSlab.interestRateForFemale,
+                    interestRateForChildren: chartSlab.interestRateForChildren,
+                    interestRateForSeniorCitizen: chartSlab.interestRateForSeniorCitizen,
                     locale: scope.optlang.code
                 }
 

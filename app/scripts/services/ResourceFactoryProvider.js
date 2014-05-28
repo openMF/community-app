@@ -136,7 +136,7 @@
                         update: {method: 'PUT', params: {}}
                     }),
                     interestRateChartResource: defineResource(apiVer + "/interestratecharts/:chartId/:resourceType", {chartId:'@chartId', resourceType:'@resourceType'}, {
-                        getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template'} , isArray:true},
+                        getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template', associations:'@chartSlabs'} , isArray:true},
                         update: {method: 'PUT', params: {}},
                         getAllInterestRateCharts: {method: 'GET', params: {productId:'@productId'}, isArray:true}
                     }),

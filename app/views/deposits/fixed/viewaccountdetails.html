@@ -37,162 +37,135 @@
         </div>
     </div>
 </div>
-<hr/>
-<div class="col-sm-12 col-md-12">
-    <div class="row">
-        <div class="col-sm-6 col-md-6">
-            <table class="table table-striped table-bordered">
-                <tr>
-                    <td>{{'label.heading.activatedon' | translate}}</td>
-                    <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
-                            data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
-                    </td>
 
+<div class="col-sm-12 col-md-12 paddedtop25px">
+
+<tabset>
+<tab heading="{{'label.heading.summary' | translate}}">
+    <div class="col-sm-12 col-md-12 paddedtop25px">
+        <div class="row">
+            <table class="table table-bordered view-table">
+                <tr>
+                    <td class="table-bold-acc fontnormal">{{'label.account.deposit.date' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
+                            data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
+                    </span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.account.deposit.principal.amount' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount}}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>{{'label.heading.currency' | translate}}</td>
-                    <td>{{savingaccountdetails.currency.name}}</td>
+                    <td class="table-bold-acc fontnormal">{{'label.account.deposit.period' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.depositPeriod}} &nbsp; {{savingaccountdetails.depositPeriodFrequency.value}}</span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.account.rate.of.interest' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-bold-acc fontnormal">{{'label.account.maturity.date' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.maturityDate | DateFormat}}</span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.account.maturity.amount' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.maturityAmount}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
+                    <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' |
+                        translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned}}</span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.totalinterestposted' |
+                        translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="savingaccountdetails.timeline.closedOnDate || savingaccountdetails.summary.totalWithdrawals">
+                    <td ng-show="savingaccountdetails.timeline.closedOnDate" class="table-bold-acc fontnormal">{{'label.account.closed.on.date' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.timeline.closedOnDate | DateFormat}}</span>
+                    </td>
+                    <td ng-show="savingaccountdetails.summary.totalWithdrawals" class="table-bold-acc fontnormal">{{'label.totalwithdarawals' |
+                        translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals}}</span>
+                    </td>
                 </tr>
             </table>
         </div>
-        <div class="col-sm-6 col-md-6">
-            <table class="table table-bordered table-striped">
+        <div class="row">
+            <table class="table table-bordered view-table">
                 <tr>
-                    <td>{{'label.heading.fieldofficer' | translate}}</td>
-                    <td>{{savingaccountdetails.fieldOfficerName}}<span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>
+                    <td class="table-bold-acc fontnormal">{{'label.interestcompoundingperiod' |
+                        translate}}
+                    </td>
+                    <td><span
+                            class="padded-td">{{savingaccountdetails.interestCompoundingPeriodType.value}}</span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.interestpostingperiod' |
+                        translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.interestPostingPeriodType.value}}</span>
                     </td>
                 </tr>
                 <tr>
-                    <td>{{'label.heading.balance' | translate}}</td>
-                    <td>{{savingaccountdetails.summary.accountBalance}}</td>
+                    <td class="table-bold-acc fontnormal">{{'label.interestcalculatedusing' |
+                        translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span>
+                    </td>
+                    <td class="table-bold-acc fontnormal">{{'label.noofdaysinyear' | translate}}
+                    </td>
+                    <td><span
+                            class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
+                    </td>
+                </tr>
+                <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
+                    <td class="table-bold-acc fontnormal">{{'label.preclosurepenal' | translate}}
+                    </td>
+                    <td><span class="padded-td">{{savingaccountdetails.preClosurePenalInterest}} % on {{savingaccountdetails.preClosurePenalInterestOnType.value}}</span>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-<hr class="marginbottom"/>
-<tabset>
-<tab heading="{{'label.heading.summary' | translate}}">
-    <div class="col-sm-8 col-md-8 marginbuttontop25px">
-        <table class="table table-bordered view-table">
-            <tr ng-show="savingaccountdetails.depositAmount">
-                <td class="table-bold-acc fontnormal">{{'label.depositAmount' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.maturityAmount">
-                <td class="table-bold-acc fontnormal">{{'label.maturityAmount' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.maturityAmount}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.depositPeriod">
-                <td class="table-bold-acc fontnormal">{{'label.depositPeriod' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.depositPeriod}} &nbsp; {{savingaccountdetails.depositPeriodFrequency.value}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.maturityDate">
-                <td class="table-bold-acc fontnormal">{{ 'label.maturityDate' | translate }}</td>
-                <td><span class="padded-td">{{savingaccountdetails.maturityDate | DateFormat}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
-                <td class="table-bold-acc fontnormal">{{'label.totalwithdarawals' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
-                <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
-                <td class="table-bold-acc fontnormal">{{'label.totalinterestposted' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted}}</span>
-                </td>
-            </tr>
-            <!--<tr ng-show="savingaccountdetails.nominalAnnualInterestRate">
-                <td class="table-bold-acc fontnormal">{{'label.interestrate' | translate}}</td>
-                <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}%</span></td>
-            </tr>-->
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.interestcompoundingperiod' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestCompoundingPeriodType.value}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.interestpostingperiod' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestPostingPeriodType.value}}</span></td>
-            </tr>
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.interestcalculatedusing' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span></td>
-            </tr>
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.noofdaysinyear' | translate}}
-                </td>
-                <td><span
-                        class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.input.trasfertosavings' | translate}}
-                </td>
-                <td><span
-                        class="padded-td">{{savingaccountdetails.transferInterestToSavings}}</span>
-                </td>
-            </tr>
-            <tr data-ng-show="savingaccountdetails.linkedAccount">
-                <td class="table-bold-acc fontnormal">{{'label.input.linksavings' | translate}}
-                </td>
-                <td><span
-                        class="padded-td">{{savingaccountdetails.linkedAccount.accountNo}}</span>
-                </td>
-            </tr>
-            <!--<tr>
-                <td class="table-bold-acc fontnormal">
-                    {{'label.minimumdepositterm.and.inmultiplesof' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.minDepositTerm}} - {{savingaccountdetails.depositTermType.value}}.
-          And there after, in multiples of {{savingaccountdetails.inMultiplesOfDepositTerm}} - {{savingaccountdetails.inMultiplesOfDepositTermType.value}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="table-bold-acc fontnormal">{{'label.maximumdepositterm' |
-                    translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.maxDepositTerm}} - {{savingaccountdetails.depositTermType.value}}</span>
-                </td>
-            </tr>-->
-            <tr>
-                <td ng-show="savingaccountdetails.interestFreePeriodApplicable" style="font-weight: normal"
-                    class="table-bold-acc">{{'label.interestfreetoperiod' | translate}}
-                </td>
-                <td ng-show="savingaccountdetails.interestFreePeriodApplicable"><span class="padded-td">{{savingaccountdetails.interestFreeFromPeriod}} to {{savingaccountdetails.interestFreeToPeriod}} - {{savingaccountdetails.interestFreePeriodFrequencyType.value}}</span>
-                </td>
-            </tr>
-            <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
-                <td class="table-bold-acc fontnormal">{{'label.preclosurepenal' | translate}}
-                </td>
-                <td><span class="padded-td">{{savingaccountdetails.preClosurePenalInterest}} on {{savingaccountdetails.preClosurePenalInterestOnType.value}}</span>
-                </td>
-            </tr>
-        </table>
+    <hr class="marginbottom"/>
+
+    <div class="col-sm-12 col-md-12">
+        <hr class="marginbottom"/>
+        <label><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
+        <div class="row">
+            <table class="table table-bordered view-table">
+                <tr class="graybg">
+                    <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.interestforfemale' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.interestforchildren' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.interestforseniorcitizen' | translate}}</td>
+                    <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+                </tr>
+
+                <tr ng-repeat="chartSlab in savingaccountdetails.accountChart.chartSlabs">
+                    <td>{{chartSlab.periodType.value}}</td>
+                    <td>{{chartSlab.fromPeriod}}-{{chartSlab.toPeriod}}</td>
+                    <td>{{chartSlab.annualInterestRate}}</td>
+                    <td>{{chartSlab.interestRateForFemale}}</td>
+                    <td>{{chartSlab.interestRateForChildren}}</td>
+                    <td>{{chartSlab.interestRateForSeniorCitizen}}</td>
+                    <td>{{chartSlab.description}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </tab>
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions">
@@ -211,20 +184,34 @@
         <tbody>
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
             ng-repeat="transaction in savingaccountdetails.transactions">
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">{{transaction.id}}</td>
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">{{transaction.date | DateFormat}}</td>
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">{{transaction.transactionType.value}}</td>
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.id}}
+            </td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.date | DateFormat}}
+            </td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.transactionType.value}}
+            </td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 <div ng-show="isDebit(transaction.transactionType)">
                     {{transaction.amount}}
                 </div>
             </td>
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 <div ng-show="!isDebit(transaction.transactionType)">
                     {{transaction.amount}}
                 </div>
             </td>
-            <td class="pointer" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">{{transaction.runningBalance}}</td>
+            <td class="pointer"
+                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                {{transaction.runningBalance}}
+            </td>
         </tbody>
     </table>
 </tab>
