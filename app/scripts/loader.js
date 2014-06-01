@@ -30,8 +30,7 @@
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
-            'Q': '../bower_components/q/q',
-            'angular-wizard': '../bower_components/angular-wizard/dist/angular-wizard.min'
+            'Q': '../bower_components/q/q'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -58,7 +57,6 @@
             'frAngular': {deps: ['angular']},
             'modified.datepicker': {deps: ['angular']},
             'Q': {deps: ['angular']},
-            'angular-wizard': {deps: ['angular', 'underscore']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -83,8 +81,7 @@
                     'ngCsv',
                     'chosen.jquery.min',
                     'frAngular',
-                    'Q',
-                    'angular-wizard'
+                    'Q'
                 ],
                 exports: 'mifosX'
             }
