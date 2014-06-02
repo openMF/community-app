@@ -1,10 +1,10 @@
-<div class="row">
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.accountsclosure' | translate}}</li>
     </ul>
 </div>
-<div class="row" ng-controller="AccountingClosureController">
+<div class="col-md-12" ng-controller="AccountingClosureController">
     <legend>{{ 'label.heading.closedaccountingdetails' | translate }}</legend>
 
     <div class="pull-right">
@@ -17,9 +17,8 @@
         <div class="form-group">
             <label class="col-sm-1 control-label" for="officeId"><b>{{ 'label.input.office' | translate }}</b></label>
             <div class="col-sm-3">
-                <select id="officeId" ng-model="formData.officeId" ng-change="closedAccountingDetails(formData.officeId)" class="form-control">
-                    <option class="displaynone" value="">--{{ 'label.menu.filterbyoffice' | translate }}--</option>
-                    <option ng-repeat="office in offices" value="{{office.id}}">{{office.name}}</option>
+            	<select chosen="offices" id="officeId" ng-change="closedAccountingDetails(formData.officeId)" ng-model="formData.officeId" class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                 </select>
             </div>
         </div>
