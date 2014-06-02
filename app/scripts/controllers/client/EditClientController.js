@@ -12,6 +12,7 @@
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
+                scope.genderOptions = data.genderOptions;
                 scope.officeId = data.officeId;
                 scope.formData = {
                     firstname: data.firstname,
@@ -22,7 +23,8 @@
                     staffId: data.staffId,
                     externalId: data.externalId,
                     mobileNo: data.mobileNo,
-                    savingsProductId: data.savingsProductId
+                    savingsProductId: data.savingsProductId,
+                    genderId: data.gender.id
                 };
 
                 if (data.savingsProductId != null) {
