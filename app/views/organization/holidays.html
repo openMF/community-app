@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.manageholidays' | translate}}</li>
@@ -8,46 +8,46 @@
         <a href="#/createholiday" class="btn btn-primary" has-permission='CREATE_HOLIDAY'><i class="icon-plus icon-white"></i>{{'label.button.createholiday'
             | translate}}</a>
     </div>
-</div>
-<div data-ng-controller="HolController">
-    <div class="row">
-        <div class="col-sm-3">
-            <select name="office" id="office" ng-model="formData.officeId" class="form-control input-sm"
-                    data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()"
-                    value="{{office.id}}" required>
-                <option class="displaynone  " value="">{{'label.selectoffice' | translate}}</option>
-            </select>
-                <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
-                    <small class="error" ng-show="creategroupform.office.$error.required">
-                        {{'label.requiredfield' | translate}}
-                    </small>
-                </span>
-        </div>
-    </div>
-    <div data-ng-show="formData.officeId">
-        <input ng-model="filterText" type="text" class="form-control span marginbottom0px"
-               placeholder="{{'label.input.filterbyname' | translate}}"/>
-        <table class="table">
-            <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.holidayname' | translate}}</th>
-                <th>{{'label.heading.startdate' | translate}}</th>
-                <th>{{'endDateSelect' | translate}}</th>
-                <th>{{'label.heading.alternateworkingday' | translate}}</th>
-                <th>{{'label.heading.status' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="pointer-main" data-ng-repeat="holiday in holidays | orderBy:'fromDate' | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.repaymentsRescheduledTo |
-                    DateFormat}}
-                </td>
-                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.status.value}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+	<div data-ng-controller="HolController">
+	    <div class="row">
+	        <div class="col-sm-3">
+	            <select chosen="offices" name="office" id="office" ng-model="formData.officeId" class="form-control input-sm"
+	                    data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()"
+	                    value="{{office.id}}" required>
+	                <option class="displaynone  " value="">{{'label.selectoffice' | translate}}</option>
+	            </select>
+	                <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
+	                    <small class="error" ng-show="creategroupform.office.$error.required">
+	                        {{'label.requiredfield' | translate}}
+	                    </small>
+	                </span>
+	        </div>
+	    </div>
+	    <div data-ng-show="formData.officeId">
+	        <input ng-model="filterText" type="text" class="form-control span marginbottom0px"
+	               placeholder="{{'label.input.filterbyname' | translate}}"/>
+	        <table class="table">
+	            <thead>
+	            <tr class="graybg">
+	                <th>{{'label.heading.holidayname' | translate}}</th>
+	                <th>{{'label.heading.startdate' | translate}}</th>
+	                <th>{{'endDateSelect' | translate}}</th>
+	                <th>{{'label.heading.alternateworkingday' | translate}}</th>
+	                <th>{{'label.heading.status' | translate}}</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	            <tr class="pointer-main" data-ng-repeat="holiday in holidays | orderBy:'fromDate' | filter:filterText">
+	                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
+	                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
+	                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
+	                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.repaymentsRescheduledTo |
+	                    DateFormat}}
+	                </td>
+	                <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.status.value}}</td>
+	            </tr>
+	            </tbody>
+	        </table>
+	    </div>
+	</div>
 </div>

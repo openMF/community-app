@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.managedatatables' | translate}}</li>
@@ -9,26 +9,25 @@
     </div>
     <input ng-model="filterText" type="text" class="form-control"
            placeholder="{{'label.input.filterbyname' | translate}}">
-</div>
-
-<div class="row-fluid" ng-controller="DataTableController">
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.datatablename' | translate}}</th>
-            <th>{{'label.heading.associatedwith' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main"
-            ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
-            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
-                {{datatable.registeredTableName}}
-            </td>
-            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
-                {{datatable.applicationTableName}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+	<div ng-controller="DataTableController">
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{'label.heading.datatablename' | translate}}</th>
+	            <th>{{'label.heading.associatedwith' | translate}}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main"
+	            ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
+	            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
+	                {{datatable.registeredTableName}}
+	            </td>
+	            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">
+	                {{datatable.applicationTableName}}
+	            </td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
 </div>

@@ -6,6 +6,19 @@
             <li class="active">{{ 'label.anchor.viewtransaction' | translate}}</li>
         </ul>
     </div>
+
+    <script type="text/ng-template" id="undotransaction.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.button.undo' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="undoTransaction()">{{'label.button.undo' | translate}}</button>
+        </div>
+    </script>
+
     <api-validate></api-validate>
     <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>
 
@@ -14,7 +27,7 @@
             <a data-ng-hide="flag" has-permission='ADJUSTTRANSACTION_SAVINGSACCOUNT' 
                href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary"><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
-            <a ng-click="undoTransaction(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
+            <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
                     class="icon-trash icon-white"></i>{{ 'label.button.undo' | translate}}</a>
         </div>
     </div>
