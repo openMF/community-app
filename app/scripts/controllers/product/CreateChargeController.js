@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateChargeController: function (scope, resourceFactory, location, dateFilter) {
+        CreateChargeController: function (scope, resourceFactory, location, dateFilter, translate) {
             scope.template = [];
             scope.formData = {};
             scope.first = {};
@@ -8,6 +8,7 @@
             scope.showdatefield = false;
             scope.repeatEvery = false;
             scope.first.date = new Date();
+            scope.translate = translate;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -90,7 +91,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateChargeController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$translate', mifosX.controllers.CreateChargeController]).run(function ($log) {
         $log.info("CreateChargeController initialized");
     });
 }(mifosX.controllers || {}));
