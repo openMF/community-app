@@ -48,6 +48,35 @@
             <label class="control-label col-sm-2">{{ 'label.input.affectedglentries' | translate }}<span
                     class="required">*</span></label>
             <div class="col-sm-6">
+                <h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;
+                    <a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
+                </h4>
+                <div class="row" ng-show="formData.rule.debitAccounts.length > 0">
+                    <div class="col-sm-5">
+                        <select class="input-sm form-control" ng-model="formData.debitAccountTemplate"
+                                ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts">
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="input-sm form-control" name="debitamount" ng-model="formData.debitAmountTemplate">
+                    </div>
+                    <div class="col-sm-3">
+                        <a ng-click="addDebitAccount()" ng-show="allowDebitEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
+	                    <span ng-show="freqpostingform.debitamount.$invalid || errordebitevent">
+			             	<small class="error" ng-show="freqpostingform.debitamount.$error.req || errordebitevent">
+                                {{'label.requiredfield' | translate}}
+                            </small>
+			             </span>
+                    </div>
+                </div>
+                <br>
+                <div ng-repeat="dbAccount in formData.dbAccounts" class="form-inline paddedbottom10">
+                    <input type="text" class="input-sm form-control" ng-model="dbAccount.debitGlName" readonly>
+                    <input id="debits[{{$index}}]" type="text" class="input-sm form-control"
+                           ng-model="dbAccount.debitAmount">
+                    <a ng-click="removeDebitAccount($index)">&nbsp;<i
+                            class="icon-remove icon-white"></i></a>
+                </div>
             	<h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;
             		<a tooltip="{{'label.tooltip.click.plus.button.to.add.credit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
             	</h4>
@@ -75,35 +104,6 @@
                     <input id="credits[{{$index}}]" type="text" class="input-sm form-control"
                            ng-model="crAccount.crAmount">
                     <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
-                </div>
-                <div class="row" ng-show="formData.rule.debitAccounts.length > 0">
-                	<h4><strong>{{ 'label.input.debit' | translate }}</strong>&nbsp;
-                		<a tooltip="{{'label.tooltip.click.plus.button.to.add.debit.entry' | translate}}"><i class="icon-question-sign  icon-white"></i></a>
-	            	</h4>
-                	<div class="col-sm-5">
-		                <select class="input-sm form-control" ng-model="formData.debitAccountTemplate"
-                            ng-options="debitAccount.name for debitAccount in formData.rule.debitAccounts">
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-						<input type="text" class="input-sm form-control" name="debitamount" ng-model="formData.debitAmountTemplate">	                
-                    </div>
-	                <div class="col-sm-3">
-	                	<a ng-click="addDebitAccount()" ng-show="allowDebitEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
-	                    <span ng-show="freqpostingform.debitamount.$invalid || errordebitevent">
-			             	<small class="error" ng-show="freqpostingform.debitamount.$error.req || errordebitevent">
-			                   {{'label.requiredfield' | translate}}
-			             	</small>
-			             </span>
-		            </div>
-                </div>
-                <br>
-                <div ng-repeat="dbAccount in formData.dbAccounts" class="form-inline paddedbottom10">
-                    <input type="text" class="input-sm form-control" ng-model="dbAccount.debitGlName" readonly>
-                    <input id="debits[{{$index}}]" type="text" class="input-sm form-control"
-                           ng-model="dbAccount.debitAmount">
-                    <a ng-click="removeDebitAccount($index)">&nbsp;<i
-                            class="icon-remove icon-white"></i></a>
                 </div>
             </div>
         </div>
