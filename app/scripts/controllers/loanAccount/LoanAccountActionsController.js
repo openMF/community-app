@@ -117,6 +117,8 @@
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.writeOffAmount = data.amount;
+                        scope.isLoanWriteOff = true;
                     });
                     scope.title = 'label.heading.writeoffloanaccount';
                     scope.labelName = 'label.input.writeoffondate';
