@@ -1,0 +1,46 @@
+<div ng-controller="AccViewOfficeGLAccountController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/listofficeglmapping">{{'label.anchor.officeglaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewofficeglaccount' | translate}}</li>
+        </ul>
+    </div>
+    <legend>{{ 'label.heading.viewofficeglaccount' | translate }}</legend>
+    <div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/editofficeglmapping/{{mapping.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICEGLACCOUNT'><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                <a class="btn btn-danger" ng-click="deletemapping()" has-permission='DELETE_OFFICEGLACCOUNT'><i
+                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="deletemapping.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="row paddedleft">
+        <h3>{{rule.name}}</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th class="table-bold-acc">{{ 'label.heading.office' | translate }}</th>
+                <td><span class="padded-td">{{mapping.officeData.name}}</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-acc">{{ 'label.heading.trasnferaccpuntsuspence' | translate }}</th>
+                <td><span class="padded-td">{{mapping.glAccountData.name}}</span></td>
+            </tr>
+
+        </table>
+        <hr/>
+    </div>
+</div>

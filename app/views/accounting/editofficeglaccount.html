@@ -1,0 +1,36 @@
+<div>
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/listofficeglmapping">{{'label.anchor.officeglaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editofficeglaccount' | translate}}</li>
+    </ul>
+</div>
+<form name="createofficeglform" novalidate="" class="form-horizontal well" ng-controller="AccEditOfficeGLAccountController"
+      ng-submit="submit()">
+    <api-validate></api-validate>
+    <legend>{{ 'label.heading.editofficeglaccount' | translate }}</legend>
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-3">
+            {{mapping.officeData.name}}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{ 'label.input.trasnferaccpuntsuspence' | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-3">
+            <select id="liabilityTransferInSuspenseAccountId" ng-model="formData.liabilityTransferInSuspenseAccountId" class="form-control"
+                    ng-options="liabilityTransfer.id as liabilityTransfer.name for liabilityTransfer in liabilityOptions" value="{{liabilityTransfer.id}}"
+                    required="required">
+                <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-offset-3">
+        <a id="cancel" href="#/viewofficeglmapping/{{mapping.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+        <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_OFFICEGLACCOUNT'>{{ 'label.button.save' | translate }}</button>
+    </div>
+</form>
