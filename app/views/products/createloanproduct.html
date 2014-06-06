@@ -420,7 +420,7 @@
     	<div class="form-group">
             <div class="col-sm-3">
                 <select id="chargeId" ng-model="chargeId" class="form-control"
-                           ng-options="charge.id as charge.name for charge in product.chargeOptions"
+                           ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:formData.currencyCode:strict"
                            value="{{charge.id}}">
                        <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
                    </select>
@@ -464,7 +464,7 @@
     	<div class="form-group">
             <div class="col-sm-3">
                 <select id="penalityId" ng-model="penalityId" class="form-control"
-                           ng-options="penality.id as penality.name for penality in overduecharges"
+                           ng-options="penality.id as penality.name for penality in overduecharges | filter:formData.currencyCode:strict"
                            value="{{penality.id}}">
                        <option class="displaynone" value="">{{'label.selectoverduecharge' | translate}}</option>
                    </select>
