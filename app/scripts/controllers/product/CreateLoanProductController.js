@@ -22,7 +22,7 @@
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {

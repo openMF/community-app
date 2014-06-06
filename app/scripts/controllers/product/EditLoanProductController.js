@@ -18,7 +18,7 @@
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.charges = scope.product.charges || [];
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
