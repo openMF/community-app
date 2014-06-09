@@ -127,12 +127,12 @@
 <h3>{{ 'label.heading.settings' | translate }}</h3>
 <hr>
 <div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
-    <div class="col-sm-3">
+    <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
+    <div class="col-sm-2">
         <input id="lockinPeriodFrequency" type="text" class="form-control"
                ng-model="formData.lockinPeriodFrequency">
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
                 class="form-control"
                 ng-options="type.id as type.value for type in product.lockinPeriodFrequencyTypeOptions"
@@ -140,28 +140,11 @@
             <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
         </select>
     </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.input.inmultiplesof' | translate }}</label>
-    <div class="col-sm-3">
-        <input id="inMultiplesOfDepositTerm" type="text" class="form-control"
-               ng-model="formData.inMultiplesOfDepositTerm">
-    </div>
-    <div class="col-sm-3">
-        <select id="inMultiplesOfDepositTermTypeId" ng-model="formData.inMultiplesOfDepositTermTypeId"
-                class="form-control"
-                ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
-                value="{{type.id}}">
-            <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
-        </select>
-    </div>
-</div>
-<div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.input.minimumdepositterm' | translate }}</label>
-    <div class="col-sm-3">
+    <label class="control-label col-sm-2">{{ 'label.input.minimumdepositterm' | translate }}</label>
+    <div class="col-sm-2">
         <input id="minimumDepositTerm" type="text" class="form-control" ng-model="formData.minDepositTerm">
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <select id="minDepositTermTypeId" ng-model="formData.minDepositTermTypeId"
                 class="form-control"
                 ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
@@ -171,11 +154,24 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.input.maximumdepositterm' | translate }}</label>
-    <div class="col-sm-3">
+    <label class="control-label col-sm-2">{{ 'label.input.inmultiplesof' | translate }}</label>
+    <div class="col-sm-2">
+        <input id="inMultiplesOfDepositTerm" type="text" class="form-control"
+               ng-model="formData.inMultiplesOfDepositTerm">
+    </div>
+    <div class="col-sm-2">
+        <select id="inMultiplesOfDepositTermTypeId" ng-model="formData.inMultiplesOfDepositTermTypeId"
+                class="form-control"
+                ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
+                value="{{type.id}}">
+            <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+        </select>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.maximumdepositterm' | translate }}</label>
+    <div class="col-sm-2">
         <input id="maximumDepositTerm" type="text" class="form-control" ng-model="formData.maxDepositTerm">
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <select id="maxDepositTermTypeId" ng-model="formData.maxDepositTermTypeId"
                 class="form-control"
                 ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
@@ -185,19 +181,19 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.prematureclosure' | translate }}</label>
-    <div class="checkbox col-sm-3">
-        <label>
+    <label class="control-label col-sm-2">{{ 'label.prematureclosure' | translate }}</label>
+    <div class="col-sm-2">
+        <label class="checkbox">
             <input id="preClosurePenalApplicable" type="checkbox" ng-model="formData.preClosurePenalApplicable">
             {{ 'label.checkbox.applypreclosurepenalinterest' | translate }}
         </label>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <input id="preClosurePenalInterest" name="preClosurePenalInterest" type="text"
                class="form-control" ng-model="formData.preClosurePenalInterest"/>
     </div>
-    <div class="col-sm-1">
-        - On
+    <div class="col-sm-1 col-sm-offset-1">
+        {{ 'label.on' | translate }}
     </div>
     <div class="col-sm-2">
         <select class="form-control" id="preClosurePenalInterestOnTypeId"
@@ -212,18 +208,18 @@
 <div class="form-group">
     <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.from' |
         translate }}<span class="required">*</span></label>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <input id="fromDate" sort type="text" class="form-control" datepicker-pop="dd MMMM yyyy"
                ng-model="fromDate.date"
                is-open="opened" min="minDate" max="restrictDate"/>
     </div>
-    <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.to' | translate }}</label>
-    <div class="col-sm-3">
+    <label class="control-label col-sm-2 col-sm-offset-2" for="name">{{ 'label.input.interestratechart.valid.to' | translate }}</label>
+    <div class="col-sm-2">
         <input id="endDate" sort type="text" class="form-control" datepicker-pop="dd MMMM yyyy"
                ng-model="endDate.date" is-open="opened" min="minDate" max="restrictDate"/>
     </div>
 </div>
-<div class="col-md-10 col-md-offset-2">
+<div class="col-md-12">
     <table class="table table-bordered width100">
         <tr class="graybg">
             <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
@@ -243,7 +239,7 @@
         </tr>
 
         <tr ng-repeat="chartSlab in chart.chartSlabs">
-            <td class="width5">
+            <td class="width14">
                 <select class="form-control" id="periodType" ng-model="chartSlab.periodType.id"
                         ng-options="type.id as type.value for type in chart.periodTypes"
                         value="{{chartSlab.periodType.id}}">
@@ -281,7 +277,7 @@
                        ng-model="chartSlab.interestRateForSeniorCitizen"/></td>
             <td class="width20"><input id="description" name="description" type="text" class="form-control"
                                        ng-model="chartSlab.description"/></td>
-            <td class="width8">
+            <td class="width10">
                 <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
                     | translate}}</a>
 

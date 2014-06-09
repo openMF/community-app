@@ -35,25 +35,6 @@
                 //set chart template
                 scope.chart = scope.product.chartTemplate;
                 scope.chart.chartSlabs = [];
-
-                if (scope.assetAccountOptions.length > 0) {
-                    scope.formData.savingsReferenceAccountId = scope.assetAccountOptions[0].id;
-                }
-                if (scope.liabilityAccountOptions.length > 0) {
-                    scope.formData.savingsControlAccountId = scope.liabilityAccountOptions[0].id;
-                }
-                if (scope.liabilityAccountOptions.length > 1) {
-                    scope.formData.transfersInSuspenseAccountId = scope.liabilityAccountOptions[1].id;
-                }
-                if (scope.incomeAccountOptions.length > 0) {
-                    scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[0].id;
-                }
-                if (scope.incomeAccountOptions.length > 1) {
-                    scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[1].id;
-                }
-                if (scope.expenseAccountOptions.length > 0) {
-                    scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
-                }
                 scope.formData.accountingRule = '1';
 
             });
