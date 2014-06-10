@@ -16,6 +16,8 @@
                 scope.formData.officeId = scope.offices[0].id;
                 scope.savingproducts = data.savingProductOptions;
                 scope.genderOptions = data.genderOptions;
+                scope.clienttypeOptions = data.clientTypeOptions;
+                scope.clientClassificationOptions = data.clientClassificationOptions;
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }

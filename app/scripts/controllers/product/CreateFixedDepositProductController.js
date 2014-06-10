@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFixedDepositProductController: function (scope, resourceFactory, location, dateFilter) {
+        CreateFixedDepositProductController: function (scope, resourceFactory, location, dateFilter,$modal) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -195,7 +195,8 @@
                 var chartSlab = {
                     "periodType": periodType,
                     "fromPeriod": fromPeriod,
-                    "amountRangeFrom": amountRangeFrom
+                    "amountRangeFrom": amountRangeFrom,
+                    "incentives":[]
                 };
 
                 scope.chart.chartSlabs.push(chartSlab);
@@ -263,10 +264,8 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
-                    interestRateForFemale: chartSlab.interestRateForFemale,
-                    interestRateForChildren: chartSlab.interestRateForChildren,
-                    interestRateForSeniorCitizen: chartSlab.interestRateForSeniorCitizen,
-                    locale: scope.optlang.code
+                    locale: scope.optlang.code,
+                    incentives:angular.copy(copyIncentives(chartSlab.incentives))
                 }
                 //alert("Period type id" + chartSlab.periodType.id);
                 //remove empty values
@@ -279,9 +278,85 @@
 
                 return newChartSlabData;
             }
+
+            scope.incentives = function(index){
+                $modal.open({
+                    templateUrl: 'incentive.html',
+                    controller: IncentiveCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.chart;
+                        },
+                        chartSlab: function () {
+                            return scope.chart.chartSlabs[index];
+                        }
+                    }
+                });
+            }
+
+            /**
+             *  copy all chart details to a new Array
+             * @param incentiveDatas
+             * @returns {Array}
+             */
+            copyIncentives = function (incentives) {
+                var detailsArray = [];
+                _.each(incentives, function (incentive) {
+                    var incentiveData = copyIncentive(incentive);
+                    detailsArray.push(incentiveData);
+                });
+                return detailsArray;
+            }
+
+            /**
+             * create new chart detail object data from chartSlab
+             * @param incentiveData
+             *
+             */
+
+            copyIncentive = function (incentiveData) {
+                var newIncentiveDataData = {
+                    id: incentiveData.id,
+                    "entityType":incentiveData.entityType,
+                    "attributeName":incentiveData.attributeName.id,
+                    "conditionType":incentiveData.conditionType.id,
+                    "attributeValue":incentiveData.attributeValue,
+                    "incentiveType":incentiveData.incentiveType.id,
+                    "amount":incentiveData.amount
+                }
+                return newIncentiveDataData;
+            }
+
+            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+                $scope.data = data;
+                $scope.chartSlab = chartSlab;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.addNewRow = function () {
+                    var incentive = {
+                        "entityType":"2",
+                        "attributeName":"",
+                        "conditionType":"",
+                        "attributeValue":"",
+                        "incentiveType":"",
+                        "amount":""
+                    };
+
+                    $scope.chartSlab.incentives.push(incentive);
+                }
+
+                /**
+                 * Remove chart details row
+                 */
+                $scope.removeRow = function (index) {
+                    $scope.chartSlab.incentives.splice(index, 1);
+                }
+            };
         }
     });
-    mifosX.ng.application.controller('CreateFixedDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateFixedDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFixedDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$modal', mifosX.controllers.CreateFixedDepositProductController]).run(function ($log) {
         $log.info("CreateFixedDepositProductController initialized");
     });
 }(mifosX.controllers || {}));
