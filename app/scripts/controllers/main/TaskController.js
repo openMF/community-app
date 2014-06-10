@@ -13,6 +13,7 @@
             scope.approveData = {};
             scope.restrictDate = new Date();
             scope.selectAllTasks = false;
+            scope.selectAllLoanApproval = false;
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -28,6 +29,12 @@
               scope.selectAllTasks = !scope.selectAllTasks;
               for (var i = 0, len = scope.searchData.length; i < len; i++) {
                 scope.checkData[scope.searchData[i].id] = scope.selectAllTasks;
+              }
+            };
+            scope.selectAllLoanApprovalData = function(loans) {
+              scope.selectAllLoanApproval = !scope.selectAllLoanApproval;
+              for (var i = 0, len = loans.length; i < len; i++) {
+                scope.loanTemplate[loans[i].id] = scope.selectAllLoanApproval;
               }
             };
             scope.approveOrRejectChecker = function (action) {
