@@ -479,11 +479,11 @@
         <colgroup span="4"></colgroup>
         <thead>
         <tr class="graybg">
-            <th>{{'label.heading.id' | translate}}</th>
-            <th>{{'label.heading.office' | translate}}</th>
-            <th>{{'label.heading.transactiondate' | translate}}</th>
-            <th>{{'label.heading.transactiontype' | translate}}</th>
-            <th>{{'label.heading.amount' | translate}}</th>
+            <th ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
+            <th ng-click="changeTransactionSort('officeName')">{{'label.heading.office' | translate}}</th>
+            <th ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
+            <th ng-click="changeTransactionSort('type.value')">{{'label.heading.transactiontype' | translate}}</th>
+            <th ng-click="changeTransactionSort('amount')">{{'label.heading.amount' | translate}}</th>
             <th colspan="5" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
         </tr>
         <tr>
@@ -492,14 +492,14 @@
             <th scope="col">&nbsp;</th>
             <th scope="col">&nbsp;</th>
             <th scope="col">&nbsp;</th>
-            <th scope="col">{{'label.heading.principal' | translate}}</th>
-            <th scope="col">{{'label.heading.interest' | translate}}</th>
-            <th scope="col">{{'label.heading.fees' | translate}}</th>
-            <th scope="col">{{'label.heading.penalities' | translate}}</th>
+            <th scope="col" ng-click="changeTransactionSort('principalPortion')">{{'label.heading.principal' | translate}}</th>
+            <th scope="col" ng-click="changeTransactionSort('interestPortion')">{{'label.heading.interest' | translate}}</th>
+            <th scope="col" ng-click="changeTransactionSort('feeChargesPortion')">{{'label.heading.fees' | translate}}</th>
+            <th scope="col" ng-click="changeTransactionSort('penaltyChargesPortion')">{{'label.heading.penalities' | translate}}</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions}">
+        <tr class="pointer-main" ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
             <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                 {{transaction.id}}
             </td>

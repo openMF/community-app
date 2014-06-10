@@ -489,7 +489,20 @@
             scope.downloadDocument = function (documentId) {
 
             };
-
+            
+            scope.transactionSort = {
+                column: 'date',
+                descending: true
+            };    
+            scope.changeTransactionSort = function(column) {
+                var sort = scope.transactionSort;
+                if (sort.column == column) {
+                    sort.descending = !sort.descending;
+                } else {
+                    sort.column = column;
+                    sort.descending = true;
+                }
+            };
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
