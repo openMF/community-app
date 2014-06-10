@@ -17,28 +17,28 @@ Travis
 
 1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
 
-2. Clone this repository to your local filesystem (default branch is 'develop')
+1. Clone this repository to your local filesystem (default branch is 'develop')
 
-3. To download the dependencies, and be able to build, first install bower & grunt
+1. To download the dependencies, and be able to build, first install bower & grunt
+   ```
+    npm install -g bower
+    npm install -g grunt-cli
+   ```
 
-```
-npm install -g bower
-npm install -g grunt-cli
-```
+1. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
 
-4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
+   ```
+    bower install
+   ```
+   ```
+    npm install 
+   ```
 
-```
- bower install
-```
-```
- npm install 
-```
+1. To preview the app, run the following command on the project root folder
 
-5. To preview the app, run the following command on the project root folder
-```
- grunt serve
-```
+   ```
+    grunt serve
+   ```
    or open the 'index.html' file in FIREFOX browser
 
 Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/ 
