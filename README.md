@@ -19,14 +19,14 @@ Travis
 
 2. Clone this repository to your local filesystem (default branch is 'develop')
 
-3. To download the dependencies, and be able to build, first install bower & grunt:
+3. To download the dependencies, and be able to build, first install bower & grunt
 
 ```
 npm install -g bower
 npm install -g grunt-cli
 ```
 
-4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder:
+4. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
 
 ```
  bower install
@@ -35,7 +35,7 @@ npm install -g grunt-cli
  npm install 
 ```
 
-5. To preview the app, run the following command on the project root folder:
+5. To preview the app, run the following command on the project root folder
 ```
  grunt serve
 ```
