@@ -41,14 +41,14 @@ Travis
    ```
    or open the 'index.html' file in FIREFOX browser
 
-Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/ 
+   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/ 
 
-```
-Waiting...Warning: EMFILE, too many open files
+   ```
+    Waiting...Warning: EMFILE, too many open files
 
-```
+   ```
 
-6. Default username/password: mifos/password. This application will hit the demo server by default.
+1. Default username/password: mifos/password. This application will hit the demo server by default.
 
 You are done.
 
