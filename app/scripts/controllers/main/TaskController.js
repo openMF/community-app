@@ -12,7 +12,7 @@
             scope.isCollapsed = true;
             scope.approveData = {};
             scope.restrictDate = new Date();
-            scope.selectAllTasks = false;
+            scope.selectAllChecker = false;
             scope.selectAllLoanApproval = false;
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
@@ -25,10 +25,10 @@
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
             };
-            scope.checkAllData = function() {
-              scope.selectAllTasks = !scope.selectAllTasks;
+            scope.selectAllCheckerData = function() {
+              scope.selectAllChecker = !scope.selectAllChecker;
               for (var i = 0, len = scope.searchData.length; i < len; i++) {
-                scope.checkData[scope.searchData[i].id] = scope.selectAllTasks;
+                scope.checkData[scope.searchData[i].id] = scope.selectAllChecker;
               }
             };
             scope.selectAllLoanApprovalData = function(loans) {
