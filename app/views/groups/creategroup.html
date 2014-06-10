@@ -58,10 +58,10 @@
 	                        </select>
 	                    </div>
 	                    <div class="paddedtop60px col-sm-1 col-md-1 paddedleft0">
-	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i
+	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add(clients, addedClients)"><i
 	                                class="icon-double-angle-right"></i></button>
 	                        <br/>
-	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub()"><i
+	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub(clients, addedClients)"><i
 	                                class="icon-double-angle-left"></i></button>
 	                    </div>
 	                    <div class="col-sm-4 col-md-4 angled-textarea paddedtop25px">
@@ -69,6 +69,38 @@
 	                        <select multiple ng-model="added" class="form-control col-sm-8 multiselectmin">
 	                            <option ng-repeat="client in addedClients | orderBy:'displayName' " value="{{client.id}}">
 	                                {{client.displayName}}
+	                            </option>
+	                        </select>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" for="staffId">{{'label.input.addcenters' | translate}}</label>
+	
+	            <div class="col-sm-9 col-md-9">
+	                <div class="row">
+	                    <div class="col-sm-4 col-md-4">
+	                        <label class="control-label col-sm-10">{{ 'label.input.availablecenters' | translate }}</label>
+	                        <input type="text" ng-model="availableCenterName" class="form-control">
+	                        <select multiple id="centerMembers" ng-model="available" class="form-control multiselectmin">
+	                            <option ng-repeat="member in centers | orderBy:'displayName' | filter:availableCenterName"
+	                                    value="{{member.id}}">{{member.displayName}}
+	                            </option>
+	                        </select>
+	                    </div>
+	                    <div class="paddedtop60px col-sm-1 col-md-1 paddedleft0">
+	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add(centers, addedCenters)"><i
+	                                class="icon-double-angle-right"></i></button>
+	                        <br/>
+	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub(centers, addedCenters)"><i
+	                                class="icon-double-angle-left"></i></button>
+	                    </div>
+	                    <div class="col-sm-4 col-md-4 angled-textarea paddedtop25px">
+	                        <label class="control-label col-sm-10">{{ 'label.input.selectedcenters' | translate }}</label>
+	                        <select multiple ng-model="added" class="form-control col-sm-8 multiselectmin">
+	                            <option ng-repeat="center in addedCenters | orderBy:'displayName' " value="{{center.id}}">
+	                                {{center.displayName}}
 	                            </option>
 	                        </select>
 	                    </div>
