@@ -1,8 +1,12 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewFixedDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory ) {
+    ViewFixedDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory,$modal ) {
         resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId , template: 'true'} , function(data) {
             scope.depositproduct = data;
+            scope.chartSlabs = scope.depositproduct.activeChart.chartSlabs;
+            scope.depositproduct.activeChart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
+                return obj.fromPeriod
+            });
             scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
         });
 
@@ -11,9 +15,28 @@
                 anchorScroll();
 
         };
+
+        scope.incentives = function(index){
+            $modal.open({
+                templateUrl: 'incentive.html',
+                controller: IncentiveCtrl,
+                resolve: {
+                    chartSlab: function () {
+                        return scope.depositproduct.activeChart.chartSlabs[index];
+                    }
+                }
+            });
+        }
+
+        var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+            $scope.chartSlab = chartSlab;
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };
+        };
     }
   });
-  mifosX.ng.application.controller('ViewFixedDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory', mifosX.controllers.ViewFixedDepositProductController]).run(function($log) {
+  mifosX.ng.application.controller('ViewFixedDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory','$modal', mifosX.controllers.ViewFixedDepositProductController]).run(function($log) {
     $log.info("ViewFixedDepositProductController initialized");
   });
 }(mifosX.controllers || {}));

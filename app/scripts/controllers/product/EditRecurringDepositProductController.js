@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -14,6 +14,7 @@
             scope.restrictDate = new Date();
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
+            scope.deletedincentives = [];
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -62,6 +63,12 @@
                 scope.chart.chartSlabs = _.sortBy(scope.chart.chartSlabs, function (obj) {
                     return obj.fromPeriod
                 });
+
+                _.each(scope.chart.chartSlabs, function (chartSlab) {
+                    _.each(chartSlab.incentives, function (incentive){
+                        incentive.attributeValue = parseInt(incentive.attributeValue);
+                    })
+                })
                 //format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
@@ -269,7 +276,8 @@
                 var chartSlab = {
                     "periodType": periodType,
                     "fromPeriod": fromPeriod,
-                    "amountRangeFrom": amountRangeFrom
+                    "amountRangeFrom": amountRangeFrom,
+                    "incentives":[]
                 };
 
                 scope.chart.chartSlabs.push(chartSlab);
@@ -332,10 +340,8 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
-                    interestRateForFemale: chartSlab.interestRateForFemale,
-                    interestRateForChildren: chartSlab.interestRateForChildren,
-                    interestRateForSeniorCitizen: chartSlab.interestRateForSeniorCitizen,
-                    locale: scope.optlang.code
+                    locale: scope.optlang.code,
+                    incentives:angular.copy(copyIncentives(chartSlab.incentives,chartSlab.id))
                 }
 
                 //remove empty values
@@ -371,9 +377,105 @@
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
+            scope.incentives = function(index){
+                $modal.open({
+                    templateUrl: 'incentive.html',
+                    controller: IncentiveCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.chart;
+                        },
+                        chartSlab: function () {
+                            return scope.chart.chartSlabs[index];
+                        }
+                    }
+                });
+            }
+
+            /**
+             *  copy all chart details to a new Array
+             * @param incentiveDatas
+             * @returns {Array}
+             */
+            copyIncentives = function (incentives,slabId) {
+                var detailsArray = [];
+                _.each(incentives, function (incentive) {
+                    var incentiveData = copyIncentive(incentive);
+                    detailsArray.push(incentiveData);
+                });
+                _.each(scope.deletedincentives,function(del){
+                    if(del.id == slabId){
+                        detailsArray.push(del.data);
+                    }
+                });
+
+                return detailsArray;
+            }
+
+            /**
+             * create new chart detail object data from chartSlab
+             * @param incentiveData
+             *
+             */
+
+            copyIncentive = function (incentiveData) {
+                var newIncentiveDataData = {
+                    id: incentiveData.id,
+                    "entityType":incentiveData.entityType,
+                    "attributeName":incentiveData.attributeName.id,
+                    "conditionType":incentiveData.conditionType.id,
+                    "attributeValue":incentiveData.attributeValue,
+                    "incentiveType":incentiveData.incentiveType.id,
+                    "amount":incentiveData.amount,
+                    locale: scope.optlang.code
+
+                }
+                if(incentiveData.id){
+                    newIncentiveDataData.entityType = incentiveData.entityType.id;
+                }
+                return newIncentiveDataData;
+            }
+
+            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+                $scope.data = data;
+                $scope.chartSlab = chartSlab;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.addNewRow = function () {
+                    var incentive = {
+                        "entityType":"2",
+                        "attributeName":"",
+                        "conditionType":"",
+                        "attributeValue":"",
+                        "incentiveType":"",
+                        "amount":""
+                    };
+
+                    $scope.chartSlab.incentives.push(incentive);
+                }
+
+                /**
+                 * Remove chart details row
+                 */
+                $scope.removeRow = function (index) {
+                    var incentive = {
+                        id:$scope.chartSlab.incentives[index].id,
+                        delete:'true'
+                    }
+                    var deldata = {
+                        id:chartSlab.id,
+                        data:incentive
+                    }
+                    scope.deletedincentives.push(deldata);
+                    $scope.chartSlab.incentives.splice(index, 1);
+                }
+            };
+
         }
     });
-    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
         $log.info("EditRecurringDepositProductController initialized");
     });
 }(mifosX.controllers || {}));

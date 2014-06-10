@@ -13,6 +13,8 @@
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
                 scope.genderOptions = data.genderOptions;
+                scope.clienttypeOptions = data.clientTypeOptions;
+                scope.clientClassificationOptions = data.clientClassificationOptions;
                 scope.officeId = data.officeId;
                 scope.formData = {
                     firstname: data.firstname,
@@ -27,6 +29,17 @@
                     genderId: data.gender.id
                 };
 
+                if(data.gender){
+                    scope.formData.genderId = data.gender.id;
+                }
+
+                if(data.clientType){
+                    scope.formData.clientTypeId = data.clientType.id;
+                }
+
+                if(data.clientClassification){
+                    scope.formData.clientClassificationId = data.clientClassification.id;
+                }
                 if (data.savingsProductId != null) {
                     scope.opensavingsproduct = 'true';
                     scope.showSavingOptions = 'true';
