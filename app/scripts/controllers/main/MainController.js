@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle) {
+        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, $http) {
             
             //hides loader 
             scope.domReady = true;
@@ -79,6 +79,16 @@
                     scope.started = true;
                 }
             };
+
+            // Set logo src based on tenant id. Use MifosX as the default.
+            // To install a new logo, add the image file to /images/logos/. It must have the format
+            // [tenantIdentifier]_logoSmall.png, e.g. abcBank_logoSmall.png.
+            scope.logoTenantId = 'MifosX';
+            $http.get('./images/logos/' + $rootScope.tenantIdentifier + '_logoSmall.png', {cache: true})
+                .success(function() {
+                    // A custom logo is installed for this tenant id. Apply it.
+                    scope.logoTenantId = $rootScope.tenantIdentifier;
+                });
 
             scope.leftnav = false;
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
@@ -242,6 +252,7 @@
             '$rootScope',
             'localStorageService',
             'keyboardManager', '$idle',
+            '$http',
             mifosX.controllers.MainController
         ]).run(function ($log) {
             $log.info("MainController initialized");
