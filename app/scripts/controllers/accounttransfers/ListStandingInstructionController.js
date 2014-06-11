@@ -23,7 +23,7 @@
                 params.offset = offset;
                 params.limit = limit;
                 params.locale = "en";
-                params.dateFormat = "dd MMMM yyyy";
+                params.dateFormat = scope.df;
 
                 if (scope.formData.transferType) {
                     params.transferType = scope.formData.transferType;

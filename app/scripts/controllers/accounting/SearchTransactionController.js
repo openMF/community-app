@@ -32,7 +32,7 @@
                 params.offset = offset;
                 params.limit = limit;
                 params.locale = "en";
-                params.dateFormat = "dd MMMM yyyy";
+                params.dateFormat = scope.df;
 
                 if (scope.formData.transactionId) {
                     params.transactionId = scope.formData.transactionId;

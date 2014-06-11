@@ -294,7 +294,7 @@
 
             scope.bulkApproval = function () {
                 scope.formData.approvedOnDate = dateFilter(new Date(), scope.df);
-                scope.formData.dateFormat = "dd MMMM yyyy";
+                scope.formData.dateFormat = scope.df;
                 scope.formData.locale = "en";
                 var selectedAccounts = 0;
                 var approvedAccounts = 0;

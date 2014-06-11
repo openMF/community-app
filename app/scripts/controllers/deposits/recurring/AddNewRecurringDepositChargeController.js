@@ -34,7 +34,7 @@
                             this.formData.feeOnMonthDay = "";
                         }
                     } else {
-                        this.formData.dateFormat = "dd MMMM yyyy";
+                        this.formData.dateFormat = scope.df;
                         if (scope.date.specificduedate) {
                             this.formData.dueDate = dateFilter(scope.date.specificduedate, scope.df);
                         } else {

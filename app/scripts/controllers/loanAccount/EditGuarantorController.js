@@ -32,7 +32,7 @@
                 guarantor.city = this.formData.city;
                 guarantor.dob = reqDate;
                 guarantor.zip = this.formData.zip;
-                guarantor.dateFormat = "dd MMMM yyyy";
+                guarantor.dateFormat = scope.df;
                 guarantor.locale = scope.optlang.code;
                 guarantor.firstname = this.formData.firstname;
                 guarantor.lastname = this.formData.lastname;

@@ -3,7 +3,7 @@
         ProductiveCollectionSheetController: function (scope, routeParams, resourceFactory, dateFilter, location) {
             var params = {};
             params.locale = "en";
-            params.dateFormat = "dd MMMM yyyy";
+            params.dateFormat = scope.df;
             params.meetingDate = routeParams.meetingDate;
             params.officeId = routeParams.officeId;
             params.staffId = routeParams.staffId;
@@ -48,7 +48,7 @@
                 scope.centerId = centerId;
                 scope.calendarId = calendarId;
                 scope.formData = {};
-                scope.formData.dateFormat = "dd MMMM yyyy";
+                scope.formData.dateFormat = scope.df;
                 scope.formData.locale = "en";
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.transactionDate = routeParams.meetingDate;
@@ -189,7 +189,7 @@
 
             scope.submit = function () {
                 scope.formData.calendarId = scope.calendarId;
-                scope.formData.dateFormat = "dd MMMM yyyy";
+                scope.formData.dateFormat = scope.df;
                 scope.formData.locale = "en";
                 scope.formData.transactionDate = dateFilter(routeParams.meetingDate, scope.df);
                 scope.formData.clientsAttendance = scope.clientsAttendance;

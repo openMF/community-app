@@ -10,7 +10,7 @@
                 params.offset = offset;
                 params.limit = limit;
                 params.locale = "en";
-                params.dateFormat = "dd MMMM yyyy";
+                params.dateFormat = scope.df;
                 params.orderBy = "office.id";
 
                 resourceFactory.officeToGLAccountMappingResource.search(params, callback);
