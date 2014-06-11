@@ -19,6 +19,7 @@
             };
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
+                scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
@@ -77,11 +78,11 @@
                 });
             };
             scope.viewDataTable = function (registeredTableName,data){
-                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.group.id+"/";
                 if (scope.datatabledetails.isMultirow) {
-                    locationURI = locationURI + data.row[0];
-                };
-                location.path(locationURI);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.group.id+"/"+data.row[0]);
+                }else{
+                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.group.id);
+                }
             };
             scope.saveNote = function () {
                 resourceFactory.groupResource.save({groupId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
@@ -165,16 +166,11 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
+                    scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
-                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cd_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cv_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {

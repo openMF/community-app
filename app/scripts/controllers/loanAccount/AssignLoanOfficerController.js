@@ -7,7 +7,7 @@
             scope.loanId = routeParams.id;
             var fields = "id,loanOfficerId,loanOfficerOptions";
 
-            resourceFactory.loanResource.get({loanId: scope.loanId, template: true, fields: fields}, function (data) {
+            resourceFactory.loanResource.get({loanId: scope.loanId, template: true, fields: fields, staffInSelectedOfficeOnly:true}, function (data) {
                 if (data.loanOfficerOptions) {
                     scope.loanOfficers = data.loanOfficerOptions;
                     scope.formData.toLoanOfficerId = data.loanOfficerOptions[0].id;

@@ -87,20 +87,24 @@
                                             | translate}}</a>
                                     </div>
                                 </td>
+                                <td>&nbsp;</td>
                             </tr>
 
                             <tr ng-repeat="chartSlab in chart.chartSlabs">
                                 <td class="width5">
-                                    <select class="form-control width170px" id="periodType" ng-model="chartSlab.periodType.id"
+                                    <select class="form-control width170px" id="periodType"
+                                            ng-model="chartSlab.periodType.id"
                                             ng-options="type.id as type.value for type in chart.periodTypes"
                                             value="{{chartSlab.periodType.id}}">
                                     </select>
                                 </td>
-                                <td class="width5">
+                                <td class="width15">
                                     <table class="width100">
                                         <tr>
-                                            <td><input id="fromPeriod" name="fromPeriod" type="text" class="form-control"
-                                                       ng-model="chartSlab.fromPeriod"/></td><td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+                                            <td><input id="fromPeriod" name="fromPeriod" type="text"
+                                                       class="form-control"
+                                                       ng-model="chartSlab.fromPeriod"/></td>
+                                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
                                             <td><input id="toPeriod" name="toPeriod" type="text" class="form-control"
                                                        ng-model="chartSlab.toPeriod"/></td>
                                         </tr>
@@ -113,10 +117,11 @@
                                            ng-model="chartSlab.amountRangeTo"/>
                                 </td>-->
                                 <td class="width5"><input id="annualInterestRate" name="annualInterestRate" type="text"
-                                           class="form-control"
-                                           ng-model="chartSlab.annualInterestRate"/></td>
-                                <td class="width20"><input id="description" name="description" type="text" class="form-control"
-                                           ng-model="chartSlab.description"/></td>
+                                                          class="form-control"
+                                                          ng-model="chartSlab.annualInterestRate"/></td>
+                                <td class="width20"><input id="description" name="description" type="text"
+                                                           class="form-control"
+                                                           ng-model="chartSlab.description"/></td>
                                 <td class="width8">
                                     <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
                                         | translate}}</a>
@@ -125,6 +130,10 @@
                                         <a ng-click="addNewRow()"><i class="icon-plus-sign icon-white"></i>{{'label.add.row'
                                             | translate}}</a>
                                     </div>
+                                </td>
+                                <td>
+                                    <a ng-click="incentives($index)"><i class="icon-white"></i>{{'label.incentive.row'
+                                        | translate}}</a>
                                 </td>
                             </tr>
                         </table>
@@ -138,5 +147,82 @@
             </button>
             <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
+        <script type="text/ng-template" id="incentive.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
+                <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
+                <table class="table table-bordered width100">
+                    <tr class="graybg">
+                        <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                        <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                        <td class="width15">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+                        <td>
+                            <div ng-show="chartSlab.incentives.length < 1">
+                                <a ng-click="addNewRow()"><i class="icon-plus-sign icon-white"></i>{{'label.add.row'
+                                    | translate}}</a>
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr ng-repeat="incentiveData in chartSlab.incentives">
+                        <td>
+                            <select class="form-control" id="attributename" ng-model="incentiveData.attributeName.id"
+                                    ng-options="type.id as type.value for type in data.attributeNameOptions"
+                                    value="{{type.id}}">
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" id="conditionType" ng-model="incentiveData.conditionType.id"
+                                    ng-options="type.id as type.value for type in data.conditionTypeOptions"
+                                    value="{{type.id}}">
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-show="incentiveData.attributeName.id == 2" id="attributeValuegender" ng-model="incentiveData.attributeValue"
+                                    ng-options="type.id as type.name for type in data.genderOptions"
+                                    value="{{type.id}}">
+                            </select>
+                            <select class="form-control" ng-show="incentiveData.attributeName.id == 4" id="attributeValueclienttype" ng-model="incentiveData.attributeValue"
+                                    ng-options="type.id as type.name for type in data.clientTypeOptions"
+                                    value="{{type.id}}">
+                            </select>
+                            <select class="form-control" ng-show="incentiveData.attributeName.id == 5" id="attributeValueclientclassification" ng-model="incentiveData.attributeValue"
+                                    ng-options="type.id as type.name for type in data.clientClassificationOptions"
+                                    value="{{type.id}}">
+                            </select>
+                            <input id="attributeValue" ng-show="incentiveData.attributeName.id == 3" name="attributeValueclientage" type="text"
+                                   class="form-control"
+                                   ng-model="incentiveData.attributeValue"/>
+                        </td>
+                        <td>
+                            <select class="form-control"  id="incentiveType" ng-model="incentiveData.incentiveType.id"
+                                    ng-options="type.id as type.value for type in data.incentiveTypeOptions"
+                                    value="{{type.id}}">
+                            </select>
+                        </td>
+
+                        <td>
+                            <input id="amount" name="amount" type="text"
+                                   class="form-control"
+                                   ng-model="incentiveData.amount"/>
+                        </td>
+                        <td>
+                            <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
+                                | translate}}</a>
+
+                            <div ng-show="$last">
+                                <a ng-click="addNewRow()"><i class="icon-plus-sign icon-white"></i>{{'label.add.row'
+                                    | translate}}</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+            </div>
+        </script>
     </form>
 </div>

@@ -1,82 +1,82 @@
-<div>
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
         <li class="active">{{'label.anchor.createcenter' | translate}}</li>
     </ul>
+	<form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController"
+	      rc-submit="submit()">
+	    <api-validate></api-validate>
+	    <fieldset>
+	        <legend>{{'label.heading.createcenter' | translate}}</legend>
+	
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+	                    class="required">*</span></label>
+	
+	            <div class="col-sm-3">
+	                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
+	                       late-Validate/>
+	            </div>
+	            <div class="col-sm-3">
+	                <form-validate valattributeform="createcenterform" valattribute="name"/>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
+	
+	            <div class="col-sm-3">
+	                <select chosen="offices" id="officeId" ng-model="formData.officeId"
+	                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+	                        ng-change="changeOffice()" class="form-control">
+	                </select>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+	
+	            <div class="col-sm-3">
+	                <select chosen="staffs" id="staffId" ng-model="formData.staffId"
+	                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control">
+	                    <option value="">{{'label.menu.selectstaff' | translate}}</option>
+	                </select>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+	
+	            <div class="col-sm-3">
+	                <input type="checkbox" id="active" data-ng-change="setChoice()" ng-model="formData.active">
+	            </div>
+		        <div data-ng-switch on="choice">
+		            <div class="form-group" data-ng-switch-when="1">
+		                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+		
+		                <div class="col-sm-3">
+		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+		                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+	
+	            <div class="col-sm-3">
+	                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+	
+	            <div class="col-sm-3">
+	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+	                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+	            </div>
+	        </div>
+	        <div class="col-md-offset-2 paddedleft">
+	            <a id="cancel" href="#/centers" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CENTER'>{{'label.button.save' | translate}}</button>
+	        </div>
+	    </fieldset>
+	</form>
 </div>
-<form name="createcenterform" novalidate="" class="form-horizontal well" ng-controller="CreateCenterController"
-      rc-submit="submit()">
-    <api-validate></api-validate>
-    <fieldset>
-        <legend>{{'label.heading.createcenter' | translate}}</legend>
-
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
-                    class="required">*</span></label>
-
-            <div class="col-sm-3">
-                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
-                       late-Validate/>
-            </div>
-            <div class="col-sm-3">
-                <form-validate valattributeform="createcenterform" valattribute="name"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
-
-            <div class="col-sm-3">
-                <select id="officeId" ng-model="formData.officeId"
-                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-                        ng-change="changeOffice()" class="form-control">
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
-
-            <div class="col-sm-3">
-                <select id="staffId" ng-model="formData.staffId"
-                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control">
-                    <option value="">{{'label.menu.selectstaff' | translate}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
-
-            <div class="col-sm-3">
-                <input type="checkbox" id="active" data-ng-change="setChoice()" ng-model="formData.active">
-            </div>
-        </div>
-        <div data-ng-switch on="choice">
-            <div class="form-group" data-ng-switch-when="1">
-                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
-
-                <div class="col-sm-3">
-                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
-
-            <div class="col-sm-3">
-                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
-
-            <div class="col-sm-3">
-                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
-                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-            </div>
-        </div>
-        <div class="col-md-offset-2 paddedleft">
-            <a id="cancel" href="#/centers" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CENTER'>{{'label.button.save' | translate}}</button>
-        </div>
-    </fieldset>
-</form>

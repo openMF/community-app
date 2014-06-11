@@ -10,19 +10,21 @@
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
-            resourceFactory.clientTemplateResource.get(function (data) {
+            resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.formData.officeId = scope.offices[0].id;
                 scope.savingproducts = data.savingProductOptions;
                 scope.genderOptions = data.genderOptions;
+                scope.clienttypeOptions = data.clientTypeOptions;
+                scope.clientClassificationOptions = data.clientClassificationOptions;
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }
             });
 
             scope.changeOffice = function (officeId) {
-                resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId
+                resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.savingproducts = data.savingProductOptions;

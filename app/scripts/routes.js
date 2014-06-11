@@ -337,6 +337,9 @@
             .when('/viewdatatableentry/:tableName/:entityId/:resourceId', {
                 templateUrl: 'views/system/viewdatatableentry.html'
             })
+            .when('/viewsingledatatableentry/:tableName/:entityId', {
+                templateUrl: 'views/system/viewdatatableentry.html'
+            })
             .when('/addcode', {
                 templateUrl: 'views/system/addcode.html'
             })
@@ -609,6 +612,18 @@
             })
             .when('/advsearch', {
                 templateUrl: 'views/search/advsearch.html'
+            })
+            .when('/createofficeglmapping', {
+                templateUrl: 'views/accounting/createofficeglaccount.html'
+            })
+            .when('/editofficeglmapping/:mappingId', {
+                templateUrl: 'views/accounting/editofficeglaccount.html'
+            })
+            .when('/viewofficeglmapping/:mappingId', {
+                templateUrl: 'views/accounting/viewofficeglaccount.html'
+            })
+            .when('/listofficeglmapping', {
+                templateUrl: 'views/accounting/accounting_office_mapping.html'
             });
         $locationProvider.html5Mode(false);
     };

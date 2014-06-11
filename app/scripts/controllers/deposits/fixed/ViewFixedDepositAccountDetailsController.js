@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter) {
+        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
@@ -73,6 +73,10 @@
 
             resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.chartSlabs = scope.savingaccountdetails.accountChart.chartSlabs;
+                scope.savingaccountdetails.accountChart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
+                    return obj.fromPeriod
+                });
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
@@ -228,9 +232,28 @@
             scope.modifyTransaction = function (accountId, transactionId) {
                 location.path('/fixeddepositaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
+
+            scope.incentives = function(index){
+                $modal.open({
+                    templateUrl: 'incentive.html',
+                    controller: IncentiveCtrl,
+                    resolve: {
+                        chartSlab: function () {
+                            return scope.savingaccountdetails.accountChart.chartSlabs[index];
+                        }
+                    }
+                });
+            };
+
+            var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+                $scope.chartSlab = chartSlab;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
     });
-    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$modal', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
         $log.info("ViewFixedDepositAccountDetailsController initialized");
     });
 }(mifosX.controllers || {}));

@@ -2,9 +2,8 @@
 <div id="viewlptop">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
-            <li><a href="#/products">{{'label.anchor.products' | translate}}</a> <span class="divider">/</span></li>
-            <li><a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a> <span
-                    class="divider">/</span></li>
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a></li>
             <li class="active">{{depositproduct.name}}</li>
         </ul>
     </div>
@@ -59,7 +58,7 @@
     <td colspan="3">{{depositproduct.minDepositAmount}}</td>
 </tr>
 <tr>
-    <td>{{'label.input.depositAmount' | translate}}</td>
+    <td>{{'label.input.default.deposit.amount' | translate}}</td>
     <td colspan="3">{{depositproduct.depositAmount}}</td>
 </tr>
 <tr>
@@ -148,13 +147,18 @@
     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
     <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
-    <td colspan="2">{{'label.heading.interestratedetails.description' | translate}}</td>
+    <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+    <td>&nbsp;</td>
 </tr>
-<tr ng-repeat="chartSlabs in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
-    <td>{{chartSlabs.fromPeriod}} - {{chartSlabs.toPeriod}} {{chartSlabs.periodType.value}}</td>
+<tr ng-repeat="chartSlab in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
+    <td>{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
     <!--<td>{{chartSlabs.amountRangeFrom}} - {{chartSlabs.amountRangeTo}}</td>-->
-    <td>{{chartSlabs.annualInterestRate}}</td>
-    <td colspan="2">{{chartSlabs.description}}</td>
+    <td>{{chartSlab.annualInterestRate}}</td>
+    <td>{{chartSlabs.description}}</td>
+    <td>
+        <a ng-click="incentives($index)" ><i class="icon-white"></i>{{'label.incentive.row'
+            | translate}}</a>
+    </td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>
@@ -272,5 +276,31 @@
 </tr>
 </table>
 
+<script type="text/ng-template" id="incentive.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
+        <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
+        <table class="table table-bordered width100">
+            <tr class="graybg">
+                <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+            </tr>
+            <tr ng-repeat="incentiveData in chartSlab.incentives">
+                <td>{{incentiveData.attributeName.code | translate}}</td>
+                <td>{{incentiveData.conditionType.code | translate}} </td>
+                <td data-ng-hide="incentiveData.attributeValueDesc">{{incentiveData.attributeValue}} </td>
+                <td data-ng-show="incentiveData.attributeValueDesc">{{incentiveData.attributeValueDesc}} </td>
+                <td>{{incentiveData.incentiveType.code | translate}} </td>
+                <td>{{incentiveData.amount}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+    </div>
+</script>
 </div>
 </div>

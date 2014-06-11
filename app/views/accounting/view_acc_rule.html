@@ -1,4 +1,4 @@
-<div ng-controller="ViewAccRuleController">
+<div class="col-md-12" ng-controller="ViewAccRuleController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
             <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
@@ -39,20 +39,20 @@
                 <td><span class="padded-td">{{rule.description}}</span></td>
             </tr>
             <tr>
-                <th class="table-bold-acc">{{ 'label.input.allowMultipleCreditEntries' | translate }}</th>
-                <td><span class="padded-td">{{rule.allowMultipleCreditEntries}}</span></td>
-            </tr>
-            <tr>
                 <th class="table-bold-acc">{{ 'label.input.allowMultipleDebitEntries' | translate }}</th>
                 <td><span class="padded-td">{{rule.allowMultipleDebitEntries}}</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-acc">{{ 'label.input.allowMultipleCreditEntries' | translate }}</th>
+                <td><span class="padded-td">{{rule.allowMultipleCreditEntries}}</span></td>
             </tr>
         </table>
         <hr/>
         <table class="width80">
             <thead>
             <tr>
-                <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
                 <th>{{ 'label.heading.debitaccountdetails' | translate }}</th>
+                <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
             </tr>
             </thead>
             <tbody>
@@ -67,21 +67,21 @@
                 -->
                 <td>
                     <table>
-                        <tr ng-repeat="crAccount in rule.creditAccounts">
-                            <td style="padding-left: 0px;">{{crAccount.name}}({{crAccount.glCode}})</td>
-                        </tr>
-                        <tr ng-repeat="creditTag in rule.creditTags">
-                            <td style="padding-left: 0px;">{{creditTag.tag.name}}</td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <table>
                         <tr ng-repeat="dbAccount in rule.debitAccounts">
                             <td style="padding-left: 0px;">{{dbAccount.name}}({{dbAccount.glCode}})</td>
                         </tr>
                         <tr ng-repeat="debitTag in rule.debitTags">
                             <td style="padding-left: 0px;">{{debitTag.tag.name}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr ng-repeat="crAccount in rule.creditAccounts">
+                            <td style="padding-left: 0px;">{{crAccount.name}}({{crAccount.glCode}})</td>
+                        </tr>
+                        <tr ng-repeat="creditTag in rule.creditTags">
+                            <td style="padding-left: 0px;">{{creditTag.tag.name}}</td>
                         </tr>
                     </table>
                 </td>

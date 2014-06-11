@@ -24,6 +24,7 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {
                     http({
@@ -49,8 +50,10 @@
                     }
                 }
 
-                if(data.status.value == "Active"){
-                    scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
+                if (data.status.value == "Active") {
+                    if (data.savingsAccountId) {
+                        scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
+                    }
                 }
 
                 scope.buttonsArray = {
@@ -201,16 +204,11 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
+                    scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
-                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cd_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cv_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
@@ -230,7 +228,6 @@
                             }
                         }
                     }
-
                 });
             };
 
@@ -265,11 +262,11 @@
             };
 
             scope.viewDataTable = function (registeredTableName,data){
-                var locationURI = "/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/";
                 if (scope.datatabledetails.isMultirow) {
-                    locationURI = locationURI + data.row[0];
-                };
-                location.path(locationURI);
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/"+data.row[0]);
+                }else{
+                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.client.id);
+                }
             };
 
             scope.downloadDocument = function (documentId) {

@@ -8,10 +8,13 @@
             scope.clientId = routeParams.id;
             scope.showSavingOptions = 'false';
             scope.opensavingsproduct = 'false';
-            resourceFactory.clientResource.get({clientId: routeParams.id, template: 'true'}, function (data) {
+            resourceFactory.clientResource.get({clientId: routeParams.id, template:'true', staffInSelectedOfficeOnly:true}, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.savingproducts = data.savingProductOptions;
+                scope.genderOptions = data.genderOptions;
+                scope.clienttypeOptions = data.clientTypeOptions;
+                scope.clientClassificationOptions = data.clientClassificationOptions;
                 scope.officeId = data.officeId;
                 scope.formData = {
                     firstname: data.firstname,
@@ -22,14 +25,31 @@
                     staffId: data.staffId,
                     externalId: data.externalId,
                     mobileNo: data.mobileNo,
-                    savingsProductId: data.savingsProductId
+                    savingsProductId: data.savingsProductId,
+                    genderId: data.gender.id
                 };
 
+                if(data.gender){
+                    scope.formData.genderId = data.gender.id;
+                }
+
+                if(data.clientType){
+                    scope.formData.clientTypeId = data.clientType.id;
+                }
+
+                if(data.clientClassification){
+                    scope.formData.clientClassificationId = data.clientClassification.id;
+                }
                 if (data.savingsProductId != null) {
                     scope.opensavingsproduct = 'true';
                     scope.showSavingOptions = 'true';
                 } else if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = 'true';
+                }
+
+                if (data.dateOfBirth) {
+                    var dobDate = dateFilter(data.dateOfBirth, scope.df);
+                    scope.date.dateOfBirth = new Date(dobDate);
                 }
 
                 var actDate = dateFilter(data.activationDate, scope.df);
@@ -51,6 +71,9 @@
                     if (scope.date.activationDate) {
                         this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);
                     }
+                }
+                if(scope.date.dateOfBirth){
+                    this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
                 }
 
                 resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {

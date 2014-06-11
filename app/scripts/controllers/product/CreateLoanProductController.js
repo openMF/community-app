@@ -22,7 +22,7 @@
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
@@ -45,30 +45,6 @@
                 scope.formData.interestRateVariationsForBorrowerCycle = scope.product.interestRateVariationsForBorrowerCycle;
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
                 scope.formData.multiDisburseLoan = 'false';
-                if (scope.assetAccountOptions[0]) {
-                    scope.formData.fundSourceAccountId = scope.assetAccountOptions[0].id;
-                }
-                if (scope.assetAccountOptions[1]) {
-                    scope.formData.loanPortfolioAccountId = scope.assetAccountOptions[1].id;
-                }
-                if (scope.assetAccountOptions[2]) {
-                    scope.formData.transfersInSuspenseAccountId = scope.assetAccountOptions[2].id;
-                }
-                if (scope.incomeAccountOptions[0]) {
-                    scope.formData.interestOnLoanAccountId = scope.incomeAccountOptions[0].id;
-                }
-                if (scope.incomeAccountOptions[1]) {
-                    scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[1].id;
-                }
-                if (scope.incomeAccountOptions[2]) {
-                    scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[2].id;
-                }
-                if (scope.expenseAccountOptions[0]) {
-                    scope.formData.writeOffAccountId = scope.expenseAccountOptions[0].id;
-                }
-                if (scope.liabilityOptions[0]) {
-                    scope.formData.overpaymentLiabilityAccountId = scope.liabilityOptions[0].id;
-                }
                 scope.formData.accountingRule = '1';
             });
 
@@ -248,7 +224,7 @@
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
-                this.formData.dateFormat = "dd MMMM yyyy";
+                this.formData.dateFormat = scope.df;
                 this.formData.locale = "en";
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;

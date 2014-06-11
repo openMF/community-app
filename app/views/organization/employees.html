@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.manageemployees' | translate}}&nbsp;&nbsp;{{employee.lastname}}</li>
@@ -9,22 +9,24 @@
     </div>
     <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control"
            placeholder="{{'label.input.filterbyname' | translate}}">
-</div>
-<div ng-controller="EmployeeController">
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{ 'label.heading.name' | translate }}</th>
-            <th>{{ 'label.heading.isLoanOfficer' | translate }}</th>
-            <th>{{ 'label.heading.office' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="employee in employees | filter:filterText">
-            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
-            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
-            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
-        </tr>
-        </tbody>
-    </table>
+	<div ng-controller="EmployeeController">
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{ 'label.heading.name' | translate }}</th>
+	            <th>{{ 'label.heading.isLoanOfficer' | translate }}</th>
+	            <th>{{ 'label.heading.office' | translate }}</th>
+	            <th>{{ 'label.active' | translate }}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main" ng-repeat="employee in employees | filter:filterText">
+	            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
+	            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
+	            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
+	            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isActive}}</td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
 </div>

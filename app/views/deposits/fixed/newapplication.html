@@ -121,7 +121,7 @@
                 <input id="depositPeriod" class="form-control" type="text" ng-model="formData.depositPeriod">
                 <select id="depositPeriodFrequencyId" ng-model="formData.depositPeriodFrequencyId"
                         class="form-control width170px"
-                        ng-options="type.id as type.value for type in data.depositPeriodFrequencyOptions"
+                        ng-options="type.id as type.value for type in data.periodFrequencyTypeOptions"
                         value="{{type.id}}">
                     <option value="">{{'label.selectone' | translate}}</option>
                 </select></div>
@@ -166,7 +166,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <label class="control-label">{{ 'label.prematureclosure' | translate }}&nbsp;</label>
+            <label class="control-label" data-ng-show="formData.preClosurePenalApplicable">{{ 'label.prematureclosure' | translate }}&nbsp;</label>
         </td>
     </tr>
     <tr>
@@ -175,6 +175,28 @@
                 <label class="control-label">{{ 'label.checkbox.applypreclosurepenalinterest' |
                     translate }}&nbsp;&nbsp;{{formData.preClosurePenalInterest}}&nbsp;&nbsp;-&nbsp;&nbsp;On&nbsp;&nbsp;{{data.preClosurePenalInterestOnType.value}}</label>
             </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="control-label">{{ 'label.input.trasfertosavings' | translate }}</label>
+        </td>
+        <td>
+            <input type="checkbox"
+                   ng-model="formData.transferInterestToSavings" ng-true-value="true"
+                   ng-false-value="false">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label class="control-label">{{ 'label.input.linksavings' | translate }}</label>
+        </td>
+        <td>
+            <select id="linkAccountId" ng-model="formData.linkAccountId"
+                    ng-options="savingaccount.id as savingaccount.savingsProductName for savingaccount in savingsAccounts" class="form-control width170px"
+                    value="{{savingaccount.id}}">
+                <option value="">{{'label.menu.selectone' | translate}}</option>
+            </select>
         </td>
     </tr>
 </table>
@@ -198,6 +220,7 @@
                     <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
                     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+                    <td>&nbsp;</td>
                 </tr>
 
                 <tr ng-repeat="chartSlab in chart.chartSlabs">
@@ -211,6 +234,10 @@
                     </td>-->
                     <td>{{chartSlab.annualInterestRate}}</td>
                     <td>{{chartSlab.description}}</td>
+                    <td>
+                        <a ng-click="incentives($index)"  ><i class="icon-white"></i>{{'label.incentive.row'
+                            | translate}}</a>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -271,7 +298,32 @@
     <button id="save" type="submit" class="btn btn-primary" ng-show="data">{{ 'label.button.save' | translate }}
     </button>
 </div>
-
+<script type="text/ng-template" id="incentive.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
+        <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
+        <table class="table table-bordered width100">
+            <tr class="graybg">
+                <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+            </tr>
+            <tr ng-repeat="incentiveData in chartSlab.incentives">
+                <td>{{incentiveData.attributeName.code | translate}}</td>
+                <td>{{incentiveData.conditionType.code | translate}} </td>
+                <td data-ng-hide="incentiveData.attributeValueDesc">{{incentiveData.attributeValue}} </td>
+                <td data-ng-show="incentiveData.attributeValueDesc">{{incentiveData.attributeValueDesc}} </td>
+                <td>{{incentiveData.incentiveType.code | translate}} </td>
+                <td>{{incentiveData.amount}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+    </div>
+</script>
 </fieldset>
 </form>
 </div>

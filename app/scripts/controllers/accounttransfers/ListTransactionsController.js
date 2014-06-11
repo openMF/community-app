@@ -10,7 +10,7 @@
                 params.offset = offset;
                 params.limit = limit;
                 params.locale = "en";
-                params.dateFormat = "dd MMMM yyyy";
+                params.dateFormat = scope.df;
                  params.standingInstructionId = scope.standingInstructionId;
                
                  resourceFactory.standingInstructionResource.getTransactions(params, function (data) {

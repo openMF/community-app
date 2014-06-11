@@ -6,7 +6,7 @@
             scope.first.date = new Date();
             scope.centerId = routeParams.id;
             scope.restrictDate = new Date();
-            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true'}, function (data) {
+            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.edit = data;
                 scope.staffs = data.staffOptions;
                 scope.formData = {
@@ -50,4 +50,3 @@
         $log.info("EditCenterController initialized");
     });
 }(mifosX.controllers || {}));
-

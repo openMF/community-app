@@ -75,7 +75,7 @@
                 this.formData.startDate = reqDate;
                 this.formData.title = scope.calendarData.title;
                 this.formData.locale = "en";
-                this.formData.dateFormat = "dd MMMM yyyy";
+                this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 if (this.formData.interval < 0) {
                     scope.formData.interval = Math.abs(this.formData.interval);

@@ -1,8 +1,9 @@
-<div class="row" ng-controller="TaskController">
+<div class="col-md-12" ng-controller="TaskController">
 <fieldset>
 <legend>{{'label.heading.pendingtasks' | translate}}</legend>
+<api-validate></api-validate>
 <tabset>
-<tab heading="{{'label.heading.checkerinbox' | translate}}">
+<tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' >
     <div class="head-affix">
         <table class="table condensed-table">
             <div class="form-inline">
@@ -15,8 +16,9 @@
                 </div>
                 <div class="form-group">
                     <span>
-                        <button type="button" class="btn btn-success" data-ng-click="approveChecker()"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
-                        <button type="button" class="btn btn-warning" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
+                        <button type="button" class="btn btn-success" data-ng-click="approveOrRejectChecker('approve')"><i class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-ng-click="deleteChecker()"><i class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
+                        <button type="button" class="btn btn-warning" data-ng-click="approveOrRejectChecker('reject')"><i class="icon-remove"></i>{{'label.button.reject' | translate}}</button>
                     </span>
                 </div>
             </div>
@@ -113,7 +115,7 @@
         </table>
     </div>
 </tab>
-<tab heading="{{'label.heading.clientapproval' | translate}}">
+<tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
     <div class="head-affix">
         <table class="table condensed-table">
             <thead>
@@ -123,7 +125,7 @@
                            placeholder="{{'label.input.filterbyname' | translate}}">
                 </th>
                 <th>
-                    <button type="button" class="btn btn-success" data-ng-click="approveClient()"><i
+                    <button type="button" class="btn btn-success" data-ng-click="approveClient()" has-permission='ACTIVATE_CLIENT'><i
                             class="icon-ok"></i>{{'label.button.approve' | translate}}
                     </button>
                 </th>
@@ -179,7 +181,7 @@
         </tr>
     </table>
 </tab>
-<tab heading="{{'label.heading.loanapproval' | translate}}">
+<tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
     <div class="head-affix">
         <table class="table condensed-table">
             <thead>
@@ -189,7 +191,7 @@
                            placeholder="{{'label.input.filterbyname' | translate}}">
                 </th>
                 <th>
-                    <button type="button" class="btn btn-success" data-ng-click="approveLoan()"><i class="icon-ok"></i>{{'label.button.approve'
+                    <button type="button" class="btn btn-success" data-ng-click="approveLoan()" has-permission='APPROVE_LOAN'><i class="icon-ok"></i>{{'label.button.approve'
                         | translate}}
                     </button>
                 </th>
@@ -239,7 +241,7 @@
         </tr>
     </table>
 </tab>
-<tab heading="{{'label.heading.loandisbursal' | translate}}">
+<tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
     <div class="head-affix">
         <table class="table condensed-table">
             <thead>

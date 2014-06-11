@@ -57,7 +57,7 @@
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
                 this.formData.locale = "en";
-                this.formData.dateFormat = "dd MMMM yyyy";
+                this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 if (routeParams.entityType == "groups") {
                     this.formData.title = "groups_" + routeParams.id + "_CollectionMeeting";

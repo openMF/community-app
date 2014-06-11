@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -14,6 +14,7 @@
             scope.restrictDate = new Date();
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
+            scope.deletedincentives = [];
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -22,7 +23,6 @@
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                var interestFreePeriodFrequencyTypeId = (_.isNull(data.interestFreePeriodFrequencyType) || _.isUndefined(data.interestFreePeriodFrequencyType)) ? '' : data.interestFreePeriodFrequencyType.id;
                 var preClosurePenalInterestOnTypeId = (_.isNull(data.preClosurePenalInterestOnType) || _.isUndefined(data.preClosurePenalInterestOnType)) ? '' : data.preClosurePenalInterestOnType.id;
                 var minDepositTermTypeId = (_.isNull(data.minDepositTermType) || _.isUndefined(data.minDepositTermType)) ? '' : data.minDepositTermType.id;
                 var maxDepositTermTypeId = (_.isNull(data.maxDepositTermType) || _.isUndefined(data.maxDepositTermType)) ? '' : data.maxDepositTermType.id;
@@ -45,28 +45,30 @@
                     interestCalculationType: data.interestCalculationType.id,
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
-                    interestFreePeriodApplicable: data.interestFreePeriodApplicable,
-                    interestFreeFromPeriod: data.interestFreeFromPeriod,
-                    interestFreeToPeriod: data.interestFreeToPeriod,
-                    interestFreePeriodFrequencyTypeId: interestFreePeriodFrequencyTypeId,
                     preClosurePenalApplicable: data.preClosurePenalApplicable,
                     preClosurePenalInterest: data.preClosurePenalInterest,
                     preClosurePenalInterestOnTypeId: preClosurePenalInterestOnTypeId,
-                    recurringDepositTypeId: data.recurringDepositType.id,
-                    recurringDepositFrequencyTypeId: data.recurringDepositFrequencyType.id,
-                    recurringDepositFrequency: data.recurringDepositFrequency,
                     minDepositTerm: data.minDepositTerm,
                     maxDepositTerm: data.maxDepositTerm,
                     minDepositTermTypeId: minDepositTermTypeId,
                     maxDepositTermTypeId: maxDepositTermTypeId,
                     inMultiplesOfDepositTerm: data.inMultiplesOfDepositTerm,
-                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId
+                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId,
+                    isMandatoryDeposit:data.isMandatoryDeposit,
+                    allowWithdrawal:data.allowWithdrawal,
+                    adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments
                 }
 
                 scope.chart = scope.product.activeChart;
                 scope.chart.chartSlabs = _.sortBy(scope.chart.chartSlabs, function (obj) {
                     return obj.fromPeriod
                 });
+
+                _.each(scope.chart.chartSlabs, function (chartSlab) {
+                    _.each(chartSlab.incentives, function (incentive){
+                        incentive.attributeValue = parseInt(incentive.attributeValue);
+                    })
+                })
                 //format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
@@ -81,27 +83,7 @@
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                if (scope.formData.accountingRule == 1) {
-
-                    if (scope.assetAccountOptions.length > 0) {
-                        scope.formData.savingsReferenceAccountId = scope.assetAccountOptions[0].id;
-                    }
-                    if (scope.liabilityAccountOptions.length > 0) {
-                        scope.formData.savingsControlAccountId = scope.liabilityAccountOptions[0].id;
-                    }
-                    if (scope.liabilityAccountOptions.length > 1) {
-                        scope.formData.transfersInSuspenseAccountId = scope.liabilityAccountOptions[1].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 0) {
-                        scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[0].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 1) {
-                        scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[1].id;
-                    }
-                    if (scope.expenseAccountOptions.length > 0) {
-                        scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
-                    }
-                } else {
+                if (scope.formData.accountingRule == 2) {
                     scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
                     scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                     scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
@@ -136,7 +118,6 @@
                         })
                     });
                 }
-
             });
 
             //advanced accounting rule
@@ -296,7 +277,8 @@
                 var chartSlab = {
                     "periodType": periodType,
                     "fromPeriod": fromPeriod,
-                    "amountRangeFrom": amountRangeFrom
+                    "amountRangeFrom": amountRangeFrom,
+                    "incentives":[]
                 };
 
                 scope.chart.chartSlabs.push(chartSlab);
@@ -359,7 +341,8 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
-                    locale: scope.optlang.code
+                    locale: scope.optlang.code,
+                    incentives:angular.copy(copyIncentives(chartSlab.incentives,chartSlab.id))
                 }
 
                 //remove empty values
@@ -395,9 +378,105 @@
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
+            scope.incentives = function(index){
+                $modal.open({
+                    templateUrl: 'incentive.html',
+                    controller: IncentiveCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.chart;
+                        },
+                        chartSlab: function () {
+                            return scope.chart.chartSlabs[index];
+                        }
+                    }
+                });
+            }
+
+            /**
+             *  copy all chart details to a new Array
+             * @param incentiveDatas
+             * @returns {Array}
+             */
+            copyIncentives = function (incentives,slabId) {
+                var detailsArray = [];
+                _.each(incentives, function (incentive) {
+                    var incentiveData = copyIncentive(incentive);
+                    detailsArray.push(incentiveData);
+                });
+                _.each(scope.deletedincentives,function(del){
+                    if(del.id == slabId){
+                        detailsArray.push(del.data);
+                    }
+                });
+
+                return detailsArray;
+            }
+
+            /**
+             * create new chart detail object data from chartSlab
+             * @param incentiveData
+             *
+             */
+
+            copyIncentive = function (incentiveData) {
+                var newIncentiveDataData = {
+                    id: incentiveData.id,
+                    "entityType":incentiveData.entityType,
+                    "attributeName":incentiveData.attributeName.id,
+                    "conditionType":incentiveData.conditionType.id,
+                    "attributeValue":incentiveData.attributeValue,
+                    "incentiveType":incentiveData.incentiveType.id,
+                    "amount":incentiveData.amount,
+                    locale: scope.optlang.code
+
+                }
+                if(incentiveData.id){
+                    newIncentiveDataData.entityType = incentiveData.entityType.id;
+                }
+                return newIncentiveDataData;
+            }
+
+            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+                $scope.data = data;
+                $scope.chartSlab = chartSlab;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.addNewRow = function () {
+                    var incentive = {
+                        "entityType":"2",
+                        "attributeName":"",
+                        "conditionType":"",
+                        "attributeValue":"",
+                        "incentiveType":"",
+                        "amount":""
+                    };
+
+                    $scope.chartSlab.incentives.push(incentive);
+                }
+
+                /**
+                 * Remove chart details row
+                 */
+                $scope.removeRow = function (index) {
+                    var incentive = {
+                        id:$scope.chartSlab.incentives[index].id,
+                        delete:'true'
+                    }
+                    var deldata = {
+                        id:chartSlab.id,
+                        data:incentive
+                    }
+                    scope.deletedincentives.push(deldata);
+                    $scope.chartSlab.incentives.splice(index, 1);
+                }
+            };
+
         }
     });
-    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
         $log.info("EditRecurringDepositProductController initialized");
     });
 }(mifosX.controllers || {}));

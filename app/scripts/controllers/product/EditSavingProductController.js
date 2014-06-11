@@ -33,81 +33,49 @@
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
                     allowOverdraft: data.allowOverdraft == true ? 'true' : 'false',
-                    overdraftLimit: data.overdraftLimit,
+                    overdraftLimit: data.overdraftLimit
                 }
 
                 if (data.lockinPeriodFrequencyType) {
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                if (scope.formData.accountingRule == 1) {
+                scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
+                scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
+                scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
+                scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
+                scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
+                scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
+                scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
+                scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
+                scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
 
-                    if (scope.assetAccountOptions.length > 0) {
-                        scope.formData.savingsReferenceAccountId = scope.assetAccountOptions[0].id;
-                    }
-                    if (scope.assetAccountOptions.length > 1) {
-                        scope.formData.overdraftPortfolioControlId = scope.assetAccountOptions[1].id;
-                    }
-                    if (scope.liabilityAccountOptions.length > 0) {
-                        scope.formData.savingsControlAccountId = scope.liabilityAccountOptions[0].id;
-                    }
-                    if (scope.liabilityAccountOptions.length > 1) {
-                        scope.formData.transfersInSuspenseAccountId = scope.liabilityAccountOptions[1].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 0) {
-                        scope.formData.incomeFromFeeAccountId = scope.incomeAccountOptions[0].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 1) {
-                        scope.formData.incomeFromPenaltyAccountId = scope.incomeAccountOptions[1].id;
-                    }
-                    if (scope.incomeAccountOptions.length > 2) {
-                        scope.formData.incomeFromInterestId = scope.incomeAccountOptions[2].id;
-                    }
-                    if (scope.expenseAccountOptions.length > 0) {
-                        scope.formData.interestOnSavingsAccountId = scope.expenseAccountOptions[0].id;
-                    }
-                    if (scope.expenseAccountOptions.length > 1) {
-                        scope.formData.writeOffAccountId = scope.expenseAccountOptions[1].id;
-                    }
-                } else {
-                    scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
-                    scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
-                    scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
-                    scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
-                    scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
-                    scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
-                    scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
-                    scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
-                    scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
+                _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
+                    scope.configureFundOptions.push({
+                        paymentTypeId: fundSource.paymentType.id,
+                        fundSourceAccountId: fundSource.fundSourceAccount.id,
+                        paymentTypeOptions: scope.product.paymentTypeOptions,
+                        assetAccountOptions: scope.assetAccountOptions
+                    })
+                });
 
-                    _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
-                        scope.configureFundOptions.push({
-                            paymentTypeId: fundSource.paymentType.id,
-                            fundSourceAccountId: fundSource.fundSourceAccount.id,
-                            paymentTypeOptions: scope.product.paymentTypeOptions,
-                            assetAccountOptions: scope.assetAccountOptions
-                        })
-                    });
+                _.each(scope.product.feeToIncomeAccountMappings, function (fees) {
+                    scope.specificIncomeaccounts.push({
+                        chargeId: fees.charge.id,
+                        incomeAccountId: fees.incomeAccount.id,
+                        chargeOptions: scope.product.chargeOptions,
+                        incomeAccountOptions: scope.incomeAccountOptions
+                    })
+                });
 
-                    _.each(scope.product.feeToIncomeAccountMappings, function (fees) {
-                        scope.specificIncomeaccounts.push({
-                            chargeId: fees.charge.id,
-                            incomeAccountId: fees.incomeAccount.id,
-                            chargeOptions: scope.product.chargeOptions,
-                            incomeAccountOptions: scope.incomeAccountOptions
-                        })
-                    });
-
-                    _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
-                        scope.penaltySpecificIncomeaccounts.push({
-                            chargeId: penalty.charge.id,
-                            incomeAccountId: penalty.incomeAccount.id,
-                            penaltyOptions: scope.product.penaltyOptions,
-                            incomeAccountOptions: scope.incomeAccountOptions
-                        })
-                    });
-                }
-
+                _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
+                    scope.penaltySpecificIncomeaccounts.push({
+                        chargeId: penalty.charge.id,
+                        incomeAccountId: penalty.incomeAccount.id,
+                        penaltyOptions: scope.product.penaltyOptions,
+                        incomeAccountOptions: scope.incomeAccountOptions
+                    })
+                });
             });
 
             //advanced accounting rule
@@ -208,7 +176,7 @@
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
@@ -217,7 +185,7 @@
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
                 }

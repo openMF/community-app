@@ -127,18 +127,19 @@
                         getAllSavingProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    fixedDepositProductResource: defineResource(apiVer + "/fixeddepositproducts/:productId/:resourceType", {productId:'@productId', resourceType:'@resourceType'}, {
-                        getAllFixedDepositProducts: {method: 'GET', params: {}, isArray:true},
+                    fixedDepositProductResource: defineResource(apiVer + "/fixeddepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
+                        getAllFixedDepositProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
-                    recurringDepositProductResource: defineResource(apiVer + "/recurringdepositproducts/:productId/:resourceType", {productId:'@productId', resourceType:'@resourceType'}, {
-                        getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray:true},
+                    recurringDepositProductResource: defineResource(apiVer + "/recurringdepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
+                        getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
+
                     interestRateChartResource: defineResource(apiVer + "/interestratecharts/:chartId/:resourceType", {chartId:'@chartId', resourceType:'@resourceType'}, {
-                        getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template'} , isArray:true},
+                        getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template', associations:'@chartSlabs'} , isArray:true},
                         update: {method: 'PUT', params: {}},
-                        getAllInterestRateCharts: {method: 'GET', params: {productId:'@productId'}, isArray:true}
+                        getAllInterestRateCharts: {method: 'GET', params: {productId: '@productId'}, isArray: true}
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
                         getAllLoans: {method: 'GET', params: {}},
@@ -182,7 +183,7 @@
                     userTemplateResource: defineResource(apiVer + "/users/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId: '@staffId'}, {
+                    employeeResource: defineResource(apiVer + "/staff/:staffId", {staffId: '@staffId',status:"all"}, {
                         getAllEmployees: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),
@@ -262,22 +263,22 @@
                     savingsTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId: '@savingsId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {savingsId: '@savingsId', transactionId: '@transactionId'}}
                     }),
-                    fixedDepositAccountResource: defineResource(apiVer + "/fixeddepositaccounts/:accountId/:resourceType", {accountId:'@accountId', resourceType:'@resourceType'}, {
+                    fixedDepositAccountResource: defineResource(apiVer + "/fixeddepositaccounts/:accountId/:resourceType", {accountId: '@accountId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
                     }),
                     fixedDepositAccountTemplateResource: defineResource(apiVer + "/fixeddepositaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    fixedDepositTrxnsTemplateResource: defineResource(apiVer + "/fixeddepositaccounts/:savingsId/transactions/template", {savingsId:'@savingsId'}, {
-                        get: {method: 'GET', params: {savingsId:'@savingsId'}}
+                    fixedDepositTrxnsTemplateResource: defineResource(apiVer + "/fixeddepositaccounts/:savingsId/transactions/template", {savingsId: '@savingsId'}, {
+                        get: {method: 'GET', params: {savingsId: '@savingsId'}}
                     }),
                     fixedDepositTrxnsResource: defineResource(apiVer + "/fixeddepositaccounts/:savingsId/transactions/:transactionId", {savingsId: '@savingsId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {savingsId: '@savingsId', transactionId: '@transactionId'}}
                     }),
-                    recurringDepositAccountResource: defineResource(apiVer + "/recurringdepositaccounts/:accountId/:resourceType", {accountId:'@accountId', resourceType:'@resourceType'}, {
-                          get: {method: 'GET', params: {}},
-                          update: {method: 'PUT'}
+                    recurringDepositAccountResource: defineResource(apiVer + "/recurringdepositaccounts/:accountId/:resourceType", {accountId: '@accountId', resourceType: '@resourceType'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT'}
                     }),
                     recurringDepositAccountTemplateResource: defineResource(apiVer + "/recurringdepositaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
@@ -294,15 +295,15 @@
                     accountTransfersTemplateResource: defineResource(apiVer + "/accounttransfers/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                     standingInstructionResource: defineResource(apiVer + "/standinginstructions/:standingInstructionId", {standingInstructionId: '@standingInstructionId'}, {
+                    standingInstructionResource: defineResource(apiVer + "/standinginstructions/:standingInstructionId", {standingInstructionId: '@standingInstructionId'}, {
                         get: {method: 'GET', params: {standingInstructionId: '@standingInstructionId'}},
-                        getTransactions: {method: 'GET', params: {standingInstructionId: '@standingInstructionId',associations: 'transactions'}},
-                        withTemplate: {method: 'GET', params: {standingInstructionId: '@standingInstructionId',associations: 'template'}},
+                        getTransactions: {method: 'GET', params: {standingInstructionId: '@standingInstructionId', associations: 'transactions'}},
+                        withTemplate: {method: 'GET', params: {standingInstructionId: '@standingInstructionId', associations: 'template'}},
                         search: {method: 'GET', params: {}},
-                        update: { method: 'PUT',params: {command:'update'}},
-                        cancel: { method: 'PUT',params: {command:'delete'}}
+                        update: { method: 'PUT', params: {command: 'update'}},
+                        cancel: { method: 'PUT', params: {command: 'delete'}}
                     }),
-                     standingInstructionTemplateResource: defineResource(apiVer + "/standinginstructions/template", {}, {
+                    standingInstructionTemplateResource: defineResource(apiVer + "/standinginstructions/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
@@ -362,6 +363,17 @@
                     checkerInboxResource: defineResource(apiVer + "/makercheckers/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
                         search: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    officeToGLAccountMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId", {mappingId: '@mappingId'}, {
+                        get: {method: 'GET', params: {mappingId: '@mappingId'}},
+                        withTemplate: {method: 'GET', params: {mappingId: '@mappingId', template: 'true'}},
+                        search: {method: 'GET', params: {}},
+                        create: {method: 'POST', params: {}},
+                        update: { method: 'PUT', params: {mappingId: '@mappingId'}},
+                        delete: { method: 'DELETE', params: {mappingId: '@mappingId'}}
+                    }),
+                    officeToGLAccountMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/template", {}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
@@ -370,6 +382,6 @@
     mifosX.ng.services.config(function ($provide) {
         $provide.provider('ResourceFactory', mifosX.services.ResourceFactoryProvider);
     }).run(function ($log) {
-            $log.info("ResourceFactory initialized");
-        });
+        $log.info("ResourceFactory initialized");
+    });
 }(mifosX.services || {}));

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateChargeController: function (scope, resourceFactory, location, dateFilter) {
+        CreateChargeController: function (scope, resourceFactory, location, dateFilter, translate) {
             scope.template = [];
             scope.formData = {};
             scope.first = {};
@@ -8,6 +8,8 @@
             scope.showdatefield = false;
             scope.repeatEvery = false;
             scope.first.date = new Date();
+            scope.translate = translate;
+            scope.showFrequencyOptions = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -21,12 +23,10 @@
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
-                    scope.showFrequencyOptions = true;
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
-                    scope.showFrequencyOptions = false;
                     scope.addfeefrequency = false;
                 }
             }
@@ -34,6 +34,10 @@
             //to display 'Due date' field, if chargeTimeType is
             //'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
+                scope.showFrequencyOptions = false;
+                if(chargeTimeType == 9){
+                    scope.showFrequencyOptions = true;
+                }
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.chargeTimeTypeOptions[i].id) {
@@ -90,7 +94,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateChargeController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateChargeController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$translate', mifosX.controllers.CreateChargeController]).run(function ($log) {
         $log.info("CreateChargeController initialized");
     });
 }(mifosX.controllers || {}));

@@ -72,8 +72,6 @@ angular.module('notificationWidget', [])
                         $rootScope.errorStatus = 'No connection. Verify application is running.';
                     } else if (response.status == 401) {
                         $rootScope.errorStatus = 'Unauthorized';
-                    } else if (response.status == 404) {
-                        $rootScope.errorStatus = 'Requested page not found. [404]';
                     } else if (response.status == 405) {
                         $rootScope.errorStatus = 'HTTP verb not supported [405]';
                     } else if (response.status == 500) {

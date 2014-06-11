@@ -237,16 +237,11 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
+                    scope.showDataTableEditButton = scope.datatabledetails.isData && !scope.datatabledetails.isMultirow;
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
-                            if (data.columnHeaders[i].columnName.indexOf("_cd_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cd_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            } else if (data.columnHeaders[i].columnName.indexOf("_cv_") > 0) {
-                                var temp = data.columnHeaders[i].columnName.split("_cv_");
-                                data.columnHeaders[i].columnName = temp[1];
-                            }
                             for (var j in scope.datatabledetails.columnHeaders[i].columnValues) {
                                 for (var k in data.data) {
                                     if (data.data[k].row[i] == scope.datatabledetails.columnHeaders[i].columnValues[j].id) {
@@ -272,6 +267,14 @@
             scope.export = function () {
                 scope.report = true;
                 scope.printbtn = false;
+            };
+
+            scope.viewDataTable = function (registeredTableName,data){
+                if (scope.datatabledetails.isMultirow) {
+                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.savingaccountdetails.id+"/"+data.row[0]);
+                }else{
+                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.savingaccountdetails.id);
+                }
             };
 
             scope.viewSavingDetails = function () {
@@ -316,6 +319,22 @@
             scope.modifyTransaction = function (accountId, transactionId) {
                 location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
+            
+            scope.transactionSort = {
+                column: 'date',
+                descending: true
+            };
+                
+            scope.changeTransactionSort = function(column) {
+                var sort = scope.transactionSort;
+                if (sort.column == column) {
+                    sort.descending = !sort.descending;
+                } else {
+                    sort.column = column;
+                    sort.descending = true;
+                }
+            };
+            
         }
     })
     ;

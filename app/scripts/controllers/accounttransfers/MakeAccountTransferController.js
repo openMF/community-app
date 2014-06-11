@@ -44,12 +44,16 @@
 
             scope.submit = function () {
                 this.formData.locale = "en";
-                this.formData.dateFormat = "dd MMMM yyyy";
+                this.formData.dateFormat = scope.df;
                 if (this.formData.transferDate) this.formData.transferDate = dateFilter(this.formData.transferDate, scope.df);
                 this.formData.fromClientId = scope.transfer.fromClient.id;
                 this.formData.fromOfficeId = scope.transfer.fromClient.officeId;
                 resourceFactory.accountTransferResource.save(this.formData, function (data) {
-                    location.path('/viewsavingaccount/' + data.savingsId);
+                    if (params.fromAccountType == 1) {
+                        location.path('/viewloanaccount/' + data.loanId);
+                    } else if (params.fromAccountType == 2) {
+                        location.path('/viewsavingaccount/' + data.savingsId);
+                    }
                 });
             };
         }

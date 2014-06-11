@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -36,6 +36,7 @@
                 scope.chargeOptions = data.chargeOptions;
                 scope.clientName = data.clientName;
                 scope.groupName = data.groupName;
+                scope.savingsAccounts = data.savingsAccounts;
             });
 
             scope.changeProduct = function () {
@@ -66,6 +67,10 @@
                     if (data.preClosurePenalApplicable) scope.formData.preClosurePenalApplicable = data.preClosurePenalApplicable;
 
                     scope.chart = data.accountChart;
+                    scope.chartSlabs = scope.chart.chartSlabs;
+                    scope.chart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
+                        return obj.fromPeriod
+                    });
                     //format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
@@ -75,6 +80,8 @@
                         var endDate = dateFilter(scope.chart.endDate, scope.df);
                         scope.endDate.date = new Date(endDate);
                     }
+
+
 
                     var interestFreePeriodFrequencyTypeId = (_.isNull(data.interestFreePeriodFrequencyType) || _.isUndefined(data.interestFreePeriodFrequencyType)) ? '' : data.interestFreePeriodFrequencyType.id;
                     var preClosurePenalInterestOnTypeId = (_.isNull(data.preClosurePenalInterestOnType) || _.isUndefined(data.preClosurePenalInterestOnType)) ? '' : data.preClosurePenalInterestOnType.id;
@@ -95,7 +102,7 @@
                     scope.formData.maxDepositTermTypeId = maxDepositTermTypeId;
                     scope.formData.inMultiplesOfDepositTerm = data.inMultiplesOfDepositTerm;
                     scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
-
+                    scope.formData.transferInterestToSavings = 'false';
                 });
             };
 
@@ -266,7 +273,8 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
-                    locale: scope.optlang.code
+                    locale: scope.optlang.code,
+                    incentives:angular.copy(copyIncentives(chartSlab.incentives))
                 }
 
                 //remove empty values
@@ -297,9 +305,85 @@
             scope.removeRow = function (index) {
                 scope.chart.chartSlabs.splice(index, 1);
             }
+            scope.incentives = function(index){
+                $modal.open({
+                    templateUrl: 'incentive.html',
+                    controller: IncentiveCtrl,
+                    resolve: {
+                        data: function () {
+                            return scope.chart;
+                        },
+                        chartSlab: function () {
+                            return scope.chart.chartSlabs[index];
+                        }
+                    }
+                });
+            }
+
+            /**
+             *  copy all chart details to a new Array
+             * @param incentiveDatas
+             * @returns {Array}
+             */
+            copyIncentives = function (incentives) {
+                var detailsArray = [];
+                _.each(incentives, function (incentive) {
+                    var incentiveData = copyIncentive(incentive);
+                    detailsArray.push(incentiveData);
+                });
+                return detailsArray;
+            }
+
+            /**
+             * create new chart detail object data from chartSlab
+             * @param incentiveData
+             *
+             */
+
+            copyIncentive = function (incentiveData) {
+                var newIncentiveDataData = {
+                    id: incentiveData.id,
+                    "entityType":incentiveData.entityType,
+                    "attributeName":incentiveData.attributeName.id,
+                    "conditionType":incentiveData.conditionType.id,
+                    "attributeValue":incentiveData.attributeValue,
+                    "incentiveType":incentiveData.incentiveType.id,
+                    "amount":incentiveData.amount
+                }
+                return newIncentiveDataData;
+            }
+
+            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+                $scope.data = data;
+                $scope.chartSlab = chartSlab;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.addNewRow = function () {
+                    var incentive = {
+                        "entityType":"2",
+                        "attributeName":"",
+                        "conditionType":"",
+                        "attributeValue":"",
+                        "incentiveType":"",
+                        "amount":""
+                    };
+
+                    $scope.chartSlab.incentives.push(incentive);
+                }
+
+                /**
+                 * Remove chart details row
+                 */
+                $scope.removeRow = function (index) {
+                    $scope.chartSlab.incentives.splice(index, 1);
+                }
+            };
+
         }
     });
-    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
         $log.info("CreateFixedDepositAccountController initialized");
     });
 }(mifosX.controllers || {}));
