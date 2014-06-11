@@ -47,6 +47,11 @@
                     scope.showSavingOptions = 'true';
                 }
 
+                if (data.dateOfBirth) {
+                    var dobDate = dateFilter(data.dateOfBirth, scope.df);
+                    scope.date.dateOfBirth = new Date(dobDate);
+                }
+
                 var actDate = dateFilter(data.activationDate, scope.df);
                 scope.date.activationDate = new Date(actDate);
                 if (data.active) {
@@ -66,6 +71,9 @@
                     if (scope.date.activationDate) {
                         this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);
                     }
+                }
+                if(scope.date.dateOfBirth){
+                    this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
                 }
 
                 resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {

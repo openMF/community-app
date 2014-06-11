@@ -50,8 +50,10 @@
                     }
                 }
 
-                if(data.status.value == "Active"){
-                    scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
+                if (data.status.value == "Active") {
+                    if (data.savingsAccountId) {
+                        scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
+                    }
                 }
 
                 scope.buttonsArray = {
