@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
         AccViewOfficeGLAccountController: function (scope, resourceFactory, routeParams, location, $modal) {
             scope.liabilityOptions = [];
-            scope.officeOptions = [];
             scope.formData = {};
             resourceFactory.officeToGLAccountMappingResource.get({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;

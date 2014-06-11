@@ -364,7 +364,7 @@
                         get: {method: 'GET', params: {}},
                         search: {method: 'GET', params: {}, isArray: true}
                     }),
-                    officeToGLAccountMappingResource: defineResource(apiVer + "/officeglaccounts/:mappingId", {mappingId: '@mappingId'}, {
+                    officeToGLAccountMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId", {mappingId: '@mappingId'}, {
                         get: {method: 'GET', params: {mappingId: '@mappingId'}},
                         withTemplate: {method: 'GET', params: {mappingId: '@mappingId', template: 'true'}},
                         search: {method: 'GET', params: {}},
@@ -372,7 +372,7 @@
                         update: { method: 'PUT', params: {mappingId: '@mappingId'}},
                         delete: { method: 'DELETE', params: {mappingId: '@mappingId'}}
                     }),
-                    officeToGLAccountMappingTemplateResource: defineResource(apiVer + "/officeglaccounts/template", {}, {
+                    officeToGLAccountMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
                     })
                 };

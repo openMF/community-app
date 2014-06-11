@@ -5,18 +5,12 @@
                 location.path('/viewofficeglmapping/' + id);
             };
 
-            var fetchFunction = function (offset, limit, callback) {
+            var fetchFunction = function () {
                 var params = {};
-                params.offset = offset;
-                params.limit = limit;
-                params.locale = "en";
-                params.dateFormat = scope.df;
-                params.orderBy = "office.id";
-
                 resourceFactory.officeToGLAccountMappingResource.search(params, callback);
             };
 
-            scope.mappingDatas =  paginatorService.paginate(fetchFunction, 14);
+            scope.mappingDatas =  paginatorService.paginate();
 
         }
     });

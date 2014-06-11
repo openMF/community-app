@@ -7,8 +7,6 @@
             resourceFactory.officeToGLAccountMappingResource.withTemplate({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;
                 scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
-                scope.officeOptions = data.officeOptions || [];
-                scope.formData.officeId = data.officeData.id;
                 scope.formData.liabilityTransferInSuspenseAccountId = data.glAccountData.id;
             });
 

@@ -1,48 +1,46 @@
-<div class="row">
-    <ul class="breadcrumb">
-        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-        <li class="active">{{'label.anchor.officeglaccount' | translate}}</li>
-    </ul>
-</div>
-<div class="pull-right">
-    <a href="#/createofficeglmapping" class="btn btn-primary" has-permission='CREATE_OFFICEGLACCOUNT'><i class="icon-plus icon-white"></i> {{"label.button.addofficeglaccount" |
-        translate}}</a>
-</div>
-
-<div class="row" ng-controller="AccOGMController">
-    <api-validate></api-validate>
-    <h3 class="bolder">{{'label.heading.officeglaccounts' | translate}}</h3>
-
-    <div>
-        <input ng-model="filterText" type="text" class="form-control marginbottom0px"
-               placeholder="{{'label.input.filterbyAccountGlcodeOffice' | translate}}">
-        <table class="table">
-            <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.account' | translate}}</th>
-                <th>{{'label.heading.glcode' | translate}}</th>
-                <th>{{'label.heading.officeName' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="pointer-main" ng-repeat="mappingData in mappingDatas.currentPageItems | orderBy:'officeData.name' | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(mappingData.id)">
-                    {{mappingData.glAccountData.name}}
-                </td>
-                <td class="pointer" data-ng-click="routeTo(mappingData.id)">
-                    {{mappingData.glAccountData.glCode}}
-                </td>
-                <td class="pointer" data-ng-click="routeTo(mappingData.id)">{{mappingData.officeData.name}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <ul class="pager">
-            <li class="previous"><a id="prev" ng-click="mappingDatas.previous()" href=""
-                                    ng-disabled="!mappingDatas.hasPrevious()">&larr; {{'label.button.previous' |
-                translate}}</a></li>
-            <li class="next"><a id="next" ng-click="mappingDatas.next()" href="" ng-disabled="!mappingDatas.hasNext()">{{'label.button.next'
-                | translate}}</a></li>
+<div ng-controller="AccViewOfficeGLAccountController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/listofficeglmapping">{{'label.anchor.officeglaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewofficeglaccount' | translate}}</li>
         </ul>
     </div>
+    <legend>{{ 'label.heading.viewofficeglaccount' | translate }}</legend>
+    <div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/editofficeglmapping/{{mapping.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICEGLACCOUNT'><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                <a class="btn btn-danger" ng-click="deletemapping()" has-permission='DELETE_OFFICEGLACCOUNT'><i
+                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="deletemapping.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="row paddedleft">
+        <h3>{{rule.name}}</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th class="table-bold-acc">Financial Activity</th>
+                <td><span class="padded-td">Liability Transfer</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-acc">{{ 'label.heading.trasnferaccpuntsuspence' | translate }}</th>
+                <td><span class="padded-td">{{mapping.glAccountData.name}}</span></td>
+            </tr>
 
+        </table>
+        <hr/>
+    </div>
 </div>

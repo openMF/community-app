@@ -6,7 +6,6 @@
 
             resourceFactory.officeToGLAccountMappingTemplateResource.get(function (data) {
                 scope.liabilityOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
-                scope.officeOptions = data.officeOptions || [];
 
             });
 
