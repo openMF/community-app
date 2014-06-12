@@ -9,6 +9,7 @@
             scope.formData = {};
             scope.openLoan = true;
             scope.openSaving = true;
+            scope.updateDefaultSavings = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -47,12 +48,6 @@
                     }
                     else {
                         scope.buttons.push(clientStatus.getStatus("Assign Staff"));
-                    }
-                }
-
-                if (data.status.value == "Active") {
-                    if (data.savingsAccountId) {
-                        scope.buttons.push(clientStatus.getStatus("Update Saving Account"));
                     }
                 }
 
@@ -134,6 +129,14 @@
             };
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
                 scope.clientAccounts = data;
+                if (data.savingsAccounts){
+                    for (var i in data.savingsAccounts){
+                        if(data.savingsAccounts[i].status.value == "Active"){
+                            scope.updateDefaultSavings = true;
+                            break;
+                        }
+                    }
+                }
             });
             scope.isClosed = function (loanaccount) {
                 if (loanaccount.status.code === "loanStatusType.closed.written.off" ||

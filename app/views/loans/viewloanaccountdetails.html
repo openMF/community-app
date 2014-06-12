@@ -416,7 +416,7 @@
             <th scope="col">{{'label.heading.paid' | translate}}</th>
             <th scope="col">{{'label.heading.inadvance' | translate}}</th>
             <th scope="col">{{'label.heading.late' | translate}}</th>
-            <th scope="col">{{'label.heading.waived' | translate}}</th>
+            <th scope="col" data-ng-show="isWaived">{{'label.heading.waived' | translate}}</th>
             <th scope="col">{{'label.heading.outstanding' | translate}}</th>
         </tr>
         </thead>
@@ -440,7 +440,7 @@
             <td>{{period.totalPaidForPeriod | number:decimals}}</td>
             <td>{{period.totalPaidInAdvanceForPeriod | number:decimals}}</td>
             <td>{{period.totalPaidLateForPeriod | number:decimals}}</td>
-            <td>{{period.totalWaivedForPeriod | number:decimals}}</td>
+            <td data-ng-show="isWaived">{{period.totalWaivedForPeriod | number:decimals}}</td>
             <td>{{period.totalOutstandingForPeriod | number:decimals}}</td>
         </tr>
         </tbody>
@@ -460,7 +460,7 @@
             <th>{{loandetails.repaymentSchedule.totalRepayment | number:decimals}}</th>
             <th>{{loandetails.repaymentSchedule.totalPaidInAdvance | number:decimals}}</th>
             <th>{{loandetails.repaymentSchedule.totalPaidLate | number:decimals}}</th>
-            <th>{{loandetails.repaymentSchedule.totalWaived | number:decimals}}</th>
+            <th data-ng-show="isWaived">{{loandetails.repaymentSchedule.totalWaived | number:decimals}}</th>
             <th>{{loandetails.repaymentSchedule.totalOutstanding | number:decimals}}</th>
         </tr>
         </tfoot>
