@@ -1,12 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccViewOfficeGLAccountController: function (scope, resourceFactory, routeParams, location, $modal) {
-            scope.liabilityOptions = [];
-            scope.formData = {};
+        ViewFinancialActivityController: function (scope, resourceFactory, routeParams, location, $modal) {
             resourceFactory.officeToGLAccountMappingResource.get({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;
             });
-
 
             scope.deletemapping = function () {
                 $modal.open({
@@ -18,7 +15,7 @@
                 $scope.delete = function () {
                     resourceFactory.officeToGLAccountMappingResource.delete({mappingId: routeParams.mappingId}, {}, function (data) {
                         $modalInstance.close('delete');
-                        location.path('/listofficeglmapping');
+                        location.path('/financialactivityaccountmappings');
                     });
                 };
                 $scope.cancel = function () {
@@ -27,7 +24,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AccViewOfficeGLAccountController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.AccViewOfficeGLAccountController]).run(function ($log) {
-        $log.info("AccViewOfficeGLAccountController initialized");
+    mifosX.ng.application.controller('ViewFinancialActivityController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.ViewFinancialActivityController]).run(function ($log) {
+        $log.info("ViewFinancialActivityController initialized");
     });
 }(mifosX.controllers || {}));

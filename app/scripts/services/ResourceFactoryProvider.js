@@ -366,6 +366,7 @@
                     }),
                     officeToGLAccountMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId", {mappingId: '@mappingId'}, {
                         get: {method: 'GET', params: {mappingId: '@mappingId'}},
+                        getAll: {method: 'GET', params: {}, isArray: true},
                         withTemplate: {method: 'GET', params: {mappingId: '@mappingId', template: 'true'}},
                         search: {method: 'GET', params: {}},
                         create: {method: 'POST', params: {}},
