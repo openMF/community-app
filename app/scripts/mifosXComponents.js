@@ -103,6 +103,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AccCreateRuleController',
             'accounting/AccEditRuleController',
             'accounting/ViewAccRuleController',
+            'accounting/FinancialActivityMappingsController',
+            'accounting/AddFinancialMappingController',
+            'accounting/ViewFinancialActivityController',
+            'accounting/EditFinancialActivityMappingController',
             'system/CodeController',
             'system/EditCodeController',
             'system/ViewCodeController',
@@ -197,10 +201,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/ProfileController',
             'main/ViewMakerCheckerTaskController',
             'main/AdHocQuerySearchController',
-            'accounting/AccOGMController',
-            'accounting/AccCreateOfficeGLAccountController',
-            'accounting/AccEditOfficeGLAccountController',
-            'accounting/AccViewOfficeGLAccountController'
+            'accounting/AccOGMController'
         ],
         filters: [
             'StatusLookup',
