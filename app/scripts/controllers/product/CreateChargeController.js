@@ -49,9 +49,15 @@
                                 } else {
                                     scope.repeatEvery = false;
                                 }
-                            } else {
-                                scope.showdatefield = false;
+                            } else if(scope.chargeTimeTypeOptions[i].value == "Weekly Fee" ){
+                                    scope.repeatEvery = true;
+                                    scope.showdatefield = false;
                             }
+                            else {
+                                scope.showdatefield = false;
+                                scope.repeatEvery = false;
+                            }
+
                         }
                     }
                 }
