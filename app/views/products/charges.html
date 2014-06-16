@@ -15,6 +15,7 @@
         <thead>
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.chargeappliesto' | translate}}</th>
             <th>{{'label.heading.ispenalty' | translate}}</th>
             <th>{{'label.heading.active' | translate}}</th>
         </tr>
@@ -22,6 +23,7 @@
         <tbody>
         <tr class="pointer-main" ng-repeat="charge in charges |orderBy:'name':reverse | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
             <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
             <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.active}}</td>
         </tr>
