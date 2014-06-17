@@ -108,13 +108,6 @@
                     subhref: "assignstaff",
                     icon: "icon-user",
                     taskPermissionName: "ASSIGNSTAFF_CLIENT"
-                },
-                "Update Saving Account": {
-                    name: "label.button.updatedefaultsavings",
-                    href: "#/client",
-                    subhref: "updatedefaultaccount",
-                    icon: "icon-edit",
-                    taskPermissionName: "UPDATESAVINGSACCOUNT_CLIENT"
                 }
             }
         }

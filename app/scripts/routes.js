@@ -613,17 +613,17 @@
             .when('/advsearch', {
                 templateUrl: 'views/search/advsearch.html'
             })
-            .when('/createofficeglmapping', {
-                templateUrl: 'views/accounting/createofficeglaccount.html'
+            .when('/editfinancialactivitymapping/:mappingId', {
+                templateUrl: 'views/accounting/edit_financial_activity_mapping.html'
             })
-            .when('/editofficeglmapping/:mappingId', {
-                templateUrl: 'views/accounting/editofficeglaccount.html'
+            .when('/viewfinancialactivitymapping/:mappingId', {
+                templateUrl: 'views/accounting/view_financial_activity.html'
             })
-            .when('/viewofficeglmapping/:mappingId', {
-                templateUrl: 'views/accounting/viewofficeglaccount.html'
+            .when('/financialactivityaccountmappings', {
+                templateUrl: 'views/accounting/financial_accounting_mapping.html'
             })
-            .when('/listofficeglmapping', {
-                templateUrl: 'views/accounting/accounting_office_mapping.html'
+            .when('/addfinancialmapping', {
+                templateUrl: 'views/accounting/add_financial_accounting_mapping.html'
             });
         $locationProvider.html5Mode(false);
     };

@@ -119,6 +119,7 @@
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
                 scope.loandetails = data;
                 scope.guarantorDetails = data.guarantors;
+                scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
                 scope.date.toDate = new Date();
                 scope.status = data.status.value;
