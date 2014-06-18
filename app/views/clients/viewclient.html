@@ -3,43 +3,44 @@
 	    <ul class="breadcrumb">
 	        <li>{{client.officeName}}</li>
 	        <li>{{client.staffName}}</li>
+            <li class="active"> {{client.displayName}} </li>
 	    </ul>
 	</div>
 	<script type="text/ng-template" id="deleteClient.html">
-		<div class="modal-header silver">
-			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
-		</div>
-		<div class="modal-body">
-			<api-validate></api-validate>
-			<br>
-			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-		</div>
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
 	</script>
-	<script type="text/ng-template" id="uploadpic.html">
-		<div class="modal-header silver">
-			<h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
-		</div>
-		<div class="modal-body">
-			<api-validate></api-validate>
-			<br>
-			<input type="file" ng-file-select="onFileSelect($files)">
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
-		</div>
+			<script type="text/ng-template" id="uploadpic.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <input type="file" ng-file-select="onFileSelect($files)">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+    </div>
 	</script>
 	<script type="text/ng-template" id="clientunassignstaff.html">
-		<div class="modal-header silver">
-			<h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
-		</div>
-		<div class="modal-body">
-			<api-validate></api-validate>
-			<br>
-			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
-		</div>
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+    </div>
 	</script>
 	<tabset class="overflowhidden marginbottom0">
 		<tab heading="{{'label.heading.general' | translate}}">
@@ -53,10 +54,17 @@
 						</span>
 				        <button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
 				                data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
-				                class="icon-trash icon-white"></i>{{"label.button.delete" | translate}}
+				                class="icon-trash icon-white"></i>{{"label.button.delete"
+				            | translate}}
 				        </button>
+                        <a href="#/client/{{client.id}}/updatedefaultaccount" class="btn btn-primary"
+                                data-ng-show="updateDefaultSavings" has-permission='UPDATESAVINGSACCOUNT_CLIENT'><i
+                                class="icon-edit icon-white"></i>{{"label.button.updatedefaultsavings" | translate}}
+                        </a>
 				        <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()"
-				                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"  | translate}}
+				                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
+				            |
+				            translate}}
 				        </button>
 						<span ng-show="buttonsArray.options" class="btn-group">
 						    <a class="btn btn-primary dropdown-toggle">
@@ -66,16 +74,20 @@
 						    <ul class="dropdown dropdown-menu dropdown-menu-right">
 						        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
 						            <a href="#/clientscreenreport/{{client.id}}"
-						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name | translate}}</a>
+						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
+						                translate}}</a>
 						        </li>
 						        <li>
-						            <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic' | translate}}</a>
+						            <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic'
+						                | translate}}</a>
 						        </li>
 						        <li data-ng-show="clientAccounts.savingsAccounts">
-						            <a data-ng-click="viewstandinginstruction()" has-permission='CREATE_STANDINGINSTRUCTION'>{{'label.button.viewstandinginstruction'  | translate}}</a>
+						            <a data-ng-click="viewstandinginstruction()" has-permission='CREATE_STANDINGINSTRUCTION'>{{'label.button.viewstandinginstruction'
+						                | translate}}</a>
 						        </li>
 						        <li data-ng-show="clientAccounts.savingsAccounts">
-						            <a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction'  | translate}}</a>
+						            <a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction'
+						                | translate}}</a>
 						        </li>
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
 						            <a href="#/newclientfixeddepositaccount/{{client.id}}">{{'label.newfixeddepositaccount' | translate}}</a>
@@ -95,9 +107,11 @@
 				        <div>
 						    <div class="pull-right">
 						        <span data-ng-show="clientAccounts.loanAccounts">
-						            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{'label.button.viewclosedloans' | translate }}
+						            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+						                'label.button.viewclosedloans' | translate }}
 						            </button>
-						            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{'label.button.viewactiveloans' | translate }}
+						            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+						                'label.button.viewactiveloans' | translate }}
 						            </button>
 						        </span>
 						    </div>
@@ -258,20 +272,32 @@
 				    </div>
 				    <div class="col-sm-3 col-md-3">
 				    	<div class="thumbnail row">
-			<h3 class="client-title">
-	        	<i class="icon-circle {{client.status.code | StatusLookup}}"></i>
-	            <strong>{{client.displayName}} </strong>
-      		</h3>
-					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar">
+				    		<div class="row">
+                                <div class="col-md-8 col-sm-8">
+                                    <h3 class="client-title">
+                                        <i class="icon-circle {{client.status.code | StatusLookup}}"></i>
+                                        <strong>{{client.displayName}}</strong>
+                                    </h3>
+                                </div>
+                            </div>
+                            <br />
+					    	<img width="200" height="250" ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar" >
+				        	<img width="200" height="250" ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar">
+                            <br />
 				        	<table class="table-minified">
-					            <tr>
-					                <th class="whitebg" colspan="2">{{ 'label.heading.basicdetails' | translate }}</th>
-					            </tr>
-                                <tr><th class="table-bold"> {{ 'label.heading.clientno' | translate }} </th> <td><span class="padded-td"> {{client.accountNo}} </span> </td></tr>
-                                <tr><th class="table-bold"> {{ 'label.input.externalid' | translate }} </th> <td><span class="padded-td"> </span> {{client.externalId}} </td></tr>
-                                <tr><th class="table-bold"> {{ 'label.input.staff' | translate }} </th> <td><span class="padded-td"> </span> {{client.staffName}} </td></tr>
-					            <tr>
+					            <tr> 
+                                	<th class="table-bold"> {{ 'label.heading.clientno' | translate }} </th>
+                                    <td><span class="padded-td"> {{client.accountNo}} </span></td>
+                                </tr>
+					            <tr> 
+                                	<th class="table-bold"> {{ 'label.input.externalid' | translate }} </th>
+                                    <td><span class="padded-td"> {{client.externalId}} </span></td>
+                                </tr>
+					            <tr> 
+                                	<th class="table-bold"> {{ 'label.input.staff' | translate }} </th>
+                                    <td><span class="padded-td"> {{client.staffName}} </span></td>
+                                </tr>
+                                <tr>
 					                <th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
 					                <td><span class="padded-td">{{client.timeline.activatedOnDate | DateFormat}}<span
 					                        data-ng-hide="client.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span></span>
@@ -298,19 +324,31 @@
 					                <td><span class="padded-td">{{client.gender.name}}</span>
 					                </td>
 					            </tr>
-					            <tr data-ng-show="client.dateOfBirth">
+                                <tr data-ng-show="client.dateOfBirth">
 					                <th class="table-bold">{{ 'label.input.dateofbirth' | translate }}</th>
 					                <td><span class="padded-td">{{client.dateOfBirth | DateFormat}}</span>
 					                </td>
 					            </tr>
+                                <tr  data-ng-hide="client.clientType.name">
+                                    <th class="table-bold">{{ 'label.input.clienttype' | translate }}</th>
+                                    <td><span class="padded-td">{{client.clientType.name}}</span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-hide="client.clientClassification.name">
+                                    <th class="table-bold">{{ 'label.input.clientclassification' | translate }}</th>
+                                    <td><span class="padded-td">{{client.clientClassification.name}}</span>
+                                    </td>
+                                </tr>
 					            <tr data-ng-show="client.status.value=='Closed'">
 					                <th class="table-bold">{{ 'label.heading.closedate' | translate }}</th>
 					                <td><span class="padded-td">{{client.timeline.closedOnDate | DateFormat}}</span></td>
 					            </tr>
+                                <tr data-ng-show="client.signature"><th colspan="2"> <br /> </th></tr>
 					            <tr data-ng-show="client.signature">
 					            	<td colspan="2"><img style="height:55px" src="./images/signature" alt="Avatar"></td>
 					            </tr>
-					            <tr>
+                                <tr><th colspan="2"> <br /> </th></tr>
+ 					            <tr>
 					                <th class="whitebg" colspan="2">{{ 'label.heading.performancehistory' | translate }}</th>
 					            </tr>
 								<tr>
@@ -318,20 +356,20 @@
 					                <td><span class="padded-td">{{client.ClientSummary.loanCycle}}</span></td>
 					            </tr>
 					            <tr>
-					                <th>{{ 'label.numofactiveloans' | translate }}</th>
-					                <td><span class="padded-td">{{client.ClientSummary.activeLoans}}</span></td>
-					            </tr>
-					            <tr>
 					                <th>{{ 'label.lastloanamount' | translate }}</th>
 					                <td><span class="padded-td">{{client.ClientSummary.lastLoanAmount}}</span></td>
 					            </tr>
 					            <tr>
-					                <th>{{ 'label.numofactivesavings' | translate }}</th>
-					                <td><span class="padded-td">{{client.ClientSummary.activeSavings}}</span></td>
+					                <th>{{ 'label.numofactiveloans' | translate }}</th>
+					                <td><span class="padded-td">{{client.ClientSummary.activeLoans}}</span></td>
 					            </tr>
 					            <tr>
 					                <th>{{ 'label.totalsavings' | translate }}</th>
 					                <td><span class="padded-td">{{client.ClientSummary.totalSavings}}</span></td>
+					            </tr>
+					            <tr>
+					                <th>{{ 'label.numofactivesavings' | translate }}</th>
+					                <td><span class="padded-td">{{client.ClientSummary.activeSavings}}</span></td>
 					            </tr>
 					        </table>
 				    	</div>
@@ -486,6 +524,118 @@
 		        </div>
 		    </div>
 		</tab>
+		<!-- devcode: !production -->
+		<!-- ************************ start of InVenture code ************************ -->
+		<tab class="inventureTabTitle" heading="{{'label.heading.inventurescore' | translate}}" select="fetchInventureScore()">
 		
+		    <!-- chart1 - comparison chart -->
+		    <div class="col-sm-6 col-md-6 paddedleft0 paddedtop">
+		        <div class="inventureMainBorder">
+		            <div class="inventureCategoryTitle">
+		                <strong class="ng-binding">Score comparison</strong>
+		            </div>
+		
+		            <div class="inventureTooltip" style="margin: -47px 0 0390px;">
+		                <a tooltip="{{'label.thegraphbelowcomparesanindividual' | translate}}"><img
+		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
+		                        width="18px"/></a>
+		            </div>
+		
+		            <div id="inventureBarChart" style="margin: 20px -15px -15px; height:417px;">
+		                <svg></svg>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- chart2 - inventure score chart -->
+		    <div class="col-sm-5 col-md-5 paddedtop" style="width:440px;">
+		        <div class="inventureMainBorder" style="height:175px;">
+		            <div class="inventureCategoryTitle">
+		                <strong class="ng-binding">inventure score</strong>
+		            </div>
+		
+		            <div class="inventureTooltip" style="margin: -47px 0 0 390px;">
+		                <a tooltip="{{'label.inventurecalculatesapersonsoverall' | translate}}"><img
+		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
+		                        width="18px"/></a>
+		            </div>
+		
+		            <div id="score" style="margin: 30px 0 -15px;">
+		                <p style="text-align: center; font-size: 25px;">Inventure score: <strong>{{inventureScore}}</strong></p>
+		            </div>
+		
+		            <div id="inventureBulletChart" style="margin: 25px 0px -25px -90px; width:500px; height:35px;">
+		                <svg></svg>
+		            </div>
+		
+		            <div id="inventureBulletChartLegend" style="margin: 30px 0px 0px -10px;">
+		                <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+		                    <tbody>
+		                    <tr>
+		                        <td class="inventureBulletLegendCell">300-450<br><strong>bad</strong></td>
+		                        <td class="inventureBulletLegendCell">451-550<br><strong>fair</strong></td>
+		                        <td class="inventureBulletLegendCell">551-700<br><strong>good</strong></td>
+		                        <td class="inventureBulletLegendCell">701-850<br><strong>excellent</strong></td>
+		                    </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+		        </div>
+		    </div>
+		
+		    <!-- chart3 - inventure loan recommendation -->
+		    <div class="col-sm-5 col-md-5" style="padding-top:20px; width:440px;">
+		        <div class="inventureMainBorder" style="height:210px;">
+		            <div class="inventureCategoryTitle">
+		                <strong class="ng-binding">inventure loan recommend</strong>
+		            </div>
+		
+		            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
+		                <a tooltip="{{'label.inventureusesallrelevant' | translate}}"><img
+		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
+		                        width="18px"/></a>
+		            </div>
+		
+		            <div id="inventureRecommendation" style="margin: 35px 0px 0px 0px;">
+		                <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
+		                    <tr>
+		                        <td class="inventureRecommendationCellType inventureRecommendationCellTitle">loan type</td>
+		                        <td class="inventureRecommendationCellLeftGap"></td>
+		                        <td class="inventureRecommendationCellRightGap"></td>
+		                        <td class="inventureRecommendationCellType inventureRecommendationCellTitle">creadit limit&#8377;
+		                            (Rs)
+		                        </td>
+		                    </tr>
+		                    <tr class="inventureTableTopBorder">
+		                        <td class="inventureRecommendationCellType">Agriculture</td>
+		                        <td class="inventureRecommendationCellLeftGap"></td>
+		                        <td class="inventureRecommendationCellRightGap"></td>
+		                        <td class="inventureRecommendationCellAmount">{{inventureAgricultureLimit}}</td>
+		                    </tr>
+		                    <tr>
+		                        <td class="inventureRecommendationCellType">Fishermen</td>
+		                        <td class="inventureRecommendationCellLeftGap"></td>
+		                        <td class="inventureRecommendationCellRightGap"></td>
+		                        <td class="inventureRecommendationCellAmount">{{inventureFishermenLimit}}</td>
+		                    </tr>
+		                    <tr>
+		                        <td class="inventureRecommendationCellType">Housing</td>
+		                        <td class="inventureRecommendationCellLeftGap"></td>
+		                        <td class="inventureRecommendationCellRightGap"></td>
+		                        <td class="inventureRecommendationCellAmount">{{inventureHousingLimit}}</td>
+		                    </tr>
+		                    <tr>
+		                        <td class="inventureRecommendationCellType">Business</td>
+		                        <td class="inventureRecommendationCellLeftGap"></td>
+		                        <td class="inventureRecommendationCellRightGap"></td>
+		                        <td class="inventureRecommendationCellAmount">{{inventureBusinessLimit}}</td>
+		                    </tr>
+		                </table>
+		            </div>
+		        </div>
+		    </div>
+		</tab>
+			<!-- ************************ end of InVenture code ************************ -->
+			<!-- endcode -->
 	</tabset>
 </div>
