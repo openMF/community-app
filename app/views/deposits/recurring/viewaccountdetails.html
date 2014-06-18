@@ -204,17 +204,17 @@
         <colgroup span="4"></colgroup>
         <thead>
         <tr>
-            <th>{{'label.heading.id' | translate}}</th>
-            <th>{{'label.heading.transactiondate' | translate}}</th>
-            <th>{{'label.heading.transactiontype' | translate}}</th>
-            <th>{{'label.heading.debit' | translate}}</th>
-            <th>{{'label.heading.credit' | translate}}</th>
-            <th>{{'label.heading.balance' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">{{'label.heading.transactiontype' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.credit' | translate}}</th>
+            <th class="pointer" ng-click="changeTransactionSort('runningBalance')">{{'label.heading.balance' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
-            ng-repeat="transaction in savingaccountdetails.transactions">
+            ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column:transactionSort.descending ">
             <td class="pointer"
                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 {{transaction.id}}

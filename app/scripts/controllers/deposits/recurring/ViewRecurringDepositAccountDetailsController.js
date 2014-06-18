@@ -286,6 +286,20 @@
                 };
             };
 
+            scope.transactionSort = {
+                column: 'date',
+                descending: true
+            };
+            scope.changeTransactionSort = function(column) {
+                var sort = scope.transactionSort;
+                if (sort.column == column) {
+                    sort.descending = !sort.descending;
+                } else {
+                    sort.column = column;
+                    sort.descending = true;
+                }
+            };
+
         }
     });
     mifosX.ng.application.controller('ViewRecurringDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$modal', mifosX.controllers.ViewRecurringDepositAccountDetailsController]).run(function ($log) {
