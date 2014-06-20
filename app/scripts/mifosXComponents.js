@@ -136,7 +136,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/XBRLReportController',
             'savings/CreateSavingAccountController',
             'savings/ViewSavingDetailsController',
-            'private/SuperuserController',
             'groups/GroupController',
             'groups/ViewGroupController',
             'groups/AttachMeetingController',
