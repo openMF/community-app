@@ -409,7 +409,19 @@
 
                 // this will be used to display the score on the viewclient.html
                 scope.inventureScore = inventureScore;
-            };    // endcode
+            };
+
+            scope.showPicture = function () {
+                if (scope.client.imagePresent) {
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=1000'
+                    }).then(function (imageData) {
+                            scope.largeImage = imageData.data;
+                            window.setTimeout(function() { $('#photo-dialog').dialog({ width: '90%' }) }, 100);
+                        });
+                }
+			};    // endcode
         }
     });
     mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', mifosX.controllers.ViewClientController]).run(function ($log) {
