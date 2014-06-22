@@ -43,6 +43,35 @@
         <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
     </div>
 	</script>
+
+			<script type="text/ng-template" id="uploadsig.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <input type="file" ng-file-select="onFileSelect($files)">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+    </div>
+	</script>
+
+			<script type="text/ng-template" id="viewsignature.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.clientsignature' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        {{docs_debug}}
+        <img ng-src="{{signature_url}}" alt="Avatar">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    </div>
+	</script>
+
 	<script type="text/ng-template" id="clientunassignstaff.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
@@ -91,6 +120,14 @@
 						        </li>
 						        <li>
 						            <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic'
+						                | translate}}</a>
+						        </li>
+						        <li>
+						            <a data-ng-click="uploadSig()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadsig'
+						                | translate}}</a>
+						        </li>
+						        <li>
+						            <a data-ng-click="viewSignature()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.viewsig'
 						                | translate}}</a>
 						        </li>
 						        <li data-ng-show="clientAccounts.savingsAccounts">
