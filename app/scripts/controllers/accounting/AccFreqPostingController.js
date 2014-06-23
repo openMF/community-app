@@ -26,6 +26,7 @@
 
             resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
                 scope.currencyOptions = data.selectedCurrencyOptions;
+                scope.formData.currencyCode = scope.currencyOptions[0].code;
             });
 
             resourceFactory.officeResource.getAllOffices(function (data) {
@@ -35,27 +36,31 @@
 
             //event for rule change
             scope.resetCrAndDb = function (rule) {
-                scope.formData.crAccounts = [];
-                scope.formData.dbAccounts = [];
-                scope.formData.creditAccountTemplate = rule.creditAccounts[0];
-                scope.formData.debitAccountTemplate = rule.debitAccounts[0];
-                scope.allowCreditEntries = true;
-                scope.allowDebitEntries = true;
+            	  scope.rule = rule;
+                scope.formData.crAccounts = [{}];
+                scope.formData.dbAccounts = [{}];
+                
+                if(rule.allowMultipleDebitEntries) {
+                  scope.allowDebitEntries = true;
+                }else{
+                  scope.allowDebitEntries = false;
+                }
+                if(rule.allowMultipleCreditEntries) {
+                  scope.allowCreditEntries = true;
+                }else{
+                  scope.allowCreditEntries = false;
+                }
             }
-
+            
             //events for credits
             scope.addCrAccount = function () {
-                if (scope.formData.crAmountTemplate != undefined) {
-                    scope.errorcreditevent = false;
-                    scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName: scope.formData.creditAccountTemplate.name, crAmount: scope.formData.crAmountTemplate});
-                    scope.formData.crAmountTemplate = undefined;
-                    if (scope.formData.rule) {
-                        if (!scope.formData.rule.allowMultipleCreditEntries) {
-                            scope.allowCreditEntries = false;
-                        }
+                scope.errorcreditevent = false;
+                scope.formData.crAccounts.push({});
+                scope.formData.crAmountTemplate = undefined;
+                if (scope.formData.rule) {
+                    if (!scope.formData.rule.allowMultipleCreditEntries) {
+                        scope.allowCreditEntries = false;
                     }
-                } else {
-                    scope.errorcreditevent = true;
                 }
             }
 
@@ -68,17 +73,13 @@
 
             //events for debits
             scope.addDebitAccount = function () {
-                if (scope.formData.debitAmountTemplate != undefined) {
-                    scope.errordebitevent = false;
-                    scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName: scope.formData.debitAccountTemplate.name, debitAmount: scope.formData.debitAmountTemplate});
-                    scope.formData.debitAmountTemplate = undefined;
-                    if (scope.formData.rule) {
-                        if (!scope.formData.rule.allowMultipleDebitEntries) {
-                            scope.allowDebitEntries = false;
-                        }
+                scope.errordebitevent = false;
+                scope.formData.dbAccounts.push({});
+                scope.formData.debitAmountTemplate = undefined;
+                if (scope.formData.rule) {
+                    if (!scope.formData.rule.allowMultipleDebitEntries) {
+                        scope.allowDebitEntries = false;
                     }
-                } else {
-                    scope.errordebitevent = true;
                 }
             }
 
@@ -107,7 +108,7 @@
                 jeTransaction.credits = [];
                 for (var i = 0; i < this.formData.crAccounts.length; i++) {
                     var temp = new Object();
-                    temp.glAccountId = this.formData.crAccounts[i].crGlAccountId;
+                    temp.glAccountId = this.formData.crAccounts[i].select.id;
                     temp.amount = this.formData.crAccounts[i].crAmount;
                     jeTransaction.credits.push(temp);
                 }
@@ -116,7 +117,7 @@
                 jeTransaction.debits = [];
                 for (var i = 0; i < this.formData.dbAccounts.length; i++) {
                     var temp = new Object();
-                    temp.glAccountId = this.formData.dbAccounts[i].debitGlAccountId;
+                    temp.glAccountId = this.formData.dbAccounts[i].select.id;
                     temp.amount = this.formData.dbAccounts[i].debitAmount;
                     jeTransaction.debits.push(temp);
                 }
