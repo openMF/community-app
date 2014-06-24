@@ -64,7 +64,7 @@
             scope.searchTransaction = function () {
                 scope.displayResults = true;
                 scope.transactions = paginatorService.paginate(fetchFunction, 14);
-                scope.isCollapsed = true;
+                scope.isCollapsed = false;
             };
 
         }
