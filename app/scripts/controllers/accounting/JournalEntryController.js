@@ -3,8 +3,8 @@
         JournalEntryController: function (scope, resourceFactory, location, dateFilter) {
 
             scope.formData = {};
-            scope.formData.crAccounts = [];
-            scope.formData.dbAccounts = [];
+            scope.formData.crAccounts = [{}];
+            scope.formData.dbAccounts = [{}];
             scope.first = {};
             scope.errorcreditevent = false;
             scope.errordebitevent = false;
@@ -25,6 +25,7 @@
 
             resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
                 scope.currencyOptions = data.selectedCurrencyOptions;
+                scope.formData.currencyCode = scope.currencyOptions[0].code;
             });
 
             resourceFactory.officeResource.getAllOffices(function (data) {
@@ -34,20 +35,7 @@
 
             //events for credits
             scope.addCrAccount = function () {
-                if (scope.formData.crAmountTemplate != undefined) {
-                    scope.errorcreditevent = false;
-                    if (scope.formData.creditAccountTemplate) {
-                        scope.creditaccounttemplate = false;
-                        scope.formData.crAccounts.push({crGlAccountId: scope.formData.creditAccountTemplate.id, crGlcode: scope.formData.creditAccountTemplate.glCode, crGlName: scope.formData.creditAccountTemplate.name, crAmount: scope.formData.crAmountTemplate});
-                        scope.formData.crAmountTemplate = undefined;
-                    } else {
-                        scope.creditaccounttemplate = true;
-                        scope.labelcrediterror = 'selectcredit';
-                    }
-                } else {
-                    scope.errorcreditevent = true;
-                    scope.labelcrediterror = 'requiredfield';
-                }
+                scope.formData.crAccounts.push({});
             }
 
             scope.removeCrAccount = function (index) {
@@ -56,20 +44,7 @@
 
             //events for debits
             scope.addDebitAccount = function () {
-                if (scope.formData.debitAmountTemplate != undefined) {
-                    scope.errordebitevent = false;
-                    if (scope.formData.debitAccountTemplate) {
-                        scope.debitaccounttemplate = false;
-                        scope.formData.dbAccounts.push({debitGlAccountId: scope.formData.debitAccountTemplate.id, debitGlcode: scope.formData.debitAccountTemplate.glCode, debitGlName: scope.formData.debitAccountTemplate.name, debitAmount: scope.formData.debitAmountTemplate});
-                        scope.formData.debitAmountTemplate = undefined;
-                    } else {
-                        scope.debitaccounttemplate = true;
-                        scope.labeldebiterror = 'selectdebit';
-                    }
-                } else {
-                    scope.errordebitevent = true;
-                    scope.labeldebiterror = 'requiredfield';
-                }
+                    scope.formData.dbAccounts.push({});
             }
 
             scope.removeDebitAccount = function (index) {
@@ -97,16 +72,19 @@
                 jeTransaction.credits = [];
                 for (var i = 0; i < this.formData.crAccounts.length; i++) {
                     var temp = new Object();
-                    temp.glAccountId = this.formData.crAccounts[i].crGlAccountId;
+                    if(this.formData.crAccounts[i].select.id){
+                    	temp.glAccountId = this.formData.crAccounts[i].select.id;
+                    }
                     temp.amount = this.formData.crAccounts[i].crAmount;
                     jeTransaction.credits.push(temp);
                 }
-
                 //construct debits array
                 jeTransaction.debits = [];
                 for (var i = 0; i < this.formData.dbAccounts.length; i++) {
                     var temp = new Object();
-                    temp.glAccountId = this.formData.dbAccounts[i].debitGlAccountId;
+                    if(this.formData.dbAccounts[i].select.id){
+                    	temp.glAccountId = this.formData.dbAccounts[i].select.id;
+                    }
                     temp.amount = this.formData.dbAccounts[i].debitAmount;
                     jeTransaction.debits.push(temp);
                 }
