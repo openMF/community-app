@@ -68,7 +68,7 @@
                     scope.showAmount=true;
                     break;
                 case "withdrawal":
-                    resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'withdrawal'}, function (data) {
+                    resourceFactory.recurringDepositTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'withdrawal'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                     });
                     scope.title = 'label.heading.withdrawmoneyfromsavingaccount';
@@ -79,6 +79,7 @@
                     scope.isTransaction = true;
                     scope.showPaymentDetails = false;
                     scope.showPaymentType=true;
+                    scope.showAmount=true;
                     break;
                 case "applyAnnualFees":
                     resourceFactory.savingsResource.get({accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId},
@@ -205,12 +206,17 @@
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
-                if (scope.action == "deposit" || scope.action == "modifytransaction") {
+                if (scope.action == "deposit" || scope.action == "modifytransaction" || scope.action == "withdrawal") {
                     if (scope.action == "deposit") {
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
                         }
                         params.command = 'deposit';
+                    } else  if (scope.action == "withdrawal") {
+                        if (this.formData.transactionDate) {
+                            this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                        }
+                        params.command = 'withdrawal';
                     }
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
