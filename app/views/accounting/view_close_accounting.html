@@ -1,15 +1,10 @@
-<div ng-controller="ViewAccountingClosureController">
+<div class="col-md-12" ng-controller="ViewAccountingClosureController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
             <li><a href="#/accounts_closure">{{'label.anchor.accountclosure' | translate}}</a></li>
             <li class="active">{{'label.anchor.viewclosure' | translate}}</li>
         </ul>
-    </div>
-    <div class="pull-right">
-        <button class="btn btn-primary" data-ng-click="deleteAcc()" has-permission='DELETE_GLCLOSURE'><i class="icon-trash icon-white"></i>{{
-            'label.button.delete' | translate }}
-        </button>
     </div>
     <script type="text/ng-template" id="deleteacc.html">
         <div class="modal-header silver">
@@ -23,9 +18,15 @@
         </div>
     </script>
     <div>
-        <legend>{{ 'label.heading.closedaccountingdetails' | translate }}</legend>
-        <div class="paddedleft">
-            <table width="100%">
+        <legend>{{ 'label.heading.viewaccountingclosures' | translate }}
+			<div class="pull-right">
+		        <button class="btn btn-primary" data-ng-click="deleteAcc()" has-permission='DELETE_GLCLOSURE'><i class="icon-trash icon-white"></i>{{
+		            'label.button.delete' | translate }}
+		        </button>
+		    </div>        
+        </legend>
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped">
                 <tr>
                     <td><strong>{{ 'label.heading.office' | translate }}:</strong></td>
                     <td>{{accountClosure.officeName}}</td>
@@ -55,6 +56,6 @@
                     <td>{{accountClosure.comments}}</td>
                 </tr>
             </table>
-        </div>
+    	</div>
     </div>
 </div>
