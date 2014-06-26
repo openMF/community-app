@@ -30,7 +30,7 @@
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images'
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxHeight=150'
                     }).then(function (imageData) {
                             scope.image = imageData.data;
                         });
@@ -414,7 +414,34 @@
 
                 // this will be used to display the score on the viewclient.html
                 scope.inventureScore = inventureScore;
-            };    // endcode
+            };
+
+            scope.showPicture = function () {
+                if (scope.client.imagePresent) {
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=1000'
+                    }).then(function (imageData) {
+                            scope.largeImage = imageData.data;
+                    		var image = $('#photo-dialog img');
+                            image.load(function() {
+                            	var innerXMargin = 30;
+                            	var innerYMargin = 40;
+                            	var outerXMargin = 50;
+                            	var outerYMargin = 50;
+                                var imageWidth = this.width;
+                                var imageHeight = this.height;
+                                var viewportWidth = $(window).width();
+                                var viewportHeight = $(window).height();
+                                var dialogWidth = Math.min(imageWidth + innerXMargin * 2, viewportWidth - outerXMargin * 2);
+                                var dialogHeight = Math.min(imageHeight + innerYMargin * 2, viewportHeight - outerYMargin * 2);
+                            	$('#photo-dialog').dialog({
+                        			width: dialogWidth,
+                        			height: dialogHeight });
+                        	});
+                        });
+                }
+			};    // endcode
         }
     });
     mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', mifosX.controllers.ViewClientController]).run(function ($log) {

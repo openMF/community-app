@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <div class="col-md-12" ng-controller="ViewClientController">
 	<div>
 	    <ul class="breadcrumb">
@@ -29,6 +30,10 @@
         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
+    <div id="photo-dialog" style="display: none">
+		<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
+		<img ng-show="client.imagePresent" ng-src="{{largeImage}}" alt="Avatar">
+    </div>
 			<script type="text/ng-template" id="uploadpic.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
@@ -292,7 +297,8 @@
 				    	<div class="thumbnail row">
 				    		<h4><strong>{{client.displayName}}</strong></h4>
 					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar">
+				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()">
+				        	<div ng-show="client.imagePresent" ng-src="{{image}}" class="show-large-picture" data-ng-click="showPicture()">Show Larger</div>
 				        	<table class="table-minified">
 					            <tr>
 					                <th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
