@@ -418,7 +418,22 @@
                         url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=1000'
                     }).then(function (imageData) {
                             scope.largeImage = imageData.data;
-                            window.setTimeout(function() { $('#photo-dialog').dialog({ width: '90%' }) }, 100);
+                    		var image = $('#photo-dialog img');
+                            image.load(function() {
+                            	var innerXMargin = 30;
+                            	var innerYMargin = 40;
+                            	var outerXMargin = 50;
+                            	var outerYMargin = 50;
+                                var imageWidth = this.width;
+                                var imageHeight = this.height;
+                                var viewportWidth = $(window).width();
+                                var viewportHeight = $(window).height();
+                                var dialogWidth = Math.min(imageWidth + innerXMargin * 2, viewportWidth - outerXMargin * 2);
+                                var dialogHeight = Math.min(imageHeight + innerYMargin * 2, viewportHeight - outerYMargin * 2);
+                            	$('#photo-dialog').dialog({
+                        			width: dialogWidth,
+                        			height: dialogHeight });
+                        	});
                         });
                 }
 			};    // endcode
