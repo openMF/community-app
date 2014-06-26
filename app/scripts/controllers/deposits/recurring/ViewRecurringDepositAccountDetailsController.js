@@ -36,9 +36,9 @@
                     case "deposit":
                         location.path('/recurringdepositaccount/' + accountId + '/deposit');
                         break;
-                    /*case "withdraw":
+                    case "withdraw":
                         location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
-                        break;*/
+                        break;
                     case "addcharge":
                         location.path('/recurringdepositaccount/' + accountId + '/charges');
                         break;
@@ -153,9 +153,10 @@
                         ]
 
                     };
-                    if (data.clientId) {
+
+                    if (data.allowWithdrawal == true) {
                         scope.buttons.options.push({
-                            name: "button.transferFunds"
+                            name: "button.withdraw"
                         });
                     }
                     if (data.charges) {
