@@ -1,21 +1,9 @@
 <div class="col-md-12" ng-controller="ViewAccRuleController">
-    <div class="paddedbottom10">
-        <ul class="breadcrumb">
-            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-            <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a></li>
-            <li class="active">{{rule.name}}</li>
-        </ul>
-    </div>
-    <div>
-        <div class="pull-right">
-            <div class="btn-group">
-                <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'><i
-                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-                <a class="btn btn-danger" ng-click="deleteRule()" has-permission='DELETE_ACCOUNTINGRULE'><i
-                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
-            </div>
-        </div>
-    </div>
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/accounting_rules">{{'label.anchor.accountingrules' | translate}}</a></li>
+        <li class="active">{{rule.name}}</li>
+    </ul>
     <script type="text/ng-template" id="deleteaccrule.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -27,66 +15,64 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="row paddedleft">
-        <h3>{{rule.name}}</h3>
-        <table class="table table-bordered">
-            <tr>
-                <th class="table-bold-acc">{{ 'label.heading.office' | translate }}</th>
-                <td><span class="padded-td">{{rule.officeName}}</span></td>
-            </tr>
-            <tr>
-                <th class="table-bold-acc">{{ 'label.heading.description' | translate }}</th>
-                <td><span class="padded-td">{{rule.description}}</span></td>
-            </tr>
-            <tr>
-                <th class="table-bold-acc">{{ 'label.input.allowMultipleDebitEntries' | translate }}</th>
-                <td><span class="padded-td">{{rule.allowMultipleDebitEntries}}</span></td>
-            </tr>
-            <tr>
-                <th class="table-bold-acc">{{ 'label.input.allowMultipleCreditEntries' | translate }}</th>
-                <td><span class="padded-td">{{rule.allowMultipleCreditEntries}}</span></td>
-            </tr>
-        </table>
-        <hr/>
-        <table class="width80">
-            <thead>
-            <tr>
-                <th>{{ 'label.heading.debitaccountdetails' | translate }}</th>
-                <th>{{ 'label.heading.creditaccountdetails' | translate }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <!--
-                app.css line 931-934
-                .container td:first-child {    padding-left: 20px;  }
-                .container th:first-child {    padding-left: 20px;  }
-                .container td:last-child {    padding-right: 20px;  }
-                .container th:last-child {    padding-right: 20px;  }
-                The above piece of code is overriding the defined style, for now adding the inline style
-                -->
-                <td>
-                    <table>
-                        <tr ng-repeat="dbAccount in rule.debitAccounts">
-                            <td style="padding-left: 0px;">{{dbAccount.name}}({{dbAccount.glCode}})</td>
-                        </tr>
-                        <tr ng-repeat="debitTag in rule.debitTags">
-                            <td style="padding-left: 0px;">{{debitTag.tag.name}}</td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <table>
-                        <tr ng-repeat="crAccount in rule.creditAccounts">
-                            <td style="padding-left: 0px;">{{crAccount.name}}({{crAccount.glCode}})</td>
-                        </tr>
-                        <tr ng-repeat="creditTag in rule.creditTags">
-                            <td style="padding-left: 0px;">{{creditTag.tag.name}}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="col-md-12 well">
+        <h3 class="bolder col-md-12 ng-binding">{{rule.name}}
+	    	<div class="pull-right">
+	            <div class="btn-group">
+	                <a href="#/editaccrule/{{rule.id}}" class="btn btn-primary" has-permission='UPDATE_ACCOUNTINGRULE'><i
+	                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+	                <a class="btn btn-danger" ng-click="deleteRule()" has-permission='DELETE_ACCOUNTINGRULE'><i
+	                        class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+	            </div>
+	        </div>
+	    </h3>
+        <div class="col-md-5">
+	        <table class="table table-bordered">
+	            <tr>
+	                <th class="table-bold-acc">{{ 'label.heading.office' | translate }}</th>
+	                <td><span class="padded-td">{{rule.officeName}}</span></td>
+	            </tr>
+	            <tr>
+	                <th class="table-bold-acc">{{ 'label.heading.description' | translate }}</th>
+	                <td><span class="padded-td">{{rule.description}}</span></td>
+	            </tr>
+	            <tr>
+	                <th class="table-bold-acc">{{ 'label.input.allowMultipleDebitEntries' | translate }}</th>
+	                <td><span class="padded-td">{{rule.allowMultipleDebitEntries}}</span></td>
+	            </tr>
+	            <tr>
+	                <th class="table-bold-acc">{{ 'label.input.allowMultipleCreditEntries' | translate }}</th>
+	                <td><span class="padded-td">{{rule.allowMultipleCreditEntries}}</span></td>
+	            </tr>
+	        </table>
+		</div>
+		<div class="col-md-7">
+	        <table class="table table-bordered">
+		        <thead>
+		        <tr class="graybg">
+		            <th ng-if="rule.debitTags">{{'label.heading.debittags' | translate}}</th>
+		            <th ng-if="rule.debitAccounts">{{'label.heading.debitaccount' | translate}}</th>
+		            <th ng-if="rule.creditTags">{{'label.heading.credittags' | translate}}</th>
+		            <th ng-if="rule.creditAccounts">{{'label.heading.creditaccount' | translate}}</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+			        <tr>
+	                    <td ng-if="rule.debitTags">
+		                    <p ng-repeat="debitTag in rule.debitTags">{{debitTag.tag.name}}</p>
+	                    </td>
+	                    <td ng-if="rule.debitAccounts">
+		                    <p ng-repeat="dbAccount in rule.debitAccounts">{{dbAccount.name}}({{dbAccount.glCode}})</p>
+	                    </td>
+	                    <td ng-if="rule.creditTags">
+		                    <p ng-repeat="creditTag in rule.creditTags">{{creditTag.tag.name}}</p>
+	                    </td>
+	                    <td ng-if="rule.creditAccounts">
+		                    <p ng-repeat="crAccount in rule.creditAccounts">{{crAccount.name}}({{crAccount.glCode}})</p>
+	                    </td>
+			        </tr>
+		        </tbody>
+		    </table>
+		</div>
     </div>
 </div>
