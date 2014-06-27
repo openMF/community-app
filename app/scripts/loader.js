@@ -28,7 +28,6 @@
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
-            'chosen.jquery-ui.min': "../scripts/modules/chosen.jquery-ui.min",
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q'
@@ -55,7 +54,6 @@
             'LocalStorageModule': {deps: ['angular']},
             'ngCsv': {deps: ['angular']},
             'chosen.jquery.min': {deps: ['jquery']},
-            'chosen.jquery-ui.min': {deps: ['chosen.jquery.min']},
             'frAngular': {deps: ['angular']},
             'modified.datepicker': {deps: ['angular']},
             'Q': {deps: ['angular']},
@@ -82,7 +80,6 @@
                     'angularFileUploadShim',
                     'ngCsv',
                     'chosen.jquery.min',
-                    'chosen.jquery-ui.min',
                     'frAngular',
                     'Q'
                 ],

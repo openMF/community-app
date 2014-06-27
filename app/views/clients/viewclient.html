@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <div class="col-md-12" ng-controller="ViewClientController">
 	<div>
 	    <ul class="breadcrumb">
@@ -30,11 +29,16 @@
         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
-    <div id="photo-dialog" style="display: none">
-		<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-		<img ng-show="client.imagePresent" ng-src="{{largeImage}}" alt="Avatar">
-    </div>
-			<script type="text/ng-template" id="uploadpic.html">
+    <script type="text/ng-template" id="photo-dialog.html">
+        <div class="modal-header silver">
+            <img ng-src="{{largeImage}}" alt="Avatar">
+        </div>
+        <div class="modal-body ">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="uploadpic.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
     </div>
