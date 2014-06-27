@@ -17,35 +17,66 @@
                 scope.formData.accountToCredit = scope.glAccounts[0];
                 scope.formData.accountToDebit = scope.glAccounts[1];
             });
-
-            scope.addCreditTag = function () {
-                if (scope.formData.creditTagTemplate != undefined) {
-                    scope.formData.creditTags.push({id: scope.formData.creditTagTemplate.id, name: scope.formData.creditTagTemplate.name});
-                    scope.formData.creditTagTemplate = undefined;
+            
+            scope.addDebitTag = function () {
+                for (var i in this.availableDebit) {
+                    for (var j in scope.debitTagOptions) {
+                        if (scope.debitTagOptions[j].id == this.availableDebit[i].id) {
+                            var temp = {};
+                            temp.id = this.availableDebit[i].id;
+                            temp.name = this.availableDebit[i].name;
+                            scope.formData.debitTags.push(temp);
+                            scope.debitTagOptions.splice(j, 1);
+                        }
+                    }
                 }
-            }
-
-            scope.removeCrTag = function (index) {
-                scope.formData.creditTags.splice(index, 1);
-            }
-
+            };
+            scope.removeDebitTag = function () {
+                for (var i in this.selectedDebit) {
+                    for (var j in scope.formData.debitTags) {
+                        if (scope.formData.debitTags[j].id == this.selectedDebit[i].id) {
+                            var temp = {};
+                            temp.id = this.selectedDebit[i].id;
+                            temp.name = this.selectedDebit[i].name;
+                            scope.debitTagOptions.push(temp);
+                            scope.formData.debitTags.splice(j, 1);
+                        }
+                    }
+                }
+            };
+            scope.addCreditTag = function () {
+                for (var i in this.availableCredit) {
+                    for (var j in scope.creditTagOptions) {
+                        if (scope.creditTagOptions[j].id == this.availableCredit[i].id) {
+                            var temp = {};
+                            temp.id = this.availableCredit[i].id;
+                            temp.name = this.availableCredit[i].name;
+                            scope.formData.creditTags.push(temp);
+                            scope.creditTagOptions.splice(j, 1);
+                        }
+                    }
+                }
+            };
+            scope.removeCreditTag = function () {
+                for (var i in this.selectedCredit) {
+                    for (var j in scope.formData.creditTags) {
+                        if (scope.formData.creditTags[j].id == this.selectedCredit[i].id) {
+                            var temp = {};
+                            temp.id = this.selectedCredit[i].id;
+                            temp.name = this.selectedCredit[i].name;
+                            scope.creditTagOptions.push(temp);
+                            scope.formData.creditTags.splice(j, 1);
+                        }
+                    }
+                }
+            };
+            
             scope.resetCredits = function () {
                 scope.formData.creditTags = [];
             }
 
-            scope.addDebitTag = function () {
-                if (scope.formData.debitTagTemplate != undefined) {
-                    scope.formData.debitTags.push({id: scope.formData.debitTagTemplate.id, name: scope.formData.debitTagTemplate.name});
-                    scope.formData.debitTagTemplate = undefined;
-                }
-            }
-
             scope.resetDebits = function () {
                 scope.formData.debitTags = [];
-            }
-
-            scope.removeDebitTag = function (index) {
-                scope.formData.debitTags.splice(index, 1);
             }
 
             scope.submit = function () {

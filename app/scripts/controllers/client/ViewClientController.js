@@ -14,11 +14,11 @@
                 location.path('/viewloanaccount/' + id);
             };
             scope.routeToSaving = function (id, depositTypeCode) {
-                if (depositTypeCode === "depositAccountType.savingsDeposit"){
+                if (depositTypeCode === "depositAccountType.savingsDeposit") {
                     location.path('/viewsavingaccount/' + id);
-                }else if (depositTypeCode === "depositAccountType.fixedDeposit"){
+                } else if (depositTypeCode === "depositAccountType.fixedDeposit") {
                     location.path('/viewfixeddepositaccount/' + id);
-                }else if (depositTypeCode === "depositAccountType.recurringDeposit"){
+                } else if (depositTypeCode === "depositAccountType.recurringDeposit") {
                     location.path('/viewrecurringdepositaccount/' + id);
                 }
             };
@@ -30,10 +30,10 @@
                 if (data.imagePresent) {
                     http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images'
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxHeight=150'
                     }).then(function (imageData) {
-                            scope.image = imageData.data;
-                        });
+                        scope.image = imageData.data;
+                    });
                 }
 
                 var clientStatus = new mifosX.models.ClientStatus();
@@ -86,13 +86,13 @@
                             data: {},
                             file: scope.file
                         }).then(function (imageData) {
-                                // to fix IE not refreshing the model
-                                if (!scope.$$phase) {
-                                    scope.$apply();
-                                }
-                                $modalInstance.close('upload');
-                                route.reload();
-                            });
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $modalInstance.close('upload');
+                            route.reload();
+                        });
                     }
                 };
                 $scope.cancel = function () {
@@ -129,9 +129,9 @@
             };
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
                 scope.clientAccounts = data;
-                if (data.savingsAccounts){
-                    for (var i in data.savingsAccounts){
-                        if(data.savingsAccounts[i].status.value == "Active"){
+                if (data.savingsAccounts) {
+                    for (var i in data.savingsAccounts) {
+                        if (data.savingsAccounts[i].status.value == "Active") {
                             scope.updateDefaultSavings = true;
                             break;
                         }
@@ -235,10 +235,10 @@
             };
 
             scope.viewstandinginstruction = function () {
-                location.path('/liststandinginstructions/'+scope.client.officeId+'/'+scope.client.id);
+                location.path('/liststandinginstructions/' + scope.client.officeId + '/' + scope.client.id);
             };
             scope.createstandinginstruction = function () {
-                location.path('/createstandinginstruction/'+scope.client.officeId+'/'+scope.client.id+'/fromsavings');
+                location.path('/createstandinginstruction/' + scope.client.officeId + '/' + scope.client.id + '/fromsavings');
             };
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
@@ -264,11 +264,11 @@
                 });
             };
 
-            scope.viewDataTable = function (registeredTableName,data){
+            scope.viewDataTable = function (registeredTableName, data) {
                 if (scope.datatabledetails.isMultirow) {
-                    location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.client.id+"/"+data.row[0]);
-                }else{
-                    location.path("/viewsingledatatableentry/"+registeredTableName+"/"+scope.client.id);
+                    location.path("/viewdatatableentry/" + registeredTableName + "/" + scope.client.id + "/" + data.row[0]);
+                } else {
+                    location.path("/viewsingledatatableentry/" + registeredTableName + "/" + scope.client.id);
                 }
             };
 
@@ -414,9 +414,35 @@
 
                 // this will be used to display the score on the viewclient.html
                 scope.inventureScore = inventureScore;
-            };    // endcode
+            };
+
+            scope.showPicture = function () {
+                $modal.open({
+                    templateUrl: 'photo-dialog.html',
+                    controller: ViewLargerPicCtrl,
+                    size: "lg"
+                });
+            };
+
+            var ViewLargerPicCtrl = function ($scope, $modalInstance) {
+                var loadImage = function () {
+                    if (scope.client.imagePresent) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=860'
+                        }).then(function (imageData) {
+                            $scope.largeImage = imageData.data;
+                        });
+                    }
+                };
+                loadImage();
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
         }
     });
+
     mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });

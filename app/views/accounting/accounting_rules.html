@@ -15,12 +15,20 @@
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.debittags' | translate}}</th>
+            <th>{{'label.heading.debitaccount' | translate}}</th>
+            <th>{{'label.heading.credittags' | translate}}</th>
+            <th>{{'label.heading.creditaccount' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr class="pointer-main" ng-repeat="rule in rules |orderBy:'name':reverse">
             <td class="pointer" data-ng-click="routeTo(rule.id)">{{rule.name}}</td>
             <td class="pointer" data-ng-click="routeTo(rule.id)">{{rule.officeName}}</td>
+            <td class="pointer" data-ng-click="routeTo(rule.id)"><span ng-repeat="tags in rule.debitTags">{{tags.tag.name}}, </span></td>
+            <td class="pointer" data-ng-click="routeTo(rule.id)">{{rule.debitAccounts[0].name}}</td>
+            <td class="pointer" data-ng-click="routeTo(rule.id)"><span ng-repeat="tags in rule.creditTags">{{tags.tag.name}}, </span></td>
+            <td class="pointer" data-ng-click="routeTo(rule.id)">{{rule.creditAccounts[0].name}}</td>
         </tr>
         </tbody>
     </table>
