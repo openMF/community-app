@@ -8,23 +8,25 @@
 
 	<div class="form-inline marginbuttontop25px" ng-show="isCollapsed">
         <div class="form-group">
-        	<input class="form-control" ng-autofocus="true" ng-model="formData.glAccount" type="text" placeholder="{{'label.input.accountnameorcode' | translate}}" autocomplete="off" typeahead="glAccount as (glAccount.name + '(' + glAccount.glCode + ')') for glAccount in glAccounts | filter:$viewValue | limitTo:8"/>
+        	<select chosen="glAccounts" ng-autofocus="true" class="form-control" ng-model="formData.glAccount" ng-options="glAccount as glAccount.name + ' ' + glAccount.glCode for glAccount in glAccounts" value="{{office.id}}">
+                <option class="displaynone" value="">{{'label.input.selectaccountnameorcode' | translate}}</option>
+            </select>
         </div>
 		<div class="form-group">
-            <select class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+            <select chosen="offices" class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                 <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
             </select>
 		</div>
 		<div class="form-group">
-            <select class="form-control" ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
+            <select chosen="filters" class="form-control" ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
                 <option class="displaynone" value="">{{'label.selectfilter' | translate}}</option>
             </select>
 		</div>
         <div class="form-group">
-            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" />
+            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" style="width: 155px;"/>
 		</div>        
 		<div class="form-group">
-            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" />
+            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" style="width: 155px;"/>
         </div>
 		<div class="form-group clear">
         	<a ng-click="searchTransaction()" class="btn btn-primary control" has-permission='READ_JOURNALENTRY'><i class="icon-search icon-white"></i></a></center>
