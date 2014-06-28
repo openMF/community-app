@@ -12,6 +12,9 @@
             scope.isCollapsed = true;
             scope.approveData = {};
             scope.restrictDate = new Date();
+            scope.selectAllChecker = false;
+            scope.selectAllLoanApproval = false;
+            scope.selectAllClientApproval = [];
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -22,6 +25,23 @@
             scope.viewUser = function (item) {
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
+            };
+            scope.selectAllCheckerData = function() {
+              scope.selectAllChecker = !scope.selectAllChecker;
+              for (var i = 0, len = scope.searchData.length; i < len; i++) {
+                scope.checkData[scope.searchData[i].id] = scope.selectAllChecker;
+              }
+            };
+            scope.selectAllLoanApprovalData = function(loans) {
+              scope.selectAllLoanApproval = !scope.selectAllLoanApproval;
+              for (var i = 0, len = loans.length; i < len; i++) {
+                scope.loanTemplate[loans[i].id] = scope.selectAllLoanApproval;
+              }
+            };
+            scope.selectAllClientApprovalData = function(officeId, clients) {
+              for (var i = 0, len = clients.length; i < len; i++) {
+                 scope.approveData[clients[i].id] = scope.selectAllClientApproval[officeId];
+              }
             };
             scope.approveOrRejectChecker = function (action) {
                 if (scope.checkData) {
