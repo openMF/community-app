@@ -1,12 +1,10 @@
-<div ng-controller="CreateChargeController">
-    <div class="paddedbottom10">
-        <ul class="breadcrumb">
-            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-            <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
-            <li class="active">{{'label.anchor.createcharge' | translate}}</li>
-        </ul>
-    </div>
-    <form name="createchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
+<div class="col-md-12" ng-controller="CreateChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createcharge' | translate}}</li>
+    </ul>
+    <form name="createchargeform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
@@ -20,7 +18,9 @@
                             required>
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
-                    <form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>
+                </div>
+                <div class="col-sm-2">
+                	<form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>
                 </div>
             </div>
             <hr/>
@@ -31,6 +31,8 @@
 
                     <div class="col-sm-3">
                         <input name="name" type="text" id="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="name"/>
                     </div>
                 </div>
@@ -44,6 +46,8 @@
                                 value="{{currency.code}}" class="form-control" required>
                             <option value="">{{'label.selectcurrency' | translate}}</option>
                         </select>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="currency"/>
                     </div>
                 </div>
@@ -57,6 +61,8 @@
                                 value="{{timetype.id}}" ng-change="chargeTimeChange(formData.chargeTimeType)" class="form-control" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="chargetimetype"/>
                     </div>
                 </div>
@@ -71,6 +77,8 @@
                                 value="{{chargecalculation.id}}" class="form-control" required>
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
+                    </div>
+                     <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="chargecalculation"/>
                     </div>
                 </div>
@@ -85,6 +93,8 @@
                                 value="{{chargepayment.id}}" ng-required="showChargePaymentByField" class="form-control">
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="showchargepaymentbyfield"/>
                     </div>
                 </div>
@@ -113,11 +123,13 @@
 
                     <div class="col-sm-3">
                         <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
-                            ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
-                            value="{{frequency.id}}" class="form-control">
-                        <option value="">{{'label.selectone' | translate}}</option>
-                    </select>
-                    <form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
+	                            ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
+	                            value="{{frequency.id}}" class="form-control">
+	                        <option value="">{{'label.selectone' | translate}}</option>
+	                    </select>
+                    </div>
+                    <div class="col-sm-3">
+                    	<form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
                     </div>
                 </div>
                 <div class="form-group" ng-show="addfeefrequency">
@@ -127,6 +139,8 @@
                     <div class="col-sm-3">
                         <input class="input-sm form-control" id="feeIntervalLoan" name="feeIntervalLoan" type="text"
                                ng-model="formData.feeInterval" late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="feeIntervalLoan"/>
                     </div>
                 </div>
@@ -136,7 +150,8 @@
 
                     <div class="col-sm-3">
                         <input class="input-sm form-control" id="feeInterval" name="feeInterval" type="text"
-                               ng-model="formData.feeInterval" ng-required="repeatEvery" late-Validate/></div>
+                               ng-model="formData.feeInterval" ng-required="repeatEvery" late-Validate/>
+                    </div>
                     <div class="col-sm-3 paddingleft0px">
                         {{repeatsEveryLabel | translate}}
                         <form-validate valattributeform="createchargeform" valattribute="feeInterval"/>
@@ -148,6 +163,8 @@
 
                     <div class="col-sm-3">
                         <input id="amount" name="amount" type="text" ng-model="formData.amount" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="amount"/>
                     </div>
                 </div>
