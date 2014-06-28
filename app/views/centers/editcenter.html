@@ -58,21 +58,22 @@
                 </div>
             </fieldset>
         </form>
-        <form ng-switch-when="1">
-            <div class="paddedleft">
-                <div>
-                    <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
-                            class="required">*</span></label>
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
-                           min="mindate" max="restrictDate"/>
+        <form ng-switch-when="1" class="form-horizontal well">
+        	<div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+        			<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="mindate" max="restrictDate"/>
                 </div>
-                <br/>
-                <a id="cancel" href="#/viewgroup/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" has-permission='ACTIVATE_CENTER'><i
-                        class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}
-                </button>
             </div>
-            <hr/>
+            <div class="form-group">
+            	<div class="col-sm-3 col-md-offset-2">
+	                <a id="cancel" href="#/viewgroup/{{edit.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" has-permission='ACTIVATE_CENTER'><i
+	                        class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}
+	                </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
