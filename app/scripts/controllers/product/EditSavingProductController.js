@@ -33,7 +33,8 @@
                     interestCalculationDaysInYearType: data.interestCalculationDaysInYearType.id,
                     accountingRule: data.accountingRule.id,
                     allowOverdraft: data.allowOverdraft == true ? 'true' : 'false',
-                    overdraftLimit: data.overdraftLimit
+                    overdraftLimit: data.overdraftLimit,
+                    minBalanceForInterestCalculation: data.minBalanceForInterestCalculation
                 }
 
                 if (data.lockinPeriodFrequencyType) {
