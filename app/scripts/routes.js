@@ -30,7 +30,10 @@
             })
             .when('/listaccounttransactions/:instructionId', {
                 templateUrl: 'views/accounttransfers/list_transactions.html'
-            })          
+            })
+            .when('/standinginstructions/history', {
+                templateUrl: 'views/accounttransfers/standinginstructions_history.html'
+            })
             .when('/createtemplate', {
                 templateUrl: 'views/templates/createtemplate.html'
             })
