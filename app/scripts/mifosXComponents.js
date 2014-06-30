@@ -149,6 +149,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounttransfers/ListTransactionsController',
             'accounttransfers/EditStandingInstructionController',
             'accounttransfers/ViewStandingInstructionController',
+            'accounttransfers/StandingInstructionsHistoryController',
             'savings/ViewSavingsTransactionController',
             'savings/AddNewSavingsChargeController',
             'savings/ViewSavingChargeController',
