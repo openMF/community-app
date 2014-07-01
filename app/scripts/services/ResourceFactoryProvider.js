@@ -306,7 +306,7 @@
                     standingInstructionTemplateResource: defineResource(apiVer + "/standinginstructions/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    standingInstructionHistoryResource: defineResource(apiVer + "/standinginstructions/history", {}, {
+                    standingInstructionHistoryResource: defineResource(apiVer + "/standinginstructions/runhistory", {}, {
                         get: {method: 'GET', params: {}}
                     }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
