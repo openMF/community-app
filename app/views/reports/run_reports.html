@@ -25,13 +25,15 @@
 	
 	        <div class="form-group info" ng-repeat="reportParam in reportParams">
 	            <label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
-	
-	            <div class="col-sm-3">
-	            	<select chosen="currencyOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]" class="form-control"
-	                        ng-options="options.name as (options.name) for options in reportParam.selectOptions"
-	                        value="{{options.id}}" required>
+
+                <div class="col-sm-3">
+                    <select id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
+                            class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
 	                    <option value="">--{{"label.menu.selectone" | translate}}--</option>
 	                    <option ng-show="reportParam.selectAll == 'Y'" value="-1">{{ 'label.all' | translate }}</option>
+                        <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">
+                            {{selectOption.name}}
+                        </option>
 	                </select>
 	            </div>
 	        </div>
