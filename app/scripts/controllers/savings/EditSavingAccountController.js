@@ -49,6 +49,8 @@
                 scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                 scope.formData.allowOverdraft = data.allowOverdraft;
                 scope.formData.overdraftLimit = data.overdraftLimit;
+                scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
+                scope.formData.minRequiredBalance = data.minRequiredBalance;
 
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                 if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
