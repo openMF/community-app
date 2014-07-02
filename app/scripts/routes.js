@@ -500,7 +500,7 @@
                 templateUrl: 'views/groups/editgroup.html'
             })
             .when('/addmember', {
-                templateUrl: 'views/groups/addmember.html'
+                templateUrl: 'views/clients/createclient.html'
             })
             .when('/groupattendance', {
                 templateUrl: 'views/groups/groupattendance.html'
@@ -539,7 +539,7 @@
                 templateUrl: 'views/centers/closecenter.html'
             })
             .when('/addgroup', {
-                templateUrl: 'views/centers/addgroup.html'
+                templateUrl: 'views/centers/creategroup.html'
             })
             .when('/centerattendance', {
                 templateUrl: 'views/centers/centerattendance.html'
