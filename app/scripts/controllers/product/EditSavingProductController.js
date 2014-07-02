@@ -34,7 +34,10 @@
                     accountingRule: data.accountingRule.id,
                     allowOverdraft: data.allowOverdraft == true ? 'true' : 'false',
                     overdraftLimit: data.overdraftLimit,
-                    minBalanceForInterestCalculation: data.minBalanceForInterestCalculation
+                    minBalanceForInterestCalculation: data.minBalanceForInterestCalculation,
+                    enforceMinRequiredBalance: data.enforceMinRequiredBalance,
+                    minRequiredBalance:data.minRequiredBalance
+
                 }
 
                 if (data.lockinPeriodFrequencyType) {
