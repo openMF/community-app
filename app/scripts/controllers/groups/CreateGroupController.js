@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function (scope, resourceFactory, location, dateFilter) {
+        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -13,7 +13,11 @@
             scope.added = [];
             scope.formData = {};
             scope.formData.clientMembers = [];
-            resourceFactory.groupTemplateResource.get({orderBy: 'name', sortOrder: 'ASC',staffInSelectedOfficeOnly:true}, function (data) {
+            var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
+            if (routeParams.centerId) {
+                requestParams.centerId = routeParams.centerId;
+            }
+            resourceFactory.groupTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
@@ -71,11 +75,16 @@
                     var reqDate = dateFilter(scope.first.date, scope.df);
                     this.formData.activationDate = reqDate;
                 }
+                if (routeParams.centerId) {
+                    this.formData.centerId = routeParams.centerId;
+                }
+                if (routeParams.officeId) {
+                    this.formData.officeId = routeParams.officeId;
+                }
                 if (scope.first.submitondate) {
                     reqDat = dateFilter(scope.first.submitondate, scope.df);
                     this.formData.submittedOnDate = reqDat;
                 }
-
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
@@ -85,7 +94,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.CreateGroupController]).run(function ($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));
