@@ -21,9 +21,9 @@
                 params.locale = "en";
                 params.dateFormat = scope.df;
 
-                if(scope.formData.sqlSearch){
+                /*if(scope.formData.sqlSearch){
                     params.sqlSearch = scope.formData.sqlSearch;
-                }
+                }*/
                 if(scope.formData.clientName){
                     params.clientName = scope.formData.clientName;
                 }
