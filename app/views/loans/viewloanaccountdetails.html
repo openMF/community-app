@@ -1,4 +1,4 @@
-<div ng-controller="ViewLoanDetailsController">
+<div class="col-md-12" ng-controller="ViewLoanDetailsController">
 <div>
     <ul class="breadcrumb">
         <li ng-show="loandetails.clientName"><a
@@ -7,47 +7,41 @@
     </ul>
 </div>
 <div>
-<div ng-show="report">
-    <table width="100%" class="paddedtop">
-        <tr>
-            <th width="20%" class="ng-binding">{{'label.input.fromdate' | translate}}<span
-                    class="required">*</span></th>
-            <th width="5%"></th>
-            <th width="20%" class="ng-binding">{{'label.input.todate' | translate}}<span
-                    class="required">*</span></th>
-            <th width="10%"></th>
-        </tr>
-        <tr>
-            <td width="20%">
-                <input id="startDate" class="date-disable" readonly type="text"
-                       datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
-                       max="restrictDate"/>
-            </td>
-            <td width="5%"></td>
-            <td width="20%">
-                <input id="startDate" class="date-disable" readonly type="text"
-                       datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
-                       max="restrictDate"/>
-            </td>
-            <td width="30%" style="padding-bottom:11px">
-                <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' |
-                    translate}}
-                </button>
-            </td>
-            <td width="40%" style="padding-bottom:11px">
-                <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.loandetails' |
-                    translate}}
-                </button>
-            </td>
-        </tr>
-        <tr data-ng-show="savingaccountdetails.allowOverdraft">
-            <td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
-            <td><span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
-            </td>
-        </tr>
-    </table>
+<div class="form-horizontal" ng-show="report">
+	<div class="form-group">
+         <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
+                 class="required">*</span></label>
+
+         <div class="col-sm-3">
+         	<input id="startDate" class="date-disable form-control" readonly type="text"
+                    datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
+                    max="restrictDate"/>
+         </div>
+     </div>
+     <div class="form-group">
+         <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
+                 class="required">*</span></label>
+
+         <div class="col-sm-3">
+         	<input id="startDate" class="date-disable form-control" readonly type="text"
+                    datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
+                    max="restrictDate"/>
+         </div>
+     </div>
+     <div class="col-md-offset-2">
+         <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' | translate}} </button>
+         <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.loandetails' | translate}} </button>
+     </div>
+     <div class="form-group" data-ng-show="savingaccountdetails.allowOverdraft">
+         <label class="control-label col-sm-2">
+			<td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
+		</label>
+		<label class="control-label col-sm-2">
+			<span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
+		</label>
+     </div>
 </div>
-<div ng-hide="hidePentahoReport" ng-show="report" class="row alert-block span tab-content">
+<div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
     <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
         translate}}
     </button>
