@@ -10,6 +10,9 @@
             .when('/home', {
                 templateUrl: 'views/home.html'
             })
+            .when('/richdashboard', {
+                templateUrl: 'views/private/rich_dashboard.html'
+            })
             .when('/products', {
                 templateUrl: 'views/products/products.html'
             })
