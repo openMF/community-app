@@ -1,11 +1,11 @@
-<div ng-controller="AssignLoanOfficerController">
+<div class="col-md-12" ng-controller="AssignLoanOfficerController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li class="active">{{'label.anchor.assignloanofficer' | translate}}</li>
         </ul>
     </div>
-    <form class="form-horizontal" name="assignloanofficerform" novalidate="" ng-submit="submit()">
+    <form class="form-horizontal well" name="assignloanofficerform" novalidate="" ng-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{ 'label.heading.assignloanofficer' | translate }}</legend>
@@ -14,7 +14,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toLoanOfficerId" ng-model="formData.toLoanOfficerId"
+                    <select class="form-control" id="toLoanOfficerId" ng-model="formData.toLoanOfficerId"
                             ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
                             value="{{loanOfficer.id}}"></select>
                 </div>
@@ -24,7 +24,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input sort id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy"
+                    <input class="form-control" sort id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy"
                            ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
                 </div>
             </div>
