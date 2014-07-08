@@ -35,7 +35,19 @@
                         scope.image = imageData.data;
                     });
                 }
-
+                http({
+                    method: 'GET',
+                    url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
+                }).then(function (docsData) {
+                    var docId = -1;
+                    for (var i = 0; i < docsData.data.length; ++i) {
+                        if (docsData.data[i].name == 'clientSignature') {
+                            docId = docsData.data[i].id;
+                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default';
+                        }
+                    }
+                });
+                
                 var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
@@ -99,6 +111,40 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.uploadSig = function () {
+                $modal.open({
+                    templateUrl: 'uploadsig.html',
+                    controller: UploadSigCtrl
+                });
+            };
+            var UploadSigCtrl = function ($scope, $modalInstance) {
+                $scope.onFileSelect = function ($files) {
+                    scope.file = $files[0];
+                };
+                $scope.upload = function () {
+                    if (scope.file) {
+                        $upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                            data: {
+                                name: 'clientSignature',
+                                description: 'client signature'
+                            },
+                            file: scope.file,
+                        }).then(function (imageData) {
+                                // to fix IE not refreshing the model
+                                if (!scope.$$phase) {
+                                    scope.$apply();
+                                }
+                                $modalInstance.close('upload');
+                                route.reload();
+                            });
+                    }
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
             scope.unassignStaffCenter = function () {
                 $modal.open({
                     templateUrl: 'clientunassignstaff.html',
