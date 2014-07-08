@@ -16,6 +16,7 @@
             scope.date = {};
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
+			scope.date.transactionDate = new Date();
             var centerOrGroupResource = '';
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
