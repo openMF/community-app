@@ -542,7 +542,7 @@
                 templateUrl: 'views/centers/closecenter.html'
             })
             .when('/addgroup', {
-                templateUrl: 'views/centers/creategroup.html'
+                templateUrl: 'views/groups/creategroup.html'
             })
             .when('/centerattendance', {
                 templateUrl: 'views/centers/centerattendance.html'
