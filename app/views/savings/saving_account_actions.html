@@ -17,9 +17,25 @@
                            ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
                 </div>
             </div>
+            <div class="form-group" data-ng-show="withdrawBalance">
+                <label class="control-label col-sm-2" for="withdrawBalance">{{ 'label.input.withdrawBalance' |
+                    translate}}<span class="required">*</span></label>
 
+                <div class="col-sm-3">
+                    <input id="withdrawBalance" type="checkbox" name="withdrawBalance"
+                           ng-model="formData.withdrawBalance" ng-change="isTransaction=formData.withdrawBalance"/>
+                </div>
+            </div>
+            <div class="form-group" data-ng-show="formData.withdrawBalance">
+                <label class="control-label col-sm-2" >{{ 'label.input.transactionamount' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" ng-model="accountBalance" readonly/>
+                </div>
+            </div>
             <div ng-show="isTransaction">
-                <div class="form-group">
+                <div class="form-group" data-ng-show="transactionAmountField">
                     <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
                         translate}}<span class="required">*</span></label>
 
