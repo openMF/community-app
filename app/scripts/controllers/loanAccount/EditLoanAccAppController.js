@@ -45,7 +45,7 @@
                 //update collaterals
                 if (scope.loanaccountinfo.collateral) {
                     for (var i in scope.loanaccountinfo.collateral) {
-                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
+                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
                     }
                 }
 
