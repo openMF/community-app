@@ -21,7 +21,7 @@
                     <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <select id="staffId" ng-model="formData.staffId"
+                        <select chosen="editGroup.staffOptions" id="staffId" ng-model="formData.staffId"
                                 data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions"
                                 value="{{staff.id}}" class="form-control">
                             <option value="">{{'label.menu.selectstaff' | translate}}</option>
@@ -51,21 +51,23 @@
                 </div>
             </fieldset>
         </form>
-        <form ng-switch-when="2">
-            <div class="paddedleft">
-                <div>
-                    <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+        <form class="form-horizontal well" ng-switch-when="2">
+        	<div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
                             class="required">*</span></label>
-                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                <div class="col-sm-3">
+        			<input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
                            is-open="opened" min="mindate" max="restrictDate" required class="form-control"/>
                 </div>
-                <br/>
-                <a id="cancel" href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()"><i
-                        class="icon-check-sign icon-white" has-permission='ACTIVATE_GROUP'></i>{{ 'label.button.activate' | translate }}
-                </button>
             </div>
-            <hr/>
+            <div class="form-group">
+            	<div class="col-sm-3 col-md-offset-2">
+	                <a id="cancel" href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	                <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()"><i
+	                        class="icon-check-sign icon-white" has-permission='ACTIVATE_GROUP'></i>{{ 'label.button.activate' | translate }}
+	                </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

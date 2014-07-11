@@ -1,4 +1,4 @@
-<div class="row" ng-controller="ViewSavingDetailsController">
+<div class="col-md-12" ng-controller="ViewSavingDetailsController">
     <div>
         <ul class="breadcrumb">
             <li ng-show="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
@@ -6,46 +6,38 @@
             <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
         </ul>
     </div>
-    <div ng-show="report">
-        <table class="paddedtop width100">
-            <tr>
-                <th class="ng-binding width20">{{'label.input.fromdate' | translate}}<span class="required">*</span></th>
-                <th class="width5"></th>
-                <th class="ng-binding width20">{{'label.input.todate' | translate}}<span class="required">*</span></th>
-                <th class="width10"></th>
-            </tr>
-            <tr>
-                <td class="width20">
-                    <input id="fromDate" class="date-disable" readonly type="text"
-                           datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
-                           max="restrictDate"/>
-                </td>
-                <td class="width5"></td>
-                <td class="width20">
-                    <input id="toDate" class="date-disable" readonly type="text"
-                           datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
-                           max="restrictDate"/>
-                </td>
-                <td class="width30 paddedbottom10">
-                    <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">
-                        {{'label.button.viewprint' | translate}}
-                    </button>
-                </td>
-                <td class="width40 paddedbottom10">
-                    <button ng-click="viewSavingDetails()" class="btn btn-primary ng-binding">{{'label.button.savingdetails' |
-                        translate}}
-                    </button>
-                </td>
-            </tr>
-            <tr data-ng-show="savingaccountdetails.allowOverdraft">
-                <td class="table-bold-acc fontnormal">{{'label.heading.overdraftlimit' | translate}}</td>
-                <td><span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
-                </td>
-            </tr>
-        </table>
+    <div class="form-horizontal col-md-12" ng-show="report">
+    	<div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+            	<input id="fromDate" class="date-disable form-control" readonly type="text"
+		                datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
+		                max="restrictDate"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+            	<input id="toDate" class="date-disable form-control" readonly type="text"
+                        datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
+                        max="restrictDate"/>
+            </div>
+        </div>
+        <div class="col-md-offset-2">
+            <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">
+                {{'label.button.viewprint' | translate}}
+            </button>
+            <button ng-click="viewSavingDetails()" class="btn btn-primary ng-binding">{{'label.button.savingdetails' |
+                translate}}
+            </button>
+        </div>
     </div>
 
-    <div ng-hide="hidePentahoReport" ng-show="report" class="row alert-block span tab-content">
+    <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
         <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
                         translate}}</button>
         <div id="printcontent">
@@ -68,7 +60,7 @@
                              class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
                               translate}}</a>
                       </span>
-                      <span ng-show="buttons.options" class="btn-group">
+                      <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
                           <a class="btn btn-primary dropdown-toggle">
                               {{'label.button.more' | translate}}
                               <span class="caret"></span>
@@ -202,6 +194,24 @@
                                 <td><span class="padded-td">{{savingaccountdetails.annualFee.currency.displaySymbol}}&nbsp;{{savingaccountdetails.annualFee.amount}}&nbsp;{{'label.on' | translate}}&nbsp;{{annualdueDate | date:'d MMMM'}}</span>
                                 </td>
                             </tr>
+                            <tr data-ng-show="savingaccountdetails.allowOverdraft">
+                                <td class="table-bold-acc fontnormal">{{'label.heading.overdraftlimit' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.minBalanceForInterestCalculation">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.minBalanceForInterestCalculation}}</span></td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.enforceMinRequiredBalance">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.enforceMinRequiredBalance' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.enforceMinRequiredBalance}}</span></td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.enforceMinRequiredBalance">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.minRequiredBalance' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.minRequiredBalance}}</span></td>
+                            </tr>
+
                         </table>
                     </div>
                 </tab>
@@ -211,12 +221,12 @@
                         <colgroup span="4"></colgroup>
                         <thead>
                         <tr>
-                            <th ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
-                            <th ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
-                            <th ng-click="changeTransactionSort('transactionType.value')">{{'label.heading.transactiontype' | translate}}</th>
-                            <th ng-click="changeTransactionSort('amount')">{{'label.heading.debit' | translate}}</th>
-                            <th ng-click="changeTransactionSort('amount')">{{'label.heading.credit' | translate}}</th>
-                            <th ng-click="changeTransactionSort('runningBalance')">{{'label.heading.balance' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">{{'label.heading.transactiontype' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.credit' | translate}}</th>
+                            <th class="pointer" ng-click="changeTransactionSort('runningBalance')">{{'label.heading.balance' | translate}}</th>
                         </tr>
                         </thead>
                         <tbody>

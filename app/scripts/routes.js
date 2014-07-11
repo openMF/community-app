@@ -10,6 +10,9 @@
             .when('/home', {
                 templateUrl: 'views/home.html'
             })
+            .when('/richdashboard', {
+                templateUrl: 'views/private/rich_dashboard.html'
+            })
             .when('/products', {
                 templateUrl: 'views/products/products.html'
             })
@@ -30,7 +33,10 @@
             })
             .when('/listaccounttransactions/:instructionId', {
                 templateUrl: 'views/accounttransfers/list_transactions.html'
-            })          
+            })
+            .when('/standinginstructions/history', {
+                templateUrl: 'views/accounttransfers/standinginstructions_history.html'
+            })
             .when('/createtemplate', {
                 templateUrl: 'views/templates/createtemplate.html'
             })
@@ -497,7 +503,7 @@
                 templateUrl: 'views/groups/editgroup.html'
             })
             .when('/addmember', {
-                templateUrl: 'views/groups/addmember.html'
+                templateUrl: 'views/clients/createclient.html'
             })
             .when('/groupattendance', {
                 templateUrl: 'views/groups/groupattendance.html'
@@ -536,7 +542,7 @@
                 templateUrl: 'views/centers/closecenter.html'
             })
             .when('/addgroup', {
-                templateUrl: 'views/centers/addgroup.html'
+                templateUrl: 'views/groups/creategroup.html'
             })
             .when('/centerattendance', {
                 templateUrl: 'views/centers/centerattendance.html'

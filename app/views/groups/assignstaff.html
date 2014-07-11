@@ -1,24 +1,23 @@
 <div class="well" data-ng-controller="AssignStaffController">
-    <h3>{{'label.heading.assignstaff' | translate}}</h3>
     <api-validate></api-validate>
-    <form>
-        <table>
-            <tr>
-                <td><label>{{'label.input.staff' | translate}}<span class="required">*</span></label></td>
-                <td>
-                    <select id="staffId" ng-model="formData.staffId"  class="form-control"
-                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
-                    </select>
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <hr/>
-        <div class="paddedleft80 col-md-offset-1">
-            <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-            <button id="save" type="button" class="btn btn-primary" data-ng-click="assignStaff()"  has-permission='ASSIGNSTAFF_GROUP'>{{'label.button.save'
-                | translate}}
-            </button>
+    <form class="form-horizontal">
+    	<legend>{{'label.heading.assignstaff' | translate}}</legend>
+       	<div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}<span
+                           class="required">*</span></label>
+            <div class="col-sm-3">
+       			<select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
+                           ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                </select>
+        	</div>
         </div>
-    </form>
+        <div class="form-group">
+           	<div class="col-sm-3 col-md-offset-2">
+                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	            <button id="save" type="button" class="btn btn-primary" data-ng-click="assignStaff()"  has-permission='ASSIGNSTAFF_GROUP'>{{'label.button.save'
+	                | translate}}
+	            </button>
+            </div>
+   		</div>
+   </form>
 </div>

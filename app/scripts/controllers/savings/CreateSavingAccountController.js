@@ -57,6 +57,8 @@
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.allowOverdraft = data.allowOverdraft;
                     scope.formData.overdraftLimit = data.overdraftLimit;
+                    scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
+                    scope.formData.minRequiredBalance = data.minRequiredBalance;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -111,7 +113,9 @@
                 if (scope.centerId) this.formData.centerId = scope.centerId;
 
                 if (scope.charges.length > 0) {
+
                     for (var i in scope.charges) {
+                        
                         if (scope.charges[i].chargeTimeType.value == 'Annual Fee') {
                             this.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount,
                                 feeOnMonthDay: dateFilter(scope.charges[i].feeOnMonthDay, 'dd MMMM')});
@@ -121,7 +125,10 @@
                         } else if (scope.charges[i].chargeTimeType.value == 'Monthly Fee') {
                             this.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount,
                                 feeOnMonthDay: dateFilter(scope.charges[i].feeOnMonthDay, 'dd MMMM'), feeInterval: scope.charges[i].feeInterval});
-                        } else {
+                        } else if (scope.charges[i].chargeTimeType.value == 'Weekly Fee') {
+                            this.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df), feeInterval: scope.charges[i].feeInterval});                            
+                        }
+                        else {
                             this.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount});
                         }
                     }

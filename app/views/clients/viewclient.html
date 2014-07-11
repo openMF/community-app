@@ -29,7 +29,16 @@
         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
-			<script type="text/ng-template" id="uploadpic.html">
+    <script type="text/ng-template" id="photo-dialog.html">
+        <div class="modal-header silver">
+            <img ng-src="{{largeImage}}" alt="Avatar">
+        </div>
+        <div class="modal-body ">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="uploadpic.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
     </div>
@@ -54,6 +63,21 @@
         <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
+	<script type="text/ng-template" id="uploadsig.html">
+	    <div class="modal-header silver">
+	        <h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+	    </div>
+	    <div class="modal-body">
+	        <api-validate></api-validate>
+	        <br>
+	        <input type="file" ng-file-select="onFileSelect($files)">
+	    </div>
+	    <div class="modal-footer">
+	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+	    </div>
+	</script>
+	
 	<tabset class="overflowhidden marginbottom0">
 		<tab heading="{{'label.heading.general' | translate}}">
 			<div class="col-md-12 col-sm-12">
@@ -78,7 +102,7 @@
 				            |
 				            translate}}
 				        </button>
-						<span ng-show="buttonsArray.options" class="btn-group">
+						<span ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
 						    <a class="btn btn-primary dropdown-toggle">
 						        {{ 'label.button.more' | translate}}
 						        <span class="caret"></span>
@@ -91,6 +115,10 @@
 						        </li>
 						        <li>
 						            <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic'
+						                | translate}}</a>
+						        </li>
+						        <li>
+						            <a data-ng-click="uploadSig()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadsig'
 						                | translate}}</a>
 						        </li>
 						        <li data-ng-show="clientAccounts.savingsAccounts">
@@ -239,12 +267,18 @@
 						                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
 						                <td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance}}</td>
 						                <td class="pointer" ng-if="savingaccount.status.active">
-						                	<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
 						                		<i class="icon-arrow-right icon-white"></i>
 						                	</a>
-						                	<a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding">
+                                            <a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+                                                <i class="icon-arrow-right icon-white"></i>
+                                            </a>
+						                	<a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
 						                		<i class="icon-arrow-left icon-white"></i>
 						                	</a>
+                                            <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+                                                <i class="icon-arrow-left icon-white"></i>
+                                            </a>
 						                </td>
 						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
@@ -286,7 +320,9 @@
 				    	<div class="thumbnail row">
 				    		<h4><strong>{{client.displayName}}</strong></h4>
 					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar">
+				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()">
+				        	<div ng-show="client.imagePresent" class="show-large-picture" data-ng-click="showPicture()">{{'label.zoom' | translate}}</div>
+                            <img ng-show="signature_url" ng-src="{{signature_url}}" alt="Signature">
 				        	<table class="table-minified">
 					            <tr>
 					                <th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
@@ -315,12 +351,12 @@
 					                <td><span class="padded-td">{{client.gender.name}}</span>
 					                </td>
 					            </tr>
-                                <tr  data-ng-hide="client.clientType.name">
+                                <tr data-ng-show="client.clientType.name">
                                     <th class="table-bold">{{ 'label.input.clienttype' | translate }}</th>
                                     <td><span class="padded-td">{{client.clientType.name}}</span>
                                     </td>
                                 </tr>
-                                <tr data-ng-hide="client.clientClassification.name">
+                                <tr data-ng-show="client.clientClassification.name">
                                     <th class="table-bold">{{ 'label.input.clientclassification' | translate }}</th>
                                     <td><span class="padded-td">{{client.clientClassification.name}}</span>
                                     </td>
@@ -334,9 +370,6 @@
 					            <tr data-ng-show="client.status.value=='Closed'">
 					                <th class="table-bold">{{ 'label.heading.closedate' | translate }}</th>
 					                <td><span class="padded-td">{{client.timeline.closedOnDate | DateFormat}}</span></td>
-					            </tr>
-					            <tr data-ng-show="client.signature">
-					            	<td colspan="2"><img style="height:55px" src="./images/signature" alt="Avatar"></td>
 					            </tr>
 					            <tr>
 					                <th class="whitebg" colspan="2">{{ 'label.heading.performancehistory' | translate }}</th>

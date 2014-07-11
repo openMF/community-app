@@ -36,9 +36,9 @@
                     case "deposit":
                         location.path('/recurringdepositaccount/' + accountId + '/deposit');
                         break;
-                    /*case "withdraw":
+                    case "withdraw":
                         location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
-                        break;*/
+                        break;
                     case "addcharge":
                         location.path('/recurringdepositaccount/' + accountId + '/charges');
                         break;
@@ -153,9 +153,10 @@
                         ]
 
                     };
-                    if (data.clientId) {
+
+                    if (data.allowWithdrawal == true) {
                         scope.buttons.options.push({
-                            name: "button.transferFunds"
+                            name: "button.withdraw"
                         });
                     }
                     if (data.charges) {
@@ -281,9 +282,28 @@
 
             var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
                 $scope.chartSlab = chartSlab;
+                _.each($scope.chartSlab.incentives, function (incentive) {
+                    if(!incentive.attributeValueDesc){
+                        incentive.attributeValueDesc = incentive.attributeValue;
+                    }
+                });
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+            };
+
+            scope.transactionSort = {
+                column: 'date',
+                descending: true
+            };
+            scope.changeTransactionSort = function(column) {
+                var sort = scope.transactionSort;
+                if (sort.column == column) {
+                    sort.descending = !sort.descending;
+                } else {
+                    sort.column = column;
+                    sort.descending = true;
+                }
             };
 
         }

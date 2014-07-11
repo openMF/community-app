@@ -56,7 +56,8 @@
                     inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId,
                     isMandatoryDeposit:data.isMandatoryDeposit,
                     allowWithdrawal:data.allowWithdrawal,
-                    adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments
+                    adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments,
+                    minBalanceForInterestCalculation:data.minBalanceForInterestCalculation
                 }
 
                 scope.chart = scope.product.activeChart;

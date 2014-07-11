@@ -81,24 +81,36 @@ angular.module('notificationWidget', [])
                         var valErrors = jsonErrors.errors;
                         var errorArray = new Array();
                         var arrayIndex = 0;
-                        for (var i in valErrors) {
-                            var temp = valErrors[i];
-                            // add error class to input in dialog
-                            var fieldId = '#' + temp.parameterName;
-                            $(fieldId).addClass("validationerror");
+                        if (valErrors) {
+                            for (var i in valErrors) {
+                                var temp = valErrors[i];
+                                // add error class to input in dialog
+                                var fieldId = '#' + temp.parameterName;
+                                $(fieldId).addClass("validationerror");
 
-                            var errorObj = new Object();
-                            errorObj.field = temp.parameterName;
-                            errorObj.code = temp.userMessageGlobalisationCode;
-                            errorObj.args = {params: []};
-                            for (var j in temp.args) {
-                                errorObj.args.params.push({value: temp.args[j].value});
+                                var errorObj = new Object();
+                                errorObj.field = temp.parameterName;
+                                errorObj.code = temp.userMessageGlobalisationCode;
+                                errorObj.args = {params: []};
+                                for (var j in temp.args) {
+                                    errorObj.args.params.push({value: temp.args[j].value});
+                                }
+
+                                errorArray[arrayIndex] = errorObj;
+                                arrayIndex++;
+                            };
+                        } else {
+                            /***
+                             * Update user password api call won't return errors array,
+                             * if user enters a password which is used previously
+                             */
+                            if (jsonErrors.userMessageGlobalisationCode) {
+                                var errorObj = new Object();
+                                errorObj.code = jsonErrors.userMessageGlobalisationCode;
+                                errorArray[arrayIndex] = errorObj;
+                                arrayIndex++;
                             }
-
-                            errorArray[arrayIndex] = errorObj;
-                            arrayIndex++;
                         }
-                        ;
                         $rootScope.errorDetails = errorArray;
                     }
                     return $q.reject(response);

@@ -1,4 +1,4 @@
-<div ng-controller="EditSavingProductController">
+<div class="col-md-12" ng-controller="EditSavingProductController">
 	<div>
 	    <ul class="breadcrumb">
 	        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
@@ -139,18 +139,40 @@
                     <input id="withdrawalFeeForTransfers" type="checkbox" ng-model="formData.withdrawalFeeForTransfers"
                            ng-true-value="true" ng-false-value="false">
                 </div>
-                <label class="control-label col-sm-2">{{ 'label.input.allowoverdraft' | translate }}</label>
-               	<div class="col-sm-2">
+                <label class="control-label col-sm-2">{{ 'label.input.minbalanceforinterest' | translate }}</label>
+                <div class="col-sm-2">
+                    <input id="minBalanceForInterestCalculation"  type="text" class="form-control"
+                           ng-model="formData.minBalanceForInterestCalculation">
+                </div>
+			</div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.enforceMinRequiredBalance' | translate }}</label>
+
+                <div class="col-sm-2">
+                    <input id="enforceMinRequiredBalance" type="checkbox"
+                           ng-model="formData.enforceMinRequiredBalance"/>
+                </div>
+                <label class="control-label col-sm-2">{{
+                    'label.input.minRequiredBalance' | translate }}</label>
+
+                <div class="col-sm-2">
+                    <input id="minRequiredBalance" type="text" class="form-control"
+                           ng-model="formData.minRequiredBalance"/>
+                </div>
+            </div>
+	        <div class="form-group" >
+
+                <label class="control-label col-sm-3">{{ 'label.input.allowoverdraft' | translate }}</label>
+                <div class="col-sm-2">
                     <input id="allowOverdraft" type="checkbox" ng-model="formData.allowOverdraft" ng-true-value="true"
                            ng-false-value="false">
-				</div>
-			</div>                          
-	        <div class="form-group" ng-show="formData.allowOverdraft">
-	            <label class="control-label col-sm-3">{{ 'label.input.overdraftlimit' | translate }}</label>
-	            <div class="col-sm-2">
+                </div>
+	            <label class="control-label col-sm-2" ng-show="formData.allowOverdraft">{{ 'label.input.overdraftlimit' | translate }}</label>
+	            <div class="col-sm-2" ng-show="formData.allowOverdraft">
 	                <input id="overdraftLimit" type="text" class="form-control"
                     	ng-model="formData.overdraftLimit">
 	            </div>
+
 	        </div>
 	    	<h3>{{ 'label.heading.charges' | translate }}</h3>
 	    	<hr>
@@ -291,7 +313,7 @@
 	            	</div>	            
 		        </div>
 		        <div class="form-group">
-		            <label class="control-label col-sm-2">{{ 'label.input.incomefrominterest' | translate }}</label>
+		            <label class="control-label col-sm-2">{{ 'label.input.interest.on.overdrafts' | translate }}</label>
 	            	<i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefromoverdraftinterest' | translate}}"></i>
 		            <div class="col-sm-3">
 		            	<select id="incomeFromInterestId" ng-model="formData.incomeFromInterestId" chosen="incomeAccountOptions"
