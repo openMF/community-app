@@ -229,7 +229,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'HasPermissionDirective',
             'ActivitiesDisplayPanelDirective',
             'ScrollbarTopDirective',
-            'ChosenComboboxDirective'
+            'ChosenComboboxDirective',
+            'NumberFormatDirective'
         ]
     };
 
