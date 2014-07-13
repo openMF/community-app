@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
         <li class="active">{{'label.anchor.charges' | translate}}</li>
@@ -8,25 +8,24 @@
             | translate}}</a>
     </div>
     <input ng-model="filterText" type="text" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
-</div>
-
-<div ng-controller="ChargeController">
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.chargeappliesto' | translate}}</th>
-            <th>{{'label.heading.ispenalty' | translate}}</th>
-            <th>{{'label.heading.active' | translate}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="charge in charges |orderBy:'name':reverse | filter:filterText">
-            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
-            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
-            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
-            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.active}}</td>
-        </tr>
-        </tbody>
-    </table>
+	<div ng-controller="ChargeController">
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{'label.heading.name' | translate}}</th>
+	            <th>{{'label.heading.chargeappliesto' | translate}}</th>
+	            <th>{{'label.heading.ispenalty' | translate}}</th>
+	            <th>{{'label.heading.active' | translate}}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main" ng-repeat="charge in charges |orderBy:'name':reverse | filter:filterText">
+	            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
+	            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
+	            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
+	            <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.active}}</td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
 </div>
