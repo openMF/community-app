@@ -6,7 +6,7 @@
                     var tDate = new Date(input);
                     return dateFilter(tDate, localStorageService.get('dateformat'));
                 }
-
+                return '';
             }
         }
     });

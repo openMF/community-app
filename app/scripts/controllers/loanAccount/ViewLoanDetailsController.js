@@ -18,6 +18,18 @@
                 }
                 ;
             };
+
+            /***
+             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
+             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
+             * @param dateFieldName
+             */
+            scope.convertDateArrayToObject = function(dateFieldName){
+                for(var i in scope.loandetails.transactions){
+                    scope.loandetails.transactions[i][dateFieldName] = new Date(scope.loandetails.transactions[i].date);
+                }
+            };
+
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
