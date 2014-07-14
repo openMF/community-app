@@ -1,11 +1,9 @@
 <div class="col-md-12" ng-controller="ViewHolController">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
-            <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
-            <li class="active">{{holiday.name}}</li>
-        </ul>
-    </div>
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+        <li class="active">{{holiday.name}}</li>
+    </ul>
     <script type="text/ng-template" id="activateHoliday.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.activateholiday' | translate}}</h3>
@@ -28,7 +26,7 @@
             <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div>
+    <div class="well">
         <div class="pull-right">
             <div class="btn-group">
                 <a ng-show="holidayStatusPending" data-ng-click="activateHoliday()" class="btn btn-primary" has-permission='ACTIVATE_HOLIDAY'><i
@@ -40,24 +38,28 @@
                         class="icon-edit icon-white"></i>{{ 'label.button.delete' | translate }}</a>
             </div>
         </div>
-        <h3><strong>{{holiday.name}}</strong></h3>
-        <table class="table table-bordered">
-            <tr>
-                <td>{{ 'label.heading.name' | translate }}</td>
-                <td>{{holiday.name}}</td>
-            </tr>
-            <tr>
-                <td>{{ 'label.heading.fromdate' | translate }}</td>
-                <td>{{holiday.fromDate | DateFormat}}</td>
-            </tr>
-            <tr>
-                <td>{{ 'label.heading.todate' | translate }}</td>
-                <td>{{holiday.toDate | DateFormat}}</td>
-            </tr>
-            <tr>
-                <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
-                <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
-            </tr>
-        </table>
+        <h3 class="bolder">{{holiday.name}}</h3>
+		<div class="row">
+			<div class="col-md-5">
+		        <table class="table table-bordered">
+		            <tr>
+		                <td>{{ 'label.heading.name' | translate }}</td>
+		                <td>{{holiday.name}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{ 'label.heading.fromdate' | translate }}</td>
+		                <td>{{holiday.fromDate | DateFormat}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{ 'label.heading.todate' | translate }}</td>
+		                <td>{{holiday.toDate | DateFormat}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
+		                <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+		            </tr>
+		        </table>
+    		</div>
+    	</div>
     </div>
 </div>
