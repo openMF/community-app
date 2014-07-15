@@ -17,6 +17,17 @@
                 }
             };
 
+            /***
+             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
+             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
+             * @param dateFieldName
+             */
+            scope.convertDateArrayToObject = function(dateFieldName){
+                for(var i in scope.savingaccountdetails.transactions){
+                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                }
+            };
+
             scope.viewCharge = function (id){
                 location.path('/savings/'+scope.savingaccountdetails.id+'/viewcharge/'+id).search({'status':scope.savingaccountdetails.status.value});
             }
@@ -319,12 +330,12 @@
             scope.modifyTransaction = function (accountId, transactionId) {
                 location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
-            
+
             scope.transactionSort = {
                 column: 'date',
                 descending: true
             };
-                
+
             scope.changeTransactionSort = function(column) {
                 var sort = scope.transactionSort;
                 if (sort.column == column) {
@@ -341,7 +352,4 @@
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
-}
-    (mifosX.controllers || {})
-    )
-;
+}(mifosX.controllers || {}));
