@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccCreateGLAccountController: function (scope, resourceFactory, location) {
+        AccCreateGLAccountController: function (scope, resourceFactory, location, $routeParams) {
             scope.coadata = [];
             scope.accountTypes = [];
             scope.usageTypes = [];
@@ -10,16 +10,33 @@
                 scope.coadata = data;
                 scope.accountTypes = data.accountTypeOptions;
                 scope.usageTypes = data.usageOptions;
-
+                
                 scope.formData = {
-                    manualEntriesAllowed: true,
-                    type: scope.accountTypes[0].id,
-                    usage: scope.usageTypes[0].id,
-                };
+                        manualEntriesAllowed: true,
+                        type: scope.accountTypes[0].id,
+                        usage: scope.usageTypes[0].id,
+                    };
+                scope.formData.type;
+                scope.formData.parentId;
+                
+                for (var i = 0; i < data.accountTypeOptions.length; i++) {
+                	if(data.accountTypeOptions[i].value == $routeParams.acctype ) {
+                		console.log($routeParams.acctype + data.accountTypeOptions[i].value)
+                		scope.formData.type = scope.accountTypes[i].id;
+                	}
+                }
+                
                 //by default display assetTagsOptions and assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
-                    scope.headerTypes = data.assetHeaderAccountOptions
-
+                scope.headerTypes = data.assetHeaderAccountOptions
+                    
+                for (var i = 0; i < data.assetHeaderAccountOptions.length; i++) {
+                	if(data.assetHeaderAccountOptions[i].id == $routeParams.parent ) {
+                		console.log($routeParams.parent + data.assetHeaderAccountOptions[i].id)
+                		scope.formData.parentId = scope.headerTypes[i].id;
+                	}
+                }
+                
                 scope.changeType = function (value) {
                     if (value == 1) {
                         scope.types = data.allowedAssetsTagOptions;
@@ -43,6 +60,12 @@
 
             });
 
+            if($routeParams.parent){
+            	scope.cancel = '#/viewglaccount/' + $routeParams.parent
+        	}else{
+        		scope.cancel = "#/accounting_coa"
+        	}
+            
 
             scope.submit = function () {
                 resourceFactory.accountCoaResource.save(this.formData, function (data) {
@@ -51,7 +74,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AccCreateGLAccountController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.AccCreateGLAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('AccCreateGLAccountController', ['$scope', 'ResourceFactory', '$location','$routeParams', mifosX.controllers.AccCreateGLAccountController]).run(function ($log) {
         $log.info("AccCreateGLAccountController initialized");
     });
 }(mifosX.controllers || {}));
