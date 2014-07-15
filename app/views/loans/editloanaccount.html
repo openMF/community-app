@@ -276,7 +276,7 @@
         <div class="col-md-12">
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
         <select ng-model="chargeFormData.chargeId" class="form-control width170px"
-                ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions"
+                ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
                 value="{{charge.id}}">
             <option value="">{{'label.selectcharge' | translate}}</option>
         </select>

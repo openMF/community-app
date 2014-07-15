@@ -197,7 +197,7 @@
     <hr/>
     <label class="control-label"><h4>{{ 'label.heading.charges' | translate }}</h4></label>
     <select ng-model="chargeId"
-            ng-options="charge.id as charge.name for charge in chargeOptions"
+            ng-options="charge.id as charge.name for charge in data.chargeOptions|filter:data.currency.code:strict"
             value="{{charge.id}}" class="form-control">
         <option value="">{{'label.selectcharge' | translate}}</option>
     </select>
