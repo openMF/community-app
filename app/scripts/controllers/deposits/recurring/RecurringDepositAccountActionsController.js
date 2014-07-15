@@ -70,6 +70,8 @@
                 case "withdrawal":
                     resourceFactory.recurringDepositTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'withdrawal'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.formData.transactionAmount = data.amount;
+                        scope.formData.transactionDate=new Date(dateFilter(data.date, scope.df));
                     });
                     scope.title = 'label.heading.withdrawmoneyfromsavingaccount';
                     scope.labelName = 'label.input.transactiondate';
