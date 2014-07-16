@@ -29,7 +29,13 @@
             scope.unique = function (array) {
                 array.forEach(function (value) {
                     if (scope.uniqueArray.indexOf(value) === -1) {
-                        scope.uniqueArray.push(value);
+                    	if (value) {
+                            if (value != '/') {
+                                if (value != '/home') {
+                                	scope.uniqueArray.push(value);
+                                }
+                            }
+                    	}
                     }
                 });
             }
@@ -37,14 +43,8 @@
             //recent activities retrieved
 
             //retrieve last 8 recent activities
-            for (var l = 0; l < 11; l++) {
-                if (scope.uniqueArray[l]) {
-                    if (scope.uniqueArray[l] != '/') {
-                        if (scope.uniqueArray[l] != '/home') {
-                            scope.recents.push(scope.uniqueArray[l]);
-                        }
-                    }
-                }
+            for (var l = 0; l < 8; l++) {
+                scope.recents.push(scope.uniqueArray[l]);
             }
             // 8 recent activities retrieved
 
