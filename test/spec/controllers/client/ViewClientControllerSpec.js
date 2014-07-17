@@ -3,7 +3,7 @@ describe("ViewClientController", function () {
         runReportsResourceCallback;
     var statusTypes = ["Active", "Pending", "Transfer in progress", "Transfer on hold"];
 
-    beforeEach(function () {
+    beforeEach(inject(function ($q) {
 
         this.scope = {};
 
@@ -39,10 +39,12 @@ describe("ViewClientController", function () {
         this.routeParams = jasmine.createSpy();
         this.route = jasmine.createSpy();
         this.location = jasmine.createSpyObj("location", ["path"]);
-        this.http = jasmine.createSpy();
+        this.http = jasmine.createSpy().andCallFake(function(){
+          return $q.defer().promise;
+        });
         this.modal = jasmine.createSpy();
         this.API_VERSION = jasmine.createSpy();
-        this.rooteScope = jasmine.createSpy();
+        this.rootScope = jasmine.createSpy();
         this.upload = jasmine.createSpy();
 
         this.controller = new mifosX.controllers.ViewClientController(this.scope,
@@ -55,7 +57,7 @@ describe("ViewClientController", function () {
             this.API_VERSION,
             this.rootScope,
             this.upload);
-    });
+    }));
 
     statusTypes.forEach(function (clientStatus) {
 
