@@ -107,6 +107,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AddFinancialMappingController',
             'accounting/ViewFinancialActivityController',
             'accounting/EditFinancialActivityMappingController',
+            'accounting/PeriodicAccrualAccountingController',
             'system/CodeController',
             'system/EditCodeController',
             'system/ViewCodeController',

@@ -322,6 +322,9 @@
             .when('/editaccrule/:id', {
                 templateUrl: 'views/accounting/edit_acc_rule.html'
             })
+            .when('/run_periodic_accrual',{
+                templateUrl: 'views/accounting/periodic_accrual_accounting.html'
+            })
             .when('/viewcode/:id', {
                 templateUrl: 'views/system/viewcode.html'
             })
