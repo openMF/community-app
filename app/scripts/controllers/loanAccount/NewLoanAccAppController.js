@@ -141,6 +141,7 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
+
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);

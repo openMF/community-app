@@ -23,11 +23,42 @@ angular.module('notificationWidget', [])
                     });
                 }
 
-                function success(response) {
+                function success(response) {                    
+
                     // clear previous errors for a success request.
                     delete $rootScope.errorStatus;
                     delete $rootScope.errorDetails;
+
                     removeErrors();
+
+                    //contains the responses successful and failed responses
+                    $rootScope.successfulResponses = [];
+                    $rootScope.failedResponses = [];
+
+                    //check for batch API errors                    
+                    if (response.config.url.indexOf('batches') > 0) {                        
+
+                        for (var i = 0; i < response.data.length; i++) {
+                            var currResponse = response.data[i];
+                            if (currResponse.statusCode == 200) {
+                                $rootScope.successfulResponses.push(currResponse);                                
+                            } else {
+                                $rootScope.failedResponses.push(currResponse);
+                            }
+                        }
+
+                        //pass failed responses to error function
+                        if ($rootScope.failedResponses.length > 0) {
+                            var errResponse = response;
+                            errResponse.data = $rootScope.failedResponses;
+                            error(errResponse);
+
+                            //set the value of response only to successful responses
+                            response.data = $rootScope.successfulResponses;                   
+                        }                     
+
+                    }
+                    
                     // get $http via $injector because of circular dependency problem
                     $http = $http || $injector.get('$http');
                     // don't send notification until all requests are complete
@@ -59,6 +90,8 @@ angular.module('notificationWidget', [])
 
                 function error(response) {
                     // get $http via $injector because of circular dependency problem
+                    //console.log(response.data);                    
+
                     $http = $http || $injector.get('$http');
                     removeErrors();
                     // don't send notification until all requests are complete
@@ -68,6 +101,22 @@ angular.module('notificationWidget', [])
                         // send a notification requests are complete
                         notificationChannel.requestEnded();
                     }
+
+                    $rootScope.errorDetails = [];
+                    //works with batch requests as well
+                    //now our data array will hold the return response
+                    //either it's a batch response or a normal response
+                    var data = [];
+                    if (response.config.url.indexOf('batches') > 0) {
+                        data = response.data;
+                    }
+                    else {
+                        //just push a single response into data
+                        var res = {};
+                        res.body = JSON.stringify(response.data);
+                        data.push(res);
+                    }
+                    
                     if (response.status === 0) {
                         $rootScope.errorStatus = 'No connection. Verify application is running.';
                     } else if (response.status == 401) {
@@ -77,41 +126,50 @@ angular.module('notificationWidget', [])
                     } else if (response.status == 500) {
                         $rootScope.errorStatus = 'Internal Server Error [500].';
                     } else {
-                        var jsonErrors = JSON.parse(JSON.stringify(response.data));
-                        var valErrors = jsonErrors.errors;
-                        var errorArray = new Array();
-                        var arrayIndex = 0;
-                        if (valErrors) {
-                            for (var i in valErrors) {
-                                var temp = valErrors[i];
-                                // add error class to input in dialog
-                                var fieldId = '#' + temp.parameterName;
-                                $(fieldId).addClass("validationerror");
+                        for(var i = 0; i < data.length; i++) {
+                            //console.log(data[i]);
+                            var jsonErrors = JSON.parse(data[i].body);                            
+                            var valErrors = jsonErrors.errors;
+                            var errorArray = new Array();
+                            var arrayIndex = 0;
+                            if (valErrors) {
+                                for (var j in valErrors) {
+                                    var temp = valErrors[j];
+                                    // add error class to input in dialog
+                                    var fieldId = '#' + temp.parameterName;
+                                    $(fieldId).addClass("validationerror");
 
-                                var errorObj = new Object();
-                                errorObj.field = temp.parameterName;
-                                errorObj.code = temp.userMessageGlobalisationCode;
-                                errorObj.args = {params: []};
-                                for (var j in temp.args) {
-                                    errorObj.args.params.push({value: temp.args[j].value});
+                                    // for views using ui add the classes instead of ids
+                                    var fieldClass = "."+temp.parameterName;
+                                    $(fieldClass).eq(data[i].requestId).addClass("validationerror");
+
+                                    var errorObj = new Object();
+                                    errorObj.field = temp.parameterName;
+                                    errorObj.code = temp.userMessageGlobalisationCode;
+                                    errorObj.body = jsonErrors;
+                                    errorObj.args = {params: []};
+                                    for (var k in temp.args) {
+                                        errorObj.args.params.push({value: temp.args[k].value});
+                                    }
+                                    errorArray[arrayIndex] = errorObj;
+                                    arrayIndex++;
+                                };
+                            } else {
+                                /***
+                                 * Update user password api call won't rh
+                                 eturn errors array,
+                                 * if user enters a password which is used previously
+                                 */
+                                if (jsonErrors.userMessageGlobalisationCode) {
+                                    var errorObj = new Object();
+                                    errorObj.code = jsonErrors.userMessageGlobalisationCode;
+                                    errorArray[arrayIndex] = errorObj;
+                                    arrayIndex++;
                                 }
-
-                                errorArray[arrayIndex] = errorObj;
-                                arrayIndex++;
-                            };
-                        } else {
-                            /***
-                             * Update user password api call won't return errors array,
-                             * if user enters a password which is used previously
-                             */
-                            if (jsonErrors.userMessageGlobalisationCode) {
-                                var errorObj = new Object();
-                                errorObj.code = jsonErrors.userMessageGlobalisationCode;
-                                errorArray[arrayIndex] = errorObj;
-                                arrayIndex++;
                             }
+                            $rootScope.errorDetails.push(errorArray);
+                            console.log(errorArray);
                         }
-                        $rootScope.errorDetails = errorArray;
                     }
                     return $q.reject(response);
                 }

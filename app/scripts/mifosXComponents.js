@@ -232,7 +232,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ActivitiesDisplayPanelDirective',
             'ScrollbarTopDirective',
             'ChosenComboboxDirective',
-            'NumberFormatDirective'
+            'NumberFormatDirective',
+            'SuccessfulResponsesDirective'
         ]
     };
 

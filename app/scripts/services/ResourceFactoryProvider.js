@@ -37,7 +37,7 @@
                         update: { method: 'PUT'}
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource'}, {
-                        getAllClients: {method: 'GET', params: {}},
+                        getAllClients: {method: 'GET', params: {limit: 1000}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
@@ -140,6 +140,9 @@
                         getInterestRateChart: {method: 'GET', params: {productId:'@productId', template:'@template', associations:'@chartSlabs'} , isArray:true},
                         update: {method: 'PUT', params: {}},
                         getAllInterestRateCharts: {method: 'GET', params: {productId: '@productId'}, isArray: true}
+                    }),
+                    batchResource: defineResource(apiVer + "/batches", {}, { 
+                        post: {method: 'POST', params: {}, isArray: true}                       
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
                         getAllLoans: {method: 'GET', params: {}},
