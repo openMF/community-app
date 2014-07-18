@@ -1,10 +1,11 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="CreateGroupController">
     <ul class="breadcrumb">
-        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-if="!centerid"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-if="centerid"><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li ng-if="centerid"><a href="#/viewcenter/{{centerid}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.creategroup' | translate}}</li>
     </ul>
-	<form name="creategroupform" novalidate="" class="form-horizontal well" ng-controller="CreateGroupController"
-	      rc-submit="submit()">
+	<form name="creategroupform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend class="bolder">{{'label.heading.creategroup' | translate}}</legend>
@@ -18,8 +19,12 @@
 	                    <option value="">{{'label.menu.selectoffice' | translate}}</option>
 	                </select>
 	            </div>
-	            <div class="col-sm-3">
+	            <div class="col-sm-2">
 	                <form-validate valattributeform="creategroupform" valattribute="office"/>
+	            </div>
+	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
+	            <div class="col-sm-3">
+	                <input type="text" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control"/>
 	            </div>
 	        </div>
 	        <div class="form-group">
@@ -29,8 +34,14 @@
 	            <div class="col-sm-3">
 	                <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
 	            </div>
-	            <div class="col-sm-3">
+	            <div class="col-sm-2">
 	                <form-validate valattributeform="creategroupform" valattribute="name"/>
+	            </div>
+	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+	
+	            <div class="col-sm-3">
+	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 	            </div>
 	        </div>
 	        <div class="form-group">
@@ -44,46 +55,13 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2" for="staffId">{{'label.input.addclients' | translate}}</label>
-	
-	            <div class="col-sm-9 col-md-9">
-	                <div class="row">
-	                    <div class="col-sm-4 col-md-4">
-	                        <label class="control-label col-sm-10">{{ 'label.input.availableclients' | translate }}</label>
-	                        <input type="text" ng-model="availableClientName" class="form-control">
-	                        <select multiple id="clientMembers" ng-model="available" class="form-control multiselectmin">
-	                            <option ng-repeat="member in clients | orderBy:'displayName' | filter:availableClientName"
-	                                    value="{{member.id}}">{{member.displayName}}
-	                            </option>
-	                        </select>
-	                    </div>
-	                    <div class="paddedtop60px col-sm-1 col-md-1 paddedleft0">
-	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i
-	                                class="icon-double-angle-right"></i></button>
-	                        <br/>
-	                        <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub()"><i
-	                                class="icon-double-angle-left"></i></button>
-	                    </div>
-	                    <div class="col-sm-4 col-md-4 angled-textarea paddedtop25px">
-	                        <label class="control-label col-sm-10">{{ 'label.input.selectedclients' | translate }}</label>
-	                        <select multiple ng-model="added" class="form-control col-sm-8 multiselectmin">
-	                            <option ng-repeat="client in addedClients | orderBy:'displayName' " value="{{client.id}}">
-	                                {{client.displayName}}
-	                            </option>
-	                        </select>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
-	
-	            <div class="col-sm-3">
+	        	<label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+	        	<div class="col-sm-1">
 	                <input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()">
 	            </div>
 		        <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">
-		                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+		                <label class="control-label col-sm-2 col-md-offset-4">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 		
 		                <div class="col-sm-3">
 		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
@@ -91,24 +69,58 @@
 		                </div>
 		            </div>
 		        </div>
-		    </div>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
-	
-	            <div class="col-sm-3">
-	                <input type="text" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control"/>
-	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+	            <label class="control-label col-sm-2" for="staffId">{{'label.input.addclients' | translate}}</label>
 	
-	            <div class="col-sm-3">
-	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
-	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+	            <div class="col-sm-9 col-md-9">
+	                <div class="row">
+	                    <div class="col-sm-4 col-md-4">
+	                        <select chosen="clients" id="clientMembers" ng-model="available" ng-change="viewClient(available)" class="form-control"
+	                       			ng-options="member as member.displayName for member in clients">
+	                            <option class="displaynone" value="">{{'label.selectclients' | translate}}</option>
+	                        </select>
+	                        <div class="row">
+		                    	<div ng-repeat="client in addedClients">
+					                <div class="col-sm-12 col-md-12 marginbuttontop25px">
+										<input disabled="" class="form-control input-xxlarge" placeholder={{client.displayName}}
+					                       type="text"/>
+									</div>
+					                <div class="col-sm-1 col-md-1">
+									</div>
+					            </div>
+		                    </div>
+	                    </div>
+	                    <div class="col-sm-1 col-md-1">
+	                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i
+	                                class="icon-plus"></i></button>
+	                        <button ng-repeat="client in addedClients" type="button" class="btn angled-btn btn-primary marginbuttontop25px" data-ng-click="sub(client.id)"><i
+	                        		class="icon-remove"></i></button>
+	                    </div>
+	                    <div class="col-sm-5 col-md-5">
+	                        <div data-ng-show="available">
+					            <p>{{'label.heading.clientdetails' | translate}}</p>
+					            <table class="table">
+					                <tr>
+					                    <td width="35%">{{'label.heading.name' | translate}}</td>
+					                    <td width="65%">{{client.displayName}}</td>
+					                </tr>
+					                <tr>
+					                    <td>{{ 'label.heading.id' | translate }}</td>
+					                    <td valign="top">{{client.id}}</td>
+					                </tr>
+					                <tr>
+					                    <td>{{ 'label.heading.office' | translate }}</td>
+					                    <td>{{client.officeName}}</td>
+					                </tr>
+					            </table>
+					        </div>
+	                    </div>
+	                </div>
 	            </div>
 	        </div>
-	        <div class="col-md-offset-2 paddedleft">
-	            <a id="cancel" href="#/groups" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	        <div class="col-md-offset-5">
+	            <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_GROUP'>{{'label.button.save' | translate}}</button>
 	        </div>
 	    </fieldset>
