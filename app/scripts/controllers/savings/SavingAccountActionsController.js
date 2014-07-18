@@ -183,6 +183,10 @@
                     scope.modelName = 'dueDate';
                     scope.taskPermissionName = 'PAY_SAVINGSACCOUNTCHARGE';
                     break;
+                case "inactivate":
+                    scope.inactivateCharge = true;
+                    scope.taskPermissionName = 'INACTIVATE_SAVINGSACCOUNTCHARGE';
+                    break;
                 case "waive":
                     scope.waiveCharge = true;
                     scope.taskPermissionName = 'WAIVE_SAVINGSACCOUNTCHARGE';
@@ -236,10 +240,12 @@
                         function (data) {
                             location.path('/viewsavingaccount/' + data.savingsId);
                         });
-                } else if (scope.action == "paycharge" || scope.action == "waive") {
+                } else if (scope.action == "paycharge" || scope.action == "waive" || scope.action == "inactivate") {
                     params = {accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, command: scope.action};
                     if (this.formData.dueDate) {
                         this.formData.dueDate = dateFilter(this.formData.dueDate, scope.df);
+                    } else if(this.formData.inactivationOnDate){
+                        this.formData.inactivationOnDate = dateFilter(this.formData.inactivationOnDate, scope.df);
                     }
                     resourceFactory.savingsResource.save(params, this.formData, function (data) {
                         location.path('/viewsavingaccount/' + data.savingsId);

@@ -304,6 +304,12 @@
                     </div>
                 </tab>
                 <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
+                    <a class="btn btn-primary pull-right" ng-show="showActiveCharges"
+                       ng-click="showActiveCharges=!showActiveCharges">{{'label.button.showInactiveCharges' |
+                        translate}}</a>
+                    <a class="btn btn-primary pull-right" ng-hide="showActiveCharges"
+                       ng-click="showActiveCharges=!showActiveCharges">{{'label.button.showActiveCharges' |
+                        translate}}</a><br>
                     <table class="table width100">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
@@ -323,7 +329,7 @@
                             <th>{{'label.heading.actions' | translate}}</th>
                             <th></th>
                         </tr>
-                        <tr class="pointer-main" ng-repeat="charge in charges">
+                        <tr class="pointer-main" ng-repeat="charge in charges | filter:{isActive:showActiveCharges}">
                             <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.name}}</td>
                             <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-show="'charge.penalty'==true">{{"penalty"}}</td>
                             <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-hide="'charge.penalty'==true">{{"fee"}}</td>
@@ -349,14 +355,18 @@
                                             class="icon-remove icon-white"></i></a>
                                 </span>
                                 <span ng-show="chargePayAction">
-                                    <span ng-hide="charge.amountOutstanding == 0"
-                                          ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
+                                    <span ng-hide="charge.amountOutstanding == 0">
                                         <a title="{{'label.button.paycharge' | translate}}" has-permission="PAY_SAVINGSACCOUNTCHARGE"
                                            href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
                                                 class="icon-check icon-white"></i></a>
                                         <a title="{{'label.button.waivecharge' | translate}}" has-permission="WAIVE_SAVINGSACCOUNTCHARGE"
                                            href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
                                                 class="icon-flag icon-white"></i></a>
+                                        <span ng-show="isRecurringCharge(charge)">
+                                            <a title="{{'label.button.inactivatecharge' | translate}}" has-permission="INACTIVATE_SAVINGSACCOUNTCHARGE"
+                                               href="#/savingaccountcharge/{{savingaccountdetails.id}}/inactivate/{{charge.id}}"><i
+                                                    class="icon-ban-circle icon-white"></i></a>
+                                        </span>
                                     </span>
                                 </span>
                             </td>
