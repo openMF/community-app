@@ -2,6 +2,9 @@
     mifosX.controllers = _.extend(module, {
         ProfileController: function (scope, localStorageService, resourceFactory, $modal) {
             scope.userDetails = localStorageService.get('userData');
+            resourceFactory.userListResource.get({userId: scope.userDetails.userId}, function (data) {
+                scope.user = data;
+            });
             scope.status = 'Not Authenticated';
             if (scope.userDetails.authenticated == true) {
                 scope.status = 'Authenticated';
