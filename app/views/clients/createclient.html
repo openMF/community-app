@@ -1,10 +1,11 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="CreateClientController">
     <ul class="breadcrumb">
-        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li ng-if="!groupid"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li ng-if="groupid"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-if="groupid"><a href="#/viewgroup/{{groupid}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.createclient' | translate}}</li>
     </ul>
-	<form name="createclientform" novalidate="" class="form-horizontal well" ng-controller="CreateClientController"
-	      rc-submit="submit()">
+	<form name="createclientform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{'label.heading.createclient' | translate}}</legend>
@@ -156,10 +157,8 @@
 		            </div>
 		        </div>
 		    </div>
-	        <div class="col-md-offset-5">
-	            <a id="cancel" href="#/clients">
-	                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
-	            </a>
+		    <div class="col-md-offset-5">
+	            <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>
 	        </div>
 	    </fieldset>
