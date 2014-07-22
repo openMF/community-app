@@ -3,6 +3,7 @@
         ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
+            scope.showActiveCharges = true;
             scope.formData = {};
             scope.date = {};
             scope.isDebit = function (savingsTransactionType) {
@@ -27,6 +28,10 @@
                     scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
                 }
             };
+
+            scope.isRecurringCharge = function (charge) {
+                return charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee' || charge.chargeTimeType.value == 'Weekly Fee';
+            }
 
             scope.viewCharge = function (id){
                 location.path('/savings/'+scope.savingaccountdetails.id+'/viewcharge/'+id).search({'status':scope.savingaccountdetails.status.value});

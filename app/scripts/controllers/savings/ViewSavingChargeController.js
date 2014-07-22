@@ -16,6 +16,11 @@
                         scope.showWaiveButton = false;
                     }
                 }
+                if (scope.showWaiveButton) {
+                    scope.isRecurringCharge = scope.charge.chargeTimeType.value == 'Monthly Fee'
+                        || scope.charge.chargeTimeType.value == 'Annual Fee'
+                        || scope.charge.chargeTimeType.value == 'Weekly Fee';
+                }
 
             });
             scope.deleteCharge = function () {
