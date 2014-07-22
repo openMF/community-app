@@ -73,7 +73,15 @@
                     numberOfRepaymentVariationsForBorrowerCycle: [],
                     multiDisburseLoan: scope.product.multiDisburseLoan,
                     maxTrancheCount: scope.product.maxTrancheCount,
-                    outstandingLoanBalance: scope.product.outstandingLoanBalance
+                    outstandingLoanBalance: scope.product.outstandingLoanBalance,
+                    daysInYearType: scope.product.daysInYearType.id,
+                    daysInMonthType: scope.product.daysInMonthType.id,
+                    isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled
+                };
+
+                if (scope.product.isInterestRecalculationEnabled) {
+                    scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
+                    scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                 }
 
                 _.each(scope.product.principalVariationsForBorrowerCycle, function (variation) {
@@ -338,6 +346,12 @@
                 this.formData.locale = "en";
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
+
+                //Interest recalculation data
+                if (!this.formData.isInterestRecalculationEnabled) {
+                    delete scope.formData.interestRecalculationCompoundingMethod;
+                    delete scope.formData.rescheduleStrategyMethod;
+                }
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

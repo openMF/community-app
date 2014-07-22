@@ -76,6 +76,9 @@
                     case "makerepayment":
                         location.path('/loanaccount/' + accountId + '/repayment');
                         break;
+                    case "prepayment":
+                        location.path('/loanaccount/' + accountId + '/prepayloan');
+                        break;
                     case "waiveinterest":
                         location.path('/loanaccount/' + accountId + '/waiveinterest');
                         break;
@@ -134,6 +137,7 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
                 scope.loandetails = data;
+                scope.recalculateInterest = data.recalculateInterest || true;
                 scope.guarantorDetails = data.guarantors;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
@@ -318,6 +322,14 @@
                             name: "button.assignloanofficer",
                             icon: "icon-user",
                             taskPermissionName: 'UPDATELOANOFFICER_LOAN'
+                        });
+                    }
+
+                    if(scope.recalculateInterest){
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.prepayment",
+                            icon: "icon-money",
+                            taskPermissionName: 'REPAYMENT_LOAN'
                         });
                     }
                 }

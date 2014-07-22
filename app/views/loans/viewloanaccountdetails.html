@@ -229,6 +229,30 @@
             <td>{{'label.heading.matureson' | translate}}</td>
             <td><span class="padded-td">{{loandetails.timeline.expectedMaturityDate | DateFormat}}</span></td>
         </tr>
+        <tr>
+            <td>{{ 'label.input.recalculateinterest' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.isInterestRecalculationEnabled | YesOrNo }}</span></td>
+        </tr>
+        <tr>
+            <td>{{ 'label.input.daysinyears' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.daysInYearType.value}}</span></td>
+        </tr>
+        <tr>
+            <td>{{ 'label.input.daysinmonth' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.daysInMonthType.value }}</span></td>
+        </tr>
+        <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
+            <td>{{ 'label.input.interest.recalculation.compounding.method' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.interestRecalculationData.interestRecalculationCompoundingType.value}}</span></td>
+        </tr>
+        <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
+            <td>{{ 'label.input.interest.recalculation.reschdule.strategy' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.interestRecalculationData.rescheduleStrategyType.value}}</span></td>
+        </tr>
+        <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
+            <td>{{ 'label.input.frequency.for.recalculte.outstanding.principal' | translate }}</td>
+            <td><span class="padded-td">{{ loandetails.interestRecalculationData.calendarData.humanReadable}}</span></td>
+        </tr>
         </tbody>
     </table>
 </tab>

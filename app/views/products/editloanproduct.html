@@ -371,13 +371,29 @@
         <div class="col-sm-2">
             <input id="graceOnInterestCharged" type="text" class="form-control"	ng-model="formData.graceOnInterestCharged">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2">{{ 'label.input.arearstolerance' | translate }}</label>
+        <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.arearstolerance' | translate }}</label>
         <div class="col-sm-2">
             <input id="inArrearsTolerance" type="text" class="form-control" ng-model="formData.inArrearsTolerance">
         </div>
-   	</div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{'label.input.daysinyears' | translate }}<span
+                class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <select id="daysInYearType" class="form-control" ng-model="formData.daysInYearType"
+                    ng-options="type.id as type.value for type in product.daysInYearTypeOptions"
+                    value="{{type.id}}"></select>
+        </div>
+        <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.daysinmonth' |
+            translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <select id="daysInMonthType" class="form-control" ng-model="formData.daysInMonthType"
+                    ng-options="type.id as type.value for type in product.daysInMonthTypeOptions"
+                    value="{{type.id}}"></select>
+        </div>
+    </div>
     <div class="form-group">
     	<label class="control-label col-sm-4">{{ 'label.input.no.of.overdue.days.to.move.loan.into.arrears'
                    | translate }}</label>
@@ -393,6 +409,35 @@
             <input id="overdueDaysForNPA" class="form-control"
                           placeholder="{{'label.input.overduedaysfornpa' | translate}}"
                           type="text" ng-model="formData.overdueDaysForNPA">
+	    </div>
+	</div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{ 'label.input.recalculateinterest' | translate }}</label>
+
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input type="checkbox" ng-model="formData.isInterestRecalculationEnabled"/>
+            </label>
+        </div>
+    </div>
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+        <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <select id="interestRecalculationCompoundingMethod" class="form-control"
+                    ng-model="formData.interestRecalculationCompoundingMethod"
+                    ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
+                    value="{{type.id}}"></select>
+        </div>
+        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <select id="rescheduleStrategyMethod" class="form-control"
+                    ng-model="formData.rescheduleStrategyMethod"
+                    ng-options="type.id as type.value for type in product.rescheduleStrategyTypeOptions"
+                    value="{{type.id}}"></select>
         </div>
     </div>
 	<h3>{{ 'label.heading.tranchedetails' | translate }}</h3>

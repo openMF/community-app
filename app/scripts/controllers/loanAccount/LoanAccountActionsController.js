@@ -101,6 +101,27 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
                     break;
+                case "prepayloan":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        if(data.penaltyChargesPortion>0){
+                            scope.showPenaltyPortionDisplay = true;
+                        }
+                        scope.principalPortion = data.principalPortion;
+                        scope.interestPortion = data.interestPortion;
+                    });
+                    scope.title = 'label.heading.prepayloan';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'REPAYMENT_LOAN';
+                    break;
                 case "waiveinterest":
                     scope.modelName = 'transactionDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
@@ -276,7 +297,8 @@
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
-                if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled" || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment") {
+                if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
+                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;
