@@ -48,6 +48,12 @@
                     scope.choice = 0;
                 }
             };
+            if(routeParams.groupId) {
+            	scope.cancel = '#/viewgroup/' + routeParams.groupId
+            	scope.groupid = routeParams.groupId;
+            }else {
+            	scope.cancel = "#/clients"
+            }
 
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);

@@ -6,11 +6,27 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}</label>
-				<div class="col-md-3">
-					<select multiple ng-model="tempData" class="form-control">
-				        <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option>
-				    </select>
-				</div>
+<!-- 				<div class="col-md-3"> -->
+<!-- 					<select multiple ng-model="tempData" class="form-control"> -->
+<!-- 				        <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option> -->
+<!-- 				    </select> -->
+<!-- 				</div> -->
+				<div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-12 center">{{ 'label.input.availableclients' | translate }}</label>
+                    <select ng-model="availableClients" multiple class="form-control clear"
+                        ng-options="member.displayName for member in allMembers"></select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addClient()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeClient()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-12 center">{{ 'label.input.selectedclients' | translate }}</label>
+                    <select ng-model="selectedClients" multiple class="form-control clear"
+                        ng-options="member.displayName for member in selectedMembers"></select>
+                </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.inheritgrouploanofficer' | translate}}</label>
@@ -23,7 +39,7 @@
                 <label class="control-label col-sm-2">{{ 'label.input.destinationgroup' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-md-3">
-					<select ng-model="formData.destinationGroupId" name="destinationgroup"
+					<select chosen="groups" ng-model="formData.destinationGroupId" name="destinationgroup"
 		                    ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}"
 		                    data-ng-change="viewgroup(formData.destinationGroupId)" class="form-control" required>
 		                <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>

@@ -3,6 +3,8 @@
         TransferClientsController: function (scope, routeParams, route, location, resourceFactory) {
             scope.group = [];
             scope.tempData = [];
+            scope.selectedClients = [];
+            scope.selectedMembers = [];
             resourceFactory.groupResource.get({paged: 'true', orderBy: 'name', sortOrder: 'ASC'}, function (data) {
                 scope.groups = _.reject(data.pageItems, function (group) {
                     return group.id == routeParams.id;
@@ -12,7 +14,34 @@
                 scope.group = data;
                 scope.allMembers = data.clientMembers;
             });
-
+            
+            scope.addClient = function () {
+                for (var i in this.availableClients) {
+                    for (var j in scope.allMembers) {
+                        if (scope.allMembers[j].id == this.availableClients[i].id) {
+                            var temp = {};
+                            temp.id = this.availableClients[i].id;
+                            temp.displayName = this.availableClients[i].displayName;
+                            scope.selectedMembers.push(temp);
+                            scope.allMembers.splice(j, 1);
+                        }
+                    }
+                }
+            };
+            scope.removeClient = function () {
+                for (var i in this.selectedClients) {
+                    for (var j in scope.selectedMembers) {
+                        if (scope.selectedMembers[j].id == this.selectedClients[i].id) {
+                            var temp = {};
+                            temp.id = this.selectedClients[i].id;
+                            temp.displayName = this.selectedClients[i].displayName;
+                            scope.allMembers.push(temp);
+                            scope.selectedMembers.splice(j, 1);
+                        }
+                    }
+                }
+            };
+            
             scope.viewgroup = function (id) {
                 resourceFactory.groupResource.get({groupId: id, associations: 'all'}, function (data) {
                     scope.groupdata = data;
@@ -23,8 +52,8 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.clients = [];
                 var temp = new Object();
-                for (var i = 0; i < scope.tempData.length; i++) {
-                    temp = {id: this.tempData[i]};
+                for (var i = 0; i < scope.selectedMembers.length; i++) {
+                    temp = {id: this.selectedMembers[i].id};
                     this.formData.clients.push(temp);
                 }
                 this.formData.inheritDestinationGroupLoanOfficer = this.formData.inheritDestinationGroupLoanOfficer || false;
