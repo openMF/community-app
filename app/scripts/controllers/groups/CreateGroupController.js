@@ -24,12 +24,10 @@
             });
             
             scope.viewClient = function (item) {
-                //scope.clientview = true;
                 scope.client = item;
             };
             
             scope.add = function () {
-            	console.log(scope.available);
             	if(scope.available != ""){
             		var temp = {};
                     temp.id = scope.available.id;
@@ -40,20 +38,8 @@
             scope.sub = function (id) {
             	for (var i = 0; i < scope.addedClients.length; i++) {
                     if (scope.addedClients[i].id == id) {
-                        scope.addedClients.splice(i, 1);  //removes 1 element at position i
+                        scope.addedClients.splice(i, 1);
                         break;
-                    }
-                }
-            	
-                for (var i in this.added) {
-                    for (var j in scope.addedClients) {
-                        if (scope.addedClients[j].id == this.added[i]) {
-                            var temp = {};
-                            temp.id = this.added[i];
-                            temp.displayName = scope.addedClients[j].displayName;
-                            scope.clients.push(temp);
-                            scope.addedClients.splice(j, 1);
-                        }
                     }
                 }
             };
@@ -106,9 +92,6 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.active = this.formData.active || false;
                 resourceFactory.groupResource.save(this.formData, function (data) {
-                	if (routeParams.centerId) {
-                		
-                	}
                     location.path('/viewgroup/' + data.resourceId);
                 });
             };
