@@ -45,18 +45,6 @@
                         taskPermissionName: "UPDATE_CLIENT"
                     },
                     {
-                        name: "label.button.newloan",
-                        href: "#/newclientloanaccount",
-                        icon: "icon-plus",
-                        taskPermissionName: "CREATE_LOAN"
-                    },
-                    {
-                        name: "label.button.newsaving",
-                        href: "#/new_client_saving_application",
-                        icon: "icon-plus",
-                        taskPermissionName: "CREATE_SAVINGSACCOUNT"
-                    },
-                    {
                         name: "label.button.transferclient",
                         href: "#/transferclient",
                         icon: "icon-arrow-right",

@@ -470,6 +470,14 @@
                 });
             };
 
+            scope.showSignature = function () {
+                $modal.open({
+                    templateUrl: 'sign-dialog.html',
+                    controller: ViewLargerSignCtrl,
+                    size: "lg"
+                });
+            };
+
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
                 var loadImage = function () {
                     if (scope.client.imagePresent) {
@@ -485,7 +493,24 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-            }
+            };
+			
+            var ViewLargerSignCtrl = function ($scope, $modalInstance) {
+                var loadSign = function () {
+                    if (scope.signature_url) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default?maxWidth=860'
+                        }).then(function (imageData) {
+                            $scope.largeSign = imageData.data;
+                        });
+                    }
+                };
+                loadSign();
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }			
         }
     });
 
