@@ -6,7 +6,7 @@
 <div class="span5">
     <div ng-repeat="result in searchResults">
         <div class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}">
-            <span ng-show="result.entityType  == 'LOAN'">
+            <span ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'">
                 <a href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
             </span>
             <span ng-show="result.entityType  == 'CLIENT'">
@@ -40,7 +40,7 @@
             <span data-ng-show="result.entityType  == 'CLIENTIDENTIFIER'"><strong>{{'label.heading.entity' |
                 translate}}</strong>:{{'label.heading.clientid' | translate}}&nbsp;|&nbsp;<strong>{{
                 'label.heading.client' | translate }}</strong>:{{result.parentName}}</span>
-            <span data-ng-show="result.entityType  == 'LOAN'"><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
+            <span data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING'"><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
                 'label.heading.client' | translate }}</strong>:{{result.parentName}}</span>
             <span><br/></span>
         </div>
