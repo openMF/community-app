@@ -6,10 +6,12 @@
                 for (var i in mifosX.models.Langs) {
                     if (mifosX.models.Langs[i].code == temp.code) {
                         scope.optlang = mifosX.models.Langs[i];
+                        tmhDynamicLocale.set(mifosX.models.Langs[i].code);
                     }
                 }
             } else {
                 scope.optlang = scope.langs[0];
+                tmhDynamicLocale.set(scope.langs[0].code);
             }
             translate.uses(scope.optlang.code);
             scope.dates = [
@@ -30,6 +32,7 @@
             scope.changeLang = function (lang) {
                 translate.uses(lang.code);
                 localStorageService.add('Language', scope.optlang);
+                tmhDynamicLocale.set(lang.code);
             };
 
         }
