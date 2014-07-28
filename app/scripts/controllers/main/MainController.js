@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle) {
+        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale) {
 
             //hides loader
             scope.domReady = true;
@@ -115,10 +115,12 @@
                 for (var i in mifosX.models.Langs) {
                     if (mifosX.models.Langs[i].code == temp.code) {
                         scope.optlang = mifosX.models.Langs[i];
+                        tmhDynamicLocale.set(mifosX.models.Langs[i].code);
                     }
                 }
             } else {
                 scope.optlang = scope.langs[0];
+                tmhDynamicLocale.set(scope.langs[0].code);
             }
             translate.uses(scope.optlang.code);
 
@@ -221,6 +223,7 @@
             scope.changeLang = function (lang) {
                 translate.uses(lang.code);
                 localStorageService.add('Language', lang);
+                tmhDynamicLocale.set(lang.code);
             };
 
             sessionManager.restore(function (session) {
@@ -242,6 +245,7 @@
             '$rootScope',
             'localStorageService',
             'keyboardManager', '$idle',
+            'tmhDynamicLocale',
             mifosX.controllers.MainController
         ]).run(function ($log) {
             $log.info("MainController initialized");
