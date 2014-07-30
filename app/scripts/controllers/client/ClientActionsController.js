@@ -57,7 +57,8 @@
                     scope.taskPermissionName = 'DELETE_CLIENT';
                     break;
                 case "unassignstaff":
-                    scope.labelName = 'label.areyousure';
+                    scope.labelName = 'label.heading.unassignstaff';
+                    scope.breadcrumbName = 'label.anchor.activate';
                     scope.showDeleteClient = true;
                     scope.taskPermissionName = 'UNASSIGNSTAFF_CLIENT';
                     break;
@@ -78,14 +79,17 @@
                     });
                     break;
                 case "acceptclienttransfer":
+                    scope.breadcrumbName = 'label.anchor.acceptclienttransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'ACCEPTTRANSFER_CLIENT';
                     break;
                 case "rejecttransfer":
+                    scope.breadcrumbName = 'label.anchor.rejecttransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'REJECTTRANSFER_CLIENT';
                     break;
                 case "undotransfer":
+                    scope.breadcrumbName = 'label.anchor.undotransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'WITHDRAWTRANSFER_CLIENT';
                     break;
