@@ -31,7 +31,7 @@
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',
-            'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale'
+            'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min'
         },
         shim: {
             'angular': { exports: 'angular' },

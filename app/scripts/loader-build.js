@@ -30,7 +30,8 @@
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
             'frAngular': '../scripts/modules/KeyboardManager',
-            'Q': '../bower_components/q/q.min'
+            'Q': '../bower_components/q/q.min',
+            'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -57,6 +58,7 @@
             'chosen.jquery.min': {deps: ['jquery']},
             'frAngular': {deps: ['angular']},
             'Q': {deps: ['angular']},
+            'tmh.dynamicLocale': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -81,7 +83,8 @@
                     'ngCsv',
                     'chosen.jquery.min',
                     'frAngular',
-                    'Q'
+                    'Q',
+                    'tmh.dynamicLocale'
                 ],
                 exports: 'mifosX'
             }
