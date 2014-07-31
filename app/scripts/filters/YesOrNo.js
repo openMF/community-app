@@ -2,7 +2,7 @@
     mifosX.filters = _.extend(module, {
         YesOrNo: function () {
             return function (input) {
-                var status;
+                var status = 'No';
                 if (input == true) {
                     status = 'Yes';
                 } else if (input == false) {

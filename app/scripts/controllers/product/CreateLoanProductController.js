@@ -46,6 +46,11 @@
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle = scope.product.numberOfRepaymentVariationsForBorrowerCycle;
                 scope.formData.multiDisburseLoan = 'false';
                 scope.formData.accountingRule = '1';
+                scope.formData.daysInYearType = scope.product.daysInYearType.id;
+                scope.formData.daysInMonthType = scope.product.daysInMonthType.id;
+                scope.formData.isInterestRecalculationEnabled = scope.product.isInterestRecalculationEnabled;
+                scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
+                scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -199,7 +204,7 @@
                 for (var i in scope.specificIncomeaccounts) {
                     temp = {
                         chargeId: scope.specificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
@@ -208,7 +213,7 @@
                 for (var i in scope.penaltySpecificIncomeaccounts) {
                     temp = {
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
+                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
                 }
@@ -228,6 +233,13 @@
                 this.formData.locale = "en";
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
+
+                //Interest recalculation data
+                if (!this.formData.isInterestRecalculationEnabled) {
+                    delete scope.formData.interestRecalculationCompoundingMethod;
+                    delete scope.formData.rescheduleStrategyMethod;
+                }
+
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });
