@@ -544,6 +544,9 @@
             .when('/closecenter/:id', {
                 templateUrl: 'views/centers/closecenter.html'
             })
+            .when('/managegroupmembers/:id', {
+                templateUrl: 'views/centers/managegroupmembers.html'
+            })
             .when('/addgroup', {
                 templateUrl: 'views/groups/creategroup.html'
             })

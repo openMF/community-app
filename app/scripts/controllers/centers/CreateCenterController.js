@@ -8,6 +8,7 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.first.date = new Date();
+            scope.addedGroups = [];
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
@@ -32,6 +33,29 @@
                     scope.choice = 0;
                 }
             };
+
+            scope.viewGroup = function (item) {
+                scope.group = item;
+            };
+
+            scope.add = function () {
+                if(scope.available != ""){
+                    var temp = {};
+                    temp.id = scope.available.id;
+                    temp.name = scope.available.name;
+                    scope.addedGroups.push(temp);
+                }
+            };
+
+            scope.sub = function (id) {
+                for (var i = 0; i < scope.addedGroups.length; i++) {
+                    if (scope.addedGroups[i].id == id) {
+                        scope.addedGroups.splice(i, 1);
+                        break;
+                    }
+                }
+            };
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activationDate = reqDate;
@@ -39,6 +63,11 @@
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
                     this.formData.submittedOnDate = reqDate;
+                }
+
+                scope.formData.groupMembers = [];
+                for (var i in scope.addedGroups) {
+                    scope.formData.groupMembers[i] = scope.addedGroups[i].id;
                 }
 
                 this.formData.locale = scope.optlang.code;
