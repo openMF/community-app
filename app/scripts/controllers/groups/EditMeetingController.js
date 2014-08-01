@@ -28,7 +28,6 @@
                         scope.formData.interval = scope.repeatsEveryOptions[i];
                     }
                 }
-                console.log(scope.formData);
                 //update interval option
                 for (var i in scope.repeatsEveryOptions) {
                     if (scope.repeatsEveryOptions[i] == scope.calendarData.interval) {
