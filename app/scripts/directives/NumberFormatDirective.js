@@ -6,22 +6,45 @@
                 //restrict: "A",
                 require: 'ngModel',
                 link: function (scope, element, attrs, modelCtrl) {
-
-                    var formatNumber = function (inputValue) {
-                        if (typeof (inputValue) == "undefined") return '';
-                        inputValue = inputValue.replace(/,/g, "")
-
-                        var transformedInput = inputValue/*.replace(/\D/g, '')*/
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        //transformedInput=transformedInput.replace(/\.\d*/g,'')
-                        //if (transformedInput != inputValue) {
-                            modelCtrl.$viewValue = transformedInput;
-                            modelCtrl.$render();
-                        //}
-                        return transformedInput;
-                    };
-                    modelCtrl.$parsers.push(formatNumber);
-                }
+                    var filter = $filter('number');
+                    
+                    function number(value, fractionLength) {
+                      return filter(value, fractionLength);
+                    }
+                    modelCtrl.$formatters.push(number);
+                    modelCtrl.$parsers.push(function (stringValue) {
+                      var index = stringValue.indexOf($locale.NUMBER_FORMATS.DECIMAL_SEP),
+                        decimal,
+                        fraction,
+                        fractionLength;
+                      if (index >= 0) {
+                        decimal = stringValue.substring(0, index);
+                        fraction = stringValue.substring(index + 1);
+                        if(index!=stringValue.length-1)
+                          fractionLength = fraction.length;
+                        else
+                          fractionLength = 0;
+                      } else {
+                        decimal = stringValue;
+                        fraction = '';
+                      }
+                      decimal = decimal.replace(/[^0-9]/g, '');
+                      fraction = fraction.replace(/[^0-9]/g, '');
+                      var result = +(decimal + '.' + fraction);
+                      if (result !== modelCtrl.$modelValue) {
+                        scope.$evalAsync(function () {
+                          modelCtrl.$viewValue = number(modelCtrl.$modelValue, fractionLength);
+                          modelCtrl.$render();
+                        });
+                      }
+                      return result;
+                    });
+                    scope.$on('$localeChangeSuccess', function (event, localeId) {
+                      modelCtrl.$viewValue = $filter('number')(modelCtrl.$modelValue);
+                      modelCtrl.$render();
+                    });
+            
+                  }
             };
         }
     });
