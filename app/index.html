@@ -20,18 +20,17 @@
 
         <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
             <div class="pull-right ">
-                <span class="dropdown" >
-                  {{ 'label.input.changelanguage' | translate }}
-                  <a class="dropdown-toggle btn btn-primary">
-                    {{optlang.name}}
-                    <i class="icon-sort-down"></i>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="lang in langs">
-                      <a ng-click="changeLang(lang)">{{lang.name}}</a>
-                    </li>
-                  </ul>
-                </span>
+                {{ 'label.input.changelanguage' | translate }}
+                <div class="btn-group" dropdown>
+			      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+			        {{optlang.name}} <span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu lang-dropdown"">
+			         <li ng-repeat="lang in langs">
+			             <a href="#" ng-click="changeLang(lang, $event)">{{lang.name}}</a>
+			         </li>
+			      </ul>
+			    </div>
             </div>
             <br/><br/>
             <div ng-hide="resetPassword">
@@ -65,7 +64,7 @@
             </div>
             <div class="col-md-9">
                 <h1>{{ 'label.heading.mifosx' | translate }}</h1>
-    <span>{{ 'label.heading.version' | translate }}</span>
+    <span>{{ 'label.heading.version' | translate }} 1.24.0</span>
                 <br /> <span>{{ 'label.heading.uptodate' | translate }}</span>
                 <br /> <span ng-bind-html="text"></span>
             </div>     
@@ -79,7 +78,7 @@
                     <ul>
                         <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation" href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation">{{ 'label.anchor.usermanual' | translate }}</a></li>
                         <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842" href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{ 'label.anchor.functionalspec' | translate }}</a></li>
-                        <li><a target="http://mifos.org/faq" href="http://mifos.org/faq">{{ 'label.anchor.faq' | translate }}</a></li>
+                        <li><a target="http://mifos.cloud.answerhub.com/index.html" href="http://mifos.org/pages-2/faq/">{{ 'label.anchor.faq' | translate }}</a></li>
                     </ul>
                 </div>
         </div>
@@ -91,7 +90,7 @@
                     <ul>
                         <li><a target="https://groups.google.com/forum/#!forum/mifosusers" href="https://groups.google.com/forum/#!forum/mifosusers">{{ 'label.anchor.usersgroup' | translate }}</a></li>
                         <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper" href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{ 'label.anchor.developergroup' | translate }}</a></li>
-                        <li><a target="http://mifos.org/community/communications/mifos-irc" href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' | translate }}</a></li>
+                        <li><a target="http://mifos.org/resources/community/communications/#mifos-irc" href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' | translate }}</a></li>
                     </ul>
                 </div>
         </div>
@@ -101,8 +100,8 @@
                         <strong>{{ 'label.heading.news' | translate }}</strong>
                     </div>
                     <ul>
-                        <li>Register for the <a target="https://attendee.gototraining.com/rt/8133286876815830273" href="https://attendee.gototraining.com/rt/8133286876815830273">Mifosx Bi-Weekly User meeting </a></li>
-                        <li><a target="http://sourceforge.net/projects/mifos/" href="http://sourceforge.net/projects/mifos/">MifosX v1.15.2 is now Available!</a></li>
+                        <li>Register for <a target="https://attendee.gototraining.com/54cd7/rt/6379303047234164225" href="https://attendee.gototraining.com/rt/8133286876815830273">Mifosx Bi-Weekly User meeting </a></li>
+                        <li><a target="http://sourceforge.net/projects/mifos/" href="http://sourceforge.net/projects/mifos/">MifosX v1.24.0 is now Available!</a></li>
                         <li><a target="http://google-opensource.blogspot.in/" href="http://google-opensource.blogspot.in/">GSoC blog</a></li>
                     </ul>
                 </div>
@@ -151,7 +150,7 @@
                 <li class="divider"></li>
                 <li><a class="black" href="#/accounting_coa"><i class="icon-sitemap icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.heading.chartofaccounts' | translate}}</a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/createclient"><i class="icon-user icon-large"></i> &nbsp;&nbsp;+ {{ 'label.anchor.client' | translate}} </a></li>
+                <li><a class="black" href="#/createclient"><i class="icon-user icon-large"></i> + {{ 'label.anchor.client' | translate}} </a></li>
                 <li class="divider"></li>
                 <li><a class="black" href="#/creategroup"><i class="icon-group icon-large"></i> + {{ 'label.anchor.group' | translate}}</a></li>
                 <li class="divider"></li>
