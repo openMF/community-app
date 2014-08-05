@@ -100,8 +100,8 @@
                 location.path('/search/' + scope.search.query);
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
-                '<a href="http://mifos.org/community"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
-                '<span>Sounds interesting?<a href="http://mifos.org/community/news/how-you-can-get-involved"> Get involved!</a></span>';
+                '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
+                '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
             scope.logout = function () {
                 scope.currentSession = sessionManager.clear();
@@ -220,10 +220,11 @@
             keyboardManager.bind('ctrl+p', function () {
                 document.getElementById('prev').click();
             });
-            scope.changeLang = function (lang) {
+            scope.changeLang = function (lang, $event) {
                 translate.uses(lang.code);
                 localStorageService.add('Language', lang);
                 tmhDynamicLocale.set(lang.code);
+                scope.optlang = lang;
             };
 
             sessionManager.restore(function (session) {
