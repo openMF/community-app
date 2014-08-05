@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        UserSettingController: function (scope, translate, localStorageService) {
+        UserSettingController: function (scope, translate, localStorageService, tmhDynamicLocale) {
             if (localStorageService.get('Language')) {
                 var temp = localStorageService.get('Language');
                 for (var i in mifosX.models.Langs) {
@@ -38,7 +38,7 @@
         }
     });
 
-    mifosX.ng.application.controller('UserSettingController', ['$scope', '$translate', 'localStorageService', mifosX.controllers.UserSettingController]).run(function ($log) {
+    mifosX.ng.application.controller('UserSettingController', ['$scope', '$translate', 'localStorageService', 'tmhDynamicLocale', mifosX.controllers.UserSettingController]).run(function ($log) {
         $log.info("UserSettingController initialized");
     });
 }(mifosX.controllers || {}));
