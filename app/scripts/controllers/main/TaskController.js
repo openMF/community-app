@@ -7,11 +7,14 @@
             var idToNodeMap = {};
             scope.formData = {};
             scope.loanTemplate = {};
+            scope.loanDisbursalTemplate = {};
             scope.date = {};
             scope.checkData = [];
             scope.isCollapsed = true;
             scope.approveData = {};
             scope.restrictDate = new Date();
+            //this value will be changed within each specific tab
+            scope.requestIdentifier = "loanId";
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -155,22 +158,30 @@
                             totalClient++;
                         }
                     });
-                    _.each(items, function (value, key) {
-                        if (value == true) {
 
-                            resourceFactory.clientResource.save({clientId: key, command: 'activate'}, activate, function (data) {
-                                clientCount++;
-                                if (clientCount == totalClient) {
-                                    route.reload();
-                                }
-                            }, function (data) {
-                                clientCount++;
-                                if (clientCount == totalClient) {
-                                    route.reload();
-                                }
-                            });
+                    scope.batchRequests = [];
+                    scope.requestIdentifier = "clientId";
+
+                    var reqId = 1;
+                    _.each(items, function (value, key) {                         
+                        if (value == true) {
+                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "clients/"+key+"?command=activate", 
+                            method: "POST", body: JSON.stringify(activate)});                        
                         }
                     });
+
+                    resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                        for(var i = 0; i < data.length; i++) {
+                            if(data[i].statusCode = '200') {
+                                clientCount++;
+                                if (clientCount == totalClient) {
+                                    route.reload();
+                                }
+                            }
+                            
+                        }    
+                    });
+
                     scope.approveData = {};
                     $modalInstance.close('delete');
                 };
@@ -224,8 +235,8 @@
             });
 
 
-            resourceFactory.clientResource.getAllClients(function (data) {
-                scope.groupedClients = _.groupBy(data.pageItems, "officeName");
+            resourceFactory.clientResource.getAllClients(function (data) {                
+                scope.groupedClients = _.groupBy(data.pageItems, "officeName");               
             });
 
             scope.search = function () {
@@ -303,22 +314,89 @@
                         selectedAccounts++;
                     }
                 });
-                _.each(scope.loanTemplate, function (value, key) {
+
+                scope.batchRequests = [];
+                scope.requestIdentifier = "loanId";
+
+                var reqId = 1;
+                _.each(scope.loanTemplate, function (value, key) { 
                     if (value == true) {
-                        resourceFactory.LoanAccountResource.save({command: 'approve', loanId: key}, scope.formData, function (data) {
-                            approvedAccounts++;
-                            scope.loanTemplate[key] = false;
-                            if (selectedAccounts == approvedAccounts) {
-                                scope.loanResource();
-                            }
-                        }, function (data) {
-                            approvedAccounts++;
-                            scope.loanTemplate[key] = false;
-                            if (selectedAccounts == approvedAccounts) {
-                                scope.loanResource();
-                            }
-                        });
+                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=approve", 
+                        method: "POST", body: JSON.stringify(scope.formData)});                        
                     }
+                });
+
+                resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                    for(var i = 0; i < data.length; i++) {
+                        if(data[i].statusCode = '200') {
+                            approvedAccounts++;
+                            data[i].body = JSON.parse(data[i].body);
+                            scope.loanTemplate[data[i].body.loanId] = false;
+                            if (selectedAccounts == approvedAccounts) {
+                                scope.loanResource();
+                            }
+                        }
+                        
+                    }    
+                });
+            };
+
+            scope.disburseLoan = function () {
+                if (scope.loanDisbursalTemplate) {
+                    $modal.open({
+                        templateUrl: 'disburseloan.html',
+                        controller: DisburseLoanCtrl
+                    });
+                }
+            };
+
+            var DisburseLoanCtrl = function ($scope, $modalInstance) {
+                $scope.disburse = function () {
+                    scope.bulkDisbursal();
+                    route.reload();
+                    $modalInstance.close('disburse');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
+
+            scope.bulkDisbursal = function () {
+                scope.formData.actualDisbursementDate = dateFilter(new Date(), scope.df);
+                scope.formData.dateFormat = scope.df;
+                scope.formData.locale = "en";
+
+                var selectedAccounts = 0;
+                var approvedAccounts = 0;
+                _.each(scope.loanDisbursalTemplate, function (value, key) {
+                    if (value == true) {
+                        selectedAccounts++;
+                    }
+                });
+
+                scope.batchRequests = [];      
+                scope.requestIdentifier = "loanId";          
+
+                var reqId = 1;
+                _.each(scope.loanDisbursalTemplate, function (value, key) { 
+                    if (value == true) {
+                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=disburse", 
+                        method: "POST", body: JSON.stringify(scope.formData)});                        
+                    }
+                });
+
+                resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                    for(var i = 0; i < data.length; i++) {
+                        if(data[i].statusCode = '200') {
+                            approvedAccounts++;
+                            data[i].body = JSON.parse(data[i].body);
+                            scope.loanDisbursalTemplate[data[i].body.loanId] = false;
+                            if (selectedAccounts == approvedAccounts) {
+                                scope.loanResource();
+                            }
+                        }
+                        
+                    }    
                 });
             };
 
