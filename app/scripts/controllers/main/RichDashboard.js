@@ -30,10 +30,8 @@
                 array.forEach(function (value) {
                     if (scope.uniqueArray.indexOf(value) === -1) {
                     	if (value) {
-                            if (value != '/') {
-                                if (value != '/home') {
-                                	scope.uniqueArray.push(value);
-                                }
+                            if (value != '/' && value != '/home' && value != '/richdashboard') {
+                            	scope.uniqueArray.push(value);
                             }
                     	}
                     }
