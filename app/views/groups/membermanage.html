@@ -1,50 +1,79 @@
-<div data-ng-controller="MemberManageController">
+<div class="col-md-12" data-ng-controller="MemberManageController">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managemembers' | translate}}</li>
+    </ul>
     <api-validate></api-validate>
-    <div data-ng-switch on="managecode">
-        <form ng-switch-when="1">
-            <div class="paddedleft">
-                <h3>{{ 'label.heading.associatemembers' | translate }}</h3>
-
-                <div>
-                    <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}<span class="required">*</span></label>
-                    <select multiple ng-model="formData.clientMembers" class="multiselect">
-                        <option ng-repeat="client in allClients" value="{{client.id}}">
-                            {{client.displayName}}({{client.id}})
-                        </option>
-                    </select>
+    <form name="managemembers" class="form-horizontal well">
+        <fieldset>
+            <legend>{{'label.heading.managemembers' | translate}}</legend>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="col-sm-8 col-md-8">
+                            <input id="expert" type="text" data-ng-model="available"
+                                placeholder="{{'label.input.select.groups' | translate }}" class="col-md-4 form-control" typeahead-on-select="viewClient(available)"
+                                ng-autofocus="true" typeahead="client as client.displayName for client in allClients | filter:$viewValue | limitTo:8"/>
+                        </div>
+                        <div class="col-sm-1 col-md-1">
+                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                <i class="icon-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div data-ng-show="available" class="col-md-10">
+                            <p>{{'label.heading.groupdetails' | translate}}</p>
+                            <table class="table">
+                                <tr>
+                                    <td class="width36">{{'label.heading.name' | translate}}</td>
+                                    <td class="width60">{{client.displayName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.id' | translate }}</td>
+                                    <td valign="top">{{client.id}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.office' | translate }}</td>
+                                    <td>{{client.officeName}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <br/>
-
-                <div>
-                    <a href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-                    <button type="button" class="btn btn-primary" data-ng-click="associate()" has-permission='ASSOCIATECLIENTS_GROUP'>{{ 'label.button.save' |
-                        translate }}
-                    </button>
+                <div class="col-md-6">
+                    <div class="form-group" ng-repeat="members in allMembers">
+                        <div class="col-sm-6 col-md-6">
+                            <input disabled="" class="form-control input-xxlarge" placeholder={{members.displayName}}
+                                   type="text"/>
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove(members.id)">
+                                    <i class="icon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-repeat="clients in addedClients">
+                        <div class="col-sm-6 col-md-6">
+                            <input disabled="" class="form-control input-xxlarge" placeholder={{clients.displayName}}
+                                   type="text"/>
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="sub(clients.id)">
+                                <i class="icon-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-            <hr/>
-        </form>
-        <form ng-switch-when="2">
-            <div class="paddedleft">
-                <h3>{{ 'label.heading.disassociatemembers' | translate }}</h3>
-
-                <div>
-                    <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}<span class="required">*</span></label>
-                    <select multiple ng-model="formData.clientMembers" class="multiselect">
-                        <option ng-repeat="mem in allMembers" value="{{mem.id}}">{{mem.displayName}}({{mem.id}})
-                        </option>
-                    </select>
-                </div>
-                <br/>
-
-                <div>
-                    <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-                    <button id="save" type="button" class="btn btn-primary" data-ng-click="disassociate()" has-permission='DISASSOCIATECLIENTS_GROUP'>{{
-                        'label.button.save' | translate }}
-                    </button>
-                </div>
+            <div class="col-sm-3 col-md-offset-5">
+                <br>
+                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="button" class="btn btn-primary" data-ng-click="submit()" has-permission='ASSOCIATECLIENTS_GROUP'>
+                   <i class="icon-check-sign icon-white"></i> {{ 'label.button.save' | translate }}
+                </button>
             </div>
-            <hr/>
-        </form>
-    </div>
+        </fieldset>
+   </form>     
 </div>
