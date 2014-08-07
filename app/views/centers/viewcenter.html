@@ -51,21 +51,21 @@
 			                    <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
 			                <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}" class="btn btn-primary" has-permission='CREATE_GROUP'><i
 				                    class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</a>
-                            <a href="#/managegroupmembers/{{center.id}}?command=associateGroups" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER'>
-                                {{'label.button.associategroups' | translate }}</a>
-                            <a href="#/managegroupmembers/{{center.id}}?command=disassociateGroups" class="btn btn-primary" has-permission='DISASSOCIATEGROUPS_CENTER'>
-                                {{ 'label.button.disassociategroups' | translate }}</a>
+                            <a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER'>
+                                <i class="icon-edit icon-white"></i>{{'label.button.managegroups' | translate }}</a>
 			                <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" has-permission='CREATE_SAVINGSACCOUNT'
-			                   class="btn btn-primary"><i class="icon-plus icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
-				            <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}"
-				               class="btn btn-primary" data-ng-show="center.collectionMeetingCalendar" has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{
-				                'label.button.attendance' | translate }}</a>
+			                   class="btn btn-primary"><i class="icon-file icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
 			                <span class="btn-group dropdown" on-toggle="toggled(open)">
 			                      <a class="btn btn-primary dropdown-toggle">
 			                          {{ 'label.button.more' | translate}}
 			                          <span class="caret"></span>
 			                      </a>
 			                      <ul class="dropdown dropdown-menu dropdown-menu-right">
+			                         <li>
+                                          <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}"
+                                              data-ng-show="center.collectionMeetingCalendar" has-permission='SAVEORUPDATEATTENDANCE_MEETING'>{{
+				                                  'label.button.attendance' | translate }}</a>  			                        
+			                         </li>
 			                          <li>
 			                              <a href="#/assignstaff/{{center.id}}/centers" data-ng-hide="center.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
 			                                  'label.button.assignstaff' | translate }}</a>
@@ -106,6 +106,7 @@
 													<a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
 										  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 										  			</a>
+										  			<p ng-if="!center.groupMembers" class="list-group-item">No Groups added.</p>
 												</div>
 											</div>
 									    </div>
@@ -191,7 +192,6 @@
 				            </div>
 				            <div class="col-sm-3 col-md-3">
 						    	<div class="thumbnail row">
-						    		<h4><strong>{{center.name}}</strong></h4>
 						        	<table class="table-minified">
 							            <tr data-ng-show="center.externalId">
 							                <th class="table-bold">{{ 'label.input.externalid' | translate }}</th>

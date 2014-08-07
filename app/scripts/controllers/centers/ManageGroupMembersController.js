@@ -2,22 +2,18 @@
     mifosX.controllers = _.extend(module, {
         ManageGroupMembersController: function (scope, resourceFactory, location, routeParams) {
 
-            if(routeParams.command == 'associateGroups' || routeParams.command == 'disassociateGroups'){
-                scope.command = routeParams.command;
-                scope.taskPermissionName = routeParams.command.toUpperCase()+'_CENTER';
-            }
+//            if(routeParams.command == 'associateGroups' || routeParams.command == 'disassociateGroups'){
+//                scope.command = routeParams.command;
+//                scope.taskPermissionName = routeParams.command.toUpperCase()+'_CENTER';
+//            }
             scope.centerId = routeParams.id;
             scope.addedGroups = [];
             scope.formData = {};
 
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true', associations: 'groupMembers'}, function (data) {
                 scope.data = data;
-                if(scope.command == 'associateGroups'){
-                    scope.groups = data.groupMembersOptions || [];
-                } else {
-                    scope.groups = data.groupMembers || [];
-                }
-
+                scope.groupsOptions = data.groupMembersOptions || [];
+                scope.groups = data.groupMembers || [];
             });
 
             scope.viewGroup = function (item) {
@@ -41,6 +37,16 @@
                     }
                 }
             };
+            
+            scope.remove = function (id) {
+            	scope.disassociate = {};
+            	scope.disassociate.groupMembers = [];
+            	scope.disassociate.groupMembers.push(id);
+            	console.log(scope.disassociate);
+            	resourceFactory.centerResource.save({centerId: routeParams.id, command: 'disassociateGroups' }, scope.disassociate, function (data) {
+            		scope.addedGroups.splice(i, 1);
+            	});
+            };
 
             scope.submit = function () {
                 scope.formData.groupMembers = [];
@@ -48,7 +54,7 @@
                     scope.formData.groupMembers[i] = scope.addedGroups[i].id;
                 }
 
-                resourceFactory.centerResource.save({centerId: routeParams.id, command: routeParams.command }, scope.formData, function (data) {
+                resourceFactory.centerResource.save({centerId: routeParams.id, command: 'associateGroups' }, scope.formData, function (data) {
                     location.path('/viewcenter/' + data.resourceId);
                 });
             };
