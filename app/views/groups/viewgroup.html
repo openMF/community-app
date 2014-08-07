@@ -53,20 +53,22 @@
 			            'label.button.activate' | translate }}</a>
 			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
 			            'label.button.edit' | translate }}</a>
-			        <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING' 
-						data-ng-show="group.collectionMeetingCalendar" class="btn btn-primary pull-right">{{'label.button.attendance' | translate }}</a>
 			        <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" has-permission='CREATE_SAVINGSACCOUNT' class="btn btn-primary"><i
-			                class="icon-plus icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
+			                class="icon-file icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
+			        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary" has-permission='CREATE_LOAN'><i
+			                class="icon-file icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>
 			        <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
 			                class="icon-plus icon-white"></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
-			        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary" has-permission='CREATE_LOAN'><i
-			                class="icon-plus icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>			        
                     <span class="btn-group dropdown" on-toggle="toggled(open)">
                       <a class="btn btn-primary dropdown-toggle">
                           {{ 'label.button.more' | translate}}
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown dropdown-menu dropdown-menu-right">
+	                      <li>
+		                      <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING' 
+		                        data-ng-show="group.collectionMeetingCalendar">{{'label.button.attendance' | translate }}</a>
+	                      </li>
                           <li>
                               <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
                                   'label.button.assignstaff' | translate }}</a>
@@ -100,7 +102,7 @@
 				            <h3>{{'label.heading.groupclosed' | translate}}</h3>
 				        </div>
 		                <div id="center" class="row">
-		                	<div class="col-md-12">
+		                	<div class="col-md-7">
 		                		<div class="panel panel-default">
 									<div class="panel-heading">
 										<h3 class="panel-title ng-binding">{{ 'label.heading.clients' | translate }}</h3>
@@ -113,9 +115,10 @@
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
 									            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
 									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
-									            <a href="#/membermanage/{{group.id}}?managecode=2" class="btn btn-primary pull-right" has-permission='DISASSOCIATECLIENTS_GROUP'>{{'label.button.disassociatemember' | translate }}</a>
-									            <a href="#/membermanage/{{group.id}}?managecode=1" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>{{'label.button.associatemember' | translate }}</a>
-									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>{{'label.button.transferclients' | translate }}</a>
+									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>
+									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
+									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
+									                <i class="icon-arrow-right icon-white"></i>{{'label.button.transferclients' | translate }}</a>
 									        </div>
 									        <table class="table table-condensed marginbottom0" style="display:inline-table;">
 									            <thead>
@@ -127,11 +130,11 @@
 									            </thead>
 									            <tbody>
 										            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
-										                <td class="pointer width20" data-ng-click="routeToMem(member.id)">
+										                <td class="pointer" data-ng-click="routeToMem(member.id)">
 										                	<i class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
 										                		{{member.accountNo}}
 										                </td>
-										                <td class="pointer width30" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
+										                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
 										                </td>
 										                <td><a class="btn btn-success btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
 										                        class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a></td>
@@ -142,7 +145,7 @@
 									</div>
 							    </div>
 		                	</div>
-		                	<div class="col-md-12">
+		                	<div class="col-md-5 meeting">
 		                		<div class="alert alert-warning" role="alert">
 					                <table>
 					                    <tr>
