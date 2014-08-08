@@ -58,7 +58,7 @@
 			        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary" has-permission='CREATE_LOAN'><i
 			                class="icon-file icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>
 			        <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
-			                class="icon-plus icon-white"></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
+			                class="icon-copy icon-white"></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
                     <span class="btn-group dropdown" on-toggle="toggled(open)">
                       <a class="btn btn-primary dropdown-toggle">
                           {{ 'label.button.more' | translate}}
@@ -350,61 +350,61 @@
 		            </div>
 		            <div class="col-sm-3 col-md-3">
 				    	<div class="thumbnail row">
-				    		<h4><strong>{{group.name}}</strong></h4>
-				        	<table class="table-minified">
-					            <tr data-ng-show="group.activationDate">
-					                <th class="table-bold">{{ 'label.heading.activationdate' | translate }}</th>
-					                <td><span class="padded-td">{{group.activationDate | DateFormat}}</span></td>
-					            </tr>
-					            <tr data-ng-show="group.staffName">
-					                <th class="table-bold">{{ 'label.heading.staff' | translate }}</th>
-					                <td><span class="padded-td">{{group.staffName}}</span>
-					                </td>
-					            </tr>
-					            <tr data-ng-show="group.externalId">
-					                <th class="table-bold">{{ 'label.input.externalid' | translate }}</th>
-					                <td><span class="padded-td">{{group.externalId}}</span>
-					                </td>
-					            </tr>
-					            <tr data-ng-show="group.centerName">
-					                <td class="table-bold">{{ 'label.heading.center' | translate }}</td>
-					                <td><span class="padded-td"><a class="list-group-item-text" href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></span>
-					                </td>
-					            </tr>
-			                </table>
-					        <table class="table-minified">    
-					            <tr>
-					                <th class="whitebg" colspan="2">{{ 'label.heading.summary' | translate }}</th>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactiveclient' | translate }}</th>
-					                <td>{{summary.activeClients}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactivegrouploans' | translate }}</th>
-					                <td>{{summary.activeGroupLoans}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactiveclientloans' | translate }}</th>
-					                <td>{{summary.activeClientLoans}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactivegroupborrowers' | translate }}</th>
-					                <td>{{summary.activeGroupBorrowers}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactiveclientborrowers' | translate }}</th>
-					                <td>{{summary.activeClientBorrowers}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactiveoverduegrouploans' | translate }}</th>
-					                <td>{{summary.overdueGroupLoans}}</td>
-					            </tr>
-					            <tr>
-					                <th>{{ 'label.numofactiveoverdueclientloans' | translate }}</th>
-					                <td>{{summary.overdueClientLoans}}</td>
-					            </tr>
-					        </table>
+                            <div class="col-md-12 paddingleft0px">
+					    		<h4><strong>{{group.name}} {{ 'label.heading.details' | translate }}</strong></h4>
+					        	<table class="table-minified">
+						            <tr data-ng-show="group.activationDate">
+						                <th>{{ 'label.heading.activationdate' | translate }}</th>
+						                <td><span class="padded-td">{{group.activationDate | DateFormat}}</span></td>
+						            </tr>
+						            <tr data-ng-show="group.staffName">
+						                <th>{{ 'label.heading.staff' | translate }}</th>
+						                <td><span class="padded-td">{{group.staffName}}</span>
+						                </td>
+						            </tr>
+						            <tr data-ng-show="group.externalId">
+						                <th>{{ 'label.input.externalid' | translate }}</th>
+						                <td><span class="padded-td">{{group.externalId}}</span>
+						                </td>
+						            </tr>
+						            <tr data-ng-show="group.centerName">
+						                <td>{{ 'label.heading.center' | translate }}</td>
+						                <td><span class="padded-td"><a class="list-group-item-text" href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></span>
+						                </td>
+						            </tr>
+				                </table>
+				                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
+						        <table class="table-minified">    
+						            <tr>
+						                <th>{{ 'label.numofactiveclient' | translate }}</th>
+						                <td>{{summary.activeClients}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactivegrouploans' | translate }}</th>
+						                <td>{{summary.activeGroupLoans}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactiveclientloans' | translate }}</th>
+						                <td>{{summary.activeClientLoans}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactivegroupborrowers' | translate }}</th>
+						                <td>{{summary.activeGroupBorrowers}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactiveclientborrowers' | translate }}</th>
+						                <td>{{summary.activeClientBorrowers}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactiveoverduegrouploans' | translate }}</th>
+						                <td>{{summary.overdueGroupLoans}}</td>
+						            </tr>
+						            <tr>
+						                <th>{{ 'label.numofactiveoverdueclientloans' | translate }}</th>
+						                <td>{{summary.overdueClientLoans}}</td>
+						            </tr>
+						        </table>
+					        </div>
 				    	</div>
 				    </div>
 		        </div>

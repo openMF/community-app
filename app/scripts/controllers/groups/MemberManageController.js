@@ -1,9 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MemberManageController: function (scope, routeParams, route, location, resourceFactory) {
+        MemberManageController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.group = [];
-            scope.addedClients = [];
-            scope.formData = {};
 
             scope.viewClient = function (item) {
                 scope.client = item;
@@ -17,53 +15,46 @@
                 scope.allClients = data.clientOptions;
                 scope.allMembers = data.clientMembers;
             });
-
             
             scope.add = function () {
-                if(scope.available != ""){
-                    var temp = {};
-                    temp.id = scope.available.id;
-                    temp.displayName = scope.available.displayName;
-                    scope.addedClients.push(temp);
-                }
+            	if(scope.available != ""){
+	                scope.associate = {};
+	            	scope.associate.clientMembers = [];
+	                scope.associate.clientMembers[0] = scope.available.id;
+	                console.log(scope.associate);
+	                resourceFactory.groupResource.save({groupId: routeParams.id, command: 'associateClients'}, scope.associate, function (data) {
+                        var temp = {};
+                        temp.id = scope.available.id;
+                        temp.displayName = scope.available.displayName;
+                        scope.allMembers.push(temp);
+	                });
+            	}
             };
 
-            scope.sub = function (id) {
-                for (var i = 0; i < scope.addedClients.length; i++) {
-                    if (scope.addedClients[i].id == id) {
-                        scope.addedClients.splice(i, 1);
-                        break;
-                    }
-                }
-            };
-            
             scope.remove = function (id) {
+            	$modal.open({
+                    templateUrl: 'delete.html',
+                    controller: MemberDeleteCtrl
+                });
             	scope.disassociate = {};
             	scope.disassociate.clientMembers = [];
             	scope.disassociate.clientMembers.push(id);
-            	console.log(scope.disassociate);
-            	resourceFactory.groupResource.save({groupId: routeParams.id, command: 'disassociateClients'}, scope.disassociate, function (data) {
-                    scope.allMembers.splice(0, 1);
-                });
             };
             
-            scope.submit = function () {
-                scope.formData.clientMembers = [];
-                if(scope.addedClients.length > 0){
-                	for (var i in scope.addedClients) {
-                        scope.formData.clientMembers[i] = scope.addedClients[i].id;
-                    }
-                    resourceFactory.groupResource.save({groupId: routeParams.id, command: 'associateClients'}, scope.formData, function (data) {
-                        location.path('/viewgroup/' + scope.group.id);
+            var MemberDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                	resourceFactory.groupResource.save({groupId: routeParams.id, command: 'disassociateClients'}, scope.disassociate, function (data) {
+                        scope.allMembers.splice(0, 1);
+                        $modalInstance.close('activate');
                     });
-                } else {
-                	location.path('/viewgroup/' + scope.group.id);
-				}
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
-            
         }
     });
-    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.MemberManageController]).run(function ($log) {
+    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.MemberManageController]).run(function ($log) {
         $log.info("MemberManageController initialized");
     });
 }(mifosX.controllers || {}));

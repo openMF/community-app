@@ -4,30 +4,43 @@
         <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.managemembers' | translate}}</li>
     </ul>
+    <script type="text/ng-template" id="delete.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+                <api-validate></api-validate>
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+    </script>
     <api-validate></api-validate>
     <form name="managemembers" class="form-horizontal well">
         <fieldset>
-            <legend>{{'label.heading.managemembers' | translate}}</legend>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-7">
+                    <legend>{{'label.heading.associatenewmembers' | translate}}</legend>
                     <div class="form-group">
-                        <div class="col-sm-8 col-md-8">
+                        <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
+                        <div class="col-sm-4 col-md-4">
                             <input id="expert" type="text" data-ng-model="available"
                                 placeholder="{{'label.input.select.groups' | translate }}" class="col-md-4 form-control" typeahead-on-select="viewClient(available)"
                                 ng-autofocus="true" typeahead="client as client.displayName for client in allClients | filter:$viewValue | limitTo:8"/>
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
-                                <i class="icon-plus"></i></button>
+                                {{ 'label.button.add' | translate }} 
+                                <i class="icon-double-angle-right"></i></button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div data-ng-show="available" class="col-md-10">
+                        <div data-ng-show="available" class="col-md-6 col-md-offset-1">
                             <p>{{'label.heading.groupdetails' | translate}}</p>
                             <table class="table">
                                 <tr>
-                                    <td class="width36">{{'label.heading.name' | translate}}</td>
-                                    <td class="width60">{{client.displayName}}</td>
+                                    <td>{{'label.heading.name' | translate}}</td>
+                                    <td>{{client.displayName}}</td>
                                 </tr>
                                 <tr>
                                     <td>{{ 'label.heading.id' | translate }}</td>
@@ -41,10 +54,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
+                    <legend>{{'label.heading.groupmembers' | translate}}</legend>
                     <div class="form-group" ng-repeat="members in allMembers">
                         <div class="col-sm-6 col-md-6">
-                            <input disabled="" class="form-control input-xxlarge" placeholder={{members.displayName}}
+                            <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})"
                                    type="text"/>
                         </div>
                         <div class="col-sm-2 col-md-2">
@@ -53,26 +67,11 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-group" ng-repeat="clients in addedClients">
-                        <div class="col-sm-6 col-md-6">
-                            <input disabled="" class="form-control input-xxlarge" placeholder={{clients.displayName}}
-                                   type="text"/>
-                        </div>
-                        <div class="col-sm-2 col-md-2">
-                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="sub(clients.id)">
-                                <i class="icon-remove"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
             <div class="col-sm-3 col-md-offset-5">
                 <br>
-                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-                <button id="save" type="button" class="btn btn-primary" data-ng-click="submit()" has-permission='ASSOCIATECLIENTS_GROUP'>
-                   <i class="icon-check-sign icon-white"></i> {{ 'label.button.save' | translate }}
-                </button>
+                <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default"><i class="icon-double-angle-left"></i> {{ 'label.button.back' | translate }}</a>
             </div>
         </fieldset>
    </form>     
