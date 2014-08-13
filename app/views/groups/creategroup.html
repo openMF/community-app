@@ -72,49 +72,45 @@
 	        </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="staffId">{{'label.input.addclients' | translate}}</label>
-	
 	            <div class="col-sm-9 col-md-9">
 	                <div class="row">
 	                    <div class="col-sm-4 col-md-4">
-	                        <select chosen="clients" id="clientMembers" ng-model="available" ng-change="viewClient(available)" class="form-control"
-	                       			ng-options="member as member.displayName for member in clients">
-	                            <option class="displaynone" value="">{{'label.selectclients' | translate}}</option>
-	                        </select>
-	                        <div class="row">
-		                    	<div ng-repeat="client in addedClients">
-					                <div class="col-sm-12 col-md-12 marginbuttontop25px">
-										<input disabled="" class="form-control input-xxlarge" placeholder={{client.displayName}}
-					                       type="text"/>
-									</div>
-					                <div class="col-sm-1 col-md-1">
-									</div>
-					            </div>
-		                    </div>
-	                    </div>
-	                    <div class="col-sm-1 col-md-1">
-	                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()"><i
-	                                class="icon-plus"></i></button>
-	                        <button ng-repeat="client in addedClients" type="button" class="btn angled-btn btn-primary marginbuttontop25px" data-ng-click="sub(client.id)"><i
-	                        		class="icon-remove"></i></button>
-	                    </div>
+	                        <input id="clientMembers" type="text" data-ng-model="available" class="col-md-4 form-control" typeahead-on-select="viewClient(available)"
+                                ng-autofocus="true" typeahead="client as client.displayName for client in clients | filter:$viewValue | limitTo:8"/>
+                            <div data-ng-show="available" class="paddedtop10">
+                                <p>{{'label.heading.clientdetails' | translate}}</p>
+                                <table class="table">
+                                    <tr>
+                                        <td width="35%">{{'label.heading.name' | translate}}</td>
+                                        <td width="65%">{{client.displayName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'label.heading.id' | translate }}</td>
+                                        <td valign="top">{{client.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ 'label.heading.office' | translate }}</td>
+                                        <td>{{client.officeName}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-md-1">
+                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                {{ 'label.button.add' | translate }} 
+                                <i class="icon-double-angle-right"></i></button>
+                        </div>
 	                    <div class="col-sm-5 col-md-5">
-	                        <div data-ng-show="available">
-					            <p>{{'label.heading.clientdetails' | translate}}</p>
-					            <table class="table">
-					                <tr>
-					                    <td width="35%">{{'label.heading.name' | translate}}</td>
-					                    <td width="65%">{{client.displayName}}</td>
-					                </tr>
-					                <tr>
-					                    <td>{{ 'label.heading.id' | translate }}</td>
-					                    <td valign="top">{{client.id}}</td>
-					                </tr>
-					                <tr>
-					                    <td>{{ 'label.heading.office' | translate }}</td>
-					                    <td>{{client.officeName}}</td>
-					                </tr>
-					            </table>
-					        </div>
+		                    <div ng-repeat="client in addedClients" class="paddedbottom">
+	                            <div class="col-sm-10 col-md-10">
+	                                <input disabled="" class="form-control input-xxlarge" placeholder={{client.displayName}}
+	                                   type="text"/>
+	                            </div>
+	                            <div class="col-sm-2 col-md-2">
+		                            <button type="button" class="btn angled-btn btn-primary" data-ng-click="sub(client.id)"><i
+	                                    class="icon-remove"></i></button>
+	                            </div>
+	                        </div>
 	                    </div>
 	                </div>
 	            </div>
