@@ -73,7 +73,7 @@
                 <input id="nominalAnnualInterestRate" type="text"
                        name="nominalannualinterestrate"
                        ng-model="formData.nominalAnnualInterestRate" class="form-control"
-                       required late-Validate/>
+                       number-format required late-Validate/>
                 <form-validate valattributeform="newsavingccountform"
                                valattribute="nominalannualinterestrate"/>
             </td>
@@ -132,7 +132,7 @@
             </td>
             <td class="width36 paddedbottom10">
                 <input id="minRequiredOpeningBalance" type="text"
-                       ng-model="formData.minRequiredOpeningBalance" class="form-control">
+                       ng-model="formData.minRequiredOpeningBalance" class="form-control" number-format>
             </td>
             <td class="width14">
                 <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
@@ -181,7 +181,7 @@
                     }}&nbsp;</label></td>
             <td class="width36 paddedbottom10" ng-hide="formData.allowOverdraft">
                 <input id="minRequiredBalance" type="text" class="form-control"
-                       ng-model="formData.minRequiredBalance">
+                       ng-model="formData.minRequiredBalance" number-format>
             </td>
         </tr>
         <tr ng-show="data.minBalanceForInterestCalculation">
@@ -223,8 +223,8 @@
             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
             <td>{{charge.chargeCalculationType.value}}</td>
             <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
-                       ng-model="charge.amount"
-                       placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+                       ng-model="charge.amount" number-format 
+                       placeholder="{{'label.input.amount' | translate}}"/></td>
             <td>{{charge.chargeTimeType.value}}</td>
             <td ng-switch on="charge.chargeTimeType.value">
                 <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium form-control" readonly
