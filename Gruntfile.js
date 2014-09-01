@@ -45,8 +45,7 @@ module.exports = function(grunt) {
             port:  9000,
             hostname: 'localhost',
             livereload: 35729,
-            //open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://localhost:8443/mifosng-provider'
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
         },
         livereload: {
             options: {
