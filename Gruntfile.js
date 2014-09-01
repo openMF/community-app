@@ -33,7 +33,9 @@ module.exports = function(grunt) {
                 '<%= mifosx.app %>/{,*/}*.json',
                 '<%= mifosx.app %>/**/*.js',
                 '<%= mifosx.app %>/**/*.css',
-                '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                // ignore directories to reduce CPU usage by watch/node process
+                '!<%= mifosx.app %>/bower_components/**'
             ]
         }
     },
@@ -43,7 +45,8 @@ module.exports = function(grunt) {
             port:  9000,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
+            //open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://localhost:8443/mifosng-provider'
         },
         livereload: {
             options: {
@@ -327,8 +330,10 @@ module.exports = function(grunt) {
 
   // Run development server using grunt serve
   grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
+  
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
