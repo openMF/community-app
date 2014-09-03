@@ -440,7 +440,35 @@
                     value="{{type.id}}"></select>
         </div>
     </div>
-	<h3>{{ 'label.heading.tranchedetails' | translate }}</h3>
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+        <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <select id="recalculationRestFrequencyType" class="form-control"
+                    ng-model="formData.recalculationRestFrequencyType"
+                    ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                    value="{{type.id}}"></select>
+        </div>
+    </div>
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
+        <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
+        </div>
+        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                   ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+        </div>
+
+    </div>
+
+    <h3>{{ 'label.heading.tranchedetails' | translate }}</h3>
 	<hr>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.multidisburseloan' | translate }}</label>
