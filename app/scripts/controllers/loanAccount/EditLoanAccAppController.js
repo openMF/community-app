@@ -8,6 +8,7 @@
             scope.collateralFormData = {}; //For collaterals
             scope.collaterals = [];
             scope.restrictDate = new Date();
+            scope.date = {};
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -136,8 +137,9 @@
                 if (scope.loanaccountinfo.linkedAccount) {
                     scope.formData.linkAccountId = scope.loanaccountinfo.linkedAccount.id;
                 }
-
-
+                if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
+                    scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
+                }
             }
 
             scope.addCharge = function () {
@@ -276,7 +278,10 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
-
+                if (scope.date.recalculationRestFrequencyDate) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
+                    scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });

@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CreateLoanProductController: function (scope, resourceFactory, location, dateFilter) {
+            scope.restrictDate = new Date();
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -229,16 +230,22 @@
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
-                this.formData.dateFormat = scope.df;
                 this.formData.locale = "en";
+                this.formData.dateFormat = scope.df;
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
 
                 //Interest recalculation data
-                if (!this.formData.isInterestRecalculationEnabled) {
+                if (this.formData.isInterestRecalculationEnabled) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
+                    scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                }else{
                     delete scope.formData.interestRecalculationCompoundingMethod;
                     delete scope.formData.rescheduleStrategyMethod;
+                    delete scope.formData.recalculationRestFrequencyType;
+                    delete scope.formData.recalculationRestFrequencyInterval;
                 }
+
 
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
