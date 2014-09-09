@@ -6,6 +6,35 @@
             <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
         </ul>
     </div>
+    <script type="text/ng-template" id="savingsunassignstaff.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="savingsassignstaff.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.assignstaff' | translate}}</h3>
+            </div>
+        <div class="modal-body">
+            <select chosen="fieldOfficers" id="fieldOfficerId" ng-model="formData.fieldOfficerId" class="form-control"
+                    ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
+                <option value=""></option>
+            </select>
+            <api-validate></api-validate>
+            <br>
+            <br>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+            <br>
+        </div>
+    </script>
     <div class="form-horizontal col-md-12" ng-show="report">
     	<div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -27,6 +56,8 @@
                         max="restrictDate"/>
             </div>
         </div>
+
+
         <div class="col-md-offset-2">
             <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">
                 {{'label.button.viewprint' | translate}}
@@ -59,7 +90,19 @@
                              ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
                              class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
                               translate}}</a>
-                      </span>
+                       </span>
+                    <button type="button" class="btn btn-primary"
+                            data-ng-click="savingsAccountStaffCenter(savingaccountdetails.fieldOfficerId,'assignFieldOfficer','savingsassignstaff.html')"
+                            data-ng-hide="savingaccountdetails.fieldOfficerId" has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="icon-user icon-white"></i>{{"label.button.assignstaff"
+                        |
+                        translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary" data-ng-click="savingsAccountStaffCenter(savingaccountdetails.fieldOfficerId,'unassignFieldOfficer','savingsunassignstaff.html')"
+                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
+                    |
+                    translate}}
+                </button>
+
                       <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
                           <a class="btn btn-primary dropdown-toggle">
                               {{'label.button.more' | translate}}
