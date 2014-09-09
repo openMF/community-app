@@ -13,9 +13,8 @@
                     
                     function initialNumber(value) {
                     	var stringValue = modelCtrl.$modelValue + '';
-                        var index = stringValue.indexOf($locale.NUMBER_FORMATS.DECIMAL_SEP);
-                        var fraction = stringValue.substring(index + 1);
-                        var fractionLength = fraction.length;
+                        var num = stringValue.toString();
+                        var fractionLength = (num.split($locale.NUMBER_FORMATS.DECIMAL_SEP)[1] || []).length;
                         var initialnumber = $filter('number')(modelCtrl.$modelValue,fractionLength);
                         return initialnumber;
 	                }
