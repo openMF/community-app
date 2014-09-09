@@ -486,6 +486,48 @@
 
 </tab>
 
+<tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
+
+    <table class="table table-striped .width100">
+        <colgroup span="4"></colgroup>
+        <thead>
+        <tr>
+            <th colspan="1" scope="colgroup"></th>
+            <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
+            <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
+            <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+        </tr>
+        <tr>
+            <th scope="col">{{'label.heading.date' | translate}}</th>
+
+            <th scope="col">{{'label.heading.principaldue' | translate}}</th>
+            <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+
+            <th scope="col">{{'label.heading.interest' | translate}}</th>
+            <th scope="col">{{'label.heading.fees' | translate}}</th>
+            <th scope="col">{{'label.heading.penalties' | translate}}</th>
+
+            <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="period in loandetails.repaymentSchedule.futurePeriods">
+            <td>{{period.dueDate | DateFormat}}</td>
+
+            <td>{{period.principalDue | number:decimals}}</td>
+            <td>{{period.principalLoanBalanceOutstanding | number:decimals}}</td>
+            <td>{{period.interestOriginalDue | number:decimals}}</td>
+            <td>{{period.feeChargesDue | number:decimals}}</td>
+            <td>{{period.penaltyChargesDue | number:decimals}}</td>
+
+            <td>{{period.totalOutstandingForPeriod | number:decimals}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</tab>
+
+
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
     <button class="btn btn-primary pull-right" ng-click="export()">{{'label.button.export' | translate}}</button>
     <div class="pull-right">
