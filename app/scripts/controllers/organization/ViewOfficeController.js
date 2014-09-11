@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewOfficeController: function (scope, routeParams, route, location, resourceFactory) {
+        ViewOfficeController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.charges = [];
             
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
@@ -43,11 +43,25 @@
                 });
             };
 
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+                $modal.open({
+                    templateUrl: 'deleteOffice.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: routeParams.id, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
             scope.viewDataTable = function (registeredTableName, data){
                 if (scope.datatabledetails.isMultirow) {
@@ -59,7 +73,7 @@
         }
 
     });
-    mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.ViewOfficeController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.ViewOfficeController]).run(function ($log) {
         $log.info("ViewOfficeController initialized");
     });
 }(mifosX.controllers || {}));

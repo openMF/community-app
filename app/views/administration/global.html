@@ -9,29 +9,27 @@
     <table class="table">
         <thead>
         <tr class="graybg">
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.enabled' | translate}}</th>
-            <th></th>
-            <th>{{'label.heading.value' | translate}}</th>
-            <th></th>
+          <th width="40%">{{'label.heading.name' | translate}}</th>
+          <th width="15%">{{'label.heading.enabled' | translate}}</th>
+          <th width="15%"></th>
+          <th width="25%">{{'label.heading.value' | translate}}</th>
+          <th width="5%"></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="config in configs | orderBy:'name':reverse | filter:filterText">
-            <td>{{config.name | translate}}</a></td>
-            <td>{{config.enabled}}</td>
-            <td>
-                <button type="button" class="btn btn-success flag" data-ng-hide="config.enabled"
-                        data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-flag-alt"></i></button>
-                <button type="button" class="btn btn-danger flag" data-ng-show="config.enabled"
-                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-remove"></i></button>
-                
+            <td width="40%">{{config.name | translate}}</a></td>
+            <td width="15%">{{config.enabled}}</td>
+            <td width="15%" align="center">
+                <a class="btn btn-success flag" data-ng-hide="config.enabled"
+                        data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-flag-alt"></i></a>
+                <a class="btn btn-danger flag" data-ng-show="config.enabled"
+                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-remove"></i></a>                
             </td>
-            <td>{{config.value}}</td>
-            <td>
+            <td width="25%">{{config.value}}</td>
+            <td width="5%">
                 <a title="{{'label.edit' | translate}}"  data-ng-show="config.showEditvalue"  
-                   href="#/configurations/{{config.id}}/editconfig"><i
-                        class="icon-pencil icon-white"></i></a>
+                   href="#/configurations/{{config.id}}/editconfig"><i class="icon-pencil icon-white"></i></a>
             </td>                   
         </tr>
         </tbody>

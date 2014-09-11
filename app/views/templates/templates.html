@@ -2,27 +2,34 @@
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.templates' | translate}}</li>
     </ul>
-    <div class="pull-right">
-        <a href="#/createtemplate" class="btn btn-primary" has-permission='CREATE_TEMPLATE'><i class="icon-plus icon-white"></i> {{
-            'label.button.createtemplate' | translate }}</a>
+	<legend>{{ 'label.anchor.templates' | translate }}
+	<div class="col-md-12 col-sm-12">
+		<div class="row primarydiv">
+    		<div class="btn-group pull-right">
+                <a href="#/createtemplate" class="btn btn-primary" has-permission='CREATE_TEMPLATE'>
+                <i class="icon-plus icon-white"></i>&nbsp;{{ 'label.button.createtemplate' | translate }}</a>
+    		</div>
+    	</div>
     </div>
+    </legend>
     <input ng-autofocus="true" ng-model="filterText" type="text" class="span marginbottom0px form-control"
            placeholder="{{ 'label.input.filterbyname' | translate }}">
-<div ng-controller="TemplateController">
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{ 'label.heading.entity' | translate }}</th>
-            <th>{{ 'label.heading.type' | translate }}</th>
-            <th>{{ 'label.heading.name' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="pointer-main" ng-repeat="template in templates | filter:filterText">
-            <td class="pointer" data-ng-click="routeTo(template.id)">{{template.entity}}</td>
-            <td class="pointer" data-ng-click="routeTo(template.id)">{{template.type}}</td>
-            <td class="pointer" data-ng-click="routeTo(template.id)">{{template.name}}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-controller="TemplateController">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.entity' | translate }}</th>
+                <th>{{ 'label.heading.type' | translate }}</th>
+                <th>{{ 'label.heading.name' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="template in templates | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(template.id)">{{template.entity}}</td>
+                <td class="pointer" data-ng-click="routeTo(template.id)">{{template.type}}</td>
+                <td class="pointer" data-ng-click="routeTo(template.id)">{{template.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

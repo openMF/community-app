@@ -2,6 +2,9 @@
     mifosX.controllers = _.extend(module, {
         ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload) {
             scope.client = [];
+			scope.showPerformanceDetails = true;
+			scope.showLoanDetails = true;
+			scope.showSavingDetails = true;
             scope.identitydocuments = [];
             scope.buttons = [];
             scope.clientdocuments = [];
@@ -146,7 +149,7 @@
             };
 
             scope.unassignStaffCenter = function () {
-                $modal.open({
+				$modal.open({
                     templateUrl: 'clientunassignstaff.html',
                     controller: ClientUnassignCtrl
                 });
@@ -286,11 +289,26 @@
             scope.createstandinginstruction = function () {
                 location.path('/createstandinginstruction/' + scope.client.officeId + '/' + scope.client.id + '/fromsavings');
             };
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+            
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+                $modal.open({
+                    templateUrl: 'deleteClient.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: routeParams.id, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
             scope.getClientDocuments = function () {
                 resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: routeParams.id}, function (data) {
@@ -304,11 +322,26 @@
                 });
             };
 
-            scope.deleteDocument = function (documentId, index) {
-                resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function (data) {
-                    scope.clientdocuments.splice(index, 1);
+   			scope.deleteDocument = function (documentId, index) {
+				scope.documentId = documentId;
+				scope.index = index;
+                $modal.open({
+                    templateUrl: 'deleteClient.html',
+                    controller: DeleteClientDocCtrl
                 });
             };
+			
+            var DeleteClientDocCtrl = function ($scope, $modalInstance) {
+				$scope.delete = function () {
+					resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: scope.documentId}, '', function (data) {
+						scope.clientdocuments.splice(scope.index, 1);
+						$modalInstance.close('delete');
+					});
+				};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
             scope.viewDataTable = function (registeredTableName, data) {
                 if (scope.datatabledetails.isMultirow) {
@@ -357,11 +390,27 @@
                 });
             }
 
-            scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
-                resourceFactory.clientIdenfierResource.delete({clientId: clientId, id: entityId}, '', function (data) {
-                    scope.identitydocuments.splice(index, 1);
+   			scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
+				scope.clientId = clientId;
+				scope.entityId = entityId;
+				scope.index = index;
+                $modal.open({
+                    templateUrl: 'deleteClient.html',
+                    controller: DeleteClientIDCtrl
                 });
             };
+			
+            var DeleteClientIDCtrl = function ($scope, $modalInstance) {
+				$scope.delete = function () {
+					resourceFactory.clientIdenfierResource.delete({clientId: scope.clientId, id: scope.entityId}, '', function (data) {
+						scope.identitydocuments.splice(scope.index, 1);
+						$modalInstance.close('delete');
+					});
+				};
+					$scope.cancel = function () {
+						$modalInstance.dismiss('cancel');
+					};
+				};
 
             scope.downloadClientIdentifierDocument = function (identifierId, documentId) {
                 console.log(identifierId, documentId);
@@ -461,13 +510,22 @@
                 // this will be used to display the score on the viewclient.html
                 scope.inventureScore = inventureScore;
             };
-
-            scope.showPicture = function () {
-                $modal.open({
-                    templateUrl: 'photo-dialog.html',
-                    controller: ViewLargerPicCtrl,
-                    size: "lg"
-                });
+			
+			scope.showPicture = function (lSign) {
+                if (lSign) {
+					$modal.open({
+						templateUrl: 'sign-dialog.html',
+						controller: ViewLargerPicCtrl,
+						size: "lg"
+					});
+				}
+				if (!lSign) {
+					$modal.open({
+						templateUrl: 'photo-dialog.html',
+						controller: ViewLargerPicCtrl,
+						size: "lg"
+					});
+				}
             };
 
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
@@ -480,6 +538,18 @@
                             $scope.largeImage = imageData.data;
                         });
                     }
+					http({
+						method: 'GET',
+						url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
+					}).then(function (docsData) {
+						var docId = -1;
+						for (var i = 0; i < docsData.data.length; ++i) {
+							if (docsData.data[i].name == 'clientSignature') {
+								docId = docsData.data[i].id;
+								$scope.largeSignature = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default';
+							}
+						}
+					});
                 };
                 loadImage();
                 $scope.cancel = function () {

@@ -56,7 +56,10 @@
                 </div>
                 <div class="col-md-5">
                     <legend>{{'label.heading.groupmembers' | translate}}</legend>
-                    <div class="form-group" ng-repeat="members in allMembers">
+					<input ng-autofocus="true" ng-model="filterText" type="text" class="marginbottom0px form-control"
+						placeholder="{{'label.input.filterbyname' | translate}}">
+					<br/>
+                    <div class="form-group" ng-repeat="members in allMembers | filter:filterText">
                         <div class="col-sm-6 col-md-6">
                             <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})"
                                    type="text"/>

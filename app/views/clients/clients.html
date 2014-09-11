@@ -5,10 +5,16 @@
 </div>
 <div class="col-md-12" ng-controller="ClientController">
     <api-validate></api-validate>
-    <div class="pull-right" has-permission='CREATE_CLIENT'>
-        <a href="#/createclient" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.createclient'
-            | translate}}</a>
-    </div>
+	<legend>{{ 'label.heading.clientlist' | translate }}
+        <div class="col-md-12 col-sm-12">
+            <div class="row primarydiv">
+               <div class="btn-group pull-right" has-permission='CREATE_CLIENT'>
+                    <a href="#/createclient" class="btn btn-primary">
+                    <i class="icon-plus icon-white"></i>&nbsp;{{'label.button.createclient' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </legend>
     <input ng-autofocus="true" ng-model="filterText" type="text" class="marginbottom0px form-control"
            placeholder="{{'label.input.filterbynameaccno' | translate}}">
     <table class="table">
@@ -27,7 +33,7 @@
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)"><i
-                    class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
+                    class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{client.status.value}}
             </td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
@@ -36,9 +42,10 @@
     </table>
     <ul class="pager">
         <li class="previous"><a id="prev" ng-click="clients.previous()" href=""
-                                ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+        	data-ng-show="clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
         </li>
-        <li class="next"><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next'
-            | translate}} &rarr;</a></li>
+        <li class="next"><a id="next" ng-click="clients.next()" href="" 
+        	data-ng-show="clients.hasNext()"> {{'label.button.next' | translate}} &rarr;</a>
+        </li>
     </ul>
 </div>

@@ -503,11 +503,26 @@
                 window.close();
             }
 
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+				scope.entityId = entityId;
+                $modal.open({
+                    templateUrl: 'deleteguarantor.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: scope.entityId, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
             scope.deleteDocument = function (documentId, index) {
                 resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: documentId}, '', function (data) {

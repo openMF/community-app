@@ -11,7 +11,7 @@
                 resourceFactory.clientResource.getAllClients({offset: offset, limit: limit}, callback);
             };
 
-            scope.clients = paginatorService.paginate(fetchFunction, 14);
+            scope.clients = paginatorService.paginate(fetchFunction, 30);
         }
     });
     mifosX.ng.application.controller('ClientController', ['$scope', 'ResourceFactory', 'PaginatorService', '$location', mifosX.controllers.ClientController]).run(function ($log) {

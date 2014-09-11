@@ -8,6 +8,10 @@
             scope.staffData = {};
             scope.openLoan = true;
             scope.openSaving = true;
+			scope.showDetails = true;
+			scope.showLoanDetails = true;
+			scope.showSavingDetails = true;
+			scope.showSummaryDetails = true;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -193,11 +197,25 @@
                 });
             };
 
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+                $modal.open({
+                    templateUrl: 'deletegroup.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: routeParams.id, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
         }
     });

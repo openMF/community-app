@@ -3,8 +3,8 @@
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.searchjournalentries' | translate}}</li>
     </ul>
-
-	<div class="form-inline paddedtop paddedbottom10" ng-show="isCollapsed">
+	<legend>{{ 'label.anchor.searchjournalentries' | translate }}
+	<div class="form-inline paddedbottom10" ng-show="isCollapsed">
         <div class="form-group">
         	<select chosen="glAccounts" ng-autofocus="true" class="form-control" ng-model="formData.glAccount" ng-options="glAccount as glAccount.name + ' ' + glAccount.glCode for glAccount in glAccounts" value="{{office.id}}">
                 <option class="displaynone" value="">{{'label.input.selectaccountnameorcode' | translate}}</option>
@@ -33,19 +33,23 @@
 		-OR-
 		<br> 
 		<div class="form-group">
-            <input ng-model="formData.transactionId" type="text"
-            	placeholder="{{'label.input.searchbytransaction' | translate}}" class="form-control"/>
+            <input ng-model="formData.transactionId" type="text" placeholder="{{'label.input.searchbytransaction' | translate}}" class="form-control"/>
         </div>
        	<div class="form-group">
-       		<a ng-click="searchTransaction()" class="btn btn-primary control" has-permission='READ_JOURNALENTRY'><i
-                        class="icon-search icon-white"></i></a></span>
+       		<a ng-click="searchTransaction()" class="btn btn-primary control" has-permission='READ_JOURNALENTRY'>
+			<i class="icon-search icon-white"></i></a></span>
         </div>
 		   
 	</div>
-	<div class="pull-right" ng-show="!isCollapsed">
-		<button ng-click="isCollapsed = !isCollapsed" class="btn btn-primary control"><i class="icon-chevron-down icon-white"></i>{{
-        'label.button.parameters' | translate }}</button>
+	<div class="col-md-12 col-sm-12" ng-show="!isCollapsed">
+		<div class="row primarydiv">
+			<div class="pull-right">
+				<button ng-click="isCollapsed = !isCollapsed" class="btn btn-primary control">
+					<i class="icon-chevron-down icon-white"></i>&nbsp;{{ 'label.button.parameters' | translate }}</button>
+			</div>
+		</div>
 	</div>
+	</legend>
     <div class="clear"></div>
     <div ng-show="displayResults">
         <table class="table">

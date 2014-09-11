@@ -1,10 +1,10 @@
 <div class="col-md-12" ng-controller="NavigationController">
 <ul class="breadcrumb">
     <li data-ng-show="officeName">{{officeName}}</li>
-    <li data-ng-show="loanOfficer">/&nbsp;{{loanOfficer}}</li>
-    <li data-ng-show="centerName">/&nbsp;{{centerName}}</li>
-    <li data-ng-show="groupName">/&nbsp;{{groupName}}</li>
-    <li data-ng-show="clientName">/&nbsp;{{clientName}}</li>
+    <li data-ng-show="loanOfficer">{{loanOfficer}}</li>
+    <li data-ng-show="centerName">{{centerName}}</li>
+    <li data-ng-show="groupName">{{groupName}}</li>
+    <li data-ng-show="clientName">{{clientName}}</li>
 </ul>
 <input ng-model="filterText" type="text" class="form-control"
        placeholder="{{'label.input.filterbyname' | translate}}"/>
@@ -13,7 +13,8 @@
     <div>
         <div>
             <button type="button" class="collapse-header-main" data-ng-click="collapseOthers()">
-				<strong>{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pull-right"><i   class="icon-chevron-up" data-ng-show="!isCollapsed"></i><i class="icon-chevron-down" data-ng-show="isCollapsed"></i></span>
+				<strong>{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pull-right">
+                <i class="icon-chevron-up" data-ng-show="!isCollapsed"></i><i class="icon-chevron-down" data-ng-show="isCollapsed"></i></span>
             </button>
         </div>
         <div collapse="isCollapsed">
@@ -26,10 +27,10 @@
     </div>
     <div>
         <div>
-            <button type="button" class="collapse-header" data-ng-click="collapseOfficerOthers()"><strong>{{'label.button.loanofficers'
-                | translate}}<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong><span
-                    class="pull-right"><i class="icon-chevron-up" data-ng-show="!officerCollapsed"></i><i
-                    class="icon-chevron-down" data-ng-show="officerCollapsed"></i></span></button>
+            <button type="button" class="collapse-header" data-ng-click="collapseOfficerOthers()">
+                <strong>{{'label.button.loanofficers' | translate}}<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong><span class="pull-right">
+                <i class="icon-chevron-up" data-ng-show="!officerCollapsed"></i><i class="icon-chevron-down" data-ng-show="officerCollapsed"></i></span>
+            </button>
         </div>
         <div collapse="officerCollapsed">
             <table class="table table-striped">
@@ -41,10 +42,10 @@
     </div>
     <div>
         <div>
-            <button type="button" class="collapse-header" data-ng-click="collapseCenterOthers()"><strong>{{'label.button.centers'
-                | translate}}<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong><span
-                    class="pull-right"><i class="icon-chevron-up" data-ng-show="!centerCollapsed"></i><i
-                    class="icon-chevron-down" data-ng-show="centerCollapsed"></i></span></button>
+            <button type="button" class="collapse-header" data-ng-click="collapseCenterOthers()"><strong>{{'label.button.centers' | translate}}
+            	<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong><span class="pull-right">
+                <i class="icon-chevron-up" data-ng-show="!centerCollapsed"></i><i class="icon-chevron-down" data-ng-show="centerCollapsed"></i></span>
+            </button>
         </div>
         <div collapse="centerCollapsed">
             <table class="table table-striped">
@@ -56,10 +57,10 @@
     </div>
     <div>
         <div>
-            <button type="button" class="collapse-header" data-ng-click="collapseGroupOthers()"><strong>{{'label.button.groups'
-                | translate}}<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong><span
-                    class="pull-right"><i class="icon-chevron-up" data-ng-show="!groupCollapsed"></i><i
-                    class="icon-chevron-down" data-ng-show="groupCollapsed"></i></span></button>
+            <button type="button" class="collapse-header" data-ng-click="collapseGroupOthers()"><strong>{{'label.button.groups' | translate}}
+            	<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong><span class="pull-right">
+                <i class="icon-chevron-up" data-ng-show="!groupCollapsed"></i><i class="icon-chevron-down" data-ng-show="groupCollapsed"></i></span>
+            </button>
         </div>
         <div collapse="groupCollapsed">
             <table class="table table-striped">
@@ -71,10 +72,10 @@
     </div>
     <div>
         <div>
-            <button type="button" class="collapse-header" data-ng-click="collapseclientOthers()"><strong>{{'label.button.clients'
-                | translate}}<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong><span
-                    class="pull-right"><i class="icon-chevron-up" data-ng-show="!clientCollapsed"></i><i
-                    class="icon-chevron-down" data-ng-show="clientCollapsed"></i></span></button>
+            <button type="button" class="collapse-header" data-ng-click="collapseclientOthers()"><strong>{{'label.button.clients' | translate}}
+            	<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong><span class="pull-right">
+                <i class="icon-chevron-up" data-ng-show="!clientCollapsed"></i><i class="icon-chevron-down" data-ng-show="clientCollapsed"></i></span>
+            </button>
         </div>
         <div collapse="clientCollapsed">
             <table class="table table-striped">
@@ -88,17 +89,16 @@
 <div class="col-sm-7 col-md-7 marginbuttontop25px">
 <div ng-show="office">
     <br/>
-
     <div class="black">
-                <span class="pull-left">
-                  <i class="icon-building icon-3x"></i>
-                </span>
-                <span class="pull-left">
-                   <h3 class="table-font-nav">
-                       &nbsp;
-                       {{officeName}}
-                   </h3>
-                </span>
+        <span class="pull-left">
+          <i class="icon-building icon-3x"></i>
+        </span>
+        <span class="pull-left">
+           <h3 class="table-font-nav">
+               &nbsp;
+               {{officeName}}
+           </h3>
+        </span>
     </div>
     <table class="table table-font-nav">
         <tr data-ng-show="office.parentName">
@@ -129,17 +129,16 @@
 </div>
 <div ng-show="staff">
     <br/>
-
     <div class="black">
-                <span class="pull-left">
-                  <i class="icon-user icon-3x"></i>
-                </span>
-                <span class="pull-left">
-                   <h3 class="table-font-nav">
-                       &nbsp;
-                       {{loanOfficer}}
-                   </h3>
-                </span>
+        <span class="pull-left">
+          <i class="icon-user icon-3x"></i>
+        </span>
+        <span class="pull-left">
+           <h3 class="table-font-nav">
+               &nbsp;
+               {{loanOfficer}}
+           </h3>
+        </span>
     </div>
     <table class="table table-font-nav">
         <tr data-ng-show="office.parentName">
@@ -154,21 +153,20 @@
 </div>
 <div ng-show="center">
     <br/>
-
     <div>
         <a class="black" href="#/viewcenter/{{center.id}}">
-                    <span class="pull-left">
-                      <i class="icon-map-marker icon-3x"></i>
-                    </span>
-                    <span class="pull-left">
-                      <h3 class="table-font-nav">
-                          &nbsp;
-                          {{centerName}}
-                          &nbsp;
-                          <i class="icon-circle {{center.status.value | StatusLookup}}"></i>
-                          &nbsp;
-                      </h3>
-                    </span>
+            <span class="pull-left">
+              <i class="icon-map-marker icon-3x"></i>
+            </span>
+            <span class="pull-left">
+              <h3 class="table-font-nav">
+                  &nbsp;
+                  {{centerName}}
+                  &nbsp;
+                  <i class="icon-circle {{center.status.value | StatusLookup}}"></i>
+                  &nbsp;
+              </h3>
+            </span>
         </a>
     </div>
     <br/>
@@ -235,21 +233,20 @@
 </div>
 <div ng-show="client">
     <br/>
-
     <div>
         <a class="black" href="#/viewclient/{{client.id}}">
-                    <span class="pull-left">
-                      <i class="icon-user icon-3x"></i>
-                    </span>
-                    <span class="pull-left">
-                      <h3 class="table-font-nav">
-                          &nbsp;
-                          {{clientName}}
-                          &nbsp;
-                          <i class="icon-circle {{client.status.value | StatusLookup}}"></i>
-                          &nbsp;
-                      </h3>
-                    </span>
+            <span class="pull-left">
+              <i class="icon-user icon-3x"></i>
+            </span>
+            <span class="pull-left">
+              <h3 class="table-font-nav">
+                  &nbsp;
+                  {{clientName}}
+                  &nbsp;
+                  <i class="icon-circle {{client.status.value | StatusLookup}}"></i>
+                  &nbsp;
+              </h3>
+            </span>
         </a>
     </div>
     <br/>
@@ -282,11 +279,11 @@
     <hr/>
     <table>
         <tr>
-            <td class="table-font-nav">{{ 'label.heading.memberof' | translate }}</td>
+            <td class="table-font-nav">{{ 'label.heading.memberof' | translate }}&nbsp;</td>
             <td>
-                        <span ng-repeat="group in client.groups">
-                            {{group.name}}&nbsp;<span ng-show="!$last">|</span>
-                        </span>
+                <span ng-repeat="group in client.groups">
+                  {{group.name}}&nbsp;<span ng-show="!$last">|</span>
+                </span>
             </td>
         </tr>
     </table>
@@ -335,21 +332,20 @@
 </div>
 <div ng-show="group">
     <br/>
-
     <div>
         <a class="black" href="#/viewgroup/{{group.id}}">
-                    <span class="pull-left">
-                      <i class="icon-group icon-3x"></i>
-                    </span>
-                    <span class="pull-left">
-                      <h3 class="table-font-nav">
-                          &nbsp;
-                          {{groupName}}
-                          &nbsp;
-                          <i class="icon-circle {{group.status.value | StatusLookup}}"></i>
-                          &nbsp;
-                      </h3>
-                    </span>
+            <span class="pull-left">
+              <i class="icon-group icon-3x"></i>
+            </span>
+            <span class="pull-left">
+              <h3 class="table-font-nav">
+                  &nbsp;
+                  {{groupName}}
+                  &nbsp;
+                  <i class="icon-circle {{group.status.value | StatusLookup}}"></i>
+                  &nbsp;
+              </h3>
+            </span>
         </a>
     </div>
     <br/>

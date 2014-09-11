@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.formData = {};
+            scope.restrictDate = new Date();
             scope.charges = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
@@ -82,6 +83,11 @@
                 if (scope.product.isInterestRecalculationEnabled) {
                     scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                     scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
+                    scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
+                    scope.formData.recalculationRestFrequencyInterval = scope.product.interestRecalculationData.recalculationRestFrequencyInterval;
+                    if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
+                        scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
+                    }
                 }
 
                 _.each(scope.product.principalVariationsForBorrowerCycle, function (variation) {
@@ -348,9 +354,14 @@
                 this.formData.closeDate = reqSecondDate;
 
                 //Interest recalculation data
-                if (!this.formData.isInterestRecalculationEnabled) {
+                if (this.formData.isInterestRecalculationEnabled) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
+                    scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                }else{
                     delete scope.formData.interestRecalculationCompoundingMethod;
                     delete scope.formData.rescheduleStrategyMethod;
+                    delete scope.formData.recalculationRestFrequencyType;
+                    delete scope.formData.recalculationRestFrequencyInterval;
                 }
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);

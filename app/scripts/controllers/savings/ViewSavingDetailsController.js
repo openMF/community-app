@@ -1,11 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
             scope.formData = {};
             scope.date = {};
+            scope.staffData = {};
+            scope.fieldOfficers = [];
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
@@ -100,7 +102,8 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
-                scope.date.toDate = new Date();
+                scope.staffData.staffId = data.staffId;
+				scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
@@ -227,6 +230,13 @@
                     annualdueDate.push(new Date().getFullYear());
                     scope.annualdueDate = new Date(annualdueDate);
                 };
+                if(!(data.fieldOfficerId)){
+                    resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
+                        scope.staffField = true;
+                        scope.fieldOfficers = data.fieldOfficerOptions;
+                        scope.formData.fieldOfficerId = data.fieldOfficerOptions[0].id;
+                    });
+                };
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
@@ -284,6 +294,56 @@
                 scope.report = true;
                 scope.printbtn = false;
             };
+            scope.savingsAccountStaffCenter = function (staffId,command,tempUrl) {
+                $modal.open({
+                    templateUrl: tempUrl,
+                    controller: SavingsStaffCtrl,
+                    resolve : {
+                        "parameters": function () {
+                            return {
+                                staffId :function()
+                                {
+                                    return staffId;
+                                },
+                                command : function()
+                                {
+                                    return command;
+                                },
+								fieldOfficers: function(){
+									return scope.fieldOfficers;
+								}
+                            };
+                        }
+                    }
+                    });
+            };
+            var SavingsStaffCtrl = function ($scope, $modalInstance,parameters) {
+                scope.staffData.staffId = parameters.staffId();
+                $scope.command = parameters.command();
+				$scope.fieldOfficers = parameters.fieldOfficers();
+                $scope.unassign = function () {
+                   switch($scope.command)
+                   {
+                       case "unassignFieldOfficer":
+                           resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignFieldOfficer'}, scope.staffData, function () {
+                           $modalInstance.close('unassignFieldOfficer');
+                           route.reload();
+                       });
+                           break;
+                       case "assignFieldOfficer":
+                           scope.staffData.staffId = scope.formData.fieldOfficerId;
+                               resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignFieldOfficer'}, scope.staffData, function () {
+                                   $modalInstance.close('assignFieldOfficer');
+                                   route.reload();
+                               });
+                               break;
+                   }
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
             scope.viewDataTable = function (registeredTableName,data){
                 if (scope.datatabledetails.isMultirow) {
@@ -324,20 +384,34 @@
             scope.printReport = function () {
                 window.print();
                 window.close();
-            }
+            };
 
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+                $modal.open({
+                    templateUrl: 'deleteDataTable.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: routeParams.id, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
 
             scope.modifyTransaction = function (accountId, transactionId) {
                 location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
 
             scope.transactionSort = {
-                column: 'date',
+                column: 'id',
                 descending: true
             };
 
@@ -352,9 +426,8 @@
             };
             
         }
-    })
-    ;
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    });
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));

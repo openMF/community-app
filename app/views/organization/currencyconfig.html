@@ -11,10 +11,26 @@
             <li class="active">{{'label.anchor.editcurrencyconfig' | translate}}</li>
         </ul>
     </div>
-    <div class="pull-right">
-        <a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency"><i
-                class="icon-plus icon-white"></i>{{'label.button.addedit' | translate}}</a>
-    </div>
+	<legend ng-hide="hideview">{{ 'label.anchor.currencyconfig' | translate }}
+		<div class="col-md-12 col-sm-12">
+			<div class="row primarydiv">
+				<div class="btn-group pull-right">
+					<a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency">
+					<i class="icon-plus icon-white"></i>&nbsp;{{'label.button.addedit' | translate}}</a>
+				</div>
+			</div>
+		</div>
+	</legend>
+	<legend ng-show="hideview">{{ 'label.anchor.editcurrencyconfig' | translate }}	
+		<div class="col-md-12 col-sm-12">
+			<div class="row primarydiv">
+				<div class="btn-group pull-right">
+					<a ng-click="hideview = !hideview" class="btn btn-primary" has-permission='UPDATE_CURRENCY' id="edit-currency">
+					<i class="icon-arrow-left icon-white"></i>&nbsp;{{'label.button.back' | translate}}</a>
+				</div>
+			</div>
+		</div>
+	</legend>
     <br>
     <table class="table" ng-hide="hideview">
         <thead>

@@ -13,7 +13,9 @@
                     translate}}:{{meeting.nextTenRecurringDates[0] | DateFormat}}
                 </div>
                 <div class="col-sm-5">
-                    <table class="table table-striped" width="100%">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" class="marginbottom0px form-control"
+						placeholder="{{'label.input.filterbyname' | translate}}">
+					<table class="table table-striped" width="100%">
 		                <thead>
 		                <tr class="graybg">
 		                    <th>{{ 'label.heading.name' | translate }}</th>
@@ -21,7 +23,7 @@
 		                </tr>
 		                </thead>
 		                <tbody>
-		                <tr ng-repeat="client in clients">
+		                <tr ng-repeat="client in clients | filter:filterText">
 		                    <td>{{client.displayName}}<span class="required">*</span></td>
 		                    <td>
 		                        <div>

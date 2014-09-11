@@ -4,6 +4,8 @@
             scope.center = [];
             scope.staffData = {};
             scope.formData = {};
+			scope.showDetails = true;
+			scope.showSummaryDetails = true;
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 scope.isClosedCenter = scope.center.status.value == 'Closed';
@@ -110,11 +112,25 @@
                 });
             };
 
-            scope.deleteAll = function (apptableName, entityId) {
-                resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
-                    route.reload();
+			scope.deleteAll = function (apptableName, entityId){
+				scope.apptableName = apptableName;
+                $modal.open({
+                    templateUrl: 'deleteCenter.html',
+                    controller: DeleteDataTCtrl
                 });
             };
+			
+            var DeleteDataTCtrl = function ($scope, $modalInstance) {
+			$scope.delete = function () {
+				resourceFactory.DataTablesResource.delete({datatablename: scope.apptableName, entityId: routeParams.id, genericResultSet: 'true'}, {}, function (data) {
+					$modalInstance.close('delete');
+					route.reload();
+				});
+			};
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+			};
         }
     });
     mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.ViewCenterController]).run(function ($log) {

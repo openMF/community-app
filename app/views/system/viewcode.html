@@ -6,7 +6,6 @@
             <li class="active">{{code.name | translate}}</li>
         </ul>
     </div>
-
     <script type="text/ng-template" id="deletecode.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -31,29 +30,23 @@
     </script>
     <div class="form-horizontal well">
         <div class="row">
-            <div class="pull-right">
-                <div class="btn-group">
-                    <button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i
-                            class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}
-                    </button>
-                    <a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
-                    <a data-ng-click="delCode()" class="btn btn-warning" has-permission='DELETE_CODE' ng-show="code.systemDefined == false"><i
-                            class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
-                </div>
+            <div class="btn-group pull-right">
+				<button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'>
+				<i class="icon-edit icon-white"></i>&nbsp;{{'label.button.editcode' | translate}}</button>
+				<a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'>
+				<i class="icon-plus icon-white"></i>&nbsp;{{'label.button.addcodevalues' | translate}}</a>
+				<a data-ng-click="delCode()" class="btn btn-warning" has-permission='DELETE_CODE' ng-show="code.systemDefined == false">
+				<i class="icon-trash icon-white"></i>&nbsp;{{'label.button.delete' | translate}}</a>
             </div>
         </div>
         <h3 data-ng-hide="newcode.edit"><strong>{{code.name | translate}}</strong></h3>
-
         <div data-ng-show="newcode.edit">
             <api-validate></api-validate>
             <div class="col-sm-3">
                 <input type="text" data-ng-model="codename.name" class="form-control"/>
             </div>
-            <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
-            </button>
-            <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' |
-                translate}}
-            </button>
+            <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}</button>
+            <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' | translate}}</button>
             <hr/>
         </div>
         <div>
@@ -81,13 +74,13 @@
                     <td>
                         <button data-ng-hide="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE' 
                                 data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.position,codevalue)"><i
-                                class="icon-edit icon-white"></i></button>
+                                class="icon-edit icon-white"></i>&nbsp;{{'label.button.edit' | translate}}</button>
                         <button data-ng-show="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE'
-                                data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
-                            translate}}
+                                data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' | translate}}
                         </button>
                         <button data-ng-hide="codevalue.edit" class="btn-warning" type="button" has-permission='DELETE_CODEVALUE'
                                 data-ng-click="deleteCodeValue(codevalue.id)"><i class="icon-trash icon-white"></i>
+								&nbsp;{{'label.button.delete' | translate}}
                         </button>
                     </td>
                 </tr>

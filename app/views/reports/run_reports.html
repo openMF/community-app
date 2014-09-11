@@ -9,20 +9,19 @@
 	          <span style="margin-left: 10px;font-size:20px;">
 	                <strong>{{reportName}}</strong>
 	                <button type="button" class="btn btn-primary pull-right" ng-show="checkStatus()"
-	                        ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>{{
-	                    'label.button.parameters' | translate }}
+	                        ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>&nbsp;
+                            {{ 'label.button.parameters' | translate }}
 	                </button>
-	                <button type="button" data-ng-hide="hideChart" class="btn btn-primary pull-right" ng-click="setTypePie()">{{
-	                    'label.input.piechart' | translate }}
+	                <button type="button" data-ng-hide="hideChart" class="btn btn-primary pull-right" ng-click="setTypePie()">&nbsp;
+                    		{{ 'label.input.piechart' | translate }}
 	                </button>
-	                <button type="button" data-ng-hide="hideChart" class="btn btn-primary pull-right" ng-click="setTypeBar()">{{
-	                    'label.input.barchart' | translate }}
+	                <button type="button" data-ng-hide="hideChart" class="btn btn-primary pull-right" ng-click="setTypeBar()">&nbsp;
+                    		{{ 'label.input.barchart' | translate }}
 	                </button>
 	          </span>
 	    </div>
 	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
-	        <br>
-	
+	        <br>	
 	        <div class="form-group info" ng-repeat="reportParam in reportParams">
 	            <label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
 
@@ -38,16 +37,15 @@
 	            </div>
 	        </div>
 	        <div class="form-group info" ng-repeat="reportTextParam in reportTextParams">
-	            <label class="control-label col-sm-2" for="{{reportTextParam.variable}}">{{ reportTextParam.label |
-	                translate}}</label>
+	            <label class="control-label col-sm-2" for="{{reportTextParam.variable}}">{{ reportTextParam.label | translate}}</label>
 	
 	            <div class="col-sm-3">
-	                <input style="width: 257px" id="{{reportTextParam.inputName}}" type="text" ng-model="formData[reportTextParam.inputName]"  class="form-control" required late-Validate/>
+	                <input style="width: 257px" id="{{reportTextParam.inputName}}" type="text" ng-model="formData[reportTextParam.inputName]" 
+                     	class="form-control" required late-Validate/>
 	            </div>
 	        </div>
 	        <div class="form-group info" ng-repeat="reportDateParam in reportDateParams">
-	            <label class="control-label col-sm-2" for="{{reportDateParam.variable}}">{{ reportDateParam.label |
-	                translate}}</label>
+	            <label class="control-label col-sm-2" for="{{reportDateParam.variable}}">{{ reportDateParam.label | translate}}</label>
 	
 	            <div class="col-sm-3">
 	                <input style="width: 257px" id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd"
@@ -79,8 +77,7 @@
 			            <option value="0">0</option>
 			        </select>
 				</div>
-	        </div>
-	
+	        </div>	
 	        <span class="col-md-offset-3 paddedleft120"><a id="run" ng-click="runReport()" class="btn btn-primary control"></i>
 	            &nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
 	    </div>
@@ -89,12 +86,10 @@
 	            <tr>
 	                <td width="30%"></td>
 	                <td>
-	                    <input type="radio" ng-model="type" value="pie">{{'label.input.pie' |
-	                    translate}}<br/>
+	                    <input type="radio" ng-model="type" value="pie">{{'label.input.pie' | translate}}<br/>
 	                <td>
 	                <td>
-	                    <input type="radio" ng-model="type" value="bar">{{'label.input.bar' |
-	                    translate}}<br/>
+	                    <input type="radio" ng-model="type" value="bar">{{'label.input.bar' | translate}}<br/>
 	                </td>
 	            </tr>
 	        </table>
@@ -129,13 +124,10 @@
 	                </nvd3-multi-bar-chart>
 	            </div>
 	        </div>
-	    </div>
-	
+	    </div>	
 	    <div data-ng-hide="hideTable">
 	        <div class="pull-right" ng-show="reportType == 'Table'">
-	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv'
-	                | translate }}
-	            </button>
+	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>&nbsp;{{'label.button.exportcsv' | translate }}</button>
 	        </div>
 	        <div scroll>
 	            <table style="width: 1200px;white-space:nowrap" class="table table-bordered" data-anchor>

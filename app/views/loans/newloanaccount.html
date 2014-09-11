@@ -34,7 +34,7 @@
     <tr ng-show="formData.productId">
         <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label></td>
         <td class="paddedbottom10">
-            <select id="loanPurposeId" ng-model="formData.loanPurposeId"
+            <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
                     class="form-control width170px" value="{{loanPurpose.id}}">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
@@ -242,14 +242,10 @@
             </tr>
             <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
                 <td>
-                    <label class="control-label">{{ 'label.input.frequency.for.recalculte.outstanding.principal' |
-                        translate }}<span class="required">*</span></label>
+                    <label>{{ 'label.input.interest.recalculation.reschdule.strategy' | translate }}</label>
                 </td>
-                <td data-ng-show="loanaccountinfo.isInterestRecalculationEnabled" class="paddedbottom10">
-                    <select id="recalculationFrequencyType" ng-model="formData.recalculationFrequencyType"
-                            ng-options="recalculationFrequencyType.id as recalculationFrequencyType.value for recalculationFrequencyType in loanaccountinfo.interestRecalculationFrequencyTypeOptions"
-                            class="form-control width170px"
-                            value="{{recalculationFrequencyType.id}}"/>
+                <td class="paddedbottom10">
+                    <label>{{ loanaccountinfo.interestRecalculationData.rescheduleStrategyType.value}}</label>
                 </td>
                 <td>
                     <label>{{ 'label.input.daysinmonth' | translate }}</label>
@@ -265,11 +261,30 @@
                 <td class="paddedbottom10">
                     <label>{{ loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.value}}</label>
                 </td>
+
                 <td>
-                    <label>{{ 'label.input.interest.recalculation.reschdule.strategy' | translate }}</label>
+                    <label class="control-label">{{ 'label.input.frequency.for.recalculte.outstanding.principal' |
+                        translate }}<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10">
-                    <label>{{ loanaccountinfo.interestRecalculationData.rescheduleStrategyType.value}}</label>
+                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.value}}</label>
+                </td>
+            </tr>
+            <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
+                <td>
+                    <label class="control-label">{{ 'label.input.frequenc.interval.for.recalculte.outstanding.principal' | translate }}</label>
+                </td>
+                <td class="paddedbottom10">
+                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyInterval}}</label>
+                </td>
+
+                <td>
+                    <label class="control-label">{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' |
+                        translate }}<span class="required">*</span></label>
+                </td>
+                <td class="paddedbottom10">
+                    <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </td>
             </tr>
         </table>
