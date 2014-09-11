@@ -107,7 +107,7 @@
                         class="required">*</span>:</label></td>
                 <td class="width31 paddedbottom10">
                     <input type="text" class="form-control" id="principal" name="principal" ng-model="formData.principal"
-                           required late-Validate/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                           number-format required late-Validate/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="editloanaccountform" valattribute="principal"/>
                 </td>
                 <td class="width14"><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>
@@ -186,7 +186,7 @@
             <tr>
                 <td><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10">
-                    <input id="inArrearsTolerance" type="text" class="form-control" ng-model="formData.inArrearsTolerance">&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                    <input id="inArrearsTolerance" type="text" class="form-control" ng-model="formData.inArrearsTolerance" number-format>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                 </td>
                 <td><label>{{ 'label.input.interestfreeperiod' | translate }}</label></td>
                 <td class="paddedbottom10">
@@ -299,11 +299,11 @@
                 <tr>
                     <td class="width19"><label>{{ 'label.input.fixedemiamount' | translate }}:</label></td>
                     <td class="width31 paddedbottom10">
-                        <input id="fixedEmiAmount" type="text" class="form-control" ng-model="formData.fixedEmiAmount">&nbsp;
+                        <input id="fixedEmiAmount" type="text" class="form-control" ng-model="formData.fixedEmiAmount" number-format>&nbsp;
                     </td>
                     <td class="width14"><label>{{'label.input.outstandingloanbalance' | translate}}:</label></td>
                     <td class="width36 paddedbottom10">
-                        <input id="maxOutstandingLoanBalance" type="text" class="form-control" ng-model="formData.maxOutstandingLoanBalance">&nbsp;
+                        <input id="maxOutstandingLoanBalance" type="text" class="form-control" ng-model="formData.maxOutstandingLoanBalance" number-format>&nbsp;
                         <a title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()"><i
                                 class="icon-plus icon-white"></i></a>
                     </td>
@@ -327,7 +327,7 @@
                                min="minDate" max="'2020-06-22'"/>
                     </td>
                     <td>
-                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" type="text"
+                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
                                ng-model="disbursementDetail.principal"
                                placeholder="{{'label.input.principal' | translate}}">
                     </td>
@@ -358,7 +358,7 @@
             <tr ng-repeat="charge in charges">
                 <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                 <td>{{charge.chargeCalculationType.value}}</td>
-                <td><input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amountOrPercentage"
+                <td><input id="{{charges[$index].amount}}" class="form-control" number-format type="text" ng-model="charge.amountOrPercentage"
                            placeholder="{{'label.input.amount' | translate}}"></td>
                 <td>{{charge.chargeTimeType.value}}</td>
                 <td>
@@ -381,7 +381,7 @@
                 <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
-                    <td>{{charge.amount}}</td>
+                    <td>{{charge.amount| number:decimals}}</td>
                     <td>{{charge.chargeTimeType.value}}</td>
                 </tr>
             </table>
@@ -449,26 +449,26 @@
             <td>{{period.period}}</td>
             <td>{{period.dueDate | DateFormat}}</td>
             <td>{{period.daysInPeriod}}</td>
-            <td>{{period.principalDisbursed}}</td>
-            <td>{{period.principalDue}}</td>
-            <td>{{period.principalLoanBalanceOutstanding}}</td>
-            <td>{{period.interestDue}}</td>
-            <td>{{period.feeChargesDue}}</td>
-            <td>{{period.penaltyChargesDue}}</td>
-            <td>{{period.totalDueForPeriod}}</td>
+            <td>{{period.principalDisbursed| number:decimals}}</td>
+            <td>{{period.principalDue| number:decimals}}</td>
+            <td>{{period.principalLoanBalanceOutstanding| number:decimals}}</td>
+            <td>{{period.interestDue| number:decimals}}</td>
+            <td>{{period.feeChargesDue| number:decimals}}</td>
+            <td>{{period.penaltyChargesDue| number:decimals}}</td>
+            <td>{{period.totalDueForPeriod| number:decimals}}</td>
         </tr>
         </tbody>
         <tfoot class="ui-widget-header">
         <tr>
             <td colspan="2">{{'label.heading.total' | translate}}</td>
             <td>{{repaymentscheduleinfo.loanTermInDays}}</td>
-            <td>{{repaymentscheduleinfo.totalPrincipalDisbursed}}</td>
-            <td>{{repaymentscheduleinfo.totalPrincipalExpected}}</td>
+            <td>{{repaymentscheduleinfo.totalPrincipalDisbursed| number:decimals}}</td>
+            <td>{{repaymentscheduleinfo.totalPrincipalExpected| number:decimals}}</td>
             <td></td>
-            <td>{{repaymentscheduleinfo.totalInterestCharged}}</td>
-            <td>{{repaymentscheduleinfo.totalFeeChargesCharged}}</td>
-            <td>{{repaymentscheduleinfo.totalPenaltyChargesCharged}}</td>
-            <td>{{repaymentscheduleinfo.totalRepaymentExpected}}</td>
+            <td>{{repaymentscheduleinfo.totalInterestCharged| number:decimals}}</td>
+            <td>{{repaymentscheduleinfo.totalFeeChargesCharged| number:decimals}}</td>
+            <td>{{repaymentscheduleinfo.totalPenaltyChargesCharged| number:decimals}}</td>
+            <td>{{repaymentscheduleinfo.totalRepaymentExpected| number:decimals}}</td>
         </tr>
         </tfoot>
     </table>

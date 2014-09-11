@@ -617,12 +617,12 @@
     <table class="width100">
         <tr>
             <td>
-                {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount}}&nbsp;
+                {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount| number:decimals}}&nbsp;
             </td>
         </tr>
         <tr>
             <td>
-                {{'label.input.outstandingloanbalance' | translate}} : &nbsp;{{loandetails.maxOutstandingLoanBalance}}&nbsp;
+                {{'label.input.outstandingloanbalance' | translate}} : &nbsp;{{loandetails.maxOutstandingLoanBalance| number:decimals}}&nbsp;
             </td>
         </tr>
         <tr>
@@ -713,10 +713,10 @@
             <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeTimeType.value}}</td>
             <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.dueDate | DateFormat}}</td>
             <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeCalculationType.value}}</td>
-            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}</td>
-            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid}}</td>
-            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived}}</td>
-            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount| number:decimals}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number:decimals}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number:decimals}}</td>
+            <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number:decimals}}</td>
             <td>
                 <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                    href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
