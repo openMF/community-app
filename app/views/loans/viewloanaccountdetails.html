@@ -405,6 +405,57 @@
     </table>
 </tab>
 
+<tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
+
+    <table class="table table-striped .width100">
+        <colgroup span="4"></colgroup>
+        <thead>
+        <tr>
+            <th colspan="1" scope="colgroup"></th>
+            <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
+            <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
+            <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+        </tr>
+        <tr>
+            <th scope="col">{{'label.heading.date' | translate}}</th>
+
+            <th scope="col">{{'label.heading.principaldue' | translate}}</th>
+            <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+
+            <th scope="col">{{'label.heading.interest' | translate}}</th>
+            <th scope="col">{{'label.heading.fees' | translate}}</th>
+            <th scope="col">{{'label.heading.penalties' | translate}}</th>
+
+            <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="period in loandetails.originalSchedule.periods">
+            <td>{{period.dueDate | DateFormat}}</td>
+
+            <td>{{period.principalDue | number}}</td>
+            <td>{{period.principalLoanBalanceOutstanding | number}}</td>
+            <td>{{period.interestOriginalDue | number}}</td>
+            <td>{{period.feeChargesDue | number}}</td>
+            <td>{{period.penaltyChargesDue | number}}</td>
+            <td>{{period.totalOutstandingForPeriod | number}}</td>
+        </tr>
+        </tbody>
+        <tfoot class="ui-widget-header">
+        <tr>
+            <th >{{'label.heading.total' | translate}}</th>
+            <th>{{loandetails.originalSchedule.totalPrincipalExpected | number}}</th>
+            <th>&nbsp;</th>
+            <th>{{loandetails.originalSchedule.totalInterestCharged | number}}</th>
+            <th>{{loandetails.originalSchedule.totalFeeChargesCharged | number}}</th>
+            <th>{{loandetails.originalSchedule.totalPenaltyChargesCharged | number}}</th>
+            <th>{{loandetails.originalSchedule.totalRepaymentExpected | number}}</th>
+        </tr>
+        </tfoot>
+    </table>
+
+</tab>
+
 <tab heading="{{'label.heading.repaymentschedule' | translate}}">
 
     <table class="table table-striped .width100">
