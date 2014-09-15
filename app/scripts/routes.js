@@ -636,6 +636,12 @@
             })
             .when('/addfinancialmapping', {
                 templateUrl: 'views/accounting/add_financial_accounting_mapping.html'
+            })
+            .when('/assignsavingsofficer/:id', {
+                templateUrl: 'views/savings/assignsavingsofficer.html'
+            })
+            .when('/unassignsavingsofficer/:id', {
+            templateUrl: 'views/savings/unassignsavingsofficer.html'
             });
         $locationProvider.html5Mode(false);
     };

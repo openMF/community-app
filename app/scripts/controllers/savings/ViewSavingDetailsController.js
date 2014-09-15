@@ -96,7 +96,12 @@
                     case "close":
                         location.path('/savingaccount/' + accountId + '/close');
                         break;
-
+                    case "assignSavingsOfficer":
+                        location.path('/assignsavingsofficer/' + accountId);
+                        break;
+                    case "unAssignSavingsOfficer":
+                        location.path('/unassignsavingsofficer/' + accountId);
+                        break;
 
                 }
             };
@@ -104,7 +109,6 @@
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
                 scope.staffData.staffId = data.staffId;
-
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
                 scope.status = data.status.value;
@@ -232,13 +236,6 @@
                     annualdueDate.push(new Date().getFullYear());
                     scope.annualdueDate = new Date(annualdueDate);
                 };
-                if(!(data.fieldOfficerId)){
-                    resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
-                        scope.staffField = true;
-                        scope.fieldOfficers = data.fieldOfficerOptions;
-                        scope.formData.fieldOfficerId = data.fieldOfficerOptions[0].id;
-                    });
-                };
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
@@ -295,57 +292,6 @@
             scope.export = function () {
                 scope.report = true;
                 scope.printbtn = false;
-            };
-
-            scope.savingsAccountStaffCenter = function (staffId,command,tempUrl) {
-                $modal.open({
-                    templateUrl: tempUrl,
-                    controller: SavingsStaffCtrl,
-                    resolve : {
-                        "parameters": function () {
-                            return {
-                                staffId :function()
-                                {
-                                    return staffId;
-                                },
-                                command : function()
-                                {
-                                    return command;
-                                },
-								fieldOfficers: function(){
-									return scope.fieldOfficers;
-								}
-                            };
-                        }
-                    }
-                    });
-            };
-            var SavingsStaffCtrl = function ($scope, $modalInstance,parameters) {
-                scope.staffData.staffId = parameters.staffId();
-                $scope.command = parameters.command();
-				$scope.fieldOfficers = parameters.fieldOfficers();
-                $scope.unassign = function () {
-                   switch($scope.command)
-                   {
-                       case "unassignFieldOfficer":
-                           resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignFieldOfficer'}, scope.staffData, function () {
-                           $modalInstance.close('unassignFieldOfficer');
-                           route.reload();
-                       });
-                           break;
-                       case "assignFieldOfficer":
-                           scope.staffData.staffId = scope.formData.fieldOfficerId;
-                               resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignFieldOfficer'}, scope.staffData, function () {
-                                   $modalInstance.close('assignFieldOfficer');
-                                   route.reload();
-                               });
-                               break;
-                   }
-                };
-
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
             };
 
             scope.viewDataTable = function (registeredTableName,data){
