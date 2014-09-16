@@ -249,7 +249,7 @@
                     }),
                     holValueResource: defineResource(apiVer + "/holidays/:holId", {holId: '@holId'}, {
                         getholvalues: {method: 'GET', params: {}},
-                        update: { method: 'PUT', params: {}, isArray: true }
+                        update: { method: 'PUT', params: {}}
                     }),
                     savingsTemplateResource: defineResource(apiVer + "/savingsaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
