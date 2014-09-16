@@ -213,7 +213,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'sort',
             'DotRemove',
             'FormatNumber',
-            'TranslateDataTableColumn'
+            'TranslateDataTableColumn',
+            'SearchFilter'
         ],
         directives: [
             'DialogDirective',
