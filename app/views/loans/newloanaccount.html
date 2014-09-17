@@ -126,14 +126,25 @@
                     <form-validate valattributeform="newloanaccountform" valattribute="numofrepayments"/>
                 </td>
                 <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
-                <td class="paddedbottom10">
+                <td class="paddedbottom10 width500px">
+                
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
                            ng-model="formData.repaymentEvery" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
-                            value="{{repaymentFrequencyType.id}}"/>&nbsp;
+                            value="{{repaymentFrequencyType.id}}"/>&nbsp;<span ng-show="formData.repaymentFrequencyType == 2">on</span>
+                    <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
+                            ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
+                            ng-show="formData.repaymentFrequencyType == 2"
+                            value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
+                    <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
+                            ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
+                            ng-show="formData.repaymentFrequencyType == 2"
+                            value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
+                        
                     <form-validate valattributeform="newloanaccountform" valattribute="repaidevery"/>
                 </td>
+                
             </tr>
             <tr>
                 <td>

@@ -54,6 +54,9 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
             }
+            scope.showOptionsForMonthlyRepayment = function () {
+            	
+            }
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -74,6 +77,8 @@
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
                 scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
+                scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.repaymentFrequencyNthDayType.id;
+                scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.repaymentFrequencyDayOfWeekType.id
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
@@ -86,6 +91,7 @@
                 scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
+
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
                 }
