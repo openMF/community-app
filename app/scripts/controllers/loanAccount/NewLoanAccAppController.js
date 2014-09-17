@@ -54,10 +54,7 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
             }
-            scope.showOptionsForMonthlyRepayment = function () {
-            	
-            }
-
+            
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
                 scope.charges = scope.loanaccountinfo.charges || [];
