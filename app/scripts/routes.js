@@ -370,6 +370,18 @@
             .when('/editcode/:id', {
                 templateUrl: 'views/system/editcode.html'
             })
+			.when('/hooks', {
+                templateUrl: 'views/system/hooks.html'
+            })
+			.when('/viewhook/:id', {
+                templateUrl: 'views/system/viewhook.html'
+            })
+			.when('/addhook', {
+                templateUrl: 'views/system/addhook.html'
+            })
+            .when('/edithook/:id', {
+                templateUrl: 'views/system/edithook.html'
+            })
             .when('/reports', {
                 templateUrl: 'views/system/reports.html'
             })

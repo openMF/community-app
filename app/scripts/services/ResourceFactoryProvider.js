@@ -244,6 +244,14 @@
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
+                        getAllHooks: {method: 'GET', params: {}, isArray: true},
+                        getHook: {method: 'GET', params: {}},
+						update: {method: 'PUT', params: {}}
+                    }),
+					hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     holResource: defineResource(apiVer + "/holidays", {}, {
                         getAllHols: {method: 'GET', params: {}, isArray: true}
                     }),
