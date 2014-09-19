@@ -111,7 +111,7 @@
                 class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input id="depositAmount" type="text" class="form-control" ng-model="formData.depositAmount">
+            <input id="depositAmount" type="text" class="form-control" number-format ng-model="formData.depositAmount">
         </td>
         <td class="width14"><label class="control-label">{{ 'label.input.depositperiod' | translate }}&nbsp;</label>
         </td>
@@ -173,7 +173,7 @@
         <td colspan="4">
             <div class="form-inline" data-ng-show="formData.preClosurePenalApplicable">
                 <label class="control-label">{{ 'label.checkbox.applypreclosurepenalinterest' |
-                    translate }}&nbsp;&nbsp;{{formData.preClosurePenalInterest}}&nbsp;&nbsp;-&nbsp;&nbsp;On&nbsp;&nbsp;{{data.preClosurePenalInterestOnType.value}}</label>
+                    translate }}&nbsp;&nbsp;{{formData.preClosurePenalInterest | number}}&nbsp;&nbsp;-&nbsp;&nbsp;On&nbsp;&nbsp;{{data.preClosurePenalInterestOnType.value}}</label>
             </div>
         </td>
     </tr>
@@ -269,7 +269,7 @@
     <tr ng-repeat="charge in charges">
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
-        <td><input id="charges[{{$index}}].amount" class="form-control" type="text" ng-model="charge.amount"
+        <td><input id="charges[{{$index}}].amount" number-format class="form-control" type="text" ng-model="charge.amount"
                    placeholder="{{'label.placeholder.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
         <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
@@ -281,11 +281,11 @@
                    type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-            <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+            <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM" number-format ng-model="charge.feeOnMonthDay" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
             <input id="charges[{{$index}}].amount" class="form-control" type="text"
-                   ng-model="charge.feeInterval"/>
+                   number-format ng-model="charge.feeInterval"/>
         </td>
         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
         <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
@@ -315,7 +315,7 @@
                 <td>{{incentiveData.conditionType.code | translate}} </td>
                 <td>{{incentiveData.attributeValueDesc}} </td>
                 <td>{{incentiveData.incentiveType.code | translate}} </td>
-                <td>{{incentiveData.amount}}</td>
+                <td>{{incentiveData.amount | number}}</td>
             </tr>
         </table>
     </div>

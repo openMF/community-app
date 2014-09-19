@@ -153,7 +153,7 @@
                     class="required">*</span></label>
         </td>
         <td class="width36 paddedbottom10">
-            <input id="mandatoryRecommendedDepositAmount" type="text" class="form-control"
+            <input id="mandatoryRecommendedDepositAmount" type="text" number-format class="form-control"
                    ng-model="formData.mandatoryRecommendedDepositAmount">
         </td>
         <td class="width14"><label class="control-label">{{ 'label.input.depositperiod' | translate }}&nbsp;</label>
@@ -230,13 +230,13 @@
         <td colspan="4">
             <div class="form-inline" data-ng-show="formData.preClosurePenalApplicable">
                 <label class="control-label">{{ 'label.checkbox.applypreclosurepenalinterest' |
-                    translate }}&nbsp;&nbsp;{{formData.preClosurePenalInterest}}&nbsp;&nbsp;-&nbsp;&nbsp;On&nbsp;&nbsp;{{data.preClosurePenalInterestOnType.value}}</label>
+                    translate }}&nbsp;&nbsp;{{formData.preClosurePenalInterest | number}}&nbsp;&nbsp;-&nbsp;&nbsp;On&nbsp;&nbsp;{{data.preClosurePenalInterestOnType.value}}</label>
             </div>
         </td>
     </tr>
     <tr ng-show="data.minBalanceForInterestCalculation">
         <td > {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
-        <td>{{data.minBalanceForInterestCalculation}}</td>
+        <td>{{data.minBalanceForInterestCalculation | number}}</td>
     </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
@@ -308,7 +308,7 @@
     <tr ng-repeat="charge in charges">
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
-        <td><input id="charges[{{$index}}].amount" class="form-control" type="text" ng-model="charge.amount"
+        <td><input id="charges[{{$index}}].amount" class="form-control" number-format type="text" ng-model="charge.amount"
                    placeholder="{{'label.placeholder.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
         <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
@@ -324,7 +324,7 @@
                    ng-model="charge.feeOnMonthDay" is-open="opened"/>
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-            <input id="charges[{{$index}}].amount" class="form-control" type="text"
+            <input id="charges[{{$index}}].amount" class="form-control" number-format type="text"
                    ng-model="charge.feeInterval"/>
         </td>
         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
@@ -355,7 +355,7 @@
                 <td>{{incentiveData.conditionType.code | translate}} </td>
                 <td>{{incentiveData.attributeValueDesc}} </td>
                 <td>{{incentiveData.incentiveType.code | translate}} </td>
-                <td>{{incentiveData.amount}}</td>
+                <td>{{incentiveData.amount | number}}</td>
             </tr>
         </table>
     </div>
