@@ -78,7 +78,8 @@
 				<hr>
 			</div>
 			<div class="span">
-				<div class="col-sm-5 col-md-5" ng-hide="noData" ng-show="collectionsheetdata" style="padding-right:0px;">
+				<div class="col-sm-5 col-md-5" ng-hide="noData" ng-show="collectionsheetdata" 
+					 style="padding-right:0px; padding-left:0px;">
 					<div>
 						<table class="table table-bordered" ng-show="collectionsheetdata" data-anchor>
 							<thead>
@@ -95,9 +96,9 @@
 									<td colspan="3"><b>{{group.groupName}}</b></td>
 								</tr>
 								<tr ng-repeat="client in group.clients">
-									<td style="height:40px"><b>{{client.clientId}}</b></td>
-									<td>{{client.clientName}}</td>
-									<td>
+									<td style="height:40px; width:10%;"><b>{{client.clientId}}</b></td>
+									<td style="width:60%;">{{client.clientName}}</td>
+									<td style="width:30%;">
 										<select id="clientsAttendance[{{$index}}][attendanceType]"
 											ng-model="client.attendanceType.id" class="input-sm form-control"
 											ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
@@ -130,18 +131,20 @@
 				<div class="col-sm-7 col-md-7" style="padding-left:0px;">
 					<div ng-show="collectionsheetdata"
 						style="float:left; max-width:620px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
-						<table class="table table-bordered">
+						<table class="table table-bordered" ng-show="collectionsheetdata">
 							<thead>
 								<tr>
 									<th class="highlightcol" scope="colgroup"
+										ng-show="collectionsheetdata.loanProducts" 
 										colspan="{{collectionsheetdata.loanProducts.length}}">
 										{{'label.heading.duecollections' |  translate}}
 									</th>
 									<th class="highlightcol" scope="colgroup"
+										ng-show="collectionsheetdata.savingsProducts" 
 										colspan="{{collectionsheetdata.savingsProducts.length}}">
 										{{'label.heading.due.savings.collections' |  translate}}
 									</th>
-									<th>Client Collection</th>
+									<th ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts">Client Collection</th>
 								</tr>
 								<tr>
 									<th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
@@ -150,16 +153,14 @@
 									<th scope="colgroup" ng-repeat="savingproduct in collectionsheetdata.savingsProducts">
 										{{savingproduct.name}}
 									</th>
-									<th scope="colgroup" ng-hide="collectionsheetdata.loanProducts">No Loans in Collection</th>
-									<th scope="colgroup" ng-hide="collectionsheetdata.savingsProducts">No Savings in Collection</th>
-									<th scope="colgroup">Line Total</th>
+									<th ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" scope="colgroup">Line Total</th>
 								</tr>
 							</thead>
 							<tbody ng-repeat="group in collectionsheetdata.groups">
 								<tr>
-									<td scope="colgroup" class="graybg" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
-									<td scope="colgroup" class="graybg" colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;</td>
-									<td scope="colgroup" class="graybg">&nbsp;</td>
+									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.loanProducts" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
+									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.savingsProducts" colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;</td>
+									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts">&nbsp;</td>
 								</tr>
 								<tr ng-repeat="client in group.clients">
 									<td ng-repeat="loanproduct in collectionsheetdata.loanProducts" style="margin:0px; padding-left:0px; padding-right:0px">
@@ -192,9 +193,7 @@
 											</td>
 										</table>
 									</td>
-									<td style="height:40px" ng-hide="collectionsheetdata.loanProducts">&nbsp;</td>
-									<td style="height:40px" ng-hide="collectionsheetdata.savingsProducts">&nbsp;</td>
-									<td style="height:40px">
+									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px">
 										<span>
 											<div class="col-md-3">
 												<input type="text" class="input-sm form-control" ng-value="0" disabled="disabled">
@@ -225,9 +224,7 @@
 											<b>{{grouptotal.dueAmount}}</b>
 										</span>
 									</td>
-									<td style="height:40px" class="graybg" ng-hide="collectionsheetdata.loanProducts">&nbsp;</td>
-									<td style="height:40px" class="graybg" ng-hide="collectionsheetdata.savingsProducts">&nbsp;</td>
-									<td style="height:40px" class="graybg"><span><b>0</b></span></td>
+									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px" class="graybg"><span><b>0</b></span></td>
 								</tr>
 							</tbody>
 							<tfoot>
@@ -242,16 +239,14 @@
 											<b>{{total.dueAmount}}</b>
 										</span>
 									</td>
-									<td style="height:40px" class="graybg" ng-hide="collectionsheetdata.loanProducts">&nbsp;</td>
-									<td style="height:40px" class="graybg" ng-hide="collectionsheetdata.savingsProducts">&nbsp;</td>
-									<td style="height:40px" class="graybg"><span><b>0</b></span></td>
+									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px" class="graybg"><span><b>0</b></span></td>
 								</tr>
 							</tfoot>
 						</table>
 					</div>
 				</div>
 			</div>
-			<div ng-hide="noData" ng-show="collectionsheetdata" class="col-sm-3 col-md-3 paddedtop10">
+			<div ng-hide="noData" ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" class="col-sm-3 col-md-3 paddedtop10">
 				<strong><h4 style="background-color: #D6D6C2">{{'label.heading.totalduecollections' | translate}}</h4></strong>			
 				<div class="templatekeys" style="background-color:#8585FF!important"
 					 ng-repeat="loanDueTotalCollection in totalDueCollection">
