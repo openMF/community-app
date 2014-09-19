@@ -20,7 +20,7 @@
 
             scope.submit = function () {
                 scope.staffData.staffId = scope.formData.fieldOfficerId;
-                resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignFieldOfficer'}, scope.staffData, function (data) {
+                resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignSavingsOfficer'}, scope.staffData, function (data) {
                     location.path('/viewsavingaccount/' + scope.accountNo);
                 });
 

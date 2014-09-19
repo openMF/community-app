@@ -5,13 +5,14 @@
             scope.loanOfficers = [];
             scope.formData = {};
             scope.staffData = {};
+            scope.paramData = {};
             scope.accountNo = routeParams.id;
 
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
                 if(data.fieldOfficerOptions) {
                     scope.fieldOfficers = data.fieldOfficerOptions;
-                    scope.formData.fieldOfficerId = data.fieldOfficerOptions[0].id;
+                    scope.paramData.toSavingsOfficerId = data.fieldOfficerOptions[0].id;
                 }
                 scope.data = data;
             });
@@ -22,8 +23,10 @@
             };
 
             scope.submit = function () {
-                scope.staffData.staffId = scope.formData.fieldOfficerId;
-                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignFieldOfficer'}, scope.staffData, function (data) {
+                console.log("print",scope);
+                this.paramData.fromSavingsOfficerId = scope.data.fieldOfficerId || "";
+                console.log("this.paramdata",this.paramData);
+                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignSavingsOfficer'}, this.paramData, function (data) {
                     location.path('/viewsavingaccount/' + scope.data.accountNo);
                 });
             };
