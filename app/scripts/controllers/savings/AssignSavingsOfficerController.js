@@ -12,7 +12,7 @@
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
                 if(data.fieldOfficerOptions) {
                     scope.fieldOfficers = data.fieldOfficerOptions;
-                    scope.paramData.toSavingsOfficerId = data.fieldOfficerOptions[0].id;
+                    scope.formData.toSavingsOfficerId = data.fieldOfficerOptions[0].id;
                 }
                 scope.data = data;
             });
@@ -23,10 +23,11 @@
             };
 
             scope.submit = function () {
-                console.log("print",scope);
-                this.paramData.fromSavingsOfficerId = scope.data.fieldOfficerId || "";
-                console.log("this.paramdata",this.paramData);
-                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignSavingsOfficer'}, this.paramData, function (data) {
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.fromSavingsOfficerId = scope.data.fieldOfficerId || "";
+                this.formData.assignmentDate = dateFilter(this.formData.assignmentDate, scope.df);
+                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignSavingsOfficer'}, this.formData, function (data) {
                     location.path('/viewsavingaccount/' + scope.data.accountNo);
                 });
             };
