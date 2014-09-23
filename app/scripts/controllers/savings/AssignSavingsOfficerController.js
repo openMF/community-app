@@ -5,13 +5,14 @@
             scope.loanOfficers = [];
             scope.formData = {};
             scope.staffData = {};
+            scope.paramData = {};
             scope.accountNo = routeParams.id;
 
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
                 if(data.fieldOfficerOptions) {
                     scope.fieldOfficers = data.fieldOfficerOptions;
-                    scope.formData.fieldOfficerId = data.fieldOfficerOptions[0].id;
+                    scope.formData.toSavingsOfficerId = data.fieldOfficerOptions[0].id;
                 }
                 scope.data = data;
             });
@@ -22,8 +23,11 @@
             };
 
             scope.submit = function () {
-                scope.staffData.staffId = scope.formData.fieldOfficerId;
-                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignFieldOfficer'}, scope.staffData, function (data) {
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.fromSavingsOfficerId = scope.data.fieldOfficerId || "";
+                this.formData.assignmentDate = dateFilter(this.formData.assignmentDate, scope.df);
+                resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignSavingsOfficer'}, this.formData, function (data) {
                     location.path('/viewsavingaccount/' + scope.data.accountNo);
                 });
             };

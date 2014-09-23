@@ -10,11 +10,11 @@
         <fieldset>
             <legend>{{ 'label.heading.assignsavingsofficer' | translate }}</legend>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="fieldOfficerId">{{ 'label.input.tosavingsofficer' | translate }}<span
+                <label class="control-label col-sm-2" for="toSavingsOfficerId">{{ 'label.input.tosavingsofficer' | translate }}<span
                 class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select chosen="fieldOfficers" id="fieldOfficerId" ng-model="formData.fieldOfficerId" class="form-control"
+                    <select chosen="fieldOfficers" id="toSavingsOfficerId" ng-model="formData.toSavingsOfficerId" class="form-control"
                             ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers" value="{{fieldOfficer.id}}">
                         <option style="display:none" value="">{{'label.selectsavingsofficer' | translate}}</option>
                     </select>
@@ -26,7 +26,7 @@
 
                 <div class="col-sm-3">
                     <input class="form-control" sort id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy"
-                           ng-model="assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
+                           ng-model="formData.assignmentDate" is-open="opened" min="minDate" max="'2020-06-22'"/>
                 </div>
             </div>
             <div class="col-md-offset-3">
@@ -34,7 +34,7 @@
                 }}
                 </button>
                 <button id="save" type="submit" ng-disabled="!assignsavingsofficerform.$valid"
-                        has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'
+                        has-permission='UPDATESAVINGSOFFICER_SAVINGSACCOUNT'
                         class="btn btn-primary">{{'label.button.save' | translate }}
                 </button>
             </div>

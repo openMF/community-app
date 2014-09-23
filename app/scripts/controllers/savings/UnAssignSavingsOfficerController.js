@@ -8,9 +8,6 @@
             scope.accountNo = routeParams.id;
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
-                if(data.fieldOfficerOptions) {
-                    scope.formData.fieldOfficerId = data.fieldOfficerId;
-                }
                 scope.data = data;
             });
 
@@ -20,7 +17,10 @@
 
             scope.submit = function () {
                 scope.staffData.staffId = scope.formData.fieldOfficerId;
-                resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignFieldOfficer'}, scope.staffData, function (data) {
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.unassignedDate = dateFilter(this.formData.unassignedDate, scope.df);
+                resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignSavingsOfficer'}, this.formData, function (data) {
                     location.path('/viewsavingaccount/' + scope.accountNo);
                 });
 
