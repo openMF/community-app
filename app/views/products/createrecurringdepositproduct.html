@@ -59,7 +59,7 @@
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.multiplesof' | translate }}<span class="required">*</span></label>
 	    <div class="col-sm-2">
-	        <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" ng-model="formData.inMultiplesOf"
+	        <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" number-format ng-model="formData.inMultiplesOf"
 	               required late-validate/>
 	    </div>
 	    <div class="col-sm-2">
@@ -72,7 +72,7 @@
 	    <label class="control-label col-sm-2">{{ 'label.input.default.deposit.amount' | translate }}<span class="required">*</span></label>
 	    <div class="col-sm-2">
 	        <input type="text" id="depositAmount" name="depositAmount" class="form-control"
-	               ng-model="formData.depositAmount" required late-validate/>
+                   number-format ng-model="formData.depositAmount" required late-validate/>
 	    </div>
 	    <div class="col-sm-2">
 	        <form-validate valattributeform="createrecurringdepositproductform" valattribute="depositAmount"/>
@@ -82,12 +82,12 @@
 	    <label class="control-label col-sm-2">{{ 'label.input.minDepositAmount' | translate }}</label>
 	    <div class="col-sm-2">
 	        <input type="text" id="minDepositAmount" name="minDepositAmount" class="form-control"
-	               ng-model="formData.minDepositAmount" />
+                   number-format ng-model="formData.minDepositAmount" />
 	    </div>
 	    <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.maxDepositAmount' | translate }}</label>
 	    <div class="col-sm-2">
 	        <input type="text" id="maxDepositAmount" name="maxDepositAmount" class="form-control"
-	               ng-model="formData.maxDepositAmount" />
+                   number-format ng-model="formData.maxDepositAmount" />
 	    </div>
 	</div>
 	<div class="form-group">
@@ -209,7 +209,7 @@
 	    </div>
 	    <div class="col-sm-2">
 	        <input id="preClosurePenalInterest" name="preClosurePenalInterest" type="text"
-	               class="form-control" ng-model="formData.preClosurePenalInterest"/>
+	               class="form-control" number-format ng-model="formData.preClosurePenalInterest"/>
 	    </div>
 	    <div class="col-sm-1 col-sm-offset-1">
 	        {{ 'label.on' | translate }}
@@ -226,7 +226,7 @@
         <label class="control-label col-sm-2">{{ 'label.input.minbalanceforinterest' | translate }}</label>
         <div class="col-sm-2">
             <input id="minBalanceForInterestCalculation" name="minBalanceForInterestCalculation" type="text"
-                   class="form-control" ng-model="formData.minBalanceForInterestCalculation"/>
+                   class="form-control" number-format ng-model="formData.minBalanceForInterestCalculation"/>
         </div>
 
     </div>
@@ -362,7 +362,7 @@
 	        <tr ng-repeat="charge in charges">
 	            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 	            <td>{{charge.chargeCalculationType.value}}</td>
-	            <td>{{charge.amount}}</td>
+	            <td>{{charge.amount | number}}</td>
 	            <td>{{charge.chargeTimeType.value}}</td>
 	            <td><a href="" ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
 	        </tr>
