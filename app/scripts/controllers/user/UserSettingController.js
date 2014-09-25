@@ -13,21 +13,40 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
             }
+            
             translate.uses(scope.optlang.code);
+            
             scope.dates = [
                 'dd MMMM yyyy',
                 'dd/MMMM/yyyy',
                 'dd-MMMM-yyyy',
+                'dd-MM-yy',
                 'MMMM-dd-yyyy',
                 'MMMM dd yyyy',
-                'MMMM/dd/yyyy'
+                'MMMM/dd/yyyy',
+                'MM-dd-yy'
             ];
+            
+            if (localStorageService.get('dateformat')) {
+                var temp = localStorageService.get('dateformat');
+
+                for (var i = 0; i < scope.dates.length; i++) {
+                    if (scope.dates[i] == temp) {
+                        scope.dateformat = scope.dates[i];
+                        break;
+                    }
+                }
+            } else {
+                scope.dateformat = scope.dates[0];
+            }
+            
             scope.$watch(function () {
                 return scope.dateformat;
             }, function () {
                 localStorageService.add('dateformat', scope.dateformat);
                 scope.df = scope.dateformat;
             });
+            
             scope.langs = mifosX.models.Langs;
             scope.changeLang = function (lang) {
                 translate.uses(lang.code);
