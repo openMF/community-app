@@ -20,10 +20,11 @@
             scope.search = function () {
                 scope.isCollapsed = true;
                 scope.displayResults = true;
-                var reqFirstDate = dateFilter(scope.date.first, scope.df);
-                var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                var reqThirdDate = dateFilter(scope.date.third, scope.df);
-                var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
+                var reqFirstDate = dateFilter(scope.date.first, 'yyyy-MM-dd');
+                var reqSecondDate = dateFilter(scope.date.second, 'yyyy-MM-dd');
+                var reqThirdDate = dateFilter(scope.date.third, 'yyyy-MM-dd');
+                var reqFourthDate = dateFilter(scope.date.fourth, 'yyyy-MM-dd');
+
                 var params = {};
                 if (scope.formData.action) {
                     params.actionName = scope.formData.action;
@@ -61,7 +62,7 @@
                 ;
 
                 if (scope.date.second) {
-                    params.makerDateTimeto = reqSecondDate;
+                    params.makerDateTimeTo = reqSecondDate;
                 }
                 ;
 
@@ -96,7 +97,7 @@
                     scope.row = ['Id', 'Resource Id', 'Status', 'Office', 'Made on', 'Maker', 'Checked on', 'Checker', 'Entity', 'Action', 'Client'];
                     scope.csvData.push(scope.row);
                     for (var i in scope.searchData) {
-                        scope.row = [scope.searchData[i].id, scope.searchData[i].resourceId, scope.searchData[i].processingResult, scope.searchData[i].officeName, dateFilter(scope.searchData[i].madeOnDate, 'd MMMM y h:mm:ss'), scope.searchData[i].maker, dateFilter(scope.searchData[i].checkedOnDate, 'd MMMM y h:mm:ss'), scope.searchData[i].checker, scope.searchData[i].entityName, scope.searchData[i].actionName, scope.searchData[i].clientName];
+                        scope.row = [scope.searchData[i].id, scope.searchData[i].resourceId, scope.searchData[i].processingResult, scope.searchData[i].officeName,dateFilter(scope.searchData[i].madeOnDate, 'yyyy-MM-dd'), scope.searchData[i].maker, dateFilter(scope.searchData[i].checkedOnDate, 'yyyy-MM-dd hh:mm:ss'), scope.searchData[i].checker, scope.searchData[i].entityName, scope.searchData[i].actionName, scope.searchData[i].clientName];
                         scope.csvData.push(scope.row);
                     }
                 });
