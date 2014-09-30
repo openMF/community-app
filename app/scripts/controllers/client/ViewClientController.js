@@ -34,6 +34,7 @@
                     }).then(function (imageData) {
                         scope.image = imageData.data;
                     });
+
                 }
                 http({
                     method: 'GET',
@@ -47,6 +48,7 @@
                         }
                     }
                 });
+
                 
                 var clientStatus = new mifosX.models.ClientStatus();
 
@@ -462,6 +464,24 @@
                 scope.inventureScore = inventureScore;
             };
 
+            scope.showSignature = function()
+            {
+                $modal.open({
+                    templateUrl: 'clientSignature.html',
+                    controller: ViewLargerClientSignature,
+                    size: "lg"
+                });
+             };
+
+            scope.showWithoutSignature = function()
+            {
+                $modal.open({
+                    templateUrl: 'clientWithoutSignature.html',
+                    controller: ViewClientWithoutSignature,
+                    size: "lg"
+                });
+            };
+
             scope.showPicture = function () {
                 $modal.open({
                     templateUrl: 'photo-dialog.html',
@@ -469,6 +489,40 @@
                     size: "lg"
                 });
             };
+
+            var ViewClientWithoutSignature = function($scope,$modalInstance){
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+            var ViewLargerClientSignature = function($scope,$modalInstance){
+                    var loadSignature = function(){
+                     http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
+                     }).then(function (docsData) {
+                        var docId = -1;
+                        for (var i = 0; i < docsData.data.length; ++i) {
+                            if (docsData.data[i].name == 'clientSignature') {
+                                docId = docsData.data[i].id;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default';
+                            }
+                        }
+                    if (scope.signature_url != null) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default'
+                    }).then(function (docsData) {
+                            $scope.largeImage = scope.signature_url;
+                        });
+                    }
+                    });
+                };
+                loadSignature();
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+             };
 
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
                 var loadImage = function () {
