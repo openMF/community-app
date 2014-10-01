@@ -139,7 +139,7 @@
                    
                     //fill up the initial form data for each client
                     for (var key in scope.formData) {
-                        if (key != "clients") {
+                        if (key != "clients" && key != "syncRepaymentsWithMeeting" && key != "syncDisbursementWithMeeting") {
                             scope.formData.clients[i][key] = scope.formData[key];
                         }
                     }
