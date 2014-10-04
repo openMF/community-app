@@ -60,6 +60,11 @@
                     scope.opensavingsproduct = 'false';
                 }
 
+                if (data.timeline.submittedOnDate) {
+                    var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
+                    scope.date.submittedOnDate = new Date(submittedOnDate);
+                }
+
             });
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
@@ -74,6 +79,10 @@
                 }
                 if(scope.date.dateOfBirth){
                     this.formData.dateOfBirth = dateFilter(scope.date.dateOfBirth,  scope.df);
+                }
+
+                if(scope.date.submittedOnDate){
+                    this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate,  scope.df);
                 }
 
                 resourceFactory.clientResource.update({'clientId': routeParams.id}, this.formData, function (data) {
