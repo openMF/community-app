@@ -37,6 +37,22 @@
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
     </script>
+    <script type="text/ng-template" id="clientSignature.html">
+        <div class="modal-header silver">
+            <img ng-src="{{largeImage}}" alt="Signature">
+        </div>
+        <div class="modal-body ">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="clientWithoutSignature.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.noClientSignature' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.ok' | translate}}</button>
+        </div>
+    </script>
 
     <script type="text/ng-template" id="uploadpic.html">
     <div class="modal-header silver">
@@ -323,10 +339,10 @@
 				    	<div class="thumbnail row">
 				    		<h4><strong>{{client.displayName}}</strong></h4>
 					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-				        	<img ng-show="client.imagePresent" ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()">
-				        	<div ng-show="client.imagePresent" class="show-large-picture" data-ng-click="showPicture()">{{'label.zoom' | translate}}</div>
-                            <img ng-show="signature_url" ng-src="{{signature_url}}" alt="Signature">
-				        	<table class="table-minified">
+				        	<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
+                            <div ng-show="signature_url" class="show-large-picture" data-ng-click="showSignature()">{{'label.showClientSignature' | translate}}</div>
+                            <div ng-hide="signature_url" class="show-large-picture" data-ng-click="showWithoutSignature()">{{'label.showClientSignature' | translate}}</div>
+                            <table class="table-minified">
 					            <tr>
 					                <th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
 					                <td><span class="padded-td">{{client.timeline.activatedOnDate | DateFormat}}<span
