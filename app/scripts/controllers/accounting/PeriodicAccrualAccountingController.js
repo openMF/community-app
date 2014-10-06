@@ -11,7 +11,7 @@
                 var reqDate = dateFilter(scope.accrueTill, scope.df);
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                this.formData.accrueTill = reqDate;
+                this.formData.tillDate = reqDate;
                 resourceFactory.periodicAccrualAccountingResource.run(this.formData, function (data) {
                     location.path('/accounting');
                 });
