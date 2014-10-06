@@ -6,6 +6,11 @@
             scope.formData = {};
             scope.isCollapsed = true;
             scope.loanId = routeParams.id;
+
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
+                scope.data = data;
+                });
+
             resourceFactory.loanChargeTemplateResource.get({loanId: scope.loanId}, function (data) {
                 scope.charges = data.chargeOptions;
             });

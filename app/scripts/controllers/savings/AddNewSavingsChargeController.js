@@ -5,7 +5,11 @@
             scope.cancelRoute = routeParams.id;
             scope.date = {};
 
-            resourceFactory.savingsChargeResource.get({accountId: routeParams.id, resourceType: 'template'}, function (data) {
+            resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
+                scope.data = data;
+            });
+
+                resourceFactory.savingsChargeResource.get({accountId: routeParams.id, resourceType: 'template'}, function (data) {
                 scope.chargeOptions = data.chargeOptions;
             });
 

@@ -16,7 +16,7 @@
 
                 <div class="col-sm-3">
                     <select id="chargeId" ng-model="formData.chargeId" class="form-control"
-                            ng-options="charge.id as (charge.name+' '+'('+charge.currency.name+')') for charge in charges"
+                            ng-options="charge.id as (charge.name+' '+'('+charge.currency.name+')') for charge in charges|filter:data.currency.code:strict"
                             value="{{charge.id}}" ng-change="selectCharge()">
                         <option value="">{{'label.selectcharge' | translate}}</option>
                     </select>
