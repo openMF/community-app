@@ -233,7 +233,7 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getView: {method: 'GET', params: {}}
                     }),
-                    periodicAccrualAccountingResource: defineResource(apiVer + "/accrualaccounting", {}, {
+                    periodicAccrualAccountingResource: defineResource(apiVer + "/runaccruals", {}, {
                         run: {method: 'POST', params: {}}
                     }),
                     codeResources: defineResource(apiVer + "/codes/:codeId", {codeId: "@codeId"}, {
