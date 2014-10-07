@@ -1,269 +1,310 @@
-<div class="col-md-12">
-	<ul class="breadcrumb">
-	    <li class="active">{{'label.button.collectionsheet' | translate}}</li>
-	</ul>
-	<form name="collectionsheetform" novalidate class="form-horizontal well" ng-controller="CollectionSheetController">
-		<api-validate></api-validate>
-		<h2><strong ng-show="noData" style="padding-top: 400px !important;">
-			{{'label.norepaymentsanddisbursalareavailable' | translate}}</strong>
-		</h2>		
-		<h2><strong ng-show="val" class="display-save-message">{{'label.savecollectionsheetsuccessfully' |	translate}}</strong></h2>
-		<fieldset ng-hide="val || noData">
-			<div>
-				<div class="form-group">
-					<label class="control-label col-sm-2">{{ 'label.input.branchoffice' | translate }}
-						<span class="required">*</span>
-					</label>	
-					<div class="col-sm-3">
-						<select chosen="offices" id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
-								ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-								ng-change="officeSelected(officeId)" required>
-							<option value="">{{'label.selectoffice' | translate}}</option>
-						</select>
-					</div>
-					<div class="col-sm-3">
-						<form-validate valattributeform="collectionsheetform" valattribute="office"/>
-					</div>
-				</div>			
-				<div class="form-group">
-					<label class="control-label col-sm-2">{{ 'label.input.meetingcalendar' | translate }}
-						<span class="required">*</span>
-					</label>			
-					<div class="col-sm-3">
-						<input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy"
-							ng-model="date.transactionDate" is-open="opened" class="form-control"/>
-					</div>
-				</div>
-				<hr>
-				<div class="form-group">
-					<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>			
-					<div class="col-sm-3">
-						<select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId"
-							ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
-							value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control" required>
-							<option value="">{{'label.selectloanofficer' | translate}}</option>
-						</select>
-					</div>
-					<div class="col-sm-3">
-						<button class="btn btn-primary" ng-click="productiveCollectionSheet()">
-							{{'label.button.productivecollectionsheet' | translate}}
-							<i class="icon-circle-arrow-right"></i></button>
-					</div>
-				</div>	
-				<hr>
-				<div class="form-group">
-					<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>			
-					<div class="col-sm-3">
-						<select chosen="centers" id="centerId" name="center" ng-model="centerId"
-							ng-options="center.id as center.name for center in centers" value="{{center.id}}"
-							ng-change="centerSelected(centerId)" class="form-control">
-							<option value="">{{'label.selectcenter' | translate}}</option>
-						</select>
-					</div>
-				</div>			
-				<div class="form-group">
-					<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>			
-					<div class="col-sm-3">
-						<select chosen="groups" id="groupId" ng-model="groupId" ng-options="group.id as group.name for group in groups"
-							value="{{group.id}}" ng-change="groupSelected(groupId)" class="form-control">
-							<option value="">{{'label.selectgroup' | translate}}</option>
-						</select>
-					</div>
-					<div class="col-sm-3">
-						<button class="btn btn-primary" ng-click="previewCollectionSheet()">
-							{{'label.button.collectionsheet' |	translate}}
-							<i class="icon-circle-arrow-right"></i></button>
-					</div>
-				</div>
-				<hr>
+<div class="col-md-12" ng-controller="CollectionSheetController">
+	<div class="row client">	
+		<ul class="breadcrumb">
+			<li class="active">{{'label.button.collectionsheet' | translate}}</li>
+		</ul>
+		<script type="text/ng-template" id="zeroSheet.html">
+			<div class="modal-header silver">
+				<h3 class="bolder">Zero all values on collection sheet</h3>
 			</div>
-			<div class="span">
-				<div class="col-sm-5 col-md-5" ng-hide="noData" ng-show="collectionsheetdata" 
-					 style="padding-right:0px; padding-left:0px;">
-					<div>
-						<table class="table table-bordered" ng-show="collectionsheetdata" data-anchor>
-							<thead>
-								<tr>
-									<td colspan="3"><b>{{'label.heading.borrowername' | translate}}<b></td>
-								</tr>
-								<tr>
-									<td colspan="2"><b>{{'label.heading.groups/clients' | translate}}</b></td>
-									<td><b>{{'label.heading.attendance' | translate}}</b></td>
-								</tr>								
-							</thead>
-							<tbody ng-repeat="group in collectionsheetdata.groups">
-								<tr class="graybg">
-									<td colspan="3"><b>{{group.groupName}}</b></td>
-								</tr>
-								<tr ng-repeat="client in group.clients">
-									<td style="height:40px; width:10%;"><b>{{client.clientId}}</b></td>
-									<td style="width:60%;">{{client.clientName}}</td>
-									<td style="width:30%;">
-										<select id="clientsAttendance[{{$index}}][attendanceType]"
-											ng-model="client.attendanceType.id" class="input-sm form-control"
-											ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
-											value="{{attendance.id}}">
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3" class="graybg" style="height:40px" ng-show="collectionsheetdata.loanProducts">
-										<b>{{'label.input.grouptotal' | translate}}</b>
-									</td>
-									<td colspan="3" class="graybg" style="height:40px" ng-hide="collectionsheetdata.loanProducts">
-										<span>&nbsp;</span>
-									</td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colspan="3" class="graybg" style="height:40px" ng-show="collectionsheetdata.loanProducts">
-										<b>{{'label.input.total' | translate}}</b>
-									</td>
-									<td colspan="3" class="graybg" style="height:40px" ng-hide="collectionsheetdata.loanProducts">
-										<span>&nbsp;</span>
-									</td>
-								</tr>
-							</tfoot>
-						</table>
+			<div class="modal-body">
+				<api-validate></api-validate>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			</div>
+		</script>
+		<script type="text/ng-template" id="saveSheet.html">
+			<div class="modal-header silver">
+				<h3 class="bolder">Save collection sheet</h3>
+			</div>
+			<div class="modal-body">
+				<api-validate></api-validate>
+				<h2><b>Save all values on collection sheet</b></h2>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			</div>
+		</script>
+		<form name="collectionsheetform" novalidate class="form-horizontal well">
+			<api-validate></api-validate>
+			<h2><strong ng-show="noData" style="padding-top: 400px !important;">
+				{{'label.norepaymentsanddisbursalareavailable' | translate}}</strong>
+			</h2>		
+			<h2><strong ng-show="val" class="display-save-message">{{'label.savecollectionsheetsuccessfully' |	translate}}</strong></h2>
+			<fieldset ng-hide="val || noData">
+				<div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.branchoffice' | translate }}
+							<span class="required">*</span>
+						</label>	
+						<div class="col-sm-3">
+							<select chosen="offices" id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
+									ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+									ng-change="officeSelected(officeId)" required>
+								<option value="">{{'label.selectoffice' | translate}}</option>
+							</select>
+						</div>
+						<div class="col-sm-3">
+							<form-validate valattributeform="collectionsheetform" valattribute="office"/>
+						</div>
+					</div>			
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.meetingcalendar' | translate }}
+							<span class="required">*</span>
+						</label>			
+						<div class="col-sm-3">
+							<input type="text" id="transactionDate" name="transactiondate" datepicker-pop="dd MMMM yyyy"
+								ng-model="date.transactionDate" is-open="opened" class="form-control" 
+								style="max-width:245px; min-width:245px;"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">Collection Type</label>			
+						<div class="col-sm-3">
+							<select chosen="collectionType" ng-model="collectionType" 
+								ng-change="collectionTypeSelected()" 
+								value="" class="form-control" >
+								<option value="0" >{{'label.anchor.all' | translate }}</option>
+								<option value="1">{{'label.heading.loanaccount' | translate }}</option>
+								<option value="2">{{'label.heading.savingaccount' | translate }}</option>
+							</select>
+						</div>
+					</div>	
+					<hr>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>			
+						<div class="col-sm-3">
+							<select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId"
+								ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+								value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control" required>
+								<option value="">{{'label.selectloanofficer' | translate}}</option>
+							</select>
+						</div>
+						<div class="col-md-offset-3">
+							<button class="btn btn-primary" ng-click="productiveCollectionSheet()">
+								{{'label.button.productivecollectionsheet' | translate}}
+								<i class="icon-circle-arrow-right"></i>
+							</button>
+						</div>
+					</div>	
+					<hr>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>			
+						<div class="col-sm-3">
+							<select chosen="centers" id="centerId" name="center" ng-model="centerId"
+								ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+								ng-change="centerSelected(centerId)" class="form-control">
+								<option value="">{{'label.selectcenter' | translate}}</option>
+							</select>
+						</div>
+					</div>			
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>			
+						<div class="col-sm-3">
+							<select chosen="groups" id="groupId" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+								value="{{group.id}}" ng-change="groupSelected(groupId)" class="form-control">
+								<option value="">{{'label.selectgroup' | translate}}</option>
+							</select>
+						</div>
+						<div class="col-md-offset-3">
+							<button class="btn btn-success pull-left" ng-click="previewCollectionSheet()">
+								{{'label.button.collectionsheet' |	translate}}
+								<i class="icon-circle-arrow-right"></i>
+							</button>
+							<button class="btn btn-danger pull-left" ng-show="collectionsheetdata" ng-click="zeroCollectionSheet()">
+								Zero all Values
+								<i class="icon-repeat"></i>
+							</button>
+						</div>
+					</div>
+					<hr>
+				</div>
+				<div class="span">
+					<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control"
+						ng-show="collectionsheetdata" placeholder="{{'label.input.filterbyname' | translate}}">
+					<div class="col-sm-5 col-md-5" ng-hide="noData" ng-show="collectionsheetdata" 
+						 style="padding-right:0px; padding-left:0px;">
+						<div>
+							<table class="table table-bordered" ng-show="collectionsheetdata" data-anchor>
+								<thead>
+									<tr>
+										<td colspan="3"><b>{{'label.heading.borrowername' | translate}}<b></td>
+									</tr>
+									<tr>
+										<td colspan="2"><b>{{'label.heading.groups/clients' | translate}}</b></td>
+										<td><b>{{'label.heading.attendance' | translate}}</b></td>
+									</tr>								
+								</thead>
+								<tbody ng-repeat="group in collectionsheetdata.groups">
+									<tr class="graybg">
+										<td colspan="3"><b>{{group.groupName}}</b></td>
+									</tr>
+									<tr ng-repeat="client in group.clients | filter:filterText">
+										<td style="height:40px; width:10%;"><b>{{client.clientId}}</b></td>
+										<td style="width:60%;">{{client.clientName}}</td>
+										<td style="width:30%;">
+											<select id="clientsAttendance[{{$index}}][attendanceType]"
+												ng-model="client.attendanceType.id" class="input-sm form-control"
+												ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
+												value="{{attendance.id}}">
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3" class="graybg" style="height:40px" ng-show="collectionsheetdata">
+											<b>{{'label.input.grouptotal' | translate}}</b>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="3" class="graybg" style="height:40px" ng-show="collectionsheetdata">
+											<b>{{'label.input.total' | translate}}</b>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+					<div class="col-sm-7 col-md-7" style="padding-left:0px;">
+						<div ng-show="collectionsheetdata"
+							style="float:left; max-width:642px; min-width:642px; overflow-x:auto!important; white-space:nowrap;">
+							<table class="table table-bordered" ng-show="collectionsheetdata">
+								<thead>
+									<tr>
+										<th class="highlightcol" scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}"
+											ng-show="collectionsheetdata.loanProducts" ng-if="collectionType != '2'">
+											{{'label.heading.duecollections' |  translate}}
+										</th>
+										<th class="highlightcol" scope="colgroup" colspan="{{collectionsheetdata.savingsProducts.length}}"
+											ng-show="collectionsheetdata.savingsProducts" ng-if="collectionType != '1'">
+											{{'label.heading.due.savings.collections' |  translate}}
+										</th>
+										<th class="graybg">Client Collection</th>
+									</tr>
+									<tr>
+										<th ng-if="collectionType != '2'" scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+											{{loanproduct.name}}/{{'label.heading.due' | translate}}/{{'label.heading.charges' | translate}}
+										</th>
+										<th ng-if="collectionType != '1'" scope="colgroup" ng-repeat="savingproduct in collectionsheetdata.savingsProducts">
+											{{savingproduct.name}}/{{'label.button.deposit' | translate}}/{{'label.button.withdraw' | translate}}
+										</th>
+										<th scope="colgroup">Line Total</th>
+									</tr>
+								</thead>
+								<tbody ng-repeat="group in collectionsheetdata.groups">
+									<tr>
+										<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.loanProducts" ng-if="collectionType != '2'" 
+											colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;
+										</td>
+										<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.savingsProducts" ng-if="collectionType != '1'" 
+											colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;
+										</td>
+										<td scope="colgroup" class="graybg">&nbsp;</td>
+									</tr>
+									<tr ng-repeat="client in group.clients | filter:filterText">
+										<td ng-if="collectionType != '2'" ng-repeat="loanproduct in collectionsheetdata.loanProducts" style="margin:0px; padding-left:0px; padding-right:0px">
+											<table style="margin:0px; padding:0px; border:none;">
+												<td style="white-space:nowrap; padding-left:0px; padding-right:0px" ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
+													<table style="margin:0px; padding:0px; border:none;">
+														<td>#{{loan.accountId}}&nbsp;:&nbsp;&nbsp;</td>
+														<td>
+															<input id="total" number-format type="text" class="input-sm form-control" style="min-width:100px;"
+																ng-model="loan.totalDue" ng-change="sumTotalDueCollection()">													
+														</td>
+														<td>
+															<input number-format type="text" class="input-sm form-control" style="min-width:100px;"
+																ng-model="loan.chargesDue" ng-change="sumTotalDueCollection()">
+														</td>
+													</table>
+												</td>
+											</table>									
+										</td>
+										<td ng-if="collectionType != '1'" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts" style="margin:0px; padding-left:0px; padding-right:0px">
+											<table style="margin:0px; padding:0px; border:none;">
+												<td style="white-space:nowrap; padding-left:0px; padding-right:0px" ng-repeat="savings in client.savings" ng-show="savingsproduct.id == savings.productId">
+													<table style="margin:0px; padding:0px; border:none;">
+														<td>#{{savings.accountId}}&nbsp;:&nbsp;&nbsp;</td>
+														<td>
+															<input id="dueAmount" number-format type="text" class="input-sm form-control" 
+																style="background-color:#DFFFE8; min-width:100px;"
+																ng-model="savings.dueAmount" ng-change="sumTotalDueCollection()">										
+														</td>
+														<td>
+															<input id="withdrawalAmount" number-format type="text" class="input-sm form-control" 
+																style="background-color:#FFBFCF; min-width:100px;"
+																ng-model="savings.withdrawalAmount" ng-change="sumTotalDueCollection()">												
+														</td>
+													</table>
+												</td>
+											</table>
+										</td>
+										<td style="height:40px">
+											<input type="text" class="input-sm form-control" ng-value="0" disabled="disabled">
+										</td>
+									</tr>
+									<tr>
+										<td ng-if="collectionType != '2'" class="graybg" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+											<span ng-repeat="grouptotal in loanGroupsTotal"
+												ng-show="grouptotal.groupId === group.groupId && loanproduct.id === grouptotal.productId">
+												<b>{{ 'label.anchor.collections' | translate }}&nbsp;:&nbsp;{{grouptotal.dueAmount}}</b>
+											</span>
+										</td>
+										<td ng-if="collectionType != '1'" class="graybg" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+											<span ng-repeat="grouptotal in savingsGroupsTotal"
+												ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
+												<b>
+													{{'label.button.deposit' | translate}}&nbsp;:&nbsp;{{grouptotal.dueAmount}}&nbsp;|&nbsp;
+													{{'label.button.withdraw' | translate}}&nbsp;:&nbsp;{{grouptotal.withdrawalAmount}}&nbsp;|&nbsp;
+													{{ 'label.anchor.collections' | translate }}&nbsp;:&nbsp;{{grouptotal.totalDue}}</b>
+											</span>
+										</td>
+										<td style="height:40px" class="graybg">&nbsp;</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td ng-if="collectionType != '2'" class="graybg" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+											<span ng-repeat="total in loansTotal" ng-show="loanproduct.id == total.productId">
+												<b>{{ 'label.anchor.collections' | translate }}&nbsp;:&nbsp;{{total.dueAmount}}</b>
+											</span>
+										</td>
+										<td ng-if="collectionType != '1'" class="graybg" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
+											<span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
+												<b>
+													{{'label.button.deposit' | translate}}&nbsp;:&nbsp;{{total.dueAmount}}&nbsp;|&nbsp;
+													{{'label.button.withdraw' | translate}}&nbsp;:&nbsp;{{total.withdrawalAmount}}&nbsp;|&nbsp;
+													{{ 'label.anchor.collections' | translate }}&nbsp;:&nbsp;{{total.totalDue}}
+												</b>
+											</span>
+										</td>
+										<td style="height:40px" class="graybg">&nbsp;</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
 					</div>
 				</div>
-				<div class="col-sm-7 col-md-7" style="padding-left:0px;">
-					<div ng-show="collectionsheetdata"
-						style="float:left; max-width:620px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
-						<table class="table table-bordered" ng-show="collectionsheetdata">
-							<thead>
-								<tr>
-									<th class="highlightcol" scope="colgroup"
-										ng-show="collectionsheetdata.loanProducts" 
-										colspan="{{collectionsheetdata.loanProducts.length}}">
-										{{'label.heading.duecollections' |  translate}}
-									</th>
-									<th class="highlightcol" scope="colgroup"
-										ng-show="collectionsheetdata.savingsProducts" 
-										colspan="{{collectionsheetdata.savingsProducts.length}}">
-										{{'label.heading.due.savings.collections' |  translate}}
-									</th>
-									<th ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts">Client Collection</th>
-								</tr>
-								<tr>
-									<th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
-										{{loanproduct.name}}/{{'label.heading.charges' | translate}}
-									</th>
-									<th scope="colgroup" ng-repeat="savingproduct in collectionsheetdata.savingsProducts">
-										{{savingproduct.name}}
-									</th>
-									<th ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" scope="colgroup">Line Total</th>
-								</tr>
-							</thead>
-							<tbody ng-repeat="group in collectionsheetdata.groups">
-								<tr>
-									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.loanProducts" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
-									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.savingsProducts" colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;</td>
-									<td scope="colgroup" class="graybg" ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts">&nbsp;</td>
-								</tr>
-								<tr ng-repeat="client in group.clients">
-									<td ng-repeat="loanproduct in collectionsheetdata.loanProducts" style="margin:0px; padding-left:0px; padding-right:0px">
-										<table style="margin:0px; padding:0px; border:none;">
-											<td style="white-space:nowrap; padding-left:0px; padding-right:0px" ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
-												<table style="margin:0px; padding:0px; border:none;">
-													<td>#{{loan.accountId}}&nbsp;:&nbsp;&nbsp;</td>
-													<td>
-														<input id="total" number-format type="text" class="input-sm form-control" style="min-width:150px;"
-															ng-model="loan.totalDue" ng-change="sumTotalDueCollection()">														
-													</td>
-													<td>
-														<input number-format type="text" class="input-sm form-control" style="min-width:100px;"
-															ng-model="loan.chargesDue" ng-change="sumTotalDueCollection()">
-													</td>
-												</table>
-											</td>
-										</table>									
-									</td>
-									<td style="height:40px" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts" style="margin:0px; padding-left:0px; padding-right:0px">
-										<table style="margin:0px; padding:0px; border:none;">
-											<td style="white-space:nowrap; padding-left:0px; padding-right:0px" ng-repeat="savings in client.savings" ng-show="savingsproduct.id == savings.productId">
-												<table style="margin:0px; padding:0px; border:none;">
-													<td>#{{savings.accountId}}&nbsp;:&nbsp;&nbsp;</td>
-													<td>
-														<input id="dueAmount" number-format type="text" class="input-sm form-control" style="min-width:150px;"
-															ng-model="savings.dueAmount" ng-change="sumTotalDueCollection()">														
-													</td>
-												</table>
-											</td>
-										</table>
-									</td>
-									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px">
-										<span>
-											<div class="col-md-3">
-												<input type="text" class="input-sm form-control" ng-value="0" disabled="disabled">
-											</div>
-										</span>
-									</td>
-								</tr>
-								<tr>
-									<!--<td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
-												  <span ng-repeat="grouptotal in groupTotal"
-														ng-show="grouptotal.groupId == group.groupId">
-													<span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup"
-														  ng-show="loanproduct.id == loanProductArray.productId">
-													  <input type="text" class="input-sm form-control"
-															 ng-model="loanProductArray.transactionAmount" disabled="disabled">
-													</span>
-												  </span>
-									</td>-->
-									<td style="height:40px" class="graybg" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
-										<span ng-repeat="grouptotal in loanGroupsTotal"
-											ng-show="grouptotal.groupId === group.groupId && loanproduct.id === grouptotal.productId">
-											<b>{{grouptotal.dueAmount}}</b>
-										</span>
-									</td>
-									<td style="height:40px" class="graybg" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
-										<span ng-repeat="grouptotal in savingsGroupsTotal"
-											ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
-											<b>{{grouptotal.dueAmount}}</b>
-										</span>
-									</td>
-									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px" class="graybg"><span><b>0</b></span></td>
-								</tr>
-							</tbody>
-							<tfoot>
-								<tr>
-									<td style="height:40px" class="graybg" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
-										<span ng-repeat="total in loansTotal" ng-show="loanproduct.id == total.productId">
-											<b>{{total.dueAmount}}</b>
-										</span>
-									</td>
-									<td style="height:40px" class="graybg" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
-										<span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
-											<b>{{total.dueAmount}}</b>
-										</span>
-									</td>
-									<td ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" style="height:40px" class="graybg"><span><b>0</b></span></td>
-								</tr>
-							</tfoot>
-						</table>
+				<div class="col-sm-12 col-md-12 paddedtop10">
+					<div ng-show="collectionsheetdata" class="pull-left">
+						<div class="templatekeys" style="background-color:#575748!important">{{'label.heading.totalduecollections' | translate}}</div>			
+						<div class="templatekeys" style="background-color:#8585FF!important"
+							 ng-repeat="loanDueTotalCollection in totalDueCollection">
+							{{loanDueTotalCollection.currencySymbol}}&nbsp;&nbsp;
+							{{loanDueTotalCollection.dueAmount}}
+						</div>
+					</div>
+					<div class="pull-right">
+						<button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |	translate}}</button>
+						<button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
+								ng-click="submit()">{{'label.button.save' | translate}}
+						</button>
 					</div>
 				</div>
-			</div>
-			<div ng-hide="noData" ng-show="collectionsheetdata.loanProducts || collectionsheetdata.savingsProducts" class="col-sm-3 col-md-3 paddedtop10">
-				<strong><h4 style="background-color: #D6D6C2">{{'label.heading.totalduecollections' | translate}}</h4></strong>			
-				<div class="templatekeys" style="background-color:#8585FF!important"
-					 ng-repeat="loanDueTotalCollection in totalDueCollection">
-					{{loanDueTotalCollection.currencySymbol}}&nbsp;&nbsp;
-					{{loanDueTotalCollection.dueAmount}}
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-12 paddedtop10">
-				<div class="col-md-offset-3 paddedtop">
-					<button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
-						translate}}
-					</button>
-					<button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
-							ng-click="submit()">{{'label.button.save' | translate}}
-					</button>
-				</div>
-			</div>
-		</fieldset>
-	</form>
+			</fieldset>
+		</form>
+	</div>
 </div>
