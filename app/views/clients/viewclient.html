@@ -62,10 +62,14 @@
         <api-validate></api-validate>
         <br>
         <input type="file" ng-file-select="onFileSelect($files)">
+        <webcam on-streaming="onSuccess(video)"></webcam>
+        <button class="btn btn-warning" ng-click="makeSnapshot()">Capture</button>
+        <canvas class="well pull-right" id="snapshot" width="320" height="240"></canvas>
     </div>
     <div class="modal-footer">
         <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+        <button class="btn btn-primary" ng-click="upload()">{{'label.button.cancel' | translate}} File</button>
+        <button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}} Pic</button>
     </div>
 	</script>
 	<script type="text/ng-template" id="clientunassignstaff.html">
