@@ -25,7 +25,7 @@
 	                    <label class="control-label col-sm-4">{{ 'label.input.searchforgroup' | translate }}</label>
 	                    <div class="col-sm-4 col-md-4">
 	                        <input id="expert" type="text" data-ng-model="available" class="col-md-4 form-control" typeahead-on-select="viewGroup(available)"
-	                                ng-autofocus="true" typeahead="group as group.name for group in groupsOptions | filter:$viewValue | limitTo:8"/>
+	                                ng-autofocus="true" typeahead-editable="false" typeahead="group as group.name for group in groupsOptions | filter:$viewValue | limitTo:8"/>
 	                    </div>
 	                    <div class="col-sm-1 col-md-1">
 	                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
@@ -61,7 +61,7 @@
 	                               type="text"/>
 	                    </div>
 	                    <div class="col-sm-2 col-md-2">
-	                        <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove(group.id)">
+	                        <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,group.id)">
 	                                <i class="icon-remove"></i>
 	                        </button>
 	                    </div>

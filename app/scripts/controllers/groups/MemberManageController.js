@@ -21,30 +21,40 @@
 	                scope.associate = {};
 	            	scope.associate.clientMembers = [];
 	                scope.associate.clientMembers[0] = scope.available.id;
-	                console.log(scope.associate);
 	                resourceFactory.groupResource.save({groupId: routeParams.id, command: 'associateClients'}, scope.associate, function (data) {
                         var temp = {};
                         temp.id = scope.available.id;
                         temp.displayName = scope.available.displayName;
                         scope.allMembers.push(temp);
+                        scope.available = "";
 	                });
             	}
             };
 
-            scope.remove = function (id) {
+            scope.remove = function (index,id) {
             	$modal.open({
                     templateUrl: 'delete.html',
-                    controller: MemberDeleteCtrl
+                    controller: MemberDeleteCtrl,
+                    resolve : {
+                        "parameters": function () {
+                            return {
+                                index : function(){
+                                    return index;
+                                }
+
+                            };
+                        }
+                    }
                 });
             	scope.disassociate = {};
             	scope.disassociate.clientMembers = [];
             	scope.disassociate.clientMembers.push(id);
             };
             
-            var MemberDeleteCtrl = function ($scope, $modalInstance) {
+            var MemberDeleteCtrl = function ($scope, $modalInstance,parameters) {
                 $scope.delete = function () {
                 	resourceFactory.groupResource.save({groupId: routeParams.id, command: 'disassociateClients'}, scope.disassociate, function (data) {
-                        scope.allMembers.splice(0, 1);
+                        scope.allMembers.splice(parameters.index(), 1);
                         $modalInstance.close('activate');
                     });
                 };

@@ -25,7 +25,7 @@
                         <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
                         <div class="col-sm-4 col-md-4">
                             <input id="clientMembers" type="text" data-ng-model="available"
-                                class="col-md-4 form-control" typeahead-on-select="viewClient(available)"
+                                class="col-md-4 form-control" typeahead-on-select="viewClient(available)" typeahead-editable="false"
                                 ng-autofocus="true" typeahead="client as client.displayName for client in allClients | filter:$viewValue | limitTo:8"/>
                         </div>
                         <div class="col-sm-1 col-md-1">
@@ -62,7 +62,7 @@
                                    type="text"/>
                         </div>
                         <div class="col-sm-2 col-md-2">
-                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove(members.id)">
+                            <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,members.id)">
                                     <i class="icon-remove"></i>
                             </button>
                         </div>
