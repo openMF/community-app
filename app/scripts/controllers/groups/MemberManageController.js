@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         MemberManageController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.group = [];
+            scope.indexOfClientToBeDeleted = "";
 
             scope.viewClient = function (item) {
                 scope.client = item;
@@ -21,18 +22,19 @@
 	                scope.associate = {};
 	            	scope.associate.clientMembers = [];
 	                scope.associate.clientMembers[0] = scope.available.id;
-	                console.log(scope.associate);
 	                resourceFactory.groupResource.save({groupId: routeParams.id, command: 'associateClients'}, scope.associate, function (data) {
                         var temp = {};
                         temp.id = scope.available.id;
                         temp.displayName = scope.available.displayName;
                         scope.allMembers.push(temp);
+                        scope.available = "";
 	                });
             	}
             };
 
-            scope.remove = function (id) {
-            	$modal.open({
+            scope.remove = function (index,id) {
+                scope.indexOfClientToBeDeleted = index;
+                $modal.open({
                     templateUrl: 'delete.html',
                     controller: MemberDeleteCtrl
                 });
@@ -44,7 +46,7 @@
             var MemberDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {
                 	resourceFactory.groupResource.save({groupId: routeParams.id, command: 'disassociateClients'}, scope.disassociate, function (data) {
-                        scope.allMembers.splice(0, 1);
+                        scope.allMembers.splice(scope.indexOfClientToBeDeleted, 1);
                         $modalInstance.close('activate');
                     });
                 };
