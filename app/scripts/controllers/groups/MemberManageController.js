@@ -1,17 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MemberManageController: function (scope, routeParams, route, location, resourceFactory, $modal) {
-            scope.group = [];
             scope.indexOfClientToBeDeleted = "";
 
             scope.viewClient = function (item) {
                 scope.client = item;
             };
             
-            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
-                scope.group = data;
-            });
-
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
                 scope.allClients = data.clientOptions;
                 scope.allMembers = data.clientMembers;
