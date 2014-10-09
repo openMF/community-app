@@ -8,11 +8,8 @@
                 scope.client = item;
             };
             
-            resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
-                scope.group = data;
-            });
-
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
+                scope.group = data;
                 scope.allClients = data.clientOptions;
                 scope.allMembers = data.clientMembers;
             });
