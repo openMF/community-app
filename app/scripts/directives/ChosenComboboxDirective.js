@@ -8,7 +8,7 @@
                     element.trigger("chosen:updated");
                 });
 
-                element.chosen();
+                element.chosen({search_contains:true});
             };
 
             return {
