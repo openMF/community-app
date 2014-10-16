@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditTemplateController: function (scope, resourceFactory, location, routeParams) {
+        EditTemplateController: function (scope, resourceFactory, location, routeParams, $rootScope) {
             scope.mappers = [];
             scope.formData = {};
             resourceFactory.templateResource.getTemplateDetails({templateId: routeParams.id, resourceType: 'template'}, function (data) {
@@ -32,14 +32,14 @@
                             mappersorder: data.template.mappers[i].mapperorder,
                             mapperskey: data.template.mappers[i].mapperkey,
                             mappersvalue: data.template.mappers[i].mappervalue,
-                            defaultAddIcon: 'true',
+                            defaultAddIcon: 'true'
                         });
                     } else {
                         scope.mappers.push({
                             mappersorder: data.template.mappers[i].mapperorder,
                             mapperskey: data.template.mappers[i].mapperkey,
                             mappersvalue: data.template.mappers[i].mappervalue,
-                            defaultAddIcon: 'false',
+                            defaultAddIcon: 'false'
                         });
                     }
                 }
@@ -93,8 +93,8 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "loan",
-                        mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=default",
-                        disable: 'true',
+                        mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        disable: 'true'
                     });
                     scope.loanKeys();
                     scope.templateKeyEntity = "Loan";
@@ -103,8 +103,8 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "client",
-                        mappersvalue: "clients/{{clientId}}?tenantIdentifier=default",
-                        disable: 'true',
+                        mappersvalue: "clients/{{clientId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        disable: 'true'
                     });
                     scope.clientKeys();
                 }
@@ -148,7 +148,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EditTemplateController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.EditTemplateController]).run(function ($log) {
+    mifosX.ng.application.controller('EditTemplateController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$rootScope', mifosX.controllers.EditTemplateController]).run(function ($log) {
         $log.info("EditTemplateController initialized");
     });
 }(mifosX.controllers || {}));

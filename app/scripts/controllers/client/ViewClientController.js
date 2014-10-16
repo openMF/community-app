@@ -44,7 +44,7 @@
                     for (var i = 0; i < docsData.data.length; ++i) {
                         if (docsData.data[i].name == 'clientSignature') {
                             docId = docsData.data[i].id;
-                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default';
+                            scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                         }
                     }
                 });
@@ -234,7 +234,7 @@
                                     for (var l in data) {
 
                                         var loandocs = {};
-                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=default';
+                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                                         data[l].docUrl = loandocs;
                                     }
                                     scope.identitydocuments[j].documents = data;
@@ -299,7 +299,7 @@
                     for (var l in data) {
 
                         var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=default';
+                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                         data[l].docUrl = loandocs;
                     }
                     scope.clientdocuments = data;
@@ -505,13 +505,13 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default';
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             }
                         }
                     if (scope.signature_url != null) {
                         http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=default'
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
                     }).then(function (docsData) {
                             $scope.largeImage = scope.signature_url;
                         });

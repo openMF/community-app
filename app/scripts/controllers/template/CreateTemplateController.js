@@ -1,7 +1,7 @@
 /*global mifosX _  CKEDITOR */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateTemplateController: function (scope, resourceFactory, location) {
+        CreateTemplateController: function (scope, resourceFactory, location, $rootScope) {
             scope.mappers = [];
             scope.formData = {};
             resourceFactory.templateResource.getTemplateDetails({resourceType: 'template'}, function (data) {
@@ -15,7 +15,7 @@
                 scope.mappers.push({
                     mappersorder: 0,
                     mapperskey: "client",
-                    mappersvalue: "clients/{{clientId}}?tenantIdentifier=default",
+                    mappersvalue: "clients/{{clientId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
                     defaultAddIcon: 'true'
                 });
             });
@@ -57,8 +57,8 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "loan",
-                        mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=default",
-                        defaultAddIcon: 'true',
+                        mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        defaultAddIcon: 'true'
                     });
                     scope.loanKeys();
                     scope.templateKeyEntity = "Loan";
@@ -67,8 +67,8 @@
                     scope.mappers.push({
                         mappersorder: 0,
                         mapperskey: "client",
-                        mappersvalue: "clients/{{clientId}}?tenantIdentifier=default",
-                        defaultAddIcon: 'true',
+                        mappersvalue: "clients/{{clientId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        defaultAddIcon: 'true'
                     });
                     scope.clientKeys();
                 }
@@ -112,7 +112,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreateTemplateController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateTemplateController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateTemplateController', ['$scope', 'ResourceFactory', '$location', '$rootScope', mifosX.controllers.CreateTemplateController]).run(function ($log) {
         $log.info("CreateTemplateController initialized");
     });
 }(mifosX.controllers || {}));
