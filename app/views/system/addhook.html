@@ -10,7 +10,7 @@
 	        <legend>{{'label.heading.createhook' | translate}}</legend>
 			<div class="form-group">
 			<label class="control-label col-sm-2">{{'label.input.hooktemplate' | translate}}<span class="required">*</span></label>
-	
+
 	            <div class="col-sm-3">
 					<select id="templateName" ng-model="template"
 							ng-options="template as template.name for template in templates" value="{{template.name}}"
@@ -19,11 +19,11 @@
 					</select>
 	            </div>
 			</div>
-			
+
 			<div class="form-group" ng-show="template">
 			<label class="control-label col-sm-2" for="displayname">{{'label.input.displayname' | translate}}<span
 	                    class="required">*</span></label>
-						
+
 	            <div class="col-sm-3">
 	                <input type="text" id="displayname" name="displayname" ng-model="formData.displayName" class="form-control" required late-Validate/>
 	            </div>
@@ -31,29 +31,24 @@
 	                <form-validate valattributeform="createhookform" valattribute="displayname"/>
 	            </div>
 			</div>
-			
+
 			<div class="form-group" ng-show="template">
 			<label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
 				<div class="col-sm-3">
 	                <input type="checkbox" ng-model="formData.isActive"/>
 	            </div>
 			</div>
-			
+
 			<div class="form-group" ng-show="template" ng-repeat="s in template.schema">
 			<label class="control-label col-sm-2" ng-if="s.optional">{{s.fieldName}}</label>
 			<label class="control-label col-sm-2" ng-if="s.optional == false">{{s.fieldName}} <span class="required">*</span></label>
-				<div class="col-sm-3" ng-switch on="s.fieldType" ng-if="s.optional">
+				<div class="col-sm-3" ng-switch on="s.fieldType">
 	                <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
 					<input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
 					<input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
 	            </div>
-				<div class="col-sm-3" ng-switch on="s.fieldType" ng-if="s.optional == false">
-	                <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-Validate />
-					<input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-Validate />
-					<input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-Validate />
-	            </div>
 			</div>
-			
+
 			<hr/>
 			<div class="form-group" ng-show="template">
 			<label class="control-label col-sm-2" for="events">{{'label.input.events' | translate}}<span
@@ -78,10 +73,11 @@
 					value="{{action.name}}" class="form-control">
 						<option style="display:none" value="">{{'label.selectaction' | translate}}</option>
 					</select>
+
 				</div>
 				<a ng-click="addEvent()"><i class="icon-plus icon-white"></i></a>
 			</div>
-			
+
 			<table class="table" width="100%" ng-show="events.length>0">
 				<tr class="graybg">
 					<th>{{'label.heading.entityname' | translate}}</th>
@@ -92,8 +88,8 @@
 					<td>{{event.actionName}}</td>
 					<td><a ng-click="deleteEvent($index)"><i class="icon-remove icon-white"></i></a></td>
 				</tr>
-			</table>	
-			
+			</table>
+
 			<div class="col-md-offset-3">
 	            <a id="cancel" href="#/hooks" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_HOOK'>{{'label.button.save' | translate}}</button>
