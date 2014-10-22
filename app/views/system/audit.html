@@ -86,7 +86,7 @@
                 </thead>
                 <tbody>
                 <tr class="highlight-row pointer" data-ng-click="routeTo(data.id)"
-                    ng-repeat="data in searchData">
+                    ng-repeat="data in searchData.pageItems">
                     <td>{{data.id}}</td>
                     <td>{{data.resourceId}}</td>
                     <td>{{data.processingResult | translate}}</td>
@@ -100,8 +100,17 @@
                 </tr>
                 </tbody>
             </table>
+            <ul class="pager">
+                <li class="previous"><a id="prev" ng-click="audit.previous()" href=""
+                                        ng-disabled="!audit.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+                </li>
+                <li class="next"><a id="next" ng-click="audit.next()" href="" ng-disabled="!audit.hasNext()">{{'label.button.next'
+                    | translate}} &rarr;</a></li>
+            </ul>
         </div>
         <h3 data-ng-show="!flag" class="auditnodata"><strong>{{ 'label.nodata' |
             translate }}</strong></h3>
+
     </div>
+
 </div>
