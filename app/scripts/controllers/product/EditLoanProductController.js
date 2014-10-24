@@ -77,7 +77,8 @@
                     outstandingLoanBalance: scope.product.outstandingLoanBalance,
                     daysInYearType: scope.product.daysInYearType.id,
                     daysInMonthType: scope.product.daysInMonthType.id,
-                    isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled
+                    isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
+                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
