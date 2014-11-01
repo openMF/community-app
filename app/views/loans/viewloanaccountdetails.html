@@ -67,6 +67,20 @@
                       class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
                   translate}}</a>
           </span>
+         <span ng-show="buttons.refund" class="btn-group dropdown"
+               style="margin-left: 4px">
+                                  <a class="btn btn-primary dropdown-toggle">
+                                      <i class="icon-dollar"></i>
+                                      {{ 'label.button.make.refund' | translate}}
+                                      <span class="caret"></span>
+                                  </a>
+                                  <ul class=" dropdown-menu">
+                                      <li class="{{button.icon}}" ng-repeat="button in buttons.refund">
+                                          <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)">
+                                              &nbsp;{{'label.'+ button.name | translate}}</a>
+                                      </li>
+                                  </ul>
+           </span>
           <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
               <a class="btn btn-primary dropdown-toggle">
                   {{ 'label.button.more' | translate}}

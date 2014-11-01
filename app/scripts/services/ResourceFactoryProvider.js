@@ -392,6 +392,12 @@
                     }),
                     officeToGLAccountMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    refundByTransfersTemplateResource: defineResource(apiVer + "/accounttransfers/templateRefundByTransfer", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    refundByTransfersResource: defineResource(apiVer + "/accounttransfers/refundByTransfer/:transferId", {transferId: '@transferId'}, {
+                        get: {method: 'GET', params: {transferId: '@transferId'}}
                     })
                 };
             }];

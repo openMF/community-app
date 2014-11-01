@@ -283,6 +283,25 @@
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'RECOVERYPAYMENT_LOAN';
                     break;
+                case "refundbycash":
+                    scope.modelName = 'transactionDate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refundbycash'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData.transactionAmount = data.amount;
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.showRefundLink = data.totalPaidInAdvance > 0;
+                    });
+                    scope.title = 'label.heading.refunds';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.isRefundTransaction = true;
+                    scope.showAmountField = true;
+                    scope.taskPermissionName = 'REFUND_LOAN';
+                    scope.showPaymentDetails = false;
+                    break;
             }
 
             scope.cancel = function () {
@@ -299,7 +318,8 @@
                     this.formData.dateFormat = scope.df;
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
-                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan") {
+                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
+                    || scope.action == "refundbycash") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;
