@@ -1,0 +1,156 @@
+<div ng-controller="RescheduleLoansRequestController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.rescheduleLoan' | translate}}</li>
+        </ul>
+    </div>
+    <form name="createloanrescheduleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.rescheduleloan' | translate}}</legend>
+            <table class="width100">
+                <tr>
+					<td class="width20">
+						<label>{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
+					</td>
+
+					<td>
+						<input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
+                              class="form-control width36 paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+					</td>
+
+                </tr>
+                <tr>
+					<td class="width14">
+						<label>{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
+					</td>
+
+					<td class="width36 paddedbottom10 paddedtop">
+                        <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
+                                ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
+                                ng-model="formData.rescheduleReasonId" >
+                            <option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="width20">
+                        <label>{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
+                    </td>
+
+                    <td>
+                        <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
+                               class="form-control width36 paddedbottom10 paddedtop" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                    </td>
+
+                </tr>
+
+
+				<tr>
+					<td class="width14">
+						<label>{{ 'label.input.comments' | translate }}</label>
+					</td>
+					<td class="width36 paddedbottom10 paddedtop">
+						<textarea rows="2" class="form-control" ng-model="comments" ></textarea>
+					</td>
+				</tr>
+                <tr>
+					<td class="paddedtop">
+                    <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
+                        class="control-label"><label>{{ 'label.input.changeRepaymentDate' | translate }}&nbsp;</label></span>
+						</td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="changeRepaymentDate">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.installemtrescheduledto' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="changeRepaymentDate">
+                        <input id="adjustedDueDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+                               class="form-control width36 paddedbottom10" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                    </td>
+                </tr>
+                <tr>
+					<td class="paddedtop">
+						<input type="checkbox" ng-model="introduceGracePeriods" > &nbsp;<span
+                        class="control-label">{{ 'label.input.introduceGracePeriods' | translate }}&nbsp;</span>
+						</td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.graceOnPrincipal' | translate
+                            }}&nbsp;</label></td>
+                    <td  ng-show="introduceGracePeriods">
+                        <input id="principalgrace" type="text"
+                               class="form-control width36 paddedbottom10" ng-model="formData.graceOnPrincipal"></td>
+                </tr>
+
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.graceOnInterest' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        <input id="interestgrace" class="form-control width36 paddedbottom10"  type="text" ng-model="formData.graceOnInterest"></td>
+                </tr>
+                <tr>
+                    <td class = "paddedtop">
+                    <input type="checkbox" ng-model="extendRepaymentPeriod"> &nbsp;<span
+                        class="control-label">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="extendRepaymentPeriod">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.noofnewrepayments' | translate
+                            }}&nbsp;</label></td>
+                    <td  ng-show="extendRepaymentPeriod">
+                        <input id="newrepayments" type="text" class="form-control width36 paddedbottom10"
+                               ng-model="formData.extraTerms" ></td>
+                </tr>
+
+                <tr>
+                    <td class ="paddedtop">
+                    <input type="checkbox" ng-model="adjustinterestrates"> &nbsp;<span
+                        class="control-label">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="adjustinterestrates">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.newinterestrate' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="adjustinterestrates">
+                        <input id="newinterestrate" type="text" class="form-control width36 paddedbottom10"
+                                ng-model="formData.newInterestRate"></td>
+                </tr>
+                <tr>
+                    <td class = "paddedtop">
+                    <input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
+                        class="control-label">{{ 'label.input.recalculateInterest' +
+                    '' | translate }}&nbsp;</span>
+                    </td>
+                </tr>
+                </table>
+                <br>
+            <br>
+                <div align="center">
+                <tr>
+                    <td>
+                    <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <button id="save" type="submit" class="btn btn-primary"  has-permission='RESCHEDULE_LOAN'>
+                        {{'label.button.save' | translate}}
+
+                    </button></td>
+
+                </tr>
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+
+
+
+
