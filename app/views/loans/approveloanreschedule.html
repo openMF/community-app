@@ -1,0 +1,42 @@
+<div ng-controller="ApproveLoanRescheduleRequestController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li><a href="#/viewreschedulerequest/{{loanId}}/{{requestId}}" class="active">{{'label.anchor.reschedulerequest' | translate}}</a></li>
+        </ul>
+    </div>
+    <form name="approveloanrescheduleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.approveloanreschedule' | translate}}</legend>
+            <table class="width100">
+                <tr>
+                    <td>
+                        <label>{{'label.input.approvedOnDate' | translate}}<span class="required">*</span></label>
+                    </td>
+
+                    <td>
+                        <input id="approvedOnDate" type="text" name="approvedOnDate" datepicker-pop="dd MMMM yyyy"
+                        class="form-control width30 paddedbottom10 paddedtop" ng-model="formData.approvedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                    </td>
+                </tr>
+                </table>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+                <td>
+                    <button id="cancel" ng-click="cancel()" class="btn btn-default ">{{ 'label.button.cancel' | translate }}</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button id="save" ng-click="approve()" type="submit" class="btn btn-primary"  has-permission='APPROVE_LOAN'>
+                        {{'label.button.save' | translate}}
+
+                    </button></td>
+            </tr>
+            </fieldset>
+        </form>
+    </div>
