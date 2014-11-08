@@ -160,6 +160,9 @@
                     loanTrxnsTemplateResource: defineResource(apiVer + "/loans/:loanId/transactions/template", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    loanTemplateResource: defineResource(apiVer + "/loans/:loanId/template", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     loanTrxnsResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId", {loanId: '@loanId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {}}
                     }),

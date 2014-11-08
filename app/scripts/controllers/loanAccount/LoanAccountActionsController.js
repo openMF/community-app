@@ -16,11 +16,21 @@
 
             switch (scope.action) {
                 case "approve":
-                    scope.title = 'label.heading.approveloanaccount';
-                    scope.labelName = 'label.input.approvedondate';
-                    scope.modelName = 'approvedOnDate';
-                    scope.formData[scope.modelName] = new Date();
-                    scope.taskPermissionName = 'APPROVE_LOAN';
+
+                    resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
+                        
+                        scope.title = 'label.heading.approveloanaccount';
+                        scope.labelName = 'label.input.approvedondate';
+                        scope.modelName = 'approvedOnDate';
+                        // scope.formData[scope.modelName] = data.approvalDate;
+                        scope.formData[scope.modelName] =  new Date();
+                        scope.showApprovalAmount = true;
+                        scope.formData.approvedLoanAmount =  data.approvalAmount;
+                        scope.taskPermissionName = 'APPROVE_LOAN';
+
+
+                    });
+
                     break;
                 case "reject":
                     scope.title = 'label.heading.rejectloanaccount';
