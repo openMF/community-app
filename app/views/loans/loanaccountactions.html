@@ -19,7 +19,18 @@
                            ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
+            <div class="form-group" ng-show="showApprovalAmount">
+                <label class="control-label col-sm-2" for="approvedAmount">{{ 'label.input.transactionamount' |
+                    translate}}<span class="required">*</span></label>
 
+                <div class="col-sm-3">
+                    <input id="approvedAmount" type="text" name="amount" ng-model="formData.approvedLoanAmount" class="form-control"
+                           number-format required late-Validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="loanactionform" valattribute="amount"/>
+                </div>
+            </div>
             <div class="form-group" ng-show="showAmountField">
                 <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
                     translate}}<span class="required">*</span></label>
