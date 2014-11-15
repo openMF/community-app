@@ -108,6 +108,9 @@
                     case "loanscreenreport":
                         location.path('/loanscreenreport/' + accountId);
                         break;
+                    case "reschedule":
+                        location.path('/loans/' +accountId + '/reschedule');
+                        break;
                 }
             };
 
@@ -126,6 +129,7 @@
             var DelChargeCtrl = function ($scope, $modalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: ids}, {}, function (data) {
+
                         $modalInstance.close('delete');
                         route.reload();
                     });
@@ -282,6 +286,10 @@
                             {
                                 name: "button.waiveinterest",
                                 taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
+                            },
+                            {
+                                name: "button.reschedule",
+                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
                             },
                             {
                                 name: "button.writeoff",
