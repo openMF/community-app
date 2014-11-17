@@ -615,7 +615,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
+        <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
+            ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
             <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                 {{transaction.id}}
             </td>
