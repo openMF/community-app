@@ -792,23 +792,23 @@
 	            <th></th>
 	            <th class="width30">{{'label.heading.actions' | translate}}</th>
 	        </tr>
-	        <tr ng-repeat="specificIncomeaccount in specificIncomeaccounts">
-	            <td class="width30">
-	                <select id="specificIncomeaccounts[{{$index}}].chargeId"
-	                        ng-model="specificIncomeaccount.chargeId" class="form-control"
-	                        ng-options="charge.id as charge.name for charge in specificIncomeaccount.chargeOptions"
-	                        value="{{charge.id}}">
-	                </select>
-	            </td>
-	            <td></td>
-	            <td class="width30">
-	                <select id="specificIncomeaccounts[{{$index}}].incomeAccountId"
-	                        ng-model="specificIncomeaccount.incomeAccountId"
-	                        chosen="specificIncomeaccount.incomeAccountOptions"
-	                        ng-options="assetAccount.id as assetAccount.name for assetAccount in specificIncomeaccount.incomeAccountOptions"
-	                        value="{{assetAccount.id}}">
-	                </select>
-	            </td>
+	        <tr ng-repeat="specificMapping in specificIncomeAccountMapping">
+                <td class="width30">
+                    <select id="specificIncomeAccountMapping[{{$index}}].chargeId"
+                            ng-model="specificMapping.chargeId" class="form-control"
+                            ng-options="charge.id as charge.name for charge in chargeOptions"
+                            value="{{charge.id}}">
+                    </select>
+                </td>
+                <td></td>
+                <td class="width30">
+                    <select id="specificIncomeAccountMapping[{{$index}}].incomeAccountId"
+                            ng-model="specificMapping.incomeAccountId"
+                            chosen="incomeAndLiabilityAccountOptions"
+                            ng-options="account.id as account.name for account in incomeAndLiabilityAccountOptions"
+                            value="{{account.id}}">
+                    </select>
+                </td>
 	            <td></td>
 	            <td class="width30">
 	                <a ng-click="deleteFee($index)"><i class="icon-remove icon-white"></i></a>
@@ -832,7 +832,7 @@
 	                <select id="penaltySpecificIncomeaccounts[{{$index}}].chargeId"
 	                        class="form-control"
 	                        ng-model="penaltySpecificIncomeaccount.chargeId"
-	                        ng-options="charge.id as charge.name for charge in penaltySpecificIncomeaccount.penaltyOptions"
+	                        ng-options="charge.id as charge.name for charge in penaltyOptions"
 	                        value="{{charge.id}}">
 	                </select>
 	            </td>
@@ -841,7 +841,7 @@
 	                <select id="penaltySpecificIncomeaccounts[{{$index}}].incomeAccountId"
 	                        class="form-control"
 	                        ng-model="penaltySpecificIncomeaccount.incomeAccountId"
-	                        ng-options="assetAccount.id as assetAccount.name for assetAccount in penaltySpecificIncomeaccount.incomeAccountOptions"
+	                        ng-options="assetAccount.id as assetAccount.name for assetAccount in incomeAccountOptions"
 	                        value="{{assetAccount.id}}">
 	                </select>
 	            </td>
