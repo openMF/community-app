@@ -6,7 +6,7 @@
             scope.charges = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
-            scope.specificIncomeaccounts = [];
+            scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.date = {};
@@ -20,6 +20,9 @@
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.penaltyOptions = scope.product.penaltyOptions || [];
+                scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.charges = scope.product.charges || [];
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
@@ -27,7 +30,6 @@
                 if (data.closeDate) {
                     scope.date.second = new Date(data.closeDate);
                 }
-                scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
                     if(scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment')
@@ -152,11 +154,9 @@
                     });
 
                     _.each(scope.product.feeToIncomeAccountMappings, function (fees) {
-                        scope.specificIncomeaccounts.push({
+                        scope.specificIncomeAccountMapping.push({
                             chargeId: fees.charge.id,
-                            incomeAccountId: fees.incomeAccount.id,
-                            chargeOptions: scope.product.chargeOptions,
-                            incomeAccountOptions: scope.incomeAccountOptions
+                            incomeAccountId: fees.incomeAccount.id
                         })
                     });
 
@@ -164,8 +164,6 @@
                         scope.penaltySpecificIncomeaccounts.push({
                             chargeId: penalty.charge.id,
                             incomeAccountId: penalty.incomeAccount.id,
-                            penaltyOptions: scope.product.penaltyOptions,
-                            incomeAccountOptions: scope.incomeAccountOptions
                         })
                     });
                 }
@@ -213,11 +211,9 @@
 
             scope.mapFees = function () {
                 if (scope.product.chargeOptions && scope.product.chargeOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
-                    scope.specificIncomeaccounts.push({
-                        chargeId: scope.product.chargeOptions[0].id,
-                        incomeAccountId: scope.incomeAccountOptions[0].id,
-                        chargeOptions: scope.product.chargeOptions,
-                        incomeAccountOptions: scope.product.accountingMappingOptions.incomeAccountOptions
+                    scope.specificIncomeAccountMapping.push({
+                        chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
+                        incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : ''
                     });
                 }
             };
@@ -225,10 +221,8 @@
             scope.mapPenalty = function () {
                 if (scope.product.penaltyOptions && scope.product.penaltyOptions.length > 0 && scope.incomeAccountOptions && scope.incomeAccountOptions.length > 0) {
                     scope.penaltySpecificIncomeaccounts.push({
-                        chargeId: scope.product.penaltyOptions[0].id,
-                        incomeAccountId: scope.incomeAccountOptions[0].id,
-                        penaltyOptions: scope.product.penaltyOptions,
-                        incomeAccountOptions: scope.incomeAccountOptions
+                        chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
+                        incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : ''
                     });
                 }
             };
@@ -321,10 +315,10 @@
                 }
 
                 //map fees to specific income accounts
-                for (var i in scope.specificIncomeaccounts) {
+                for (var i in scope.specificIncomeAccountMapping) {
                     temp = {
-                        chargeId: scope.specificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId
+                        chargeId: scope.specificIncomeAccountMapping[i].chargeId,
+                        incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }

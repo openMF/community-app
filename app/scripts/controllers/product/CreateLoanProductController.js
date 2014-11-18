@@ -6,7 +6,7 @@
             scope.charges = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
-            scope.specificIncomeaccounts = [];
+            scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.date = {};
@@ -23,8 +23,10 @@
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                scope.liabilityAccountOptions = data.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
+                scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
+                scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
                     if (scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment') {
@@ -102,11 +104,9 @@
 
             scope.mapFees = function () {
                 scope.fiFlag = true;
-                scope.specificIncomeaccounts.push({
-                    chargeId: scope.product.chargeOptions.length > 0 ? scope.product.chargeOptions[0].id : '',
-                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
-                    chargeOptions: scope.product.chargeOptions.length > 0 ? scope.product.chargeOptions : [],
-                    incomeAccountOptions: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions : []
+                scope.specificIncomeAccountMapping.push({
+                    chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
+                    incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : ''
                 });
             };
 
@@ -133,9 +133,7 @@
                 scope.piFlag = true;
                 scope.penaltySpecificIncomeaccounts.push({
                     chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
-                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
-                    penaltyOptions: scope.penaltyOptions.length > 0 ? scope.penaltyOptions : [],
-                    incomeAccountOptions: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions : []
+                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : ''
                 });
             };
 
@@ -144,7 +142,7 @@
             };
 
             scope.deleteFee = function (index) {
-                scope.specificIncomeaccounts.splice(index, 1);
+                scope.specificIncomeAccountMapping.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {
@@ -202,10 +200,10 @@
                 }
 
                 //map fees to specific income accounts
-                for (var i in scope.specificIncomeaccounts) {
+                for (var i in scope.specificIncomeAccountMapping) {
                     temp = {
-                        chargeId: scope.specificIncomeaccounts[i].chargeId,
-                        incomeAccountId: scope.specificIncomeaccounts[i].incomeAccountId
+                        chargeId: scope.specificIncomeAccountMapping[i].chargeId,
+                        incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId
                     }
                     scope.feeToIncomeAccountMappings.push(temp);
                 }
