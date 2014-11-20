@@ -94,9 +94,32 @@
                 <td><label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
-        <hr ng-show="loanaccountinfo.calendarOptions"/>
+        <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
+        <table ng-show="loanaccountinfo" ng-hide="previewRepayment" class="width100">
+            <tr>
+                <td class="width19">
+                    <label>{{ 'label.input.linksavings' | translate }}:</label>
+                </td>
+                <td class="width31 paddedbottom10">
+                    <select id="linkAccountId" ng-model="formData.linkAccountId"
+                            ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" class="form-control width170px"
+                            value="{{savingaccount.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </td>
+                <td>
+                    <label>{{ 'label.input.createStandingInstruction' | translate }}:</label>
+                </td>
+                <td class="width31">
+                        <input id="createStandingInstruction" class="input-mini-small" type="checkbox"
+                                ng-model="formData.createStandingInstructionAtDisbursement"></label>
+                </td>
+            </tr>
+        </table>
+        <hr ng-show="loanaccountinfo"/>
         <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
         <!--<hr class="terms">-->
+
         <table ng-show="loanaccountinfo" ng-hide="previewRepayment" class="width100">
             <tr>
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
@@ -217,16 +240,6 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <label class="control-label">{{ 'label.input.linksavings' | translate }}</label>
-                </td>
-                <td>
-                    <select id="linkAccountId" ng-model="formData.linkAccountId"
-                            ng-options="savingaccount.id as savingaccount.productName for savingaccount in loanaccountinfo.accountLinkingOptions" class="form-control width170px"
-                            value="{{savingaccount.id}}">
-                        <option value="">{{'label.menu.selectone' | translate}}</option>
-                    </select>
-                </td>
                 <td colspan=2>
                     <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onduedate' | translate}}&nbsp;
                         <input
