@@ -654,7 +654,35 @@
             })
             .when('/unassignsavingsofficer/:id', {
             templateUrl: 'views/savings/unassignsavingsofficer.html'
-            });
+            })
+            .when('/tellers', {
+                templateUrl: 'views/organization/cashmgmt/tellers.html'
+            })
+            .when('/createTeller', {
+                templateUrl: 'views/organization/cashmgmt/createTeller.html'
+            })
+            .when('/viewtellers/:id', {
+                templateUrl: 'views/organization/cashmgmt/viewTeller.html'
+            })
+            .when('/tellers/:tellerId/cashiers', {
+                templateUrl: 'views/organization/cashmgmt/cashiersForTeller.html'
+            })
+            .when('/tellers/:tellerId/cashiers/:cashierId/txns', {
+                templateUrl: 'views/organization/cashmgmt/cashierTransactions.html'
+            })
+            .when('/tellers/:tellerId/cashiers/:cashierId/actions/:action', {
+                templateUrl: 'views/organization/cashmgmt/cashierFundsAllocationSettlement.html'
+            })
+            .when('/tellers/:tellerId/cashiers/:cashierId/settle', {
+                templateUrl: 'views/organization/cashmgmt/cashierFundsAllocationSettlement.html'
+            })
+            .when('/tellers/:tellerId/createCashierForTeller', {
+                templateUrl: 'views/organization/cashmgmt/createCashier.html'
+            })
+            .when('/editteller/:id', {
+                templateUrl: 'views/organization/cashmgmt/editTeller.html'
+            })
+            ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

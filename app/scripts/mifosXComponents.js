@@ -208,7 +208,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/ProfileController',
             'main/ViewMakerCheckerTaskController',
             'main/AdHocQuerySearchController',
-            'accounting/AccOGMController'
+            'accounting/AccOGMController',
+            'organization/cashmgmt/TellersController',
+            'organization/cashmgmt/CreateTellerController',
+            'organization/cashmgmt/ViewTellerController',
+            'organization/cashmgmt/EditTellerController',
+            'organization/cashmgmt/ViewCashiersForTellerController',
+            'organization/cashmgmt/CreateCashierForTellerController',
+            'organization/cashmgmt/CashierTransactionsController',
+            'organization/cashmgmt/CashierFundsAllocationSettlementController'
         ],
         filters: [
             'StatusLookup',
