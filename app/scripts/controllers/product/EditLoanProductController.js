@@ -80,6 +80,7 @@
                     daysInYearType: scope.product.daysInYearType.id,
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
+                    holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment
                 };
 
@@ -91,6 +92,12 @@
                     if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
                         scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
                     }
+                }
+
+                if (scope.product.holdGuaranteeFunds) {
+                    scope.formData.mandatoryGuarantee = scope.product.productGuaranteeData.mandatoryGuarantee;
+                    scope.formData.minimumGuaranteeFromOwnFunds = scope.product.productGuaranteeData.minimumGuaranteeFromOwnFunds;
+                    scope.formData.minimumGuaranteeFromGuarantor = scope.product.productGuaranteeData.minimumGuaranteeFromGuarantor;
                 }
 
                 _.each(scope.product.principalVariationsForBorrowerCycle, function (variation) {
