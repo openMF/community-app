@@ -325,6 +325,9 @@
             .when('/run_periodic_accrual',{
                 templateUrl: 'views/accounting/periodic_accrual_accounting.html'
             })
+            .when('/openingbalances',{
+                templateUrl: 'views/accounting/openingbalances.html'
+            })
             .when('/viewcode/:id', {
                 templateUrl: 'views/system/viewcode.html'
             })
