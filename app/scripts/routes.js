@@ -654,7 +654,23 @@
             })
             .when('/unassignsavingsofficer/:id', {
             templateUrl: 'views/savings/unassignsavingsofficer.html'
+            })
+            .when('/loans/:loanId/reschedule/', {
+                templateUrl: 'views/loans/rescheduleloans.html'
+            })
+            .when('/loans/:loanId/viewreschedulerequest/', {
+                templateUrl: 'views/loans/viewreschedulerequest.html'
+            })
+            .when('/loans/:loanId/approvereschedulerequest/', {
+                templateUrl: 'views/loans/approveloanreschedule.html'
+            })
+            .when('/loans/:loanId/rejectreschedulerequest/', {
+                templateUrl: 'views/loans/rejectloanreschedule.html'
+            })
+            .when('/loans/:loanId/previewloanrepaymentschedule/', {
+                templateUrl: 'views/loans/previewloanrepaymentschedule.html'
             });
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
