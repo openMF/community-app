@@ -108,6 +108,12 @@
                     case "loanscreenreport":
                         location.path('/loanscreenreport/' + accountId);
                         break;
+                    case "refundbycash":
+                        location.path('/loanaccount/' + accountId + '/refundbycash');
+                        break;
+                    case "refundbytransfer":
+                        location.path('/refundbytransfers/fromloans/' + accountId);
+                        break;
                 }
             };
 
@@ -299,7 +305,8 @@
                                 name: "button.loanscreenreport",
                                 taskPermissionName: 'READ_LOAN'
                             }
-                        ]
+                        ],
+                        refund: []
 
                     };
 
@@ -352,6 +359,18 @@
                         }
                     ]
                     };
+                }
+
+                if(data.paidInAdvance.paidInAdvance > 0){
+                    scope.buttons.refund.splice(1, 0, {
+                        name: "button.refundbycash",
+                        taskPermissionName: 'REPAYMENT_LOAN'
+                    });
+
+                    scope.buttons.refund.splice(1, 0, {
+                        name: "button.refundbytransfer",
+                        taskPermissionName: 'REPAYMENT_LOAN'
+                    });
                 }
             });
 

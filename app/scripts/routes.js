@@ -654,6 +654,12 @@
             })
             .when('/unassignsavingsofficer/:id', {
             templateUrl: 'views/savings/unassignsavingsofficer.html'
+            })
+            .when('/viewrefundbytransfers/:id', {
+                templateUrl: 'views/accounttransfers/view_accounttransfer.html'
+            })
+            .when('/refundbytransfers/:accountType/:accountId', {
+                templateUrl: 'views/accounttransfers/make_refundbytransfer.html'
             });
         $locationProvider.html5Mode(false);
     };
