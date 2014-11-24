@@ -13,11 +13,13 @@
                     city: data.city,
                     zip: data.zip,
                     mobile: data.mobileNumber,
-                    residence: data.housePhoneNumber
+                    residence: data.housePhoneNumber,
+                    addressLine1: data.addressLine1,
+                    addressLine2:data.addressLine2
                 }
 
                 if (data.clientRelationshipType) {
-                    relationshipType: data.clientRelationshipType.id;
+                    scope.formData.relationshipType = data.clientRelationshipType.id;
                 }
 
                 if (data.dob) {
@@ -41,7 +43,7 @@
                 guarantor.clientRelationshipTypeId = this.formData.relationshipType;
                 guarantor.guarantorTypeId = 3;
                 resourceFactory.guarantorResource.update({ loanId: routeParams.loanId, templateResource: routeParams.id}, guarantor, function (data) {
-                    location.path('viewloanaccount/' + routeParams.loanId);
+                    location.path('listguarantors/' + routeParams.loanId);
                 });
             };
         }

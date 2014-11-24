@@ -2,7 +2,7 @@
       rc-submit="submit()">
     <api-validate></api-validate>
     <fieldset>
-        <legend class="bolder">{{'label.heading.guarantor' | translate}}</legend>
+        <legend class="bolder">{{'label.heading.createguarantor' | translate}}</legend>
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.existingclient' | translate }}</label>
 
@@ -20,7 +20,7 @@
                         <input autocomplete="off" typeahead-on-select="viewClient($item)" name="clientname" type="text"
                                ng-model="clientTemplate" class="form-control"
                                typeahead="client.displayName as client.displayName for client in clients | filter:$viewValue | limitTo:8"
-                               required late-validate/>
+                               required late-validate />
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="guaratorform" valattribute="clientname"/>
@@ -85,10 +85,10 @@
                     <label class="control-label col-sm-2">{{ 'label.input.address' | translate }}</label>
 
                     <div class="col-sm-3">
-                        <input id="addressline1" type="text" placeholder="Line 1" class="form-control" ng-model="formData.addressline1">
+                        <input id="addressline1" type="text" placeholder="Line 1" class="form-control" ng-model="formData.addressLine1">
                     </div>
                     <div class="col-sm-3">
-                        <input id="addressline2" type="text" placeholder="Line 2" class="form-control" ng-model="formData.addressline2">
+                        <input id="addressline2" type="text" placeholder="Line 2" class="form-control" ng-model="formData.addressLine2">
                     </div>
                 </div>
                 <div class="form-group">
@@ -123,24 +123,44 @@
         </div>
         <div data-ng-show="clientview">
             <h3>{{'label.heading.clientdetails' | translate}}</h3>
-            <table width="100%">
-                <tr>
-                    <td width="35%">{{'label.heading.name' | translate}}</td>
-                    <td width="65%">{{client.displayName}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.id' | translate }}</td>
-                    <td valign="top">{{client.id}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.office' | translate }}</td>
-                    <td>{{client.officeName}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.activationdate' | translate }}</td>
-                    <td>{{client.activationDate | DateFormat}}</td>
-                </tr>
-            </table>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.name' | translate}}</label>
+                    <label class="col-sm-2">{{client.displayName}}</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.id' | translate}}</label>
+                    <label class="col-sm-2">{{client.id}}</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.office' | translate}}</label>
+                    <label class="col-sm-2">{{client.officeName}}</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.activationdate' | translate}}</label>
+                    <label class="col-sm-2">{{client.activationDate | DateFormat}}</label>
+                </div>
+
+                <div class="form-group" data-ng-show="accounts">
+                    <label class="control-label col-sm-2" for="savingsId">{{ 'label.input.account' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="savingsId" ng-model="formData.savingsId" name="savingsId" class="form-control"
+                                ng-options="savingsAccount.id as (savingsAccount.productName+' - '+savingsAccount.accountNo) for savingsAccount in accounts"
+                                value="{{savingsAccount.id}}" >
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                        <form-validate valattributeform="guaratorform" valattribute="savingsId"/>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="accounts">
+                    <label class="control-label col-sm-2" for="amount">{{ 'label.input.amount' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input id="amount" type="text" name="amount" ng-model="formData.amount" class="form-control"
+                               ng-required="formData.savingsId" late-Validate/>
+                        <form-validate valattributeform="guaratorform" valattribute="amount"/>
+                    </div>
+                </div>
         </div>
         <div class="col-md-offset-2 paddedleft120">
             <a id="cancel" href="#/viewloanaccount/{{loanId}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>

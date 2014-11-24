@@ -99,8 +99,11 @@
                     case "close":
                         location.path('/loanaccount/' + accountId + '/close');
                         break;
-                    case "guarantor":
+                    case "createguarantor":
                         location.path('/guarantor/' + accountId);
+                        break;
+                    case "listguarantor":
+                        location.path('/listguarantors/' + accountId);
                         break;
                     case "unassignloanofficer":
                         location.path('/loanaccount/' + accountId + '/unassignloanofficer');
@@ -135,10 +138,9 @@
                 };
             };
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 scope.recalculateInterest = data.recalculateInterest || true;
-                scope.guarantorDetails = data.guarantors;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
                 scope.date.toDate = new Date();
@@ -207,7 +209,11 @@
                                 taskPermissionName: 'CREATE_COLLATERAL'
                             },
                             {
-                                name: "button.guarantor",
+                                name: "button.listguarantor",
+                                taskPermissionName: 'READ_GUARANTOR'
+                            },
+                            {
+                                name: "button.createguarantor",
                                 taskPermissionName: 'CREATE_GUARANTOR'
                             },
                             {
@@ -248,7 +254,11 @@
                                 taskPermissionName: 'CREATE_LOANCHARGE'
                             },
                             {
-                                name: "button.guarantor",
+                                name: "button.listguarantor",
+                                taskPermissionName: 'READ_GUARANTOR'
+                            },
+                            {
+                                name: "button.createguarantor",
                                 taskPermissionName: 'CREATE_GUARANTOR'
                             },
                             {
@@ -298,6 +308,10 @@
                             {
                                 name: "button.loanscreenreport",
                                 taskPermissionName: 'READ_LOAN'
+                            },
+                            {
+                                name: "button.listguarantor",
+                                taskPermissionName: 'READ_GUARANTOR'
                             }
                         ]
 
@@ -367,36 +381,6 @@
                     scope.formData.note = "";
                     scope.predicate = '-id';
                 });
-            };
-
-            scope.showDetails = function (id) {
-                resourceFactory.guarantorResource.get({loanId: routeParams.id, templateResource: id}, {}, function (data) {
-                    scope.guarantorData = data;
-                });
-
-            };
-            scope.deleteGroup = function (id) {
-                scope.guarantorId = id;
-                $modal.open({
-                    templateUrl: 'deleteguarantor.html',
-                    controller: GuarantorDeleteCtrl,
-                    resolve: {
-                        id: function () {
-                            return scope.guarantorId;
-                        }
-                    }
-                });
-            };
-            var GuarantorDeleteCtrl = function ($scope, $modalInstance, id) {
-                $scope.delete = function () {
-                    resourceFactory.guarantorResource.delete({loanId: routeParams.id, templateResource: id}, {}, function (data) {
-                        $modalInstance.close('delete');
-                        route.reload();
-                    });
-                };
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
             };
 
             scope.getLoanDocuments = function () {
