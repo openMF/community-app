@@ -62,6 +62,10 @@
                 });
             };
 
+            scope.displayNameAndId = function (member){
+                 return ( member.accountNo + " " + member.displayName );
+            };
+
 
         }
     });
