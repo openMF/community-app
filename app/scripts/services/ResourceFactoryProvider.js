@@ -378,6 +378,11 @@
                     }),
                     guarantorResource: defineResource(apiVer + "/loans/:loanId/guarantors/:templateResource", {loanId: '@loanId', templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        delete: { method: 'DELETE', params: {guarantorFundingId: '@guarantorFundingId'}}
+                    }),
+                    guarantorAccountResource: defineResource(apiVer + "/loans/:loanId/guarantors/accounts/template", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {clientId: '@clientId'}},
                         update: {method: 'PUT', params: {}}
                     }),
                     checkerInboxResource: defineResource(apiVer + "/makercheckers/:templateResource", {templateResource: '@templateResource'}, {

@@ -202,6 +202,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'template/EditTemplateController',
             'loanAccount/GuarantorController',
             'loanAccount/EditGuarantorController',
+            'loanAccount/ListGuarantorController',
             'main/ViewCheckerinboxController',
             'main/ExpertSearchController',
             'main/RichDashboard',

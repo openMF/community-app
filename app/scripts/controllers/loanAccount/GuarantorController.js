@@ -18,12 +18,19 @@
             scope.viewClient = function (item) {
                 scope.clientview = true;
                 scope.client = item;
+                scope.changeEvent();
             };
             scope.checkClient = function () {
                 if (!scope.temp) {
                     scope.clientview = false;
                 }
             };
+
+            scope.changeEvent = function () {
+                resourceFactory.guarantorAccountResource.get({ loanId: routeParams.id, clientId: scope.client.id},  function (data) {
+                    scope.accounts = data.accountLinkingOptions;
+                });
+            }
 
             scope.submit = function () {
                 var guarantor = {};
@@ -36,6 +43,8 @@
                     }
                     if (scope.client) {
                         guarantor.entityId = scope.client.id;
+                        guarantor.savingsId =  this.formData.savingsId;
+                        guarantor.amount =  this.formData.amount;
                     }
                 }
                 else if (this.formData) {
