@@ -8,7 +8,23 @@
                 scope.groupOrCenterId = routeParams.groupOrCenterId;
                 scope.calendarData = data;
                 scope.restrictDate = new Date();
-                scope.first = {date: new Date(data.startDate)};
+
+
+                var temp = dateFilter(data.startDate, 'dd MMMM yyyy HH:MM');
+                var stDateArray = [];
+
+                stDateArray[0] = temp[0];
+                stDateArray[1] = temp[1];
+                stDateArray[2] = temp[2];
+
+                scope.first = {date: new Date(stDateArray)};
+                scope.hstep = temp[3];
+                scope.mstep = temp[3];
+                var d = new Date();
+                d.setHours(temp[3]);
+                d.setMinutes(temp[4]);
+                scope.mytime = d;
+               // scope.first_time = stTimeArray;//{date: new Date(stTimeArray).getTime()};
                 scope.repeatsOptions = [
                     {id: 1, value: "daily"},
                     {id: 2, value: "weekly"},
@@ -22,6 +38,7 @@
                     repeating: scope.calendarData.repeating,
                     frequency: scope.calendarData.frequency.id,
                     interval: Math.abs(scope.calendarData.interval)
+
                 }
                 for(var i in scope.repeatsEveryOptions){
                     if (scope.formData.interval == scope.repeatsEveryOptions[i]){
@@ -70,11 +87,20 @@
             }
 
             scope.submit = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
+
+                scope.first.date.setHours(scope.mytime.getHours());
+                scope.first.date.setMinutes(scope.mytime.getMinutes());
+                var reqDate = dateFilter(scope.first.date, 'dd MMMM yyyy HH:mm');
+                /*var stTimeArray = [];
+                    stTimeArray[0] = startHour;
+                    stTimeArray[1] = startMin;
+                var startTime =*/
+
+                //var reqTime = scope.mytime;
                 this.formData.startDate = reqDate;
                 this.formData.title = scope.calendarData.title;
                 this.formData.locale = "en";
-                this.formData.dateFormat = scope.df;
+                this.formData.dateFormat = 'dd MMMM yyyy HH:mm';
                 this.formData.typeId = "1";
                 if (this.formData.interval < 0) {
                     scope.formData.interval = Math.abs(this.formData.interval);

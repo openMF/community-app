@@ -8,7 +8,6 @@
                 scope.groupCenterData = data;
                 scope.restrictDate = new Date();
                 scope.first = {};
-                scope.periodValue = "day(s)";
                 scope.repeatsOptions = [
                     {id: 1, value: "daily"},
                     {id: 2, value: "weekly"},
@@ -21,6 +20,9 @@
                     repeating: 'true',
                     frequency: scope.repeatsOptions[0].id,
                     interval: '1'
+                   /* startTime : data.startTime.iLocalMillis*/
+                    //new field added here.
+                    //location: data.location
                 }
             });
 
@@ -54,10 +56,13 @@
             }
 
             scope.submit = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
+                scope.first.date.setHours(scope.mytime.getHours());
+                scope.first.date.setMinutes(scope.mytime.getMinutes());
+
+                var reqDate = dateFilter(scope.first.date, 'dd MMMM yyyy HH:mm');
                 this.formData.startDate = reqDate;
                 this.formData.locale = "en";
-                this.formData.dateFormat = scope.df;
+                this.formData.dateFormat = 'dd MMMM yyyy HH:mm';
                 this.formData.typeId = "1";
                 if (routeParams.entityType == "groups") {
                     this.formData.title = "groups_" + routeParams.id + "_CollectionMeeting";
