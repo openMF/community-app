@@ -1,5 +1,6 @@
 (function (module) {
     mifosX.directives = _.extend(module, {
+
         FormSubmitValidateDirective: function ($parse, $event) {
             return {
                 restrict: 'A',
@@ -16,6 +17,13 @@
                     this.setFormController = function (controller) {
                         formController = controller;
                     };
+
+                    $scope.save = function(){
+                        $scope.isProcessing = true;
+                        $http.post('Api/Controller/Save', data).success(
+                        );
+                    };
+
                 }],
                 compile: function (cElement, cAttributes, transclude) {
                     return {
@@ -51,6 +59,7 @@
             };
         }
     });
+
 }(mifosX.directives || {}));
 
 mifosX.ng.application.directive("rcSubmit", ['$parse', mifosX.directives.FormSubmitValidateDirective]).run(function ($log) {
