@@ -4,6 +4,7 @@
             scope.restrictDate = new Date();
             scope.formData = {};
             scope.charges = [];
+            scope.loanProductConfigurableAttributes = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
             scope.specificIncomeAccountMapping = [];
@@ -54,6 +55,15 @@
                 scope.formData.isInterestRecalculationEnabled = scope.product.isInterestRecalculationEnabled;
                 scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                 scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
+                scope.configureAmortization = 'false';
+                scope.configureArrearsTolerance = 'false';
+                scope.configureGraceOnArrearsAging = 'false';
+                scope.configureInterestCalcPeriod = 'false';
+                scope.configureInterestMethod = 'false';
+                scope.configureMoratorium = 'false';
+                scope.configureRepaymentFrequency = 'false';
+                scope.configureRepaymentStrategy = 'false';
+                scope.allowAttributeConfiguration = 'false';
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -187,6 +197,7 @@
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
+                scope.selectedConfigurableAttributes = [];
 
                 var temp = '';
 
@@ -224,10 +235,24 @@
                     scope.chargesSelected.push(temp);
                 }
 
+
+                scope.selectedConfigurableAttributes = [
+                    {allowAttributeConfiguration:scope.allowAttributeConfiguration},
+                    {configureAmortization:scope.configureAmortization},
+                    {configureInterestMethod:scope.configureInterestMethod},
+                    {configureRepaymentStrategy:scope.configureRepaymentStrategy},
+                    {configureInterestCalcPeriod:scope.configureInterestCalcPeriod},
+                    {configureArrearsTolerance:scope.configureArrearsTolerance},
+                    {configureRepaymentFrequency:scope.configureRepaymentFrequency},
+                    {configureMoratorium:scope.configureMoratorium},
+                    {configureGraceOnArrearsAging:scope.configureGraceOnArrearsAging}
+                ];
+
                 this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.loanProductConfigurableAttributes = scope.selectedConfigurableAttributes;
                 this.formData.locale = "en";
                 this.formData.dateFormat = scope.df;
                 this.formData.startDate = reqFirstDate;

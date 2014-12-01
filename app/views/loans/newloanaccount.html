@@ -152,9 +152,10 @@
                 <td class="paddedbottom10 width500px">
                 
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
-                           ng-model="formData.repaymentEvery" required late-Validate/>
+                           ng-model="formData.repaymentEvery" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentFrequency" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentFrequency"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;<span ng-show="formData.repaymentFrequencyType == 2">on</span>
                     <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
                             ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
@@ -193,6 +194,7 @@
                 <td><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10">
                     <select id="interestType" ng-model="formData.interestType"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureInterestMethod"
                             ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" class="form-control width170px"
                             value="{{interestType.id}}"/>
                 </td>
@@ -203,20 +205,22 @@
                 <td class="paddedbottom10">
                     <select id="amortizationType" ng-model="formData.amortizationType" class="form-control width170px"
                             ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions"
-                            value="{{amortizationType.id}}"/>
+                            value="{{amortizationType.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureAmortization"/>
                 </td>
                 <td><label>{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
                     <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
                             ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions" class="form-control width170px"
-                            value="{{interestCalculationPeriodType.id}}"/>
+                            value="{{interestCalculationPeriodType.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureInterestCalcPeriod"/>
                 </td>
             </tr>
             <tr>
                 <td><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10">
-                    <input id="inArrearsTolerance" type="text" ng-model="formData.inArrearsTolerance" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                    <input id="inArrearsTolerance" type="text" ng-model="formData.inArrearsTolerance"
+                           ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureArrearsTolerance"
+                           class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                 </td>
                 <td><label>{{ 'label.input.interestfreeperiod' | translate }}</label></td>
                 <td class="paddedbottom10">
@@ -229,14 +233,15 @@
                 <td class="paddedbottom10">
                     <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
                             ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions"
-                            value="{{transactionProcessingStrategy.id}}" class="form-control width170px"/>
+                            value="{{transactionProcessingStrategy.id}}"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentStrategy" class="form-control width170px"/>
                 </td>
                 <td colspan=2>
                     <span>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onprincipalpayment' | translate}}&nbsp;<input
-                            id="graceOnPrincipalPayment" class="input-mini-small" type="text"
+                            id="graceOnPrincipalPayment" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureMoratorium" class="input-mini-small" type="text"
                             ng-model="formData.graceOnPrincipalPayment">&nbsp;{{'label.input.oninterestpayment' |
                         translate}}&nbsp;<input id="graceOnInterestPayment" type="text" class="input-mini-small"
-                                                ng-model="formData.graceOnInterestPayment"></span>
+                                                ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureMoratorium" ng-model="formData.graceOnInterestPayment"></span>
                 </td>
             </tr>
             <tr>
@@ -244,6 +249,7 @@
                     <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onduedate' | translate}}&nbsp;
                         <input
                             id="graceOnArrearsAgeing" class="input-mini-small" type="text"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureGraceOnArrearsAging"
                             ng-model="formData.graceOnArrearsAgeing"></label>
                 </td>
             </tr>
