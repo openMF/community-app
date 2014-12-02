@@ -1,10 +1,13 @@
-<div class="col-md-12" ng-controller="ViewCodeController">
+<form name="viewcodeform" novalidate="" ng-submit="submit()">
+
+    <div class="col-md-12" ng-controller="ViewCodeController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
             <li class="active">{{code.name | translate}}</li>
         </ul>
+        <api-validate></api-validate>
     </div>
 
     <script type="text/ng-template" id="deletecode.html">
@@ -12,7 +15,7 @@
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
         </div>
         <div class="modal-body ">
-            <api-validate></api-validate>
+
             <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
@@ -23,7 +26,7 @@
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
         </div>
         <div class="modal-body ">
-            <api-validate></api-validate>
+
             <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
@@ -61,6 +64,7 @@
                 <thead>
                 <tr>
                     <th>{{ 'label.heading.name' | translate }}</th>
+                    <th>{{ 'label.heading.description' | translate }}</th>
                     <th>{{ 'label.heading.position' | translate }}</th>
                     <th></th>
                     <th></th>
@@ -74,13 +78,18 @@
                                type="text" class="form-control"/>
                     </td>
                     <td>
+                        <span data-ng-hide="codevalue.edit">{{codevalue.description}}</span>
+                        <textarea data-ng-show="codevalue.edit" name="description" ng-model="formData[codevalue.id].description"
+                               type="text" class="form-control" style="width: 342px; height: 32px;"/>
+                    </td>
+                    <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
                         <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
                                type="text" class="form-control"/>
                     </td>
                     <td>
                         <button data-ng-hide="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE' 
-                                data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.position,codevalue)"><i
+                                data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.description,codevalue.position,codevalue)"><i
                                 class="icon-edit icon-white"></i></button>
                         <button data-ng-show="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE'
                                 data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
@@ -96,3 +105,5 @@
         </div>
     </div>
 </div>
+</form>
+

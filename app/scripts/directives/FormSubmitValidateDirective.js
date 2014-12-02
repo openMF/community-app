@@ -16,6 +16,11 @@
                     this.setFormController = function (controller) {
                         formController = controller;
                     };
+                    $scope.save = function(){
+                        $scope.isProcessing = true;
+                        $http.post('Api/Controller/Save', data).success( $scope.isProcessing = false
+                        );
+                    };
                 }],
                 compile: function (cElement, cAttributes, transclude) {
                     return {
