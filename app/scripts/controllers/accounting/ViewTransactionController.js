@@ -58,15 +58,38 @@
             };
 
             scope.reverseTransaction = function (transactionId) {
+                $modal.open({
+                    templateUrl: 'reverseTransaction.html',
+                    controller: ReverseJournalEntriesCtrl,
+                    resolve: {
+                        transactionId: function () {
+                            return transactionId;
+                        }
+                    }
+                });
+            }
 
-                resourceFactory.journalEntriesResource.reverse({transactionId: transactionId}, function (data) {
+            var ReverseJournalEntriesCtrl = function ($scope, $modalInstance, transactionId) {
+                $scope.data = {
+                    reverseComments:""
+                };
+                $scope.reverse = function () {
+                    reverseData = {transactionId: transactionId, comments: $scope.data.reverseComments};
+                    console.log(reverseData);
+                    resourceFactory.journalEntriesResource.reverse(reverseData, function (data) {
+                    $modalInstance.dismiss('cancel');
+
                     scope.trxnid = data;
                     scope.confirmation();
 
                     route.reload();
 
-                });
-            }
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
         }
     });
