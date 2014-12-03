@@ -19,11 +19,11 @@
                     controller: CodeDeleteCtrl
                 });
             };
-            scope.showEdit = function (id, name, position, cv) {
+            scope.showEdit = function (id, name, description,position, cv) {
                 scope.formData[id] = {
                     name: name,
+                    description:description,
                     position: position
-
                 }
                 cv.edit = !cv.edit;
             };
