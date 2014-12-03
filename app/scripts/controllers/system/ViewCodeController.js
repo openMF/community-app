@@ -19,7 +19,7 @@
                     controller: CodeDeleteCtrl
                 });
             };
-            scope.showEdit = function (id, name, description,position, cv) {
+            scope.showEdit = function (id, name, description, position, cv) {
                 scope.formData[id] = {
                     name: name,
                     description:description,
@@ -84,7 +84,6 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
-
         }
     });
     mifosX.ng.application.controller('ViewCodeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.ViewCodeController]).run(function ($log) {
