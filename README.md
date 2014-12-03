@@ -15,7 +15,7 @@ Travis
 
 ## Building from source
 
-1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
+1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.  On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
