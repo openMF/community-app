@@ -4,11 +4,15 @@
         <li ng-show="entityType=='groups'"><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li ng-show="entityType=='centers'"><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.editmeeting' | translate }}</li>
+
     </ul>
     <api-validate></api-validate>
     <form ng-submit="submit()" class="well form-horizontal">
         <fieldset>
-	        <legend>{{'label.heading.editmeeting' | translate}}</legend>
+
+	        <span>{{'label.heading.editmeeting' | translate}}</span><span class="pull-right ">
+                <a href="#/editcalendarbasedonmeetingdates/{{entityType}}/{{groupOrCenterId}}/{{calendarId}}" >{{ 'label.button.editcalendarbasedonmeetingdates' | translate }}</a>
+            </span>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{'label.input.meetingstartdate' | translate}}<span
 	                    class="required">*</span></label>
@@ -17,6 +21,7 @@
 		                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
 		        </div>
 		    </div>
+
 	        <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.repeat' | translate}}</label>
                 <div class="col-sm-3">
