@@ -9,36 +9,27 @@
     <form ng-submit="submit()" class="well form-horizontal">
         <fieldset>
 	        <legend>{{'label.heading.editmeeting' | translate}}</legend>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{'label.input.meetingstartdate' | translate}}<span
-	                    class="required">*</span></label>
-	            <div class="col-sm-3">
-		            <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-		                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-		        </div>
-		    </div>
-	        <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.repeat' | translate}}</label>
-                <div class="col-sm-3">
-                    <input type="checkbox" ng-model="formData.repeating">
-                </div>
+
+
+            <div class="form-group">
+             <alert type="danger" >{{'warning.msg.calendar.update.note' | translate}} </alert>
             </div>
+
             <div class="form-group" ng-show="formData.repeating">
-                <label  class="control-label col-sm-2">{{'label.heading.repeatdetails'
+                <label  class="control-label col-sm-2">{{'label.heading.meetingdetails'
                     | translate}}</label>
                 <div class="col-sm-10">
 	                <label class="control-label col-md-1">{{'label.input.repeats' | translate}}</label>
 	                <div class="col-sm-3">
 		                <select class="input-sm form-control" ng-model="formData.frequency"
 		                        ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
-		                        ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"
-		                        ng-disabled=true></select>
+		                        ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"></select>
 	                </div>
                     <label class="control-label col-md-2">{{'label.input.repeatsevery' | translate}}</label>
                     <div class="col-sm-3">
 	                    <select class="input-sm form-control" ng-model="formData.interval"
 	                            ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions"
-	                            ng-disabled=true value="{{repeatsEveryOption}}"></select>
+	                            value="{{repeatsEveryOption}}"></select>
 	                </div>
 	                <label class="control-label col-md-1">{{periodValue}}</label>
                 </div>
@@ -49,6 +40,15 @@
                         <input type="radio" ng-model="formData.repeatsOnDay" value="{{repeatsOnOption.value}}">
                         {{repeatsOnOption.name}} <br/>
                     </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-4">{{'label.input.calendar.changes.effective.from' | translate}}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </div>
             </div>
 	        <div class="col-md-offset-2">
