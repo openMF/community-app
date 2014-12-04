@@ -33,6 +33,7 @@ describe("ResourceFactoryProvider", function () {
         it("should define the Office resource", function () {
             expect(ngResource).toHaveBeenCalledWith(apiVersion + "/offices/:officeId", {officeId: "@officeId"}, {
                 getAllOffices: {method: 'GET', params: {}, isArray: true},
+                getAllOfficesAlphabetically: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                 update: {method: 'PUT'}
             });
             expect(this.factory.officeResource).toEqual("test_resource");

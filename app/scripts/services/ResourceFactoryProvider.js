@@ -34,6 +34,7 @@
                     }),
                     officeResource: defineResource(apiVer + "/offices/:officeId", {officeId: "@officeId"}, {
                         getAllOffices: {method: 'GET', params: {}, isArray: true},
+                        getAllOfficesAlphabetically: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource'}, {
