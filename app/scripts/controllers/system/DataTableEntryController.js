@@ -15,6 +15,7 @@
             scope.columnHeaders = [];
             scope.formData = {};
             scope.isViewMode = true;
+            scope.tf = "HH:mm";
             if(routeParams.mode && routeParams.mode == 'edit'){
                 scope.isViewMode = false;
             }
@@ -53,15 +54,28 @@
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
-                    if (type == 'STRING' || type == 'INTEGER' || type == 'TEXT' || type == 'DECIMAL') {
-                        fieldType = 'TEXT';
-                    } else if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                    if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
                         fieldType = 'SELECT';
                     } else if (type == 'DATE') {
                         fieldType = 'DATE';
+                    } else if (type == 'DATETIME') {
+                        fieldType = 'DATETIME';
+                    } else if (type == 'BOOLEAN') {
+                        fieldType = 'BOOLEAN';
+                    } else {
+                        fieldType = 'TEXT';
                     }
                 }
                 return fieldType;
+            };
+
+            scope.dateTimeFormat = function () {
+                for (var i in scope.columnHeaders) {
+                    if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        return scope.df + " " + scope.tf;
+                    }
+                }
+                return scope.df;
             };
 
             scope.editDatatableEntry = function () {
@@ -81,6 +95,14 @@
 
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         scope.formDat[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
+                    } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        scope.formDat[scope.columnHeaders[i].columnName] = {};
+                        if(scope.columnHeaders[i].value != null) {
+                            scope.formDat[scope.columnHeaders[i].columnName] = {
+                                date: dateFilter(new Date(scope.columnHeaders[i].value), scope.df),
+                                time: dateFilter(new Date(scope.columnHeaders[i].value), scope.tf)
+                            };
+                        }
                     } else {
                         scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].value;
                     }
@@ -142,14 +164,17 @@
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
-                this.formData.dateFormat = scope.df;
+                this.formData.dateFormat = scope.dateTimeFormat();
                 for (var i = 0; i < scope.columnHeaders.length; i++) {
                     if (!_.contains(_.keys(this.formData), scope.columnHeaders[i].columnName)) {
                         this.formData[scope.columnHeaders[i].columnName] = "";
                     }
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
-                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], scope.df);
-                    };
+                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], this.formData.dateFormat);
+                    } else if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df) + " " +
+                        dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                    }
                 }
                 resourceFactory.DataTablesResource.update(reqparams, this.formData, function (data) {
                     var destination = "";
