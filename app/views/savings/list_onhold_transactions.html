@@ -1,0 +1,46 @@
+<div class="col-md-12" ng-controller="ListOnHoldTransactionController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/{{fromPath}}/{{fromPathId}}">{{'label.heading.' +fromPath | translate}}</a></li>
+            <li class="active">{{'label.anchor.onholdtransaction' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="span gray-head" style="margin-left:0%;">
+          <span style="margin-left: 10px;font-size:20px">
+                <strong> {{'label.heading.listonholdtransaction' | translate}}</strong>
+          </span>
+    </div>
+
+    <div ng-show="transactions" class="marginbuttontop25px">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.transactionType' | translate}}</th>
+                <th>{{'label.heading.transactionDate' | translate}}</th>
+                <th>{{'label.heading.amount' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="transaction in transactions.currentPageItems"
+                ng-class="{strikeoff : transaction.reversed==true}">
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.transactionType.code | translate}}</td>
+                <td>{{transaction.transactionDate | DateFormat}}</td>
+                <td>{{transaction.amount}}</td>
+            </tr>
+            </tbody>
+
+        </table>
+        <ul class="pager">
+            <li class="previous"><a id="prev" ng-click="transactions.previous()" href=""
+                                    ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' |
+                translate}}</a></li>
+            <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next'
+                | translate}}&rarr;</a></li>
+        </ul>
+    </div>
+
+</div>
+

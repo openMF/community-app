@@ -86,7 +86,7 @@
             <div class="col-md-12 primarydiv">
                 <div class="pull-right">
                       <span ng-repeat="button in buttons.singlebuttons">
-                          <a ng-show="button.name" has-permission='{{button.taskPermissionName}}' 
+                          <a ng-show="button.name" has-permission='{{button.taskPermissionName}}'
                              ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
                              class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
                               translate}}</a>
@@ -259,6 +259,16 @@
                             <tr data-ng-show="savingaccountdetails.enforceMinRequiredBalance">
                                 <td class="table-bold-acc fontnormal"> {{'label.heading.minRequiredBalance' | translate}}</td>
                                 <td><span class="padded-td">{{savingaccountdetails.minRequiredBalance| number}}</span></td>
+                            </tr>
+                            <tr ng-show="showonhold">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.onholdfunds' | translate}}</td>
+                                <td><span class="padded-td">
+                                     <a class="btn-link"
+                                        has-permission='READ_SAVINGSACCOUNT'
+                                        href="#/viewonholdtransactions/{{savingaccountdetails.id}}/viewsavingaccount/{{savingaccountdetails.id}}">
+                                         {{savingaccountdetails.onHoldFunds| number}}
+                                     </a>
+                                    </span></td>
                             </tr>
 
                         </table>
