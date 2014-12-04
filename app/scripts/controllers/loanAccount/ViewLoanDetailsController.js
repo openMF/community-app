@@ -105,6 +105,9 @@
                     case "listguarantor":
                         location.path('/listguarantors/' + accountId);
                         break;
+                    case "recoverguarantee":
+                        location.path('/loanaccount/' + accountId + '/recoverguarantee');
+                        break;
                     case "unassignloanofficer":
                         location.path('/loanaccount/' + accountId + '/unassignloanofficer');
                         break;
@@ -312,6 +315,14 @@
                             {
                                 name: "button.listguarantor",
                                 taskPermissionName: 'READ_GUARANTOR'
+                            },
+                            {
+                                name: "button.createguarantor",
+                                taskPermissionName: 'CREATE_GUARANTOR'
+                            },
+                            {
+                                name: "button.recoverguarantee",
+                                taskPermissionName: 'RECOVERGUARANTEES_LOAN'
                             }
                         ]
 

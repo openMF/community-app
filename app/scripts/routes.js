@@ -436,6 +436,9 @@
             .when('/savings/:savingId/viewcharge/:id', {
                 templateUrl: 'views/savings/viewsavingscharge.html'
             })
+            .when('/viewonholdtransactions/:savingsId/:fromPath/:fromPathId', {
+                templateUrl: 'views/savings/list_onhold_transactions.html'
+            })
             .when('/groups', {
                 templateUrl: 'views/groups/groups.html'
             })
@@ -621,6 +624,9 @@
             })
             .when('/editguarantor/:id/:loanId', {
                 templateUrl: 'views/loans/editguarantor.html'
+            })
+            .when('/viewguarantortransactions/:savingsId/:fundingId/:fromPath/:fromPathId', {
+                templateUrl: 'views/savings/list_onhold_transactions.html'
             })
             .when('/expertsearch', {
                 templateUrl: 'views/expertsearch.html'

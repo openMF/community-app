@@ -280,6 +280,9 @@
                     savingsTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId: '@savingsId', transactionId: '@transactionId'}, {
                         get: {method: 'GET', params: {savingsId: '@savingsId', transactionId: '@transactionId'}}
                     }),
+                    savingsOnHoldTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/onholdtransactions", {savingsId: '@savingsId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     fixedDepositAccountResource: defineResource(apiVer + "/fixeddepositaccounts/:accountId/:resourceType", {accountId: '@accountId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT'}

@@ -108,6 +108,10 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.showonhold = true;
+                if(angular.isUndefined(data.onHoldFunds)){
+                    scope.showonhold = false;
+                }
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);

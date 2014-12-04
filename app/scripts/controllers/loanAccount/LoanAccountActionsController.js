@@ -215,6 +215,12 @@
                     scope.showDateField = false;
                     scope.taskPermissionName = 'DELETE_LOANCHARGE';
                     break;
+                case "recoverguarantee":
+                    scope.showDelete = true;
+                    scope.showNoteField = false;
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'RECOVERGUARANTEES_LOAN';
+                    break;
                 case "waivecharge":
                     resourceFactory.LoanAccountResource.get({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, function (data) {
                         if (data.chargeTimeType.value !== "Specified due date" && data.installmentChargeData) {
@@ -301,6 +307,9 @@
 
             scope.submit = function () {
                 var params = {command: scope.action};
+                if(scope.action == "recoverguarantee"){
+                    params.command = "recoverGuarantees";
+                }
                 if (this.formData[scope.modelName]) {
                     this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName], scope.df);
                 }
@@ -339,6 +348,10 @@
                 } else if (scope.action === "editdisbursedate") {
                     this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                     resourceFactory.LoanEditDisburseResource.update({loanId: routeParams.id, disbursementId: routeParams.disbursementId}, this.formData, function (data) {
+                        location.path('/viewloanaccount/' + data.loanId);
+                    });
+                }  else if (scope.action == "deleteloancharge") {
+                    resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 } else {
