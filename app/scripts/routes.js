@@ -394,6 +394,18 @@
             .when('/editreport/:id', {
                 templateUrl: 'views/system/editreport.html'
             })
+            .when('/accountnumberpreferences', {
+                templateUrl: 'views/system/accountnumberpreferences.html'
+            })
+            .when('/addaccountnumberpreferences', {
+                templateUrl: '../views/system/addaccountnumberpreferences.html'
+            })
+            .when('/viewaccountnumberpreferences/:id', {
+                templateUrl: '../views/system/viewaccountnumberpreferences.html'
+            })
+            .when('/editaccountnumberpreferences/:id', {
+                templateUrl: '../views/system/editaccountnumberpreferences.html'
+            })
             .when('/holidays', {
                 templateUrl: 'views/organization/holidays.html'
             })
