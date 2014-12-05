@@ -89,6 +89,7 @@ angular.module('modified.datepicker', ['strap.position'])
         dayTitleFormat: 'MMMM yyyy',
         monthTitleFormat: 'yyyy',
         showWeeks: true,
+        showToday: true,
         startingDay: 0,
         yearRange: 20,
         minDate: null,
@@ -227,6 +228,11 @@ angular.module('modified.datepicker', ['strap.position'])
                 "        <button type=\"button\" style=\"width:100%;\" class=\"btn-silver\" ng-class=\"{'btn-silver-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{muted: dt.secondary}\">{{dt.label | translate}}</span></button>\n" +
                 "      </td>\n" +
                 "    </tr>\n" +
+                "    <tr ng-show=\"showTodayDate\">\n" +
+                "      <td colspan=\"{{rows[0].length + showWeekNumbers}}\" class=\"text-center\" style=\"padding-top: 5px\">\n" +
+                "        <strong><a ng-click=\"select(todayDate.date)\">{{'label.today' | translate}}: {{todayDate.label | translate}}</a></strong>\n" +
+                "      </td>\n" +
+                "    </tr>\n" +
                 "  </tbody>\n" +
                 "</table>\n",
             scope: {
@@ -242,7 +248,17 @@ angular.module('modified.datepicker', ['strap.position'])
                 }
 
                 // Configuration parameters
-                var mode = 0, selected = new Date(), showWeeks = datepickerConf.showWeeks;
+                var mode = 0, selected = new Date(), showWeeks = datepickerConf.showWeeks,
+                    showToday = datepickerConf.showToday;
+
+                if (attrs.showToday) {
+                    scope.$parent.$watch($parse(attrs.showToday), function (value) {
+                        showToday = !!value;
+                        updateShowTodayDate();
+                    });
+                } else {
+                    updateShowTodayDate();
+                }
 
                 if (attrs.showWeeks) {
                     scope.$parent.$watch($parse(attrs.showWeeks), function (value) {
@@ -268,6 +284,10 @@ angular.module('modified.datepicker', ['strap.position'])
 
                 function updateShowWeekNumbers() {
                     scope.showWeekNumbers = mode === 0 && showWeeks;
+                }
+
+                function updateShowTodayDate() {
+                    scope.showTodayDate = showToday;
                 }
 
                 // Split array into smaller arrays
@@ -304,6 +324,10 @@ angular.module('modified.datepicker', ['strap.position'])
                     scope.rows = split(data.objects, currentMode.split);
                     scope.labels = data.labels || [];
                     scope.title = data.title;
+                    scope.todayDate = {
+                        date : new Date(Date.now()),
+                        label :  dateFilter(Date.now(), scope.dateFormat)
+                    }
                 }
 
                 function setMode(value) {
@@ -475,6 +499,12 @@ angular.module('modified.datepicker', ['strap.position'])
 
                     addWatchableAttribute(attrs.min, 'min');
                     addWatchableAttribute(attrs.max, 'max');
+                    if(attrs.showToday) {
+                        addWatchableAttribute(attrs.showToday, 'showToday', 'show-today');
+                    } else {
+                        scope.showToday = true;
+                        datepickerEl.attr('show-today', 'showToday');
+                    }
                     if (attrs.showWeeks) {
                         addWatchableAttribute(attrs.showWeeks, 'showWeeks', 'show-weeks');
                     } else {
