@@ -7,6 +7,8 @@
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
+			scope.date = {};
+			scope.date.submittedOnDate = new Date();
             if (routeParams.centerEntity) {
                 scope.centerEntity = true;
             }

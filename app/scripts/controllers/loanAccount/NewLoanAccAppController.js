@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
-
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -11,6 +10,7 @@
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType: 'template'};
             scope.date = {};
+            scope.date.first = new Date();
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
                 scope.formData.clientId = scope.clientId;
