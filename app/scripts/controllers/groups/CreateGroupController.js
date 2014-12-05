@@ -6,6 +6,7 @@
             scope.data = {};
             scope.choice = 0;
             scope.first = {};
+            scope.first.submitondate = new Date();
             scope.first.date = new Date();
             scope.restrictDate = new Date();
             scope.addedClients = [];

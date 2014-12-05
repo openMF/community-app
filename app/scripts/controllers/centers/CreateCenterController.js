@@ -5,6 +5,7 @@
             scope.staffs = [];
             scope.data = {};
             scope.first = {};
+            scope.first.submitondate = new Date ();
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.first.date = new Date();
