@@ -75,7 +75,6 @@
                 };
                 $scope.reverse = function () {
                     reverseData = {transactionId: transactionId, comments: $scope.data.reverseComments};
-                    console.log(reverseData);
                     resourceFactory.journalEntriesResource.reverse(reverseData, function (data) {
                     $modalInstance.dismiss('cancel');
 
