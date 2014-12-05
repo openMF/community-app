@@ -53,12 +53,6 @@
                 ],
                 "Closed":[
                     {
-                        name: "label.button.edit",
-                        href: "#/editclient",
-                        icon: "icon-edit",
-                        taskPermissionName: "UPDATE_CLIENT"
-                    },
-                    {
                         name: "label.button.reactivate",
                         href: "#/client",
                         subhref: "reactivate",
