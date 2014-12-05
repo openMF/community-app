@@ -39,14 +39,15 @@
                     break;
                 case "close":
                     scope.labelName = 'label.input.closuredate';
-                    scope.labelNameClosurereason = 'label.input.closurereason';
+                    scope.labelNamereason = 'label.input.closurereason';
                     scope.breadcrumbName = 'label.anchor.close';
                     scope.modelName = 'closureDate';
-                    scope.closureReasonField = true;
+                    scope.reasonmodelName = 'closureReasonId';
+                    scope.reasonField = true;
                     scope.showDateField = true;
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'close'}, function (data) {
-                        scope.closureReasons = data.closureReasons;
-                        scope.formData.closureReasonId = scope.closureReasons[0].id;
+                        scope.reasons = data.narrations;
+                        scope.formData.reasonId = scope.narrations[0].id;
                     });
                     scope.taskPermissionName = 'CLOSE_CLIENT';
                     break;
@@ -93,6 +94,49 @@
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'WITHDRAWTRANSFER_CLIENT';
                     break;
+                case "reject":
+                    scope.labelName = 'label.input.rejectdate';
+                    scope.labelNamereason = 'label.input.rejectreason';
+                    scope.breadcrumbName = 'label.anchor.reject';
+                    scope.modelName = 'rejectDate';
+                    scope.reasonmodelName = 'rejectReasonId';
+                    scope.reasonField = true;
+                    scope.showDateField = true;
+                    resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'reject'}, function (data) {
+                        scope.reasons = data.narrations;
+                        scope.formData.rejectReasonId = scope.narrations[0].id;
+                    });
+                    scope.taskPermissionName = 'REJECT_CLIENT';
+                    break;
+                case "withdraw":
+                    scope.labelName = 'label.input.withdrawdate';
+                    scope.labelNamereason = 'label.input.withdrawreason';
+                    scope.breadcrumbName = 'label.anchor.withdraw';
+                    scope.modelName = 'withdrawDate';
+                    scope.reasonmodelName = 'withdrawReasonId';
+                    scope.reasonField = true;
+                    scope.showDateField = true;
+                    resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'withdraw'}, function (data) {
+                        scope.reasons = data.narrations;
+                        scope.formData.reasonId = scope.narrations[0].id;
+                    });
+                    scope.taskPermissionName = 'WITHDRAW_CLIENT';
+                    break;
+                case "reactivate":
+                    resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+                        scope.client = data;
+                        if (data.timeline.submittedOnDate) {
+                            scope.mindate = new Date(data.timeline.submittedOnDate);
+                        }
+                    });
+                    scope.labelName = 'label.input.reactivationdate';
+                    scope.breadcrumbName = 'label.anchor.reactivate';
+                    scope.modelName = 'reactivationDate';
+                    scope.showActivationDateField = true;
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'REACTIVATE_CLIENT';
+                    break;
+
             }
 
             scope.cancel = function () {
@@ -127,6 +171,22 @@
                 }
                 if (scope.action == "close") {
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'close'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "reject") {
+
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'reject'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "withdraw") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'withdraw'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "reactivate") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'reactivate'}, this.formData, function (data) {
                         location.path('/viewclient/' + data.clientId);
                     });
                 }

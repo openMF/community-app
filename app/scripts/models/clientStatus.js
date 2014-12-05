@@ -35,7 +35,37 @@
                         subhref: "close",
                         icon: "icon-remove-circle",
                         taskPermissionName: "CLOSE_CLIENT"
+                    },
+                    {
+                        name: "label.button.reject",
+                        href: "#/client",
+                        subhref: "reject",
+                        icon: "icon-remove-circle",
+                        taskPermissionName: "REJECT_CLIENT"
+                    },
+                    {
+                        name: "label.button.withdraw",
+                        href: "#/client",
+                        subhref: "withdraw",
+                        icon: "icon-remove-circle",
+                        taskPermissionName: "WITHDRAW_CLIENT"
                     }
+                ],
+                "Closed":[
+                    {
+                        name: "label.button.edit",
+                        href: "#/editclient",
+                        icon: "icon-edit",
+                        taskPermissionName: "UPDATE_CLIENT"
+                    },
+                    {
+                        name: "label.button.reactivate",
+                        href: "#/client",
+                        subhref: "reactivate",
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "REACTIVATE_CLIENT"
+                    }
+
                 ],
                 "Active": [
                     {
