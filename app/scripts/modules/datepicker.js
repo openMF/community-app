@@ -435,6 +435,14 @@ angular.module('modified.datepicker', ['strap.position'])
                         }
                     }
 
+                    var documentKeyBind = function(event) {
+                        if (scope.isOpen && (event.which == 9 || event.which == 27)) { //Tab || Esc
+                            scope.$apply(function() {
+                                setOpen(false);
+                            });
+                        }
+                    };
+
                     var documentClickBind = function (event) {
                         if (scope.isOpen && event.target !== element[0]) {
                             scope.$apply(function () {
@@ -523,6 +531,7 @@ angular.module('modified.datepicker', ['strap.position'])
                     scope.$watch('isOpen', function (value) {
                         if (value) {
                             updatePosition();
+                            $document.bind('keydown', documentKeyBind);
                             $document.bind('click', documentClickBind);
                             element.unbind('focus', elementFocusBind);
                             element.focus();
