@@ -436,10 +436,18 @@ angular.module('modified.datepicker', ['strap.position'])
                     }
 
                     var documentKeyBind = function(event) {
-                        if (scope.isOpen && (event.which == 9 || event.which == 27)) { //Tab || Esc
-                            scope.$apply(function() {
-                                setOpen(false);
-                            });
+                        if (event.which == 9 || event.which == 27) { //Tab || Esc
+                            if (scope.isOpen) {
+                                   scope.$apply(function() {
+                                    setOpen(false);
+                                });
+                            }
+                            
+                            setTimeout(function() { // check future element focus
+                                var el = document.activeElement.parentNode.parentNode.parentNode;
+                                if (el.hasAttribute('collapse') && el.className == "collapse")
+                                    document.getElementById('clickToShow').click();
+                            }, 10);
                         }
                     };
 
