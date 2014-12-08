@@ -21,6 +21,29 @@
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
                        datepicker-pop="dd MMMM yyyy" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control"/>
+                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formDat[columnHeader.columnName].date"
+                               is-open="opened{{$index}}" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" placeholder="HH:MM:SS"
+                               ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
+                    </div>
+                </div>
+                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="formData[columnHeader.columnName]"
+                               value="true"/>
+                        {{'label.input.true' | translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="formData[columnHeader.columnName]"
+                               value="false"/>
+                        {{'label.input.false' | translate}}
+                    </label>
+                </div>
                 <span data-ng-switch on="columnHeader.columnDisplayType">
                     <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                             data-ng-switch-when="CODELOOKUP"
