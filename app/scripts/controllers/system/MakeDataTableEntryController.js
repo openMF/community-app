@@ -7,6 +7,7 @@
             scope.columnHeaders = [];
             scope.formData = {};
             scope.formDat = {};
+            scope.tf = "HH:mm";
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
                 var colName = data.columnHeaders[0].columnName;
@@ -19,6 +20,12 @@
                     data.columnHeaders.splice(0, 1);
                     scope.isCenter = colName == 'center_id' ? true : false;
                 }
+
+                for (var i in data.columnHeaders) {
+                    if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        scope.formDat[data.columnHeaders[i].columnName] = {};
+                    }
+                }
                 scope.columnHeaders = data.columnHeaders;
 
             });
@@ -27,15 +34,28 @@
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
-                    if (type == 'STRING' || type == 'INTEGER' || type == 'TEXT' || type == 'DECIMAL') {
-                        fieldType = 'TEXT';
-                    } else if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                    if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
                         fieldType = 'SELECT';
                     } else if (type == 'DATE') {
                         fieldType = 'DATE';
+                    } else if (type == 'DATETIME') {
+                        fieldType = 'DATETIME';
+                    } else if (type == 'BOOLEAN') {
+                        fieldType = 'BOOLEAN';
+                    } else {
+                        fieldType = 'TEXT';
                     }
                 }
                 return fieldType;
+            };
+
+            scope.dateTimeFormat = function () {
+                for (var i in scope.columnHeaders) {
+                    if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        return scope.df + " " + scope.tf;
+                    }
+                }
+                return scope.df;
             };
 
             scope.cancel = function () {
@@ -56,7 +76,7 @@
             scope.submit = function () {
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 this.formData.locale = scope.optlang.code;
-                this.formData.dateFormat = scope.df;
+                this.formData.dateFormat = scope.dateTimeFormat();
                 //below logic, for the input field if data is not entered, this logic will put "", because
                 //if no data entered in input field , that field name won't send to server side.
                 for (var i = 0; i < scope.columnHeaders.length; i++) {
@@ -64,7 +84,11 @@
                         this.formData[scope.columnHeaders[i].columnName] = "";
                     }
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
-                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], scope.df);
+                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName],
+                            this.formData.dateFormat);
+                    } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
+                        + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
                     }
                 }
 
