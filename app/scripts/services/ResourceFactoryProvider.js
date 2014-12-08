@@ -256,6 +256,16 @@
 					hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    accountNumberResources: defineResource(apiVer + "/accountnumberformats/:accountNumberFormatId",{accountNumberFormatId: '@accountNumberFormatId'}, {
+                        get:{method:'GET',params:{accountNumberFormatId:'@accountNumberFormatId'}},
+                        getAllPreferences:{method:'GET',params:{},isArray: true},
+                        put:{method:'PUT'},
+                        getPrefixType:{method:'GET',params:{template:true}},
+                        delete:{method:'DELETE',params:{}}
+                    }),
+                    accountNumberTemplateResource: defineResource(apiVer + "/accountnumberformats/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     holResource: defineResource(apiVer + "/holidays", {}, {
                         getAllHols: {method: 'GET', params: {}, isArray: true}
                     }),
