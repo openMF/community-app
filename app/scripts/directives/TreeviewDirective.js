@@ -13,6 +13,11 @@
                     if (treeId === "holidaytreeview") {
                         template =
                             '<ul>' +
+                                '<div data-ng-show="' + treeId + '.showChangeStateAll(' + treeModel + ')">' +
+                                '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', false)">{{\'label.button.expand.all\' | translate}}</a>' +
+                                ' / ' +
+                                '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', true)">{{\'label.button.collapse.all\' | translate}}</a>' +
+                                '</div>' +
                                 '<li data-ng-repeat="node in ' + treeModel + '">' +
                                 '<input ng-model="node.selectedCheckBox" ng-true-value="true" ng-false-value="false" type="checkbox" data-ng-change="holidayApplyToOffice(node)"></input>' +
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
@@ -25,6 +30,11 @@
                     } else {
                         template =
                             '<ul>' +
+                                '<div data-ng-show="' + treeId + '.showChangeStateAll(' + treeModel + ')">' +
+                                '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', false)">{{\'label.button.expand.all\' | translate}}</a>' +
+                                ' / ' +
+                                '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', true)">{{\'label.button.collapse.all\' | translate}}</a>' +
+                                '</div>' +
                                 '<li data-ng-repeat="node in ' + treeModel + '">' +
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
@@ -52,6 +62,32 @@
                                 }
                                 selectedNode.selected = 'selected';
                                 scope[treeId].currentNode = selectedNode;
+                            };
+                            scope[treeId].setCollapsedAll = scope[treeId].setCollapsedAll || function (selectedNode, state) {
+                                selectedNode.collapsed = state;
+                                for(var i = 0; i < selectedNode[nodeChildren].length; i++) {
+                                    if(selectedNode[nodeChildren][i][nodeChildren].length > 0) {
+                                        scope[treeId].setCollapsedAll(selectedNode[nodeChildren][i], state);
+                                    }
+                                }
+                            };
+                            scope[treeId].setCollapsedRoot = scope[treeId].setCollapsedRoot || function (treeModel, state) {
+                                for(var i = 0; i < treeModel.length; i++) {
+                                    if(treeModel[i][nodeChildren].length > 0) {
+                                        scope[treeId].setCollapsedAll(treeModel[i], state);
+                                    }
+                                }
+                            };
+                            scope[treeId].showChangeStateAll = scope[treeId].showChangeStateAll || function (treeModel) {
+                                if(!treeModel) {
+                                    return false;
+                                }
+                                for(var i = 0; i < treeModel.length; i++) {
+                                    if(treeModel[i][nodeChildren].length > 0) {
+                                        return true;
+                                    }
+                                }
+                                return false;
                             };
                         }
                         element.html('').append($compile(template)(scope));
