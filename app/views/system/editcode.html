@@ -6,13 +6,19 @@
             <li><a href="#/viewcode/{{codeId}}">{{code.name}}</a></li>
             <li class="active">{{'label.anchor.addcodevalue' | translate}}</li>
         </ul>
+        <api-validate></api-validate>
     </div>
-    <api-validate></api-validate>
+
     <h3>{{'label.heading.addcodevalue' | translate}}</h3>
 
     <form>
+
         <div class="col-sm-3">
             <input name="codevalue" ng-model="newEle.name" placeholder="{{ 'label.input.codevalue' | translate }}"
+                   type="text" class="form-control"/>
+        </div>
+        <div class="col-sm-3">
+            <textarea name="description" ng-model="newEle.description" placeholder="{{ 'label.input.description' | translate }}"
                    type="text" class="form-control"/>
         </div>
         <div class="col-sm-3">
@@ -27,11 +33,11 @@
     </form>
     <div data-ng-repeat="codevalue in codevalues">
         <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;
+        <input disabled="" placeholder={{codevalue.description}} type="text"/>&nbsp;&nbsp;
         <input disabled="" placeholder={{codevalue.position}} type="text"/>&nbsp;&nbsp;
         <a ng-click='deleteCv(codevalue.id)' has-permission='DELETE_CODEVALUE'><i class="icon-remove"></i></a>
     </div>
     <div class="pull-right" data-ng-show="stat">
         <p>{{ 'label.systemdefinedcodedeletefailed' | translate }}</p>
     </div>
-
 </form>
