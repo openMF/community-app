@@ -442,10 +442,10 @@ angular.module('modified.datepicker', ['strap.position'])
                                     setOpen(false);
                                 });
                             }
-                            
+
                             setTimeout(function() { // check future element focus
                                 var el = document.activeElement.parentNode.parentNode.parentNode;
-                                if (el.hasAttribute('collapse') && el.className == "collapse")
+                                if (el != null && el.hasAttribute('collapse') && el.className == "collapse")
                                     document.getElementById('clickToShow').click();
                             }, 10);
                         }
@@ -539,6 +539,7 @@ angular.module('modified.datepicker', ['strap.position'])
                     scope.$watch('isOpen', function (value) {
                         if (value) {
                             updatePosition();
+                            $document.bind('keydown', documentKeyBind);
                             $document.bind('click', documentClickBind);
                             element.unbind('focus', elementFocusBind);
                             element.focus();
