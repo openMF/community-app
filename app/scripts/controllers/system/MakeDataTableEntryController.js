@@ -7,7 +7,7 @@
             scope.columnHeaders = [];
             scope.formData = {};
             scope.formDat = {};
-            scope.tf = "HH:mm";
+            scope.tf = "HH:mm:ss";
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
                 var colName = data.columnHeaders[0].columnName;

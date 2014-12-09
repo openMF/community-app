@@ -15,7 +15,7 @@
             scope.columnHeaders = [];
             scope.formData = {};
             scope.isViewMode = true;
-            scope.tf = "HH:mm";
+            scope.tf = "HH:mm:ss";
             if(routeParams.mode && routeParams.mode == 'edit'){
                 scope.isViewMode = false;
             }
