@@ -9,6 +9,7 @@
                     var nodeId = attrs.nodeId || 'id';
                     var nodeLabel = attrs.nodeLabel || 'label';
                     var nodeChildren = attrs.nodeChildren || 'children';
+                    var parentId = attrs.parentId || 'parentId';
                     var template = "";
                     if (treeId === "holidaytreeview") {
                         template =
@@ -83,7 +84,8 @@
                                     return false;
                                 }
                                 for(var i = 0; i < treeModel.length; i++) {
-                                    if(treeModel[i][nodeChildren].length > 0) {
+                                    if(treeModel[i][nodeChildren].length > 0 &&
+                                        typeof treeModel[i][parentId] === "undefined") {
                                         return true;
                                     }
                                 }
