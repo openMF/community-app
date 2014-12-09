@@ -2,9 +2,11 @@
     mifosX.controllers = _.extend(module, {
         EditMeetingController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.formData = {};
+
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;
+                scope.calendarId = routeParams.calendarId;
                 scope.groupOrCenterId = routeParams.groupOrCenterId;
                 scope.calendarData = data;
                 scope.restrictDate = new Date();
@@ -69,11 +71,14 @@
                 }
             }
 
+
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
                 this.formData.title = scope.calendarData.title;
                 this.formData.locale = "en";
+                this.formData.repeating = true;
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 if (this.formData.interval < 0) {
