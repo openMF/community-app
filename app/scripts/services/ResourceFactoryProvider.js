@@ -88,6 +88,7 @@
                         templateSource: '@templateSource'}, {
                         update: {method: 'PUT'}
                     }),
+
                     runReportsResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource: '@reportSource'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getReport: {method: 'GET', params: {}}
