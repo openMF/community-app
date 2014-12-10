@@ -3,7 +3,7 @@ describe("AuthenticationService", function () {
     beforeEach(function () {
         callbacks = {};
         scope = jasmine.createSpyObj("$rootScope", ['$broadcast']);
-        localStorageService = jasmine.createSpyObj('localStorageService', ['add']);
+        localStorageService = jasmine.createSpyObj('localStorageService', ['addToLocalStorage']);
 
         httpService = jasmine.createSpyObj("httpService", ['post', 'success', 'error']);
         httpService.post.andReturn(httpService);
