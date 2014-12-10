@@ -113,6 +113,64 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.capturePic = function () {
+                $modal.open({
+                    templateUrl: 'capturepic.html',
+                    controller: CapturePicCtrl,
+                    windowClass: 'modalwidth700'
+                });
+            };
+            var CapturePicCtrl = function ($scope, $modalInstance) {
+
+                $scope.video = null;
+                $scope.picture = null;
+                $scope.error = null;
+
+                $scope.onVideoSuccess = function (video) {
+                    $scope.video = video;
+                    $scope.error = null;
+                };
+
+                $scope.onVideoError = function (err) {
+                    if(typeof err != "undefined")
+                        $scope.error = err.message + '(' + err.name + ')';
+                };
+
+                $scope.takeScreenshot = function () {
+                    var picCanvas = document.createElement('canvas');
+                    var width = $scope.video.width;
+                    var height = $scope.video.height;
+
+                    picCanvas.width = width;
+                    picCanvas.height = height;
+                    var ctx = picCanvas.getContext("2d");
+                    ctx.drawImage($scope.video, 0, 0, width, height);
+                    var imageData = ctx.getImageData(0, 0, width, height);
+                    document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
+                    $scope.picture = picCanvas.toDataURL();
+                };
+                $scope.uploadscreenshot = function () {
+                    if($scope.picture != null) {
+                        http({
+                            method: 'POST',
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                            data: $scope.picture
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $modalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+                $scope.reset = function () {
+                    $scope.picture = null;
+                }
+            };
             scope.uploadSig = function () {
                 $modal.open({
                     templateUrl: 'uploadsig.html',
