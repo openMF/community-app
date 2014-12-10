@@ -398,13 +398,13 @@
                 templateUrl: 'views/system/accountnumberpreferences.html'
             })
             .when('/addaccountnumberpreferences', {
-                templateUrl: '../views/system/addaccountnumberpreferences.html'
+                templateUrl: 'views/system/addaccountnumberpreferences.html'
             })
             .when('/viewaccountnumberpreferences/:id', {
-                templateUrl: '../views/system/viewaccountnumberpreferences.html'
+                templateUrl: 'views/system/viewaccountnumberpreferences.html'
             })
             .when('/editaccountnumberpreferences/:id', {
-                templateUrl: '../views/system/editaccountnumberpreferences.html'
+                templateUrl: 'views/system/editaccountnumberpreferences.html'
             })
             .when('/holidays', {
                 templateUrl: 'views/organization/holidays.html'
