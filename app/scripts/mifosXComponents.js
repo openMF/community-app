@@ -149,6 +149,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'groups/ViewGroupController',
             'groups/AttachMeetingController',
             'groups/EditMeetingController',
+            'groups/EditMeetingBasedOnMeetingDatesController',
             'savings/EditSavingAccountController',
             'savings/SavingAccountActionsController',
             'savings/ListOnHoldTransactionController',

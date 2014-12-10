@@ -5,6 +5,7 @@
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;
+                scope.calendarId = routeParams.calendarId;
                 scope.groupOrCenterId = routeParams.groupOrCenterId;
                 scope.calendarData = data;
                 scope.restrictDate = new Date();

@@ -460,6 +460,9 @@
             .when('/attachmeeting/:id/:entityType', {
                 templateUrl: 'views/groups/attachmeeting.html'
             })
+            .when('/editcalendarbasedonmeetingdates/:entityType/:groupOrCenterId/:calendarId', {
+             templateUrl: 'views/groups/editmeeting_based_on_meeting_date.html'
+             })
             .when('/editcalendar/:entityType/:groupOrCenterId/:calendarId', {
                 templateUrl: 'views/groups/editmeeting.html'
             })
