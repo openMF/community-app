@@ -18,28 +18,31 @@
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.viewAccountNumberPreferences' | translate}}</legend>
-            <div class="btn-group pull-right">
-                <button data-ng-click="deletePreferences()" type="button" class="btn btn-warning" has-permission="DELETE_ACCOUNTNUMBERFORMAT">
-                    {{'label.button.delete' | translate}}</button>
-                <button id="approve" type="button" ng-click="editPreferences()" class="btn btn-primary" has-permission="UPDATE_ACCOUNTNUMBERFORMAT">
-                    {{ 'label.button.edit' | translate }}</button>
+            <div class="pull-right">
+                <div class="btn-group ">
+                    <button id="approve" type="button" ng-click="editPreferences()" class="btn btn-primary" has-permission="UPDATE_ACCOUNTNUMBERFORMAT">
+                        <i class="icon-edit icon-white"></i>
+                        {{ 'label.button.edit' | translate }}</button>
+                    <button data-ng-click="deletePreferences()" type="button" class="btn btn-warning" has-permission="DELETE_ACCOUNTNUMBERFORMAT">
+                        <i class="icon-trash icon-white"></i>
+                        {{'label.button.delete' | translate}}</button>
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.accountType' | translate}}<span class="required">*</span></label>
-
+                <label class="col-sm-2">{{'label.input.accountType' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     {{accountType}}
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.addPrefix' | translate}}</label>
+                <label class="col-sm-2">{{'label.input.addPrefix' | translate}}</label>
 
                 <div class="col-sm-3">
                     <input id="activeCheckbox" type="checkbox" ng-model="addPrefix"  ng-disabled="true">
                 </div>
             </div>
             <div class="form-group" ng-show="addPrefix">
-                <label class="control-label col-sm-2">{{'label.input.prefixField' | translate}}</label>
+                <label class="col-sm-2">{{'label.input.prefixField' | translate}}</label>
                 <div class="col-sm-3">
                     {{prefixType}}
                 </div>
