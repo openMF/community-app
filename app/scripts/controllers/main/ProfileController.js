@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ProfileController: function (scope, localStorageService, resourceFactory, $modal) {
-            scope.userDetails = localStorageService.get('userData');
+            scope.userDetails = localStorageService.getFromLocalStorage('userData');
             resourceFactory.userListResource.get({userId: scope.userDetails.userId}, function (data) {
                 scope.user = data;
             });
