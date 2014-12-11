@@ -39,9 +39,9 @@
 
             });
 
-            if (localStorageService.get('XbrlReportSaveSuccess') == 'true') {
+            if (localStorageService.getFromLocalStorage('XbrlReportSaveSuccess') == 'true') {
                 scope.savesuccess = true;
-                localStorageService.remove('XbrlReportSaveSuccess');
+                localStorageService.removeFromLocalStorage('XbrlReportSaveSuccess');
                 scope.XbrlSuccess = true;
                 $timeout(function () {
                     scope.XbrlSuccess = false;
@@ -114,7 +114,7 @@
                 serialObject["config"] = JSON.stringify(config);
                 serialObject["identifier"] = "default";
                 resourceFactory.xbrlMixMappingResource.update({}, JSON.stringify(serialObject), function (data) {
-                    localStorageService.add('XbrlReportSaveSuccess', true);
+                    localStorageService.addToLocalStorage('XbrlReportSaveSuccess', true);
                     route.reload();
                 });
             };

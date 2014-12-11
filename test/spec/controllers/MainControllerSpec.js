@@ -15,7 +15,7 @@ describe("MainController", function () {
 
         this.translate = jasmine.createSpyObj("translate", ["uses"]);
         this.rootScope = jasmine.createSpy();
-        this.localStorageService = jasmine.createSpyObj("localStorageService", ["get", "add"]);
+        this.localStorageService = jasmine.createSpyObj("localStorageService", ["addToLocalStorage", "getFromLocalStorage"]);
         this.idle = jasmine.createSpyObj("$idle", ['watch', 'unwatch']);
         this.tmhDynamicLocale = jasmine.createSpyObj("tmhDynamicLocale", ["set"]);
 

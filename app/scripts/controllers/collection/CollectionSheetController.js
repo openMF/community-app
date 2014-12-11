@@ -49,14 +49,13 @@
                 }
             };
 
-            if (localStorageService.get('Success') === 'true') {
+            if (localStorageService.getFromLocalStorage('Success') === 'true') {
                 scope.savesuccess = true;
-                localStorageService.remove('Success');
+                localStorageService.removeFromLocalStorage('Success');
                 scope.val = true;
                 $timeout(function () {
                     scope.val = false;
                 }, 3000);
-
             }
 
             scope.loanOfficerSelected = function (loanOfficerId) {
@@ -407,12 +406,12 @@
                 scope.formData.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
-                        localStorageService.add('Success', true);
+                        localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     });
                 } else if (centerOrGroupResource === "groupResource") {
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
-                        localStorageService.add('Success', true);
+                        localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     });
                 }

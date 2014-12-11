@@ -3,7 +3,7 @@
         AuthenticationService: function (scope, httpService, localStorageService) {
             var onSuccess = function (data) {
                 scope.$broadcast("UserAuthenticationSuccessEvent", data);
-                localStorageService.add('userData', data);
+                localStorageService.addToLocalStorage('userData', data);
             };
 
             var onFailure = function (data) {
