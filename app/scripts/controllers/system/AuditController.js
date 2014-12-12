@@ -40,10 +40,11 @@
             var fetchFunction = function (offset, limit, callback) {
                 scope.isCollapsed = true;
                 scope.displayResults = true;
-                var reqFirstDate = dateFilter(scope.date.first, scope.df);
-                var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                var reqThirdDate = dateFilter(scope.date.third, scope.df);
-                var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
+                //date format not used here since the underlying api does not support localization of dates
+                var reqFirstDate = dateFilter(scope.date.first, 'yyyy-MM-dd');
+               var reqSecondDate = dateFilter(scope.date.second, 'yyyy-MM-dd');
+               var reqThirdDate = dateFilter(scope.date.third, 'yyyy-MM-dd');
+               var reqFourthDate = dateFilter(scope.date.fourth, 'yyyy-MM-dd');
 
                 var params = {};
                 params.offset = offset;
