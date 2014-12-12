@@ -31,7 +31,8 @@
             'frAngular': '../scripts/modules/KeyboardManager',
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',
-            'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min'
+            'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
+            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -59,6 +60,7 @@
             'modified.datepicker': {deps: ['angular']},
             'Q': {deps: ['angular']},
             'tmh.dynamicLocale': {deps: ['angular']},
+            'webcam-directive': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -84,7 +86,8 @@
                     'chosen.jquery.min',
                     'frAngular',
                     'Q',
-                    'tmh.dynamicLocale'
+                    'tmh.dynamicLocale',
+                    'webcam-directive'
                 ],
                 exports: 'mifosX'
             }

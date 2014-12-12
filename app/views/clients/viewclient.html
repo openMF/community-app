@@ -70,6 +70,39 @@
         <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
     </div>
+    </script>
+	<script type="text/ng-template" id="capturepic.html">
+	    <div class="modal-header silver">
+	        <h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
+	    </div>
+	    <div class="modal-body">
+	        <api-validate></api-validate>
+	        <div ng-show="error != null" class="error">
+	            {{'label.error' | translate}}: {{error}}
+	        </div>
+	        <br>
+	        <div ng-show="video != null" >
+	            <div>
+	                <div class="left">
+	                    <webcam on-streaming="onVideoSuccess(video)"
+	                        on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
+	                </div>
+	                <div class="right">
+	                    <canvas id="clientSnapshot" width="320" height="240"></canvas>
+	                </div>
+	            </div>
+	            <div class="center" style="margin-top: 10px">
+	                <button class="btn btn-warning" ng-click="takeScreenshot()" ng-show="video != null">
+	                    <i class="icon-camera icon-white"></i>
+	                    {{'label.button.capture' | translate}}
+	                </button>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="modal-footer">
+	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        <button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}}</button>
+	    </div>
 	</script>
 	<script type="text/ng-template" id="clientunassignstaff.html">
     <div class="modal-header silver">
@@ -134,6 +167,10 @@
 						        </li>
 						        <li>
 						            <a data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadpic'
+						                | translate}}</a>
+						        </li>
+						        <li>
+						            <a data-ng-click="capturePic()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.capturepic'
 						                | translate}}</a>
 						        </li>
 						        <li>
