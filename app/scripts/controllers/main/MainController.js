@@ -6,14 +6,25 @@
             scope.domReady = true;
             scope.activity = {};
             scope.activityQueue = [];
-            if (localStorageService.get('Location')) {
-                scope.activityQueue = localStorageService.get('Location');
+            if (localStorageService.getFromLocalStorage('Location')) {
+                scope.activityQueue = localStorageService.getFromLocalStorage('Location');
             }
+            scope.loadSC = function () {
+                if (!localStorageService.getFromLocalStorage('searchCriteria'))
+                    localStorageService.addToLocalStorage('searchCriteria', {})
+                scope.searchCriteria = localStorageService.getFromLocalStorage('searchCriteria');
+            };
+            scope.saveSC = function () {
+                if (!localStorageService.getFromLocalStorage('searchCriteria'))
+                    localStorageService.addToLocalStorage('searchCriteria', {})
+                localStorageService.addToLocalStorage('searchCriteria', scope.searchCriteria);
+            };
+            scope.loadSC();
             scope.setDf = function () {
-                if (localStorageService.get('dateformat')) {
-                    scope.dateformat = localStorageService.get('dateformat');
+                if (localStorageService.getFromLocalStorage('dateformat')) {
+                    scope.dateformat = localStorageService.getFromLocalStorage('dateformat');
                 } else {
-                    localStorageService.add('dateformat', 'dd MMMM yyyy');
+                    localStorageService.addToLocalStorage('dateformat', 'dd MMMM yyyy');
                     scope.dateformat = 'dd MMMM yyyy';
                 }
                 scope.df = scope.dateformat;
@@ -21,14 +32,14 @@
             scope.setDf();
             $rootScope.setPermissions = function (permissions) {
                 $rootScope.permissionList = permissions;
-                localStorageService.add('userPermissions', permissions);
+                localStorageService.addToLocalStorage('userPermissions', permissions);
                 $rootScope.$broadcast('permissionsChanged')
             };
 
             $rootScope.hasPermission = function (permission) {
                 permission = permission.trim();
                 //FYI: getting all permissions from localstorage, because if scope changes permissions array will become undefined
-                $rootScope.permissionList = localStorageService.get('userPermissions');
+                $rootScope.permissionList = localStorageService.getFromLocalStorage('userPermissions');
                 //If user is a Super user return true
                 if ($rootScope.permissionList && _.contains($rootScope.permissionList, "ALL_FUNCTIONS")) {
                     return true;
@@ -55,7 +66,7 @@
             }, function () {
                 scope.activity = location.path();
                 scope.activityQueue.push(scope.activity);
-                localStorageService.add('Location', scope.activityQueue);
+                localStorageService.addToLocalStorage('Location', scope.activityQueue);
             });
 
             //Logout the user if Idle
@@ -67,7 +78,7 @@
             });
 
             // Log out the user when the window/tab is closed.
-            window.onunload = function() {
+            window.onunload = function () {
                 scope.logout();
                 $idle.unwatch();
                 scope.started = false;
@@ -91,17 +102,18 @@
                         $rootScope.setPermissions(scope.currentSession.user.userPermissions);
                     }
                     location.path('/home').replace();
-                } else{
-                     scope.loggedInUserId = data.userId;
-                };
+                } else {
+                    scope.loggedInUserId = data.userId;
+                }
+                ;
             });
 
             scope.search = function () {
                 location.path('/search/' + scope.search.query);
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
-                '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
-                '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
+            '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
+            '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
             scope.logout = function () {
                 scope.currentSession = sessionManager.clear();
@@ -110,8 +122,8 @@
             };
 
             scope.langs = mifosX.models.Langs;
-            if (localStorageService.get('Language')) {
-                var temp = localStorageService.get('Language');
+            if (localStorageService.getFromLocalStorage('Language')) {
+                var temp = localStorageService.getFromLocalStorage('Language');
                 for (var i in mifosX.models.Langs) {
                     if (mifosX.models.Langs[i].code == temp.code) {
                         scope.optlang = mifosX.models.Langs[i];
@@ -222,7 +234,7 @@
             });
             scope.changeLang = function (lang, $event) {
                 translate.uses(lang.code);
-                localStorageService.add('Language', lang);
+                localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;
             };
@@ -232,23 +244,23 @@
                 scope.start(scope.currentSession);
                 if (session.user != null && session.user.userPermissions) {
                     $rootScope.setPermissions(session.user.userPermissions);
-                    localStorageService.add('userPermissions', session.user.userPermissions);
+                    localStorageService.addToLocalStorage('userPermissions', session.user.userPermissions);
                 }
                 ;
             });
         }
     });
     mifosX.ng.application.controller('MainController', [
-            '$scope',
-            '$location',
-            'SessionManager',
-            '$translate',
-            '$rootScope',
-            'localStorageService',
-            'keyboardManager', '$idle',
-            'tmhDynamicLocale',
-            mifosX.controllers.MainController
-        ]).run(function ($log) {
-            $log.info("MainController initialized");
-        });
+        '$scope',
+        '$location',
+        'SessionManager',
+        '$translate',
+        '$rootScope',
+        'localStorageService',
+        'keyboardManager', '$idle',
+        'tmhDynamicLocale',
+        mifosX.controllers.MainController
+    ]).run(function ($log) {
+        $log.info("MainController initialized");
+    });
 }(mifosX.controllers || {}));

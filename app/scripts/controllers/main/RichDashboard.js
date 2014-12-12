@@ -3,7 +3,7 @@
         RichDashboard: function (scope, resourceFactory, localStorageService, $rootScope, location) {
         	
         	scope.recent = [];
-            scope.recent = localStorageService.get('Location');
+            scope.recent = localStorageService.getFromLocalStorage('Location');
             scope.recentEight = [];
             scope.frequent = [];
             scope.recentArray = [];

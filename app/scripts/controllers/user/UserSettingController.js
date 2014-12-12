@@ -1,8 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         UserSettingController: function (scope, translate, localStorageService, tmhDynamicLocale) {
-            if (localStorageService.get('Language')) {
-                var temp = localStorageService.get('Language');
+            if (localStorageService.getFromLocalStorage('Language')) {
+                var temp = localStorageService.getFromLocalStorage('Language');
                 for (var i in mifosX.models.Langs) {
                     if (mifosX.models.Langs[i].code == temp.code) {
                         scope.optlang = mifosX.models.Langs[i];
@@ -27,8 +27,8 @@
                 'MM-dd-yy'
             ];
             
-            if (localStorageService.get('dateformat')) {
-                var temp = localStorageService.get('dateformat');
+            if (localStorageService.getFromLocalStorage('dateformat')) {
+                var temp = localStorageService.getFromLocalStorage('dateformat');
 
                 for (var i = 0; i < scope.dates.length; i++) {
                     if (scope.dates[i] == temp) {
@@ -43,14 +43,14 @@
             scope.$watch(function () {
                 return scope.dateformat;
             }, function () {
-                localStorageService.add('dateformat', scope.dateformat);
+                localStorageService.addToLocalStorage('dateformat', scope.dateformat);
                 scope.df = scope.dateformat;
             });
             
             scope.langs = mifosX.models.Langs;
             scope.changeLang = function (lang) {
                 translate.uses(lang.code);
-                localStorageService.add('Language', scope.optlang);
+                localStorageService.addToLocalStorage('Language', scope.optlang);
                 tmhDynamicLocale.set(lang.code);
             };
 
