@@ -32,7 +32,7 @@
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min'
+            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min'
         },
         shim: {
             'angular': { exports: 'angular' },
