@@ -14,7 +14,7 @@
                 scope.group = data;
                 scope.allMembers = data.clientMembers;
             });
-            
+
             scope.addClient = function () {
                 for (var i in this.availableClients) {
                     for (var j in scope.allMembers) {
@@ -22,6 +22,7 @@
                             var temp = {};
                             temp.id = this.availableClients[i].id;
                             temp.displayName = this.availableClients[i].displayName;
+                            temp.accountNo = this.availableClients[i].accountNo;
                             scope.selectedMembers.push(temp);
                             scope.allMembers.splice(j, 1);
                         }
@@ -35,6 +36,7 @@
                             var temp = {};
                             temp.id = this.selectedClients[i].id;
                             temp.displayName = this.selectedClients[i].displayName;
+                            temp.accountNo = this.availableClients[i].accountNo;
                             scope.allMembers.push(temp);
                             scope.selectedMembers.splice(j, 1);
                         }
