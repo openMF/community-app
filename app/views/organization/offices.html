@@ -1,23 +1,17 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="OfficesController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.manageoffices' | translate}}</li>
     </ul>
-</div>
 
-<div class="col-md-12" ng-controller="OfficesController">
     <div class="pull-right">
-        <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i
-                class="icon-list icon-white"></i>{{'label.button.listview' | translate}}</a>
-        <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i
-                class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
-        <a href="#/createoffice" class="btn btn-primary" has-permission='CREATE_OFFICE'><i class="icon-plus icon-white"></i>{{'label.button.createoffice'
-            | translate}}</a>
+        <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-list icon-white"></i>{{'label.button.listview' | translate}}</a>
+        <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
+        <a href="#/createoffice" class="btn btn-primary" has-permission='CREATE_OFFICE'><i class="icon-plus icon-white"></i>{{'label.button.createoffice' | translate}}</a>
     </div>
     <div class="clear"></div>
     <div ng-hide="isTreeView">
-    	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
-           placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control span marginbottom0px" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
         <table class="table">
             <thead>
             <tr class="graybg">

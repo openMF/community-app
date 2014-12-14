@@ -13,9 +13,11 @@
             scope.offices = [];
             scope.date = {};
             scope.formData = {};
+
             scope.routeTo = function (id) {
                 location.path('/viewtransactions/' + id);
             };
+
             resourceFactory.accountCoaResource.getAllAccountCoas({
                 manualEntriesAllowed: true,
                 usage: 1,
@@ -88,12 +90,23 @@
                 resourceFactory.journalEntriesResource.search(params, callback);
             };
 
+            scope.clearFilters = function () {
+                scope.formData.transactionId = null;
+                scope.formData.glAccount = null;
+                document.getElementById('glAccounts_chosen').childNodes[0].childNodes[0].innerHTML = "Select Account name Or Code";
+                scope.formData.officeId = null;
+                document.getElementById('offices_chosen').childNodes[0].childNodes[0].innerHTML = "Select office";
+                scope.formData.manualEntriesOnly = null;
+                document.getElementById('filters_chosen').childNodes[0].childNodes[0].innerHTML = "Select filter";
+                scope.date.first = null;
+                scope.date.second = null;
+            };
+
             scope.searchTransaction = function () {
                 scope.displayResults = true;
                 scope.transactions = paginatorService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
             };
-
         }
     });
     mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', mifosX.controllers.SearchTransactionController]).run(function ($log) {

@@ -1,13 +1,26 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-
         ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
-
             scope.reports = [];
             scope.type = routeParams.type;
             //to display type of report on breadcrumb
             var typeReport = routeParams.type.replace(routeParams.type[0], routeParams.type[0].toUpperCase()) + " " + "Reports";
             scope.type = typeReport;
+
+            scope.routeTo = function (report) {
+                location.path('/run_report/' + report.report_name).search({reportId: report.report_id, type: report.report_type});
+            };
+
+            if (!scope.searchCriteria.reports) {
+                scope.searchCriteria.reports = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.reports;
+
+            scope.onFilter = function () {
+                scope.searchCriteria.reports = scope.filterText;
+                scope.saveSC();
+            };
 
             if (routeParams.type == 'all') {
                 resourceFactory.runReportsResource.get({reportSource: 'FullReportList', parameterType: true, genericResultSet: false}, function (data) {
@@ -42,19 +55,12 @@
                 var reports = [];
                 for (var i = 0; i < data.length; i++) {
                     currId = data[i].report_id;
-                    if (currId != prevId) {
+                    if (currId != prevId)
                         reports.push(data[i]);
-                    }
-                    ;
                     prevId = currId;
                 }
                 return reports;
             };
-
-            scope.routeTo = function (report) {
-                location.path('/run_report/'+report.report_name).search({reportId: report.report_id, type:report.report_type});
-            };
-
         }
     });
     mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewReportsController]).run(function ($log) {
