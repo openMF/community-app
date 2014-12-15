@@ -95,25 +95,25 @@
                     scope.taskPermissionName = 'WITHDRAWTRANSFER_CLIENT';
                     break;
                 case "reject":
-                    scope.labelName = 'label.input.rejectdate';
-                    scope.labelNamereason = 'label.input.rejectreason';
+                    scope.labelName = 'label.input.rejectiondate';
+                    scope.labelNamereason = 'label.input.rejectionreason';
                     scope.breadcrumbName = 'label.anchor.reject';
-                    scope.modelName = 'rejectDate';
-                    scope.reasonmodelName = 'rejectReasonId';
+                    scope.modelName = 'rejectionDate';
+                    scope.reasonmodelName = 'rejectionReasonId';
                     scope.reasonField = true;
                     scope.showDateField = true;
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'reject'}, function (data) {
                         scope.reasons = data.narrations;
-                        scope.formData.rejectReasonId = scope.narrations[0].id;
+                        scope.formData.rejectionReasonId = scope.narrations[0].id;
                     });
                     scope.taskPermissionName = 'REJECT_CLIENT';
                     break;
                 case "withdraw":
-                    scope.labelName = 'label.input.withdrawdate';
-                    scope.labelNamereason = 'label.input.withdrawreason';
+                    scope.labelName = 'label.input.withdrawaldate';
+                    scope.labelNamereason = 'label.input.withdrawalreason';
                     scope.breadcrumbName = 'label.anchor.withdraw';
-                    scope.modelName = 'withdrawDate';
-                    scope.reasonmodelName = 'withdrawReasonId';
+                    scope.modelName = 'withdrawalDate';
+                    scope.reasonmodelName = 'withdrawalReasonId';
                     scope.reasonField = true;
                     scope.showDateField = true;
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'withdraw'}, function (data) {
