@@ -22,12 +22,15 @@
 			{{config.name | translate}}
 			&nbsp; &nbsp; &nbsp;<i class="icon-question-sign icon-white" tooltip="{{config.description}}"></i>
 			</td>
-            <td>{{config.enabled}}</td>
             <td>
-                <button type="button" class="btn btn-success flag" data-ng-hide="config.enabled"
-                        data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-flag-alt"></i></button>
-                <button type="button" class="btn btn-danger flag" data-ng-show="config.enabled"
-                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'><i class="icon-remove"></i></button>
+                <i class="icon-ok-sign icon-green" data-ng-show="config.enabled"></i>
+                <i class="icon-remove-sign icon-red" data-ng-hide="config.enabled"></i>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" data-ng-hide="config.enabled"
+                        data-ng-click="enable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.enable" | translate}}</i></button>
+                <button type="button" class="btn btn-danger" data-ng-show="config.enabled"
+                        data-ng-click="disable(config.id, config.name)" has-permission='UPDATE_CONFIGURATION'>{{"label.button.disable" | translate}}</i></button>
                 
             </td>
             <td>{{config.value}}</td>
