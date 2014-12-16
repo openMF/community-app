@@ -104,7 +104,9 @@
                     scope.showDateField = true;
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'reject'}, function (data) {
                         scope.reasons = data.narrations;
-                        scope.formData.rejectionReasonId = scope.narrations[0].id;
+                        if(data.narrations != "") {
+                            scope.formData.rejectionReasonId = data.narrations[0].id;
+                        }
                     });
                     scope.taskPermissionName = 'REJECT_CLIENT';
                     break;
@@ -118,7 +120,9 @@
                     scope.showDateField = true;
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'withdraw'}, function (data) {
                         scope.reasons = data.narrations;
-                        scope.formData.reasonId = scope.narrations[0].id;
+                        if(data.narrations != "") {
+                            scope.formData.reasonId = data.narrations[0].id;
+                        }
                     });
                     scope.taskPermissionName = 'WITHDRAW_CLIENT';
                     break;
