@@ -527,6 +527,20 @@
                     sort.descending = true;
                 }
             };
+
+            scope.showApprovedAmountBasedOnStatus = function () {
+                if (scope.status == 'Submitted and pending approval' || scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected') {
+                    return false;
+                }
+                return true;
+            };
+            scope.showDisbursedAmountBasedOnStatus = function(){
+              if(scope.status == 'Submitted and pending approval' ||scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected' ||
+                scope.status == 'Approved'){
+                  return false;
+              }
+              return true;
+            };
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
