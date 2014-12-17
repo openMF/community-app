@@ -34,7 +34,6 @@
                     }).then(function (imageData) {
                         scope.image = imageData.data;
                     });
-
                 }
                 http({
                     method: 'GET',
@@ -170,6 +169,29 @@
                 $scope.reset = function () {
                     $scope.picture = null;
                 }
+            };
+            scope.deletePic = function () {
+                $modal.open({
+                    templateUrl: 'deletePic.html',
+                    controller: DeletePicCtrl
+                });
+            };
+            var DeletePicCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    http({
+                        method: 'DELETE',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
+                    }).then(function (imageData) {
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        $modalInstance.close('delete');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
             scope.uploadSig = function () {
                 $modal.open({
