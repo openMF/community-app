@@ -81,7 +81,9 @@
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
                     holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
-                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment
+                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
+                    instalmentAmountInMultiplesOf: scope.product.instalmentAmountInMultiplesOf,
+                    canDefineInstalmentAmount : scope.product.canDefineInstalmentAmount
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -170,7 +172,7 @@
                     _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
                         scope.penaltySpecificIncomeaccounts.push({
                             chargeId: penalty.charge.id,
-                            incomeAccountId: penalty.incomeAccount.id,
+                            incomeAccountId: penalty.incomeAccount.id
                         })
                     });
                 }

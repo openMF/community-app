@@ -233,6 +233,10 @@
             <td>{{'label.heading.matureson' | translate}}</td>
             <td><span class="padded-td">{{loandetails.timeline.expectedMaturityDate | DateFormat}}</span></td>
         </tr>
+        <tr data-ng-show="loandetails.canDefineInstalmentAmount">
+            <td>{{'label.input.fixedemiamount' | translate}}</td>
+            <td><span class="padded-td">{{loandetails.fixedEmiAmount| number}}</span></td>
+        </tr>
         <tr>
             <td>{{ 'label.input.recalculateinterest' | translate }}</td>
             <td><span class="padded-td">{{ loandetails.isInterestRecalculationEnabled | YesOrNo }}</span></td>
@@ -588,11 +592,6 @@
 
 <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
     <table class="width100">
-        <tr>
-            <td>
-                {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount| number}}&nbsp;
-            </td>
-        </tr>
         <tr>
             <td>
                 {{'label.input.outstandingloanbalance' | translate}} : &nbsp;{{loandetails.maxOutstandingLoanBalance| number}}&nbsp;
