@@ -1,16 +1,10 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="UserListController">
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.users' | translate}}</li>
     </ul>
-    <div class="pull-right">
-        <a href="#/createuser" class="btn btn-primary"  has-permission='CREATE_USER'><i class="icon-plus icon-white"></i>{{'label.button.createuser' |
-            translate}}</a>
-    </div>
-</div>
 
-<div class="col-md-12" ng-controller="UserListController">
-    <input ng-model="filterText" type="text" class="span marginbottom0px form-control"
-           placeholder="{{'label.input.filterbyname' | translate}}">
+    <input ng-model="filterText" type="text" ng-keyup="onFilter()" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a href="#/createuser" class="btn btn-primary pull-right" has-permission='CREATE_USER'><i class="icon-plus icon-white"></i>{{'label.button.createuser' | translate}}</a>
     <table class="table">
         <thead>
         <tr class="graybg">

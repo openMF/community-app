@@ -3,8 +3,20 @@
         AccCoaController: function (scope, resourceFactory, location) {
             scope.coadata = [];
             scope.isTreeView = false;
+
             scope.routeTo = function (id) {
                 location.path('/viewglaccount/' + id);
+            };
+
+            if (!scope.searchCriteria.acoa) {
+                scope.searchCriteria.acoa = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.acoa;
+
+            scope.onFilter = function () {
+                scope.searchCriteria.acoa = scope.filterText;
+                scope.saveSC();
             };
 
             scope.deepCopy = function (obj) {
@@ -83,8 +95,6 @@
                     }
                 }
                 scope.treedata = root;
-
-
             });
         }
     });

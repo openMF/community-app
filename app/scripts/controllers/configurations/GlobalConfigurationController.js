@@ -20,6 +20,17 @@
                 });
             });
 
+            if (!scope.searchCriteria.config) {
+                scope.searchCriteria.config = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.config;
+
+            scope.onFilter = function () {
+                scope.searchCriteria.config = scope.filterText;
+                scope.saveSC();
+            };
+
             scope.enable = function (id, name) {
                 if (name == 'Is Cache Enabled') {
                     var temp = {};
@@ -50,7 +61,6 @@
                     });
                 }
             };
-
         }
     });
     mifosX.ng.application.controller('GlobalConfigurationController', ['$scope', 'ResourceFactory', '$location', '$route', mifosX.controllers.GlobalConfigurationController]).run(function ($log) {

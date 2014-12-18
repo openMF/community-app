@@ -15,8 +15,6 @@
                 scope.searchCriteria = localStorageService.getFromLocalStorage('searchCriteria');
             };
             scope.saveSC = function () {
-                if (!localStorageService.getFromLocalStorage('searchCriteria'))
-                    localStorageService.addToLocalStorage('searchCriteria', {})
                 localStorageService.addToLocalStorage('searchCriteria', scope.searchCriteria);
             };
             scope.loadSC();

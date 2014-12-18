@@ -3,14 +3,10 @@
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.managecodes' | translate}}</li>
     </ul>
-    <div class="pull-right">
-        <a href="#/addcode" class="btn btn-primary" has-permission='CREATE_CODE'><i class="icon-plus icon-white"></i>{{
-            'label.button.addcode' |
-            translate }}
-        </a>
-    </div>
-    <input ng-autofocus="true" ng-model="filterText" type="text" class="marginbottom0px form-control"
-           placeholder="{{'label.input.filterbyname' | translate}}">
+
+    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a href="#/addcode" class="btn btn-primary pull-right" has-permission='CREATE_CODE'><i class="icon-plus icon-white"></i>{{'label.button.addcode' | translate }}</a>
+
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -26,6 +22,3 @@
         </tbody>
     </table>
 </div>
-
-
-
