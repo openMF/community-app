@@ -57,7 +57,7 @@
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label class="control-label col-sm-2">{{ 'label.input.includeinborrowerloancounter' | translate }}</label>
+	    <label class="control-label col-sm-2">{{ 'label.input.includeincustomerloancounter' | translate }}</label>
 	    <div class="checkbox col-sm-2">
 	        <label>
 	            <input type="checkbox" ng-model="formData.includeInBorrowerCycle" ng-true-value="true" ng-false-value="false">
@@ -129,14 +129,14 @@
 	        <table class="table">
 	            <tr class="graybg">
 	                <th></th>
-	                <th>{{'label.input.cyclenumber' | translate}}</th>
-	                <th>{{'label.input.minimum' | translate}}</th>
-	                <th>{{'label.input.default' | translate}}</th>
-	                <th>{{'label.input.maximum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.cyclenumber' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.minimum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.default' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.maximum' | translate}}</th>
 	                <th></th>
 	            </tr>
 	            <tr ng-repeat="borrowerCycleVariation in formData.principalVariationsForBorrowerCycle">
-	                <td>
+	                <td class="col-sm-2">
 	                    <select id="principalValueUsageCondition{{$index}}"
 	                            ng-model="borrowerCycleVariation.valueConditionType"
 	                            ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
@@ -196,14 +196,14 @@
 	        <table class="table">
 	            <tr class="graybg">
 	                <th></th>
-	                <th>{{'label.input.cyclenumber' | translate}}</th>
-	                <th>{{'label.input.minimum' | translate}}</th>
-	                <th>{{'label.input.default' | translate}}</th>
-	                <th>{{'label.input.maximum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.cyclenumber' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.minimum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.default' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.maximum' | translate}}</th>
 	                <th></th>
 	            </tr>
 	            <tr ng-repeat="borrowerCycleVariation in formData.numberOfRepaymentVariationsForBorrowerCycle">
-	                <td>
+	                <td class="col-sm-2">
 	                    <select class="marginleftn19px form-control"
 	                            id="repaymentValueUsageCondition{{$index}}"
 	                            ng-model="borrowerCycleVariation.valueConditionType"
@@ -267,14 +267,14 @@
 	        <table class="table">
 	            <tr class="graybg">
 	                <th></th>
-	                <th>{{'label.input.cyclenumber' | translate}}</th>
-	                <th>{{'label.input.minimum' | translate}}</th>
-	                <th>{{'label.input.default' | translate}}</th>
-	                <th>{{'label.input.maximum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.cyclenumber' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.minimum' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.default' | translate}}</th>
+	                <th style="padding-left: 53px">{{'label.input.maximum' | translate}}</th>
 	                <th></th>
 	            </tr>
 	            <tr ng-repeat="borrowerCycleVariation in formData.interestRateVariationsForBorrowerCycle">
-	                <td>
+	                <td class="col-sm-2">
 	                    <select class="marginleftn19px form-control"
 	                            id="interestRateValueUsageCondition{{$index}}"
 	                            ng-model="borrowerCycleVariation.valueConditionType"
@@ -321,6 +321,14 @@
 	    <div class="col-sm-2">
 	        <form-validate valattributeform="editloanproductform" valattribute="repaymentEvery"/>
 	    </div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">{{ 'label.input.minimum.days.between.disbursal.and.first.repayment'
+			| translate }}</label>
+		<div class="col-sm-2">
+			<input id="minimumDaysBetweenDisbursalAndFirstRepayment" class="form-control"
+				   type="text" ng-model="formData.minimumDaysBetweenDisbursalAndFirstRepayment">
+		</div>
 	</div>
 	<h3>{{ 'label.heading.settings' | translate }}</h3>
 	<hr>
@@ -411,46 +419,7 @@
                           type="text" ng-model="formData.overdueDaysForNPA">
 	    </div>
 	</div>
-    <div class="form-group">
-        <label class="control-label col-sm-2">{{ 'label.input.recalculateinterest' | translate }}</label>
 
-        <div class="col-sm-2">
-            <label class="checkbox control-label">
-                <input type="checkbox" ng-model="formData.isInterestRecalculationEnabled"/>
-            </label>
-        </div>
-    </div>
-    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-        <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
-            | translate }}<span class="required">*</span></label>
-
-        <div class="col-sm-2">
-            <select id="interestRecalculationCompoundingMethod" class="form-control"
-                    ng-model="formData.interestRecalculationCompoundingMethod"
-                    ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
-                    value="{{type.id}}"></select>
-        </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
-            | translate }}<span class="required">*</span></label>
-
-        <div class="col-sm-2">
-            <select id="rescheduleStrategyMethod" class="form-control"
-                    ng-model="formData.rescheduleStrategyMethod"
-                    ng-options="type.id as type.value for type in product.rescheduleStrategyTypeOptions"
-                    value="{{type.id}}"></select>
-        </div>
-    </div>
-    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-        <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
-            | translate }}<span class="required">*</span></label>
-
-        <div class="col-sm-2">
-            <select id="recalculationRestFrequencyType" class="form-control"
-                    ng-model="formData.recalculationRestFrequencyType"
-                    ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
-                    value="{{type.id}}"></select>
-        </div>
-    </div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
         <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
             | translate }}<span class="required">*</span></label>
@@ -468,55 +437,90 @@
 
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2">{{ 'label.input.holdguaranteefunds' | translate }}</label>
+		<h3>{{ 'label.heading.interestCalculation' | translate }}</h3>
+		<hr>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{ 'label.input.recalculateinterest' | translate }}</label>
 
-        <div class="col-sm-2">
-            <label class="checkbox control-label">
-                <input type="checkbox" ng-model="formData.holdGuaranteeFunds"/>
-            </label>
-        </div>
-    </div>
+			<div class="col-sm-2">
+				<label class="checkbox control-label">
+					<input type="checkbox" ng-model="formData.isInterestRecalculationEnabled"/>
+				</label>
+			</div>
+		</div>
+		<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+			<label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
+				| translate }}<span class="required">*</span></label>
 
-    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
-        <label class="control-label col-sm-2">{{'label.input.mandatory.guarantee'
-            | translate }}<span class="required">*</span></label>
+			<div class="col-sm-2">
+				<select id="interestRecalculationCompoundingMethod" class="form-control"
+						ng-model="formData.interestRecalculationCompoundingMethod"
+						ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
+						value="{{type.id}}"></select>
+			</div>
+			<label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
+				| translate }}<span class="required">*</span></label>
 
-        <div class="col-sm-2">
-            <input id="mandatoryGuarantee" type="text" class="form-control" ng-model="formData.mandatoryGuarantee"/>
+			<div class="col-sm-2">
+				<select id="rescheduleStrategyMethod" class="form-control"
+						ng-model="formData.rescheduleStrategyMethod"
+						ng-options="type.id as type.value for type in product.rescheduleStrategyTypeOptions"
+						value="{{type.id}}"></select>
+			</div>
+		</div>
+		<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+			<label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
+				| translate }}<span class="required">*</span></label>
 
-        </div>
-    </div>
+			<div class="col-sm-2">
+				<select id="recalculationRestFrequencyType" class="form-control"
+						ng-model="formData.recalculationRestFrequencyType"
+						ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+						value="{{type.id}}"></select>
+			</div>
+		</div>
 
-    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
-        <label class="control-label col-sm-2">{{'label.input.minimum.guarantee.from.own.funds'
-            | translate }}</label>
+		<h3>{{ 'label.heading.gauranteeRequirements' | translate }}</h3>
+		<hr>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{ 'label.input.holdguaranteefunds' | translate }}</label>
+			<div class="col-sm-2">
+				<label class="checkbox control-label">
+					<input type="checkbox" ng-model="formData.holdGuaranteeFunds"/>
+				</label>
+			</div>
+		</div>
 
-        <div class="col-sm-2">
-            <input id="minimumGuaranteeFromOwnFunds" type="text" class="form-control" ng-model="formData.minimumGuaranteeFromOwnFunds"/>
+		<div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
+			<label class="control-label col-sm-2">{{'label.input.mandatory.guarantee'
+				| translate }}<span class="required">*</span></label>
 
-        </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.minimum.guarantee.from.guarantor'
-            | translate }}</label>
+			<div class="col-sm-2">
+				<input id="mandatoryGuarantee" type="text" class="form-control" ng-model="formData.mandatoryGuarantee"/>
 
-        <div class="col-sm-2"><input id="minimumGuaranteeFromGuarantor" type="text" class="form-control" ng-model="formData.minimumGuaranteeFromGuarantor"/>
-        </div>
-    </div>
+			</div>
+		</div>
 
-    <div class="form-group">
-                <label class="control-label col-sm-4">{{ 'label.input.minimum.days.between.disbursal.and.first.repayment'
-                    | translate }}</label>
-                <div class="col-sm-2">
-                    <input id="minimumDaysBetweenDisbursalAndFirstRepayment" class="form-control"
-                           type="text" ng-model="formData.minimumDaysBetweenDisbursalAndFirstRepayment">
-                </div>
-    </div>
+		<div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
+			<label class="control-label col-sm-2">{{'label.input.minimum.guarantee.from.own.funds'
+				| translate }}</label>
+
+			<div class="col-sm-2">
+				<input id="minimumGuaranteeFromOwnFunds" type="text" class="form-control" ng-model="formData.minimumGuaranteeFromOwnFunds"/>
+
+			</div>
+			<label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.minimum.guarantee.from.guarantor'
+				| translate }}</label>
+
+			<div class="col-sm-2"><input id="minimumGuaranteeFromGuarantor" type="text" class="form-control" ng-model="formData.minimumGuaranteeFromGuarantor"/>
+			</div>
+		</div>
 
 
-    <h3>{{ 'label.heading.tranchedetails' | translate }}</h3>
+		<h3>{{ 'label.heading.tranchedetails' | translate }}</h3>
 	<hr>
 	<div class="form-group">
-	    <label class="control-label col-sm-2">{{ 'label.input.multidisburseloan' | translate }}</label>
+	    <label class="control-label col-sm-2">{{ 'label.input.enablemultipledisbursals' | translate }}</label>
 	    <div class="checkbox col-sm-2">
 	        <label>
 	            <input type="checkbox" ng-model="formData.multiDisburseLoan"/>
