@@ -121,7 +121,7 @@
                     resourceFactory.clientResource.get({anotherresource: 'template', commandParam: 'withdraw'}, function (data) {
                         scope.reasons = data.narrations;
                         if(data.narrations != "") {
-                            scope.formData.reasonId = data.narrations[0].id;
+                            scope.formData.withdrawalReasonId = data.narrations[0].id;
                         }
                     });
                     scope.taskPermissionName = 'WITHDRAW_CLIENT';
