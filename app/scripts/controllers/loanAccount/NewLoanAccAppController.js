@@ -8,7 +8,7 @@
             scope.formData = {};
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
-            scope.inparams = {resourceType: 'template'};
+            scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.date.first = new Date();
             if (scope.clientId) {
@@ -54,7 +54,7 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
             }
-            
+
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
                 scope.charges = scope.loanaccountinfo.charges || [];
