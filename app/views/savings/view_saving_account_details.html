@@ -1,9 +1,11 @@
 <div class="col-md-12" ng-controller="ViewSavingDetailsController">
     <div>
         <ul class="breadcrumb">
-            <li ng-show="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
-            <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
+            <li>{{client.officeName}}</li>
+            <li><a href="#/viewcenter/{{client.centerId}}">{{client.centerName}}</a></li>
+            <li><a href="#/viewgroup/{{client.groupId}}">{{client.groupName}}</a></li>
+            <li><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+            <li class="active">{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</li>
         </ul>
     </div>
     <script type="text/ng-template" id="savingsunassignstaff.html">
@@ -435,13 +437,11 @@
                 </tab>
                 <!-- <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_SAVINGNOTE'>
                     <br/>
-
                     <form>
                         <div class="form-group">
                             <div class="col-sm-12 col-md-12">
                                 <textarea rows="1" class="form-control marginbottom0px" id="textarea"
                                           placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-
                                 <div class="notewrapper col-sm-12 col-md-12">
                                         <span class="pull-right noteaddbuttonwrapper">
                                             <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_SAVINGNOTE'>{{'label.button.add' | translate}}

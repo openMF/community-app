@@ -7,17 +7,16 @@
                 location.path('/viewuser/' + id);
             };
 
-            /* -----Throws error on test-----
-             if (!scope.searchCriteria.users) {
-             scope.searchCriteria.users = null;
-             scope.saveSC();
-             }
-             scope.filterText = scope.searchCriteria.users;
+            if (!scope.searchCriteria.users) {
+                scope.searchCriteria.users = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.users;
 
-             scope.onFilter = function () {
-             scope.searchCriteria.users = scope.filterText;
-             scope.saveSC();
-             };*/
+            scope.onFilter = function () {
+                scope.searchCriteria.users = scope.filterText;
+                scope.saveSC();
+            };
 
             resourceFactory.userListResource.getAllUsers(function (data) {
                 scope.users = data;

@@ -7,17 +7,16 @@
                 location.path('/viewclient/' + id);
             };
 
-            /* -----Throws error on test-----
-             if (!scope.searchCriteria.clients) {
-             scope.searchCriteria.clients = null;
-             scope.saveSC();
-             }
-             scope.filterText = scope.searchCriteria.clients;
+            if (!scope.searchCriteria.clients) {
+                scope.searchCriteria.clients = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.clients;
 
-             scope.onFilter = function () {
-             scope.searchCriteria.clients = scope.filterText;
-             scope.saveSC();
-             };*/
+            scope.onFilter = function () {
+                scope.searchCriteria.clients = scope.filterText;
+                scope.saveSC();
+            };
 
             var fetchFunction = function (offset, limit, callback) {
                 resourceFactory.clientResource.getAllClients({offset: offset, limit: limit}, callback);
