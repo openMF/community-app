@@ -7,24 +7,47 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 'use strict';
-
 // Declare module which depends on filters, and services
 angular.module('notificationWidget', [])
-// Declare an http interceptor that will signal the start and end of each request
+    // set up the interceptor
     .config(['$httpProvider', function ($httpProvider) {
-        var $http,
-            interceptor = ['$q', '$injector', '$location', '$rootScope', function ($q, $injector, $location, $rootScope) {
-                var notificationChannel;
+        $httpProvider.interceptors.push(function ($q, $injector, $location, $rootScope) {
+            var notificationChannel, $http;
 
-                function removeErrors() {
-                    var $inputs = $(':input');
-                    $inputs.each(function () {
-                        $(this).removeClass("validationerror");
-                    });
-                }
+            function removeErrors() {
+                var $inputs = $(':input');
+                $inputs.each(function () {
+                    $(this).removeClass("validationerror");
+                });
+            }
 
-                function success(response) {                    
+            return {
+                request: function (config) {
+                    $rootScope.blockUI = true;
 
+                    // get requestNotificationChannel via $injector because of circular dependency problem
+                    notificationChannel = notificationChannel || $injector.get('requestNotificationChannel');
+                    // send a notification requests are complete
+                    notificationChannel.requestStarted();
+                    // do something on success
+                    return config || $q.when(config);
+                },
+                requestError: function (rejection) {
+                    $rootScope.blockUI = false;
+
+                    // get $http via $injector because of circular dependency problem
+                    $http = $http || $injector.get('$http');
+                    // don't send notification until all requests are complete
+                    if ($http.pendingRequests.length < 1) {
+                        // get requestNotificationChannel via $injector because of circular dependency problem
+                        notificationChannel = notificationChannel || $injector.get('requestNotificationChannel');
+                        // send a notification requests are complete
+                        notificationChannel.requestEnded();
+                    }
+                    return $q.reject(rejection);
+                },
+                response: function (response) {
+                    $rootScope.blockUI = false;
                     // clear previous errors for a success request.
                     delete $rootScope.errorStatus;
                     delete $rootScope.errorDetails;
@@ -35,13 +58,13 @@ angular.module('notificationWidget', [])
                     $rootScope.successfulResponses = [];
                     $rootScope.failedResponses = [];
 
-                    //check for batch API errors                    
-                    if (response.config.url.indexOf('batches') > 0) {                        
+                    //check for batch API errors
+                    if (response.config.url.indexOf('batches') > 0) {
 
                         for (var i = 0; i < response.data.length; i++) {
                             var currResponse = response.data[i];
                             if (currResponse.statusCode == 200) {
-                                $rootScope.successfulResponses.push(currResponse);                                
+                                $rootScope.successfulResponses.push(currResponse);
                             } else {
                                 $rootScope.failedResponses.push(currResponse);
                             }
@@ -54,11 +77,11 @@ angular.module('notificationWidget', [])
                             error(errResponse);
 
                             //set the value of response only to successful responses
-                            response.data = $rootScope.successfulResponses;                   
-                        }                     
+                            response.data = $rootScope.successfulResponses;
+                        }
 
                     }
-                    
+
                     // get $http via $injector because of circular dependency problem
                     $http = $http || $injector.get('$http');
                     // don't send notification until all requests are complete
@@ -69,31 +92,32 @@ angular.module('notificationWidget', [])
                         notificationChannel.requestEnded();
                     }
                     if (response.config && response.config.method == "GET") {
-                        return response;
+                        return response || $q.when(response);
                     } else {
                         if (response.data && response.data.commandId) {
                             //Maker checker is enabled or performing actions of maker checker
                             if (response.config.url.indexOf('makercheckers/') > 0) {
                                 //return response for maker checker actions(approve or delete)
-                                return response;
+                                return response || $q.when(response);
                             } else {
                                 //redirect if maker checker is enabled
                                 $location.path('/viewMakerCheckerTask/' + response.data.commandId);
                             }
                         } else {
                             //when no maker checker enabled
-                            return response;
+                            return response || $q.when(response);
                         }
-                        ;
                     }
-                }
-
-                function error(response) {
+                },
+                responseError: function (rejection) {
+                    $rootScope.blockUI = false;
+                    delete $rootScope.errorStatus;
+                    delete $rootScope.errorDetails;
+                    removeErrors();
                     // get $http via $injector because of circular dependency problem
-                    //console.log(response.data);                    
+                    //console.log(response.data);
 
                     $http = $http || $injector.get('$http');
-                    removeErrors();
                     // don't send notification until all requests are complete
                     if ($http.pendingRequests.length < 1) {
                         // get requestNotificationChannel via $injector because of circular dependency problem
@@ -107,28 +131,28 @@ angular.module('notificationWidget', [])
                     //now our data array will hold the return response
                     //either it's a batch response or a normal response
                     var data = [];
-                    if (response.config.url.indexOf('batches') > 0) {
-                        data = response.data;
+                    if (rejection.config.url.indexOf('batches') > 0) {
+                        data = rejection.data;
                     }
                     else {
                         //just push a single response into data
                         var res = {};
-                        res.body = JSON.stringify(response.data);
+                        res.body = JSON.stringify(rejection.data);
                         data.push(res);
                     }
-                    
-                    if (response.status === 0) {
+
+                    if (rejection.status === 0) {
                         $rootScope.errorStatus = 'No connection. Verify application is running.';
-                    } else if (response.status == 401) {
+                    } else if (rejection.status == 401) {
                         $rootScope.errorStatus = 'Unauthorized';
-                    } else if (response.status == 405) {
+                    } else if (rejection.status == 405) {
                         $rootScope.errorStatus = 'HTTP verb not supported [405]';
-                    } else if (response.status == 500) {
+                    } else if (rejection.status == 500) {
                         $rootScope.errorStatus = 'Internal Server Error [500].';
                     } else {
                         for(var i = 0; i < data.length; i++) {
                             //console.log(data[i]);
-                            var jsonErrors = JSON.parse(data[i].body);                            
+                            var jsonErrors = JSON.parse(data[i].body);
                             var valErrors = jsonErrors.errors;
                             var errorArray = new Array();
                             var arrayIndex = 0;
@@ -156,8 +180,7 @@ angular.module('notificationWidget', [])
                                 };
                             } else {
                                 /***
-                                 * Update user password api call won't rh
-                                 eturn errors array,
+                                 * Update user password api call won't return errors array,
                                  * if user enters a password which is used previously
                                  */
                                 if (jsonErrors.userMessageGlobalisationCode) {
@@ -171,21 +194,12 @@ angular.module('notificationWidget', [])
                             console.log(errorArray);
                         }
                     }
-                    return $q.reject(response);
+                    return $q.reject(rejection);
                 }
-
-                return function (promise) {
-                    // get requestNotificationChannel via $injector because of circular dependency problem
-                    notificationChannel = notificationChannel || $injector.get('requestNotificationChannel');
-                    // send a notification requests are complete
-                    notificationChannel.requestStarted();
-                    return promise.then(success, error);
-                }
-            }];
-
-        $httpProvider.responseInterceptors.push(interceptor);
+            }
+        })
     }])
-// declare the notification pub/sub channel
+    // declare the notification pub/sub channel
     .factory('requestNotificationChannel', ['$rootScope', function ($rootScope) {
         // private notification messages
         var _START_REQUEST_ = '_START_REQUEST_';
@@ -193,12 +207,10 @@ angular.module('notificationWidget', [])
         // publish start request notification
         var requestStarted = function () {
             $rootScope.$broadcast(_START_REQUEST_);
-            $rootScope.blockUI = true;
         };
         // publish end request notification
         var requestEnded = function () {
             $rootScope.$broadcast(_END_REQUEST_);
-            $rootScope.blockUI = false;
         };
         // subscribe to start request notification
         var onRequestStarted = function ($scope, handler) {
@@ -212,13 +224,10 @@ angular.module('notificationWidget', [])
                 handler();
             });
         };
-
         return {
             requestStarted: requestStarted,
             requestEnded: requestEnded,
             onRequestStarted: onRequestStarted,
             onRequestEnded: onRequestEnded
         };
-    }])
-
-
+    }]);
