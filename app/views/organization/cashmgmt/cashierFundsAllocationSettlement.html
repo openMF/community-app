@@ -1,0 +1,78 @@
+<div class="col-md-12"  ng-controller="CashierFundsAllocationSettlementController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+        <li>{{cashier.officeName}}</li>
+        <li><a href="#/tellers/{{cashier.tellerId}}">{{cashier.tellerName}}</a></li>
+        <li class="active">{{'label.anchor.createCashier' | translate}}</li>
+    </ul>
+
+	<form name="cashiertxnform" novalidate="" class="form-horizontal well"
+     	 rc-submit="submit()">
+	    <api-validate></api-validate>
+
+	    <table class="table">
+	    	<tr>
+	    		<td>{{ 'label.input.office' | translate }} {{location.path()}} {{}} </td>
+	    		<td>{{cashierTxnTemplate.officeName}}</td>
+			    <td>{{ 'label.input.teller.name' | translate }}</td>
+	    		<td>{{cashierTxnTemplate.tellerName}}</td>
+	    	</tr>
+	    	<tr>
+	    		<td>{{ 'label.input.cashiername' | translate }}</td>
+	    		<td>{{cashierTxnTemplate.cashierName}}</td>
+			    <td>{{ 'label.input.cashierallocationdetails' | translate }}</td>
+	    		<td>
+	    			{{cashierTxnTemplate.startDate | DateFormat}} - {{cashierTxnTemplate.endDate | DateFormat}} 
+	    			( )
+	    		</td>
+	    	</tr>
+    		
+	    	<tr>
+	    		<td>{{ 'label.input.teller.cashiertxn.txnDate' | translate }}<span class="required">*</span></td>
+	    		<td>
+	    			<div class="col-sm-8">
+	    			<input id="txnDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="txnDate"
+	                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                    </div>
+				</td>
+				<td></td>
+	    		<td></td>
+	    	</tr>
+	    	<tr>
+	    		<td>{{ 'label.input.teller.cashiertxn.txnAmount' | translate }}<span class="required">*</span></td>
+	    		<td>
+	    			<div class="col-sm-8">
+                        <input id="txnAmount" type="text" name="txnAmount"
+                               ng-model="formData.txnAmount" class="form-control" required late-Validate/>
+                    </div>
+				</td>
+				<td>{{ 'label.input.teller.cashiertxn.txnNote' | translate }}<span class="required">*</span></td>
+	    		<td>
+	    			<div class="col-sm-8">
+	    			<input id="txnNote" sort type="text" ng-model="formData.txnNote" class="form-control" />
+                    </div>
+				</td>
+	    	</tr>
+
+			</tr>
+				<td colspan="4">
+	    			<div class="col-md-offset-3">
+                		<a id="cancel" href="#/tellers/{{tellerId}}/cashiers">
+                    		<button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                		</a>
+                		<button id="allocate" type="submit" class="btn btn-success" has-permission='ALLOCATECASHIER_TELLER'
+                				data-ng-click="allocate()" ng-show="ifAllocate()">
+                			<i class="icon-level-down icon-white">{{'label.button.cashier.allocatefunds' | translate}}</i>
+                		</button>
+            			<button id="settle" type="submit" class="btn btn-warning" has-permission='ALLOCATECASHIER_TELLER'
+            				data-ng-click="settle()" ng-show="ifSettle()">
+            				<i class="icon-level-up icon-white">{{'label.button.cashier.settlefunds' | translate}}</i>
+            			</button>
+            		</div>
+            	</td>
+        	</td>
+
+	    </table>
+	</form>
+</div>
