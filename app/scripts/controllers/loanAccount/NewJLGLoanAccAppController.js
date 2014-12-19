@@ -15,11 +15,11 @@
             scope.chargeFormData = {}; //For charges
             scope.chargeFormData.clients = [];
             scope.repaymentscheduleinfo = {};
-            scope.repaymentscheduleinfo.clients = [];            
+            scope.repaymentscheduleinfo.clients = [];
             scope.staffInSelectedOfficeOnly = true;
             scope.requestIdentifier = "clientId";
             //scope.collateralFormData = {}; //For collaterals
-            scope.inparams = { resourceType: 'template', templateType: 'jlgbulk', lendingStrategy: 300 };
+            scope.inparams = { resourceType: 'template', templateType: 'jlgbulk', lendingStrategy: 300, activeOnly: 'true' };
 
             if (scope.groupId) {
                 scope.inparams.groupId = scope.groupId;
@@ -32,9 +32,9 @@
                     scope.groupName = data.group.name;
                 }
             });
-            
+
             scope.loanProductChange = function (loanProductId) {
-                scope.clients = [];                
+                scope.clients = [];
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
@@ -48,7 +48,7 @@
                                 frequencyType: data.repaymentFrequencyType.id,
                                 interestCalculationPeriodType: data.memberVariations[data.group.clientMembers[i].id]['interestCalculationPeriodType'],});
                         }
-                    }                    
+                    }
                 });
 
                /* resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -58,7 +58,7 @@
                 //makes a copy of all the clients for selection
                 scope.removedClients = scope.clients;
                 scope.addedClients = [];
-            }           
+            }
 
             // function to add selected clients in multi-select window
             scope.add = function () {
@@ -67,7 +67,7 @@
                         if (scope.removedClients[j].clientId == this.removed[i]) {
                             var temp = scope.removedClients[j];
                             scope.addedClients.push(temp);
-                            scope.removedClients.splice(j, 1);                           
+                            scope.removedClients.splice(j, 1);
                         }
                     }
                 }
@@ -89,13 +89,13 @@
             scope.showLoanForm = function () {
                 if(scope.addedClients.length > 0) {
                     scope.showForm = true;
-                    scope.previewClientLoanAccInfo();                    
+                    scope.previewClientLoanAccInfo();
                 }
             };
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = {};   
-                scope.previewRepayment.clients = [];           
+                scope.previewRepayment.clients = [];
                 scope.charges = scope.loanaccountinfo.charges || [];
                 scope.charges.clients = [];
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
@@ -125,10 +125,10 @@
                 scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
                 scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
-                
+
                 for (var i = 0; i < scope.addedClients.length; i++ ){
                     scope.formData.clients.push({});
-                    scope.chargeFormData.clients.push({});                    
+                    scope.chargeFormData.clients.push({});
                     scope.charges.clients.push([]);
                     scope.formData.clients[i].charges = [];
                     scope.previewRepayment.clients.push(false);
@@ -136,7 +136,7 @@
                     for (var j = 0; j < scope.loanaccountinfo.charges.length; j++) {
                         scope.charges.clients[i][j] = scope.loanaccountinfo.charges[j];
                     }
-                   
+
                     //fill up the initial form data for each client
                     for (var key in scope.formData) {
                         if (key != "clients" && key != "syncRepaymentsWithMeeting" && key != "syncDisbursementWithMeeting") {
@@ -144,7 +144,7 @@
                         }
                     }
 
-                    scope.formData.clients[i].principal = scope.addedClients[i].amount;                                   
+                    scope.formData.clients[i].principal = scope.addedClients[i].amount;
                 }
             }
 
@@ -182,10 +182,10 @@
                     });
                 }
             }
-            
+
             //function to remove an added common/specific charge
             scope.deleteCharge = function (outerIndex, innerIndex) {
-                if (outerIndex >= 0 && innerIndex >= 0) {                   
+                if (outerIndex >= 0 && innerIndex >= 0) {
                     scope.charges.clients[outerIndex].splice(innerIndex, 1);
                 } else {
                     var chargeId = scope.charges[outerIndex].id;
@@ -240,7 +240,7 @@
 
             scope.previewRepayments = function (index) {
                 // Make sure charges and collaterals are empty before initializing.
-                
+
                 // delete scope.formData.collateral;
 
                 if (scope.charges.clients[index].length > 0) {
@@ -249,7 +249,7 @@
                         scope.formData.clients[index].charges.push({ chargeId: scope.charges.clients[index][i].chargeId, amount: scope.charges.clients[index][i].amount, dueDate: dateFilter(scope.charges.clients[index][i].dueDate, scope.df) });
                     }
                 }
-                
+
                 /*if (scope.collaterals.length > 0) {
                     scope.formData.collateral = [];
                     for (var i in scope.collaterals) {
@@ -319,7 +319,7 @@
                 }
             });
 
-            scope.submit = function () {                
+            scope.submit = function () {
 
                 /*delete scope.formData.collateral;
 
@@ -363,7 +363,7 @@
                 for (var i in scope.addedClients) {
                     if (scope.addedClients[i].selected) {
                         selectedClients = selectedClients + 1;
-                    }                    
+                    }
                 }
 
                 //add the common details for every client
@@ -389,7 +389,7 @@
                     this.formData.clients[i].loanOfficerId = this.formData.loanOfficerId;
                     this.formData.clients[i].productId = this.formData.productId;
                     this.formData.clients[i].fundId =  this.formData.fundId;
-                    this.formData.clients[i].submittedOnDate = this.formData.submittedOnDate;                    
+                    this.formData.clients[i].submittedOnDate = this.formData.submittedOnDate;
                     this.formData.clients[i].loanTermFrequency = this.formData.loanTermFrequency;
                     this.formData.clients[i].loanTermFrequencyType = this.formData.loanTermFrequencyType;
                     this.formData.clients[i].repaymentEvery = this.formData.repaymentEvery;
@@ -402,26 +402,26 @@
 
                 //make sure there are no previous batch Requests
                 this.batchRequests = [];
-                
+
                 //fill up the batch Requests array with JSON Request data
                 for (var i in this.formData.clients) {
                         this.batchRequests.push({requestId: i, relativeUrl: "loans", 
-                        method: "POST", body: JSON.stringify(this.formData.clients[i])});                        
-                }       
+                        method: "POST", body: JSON.stringify(this.formData.clients[i])});
+                }
 
                 //send the request to the Batch API
                 resourceFactory.batchResource.post(this.batchRequests, function (data) {
                     for(var i = 0; i < data.length; i++) {
-                        data[i].body = JSON.parse(data[i].body);                   
-                        for(var x = 0; x < scope.addedClients.length; x++) {                                     
-                            if(data[i].body.clientId == scope.addedClients[x].clientId) {                                
+                        data[i].body = JSON.parse(data[i].body);
+                        for(var x = 0; x < scope.addedClients.length; x++) {
+                            if(data[i].body.clientId == scope.addedClients[x].clientId) {
                                 if(data[i].statusCode == 200) {
                                     scope.addedClients[x]['status'] = 'Created';
-                                    successfullyCreated = successfullyCreated + 1;                                    
+                                    successfullyCreated = successfullyCreated + 1;
                                 }
                             } 
-                        }                    
-                       
+                        }
+
                         if (successfullyCreated == selectedClients) {
                             location.path('/viewgroup/' + scope.groupId);
                         } 
@@ -429,15 +429,15 @@
 
                     if(successfullyCreated != selectedClients) {
                             var temp = [];
-                            for (var i = 0; i < scope.addedClients.length; i++) {                                
+                            for (var i = 0; i < scope.addedClients.length; i++) {
                                 if (scope.addedClients[i]['status'] != 'Created') {
                                     temp.push(scope.addedClients[i]);
                                 }
                             }
                             //clean up previous values
                             scope.addedClients = temp; 
-                            scope.formData.clients = [];                      
-                            scope.showLoanForm();                                 
+                            scope.formData.clients = [];
+                            scope.showLoanForm();
                     }
                 });
 
