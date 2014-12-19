@@ -84,10 +84,10 @@
                 resourceFactory.attachMeetingResource.update({groupOrCenter: routeParams.entityType,
                     groupOrCenterId: routeParams.groupOrCenterId, templateSource: routeParams.calendarId}, this.formData, function (data) {
                     var destURI = "";
-                    if (routeParams.entityType == "groups") {
+                    if (routeParams.entityType == "GROUPS") {
                         destURI = "viewgroup/" + routeParams.groupOrCenterId;
                     }
-                    else if (routeParams.entityType == "centers") {
+                    else if (routeParams.entityType == "CENTERS") {
                         destURI = "viewcenter/" + routeParams.groupOrCenterId;
                     }
                     location.path(destURI);

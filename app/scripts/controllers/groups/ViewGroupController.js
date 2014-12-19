@@ -21,6 +21,10 @@
                 scope.group = data;
                 scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
+                if(data.collectionMeetingCalendar) {
+                    scope.entityId = data.collectionMeetingCalendar.entityId;
+                    scope.entityType = data.collectionMeetingCalendar.entityType.value;
+                }
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
                 scope.summary = data[0];
