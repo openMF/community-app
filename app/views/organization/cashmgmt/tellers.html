@@ -1,0 +1,40 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.tellers' | translate}}</li>
+    </ul>
+</div>
+
+<div class="col-md-12" ng-controller="TellersController">
+    <div class="pull-right">
+        <a href="#/createTeller" class="btn btn-primary" has-permission='CREATE_TELLER'><i class="icon-plus icon-white"></i>{{'label.button.createteller'
+            | translate}}</a>
+    </div>
+    <div class="clear"></div>
+    <div ng-hide="isTreeView">
+    	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
+           placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.cashmgmt.officeName' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerName' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerStatus' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerStartDate' | translate}}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="teller in tellers| orderBy:'teller.officeName' | orderBy:'name'  | filter:filterText">
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.officeName}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.name}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.status}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.startDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(teller.id)">
+                    <i class="icon-edit icon-small"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

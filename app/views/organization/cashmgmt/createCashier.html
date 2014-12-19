@@ -1,0 +1,106 @@
+<div class="col-md-12"  ng-controller="CreateCashierForTellerController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+        <li>{{cashier.officeName}}</li>
+        <li><a href="#/tellers/{{cashier.tellerId}}">{{cashier.tellerName}}</a></li>
+        <li class="active">{{'label.anchor.createCashier' | translate}}</li>
+    </ul>
+
+	<form name="createcashierform" novalidate="" class="form-horizontal well"
+     	 rc-submit="submit()">
+	    <api-validate></api-validate>
+
+
+	    <table class="table">
+	    	<tr>
+	    		<td>{{ 'label.input.office' | translate }}</td>
+	    		<td>{{cashier.officeName}}</td>
+			    <td>{{ 'label.input.teller.name' | translate }}</td>
+	    		<td>{{cashier.tellerName}}</td>
+	    	</tr>
+	    	<tr>
+	    		<td>{{'label.heading.cashmgmt.tellerCashiers.cashierName' | translate}}</td>
+	    		<td>
+	    			<select chosen="cashier.staffOptions" id="staffId" ng-model="formData.staffId" class="form-control"
+	                            ng-options="staff.id as staff.displayName for staff in cashier.staffOptions"
+	                            value="{{staff.id}}">
+	                </select>
+	    		</td>
+	    		<td>{{'label.heading.cashmgmt.tellerCashiers.description' | translate}}</td>
+	    		<td>
+	    			<div class="col-sm-10">
+	    			<input id="description" type="text" ng-model="formData.description" class="form-control" />
+                    </div>
+	    		</td>
+	    	</tr>
+    		
+	    	<tr>
+	    		<td>{{ 'label.input.teller.cashier.startDate' | translate }}</td>
+	    		<td>
+	    			<div class="col-sm-6">
+	    			<input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+	                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                    </div>
+				</td>
+				<td>{{ 'label.input.teller.cashier.endDate' | translate }}</td>
+	    		<td>
+	    			<div class="col-sm-6">
+	    				<input id="endDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.endDate"
+	                           class="form-control" is-open="opened" min="minDate" />
+                    </div>
+	    		</td>
+	    	</tr>
+
+	    	<tr>
+	    		<td colspan="4">
+	                    <input id="fullDayCheckbox" type="checkbox" data-ng-change="setChoice()" checked="true" ng-model="formData.isFullDay" />
+	                    {{ 'label.input.teller.cashier.fullDay' | translate }}
+	    		</td>
+	    	</tr>
+
+	    	<tr>
+    			<td>
+	    			<div data-ng-switch on="choice">
+						<div data-ng-switch-when="0">
+			    			{{ 'label.input.teller.cashier.startTime' | translate }}
+                		</div>
+                	</div>
+	    		</td>
+	    		<td>
+	    			<div class="col-sm-4" data-ng-switch on="choice">
+						<div data-ng-switch-when="0">
+                			<input id="startTime" sort type="text" ng-model="startTime" class="form-control"/>
+                		</div>
+                	</div>
+	    		</td>
+	    		<td>
+					<div data-ng-switch on="choice">
+						<div data-ng-switch-when="0">			    	
+			    				{{ 'label.input.teller.cashier.endTime' | translate }}
+			    		</div>
+		    		</div>
+		    	</td>
+		    	<td>
+					<div class="col-sm-4" data-ng-switch on="choice">
+						<div data-ng-switch-when="0">			    	
+			    				<input id="endTime" sort type="text" ng-model="endTime" class="form-control"/>
+			    		</div>
+		    		</div>
+		    	</td>
+	    	</tr>
+
+			</tr>
+				<td colspan="4">
+	    			<div class="col-md-offset-3">
+                		<a id="cancel" href="#/tellers/{{tellerId}}/cashiers">
+                    		<button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                		</a>
+                		<button id="save" type="submit" class="btn btn-primary" has-permission='ALLOCATECASHIER_TELLER'>{{'label.button.save' | translate}}</button>
+            		</div>
+            	</td>
+        	</td>
+
+	    </table>
+	</form>
+</div>

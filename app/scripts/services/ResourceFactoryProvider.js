@@ -414,6 +414,33 @@
                     }),
                     officeToGLAccountMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    tellerResource: defineResource(apiVer + "/tellers/:tellerId", {tellerId: "@tellerId"}, {
+                        getAllTellers: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {tellerId: '@tellerId'}},
+                        update: { method: 'PUT', params: {tellerId: '@tellerId'}}
+                    }),
+                    tellerCashierResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        getAllCashiersForTeller: {method: 'GET', params: {tellerId: "@tellerId"}, isArray: false},
+                        delete: { method: 'DELETE', params: {tellerId: "@tellerId", cashierId: "@cashierId"}}
+                    }),
+                    tellerCashierTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/template", {tellerId: "@tellerId"}, {
+                        get: {method: 'GET', params: {tellerId: '@tellerId'}, isArray: false}
+                    }),
+                    tellerCashierTxnsResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactions", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        getCashierTransactions: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: true}
+                    }),
+                    tellerCashierSummaryAndTxnsResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/summaryandtransactions", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        getCashierSummaryAndTransactions: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
+                    }),
+                    tellerCashierTxnsAllocateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/allocate", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        allocate: { method: 'POST', params: {tellerId: "@tellerId", cashierId: "@cashierId", command: "allocate"}}
+                    }),
+                    tellerCashierTxnsSettleResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/settle", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        settle: { method: 'POST', params: {tellerId: "@tellerId", cashierId: "@cashierId", command: "settle"}}
+                    }),
+                    cashierTxnTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactions/template", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     })
                 };
             }];
