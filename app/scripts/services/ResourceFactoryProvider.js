@@ -22,7 +22,12 @@
                         getUser: {method: 'GET', params: {}}
                     }),
                     roleResource: defineResource(apiVer + "/roles/:roleId", {}, {
-                        getAllRoles: {method: 'GET', params: {}, isArray: true}
+                        getAllRoles: {method: 'GET', params: {}, isArray: true},
+                        deleteRoles: {method: 'DELETE'}
+                    }),
+                    roleStatusResource: defineResource(apiVer + "/roles/:roleId", {roleId: '@roleId', command: '@command'}, {
+                        disableRoles: {method: 'PUT'},
+                        enableRoles: {method: 'PUT'}
                     }),
                     rolePermissionResource: defineResource(apiVer + "/roles/:roleId/permissions", {roleId: '@roleId'}, {
                         get: {method: 'GET', params: {}},

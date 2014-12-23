@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewRoleController: function (scope, routeParams, resourceFactory, route) {
+        ViewRoleController: function (scope, routeParams, resourceFactory, route, $modal) {
             scope.permissions = [];
             scope.groupings = [];
             scope.formData = {};
@@ -26,7 +26,65 @@
                     scope.isDisabled = false;
                 };
 
+                scope.disableRolesConfirmationn = function () {
+                    $modal.open({
+                        templateUrl: 'disablerole.html',
+                        controller: RoleDisableCtrl
+                    });
+                };
+
+                var RoleDisableCtrl = function ($scope, $modalInstance) {
+                    $scope.disableRoles = function () {
+                        resourceFactory.roleStatusResource.disableRoles({roleId: routeParams.id, command: 'statusinactive'}, function (data) {
+                            $modalInstance.close('disableRoles');
+                            location.href = '#/admin/roles';
+                        });
+                    };
+                    $scope.cancelDisableRole = function () {
+                        $modalInstance.dismiss('cancelDisableRole');
+                    };
+                };
+
+                scope.enableRolesConfirmationn = function () {
+                    $modal.open({
+                        templateUrl: 'enablerole.html',
+                        controller: RoleEnableCtrl
+                    });
+                };
+
+                var RoleEnableCtrl = function ($scope, $modalInstance) {
+                    $scope.enableRoles = function () {
+                        resourceFactory.roleStatusResource.enableRoles({roleId: routeParams.id, command: 'statusactive'}, function (data) {
+                            $modalInstance.close('enableRoles');
+                            location.href = '#/admin/roles';
+                        });
+                    };
+                    $scope.cancelEnableRole = function () {
+                        $modalInstance.dismiss('cancelEnableRole');
+                    };
+                };
+
+                scope.deleteRolesConfirmation = function () {
+                    $modal.open({
+                        templateUrl: 'deleterole.html',
+                        controller: RoleDeleteCtrl
+                    });
+                };
+
+                var RoleDeleteCtrl = function ($scope, $modalInstance) {
+                    $scope.deleteRoles = function () {
+                        resourceFactory.roleResource.deleteRoles({roleId: routeParams.id}, function(data){
+                            $modalInstance.close('deleteRoles');
+                            location.href = '#/admin/roles';
+                        });
+                    };
+                    $scope.cancelDeleteRole = function () {
+                        $modalInstance.dismiss('cancelDeleteRole');
+                    };
+                };
+
                 scope.cancel = function () {
+					route.reload();
                     scope.isDisabled = true;
                 };
 
@@ -36,7 +94,6 @@
                     resourceFactory.rolePermissionResource.update({roleId: routeParams.id}, permissionData, function (data) {
                         route.reload();
                         scope.isDisabled = true;
-
                     });
                 };
 
@@ -75,7 +132,7 @@
             });
         }
     });
-    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route', mifosX.controllers.ViewRoleController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route', '$modal', mifosX.controllers.ViewRoleController]).run(function ($log) {
         $log.info("ViewRoleController initialized");
     });
 }(mifosX.controllers || {}));
