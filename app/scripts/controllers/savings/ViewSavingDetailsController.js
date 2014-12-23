@@ -8,6 +8,7 @@
             scope.date = {};
             scope.staffData = {};
             scope.fieldOfficers = [];
+            scope.client = {};
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
@@ -108,6 +109,15 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                resourceFactory.clientResource.get({clientId: scope.savingaccountdetails.clientId}, function (data) {
+                    scope.client.officeName = data.officeName;
+                    scope.client.groupId = data.groups[0].id;
+                    resourceFactory.groupResource.get({groupId: scope.client.groupId, associations: 'all'}, function (data) {
+                        scope.client.groupName = data.name;
+                        scope.client.centerName = data.centerName;
+                        scope.client.centerId = data.centerId;
+                    });
+                });
                 scope.showonhold = true;
                 if(angular.isUndefined(data.onHoldFunds)){
                     scope.showonhold = false;
