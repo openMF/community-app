@@ -14,6 +14,8 @@
             scope.added = [];
             scope.formData = {};
             scope.formData.clientMembers = [];
+            scope.forceOffice = null;
+
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
@@ -22,12 +24,26 @@
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
+                if(routeParams.officeId) {
+                    scope.formData.officeId = routeParams.officeId;
+                    for(var i in data.officeOptions) {
+                        if(data.officeOptions[i].id == routeParams.officeId) {
+                            scope.forceOffice = data.officeOptions[i];
+                            break;
+                        }
+                    }
+                }
+                if(routeParams.groupId) {
+                    if(typeof data.staffId !== "undefined") {
+                        scope.formData.staffId = data.staffId;
+                    }
+                }
             });
-            
+
             scope.viewClient = function (item) {
                 scope.client = item;
             };
-            
+
             scope.add = function () {
             	if(scope.available != ""){
             		var temp = {};
@@ -51,7 +67,7 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.groupTemplateResource.get({officeId: officeId }, function (data) {
+                resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
                     scope.clients = data.clientOptions;
                 });
             };
@@ -63,14 +79,14 @@
                     scope.choice = 0;
                 }
             };
-            
+
             if(routeParams.centerId) {
             	scope.cancel = '#/viewcenter/' + routeParams.centerId
             	scope.centerid = routeParams.centerId;
         	}else {
         		scope.cancel = "#/groups"
         	}
-            
+
             scope.submit = function () {
                 for (var i in scope.addedClients) {
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
