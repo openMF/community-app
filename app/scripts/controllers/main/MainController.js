@@ -2,6 +2,8 @@
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale) {
 
+			$rootScope.tooltiplang = 'en'; // default language of tooltips
+			
             //hides loader
             scope.domReady = true;
             scope.activity = {};
@@ -128,11 +130,13 @@
                     if (mifosX.models.Langs[i].code == temp.code) {
                         scope.optlang = mifosX.models.Langs[i];
                         tmhDynamicLocale.set(mifosX.models.Langs[i].code);
+						tooltiplang = scope.optlang.code;
                     }
                 }
             } else {
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
+				tooltiplang = scope.optlang.code;
             }
             translate.uses(scope.optlang.code);
 
@@ -237,11 +241,12 @@
                 localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;
+				tooltiplang = lang.code;
             };
 			scope.helpf = function()
 			{
 				// first, create addresses array
-			    var addresses = ["https://mifosforge.jira.com/wiki/display/docs/User+Setup","https://mifosforge.jira.com/wiki/display/docs/Organization",
+			var addresses = ["https://mifosforge.jira.com/wiki/display/docs/User+Setup","https://mifosforge.jira.com/wiki/display/docs/Organization",
 				"https://mifosforge.jira.com/wiki/display/docs/System",	"https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=products&startIndex=0&where=docs",
 				"https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67141762","https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=report&startIndex=0&where=docs",
 				"https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=accounting&startIndex=0&where=docs",	"https://mifosforge.jira.com/wiki/display/docs/Manage+Clients",
@@ -264,7 +269,7 @@
 				"https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67895308","https://mifosforge.jira.com/wiki/display/docs/Accruals"]; 
 			// array is huge, but working good
 			// create second array with address models
-		    	var addrmodels = ['/users/','/organization','/system','/products','/templates',	'',	'/accounting',
+			var addrmodels = ['/users/','/organization','/system','/products','/templates',	'',	'/accounting',
 								'/clients',	'/groups','/centers','','/offices',	'/holidays','/employees','/managefunds/',
 								'/bulkloan','/currconfig','/standinginstructions/history','/datatables','/codes','/admin/roles',
 								'/admin/viewmctasks','/hooks','/audit',	'/reports','/jobs','/global','/accountnumberpreferences','/loanproducts',

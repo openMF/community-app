@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        UserSettingController: function (scope, translate, localStorageService, tmhDynamicLocale) {
+        UserSettingController: function (scope,$rootScope, translate, localStorageService, tmhDynamicLocale) {
             if (localStorageService.getFromLocalStorage('Language')) {
                 var temp = localStorageService.getFromLocalStorage('Language');
                 for (var i in mifosX.models.Langs) {
@@ -15,6 +15,7 @@
             }
             
             translate.uses(scope.optlang.code);
+			
             
             scope.dates = [
                 'dd MMMM yyyy',
@@ -52,12 +53,13 @@
                 translate.uses(lang.code);
                 localStorageService.addToLocalStorage('Language', scope.optlang);
                 tmhDynamicLocale.set(lang.code);
+				tooltiplang = lang.code;								
             };
 
         }
     });
 
-    mifosX.ng.application.controller('UserSettingController', ['$scope', '$translate', 'localStorageService', 'tmhDynamicLocale', mifosX.controllers.UserSettingController]).run(function ($log) {
+    mifosX.ng.application.controller('UserSettingController', ['$scope','$rootScope', '$translate', 'localStorageService', 'tmhDynamicLocale', mifosX.controllers.UserSettingController]).run(function ($log) {
         $log.info("UserSettingController initialized");
     });
 }(mifosX.controllers || {}));
