@@ -8,6 +8,10 @@
             resourceFactory.roleResource.getAllRoles({}, function (data) {
                 scope.roles = data;
             });
+
+            scope.isRoleEnable = function(value) {
+                return value;
+            };
         }
     });
     mifosX.ng.application.controller('RoleController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.RoleController]).run(function ($log) {
