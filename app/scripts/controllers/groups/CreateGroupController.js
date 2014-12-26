@@ -24,6 +24,10 @@
                 scope.clients = data.clientOptions;
             });
 
+            scope.clearClient = function () {
+                scope.client = undefined;
+            };
+
             scope.viewClient = function (item) {
                 scope.client = item;
             };
