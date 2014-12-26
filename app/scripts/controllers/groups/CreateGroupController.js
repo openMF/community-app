@@ -23,13 +23,22 @@
                 scope.staffs = data.staffOptions;
                 scope.clients = data.clientOptions;
             });
-            
+
+            scope.clearClient = function () {
+                scope.client = undefined;
+            };
+
             scope.viewClient = function (item) {
                 scope.client = item;
             };
-            
+
             scope.add = function () {
-            	if(scope.available != ""){
+            	if (scope.available != "" && scope.available.id != undefined) {
+            	    for (var i = 0; i < scope.addedClients.length; i++) {
+                        if (scope.addedClients[i].id == scope.available.id) {
+                            return;
+                        }
+                    }
             		var temp = {};
                     temp.id = scope.available.id;
                     temp.displayName = scope.available.displayName;
@@ -63,14 +72,14 @@
                     scope.choice = 0;
                 }
             };
-            
+
             if(routeParams.centerId) {
             	scope.cancel = '#/viewcenter/' + routeParams.centerId
             	scope.centerid = routeParams.centerId;
         	}else {
         		scope.cancel = "#/groups"
         	}
-            
+
             scope.submit = function () {
                 for (var i in scope.addedClients) {
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
