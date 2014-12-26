@@ -21,8 +21,11 @@
                         getAllUsers: {method: 'GET', params: {fields: "id,firstname,lastname,username,officeName"}, isArray: true},
                         getUser: {method: 'GET', params: {}}
                     }),
-                    roleResource: defineResource(apiVer + "/roles/:roleId", {}, {
-                        getAllRoles: {method: 'GET', params: {}, isArray: true}
+                    roleResource: defineResource(apiVer + "/roles/:roleId", {roleId: '@roleId', command: '@command'}, {
+                        getAllRoles: {method: 'GET', params: {}, isArray: true},
+                        deleteRoles: {method: 'DELETE'},
+                        disableRoles: {method: 'POST'},
+                        enableRoles: {method: 'POST'}
                     }),
                     rolePermissionResource: defineResource(apiVer + "/roles/:roleId/permissions", {roleId: '@roleId'}, {
                         get: {method: 'GET', params: {}},
