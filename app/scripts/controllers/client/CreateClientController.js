@@ -11,6 +11,7 @@
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
+            scope.forceOffice = null;
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -29,6 +30,20 @@
                 scope.clientClassificationOptions = data.clientClassificationOptions;
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
+                }
+                if(routeParams.officeId) {
+                    scope.formData.officeId = routeParams.officeId;
+                    for(var i in data.officeOptions) {
+                        if(data.officeOptions[i].id == routeParams.officeId) {
+                            scope.forceOffice = data.officeOptions[i];
+                            break;
+                        }
+                    }
+                }
+                if(routeParams.groupId) {
+                    if(typeof data.staffId !== "undefined") {
+                        scope.formData.staffId = data.staffId;
+                    }
                 }
             });
 
