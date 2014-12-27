@@ -11,7 +11,7 @@
 	        <legend class="bolder">{{'label.heading.creategroup' | translate}}</legend>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
-	
+
 	            <div class="col-sm-3">
 	                <select chosen="offices" name="office" id="officeId" ng-model="formData.officeId"
 	                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
@@ -30,7 +30,7 @@
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
 	                    class="required">*</span></label>
-	
+
 	            <div class="col-sm-3">
 	                <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
 	            </div>
@@ -38,7 +38,7 @@
 	                <form-validate valattributeform="creategroupform" valattribute="name"/>
 	            </div>
 	            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
-	
+
 	            <div class="col-sm-3">
 	                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
 	                       ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
@@ -46,7 +46,7 @@
 	        </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
-	
+
 	            <div class="col-sm-3">
 	                <select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
 	                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
@@ -62,7 +62,7 @@
 		        <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">
 		                <label class="control-label col-sm-2 col-md-offset-4">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
-		
+
 		                <div class="col-sm-3">
 		                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
 		                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
@@ -70,7 +70,7 @@
 		            </div>
 		        </div>
 	        </div>
-	        <div class="form-group">
+	        <div class="form-group" ng-show="formData.officeId">
 	            <label class="control-label col-sm-2" for="staffId">{{'label.input.addclients' | translate}}</label>
 	            <div class="col-sm-9 col-md-9">
 	                <div class="row">
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
-                                {{ 'label.button.add' | translate }} 
+                                {{ 'label.button.add' | translate }}
                                 <i class="icon-double-angle-right"></i></button>
                         </div>
 	                    <div class="col-sm-5 col-md-5">
