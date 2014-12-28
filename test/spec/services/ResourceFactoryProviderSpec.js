@@ -22,8 +22,11 @@ describe("ResourceFactoryProvider", function () {
 
     describe("Role resource", function () {
         it("should define the Role resource", function () {
-            expect(ngResource).toHaveBeenCalledWith(apiVersion + "/roles/:roleId", {}, {
-                getAllRoles: {method: 'GET', params: {}, isArray: true}
+            expect(ngResource).toHaveBeenCalledWith(apiVersion + "/roles/:roleId",  {roleId: '@roleId', command: '@command'}, {
+                getAllRoles: {method: 'GET', params: {}, isArray: true},
+                deleteRoles: {method: 'DELETE'},
+                disableRoles: {method: 'POST'},
+                enableRoles: {method: 'POST'}
             });
             expect(this.factory.roleResource).toEqual("test_resource");
         });
