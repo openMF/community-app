@@ -12,6 +12,7 @@
     <tr>
         <td class="width14">
             <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
         </td>
         <td class="width36 paddedbottom10">
             <select id="productId" ng-model="formData.productId" class="form-control width170px"
@@ -22,6 +23,7 @@
         </td>
         <td class="width14">
             <label ng-show="formData.productId">{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
+            <i ng-show="formData.productId" class="icon-question-sign" tooltip="{{'label.tooltip.loanofficer' | translate}}"></i>
         </td>
         <td class="width36 paddedbottom10">
             <select ng-show="formData.productId" id="loanOfficerId" ng-model="formData.loanOfficerId"
@@ -32,7 +34,8 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label></td>
+        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
         <td class="paddedbottom10">
             <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
@@ -49,14 +52,15 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label></td>
+        <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.submittedon' | translate}}"></i></td>
         <td class="paddedbottom10">
             <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy"
                    ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
         </td>
         <td>
-            <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' |
-                translate }}<span class="required">*</span>:&nbsp;</label>
+            <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' | translate }}<span class="required">*</span>:&nbsp;</label>
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.disbursementon' | translate}}"></i>
         </td>
         <td class="paddedbottom10">
             <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
@@ -65,7 +69,8 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.externalid' | translate }}</label></td>
+        <td><label>{{ 'label.input.externalid' | translate }}</label>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.externalid' | translate}}"></td>
         <td class="paddedbottom10">
             <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"/>
         </td>
@@ -172,12 +177,14 @@
             <tr>
                 <td>
                     <label>{{ 'label.input.firstrepaymenton' | translate }}</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                 </td>
                 <td class="paddedbottom10">
                     <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control"/>
                 </td>
-                <td><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label></td>
+                <td><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
+                <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
                 <td class="paddedbottom10">
                     <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third"
                            is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
@@ -232,19 +239,14 @@
                             value="{{transactionProcessingStrategy.id}}" class="form-control width170px"/>
                 </td>
                 <td colspan=2>
-                    <span>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onprincipalpayment' | translate}}&nbsp;<input
-                            id="graceOnPrincipalPayment" class="input-mini-small" type="text"
-                            ng-model="formData.graceOnPrincipalPayment">&nbsp;{{'label.input.oninterestpayment' |
-                        translate}}&nbsp;<input id="graceOnInterestPayment" type="text" class="input-mini-small"
-                                                ng-model="formData.graceOnInterestPayment"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan=2>
-                    <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onduedate' | translate}}&nbsp;
-                        <input
-                            id="graceOnArrearsAgeing" class="input-mini-small" type="text"
-                            ng-model="formData.graceOnArrearsAgeing"></label>
+                    <lable>{{'label.input.grace' | translate }}:</lable>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.moratorium' | translate}}"></i>
+                    <label>{{'label.input.onprincipalpayment' | translate}}</label>
+                    <input id="graceOnPrincipalPayment" type="text" class="input-mini-small" ng-model="formData.graceOnPrincipalPayment">
+                    <label>{{'label.input.oninterestpayment' | translate}}</label>
+                    <input id="graceOnInterestPayment" type="text" class="input-mini-small" ng-model="formData.graceOnInterestPayment">
+                    <label>{{'label.input.onduedate' | translate}}</label>
+                    <input id="graceOnArrearsAgeing" type="text" class="input-mini-small" ng-model="formData.graceOnArrearsAgeing">
                 </td>
             </tr>
             <tr>
@@ -259,6 +261,7 @@
                 </td>
                 <td data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
                     <label>{{ 'label.input.daysinyears' | translate }}</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.days' | translate}}"></i>
                 </td>
                 <td class="paddedbottom10">
                     <label>{{ loanaccountinfo.daysInYearType.value}}</label>
@@ -273,6 +276,7 @@
                 </td>
                 <td>
                     <label>{{ 'label.input.daysinmonth' | translate }}</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.days' | translate}}"></i>
                 </td>
                 <td class="paddedbottom10">
                     <label>{{ loanaccountinfo.daysInMonthType.value }}</label>
