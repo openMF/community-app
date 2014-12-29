@@ -106,9 +106,39 @@
                 }
                 ;
             });
-
+            scope.searchCriteraOptions = {all:true, clientId:false, accNo:false, clientName:false};
+            scope.setSearchCriteriaOption = function(option) {
+                for(var property in scope.searchCriteraOptions) {
+                    var obj = scope.searchCriteraOptions[property];
+                    if(scope.searchCriteraOptions.hasOwnProperty(property)) {
+                        if(option == property) {
+                            scope.searchCriteraOptions[property] = true;
+                        } else {
+                            scope.searchCriteraOptions[property] = false;
+                        }
+                    }
+                }
+            }
+            var getSearchCriteriaOption = function() {
+                for(property in scope.searchCriteraOptions) {
+                    var obj = scope.searchCriteraOptions[property];
+                    if(scope.searchCriteraOptions.hasOwnProperty(property)) {
+                        if(obj == true) {
+                            return property;
+                        }
+                    }
+                }
+            }
             scope.search = function () {
-                location.path('/search/' + scope.search.query);
+                //check if the input is valid ".."
+                if(scope.search.query[0] == "\"" && scope.search.query[scope.search.query.length-1] == "\"") {
+                    var queryString = scope.search.query.substring(1,scope.search.query.length-1);
+
+                    location.path('/search/' + queryString + '/' + getSearchCriteriaOption() + '/' + 'true');
+                } else {
+                    location.path('/search/' + scope.search.query + '/' + getSearchCriteriaOption() + '/' + 'false');
+                }
+                //TODO : Handle invalid inputs like "... OR ..."
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
             '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +

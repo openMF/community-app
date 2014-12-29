@@ -197,9 +197,9 @@
                         getAllEmployees: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),
-                    globalSearch: defineResource(apiVer + "/search", {query: '@query'}, {
+                    globalSearch: defineResource(apiVer + "/search", {query: '@query', isExact: true}, {
                         search: { method: 'GET',
-                            params: { query: '@query'},
+                            params: { query: '@query', isExact: '@isExact'},
                             isArray: true
                         }
                     }),

@@ -1,12 +1,15 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         SearchController: function (scope, routeParams, resourceFactory) {
-
             scope.searchResults = [];
             if (routeParams.query == 'undefined') {
                 routeParams.query = '';
             }
-            resourceFactory.globalSearch.search({query: routeParams.query}, function (data) {
+            var searchResource = routeParams.criteria;
+            if(routeParams.criteria == 'all'){
+                searchResource = null;
+            }
+            resourceFactory.globalSearch.search({query: routeParams.query, resource: searchResource, isExact:routeParams.isExact}, function (data) {
                 if (data.length > 200) {
                     scope.searchResults = data.slice(0, 201);
                     scope.showMsg = true;

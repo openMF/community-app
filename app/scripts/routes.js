@@ -238,7 +238,7 @@
             .when('/currconfig', {
                 templateUrl: 'views/organization/currencyconfig.html'
             })
-            .when('/search/:query', {
+            .when('/search/:query/:criteria/:isExact', {
                 templateUrl: 'views/search/glresults.html'
             })
             .when('/viewloanproduct/:id', {
