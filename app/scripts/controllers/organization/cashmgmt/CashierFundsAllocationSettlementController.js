@@ -1,9 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CashierFundsAllocationSettlementController: function (scope, routeParams, route, location, dateFilter, resourceFactory) {
-
+            scope.formData = {};
             resourceFactory.cashierTxnTemplateResource.get({tellerId: routeParams.tellerId, cashierId: routeParams.cashierId}, function (data) {
                 scope.cashierTxnTemplate = data;
+                scope.formData.currencyCode = data.currencyOptions[0].code;
             });
 
             scope.ifAllocate = function(){

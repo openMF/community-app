@@ -36,8 +36,14 @@
 	                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
                     </div>
 				</td>
-				<td></td>
-	    		<td></td>
+				<td>{{ 'label.input.currency' | translate }}<span class="required">*</span></td>
+	    		<td>
+					<div class="col-sm-2">
+						<select id="currencyCode" ng-model="formData.currencyCode" class="form-control"
+								ng-options="currency.code as currency.name for currency in cashierTxnTemplate.currencyOptions"
+								value="{{currency.code}}" style="width: 250px;"/>
+					</div>
+	    		</td>
 	    	</tr>
 	    	<tr>
 	    		<td>{{ 'label.input.teller.cashiertxn.txnAmount' | translate }}<span class="required">*</span></td>
