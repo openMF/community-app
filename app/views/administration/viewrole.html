@@ -31,15 +31,21 @@
         <hr>
         <div class="pull-right" ng-show="isDisabled">
             <div class="btn-group">
-                <a data-ng-click="editRoles()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="icon-edit icon-white"></i>{{
+                <a data-ng-click="editRoles(); backupCheckValues()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="icon-edit icon-white"></i>{{
                     'label.button.edit' | translate }}</a>
             </div>
+			
         </div>
+		<div class="btn-group" ng-show="!isDisabled" style="float: right">
+               <a data-ng-click="selectAll(false)" class="btn btn-primary"><i class="icon-ok-sign icon-white"></i>{{'label.button.selectAll' | translate}}</a>
+			   <a data-ng-click="selectAll(true)" class="btn btn-danger"><i class="icon-remove-sign icon-white"></i>{{'label.button.deselectAll' | translate}}</a>
+			   
+         </div>
         <h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong>
         </h3>
         <table width="100%">
             <tr>
-                <td width="15%" valign="top">
+                <td width="30%" valign="top">
                     <table>
                         <tr ng-repeat="grouping in groupings" ng-class="{graybg: grouping == previousGrouping}">
                             <td><a ng-click="showPermissions(grouping);"><span>{{formatName(grouping)}}</span></a></td>
@@ -47,19 +53,20 @@
                     </table>
                 </td>
                 <td width="85%" valign="top">
+				
                     <table width="100%">
                         <tr ng-repeat="permission in permissions.permissions">
                             <td width="50%"><label for="{{permission.code}}">{{permissionName(permission.code)}}</label>
                             </td>
-                            <td><input id="{{permission.code}}" type="checkbox"
-                                       data-ng-model="formData[permission.code]" ng-disabled="isDisabled"></td>
+                            <td><input id="{{permission.code}}" type="checkbox" name='cp'
+                                       data-ng-model="formData[permission.code]" ng-disabled="isDisabled"></td>							  
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
-        <div class="col-md-offset-3" ng-hide="isDisabled">
-            <a class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</a>
+        <div class="col-md-offset-4" ng-hide="isDisabled">
+            <a class="btn btn-default" ng-click="cancel(); restoreCheckboxes()">{{ 'label.button.cancel' | translate}}</a>
             <button type="submit" class="btn btn-primary" has-permission='UPDATE_ROLE'>{{ 'label.button.save' | translate}}</button>
         </div>
 </div>
