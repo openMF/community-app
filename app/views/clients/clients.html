@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
+        <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">
@@ -30,8 +30,9 @@
         </tr>
         </tbody>
     </table>
-    <ul class="pager">
+    <!-- <ul class="pager">
         <li class="previous"><a id="prev" ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
         <li class="next"><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
-    </ul>
+    </ul> -->
+    <dir-pagination-controls template-url="../../bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
