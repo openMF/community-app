@@ -105,7 +105,9 @@ module.exports = function(grunt) {
           //'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/requirejs/requirejs.min.js'
           //:['<%= mifosx.app %>/bower_components/requirejs/require.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/underscore/underscore.min.js'
-          :['<%= mifosx.app %>/bower_components/underscore/underscore.js']
+          :['<%= mifosx.app %>/bower_components/underscore/underscore.js'],
+           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-utils-pagination/dirPagination.min.js'
+                :['<%= mifosx.app %>/bower_components/angular-utils-pagination/dirPagination.js']
         }]
       }
     },
@@ -179,7 +181,8 @@ module.exports = function(grunt) {
           dest: '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components',
           src: [
             '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
-            '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**'
+            '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**',
+            'angular-utils-pagination/dirPagination.tpl.html'
           ]
         }
         ]

@@ -32,7 +32,8 @@
             'frAngular': '../scripts/modules/KeyboardManager',
             'Q': '../bower_components/q/q.min',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min'
+            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
+            'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -61,6 +62,7 @@
             'Q': {deps: ['angular']},
             'tmh.dynamicLocale': {deps: ['angular']},
             'webcam-directive': {deps: ['angular']},
+            'angular-utils-pagination': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -87,7 +89,8 @@
                     'frAngular',
                     'Q',
                     'tmh.dynamicLocale',
-                    'webcam-directive'
+                    'webcam-directive',
+                    'angular-utils-pagination'
                 ],
                 exports: 'mifosX'
             }
