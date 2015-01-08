@@ -10,9 +10,6 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.date = {};
-            scope.pvFlag = false;
-            scope.rvFlag = false;
-            scope.irFlag = false;
             scope.chargeFlag = false;
             scope.penalityFlag = false;
             scope.frFlag = false;
@@ -111,19 +108,16 @@
             };
 
             scope.addPrincipalVariation = function () {
-                scope.pvFlag = true;
                 scope.formData.principalVariationsForBorrowerCycle.push({
                     valueConditionType: scope.product.valueConditionTypeOptions[0].id
                 });
             };
             scope.addInterestRateVariation = function () {
-                scope.irFlag = true;
                 scope.formData.interestRateVariationsForBorrowerCycle.push({
                     valueConditionType: scope.product.valueConditionTypeOptions[0].id
                 });
             };
             scope.addNumberOfRepaymentVariation = function () {
-                scope.rvFlag = true;
                 scope.formData.numberOfRepaymentVariationsForBorrowerCycle.push({
                     valueConditionType: scope.product.valueConditionTypeOptions[0].id
                 });
