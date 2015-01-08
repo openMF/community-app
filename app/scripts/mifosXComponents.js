@@ -223,7 +223,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/cashmgmt/ViewCashiersForTellerController',
             'organization/cashmgmt/CreateCashierForTellerController',
             'organization/cashmgmt/CashierTransactionsController',
-            'organization/cashmgmt/CashierFundsAllocationSettlementController'
+            'organization/cashmgmt/CashierFundsAllocationSettlementController',
+            'accounting/DefineOpeningBalancesController'
         ],
         filters: [
             'StatusLookup',
@@ -235,7 +236,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'DotRemove',
             'FormatNumber',
             'TranslateDataTableColumn',
-            'SearchFilter'
+            'SearchFilter',
+            'AddUpTotalFor'
         ],
         directives: [
             'DialogDirective',
