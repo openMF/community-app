@@ -1,9 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCenterController: function (scope, routeParams, route, location, resourceFactory, $modal) {
+        ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+
             scope.center = [];
             scope.staffData = {};
             scope.formData = {};
+            scope.report = false;
+            scope.hidePentahoReport = true;
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 scope.isClosedCenter = scope.center.status.value == 'Closed';
@@ -16,6 +19,7 @@
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
                 scope.summary = data[0];
             });
+
             resourceFactory.centerAccountResource.get({centerId: routeParams.id}, function (data) {
                 scope.accounts = data;
             });
@@ -109,6 +113,24 @@
                     }
                 });
             };
+            //viewStaffAssignmentHistory [Report]
+            scope.viewStaffAssignmentHistory = function () {
+                //alert("center id : "+ scope.center.id);
+                scope.hidePentahoReport = true;
+                scope.formData.outputType = 'HTML';
+                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Staff Assignment History");
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+                //alert("url: "+ scope.baseURL);
+                var reportParams = "";
+                var paramName = "R_centerId";
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.center.id);
+                if (reportParams > "") {
+                    scope.baseURL += "&" + reportParams;
+                }
+                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+
+            };
 
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {
@@ -117,7 +139,8 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.ViewCenterController]).run(function ($log) {
+
+    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewCenterController]).run(function ($log) {
         $log.info("ViewCenterController initialized");
     });
 }(mifosX.controllers || {}));
