@@ -243,6 +243,9 @@
                     periodicAccrualAccountingResource: defineResource(apiVer + "/runaccruals", {}, {
                         run: {method: 'POST', params: {}}
                     }),
+                    officeOpeningResource: defineResource(apiVer + "/journalentries/openingbalance", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     codeResources: defineResource(apiVer + "/codes/:codeId", {codeId: "@codeId"}, {
                         getAllCodes: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
