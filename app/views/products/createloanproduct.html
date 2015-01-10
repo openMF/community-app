@@ -11,15 +11,19 @@
 			<h3>{{ 'label.heading.details' | translate }}</h3>
 			<hr>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
+	            <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span>
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.productname' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <input type="text" id="name" class="form-control" name="name" ng-model="formData.name"
 	                   	required late-validate/>
 	            </div>
 	            <div class="col-sm-2">
 	               	<form-validate valattributeform="createloanproductform" valattribute="name"/>
-	               </div>
-	               <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span></label>
+	            </div>
+	            <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span>
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.shortname' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <input type="text" id="shortName" name="shortName" ng-model="formData.shortName"
 	                    	class="form-control" maxlength="4" required late-validate/>
@@ -29,11 +33,15 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+	            <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.description' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <textarea rows="2" class="form-control" ng-model="formData.description"></textarea>
 	            </div>
-	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.fund' | translate }}</label>
+	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.fund' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.fund' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <select id="fundId" ng-model="formData.fundId" class="form-control"
 	                           ng-options="fund.id as fund.name for fund in product.fundOptions"
@@ -43,13 +51,17 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
+	            <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.startdate' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <input id="startDate" sort type="text" class="form-control"
 	                    datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened"
 	                    min="minDate" max="'2020-06-22'"/>
 	            </div>
-	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.closedate' | translate }}</label>
+	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.closedate' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.closedate' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <input id="closeDate" sort type="text" class="form-control"
 		                datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1"
@@ -57,24 +69,30 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.includeinborrowerloancounter' | translate }}</label>
+	            <label class="control-label col-sm-2">{{ 'label.input.includeinborrowerloancounter' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.includeborrower' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="checkbox col-sm-2">
-					<label>
-				    	<input type="checkbox" ng-model="formData.includeInBorrowerCycle" ng-true-value="true" ng-false-value="false">
-				    </label>
-				</div>
+	                <label>
+	                    <input type="checkbox" ng-model="formData.includeInBorrowerCycle" ng-true-value="true" ng-false-value="false">
+	                </label>
+	            </div>
 	        </div>
 			<h3>{{ 'label.heading.currency' | translate }}</h3>
 			<hr>
 	        <div class="form-group">
-	        	<label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}<span class="required">*</span></label>
+	            <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}<span class="required">*</span>
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.currency' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <select id="currencyCode" ng-model="formData.currencyCode" class="form-control"
 		               	ng-options="currency.code as currency.name for currency in product.currencyOptions"
 		               	value="{{currency.code}}"/>
 	            </div>
-	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span></label>
-	            <div class="col-sm-2">
+	            <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span>
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.decimalplaces' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
+				<div class="col-sm-2">
 	            	<input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
 	                   	ng-model="formData.digitsAfterDecimal" required late-validate/>
 	            </div>
@@ -83,7 +101,9 @@
 	               </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate }}<span class="required">*</span></label>
+	            <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate }}<span class="required">*</span>
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.currencyinmultiplesof' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="col-sm-2">
 	                <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
 	                    ng-model="formData.inMultiplesOf" required late-validate/>
@@ -95,7 +115,9 @@
 	    	<h3>{{ 'label.heading.terms' | translate }}</h3>
 	    	<hr>
 	    	<div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.useborrowerloancounter' | translate }}</label>
+	            <label class="control-label col-sm-2">{{ 'label.input.useborrowerloancounter' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.useborrowerloancounter' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	            <div class="checkbox col-sm-2">
 					<label>
 				    	<input type="checkbox" ng-model="formData.useBorrowerCycle"/>
@@ -103,7 +125,9 @@
 				</div>
 	        </div>
 	        <div class="form-group">
-	        	<label class="control-label col-sm-2">{{ 'label.input.principal' | translate }}</label>
+	            <label class="control-label col-sm-2">{{ 'label.input.principal' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principal' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	        	<div class="col-sm-2">
 	                   <input id="minPrincipal" placeholder="{{'label.input.minimum' | translate}}" type="text"
 	                  		class="form-control" ng-model="formData.minPrincipal">
@@ -121,7 +145,9 @@
 	               </div>
 			</div>
 			<div class="form-group" ng-show="formData.useBorrowerCycle">
-	        	<label class="control-label col-sm-2">{{'label.heading.principalCycleVariations' | translate}}</label>
+	            <label class="control-label col-sm-2">{{'label.heading.principalCycleVariations' | translate}}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principalcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	        	<div class="col-sm-2">
 	        		<a class="btn btn-primary" ng-click="addPrincipalVariation()">{{ 'label.button.add' | translate }}</a>
 	               </div>
@@ -168,9 +194,11 @@
 	            </div>
 			</div>
 			<div class="form-group">
-	        	<label class="control-label col-sm-2">{{ 'label.input.numofrepayments' | translate }}</label>
-	        	<div class="col-sm-2">
-	        		<input id="minNumberOfRepayments" placeholder="{{'label.input.minimum' | translate}}" type="text"
+	            <label class="control-label col-sm-2">{{ 'label.input.numofrepayments' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.numofrepayments' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
+	            <div class="col-sm-2">
+	                <input id="minNumberOfRepayments" placeholder="{{'label.input.minimum' | translate}}" type="text"
 	                  		class="form-control" ng-model="formData.minNumberOfRepayments">
 	               </div>
 	               <div class="col-sm-2">
@@ -188,9 +216,11 @@
 			</div>
 
 			<div class="form-group" ng-show="formData.useBorrowerCycle">
-	        	<label class="control-label col-sm-2">{{'label.heading.numerOfRepaymentCycleVariations' | translate}}</label>
-	        	<div class="col-sm-2">
-	        		<a class="btn btn-primary" ng-click="addNumberOfRepaymentVariation()">{{ 'label.button.add' | translate }}</a>
+	            <label class="control-label col-sm-2">{{'label.heading.numerOfRepaymentCycleVariations' | translate}}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.numerofrepaymentcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
+	            <div class="col-sm-2">
+	                <a class="btn btn-primary" ng-click="addNumberOfRepaymentVariation()">{{ 'label.button.add' | translate }}</a>
 	               </div>
 	               <div data-ng-show="rvFlag" class="col-md-9 col-sm-offset-2">
 	                <table class="table">
@@ -235,9 +265,11 @@
 	            </div>
 			</div>
 			<div class="form-group">
-	        	<label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}</label>
-	        	<div class="col-sm-2">
-	        		<input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text"
+	            <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
+	            <div class="col-sm-2">
+	                <input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text"
 	                  		class="form-control" ng-model="formData.minInterestRatePerPeriod">
 	               </div>
 	               <div class="col-sm-2">
@@ -259,7 +291,9 @@
 	           	</div>
 			</div>
 			<div class="form-group" ng-show="formData.useBorrowerCycle">
-	        	<label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}</label>
+	            <label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}
+	                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	            </label>
 	        	<div class="col-sm-2">
 	        		<a class="btn btn-primary" ng-click="addInterestRateVariation()">{{ 'label.button.add' | translate }}</a>
 	               </div>
