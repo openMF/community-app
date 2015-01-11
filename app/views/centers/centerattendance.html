@@ -1,47 +1,40 @@
-<div ng-controller="CenterAttendanceController">
-    <form class="form-horizontal well">
-        <fieldset>
-            <legend>{{'label.heading.attendance' | translate}}</legend>
-            <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.meetingdate' | translate}}<span
-                        class="required">*</span></label>
+<div class="col-md-12" ng-controller="CenterAttendanceController">
+    <ul class="breadcrumb">
+        <li><a href="#/centers">{{'label.anchor.center' | translate}}</a></li>
+        <li>{{center.officeName}}</li>
+        <li><a href="#/viewcenter/{{center.id}}">{{center.name}}</a></li>
+        <li class="active">{{'label.heading.attendance' | translate}}</li>
+    </ul>
 
-                <div class="col-sm-3">
-                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
-                           min="minDate" max="'2020-06-22'" class="form-control"/>Next Meeting on:{{meeting.nextTenRecurringDates[0] |
-                    DateFormat}}
-                </div>
-                <div class="col-sm-5">
-                    <table class="table table-striped" width="100%">
-		                <thead>
-		                <tr class="graybg">
-		                    <th>{{ 'label.heading.name' | translate }}</th>
-		                    <th>{{ 'label.heading.attendance' | translate }}</th>
-		                </tr>
-		                </thead>
-		                <tbody>
-		                <tr ng-repeat="client in clients">
-		                    <td>{{client.displayName}}</td>
-		                    <td>
-		                        <div>
-		                            <select ng-model="tempData[client.id]" class="form-control">
-		                                <option data-ng-repeat="attendance in attendanceOptions" value="{{attendance.id}}">
-		                                    {{attendance.value}}
-		                                </option>
-		                            </select>
-		                        </div>
-		                    </td>
-		                </tr>
-		                </tbody>
-		            </table>
-                </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well">
+        <legend>{{'label.heading.attendance' | translate}}</legend>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.meetingdate' | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input type="text" class="form-control" required="required" ng-model="first.date" datepicker-pop="dd MMMM yyyy" is-open="opened" min="minDate" max="'2020-06-22'">
+                Next Meeting on {{meeting.nextTenRecurringDates[0] | DateFormat}}
             </div>
-            <div class="col-md-offset-2 paddedleft120">
-                <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)" has-permission='CREATE_MEETING'>
-                    {{'label.button.save' | translate}}
-                </button>
+
+            <div class="col-sm-5">
+                <table class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.attendance' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="client in clients">
+                        <td>{{client.displayName}}</td>
+                        <td><select class="form-control" ng-model="tempData[client.id]" ng-options="attendance.id as attendance.value for attendance in attendanceOptions"></select></td>
+                    </tr>
+                </table>
             </div>
-        </fieldset>
+        </div>
+
+        <div class="text-center">
+            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
+        </div>
     </form>
 </div>

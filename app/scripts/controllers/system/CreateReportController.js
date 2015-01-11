@@ -9,17 +9,23 @@
                 scope.formData.reportType = data.allowedReportTypes[0];
             });
 
-            scope.parameterSelected = function (allowedParameterId) {
+            scope.addParameter = function () {
                 scope.flag = true;
-                for (var i in scope.reportdetail.allowedParameters) {
-                    if (scope.reportdetail.allowedParameters[i].id == allowedParameterId) {
-                        scope.reportParameters.push({parameterId: allowedParameterId,
-                            id: "",
+                for (var i = 0; i < scope.reportdetail.allowedParameters.length; i++) {
+                    if (scope.reportdetail.allowedParameters[i].id == scope.allowedParameterId) {
+                        scope.reportParameters.push({
                             allowedParameterName: scope.reportdetail.allowedParameters[i].parameterName
                         });
+                        break;
                     }
                 }
                 scope.allowedParameterId = '';
+            }
+
+            scope.deleteParameter = function (index) {
+                scope.reportParameters.splice(index, 1);
+                if (scope.reportParameters.length == 0)
+                    scope.flag = false;
             }
 
             function deepCopy(obj) {
@@ -38,10 +44,6 @@
                     return out;
                 }
                 return obj;
-            }
-
-            scope.deleteParameter = function (index) {
-                scope.reportParameters.splice(index, 1);
             }
 
             scope.submit = function () {
