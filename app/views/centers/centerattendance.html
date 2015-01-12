@@ -1,6 +1,6 @@
 <div class="col-md-12" ng-controller="CenterAttendanceController">
     <ul class="breadcrumb">
-        <li><a href="#/centers">{{'label.anchor.center' | translate}}</a></li>
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
         <li>{{center.officeName}}</li>
         <li><a href="#/viewcenter/{{center.id}}">{{center.name}}</a></li>
         <li class="active">{{'label.heading.attendance' | translate}}</li>
@@ -12,13 +12,12 @@
 
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.meetingdate' | translate}}<span class="required">*</span></label>
-
             <div class="col-sm-3">
-                <input type="text" class="form-control" required="required" ng-model="first.date" datepicker-pop="dd MMMM yyyy" is-open="opened" min="minDate" max="'2020-06-22'">
-                Next Meeting on {{meeting.nextTenRecurringDates[0] | DateFormat}}
+                <input type="text" class="form-control" required ng-model="first.date" datepicker-pop="dd MMMM yyyy" is-open="opened" min="minDate" max="'2020-06-22'">
+                {{'label.nextmettingon' | translate}} {{meeting.nextTenRecurringDates[0] | DateFormat}}
             </div>
 
-            <div class="col-sm-5">
+            <div class="col-sm-7">
                 <table class="table">
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
@@ -33,7 +32,7 @@
         </div>
 
         <div class="text-center">
-            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" class="btn btn-default" href="#/viewcenter/{{center.id}}">{{'label.button.cancel' | translate}}</a>
             <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
         </div>
     </form>

@@ -17,16 +17,18 @@
                 {{'label.nextmettingon' | translate}} {{meeting.nextTenRecurringDates[0] | DateFormat}}
             </div>
 
-            <table class="col-sm-7 table">
-                <tr class="graybg">
-                    <th>{{'label.heading.name' | translate}}</th>
-                    <th>{{'label.heading.attendance' | translate}}</th>
-                </tr>
-                <tr ng-repeat="client in clients">
-                    <td>{{client.displayName}}</td>
-                    <td><select class="form-control" ng-model="client.attendanceType" ng-options="attendance.id as attendance.value for attendance in attendanceOptions"></select></td>
-                </tr>
-            </table>
+            <div class="col-sm-7">
+                <table class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.attendance' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="client in clients">
+                        <td>{{client.displayName}}</td>
+                        <td><select class="form-control" ng-model="client.attendanceType" ng-options="attendance.id as attendance.value for attendance in attendanceOptions"></select></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <div class="text-center">
