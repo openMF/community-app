@@ -8,13 +8,15 @@
         <api-validate></api-validate>
 
         <div class="row">
-
+            <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+			
             <select id="productId" ng-model="selectedProduct.id"
                     ng-options="product.id as product.name for product in products" value="{{product.id}}"
                     ng-change="loanProductChange(selectedProduct.id)" class="form-control" required="required">
                 <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
             </select>
-            <br>
+            <p></p>
             <div ng-show="caledars">
                             <table class="width100">
                                 <tr ng-repeat="calendar in caledars">
@@ -76,12 +78,12 @@
             <table class="table table-condensed">
                 <thead>
                     <tr class="active">
-                        <th></th>
-                        <th>Id</th>
-                        <th>Client Name</th>
-                        <th>Loan Purpose</th>
-                        <th>Loan Amount </th>
-                        <th>Charges</th>
+                        <th>{{'label.heading.tickclient' | translate}}</th>
+                        <th>{{'label.heading.clientid' | translate}}</th>
+                        <th>{{'label.heading.clientname' | translate}}</th>
+                        <th>{{'label.heading.loanpurpose' | translate}}</th>
+                        <th>{{'label.heading.loanamount' | translate}}</th>
+                        <th>{{'label.heading.charges' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +106,7 @@
                                     name="principal" 
                                     ng-model="group.clients[outerIndex].principal"
                                     required
+									number-format
                                     late-Validate/>&nbsp;{{productDetails.currency.displaySymbol}}
                             <form-validate valattributeform="newjlgloanaccountform" valattribute="principal"/>
                         </td>
@@ -122,7 +125,7 @@
 
         <div class="col-md-offset-6" data-ng-show="productDetails">
             <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-click="submit()" >{{'label.button.save' | translate}}
+            <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-click="submit()">{{'label.button.save' | translate}}
             </button>
         </div>
     </form>
