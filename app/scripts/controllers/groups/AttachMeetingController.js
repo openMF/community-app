@@ -1,8 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         AttachMeetingController: function (scope, resourceFactory, location, routeParams, dateFilter) {
-            resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id,
-                templateSource: 'template'}, function (data) {
+            resourceFactory.attachMeetingResource.get({
+                groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id,
+                templateSource: 'template'
+            }, function (data) {
                 scope.entityType = routeParams.entityType;
                 scope.groupOrCenterId = routeParams.id;
                 scope.groupCenterData = data;
@@ -53,6 +55,10 @@
                 }
             }
 
+            scope.cancel = function () {
+                location.path((scope.entityType == 'groups') ? '/viewgroup/' + scope.groupOrCenterId : '/viewcenter/' + scope.groupOrCenterId);
+            }
+
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
@@ -78,4 +84,3 @@
         $log.info("AttachMeetingController initialized");
     });
 }(mifosX.controllers || {}));
-
