@@ -3,18 +3,19 @@
         CreateReportController: function (scope, resourceFactory, location) {
             scope.formData = {};
             scope.reportParameters = [];
-            scope.flag = false;
+
             resourceFactory.reportsResource.getReportDetails({resourceType: 'template'}, function (data) {
                 scope.reportdetail = data;
                 scope.formData.reportType = data.allowedReportTypes[0];
             });
 
             scope.addParameter = function () {
-                scope.flag = true;
                 for (var i = 0; i < scope.reportdetail.allowedParameters.length; i++) {
                     if (scope.reportdetail.allowedParameters[i].id == scope.allowedParameterId) {
                         scope.reportParameters.push({
-                            allowedParameterName: scope.reportdetail.allowedParameters[i].parameterName
+                            parameterId: scope.allowedParameterId,
+                            id: "",
+                            parameterName: scope.reportdetail.allowedParameters[i].parameterName
                         });
                         break;
                     }
@@ -24,8 +25,6 @@
 
             scope.deleteParameter = function (index) {
                 scope.reportParameters.splice(index, 1);
-                if (scope.reportParameters.length == 0)
-                    scope.flag = false;
             }
 
             function deepCopy(obj) {

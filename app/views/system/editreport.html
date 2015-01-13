@@ -2,6 +2,7 @@
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li><a href="#/reports">{{'label.anchor.managereports' | translate}}</a></li>
+        <li><a href="#/system/viewreport/{{reportdetail.id}}">{{reportdetail.reportName}}</a></li>
         <li class="active">{{'label.anchor.editreport' | translate}}</li>
     </ul>
 
@@ -16,7 +17,7 @@
                 <input id="reportName" name="reportName" type="text" class="form-control" required ng-model="reportdetail.reportName" late-Validate>
             </div>
 
-            <label class="control-label col-sm-2">{{'label.input.reporttype' | translate}}<span class="required">*</span></label>
+            <label class="control-label col-sm-3">{{'label.input.reporttype' | translate}}<span class="required">*</span></label>
             <div class="col-sm-2">
                 <select id="reportType" class="form-control" ng-model="reportdetail.reportType" ng-options="reportType for reportType in reportdetail.allowedReportTypes"></select>
             </div>
@@ -30,7 +31,7 @@
                 </select>
             </div>
 
-            <label class="control-label col-sm-2">{{'label.input.reportcategory' | translate}}</label>
+            <label class="control-label col-sm-3">{{'label.input.reportcategory' | translate}}</label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" ng-model="reportdetail.reportCategory">
             </div>
@@ -42,7 +43,7 @@
                 <input type="checkbox" ng-model="formData.useReport">
             </div>
 
-            <label class="control-label col-sm-2">{{'label.input.description' | translate}}</label>
+            <label class="control-label col-sm-4">{{'label.input.description' | translate}}</label>
             <div class="col-sm-2">
                 <textarea class="form-control" rows="2" ng-model="reportdetail.description"></textarea>
             </div>
@@ -53,7 +54,9 @@
 
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.sql' | translate }}<span class="required">*</span></label>
-            <textarea id="reportSql" name="sql" class="form-control col-sm-4" rows="4" required ng-model="reportdetail.reportSql"></textarea>
+            <div class="col-sm-7">
+                <textarea id="reportSql" name="sql" class="form-control" rows="4" required ng-model="reportdetail.reportSql"></textarea>
+            </div>
         </div>
 
         <hr>
@@ -71,11 +74,13 @@
         </table>
 
         <div ng-hide="reportdetail.coreReport">
-            <div class="form-group" ng-options="allowedParameter.id as (allowedParameter.parameterName | translate) for allowedParameter in reportdetail.allowedParameters">
-                <select ng-model="allowedParameterId">
-                    <option value="">{{'label.selectallowedparameter' | translate}}</option>
-                </select>
-                <a class="btn btn-primary" ng-click="parameterSelected(allowedParameterId)"><i class="icon-plus icon-white"></i> {{'label.button.add' | translate}}</a>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <select class="form-control" ng-model="allowedParameterId" ng-options="allowedParameter.id as (allowedParameter.parameterName | translate) for allowedParameter in reportdetail.allowedParameters">
+                        <option value="">{{'label.selectallowedparameter' | translate}}</option>
+                    </select>
+                </div>
+                <a class="btn btn-primary" ng-click="addParameter()"><i class="icon-plus icon-white"></i> {{'label.button.add' | translate}}</a>
             </div>
 
             <table class="table">
@@ -86,7 +91,7 @@
                 </tr>
                 <tr ng-repeat="reportParameter in reportdetail.reportParameters">
                     <td>{{reportParameter.parameterName | translate}}</td>
-                    <td><input type="text" ng-model="reportParameter.reportParameterName"></td>
+                    <td><input type="text" class="form-control" ng-model="reportParameter.reportParameterName"></td>
                     <td><a ng-click="deleteParameter($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>
             </table>
