@@ -1,12 +1,15 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccCoaController: function (scope, resourceFactory, location) {
+        AccCoaController: function (scope,$rootScope, resourceFactory, location) {
+			
+			$rootScope.tempNodeID = -100; // variable used to store nodeID (from directive), so it(nodeID) is available for detail-table
+			
             scope.coadata = [];
             scope.isTreeView = false;
             scope.routeTo = function (id) {
                 location.path('/viewglaccount/' + id);
             };
-
+					
             scope.deepCopy = function (obj) {
                 if (Object.prototype.toString.call(obj) === '[object Array]') {
                     var out = [], i = 0, len = obj.length;
@@ -27,6 +30,7 @@
 
             resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
                 scope.coadatas = scope.deepCopy(data);
+				
 
                 var assetObject = {id: -1, name: "ASSET", parentId: -999, children: []};
                 var liabilitiesObject = {id: -2, name: "LIABILITY", parentId: -999, children: []};
@@ -35,7 +39,7 @@
                 var expenseObject = {id: -5, name: "EXPENSE", parentId: -999, children: []};
                 var rootObject = {id: -999, name: "Accounting", children: []};
                 var rootArray = [rootObject, assetObject, liabilitiesObject, equitiyObject, incomeObject, expenseObject];
-
+				
                 var idToNodeMap = {};
                 for (var i in rootArray) {
                     idToNodeMap[rootArray[i].id] = rootArray[i];
@@ -70,8 +74,8 @@
 
                 data.sort(sortByParentId);
                 var glAccountsArray = rootArray.concat(data);
-
-                var root = [];
+				
+				var root = [];
                 for (var i = 0; i < glAccountsArray.length; i++) {
                     var currentObj = glAccountsArray[i];
                     if (typeof currentObj.parentId === "undefined") {
@@ -86,9 +90,11 @@
 
 
             });
+			
+			
         }
     });
-    mifosX.ng.application.controller('AccCoaController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.AccCoaController]).run(function ($log) {
+    mifosX.ng.application.controller('AccCoaController', ['$scope','$rootScope', 'ResourceFactory', '$location', mifosX.controllers.AccCoaController]).run(function ($log) {
         $log.info("AccCoaController initialized");
     });
 }(mifosX.controllers || {}));
