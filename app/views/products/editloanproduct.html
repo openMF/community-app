@@ -106,15 +106,15 @@
 	    <label class="control-label col-sm-2">{{ 'label.input.principal' | translate }}</label>
 	    <div class="col-sm-2">
 	        <input id="minPrincipal" placeholder="{{'label.input.minimum' | translate}}" type="text"
-	               class="form-control" ng-model="formData.minPrincipal">
+	               class="form-control" number-format ng-model="formData.minPrincipal">
 	    </div>
 	    <div class="col-sm-2">
 	        <input type="text" placeholder="{{'label.input.default' | translate}}" id="principal" name="principal"
-	               class="form-control" ng-model="formData.principal" required late-validate/>
+	               class="form-control" number-format ng-model="formData.principal" required late-validate/>
 	    </div>
 	    <div class="col-sm-2">
 	        <input type="text" placeholder="{{'label.input.maximum' | translate}}" id="maxPrincipal"
-	               class="form-control" ng-model="formData.maxPrincipal">
+	               class="form-control" number-format ng-model="formData.maxPrincipal">
 	    </div>
 	    <div class="col-sm-2">
 	        <form-validate valattributeform="editloanproductform" valattribute="principal"/>
@@ -143,22 +143,22 @@
 	                            class="marginleftn19px form-control" value="{{valueConditionType.id}}"/>
 	                </td>
 	                <td><input id="principalCycleNumber{{$index}}" type="text" class="form-control"
-	                           ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
+	                           number-formatng-model="borrowerCycleVariation.borrowerCycleNumber"/>
 	                </td>
 	                <td>
 	                    <input type="hidden" id="principalborrowerCycleId{{$index}}" class="form-control"
 	                           ng-model="borrowerCycleVariation.id"/>
 	                    <input type="text" id="minPrincipalPerCycle{{$index}}" class="form-control"
-	                           ng-model="borrowerCycleVariation.minValue"/>
+	                           number-formatng-model="borrowerCycleVariation.minValue"/>
 	                </td>
 	                <td>
 	                    <input id="principalPerCycle{{$index}}" type="text" class="form-control"
-	                           ng-model="borrowerCycleVariation.defaultValue"
+	                           number-format ng-model="borrowerCycleVariation.defaultValue"
 	                           name="principalPerCycle{{$index}}"/>
 
 	                </td>
 	                <td><input type="text" id="maxPrincipalPerCycle{{$index}}" class="form-control"
-	                           ng-model="borrowerCycleVariation.maxValue"/></td>
+	                           number-formatng-model="borrowerCycleVariation.maxValue"/></td>
 	                <td><a ng-click="deletePrincipalVariation($index)"><i
 	                        class="icon-remove icon-white"></i></a>
 
@@ -381,7 +381,7 @@
         </div>
         <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.arearstolerance' | translate }}</label>
         <div class="col-sm-2">
-            <input id="inArrearsTolerance" type="text" class="form-control" ng-model="formData.inArrearsTolerance">
+            <input id="inArrearsTolerance" type="text" class="form-control" number-format ng-model="formData.inArrearsTolerance">
         </div>
     </div>
     <div class="form-group">
@@ -420,22 +420,6 @@
 	    </div>
 	</div>
 
-    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
-        <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
-            | translate }}<span class="required">*</span></label>
-
-        <div class="col-sm-2">
-            <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
-        </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
-            | translate }}<span class="required">*</span></label>
-
-        <div class="col-sm-2">
-            <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-        </div>
-
-	</div>
 
 	<h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 	<hr>
@@ -479,7 +463,22 @@
 					value="{{type.id}}"></select>
 		</div>
 	</div>
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
+        <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
+            | translate }}<span class="required">*</span></label>
 
+        <div class="col-sm-2">
+            <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
+        </div>
+        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
+            | translate }}<span class="required">*</span></label>
+
+        <div class="col-sm-2">
+            <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                   ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+        </div>
+
+	</div>
 	<h3>{{ 'label.heading.gauranteeRequirements' | translate }}</h3>
 	<hr>
 	<div class="form-group">
@@ -535,7 +534,7 @@
 	    <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.outstandingloanbalance' | translate }}</label>
 	    <div class="col-sm-2">
 	        <input type="text" class="form-control" id="outstandingLoanBalance"
-	               name="outstandingLoanBalance" ng-model="formData.outstandingLoanBalance"/>
+	               name="outstandingLoanBalance" number-format ng-model="formData.outstandingLoanBalance"/>
 	    </div>
 	</div>
 	<h3>{{ 'label.heading.charges' | translate }}</h3>
@@ -572,7 +571,7 @@
 	            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 	            <td>{{charge.chargeCalculationType.value}}</td>
 	            <td></td>
-	            <td>{{charge.amount}}</td>
+	            <td>{{charge.amount|number}}</td>
 	            <td></td>
 	            <td>{{charge.chargeTimeType.value}}</td>
 	            <td></td>
@@ -616,7 +615,7 @@
 	            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 	            <td>{{charge.chargeCalculationType.value}}</td>
 	            <td></td>
-	            <td>{{charge.amount}}</td>
+	            <td>{{charge.amount|number}}</td>
 	            <td></td>
 	            <td>{{charge.chargeTimeType.value}}</td>
 	            <td></td>

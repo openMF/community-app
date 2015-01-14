@@ -85,11 +85,9 @@
                               <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
                           </li>
                           <li data-ng-show="group.status.value=='Active'">
-                            <span ng-hide="group.centerId">
-                              <a href="#/attachmeeting/{{group.id}}/groups" has-permission='CREATE_MEETING' 
+                              <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId has-permission='CREATE_MEETING' 
                                  data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
                                   translate }}</a>
-                            </span>
                           </li>
                       </ul>
                     </span>
@@ -189,6 +187,9 @@
 						            <tr class="graybg">
 						            	<th>{{'label.heading.accnum' | translate}}</th>
 						                <th>{{ 'label.heading.products' | translate }}</th>
+										<th>{{'label.heading.loanamount' | translate}}</th>
+						                <th>{{'label.heading.outstandingamount' | translate}}</th>
+						                <th>{{'label.heading.dueamount' | translate}}</th>
 						                <th class="center">{{'label.heading.type' | translate}}</th>
 						                <th class="center">{{ 'label.heading.actions' | translate }}</th>
 						            </tr>
@@ -207,6 +208,9 @@
 										<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
 						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-user icon-large"></i>
 						                </td>
+						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.originalLoan|number}}</td>
+						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
+						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
 						                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
 						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
 						                </td>
@@ -292,7 +296,7 @@
 				                		{{savingaccount.accountNo}}
 					                </td>
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
-					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance}}</td>
+					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance | number}}</td>
 					                <td class="pointer" ng-if="savingaccount.status.active">
 					                	<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
 					                		<i class="icon-arrow-right icon-white"></i>
