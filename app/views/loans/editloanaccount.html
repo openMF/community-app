@@ -404,7 +404,7 @@
                     ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
                     value="{{collateralTemplate.id}}">
             </select>&nbsp;&nbsp;
-            <input class="form-control" type="text" ng-model="collateralFormData.collateralValueTemplate"
+            <input class="form-control" type="text" number-format ng-model="collateralFormData.collateralValueTemplate"
                    placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
             <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" class="form-control"
                    placeholder="{{'label.input.description' | translate}}">
@@ -420,7 +420,7 @@
             <tr ng-repeat="collateral in collaterals">
                 <td><input type="text" class="form-control" ng-model="collateral.name" readonly></td>
                 <td><input id="{{collaterals[$index].value}}" type="text" class="form-control"
-                           ng-model="collateral.value"></td>
+                           number-format ng-model="collateral.value"></td>
                 <td><input id="{{collaterals[$index].description}}" class="form-control" type="text" ng-model="collateral.description"
                            placeholder="{{'label.input.description' | translate}}"></td>
                 <td><a ng-click="deleteCollateral($index)"><i class="icon-remove icon-white"></i></a></td>
