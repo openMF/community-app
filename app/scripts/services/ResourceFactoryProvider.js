@@ -52,7 +52,7 @@
                     clientDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {clientId: '@clientId', documentId: '@documentId'}, {
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
-                    clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
+                    clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId', command: '@command'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
                     clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes", {clientId: '@clientId'}, {

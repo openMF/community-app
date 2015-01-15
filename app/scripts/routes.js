@@ -709,6 +709,9 @@
             .when('/editteller/:id', {
                 templateUrl: 'views/organization/cashmgmt/editTeller.html'
             })
+            .when('/clientpayments/:id', {
+                templateUrl: 'views/clients/clientpayments.html'
+            })
             ;
         $locationProvider.html5Mode(false);
     };

@@ -1,0 +1,186 @@
+<div class="col-md-12" ng-controller="ClientPaymentsController">
+	<div>
+		<ul class="breadcrumb">
+			<li>{{client.officeName}}</li>
+			<li>{{client.staffName}}</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="col-md-8 col-sm-8">
+			<h3 class="client-title">
+				{{'label.heading.clientpayments' | translate}}
+				<i class="icon-circle {{client.status.code | StatusLookup}}"></i>
+				<small ng-if="client.subStatus.description">
+					[{{client.subStatus.description}}]
+				</small>
+				<strong>{{client.displayName}} </strong>
+				<small>
+					{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
+					{{ 'label.input.externalid' | translate }}: {{client.externalId}} |
+					{{ 'label.input.staff' | translate }}: {{client.staffName}}
+				</small>
+			</h3>
+		</div>
+	</div>
+
+	<div class="col-md-12 col-sm-12">
+		<div class="row client">
+			<div class="col-sm-10 col-md-10 paddingleft0px">
+				<div data-ng-show="loanAccounts || savingsAccounts">
+					<form name="clientpayments" novalidate="" class="form-horizontal well">
+						<api-validate></api-validate>
+						<div>
+
+							<table class="table table-condensed">
+								<tr class="graybg" data-ng-show="loanAccounts">
+									<th>{{'label.heading.loans' | translate}}</th>
+									<th>{{'label.heading.accnum' | translate}}</th>
+									<th>{{'label.heading.loanaccount' | translate}}</th>
+									<th>{{'label.heading.loanamount' | translate}}</th>
+									<th>{{'label.heading.outstandingamount' | translate}}</th>
+									<th>{{'label.heading.dueamount' | translate}}</th>
+									<th>{{'label.heading.type' | translate}}</th>
+									<th>{{'label.heading.loans.repayments' | translate}}</th>
+								</tr>
+								<tr ng-repeat="loanaccount in loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
+									<td></td>
+									<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+										<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip-placementoltip="{{loanaccount.status.value}}"
+										   class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
+										<i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
+										   class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
+										{{loanaccount.accountNo}}
+									</td>
+									<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>
+									<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.originalLoan|number}}</td>
+									<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
+									<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
+									<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
+										<i tooltip="{{loanaccount.loanType.value}}" class="icon-user icon-large"></i>
+									</td>
+									<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
+										<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
+									</td>
+									<td ng-if="loanaccount.status.active" align="right">
+										<input class="col-sm-8" id="repaymentAmount" type="text" name="repaymentAmount"
+											   ng-model="loanaccount.repaymentAmount" ng-keyup="keyPress()" class="form-control" number-format />
+										<input id="loanactiveCheckbox" ng-change="keyPress()" ng-model="loanaccount.active"
+												ng-init="loanaccount.active=true" ng-checked="true" type="checkbox" />
+									</td>
+								</tr>
+								<tr class="graybg" data-ng-show="savingsAccounts">
+									<th>{{'label.heading.deposits' | translate}}</th>
+									<th>{{'label.heading.accnum' | translate}}</th>
+									<th>{{'label.heading.savingaccount' | translate}}</th>
+									<th class="center">{{'label.heading.balance' | translate}}</th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th>{{'label.heading.savings.deposits' | translate}}</th>
+								</tr>
+								<tr ng-repeat="savingaccount in savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed">
+									<td></td>
+									<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+										<i tooltip-placement="right" tooltip="{{savingaccount.status.value}}" class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
+										{{savingaccount.accountNo}}
+									</td>
+									<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+									<td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td ng-if="savingaccount.status.active"  align="right">
+										<input class="col-sm-8" id="depositAmount" type="text" name="depositAmount"
+											   ng-model="savingaccount.depositAmount" ng-keyup="keyPress()" class="form-control" number-format />
+										<input ng-hide="true" id="savingactiveCheckbox" ng-change="keyPress()" ng-model="savingaccount.active"
+											   ng-init="savingaccount.active=true" ng-checked="true" type="checkbox" />
+									</td>
+								</tr>
+								<tr class="graybg">
+									<th colspan="7">{{'label.clientpayments.totalAmount' | translate}}</th>
+									<th><input class="col-sm-8" id="totalAmount" type="text" ng-disabled="true" name="totalAmount"
+											   ng-model="formData.totalAmount" class="form-control" number-format /></th>
+								</tr>
+							</table>
+						</div>
+
+						<div>
+							<table class="table table-condensed">
+								<tr>
+									<td class="col-sm-3">
+										<label class="control-label">{{ 'label.input.submittedon' | translate
+											}}&nbsp;<span class="required">*</span></label>
+									</td>
+									<td class="col-sm-3">
+										<input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.submittedOnDate" is-open="opened" class="form-control"/>
+									</td>
+									<td>&nbsp;</td>
+									<td class="col-sm-3">
+										<label class="control-label" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}<span
+												class="required">*</span></label>
+									</td>
+									<td class="col-sm-3">
+										<select id="paymentTypeId" ng-model="formData.paymentTypeId"
+												ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+												value="{{paymentType.id}}" class="form-control">
+										</select>
+									<td>
+								</tr>
+								<tr>
+									<td class="col-sm-3">
+										<label class="control-label" for="receiptNumber">{{ 'label.input.receiptnumber' | translate}}</label>
+									</td>
+									<td class="col-sm-3">
+										<input id="receiptNumber" class="form-control" type="text" ng-model="formData.receiptNumber">
+									</td>
+									<td>&nbsp;</td>
+									<td class="col-sm-3">
+										<label class="control-label" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
+									</td>
+									<td class="col-sm-3">
+										<input id="accountNumber" type="text" class="form-control" ng-model="formData.accountNumber">
+									</td>
+								</tr>
+								<tr>
+									<td class="col-sm-3">
+										<label class="control-label" for="checkNumber">{{ 'label.input.checknumber' | translate}}</label>
+									</td>
+									<td class="col-sm-3">
+										<input id="checkNumber" class="form-control" type="text" ng-model="formData.checkNumber">
+									</td>
+									<td>&nbsp;</td>
+									<td class="col-sm-3">
+										<label class="control-label" for="routingCode">{{ 'label.input.routingcode' | translate}}</label>
+									</td>
+									<td class="col-sm-3">
+										<input id="routingCode" class="form-control" type="text" ng-model="formData.routingCode">
+									</td>
+								</tr>
+								<tr>
+									<td class="col-sm-3">
+										<label class="control-label" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
+									</td>
+									<td class="col-sm-3">
+										<input id="bankNumber" class="form-control" type="text" ng-model="formData.bankNumber">
+									</td>
+									<td>&nbsp;</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+
+							<div class="col-md-offset-5">
+								<button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate}}</button>
+								<button id="save" type="submit" class="btn btn-primary" ng-click="submitPayments()">{{ 'label.button.save' | translate}}</button>
+							</div>
+
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
