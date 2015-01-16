@@ -447,6 +447,8 @@
                     }),
                     cashierTxnTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactions/template", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
+                    }),
+                    collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
                     })
                 };
             }];
