@@ -598,6 +598,9 @@
             .when('/entercollectionsheet', {
                 templateUrl: 'views/collection/collectionsheet.html'
             })
+            .when('/individualcollectionsheet', {
+                templateUrl: 'views/collection/individualcollectionsheet.html'
+            })
             .when('/assignstaff/:id/:entityType', {
                 templateUrl: 'views/groups/assignstaff.html'
             })

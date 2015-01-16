@@ -21,6 +21,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/NavigationController',
             'collection/ProductiveCollectionSheetController',
             'collection/CollectionSheetController',
+            'collection/IndividualCollectionSheetController',
             'loanAccount/ViewLoanDetailsController',
             'loanAccount/NewLoanAccAppController',
             'loanAccount/LoanAccountActionsController',

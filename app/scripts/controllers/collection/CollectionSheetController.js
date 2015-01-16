@@ -116,11 +116,23 @@
                 }
             };
 
+            scope.showPaymentDetailsFn = function () {
+                var paymentDetail = {};
+                scope.showPaymentDetails = true;
+                paymentDetail.paymentTypeId = "";
+                paymentDetail.accountNumber = "";
+                paymentDetail.checkNumber = "";
+                paymentDetail.routingCode = "";
+                paymentDetail.receiptNumber = "";
+                paymentDetail.bankNumber = "";
+            };
+
             scope.previewCollectionSheet = function () {
                 scope.formData = {};
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.calendarId = scope.calendarId;
+                scope.showPaymentDetails = false;
                 if (scope.date.transactionDate) {
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
@@ -399,6 +411,15 @@
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
                 scope.formData.clientsAttendance = scope.clientsAttendance;
+
+                if(scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != ""){
+                    scope.formData.paymentTypeId = scope.paymentDetail.paymentTypeId;
+                    scope.formData.accountNumber = scope.paymentDetail.accountNumber;
+                    scope.formData.checkNumber = scope.paymentDetail.checkNumber;
+                    scope.formData.routingCode =scope.paymentDetail.routingCode;
+                    scope.formData.receiptNumber = scope.paymentDetail.receiptNumber;
+                    scope.formData.bankNumber = scope.paymentDetail.bankNumber;
+                }
                 scope.formData.bulkDisbursementTransactions = [];
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();

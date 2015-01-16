@@ -266,11 +266,48 @@
 	        {{loanDueTotalCollection.currencySymbol}}
 	    </div>
 	</div>
+    <div ng-show="showPaymentDetails"
+         style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>{{ 'label.input.paymenttype' | translate}}</td>
+                <td>{{ 'label.input.accnum' | translate}}</td>
+                <td>{{ 'label.input.checknumber' | translate}}</td>
+                <td>{{ 'label.input.routingcode' | translate}}</td>
+                <td>{{ 'label.input.receiptnumber' | translate}}</td>
+                <td>{{ 'label.input.banknumber' | translate}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><select ng-model="paymentDetail.paymentTypeId"
+                            class="form-control"
+                            ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
+                            value="{{paymentType.id}}"></select></td>
+                <td><input type="text" class="form-control"
+                           ng-model="paymentDetail.accountNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.checkNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.routingCode"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.receiptNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.bankNumber"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 	<div class="col-sm-12 col-md-12 paddedtop10">
 	    <div class="col-md-offset-3 paddedtop">
 	        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
 	            translate}}
 	        </button>
+            <button class="btn btn-default" ng-show="collectionsheetdata && !showPaymentDetails"
+                    data-ng-click="showPaymentDetailsFn()"
+                    >{{'label.button.addpaymentdetail'| translate}}
+            </button>
 	        <button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
 	                ng-click="submit()">{{'label.button.save' | translate}}
 	        </button>
