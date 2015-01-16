@@ -25,6 +25,11 @@
                 scope.formData.transferAmount = data.transferAmount;
             });
 
+            scope.changeClient = function (client) {
+                scope.formData.toClient = client.id;
+                scope.changeEvent();
+            };
+
             scope.changeEvent = function () {
 
                 var params = scope.formData;

@@ -53,11 +53,9 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="toClientId" ng-model="formData.toClientId" name="client" class="form-control"
-                            ng-options="toClient.id as toClient.displayName for toClient in toClients"
-                            ng-change="changeEvent()" value="{{toClient.id}}" required>
-                        <option value="">{{'label.selectone' | translate}}</option>
-                    </select>
+                    <input id="toClientId" ng-model="toClientData" name="client" class="form-control" type="text"
+                            typeahead="(toClient.id + ' ' + toClient.displayName) as (toClient.id + ' ' + toClient.displayName) for toClient in toClients | filter:$viewValue | limitTo:8"
+                            typeahead-on-select="changeClient($item)" required>
                     <form-validate valattributeform="accounttransferform" valattribute="client"/>
                 </div>
             </div>
