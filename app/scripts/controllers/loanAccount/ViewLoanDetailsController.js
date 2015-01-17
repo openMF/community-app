@@ -493,6 +493,26 @@
                 
             };
 
+            scope.viewloantransactionreceipts = function (transactionId) {
+                scope.printbtn = true;
+                scope.hidePentahoReport = true;
+                scope.formData.outputType = 'HTML';
+                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
+                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                var reportParams = "";
+                var paramName = "R_transactionId";
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(transactionId);
+                if (reportParams > "") {
+                    scope.baseURL += "&" + reportParams;
+                }
+                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
+                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+
+            };
+
+
+
             scope.printReport = function () {
                 window.print();
                 window.close();
