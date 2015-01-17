@@ -6,8 +6,8 @@
                 localStorageService.addToLocalStorage('userData', data);
             };
 
-            var onFailure = function (data) {
-                scope.$broadcast("UserAuthenticationFailureEvent", data);
+            var onFailure = function (data, status) {
+                scope.$broadcast("UserAuthenticationFailureEvent", data, status);
             };
 
             var apiVer = '/mifosng-provider/api/v1';
