@@ -39,7 +39,7 @@
                 </span>
                 <span style="height:30px" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
                       <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
-                        <input type="text" class="input-sm" ng-model="total.transactionAmount"
+                        <input type="text" class="input-sm" number-format ng-model="total.transactionAmount"
                                disabled="disabled">
                       </span>
                 </span>
@@ -69,7 +69,7 @@
                         <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
     	                  <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
     	                    <input id="total" type="text" class="input-smaller" ng-model="loan.totalDue"
-                                   ng-change="bulkRepaymentTransactionAmountChange()">
+                                   number-format ng-change="bulkRepaymentTransactionAmountChange()">
     	                  </span>
                         </td>
                         <td>
@@ -88,7 +88,7 @@
     	                    <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
     	                      <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup"
                                     ng-show="loanproduct.id == loanProductArray.productId">
-    	                        <input type="text" class="input-smaller" ng-model="loanProductArray.transactionAmount"
+    	                        <input type="text" class="input-smaller" number-format ng-model="loanProductArray.transactionAmount"
                                        disabled="disabled">
     	                      </span>
     	                    </span>
