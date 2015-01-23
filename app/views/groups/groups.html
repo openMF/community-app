@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="group in groups.currentPageItems| orderBy:'name':reverse  | filter:filterText">
+        <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups">
             <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
             <td data-ng-click="routeTo(group.id)">
                 <i class="icon-stop {{group.status.code | StatusLookup}}"></i>&nbsp;{{group.status.value}}
@@ -24,8 +24,11 @@
         </tr>
         </tbody>
     </table>
-    <ul class="pager">
+    <!-- <ul class="pager">
         <li class="previous"><a id="prev" ng-click="groups.previous()" data-ng-hide="!groups.hasPrevious()">&larr;{{'label.button.previous' | translate}}</a></li>
         <li class="next"><a id="next" ng-click="groups.next()" data-ng-hide="!groups.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
-    </ul>
+    </ul> -->
+    <p align="center">
+        <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    </p>
 </div>

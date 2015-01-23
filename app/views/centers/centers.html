@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="center in centers.currentPageItems| orderBy:'name':reverse  | filter:filterText">
+        <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText | itemsPerPage: centersPerPage" total-items="totalCenters">
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
             <td class="pointer" data-ng-click="routeTo(center.id)">
                 <i class="icon-stop {{center.status.code | StatusLookup}}"></i>&nbsp;&nbsp;{{center.status.value}}
@@ -24,8 +24,11 @@
         </tr>
         </tbody>
     </table>
-    <ul class="pager">
+    <!-- <ul class="pager">
         <li class="previous"><a id="prev" ng-click="centers.previous()" ng-hide="!centers.hasPrevious()">&larr;{{'label.button.previous' | translate}}</a></li>
         <li class="next"><a id="next" ng-click="centers.next()" ng-hide="!centers.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
-    </ul>
+    </ul> -->
+    <p align="center">
+        <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    </p>
 </div>
