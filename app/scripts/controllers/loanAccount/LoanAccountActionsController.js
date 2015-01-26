@@ -13,24 +13,36 @@
             scope.isTransaction = false;
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
+            scope.expectedDisbursementDate = [];
+            scope.showProposedAmountTotal = 0;
+            scope.disbursementDetails = [];
+            scope.showApprovedAmountTotal = 0;
 
             switch (scope.action) {
                 case "approve":
-
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
-                        
+
                         scope.title = 'label.heading.approveloanaccount';
                         scope.labelName = 'label.input.approvedondate';
                         scope.modelName = 'approvedOnDate';
-                        // scope.formData[scope.modelName] = data.approvalDate;
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
                         scope.taskPermissionName = 'APPROVE_LOAN';
-
-
                     });
-
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
+                        scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
+                        if(data.disbursementDetails != ""){
+                            scope.disbursementDetails = data.disbursementDetails;
+                        }
+                        for(var i in data.disbursementDetails){
+                            scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
+                            scope.disbursementDetails[i].principal = data.disbursementDetails[i].principal;
+                            scope.disbursementDetails[i].proposedPrincipal = data.disbursementDetails[i].principal;
+                            scope.showProposedAmountTotal += Number(data.disbursementDetails[i].principal) ;
+                        }
+                        scope.showApprovedAmountTotal = scope.showProposedAmountTotal;
+                    });
                     break;
                 case "reject":
                     scope.title = 'label.heading.rejectloanaccount';
@@ -305,11 +317,42 @@
                 location.path('/viewloanaccount/' + routeParams.id);
             };
 
+            scope.addApprovedAmounts = function(){
+                scope.showApprovedAmountTotal = 0;
+                for(var i in scope.disbursementDetails ){
+                    scope.showApprovedAmountTotal += Number(scope.disbursementDetails[i].principal);
+                }
+                scope.formData.approvedLoanAmount = scope.showApprovedAmountTotal;
+            };
+
+            scope.deleteTranches = function (index) {
+                scope.disbursementDetails.splice(index, 1);
+            };
+
+            scope.addTranches = function () {
+                scope.disbursementDetails.push({
+                });
+            };
+
             scope.submit = function () {
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
                 }
+                if(scope.action == "approve"){
+                    this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
+                    if(scope.disbursementDetails != null) {
+                        this.formData.disbursementData = [];
+                        for (var i in  scope.disbursementDetails) {
+                            this.formData.disbursementData.push({
+                                id: scope.disbursementDetails[i].id,
+                                principal: scope.disbursementDetails[i].principal,
+                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                            });
+                        }
+                    }
+                }
+
                 if (this.formData[scope.modelName]) {
                     this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName], scope.df);
                 }

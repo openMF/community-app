@@ -20,6 +20,60 @@
                 </div>
             </div>
             <div class="form-group" ng-show="showApprovalAmount">
+                <label class="control-label col-sm-2">{{'label.input.expecteddisbursementon' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="expectedDisbursementDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="expectedDisbursementDate"
+                           min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="form-group col-sm-3" ng-show="disbursementDetails" style="width: 100%;padding-left: 26px">
+                <label class="control-label col-sm-2">{{ 'label.heading.tranchedetails' | translate }}</label>
+                 <div>
+                 <table style="width:80%" class="table table-bordered">
+                <tr>
+                    <td colspan="5" align="right">
+                        <button type="button" class="btn btn-primary"
+                                ng-click="addTranches()">{{ 'label.button.addTranche' | translate }}
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{'label.input.expecteddisbursementon' | translate}}</td>
+                    <td>{{'label.heading.proposedamount' | translate}}</td>
+                    <td>{{'label.heading.approvedamount' | translate}}</td>
+                    <td>{{'label.heading.actions' | translate}}</td>
+                </tr>
+                <tr ng-repeat="details in disbursementDetails">
+                    <td>{{'label.heading.tranche' | translate}}{{$index + 1}}</td>
+                    <td>
+                        <input id="details[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               ng-model="details.expectedDisbursementDate" is-open="'openedtranche'+$index"
+                               min="minDate" max="'2020-06-22'"/>
+                    </td>
+                    <td>{{details.proposedPrincipal}}</td>
+                    <td>
+                        <input type="text" class="form-control" id="details[{{$index}}].principal"
+                               ng-change="addApprovedAmounts()" ng-model="details.principal">
+                    </td>
+                    <td>
+                        <a ng-click="deleteTranches($index);addApprovedAmounts();"><i class="icon-remove icon-white"></i></a>
+                    </td>
+                </tr>
+                <tr colspan="5">
+                    <td>{{'label.heading.total' | translate}}</td>
+                    <td></td>
+                    <td>{{showProposedAmountTotal}}</td>
+                    <td>{{showApprovedAmountTotal}}</td>
+                </tr>
+            </table>
+                 </div>
+            </div>
+            <div ng-hide = "disbursementDetails">
+            <div class="form-group" ng-show="showApprovalAmount">
                 <label class="control-label col-sm-2" for="approvedAmount">{{ 'label.input.transactionamount' |
                     translate}}<span class="required">*</span></label>
 
@@ -146,7 +200,7 @@
                     </div>
                 </div>
             </div>
-
+            </div>
             <div class="form-group" ng-show="showNoteField">
                 <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
 
