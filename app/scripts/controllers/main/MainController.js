@@ -77,11 +77,11 @@
             });
 
             // Log out the user when the window/tab is closed.
-            window.onunload = function () {
+           /* window.onunload = function () {
                 scope.logout();
                 $idle.unwatch();
                 scope.started = false;
-            };
+            };*/
 
             scope.start = function (session) {
                 if (session) {
