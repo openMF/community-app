@@ -13,7 +13,7 @@
 	        	<i class="icon-group"></i>
 	            <strong>{{group.name}} </strong>
 	            <small>
-	            	<i class="icon-barcode"></i> {{ 'label.uniquelyidentifiedwithid' | translate }} {{group.id}} | 
+	            	<i class="icon-barcode"></i> {{ 'label.uniquelyidentifiedwithid' | translate }} {{group.id}} |
 	            	<i class="icon-building"></i> {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
 	            	<i class="icon-map-marker"></i> {{ 'label.heading.center' | translate }}:"{{group.centerName}}"
 	            </small>
@@ -43,12 +43,12 @@
     </div>
 	</script>
 	<div>
-		<tabset>
+		<tabset tabset-name="groupTabset">
 			<tab heading="{{ 'label.heading.general' | translate }}">
 			<div>
 			<div class="col-md-12 primarydiv">
 			    <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
-			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP' 
+			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP'
 			           data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{
 			            'label.button.activate' | translate }}</a>
 			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
@@ -66,7 +66,7 @@
                       </a>
                       <ul class="dropdown dropdown-menu dropdown-menu-right">
 	                      <li>
-		                      <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING' 
+		                      <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING'
 		                        data-ng-show="group.collectionMeetingCalendar">{{'label.button.attendance' | translate }}</a>
 	                      </li>
                           <li>
@@ -85,7 +85,7 @@
                               <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
                           </li>
                           <li data-ng-show="group.status.value=='Active'">
-                              <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId has-permission='CREATE_MEETING' 
+                              <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId has-permission='CREATE_MEETING'
                                  data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
                                   translate }}</a>
                           </li>
@@ -198,7 +198,7 @@
 						            <tr class="pointer-main"
 						                ng-repeat="loanaccount in groupAccounts.loanAccounts | orderBy:'productName':reverse | filter:isLoanNotClosed">
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-						                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}" 
+						                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
 						                    	class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
 						                    <i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
 						                     	class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
@@ -238,7 +238,7 @@
 					            	<th>{{'label.heading.accnum' | translate}}</th>
 					                <th>{{ 'label.heading.products' | translate }}</th>
 					                <th>{{'label.heading.type' | translate}}</th>
-									<th>{{'label.heading.closedate' | translate}}</th>					                
+									<th>{{'label.heading.closedate' | translate}}</th>
 					            </tr>
 					            </thead>
 					            <tbody>
@@ -378,7 +378,7 @@
 						            </tr>
 				                </table>
 				                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
-						        <table class="table-minified">    
+						        <table class="table-minified">
 						            <tr>
 						                <th>{{ 'label.numofactiveclient' | translate }}</th>
 						                <td>{{summary.activeClients}}</td>
