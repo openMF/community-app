@@ -70,6 +70,7 @@
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
                     graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
                     overdueDaysForNPA: scope.product.overdueDaysForNPA,
+                    accountMovesOutOfNPAOnlyOnArrearsCompletion: scope.product.accountMovesOutOfNPAOnlyOnArrearsCompletion,
                     accountingRule: scope.product.accountingRule.id,
                     principalVariationsForBorrowerCycle: [],
                     interestRateVariationsForBorrowerCycle: [],
@@ -90,6 +91,7 @@
                     scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                     scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
                     scope.formData.recalculationRestFrequencyInterval = scope.product.interestRecalculationData.recalculationRestFrequencyInterval;
+                    scope.formData.isArrearsBasedOnOriginalSchedule = scope.product.interestRecalculationData.isArrearsBasedOnOriginalSchedule;
                     if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
                         scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
                     }
