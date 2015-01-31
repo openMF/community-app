@@ -42,7 +42,12 @@
                     scope.groupName = data.group.name;
                 }
             });
-
+            var getSavingsAccountInfo = function() {
+                resourceFactory.groupAccountResource.getAll({groupId: scope.groupId, fields:"savingsAccounts"} ,function (data) {
+                    scope.savingsAccountsInfo = data.savingsAccounts;
+                });
+            }
+            getSavingsAccountInfo();
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
