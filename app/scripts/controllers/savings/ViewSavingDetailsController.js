@@ -108,6 +108,10 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                resourceFactory.groupResource.get({groupId: scope.savingaccountdetails.groupId, associations: 'all'}, function (data) {
+                    scope.groupLevel = data.groupLevel;
+                });
+
                 scope.showonhold = true;
                 if(angular.isUndefined(data.onHoldFunds)){
                     scope.showonhold = false;
