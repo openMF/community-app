@@ -133,6 +133,9 @@
             .when('/loandisbursedetail/:id/:action/:disbursementId', {
                 templateUrl: 'views/loans/loanaccountactions.html'
             })
+            .when('/loandisbursedetail/:id/:action', {
+                templateUrl: 'views/loans/loanaccountactions.html'
+            })
             .when('/editloanaccount/:id', {
                 templateUrl: 'views/loans/editloanaccount.html'
             })

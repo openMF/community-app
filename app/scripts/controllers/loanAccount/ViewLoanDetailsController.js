@@ -9,6 +9,7 @@
             scope.date.payDate = new Date();
             scope.hideAccrualTransactions = false;
             scope.isHideAccrualsCheckboxChecked = true;
+            scope.loandetails = [];
             scope.updateCheckBoxStatus = function (){
                 scope.isHideAccrualsCheckboxChecked = !scope.isHideAccrualsCheckboxChecked;
             };
@@ -510,8 +511,6 @@
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
-
-
 
             scope.printReport = function () {
                 window.print();
