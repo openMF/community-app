@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, UIConfigService) {
 
             scope.previewRepayment = false;
             scope.formData = {};
@@ -9,6 +9,7 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
+            scope.response = {};
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -240,6 +241,10 @@
 
             }
 
+       
+            UIConfigService.appendConfigToScope(scope);
+
+
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -294,7 +299,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'UIConfigService', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
         $log.info("EditLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
