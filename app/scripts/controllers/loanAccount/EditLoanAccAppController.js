@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, UIConfigService) {
+        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, uiConfigService) {
 
             scope.previewRepayment = false;
             scope.formData = {};
@@ -9,7 +9,6 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
-            scope.response = {};
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -241,8 +240,8 @@
 
             }
 
-       
-            UIConfigService.appendConfigToScope(scope);
+
+            uiConfigService.appendConfigToScope(scope);
 
 
             scope.submit = function () {

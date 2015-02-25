@@ -80,8 +80,8 @@
 </table>
 <div ng-hide="previewRepayment">
     <div ng-show="loanaccountinfo">
-        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr ng-show="loanaccountinfo"/>
+        <div ng-hide="loanaccountinfo.calendarOptions == undefined">
+        <hr ng-show="loanaccountinfo"/>
         </div>
         <label ng-show="loanaccountinfo.calendarOptions"><i class="icon-calendar icon-white"></i>&nbsp;<strong>{{
             'label.heading.meetingdetails' | translate }}</strong></label>
@@ -101,6 +101,9 @@
                 <td><label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
+        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
+            <hr ng-show="loanaccountinfo"/>
+        </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true">
         <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>

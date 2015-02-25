@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, UIConfigService) {
+        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, uiConfigService) {
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -10,8 +10,7 @@
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
-            scope.response = {};
-            scope.uiConfigObj = {};
+
             scope.date.first = new Date();
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
@@ -193,8 +192,8 @@
                 });
 
             }
-  
-           UIConfigService.appendConfigToScope(scope);
+
+            uiConfigService.appendConfigToScope(scope);
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
