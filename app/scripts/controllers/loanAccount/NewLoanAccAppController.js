@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, UIConfigService) {
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -10,11 +10,14 @@
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
+            scope.response = {};
+            scope.uiConfigObj = {};
             scope.date.first = new Date();
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
                 scope.formData.clientId = scope.clientId;
             }
+
 
             if (scope.groupId) {
                 scope.inparams.groupId = scope.groupId;
@@ -190,6 +193,8 @@
                 });
 
             }
+  
+           UIConfigService.appendConfigToScope(scope);
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
@@ -251,7 +256,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'UIConfigService', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {
         $log.info("NewLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
