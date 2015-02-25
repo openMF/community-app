@@ -11,7 +11,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'HttpServiceProvider',
             'AuthenticationService',
             'SessionManager',
-            'Paginator'
+            'Paginator',
+            'UIConfigService'
         ],
         controllers: [
             'main/MainController',
@@ -225,7 +226,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/cashmgmt/CreateCashierForTellerController',
             'organization/cashmgmt/CashierTransactionsController',
             'organization/cashmgmt/CashierFundsAllocationSettlementController',
-            'accounting/DefineOpeningBalancesController'
+            'accounting/DefineOpeningBalancesController',
+            'agent/AgentController',
+            'agent/CreateAgentController',
+            'agent/ViewAgentController',
+            'agent/EditAgentController'
         ],
         filters: [
             'StatusLookup',
