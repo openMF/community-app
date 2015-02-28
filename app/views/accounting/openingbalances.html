@@ -5,7 +5,6 @@
     </ul>
     <api-validate></api-validate>
     <form name="openingbalancesform" novalidate="" class="form-horizontal well" ng-submit="submit()">
-
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
 
@@ -50,8 +49,10 @@
                 <th>{{'label.heading.type' | translate}}</th>
                 <th>{{'label.heading.glcode' | translate}}</th>
                 <th>{{'label.heading.account' | translate}}</th>
-                <th>{{'label.heading.debit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'DEBIT'  | number}} </th>
-                <th>{{'label.heading.credit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'CREDIT'  | number}} </th>
+                <th ng-if="totalDebitAmount > 0">{{'label.heading.debit' | translate}} : {{totalDebitAmount | number}}</th>
+                <th ng-if="totalDebitAmount == 0">{{'label.heading.debit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'DEBIT'  | number}} </th>
+                <th ng-if="totalCreditAmount > 0">{{'label.heading.debit' | translate}} : {{totalCreditAmount | number}}</th>
+                <th ng-if="totalCreditAmount == 0">{{'label.heading.credit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'CREDIT'  | number}} </th>
             </tr>
             </thead>
             <tbody>
@@ -63,14 +64,14 @@
                 </td>
                 <td>{{gl.glAccountCode}}</td>
                 <td>{{gl.glAccountName}}</td>
-                <td><input type="text" name="debits{{$index}}" ng-model="gl.debit"  class="form-control" /></td>
-                <td><input type="text" name="credits{{$index}}" ng-model="gl.credit"  class="form-control" /></td>
+                <td><input type="text" name="debits{{$index}}" ng-model="gl.debit"  class="form-control" ng-change="keyPress()" /></td>
+                <td><input type="text" name="credits{{$index}}" ng-model="gl.credit"  class="form-control" ng-change="keyPress()" /></td>
             </tr>
             </tbody>
         </table>
         <div class="col-md-offset-3">
             <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
-            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-primary" has-permission='DEFINEOPENINGBALANCE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
         </div>
     </form>
 </div>
