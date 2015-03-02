@@ -262,6 +262,16 @@
 					hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    entityToEntityResource: defineResource(apiVer + "/entitytoentitymapping/:mappingId/:fromId/:toId", {mappingId: '@mappingId'}, {
+                        getAllEntityMapping: {method: 'GET', params: {}, isArray: true},
+                        getEntityMapValues: {method: 'GET', params: {}}
+                    }),
+                    entityMappingResource: defineResource(apiVer + "/entitytoentitymapping/:mapId", {mappingId: '@mappingId'}, {
+                        getAllEntityMapping: {method: 'GET', params: {}, isArray: true},
+                        getEntityMapValues: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT', params: {}},
+                        delete:{method:'DELETE',params:{}}
+                    }),
                     accountNumberResources: defineResource(apiVer + "/accountnumberformats/:accountNumberFormatId",{accountNumberFormatId: '@accountNumberFormatId'}, {
                         get:{method:'GET',params:{accountNumberFormatId:'@accountNumberFormatId'}},
                         getAllPreferences:{method:'GET',params:{},isArray: true},

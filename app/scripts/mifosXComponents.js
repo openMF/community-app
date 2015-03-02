@@ -131,6 +131,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/SchedulerJobsController',
             'system/ViewSchedulerJobController',
             'system/EditSchedulerJobController',
+            'system/EntityToEntityMappingController',
             'system/ViewSchedulerJobHistoryController',
             'system/AccountNumberPreferencesController',
             'system/ViewAccountNumberPreferencesController',

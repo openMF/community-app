@@ -385,6 +385,9 @@
             .when('/edithook/:id', {
                 templateUrl: 'views/system/edithook.html'
             })
+            .when('/entitytoentitymapping', {
+                templateUrl: 'views/system/entitytoentitymapping.html'
+            })
             .when('/reports', {
                 templateUrl: 'views/system/reports.html'
             })
