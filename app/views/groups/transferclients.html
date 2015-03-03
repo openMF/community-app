@@ -6,15 +6,11 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}</label>
-<!-- 				<div class="col-md-3"> -->
-<!-- 					<select multiple ng-model="tempData" class="form-control"> -->
-<!-- 				        <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.displayName}}</option> -->
-<!-- 				    </select> -->
-<!-- 				</div> -->
 				<div class="col-sm-3 col-md-3">
                     <label class="control-label col-sm-12 center">{{ 'label.input.availableclients' | translate }}</label>
-                    <select ng-model="availableClients" multiple class="form-control clear"
-                        ng-options="member as displayNameAndId(member) for member in allMembers"></select>
+                   <select multiple ng-model="availableClients" class="form-control clear">
+                        <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.accountNo}}{{member.displayName}}</option>
+                    </select>
                 </div>
                 <div class="col-sm-1 col-md-1 paddedtop25px">
                     <button type="button" class="btn btn-primary" data-ng-click="addClient()"><i
@@ -24,8 +20,9 @@
                 </div>
                 <div class="col-sm-3 col-md-3">
                     <label class="control-label col-sm-12 center">{{ 'label.input.selectedclients' | translate }}</label>
-                    <select ng-model="selectedClients" multiple class="form-control clear"
-                        ng-options="member as displayNameAndId(member) for member in selectedMembers"></select>
+                    <select multiple ng-model="selectedClients" class="form-control clear">
+                        <option ng-repeat="member in selectedMembers" value="{{member.id}}">{{member.accountNo}}{{member.displayName}}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
