@@ -26,7 +26,7 @@
             });
 
             scope.changeClient = function (client) {
-                scope.formData.toClient = client.id;
+                scope.formData.toClientId = client.id;
                 scope.changeEvent();
             };
 
