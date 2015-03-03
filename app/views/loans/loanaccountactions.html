@@ -8,8 +8,18 @@
     <api-validate></api-validate>
     <form class="form-horizontal well" name="loanactionform" novalidate="" ng-submit="submit()">
         <fieldset>
-            <legend>{{ title | translate}}</legend>
-
+            <table width="100%">
+                <tr>
+                    <td>
+                        <legend>{{ title | translate}}</legend></td>
+                    <td ng-show="addDisburseDetails" align="right">
+                        <legend>
+                        <button type="button" class="btn btn-primary" align="right"
+                                ng-click="addTranches()">{{ 'label.button.add' | translate }}
+                        </button></legend>
+                    </td>
+                </tr>
+            </table>
             <div class="form-group" ng-show="showDateField">
                 <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
                         class="required">*</span></label>
@@ -19,6 +29,68 @@
                            ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
+            <div ng-show="showApprovalAmount">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.expecteddisbursementon' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="expectedDisbursementDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="expectedDisbursementDate"
+                           min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="disbursementDetails">
+                <label class="control-label col-sm-2">{{ 'label.heading.approvedamount' |
+                    translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="approvedAmt" type="text" name="amount" ng-model="formData.approvedLoanAmount" class="form-control"
+                           number-format required late-Validate>
+                </div>
+            </div>
+            <div class="form-group col-sm-3" ng-show="disbursementDetails" style="width: 100%;padding-left: 26px">
+                <label class="control-label col-sm-2">{{ 'label.heading.tranchedetails' | translate }}</label>
+                 <div>
+                 <table style="width:80%" class="table table-bordered">
+                <tr>
+                    <td colspan="5" align="right">
+                        <button type="button" class="btn btn-primary"
+                                ng-click="addTranches()">{{ 'label.button.addTranche' | translate }}
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{'label.input.expecteddisbursementon' | translate}}</td>
+                    <td>{{'label.account.deposit.principal.amount' | translate}}</td>
+                    <td>{{'label.heading.actions' | translate}}</td>
+                </tr>
+                <tr ng-repeat="details in disbursementDetails">
+                    <td>{{'label.heading.tranche' | translate}}{{$index + 1}}</td>
+                    <td>
+                        <input id="details[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               ng-model="details.expectedDisbursementDate" is-open="'openedtranche'+$index"
+                               min="minDate" max="'2020-06-22'"/>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" id="details[{{$index}}].principal"
+                               ng-change="addTrancheAmounts()" ng-model="details.principal">
+                    </td>
+                    <td>
+                        <a ng-click="deleteTranches($index);addTrancheAmounts();"><i class="icon-remove icon-white"></i></a>
+                    </td>
+                </tr>
+                <tr colspan="5">
+                    <td>{{'label.heading.total' | translate}}</td>
+                    <td></td>
+                    <td>{{showTrancheAmountTotal}}</td>
+                </tr>
+            </table>
+                 </div>
+            </div>
+                </div>
+            <div ng-hide = "disbursementDetails">
             <div class="form-group" ng-show="showApprovalAmount">
                 <label class="control-label col-sm-2" for="approvedAmount">{{ 'label.input.transactionamount' |
                     translate}}<span class="required">*</span></label>
@@ -146,7 +218,7 @@
                     </div>
                 </div>
             </div>
-
+            </div>
             <div class="form-group" ng-show="showNoteField">
                 <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
 
@@ -189,15 +261,81 @@
                            is-open="opened"/>
                 </div>
             </div>
-            <div class="form-group" ng-show="showEditDisburseDate">
+            <div ng-show="showEditDisburseDate">
+            <div class="form-group">
                 <label class="control-label col-sm-2" for="modelName">{{'label.input.expecteddisbursementon' | translate}}<span
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
                     <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy" class="form-control"
-                           ng-model="formData.expectedDisbursementDate" is-open="opened"/>
+                           ng-model="formData.updatedExpectedDisbursementDate" is-open="opened" />
                 </div>
             </div>
+            <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.heading.principal' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="principal" type="text" name="amount"  ng-model="formData.updatedPrincipal" class="form-control"
+                           number-format required late-Validate>
+                </div>
+            </div>
+            </div>
+            <table class="table width100" ng-show="addDisburseDetails && disbursementDetails.length > 0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                    <th>{{'label.input.principal' | translate}}</th>
+                    <th>{{'label.input.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="disbursementDetail in disbursementDetails">
+                    <td ng-hide="disbursementDetail.id">
+                        <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                               ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
+                               min="minDate" max="'2020-06-22'"/>
+                    </td>
+                    <td ng-hide="disbursementDetail.id">
+                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
+                               ng-model="disbursementDetail.principal"
+                               placeholder="{{'label.input.principal' | translate}}">
+                    </td>
+                    <td ng-hide="disbursementDetail.id"><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table width100" ng-show="deleteDisburseDetails && disbursementDetails.length > 0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                    <th>{{'label.input.principal' | translate}}</th>
+                    <th>{{'label.input.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="disbursementDetail in disbursementDetails">
+                    <td>
+                        <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                               ng-model="disbursementDetail.expectedDisbursementDate" ng-disabled="true"
+                               is-open="'openedtranche'+$index"
+                               ng-show="disbursementDetail.actualDisbursementDate == null"
+                               min="minDate" max="'2020-06-22'"/>
+                    </td>
+                    <td>
+                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text"
+                               ng-model="disbursementDetail.principal"
+                               ng-show="disbursementDetail.actualDisbursementDate == null"
+                               placeholder="{{'label.input.principal' | translate}}" ng-disabled="true">
+                    </td>
+                    <td ng-show="disbursementDetail.actualDisbursementDate == null"><a ng-click="deleteTranches($index)"><i class="icon-remove icon-white"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
             <div class="form-group" ng-show="showDelete || showwaiveforspecicficduedate">
                 <label class="control-label col-sm-2">{{ 'label.areyousure' | translate}}</label>
             </div>
