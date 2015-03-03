@@ -262,7 +262,7 @@
             };
 
             scope.deleteFee = function (index) {
-                scope.specificIncomeaccounts.splice(index, 1);
+                scope.specificIncomeAccountMapping.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {
