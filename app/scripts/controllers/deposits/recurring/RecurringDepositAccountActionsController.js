@@ -108,8 +108,13 @@
                             scope.savingsAccounts = data.savingsAccounts;
                             scope.paymentTypes = data.paymentTypeOptions;
                             scope.currency = data.currency;
+                            if(data.maturityAmount){
+                                scope.title = 'label.heading.closerecurringdepositaccount';
+                            } else{
+                                scope.title = 'label.heading.closeopenrecurringdepositaccount';
+                            }
                         });
-                    scope.title = 'label.heading.closerecurringdepositaccount';
+
                     scope.labelName = 'label.input.closedon';
                     scope.modelName = 'closedOnDate';
                     scope.showDateField = true;
