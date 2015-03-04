@@ -144,8 +144,27 @@
 	        <input id="allowWithdrawal" type="checkbox" ng-model="formData.allowWithdrawal">
 	    </div>
 	</div>
+	<div class="form-group">
+	<label class="control-label col-sm-2">{{ 'label.input.depositEvery' | translate }}</label>
+	    <div class="col-sm-2">
+	        <input id="depositEvery" type="text" class="form-control" name="depositEvery"
+	              required late-validate ng-model="formData.depositEvery">
+	    </div>
+	    <div class="col-sm-2">
+	        <select id="depositEveryType" ng-model="formData.depositEveryType"
+	                class="form-control"
+	                ng-options="type.id as type.value for type in product.depositEveryTypeOptions"
+	                value="{{type.id}}">
+	            <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+	        </select>
+	    </div>
+	    <div class="col-sm-2">
+	        <form-validate valattributeform="createrecurringdepositproductform" valattribute="depositEvery"/>
+	    </div>
+	</div>
 	
 	<div class="form-group">
+	  
 	    <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
 	    <div class="col-sm-2">
 	        <input id="lockinPeriodFrequency" type="text" class="form-control"

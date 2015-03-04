@@ -39,7 +39,8 @@
                     maxDepositAmount: data.maxDepositAmount,
                     nominalAnnualInterestRate: data.nominalAnnualInterestRate,
                     minRequiredOpeningBalance: data.minRequiredOpeningBalance,
-                    lockinPeriodFrequency: data.lockinPeriodFrequency,
+                    depositEvery:data.depositEvery,
+                    lockinPeriodFrequency: data.lockinPeriodFrequency,                    
                     interestCompoundingPeriodType: data.interestCompoundingPeriodType.id,
                     interestPostingPeriodType: data.interestPostingPeriodType.id,
                     interestCalculationType: data.interestCalculationType.id,
@@ -78,6 +79,10 @@
                 if (scope.chart.endDate) {
                     var endDate = dateFilter(scope.chart.endDate, scope.df);
                     scope.endDate.date = new Date(endDate);
+                }
+                
+                if (data.depositEveryType) {
+                    scope.formData.depositEveryType = data.depositEveryType.id;
                 }
 
                 if (data.lockinPeriodFrequencyType) {
