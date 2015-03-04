@@ -24,7 +24,7 @@
                          class="required">*</span></label>
 
                  <div class="col-sm-3">
-                 	<input id="startDate" class="date-disable form-control" readonly type="text"
+                 	<input id="endDate" class="date-disable form-control" readonly type="text"
                             datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
                             max="restrictDate"/>
                  </div>
@@ -42,7 +42,6 @@
         		</label>
              </div>
         </div>
-<<<<<<< HEAD
         <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
             <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
                 translate}}
@@ -81,60 +80,6 @@
                               </li>
                           </ul>
                       </span>
-
-=======
-    </div>
-</tab>
-
-<tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
-    <table class="table">
-        <thead>
-        <th>{{'label.heading.type' | translate}}</th>
-        <th>{{'label.heading.value' | translate}}</th>
-        <th>{{'label.heading.description' | translate}}</th>
-        </thead>
-        <tbody>
-        <tr ng-repeat="collateral in loandetails.collateral" class="pointer-main">
-            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.type.name}}</td>
-            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.value | number}}</td>
-            <td class="pointer" data-ng-click="viewLoanCollateral(collateral.id)">{{collateral.description}}</td>
-        </tr>
-        </tbody>
-    </table>
-</tab>
-
-<tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
-    <table class="width100">
-        <tr>
-            <td>
-                {{'label.input.fixedemiamount' | translate}} : &nbsp;{{loandetails.fixedEmiAmount| number}}&nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{'label.input.outstandingloanbalance' | translate}} : &nbsp;{{loandetails.maxOutstandingLoanBalance| number}}&nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>{{'label.heading.tranchedetails' | translate}}</b>
-            </td>
-        </tr>
-    </table>
-    <table class="width100">
-        <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
-            <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
-            <th align="left">{{'label.input.disbursedon' | translate}}</th>
-            <th align="left">{{'label.input.principal' | translate}}</th>
-            <th align="left">&nbsp;</th>
-        </tr>
-        <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
-            <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
-            <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
-            <td>{{disbursementDetail.principal | number}}</td>
-            <td>
-                <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i>
->>>>>>> 753a0d6fa22f378907d4581033229b813519fab7
                 </div>
             </div>
 
@@ -621,7 +566,7 @@
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.outstandingLoanBalance | number}}
                                     </td>
-                                    
+
                                     <td> <a ng-if="transaction.manuallyReversed!=true" ng-click="viewloantransactionreceipts(transaction.id)">
                                         <i class="icon-file-text icon-large"></i>
                                     </a>
