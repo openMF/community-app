@@ -83,7 +83,9 @@
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
                     holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
-                    principalThresholdForLastInstalment: scope.product.principalThresholdForLastInstalment
+                    principalThresholdForLastInstalment: scope.product.principalThresholdForLastInstalment,
+                    instalmentAmountInMultiplesOf: scope.product.instalmentAmountInMultiplesOf,
+                    canDefineInstalmentAmount : scope.product.canDefineInstalmentAmount
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {

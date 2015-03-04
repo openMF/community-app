@@ -67,7 +67,7 @@
                     scope.formData.syncRepaymentsWithMeeting = true;
                     scope.formData.syncDisbursementWithMeeting = true;
                 }
-                scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan
+                scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 scope.formData.fundId = scope.loanaccountinfo.fundId;
                 scope.formData.principal = scope.loanaccountinfo.principal;

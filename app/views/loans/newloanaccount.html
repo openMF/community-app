@@ -257,6 +257,12 @@
                     <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true" id="graceOnArrearsAgeing" type="text" class="input-mini-small" ng-model="formData.graceOnArrearsAgeing">
                 </td>
             </tr>
+            <tr data-ng-show="loanaccountinfo.canDefineInstalmentAmount">
+                <td colspan=2>
+                    <label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;
+                    <input id="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
+                </td>
+            </tr>
             <tr>
                 <td colspan="4" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true"><hr></td>
             </tr>
@@ -332,10 +338,6 @@
                 <label><strong>{{ 'label.heading.tranchedetails' | translate }}</strong></label>
                 <table class="width100">
                     <tr>
-                        <td class="width19"><label>{{ 'label.input.fixedemiamount' | translate }}:</label></td>
-                        <td class="width31 paddedbottom10">
-                            <input id="fixedEmiAmount" type="text" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
-                        </td>
                         <td class="width14"><label>{{'label.input.outstandingloanbalance' | translate}}:</label></td>
                         <td class="width36 paddedbottom10">
                             <input id="maxOutstandingLoanBalance" type="text"
