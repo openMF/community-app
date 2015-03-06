@@ -511,6 +511,11 @@
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
+             scope.viewloantransactionjournalentries = function(transactionId){
+                var transactionId = "L" + transactionId;
+                location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
+
+            };
 
             scope.printReport = function () {
                 window.print();
@@ -546,6 +551,8 @@
                     sort.descending = true;
                 }
             };
+
+
 
             scope.showApprovedAmountBasedOnStatus = function () {
                 if (scope.status == 'Submitted and pending approval' || scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected') {

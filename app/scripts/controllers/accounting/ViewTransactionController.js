@@ -4,6 +4,11 @@
         ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal) {
             scope.flag = false;
             scope.manualEntry = false;
+            scope.productName = routeParams.productName;
+            scope.clientName = routeParams.clientName;
+            scope.accountNo = routeParams.accountNo;
+            scope.clientId = routeParams.clientId;
+            scope.loanId = routeParams.loanId;
             resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId}, function (data) {
                 scope.transactionNumber = routeParams.transactionId;
                 scope.transactions = data.pageItems;
