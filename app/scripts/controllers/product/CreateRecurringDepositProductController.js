@@ -30,6 +30,8 @@
                 scope.formData.interestCalculationType = data.interestCalculationType.id;
                 scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 scope.formData.preClosurePenalInterestOnTypeId = scope.product.preClosurePenalInterestOnTypeOptions[0].id;
+                scope.formData.depositEvery=data.depositEvery;
+                scope.formData.depositEveryType=data.depositEveryType;
                 //scope.formData.interestFreePeriodFrequencyTypeId = scope.product.interestFreePeriodTypeOptions[0].id;
 
                 //set chart template
@@ -166,7 +168,6 @@
                 this.formData.locale = "en";
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
-
                 resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
                 });
