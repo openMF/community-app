@@ -38,14 +38,48 @@
             </tbody>
         </table>
     </div>
-    <div ng-show="isTreeView">
-        <div
+    <div ng-show="isTreeView"  >
+		<div ng-show="$root.tempNodeID >= 0" class="col-md-6 divscrollable" >
+		
+				<table class="table table-bordered table-striped">
+					<tr>
+						<td>{{ 'label.heading.glcode' | translate }}</td>
+						<td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.glCode}}</td>
+					</tr>
+	            <tr>
+	                <td>{{ 'label.heading.acctype' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.type.value}}</td>
+	            </tr>
+	           
+	            <tr>
+	                <td>{{ 'label.heading.accountusage' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.usage.value}}</td>
+	            </tr>
+	
+	            <tr>
+	                <td class="width40">{{ 'label.heading.manualentriesallowed' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.manualEntriesAllowed}}</td>
+	            </tr>
+	            <tr>
+	                <td>{{ 'label.heading.description' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.description}}</td>
+	            </tr>
+	        </table>
+		</div>
+		
+        <div 
                 data-angular-treeview="true"
                 data-tree-id="treeview"
                 data-tree-model="treedata"
                 data-node-id="id"
                 data-node-label="name"
-                data-node-children="children">
+                data-node-children="children"
+				data-node-glCode="glCode">
         </div>
+		
     </div>
+	<br>
+	<br>
+	<br><br><br><br><br><br>
+	<!-- <br> was needed to move footer a bit down, because detail-table was covered by version details -->
 </div>
