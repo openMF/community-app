@@ -1,6 +1,12 @@
 <form class="col-md-12" ng-controller="ViewTransactionController">
-    <ul class="breadcrumb">
+    <ul class="breadcrumb" ng-if="clientName == null">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
+    </ul>
+    <ul class="breadcrumb" ng-if="clientName != null">
+
+        <li><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
+        <li class="active">{{productName}}({{accountNo}})</li>
         <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
     </ul>
      <script type="text/ng-template" id="confirmation.html">
@@ -146,6 +152,10 @@
 		            </tbody>
 		        </table>
 		    </div>
+            <div class="pull-right" ng-if="clientName != null">
+                <a href="#/viewloanaccount/{{loanId}}"
+                  class="btn btn-primary"><i
+                    class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
     	</div>
     </div>
 </form>
