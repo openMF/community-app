@@ -84,8 +84,8 @@
                     holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     principalThresholdForLastInstalment: scope.product.principalThresholdForLastInstalment,
-                    instalmentAmountInMultiplesOf: scope.product.instalmentAmountInMultiplesOf,
-                    canDefineInstalmentAmount : scope.product.canDefineInstalmentAmount
+                    installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
