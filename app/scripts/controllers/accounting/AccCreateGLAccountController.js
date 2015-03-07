@@ -14,7 +14,7 @@
                 scope.formData = {
                         manualEntriesAllowed: true,
                         type: scope.accountTypes[0].id,
-                        usage: scope.usageTypes[0].id,
+                        usage: scope.usageTypes[0].id
                     };
                 scope.formData.type;
                 scope.formData.parentId;
@@ -29,34 +29,33 @@
                 //by default display assetTagsOptions and assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
                 scope.headerTypes = data.assetHeaderAccountOptions
-                    
-                for (var i = 0; i < data.assetHeaderAccountOptions.length; i++) {
-                	if(data.assetHeaderAccountOptions[i].id == $routeParams.parent ) {
-                		console.log($routeParams.parent + data.assetHeaderAccountOptions[i].id)
-                		scope.formData.parentId = scope.headerTypes[i].id;
-                	}
-                }
-                
-                scope.changeType = function (value) {
-                    if (value == 1) {
+                changeType();
+
+                function changeType () {
+                    if (scope.formData.type == 1) {
                         scope.types = data.allowedAssetsTagOptions;
                         scope.headerTypes = data.assetHeaderAccountOptions
-                    } else if (value == 2) {
+                    } else if (scope.formData.type == 2) {
                         scope.types = data.allowedLiabilitiesTagOptions;
                         scope.headerTypes = data.liabilityHeaderAccountOptions;
-                    } else if (value == 3) {
+                    } else if (scope.formData.type == 3) {
                         scope.types = data.allowedEquityTagOptions;
                         scope.headerTypes = data.equityHeaderAccountOptions;
-                    } else if (value == 4) {
+                    } else if (scope.formData.type == 4) {
                         scope.types = data.allowedIncomeTagOptions;
                         scope.headerTypes = data.incomeHeaderAccountOptions;
-                    } else if (value == 5) {
+                    } else if (scope.formData.type == 5) {
                         scope.types = data.allowedExpensesTagOptions;
                         scope.headerTypes = data.expenseHeaderAccountOptions;
                     }
 
                 }
-
+                for (var i = 0; i < scope.headerTypes.length; i++) {
+                    if(scope.headerTypes[i].id == $routeParams.parent ) {
+                        console.log($routeParams.parent + scope.headerTypes[i].id)
+                        scope.formData.parentId = scope.headerTypes[i].id;
+                    }
+                }
 
             });
 
