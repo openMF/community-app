@@ -1,7 +1,13 @@
 <form class="col-md-12" ng-controller="ViewTransactionController">
-    <ul class="breadcrumb">
+    <ul class="breadcrumb" ng-if="productName == null">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.viewtransaction' | translate}}</li>
+    </ul>
+    <ul class="breadcrumb" ng-if="productName != null">
+        <li ng-if="groupId != null"><a href="#/viewgroup/{{groupId}}">{{groupName}}</a></li>
+        <li ng-if="clientId != null"><a href="#/viewclient/{{clientId}}">{{clientName}}</a></li>
+        <li class="active">{{productName}}({{accountNo}})</li>
+        <li class="active">{{'label.anchor.journalentries' | translate}}</li>
     </ul>
      <script type="text/ng-template" id="confirmation.html">
         <div class="modal-header silver">
@@ -89,6 +95,8 @@
         </div>
     </script>
     <div class="well">
+        <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
+        <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
     	<div class="row">
     		<div class="col-md-12">
 		        <h3 class="bolder">{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}
@@ -102,6 +110,7 @@
 			        </div>
 		        </h3>
 		    </div>
+
 		    <table class="width100">
 		        <tr>
 		            <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
@@ -146,6 +155,10 @@
 		            </tbody>
 		        </table>
 		    </div>
+            <div class="center" ng-if="productName != null">
+                <a href="#/viewloanaccount/{{loanId}}"
+                  class="btn btn-primary center"><i
+                    class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
     	</div>
     </div>
 </form>
