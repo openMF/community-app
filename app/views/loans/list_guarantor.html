@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <th class="table-bold-loan">{{'label.heading.arrearsby' | translate}}</th>
-                <td><span class="padded-td">{{loandetails.summary.totalOverdue}}<span
+                <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
                         data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span>
                 </td>
             </tr>
@@ -91,8 +91,8 @@
             </td>
             <td>{{guarantor.guarantorType.code | translate}}</td>
             <td>{{guarantorfund.savingsAccount.accountNo}}</td>
-            <td>{{guarantorfund.amount}}</td>
-            <td>{{guarantorfund.amountRemaining}}</td>
+            <td>{{guarantorfund.amount | number}}</td>
+            <td>{{guarantorfund.amountRemaining | number}}</td>
             <td>{{guarantorfund.status.code | translate}}</td>
             <td>
                 <button class="btn btn-info" data-ng-click="showDetails($parent.$index,$index)"
@@ -183,7 +183,7 @@
                 </tr>
                 <tr data-ng-show="guarantorFundDetail && guarantorFundDetail.amount">
                     <td>{{'label.heading.guarantee.amount' | translate}}</td>
-                    <td>{{guarantorFundDetail.amount}}</td>
+                    <td>{{guarantorFundDetail.amount | number}}</td>
                 </tr>
                 <tr data-ng-show="guarantorFundDetail && guarantorFundDetail.amountReleased">
                     <td>{{'label.heading.guarantee.amount.released' | translate}}</td>
@@ -191,7 +191,7 @@
                 </tr>
                 <tr data-ng-show="guarantorFundDetail && guarantorFundDetail.amountRemaining">
                     <td>{{'label.heading.guarantee.amount.remaining' | translate}}</td>
-                    <td>{{guarantorFundDetail.amountRemaining}}</td>
+                    <td>{{guarantorFundDetail.amountRemaining | number}}</td>
                 </tr>
                 <tr data-ng-show="guarantorFundDetail && guarantorFundDetail.status">
                     <td>{{'label.heading.guarantee.status' | translate}}</td>

@@ -129,22 +129,31 @@
 	<h3>{{ 'label.heading.settings' | translate }}</h3>
 	<hr>
 	<div class="form-group">
-	    <label class="control-label col-sm-2">{{ 'label.checkbox.ismandatory.deposit' | translate }}</label>
+	    <label class="control-label col-sm-2">{{ 'label.checkbox.ismandatory.deposit' | translate }}
+	        <i class="icon-question-sign" tooltip="{{'label.tooltip.recurringdepositproduct.ismandatory' | translate}}"
+	           tooltip-append-to-body="true"></i>
+	    </label>
 	    <div class="col-sm-1">
 	        <input id="isMandatoryDeposit" type="checkbox" ng-model="formData.isMandatoryDeposit">
 	    </div>
-	    <label class="control-label col-sm-4 col-sm-offset-1">{{ 'label.checkbox.adjustAdvanceTowardsFuturePayments' | translate }}</label>
+	    <label class="control-label col-sm-4 col-sm-offset-1">{{ 'label.checkbox.adjustAdvanceTowardsFuturePayments' | translate }}
+	        <i class="icon-question-sign" tooltip="{{'label.tooltip.recurringdepositproduct.adjustadvance' | translate}}"
+	           tooltip-append-to-body="true"></i>
+	    </label>
 	    <div class="col-sm-1">
 	        <input id="adjustAdvanceTowardsFuturePayments" type="checkbox" ng-model="formData.adjustAdvanceTowardsFuturePayments">
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label class="control-label col-sm-2">{{ 'label.checkbox.allowWithdrawal' | translate }}</label>
+	    <label class="control-label col-sm-2">{{ 'label.checkbox.allowWithdrawal' | translate }}
+	        <i class="icon-question-sign" tooltip="{{'label.tooltip.recurringdepositproduct.allowwithdraw' | translate}}"
+	           tooltip-append-to-body="true"></i>
+	    </label>
 	    <div class="col-sm-1">
 	        <input id="allowWithdrawal" type="checkbox" ng-model="formData.allowWithdrawal">
 	    </div>
 	</div>
-	
+
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
 	    <div class="col-sm-2">
@@ -223,7 +232,10 @@
 	    </div>
 	</div>
     <div class="form-group">
-        <label class="control-label col-sm-2">{{ 'label.input.minbalanceforinterest' | translate }}</label>
+        <label class="control-label col-sm-2">{{ 'label.input.minbalanceforinterest' | translate }}
+	        <i class="icon-question-sign" tooltip="{{'label.tooltip.recurringdepositproduct.balanceforcalc' | translate}}"
+	           tooltip-append-to-body="true"></i>
+	    </label>
         <div class="col-sm-2">
             <input id="minBalanceForInterestCalculation" name="minBalanceForInterestCalculation" type="text"
                    class="form-control" number-format ng-model="formData.minBalanceForInterestCalculation"/>
@@ -238,7 +250,7 @@
 	               <label class="control-label" for="name">{{ 'label.input.interestratechart.name' | translate
 	                   }}<span
 	                           class="required">*</span></label>
-	
+
 	               <div class="controls">
 	                   <input id="name" ng-autofocus="true" type="text" name="name" ng-model="chart.name"/>
 	               </div>
@@ -249,7 +261,7 @@
 	               <label class="control-label" for="name">{{ 'label.input.interestratechart.description' |
 	                   translate
 	                   }}</label>
-	
+
 	               <div class="controls">
 	                   <input id="chdescription" ng-autofocus="true" type="text" name="chdescription"
 	                          ng-model="chart.description"/>
@@ -289,7 +301,7 @@
 	            </td>
 	            <td>&nbsp;</td>
 	        </tr>
-	
+
 	        <tr ng-repeat="chartSlab in chart.chartSlabs">
 	            <td class="width20">
 	                <select class="form-control" id="periodType" ng-model="chartSlab.periodType.id"
@@ -318,12 +330,12 @@
 	                       class="form-control"
 	                       ng-model="chartSlab.annualInterestRate"/>
 	            </td>
-	            <td class="width20"><input id="description" name="description" type="text" class="form-control"
+	            <td class="width20"><input id="chartslabdescription" name="chartslabdescription" type="text" class="form-control"
 	                                       ng-model="chartSlab.description"/></td>
 	            <td class="width10">
 	                <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
 	                    | translate}}</a>
-	
+
 	                <div ng-show="$last">
 	                    <a ng-click="addNewRow()"><i class="icon-plus-sign icon-white"></i>{{'label.add.row'
 	                        | translate}}</a>
@@ -562,7 +574,7 @@
 	    <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
 	    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
 	</div>
-	
+
 	<script type="text/ng-template" id="incentive.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>

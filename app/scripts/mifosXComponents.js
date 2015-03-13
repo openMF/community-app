@@ -11,7 +11,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'HttpServiceProvider',
             'AuthenticationService',
             'SessionManager',
-            'Paginator'
+            'Paginator',
+            'UIConfigService'
         ],
         controllers: [
             'main/MainController',
@@ -21,6 +22,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/NavigationController',
             'collection/ProductiveCollectionSheetController',
             'collection/CollectionSheetController',
+            'collection/IndividualCollectionSheetController',
             'loanAccount/ViewLoanDetailsController',
             'loanAccount/NewLoanAccAppController',
             'loanAccount/LoanAccountActionsController',
@@ -129,6 +131,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/SchedulerJobsController',
             'system/ViewSchedulerJobController',
             'system/EditSchedulerJobController',
+            'system/EntityToEntityMappingController',
             'system/ViewSchedulerJobHistoryController',
             'system/AccountNumberPreferencesController',
             'system/ViewAccountNumberPreferencesController',
@@ -257,7 +260,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ScrollbarTopDirective',
             'ChosenComboboxDirective',
             'NumberFormatDirective',
-            'SuccessfulResponsesDirective'
+            'SuccessfulResponsesDirective',
+            'TabsPersistenceDirective'
         ]
     };
 

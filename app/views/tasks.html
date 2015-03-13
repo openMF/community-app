@@ -7,7 +7,7 @@
 		<fieldset>
 			<legend>{{'label.heading.pendingtasks' | translate}}</legend>
 			<api-validate></api-validate>
-			<tabset>
+			<tabset tabset-name="taskTabset">
 				<tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' >
 				    <div class="head-affix">
 				        <table class="table condensed-table">
@@ -97,7 +97,7 @@
 				        <table class="table" style="margin-top: -20px;">
 				            <thead>
 				            <tr class="graybg">
-				                <th></th>
+				                <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()" ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
 				                <th>{{'label.heading.id' | translate}}</th>
 				                <th>{{'label.heading.madeondate' | translate}}</th>
 				                <th>{{'label.heading.status' | translate}}</th>
@@ -166,7 +166,7 @@
 				                <table class="table condensed-table">
 				                    <thead>
 				                    <tr class="graybg">
-				                        <th></th>
+				                        <th><input type="checkbox" ng-click="clientApprovalAllCheckBoxesClicked(officeName)" ng-checked="clientApprovalAllCheckBoxesMet(officeName)"/></th>
 				                        <th>{{'label.heading.name' | translate}}</th>
 				                        <th>{{'label.heading.accnum' | translate}}</th>
 				                        <th>{{'label.heading.staff' | translate}}</th>
@@ -224,7 +224,7 @@
 				                <table class="table condensed-table">
 				                    <thead>
 				                    <tr class="graybg">
-				                        <th></th>
+				                        <th><input type="checkbox" ng-click="loanApprovalAllCheckBoxesClicked(office)" ng-checked="loanApprovalAllCheckBoxesMet(office)"/></th>
 				                        <th>{{'label.heading.client' | translate}}</th>
 				                        <th>{{'label.heading.loan' | translate}}</th>
 				                        <th>{{'label.heading.amount' | translate}}</th>
@@ -237,7 +237,7 @@
 				                        <td class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                        <td class="pointer"><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a>
 				                        </td>
-				                        <td class="pointer">{{loan.principal}}</td>
+				                        <td class="pointer">{{loan.principal | number}}</td>
 				                        <td class="pointer">{{loan.loanPurposeName}}</td>
 				                    </tr>
 				                    </tbody>
@@ -279,7 +279,7 @@
 				        <table class="table condensed-table">
 				            <thead>
 				            <tr class="graybg">
-				            	<th></th>
+				            	<th><input type="checkbox" ng-click="loanDisbursalAllCheckBoxesClicked()" ng-checked="loanDisbursalAllCheckBoxesMet()"/></th>
 				                <th>{{'label.heading.client' | translate}}</th>
 				                <th>{{'label.heading.loanaccountnum' | translate}}</th>
 				                <th>{{'label.heading.loanproduct' | translate}}</th>
@@ -292,7 +292,7 @@
 				                <td><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
 				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.accountNo}}</a></td>
 				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}</a></td>
-				                <td>{{loan.principal}}</td>
+				                <td>{{loan.principal | number}}</td>
 				            </tr>
 				            </tbody>
 				        </table>

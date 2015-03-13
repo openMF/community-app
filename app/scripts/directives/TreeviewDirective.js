@@ -7,10 +7,12 @@
                     var treeId = attrs.treeId;
                     var treeModel = attrs.treeModel;
                     var nodeId = attrs.nodeId || 'id';
-                    var nodeLabel = attrs.nodeLabel || 'label';
+                    var nodeglCode = attrs.glCode || 'glCode';
+					var nodeLabel = attrs.nodeLabel || 'label';					
                     var nodeChildren = attrs.nodeChildren || 'children';
-                    var parentId = attrs.parentId || 'parentId';
-                    var template = "";
+                    var parentId = attrs.parentId || 'parentId';					
+					var template = "";					
+					
                     if (treeId === "holidaytreeview") {
                         template =
                             '<ul>' +
@@ -24,13 +26,14 @@
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-                                '<span data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+                                '<span ng-show="node.'+ nodeId + ' >= 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'">({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +								
+								'<span ng-show="node.'+ nodeId + ' < 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)" >{{node.' + nodeLabel + '}}</span>' +
                                 '<div data-ng-hide="node.collapsed"  data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label="' + nodeLabel + '" data-node-children="' + nodeChildren + '"></div>' +
                                 '</li>' +
                                 '</ul>';
                     } else {
-                        template =
-                            '<ul>' +
+							template =
+							'<ul>' +
                                 '<div data-ng-show="' + treeId + '.showChangeStateAll(' + treeModel + ')">' +
                                 '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', false)">{{\'label.button.expand.all\' | translate}}</a>' +
                                 ' / ' +
@@ -40,16 +43,20 @@
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-                                '<span data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
-                                '<div data-ng-hide="node.collapsed"  data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label="' + nodeLabel + '" data-node-children="' + nodeChildren + '"></div>' +
+                                '<span ng-show="node.'+ nodeId + ' >= 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'">({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +								
+								'<span ng-show="node.'+ nodeId + ' < 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)" >{{node.' + nodeLabel + '}}</span>' +								
+								'<div data-ng-hide="node.collapsed"  data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label="' + nodeLabel + '" data-node-children="' + nodeChildren + '"></div>' +
                                 '</li>' +
-                                '</ul>';
+                            '</ul>';
+								
+								
                     }
 
                     if (treeId && treeModel) {
 
                         if (attrs.angularTreeview) {
-
+							
+							
                             scope[treeId] = scope[treeId] || {};
 
                             scope[treeId].selectNodeHead = scope[treeId].selectNodeHead || function (selectedNode) {
@@ -62,7 +69,8 @@
                                     scope[treeId].currentNode.selected = undefined;
                                 }
                                 selectedNode.selected = 'selected';
-                                scope[treeId].currentNode = selectedNode;
+                                scope[treeId].currentNode = selectedNode;				
+								
                             };
                             scope[treeId].setCollapsedAll = scope[treeId].setCollapsedAll || function (selectedNode, state) {
                                 selectedNode.collapsed = state;
@@ -95,8 +103,7 @@
                         element.html('').append($compile(template)(scope));
                     }
                 }
-            };
-
+            };		
         }
     });
 }(mifosX.directives || {}));

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, uiConfigService) {
 
             scope.previewRepayment = false;
             scope.formData = {};
@@ -240,6 +240,10 @@
 
             }
 
+
+            uiConfigService.appendConfigToScope(scope);
+
+
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -294,7 +298,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'UIConfigService', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
         $log.info("EditLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));

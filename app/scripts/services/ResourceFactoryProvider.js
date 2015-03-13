@@ -178,6 +178,9 @@
                         getLoanAccountDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
                     }),
+                    LoanAddTranchesResource: defineResource(apiVer + "/loans/:loanId/disbursements/editDisbursements", {loanId: '@loanId'}, {
+                        update: {method: 'PUT'}
+                    }),
                     LoanDocumentResource: defineResource(apiVer + "/loans/:loanId/documents/:documentId", {loanId: '@loanId', documentId: '@documentId'}, {
                         getLoanDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
@@ -261,6 +264,16 @@
                     }),
 					hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    entityToEntityResource: defineResource(apiVer + "/entitytoentitymapping/:mappingId/:fromId/:toId", {mappingId: '@mappingId'}, {
+                        getAllEntityMapping: {method: 'GET', params: {}, isArray: true},
+                        getEntityMapValues: {method: 'GET', params: {}}
+                    }),
+                    entityMappingResource: defineResource(apiVer + "/entitytoentitymapping/:mapId", {mappingId: '@mappingId'}, {
+                        getAllEntityMapping: {method: 'GET', params: {}, isArray: true},
+                        getEntityMapValues: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT', params: {}},
+                        delete:{method:'DELETE',params:{}}
                     }),
                     accountNumberResources: defineResource(apiVer + "/accountnumberformats/:accountNumberFormatId",{accountNumberFormatId: '@accountNumberFormatId'}, {
                         get:{method:'GET',params:{accountNumberFormatId:'@accountNumberFormatId'}},
@@ -447,6 +460,8 @@
                     }),
                     cashierTxnTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactions/template", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
+                    }),
+                    collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
                     })
                 };
             }];

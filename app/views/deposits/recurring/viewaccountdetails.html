@@ -35,7 +35,7 @@
 </div>
 
 <div class="col-sm-12 col-md-12 paddedtop25px">
-<tabset>
+<tabset tabset-name="recurringAccountDetails">
 <tab heading="{{'label.heading.summary' | translate}}">
     <div class="col-sm-12 col-md-12 paddedtop25px">
         <div class="row">
@@ -53,7 +53,8 @@
                     </td>
                     <td class="active fontnormal col-md-3">{{'label.account.deposit.principal.amount' | translate}}
                     </td>
-                    <td class="col-md-3"><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount | number}}</span>
+                    <td class="col-md-3"><span class="padded-td" data-ng-show="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
                     </td>
                 </tr>
                 <tr>
@@ -66,7 +67,7 @@
                     <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}</span>
                     </td>
                 </tr>
-                <tr>
+                <tr ng-show="savingaccountdetails.maturityDate">
                     <td class="active fontnormal">{{'label.account.maturity.date' | translate}}
                     </td>
                     <td><span class="padded-td">{{savingaccountdetails.maturityDate | DateFormat}}</span>
@@ -79,11 +80,13 @@
                 <tr>
                     <td class="active fontnormal">{{'label.account.total.deposit' | translate}}
                     </td>
-                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits | number}}</span>
+                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
                     </td>
                     <td class="active fontnormal">{{'label.account..total.withdrawals' | translate}}
                     </td>
-                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
+                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
                     </td>
                 </tr>
                 <tr>
@@ -115,7 +118,8 @@
                     <td class="active fontnormal">{{'label.totalinterestposted' |
                         translate}}
                     </td>
-                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted | number}}</span>
+                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalInterestPosted">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalInterestPosted">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
                     </td>
                 </tr>
                 <tr ng-show="savingaccountdetails.summary.totalWithdrawals">

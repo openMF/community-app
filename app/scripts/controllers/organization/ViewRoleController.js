@@ -1,9 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewRoleController: function (scope, routeParams, resourceFactory, route, $modal) {
+
             scope.permissions = [];
             scope.groupings = [];
             scope.formData = {};
+            scope.checkboxesChanged = false; // this flag is informing backup-system if user started editing
+            var bValuesOnly = []; // array for 1-0 values only from permission-checkboxes
+
             var tempPermissionUIData = [];
             resourceFactory.rolePermissionResource.get({roleId: routeParams.id}, function (data) {
                 scope.role = data;
@@ -21,6 +25,16 @@
                     scope.formData[data.permissionUsageData[i].code] = data.permissionUsageData[i].selected;
                     tempPermissionUIData[currentGrouping].permissions.push(temp);
                 }
+
+                scope.backupCheckValues = function()
+                {//backup -> save the data from formData before editing to boolean array
+                    for(var i = 0; i< this.permissions.permissions.length; i++)
+                    {
+                        var temp = this.formData[this.permissions.permissions[i].code];
+                        bValuesOnly.push(temp);
+                    }
+                    checkboxesChanged = true; // user started editing - set flag to true
+                };
 
                 scope.isRoleEnable = function(value) {
                     return value;
@@ -88,17 +102,22 @@
                 };
 
                 scope.cancel = function () {
-					route.reload();
+                    route.reload();
                     scope.isDisabled = true;
                 };
+
 
                 scope.submit = function () {
                     var permissionData = {};
                     permissionData.permissions = this.formData;
                     resourceFactory.rolePermissionResource.update({roleId: routeParams.id}, permissionData, function (data) {
                         route.reload();
+                        backupCheckValues();// reload current data in array (backup)
+                        checkboxesChanged = false; // user finished editing - set flag to false
                         scope.isDisabled = true;
+
                     });
+
                 };
 
                 scope.showPermissions = function (grouping) {
@@ -133,10 +152,57 @@
                     string = string.charAt(0).toUpperCase() + string.slice(1);
                     return string;
                 };
+
+                scope.selectAll = function(allSelected)
+                {
+                    var checkboxes = document.getElementsByName('cp');
+
+                    if(allSelected == false)
+                    {
+                        for(var i in checkboxes)
+                        {
+                            checkboxes[i].checked = 1;
+                        }
+                        for(var i = 0; i< this.permissions.permissions.length; i++)
+                        {
+                            this.formData[this.permissions.permissions[i].code] = true;
+                        }
+
+                    }
+                    else
+                    {
+                        for(var i in checkboxes)
+                        {
+                            checkboxes[i].checked = 0;
+                        }
+                        for(var i = 0; i< this.permissions.permissions.length; i++)
+                        {
+                            this.formData[this.permissions.permissions[i].code] = false;
+                        }
+
+                    }
+
+                };
+                scope.restoreCheckboxes = function()
+                {
+                    for(var i = 0; i < bValuesOnly.length;i++)
+                    {
+                        this.formData[this.permissions.permissions[i].code] = bValuesOnly[i];
+                    }
+                    for(var i = bValuesOnly.length; i > 0; i--)
+                    {
+                        bValuesOnly.pop(); // erase old elements in flag-array
+                    }
+
+                    checkboxesChanged = false; // user canceled editing - set flag to false
+                };
+
+
+
             });
         }
     });
-    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route', '$modal', mifosX.controllers.ViewRoleController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route','$modal', mifosX.controllers.ViewRoleController]).run(function ($log) {
         $log.info("ViewRoleController initialized");
     });
 }(mifosX.controllers || {}));

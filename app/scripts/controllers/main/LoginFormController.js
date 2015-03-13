@@ -10,9 +10,14 @@
                // delete scope.loginCredentials.password;
             };
 
-            scope.$on("UserAuthenticationFailureEvent", function (event, data) {
+            scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
                 delete scope.loginCredentials.password;
                 scope.authenticationFailed = true;
+                if(status != 401) {
+                    scope.authenticationErrorMessage = 'error.connection.failed';
+                } else {
+                   scope.authenticationErrorMessage = 'error.login.failed';
+                }
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
