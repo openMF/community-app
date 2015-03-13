@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale,   uiConfigService) {
-			scope.version = "1.26.0";
+			$.get('VERSION.txt', function(data) { scope.version = data } );
 			scope.releasedate = "22/Dec/14"; //Day/Month/Year
             uiConfigService.init();
 			//hides loader
