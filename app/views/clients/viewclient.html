@@ -14,7 +14,7 @@
 				</small>
 	            <strong>{{client.displayName}} </strong>
 	            <small>
-	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} | 
+	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.externalid' | translate }}: {{client.externalId}} |
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
 	            </small>
@@ -138,8 +138,8 @@
 	        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
 	    </div>
 	</script>
-	
-	<tabset class="overflowhidden marginbottom0">
+
+	<tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
 		<tab heading="{{'label.heading.general' | translate}}">
 			<div class="col-md-12 col-sm-12">
 				<div class="row primarydiv">
@@ -237,7 +237,7 @@
 						            <tr class="pointer-main"
 						                ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-						                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}" 
+						                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
 						                    	class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
 						                    <i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
 						                     	class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
@@ -387,8 +387,6 @@
 				    		<h4><strong>{{client.displayName}}</strong></h4>
 					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
 				        	<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
-					        <div ng-show="signature_url" class="show-large-picture" data-ng-click="showSignature()">{{'label.showClientSignature' | translate}}</div>
-					        <div ng-hide="signature_url" class="show-large-picture" data-ng-click="showWithoutSignature()">{{'label.showClientSignature' | translate}}</div>
 					        <div class="btn-group-xs center">
 					            <button type="button" class="btn btn-primary" data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'
 					                    tooltip="{{'label.button.uploadpic' | translate}}">
@@ -403,6 +401,7 @@
 					                <i class="icon-trash"></i>
 					            </button>
 					        </div>
+					        <div ng-show="signature_url" class="show-large-picture" data-ng-click="showSignature()">{{'label.showClientSignature' | translate}}</div>
 					        <div ng-hide="signature_url" class="show-large-picture" data-ng-click="showWithoutSignature()">{{'label.showClientSignature' | translate}}</div>
 					        <table class="table-minified">
 					            <tr>
@@ -469,7 +468,7 @@
 					            </tr>
 					            <tr>
 					                <th>{{ 'label.totalsavings' | translate }}</th>
-					                <td><span class="padded-td">{{client.ClientSummary.totalSavings}}</span></td>
+					                <td><span class="padded-td">{{client.ClientSummary.totalSavings|number}}</span></td>
 					            </tr>
 					            <tr>
 					                <th>{{ 'label.numofactivesavings' | translate }}</th>
@@ -572,7 +571,7 @@
 		        </div>
 		        <br>
 		        <br>
-		
+
 		        <div ng-show="datatabledetails.isData">
 		            <table class="table" data-ng-show="datatabledetails.isMultirow">
 		                <thead>
@@ -597,13 +596,13 @@
 		</tab>
 		<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_CLIENTNOTE'>
 		    <br/>
-		
+
 		    <form>
 		        <div class="form-group">
 		            <div class="col-sm-12 col-md-12">
 		                <textarea rows="1" class="form-control marginbottom0px" id="textarea"
 		                          placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-		
+
 		                <div class="notewrapper col-sm-12 col-md-12">
 		                        <span class="pull-right noteaddbuttonwrapper">
 		                            <button class="btn btn-primary" type="submit" ng-click="saveNote()"
@@ -617,7 +616,7 @@
 		    </form>
 		    <div class="col-md-12">
 		        <br/>
-		
+
 		        <div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
 		            <blockquote>
 		                <p>{{clientNote.note}}</p>
@@ -631,47 +630,47 @@
 		<!-- devcode: !production -->
 		<!-- ************************ start of InVenture code ************************ -->
 		<tab class="inventureTabTitle" heading="{{'label.heading.inventurescore' | translate}}" select="fetchInventureScore()">
-		
+
 		    <!-- chart1 - comparison chart -->
 		    <div class="col-sm-6 col-md-6 paddedleft0 paddedtop">
 		        <div class="inventureMainBorder">
 		            <div class="inventureCategoryTitle">
 		                <strong class="ng-binding">Score comparison</strong>
 		            </div>
-		
+
 		            <div class="inventureTooltip" style="margin: -47px 0 0390px;">
 		                <a tooltip="{{'label.thegraphbelowcomparesanindividual' | translate}}"><img
 		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
 		                        width="18px"/></a>
 		            </div>
-		
+
 		            <div id="inventureBarChart" style="margin: 20px -15px -15px; height:417px;">
 		                <svg></svg>
 		            </div>
 		        </div>
 		    </div>
-		
+
 		    <!-- chart2 - inventure score chart -->
 		    <div class="col-sm-5 col-md-5 paddedtop" style="width:440px;">
 		        <div class="inventureMainBorder" style="height:175px;">
 		            <div class="inventureCategoryTitle">
 		                <strong class="ng-binding">inventure score</strong>
 		            </div>
-		
+
 		            <div class="inventureTooltip" style="margin: -47px 0 0 390px;">
 		                <a tooltip="{{'label.inventurecalculatesapersonsoverall' | translate}}"><img
 		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
 		                        width="18px"/></a>
 		            </div>
-		
+
 		            <div id="score" style="margin: 30px 0 -15px;">
 		                <p style="text-align: center; font-size: 25px;">Inventure score: <strong>{{inventureScore}}</strong></p>
 		            </div>
-		
+
 		            <div id="inventureBulletChart" style="margin: 25px 0px -25px -90px; width:500px; height:35px;">
 		                <svg></svg>
 		            </div>
-		
+
 		            <div id="inventureBulletChartLegend" style="margin: 30px 0px 0px -10px;">
 		                <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
 		                    <tbody>
@@ -686,20 +685,20 @@
 		            </div>
 		        </div>
 		    </div>
-		
+
 		    <!-- chart3 - inventure loan recommendation -->
 		    <div class="col-sm-5 col-md-5" style="padding-top:20px; width:440px;">
 		        <div class="inventureMainBorder" style="height:210px;">
 		            <div class="inventureCategoryTitle">
 		                <strong class="ng-binding">inventure loan recommend</strong>
 		            </div>
-		
+
 		            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
 		                <a tooltip="{{'label.inventureusesallrelevant' | translate}}"><img
 		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
 		                        width="18px"/></a>
 		            </div>
-		
+
 		            <div id="inventureRecommendation" style="margin: 35px 0px 0px 0px;">
 		                <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
 		                    <tr>

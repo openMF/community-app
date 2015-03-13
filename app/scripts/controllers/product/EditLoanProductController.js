@@ -70,6 +70,7 @@
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
                     graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
                     overdueDaysForNPA: scope.product.overdueDaysForNPA,
+                    accountMovesOutOfNPAOnlyOnArrearsCompletion: scope.product.accountMovesOutOfNPAOnlyOnArrearsCompletion,
                     accountingRule: scope.product.accountingRule.id,
                     principalVariationsForBorrowerCycle: [],
                     interestRateVariationsForBorrowerCycle: [],
@@ -81,7 +82,10 @@
                     daysInMonthType: scope.product.daysInMonthType.id,
                     isInterestRecalculationEnabled: scope.product.isInterestRecalculationEnabled,
                     holdGuaranteeFunds:scope.product.holdGuaranteeFunds,
-                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment
+                    minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
+                    principalThresholdForLastInstalment: scope.product.principalThresholdForLastInstalment,
+                    installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -89,6 +93,7 @@
                     scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                     scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
                     scope.formData.recalculationRestFrequencyInterval = scope.product.interestRecalculationData.recalculationRestFrequencyInterval;
+                    scope.formData.isArrearsBasedOnOriginalSchedule = scope.product.interestRecalculationData.isArrearsBasedOnOriginalSchedule;
                     if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
                         scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
                     }
@@ -170,7 +175,7 @@
                     _.each(scope.product.penaltyToIncomeAccountMappings, function (penalty) {
                         scope.penaltySpecificIncomeaccounts.push({
                             chargeId: penalty.charge.id,
-                            incomeAccountId: penalty.incomeAccount.id,
+                            incomeAccountId: penalty.incomeAccount.id
                         })
                     });
                 }
@@ -259,7 +264,7 @@
             };
 
             scope.deleteFee = function (index) {
-                scope.specificIncomeaccounts.splice(index, 1);
+                scope.specificIncomeAccountMapping.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {

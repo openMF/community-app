@@ -8,7 +8,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'HttpServiceProvider.js',
             'AuthenticationService.js',
             'SessionManager.js',
-            'Paginator.js'
+            'Paginator.js',
+            'UIConfigService.js'
         ],
         controllers: [
             'controllers.js'

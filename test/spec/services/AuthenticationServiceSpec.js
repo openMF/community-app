@@ -38,9 +38,9 @@ describe("AuthenticationService", function () {
 
     describe("On failed authentication", function () {
         it("should broadcast a 'UserAuthenticationFailureEvent' on failed authentication", function () {
-            callbacks['error']("test_data");
+            callbacks['error']("test_data", "status_code");
 
-            expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationFailureEvent", "test_data");
+            expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationFailureEvent", "test_data", "status_code");
         });
     });
 });

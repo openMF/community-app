@@ -53,7 +53,18 @@
                     <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-Validate />
                 </div>
             </div>
-            
+
+            <div class="form-group" ng-show="showUgdTemplatesDropdown">
+                <label class="control-label col-sm-2">{{'label.input.ugdtemplate' | translate}}</label>
+                <div class="col-sm-3">
+                    <select ng-model="ugdTemplate"
+                            ng-options="ugdTemplate as ugdTemplate.name for ugdTemplate in ugdTemplates | filter:filterText"
+                            value="{{ugdTemplate.name}}" class="form-control">
+                        <option style="display:none" value="">{{'label.selectugdtemplate' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
             <hr/>
             <div class="form-group" >
             <label class="control-label col-sm-2" for="events">{{'label.input.events' | translate}}<span
@@ -68,7 +79,7 @@
                 <div class="col-sm-2">
                     <select ng-model="entity"
                     ng-options="entity as entity.name for entity in grouping.entities"
-                    value="{{entity.name}}" class="form-control">
+                    value="{{entity.name}}" class="form-control" ng-change="changeEntity(entity.name)">
                         <option style="display:none" value="">{{'label.selectentity' | translate}}</option>
                     </select>
                 </div>

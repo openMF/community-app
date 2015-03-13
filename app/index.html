@@ -5,16 +5,16 @@
     <link rel="icon" type="image/png" href="./images/favicon.ico" />
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
-	
+
 </head>
 <body  class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
-<!--Loader --> 
+<!--Loader -->
 
 <div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
     <div id="loader" style="margin: 175px auto">
         <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto" class="img-responsive">
         <img src="./images/loader.gif" style="margin: 10px auto" class="img-responsive">
-    </div>    
+    </div>
 </div>
 <div data-ng-hide="!domReady" data-ng-cloak>
     <!-- Login Form  -->
@@ -37,7 +37,7 @@
             <br/><br/>
             <div ng-hide="resetPassword">
     	    <form class="form-inline pull-right" role="form">
-    		<label class="error" data-ng-show="authenticationFailed"><strong>{{ 'error.login.failed' | translate }}</strong></label>
+    		<label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
     		<div class="form-group">
     		    <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid">
     		</div>
@@ -69,7 +69,7 @@
     <span>{{ 'label.heading.version' | translate }} 1.26.0</span>
                 <br /> <span>{{ 'label.heading.uptodate' | translate }}</span>
                 <br /> <span ng-bind-html="text"></span>
-            </div>     
+            </div>
         </div>
         <div class="row">
         <div class="col-md-4">
@@ -109,7 +109,7 @@
                 </div>
 
         </div>
-      </div>  
+      </div>
     </div>
 
     <!-- Navbar -->
@@ -144,6 +144,8 @@
                 <li class="divider"></li>
                 <li><a class="black" href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.collectionsheet' | translate}}</a></li>
                 <li class="divider"></li>
+                <li><a class="black" href="#/individualcollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.individualcollectionsheet' | translate}}</a></li>
+                <li class="divider"></li>
                 <li><a class="black" href="#/freqposting"><i class="icon-repeat icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.frequentpostings' | translate}}</a></li>
                 <li class="divider"></li>
                 <li><a class="black" href="#/journalentry"><i class="icon-plus icon-large"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.anchor.addjournalentries' | translate}}</a></li>
@@ -158,8 +160,8 @@
                 <li class="divider"></li>
                 <li><a class="black" href="#/createcenter"><i class="icon-map-marker icon-large"></i> + {{ 'label.anchor.center' | translate}}</a></li>
                 <li class="divider"></li>
-                <li><a class="black" ng-click= "helpf()" ><i class="icon-question-sign icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.help' | translate }}</a></li>								
-                
+                <li><a class="black" ng-click= "helpf()" ><i class="icon-question-sign icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.help' | translate }}</a></li>
+
             </ul>
         </div>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -224,7 +226,7 @@
                     </div>
                     <!-- Footer -->
 					<footer>
-						<p align="center"> <a href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel" target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}} </a> </p> 
+						<p align="center"> <a href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel" target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}} </a> </p>
 					</footer>
                     <hr>
                 </div> <!-- /row-fluid -->
@@ -237,7 +239,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- devcode: !production -->
 <!-- begin olark code -->
-<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+<!--<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
 f[z]=function(){
 (a.s=a.s||[]).push(arguments)};var a=f[z]._={
 },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
@@ -255,7 +257,7 @@ b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'
 loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
 /* custom configuration goes here (www.olark.com/documentation) */
 olark.identify('9391-547-10-6064');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9391-547-10-6064/contact" title="Send Feedback" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
-<!-- end olark code -->
-<!-- endcode -->
+&lt;!&ndash; end olark code &ndash;&gt;
+&lt;!&ndash; endcode &ndash;&gt;-->
 </body>
 </html>

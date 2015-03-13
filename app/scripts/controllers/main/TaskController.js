@@ -26,6 +26,90 @@
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
             };
+            scope.checkerInboxAllCheckBoxesClicked = function() {
+                var newValue = !scope.checkerInboxAllCheckBoxesMet();
+                if(!angular.isUndefined(scope.searchData)) {
+                    for (var i = scope.searchData.length - 1; i >= 0; i--) {
+                        scope.checkData[scope.searchData[i].id] = newValue; 
+                    };
+                }
+            }
+            scope.checkerInboxAllCheckBoxesMet = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.searchData)) {
+                    _.each(scope.searchData, function(data) {
+                        if(_.has(scope.checkData, data.id)) {
+                            if(scope.checkData[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.searchData.length);
+                }
+            }
+            scope.clientApprovalAllCheckBoxesClicked = function(officeName) {
+                var newValue = !scope.clientApprovalAllCheckBoxesMet(officeName);
+                if(!angular.isUndefined(scope.groupedClients[officeName])) {
+                    for (var i = scope.groupedClients[officeName].length - 1; i >= 0; i--) {
+                        scope.approveData[scope.groupedClients[officeName][i].id] = newValue; 
+                    };
+                }
+            }
+            scope.clientApprovalAllCheckBoxesMet = function(officeName) {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.groupedClients[officeName])) {
+                    _.each(scope.groupedClients[officeName], function(data) {
+                        if(_.has(scope.approveData, data.id)) {
+                            if(scope.approveData[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.groupedClients[officeName].length);
+                }
+            }
+            scope.loanApprovalAllCheckBoxesClicked = function(office) {
+                var newValue = !scope.loanApprovalAllCheckBoxesMet(office);
+                if(!angular.isUndefined(scope.offices)) {
+                    for (var i = office.loans.length - 1; i >= 0; i--) {
+                        scope.loanTemplate[office.loans[i].id] = newValue; 
+                    };
+                }
+            }
+            scope.loanApprovalAllCheckBoxesMet = function(office) {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.offices)) {
+                    _.each(office.loans, function(data) {
+                        if(_.has(scope.loanTemplate, data.id)) {
+                            if(scope.loanTemplate[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===office.loans.length);
+                }
+            }
+            scope.loanDisbursalAllCheckBoxesClicked = function() {
+                var newValue = !scope.loanDisbursalAllCheckBoxesMet();
+                if(!angular.isUndefined(scope.loans)) {
+                    for (var i = scope.loans.length - 1; i >= 0; i--) {
+                        scope.loanDisbursalTemplate[scope.loans[i].id] = newValue; 
+                    };
+                }
+            }
+            scope.loanDisbursalAllCheckBoxesMet = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.loans)) {
+                    _.each(scope.loans, function(data) {
+                        if(_.has(scope.loanDisbursalTemplate, data.id)) {
+                            if(scope.loanDisbursalTemplate[data.id] == true) {
+                                checkBoxesMet++;
+                            }
+                        }
+                    });
+                    return (checkBoxesMet===scope.loans.length);
+                }
+            }
             scope.approveOrRejectChecker = function (action) {
                 if (scope.checkData) {
                     $modal.open({

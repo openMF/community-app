@@ -175,14 +175,14 @@
 	
 										<span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
 	                                        <div class="col-md-7 paddinglr0px">
-	                                            <input id="total" type="text" class="input-sm form-control"
+	                                            <input id="total" type="text" class="input-sm form-control" number-format
 	                                                   ng-model="loan.totalDue"
 	                                                   ng-change="sumTotalDueCollection()">
 	                                        </div>
 											<span ng-hide="loan.chargesDue" ng-init="loan.chargesDue = 0">
 											</span>
 	                                        <div class="col-md-5 padd">
-	                                            <input type="text" class="input-sm form-control" ng-model="loan.chargesDue"
+	                                            <input type="text" class="input-sm form-control" number-format ng-model="loan.chargesDue"
 	                                                   ng-change="sumTotalDueCollection()">
 	                                        </div>
 										</span>
@@ -191,7 +191,7 @@
 	                                <span ng-repeat="savings in client.savings"
 	                                      ng-show="savingsproduct.id === savings.productId">
 	                                    <div class="col-md-7">
-	                                        <input id="dueAmount" number-format type="text" class="input-sm form-control"
+	                                        <input id="dueAmount" number-format type="text" class="input-sm form-control" number-format
 	                                               ng-model="savings.dueAmount"
 	                                               ng-change="sumTotalDueCollection()">
 	                                    </div>
@@ -220,14 +220,14 @@
 					                  <span ng-repeat="grouptotal in loanGroupsTotal"
 	                                        ng-show="grouptotal.groupId === group.groupId && loanproduct.id === grouptotal.productId">
 					                      <input type="text" class="input-sm form-control"
-	                                             ng-model="grouptotal.dueAmount" disabled="disabled">
+	                                             number-format ng-model="grouptotal.dueAmount" disabled="disabled">
 					                  </span>
 	                    </td>
 	                    <td ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 					                  <span ng-repeat="grouptotal in savingsGroupsTotal"
 	                                        ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
 					                      <input type="text" class="input-sm form-control"
-	                                             ng-model="grouptotal.dueAmount" disabled="disabled">
+	                                             number-format ng-model="grouptotal.dueAmount" disabled="disabled">
 					                  </span>
 	                    </td>
 	                    <td></td>
@@ -237,13 +237,13 @@
 	                <tr>
 	                    <td style="height:30px" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
 					                  <span ng-repeat="total in loansTotal" ng-show="loanproduct.id == total.productId">
-					                    <input type="text" class="input-sm form-control" ng-model="total.dueAmount"
+					                    <input type="text" class="input-sm form-control" number-format ng-model="total.dueAmount"
 	                                           disabled="disabled">
 					                  </span>
 	                    </td>
 	                    <td style="height:30px" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 					                  <span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
-					                    <input type="text" class="input-sm form-control" ng-model="total.dueAmount"
+					                    <input type="text" class="input-sm form-control" number-format ng-model="total.dueAmount"
 	                                           disabled="disabled">
 					                  </span>
 	                    </td>
@@ -262,15 +262,52 @@
 	
 	    <div class="templatekeys" style="background-color:#8585FF!important"
 	         ng-repeat="loanDueTotalCollection in totalDueCollection">
-	        {{loanDueTotalCollection.dueAmount}}&nbsp;&nbsp;
+	        {{loanDueTotalCollection.dueAmount | number}}&nbsp;&nbsp;
 	        {{loanDueTotalCollection.currencySymbol}}
 	    </div>
 	</div>
+    <div ng-show="showPaymentDetails"
+         style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>{{ 'label.input.paymenttype' | translate}}</td>
+                <td>{{ 'label.input.accnum' | translate}}</td>
+                <td>{{ 'label.input.checknumber' | translate}}</td>
+                <td>{{ 'label.input.routingcode' | translate}}</td>
+                <td>{{ 'label.input.receiptnumber' | translate}}</td>
+                <td>{{ 'label.input.banknumber' | translate}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><select ng-model="paymentDetail.paymentTypeId"
+                            class="form-control"
+                            ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
+                            value="{{paymentType.id}}"></select></td>
+                <td><input type="text" class="form-control"
+                           ng-model="paymentDetail.accountNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.checkNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.routingCode"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.receiptNumber"></td>
+                <td><input class="form-control" type="text"
+                           ng-model="paymentDetail.bankNumber"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 	<div class="col-sm-12 col-md-12 paddedtop10">
 	    <div class="col-md-offset-3 paddedtop">
 	        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
 	            translate}}
 	        </button>
+            <button class="btn btn-default" ng-show="collectionsheetdata && !showPaymentDetails"
+                    data-ng-click="showPaymentDetailsFn()"
+                    >{{'label.button.addpaymentdetail'| translate}}
+            </button>
 	        <button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
 	                ng-click="submit()">{{'label.button.save' | translate}}
 	        </button>

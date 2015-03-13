@@ -133,6 +133,9 @@
             .when('/loandisbursedetail/:id/:action/:disbursementId', {
                 templateUrl: 'views/loans/loanaccountactions.html'
             })
+            .when('/loandisbursedetail/:id/:action', {
+                templateUrl: 'views/loans/loanaccountactions.html'
+            })
             .when('/editloanaccount/:id', {
                 templateUrl: 'views/loans/editloanaccount.html'
             })
@@ -385,6 +388,9 @@
             .when('/edithook/:id', {
                 templateUrl: 'views/system/edithook.html'
             })
+            .when('/entitytoentitymapping', {
+                templateUrl: 'views/system/entitytoentitymapping.html'
+            })
             .when('/reports', {
                 templateUrl: 'views/system/reports.html'
             })
@@ -597,6 +603,9 @@
             })
             .when('/entercollectionsheet', {
                 templateUrl: 'views/collection/collectionsheet.html'
+            })
+            .when('/individualcollectionsheet', {
+                templateUrl: 'views/collection/individualcollectionsheet.html'
             })
             .when('/assignstaff/:id/:entityType', {
                 templateUrl: 'views/groups/assignstaff.html'

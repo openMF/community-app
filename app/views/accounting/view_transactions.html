@@ -20,6 +20,7 @@
     <script type="text/ng-template" id="viewjournalentry.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.viewjournalentry' | translate}}</h3>
+			<legend></legend>
             <table class="modalwidth600">
                 <tr>
                     <td class="width31">{{'label.input.office' | translate}}</td>
@@ -47,7 +48,7 @@
                 </tr>
                 <tr>
                     <td>{{transaction.entryType.code | translate}}</td>
-                    <td>{{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}</td>
+                    <td>{{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}</td>
                 </tr>
                 <tr ng-show="transaction.referenceNumber">
                     <td>{{'label.input.referencenumber' | translate}}</td>
@@ -133,12 +134,12 @@
 		                <td class="pointer" data-ng-click="showTransaction(transaction)">{{transaction.glAccountName}}({{transaction.glAccountCode}})</td>
 		                <td class="pointer" data-ng-click="showTransaction(transaction)">
 		                    <div ng-show="transaction.entryType.value == 'DEBIT'">
-		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
+		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
 		                    </div>
 		                </td>
 		                <td class="pointer" data-ng-click="showTransaction(transaction)">
 		                    <div ng-show="transaction.entryType.value == 'CREDIT'">
-		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount}}
+		                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
 		                    </div>
 		                </td>
 		            </tr>

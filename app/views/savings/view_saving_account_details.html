@@ -158,7 +158,7 @@
         </div>
         <div class="col-sm-12 col-md-12">
             <hr class="marginbottom"/>
-            <tabset>
+            <tabset tabset-name="savingsAccountDetails">
                 <tab heading="{{'label.heading.summary' | translate}}">
                     <div class="col-sm-8 col-md-8 marginbuttontop25px">
                         <table class="table table-bordered view-table">
@@ -320,8 +320,8 @@
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{transaction.runningBalance| number}}
                             </td>
-                            <td> <a ng-click="viewsavingstransactionreceipts(transaction.id)">
-                            <i class="icon-file-text-o icon-large"></i>
+                            <td> <a ng-if=" transaction.reversed!=true" ng-click="viewsavingstransactionreceipts(transaction.id)">
+                            <i class="icon-file-text icon-large"></i>
                             </a>
                             </td>
                         </tr>

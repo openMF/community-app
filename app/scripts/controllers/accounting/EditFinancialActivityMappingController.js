@@ -17,6 +17,8 @@
                     scope.accountOptions = scope.glAccountOptions.assetAccountOptions;
                 }else if(activityId === 200){
                     scope.accountOptions = scope.glAccountOptions.liabilityAccountOptions;
+                }else if(activityId === 300){
+                    scope.accountOptions = scope.glAccountOptions.equityAccountOptions;
                 }
             };
 

@@ -6,6 +6,9 @@
             scope.first.date = new Date();
             scope.accountClosures = [];
             scope.restrictDate = new Date();
+            scope.totalDebitAmount = 0;
+            scope.totalCreditAmount = 0;
+
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -23,15 +26,15 @@
                 this.formData.currencyCode = scope.formData.currencyCode;
                 this.formData.credits = [];
                 this.formData.debits = [];
+                scope.errorDetails = [];
                 var noErrors = true;
                 for (var i in scope.allGls) {
                     if (scope.allGls[i].credit && scope.allGls[i].credit != "" && scope.allGls[i].debit && scope.allGls[i].debit != "") {
                         if(noErrors){
-                            scope.errorDetails = [];
                             noErrors = false;
                             var errorObj = new Object();
                             errorObj.code = 'error.msg.accounting.defining.openingbalance.both.credit.debits.are.passed';
-                            scope.errorDetails.push(errorObj);
+                            scope.errorDetails.push([errorObj]);
                         }
                     } else if (scope.allGls[i].debit && scope.allGls[i].debit != "") {
                         this.formData.debits.push({"glAccountId":scope.allGls[i].glAccountId, "amount":scope.allGls[i].debit});
@@ -46,6 +49,23 @@
                     });
                 }
             }
+
+            scope.keyPress = function(){
+                this.formData.credits = [];
+                this.formData.debits = [];
+                scope.totalDebitAmount = 0;
+                scope.totalCreditAmount = 0;
+
+                for(var l in scope.allGls) {
+                    if (scope.allGls[l].debit != null && scope.allGls[l].debit != "") {
+                        scope.totalDebitAmount += parseFloat(scope.allGls[l].debit);
+                    }
+                    if(scope.allGls[l].credit != null && scope.allGls[l].credit != ""){
+                        scope.totalCreditAmount += parseFloat(scope.allGls[l].credit)
+                    }
+                }
+
+            };
 
             scope.updateDebitCreditAmounts = function (gl) {
                 if (gl.amount) {
@@ -87,7 +107,7 @@
                     scope.updateDebitCreditAmounts(gl);
                     scope.allGls.push(gl);
                 });
-                
+
             }
 
             scope.retrieveOpeningBalances = function (officeId) {

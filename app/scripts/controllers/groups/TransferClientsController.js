@@ -18,11 +18,11 @@
             scope.addClient = function () {
                 for (var i in this.availableClients) {
                     for (var j in scope.allMembers) {
-                        if (scope.allMembers[j].id == this.availableClients[i].id) {
+                        if (scope.allMembers[j].id == this.availableClients) {
                             var temp = {};
-                            temp.id = this.availableClients[i].id;
-                            temp.displayName = this.availableClients[i].displayName;
-                            temp.accountNo = this.availableClients[i].accountNo;
+                            temp.id = this.allMembers[j].id;
+                            temp.displayName = this.allMembers[j].displayName;
+                            temp.accountNo = this.allMembers[j].accountNo;
                             scope.selectedMembers.push(temp);
                             scope.allMembers.splice(j, 1);
                         }
@@ -32,11 +32,11 @@
             scope.removeClient = function () {
                 for (var i in this.selectedClients) {
                     for (var j in scope.selectedMembers) {
-                        if (scope.selectedMembers[j].id == this.selectedClients[i].id) {
+                        if (scope.selectedMembers[j].id == this.selectedClients) {
                             var temp = {};
-                            temp.id = this.selectedClients[i].id;
-                            temp.displayName = this.selectedClients[i].displayName;
-                            temp.accountNo = this.availableClients[i].accountNo;
+                            temp.id = this.selectedMembers[j].id;
+                            temp.displayName = this.selectedMembers[j].displayName;
+                            temp.accountNo = this.selectedMembers[j].accountNo;
                             scope.allMembers.push(temp);
                             scope.selectedMembers.splice(j, 1);
                         }
