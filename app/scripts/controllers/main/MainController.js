@@ -1,7 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale,   uiConfigService) {
-            $.getJSON('release.json', function(data) {
+        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
+                  uiConfigService, $http) {
+
+            $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             } );
@@ -335,6 +337,7 @@
         'keyboardManager', '$idle',
         'tmhDynamicLocale',
         'UIConfigService',
+        '$http',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");
