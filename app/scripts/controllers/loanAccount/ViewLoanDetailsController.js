@@ -511,6 +511,18 @@
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
+             scope.viewloantransactionjournalentries = function(transactionId){
+                var transactionId = "L" + transactionId;
+                 if(scope.loandetails.clientId != null && scope.loandetails.clientId != ""){
+                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,
+                         accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
+                 }else{
+                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,accountNo: scope.loandetails.accountNo,
+                         groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name});
+
+                 }
+
+            };
 
             scope.printReport = function () {
                 window.print();
@@ -546,6 +558,8 @@
                     sort.descending = true;
                 }
             };
+
+
 
             scope.showApprovedAmountBasedOnStatus = function () {
                 if (scope.status == 'Submitted and pending approval' || scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected') {

@@ -4,6 +4,19 @@
         ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal) {
             scope.flag = false;
             scope.manualEntry = false;
+            scope.productName = routeParams.productName;
+            scope.clientName = routeParams.clientName;
+            scope.accountNo = routeParams.accountNo;
+            scope.clientId = routeParams.clientId;
+            scope.loanId = routeParams.loanId;
+            scope.groupId = routeParams.groupId;
+            scope.groupName = routeParams.groupName;
+            scope.journalEntryTransactionId = routeParams.transactionId;
+            if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
+                scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
+            }
+
+
             resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId}, function (data) {
                 scope.transactionNumber = routeParams.transactionId;
                 scope.transactions = data.pageItems;
