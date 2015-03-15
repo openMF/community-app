@@ -18,7 +18,8 @@ describe("MainController", function () {
         this.localStorageService = jasmine.createSpyObj("localStorageService", ["addToLocalStorage", "getFromLocalStorage"]);
         this.idle = jasmine.createSpyObj("$idle", ['watch', 'unwatch']);
         this.tmhDynamicLocale = jasmine.createSpyObj("tmhDynamicLocale", ["set"]);
-
+        this.uiConfigService = jasmine.createSpyObj("uiConfigService", ["init"]);
+        
         this.controller = new mifosX.controllers.MainController(this.scope,
             this.location,
             this.sessionManager,
@@ -27,7 +28,8 @@ describe("MainController", function () {
             this.localStorageService,
             this.keyboardManager,
             this.idle,
-            this.tmhDynamicLocale);
+            this.tmhDynamicLocale,
+            this.uiConfigService);
     });
 
 
