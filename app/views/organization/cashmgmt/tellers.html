@@ -12,6 +12,7 @@
     </div>
     <div class="clear"></div>
     <div ng-hide="isTreeView">
+        <api-validate></api-validate>
     	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
            placeholder="{{'label.input.filterbynameexternalid' | translate}}">
         <table class="table">
@@ -30,9 +31,19 @@
                 <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.name}}</td>
                 <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.status}}</td>
                 <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.startDate | DateFormat}}</td>
-                <td class="pointer" data-ng-click="routeTo(teller.id)">
-                    <i class="icon-edit icon-small"></i>
+                <td >
+
+                    <a class="btn btn-warning" data-ng-click="routeTo(teller.id)"><i class="icon-eye-open"></i>{{'label.button.view' | translate}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#/editteller/{{teller.id}}" class="btn btn-primary" has-permission='UPDATE_TELLER'><i class="icon-edit icon-white"></i>{{
+                        'label.button.edit' | translate }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-danger" has-permission='DELETE_TELLER' data-ng-click="routeToDelete(teller.id)"><i class="icon-trash "></i></a>
                 </td>
+                <!--<td data-ng-click="routeTo(teller.id)">
+
+                </td>
+                <td data-ng-click="routeTo(teller.id)">
+
+                </td>-->
             </tr>
             </tbody>
         </table>

@@ -1,5 +1,5 @@
 
-<div class="col-md-12" ng-controller="ViewCashiersForTellerController">
+<div class="col-md-14" ng-controller="ViewCashiersForTellerController">
     <div class="col-md-12">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
@@ -8,13 +8,13 @@
     </ul>
     </div>
 
-    <div class="pull-right">
+    <div class="col-md-12">
         {{'label.heading.cashmgmt.officeName' | translate}} : {{cashiersForTeller.officeName}} | 
         {{'label.heading.cashmgmt.tellerName' | translate }} : {{cashiersForTeller.tellerName}}
-        <a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="icon-plus icon-white"></i>
+        <a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary pull-right" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="icon-plus icon-white"></i>
             {{'label.button.createcashier'| translate}}</a>
     </div>
-    <div ng-hide="isTreeView">
+    <div class="col-md-12">
     	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
            placeholder="{{'label.input.filterbynameexternalid' | translate}}">
         <table class="table">
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             <tr class="pointer-main" ng-repeat="cashier in cashiersForTeller.cashiers | orderBy:'cashier.startDate':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(cashiersForTeller.tellerId, cashier.id)">
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
                     <div ng-if="compare(cashier.startDate,cashier.endDate)">
                         {{cashier.startDate | DateFormat}}
                     </div>
@@ -36,8 +36,8 @@
                         {{cashier.startDate | DateFormat}} - {{cashier.endDate | DateFormat}}
                     </div>
                 </td>  
-                <td class="pointer" data-ng-click="routeTo(cashiersForTeller.tellerId, cashier.id)">{{cashier.staffName}}</td>
-                <td class="pointer" data-ng-click="routeTo(cashiersForTeller.tellerId, cashier.id)"> 
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">{{cashier.staffName}}</td>
+                <td class="pointer" data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
                     <div ng-if="cashier.isFullDay == true">
                         {{'label.cashmgmt.cashier.isFullDay' | translate}}
                     </div>
@@ -48,23 +48,28 @@
                 </td>
                 <td class="pointer">
 
-                    <button id="allocate" class="btn btn-info" has-permission='ALLOCATECASHIER_TELLER'
+                    <button id="transaction" tooltip="{{'label.button.viewtransaction' | translate}}"class="btn btn-info" has-permission='ALLOCATECASHIER_TELLER'
                             data-ng-click="transactions(cashiersForTeller.tellerId, cashier.id)">
                         <i class="icon-list-ol icon-small" data-ng-click=""></i>
                     </button>
                     
-                    <button id="allocate" class="btn btn-success" has-permission='ALLOCATECASHIER_TELLER'
+                    <button id="allocate" tooltip="{{'label.button.allocatecash' | translate}}" class="btn btn-success" has-permission='ALLOCATECASHIER_TELLER'
                             data-ng-click="allocate(cashiersForTeller.tellerId, cashier.id)">
                         <i class="icon-level-down icon-small">{{'label.cashmgmt.icontext.allocate' | translate}}</i>
                     </button>
-                    <button id="settle" class="btn btn-warning" has-permission='SETTLECASHIER_TELLER'
+                    <button id="settle" tooltip="{{'label.button.settlecash' | translate}}" class="btn btn-warning" has-permission='SETTLECASHIER_TELLER'
                             data-ng-click="settle(cashiersForTeller.tellerId, cashier.id)">
                         <i class="icon-level-up icon-small">{{'label.cashmgmt.icontext.settle' | translate}}</i>
                     </button>
-                    <button id="settle" class="btn btn-danger" has-permission='DELETECASHIER_TELLER'
-                            data-ng-click="settle(cashiersForTeller.tellerId, cashier.id)">
-                        <i class="icon-trash icon-small" data-ng-click="delete(cashiersForTeller.tellerId, cashier.id)"></i>
+                    <button id="view" tooltip="{{'label.button.view' | translate}}" class="btn btn-info"
+                            ng-click="routeToView(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="icon-eye-open icon-small"></i>
                     </button>
+                    <button id="delete" tooltip="{{'label.button.delete' | translate}}" class="btn btn-danger" has-permission='DELETECASHIER_TELLER'
+                            ng-click="delete(cashiersForTeller.tellerId, cashier.id)">
+                        <i class="icon-trash icon-small"></i>
+                    </button>
+
                 </td>
             </tr>
             </tbody>

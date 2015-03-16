@@ -3,7 +3,7 @@
         CashierTransactionsController: function (scope, routeParams, route, location, resourceFactory) {
 
             scope.cashiertxns = [];
-            var idToNodeMap = {};
+            scope.txnPerPage = 15;
 
             scope.routeTo = function (id) {
                 location.path('/viewcashiertxns/' + id);
@@ -35,10 +35,30 @@
                 return obj;
             }
 
-            resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({tellerId: routeParams.tellerId, cashierId: routeParams.cashierId}, function (data) {
-                scope.cashierSummaryAndTxns = data;
-            });
-
+            scope.getResultsPage = function (pageNumber) {
+                resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({
+                    tellerId: routeParams.tellerId,
+                    cashierId: routeParams.cashierId,
+                    offset:((pageNumber - 1) * scope.txnPerPage),
+                    limit:scope.txnPerPage
+                }, function (data) {
+                    scope.cashierSummaryAndTxns = data;
+                    scope.cashierTransactions = data.pageItems;
+                });
+            }
+            scope.initPage = function () {
+                var items = resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({
+                    tellerId: routeParams.tellerId,
+                    cashierId: routeParams.cashierId,
+                    offset:0,
+                    limit: scope.txnPerPage
+                }, function (data) {
+                    scope.cashierSummaryAndTxns = data;
+                    scope.totaltxn = data.totalFilteredRecords;
+                    scope.cashierTransactions = data.cashierTransactions.pageItems;
+                });
+            }
+            scope.initPage();
         }
     });
     mifosX.ng.application.controller('CashierTransactionsController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.CashierTransactionsController]).run(function ($log) {

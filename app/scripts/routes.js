@@ -703,6 +703,9 @@
             .when('/tellers/:tellerId/cashiers', {
                 templateUrl: 'views/organization/cashmgmt/cashiersForTeller.html'
             })
+            .when('/tellers/:tellerId/cashiers/:cashierId', {
+                templateUrl: 'views/organization/cashmgmt/viewCashiersForTeller.html'
+            })
             .when('/tellers/:tellerId/cashiers/:cashierId/txns', {
                 templateUrl: 'views/organization/cashmgmt/cashierTransactions.html'
             })
@@ -717,6 +720,9 @@
             })
             .when('/editteller/:id', {
                 templateUrl: 'views/organization/cashmgmt/editTeller.html'
+            })
+            .when('/tellers/:tellerId/editcashier/:id', {
+                templateUrl: 'views/organization/cashmgmt/editcashier.html'
             })
             ;
         $locationProvider.html5Mode(false);
