@@ -5,21 +5,26 @@
 
             resourceFactory.reportsResource.getReportDetails({id: routeParams.id, template: 'true'}, function (data) {
                 scope.reportdetail = data;
-                scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
                 scope.formData.reportType = data.reportType;
             });
 
-            scope.parameterSelected = function (allowedParameterId) {
-                for (var i in scope.reportdetail.allowedParameters) {
-                    if (scope.reportdetail.allowedParameters[i].id == allowedParameterId) {
-                        scope.reportdetail.reportParameters.push({parameterId: allowedParameterId,
+            scope.addParameter = function () {
+                for (var i = 0; i < scope.reportdetail.allowedParameters.length; i++) {
+                    if (scope.reportdetail.allowedParameters[i].id == scope.allowedParameterId) {
+                        scope.reportdetail.reportParameters.push({
+                            parameterId: scope.allowedParameterId,
                             id: "",
                             parameterName: scope.reportdetail.allowedParameters[i].parameterName
                         });
+                        break;
                     }
                 }
                 scope.allowedParameterId = '';
+            }
+
+            scope.deleteParameter = function (index) {
+                scope.reportdetail.reportParameters.splice(index, 1);
             }
 
             function deepCopy(obj) {
@@ -38,10 +43,6 @@
                     return out;
                 }
                 return obj;
-            }
-
-            scope.deleteParameter = function (index) {
-                scope.reportdetail.reportParameters.splice(index, 1);
             }
 
             scope.submit = function () {
