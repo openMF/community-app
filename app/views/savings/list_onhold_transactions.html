@@ -15,20 +15,38 @@
     <div ng-show="transactions" class="marginbuttontop25px">
         <table class="table">
             <thead>
-            <tr class="graybg">
-                <th>{{'label.heading.id' | translate}}</th>
+            <tr ng-repeat="transaction in transactions.currentPageItems|limitTo:1">
+                <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.savingsaccountno' | translate}}</th>
+                <th ng-show="fromPath === 'viewsavingaccount'">{{transaction.savingsAccNo}}</th>
+                <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.savingsclientname' | translate}}</th>
+                <th ng-show="fromPath === 'viewsavingaccount'">{{transaction.savingsClientName}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{'label.heading.loanaccountnum' | translate}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{transaction.loanAccNo}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{'label.heading.loanaclientname' | translate}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{transaction.loanClientName}}</th>
+            </tr>
+            <tr class="graybg" >
+                <th>{{'label.heading.transactionid' | translate}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{'label.heading.savingsaccountno' | translate}}</th>
+                <th ng-show="fromPath === 'listguarantors'">{{'label.heading.savingsclientname' | translate}}</th>
                 <th>{{'label.heading.transactionType' | translate}}</th>
                 <th>{{'label.heading.transactionDate' | translate}}</th>
                 <th>{{'label.heading.amount' | translate}}</th>
+                <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.loanaccountnum' | translate}}</th>
+                <th ng-show="fromPath === 'viewsavingaccount'">{{'label.heading.loanaclientname' | translate}}</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="transaction in transactions.currentPageItems"
                 ng-class="{strikeoff : transaction.reversed==true}">
                 <td>{{transaction.id}}</td>
+                <td ng-show="fromPath === 'listguarantors'">{{transaction.savingsAccNo}}</td>
+                <td ng-show="fromPath === 'listguarantors'">{{transaction.savingsClientName}}</td>
                 <td>{{transaction.transactionType.code | translate}}</td>
                 <td>{{transaction.transactionDate | DateFormat}}</td>
                 <td>{{transaction.amount}}</td>
+                <td ng-show="fromPath === 'viewsavingaccount'">{{transaction.loanAccNo}}</td>
+                <td ng-show="fromPath === 'viewsavingaccount'">{{transaction.loanClientName}}</td>
             </tr>
             </tbody>
 
