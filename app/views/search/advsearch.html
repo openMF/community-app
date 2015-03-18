@@ -9,7 +9,7 @@
 	        </a>
 	    </h3>
 	    <api-validate></api-validate>
-	    <div class="form-horizontal" ng-hide="showResults">
+	    <div class="form-horizontal" ng-hide="showResults || showClientResults">
 	        <div class="form-group">
 	            <label  class="col-sm-2 control-label">{{'label.input.adhoc.search.loanstatus' | translate}}</label>
 	            <div class="col-sm-4">
@@ -143,14 +143,71 @@
 	            </thead>
 	            <tbody>
 	            <tr class="pointer-main" ng-repeat="result in searchResults | filter:filterText">
-	                <td class="pointer">{{result.officeName}}</td>
-	                <td class="pointer">{{result.loanProductName}}</td>
-	                <td class="pointer">{{result.count}}</td>
-	                <td class="pointer">{{result.loanOutStanding}}</td>
-	                <td class="pointer">{{result.percentage}}</td>
+	                <td class="pointer" ng-click="routeTo()">{{result.officeName}}</td>
+	                <td class="pointer" ng-click="routeTo()">{{result.loanProductName}}</td>
+	                <td class="pointer" ng-click="routeTo()">{{result.count}}</td>
+	                <td class="pointer" ng-click="routeTo()">{{result.loanOutStanding}}</td>
+	                <td class="pointer" ng-click="routeTo()">{{result.percentage}}</td>
 	            </tr>
 	            </tbody>
 	        </table>
 	    </div>
+
+		<div ng-show="showClientResults">
+			<input class="form-control marginbottom0px" type="text" ng-autofocus="true" ng-model="filterText">
+			<div class="pull-right">
+				<button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv'
+					| translate }}
+				</button>
+			</div>
+			<table class="table">
+				<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.client' | translate}}</th>
+					<th>{{'label.heading.product' | translate}}</th>
+					<th>{{'label.heading.disbursementdate' | translate}}</th>
+					<th>{{'label.heading.disburseamount' | translate}}</th>
+					<th>{{'label.heading.matureson' | translate}}</th>
+					<th>{{'label.heading.principal.outstanding' | translate}}</th>
+					<th>{{'label.heading.principal.repayment' | translate}}</th>
+					<th>{{'label.heading.arrears' | translate}}</th>
+					<th>{{'label.heading.interest.outstanding' | translate}}</th>
+					<th>{{'label.heading.interest.paid' | translate}}</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="pointer-main" ng-repeat="result in clientResults | filter:filterText">
+					<td class="pointer">{{result.clientAccountNo}} - {{result.clientName}}</td>
+					<td class="pointer">{{result.loanProductId}} - {{result.loanProductName}}</td>
+					<td class="pointer " >{{formatteddisbursedDate}}</td>
+					<td class="pointer justifyright">{{result.disbursementAmount | number}}</td>
+					<td class="pointer">{{formattedmaturedDate}}</td>
+					<td class="pointer justifyright">{{result.principalOutstanding | number}}</td>
+					<td class="pointer justifyright">{{result.principalRepaid | number}}</td>
+					<td class="pointer justifyright">{{result.arrearsAmount | number}}</td>
+					<td class="pointer justifyright">{{result.interestOutstanding | number}}</td>
+					<td class="pointer justifyright">{{result.interestRepaid | number}}</td>
+				</tr>
+				<tr class="pointer-main">
+					<td class="pointer"><strong>{{'label.heading.total' | translate}} : </strong></td>
+					<td class="pointer"></td>
+					<td class="pointer"></td>
+					<td class="pointer justifyright">{{totaldisburementAmount | number}}</td>
+					<td class="pointer"></td>
+					<td class="pointer justifyright">{{totalPrincipalOutstanding | number}}</td>
+					<td class="pointer justifyright">{{totalPrincipalRepaid | number}}</td>
+					<td class="pointer">{{totalArrearsAmount | number}}</td>
+					<td class="pointer justifyright">{{totalInterestOutstanding | number}}</td>
+					<td class="pointer justifyright">{{totalInterestRepaid | number}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!--<br>
+		<div class="center" ng-show="showClientResults">
+			<button ng-click="cancel()" class="btn btn-primary">Back</button>
+		</div>-->
+
 	</div>
 </div>
