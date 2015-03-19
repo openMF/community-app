@@ -16,6 +16,9 @@ describe("MainController", function () {
         this.translate = jasmine.createSpyObj("translate", ["uses"]);
         this.rootScope = jasmine.createSpy();
         this.localStorageService = jasmine.createSpyObj("localStorageService", ["addToLocalStorage", "getFromLocalStorage"]);
+        this.promise = jasmine.createSpyObj('Promise', ['success','then']);
+        this.http = jasmine.createSpyObj("$http", ['get']);
+        this.http.get.andReturn(this.promise);
         this.idle = jasmine.createSpyObj("$idle", ['watch', 'unwatch']);
         this.tmhDynamicLocale = jasmine.createSpyObj("tmhDynamicLocale", ["set"]);
         this.uiConfigService = jasmine.createSpyObj("uiConfigService", ["init"]);
@@ -29,7 +32,8 @@ describe("MainController", function () {
             this.keyboardManager,
             this.idle,
             this.tmhDynamicLocale,
-            this.uiConfigService);
+            this.uiConfigService,
+            this.http);
     });
 
 
