@@ -161,8 +161,9 @@
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true"><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
-                           ng-model="formData.repaymentEvery" required late-Validate/>
+                           ng-model="formData.repaymentEvery" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentFrequency" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentFrequency"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
@@ -193,7 +194,7 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
                     <select id="interestType" ng-model="formData.interestType" class="form-control width170px"
                             ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions"
-                            value="{{interestType.id}}"/>
+                            value="{{interestType.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureInterestMethod"/>
                 </td>
             </tr>
             <tr>
@@ -202,20 +203,22 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.amortizationType == true">
                     <select id="amortizationType" ng-model="formData.amortizationType" class="form-control width170px"
                             ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions"
-                            value="{{amortizationType.id}}"/>
+                            value="{{amortizationType.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureAmortization"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true"><label>{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true">
                     <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType" class="form-control width170px"
                             ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions"
-                            value="{{interestCalculationPeriodType.id}}"/>
+                            value="{{interestCalculationPeriodType.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureInterestCalcPeriod"/>
                 </td>
             </tr>
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true"><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true">
-                    <input id="inArrearsTolerance" type="text" class="form-control" ng-model="formData.inArrearsTolerance" number-format>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                    <input id="inArrearsTolerance" type="text" class="form-control"
+                           ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureArrearsTolerance"
+                           ng-model="formData.inArrearsTolerance" number-format>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestCharged == true"><label>{{ 'label.input.interestfreeperiod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestCharged == true">
@@ -228,14 +231,16 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.transactionProcessingStrategyId == true">
                     <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId" class="form-control width170px"
                             ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions"
-                            value="{{transactionProcessingStrategy.id}}"/>
+                            value="{{transactionProcessingStrategy.id}}" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureRepaymentStrategy"/>
                 </td>
                 <td colspan=2 class="paddedbottom10">
                     <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onprincipalpayment' | translate}}</label>&nbsp;<input
                             id="graceOnPrincipalPayment" class="input-mini-small" type="text"
+                            ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureMoratorium"
                             ng-model="formData.graceOnPrincipalPayment">&nbsp;<label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true">{{'label.input.oninterestpayment' |
                         translate}}</label>&nbsp;<input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text" class="input-mini-small"
-                                                ng-model="formData.graceOnInterestPayment"></label>
+                                                        ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureMoratorium"
+                                                        ng-model="formData.graceOnInterestPayment"></label>
                 </td>
             </tr>
             <tr>
@@ -243,7 +248,7 @@
                     <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onduedate' | translate}}&nbsp;
                         <input
                             id="graceOnArrearsAgeing" class="input-mini-small" type="text"
-                            ng-model="formData.graceOnArrearsAgeing"></label>
+                            ng-model="formData.graceOnArrearsAgeing" ng-disabled="!loanaccountinfo.loanProductConfigurableAttributes.configureGraceOnArrearsAging"></label>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">

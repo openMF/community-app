@@ -4,6 +4,7 @@
             scope.loanproduct = [];
             scope.isAccountingEnabled = false;
             scope.isAccrualAccountingEnabled = false;
+
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
                 if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
@@ -13,6 +14,25 @@
                 if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
                 }
+                if(scope.loanproduct.loanProductConfigurableAttributes != null){
+                    scope.configureAmortization = scope.loanproduct.loanProductConfigurableAttributes.configureAmortization;
+                    scope.configureArrearsTolerance = scope.loanproduct.loanProductConfigurableAttributes.configureArrearsTolerance;
+                    scope.configureGraceOnArrearsAging = scope.loanproduct.loanProductConfigurableAttributes.configureGraceOnArrearsAging;
+                    scope.configureInterestCalcPeriod = scope.loanproduct.loanProductConfigurableAttributes.configureInterestCalcPeriod;
+                    scope.configureInterestMethod = scope.loanproduct.loanProductConfigurableAttributes.configureInterestMethod;
+                    scope.configureMoratorium = scope.loanproduct.loanProductConfigurableAttributes.configureMoratorium;
+                    scope.configureRepaymentFrequency = scope.loanproduct.loanProductConfigurableAttributes.configureRepaymentFrequency;
+                    scope.configureRepaymentStrategy = scope.loanproduct.loanProductConfigurableAttributes.configureRepaymentStrategy;
+                }
+                if(scope.configureAmortization || scope.configureArrearsTolerance || scope.configureGraceOnArrearsAging ||
+                    scope.configureInterestCalcPeriod || scope.configureInterestMethod || scope.configureMoratorium ||
+                    scope.configureRepaymentFrequency || scope.configureRepaymentStrategy == true){
+                    scope.allowAttributeConfiguration = true;
+                }
+                else{
+                    scope.allowAttributeConfiguration = false;
+                }
+
             });
 
             scope.scrollto = function (link) {

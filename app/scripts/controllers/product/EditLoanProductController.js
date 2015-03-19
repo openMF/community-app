@@ -4,6 +4,7 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
+            scope.loanProductConfigurableAttributes = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
             scope.specificIncomeAccountMapping = [];
@@ -97,6 +98,24 @@
                     if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
                         scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
                     }
+                }
+                if(scope.product.loanProductConfigurableAttributes != null){
+                    scope.configureAmortization = scope.product.loanProductConfigurableAttributes.configureAmortization;
+                    scope.configureArrearsTolerance = scope.product.loanProductConfigurableAttributes.configureArrearsTolerance;
+                    scope.configureGraceOnArrearsAging = scope.product.loanProductConfigurableAttributes.configureGraceOnArrearsAging;
+                    scope.configureInterestCalcPeriod = scope.product.loanProductConfigurableAttributes.configureInterestCalcPeriod;
+                    scope.configureInterestMethod = scope.product.loanProductConfigurableAttributes.configureInterestMethod;
+                    scope.configureMoratorium = scope.product.loanProductConfigurableAttributes.configureMoratorium;
+                    scope.configureRepaymentFrequency = scope.product.loanProductConfigurableAttributes.configureRepaymentFrequency;
+                    scope.configureRepaymentStrategy = scope.product.loanProductConfigurableAttributes.configureRepaymentStrategy;
+                }
+                if(scope.configureAmortization || scope.configureArrearsTolerance || scope.configureGraceOnArrearsAging ||
+                scope.configureInterestCalcPeriod || scope.configureInterestMethod || scope.configureMoratorium ||
+                scope.configureRepaymentFrequency || scope.configureRepaymentStrategy == true){
+                    scope.allowAttributeConfiguration = true;
+                }
+                else{
+                    scope.allowAttributeConfiguration = false;
                 }
 
                 if (scope.product.holdGuaranteeFunds) {
@@ -314,6 +333,7 @@
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
+                scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 var temp = '';
@@ -351,10 +371,24 @@
                     scope.chargesSelected.push(temp);
                 }
 
+                if(scope.allowAttributeConfiguration == true) {
+                    scope.selectedConfigurableAttributes = [
+                        {configureAmortization:scope.configureAmortization},
+                        {configureInterestMethod:scope.configureInterestMethod},
+                        {configureRepaymentStrategy:scope.configureRepaymentStrategy},
+                        {configureInterestCalcPeriod:scope.configureInterestCalcPeriod},
+                        {configureArrearsTolerance:scope.configureArrearsTolerance},
+                        {configureRepaymentFrequency:scope.configureRepaymentFrequency},
+                        {configureMoratorium:scope.configureMoratorium},
+                        {configureGraceOnArrearsAging:scope.configureGraceOnArrearsAging}
+                    ];
+                }
+
                 this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.loanProductConfigurableAttributes = scope.selectedConfigurableAttributes;
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = "en";
                 this.formData.startDate = reqFirstDate;
