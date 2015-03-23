@@ -209,9 +209,10 @@
                     globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    globalAdHocSearchResource: defineResource(apiVer + "/search/advance", {}, {
+                    globalAdHocSearchResource: defineResource(apiVer + "/search/advance/", {}, {
                         get: {method: 'GET', params: {}},
-                        search: { method: 'POST', isArray: true }
+                        search: { method: 'POST', isArray: true },
+                        getClientDetails : {method: 'POST', params: {clientInfo: true},isArray: true}
                     }),
                     fundsResource: defineResource(apiVer + "/funds/:fundId", {fundId: '@fundId'}, {
                         getAllFunds: {method: 'GET', params: {}, isArray: true},

@@ -3,6 +3,15 @@
         AdHocQuerySearchController: function (scope, routeParams, dateFilter, resourceFactory) {
             scope.formData = {};
             scope.showResults = false;
+            scope.showClientResults = false;
+            scope.totalPrincipalOutstanding = 0;
+            scope.totaldisburementAmount = 0;
+            scope.totalPrincipalRepaid = 0;
+            scope.totalArrearsAmount = 0;
+            scope.totalInterestOutstanding = 0;
+            scope.totalInterestRepaid = 0;
+            scope.csvData = [];
+            var adHocQuery;
 
             resourceFactory.globalSearchTemplateResource.get(function (data) {
                 scope.searchTemplate = data;
@@ -44,7 +53,7 @@
             };
 
             scope.submit = function () {
-                var adHocQuery = { "locale": scope.optlang.code, "dateFormat": "yyyy-MM-dd"};
+                adHocQuery = { "locale": scope.optlang.code, "dateFormat": "yyyy-MM-dd"};
                 if (scope.formData.loans) {
                     adHocQuery.entities = adHocQuery.entities || [];
                     adHocQuery.entities.push(scope.formData.loans);
@@ -130,6 +139,58 @@
                     scope.showResults = true;
                 });
             };
+
+            scope.routeTo = function(){
+               resourceFactory.globalAdHocSearchResource.getClientDetails(adHocQuery,function (data) {
+                    scope.clientResults = data;
+                    scope.showResults = false;
+                    scope.showClientResults = true;
+                    scope.csvData = [];
+                    scope.formatteddisbursedDate;
+                    scope.formattedmaturedDate;
+                    scope.csvData.push({"accountNo":"Client AccountNo","client":"Client","productId":"Loan ProductId","product":"Product","disbursedDate":"Disbursed Date","disbursementAmount":"Disbursement Amount","maturedDate":"Matured Date","principalOutstanding":"Principal Outstanding","principalRepaid":"Principal Repaid","arrearsAmount":"Arrears Amount","interestOutstanding":"Interest Outstanding","interestRepaid":"Interest Repaid"});
+                    for(var l=0;l<scope.clientResults.length;l++) {
+                      if(scope.clientResults[l].disbursedDate != null){
+                          scope.formatteddisbursedDate = scope.clientResults[l].disbursedDate;
+                          scope.clientResults[l].disbursedDate = dateFilter(new Date(scope.clientResults[l].disbursedDate), 'dd MMM  yyyy');
+
+                       }
+                       if(scope.clientResults[l].maturedDate != null){
+                           scope.formattedmaturedDate = scope.clientResults[l].maturedDate;
+                           scope.clientResults[l].maturedDate = dateFilter(new Date(scope.clientResults[l].maturedDate), 'dd MMM  yyyy');
+                       }
+
+                       if (scope.clientResults[l].principalOutstanding != null && scope.clientResults[l].principalOutstanding != "") {
+                           scope.totalPrincipalOutstanding = scope.totalPrincipalOutstanding + scope.clientResults[l].principalOutstanding;
+                       }
+                       if(scope.clientResults[l].disbursementAmount != null && scope.clientResults[l].disbursementAmount != ""){
+                           scope.totaldisburementAmount = scope.totaldisburementAmount + scope.clientResults[l].disbursementAmount;
+                       }
+                       if(scope.clientResults[l].principalRepaid != null && scope.clientResults[l].principalRepaid != ""){
+                           scope.totalPrincipalRepaid = scope.totalPrincipalRepaid +scope.clientResults[l].principalRepaid;
+
+                       }
+                       if(scope.clientResults[l].arrearsAmount != null && scope.clientResults[l].arrearsAmount != ""){
+                           scope.totalArrearsAmount = scope.totalArrearsAmount + scope.clientResults[l].arrearsAmount;
+                       }
+                       if(scope.clientResults[l].interestOutstanding != null && scope.clientResults[l].interestOutstanding != ""){
+                           scope.totalInterestOutstanding = scope.totalInterestOutstanding + scope.clientResults[l].interestOutstanding;
+                       }
+                       if(scope.clientResults[l].interestRepaid != null && scope.clientResults[l].interestRepaid != ""){
+                           scope.totalInterestRepaid = scope.totalInterestRepaid + scope.clientResults[l].interestRepaid;
+                       }
+                       scope.csvData.push(scope.clientResults[l]);
+                   }
+                   scope.csvData.push({"total":"Total","client":"","productId":"","product":"","disbursedDate":"","disbursementAmount":scope.totaldisburementAmount,"maturedDate":"","principalOutstanding":scope.totalPrincipalOutstanding,"principalRepaid":scope.totalPrincipalRepaid,"arrearsAmount":scope.totalArrearsAmount,"interestOutstanding":scope.totalInterestOutstanding,"interestRepaid":scope.totalInterestRepaid});
+
+               });
+            };
+
+            scope.cancel = function(){
+                scope.showResults = true;
+                scope.showClientResults = false;
+            }
+
         }
     });
     mifosX.ng.application.controller('AdHocQuerySearchController', ['$scope', '$routeParams', 'dateFilter', 'ResourceFactory', mifosX.controllers.AdHocQuerySearchController]).run(function ($log) {
