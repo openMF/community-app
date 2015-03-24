@@ -463,6 +463,11 @@
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     }),
                     collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
+                    }),
+                    paymentTypeResource: defineResource(apiVer + "/paymenttype/:paymentTypeId", {paymentTypeId: "@paymentTypeId"}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
+                        update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
                     })
                 };
             }];

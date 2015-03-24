@@ -16,10 +16,13 @@
                 scope.glAccounts = data;
             });
 
-            resourceFactory.codeValueResource.getAllCodeValues({codeId: 12}, function (data) {
+           /* resourceFactory.codeValueResource.getAllCodeValues({codeId: 12}, function (data) {
                 if (data.length > 0) {
                     scope.formData.paymentTypeId = data[0].id;
                 }
+                scope.paymentTypes = data;
+            });*/
+            resourceFactory.paymentTypeResource.getAll( function (data) {
                 scope.paymentTypes = data;
             });
 

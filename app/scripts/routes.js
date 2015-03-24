@@ -427,6 +427,15 @@
             .when('/editholiday/:id', {
                 templateUrl: 'views/organization/editholiday.html'
             })
+            .when('/viewpaymenttype/', {
+                templateUrl: 'views/organization/viewpaymenttype.html'
+            })
+            .when('/createPaymentType/', {
+                templateUrl: 'views/organization/createpaymenttype.html'
+            })
+            .when('/editPaymentType/:id', {
+                templateUrl: 'views/organization/editpaymenttype.html'
+            })
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })
