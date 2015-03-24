@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ProductiveCollectionSheetController: function (scope, routeParams, resourceFactory, dateFilter, location) {
             var params = {};
-            params.locale = "en";
+            params.locale = scope.optlang.code;
             params.dateFormat = scope.df;
             params.meetingDate = routeParams.meetingDate;
             params.officeId = routeParams.officeId;
@@ -49,7 +49,7 @@
                 scope.calendarId = calendarId;
                 scope.formData = {};
                 scope.formData.dateFormat = scope.df;
-                scope.formData.locale = "en";
+                scope.formData.locale = scope.optlang.code;
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.transactionDate = routeParams.meetingDate;
                 for (var i = 0; i < submittedStaffId.length; i++) {
@@ -190,7 +190,7 @@
             scope.submit = function () {
                 scope.formData.calendarId = scope.calendarId;
                 scope.formData.dateFormat = scope.df;
-                scope.formData.locale = "en";
+                scope.formData.locale = scope.optlang.code;
                 scope.formData.transactionDate = dateFilter(routeParams.meetingDate, scope.df);
                 scope.formData.clientsAttendance = scope.clientsAttendance;
                 scope.formData.bulkDisbursementTransactions = [];

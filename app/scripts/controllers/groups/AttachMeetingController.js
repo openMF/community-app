@@ -56,7 +56,7 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 if (routeParams.entityType == "groups") {

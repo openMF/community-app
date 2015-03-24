@@ -52,7 +52,7 @@
             }
 
             scope.submit = function () {
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 if (this.formData.validFrom) this.formData.validFrom = dateFilter(this.formData.validFrom, scope.df);
                 if (this.formData.validTill) this.formData.validTill = dateFilter(this.formData.validTill, scope.df);

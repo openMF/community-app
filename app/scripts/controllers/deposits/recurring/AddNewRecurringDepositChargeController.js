@@ -24,7 +24,7 @@
             };
 
             scope.submit = function () {
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 if (scope.withDrawCharge !== true) {
                     if (scope.chargeTimeTypeAnnualOrMonth === true) {
                         this.formData.monthDayFormat = "dd MMMM";
