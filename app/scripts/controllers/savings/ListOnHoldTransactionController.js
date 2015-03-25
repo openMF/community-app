@@ -10,7 +10,7 @@
                 var params = {};
                 params.offset = offset;
                 params.limit = limit;
-                params.locale = "en";
+                params.locale = scope.optlang.code;
                 params.dateFormat = scope.df;
                 params.guarantorFundingId = routeParams.fundingId;
                 params.savingsId = routeParams.savingsId;

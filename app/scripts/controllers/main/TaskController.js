@@ -390,7 +390,7 @@
             scope.bulkApproval = function () {
                 scope.formData.approvedOnDate = dateFilter(new Date(), scope.df);
                 scope.formData.dateFormat = scope.df;
-                scope.formData.locale = "en";
+                scope.formData.locale = scope.optlang.code;
                 var selectedAccounts = 0;
                 var approvedAccounts = 0;
                 _.each(scope.loanTemplate, function (value, key) {
@@ -448,7 +448,7 @@
             scope.bulkDisbursal = function () {
                 scope.formData.actualDisbursementDate = dateFilter(new Date(), scope.df);
                 scope.formData.dateFormat = scope.df;
-                scope.formData.locale = "en";
+                scope.formData.locale = scope.optlang.code;
 
                 var selectedAccounts = 0;
                 var approvedAccounts = 0;

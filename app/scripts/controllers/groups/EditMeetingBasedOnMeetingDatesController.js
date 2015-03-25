@@ -22,7 +22,7 @@
             scope.submit = function () {
 
                 this.formData.reschedulebasedOnMeetingDates = true;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
 
                 this.formData.presentMeetingDate = dateFilter(this.formData.presentMeetingDate, scope.df);

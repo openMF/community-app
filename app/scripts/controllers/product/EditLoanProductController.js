@@ -356,7 +356,7 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.dateFormat = scope.df;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
 
