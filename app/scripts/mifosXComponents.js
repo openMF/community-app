@@ -143,6 +143,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/AddHolController',
             'reports/ViewReportsController',
             'organization/EditHolidayController',
+            'organization/EditWorkingDaysController',
+            'organization/EditPasswordPreferencesController',
             'reports/RunReportsController',
             'reports/XBRLController',
             'reports/XBRLReportController',
