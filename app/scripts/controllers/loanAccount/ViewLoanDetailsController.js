@@ -448,10 +448,15 @@
             scope.export = function () {
                 scope.report = true;
                 scope.printbtn = false;
+                scope.viewReport = false;
+                scope.viewLoanReport = true;
+                scope.viewTransactionReport = false;
             };
 
             scope.viewLoanDetails = function () {
                 scope.report = false;
+                scope.hidePentahoReport = true;
+                scope.viewReport = false;
             };
 
             scope.viewLoanCollateral = function (collateralId){
@@ -471,9 +476,12 @@
             };
 
             scope.viewprintdetails = function () {
-                scope.printbtn = true;
+                //scope.printbtn = true;
+                scope.report = true;
+                scope.viewTransactionReport = false;
+                scope.viewReport = true;
                 scope.hidePentahoReport = true;
-                scope.formData.outputType = 'HTML';
+                scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
@@ -490,14 +498,18 @@
                     scope.baseURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
                 
             };
 
             scope.viewloantransactionreceipts = function (transactionId) {
-                scope.printbtn = true;
+                //scope.printbtn = true;
+                scope.report = true;
+                scope.viewTransactionReport = true;
+                scope.viewLoanReport = false;
+                scope.viewReport = true;
                 scope.hidePentahoReport = true;
-                scope.formData.outputType = 'HTML';
+                scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
@@ -508,7 +520,7 @@
                     scope.baseURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
              scope.viewloantransactionjournalentries = function(transactionId){

@@ -9,7 +9,7 @@
     </div>
     <div>
         <div class="form-horizontal" ng-show="report">
-        	<div class="form-group">
+        	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
                          class="required">*</span></label>
 
@@ -18,8 +18,6 @@
                             datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
                             max="restrictDate"/>
                  </div>
-             </div>
-             <div class="form-group">
                  <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
                          class="required">*</span></label>
 
@@ -29,10 +27,13 @@
                             max="restrictDate"/>
                  </div>
              </div>
-             <div class="col-md-offset-2">
+             <div class="col-md-11 center" ng-show="viewLoanReport">
                  <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' | translate}} </button>
-                 <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.loandetails' | translate}} </button>
+                 <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.back' | translate}} </button>
              </div>
+            <div class="col-md-13 center" ng-show="viewTransactionReport">
+                <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding pull-right">{{'label.button.back' | translate}} </button>
+            </div>
              <div class="form-group" data-ng-show="savingaccountdetails.allowOverdraft">
                  <label class="control-label col-sm-2">
         			<td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
@@ -47,7 +48,7 @@
                 translate}}
             </button>
             <div id="printcontent">
-                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="800px"></iframe>
+                <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
             </div>
         </div>
         <div ng-hide="report">
@@ -588,7 +589,7 @@
                                 translate}}
                             </i></button>
                             <div id="printreceiptcontent">
-                                <iframe id="rptLoadingreceiptFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="800px"></iframe>
+                                <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
                     </tab>
