@@ -467,6 +467,10 @@
                     workingDaysResource: defineResource(apiVer + "/workingdays", {}, {
                         get: {method: 'GET', params: {}},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    passwordPrefResource: defineResource(apiVer + "/passwordpreferences/", {}, {
+                        get: {method: 'GET', params: {}},
+                        put: {method: 'PUT', params:{}}
                     })
                 };
             }];
