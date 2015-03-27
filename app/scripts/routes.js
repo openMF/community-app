@@ -427,6 +427,12 @@
             .when('/editholiday/:id', {
                 templateUrl: 'views/organization/editholiday.html'
             })
+            .when('/workingdays', {
+                templateUrl: 'views/organization/workingdays.html'
+            })
+            .when('/passwordpreferences', {
+                templateUrl: 'views/organization/passwordpreferences.html'
+            })
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })

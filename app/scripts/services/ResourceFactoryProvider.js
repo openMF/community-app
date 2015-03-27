@@ -463,6 +463,10 @@
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     }),
                     collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
+                    }),
+                    workingDaysResource: defineResource(apiVer + "/workingdays", {}, {
+                        get: {method: 'GET', params: {}},
+                        put: {method: 'PUT', params:{}}
                     })
                 };
             }];
