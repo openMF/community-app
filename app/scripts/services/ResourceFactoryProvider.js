@@ -474,6 +474,11 @@
                     passwordPrefResource: defineResource(apiVer + "/passwordpreferences/", {}, {
                         get: {method: 'GET', params: {}},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    paymentTypeResource: defineResource(apiVer + "/paymenttype/:paymentTypeId", {paymentTypeId: "@paymentTypeId"}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
+                        update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
                     })
                 };
             }];
