@@ -438,10 +438,13 @@
                     tellerResource: defineResource(apiVer + "/tellers/:tellerId", {tellerId: "@tellerId"}, {
                         getAllTellers: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {tellerId: '@tellerId'}},
-                        update: { method: 'PUT', params: {tellerId: '@tellerId'}}
+                        update: { method: 'PUT', params: {tellerId: '@tellerId'}},
+                        delete: { method: 'DELETE', params: {tellerId: '@tellerId'}}
                     }),
                     tellerCashierResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
                         getAllCashiersForTeller: {method: 'GET', params: {tellerId: "@tellerId"}, isArray: false},
+                        getCashier: {method: 'GET', params:{tellerId: "@tellerId", cashierId: "@cashierId"}},
+                        update: { method: 'PUT', params: {tellerId: "@tellerId", cashierId: "@cashierId"}},
                         delete: { method: 'DELETE', params: {tellerId: "@tellerId", cashierId: "@cashierId"}}
                     }),
                     tellerCashierTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/template", {tellerId: "@tellerId"}, {

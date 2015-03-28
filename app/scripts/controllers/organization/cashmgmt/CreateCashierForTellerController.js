@@ -3,7 +3,9 @@
         CreateCashierForTellerController: function (scope, routeParams, route, location, dateFilter, resourceFactory) {
 
             var requestParams = {};
-
+            scope.formData = {};
+            scope.formData.isFullDay = true;
+            scope.tellerId = routeParams.tellerId;
             if (routeParams.tellerId) {
                 requestParams.tellerId = routeParams.tellerId;
             }
@@ -28,6 +30,10 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.startDate = reqDate;
                 this.formData.endDate = endDate;
+                this.formData.hourStartTime;
+                this.formData.minStartTime;
+                this.formData.hourEndTime;
+                this.formData.minEndTime;
                 resourceFactory.tellerCashierResource.save(
                     {'tellerId': routeParams.tellerId, 'cashierId': routeParams.cashierId}, 
                     this.formData, function (data) {

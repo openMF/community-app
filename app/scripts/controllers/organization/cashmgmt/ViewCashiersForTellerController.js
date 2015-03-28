@@ -14,14 +14,19 @@
 
             var idToNodeMap = {};
             scope.routeTo = function (tellerId, cashierId) {
-                location.path('/tellers/' + tellerId + "/cashiers/" + cashierId);
+                location.path('/tellers/' + tellerId + '/cashiers/' + cashierId);
             };
+
             scope.delete = function (tellerId, cashierId) {
                 resourceFactory.tellerCashierResource.delete({tellerId: tellerId, cashierId: cashierId}, function (data) {
-
+                    location.path('/tellers/' + tellerId + '/cashiers/');
                 });
-                location.path('/tellers/' + tellerId + "/cashiers/");
             };
+
+            scope.routeToView = function (tellerId, cashierId) {
+                    location.path('/tellers/' + tellerId + "/cashiers/" + cashierId);
+            };
+
             scope.allocate = function (tellerId, cashierId) {
                 location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/actions/allocate/");
             };

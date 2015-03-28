@@ -2,11 +2,12 @@
     mifosX.controllers = _.extend(module, {
         CashierFundsAllocationSettlementController: function (scope, routeParams, route, location, dateFilter, resourceFactory) {
             scope.formData = {};
+            scope.settle = routeParams.settle;
             resourceFactory.cashierTxnTemplateResource.get({tellerId: routeParams.tellerId, cashierId: routeParams.cashierId}, function (data) {
                 scope.cashierTxnTemplate = data;
                 scope.formData.currencyCode = data.currencyOptions[0].code;
             });
-
+            scope.tellersId=routeParams.tellerId;
             scope.ifAllocate = function(){
                 if ( routeParams.action == 'allocate') {
                     return true;
@@ -19,6 +20,7 @@
                 }
             };
 
+           /* scope.cancel="#tellers";*/
             scope.allocate = function () {
                 this.formData.locale = scope.optlang.code;
                 var tDate = dateFilter(scope.txnDate, scope.df);
