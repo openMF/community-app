@@ -22,7 +22,7 @@
                 scope.userId = data.id;
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles.concat(data.selectedRoles);
-
+                scope.formData.passwordNeverExpires = data.passwordNeverExpires;
             });
             scope.getOfficeStaff = function(){
                 resourceFactory.employeeResource.getAllEmployees({officeId:scope.formData.officeId},function (staffs) {
