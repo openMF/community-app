@@ -10,6 +10,7 @@
                 scope.decimals = data.currency.decimalPlaces;
                 scope.changedDetail = [];
                 scope.hideDeletedGuarantors=true;
+                scope.hideWithDrawnGuarantors=true;
                 scope.isHideDeletedGuarantorsCheckboxChecked = true;
                 scope.updateCheckBoxStatus = function (){
                     scope.isHideDeletedGuarantorsCheckboxChecked = !scope.isHideDeletedGuarantorsCheckboxChecked;
