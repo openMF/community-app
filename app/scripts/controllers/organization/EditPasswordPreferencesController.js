@@ -1,19 +1,18 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditPasswordPreferencesController: function (scope, routeParams, resourceFactory, location, dateFilter) {
-            resourceFactory.passwordPrefResource.get(function(data){
-                scope.formData= [];
-                scope.description = data.description;
-                scope.id = data.id;
-                scope.isActive = data.active;
-                if(scope.isActive){
-                    scope.formData.preference = '1';
+            scope.formData = {};
+            resourceFactory.passwordPrefTemplateResource.get(function(data){
+                scope.dataOptions = data;
+                for(var i in data){
+                    if(data[i].active == true){
+                        scope.formData.validationPolicyId = data[i].id;
+                    }
                 }
             });
+
             scope.submit = function(){
-                this.formData = {};
-                this.formData.validationPolicyId = scope.id;
-                resourceFactory.passwordPrefResource.put(this.formData, function(data){
+                resourceFactory.passwordPrefResource.put(scope.formData, function(data){
                     location.path('/organization/');
                 });
             }

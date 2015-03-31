@@ -471,10 +471,14 @@
                         get: {method: 'GET', params: {}},
                         put: {method: 'PUT', params:{}}
                     }),
-                    passwordPrefResource: defineResource(apiVer + "/passwordpreferences/", {}, {
-                        get: {method: 'GET', params: {}},
+                    passwordPrefTemplateResource: defineResource(apiVer + "/passwordpreferences/template", {}, {
+                        get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
+                    passwordPrefResource : defineResource(apiVer + "/passwordpreferences", {}, {
+                        put: {method: 'PUT', params:{}}
+                    }),
+
                     paymentTypeResource: defineResource(apiVer + "/paymenttype/:paymentTypeId", {paymentTypeId: "@paymentTypeId"}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
