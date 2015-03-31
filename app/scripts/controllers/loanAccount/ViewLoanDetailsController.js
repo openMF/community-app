@@ -450,6 +450,10 @@
                 scope.printbtn = false;
             };
 
+            scope.viewJournalEntries = function(){
+                location.path("/searchtransaction/").search({loanId: scope.loandetails.id});
+            };
+
             scope.viewLoanDetails = function () {
                 scope.report = false;
             };
