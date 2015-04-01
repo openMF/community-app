@@ -287,15 +287,8 @@
                         scope.showEditDisburseDate = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
-
-                        if(data.disbursementDetails != ""){
-                            scope.disbursementDetails = data.disbursementDetails;
-                        }
                         for(var i in data.disbursementDetails){
-                            scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
-                            scope.disbursementDetails[i].principal = data.disbursementDetails[i].principal;
-                            scope.disbursementDetails[i].id = data.disbursementDetails[i].id;
-                            if(routeParams.disbursementId == scope.disbursementDetails[i].id){
+                            if(routeParams.disbursementId == data.disbursementDetails[i].id){
                                 scope.formData.updatedExpectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
                                 scope.formData.updatedPrincipal = data.disbursementDetails[i].principal;
                                 scope.id = data.disbursementDetails[i].id;
