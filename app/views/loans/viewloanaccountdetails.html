@@ -28,20 +28,11 @@
                  </div>
              </div>
              <div class="col-md-11 center" ng-show="viewLoanReport">
+                 <button ng-click="viewLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' | translate}} </button>
                  <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' | translate}} </button>
-                 <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.back' | translate}} </button>
              </div>
-            <div class="col-md-13 center" ng-show="viewTransactionReport">
-                <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding pull-right">{{'label.button.back' | translate}} </button>
-            </div>
-             <div class="form-group" data-ng-show="savingaccountdetails.allowOverdraft">
-                 <label class="control-label col-sm-2">
-        			<td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
-        		</label>
-        		<label class="control-label col-sm-2">
-        			<span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
-        		</label>
-             </div>
+
+
         </div>
         <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
             <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
@@ -49,6 +40,9 @@
             </button>
             <div id="printcontent">
                 <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
+            </div>
+            <div class="col-md-13 center" ng-show="viewTransactionReport">
+                <button ng-click="viewLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' | translate}} </button>
             </div>
         </div>
         <div ng-hide="report">
