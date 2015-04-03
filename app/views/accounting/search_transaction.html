@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="SearchTransactionController">
+<div class="col-md-12" ng-controller="SearchTransactionController" xmlns="http://www.w3.org/1999/html">
     <ul class="breadcrumb">
         <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
         <li class="active">{{'label.anchor.searchjournalentries' | translate}}</li>
@@ -6,45 +6,38 @@
 
     <div class="form-inline paddedtop paddedbottom10" ng-show="isCollapsed">
         <div class="form-group">
-            <select id="glAccounts" chosen="glAccounts" ng-autofocus="true" class="form-control" ng-model="formData.glAccount" ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for glAccount in glAccounts" value="{{glAccount.id}}">
-                <option class="displaynone" value="">{{'label.input.selectaccountnameorcode' | translate}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <select id="offices" chosen="offices" class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
-                <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <select id="filters" chosen="filters" class="form-control" ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
-                <option class="displaynone" value="">{{'label.selectfilter' | translate}}</option>
-            </select>
-        </div>
-        <div class="form-group clear">
-            <a ng-click="clearFilters()" class="btn btn-primary control"><i class="icon-remove-sign"></i></a>
-        </div><br>
-        <br>
-        <h3 class="control-label ng-binding">{{'label.heading.daterange' | translate}}</h3>
-        <br>
-        <div class="form-group">
-            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" style="width: 155px;"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" style="width: 155px;"/>
-        </div><br>
-        <br>
-        <h3 class="control-label">{{'label.heading.accountId' | translate}}</h3>
-        <br>
-        <div class="clear"></div>
-        <div class="form-group">
-            <input ng-model="formData.loanaccountId" type="text"
-                   placeholder="{{'label.input.searchbyloanaccountId' | translate}}" class="form-control"/>
-            <input ng-model="formData.savingsaccountId" type="text"
-                   placeholder="{{'label.input.searchbysavingsaccountId' | translate}}" class="form-control"/>
+            <div class="form-group">
+                <select id="glAccounts" chosen="glAccounts" ng-autofocus="true" class="form-control" ng-model="formData.glAccount" ng-options="glAccount.id as glAccount.name + ' ' + glAccount.glCode for glAccount in glAccounts" value="{{glAccount.id}}">
+                    <option class="displaynone" value="">{{'label.input.selectaccountnameorcode' | translate}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="offices" chosen="offices" class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                    <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="filters" chosen="filters" class="form-control" ng-model="formData.manualEntriesOnly" ng-options="filter.value as filter.option for filter in filters" value="{{filter.value}}">
+                    <option class="displaynone" value="">{{'label.selectfilter' | translate}}</option>
+                </select>
+            </div>
+            <div class="form-group clear">
+                <a ng-click="clearFilters()" class="btn btn-primary control"><i class="icon-remove-sign"></i></a>
+            </div>
         </div>
         <br>
+        <div class="form-group">
+            <h4 class="control-label ng-binding">{{'label.heading.daterange' | translate}}</h4>
+            <br>
+            <div class="form-group">
+                <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" style="width: 155px;"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" style="width: 155px;"/>
+            </div>
+        </div>
         <br>
-        <h3 class="control-label">{{'label.heading.transactionid' | translate}}</h3>
+        <h4 class="control-label ng-binding">{{'label.heading.transactionid' | translate}}</h4>
         <br>
         <div class="clear"></div>
         <div class="form-group">
@@ -112,6 +105,11 @@
             </tr>
             </tbody>
         </table>
+        <div class="center" ng-show="(formData.loanaccountId != null && isValid == true) || (formData.savingsaccountId != null && isValid == true)">
+            <a href="{{path}}"
+               class="btn btn-default center"
+                    ><i
+                   class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
         <ul class="pager">
             <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
             <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>

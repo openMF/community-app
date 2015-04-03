@@ -18,13 +18,6 @@
                 location.path('/viewtransactions/' + id);
             };
 
-            if(location.search().loanId != null){
-                scope.formData.loanaccountId = location.search().loanId;
-            }
-
-            if(location.search().savingsId != null){
-                scope.formData.savingsaccountId = location.search().savingsId;
-            }
             resourceFactory.accountCoaResource.getAllAccountCoas({
                 manualEntriesAllowed: true,
                 usage: 1,
@@ -128,6 +121,24 @@
                 scope.transactions = paginatorService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
             };
+
+            if(location.search().loanId != null){
+                scope.formData.loanaccountId = location.search().loanId;
+                scope.displayResults = true;
+                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+                scope.isValid = true;
+                scope.path = "#/viewloanaccount/" + scope.formData.loanaccountId;
+            }
+
+            if(location.search().savingsId != null){
+                scope.formData.savingsaccountId = location.search().savingsId;
+                scope.displayResults = true;
+                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+                scope.isValid = true;
+                scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
+            }
         }
     });
     mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', mifosX.controllers.SearchTransactionController]).run(function ($log) {
