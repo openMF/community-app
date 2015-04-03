@@ -8,6 +8,7 @@
             scope.date = {};
             scope.staffData = {};
             scope.fieldOfficers = [];
+            scope.savingaccountdetails = [];
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
