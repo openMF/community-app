@@ -596,6 +596,14 @@
               }
               return true;
             };
+
+            scope.checkStatus = function(){
+                if(scope.status == 'Active' || scope.status == 'Closed (obligations met)' || scope.status == 'Overpaid' ||
+                    scope.status == 'Closed (rescheduled)' || scope.status == 'Closed (written off)'){
+                    return true;
+                }
+                return false;
+            };
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
