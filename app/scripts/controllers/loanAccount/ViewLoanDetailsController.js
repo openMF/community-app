@@ -575,7 +575,13 @@
                 }
             };
 
-
+            scope.showEdit = function(disbursementDetail){
+                if((!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)
+                    && scope.status =='Approved'){
+                    return true;
+                }
+                return false;
+            };
 
             scope.showApprovedAmountBasedOnStatus = function () {
                 if (scope.status == 'Submitted and pending approval' || scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected') {
