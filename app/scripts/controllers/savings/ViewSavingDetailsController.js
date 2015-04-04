@@ -399,6 +399,14 @@
                     sort.descending = true;
                 }
             };
+
+            scope.checkStatus = function(){
+                if(scope.status == 'Active' || scope.status == 'Closed' || scope.status == 'Transfer in progress' ||
+                scope.status == 'Transfer on hold' || scope.status == 'Premature Closed' || scope.status == 'Matured'){
+                    return true;
+                }
+                return false;
+            };
             
         }
     });
