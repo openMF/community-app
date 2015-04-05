@@ -54,7 +54,7 @@
                 scope.formData.isInterestRecalculationEnabled = scope.product.isInterestRecalculationEnabled;
                 scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                 scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
-                scope.formData.preCloseInterestCalculationStrategy = scope.product.interestRecalculationData.preCloseInterestCalculationStrategy.id;
+                scope.formData.preClosureInterestCalculationStrategy = scope.product.interestRecalculationData.preClosureInterestCalculationStrategy.id;
                 scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
             });
 
