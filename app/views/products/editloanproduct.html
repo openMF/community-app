@@ -528,7 +528,22 @@
 					value="{{type.id}}"></select>
 		</div>
 	</div>
-	<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+        <label class="control-label col-sm-2">{{'label.input.preclose.interest.calculation.strategy'
+            | translate }}<span class="required">*</span>
+        </label>
+
+        <div class="col-sm-2">
+            <select id="preCloseInterestCalculationStrategy" class="form-control"
+                    ng-model="formData.preCloseInterestCalculationStrategy"
+                    ng-options="type.id as type.code | translate for type in product.preCloseInterestCalculationStrategyOptions"
+                    value="{{type.id}}"></select>
+        </div>
+    </div>
+
+
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
 		<label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
 			| translate }}<span class="required">*</span></label>
 
