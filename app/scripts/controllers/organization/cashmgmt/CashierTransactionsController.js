@@ -55,7 +55,7 @@
                 }, function (data) {
                     scope.cashierSummaryAndTxns = data;
                     scope.totaltxn = data.totalFilteredRecords;
-                    scope.cashierTransactions = data.cashierTransactions.pageItems;
+                    scope.cashierTransactions = data.cashierTransactions;
                 });
             }
             scope.initPage();
