@@ -16,6 +16,7 @@
             scope.expectedDisbursementDate = [];
             scope.disbursementDetails = [];
             scope.showTrancheAmountTotal = 0;
+            scope.processDate = false;
 
             switch (scope.action) {
                 case "approve":
@@ -122,18 +123,19 @@
                     break;
                 case "prepayloan":
                     scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         if (data.paymentTypeOptions.length > 0) {
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
                         }
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
+                        scope.processDate = true;
                     });
                     scope.title = 'label.heading.prepayloan';
                     scope.labelName = 'label.input.transactiondate';
@@ -384,6 +386,7 @@
             };
 
             scope.submit = function () {
+                scope.processDate = false;
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
@@ -485,6 +488,29 @@
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
+                    });
+                }
+            };
+
+            scope.$watch('formData.transactionDate',function(){
+                scope.onDateChange();
+             });
+
+            scope.onDateChange = function(){
+                if(scope.processDate) {
+                    var params = {};
+                    params.locale = scope.optlang.code;
+                    params.dateFormat = scope.df;
+                    params.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                    params.loanId = scope.accountId;
+                    params.command = 'prepayLoan';
+                    resourceFactory.loanTrxnsTemplateResource.get(params, function (data) {
+                        scope.formData.transactionAmount = data.amount;
+                        if (data.penaltyChargesPortion > 0) {
+                            scope.showPenaltyPortionDisplay = true;
+                        }
+                        scope.principalPortion = data.principalPortion;
+                        scope.interestPortion = data.interestPortion;
                     });
                 }
             };
