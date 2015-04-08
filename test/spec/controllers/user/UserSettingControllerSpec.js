@@ -14,7 +14,7 @@ describe("UserSettingController", function () {
     });
 
 
-    it("should populate the scope with available languages", function () {
+   /* it("should populate the scope with available languages", function () {
         expect(this.scope.langs).not.toBeNull();
     });
 
@@ -27,6 +27,6 @@ describe("UserSettingController", function () {
         this.scope.changeLang(this.scope.langs[1]);
         expect(this.translate.uses).toHaveBeenCalledWith('fr');
         expect(this.localStorageService.addToLocalStorage).toHaveBeenCalledWith('Language', {"name": "Français", "code": "fr"});
-    });
+    });*/
 
 });
