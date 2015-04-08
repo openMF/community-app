@@ -156,6 +156,7 @@ module.exports = function(grunt) {
             '!scripts/mifosXStyles-build.js',
             'global-translations/**',
             '*.html',
+            'release.json',
             'views/**'
           ]
         },
