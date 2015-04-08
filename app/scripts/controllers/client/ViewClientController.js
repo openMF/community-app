@@ -48,20 +48,61 @@
                     }
                 });
 
-                
+                scope.clickEvent = function (eventName, accountId) {
+
+                    eventName = eventName || "";
+                    switch(eventName) {
+
+                        case "deposit":
+                            location.path('/savingaccount/' + accountId + '/deposit');
+                            break;
+                        case "withdraw":
+                            location.path('/savingaccount/' + accountId + '/withdrawal');
+                            break;
+                    }
+                }
+
+
+
                 var clientStatus = new mifosX.models.ClientStatus();
+
+
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
                 }
 
+                if (clientStatus.statusKnown(data.status.value)) {
+                    scope.buttons1 = clientStatus.getStatus(data.status.value);
+
+                    scope.buttons1 = {
+                        singlebuttons: [
+                            {
+                                name: "button.deposit",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.withdraw",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAWAL_SAVINGSACCOUNT"
+                            }
+                        ]
+
+                    };
+                }
+
+
                 if (data.status.value == "Pending" || data.status.value == "Active") {
+
+
                     if (data.staffId) {
 
                     }
                     else {
                         scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
+
                 }
 
                 scope.buttonsArray = {
@@ -213,13 +254,13 @@
                             },
                             file: scope.file,
                         }).then(function (imageData) {
-                                // to fix IE not refreshing the model
-                                if (!scope.$$phase) {
-                                    scope.$apply();
-                                }
-                                $modalInstance.close('upload');
-                                route.reload();
-                            });
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $modalInstance.close('upload');
+                            route.reload();
+                        });
                     }
                 };
                 $scope.cancel = function () {
@@ -551,7 +592,7 @@
                     controller: ViewLargerClientSignature,
                     size: "lg"
                 });
-             };
+            };
 
             scope.showWithoutSignature = function()
             {
@@ -576,11 +617,11 @@
                 };
             };
             var ViewLargerClientSignature = function($scope,$modalInstance){
-                    var loadSignature = function(){
-                     http({
+                var loadSignature = function(){
+                    http({
                         method: 'GET',
                         url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
-                     }).then(function (docsData) {
+                    }).then(function (docsData) {
                         var docId = -1;
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
@@ -588,21 +629,21 @@
                                 scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             }
                         }
-                    if (scope.signature_url != null) {
-                        http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                    }).then(function (docsData) {
-                            $scope.largeImage = scope.signature_url;
-                        });
-                    }
+                        if (scope.signature_url != null) {
+                            http({
+                                method: 'GET',
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                            }).then(function (docsData) {
+                                $scope.largeImage = scope.signature_url;
+                            });
+                        }
                     });
                 };
                 loadSignature();
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-             };
+            };
 
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
                 var loadImage = function () {
