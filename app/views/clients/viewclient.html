@@ -337,10 +337,11 @@
 
 										<span ng-repeat="button in buttons1.singlebuttons">
 										  <a tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
-											 ng-click="clickEvent(button.name.replace('button.',''), savingaccount.id)"
-											 class="btn btn-xs btn-primary ng-binding"><i class="{{button.icon}} icon-white"></i>
+											 ng-click="clickEvent(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
+											 class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} icon-white"></i>
 										  </a>
 									   </span>
+
 
 											<!--<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
                                                 <i class="icon-arrow-right icon-white"></i>
@@ -353,8 +354,8 @@
                                             </a>
                                             <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
                                                 <i class="icon-arrow-left icon-white"></i>
-                                            </a>
-                                        </td>-->
+                                            </a>-->
+                                        </td>
 										<td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 											<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 												<i class="icon-ok icon-white"></i>

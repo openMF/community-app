@@ -48,16 +48,26 @@
                     }
                 });
 
-                scope.clickEvent = function (eventName, accountId) {
+                scope.clickEvent = function (eventName, accountId, savingProductId) {
 
                     eventName = eventName || "";
                     switch(eventName) {
 
                         case "deposit":
+                            if(savingProductId==100)
                             location.path('/savingaccount/' + accountId + '/deposit');
                             break;
                         case "withdraw":
+                            if(savingProductId==100)
                             location.path('/savingaccount/' + accountId + '/withdrawal');
+                            break;
+                        case "depositrec":
+                            if(savingProductId==300)
+                            location.path('/recurringdepositaccount/' + accountId + '/deposit');
+                            break;
+                        case "withdrawrec":
+                            if(savingProductId==300)
+                            location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
                             break;
                     }
                 }
@@ -79,13 +89,27 @@
                         singlebuttons: [
                             {
                                 name: "button.deposit",
+                                type: "100",
                                 icon: "icon-arrow-right",
                                 taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
                             },
                             {
                                 name: "button.withdraw",
+                                type: "100",
                                 icon: "icon-arrow-left",
-                                taskPermissionName: "WITHDRAWAL_SAVINGSACCOUNT"
+                                taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.depositrec",
+                                type: "300",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
+                            },
+                            {
+                                name: "button.withdrawrec",
+                                type: "300",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
                             }
                         ]
 
