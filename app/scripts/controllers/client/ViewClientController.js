@@ -48,20 +48,85 @@
                     }
                 });
 
-                
+                scope.clickEvent = function (eventName, accountId, savingProductId) {
+
+                    eventName = eventName || "";
+                    switch(eventName) {
+
+                        case "deposit":
+                            if(savingProductId==100)
+                            location.path('/savingaccount/' + accountId + '/deposit');
+                            break;
+                        case "withdraw":
+                            if(savingProductId==100)
+                            location.path('/savingaccount/' + accountId + '/withdrawal');
+                            break;
+                        case "depositrec":
+                            if(savingProductId==300)
+                            location.path('/recurringdepositaccount/' + accountId + '/deposit');
+                            break;
+                        case "withdrawrec":
+                            if(savingProductId==300)
+                            location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
+                            break;
+                    }
+                }
+
+
+
                 var clientStatus = new mifosX.models.ClientStatus();
+
+
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
                 }
 
+                if (clientStatus.statusKnown(data.status.value)) {
+                    scope.buttons1 = clientStatus.getStatus(data.status.value);
+
+                    scope.buttons1 = {
+                        singlebuttons: [
+                            {
+                                name: "button.deposit",
+                                type: "100",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.withdraw",
+                                type: "100",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
+                            },
+                            {
+                                name: "button.depositrec",
+                                type: "300",
+                                icon: "icon-arrow-right",
+                                taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
+                            },
+                            {
+                                name: "button.withdrawrec",
+                                type: "300",
+                                icon: "icon-arrow-left",
+                                taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
+                            }
+                        ]
+
+                    };
+                }
+
+
                 if (data.status.value == "Pending" || data.status.value == "Active") {
+
+
                     if (data.staffId) {
 
                     }
                     else {
                         scope.buttons.push(clientStatus.getStatus("Assign Staff"));
                     }
+
                 }
 
                 scope.buttonsArray = {
@@ -213,13 +278,13 @@
                             },
                             file: scope.file,
                         }).then(function (imageData) {
-                                // to fix IE not refreshing the model
-                                if (!scope.$$phase) {
-                                    scope.$apply();
-                                }
-                                $modalInstance.close('upload');
-                                route.reload();
-                            });
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $modalInstance.close('upload');
+                            route.reload();
+                        });
                     }
                 };
                 $scope.cancel = function () {
@@ -551,7 +616,7 @@
                     controller: ViewLargerClientSignature,
                     size: "lg"
                 });
-             };
+            };
 
             scope.showWithoutSignature = function()
             {
@@ -576,11 +641,11 @@
                 };
             };
             var ViewLargerClientSignature = function($scope,$modalInstance){
-                    var loadSignature = function(){
-                     http({
+                var loadSignature = function(){
+                    http({
                         method: 'GET',
                         url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
-                     }).then(function (docsData) {
+                    }).then(function (docsData) {
                         var docId = -1;
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
@@ -588,21 +653,21 @@
                                 scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             }
                         }
-                    if (scope.signature_url != null) {
-                        http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                    }).then(function (docsData) {
-                            $scope.largeImage = scope.signature_url;
-                        });
-                    }
+                        if (scope.signature_url != null) {
+                            http({
+                                method: 'GET',
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                            }).then(function (docsData) {
+                                $scope.largeImage = scope.signature_url;
+                            });
+                        }
                     });
                 };
                 loadSignature();
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-             };
+            };
 
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
                 var loadImage = function () {
