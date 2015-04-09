@@ -48,21 +48,19 @@
                     }
                 });
 
-                scope.clickEvent = function (eventName, accountId, savingProductId) {
-
-                    eventName = eventName || "";
+                scope.navigateToSavingsOrDepositAccount = function (eventName, accountId, savingProductType) {
                     switch(eventName) {
 
                         case "deposit":
-                            if(savingProductId==100)
+                            if(savingProductType==100)
                                 location.path('/savingaccount/' + accountId + '/deposit');
-                            if(savingProductId==300)
+                            if(savingProductType==300)
                                 location.path('/recurringdepositaccount/' + accountId + '/deposit');
                             break;
                         case "withdraw":
-                            if(savingProductId==100)
+                            if(savingProductType==100)
                                 location.path('/savingaccount/' + accountId + '/withdrawal');
-                            if(savingProductId==300)
+                            if(savingProductType==300)
                                 location.path('/recurringdepositaccount/' + accountId + '/withdrawal');
                             break;
                     }
@@ -73,13 +71,7 @@
 
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
-                }
-
-                if (clientStatus.statusKnown(data.status.value)) {
-                    scope.buttons1 = clientStatus.getStatus(data.status.value);
-
-                    scope.buttons1 = {
-                        singlebuttons: [
+                    scope.savingsActionbuttons = [
                             {
                                 name: "button.deposit",
                                 type: "100",
@@ -104,9 +96,7 @@
                                 icon: "icon-arrow-left",
                                 taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
                             }
-                        ]
-
-                    };
+                        ];
                 }
 
                 if (data.status.value == "Pending" || data.status.value == "Active") {
