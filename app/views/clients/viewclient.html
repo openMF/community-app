@@ -333,14 +333,12 @@
 						                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
 						                <td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
 						                <td class="pointer" ng-if="savingaccount.status.active">
-
-											<span ng-repeat="button in buttons1.singlebuttons">
-										  <a tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
-											 ng-click="clickEvent(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
-											 class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} icon-white"></i>
-										  </a>
-									   </span>
-
+											<span ng-repeat="button in savingsActionbuttons">
+											  <a tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+												 ng-click="navigateToSavingsOrDepositAccount(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
+												 class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} icon-white"></i>
+											  </a>
+											</span>
 						                </td>
 						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
