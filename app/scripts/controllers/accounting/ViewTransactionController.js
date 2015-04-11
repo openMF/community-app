@@ -17,7 +17,7 @@
             }
 
 
-            resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId}, function (data) {
+            resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
                 scope.transactionNumber = routeParams.transactionId;
                 scope.transactions = data.pageItems;
                 for (var i in data.pageItems) {
