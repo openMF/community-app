@@ -471,6 +471,9 @@
                         get: {method: 'GET', params: {}},
                         put: {method: 'PUT', params:{}}
                     }),
+                    workingDaysResourceTemplate: defineResource(apiVer + "/workingdays/template", {}, {
+                       get: {method: 'GET', params: {}}
+                    }),
                     passwordPrefTemplateResource: defineResource(apiVer + "/passwordpreferences/template", {}, {
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
