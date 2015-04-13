@@ -34,6 +34,7 @@
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
+                            scope.approveTranches = true;
                         }
                         for(var i in data.disbursementDetails){
                             scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
