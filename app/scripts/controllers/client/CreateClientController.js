@@ -12,6 +12,7 @@
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
             scope.forceOffice = null;
+            scope.forceStaff = null;
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -31,11 +32,38 @@
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }
+                if(routeParams.staffId) {
+                    for(var i in scope.staffs) {
+                        if (scope.staffs[i].id == routeParams.staffId) {
+                            scope.formData.staffId = scope.staffs[i].id;
+                            scope.forceStaff = scope.formData.staffId;
+                            break;
+                        }
+                    }
+                }
+                else if(routeParams.centerId){
+                    requestParams.centerId = routeParams.centerId;
+
+                    resourceFactory.clientTemplateResource.get(requestParams, function (data) {
+
+                        scope.staffs = data.staffOptions;
+                        if (data.staffId) {
+                            scope.formData.staffId = data.staffId;
+                            for (var i in data.staffOptions) {
+                                if (data.staffOptions[i].id == data.staffId) {
+                                    scope.forceStaff = data.staffOptions[i];
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                }
                 if(routeParams.officeId) {
-                    scope.formData.officeId = routeParams.officeId;
-                    for(var i in data.officeOptions) {
-                        if(data.officeOptions[i].id == routeParams.officeId) {
-                            scope.forceOffice = data.officeOptions[i];
+                    for(var i in scope.offices) {
+                        if (scope.offices[i].id == routeParams.officeId) {
+                            scope.formData.officeId = scope.offices[i].id;
+
+                            scope.forceOffice = scope.formData.officeId;
                             break;
                         }
                     }
