@@ -618,20 +618,28 @@
                                 <td>
                                     <b>{{'label.heading.tranchedetails' | translate}}</b>
                                 </td>
+                                <td align="right">
+                                <a type="button" ng-show="status !='Submitted and pending approval'" class="btn btn-primary" align="right"
+                                   href="#/loandisbursedetail/{{loandetails.id}}/adddisbursedetails">
+                                    <i class="icon-plus"></i>{{ 'label.button.add' | translate }}
+                                </a>
+                                    <a type="button" ng-show="status !='Submitted and pending approval'" class="btn btn-danger" align="right"
+                                       href="#/loandisbursedetail/{{loandetails.id}}/deletedisbursedetails">
+                                        <i class="icon-trash"></i>{{ 'label.button.delete' | translate }}
+                                    </a>
+                                </td>
                             </tr>
                         </table>
                         <table class="width100">
                             <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
                                 <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
                                 <th align="left">{{'label.input.disbursedon' | translate}}</th>
-                                <th align="left">{{'label.heading.approvedamount' | translate}}</th>
                                 <th align="left">{{'label.input.principal' | translate}}</th>
                                 <th align="left">&nbsp;</th>
                             </tr>
                             <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
                                 <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
-                                <td>{{disbursementDetail.approvedPrincipal | number}}</td>
                                 <td>{{disbursementDetail.principal | number}}</td>
                                 <td>
                                     <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i>
