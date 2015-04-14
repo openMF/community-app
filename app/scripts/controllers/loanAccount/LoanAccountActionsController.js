@@ -348,7 +348,6 @@
                         scope.deleteDisburseDetails = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
-
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                         }
