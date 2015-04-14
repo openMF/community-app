@@ -19,15 +19,15 @@
             scope.frFlag = false;
             scope.fiFlag = false;
             scope.piFlag = false;
-            scope.amortization = false;
-            scope.arrearsTolerance = false;
-            scope.graceOnArrearsAging = false;
-            scope.interestCalcPeriod = false;
-            scope.interestMethod = false;
-            scope.graceOnPrincipalAndInterest = false;
-            scope.repaymentFrequency = false;
-            scope.transactionProcessingStrategy = false;
-            scope.allowAttributeConfiguration = false;
+            scope.amortization = true;
+            scope.arrearsTolerance = true;
+            scope.graceOnArrearsAging = true;
+            scope.interestCalcPeriod = true;
+            scope.interestMethod = true;
+            scope.graceOnPrincipalAndInterest = true;
+            scope.repaymentFrequency = true;
+            scope.transactionProcessingStrategy = true;
+            scope.allowAttributeConfiguration = true;
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -65,7 +65,9 @@
                 scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                 scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                 scope.formData.preClosureInterestCalculationStrategy = scope.product.interestRecalculationData.preClosureInterestCalculationStrategy.id;
-                scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
+                if(scope.product.interestRecalculationData.recalculationRestFrequencyType){
+                    scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
+                }
             });
 
             scope.chargeSelected = function (chargeId) {
