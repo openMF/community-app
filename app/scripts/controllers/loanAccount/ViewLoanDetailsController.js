@@ -604,6 +604,33 @@
                 }
                 return false;
             };
+
+            scope.showAddDeleteTrancheButtons = function(action){
+                scope.return = true;
+                if(scope.status == 'Closed (obligations met)' || scope.status == 'Overpaid' ||
+                    scope.status == 'Closed (rescheduled)' || scope.status == 'Closed (written off)' ||
+                    scope.status =='Submitted and pending approval'){
+                    scope.return = false;
+                }
+                scope.totalDisbursedAmount = 0;
+                scope.count = 0;
+                for(var i in scope.loandetails.disbursementDetails){
+                    if(scope.loandetails.disbursementDetails[i].actualDisbursementDate != null){
+                        scope.totalDisbursedAmount += scope.loandetails.disbursementDetails[i].principal;
+                    }
+                    else{
+                        scope.count +=  1;
+                    }
+                }
+                if(scope.totalDisbursedAmount == scope.loandetails.approvedPrincipal || scope.return == false){
+                    return false;
+                }
+                if(scope.count == 0 && action == 'deletedisbursedetails'){
+                    return false;
+                }
+
+                return true;
+            };
         }
     });
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
