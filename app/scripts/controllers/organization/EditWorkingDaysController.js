@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         EditWorkingDaysController: function (scope, routeParams, resourceFactory, location, dateFilter, $filter) {
             scope.workingDays = [];
+            scope.selectedRepaymentType = "";
             scope.compareWith = [
                 {name: "MO", value: "Monday"},
                 {name: "TU", value: "Tuesday"},
@@ -11,6 +12,7 @@
                 {name: "SA", value: "Saturday"},
                 {name: "SU", value: "Sunday"}
             ];
+
             resourceFactory.workingDaysResource.get(function(data){
                 scope.repaymentRescheduleTypes = [{
                     id: data.repaymentRescheduleType.id,
@@ -36,6 +38,10 @@
                     }
                 }
             });
+            resourceFactory.workingDaysResourceTemplate.get(function(data){
+                scope.repaymentRescheduleOptions = data.repaymentRescheduleOptions;
+            });
+
             scope.showLabel = function(day){
                 if(day != "Monday"){
                     return true;
