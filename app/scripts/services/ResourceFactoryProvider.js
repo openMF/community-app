@@ -206,6 +206,12 @@
                             isArray: true
                         }
                     }),
+                    clientSearch: defineResource(apiVer + "/client", {query: '@query'},{
+                        search: { method: 'GET',
+                        params: { query: '@query'},
+                        isArray: true
+                        }
+                    }),
                     globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),

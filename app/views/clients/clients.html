@@ -3,8 +3,15 @@
         <li class="active">{{'label.anchor.clients' | translate}}</li>
     </ul>
     <api-validate></api-validate>
-
+    <div class="col-sm-3">
     <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="marginbottom0px form-control" placeholder="{{'label.input.filterbynameaccno' | translate}}">
+    </div>
+    <div class="col-sm-3">
+        <form ng-submit="search()">
+            <input  data-ng-model="client.query" type="text" placeholder="search parameter" value="{{query}}"/>
+            <button id="query" type="search" class="btn btn-primary" has-permission='READ_CLIENT'>Search Client</button>
+        </form>
+    </div>
     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
 
     <table class="table">
@@ -18,6 +25,27 @@
         </tr>
         </thead>
         <tbody>
+         <tr class="pointer-main"  class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}" ng-repeat="result in searchResults" ng-show="result.entityType  == 'CLIENT'" >
+             <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.entityName}} </td>
+             <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.entityExternalId || result.entityAccountNo}} </td>
+             <td class="pointer" data-ng-click="routeTo(result.entityId)">
+                 <i class="icon-stop {{result.entityStatus.code | StatusLookup}}"></i>&nbsp;{{result.entityStatus.value}}
+                 <small ng-if="result.entitySubStatus.description">[{{result.entiytSubStatus.description}}]</small></td>
+             <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.parentName}} </td>
+         </tr>
+        </tbody>
+
+        <tbody>
+        <tr class="pointer-main"  class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}" ng-repeat="result in searchResults" ng-show="result.entityType  == 'CLIENTIDENTIFIER' " >
+            <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.parentName}} </td>
+            <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.entityExternalId}} </td>
+            <td class="pointer" data-ng-click="routeTo(result.entityId)">
+                <i class="icon-stop {{result.entityStatus.code | StatusLookup}}"></i>&nbsp;{{result.entityStatus.value}}
+                <small ng-if="result.entitySubStatus.description">[{{result.entiytSubStatus.description}}]</small></td>
+
+        </tr>
+        </tbody>
+        <tbody>
         <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
@@ -29,6 +57,7 @@
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
         </tr>
         </tbody>
+
     </table>
     <!-- <ul class="pager">
         <li class="previous"><a id="prev" ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
