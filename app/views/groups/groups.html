@@ -2,18 +2,16 @@
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.groups' | translate}}</li>
     </ul>
-    <div class="col-sm-3">
-    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
+    <div class="col-sm-5">
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
     </div>
-      <div class="col-sm-3">
         <form ng-submit="search()">
-                <input  data-ng-model="group.query" type="text" placeholder="search parameter"  value="{{query}}"/>
+            <div class="col-sm-4">
+                <input  data-ng-model="group.query" type="text" placeholder="Search with group Name / group ExternalId "  value="{{query}}" class="form-control"/>
+             </div>
                 <button id="query" type="search" class="btn btn-primary">Search Group</button>
+                <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
         </form>
-      </div>
-
-        <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
-
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -23,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main"  class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}" ng-repeat="result in searchResults" ng-show="result.entityType  == 'GROUP' " >
+        <tr class="pointer-main" ng-repeat="result in searchResults" ng-show="result.entityType  == 'GROUP' " >
             <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.entityName}} </td>
             <td class="pointer" data-ng-click="routeTo(result.entityId)">
                 <i class="icon-stop {{result.entityStatus.code | StatusLookup}}"></i>&nbsp;{{result.entityStatus.value}}

@@ -2,20 +2,17 @@
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.centers' | translate}}</li>
     </ul>
-    <div class="col-sm-3">
-    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
-     </div>
-    <div class="col-sm-3">
-        <form ng-submit="search()">
-            <input  data-ng-model="center.query" type="text" placeholder="search parameter" value="{{query}}" class="text-right"/>
-            <div class="btn-group col-lg-pull-3">
-                <button id="query" type="search" class="btn btn-primary">Search Client</button>
-            </div>
-        </form>
+    <div class="col-sm-5">
+            <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
     </div>
-    <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="icon-plus icon-white"></i>{{'label.button.createcenter' | translate}}</a>
-
-    <table class="table">
+      <form ng-submit="search()">
+          <div class="col-sm-4">
+                <input  data-ng-model="center.query" type="text" placeholder="Search center with Name/ExternalId" value="{{query}}"  class="form-control" />
+          </div>
+          <button id="query" type="search" class=" btn btn-primary">Search Center </button>
+          <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="icon-plus icon-white"></i>{{'label.button.createcenter' | translate}}</a>
+      </form>
+      <table class="table">
         <thead>
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
@@ -27,8 +24,10 @@
         </thead>
 
         <tbody>
-        <tr class="pointer-main"  class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}" ng-repeat="result in searchResults" ng-show="result.entityType  == 'CENTER' " >
+        <tr class="pointer-main" ng-repeat="result in searchResults" ng-show="result.entityType  == 'CENTER' " >
             <td class="pointer" data-ng-click="routeTo(result.entityId)"> {{result.entityName}} </td>
+            <td class="pointer" data-ng-click="routeTo(result.entityId)">{{result.entityId}}</td>
+            <td class="pointer" data-ng-click="routeTo(result.entityId)">{{result.entityExternalId}}</td>
             <td class="pointer" data-ng-click="routeTo(result.entityId)">
                 <i class="icon-stop {{result.entityStatus.code | StatusLookup}}"></i>&nbsp;{{result.entityStatus.value}}
                 <small ng-if="result.entitySubStatus.description">[{{result.entiytSubStatus.description}}]</small></td>

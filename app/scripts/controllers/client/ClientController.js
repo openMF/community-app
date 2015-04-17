@@ -51,9 +51,6 @@
             }
 
             scope.query = routeParams.query;
-            if (routeParams.query == 'undefined') {
-                routeParams.query = '';
-            }
             resourceFactory.globalSearch.search({query: routeParams.query}, function (data) {
                 scope.searchResults = data;
             });
