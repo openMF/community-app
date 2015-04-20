@@ -244,16 +244,6 @@
             .when('/search/:query', {
                 templateUrl: 'views/search/glresults.html'
             })
-            .when('/clients/:query', {
-                templateUrl: 'views/clients/clients.html'
-            })
-            .when('/groups/:query',{
-                templateUrl: 'views/groups/groups.html'
-            })
-            .when('/centers/:query',{
-                templateUrl: 'views/centers/centers.html'
-            })
-
             .when('/viewloanproduct/:id', {
                 templateUrl: 'views/products/viewloanproduct.html'
             })
