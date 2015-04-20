@@ -32,7 +32,7 @@
                 });
             };
 
-            scope.getGroupDetails = function (groupId) {
+           scope.getGroupDetails = function (groupId) {
 
                 scope.selected = groupId;
 

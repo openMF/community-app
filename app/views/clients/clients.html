@@ -4,8 +4,25 @@
     </ul>
     <api-validate></api-validate>
 
-    <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="marginbottom0px form-control" placeholder="{{'label.input.filterbynameaccno' | translate}}">
     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
+    <div class="clearfix"></div>
+    <form ng-submit="search()" class="form-horizontal">
+        <div class="form-group">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByNameAccNo' | translate}}" class="form-control"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary form-control">
+                            <span class="icon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterbynameaccno' | translate}}">
+            </div>
+        </div>
+    </form>
 
     <table class="table">
         <thead>
@@ -17,6 +34,7 @@
             <th>{{'label.heading.staff' | translate}}</th>
         </tr>
         </thead>
+
         <tbody>
         <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
@@ -29,10 +47,7 @@
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
         </tr>
         </tbody>
+
     </table>
-    <!-- <ul class="pager">
-        <li class="previous"><a id="prev" ng-click="clients.previous()" href="" ng-disabled="!clients.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
-        <li class="next"><a id="next" ng-click="clients.next()" href="" ng-disabled="!clients.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
-    </ul> -->
     <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
