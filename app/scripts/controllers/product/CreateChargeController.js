@@ -10,12 +10,14 @@
             scope.first.date = new Date();
             scope.translate = translate;
             scope.showFrequencyOptions = false;
+            scope.showDisbursementChargeField = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+                scope.disbursementChargeTypeOptions = data.disbursementChargeTypeOptions;
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -23,11 +25,13 @@
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
+                    scope.showDisbursementChargeField = false;
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                     scope.addfeefrequency = false;
+                    scope.showDisbursementChargeField = false;
                 }
             }
             //when chargeAppliesTo is savings, below logic is
@@ -37,6 +41,11 @@
                 scope.showFrequencyOptions = false;
                 if(chargeTimeType == 9){
                     scope.showFrequencyOptions = true;
+                }
+                if(chargeTimeType == 1){
+                    scope.showDisbursementChargeField = true;
+                }else{
+                    scope.showDisbursementChargeField = false;
                 }
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {
@@ -73,6 +82,15 @@
                     scope.choice = 0;
                 }
             };
+
+            scope.changeChargeCalculationType = function(chargeCalculationId){
+               if(chargeCalculationId == 2){
+                    scope.formData.disbursementChargeType = 0;
+                    scope.disable = true;
+                }else{
+                    scope.disable = false;
+                }
+            }
 
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
