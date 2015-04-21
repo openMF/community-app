@@ -30,7 +30,7 @@
                     scope.periodValue = "day(s)"
                 }
                 if (period == 2) {
-                    scope.repeatsEveryOptions = ["1", "2", "3"];
+                    scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
                     scope.formData.repeatsOnDay = '1';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
