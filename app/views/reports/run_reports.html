@@ -147,7 +147,10 @@
 	                <tbody>
 	                <!-- http://www.anujgakhar.com/2013/06/15/duplicates-in-a-repeater-are-not-allowed-in-angularjs/ -->
 	                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index">
-	                    <td ng-repeat="col in row.row track by $index">{{col | FormatNumber:decimalsChoice}}</td>
+						<td ng-repeat="col in row.row track by $index">
+							<span ng-show="isDecimal($index)">{{col | FormatNumber:decimalsChoice}}</span>
+							<span ng-hide="isDecimal($index)">{{col}}</span>
+						</td>
 	                </tr>
 	                </tbody>
 	            </table>

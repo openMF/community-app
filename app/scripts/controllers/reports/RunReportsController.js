@@ -276,6 +276,16 @@
                     return colorArrayPie[i];
                 };
             };
+            scope.isDecimal = function(index){
+                if(scope.reportData.columnHeaders && scope.reportData.columnHeaders.length > 0){
+                    for(var i=0; i<scope.reportData.columnHeaders.length; i++){
+                        if(scope.reportData.columnHeaders[index].columnType == 'DECIMAL'){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
             scope.runReport = function () {
                 //clear the previous errors
                 scope.errorDetails = [];
