@@ -233,10 +233,6 @@
 </tr>
 
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
-    <td>{{'label.input.interest.recalculation.compounding.method' | translate}}</td>
-    <td colspan="3">{{loanproduct.interestRecalculationData.interestRecalculationCompoundingType.value}}</td>
-</tr>
-<tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.interest.recalculation.reschdule.strategy' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.rescheduleStrategyType.value}}</td>
 </tr>
@@ -244,6 +240,26 @@
     <td>{{'label.input.preclose.interest.calculation.strategy' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.preClosureInterestCalculationStrategy.code | translate}}</td>
 </tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
+    <td>{{'label.input.interest.recalculation.compounding.method' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.interestRecalculationCompoundingType.value}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0">
+    <td>{{'label.input.frequency.for.compounding' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.value}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0
+        && loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
+    <td>{{'label.input.frequenc.interval.for.compounding' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0
+        && loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id!=1">
+    <td>{{'label.input.frequenc.date.for.compounding' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyDate | DateFormat}}</td>
+</tr>
+
+
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.frequency.for.recalculte.outstanding.principal' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.recalculationRestFrequencyType.value}}</td>
