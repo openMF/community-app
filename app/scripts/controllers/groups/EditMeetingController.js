@@ -47,7 +47,7 @@
                     scope.periodValue = "day(s)"
                 }
                 if (period == 2) {
-                    scope.repeatsEveryOptions = ["1", "2", "3"];
+                    scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
                     scope.formData.repeatsOnDay = '1';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
@@ -84,10 +84,10 @@
                 resourceFactory.attachMeetingResource.update({groupOrCenter: routeParams.entityType,
                     groupOrCenterId: routeParams.groupOrCenterId, templateSource: routeParams.calendarId}, this.formData, function (data) {
                     var destURI = "";
-                    if (routeParams.entityType == "GROUPS") {
+                    if (routeParams.entityType == "groups") {
                         destURI = "viewgroup/" + routeParams.groupOrCenterId;
                     }
-                    else if (routeParams.entityType == "CENTERS") {
+                    else if (routeParams.entityType == "centers") {
                         destURI = "viewcenter/" + routeParams.groupOrCenterId;
                     }
                     location.path(destURI);
