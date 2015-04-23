@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         CenterController: function (scope, resourceFactory, location) {
             scope.centers = [];
+            scope.actualCenters = [];
             scope.searchText = "";
             scope.searchResults = [];
             scope.routeTo = function (id) {
@@ -22,6 +23,11 @@
 
             scope.centersPerPage = 15;
             scope.getResultsPage = function (pageNumber) {
+                if(scope.searchText){
+                    var startPosition = (pageNumber - 1) * scope.centersPerPage;
+                    scope.centers = scope.actualCenters.slice(startPosition, startPosition + scope.centersPerPage);
+                    return;
+                }
                 var items = resourceFactory.centerResource.get({
                     offset: ((pageNumber - 1) * scope.centersPerPage),
                     limit: scope.centersPerPage,
@@ -48,13 +54,13 @@
             scope.initPage();
 
             scope.search = function () {
-                scope.centers = [];
+                scope.actualCenters = [];
                 scope.searchResults = [];
                 scope.filterText = "";
                 if(!scope.searchText){
                     scope.initPage();
                 } else {
-                    resourceFactory.globalSearch.search({query: scope.searchText}, function (data) {
+                    resourceFactory.globalSearch.search({query: scope.searchText ,  resource: "groups"}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {
                             var result = data[i];
@@ -68,9 +74,12 @@
                                 center.status.value = result.entityStatus.value;
                                 center.status.code = result.entityStatus.code;
                                 center.externalId = result.entityExternalId;
-                                scope.centers.push(center);
+                                scope.actualCenters.push(center);
                             }
                         }
+                        var numberOfCenters = scope.actualCenters.length;
+                        scope.totalCenters = numberOfCenters;
+                        scope.centers = scope.actualCenters.slice(0, scope.centersPerPage);
                     });
                 }
             }

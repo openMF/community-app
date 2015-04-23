@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         GroupController: function (scope, resourceFactory, location) {
             scope.groups = [];
+            scope.actualGroups = [];
             scope.searchText = "";
             scope.searchResults = [];
             scope.routeTo = function (id) {
@@ -21,6 +22,11 @@
 
             scope.groupsPerPage = 15;
             scope.getResultsPage = function (pageNumber) {
+                if(scope.searchText){
+                    var startPosition = (pageNumber - 1) * scope.groupsPerPage;
+                    scope.groups = scope.actualGroups.slice(startPosition, startPosition + scope.groupsPerPage);
+                    return;
+                }
                 var items = resourceFactory.groupResource.get({
                     offset: ((pageNumber - 1) * scope.groupsPerPage),
                     limit: scope.groupsPerPage,
@@ -48,13 +54,13 @@
             scope.initPage();
 
             scope.search = function () {
-                scope.groups = [];
+                scope.actualGroups = [];
                 scope.searchResults = [];
                 scope.filterText = "";
                 if(!scope.searchText){
                     scope.initPage();
                 } else {
-                    resourceFactory.globalSearch.search({query: scope.searchText}, function (data) {
+                    resourceFactory.globalSearch.search({query: scope.searchText, resource: "groups"}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {
                             var result = data[i];
@@ -68,9 +74,12 @@
                                 group.status.value = result.entityStatus.value;
                                 group.status.code = result.entityStatus.code;
                                 group.externalId = result.entityExternalId;
-                                scope.groups.push(group);
+                                scope.actualGroups.push(group);
                             }
                         }
+                        var numberOfGroups = scope.actualGroups.length;
+                        scope.totalGroups = numberOfGroups;
+                        scope.groups = scope.actualGroups.slice(0, scope.groupsPerPage);
                     });
                 }
             }
