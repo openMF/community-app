@@ -20,11 +20,11 @@
             };
 
 
-            scope.groupsPerPage = 15;
+            scope.centersPerPage = 15;
             scope.getResultsPage = function (pageNumber) {
                 var items = resourceFactory.centerResource.get({
-                    offset: ((pageNumber - 1) * scope.groupsPerPage),
-                    limit: scope.groupsPerPage,
+                    offset: ((pageNumber - 1) * scope.centersPerPage),
+                    limit: scope.centersPerPage,
                     paged: 'true',
                     orderBy: 'name',
                     sortOrder: 'ASC'
@@ -36,7 +36,7 @@
             scope.initPage = function () {
                 var items = resourceFactory.centerResource.get({
                     offset: 0,
-                    limit: scope.groupsPerPage,
+                    limit: scope.centersPerPage,
                     paged: 'true',
                     orderBy: 'name',
                     sortOrder: 'ASC'

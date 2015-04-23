@@ -35,7 +35,7 @@
         </thead>
 
         <tbody>
-        <tr class="pointer-main" ng-repeat="center in centers | orderBy:'name':reverse  | filter:filterText">
+        <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: centersPerPage" total-items="totalCenters" pagination-id="centers">
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.id}}</td>
             <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
@@ -46,5 +46,5 @@
         </tr>
         </tbody>
     </table>
-    <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    <dir-pagination-controls boundary-links="true" pagination-id="centers" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>

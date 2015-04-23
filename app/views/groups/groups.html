@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="group in groups | orderBy:'name':reverse  | filter:filterText">
+            <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups"  pagination-id="groups">
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.id}}</td>
                 <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
@@ -43,5 +43,5 @@
             </tr>
         </tbody>
     </table>
-    <dir-pagination-controls template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    <dir-pagination-controls boundary-links="true"  pagination-id="groups" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
