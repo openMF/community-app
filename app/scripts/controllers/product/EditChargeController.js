@@ -6,7 +6,8 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
-            resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
+
+             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
 
                 if (data.chargeAppliesTo.value === "Loan") {
@@ -86,6 +87,7 @@
                     }
                 }
             }
+            
             scope.submit = function () {
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (scope.showdatefield === true) {
