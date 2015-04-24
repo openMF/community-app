@@ -20,6 +20,7 @@
                     code :data.repaymentRescheduleType.code
                 }];
                 scope.selectedRepaymentType = scope.repaymentRescheduleTypes[0].id;
+                scope.extendTermForDailyRepayments = data.extendTermForDailyRepayments;
                 var temp = data.recurrence.split("=");
                 var days = temp[3].split(",");
 
@@ -67,6 +68,7 @@
                 this.formData.recurrence = 	stringFormat.concat(selectedDays);
                 this.formData.locale = scope.optlang.code;
                 this.formData.repaymentRescheduleType = scope.selectedRepaymentType;
+                this.formData.extendTermForDailyRepayments = scope.extendTermForDailyRepayments;
                 resourceFactory.workingDaysResource.put(this.formData, function(data){
                     location.path('/organization/');
                 })
