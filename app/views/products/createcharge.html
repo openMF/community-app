@@ -74,7 +74,7 @@
                         <select id="chargeCalculationType" name="chargecalculation"
                                 ng-model="formData.chargeCalculationType"
                                 ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in chargeCalculationTypeOptions"
-                                value="{{chargecalculation.id}}" class="form-control" required>
+                                value="{{chargecalculation.id}}" class="form-control" required ng-change="changeChargeCalculationType(formData.chargeCalculationType)">
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                     </div>
@@ -116,7 +116,22 @@
 						</label>
 					</div>
                 </div>
+                <div class="form-group" ng-show="showDisbursementChargeField">
+                    <label class="control-label col-sm-2">{{'label.input.disbursementchargetype' | translate}}<span
+                            class="required">*</span></label>
 
+                    <div class="col-sm-3">
+                        <select ng-disabled="disable" id="disbursementcharge" name="showDisbursementChargeField"
+                                ng-model="formData.disbursementChargeType"
+                                ng-options="disbursementchargetype.id as disbursementchargetype.value for disbursementchargetype in disbursementChargeTypeOptions"
+                                value="{{disbursementChargeType.id}}" ng-required="showDisbursementChargeField" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="showDisbursementChargeField"/>
+                    </div>
+                </div>
                 <div class="form-group" ng-show="addfeefrequency ">
                     <label class="control-label col-sm-2" for="feeFrequency">{{'label.input.feefrequency' | translate}}<span
                             class="required">*</span></label>
