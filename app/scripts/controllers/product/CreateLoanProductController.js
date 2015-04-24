@@ -264,7 +264,7 @@
                 }
 
                 scope.selectedConfigurableAttributes =
-                    {amortizationType:scope.amortization,
+                {amortizationType:scope.amortization,
                     interestType:scope.interestMethod,
                     transactionProcessingStrategyId:scope.transactionProcessingStrategy,
                     interestCalculationPeriodType:scope.interestCalcPeriod,
@@ -272,7 +272,7 @@
                     repaymentEvery:scope.repaymentFrequency,
                     graceOnPrincipalAndInterestPayment:scope.graceOnPrincipalAndInterest,
                     graceOnArrearsAgeing:scope.graceOnArrearsAging};
-                
+
                 this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
@@ -287,6 +287,8 @@
                 if (this.formData.isInterestRecalculationEnabled) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                    var compoundingFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
+                    scope.formData.recalculationCompoundingFrequencyDate = compoundingFrequencyDate;
                 }else{
                     delete scope.formData.interestRecalculationCompoundingMethod;
                     delete scope.formData.rescheduleStrategyMethod;

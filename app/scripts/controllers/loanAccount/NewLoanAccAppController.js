@@ -92,6 +92,9 @@
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
                 }
+                if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
+                    scope.date.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
+                }
             }
 
             scope.addCharge = function () {
@@ -240,6 +243,10 @@
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                }
+                if (scope.date.recalculationCompoundingFrequencyDate) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
+                    scope.formData.recalculationCompoundingFrequencyDate = restFrequencyDate;
                 }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);

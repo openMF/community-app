@@ -99,6 +99,11 @@
                     if (scope.product.interestRecalculationData.recalculationRestFrequencyDate) {
                         scope.date.recalculationRestFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationRestFrequencyDate);
                     }
+                    scope.formData.recalculationCompoundingFrequencyType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyType.id;
+                    scope.formData.recalculationCompoundingFrequencyInterval = scope.product.interestRecalculationData.recalculationCompoundingFrequencyInterval;
+                    if (scope.product.interestRecalculationData.recalculationCompoundingFrequencyDate) {
+                        scope.date.recalculationCompoundingFrequencyDate = new Date(scope.product.interestRecalculationData.recalculationCompoundingFrequencyDate);
+                    }
                 }
                 if(scope.product.allowAttributeOverrides != null){
                     scope.amortization = scope.product.allowAttributeOverrides.amortizationType;
@@ -421,6 +426,8 @@
                 if (this.formData.isInterestRecalculationEnabled) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                    var compoundingFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
+                    scope.formData.recalculationCompoundingFrequencyDate = compoundingFrequencyDate;
                 }else{
                     delete scope.formData.interestRecalculationCompoundingMethod;
                     delete scope.formData.rescheduleStrategyMethod;

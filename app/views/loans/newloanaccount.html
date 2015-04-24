@@ -340,6 +340,32 @@
                            ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </td>
             </tr>
+            <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled  && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0">
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="control-label">{{ 'label.input.frequency.for.compounding' |
+                        translate }}<span class="required">*</span></label>
+                </td>
+                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.value}}</label>
+                </td>
+            </tr>
+            <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="control-label">{{ 'label.input.frequenc.interval.for.compounding' | translate }}</label>
+                </td>
+                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</label>
+                </td>
+
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="control-label">{{ 'label.input.frequenc.date.for.compounding' |
+                        translate }}<span class="required">*</span></label>
+                </td>
+                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </td>
+            </tr>
 
         </table>
 
