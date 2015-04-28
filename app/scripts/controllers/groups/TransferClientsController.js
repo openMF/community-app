@@ -5,11 +5,27 @@
             scope.tempData = [];
             scope.selectedClients = [];
             scope.selectedMembers = [];
-            resourceFactory.groupResource.get({paged: 'true', orderBy: 'name', sortOrder: 'ASC'}, function (data) {
-                scope.groups = _.reject(data.pageItems, function (group) {
-                    return group.id == routeParams.id;
+            scope.formData = {};
+            scope.destinationGroup = "";
+
+            scope.groups = function(value){
+                var jsonList = [];
+                resourceFactory.groupResource.getAllGroups({sqlSearch: value ,orderBy: 'name', sortOrder: 'ASC'}, function (data) {
+                    scope.data = data;
+                    scope.group = _.reject(scope.data, function (group) {
+                        return group.id == routeParams.id;
+                    });
                 });
-            });
+                for(var i in scope.group){
+                    jsonList.push({
+                        id : scope.group[i].id,
+                        name: scope.group[i].name
+                    });
+                }
+
+                return jsonList;
+            };
+
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
                 scope.allMembers = data.clientMembers;
@@ -44,8 +60,8 @@
                 }
             };
             
-            scope.viewgroup = function (id) {
-                resourceFactory.groupResource.get({groupId: id, associations: 'all'}, function (data) {
+            scope.viewgroup = function (group) {
+                resourceFactory.groupResource.get({groupId: group.id, associations: 'all'}, function (data) {
                     scope.groupdata = data;
                 });
                 scope.view = 1;
@@ -53,6 +69,7 @@
             scope.transfer = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.clients = [];
+                this.formData.destinationGroupId = scope.destinationGroup.id;
                 var temp = new Object();
                 for (var i = 0; i < scope.selectedMembers.length; i++) {
                     temp = {id: this.selectedMembers[i].id};
