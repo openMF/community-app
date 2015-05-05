@@ -1,9 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditReportController: function (scope, resourceFactory, location, routeParams) {
+           EditReportController: function (scope, resourceFactory, location, routeParams) {
             scope.formData = {};
-
-            resourceFactory.reportsResource.getReportDetails({id: routeParams.id, template: 'true'}, function (data) {
+                resourceFactory.reportsResource.getReportDetails({id: routeParams.id, template: 'true'}, function (data) {
                 scope.reportdetail = data;
                 scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
@@ -43,10 +42,13 @@
             scope.deleteParameter = function (index) {
                 scope.reportdetail.reportParameters.splice(index, 1);
             }
-
+             //scope.temp=this.formData;
             scope.submit = function () {
+
+
                 if (scope.reportdetail.coreReport === true) {
                     this.formData.reportParameters = scope.temp;
+                    this.formData.useReport = scope.reportdetail.useReport;
                 } else {
                     scope.temp = deepCopy(scope.reportdetail.reportParameters);
                     scope.reportdetail.reportParameters = scope.temp;
@@ -54,7 +56,6 @@
                     for (var i in scope.temp) {
                         delete scope.temp[i].parameterName;
                     }
-
                     this.formData = {
                         reportName: scope.reportdetail.reportName,
                         reportType: scope.reportdetail.reportType,
@@ -65,9 +66,10 @@
                         reportSql: scope.reportdetail.reportSql,
                         reportParameters: scope.reportdetail.reportParameters
                     }
-                }
 
-                resourceFactory.reportsResource.update({id: routeParams.id}, this.formData, function (data) {
+                }
+             scope.var=this.formData;
+                resourceFactory.reportsResource.update({'id': routeParams.id}, this.formData, function (data) {
                     location.path('/system/viewreport/' + data.resourceId);
                 });
             };
