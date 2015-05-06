@@ -36,15 +36,17 @@
                 <label class="control-label col-sm-2">{{ 'label.input.destinationgroup' | translate }}<span
                         class="required">*</span></label>
                 <div class="col-md-3">
-					<select chosen="groups" ng-model="formData.destinationGroupId" name="destinationgroup"
-		                    ng-options="onegroup.id as onegroup.name for onegroup in groups" value="{{onegroup.id}}"
-		                    data-ng-change="viewgroup(formData.destinationGroupId)" class="form-control" required>
-		                <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>
-		            </select>
+                    <input type="text" data-ng-model="destinationGroup" class="form-control" required
+                           ng-autofocus="true"
+                           typeahead-min-length="3"
+                           typeahead-editable="false"
+                           typeahead="group as group.name for group in groups($viewValue)"
+                           typeahead-on-select="viewgroup(destinationGroup)"/>
+
 				</div>
                 <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup"/>
             </div>
-            <div data-ng-switch on="view">
+            <div ng-show="destinationGroup" data-ng-switch on="view">
                 <table data-ng-switch-when="1">
                     <tr>
                         <td>
