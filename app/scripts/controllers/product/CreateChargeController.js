@@ -16,6 +16,7 @@
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+                scope.disbursementChargeTypeOptions = data.disbursementChargeTypeOptions;
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -38,6 +39,7 @@
                 if(chargeTimeType == 9){
                     scope.showFrequencyOptions = true;
                 }
+
                 if (scope.showChargePaymentByField === false) {
                     for (var i in scope.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.chargeTimeTypeOptions[i].id) {
