@@ -47,6 +47,7 @@
             scope.submit = function () {
                 if (scope.reportdetail.coreReport === true) {
                     this.formData.reportParameters = scope.temp;
+                    this.formData.useReport = scope.reportdetail.useReport;
                 } else {
                     scope.temp = deepCopy(scope.reportdetail.reportParameters);
                     scope.reportdetail.reportParameters = scope.temp;
