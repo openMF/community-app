@@ -1,17 +1,38 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MemberManageController: function (scope, routeParams, route, location, resourceFactory, $modal) {
+        MemberManageController: function (scope, routeParams, route, $http, API_VERSION,location, resourceFactory, $modal, $rootScope) {
             scope.group = [];
             scope.indexOfClientToBeDeleted = "";
             scope.allMembers = [];
+            scope.resultList = [];
 
             scope.viewClient = function (item) {
                 scope.client = item;
             };
-            
+
+            scope.clientOptions = function(value){
+                return $http({
+                    method: 'GET',
+                    url: $rootScope.hostUrl + API_VERSION + '/clients' + '?displayName=' + value + '&orderBy=' + 'displayName'
+                         + '&officeId=' + scope.group.officeId + '&sortOrder=' + 'ASC',
+                    data: {}
+                }).then(function (response) {
+                    if(response != ""){
+                        scope.resultList = response.data.pageItems;
+                        for(var i in scope.allMembers){
+                            for(var j in scope.resultList){
+                                if(scope.resultList[j].id == scope.allMembers[i].id){
+                                    scope.resultList.splice(j,1);
+                                }
+                            }
+                        }
+                    }
+                    return scope.resultList;
+                });
+            };
+
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
                 scope.group = data;
-                scope.allClients = data.clientOptions;
                 if(data.clientMembers) {
                     scope.allMembers = data.clientMembers;
                 }
@@ -56,7 +77,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.MemberManageController]).run(function ($log) {
+    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$http', 'API_VERSION', '$location', 'ResourceFactory', '$modal', '$rootScope',  mifosX.controllers.MemberManageController]).run(function ($log) {
         $log.info("MemberManageController initialized");
     });
 }(mifosX.controllers || {}));
