@@ -24,9 +24,11 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
                         <div class="col-sm-4 col-md-4">
-                            <input id="clientMembers" type="text" data-ng-model="available"
-                                class="col-md-4 form-control" typeahead-on-select="viewClient(available)" typeahead-editable="false"
-                                ng-autofocus="true" typeahead="client as client.displayName for client in allClients | filter:$viewValue | limitTo:8"/>
+                            <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                   typeahead-min-length="3"
+                                   typeahead-editable="false"
+                                   typeahead="client as client.displayName for client in clientOptions($viewValue)"
+                                   typeahead-on-select="viewClient(available)"/>
                         </div>
                         <div class="col-sm-1 col-md-1">
                             <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
