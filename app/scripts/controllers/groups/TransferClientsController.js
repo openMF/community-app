@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferClientsController: function (scope, routeParams, route, location, resourceFactory) {
+        TransferClientsController: function ($q, scope, routeParams, route, location, resourceFactory) {
             scope.group = [];
             scope.tempData = [];
             scope.selectedClients = [];
@@ -8,20 +8,22 @@
             scope.formData = {};
             scope.destinationGroup = "";
 
-            scope.groups = function(value){
-                resourceFactory.groupResource.getAllGroups({name: value ,orderBy: 'name', sortOrder: 'ASC'}, function (data) {
-                    scope.data = data;
-                    scope.group = _.reject(scope.data, function (group) {
-                        return group.id == routeParams.id;
-                    });
-                });
-
-                return scope.group;
-            };
-
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
+                scope.data = data;
                 scope.allMembers = data.clientMembers;
             });
+
+            scope.groups = function(value){
+                var deferred = $q.defer();
+                resourceFactory.groupResource.getAllGroups({name : value, orderBy : 'name', officeId : scope.data.officeId,
+                    sortOrder : 'ASC'}, function(data){
+                    scope.group = _.reject(data, function (group) {
+                        return group.id == routeParams.id;
+                    });
+                    deferred.resolve(scope.group);
+                });
+                return deferred.promise;
+            };
 
             scope.addClient = function () {
                 for (var i in this.availableClients) {
@@ -80,7 +82,8 @@
 
         }
     });
-    mifosX.ng.application.controller('TransferClientsController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.TransferClientsController]).run(function ($log) {
+    mifosX.ng.application.controller('TransferClientsController', ['$q', '$scope', '$routeParams', '$route', '$location', 'ResourceFactory',
+        mifosX.controllers.TransferClientsController]).run(function ($log) {
         $log.info("TransferClientsController initialized");
     });
 }(mifosX.controllers || {}));
