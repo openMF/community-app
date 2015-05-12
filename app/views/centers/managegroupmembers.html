@@ -24,14 +24,18 @@
 	                <div class="form-group">
 	                    <label class="control-label col-sm-4">{{ 'label.input.searchforgroup' | translate }}</label>
 	                    <div class="col-sm-4 col-md-4">
-	                        <input id="expert" type="text" data-ng-model="available" class="col-md-4 form-control" typeahead-on-select="viewGroup(available)"
-	                                ng-autofocus="true" typeahead-editable="false" typeahead="group as group.name for group in groupsOptions | filter:$viewValue | limitTo:8"/>
+	                        <input id="expert" type="text" data-ng-model="available" class="col-md-4 form-control"
+								   typeahead-min-length="3"
+									typeahead-editable="false"
+									typeahead="groupList as groupList.name for groupList in groupsOptions($viewValue)"
+									typeahead-on-select="viewGroup(available)"/>
 	                    </div>
 	                    <div class="col-sm-1 col-md-1">
 	                        <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
 	                            {{ 'label.button.add' | translate }} 
 	                            <i class="icon-double-angle-right"></i></button>
 	                    </div>
+
 	                </div>
 	                <div class="form-group">
 	                    <div data-ng-show="available" class="col-md-6 col-md-offset-1">
