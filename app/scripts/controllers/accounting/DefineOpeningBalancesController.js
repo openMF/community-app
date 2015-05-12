@@ -110,8 +110,8 @@
 
             }
 
-            scope.retrieveOpeningBalances = function (officeId) {
-                resourceFactory.officeOpeningResource.get({officeId: officeId}, function (data) {
+            scope.retrieveOpeningBalances = function (officeId, currencyCode) {
+                resourceFactory.officeOpeningResource.get({officeId: officeId, currencyCode: currencyCode}, function (data) {
                     scope.data = data;
                     scope.mergeAllGLs();
                 });
