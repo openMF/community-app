@@ -29,6 +29,7 @@
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.clientno' | translate}}</th>
+            <th>{{'label.heading.externalid' | translate}}</th>
             <th>{{'label.heading.status' | translate}}</th>
             <th>{{'label.heading.office' | translate}}</th>
             <th>{{'label.heading.staff' | translate}}</th>
@@ -39,6 +40,7 @@
         <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" total-items="totalClients">
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
+            <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
             <td class="pointer" data-ng-click="routeTo(client.id)">
                 <i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
                 <small ng-if="client.subStatus.description">[{{client.subStatus.description}}]</small>
