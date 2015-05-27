@@ -81,7 +81,13 @@
                 scope.previewRepayment = false;
                 for (var i in scope.loanaccountinfo.charges) {
                     if (scope.loanaccountinfo.charges[i].dueDate) {
-                        scope.loanaccountinfo.charges[i].dueDate = new Date(scope.loanaccountinfo.charges[i].dueDate);
+                        if(scope.loanaccountinfo.charges[i].chargeTimeType.value == "Disbursement" ||
+                            scope.loanaccountinfo.charges[i].chargeTimeType.value == "Tranche Disbursement"){
+                            scope.loanaccountinfo.charges[i].dueDate = null;
+                        }else{
+                            scope.loanaccountinfo.charges[i].dueDate = new Date(scope.loanaccountinfo.charges[i].dueDate);
+                        }
+
                     }
                 }
 
