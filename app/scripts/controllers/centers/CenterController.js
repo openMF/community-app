@@ -70,6 +70,7 @@
                             if(result.entityType  == 'CENTER') {
                                 center.name = result.entityName;
                                 center.id = result.entityId;
+                                center.accountNo = result.entityAccountNo;
                                 center.officeName = result.parentName;
                                 center.status.value = result.entityStatus.value;
                                 center.status.code = result.entityStatus.code;

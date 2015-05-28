@@ -70,6 +70,7 @@
                             if(result.entityType  == 'GROUP') {
                                 group.name = result.entityName;
                                 group.id = result.entityId;
+                                group.accountNo = result.entityAccountNo;
                                 group.officeName = result.parentName;
                                 group.status.value = result.entityStatus.value;
                                 group.status.code = result.entityStatus.code;
