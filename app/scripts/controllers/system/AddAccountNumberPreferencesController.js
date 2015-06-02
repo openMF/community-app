@@ -19,6 +19,12 @@
                 if(accountType == 3){
                     scope.prefixTypeOptions = scope.data.prefixTypeOptions["accountType.savings"];
                 }
+                if(accountType == 4){
+                    scope.prefixTypeOptions = scope.data.prefixTypeOptions["accountType.center"];
+                }
+                if(accountType == 5){
+                    scope.prefixTypeOptions = scope.data.prefixTypeOptions["accountType.group"];
+                }
             }
 
             scope.cancel = function(){
