@@ -62,54 +62,58 @@
             scope.addDebitTag = function () {
                 for (var i in this.availableDebit) {
                     for (var j in scope.debitTagOptions) {
-                        if (scope.debitTagOptions[j].id == this.availableDebit[i].id) {
+                        if (scope.debitTagOptions[j].id == this.availableDebit[i]) {
                             var temp = {};
-                            temp.id = this.availableDebit[i].id;
-                            temp.name = this.availableDebit[i].name;
+                            temp.id = scope.debitTagOptions[j].id;
+                            temp.name = scope.debitTagOptions[j].name;
                             scope.formData.debitTags.push(temp);
                             scope.debitTagOptions.splice(j, 1);
                         }
                     }
                 }
+                this.availableDebit = this.availableDebit-1;
             };
             scope.removeDebitTag = function () {
                 for (var i in this.selectedDebit) {
                     for (var j in scope.formData.debitTags) {
-                        if (scope.formData.debitTags[j].id == this.selectedDebit[i].id) {
+                        if (scope.formData.debitTags[j].id == this.selectedDebit[i]) {
                             var temp = {};
-                            temp.id = this.selectedDebit[i].id;
-                            temp.name = this.selectedDebit[i].name;
+                            temp.id = scope.formData.debitTags[j].id;
+                            temp.name = scope.formData.debitTags[j].name;
                             scope.debitTagOptions.push(temp);
                             scope.formData.debitTags.splice(j, 1);
                         }
                     }
                 }
+                this.selectedDebit = this.selectedDebit-1;
             };
             scope.addCreditTag = function () {
                 for (var i in this.availableCredit) {
                     for (var j in scope.creditTagOptions) {
-                        if (scope.creditTagOptions[j].id == this.availableCredit[i].id) {
+                        if (scope.creditTagOptions[j].id == this.availableCredit[i]) {
                             var temp = {};
-                            temp.id = this.availableCredit[i].id;
-                            temp.name = this.availableCredit[i].name;
+                            temp.id = scope.creditTagOptions[j].id;
+                            temp.name = scope.creditTagOptions[j].name;
                             scope.formData.creditTags.push(temp);
                             scope.creditTagOptions.splice(j, 1);
                         }
                     }
                 }
+                this.availableCredit = this.availableCredit-1;
             };
             scope.removeCreditTag = function () {
                 for (var i in this.selectedCredit) {
                     for (var j in scope.formData.creditTags) {
-                        if (scope.formData.creditTags[j].id == this.selectedCredit[i].id) {
+                        if (scope.formData.creditTags[j].id == this.selectedCredit[i]) {
                             var temp = {};
-                            temp.id = this.selectedCredit[i].id;
-                            temp.name = this.selectedCredit[i].name;
+                            temp.id = scope.formData.creditTags[j].id;
+                            temp.name = scope.formData.creditTags[j].name;
                             scope.creditTagOptions.push(temp);
                             scope.formData.creditTags.splice(j, 1);
                         }
                     }
                 }
+                this.selectedCredit = this.selectedCredit-1;
             };
             
             scope.resetCredits = function () {
