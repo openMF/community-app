@@ -37,7 +37,8 @@
             scope.updateDf = function(dateFormat){
                 localStorageService.addToLocalStorage('dateformat', dateFormat);
                 scope.dateformat = dateFormat;
-            }
+                scope.setDf();
+            };
             scope.setDf();
             $rootScope.setPermissions = function (permissions) {
                 $rootScope.permissionList = permissions;
