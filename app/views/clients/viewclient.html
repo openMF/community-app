@@ -187,10 +187,10 @@
 						                | translate}}</a>
 						        </li>
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
-						            <a href="#/newclientfixeddepositaccount/{{client.id}}">{{'label.newfixeddepositaccount' | translate}}</a>
+						            <a href="#/newclientfixeddepositaccount/{{client.id}}" has-permission='CREATE_FIXEDDEPOSITACCOUNT'>{{'label.newfixeddepositaccount' | translate}}</a>
 						        </li>
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
-						            <a href="#/newclientrecurringdepositaccount/{{client.id}}">{{'label.newrecurringdepositaccount' | translate}}</a>
+						            <a href="#/newclientrecurringdepositaccount/{{client.id}}" has-permission='CREATE_RECURRINGDEPOSITACCOUNT'>{{'label.newrecurringdepositaccount' | translate}}</a>
 						        </li>
 						    </ul>
 						</span>
@@ -259,12 +259,12 @@
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
-						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
-						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-flag icon-white"></i>
 						                	</a>
 						                </td>
@@ -341,15 +341,15 @@
 											</span>
 						                </td>
 						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
-						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
 						                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
-						                	<a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-undo icon-white"></i>
 						                	</a>
-						                	<a tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok-sign icon-white"></i>
 						                	</a>
 						                </td>
