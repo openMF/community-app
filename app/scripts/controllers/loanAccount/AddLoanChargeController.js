@@ -10,12 +10,14 @@
                 scope.charges = data.chargeOptions;
             });
 
-            scope.selectCharge = function () {
-                resourceFactory.chargeResource.get({chargeId: scope.formData.chargeId, template: true}, function (data) {
-                    scope.isCollapsed = false;
-                    scope.chargeData = data;
-                    scope.formData.amount = data.amount;
-                });
+            scope.selectCharge = function(chargeId){
+                for(var i in scope.charges){
+                    if(scope.charges[i].id == chargeId){
+                        scope.isCollapsed = false;
+                        scope.chargeData = scope.charges[i];
+                        scope.formData.amount = scope.charges[i].amount;
+                    }
+                }
             };
 
             scope.cancel = function () {
