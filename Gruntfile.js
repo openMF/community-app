@@ -157,7 +157,8 @@ module.exports = function(grunt) {
             'global-translations/**',
             '*.html',
             'release.json',
-            'views/**'
+            'views/**',
+            'angular/**'
           ]
         },
         {
