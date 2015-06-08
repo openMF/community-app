@@ -118,8 +118,30 @@
                 ;
             });
 
+            $(document).ready(function(e){
+                $('.search-panel .dropdown-menu').find('a').click(function(e) {
+                    e.preventDefault(e);
+                    scope.param = $(this).attr("href").replace("#","");
+                    var concept = $(this).text();
+                    $('.search-panel span#search_concept').text(concept);
+                    $('.input-group #search_param').val(scope.param);
+                });
+            });
+
             scope.search = function () {
-                location.path('/search/' + scope.search.query);
+                var resource;
+                var searchString=scope.search.query;
+                var exactMatch=false;
+                if(searchString != null){
+                    searchString = searchString.replace(/(^"|"$)/g, '');
+                    var n = searchString.localeCompare(scope.search.query);
+                    if(n!=0)
+                    {
+                        exactMatch=true;
+                    }
+                }
+                location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.param});
+
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
             '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
