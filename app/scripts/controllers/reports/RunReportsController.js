@@ -335,19 +335,19 @@
                             var inQueryParameters = buildReportParms();
                             if (inQueryParameters > "") reportURL += "&" + inQueryParameters;
 
-                            // allow untrusted urls for ajax request 
+                            // Allow untrusted urls for the ajax request.
                             // http://docs.angularjs.org/error/$sce/insecurl
                             reportURL = $sce.trustAsResourceUrl(reportURL);
 
-                            http.get(reportURL).
+                            http.get(reportURL, {responseType: 'arraybuffer'}).
                               success(function(data, status, headers, config) {
-                                // Pass the form data to the iframe as a data url.
-                                scope.baseURL = $sce.trustAsResourceUrl('data:text/html,' + data);
-                              }).
-                              error(function(data, status, headers, config) {
-                                window.console.log('ERROR ' + status + ': ' + data + headers);
-                              });
+                                var contentType = headers('Content-Type');
+                                var file = new Blob([data], {type: contentType});
+                                var fileContent = URL.createObjectURL(file);
 
+                                // Pass the form data to the iframe as a data url.
+                                scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              });
                             break;
                         case "Chart":
                             scope.hideTable = true;
