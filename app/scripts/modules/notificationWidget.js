@@ -59,7 +59,8 @@ angular.module('notificationWidget', [])
                     $rootScope.failedResponses = [];
 
                     //check for batch API errors
-                    if (response.config.url.indexOf('batches') > 0) {
+                    if (response.config.url.indexOf &&
+                        response.config.url.indexOf('batches') > 0) {
 
                         for (var i = 0; i < response.data.length; i++) {
                             var currResponse = response.data[i];
