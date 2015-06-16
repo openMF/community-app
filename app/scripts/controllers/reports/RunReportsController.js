@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, API_VERSION, $rootScope, $sce) {
+        RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce) {
 
             scope.isCollapsed = false; //displays options div on startup
             scope.hideTable = true; //hides the results div on startup
@@ -328,13 +328,26 @@
                             scope.hideTable = true;
                             scope.hidePentahoReport = false;
                             scope.hideChart = true;
-                            scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
-                            scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
+
+                            var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
+                            reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale=" + scope.optlang.code + "&dateFormat=" + scope.df;
 
                             var inQueryParameters = buildReportParms();
-                            if (inQueryParameters > "") scope.baseURL += "&" + inQueryParameters;
-                            // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                            scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                            if (inQueryParameters > "") reportURL += "&" + inQueryParameters;
+
+                            // Allow untrusted urls for the ajax request.
+                            // http://docs.angularjs.org/error/$sce/insecurl
+                            reportURL = $sce.trustAsResourceUrl(reportURL);
+
+                            http.get(reportURL, {responseType: 'arraybuffer'}).
+                              success(function(data, status, headers, config) {
+                                var contentType = headers('Content-Type');
+                                var file = new Blob([data], {type: contentType});
+                                var fileContent = URL.createObjectURL(file);
+
+                                // Pass the form data to the iframe as a data url.
+                                scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              });
                             break;
                         case "Chart":
                             scope.hideTable = true;
@@ -377,7 +390,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.RunReportsController]).run(function ($log) {
+    mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.RunReportsController]).run(function ($log) {
         $log.info("RunReportsController initialized");
     });
 }(mifosX.controllers || {}));
