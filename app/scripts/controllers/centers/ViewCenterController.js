@@ -11,7 +11,9 @@
                 scope.center = data;
                 scope.isClosedCenter = scope.center.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
-                scope.meeting = data.collectionMeetingCalendar;
+                if(data.collectionMeetingCalendar) {
+                    scope.meeting = data.collectionMeetingCalendar;
+                }
             });
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);
