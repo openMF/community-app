@@ -56,13 +56,32 @@
 							ng-options="usageType.id as usageType.value for usageType in usageTypes"
 							value="{{usageType.id}}"></select>
 				</div>
-				<label class="control-label col-sm-4 " for="tagId">{{'label.input.tag' | translate}}</label>
+				<label class="control-label col-sm-1 center"></label>
 				<div class="col-sm-2">
-					<select id="tagId" ng-model="formData.tagId" class="form-control"
-							ng-options="type.id as type.name for type in types" value="{{type.id}}">
-						<option value="">{{'label.selecttag' | translate}}</option>
-					</select>          </div>
+					<label class="control-label col-sm-12 center"> {{'label.input.availabletags' | translate}} </label>
+					<select ng-model="availableTag"  class="form-control clear" multiple>
+						<option ng-repeat="tg in tag" value="{{tg.id}}">
+							{{tg.name}}
+						</option>
+					</select>
+				</div>
+				<div class="col-sm-1 col-md-1 paddedtop25px">
+					<button type="button" class="btn btn-primary" data-ng-click="addTag()"><i
+							class="icon-double-angle-right"></i></button>
+					<button type="button" class="btn btn-primary" data-ng-click="removeTag()"><i
+							class="icon-double-angle-left"></i></button>
+				</div>
+				<div class="col-sm-2 col-md-2">
+					<label class="control-label col-sm-12 center"> {{'lable.input.selectedtags' | translate}} </label>
+					<select  ng-model="selectedTag" class="form-control clear" multiple>
+						<option ng-repeat="tg in tags" value="{{tg.id}}">
+							{{tg.name}}
+						</option>
+					</select>
+				</div>
+
 			</div>
+
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="manualEntriesAllowed">{{'label.input.manualentriesallowed' |
 					translate}}</label>
@@ -78,7 +97,7 @@
 			        translate}}</label>
 			
 			    <div class="col-sm-8">
-			        <textarea id="description" name="description" ng-model="formData.description" rows="8" class="form-control" cols=""></textarea>
+			        <textarea id="description" name="description" ng-model="formData.description" rows="4" class="form-control" cols="8"></textarea>
 			    </div>
 			</div>
             <div class="col-md-offset-5">
