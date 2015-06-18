@@ -16,10 +16,24 @@
 	            <div class="col-sm-3">
 	                <input type="text" id="codename" name="codename" ng-model="formData.name" class="form-control" required late-Validate/>
 	            </div>
+
 	            <div class="col-sm-3">
 	                <form-validate valattributeform="addcodeform" valattribute="codename"/>
 	            </div>
 	        </div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="codename">{{'label.input.parentcodename' | translate}}</label>
+				<div class="col-sm-3">
+					<select chosen="codes" id="id" ng-model="formData.parentId"
+							ng-options="code.id as code.name for code in codes" value="{{code.id}}"
+							class="form-control">
+					</select>
+				</div>
+
+				<div class="col-sm-3">
+					<form-validate valattributeform="addcodeform" valattribute="id"/>
+				</div>
+			</div>
 	        <br>
 	
 	        <div class="col-md-offset-3">

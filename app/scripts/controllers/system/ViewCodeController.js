@@ -5,9 +5,16 @@
             scope.formData = [];
             scope.newcode = {};
             scope.codename = {};
+            scope.enableparentOptions = false;
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codename.name = data.name;
+                if(scope.code.parentId > 0){
+                    scope.enableparentOptions = true;
+                    resourceFactory.codeValueTemplateResource.get({parentId: data.parentId}, function (data) {
+                        scope.parentOptions = data;
+                    });
+                }
             });
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
                 scope.codevalues = data;
@@ -19,13 +26,17 @@
                     controller: CodeDeleteCtrl
                 });
             };
-            scope.showEdit = function (id, name, description,position, cv) {
+            scope.showEdit = function (id, name, description,position, cv, parentId) {
                 scope.formData[id] = {
                     name: name,
                     description:description,
-                    position: position
+                    position: position,
+                    parentId: parentId
                 }
                 cv.edit = !cv.edit;
+            };
+            scope.changeParentOption = function(id,parentId){
+                this.formData[id].parentId = parentId;
             };
             scope.editCodeValue = function (id, cv) {
                 resourceFactory.codeValueResource.update({codeId: routeParams.id, codevalueId: id}, this.formData[id], function (data) {
@@ -36,6 +47,14 @@
             scope.showEditCode = function () {
                 scope.newcode.edit = !scope.newcode.edit;
                 scope.codename.name = scope.code.name;
+                if(scope.code.parentId > 0){
+                    scope.enableparentOptions = true;
+                    scope.codename.parentId = scope.code.parentId;
+                    resourceFactory.codeResources.getAllCodes(function (data) {
+                        scope.codes = data;
+                    });
+                }
+
             };
             scope.updateCode = function () {
                 resourceFactory.codeResources.update({codeId: routeParams.id}, this.codename, function (data) {

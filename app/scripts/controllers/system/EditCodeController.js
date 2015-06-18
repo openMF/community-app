@@ -6,12 +6,19 @@
             scope.newEle = undefined;
             scope.codevalueerror = false;
             scope.newEle = {};
+            scope.enableParentOptions = false;
 
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codeId = data.id;
-
+                if(data.parentId > 0){
+                    scope.enableParentOptions = true;
+                    resourceFactory.codeValueTemplateResource.get({parentId: data.parentId}, function (data) {
+                        scope.parentOptions = data;
+                    });
+                }
             });
+
             resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
                 scope.codevalues = data;
 
