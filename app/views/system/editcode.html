@@ -1,4 +1,4 @@
-<form name="editcodeform" novalidate="" ng-controller="EditCodeController" ng-submit="submit()">
+<form name="editcodeform" novalidate="" class="form-horizontal well" ng-controller="EditCodeController" ng-submit="submit()">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
@@ -12,24 +12,48 @@
     <h3>{{'label.heading.addcodevalue' | translate}}</h3>
 
     <form>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.codevalue' | translate}}</label>
 
-        <div class="col-sm-3">
-            <input name="codevalue" ng-model="newEle.name" placeholder="{{ 'label.input.codevalue' | translate }}"
-                   type="text" class="form-control"/>
+            <div class="col-sm-3">
+                <input name="codevalue" ng-model="newEle.name" type="text" class="form-control"/>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <textarea name="description" ng-model="newEle.description" placeholder="{{ 'label.input.description' | translate }}"
-                   type="text" class="form-control"/>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.description' | translate}}</label>
+
+            <div class="col-sm-3">
+                <textarea name="description" ng-model="newEle.description" type="text" class="form-control"/>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <input name="position" ng-model="newEle.position" placeholder="{{ 'label.input.position' | translate }}"
-                   type="text" class="form-control"/>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.position' | translate}}</label>
+
+            <div class="col-sm-3">
+                <input name="position" ng-model="newEle.position" type="text" class="form-control"/>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <a data-ng-click="addCv()" class="btn btn-primary" has-permission='CREATE_CODEVALUE'><i
-                    class="icon-plus icon-white"></i>{{ 'label.button.add' |
-                translate }}</a>
+
+        <div class="form-group" ng-show="enableParentOptions">
+            <label class="control-label col-sm-2">{{'label.input.parentcodevalue' | translate}}</label>
+            <div class="col-sm-3">
+                <select chosen="parentOptions" id="id" ng-model="newEle.parentId"
+                        ng-options="codeValue.id as codeValue.name for codeValue in parentOptions" value="{{codeValue.id}}"
+                        class="form-control">
+                </select>
+            </div>
         </div>
+        <br>
+        <div class="form-group">
+            <div class="col-md-offset-5">
+                <a data-ng-click="addCv()" class="btn btn-primary" has-permission='CREATE_CODEVALUE'><i
+                        class="icon-plus icon-white"></i>{{ 'label.button.add' |
+                    translate }}</a>
+            </div>
+        </div>
+
     </form>
     <div data-ng-repeat="codevalue in codevalues">
         <input disabled="" placeholder={{codevalue.name}} type="text"/>&nbsp;&nbsp;

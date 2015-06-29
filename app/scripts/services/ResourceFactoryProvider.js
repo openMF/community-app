@@ -112,6 +112,7 @@
                         getAllDataTables: {method: 'GET', params: {}, isArray: true},
                         getTableDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
+
                     }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType: '@resourceType', loanProductId: '@loanProductId'}, {
                         getAllLoanProducts: {method: 'GET', params: {}, isArray: true},
@@ -258,6 +259,9 @@
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+                    codeValueTemplateResource: defineResource(apiVer + "/codes/:parentId/codevalues/template", {parentId: '@parentId'}, {
+                        get: {method:'GET', params: {}, isArray: true}
+                     }),
 					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
                         getAllHooks: {method: 'GET', params: {}, isArray: true},
                         getHook: {method: 'GET', params: {}},
