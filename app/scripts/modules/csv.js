@@ -77,7 +77,7 @@
                                 }, infoArray);
                             }
 
-                            dataString = infoArray.join(",");
+                            dataString = '\"' + infoArray.join('\",\"') + '\"';
                             csvContent += index < data.length ? dataString + "\n" : dataString;
                         });
 
