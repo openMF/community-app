@@ -97,6 +97,7 @@
                                 loanApplication.transactionProcessingStrategyId = scope.productDetails.transactionProcessingStrategyId;
                                 loanApplication.loanTermFrequency = scope.termFrequency;
                                 loanApplication.loanTermFrequencyType = scope.termPeriodFrequencyType.id;
+                                loanApplication.loanPurposeId = scope.group.clients[i].loanPurposeId;
 
                                 loanApplication.loanOfficerId = scope.loanApplicationCommonData.loanOfficerId;
                                 loanApplication.principal = scope.group.clients[i].principal;
