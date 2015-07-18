@@ -390,6 +390,7 @@
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
+                    this.formData.guarantorRecoveryDate = dateFilter(this.formData.guarantorRecoveryDate, scope.df);
                 }
                 if(scope.action == "approve"){
                     this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursementDate, scope.df);
