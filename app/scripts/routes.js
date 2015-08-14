@@ -739,6 +739,15 @@
             .when('/tellers/:tellerId/editcashier/:id', {
                 templateUrl: 'views/organization/cashmgmt/editcashier.html'
             })
+            .when('/externalservices', {
+                templateUrl: 'views/administration/externalServices.html'
+            })
+            .when('/externalservices/:externalServicesType', {
+                templateUrl: 'views/administration/viewExternalServicesConfiguration.html'
+            })
+            .when('/externalservices/:externalServicesType/editconfig', {
+                templateUrl: 'views/administration/editExternalServicesConfiguration.html'
+            })
             ;
         $locationProvider.html5Mode(false);
     };
