@@ -486,6 +486,18 @@
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
                         update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
+                    }),
+                    externalServicesS3Resource: defineResource(apiVer + "/externalservice/S3", {},{
+                        get: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    externalServicesSMTPResource: defineResource(apiVer + "/externalservice/SMTP", {},{
+                        get: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
+                        get: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params:{}}
                     })
                 };
             }];
