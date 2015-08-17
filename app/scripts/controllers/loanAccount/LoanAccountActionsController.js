@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, dateFilter) {
-
+        LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, dateFilter, $rootScope) {
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id;
             scope.formData = {};
@@ -17,11 +16,9 @@
             scope.disbursementDetails = [];
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
-
             switch (scope.action) {
                 case "approve":
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
-
                         scope.title = 'label.heading.approveloanaccount';
                         scope.labelName = 'label.input.approvedondate';
                         scope.modelName = 'approvedOnDate';
@@ -105,6 +102,12 @@
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
+                    scope.clientName  = $rootScope.clientName;
+                    scope.loanProductName=$rootScope.loanProductName;
+                    scope.accountNo=$rootScope.accountNo;
+                    scope.clientAccountId=$rootScope.clientAccountId;
+                    scope.clientId=$rootScope.clientId;
+                    scope.loanProductId=$rootScope.loanProductId;
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         if (data.paymentTypeOptions.length > 0) {
@@ -516,7 +519,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$rootScope', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
         $log.info("LoanAccountActionsController initialized");
     });
 }(mifosX.controllers || {}));
