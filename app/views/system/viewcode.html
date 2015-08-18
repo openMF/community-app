@@ -47,14 +47,31 @@
 
         <div data-ng-show="newcode.edit">
             <api-validate></api-validate>
-            <div class="col-sm-3">
-                <input type="text" data-ng-model="codename.name" class="form-control"/>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.codename' | translate}}</label>
+                <div class="col-sm-3">
+                    <input type="text" data-ng-model="codename.name" class="form-control"/>
+                </div>
             </div>
-            <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
-            </button>
-            <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' |
-                translate}}
-            </button>
+
+            <div class="form-group" ng-show="enableparentOptions">
+                <label class="control-label col-sm-2">{{'label.input.parentcodename' | translate}}</label>
+                <div class="col-sm-3">
+                    <select chosen="codes" id="id" ng-model="codename.parentId"
+                            ng-options="code.id as code.name for code in codes" value="{{code.id}}"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
+                </button>
+                <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' |
+                    translate}}
+                </button>
+            </div>
             <hr/>
         </div>
         <div>
@@ -64,6 +81,7 @@
                     <th>{{ 'label.heading.name' | translate }}</th>
                     <th>{{ 'label.heading.description' | translate }}</th>
                     <th>{{ 'label.heading.position' | translate }}</th>
+                    <th ng-show="enableparentOptions">{{ 'label.heading.parent' | translate }}</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -85,9 +103,27 @@
                         <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
                                type="text" class="form-control"/>
                     </td>
+                    <td ng-show="enableparentOptions">
+                        <div class="form-group" data-ng-hide="codevalue.edit">
+                            <div class="col-sm-3">
+                                <select chosen="parentOptions" name="id" ng-model="codevalue.parentId"
+                                        ng-options="codevalue.id as codevalue.name for codevalue in parentOptions" value="{{codevalue.id}}"
+                                        class="form-control" ng-disabled="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-show="codevalue.edit">
+                            <div class="col-sm-3">
+                                <select chosen="parentOptions" name="id" ng-model="codevalue.parentId"
+                                        ng-options="codeValue.id as codeValue.name for codeValue in parentOptions" value="{{codeValue.id}}"
+                                        class="form-control" ng-change="changeParentOption(codevalue.id,codevalue.parentId)">
+                                </select>
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <button data-ng-hide="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE' 
-                                data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.description,codevalue.position,codevalue)"><i
+                                data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.description,codevalue.position,codevalue,codevalue.parentId)"><i
                                 class="icon-edit icon-white"></i></button>
                         <button data-ng-show="codevalue.edit" class="btn-primary" type="button" has-permission='UPDATE_CODEVALUE'
                                 data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
