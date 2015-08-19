@@ -208,6 +208,47 @@
 							<h3>{{'label.heading.withdrawn' | translate}}</h3>
 						</div>
 				        <div>
+							<div class="pull-right">
+						        <span data-ng-show="charges">
+						            <button type="button" class="btn-primary btn btn-sm" data-ng-click="routeToCharge()">{{
+										'label.button.chargesoverview' | translate }}
+									</button>
+						        </span>
+							</div>
+							<div  data-ng-show="charges">
+								<div class="span gray-head">
+										<span class="boldlabel">
+											  <strong>{{ 'label.heading.upcomingcharges' | translate }}</strong>
+										</span>
+								</div>
+								<table class="table table-condensed">
+									<tr class="graybg">
+										<th>{{'label.heading.name' | translate}}</th>
+										<th>{{'label.heading.dueasof' | translate}}</th>
+										<th>{{'label.heading.due' | translate}}</th>
+										<th>{{'label.heading.paid' | translate}}</th>
+										<th>{{'label.heading.waived' | translate}}</th>
+										<th>{{'label.heading.outstanding' | translate}}</th>
+										<th>{{'label.heading.actions' | translate}}</th>
+									</tr>
+									<tr class="pointer-main" ng-repeat="charge in charges">
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.name}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
+										<td class="pointer center">
+											<a tooltip="{{'label.button.paycharge' | translate}}" has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{client.id}}/paycharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+												<i class="icon-dollar icon-white"></i>
+											</a> &nbsp;
+											<!--<a tooltip="{{'label.button.waivecharge' | translate}}" has-permission='WAIVE_CLIENTCHARGE' ng-href="#/viewclient/{{client.id}}/waivecharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+												<i class="icon-flag icon-white"></i>
+											</a>-->
+										</td>
+									</tr>
+								</table>
+							</div>
 						    <div class="pull-right">
 						        <span data-ng-show="clientAccounts.loanAccounts">
 						            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{

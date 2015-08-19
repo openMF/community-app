@@ -1,0 +1,57 @@
+<div class="paddedbottom10">
+    <ul class="breadcrumb">
+        <li class="active">{{ 'label.anchor.addclientcharge' | translate }}</li>
+    </ul>
+</div>
+<form name="payclientchargeform" novalidate="" class="form-horizontal" ng-controller="ClientChargesOverviewController">
+    <h3>Charges</h3>
+    <table id="chargesTable" data-ng-show="charges.length > 0" class="table table-condensed">
+        <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.dueasof' | translate}}</th>
+                <th>{{'label.heading.due' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.waived' | translate}}</th>
+                <th>{{'label.heading.outstanding' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        <tr class="pointer-main" ng-repeat="charge in charges">
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.name}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
+            <td class="pointer center">
+                <a tooltip="{{'label.button.paycharge' | translate}}" has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{clientId}}/paycharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+                    <i class="icon-dollar icon-white"></i>
+                </a> &nbsp;
+               <!-- <a tooltip="{{'label.button.waivecharge' | translate}}" has-permission='WAIVE_CLIENTCHARGE' ng-href="#/viewclient/{{clientId}}/waivecharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+                    <i class="icon-flag icon-white"></i>
+                </a>-->
+            </td>
+        </tr>
+    </table>
+    <h3>Transactions</h3>
+    <table id="transactionsTable" data-ng-show="transactions.length > 0" class="table table-condensed">
+        <tr class="graybg">
+            <th>{{'label.heading.id' | translate}}</th>
+            <th>{{'label.heading.officeName' | translate}}</th>
+            <th>{{'label.heading.type' | translate}}</th>
+            <th>{{'label.heading.transactiondate' | translate}}</th>
+            <th>{{'label.heading.amount' | translate}}</th>
+        </tr>
+        <tr class="pointer-main" ng-repeat="transaction in transactions">
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{transaction.id}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{transaction.officeName}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{transaction.type.value}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{transaction.date | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{transaction.amount | number}}</td>
+        </tr>
+    </table>
+
+    <div class="col-md-offset-5">
+            <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
+                translate}}</a>
+    </div>
+</form>

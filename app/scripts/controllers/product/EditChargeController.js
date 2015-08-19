@@ -19,6 +19,11 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
+                } else {
+                    scope.flag = true;
+                    scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
+                    scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
+                    scope.showFrequencyOptions = false;
                 }
 
                 scope.formData = {

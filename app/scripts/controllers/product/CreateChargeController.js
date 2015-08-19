@@ -23,6 +23,14 @@
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
+                }
+                //client fee
+                else if (chargeAppliesId == 3){
+                    scope.showChargePaymentByField = false;
+                    scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
+                    scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
+                    scope.addfeefrequency = false;
+
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -85,7 +93,7 @@
                     }
                 }
 
-                if(scope.formData.chargeAppliesTo === 1 && scope.addfeefrequency == 'false'){
+                if( (scope.formData.chargeAppliesTo === 1 || scope.formData.chargeAppliesTo === 3 )&& scope.addfeefrequency == 'false'){
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
                 }

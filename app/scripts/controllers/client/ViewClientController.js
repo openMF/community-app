@@ -13,6 +13,9 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
+            scope.routeToCharge = function () {
+                location.path('/viewclient/'+ scope.client.id + '/chargeoverview');
+            };
             scope.routeToSaving = function (id, depositTypeCode) {
                 if (depositTypeCode === "depositAccountType.savingsDeposit") {
                     location.path('/viewsavingaccount/' + id);
@@ -310,6 +313,10 @@
                     }
                 }
             });
+            resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id}, function (data) {
+                scope.charges = data;
+            });
+
             scope.isClosed = function (loanaccount) {
                 if (loanaccount.status.code === "loanStatusType.closed.written.off" ||
                     loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
