@@ -91,6 +91,9 @@
             .when('/viewclient/:id/paycharge/:chargeid', {
                 templateUrl: 'views/clients/payclientcharge.html'
             })
+            .when('/viewclient/:clientId/charges/:chargeId', {
+                templateUrl: 'views/clients/viewclientcharge.html'
+            })
             .when('/viewclient/:id/chargeoverview', {
                 templateUrl: 'views/clients/clientchargeoverview.html'
             })

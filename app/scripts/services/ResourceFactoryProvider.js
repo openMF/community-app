@@ -48,10 +48,12 @@
                         update: { method: 'PUT'}
                     }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
-                        getCharges: {method: 'GET', isArray: true}
+                        getCharges: {method: 'GET', isArray: true},
+                        waive:{method:'POST' , params:{command : 'waive'}}
                     }),
                     clientTransactionResource: defineResource(apiVer + "/clients/:clientId/transactions/:transactionId", {clientId: '@clientId', transactionId: '@transactionId'}, {
-                        getTransactions: {method: 'GET', isArray: true}
+                        getTransactions: {method: 'GET', isArray: true},
+                        undoTransaction :{method:'POST', params:{command:'undo'}}
                     }),
                     clientIdentifierResource: defineResource(apiVer + "/client_identifiers/:clientIdentityId/documents", {clientIdentityId: '@clientIdentityId'}, {
                         get: {method: 'GET', params: {}, isArray: true}

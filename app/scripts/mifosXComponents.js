@@ -51,6 +51,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientScreenReportController',
             'client/AddNewClientChargeController',
             'client/PayClientChargeController',
+            'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
