@@ -71,6 +71,67 @@
                 ;
             };
 
+            $rootScope.breadCrumbFromLoanDetails= function ( clientId, clientName, loanProductId,loanProductName,accountNo,groupId,groupName) {
+                $rootScope.clientId  = clientId;
+                $rootScope.clientName = clientName;
+                $rootScope.loanProductId = loanProductId;
+                $rootScope.loanProductName = loanProductName;
+                $rootScope.accountNo=accountNo;
+                $rootScope.groupId = groupId;
+                $rootScope.groupName = groupName;
+            };
+
+            $rootScope.resetBreadCrumbFromLoanDetails= function () {
+                $rootScope.clientId = '';
+                $rootScope.clientName  = '';
+                $rootScope.loanProductId ='';
+                $rootScope.loanProductName ='';
+                $rootScope.accountNo = '';
+                $rootScope.groupId = '';
+                $rootScope.groupName = '';
+            };
+
+            $rootScope.breadCrumbFromClientDetails = function(loanAccounts, displayName, clientId, groups){
+                $rootScope.loanAccounts = loanAccounts;
+                $rootScope.clientName = displayName;
+                $rootScope.clientId = clientId;
+                if(groups!='') {
+                    $rootScope.groupId = groups[0].id;
+                    $rootScope.groupName = groups[0].name;
+                }
+            };
+
+            $rootScope.resetBreadCrumbFromClientDetails = function(){
+                $rootScope.loanAccounts = '';
+                $rootScope.clientName = '';
+                $rootScope.clientExternalId= '';
+                $rootScope.groupId='';
+                $rootScope.groupName = '';
+
+            };
+
+            $rootScope.breadCrumbFromGroup = function(loanAccounts, groupid, groupname){
+                $rootScope.loanAccounts = loanAccounts;
+                $rootScope.groupId = groupid;
+                $rootScope.groupName = groupname;
+
+            };
+
+            $rootScope.resetBreadCrumbFromGroup = function(){
+                $rootScope.loanAccounts = '';
+                $rootScope.groupId='';
+                $rootScope.groupName = '';
+
+            };
+
+            $rootScope.breadCrumbForClientId = function(clientAccountNo){
+                $rootScope.clientAccountNo = clientAccountNo;
+            };
+
+            $rootScope.resetBreadCrumbForClientId=function(){
+                $rootScope.clientAccountNo = '';
+            };
+
             scope.$watch(function () {
                 return location.path();
             }, function () {

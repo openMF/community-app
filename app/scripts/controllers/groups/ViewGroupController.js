@@ -11,6 +11,10 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
+            scope.resetBreadCrumbFromClientDetails();
+            scope.resetBreadCrumbFromLoanDetails();
+            scope.resetBreadCrumbForClientId();
+            scope.resetBreadCrumbFromGroup();
             scope.routeToSaving = function (id) {
                 location.path('/viewsavingaccount/' + id);
             };

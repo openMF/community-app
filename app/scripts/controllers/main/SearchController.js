@@ -18,7 +18,12 @@
                 if (scope.searchResults.length <= 0) {
                     scope.flag = true;
                 }
+                scope.resetBreadCrumbFromLoanDetails();
+                scope.resetBreadCrumbFromGroup();
+                scope.resetBreadCrumbFromClientDetails();
+                scope.resetBreadCrumbForClientId();
             });
+
             scope.getClientDetails = function (clientId) {
 
                 scope.selected = clientId;

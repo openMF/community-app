@@ -253,17 +253,17 @@
 						                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
 						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
 						                </td>
-						                <td class="pointer center" ng-if="loanaccount.status.active">
+						                <td class="pointer center" ng-if="loanaccount.status.active" data-ng-click="breadCrumbFromClientDetails(clientAccounts.loanAccounts, client.displayName, client.clientId, client.groups)">
 						                	<a tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-dollar icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
+						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval" data-ng-click="breadCrumbFromClientDetails(clientAccounts.loanAccounts, client.displayName, client.clientId, client.groups)">
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
+						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active" data-ng-click="breadCrumbFromClientDetails(clientAccounts.loanAccounts, client.displayName, client.clientId, client.groups)">
 						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-flag icon-white"></i>
 						                	</a>
@@ -340,12 +340,12 @@
 											  </a>
 											</span>
 						                </td>
-						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
+						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval" >
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
+						                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active" >
 						                	<a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-undo icon-white"></i>
 						                	</a>

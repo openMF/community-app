@@ -19,6 +19,9 @@
                 }
                 ;
             };
+            scope.resetBreadCrumbFromClientDetails();
+            scope.resetBreadCrumbFromLoanDetails();
+            scope.resetBreadCrumbFromGroup();
 
             /***
              * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
@@ -144,6 +147,12 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                if(data.group) {
+                    scope.breadCrumbFromLoanDetails(data.clientId, data.clientName, data.loanProductId, data.loanProductName, data.accountNo, data.group.id, data.group.name);
+                }
+                else{
+                    scope.breadCrumbFromLoanDetails(data.clientId, data.clientName, data.loanProductId, data.loanProductName, data.accountNo, '', '');
+                }
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);

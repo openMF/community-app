@@ -17,6 +17,15 @@
             scope.disbursementDetails = [];
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
+            for(var i in scope.loanAccounts)
+            {
+                if(scope.loanAccounts[i].id==scope.accountId){
+                    scope.accountNo=scope.loanAccounts[i].accountNo;
+                    scope.loanProductName=scope.loanAccounts[i].productName;
+                    scope.loanProductId=scope.loanAccounts[i].productId;
+
+                }
+            }
 
             switch (scope.action) {
                 case "approve":

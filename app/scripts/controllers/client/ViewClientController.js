@@ -13,6 +13,9 @@
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
+            scope.resetBreadCrumbFromLoanDetails();
+            scope.resetBreadCrumbFromClientDetails();
+            scope.resetBreadCrumbFromGroup();
             scope.routeToSaving = function (id, depositTypeCode) {
                 if (depositTypeCode === "depositAccountType.savingsDeposit") {
                     location.path('/viewsavingaccount/' + id);
@@ -25,6 +28,7 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                scope.breadCrumbForClientId(scope.client.accountNo);
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {

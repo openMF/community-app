@@ -213,17 +213,17 @@
 						                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
 						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
 						                </td>
-						                <td class="pointer center" ng-if="loanaccount.status.active">
+						                <td class="pointer center" ng-if="loanaccount.status.active" data-ng-click="breadCrumbFromGroup(groupAccounts.loanAccounts, group.id, group.name)">
 						                	<a tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-dollar icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
+						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval" data_ng_click="breadCrumbFromGroup(groupAccounts.loanAccounts, group.id, group.name)">
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
-						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
+						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active" data_ng_click="breadCrumbFromGroup(groupAccounts.loanAccounts, group.id, group.name)">
 						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-flag icon-white"></i>
 						                	</a>
