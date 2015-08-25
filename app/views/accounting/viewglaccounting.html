@@ -2,7 +2,7 @@
     <div>
         <ul class="breadcrumb">
             <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
-            <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a></li>
+            <li><a href="#/accounting_coa" data-ng-click = "$root.isTreeView = false">{{'label.anchor.coa' | translate}}</a></li>
             <li class="active">{{glaccount.name}}</li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
 	              <a ng-show="glaccount.disabled" class="btn btn-primary" ng-click="changeState(glaccount.disabled)" has-permission='UPDATE_GLACCOUNT'><i
 	                      class="icon-unlock icon-white"></i>{{'label.button.enable' | translate}}</a>
 	              <a href="#/editglaccount/{{glaccount.id}}" class="btn btn-primary" has-permission='UPDATE_GLACCOUNT'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-	              <button class="btn btn-primary" ng-click="deleteGLAccount()" has-permission='DELETE_GLACCOUNT'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+	              <button class="btn btn-primary" ng-click="deleteGLAccount(); $root.isTreeView = false;" has-permission='DELETE_GLACCOUNT'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
 	          </div>
 	      </div>
 	      <hr>
