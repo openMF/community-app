@@ -16,6 +16,10 @@
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
+
+                scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
+                scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
+                scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -23,6 +27,7 @@
                     scope.showChargePaymentByField = true;
                     scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
+                    scope.showGLAccount = false;
                 }
                 //client fee
                 else if (chargeAppliesId == 3){
@@ -30,12 +35,13 @@
                     scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.addfeefrequency = false;
-
+                    scope.showGLAccount = true;
                 } else {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                     scope.addfeefrequency = false;
+                    scope.showGLAccount = false;
                 }
             }
             //when chargeAppliesTo is savings, below logic is
