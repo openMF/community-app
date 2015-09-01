@@ -8,6 +8,9 @@
             scope.flag = false;
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
+                scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
+                scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
+                scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
@@ -24,6 +27,7 @@
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.showFrequencyOptions = false;
+                    scope.showGLAccount = true;
                 }
 
                 scope.formData = {
@@ -36,6 +40,10 @@
                     chargeCalculationType: data.chargeCalculationType.id,
                     amount: data.amount
                 };
+
+                if(data.incomeOrLiabilityAccount){
+                    scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
+                }
 
                 if(data.feeFrequency){
                     scope.addfeefrequency = 'true';
