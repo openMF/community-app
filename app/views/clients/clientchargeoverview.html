@@ -35,7 +35,7 @@
             <th>{{'label.heading.transactiondate' | translate}}</th>
             <th>{{'label.heading.amount' | translate}}</th>
         </tr>
-        <tr class="pointer-main" dir-paginate="transaction in transactions | orderBy:'dueDate':reverse  | filter:filterText | itemsPerPage: transactionsPerPage" total-items="totalTransactions">
+        <tr class="pointer-main{strikeoff : transaction.reversed==true}"  dir-paginate="transaction in transactions | orderBy:'dueDate':reverse  | filter:filterText | itemsPerPage: transactionsPerPage" total-items="totalTransactions">
             <td class="pointer" >{{transaction.id}}</td>
             <td class="pointer" >{{transaction.officeName}}</td>
             <td class="pointer" >{{transaction.type.value}}</td>
@@ -43,6 +43,8 @@
             <td class="pointer" >{{transaction.amount | number}}</td>
         </tr>
     </table>
-
+    <div class="col-md-offset-5">
+    <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' | translate}}</a>
+</div>
     <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getClientTransactionsResultsPage(newPageNumber)"></dir-pagination-controls>
 </form>
