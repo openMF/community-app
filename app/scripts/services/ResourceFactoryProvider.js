@@ -49,10 +49,11 @@
                     }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
                         getCharges: {method: 'GET', isArray: true},
+                        getClientCharges: {method: 'GET',params:{limit:100}},
                         waive:{method:'POST' , params:{command : 'waive'}}
                     }),
                     clientTransactionResource: defineResource(apiVer + "/clients/:clientId/transactions/:transactionId", {clientId: '@clientId', transactionId: '@transactionId'}, {
-                        getTransactions: {method: 'GET', isArray: true},
+                        getTransactions: {method: 'GET', params: {limit: 1000}},
                         undoTransaction :{method:'POST', params:{command:'undo'}}
                     }),
                     clientIdentifierResource: defineResource(apiVer + "/client_identifiers/:clientIdentityId/documents", {clientIdentityId: '@clientIdentityId'}, {

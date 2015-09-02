@@ -15,15 +15,16 @@
                 <th>{{'label.heading.waived' | translate}}</th>
                 <th>{{'label.heading.outstanding' | translate}}</th>
         </tr>
-        <tr class="pointer-main" ng-repeat="charge in charges">
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.name}}</td>
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
-            <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
+        <tr class="pointer-main" dir-paginate="charge in charges | orderBy:'dueAsOfDate':reverse  | filter:filterText | itemsPerPage: chargesPerPage" total-items="totalCharges" pagination-id="chargesPage">
+            <td class="pointer" >{{charge.name}}</td>
+            <td class="pointer" >{{charge.dueDate|DateFormat}}</td>
+            <td class="pointer" >{{charge.amount | number}}</td>
+            <td class="pointer" >{{charge.amountPaid | number}}</td>
+            <td class="pointer" >{{charge.amountWaived | number}}</td>
+            <td class="pointer" >{{charge.amountOutstanding | number}}</td>
         </tr>
     </table>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getClientChargeResultsPage(newPageNumber)" pagination-id="chargesPage"></dir-pagination-controls>
     <h3>Transactions</h3>
     <hr>
     <table id="transactionsTable" data-ng-show="transactions.length > 0" class="table table-condensed">
@@ -34,17 +35,17 @@
             <th>{{'label.heading.transactiondate' | translate}}</th>
             <th>{{'label.heading.amount' | translate}}</th>
         </tr>
-        <tr class="pointer-main {strikeoff : transaction.reversed==true}" ng-repeat="transaction in transactions">
-            <td class="pointer">{{transaction.id}}</td>
-            <td class="pointer">{{transaction.officeName}}</td>
-            <td class="pointer">{{transaction.type.value}}</td>
-            <td class="pointer">{{transaction.date | DateFormat}}</td>
-            <td class="pointer">{{transaction.amount | number}}</td>
+        <tr class="pointer-main{strikeoff : transaction.reversed==true}"  dir-paginate="transaction in transactions | orderBy:'transactionDate':reverse  | filter:filterText | itemsPerPage" total-items="totalTransactions" pagination-id="transactionsPage">
+            <td class="pointer" >{{transaction.id}}</td>
+            <td class="pointer" >{{transaction.officeName}}</td>
+            <td class="pointer" >{{transaction.type.value}}</td>
+            <td class="pointer" >{{transaction.date | DateFormat}}</td>
+            <td class="pointer" >{{transaction.amount | number}}</td>
         </tr>
     </table>
-
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getClientTransactionsResultsPage(newPageNumber)" pagination-id="transactionsPage"></dir-pagination-controls>
     <div class="col-md-offset-5">
-            <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
-                translate}}</a>
-    </div>
+    <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' | translate}}</a>
+</div>
+
 </form>
