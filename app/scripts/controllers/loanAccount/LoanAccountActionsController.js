@@ -20,6 +20,7 @@
 
             switch (scope.action) {
                 case "approve":
+                    scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
 
                         scope.title = 'label.heading.approveloanaccount';
@@ -28,7 +29,6 @@
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
-                        scope.taskPermissionName = 'APPROVE_LOAN';
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
