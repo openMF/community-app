@@ -118,15 +118,27 @@
                 ;
             });
 
-            $(document).ready(function(e){
-                $('.search-panel .dropdown-menu').find('a').click(function(e) {
-                    e.preventDefault(e);
-                    scope.param = $(this).attr("href").replace("#","");
-                    var concept = $(this).text();
-                    $('.search-panel span#search_concept').text(concept);
-                    $('.input-group #search_param').val(scope.param);
-                });
-            });
+            var setSearchScopes = function () {
+                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
+                var clients = {
+                    name: "label.search.scope.clients.and.clientIdentifiers",
+                    value: "clients,clientIdentifiers"
+                };
+                var groups = {
+                    name: "label.search.scope.groups.and.centers",
+                    value: "groups"
+                };
+                var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
+                var loans = {name: "label.search.scope.savings", value: "savings"};
+                scope.searchScopes = [all,clients,groups,loans,savings];
+                scope.currentScope = all;
+            }
+
+            setSearchScopes();
+
+            scope.changeScope = function (searchScope) {
+                scope.currentScope = searchScope ;
+            }
 
             scope.search = function () {
                 var resource;
@@ -140,7 +152,7 @@
                         exactMatch=true;
                     }
                 }
-                location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.param});
+                location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.currentScope.value});
 
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
