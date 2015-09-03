@@ -166,11 +166,11 @@
 						<span ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
 						    <a class="btn btn-primary dropdown-toggle">
 						        {{ 'label.button.more' | translate}}
-						        <span class="caret"></span>
-						    </a>
-						    <ul class="dropdown dropdown-menu dropdown-menu-right">
-						        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
-						            <a href="#/clientscreenreport/{{client.id}}"
+                                    <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+                                        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
+                                            <a href="#/clientscreenreport/{{client.id}}"
 						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
 						                translate}}</a>
 						        </li>
@@ -232,7 +232,9 @@
 										<th>{{'label.heading.actions' | translate}}</th>
 									</tr>
 									<tr class="pointer-main" ng-repeat="charge in charges">
-										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.name}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">
+                                            <i class="icon-circle  {{charge.isWaived || charge.isPaid|StatusLookup}}" ></i>&nbsp;{{charge.name}}
+                                            </td>
 										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
 										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
 										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>

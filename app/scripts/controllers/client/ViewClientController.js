@@ -10,6 +10,8 @@
             scope.openLoan = true;
             scope.openSaving = true;
             scope.updateDefaultSavings = false;
+            scope.charges = [];
+            scope.actualCharges = [];
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -30,6 +32,21 @@
                     location.path('/viewrecurringdepositaccount/' + id);
                 }
             };
+
+            scope.chargesPerPage = 200;
+
+            scope.initPage = function () {
+
+                var chargesItems = resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id,
+                    offset: 0,
+                    limit: scope.chargesPerPage
+                }, function (data) {
+                    scope.totalCharges= data.totalFilteredRecords;
+                    scope.charges = data.pageItems;
+                });
+
+            }
+            scope.initPage();
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
@@ -587,6 +604,7 @@
                     $modalInstance.dismiss('cancel');
                 };
             }
+
         }
     });
 
