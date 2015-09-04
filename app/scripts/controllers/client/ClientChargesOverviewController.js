@@ -3,7 +3,7 @@
         ClientChargesOverviewController: function (scope, resourceFactory, location, routeParams) {
             scope.clientId = routeParams.id
             scope.charges = [];
-            scope.chargesPerPage = 2;
+            scope.chargesPerPage = 14;
 
             scope.routeToCharge = function (chargeId) {
                 location.path('/viewclient/' + scope.clientId + '/charges/' + chargeId);
