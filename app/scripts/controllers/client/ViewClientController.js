@@ -11,13 +11,16 @@
             scope.openSaving = true;
             scope.updateDefaultSavings = false;
             scope.charges = [];
-            scope.actualCharges = [];
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
             scope.routeToChargeOverview = function () {
-                location.path('/viewclient/'+ scope.client.id + '/chargeoverview');
+                location.path(scope.pathToChargeOverview());
             };
+
+            scope.pathToChargeOverview =function (){
+                return ('/viewclient/'+ scope.client.id + '/chargeoverview');
+            }
 
             scope.routeToCharge = function (chargeId) {
                 location.path('/viewclient/'+ scope.client.id + '/charges/' + chargeId);
@@ -33,20 +36,6 @@
                 }
             };
 
-            scope.chargesPerPage = 200;
-
-            scope.initPage = function () {
-
-                var chargesItems = resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id,
-                    offset: 0,
-                    limit: scope.chargesPerPage
-                }, function (data) {
-                    scope.totalCharges= data.totalFilteredRecords;
-                    scope.charges = data.pageItems;
-                });
-
-            }
-            scope.initPage();
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
@@ -335,8 +324,9 @@
                     }
                 }
             });
-            resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, paid:false}, function (data) {
-                scope.charges = data;
+            
+            resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
+                scope.charges = data.pageItems;
             });
 
             scope.isClosed = function (loanaccount) {

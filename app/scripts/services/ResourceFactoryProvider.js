@@ -44,11 +44,11 @@
                         getAllClients: {method: 'GET', params: {limit: 1000}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
-                        getAllClientDocuments: {method: 'GET', params: {}, isArray: false},
+                        getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
-                        getCharges: {method: 'GET', params:{limit:100}},
+                        getCharges: {method: 'GET'},
                         waive:{method:'POST' , params:{command : 'waive'}}
                     }),
                     clientTransactionResource: defineResource(apiVer + "/clients/:clientId/transactions/:transactionId", {clientId: '@clientId', transactionId: '@transactionId'}, {

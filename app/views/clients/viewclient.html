@@ -192,6 +192,9 @@
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
 						            <a href="#/newclientrecurringdepositaccount/{{client.id}}" has-permission='CREATE_RECURRINGDEPOSITACCOUNT'>{{'label.newrecurringdepositaccount' | translate}}</a>
 						        </li>
+								<li >
+									<a ng-href="#{{pathToChargeOverview()}}" has-permission='READ_CLIENTCHARGE'>{{'label.button.chargesoverview' | translate }}</a>
+								</li>
 						    </ul>
 						</span>
 				    </div>
@@ -208,8 +211,8 @@
 							<h3>{{'label.heading.withdrawn' | translate}}</h3>
 						</div>
 				        <div>
-							<div class="pull-right">
-						        <span data-ng-show="charges">
+							<div class="pull-right" data-ng-show="charges">
+						        <span>
 						            <button type="button" class="btn-primary btn btn-sm" data-ng-click="routeToChargeOverview()">{{
 										'label.button.chargesoverview' | translate }}
 									</button>
