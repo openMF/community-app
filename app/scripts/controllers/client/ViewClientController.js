@@ -514,7 +514,7 @@
 
             scope.waiveCharge = function(chargeId){
                 resourceFactory.clientChargesResource.waive({clientId: routeParams.id, resourceType:chargeId}, function (data) {
-                    location.path('/viewclient/'+ scope.client.id);
+                    route.reload();
                 });
             }
 

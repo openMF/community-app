@@ -1,7 +1,7 @@
 <div ng-controller="ClientChargesOverviewController">
     <div>
         <ul class="breadcrumb">
-            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{label.heading.charges | translate}}</li>
         </ul>
     </div>
@@ -19,7 +19,9 @@
             </tr>
             <tr class="pointer-main" dir-paginate="charge in charges | itemsPerPage: chargesPerPage"
                 total-items="totalCharges" pagination-id="chargesPage">
-                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.name}}</td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)"><i
+                        class="icon-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}"></i>&nbsp;{{charge.name}}
+                </td>
                 <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
                 <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>

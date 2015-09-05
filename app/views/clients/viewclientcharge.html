@@ -1,11 +1,12 @@
 <div ng-controller="ViewClientChargeController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{ 'label.anchor.viewcharge' | translate }}</li>
         </ul>
     </div>
     <div class="well">
-        <h3 class="bolder">{{charge.name}}
+        <h3 class="bolder"><i class="icon-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}"></i>&nbsp;&nbsp;{{charge.name}}
             <div class="btn-group pull-right">
                 <a tooltip="{{'label.button.paycharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
                    has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{clientId}}/paycharge/{{charge.id}}"
@@ -65,7 +66,7 @@
             </div>
         </div>
         <div class="row">
-            <h3>Transactions</h3>
+            <h3>{{ 'label.heading.transactions' | translate}}</h3>
             <table id="transactionsTable" data-ng-show="charge.clientTransactionDatas.length > 0"
                    class="table table-condensed">
                 <tr class="graybg">
