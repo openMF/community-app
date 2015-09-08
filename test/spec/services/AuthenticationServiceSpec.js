@@ -14,7 +14,7 @@ describe("AuthenticationService", function () {
             });
         });
 
-        new mifosX.services.AuthenticationService(scope, httpService, localStorageService).authenticateWithUsernamePassword({
+        new mifosX.services.AuthenticationService(scope, httpService, 'basicauth', localStorageService).authenticateWithUsernamePassword({
             username: "test_username",
             password: "test_password"
         });
