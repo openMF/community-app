@@ -55,7 +55,7 @@
 	            <tr class="graybg">
 	                <th>{{'label.heading.client' | translate}}</th>
 	                <th>{{'label.heading.fromaccount' | translate}}</th>
-	                <th>{{'label.heading.destination' | translate}}</th>
+	                <th>{{'label.heading.toclient' | translate}}</th>
 	                <th>{{'label.heading.toaccount' | translate}}</th>
 	                <th>{{'label.heading.amount' | translate}}</th>
 	                <th>{{'label.heading.validity' | translate}}</th>
@@ -67,18 +67,24 @@
 	                <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
 	                <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
 	                <td>
-	                    <div ng-hide="instruction.fromClient.id = instruction.toClient.id">{{instruction.toClient.displayName}}</div>
-	                    <div ng-show="instruction.fromClient.id = instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
+	                    <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
+	                    <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
 	                    
 	                </td>
 	                <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
 	                <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
 	                <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
 	                <td class="select-row:selection">
-	                    <a title="{{'label.button.edit' | translate}}"  has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">{{'label.button.edit' | translate}}/</a>
-	                    <a title="{{'label.button.cancel' | translate}}" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">{{'label.button.delete' | translate}}/</a>
-	                    <a title="{{'label.button.view' | translate}}"  has-permission='READ_STANDINGINSTRUCTION'
-	                       href="#/viewstandinginstruction/{{instruction.id}}">{{'label.button.view' | translate}}</a>
+	                    <a type="button"  class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
+                            <i class="icon-edit"></i>
+                        </a>
+	                    <a type="button" class="btn btn-danger" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
+                            <i class="icon-trash"></i>
+                        </a>
+	                    <a type="button" class="btn btn-warning" has-permission='READ_STANDINGINSTRUCTION'
+	                       href="#/viewstandinginstruction/{{instruction.id}}">
+                            <i class="icon-eye-open"></i>
+                        </a>
 	                    
 	                </td>
 	            </tr>
@@ -87,9 +93,9 @@
 	        </table>
 	        <ul class="pager">
 	            <li class="previous"><a id="prev" ng-click="instructions.previous()" href=""
-	                                    ng-disabled="!instructions.hasPrevious()">&larr; {{'label.button.previous' |
+	                                    ng-show="instructions.hasPrevious()">&larr; {{'label.button.previous' |
 	                translate}}</a></li>
-	            <li class="next"><a id="next" ng-click="instructions.next()" href="" ng-disabled="!instructions.hasNext()">{{'label.button.next'
+	            <li class="next"><a id="next" ng-click="instructions.next()" href="" ng-show="instructions.hasNext()">{{'label.button.next'
 	                | translate}} &rarr;</a></li>
 	        </ul>
         </div>

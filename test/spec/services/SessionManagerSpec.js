@@ -10,7 +10,7 @@ describe("SessionManager", function () {
         }};
         userConstructor = spyOn(mifosX.models, 'LoggedInUser').andReturn({id: "test_user"});
 
-        this.sessionManager = new mifosX.services.SessionManager(webStorage, httpService, resourceFactory);
+        this.sessionManager = new mifosX.services.SessionManager(webStorage, httpService, 'basicauth', resourceFactory);
     });
 
     describe("Session restore", function () {
@@ -26,7 +26,7 @@ describe("SessionManager", function () {
             });
 
             it("should set the http authorization", function () {
-                expect(httpService.setAuthorization).toHaveBeenCalledWith("test_key");
+                expect(httpService.setAuthorization).toHaveBeenCalledWith("test_key", false);
             });
             it("should retrieve the current user", function () {
                 expect(resourceFactory.userResource.get).toHaveBeenCalledWith({userId: "test_user"}, jasmine.any(Function))
@@ -59,7 +59,7 @@ describe("SessionManager", function () {
         });
 
         it("should set the http authorization", function () {
-            expect(httpService.setAuthorization).toHaveBeenCalledWith("test_key");
+            expect(httpService.setAuthorization).toHaveBeenCalledWith("test_key", false);
         });
         it("should store the session data", function () {
             expect(webStorage.add).toHaveBeenCalledWith("sessionData", {userId: "test_user", authenticationKey: "test_key"});

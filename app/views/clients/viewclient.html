@@ -166,11 +166,11 @@
 						<span ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
 						    <a class="btn btn-primary dropdown-toggle">
 						        {{ 'label.button.more' | translate}}
-						        <span class="caret"></span>
-						    </a>
-						    <ul class="dropdown dropdown-menu dropdown-menu-right">
-						        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
-						            <a href="#/clientscreenreport/{{client.id}}"
+                                    <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+                                        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
+                                            <a href="#/clientscreenreport/{{client.id}}"
 						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
 						                translate}}</a>
 						        </li>
@@ -187,11 +187,14 @@
 						                | translate}}</a>
 						        </li>
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
-						            <a href="#/newclientfixeddepositaccount/{{client.id}}">{{'label.newfixeddepositaccount' | translate}}</a>
+						            <a href="#/newclientfixeddepositaccount/{{client.id}}" has-permission='CREATE_FIXEDDEPOSITACCOUNT'>{{'label.newfixeddepositaccount' | translate}}</a>
 						        </li>
 						        <li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
-						            <a href="#/newclientrecurringdepositaccount/{{client.id}}">{{'label.newrecurringdepositaccount' | translate}}</a>
+						            <a href="#/newclientrecurringdepositaccount/{{client.id}}" has-permission='CREATE_RECURRINGDEPOSITACCOUNT'>{{'label.newrecurringdepositaccount' | translate}}</a>
 						        </li>
+								<li >
+									<a ng-href="#{{pathToChargeOverview()}}" has-permission='READ_CLIENTCHARGE'>{{'label.button.chargesoverview' | translate }}</a>
+								</li>
 						    </ul>
 						</span>
 				    </div>
@@ -208,6 +211,50 @@
 							<h3>{{'label.heading.withdrawn' | translate}}</h3>
 						</div>
 				        <div>
+							<api-validate></api-validate>
+							<div class="pull-right" data-ng-show="charges">
+						        <span>
+						            <button type="button" class="btn-primary btn btn-sm" data-ng-click="routeToChargeOverview()">{{
+										'label.button.chargesoverview' | translate }}
+									</button>
+						        </span>
+							</div>
+							<div  data-ng-show="charges">
+								<div class="span gray-head">
+										<span class="boldlabel">
+											  <strong>{{ 'label.heading.upcomingcharges' | translate }}</strong>
+										</span>
+								</div>
+								<table class="table table-condensed">
+									<tr class="graybg">
+										<th>{{'label.heading.name' | translate}}</th>
+										<th>{{'label.heading.dueasof' | translate}}</th>
+										<th>{{'label.heading.due' | translate}}</th>
+										<th>{{'label.heading.paid' | translate}}</th>
+										<th>{{'label.heading.waived' | translate}}</th>
+										<th>{{'label.heading.outstanding' | translate}}</th>
+										<th>{{'label.heading.actions' | translate}}</th>
+									</tr>
+									<tr class="pointer-main" ng-repeat="charge in charges">
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">
+                                            <i class="icon-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}" ></i>&nbsp;{{charge.name}}
+                                            </td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
+										<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
+										<td class="pointer center">
+											<a tooltip="{{'label.button.paycharge' | translate}}" has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{client.id}}/paycharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+												<i class="icon-dollar icon-white"></i>
+											</a>&thinsp;
+											<a tooltip="{{'label.button.waivecharge' | translate}}" has-permission='WAIVE_CLIENTCHARGE' ng-click="waiveCharge(charge.id)" class="btn btn-xs btn-primary ng-binding">
+												<i class="icon-flag icon-white"></i>
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
 						    <div class="pull-right">
 						        <span data-ng-show="clientAccounts.loanAccounts">
 						            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
@@ -232,7 +279,7 @@
 						                <th>{{'label.heading.outstandingamount' | translate}}</th>
 						                <th>{{'label.heading.dueamount' | translate}}</th>
 						                <th>{{'label.heading.type' | translate}}</th>
-						                <th>Actions</th>
+						                <th>{{'label.heading.actions' | translate}}</th>
 						            </tr>
 						            <tr class="pointer-main"
 						                ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
@@ -259,12 +306,12 @@
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
-						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
-						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-flag icon-white"></i>
 						                	</a>
 						                </td>
@@ -341,15 +388,15 @@
 											</span>
 						                </td>
 						                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
-						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok icon-white"></i>
 						                	</a>
 						                </td>
 						                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
-						                	<a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-undo icon-white"></i>
 						                	</a>
-						                	<a tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+						                	<a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
 						                		<i class="icon-ok-sign icon-white"></i>
 						                	</a>
 						                </td>
@@ -621,118 +668,5 @@
 		        </div>
 		    </div>
 		</tab>
-		<!-- devcode: !production -->
-		<!-- ************************ start of InVenture code ************************ -->
-		<tab class="inventureTabTitle" heading="{{'label.heading.inventurescore' | translate}}" select="fetchInventureScore()">
-
-		    <!-- chart1 - comparison chart -->
-		    <div class="col-sm-6 col-md-6 paddedleft0 paddedtop">
-		        <div class="inventureMainBorder">
-		            <div class="inventureCategoryTitle">
-		                <strong class="ng-binding">Score comparison</strong>
-		            </div>
-
-		            <div class="inventureTooltip" style="margin: -47px 0 0390px;">
-		                <a tooltip="{{'label.thegraphbelowcomparesanindividual' | translate}}"><img
-		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
-		                        width="18px"/></a>
-		            </div>
-
-		            <div id="inventureBarChart" style="margin: 20px -15px -15px; height:417px;">
-		                <svg></svg>
-		            </div>
-		        </div>
-		    </div>
-
-		    <!-- chart2 - inventure score chart -->
-		    <div class="col-sm-5 col-md-5 paddedtop" style="width:440px;">
-		        <div class="inventureMainBorder" style="height:175px;">
-		            <div class="inventureCategoryTitle">
-		                <strong class="ng-binding">inventure score</strong>
-		            </div>
-
-		            <div class="inventureTooltip" style="margin: -47px 0 0 390px;">
-		                <a tooltip="{{'label.inventurecalculatesapersonsoverall' | translate}}"><img
-		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
-		                        width="18px"/></a>
-		            </div>
-
-		            <div id="score" style="margin: 30px 0 -15px;">
-		                <p style="text-align: center; font-size: 25px;">Inventure score: <strong>{{inventureScore}}</strong></p>
-		            </div>
-
-		            <div id="inventureBulletChart" style="margin: 25px 0px -25px -90px; width:500px; height:35px;">
-		                <svg></svg>
-		            </div>
-
-		            <div id="inventureBulletChartLegend" style="margin: 30px 0px 0px -10px;">
-		                <table cellspacing="0" cellpadding="0" style="font-size: 14px; margin-left: auto; margin-right: auto;">
-		                    <tbody>
-		                    <tr>
-		                        <td class="inventureBulletLegendCell">300-450<br><strong>bad</strong></td>
-		                        <td class="inventureBulletLegendCell">451-550<br><strong>fair</strong></td>
-		                        <td class="inventureBulletLegendCell">551-700<br><strong>good</strong></td>
-		                        <td class="inventureBulletLegendCell">701-850<br><strong>excellent</strong></td>
-		                    </tr>
-		                    </tbody>
-		                </table>
-		            </div>
-		        </div>
-		    </div>
-
-		    <!-- chart3 - inventure loan recommendation -->
-		    <div class="col-sm-5 col-md-5" style="padding-top:20px; width:440px;">
-		        <div class="inventureMainBorder" style="height:210px;">
-		            <div class="inventureCategoryTitle">
-		                <strong class="ng-binding">inventure loan recommend</strong>
-		            </div>
-
-		            <div class="inventureTooltip" style="margin: -47px 0px 0px 390px;">
-		                <a tooltip="{{'label.inventureusesallrelevant' | translate}}"><img
-		                        src="http://smsinventure.org/mifos/img/question-mark.png" alt="Question" height="18px"
-		                        width="18px"/></a>
-		            </div>
-
-		            <div id="inventureRecommendation" style="margin: 35px 0px 0px 0px;">
-		                <table cellspacing="10" cellpadding="2" class="inventureRecommendationTable">
-		                    <tr>
-		                        <td class="inventureRecommendationCellType inventureRecommendationCellTitle">loan type</td>
-		                        <td class="inventureRecommendationCellLeftGap"></td>
-		                        <td class="inventureRecommendationCellRightGap"></td>
-		                        <td class="inventureRecommendationCellType inventureRecommendationCellTitle">creadit limit&#8377;
-		                            (Rs)
-		                        </td>
-		                    </tr>
-		                    <tr class="inventureTableTopBorder">
-		                        <td class="inventureRecommendationCellType">Agriculture</td>
-		                        <td class="inventureRecommendationCellLeftGap"></td>
-		                        <td class="inventureRecommendationCellRightGap"></td>
-		                        <td class="inventureRecommendationCellAmount">{{inventureAgricultureLimit}}</td>
-		                    </tr>
-		                    <tr>
-		                        <td class="inventureRecommendationCellType">Fishermen</td>
-		                        <td class="inventureRecommendationCellLeftGap"></td>
-		                        <td class="inventureRecommendationCellRightGap"></td>
-		                        <td class="inventureRecommendationCellAmount">{{inventureFishermenLimit}}</td>
-		                    </tr>
-		                    <tr>
-		                        <td class="inventureRecommendationCellType">Housing</td>
-		                        <td class="inventureRecommendationCellLeftGap"></td>
-		                        <td class="inventureRecommendationCellRightGap"></td>
-		                        <td class="inventureRecommendationCellAmount">{{inventureHousingLimit}}</td>
-		                    </tr>
-		                    <tr>
-		                        <td class="inventureRecommendationCellType">Business</td>
-		                        <td class="inventureRecommendationCellLeftGap"></td>
-		                        <td class="inventureRecommendationCellRightGap"></td>
-		                        <td class="inventureRecommendationCellAmount">{{inventureBusinessLimit}}</td>
-		                    </tr>
-		                </table>
-		            </div>
-		        </div>
-		    </div>
-		</tab>
-			<!-- ************************ end of InVenture code ************************ -->
-			<!-- endcode -->
 	</tabset>
 </div>

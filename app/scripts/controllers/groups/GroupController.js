@@ -57,10 +57,18 @@
                 scope.actualGroups = [];
                 scope.searchResults = [];
                 scope.filterText = "";
+                var searchString = scope.searchText;
+                searchString = searchString.replace(/(^"|"$)/g, '');
+                var exactMatch=false;
+                var n = searchString.localeCompare(scope.searchText);
+                if(n!=0)
+                {
+                    exactMatch=true;
+                }
                 if(!scope.searchText){
                     scope.initPage();
                 } else {
-                    resourceFactory.globalSearch.search({query: scope.searchText, resource: "groups"}, function (data) {
+                    resourceFactory.globalSearch.search({query: searchString, resource: "groups",exactMatch: exactMatch}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {
                             var result = data[i];

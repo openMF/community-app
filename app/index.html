@@ -213,7 +213,19 @@
                         </li>
                     </ul>
                     <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                        <input id="search" data-ng-model="search.query" type="text" placeholder="{{ 'label.searchorpress' | translate }}" class="form-control search-query col-md-4" />
+                        <div class="input-group" style="width:250px">
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
+                                     {{currentScope.name | translate}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="searchScope in searchScopes" ng-click="changeScope(searchScope)">
+                                        <a href= "">{{ searchScope.name |translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input id ="search" type="text" class="form-control" data-ng-model="search.query"  placeholder="{{'label.searchorpress'|translate}}">
+                        </div>
                     </form>
                 </div>
             </div>
