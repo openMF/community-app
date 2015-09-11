@@ -104,13 +104,9 @@
         ]
     });
 
-    require(['mifosXComponents.js', 'mifosXStyles.js'], function (componentsInit) {
+    require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
         componentsInit().then(function(){
-            require(['test/testInitializer'], function (testMode) {
-                if (!testMode) {
-                    angular.bootstrap(document, ['MifosX_Application']);
-                }
-            });
+            angular.bootstrap(document, ['MifosX_Application']);
         });
     });
 }());
