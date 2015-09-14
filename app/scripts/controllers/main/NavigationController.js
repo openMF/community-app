@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NavigationController: function (scope, resourceFactory) {
+        NavigationController: function (scope, resourceFactory, location) {
 
             scope.offices = [];
             scope.isCollapsed = false;
@@ -8,6 +8,24 @@
             scope.groupCollapsed = true;
             scope.centerCollapsed = true;
             scope.clientCollapsed = true;
+            scope.clients = [];
+
+
+
+            scope.routeTo = function (id) {
+                location.path('/viewclient/' + id);
+            };
+
+            scope.redirectCenter = function (id) {
+                location.path('/viewcenter/' + id);
+            };
+            scope.redirectGroup = function (id) {
+                location.path('/viewgroup/' + id);
+            };
+            scope.redirectOffice = function (id) {
+                location.path('/viewoffice/' + id);
+            };
+
             resourceFactory.officeResource.get({officeId: 1}, function (data) {
                 scope.office = data;
                 scope.officeName = data.name;
@@ -27,7 +45,7 @@
                 }
             };
             scope.collapseOfficerOthers = function () {
-                scope.filterText = '';
+                scope.filterStaff = '';
                 scope.officerCollapsed = !scope.officerCollapsed;
                 if (scope.officerCollapsed == false) {
                     scope.isCollapsed = true;
@@ -37,7 +55,7 @@
                 }
             };
             scope.collapseCenterOthers = function () {
-                scope.filterText = '';
+                scope.filterCenter = '';
                 scope.centerCollapsed = !scope.centerCollapsed;
                 if (scope.centerCollapsed == false) {
                     scope.isCollapsed = true;
@@ -47,7 +65,7 @@
                 }
             };
             scope.collapseGroupOthers = function () {
-                scope.filterText = '';
+                scope.filterGroup = '';
                 scope.groupCollapsed = !scope.groupCollapsed;
                 if (scope.groupCollapsed == false) {
                     scope.isCollapsed = true;
@@ -57,7 +75,7 @@
                 }
             };
             scope.collapseClientOthers = function () {
-                scope.filterText = '';
+                scope.filterClient = '';
                 scope.clientCollapsed = !scope.clientCollapsed;
                 if (scope.clientCollapsed == false) {
                     scope.isCollapsed = true;
@@ -97,13 +115,14 @@
                         scope.staffs = data;
                     });
                 }
+
             };
 
             scope.staffSelected = function (staffId, staffName) {
                 scope.office = '';
                 scope.group = '';
                 scope.client = '';
-                scope.filterText = '';
+                scope.filterStaff = '';
                 scope.center = '';
                 scope.centerName = '';
                 scope.groupName = '';
@@ -125,13 +144,14 @@
                         scope.centers = data;
                     });
                 }
+
             };
             scope.centerSelected = function (centerId, centerName) {
                 scope.office = '';
                 scope.staff = '';
                 scope.client = '';
                 scope.group = '';
-                scope.filterText = '';
+                scope.filterCenter = '';
                 scope.groupName = '';
                 scope.clientName = '';
                 scope.clients = '';
@@ -150,10 +170,11 @@
                         scope.centerAccounts = data;
                     });
                 }
+
             };
             scope.groupSelected = function (groupId, groupName) {
                 scope.office = '';
-                scope.filterText = '';
+                scope.filterGroup = '';
                 scope.staff = '';
                 scope.center = '';
                 scope.client = '';
@@ -176,7 +197,7 @@
             };
             scope.clientSelected = function (clientId, clientName) {
                 scope.office = '';
-                scope.filterText = '';
+                scope.filterClient = '';
                 scope.staff = '';
                 scope.center = '';
                 scope.group = '';
@@ -194,10 +215,11 @@
                         scope.clientAccounts = data;
                     });
                 }
+
             };
         }
     });
-    mifosX.ng.application.controller('NavigationController', ['$scope', 'ResourceFactory', mifosX.controllers.NavigationController]).run(function ($log) {
+    mifosX.ng.application.controller('NavigationController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.NavigationController]).run(function ($log) {
         $log.info("NavigationController initialized");
     });
 }(mifosX.controllers || {}));
