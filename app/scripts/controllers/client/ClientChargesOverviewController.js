@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientChargesOverviewController: function (scope, resourceFactory, location, routeParams) {
+        ClientChargesOverviewController: function (scope, resourceFactory, location, routeParams,route) {
             scope.clientId = routeParams.id
             scope.charges = [];
             scope.chargesPerPage = 14;
@@ -22,9 +22,25 @@
 
             scope.getClientChargeResultsPage(1);
 
+            resourceFactory.clientRecurringChargesResource.getRecurringCharges({clientId: routeParams.id}, function (data) {
+                scope.recurringCharges = data;
+            });
+            scope.inactivateCharge = function(recurringChargeId){
+                resourceFactory.clientRecurringChargesResource.inactivate({clientId: routeParams.id, resourceType:recurringChargeId}, function (data) {
+                    route.reload();
+                });
+            }
+
+            scope.activateCharge = function(recurringChargeId){
+                resourceFactory.clientRecurringChargesResource.activate({clientId: routeParams.id, resourceType:recurringChargeId}, function (data) {
+                    route.reload();
+                });
+            }
+
+
         }
     });
-    mifosX.ng.application.controller('ClientChargesOverviewController', ['$scope', 'ResourceFactory', '$location', '$routeParams', mifosX.controllers.ClientChargesOverviewController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientChargesOverviewController', ['$scope', 'ResourceFactory', '$location', '$routeParams','$route', mifosX.controllers.ClientChargesOverviewController]).run(function ($log) {
         $log.info("ClientChargesOverviewController initialized");
     });
 }(mifosX.controllers || {}));

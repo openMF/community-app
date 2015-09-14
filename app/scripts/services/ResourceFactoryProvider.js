@@ -51,6 +51,11 @@
                         getCharges: {method: 'GET'},
                         waive:{method:'POST' , params:{command : 'waive'}}
                     }),
+                    clientRecurringChargesResource: defineResource(apiVer + "/clients/:clientId/charges/recurringCharges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
+                        getRecurringCharges: {method: 'GET',isArray: true},
+                        inactivate:{method:'POST' , params:{command : 'inactivate'}},
+                        activate:{method:'POST' , params:{command : 'activate'}}
+                    }),
                     clientTransactionResource: defineResource(apiVer + "/clients/:clientId/transactions/:transactionId", {clientId: '@clientId', transactionId: '@transactionId'}, {
                         getTransactions: {method: 'GET',isArray: true},
                         undoTransaction :{method:'POST', params:{command:'undo'}}
