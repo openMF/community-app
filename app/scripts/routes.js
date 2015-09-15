@@ -763,16 +763,16 @@
             .when('/loans/:loanId/reschedule/', {
                 templateUrl: 'views/loans/rescheduleloans.html'
             })
-            .when('/loans/:loanId/viewreschedulerequest/', {
+            .when('/loans/:loanId/viewreschedulerequest/:requestId', {
                 templateUrl: 'views/loans/viewreschedulerequest.html'
             })
-            .when('/loans/:loanId/approvereschedulerequest/', {
+            .when('/loans/:loanId/approvereschedulerequest/:requestId', {
                 templateUrl: 'views/loans/approveloanreschedule.html'
             })
-            .when('/loans/:loanId/rejectreschedulerequest/', {
+            .when('/loans/:loanId/rejectreschedulerequest/:requestId', {
                 templateUrl: 'views/loans/rejectloanreschedule.html'
             })
-            .when('/loans/:loanId/previewloanrepaymentschedule/', {
+            .when('/loans/:loanId/previewloanrepaymentschedule/:requestId', {
                 templateUrl: 'views/loans/previewloanrepaymentschedule.html'
             });
         $locationProvider.html5Mode(false);

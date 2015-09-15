@@ -26,7 +26,7 @@
                 this.formData.rescheduleReasonComment = scope.comments;
                 resourceFactory.loanRescheduleResource.put(this.formData, function (data) {
                     scope.requestId = data.resourceId;
-                    location.path('/loans/' + scope.loanId + '/viewreschedulerequest/');
+                    location.path('/loans/' + scope.loanId + '/viewreschedulerequest/'+ data.resourceId);
                 });
             };
 

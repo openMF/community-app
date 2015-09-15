@@ -420,9 +420,8 @@
                      template: {method: 'GET',params:{}},
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
-                     reject:{method:'POST',params:{command:'rejectRescheduleRequest'}},
-                     approve:{method:'POST',params:{command:'approveRescheduleRequest'}},
-                     preview:{method:'GET',params:{associations:'rescheduledRepaymentSchedule'}}
+                     reject:{method:'POST',params:{command:'reject'}},
+                     approve:{method:'POST',params:{command:'approve'}},
                      }),
                      auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},

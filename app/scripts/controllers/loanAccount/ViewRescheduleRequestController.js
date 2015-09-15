@@ -4,8 +4,8 @@
             scope.requestId = routeParams.requestId;
             scope.loanId = routeParams.loanId;
 
-            resourceFactory.loanRescheduleResource.get({loanId:scope.loanId}, function (data) {
-                scope.loanRescheduleDetails = data.rescheduleRequest;
+            resourceFactory.loanRescheduleResource.get({scheduleId:scope.requestId}, function (data) {
+                scope.loanRescheduleDetails = data;
                 scope.rescheduleFromDate = new Date(scope.loanRescheduleDetails.rescheduleFromDate);
                 scope.rescheduleFromDate = dateFilter(scope.rescheduleFromDate,"dd MMMM yyyy");
                 scope.submittedOnDate = new Date(scope.loanRescheduleDetails.timeline.submittedOnDate);
@@ -30,10 +30,10 @@
             });
 
             scope.reject = function(){
-                location.path('/loans/' + scope.loanId + '/rejectreschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/rejectreschedulerequest/'+scope.requestId);
             };
             scope.approve = function(){
-                location.path('/loans/' + scope.loanId + '/approvereschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/approvereschedulerequest/'+scope.requestId);
             };
 
             scope.cancel = function () {
@@ -41,7 +41,7 @@
             };
 
             scope.submit = function () {
-                location.path('/loans/' + scope.loanId + '/previewloanrepaymentschedule/');
+                location.path('/loans/' + scope.loanId + '/previewloanrepaymentschedule/'+scope.requestId);
             };
 
         }
