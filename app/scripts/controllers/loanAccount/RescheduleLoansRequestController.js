@@ -6,7 +6,7 @@
             scope.rejectData = {};
             scope.formData.submittedOnDate = new Date();
 
-            resourceFactory.loanRescheduleReasonResource.get({anotherResource:'template'},function(data){
+            resourceFactory.loanRescheduleResource.template({scheduleId:'template'},function(data){
                 if (data.length > 0) {
                     scope.formData.rescheduleReasonId = data.rescheduleReasons[0].id;
                 }
