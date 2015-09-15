@@ -6,14 +6,14 @@
             scope.requestId = routeParams.requestId;
 
             scope.cancel = function () {
-                location.path('/loans/' + scope.loanId + '/viewreschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/viewreschedulerequest/'+scope.requestId);
             };
             scope.reject = function(){
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.rejectedOnDate = dateFilter(this.formData.rejectedOnDate, scope.df);
 
-                resourceFactory.loanRescheduleResource.reject({loanId:scope.loanId},this.formData,function (data) {
+                resourceFactory.loanRescheduleResource.reject({scheduleId:scope.requestId},this.formData,function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
             };

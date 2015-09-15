@@ -5,18 +5,18 @@
             scope.loanId = routeParams.loanId;
             scope.data = {};
 
-            resourceFactory.loanRescheduleResource.preview({loanId:scope.loanId}, function (data) {
-                scope.data = data.rescheduledRepaymentSchedule;
+            resourceFactory.loanRescheduleResource.preview({scheduleId:scope.requestId}, function (data) {
+                scope.data = data;
             });
             scope.reject = function(){
-                location.path('/loans/' + scope.loanId + '/rejectreschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/rejectreschedulerequest/'+scope.requestId);
             };
             scope.approve = function(){
-                location.path('/loans/' + scope.loanId + '/approvereschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/approvereschedulerequest/'+scope.requestId);
             };
 
             scope.back = function () {
-                location.path('/loans/' + scope.loanId + '/viewreschedulerequest/');
+                location.path('/loans/' + scope.loanId + '/viewreschedulerequest/'+scope.requestId);
             };
         }
     });
