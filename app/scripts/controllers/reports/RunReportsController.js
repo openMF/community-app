@@ -78,13 +78,16 @@
                     for (var i in data.data) {
                         selectData.push({id: data.data[i].row[0], name: data.data[i].row[1]});
                     }
-                    for (var i in scope.reportParams) {
-                        if (scope.reportParams[i].name == paramData.name) {
-                            scope.reportParams[i].selectOptions = selectData;
+                    for (var j in scope.reportParams) {
+                        if (scope.reportParams[j].name == paramData.name) {
+                            scope.reportParams[j].selectOptions = selectData;
                             isExistedRecord = true;
                         }
                     }
                     if (!isExistedRecord) {
+                        if(paramData.selectAll == 'Y'){
+                            selectData.push({id: "-1", name: "All"});
+                        }
                         paramData.selectOptions = selectData;
                         scope.reportParams.push(paramData);
                     }

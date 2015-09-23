@@ -39,8 +39,12 @@
                             return http(config);
                         };
                     });
-                    this.setAuthorization = function (key) {
-                        http.defaults.headers.common.Authorization = "Basic " + key;
+                    this.setAuthorization = function (key, isOauth) {
+                        if(isOauth){
+                            http.defaults.headers.common.Authorization = "bearer " + key;
+                        } else {
+                            http.defaults.headers.common.Authorization = "Basic " + key;
+                        }
                     };
 
                     this.cancelAuthorization = function () {
@@ -54,6 +58,6 @@
     mifosX.ng.services.config(function ($provide) {
         $provide.provider('HttpService', mifosX.services.HttpServiceProvider);
     }).run(function ($log) {
-            $log.info("HttpService initialized");
-        });
+        $log.info("HttpService initialized");
+    });
 }(mifosX.services || {}));

@@ -20,6 +20,7 @@
 
             switch (scope.action) {
                 case "approve":
+                    scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
 
                         scope.title = 'label.heading.approveloanaccount';
@@ -28,7 +29,6 @@
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
-                        scope.taskPermissionName = 'APPROVE_LOAN';
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
@@ -399,7 +399,8 @@
                             this.formData.disbursementData.push({
                                 id: scope.disbursementDetails[i].id,
                                 principal: scope.disbursementDetails[i].principal,
-                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                                loanChargeId : scope.disbursementDetails[i].loanChargeId
                             });
                         }
                     }
@@ -459,7 +460,8 @@
                         this.formData.disbursementData.push({
                             id: scope.disbursementDetails[i].id,
                             principal: scope.disbursementDetails[i].principal,
-                            expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                            expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                            loanChargeId : scope.disbursementDetails[i].loanChargeId
                         });
                     }
                     resourceFactory.LoanEditDisburseResource.update({loanId: routeParams.id, disbursementId: routeParams.disbursementId}, this.formData, function (data) {
@@ -471,7 +473,8 @@
                             this.formData.disbursementData.push({
                                 id:scope.disbursementDetails[i].id,
                                 principal: scope.disbursementDetails[i].principal,
-                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                                loanChargeId : scope.disbursementDetails[i].loanChargeId
                             });
                     }
 

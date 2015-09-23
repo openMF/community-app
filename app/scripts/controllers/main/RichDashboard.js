@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         RichDashboard: function (scope, resourceFactory, localStorageService, $rootScope, location) {
-        	
+
         	scope.recent = [];
             scope.recent = localStorageService.getFromLocalStorage('Location');
             scope.recentEight = [];
@@ -11,17 +11,17 @@
             scope.searchParams = [];
             scope.recents = [];
             scope.dashModel = 'dashboard';
-            
+
             scope.switch = function() {
 	        	location.path('/richdashboard');
 			}
-            
+
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
 	            if (sessionManager.get(data)) {
 	                scope.currentSession = sessionManager.get(data);
 	            }
             });
-            
+
             //to retrieve last 8 recent activities
             for (var rev = scope.recent.length - 1; rev > 0; rev--) {
                 scope.recentArray.push(scope.recent[rev]);
@@ -94,7 +94,7 @@
             scope.switch = function() {
 	        	location.path('/home');
 			}
-            
+
             scope.formatdate = function () {
                 var bardate = new Date();
                 scope.formattedDate = [];
@@ -406,7 +406,7 @@
                         scope.showCollectionerror = true;
                     }
                     scope.collectedData = [
-                        {key: "Collected", y: scope.collectionPieData.AmountPaid},
+                        {key: "Disbursed", y: scope.collectionPieData.AmountPaid},
                         {key: "Pending", y: scope.collectionPieData.AmountDue}
                     ];
 

@@ -8,6 +8,7 @@
             scope.staffData = {};
             scope.openLoan = true;
             scope.openSaving = true;
+            scope.editMeeting = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -22,9 +23,14 @@
                 scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if(data.collectionMeetingCalendar) {
-                    scope.entityId = data.collectionMeetingCalendar.entityId;
+                    scope.entityId = data.id;
                     scope.entityType = data.collectionMeetingCalendar.entityType.value;
+
+                    if(scope.entityType == "GROUPS" && data.hierarchy == "."+ data.id + "." ){
+                        scope.editMeeting = true;
+                    }
                 }
+
             });
             resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
                 scope.summary = data[0];

@@ -118,8 +118,42 @@
                 ;
             });
 
+            var setSearchScopes = function () {
+                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
+                var clients = {
+                    name: "label.search.scope.clients.and.clientIdentifiers",
+                    value: "clients,clientIdentifiers"
+                };
+                var groups = {
+                    name: "label.search.scope.groups.and.centers",
+                    value: "groups"
+                };
+                var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
+                var loans = {name: "label.search.scope.savings", value: "savings"};
+                scope.searchScopes = [all,clients,groups,loans,savings];
+                scope.currentScope = all;
+            }
+
+            setSearchScopes();
+
+            scope.changeScope = function (searchScope) {
+                scope.currentScope = searchScope ;
+            }
+
             scope.search = function () {
-                location.path('/search/' + scope.search.query);
+                var resource;
+                var searchString=scope.search.query;
+                var exactMatch=false;
+                if(searchString != null){
+                    searchString = searchString.replace(/(^"|"$)/g, '');
+                    var n = searchString.localeCompare(scope.search.query);
+                    if(n!=0)
+                    {
+                        exactMatch=true;
+                    }
+                }
+                location.path('/search/' + searchString).search({exactMatch: exactMatch, resource: scope.currentScope.value});
+
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
             '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
