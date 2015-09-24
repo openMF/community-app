@@ -406,7 +406,7 @@
                         scope.showCollectionerror = true;
                     }
                     scope.collectedData = [
-                        {key: "Disbursed", y: scope.collectionPieData.AmountPaid},
+                        {key: "Collected", y: scope.collectionPieData.AmountPaid},
                         {key: "Pending", y: scope.collectionPieData.AmountDue}
                     ];
 
@@ -428,7 +428,7 @@
                         scope.showDisbursementerror = true;
                     }
                     scope.disbursedData = [
-                        {key: "Collected", y: scope.disbursedPieData.disbursedAmount},
+                        {key: "Disbursed", y: scope.disbursedPieData.disbursedAmount},
                         {key: "Pending", y: scope.disbursedPieData.amountToBeDisburse}
                     ];
                 });
