@@ -96,20 +96,29 @@
 	            </div>
 	        </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}</label>
+                <label class="control-label col-sm-2">{{'label.input.clienttype' | translate}}<span
+                        class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="clienttypeId" ng-model="formData.clientTypeId"  class="form-control"
-                            ng-options="clienttype.id as clienttype.name for clienttype in clienttypeOptions" value="{{clienttype.id}}">
+                    <select id="clienttypeId" name="clienttypeId" ng-model="formData.clientTypeId" class="form-control"
+                            ng-options="clienttype.id as clienttype.name for clienttype in clienttypeOptions"
+                            value="{{clienttype.id}}" required late-validate>
                         <option value="">--{{'label.menu.clienttype' | translate}}--</option>
                     </select>
                 </div>
 
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createclientform" valattribute="clienttypeId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.clientclassification' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <select id="clientClassificationId" ng-model="formData.clientClassificationId"  class="form-control"
-                            ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions" value="{{clientClassification.id}}">
+                    <select id="clientClassificationId" ng-model="formData.clientClassificationId" class="form-control"
+                            ng-options="clientClassification.id as clientClassification.name for clientClassification in clientClassificationOptions"
+                            value="{{clientClassification.id}}">
                         <option value="">--{{'label.menu.clientclassification' | translate}}--</option>
                     </select>
                 </div>
