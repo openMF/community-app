@@ -30,7 +30,7 @@
                     scope.periodValue = "day(s)"
                 }
                 if (period == 2) {
-                    scope.repeatsEveryOptions = ["1", "2", "3"];
+                    scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
                     scope.formData.repeatsOnDay = '1';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
@@ -56,7 +56,7 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.startDate = reqDate;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
                 if (routeParams.entityType == "groups") {

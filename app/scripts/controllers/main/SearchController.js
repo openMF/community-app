@@ -6,7 +6,7 @@
             if (routeParams.query == 'undefined') {
                 routeParams.query = '';
             }
-            resourceFactory.globalSearch.search({query: routeParams.query}, function (data) {
+            resourceFactory.globalSearch.search({query: routeParams.query, resource: routeParams.resource, exactMatch: routeParams.exactMatch}, function (data) {
                 if (data.length > 200) {
                     scope.searchResults = data.slice(0, 201);
                     scope.showMsg = true;
@@ -32,7 +32,7 @@
                 });
             };
 
-            scope.getGroupDetails = function (groupId) {
+           scope.getGroupDetails = function (groupId) {
 
                 scope.selected = groupId;
 

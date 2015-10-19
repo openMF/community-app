@@ -1,0 +1,45 @@
+<div ng-controller="PayClientChargeController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{ 'label.button.paycharge' | translate }}</li>
+        </ul>
+    </div>
+    <form name="payclientchargeform" novalidate="" class="form-horizontal"
+          rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="amount" type="text" name="amount" ng-model="formData.amount" class="form-control"
+                           required ng-late-Validate/>
+                    <form-validate valattributeform="payclientchargeform" valattribute="amount"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.transactiondate' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input sort type="text" datepicker-pop={{df}}
+                           ng-model="paymentDate" is-open="opened" class="form-control"/>
+                </div>
+            </div>
+
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewclient/{{cancelRoute}}" class="btn btn-default">{{'label.button.cancel' |
+                    translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='PAY_CLIENTCHARGE'>
+                    {{'label.button.save' |
+                    translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

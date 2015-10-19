@@ -9,7 +9,7 @@
     </div>
     <div>
         <div class="form-horizontal" ng-show="report">
-        	<div class="form-group">
+        	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
                          class="required">*</span></label>
 
@@ -18,8 +18,6 @@
                             datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
                             max="restrictDate"/>
                  </div>
-             </div>
-             <div class="form-group">
                  <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
                          class="required">*</span></label>
 
@@ -29,25 +27,22 @@
                             max="restrictDate"/>
                  </div>
              </div>
-             <div class="col-md-offset-2">
+             <div class="col-md-11 center" ng-show="viewLoanReport">
+                 <button ng-click="viewLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' | translate}} </button>
                  <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">{{'label.button.viewprint' | translate}} </button>
-                 <button ng-click="viewLoanDetails()" class="btn btn-primary ng-binding">{{'label.button.loandetails' | translate}} </button>
              </div>
-             <div class="form-group" data-ng-show="savingaccountdetails.allowOverdraft">
-                 <label class="control-label col-sm-2">
-        			<td style="font-weight: normal" class="table-bold-acc">{{'label.heading.overdraftlimit' | translate}}</td>
-        		</label>
-        		<label class="control-label col-sm-2">
-        			<span class="padded-td">{{savingaccountdetails.overdraftLimit}}</span>
-        		</label>
-             </div>
+
+
         </div>
         <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
             <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
                 translate}}
             </button>
             <div id="printcontent">
-                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="800px"></iframe>
+                <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
+            </div>
+            <div class="col-md-13 center" ng-show="viewTransactionReport">
+                <button ng-click="viewLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' | translate}} </button>
             </div>
         </div>
         <div ng-hide="report">
@@ -261,6 +256,10 @@
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled">
                                 <td>{{ 'label.input.frequency.for.recalculte.outstanding.principal' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.interestRecalculationData.calendarData.humanReadable}}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
+                                <td>{{ 'label.input.frequency.for.compounding' | translate }}</td>
+                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingCalendarData.humanReadable}}</span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -506,7 +505,8 @@
 
 
                     <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
-                        <button class="btn btn-primary pull-right" ng-click="export()">{{'label.button.export' | translate}}</button>
+                        <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
+                        <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
                             <input type="checkbox" data-ng-model="hideAccrualTransactions" ng-true-value="false" ng-false-value="" ng-checked="isHideAccrualsCheckboxChecked" ng-change="updateCheckBoxStatus()">&nbsp;&nbsp;
                             <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
@@ -523,7 +523,8 @@
                                     <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.amount' | translate}}</th>
                                     <th class="pointer" colspan="4" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
                                     <th class="pointer" scope="colgroup">{{'label.heading.loan.balance' | translate}}</th>
-                                    <th>{{'label.heading.viewreceipts' | translate}}</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                                 <tr>
                                     <th scope="col">&nbsp;</th>
@@ -571,8 +572,12 @@
                                         {{transaction.outstandingLoanBalance | number}}
                                     </td>
 
-                                    <td> <a ng-if="transaction.manuallyReversed!=true" ng-click="viewloantransactionreceipts(transaction.id)">
+                                    <td> <a tooltip="{{'label.heading.viewreceipts' | translate }}" ng-if="transaction.manuallyReversed!=true" ng-click="viewloantransactionreceipts(transaction.id)">
                                         <i class="icon-file-text icon-large"></i>
+                                    </a>
+                                    </td>
+									 <td> <a tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewloantransactionjournalentries(transaction.id)">
+                                        <i class="icon-circle-arrow-right icon-large coll"></i>
                                     </a>
                                     </td>
                                 </tr>
@@ -583,7 +588,7 @@
                                 translate}}
                             </i></button>
                             <div id="printreceiptcontent">
-                                <iframe id="rptLoadingreceiptFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="800px"></iframe>
+                                <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
                     </tab>
@@ -617,26 +622,34 @@
                                 <td>
                                     <b>{{'label.heading.tranchedetails' | translate}}</b>
                                 </td>
+                                <td align="right">
+                                <a type="button" ng-show="showAddDeleteTrancheButtons('adddisbursedetails')" class="btn btn-primary" align="right"
+                                   href="#/loandisbursedetail/{{loandetails.id}}/adddisbursedetails">
+                                    <i class="icon-plus"></i>{{ 'label.button.add' | translate }}
+                                </a>
+                                    <a type="button" ng-show="showAddDeleteTrancheButtons('deletedisbursedetails')" class="btn btn-danger" align="right"
+                                       href="#/loandisbursedetail/{{loandetails.id}}/deletedisbursedetails">
+                                        <i class="icon-trash"></i>{{ 'label.button.delete' | translate }}
+                                    </a>
+                                </td>
                             </tr>
                         </table>
                         <table class="width100">
                             <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
                                 <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
                                 <th align="left">{{'label.input.disbursedon' | translate}}</th>
-                                <th align="left">{{'label.heading.approvedamount' | translate}}</th>
                                 <th align="left">{{'label.input.principal' | translate}}</th>
                                 <th align="left">&nbsp;</th>
                             </tr>
                             <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
                                 <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
-                                <td>{{disbursementDetail.approvedPrincipal | number}}</td>
                                 <td>{{disbursementDetail.principal | number}}</td>
                                 <td>
                                     <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i>
                                     </div>
                                     <a title="{{'label.edit' | translate}}"
-                                       data-ng-show="disbursementDetail.actualDisbursementDate == null && status =='Active' "
+                                       data-ng-show="showEdit(disbursementDetail)"
                                        href="#/loandisbursedetail/{{loandetails.id}}/editdisbursedate/{{disbursementDetail.id}}"><i
                                             class="icon-pencil icon-white"></i></a>
                                 </td>

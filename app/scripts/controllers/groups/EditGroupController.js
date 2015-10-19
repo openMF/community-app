@@ -27,7 +27,7 @@
             scope.updateGroup = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activationDate = reqDate;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.groupResource.update({groupId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewgroup/' + routeParams.id);

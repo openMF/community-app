@@ -14,7 +14,7 @@
                 scope.isHideAccrualsCheckboxChecked = !scope.isHideAccrualsCheckboxChecked;
             };
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4) {
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 }
                 ;
@@ -115,6 +115,9 @@
                     case "loanscreenreport":
                         location.path('/loanscreenreport/' + accountId);
                         break;
+                    case "reschedule":
+                        location.path('/loans/' +accountId + '/reschedule');
+                        break;
                 }
             };
 
@@ -133,6 +136,7 @@
             var DelChargeCtrl = function ($scope, $modalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: ids}, {}, function (data) {
+
                         $modalInstance.close('delete');
                         route.reload();
                     });
@@ -298,6 +302,10 @@
                                 taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
                             },
                             {
+                                name: "button.reschedule",
+                                taskPermissionName: 'CREATE_RESCHEDULELOAN'
+                            },
+                            {
                                 name: "button.writeoff",
                                 taskPermissionName: 'WRITEOFF_LOAN'
                             },
@@ -448,10 +456,19 @@
             scope.export = function () {
                 scope.report = true;
                 scope.printbtn = false;
+                scope.viewReport = false;
+                scope.viewLoanReport = true;
+                scope.viewTransactionReport = false;
+            };
+
+            scope.viewJournalEntries = function(){
+                location.path("/searchtransaction/").search({loanId: scope.loandetails.id});
             };
 
             scope.viewLoanDetails = function () {
                 scope.report = false;
+                scope.hidePentahoReport = true;
+                scope.viewReport = false;
             };
 
             scope.viewLoanCollateral = function (collateralId){
@@ -471,9 +488,12 @@
             };
 
             scope.viewprintdetails = function () {
-                scope.printbtn = true;
+                //scope.printbtn = true;
+                scope.report = true;
+                scope.viewTransactionReport = false;
+                scope.viewReport = true;
                 scope.hidePentahoReport = true;
-                scope.formData.outputType = 'HTML';
+                scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
@@ -490,14 +510,18 @@
                     scope.baseURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
                 
             };
 
             scope.viewloantransactionreceipts = function (transactionId) {
-                scope.printbtn = true;
+                //scope.printbtn = true;
+                scope.report = true;
+                scope.viewTransactionReport = true;
+                scope.viewLoanReport = false;
+                scope.viewReport = true;
                 scope.hidePentahoReport = true;
-                scope.formData.outputType = 'HTML';
+                scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Transaction Receipt");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
@@ -508,7 +532,19 @@
                     scope.baseURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
+                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+
+            };
+             scope.viewloantransactionjournalentries = function(transactionId){
+                var transactionId = "L" + transactionId;
+                 if(scope.loandetails.clientId != null && scope.loandetails.clientId != ""){
+                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,
+                         accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
+                 }else{
+                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,accountNo: scope.loandetails.accountNo,
+                         groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name});
+
+                 }
 
             };
 
@@ -547,6 +583,14 @@
                 }
             };
 
+            scope.showEdit = function(disbursementDetail){
+                if((!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)
+                    && scope.status =='Approved'){
+                    return true;
+                }
+                return false;
+            };
+
             scope.showApprovedAmountBasedOnStatus = function () {
                 if (scope.status == 'Submitted and pending approval' || scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected') {
                     return false;
@@ -559,6 +603,41 @@
                   return false;
               }
               return true;
+            };
+
+            scope.checkStatus = function(){
+                if(scope.status == 'Active' || scope.status == 'Closed (obligations met)' || scope.status == 'Overpaid' ||
+                    scope.status == 'Closed (rescheduled)' || scope.status == 'Closed (written off)'){
+                    return true;
+                }
+                return false;
+            };
+
+            scope.showAddDeleteTrancheButtons = function(action){
+                scope.return = true;
+                if(scope.status == 'Closed (obligations met)' || scope.status == 'Overpaid' ||
+                    scope.status == 'Closed (rescheduled)' || scope.status == 'Closed (written off)' ||
+                    scope.status =='Submitted and pending approval'){
+                    scope.return = false;
+                }
+                scope.totalDisbursedAmount = 0;
+                scope.count = 0;
+                for(var i in scope.loandetails.disbursementDetails){
+                    if(scope.loandetails.disbursementDetails[i].actualDisbursementDate != null){
+                        scope.totalDisbursedAmount += scope.loandetails.disbursementDetails[i].principal;
+                    }
+                    else{
+                        scope.count +=  1;
+                    }
+                }
+                if(scope.totalDisbursedAmount == scope.loandetails.approvedPrincipal || scope.return == false){
+                    return false;
+                }
+                if(scope.count == 0 && action == 'deletedisbursedetails'){
+                    return false;
+                }
+
+                return true;
             };
         }
     });

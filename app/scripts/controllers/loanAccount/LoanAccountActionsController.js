@@ -16,9 +16,11 @@
             scope.expectedDisbursementDate = [];
             scope.disbursementDetails = [];
             scope.showTrancheAmountTotal = 0;
+            scope.processDate = false;
 
             switch (scope.action) {
                 case "approve":
+                    scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
 
                         scope.title = 'label.heading.approveloanaccount';
@@ -27,12 +29,12 @@
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
-                        scope.taskPermissionName = 'APPROVE_LOAN';
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
+                            scope.approveTranches = true;
                         }
                         for(var i in data.disbursementDetails){
                             scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
@@ -122,18 +124,19 @@
                     break;
                 case "prepayloan":
                     scope.modelName = 'transactionDate';
+                    scope.formData.transactionDate =  new Date();
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'prepayLoan'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         if (data.paymentTypeOptions.length > 0) {
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
                         }
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
+                        scope.processDate = true;
                     });
                     scope.title = 'label.heading.prepayloan';
                     scope.labelName = 'label.input.transactiondate';
@@ -287,15 +290,8 @@
                         scope.showEditDisburseDate = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
-
-                        if(data.disbursementDetails != ""){
-                            scope.disbursementDetails = data.disbursementDetails;
-                        }
                         for(var i in data.disbursementDetails){
-                            scope.disbursementDetails[i].expectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
-                            scope.disbursementDetails[i].principal = data.disbursementDetails[i].principal;
-                            scope.disbursementDetails[i].id = data.disbursementDetails[i].id;
-                            if(routeParams.disbursementId == scope.disbursementDetails[i].id){
+                            if(routeParams.disbursementId == data.disbursementDetails[i].id){
                                 scope.formData.updatedExpectedDisbursementDate = new Date(data.disbursementDetails[i].expectedDisbursementDate);
                                 scope.formData.updatedPrincipal = data.disbursementDetails[i].principal;
                                 scope.id = data.disbursementDetails[i].id;
@@ -352,7 +348,6 @@
                         scope.deleteDisburseDetails = true;
                         scope.formData.approvedLoanAmount = data.approvedPrincipal;
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
-
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
                         }
@@ -391,6 +386,7 @@
             };
 
             scope.submit = function () {
+                scope.processDate = false;
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
@@ -403,7 +399,8 @@
                             this.formData.disbursementData.push({
                                 id: scope.disbursementDetails[i].id,
                                 principal: scope.disbursementDetails[i].principal,
-                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                                loanChargeId : scope.disbursementDetails[i].loanChargeId
                             });
                         }
                     }
@@ -463,7 +460,8 @@
                         this.formData.disbursementData.push({
                             id: scope.disbursementDetails[i].id,
                             principal: scope.disbursementDetails[i].principal,
-                            expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                            expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                            loanChargeId : scope.disbursementDetails[i].loanChargeId
                         });
                     }
                     resourceFactory.LoanEditDisburseResource.update({loanId: routeParams.id, disbursementId: routeParams.disbursementId}, this.formData, function (data) {
@@ -475,7 +473,8 @@
                             this.formData.disbursementData.push({
                                 id:scope.disbursementDetails[i].id,
                                 principal: scope.disbursementDetails[i].principal,
-                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df)
+                                expectedDisbursementDate: dateFilter(scope.disbursementDetails[i].expectedDisbursementDate, scope.df),
+                                loanChargeId : scope.disbursementDetails[i].loanChargeId
                             });
                     }
 
@@ -492,6 +491,29 @@
                     params.loanId = scope.accountId;
                     resourceFactory.LoanAccountResource.save(params, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
+                    });
+                }
+            };
+
+            scope.$watch('formData.transactionDate',function(){
+                scope.onDateChange();
+             });
+
+            scope.onDateChange = function(){
+                if(scope.processDate) {
+                    var params = {};
+                    params.locale = scope.optlang.code;
+                    params.dateFormat = scope.df;
+                    params.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                    params.loanId = scope.accountId;
+                    params.command = 'prepayLoan';
+                    resourceFactory.loanTrxnsTemplateResource.get(params, function (data) {
+                        scope.formData.transactionAmount = data.amount;
+                        if (data.penaltyChargesPortion > 0) {
+                            scope.showPenaltyPortionDisplay = true;
+                        }
+                        scope.principalPortion = data.principalPortion;
+                        scope.interestPortion = data.interestPortion;
                     });
                 }
             };

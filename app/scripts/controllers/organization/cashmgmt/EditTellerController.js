@@ -31,7 +31,7 @@
                     officeId: data.officeId,
                     description: data.description,
                     status: data.status,
-                    endDate: data.enDate,
+                    endDate: data.endDate,
                     startDate: data.startDate
                 }
             });

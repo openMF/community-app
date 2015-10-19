@@ -15,7 +15,9 @@ Travis
 
 ## Building from source
 
-1. Note: Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.  On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
+1. Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.       
+<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem). 
+<br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
@@ -51,6 +53,10 @@ Travis
 1. Default username/password: mifos/password. This application will hit the demo server by default.
 
 You are done.
+
+### Connecting to a MifosX Platform using OAuth 2 authentication:
+
+Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth"
 
 ### Connecting to a MifosX Platform running on a different host:
 

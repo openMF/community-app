@@ -10,7 +10,7 @@
             });
 
             scope.submit = function () {
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.clientResource.save({clientId: routeParams.id, command: 'proposeTransfer'}, this.formData, function (data) {
                     location.path('/viewclient/' + routeParams.id);

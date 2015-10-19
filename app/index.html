@@ -62,11 +62,11 @@
         </div>
         <div class="row col-md-8 col-lg-offset-2 paddedbottom">
         	<div class="col-md-3">
-                <img src="./images/MifosX_logo.png" alt="MifosX" width="150" class="img-responsive"/>
+                <img src="./images/MifosX_logo.png" alt="Mifos X" width="150" class="img-responsive"/>
             </div>
             <div class="col-md-9">
                 <h1>{{ 'label.heading.mifosx' | translate }}</h1>
-    <span>{{ 'label.heading.version' | translate }} 1.26.0</span>
+    <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
                 <br /> <span>{{ 'label.heading.uptodate' | translate }}</span>
                 <br /> <span ng-bind-html="text"></span>
             </div>
@@ -78,9 +78,9 @@
                         <strong>{{ 'label.heading.resources' | translate }}</strong>
                     </div>
                     <ul>
-                        <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation" href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Documentation">{{ 'label.anchor.usermanual' | translate }}</a></li>
+                        <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual" href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual">{{ 'label.anchor.usermanual' | translate }}</a></li>
                         <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842" href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{ 'label.anchor.functionalspec' | translate }}</a></li>
-                        <li><a target="http://mifos.cloud.answerhub.com/index.html" href="http://mifos.org/pages-2/faq/">{{ 'label.anchor.faq' | translate }}</a></li>
+                        <li><a href="https://mifosforge.jira.com/wiki/display/MDZ/Welcome+in+the+Zone">{{ 'label.anchor.developerzone' | translate }}</a></li>
                     </ul>
                 </div>
         </div>
@@ -99,12 +99,12 @@
         <div class="col-md-4">
                 <div style="border: 1px solid #DDDDDD;padding:15px;">
                     <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
-                        <strong>{{ 'label.heading.news' | translate }}</strong>
+                        <strong>{{ 'label.heading.contribute' | translate }}</strong>
                     </div>
                     <ul>
-                        <li>Register for <a target="https://attendee.gototraining.com/54cd7/rt/6379303047234164225" href="https://attendee.gototraining.com/rt/8133286876815830273">Mifosx Bi-Weekly User meeting </a></li>
-                        <li><a target="http://sourceforge.net/projects/mifos/" href="http://sourceforge.net/projects/mifos/">MifosX v1.26.0 is now Available!</a></li>
-                        <li><a target="http://google-opensource.blogspot.in/" href="http://google-opensource.blogspot.in/">GSoC blog</a></li>
+                        <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles" href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{ 'label.anchor.keydesignprinciples' | translate }}</a></li>
+                        <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Working+with+Code" href="http://sourceforge.net/projects/mifos/">{{ 'label.anchor.workingwithcode' | translate }}</a></li>
+                        <li><a target="http://mifos.org/donate/" href="http://mifos.org/donate/">{{ 'label.anchor.donate' | translate }}</a></li>
                     </ul>
                 </div>
 
@@ -136,7 +136,7 @@
         </div>
         <div class="left-nav">
         	<ul class="nav nav-pills nav-stacked margin-nav">
-                <li><a class="black" href="#/advsearch"><i class="icon-search icon-large"></i> + {{ 'label.anchor.advsearch' | translate}}</a></li>
+                <li><a class="black" href="#/help"><i class="icon-keyboard icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.keyboardshortcut' | translate}}</a></li>
                 <li class="divider"></li>
                 <li><a class="black" href="#/nav/offices"><i class="icon-compass icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.navigation' | translate}}</a></li>
                 <li class="divider"></li>
@@ -167,7 +167,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         	<div class="container-fluid container">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    		      	<a class="brand" href="#/home"><img src="./images/MifosX_logoSmall.png" alt="MifosX" height="20"></a>
+                    <a class="brand" href="#/home"><img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20"></a>
                     <ul class="nav navbar-nav" id="main-menu-left">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }"  href="#"><i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}<b class="caret"></b></a>
@@ -213,7 +213,19 @@
                         </li>
                     </ul>
                     <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                        <input id="search" data-ng-model="search.query" type="text" placeholder="{{ 'label.searchorpress' | translate }}" class="form-control search-query col-md-4" />
+                        <div class="input-group" style="width:250px">
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
+                                     {{currentScope.name | translate}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="searchScope in searchScopes" ng-click="changeScope(searchScope)">
+                                        <a href= "">{{ searchScope.name |translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input id ="search" type="text" class="form-control" data-ng-model="search.query"  placeholder="{{'label.searchorpress'|translate}}">
+                        </div>
                     </form>
                 </div>
             </div>

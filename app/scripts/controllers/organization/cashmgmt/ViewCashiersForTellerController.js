@@ -12,16 +12,25 @@
                 scope.cashiersForTeller = data;
             });
 
+            resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
+                scope.currencyCode = data.selectedCurrencyOptions[0].code;
+            });
+
             var idToNodeMap = {};
             scope.routeTo = function (tellerId, cashierId) {
-                location.path('/tellers/' + tellerId + "/cashiers/" + cashierId);
+                location.path('/tellers/' + tellerId + '/cashiers/' + cashierId);
             };
+
             scope.delete = function (tellerId, cashierId) {
                 resourceFactory.tellerCashierResource.delete({tellerId: tellerId, cashierId: cashierId}, function (data) {
-
+                    location.path('/tellers/' + tellerId + '/cashiers/');
                 });
-                location.path('/tellers/' + tellerId + "/cashiers/");
             };
+
+            scope.routeToView = function (tellerId, cashierId) {
+                    location.path('/tellers/' + tellerId + "/cashiers/" + cashierId);
+            };
+
             scope.allocate = function (tellerId, cashierId) {
                 location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/actions/allocate/");
             };
@@ -29,7 +38,7 @@
                 location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/actions/settle/");
             };
             scope.transactions = function (tellerId, cashierId) {
-                location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/txns/");
+                location.path('/tellers/' + tellerId + "/cashiers/" + cashierId + "/txns/" + scope.currencyCode );
             };
 
             scope.compare = function (x, y) {

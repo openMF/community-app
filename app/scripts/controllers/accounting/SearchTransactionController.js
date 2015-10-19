@@ -47,7 +47,7 @@
                 var params = {};
                 params.offset = offset;
                 params.limit = limit;
-                params.locale = "en";
+                params.locale = scope.optlang.code;
                 params.dateFormat = scope.df;
 
                 if (scope.formData.transactionId) {
@@ -86,6 +86,18 @@
                 } else
                     scope.searchCriteria.journals[5] = null;
 
+                if(scope.formData.loanaccountId){
+                    params.loanId = scope.formData.loanaccountId;
+                    scope.searchCriteria.journals[6] = params.loanId;
+                } else
+                    scope.searchCriteria.journals[6] = null;
+
+                if(scope.formData.savingsaccountId){
+                    params.savingsId = scope.formData.savingsaccountId;
+                    scope.searchCriteria.journals[7] = params.savingsId;
+                } else
+                    scope.searchCriteria.journals[7] = null;
+
                 scope.saveSC();
                 resourceFactory.journalEntriesResource.search(params, callback);
             };
@@ -100,6 +112,8 @@
                 document.getElementById('filters_chosen').childNodes[0].childNodes[0].innerHTML = "Select filter";
                 scope.date.first = null;
                 scope.date.second = null;
+                scope.formData.loanaccountId = null;
+                scope.formData.savingsaccountId = null;
             };
 
             scope.searchTransaction = function () {
@@ -107,6 +121,24 @@
                 scope.transactions = paginatorService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
             };
+
+            if(location.search().loanId != null){
+                scope.formData.loanaccountId = location.search().loanId;
+                scope.displayResults = true;
+                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+                scope.isValid = true;
+                scope.path = "#/viewloanaccount/" + scope.formData.loanaccountId;
+            }
+
+            if(location.search().savingsId != null){
+                scope.formData.savingsaccountId = location.search().savingsId;
+                scope.displayResults = true;
+                scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+                scope.isValid = true;
+                scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
+            }
         }
     });
     mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', mifosX.controllers.SearchTransactionController]).run(function ($log) {

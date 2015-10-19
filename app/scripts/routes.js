@@ -85,6 +85,18 @@
             .when('/viewclient/:id', {
                 templateUrl: 'views/clients/viewclient.html'
             })
+            .when('/viewclient/:id/addcharge', {
+                templateUrl: 'views/clients/addnewclientcharge.html'
+            })
+            .when('/viewclient/:id/paycharge/:chargeid', {
+                templateUrl: 'views/clients/payclientcharge.html'
+            })
+            .when('/viewclient/:clientId/charges/:chargeId', {
+                templateUrl: 'views/clients/viewclientcharge.html'
+            })
+            .when('/viewclient/:id/chargeoverview', {
+                templateUrl: 'views/clients/clientchargeoverview.html'
+            })
             .when('/clientscreenreport/:clientId', {
                 templateUrl: 'views/clients/clientscreenreport.html'
             })
@@ -427,6 +439,21 @@
             .when('/editholiday/:id', {
                 templateUrl: 'views/organization/editholiday.html'
             })
+            .when('/workingdays', {
+                templateUrl: 'views/organization/workingdays.html'
+            })
+            .when('/passwordpreferences', {
+                templateUrl: 'views/organization/passwordpreferences.html'
+            })
+            .when('/viewpaymenttype/', {
+                templateUrl: 'views/organization/viewpaymenttype.html'
+            })
+            .when('/createPaymentType/', {
+                templateUrl: 'views/organization/createpaymenttype.html'
+            })
+            .when('/editPaymentType/:id', {
+                templateUrl: 'views/organization/editpaymenttype.html'
+            })
             .when('/reports/:type', {
                 templateUrl: 'views/reports/view_reports.html'
             })
@@ -703,7 +730,10 @@
             .when('/tellers/:tellerId/cashiers', {
                 templateUrl: 'views/organization/cashmgmt/cashiersForTeller.html'
             })
-            .when('/tellers/:tellerId/cashiers/:cashierId/txns', {
+            .when('/tellers/:tellerId/cashiers/:cashierId', {
+                templateUrl: 'views/organization/cashmgmt/viewCashiersForTeller.html'
+            })
+            .when('/tellers/:tellerId/cashiers/:cashierId/txns/:currencyCode', {
                 templateUrl: 'views/organization/cashmgmt/cashierTransactions.html'
             })
             .when('/tellers/:tellerId/cashiers/:cashierId/actions/:action', {
@@ -718,7 +748,33 @@
             .when('/editteller/:id', {
                 templateUrl: 'views/organization/cashmgmt/editTeller.html'
             })
-            ;
+            .when('/tellers/:tellerId/editcashier/:id', {
+                templateUrl: 'views/organization/cashmgmt/editcashier.html'
+            })
+            .when('/externalservices', {
+                templateUrl: 'views/administration/externalServices.html'
+            })
+            .when('/externalservices/:externalServicesType', {
+                templateUrl: 'views/administration/viewExternalServicesConfiguration.html'
+            })
+            .when('/externalservices/:externalServicesType/editconfig', {
+                templateUrl: 'views/administration/editExternalServicesConfiguration.html'
+            })
+            .when('/loans/:loanId/reschedule/', {
+                templateUrl: 'views/loans/rescheduleloans.html'
+            })
+            .when('/loans/:loanId/viewreschedulerequest/:requestId', {
+                templateUrl: 'views/loans/viewreschedulerequest.html'
+            })
+            .when('/loans/:loanId/approvereschedulerequest/:requestId', {
+                templateUrl: 'views/loans/approveloanreschedule.html'
+            })
+            .when('/loans/:loanId/rejectreschedulerequest/:requestId', {
+                templateUrl: 'views/loans/rejectloanreschedule.html'
+            })
+            .when('/loans/:loanId/previewloanrepaymentschedule/:requestId', {
+                templateUrl: 'views/loans/previewloanrepaymentschedule.html'
+            });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

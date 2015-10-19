@@ -356,7 +356,6 @@
                 });
             };
 
-
             scope.clientsAttendanceArray = function (groups) {
                 var gl = groups.length;
                 for (var i = 0; i < gl; i++) {
@@ -410,6 +409,16 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
+                
+                _.each(scope.savingsgroups, function (group) {
+                    _.each(group.clients, function (client) {
+                        var clientAttendanceDetails = {
+                            clientId: client.clientId,
+                            attendanceType: client.attendanceType.id
+                        };
+                        scope.clientsAttendance.push(clientAttendanceDetails);
+                    });
+                });
                 scope.formData.clientsAttendance = scope.clientsAttendance;
 
                 if(scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != ""){

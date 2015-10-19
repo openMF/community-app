@@ -8,6 +8,12 @@
                 scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
                 scope.formData.reportType = data.reportType;
+                scope.disableFields = false;
+
+                if(scope.reportdetail.coreReport == true){
+                    scope.disableFields = true;
+                }
+
             });
 
             scope.parameterSelected = function (allowedParameterId) {
@@ -21,6 +27,8 @@
                 }
                 scope.allowedParameterId = '';
             }
+
+
 
             function deepCopy(obj) {
                 if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -47,6 +55,7 @@
             scope.submit = function () {
                 if (scope.reportdetail.coreReport === true) {
                     this.formData.reportParameters = scope.temp;
+                    this.formData.useReport = scope.reportdetail.useReport;
                 } else {
                     scope.temp = deepCopy(scope.reportdetail.reportParameters);
                     scope.reportdetail.reportParameters = scope.temp;
@@ -66,7 +75,6 @@
                         reportParameters: scope.reportdetail.reportParameters
                     }
                 }
-
                 resourceFactory.reportsResource.update({id: routeParams.id}, this.formData, function (data) {
                     location.path('/system/viewreport/' + data.resourceId);
                 });

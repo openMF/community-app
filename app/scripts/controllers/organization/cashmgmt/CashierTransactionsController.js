@@ -3,7 +3,8 @@
         CashierTransactionsController: function (scope, routeParams, route, location, resourceFactory) {
 
             scope.cashiertxns = [];
-            var idToNodeMap = {};
+            scope.txnPerPage = 15;
+            scope.formData = [];
 
             scope.routeTo = function (id) {
                 location.path('/viewcashiertxns/' + id);
@@ -16,6 +17,17 @@
             scope.routeToSettle = function () {
                 location.path('tellers/' + routeParams.tellerId + '/cashiers/' + routeParams.cashierId + '/actions/settle');
             };
+
+            scope.routeToTxn = function(){
+                route.reload();
+                location.path('/tellers/' + routeParams.tellerId + "/cashiers/" + routeParams.cashierId  +"/txns/" +  scope.formData.currencyCode);
+
+            };
+
+            resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
+                scope.currencyOptions = data.selectedCurrencyOptions;
+                scope.formData.currencyCode = routeParams.currencyCode;
+            });
 
             scope.deepCopy = function (obj) {
                 if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -35,10 +47,32 @@
                 return obj;
             }
 
-            resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({tellerId: routeParams.tellerId, cashierId: routeParams.cashierId}, function (data) {
-                scope.cashierSummaryAndTxns = data;
-            });
-
+            scope.getResultsPage = function (pageNumber) {
+                resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({
+                    tellerId: routeParams.tellerId,
+                    cashierId: routeParams.cashierId,
+                    currencyCode: routeParams.currencyCode,
+                    offset:((pageNumber - 1) * scope.txnPerPage),
+                    limit:scope.txnPerPage
+                }, function (data) {
+                    scope.cashierSummaryAndTxns = data;
+                    scope.cashierTransactions = data.pageItems;
+                });
+            }
+            scope.initPage = function () {
+                var items = resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({
+                    tellerId: routeParams.tellerId,
+                    cashierId: routeParams.cashierId,
+                    currencyCode: routeParams.currencyCode,
+                    offset:0,
+                    limit: scope.txnPerPage
+                }, function (data) {
+                    scope.cashierSummaryAndTxns = data;
+                    scope.totaltxn = data.totalFilteredRecords;
+                    scope.cashierTransactions = data.cashierTransactions;
+                });
+            }
+            scope.initPage();
         }
     });
     mifosX.ng.application.controller('CashierTransactionsController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', mifosX.controllers.CashierTransactionsController]).run(function ($log) {

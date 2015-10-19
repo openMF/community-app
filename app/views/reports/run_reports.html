@@ -27,13 +27,11 @@
 	            <label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
 
                 <div class="col-sm-3">
-                    <select id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
-                            class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
+                    <select chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
+							ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
+							value="{{selectOption.id}}"
+							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
 	                    <option value="">--{{"label.menu.selectone" | translate}}--</option>
-	                    <option ng-show="reportParam.selectAll == 'Y'" value="-1">{{ 'label.all' | translate }}</option>
-                        <option ng-repeat="selectOption in reportParam.selectOptions" value="{{selectOption.id}}">
-                            {{selectOption.name}}
-                        </option>
 	                </select>
 	            </div>
 	        </div>
@@ -62,6 +60,7 @@
 	                <select class="form-control input-xlarge" ng-model="formData.outputType">
 	                    <option value="HTML">{{ 'label.input.showreport' | translate }}</option>
 	                    <option value="XLS">{{ 'label.input.exportexcel' | translate }}</option>
+	                    <option value="XLSX">{{ 'label.input.exportexcel2' | translate }}</option>
 	                    <option value="CSV">{{ 'label.input.exportcsv' | translate }}</option>
 	                    <option value="PDF">{{ 'label.input.pdfformat' | translate }}</option>
 	                </select>
@@ -147,7 +146,10 @@
 	                <tbody>
 	                <!-- http://www.anujgakhar.com/2013/06/15/duplicates-in-a-repeater-are-not-allowed-in-angularjs/ -->
 	                <tr id="{{$index}}" data-ng-click="highlight($index)" ng-repeat="row in reportData.data track by $index">
-	                    <td ng-repeat="col in row.row track by $index">{{col | FormatNumber:decimalsChoice}}</td>
+						<td ng-repeat="col in row.row track by $index">
+							<span ng-show="isDecimal($index)">{{col | FormatNumber:decimalsChoice}}</span>
+							<span ng-hide="isDecimal($index)">{{col}}</span>
+						</td>
 	                </tr>
 	                </tbody>
 	            </table>

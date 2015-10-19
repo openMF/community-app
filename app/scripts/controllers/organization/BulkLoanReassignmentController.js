@@ -44,7 +44,7 @@
                 });
                 this.formData.assignmentDate = reqDate;
                 this.formData.dateFormat = scope.df;
-                this.formData.locale = "en";
+                this.formData.locale = scope.optlang.code;
                 this.formData.loans = loans;
                 resourceFactory.loanReassignmentResource.save(this.formData, function (data) {
                     route.reload();

@@ -81,6 +81,13 @@
                         taskPermissionName: "CREATE_SAVINGSACCOUNT"
                     },
                     {
+                        name: "label.button.newcharge",
+                        href: "#/viewclient",
+                        subhref: "addcharge",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_CLIENTCHARGE"
+                    },
+                    {
                         name: "label.button.transferclient",
                         href: "#/transferclient",
                         icon: "icon-arrow-right",

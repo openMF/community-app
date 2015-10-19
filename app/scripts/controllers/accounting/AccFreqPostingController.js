@@ -17,13 +17,9 @@
                 scope.rules = data;
             });
 
-            resourceFactory.codeValueResource.getAllCodeValues({codeId: 12}, function (data) {
-                if (data.length > 0) {
-                    scope.formData.paymentTypeId = data[0].id;
-                }
+            resourceFactory.paymentTypeResource.getAll( function (data) {
                 scope.paymentTypes = data;
             });
-
             resourceFactory.currencyConfigResource.get({fields: 'selectedCurrencyOptions'}, function (data) {
                 scope.currencyOptions = data.selectedCurrencyOptions;
                 scope.formData.currencyCode = scope.currencyOptions[0].code;
@@ -103,6 +99,12 @@
                     jeTransaction.accountingRule = this.formData.rule.id;
                 }
                 jeTransaction.currencyCode = this.formData.currencyCode;
+                jeTransaction.paymentTypeId = this.formData.paymentTypeId;
+                jeTransaction.accountNumber = this.formData.accountNumber;
+                jeTransaction.checkNumber = this.formData.checkNumber;
+                jeTransaction.routingCode = this.formData.routingCode;
+                jeTransaction.receiptNumber = this.formData.receiptNumber;
+                jeTransaction.bankNumber = this.formData.bankNumber;
 
                 //Construct credits array
                 jeTransaction.credits = [];

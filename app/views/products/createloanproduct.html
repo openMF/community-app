@@ -466,7 +466,7 @@
 </div>
 
 <div class="form-group">
-    <label class="control-label col-sm-2">{{ 'label.input.candefineinstallmentamount' | translate }}</label>
+    <label class="control-label col-sm-4">{{ 'label.input.candefineinstallmentamount' | translate }}</label>
 
     <div class="col-sm-2">
         <label class="checkbox control-label">
@@ -474,7 +474,6 @@
         </label>
     </div>
 </div>
-
 
 <div class="form-group">
     <label class="control-label col-sm-4">{{ 'label.input.no.of.overdue.days.to.move.loan.into.arrears'
@@ -527,16 +526,17 @@
         </label>
     </div>
 </div>
+
 <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-    <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
+    <label class="control-label col-sm-2">{{'label.input.preclose.interest.calculation.strategy'
         | translate }}<span class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestrecalculation' | translate}}" tooltip-append-to-body="true"></i>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.preclosureinterestcalculationstrategy' | translate}}" tooltip-append-to-body="true"></i>
     </label>
 
     <div class="col-sm-2">
-        <select id="interestRecalculationCompoundingMethod" class="form-control"
-                ng-model="formData.interestRecalculationCompoundingMethod"
-                ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
+        <select id="preClosureInterestCalculationStrategy" class="form-control"
+                ng-model="formData.preClosureInterestCalculationStrategy"
+                ng-options="type.id as type.code | translate for type in product.preClosureInterestCalculationStrategyOptions"
                 value="{{type.id}}"></select>
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
@@ -551,6 +551,57 @@
                 value="{{type.id}}"></select>
     </div>
 </div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+    <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
+        | translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestrecalculation' | translate}}" tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="interestRecalculationCompoundingMethod" class="form-control"
+                ng-model="formData.interestRecalculationCompoundingMethod"
+                ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
+                value="{{type.id}}"></select>
+    </div>
+</div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0">
+    <label class="control-label col-sm-2">{{'label.input.frequency.for.compounding'
+        | translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencytocompounding' | translate}}" tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="recalculationCompoundingFrequencyType" class="form-control"
+                ng-model="formData.recalculationCompoundingFrequencyType"
+                ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                value="{{type.id}}"></select>
+    </div>
+</div>
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
+        && formData.recalculationCompoundingFrequencyType != 1">
+    <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.compounding'
+        | translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundinginterval' | translate}}" tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationCompoundingFrequencyInterval">
+    </div>
+    <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.compounding'
+        | translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundingdate' | translate}}" tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
+               ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+    </div>
+
+</div>
+
+
 <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
     <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
         | translate }}<span class="required">*</span>
@@ -660,6 +711,58 @@
     <div class="col-sm-2">
         <input type="text" class="form-control" id="outstandingLoanBalance"
                name="outstandingLoanBalance" number-format ng-model="formData.outstandingLoanBalance"/>
+    </div>
+</div>
+<h3>{{ 'label.heading.configurableAttributes' | translate }}</h3>
+<hr>
+<div class="form-group">
+    <label class="control-label col-sm-2 width20">{{ 'label.input.isConfigLoanAttributes' | translate }}</label>
+    <div class="checkbox col-sm-2">
+        <label>
+            <input type="checkbox" ng-model="allowAttributeConfiguration" ng-change="setAttributeValues()"/>
+        </label>
+    </div>
+</div>
+<div class="form-group" ng-show="allowAttributeConfiguration">
+    <label class="control-label col-sm-1 width20">{{ 'label.input.amortization' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="amortization"/>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.interestmethod' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="interestMethod"/>
+    </div>
+</div>
+<div class="form-group" ng-show="allowAttributeConfiguration">
+    <label class="control-label col-sm-1 width20">{{ 'label.input.repaymentstrategy' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="transactionProcessingStrategy"/>
+    </div>
+    <label class="control-label col-sm-2 ">{{ 'label.input.interestcalculationperiod' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="interestCalcPeriod"/>
+    </div>
+</div>
+<div class="form-group" ng-show="allowAttributeConfiguration">
+
+    <label class="control-label col-sm-1 width20">{{ 'label.input.arearstolerance' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="arrearsTolerance"/>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.repaidevery' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="repaymentFrequency"/>
+    </div>
+</div>
+<div class="form-group" ng-show="allowAttributeConfiguration">
+
+    <label class="control-label col-sm-1 width20">{{ 'label.input.grace' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="graceOnPrincipalAndInterest"/>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.no.of.overdue.days.to.move.loan.into.arrears' | translate }}</label>
+    <div class="col-sm-2">
+        <input type="checkbox" ng-model="graceOnArrearsAging"/>
     </div>
 </div>
 <h3>{{ 'label.heading.charges' | translate }}</h3>

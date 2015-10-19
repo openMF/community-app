@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MemberManageController: function (scope, routeParams, route, location, resourceFactory, $modal) {
+        MemberManageController: function ($q, scope, routeParams, route, location, resourceFactory, $modal) {
             scope.group = [];
             scope.indexOfClientToBeDeleted = "";
             scope.allMembers = [];
@@ -8,10 +8,18 @@
             scope.viewClient = function (item) {
                 scope.client = item;
             };
-            
+
+            scope.clientOptions = function(value){
+                var deferred = $q.defer();
+                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: value, orderBy : 'displayName', officeId : scope.group.officeId,
+                sortOrder : 'ASC', orphansOnly : true}, function (data) {
+                    deferred.resolve(data.pageItems);
+                });
+                return deferred.promise;
+            };
+
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true'}, function (data) {
                 scope.group = data;
-                scope.allClients = data.clientOptions;
                 if(data.clientMembers) {
                     scope.allMembers = data.clientMembers;
                 }
@@ -56,7 +64,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('MemberManageController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.MemberManageController]).run(function ($log) {
+    mifosX.ng.application.controller('MemberManageController', ['$q','$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.MemberManageController]).run(function ($log) {
         $log.info("MemberManageController initialized");
     });
 }(mifosX.controllers || {}));

@@ -1,7 +1,8 @@
 <div class="col-md-12" ng-controller="ViewSavingDetailsController">
     <div>
         <ul class="breadcrumb">
-            <li ng-show="savingaccountdetails.groupName"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+            <li ng-show="groupLevel == 1"><a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+            <li ng-show="groupLevel == 2"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
             <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
             <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
         </ul>
@@ -36,7 +37,7 @@
         </div>
     </script>
     <div class="form-horizontal col-md-12" ng-show="report">
-    	<div class="form-group">
+    	<div class="form-group" ng-show="viewSavingReport">
             <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
                     class="required">*</span></label>
 
@@ -45,8 +46,6 @@
 		                datepicker-pop="{{df}}" ng-model="date.fromDate" is-open="opened" min="minDate"
 		                max="restrictDate"/>
             </div>
-        </div>
-        <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span
                     class="required">*</span></label>
 
@@ -58,23 +57,27 @@
         </div>
 
 
-        <div class="col-md-offset-2">
-            <button ng-click="viewprintdetails()" class="btn btn-primary ng-binding">
-                {{'label.button.viewprint' | translate}}
-            </button>
-            <button ng-click="viewSavingDetails()" class="btn btn-primary ng-binding">{{'label.button.savingdetails' |
+        <div class="col-md-11 center" ng-show="viewSavingReport">
+            <button ng-click="viewSavingDetails()" class="btn btn-default ng-binding">{{'label.button.back' |
                 translate}}
             </button>
+            <button ng-click="viewPrintDetails()" class="btn btn-primary ng-binding">
+                {{'label.button.viewprint' | translate}}
+            </button>
         </div>
-    </div>
 
+    </div>
     <div ng-hide="hidePentahoReport" ng-show="report" class="col-md-12 alert-block span tab-content">
         <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
                         translate}}</button>
         <div id="printcontent">
-            <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+            <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="600px"></iframe>
         </div>
-        </button>
+        <div class="col-md-13 center" ng-show="viewTransactionReport">
+            <button ng-click="viewSavingDetails()" class="btn btn-default ng-binding">{{'label.button.back' |
+                translate}}
+            </button>
+        </div>
     </div>
     <div ng-hide="report">
         <div>
@@ -275,7 +278,8 @@
                     </div>
                 </tab>
                 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
-                    <button class="btn btn-primary pull-right" ng-click="export()">{{'label.button.export' | translate}}</button><br>
+                    <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
+                    <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button><br>
                     <table class="table table-bordered">
                         <colgroup span="4"></colgroup>
                         <thead>
@@ -320,7 +324,7 @@
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{transaction.runningBalance| number}}
                             </td>
-                            <td> <a ng-if=" transaction.reversed!=true" ng-click="viewsavingstransactionreceipts(transaction.id)">
+                            <td> <a ng-if=" transaction.reversed!=true" ng-click="viewSavingsTransactionReceipts(transaction.id)">
                             <i class="icon-file-text icon-large"></i>
                             </a>
                             </td>
@@ -332,7 +336,7 @@
                             translate}}
                         </i></button>
                         <div id="printreceiptcontent">
-                            <iframe id="rptLoadingreceiptFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="800px"></iframe>
+                            <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                         </div>
 
                     </div>

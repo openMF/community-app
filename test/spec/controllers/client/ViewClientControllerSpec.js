@@ -1,6 +1,6 @@
 describe("ViewClientController", function () {
     var clientResourceCallback, clientAccountResourceCallback, clientNotesResourceCallback, dataTablesResourceCallback,
-        runReportsResourceCallback;
+        runReportsResourceCallback, clientChargesResourceCallback;
     var statusTypes = ["Active", "Pending", "Transfer in progress", "Transfer on hold"];
 
     beforeEach(inject(function ($q) {
@@ -32,6 +32,11 @@ describe("ViewClientController", function () {
             runReportsResource: {
                 get: jasmine.createSpy('runReportsResource.get()').andCallFake(function (callback) {
                     runReportsResourceCallback = callback;
+                })
+            },
+            clientChargesResource: {
+                getCharges: jasmine.createSpy('clientChargesResource.getCharges()').andCallFake(function (callback){
+                    clientChargesResourceCallback = callback;
                 })
             }
         };
