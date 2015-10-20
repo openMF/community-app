@@ -343,6 +343,18 @@
             .when('/openingbalances',{
                 templateUrl: 'views/accounting/openingbalances.html'
             })
+            .when('/viewprovisioningentries',{
+                templateUrl: 'views/accounting/provisioning/ProvisioningEntries.html'
+            })
+            .when('/createprovisioningentries',{
+                templateUrl: 'views/accounting/provisioning/CreateProvisioningEntries.html'
+            })
+            .when('/viewprovisioningentry/:entryId',{
+                templateUrl: 'views/accounting/provisioning/ViewProvisioningEntry.html'
+            })
+            .when('/viewprovisioningjournalentry/:entryId',{
+                templateUrl: 'views/accounting/provisioning/ViewProvisioningJournalEntries.html'
+            })
             .when('/viewcode/:id', {
                 templateUrl: 'views/system/viewcode.html'
             })
@@ -774,6 +786,18 @@
             })
             .when('/loans/:loanId/previewloanrepaymentschedule/:requestId', {
                 templateUrl: 'views/loans/previewloanrepaymentschedule.html'
+            })
+            .when('/viewallprovisionings', {
+                templateUrl: 'views/organization/provisioning/ViewAllProvisioningCriteria.html'
+            })
+            .when('/createprovisioningcriteria', {
+                templateUrl: 'views/organization/provisioning/CreateProvisioningCriteria.html'
+            })
+            .when('/viewprovisioningcriteria/:criteriaId', {
+                templateUrl: 'views/organization/provisioning/ViewProvisioningCriteria.html'
+            })
+            .when('/editprovisioningcriteria/:criteriaId', {
+                templateUrl: 'views/organization/provisioning/EditProvisioningCriteria.html'
             });
         $locationProvider.html5Mode(false);
     };
