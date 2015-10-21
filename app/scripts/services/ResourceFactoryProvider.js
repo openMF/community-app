@@ -530,10 +530,9 @@
                         put: {method: 'PUT', params: {}},
                         createJournals:{method:'POST', params:{command : 'createjournalentry'}},
                         reCreateProvisioningEntries:{method:'POST', params:{command : 'recreateprovisioningentry'}},
-                        getJournals: {method: 'GET', params: {entryId: '@entryId'}},
-                        //delete: {method: 'DELETE', params: {}}
+                        getJournals: {method: 'GET', params: {entryId: '@entryId'}}
                     }),
-                    provisioningjournals: defineResource(apiVer + "/provisioningentries/journalentry", {}, {
+                    provisioningjournals: defineResource(apiVer + "/journalentries/provisioning", {}, {
                         get: {method: 'GET', params: {}}
                     })
 

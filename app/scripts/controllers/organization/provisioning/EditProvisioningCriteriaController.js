@@ -11,7 +11,7 @@
                 scope.selectedloanproducts = data.selectedLoanProducts;
                 scope.allloanproducts = data.loanProducts ;
                 scope.categories = data.definitions;
-                scope.criterianame = data.criteriaName;
+                scope.criteriaName = data.criteriaName;
                 scope.criteriaId = data.criteriaId;
                 scope.liabilityaccounts = data.glAccounts;
                 scope.expenseaccounts = data.glAccounts;
@@ -50,7 +50,7 @@
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.criteriaId = scope.criteriaId ;
-                this.formData.criterianame = scope.criterianame ;
+                this.formData.criteriaName = scope.criteriaName ;
                 this.formData.loanProducts = scope.selectedloanproducts ;
                 this.formData.provisioningcriteria = scope.categories;
                 resourceFactory.provisioningcriteria.put({criteriaId: routeParams.criteriaId}, this.formData, function (data) {
