@@ -40,7 +40,7 @@
 	                	    }
 	                	    decimal = decimal.replace(/[^0-9]/g, '');
 	                	    fraction = fraction.replace(/[^0-9]/g, '');
-	                	    var result = +(decimal + '.' + fraction);
+	                	    var result = +(decimal + $locale.NUMBER_FORMATS.DECIMAL_SEP  + fraction);
 	                	    if (result !== modelCtrl.$modelValue) {
 	                	        scope.$evalAsync(function () {
 	                	            modelCtrl.$viewValue = number(modelCtrl.$modelValue, fractionLength);
