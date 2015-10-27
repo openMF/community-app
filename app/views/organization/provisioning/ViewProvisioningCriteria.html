@@ -5,17 +5,29 @@
         <li class="active">{{'label.anchor.viewprovisioningcriteria' | translate}}</li>
     </ul>
     <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal well" rc-submit="submit()">
-        <api-validate></api-validate>
         <fieldset>
+            <!-- Start -->
             <h3 class="bolder">{{criterianame}}
                 <div class="btn-group pull-right">
-                    <a href="#/editprovisioningcriteria/{{criteriaId}}" class="btn btn-primary" has-permission='UPDATE_CHARGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-                    <button type="button" data-ng-click="deleteProvisionigCriteria()" class="btn btn-warning" has-permission='DELETE_CHARGE'><i
+                    <a href="#/editprovisioningcriteria/{{criteriaId}}" class="btn btn-primary" has-permission='UPDATE_CRITERIA'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                    <button type="button" data-ng-click="deleteProvisionigCriteria()" class="btn btn-warning" has-permission='DELETE_CRITERIA'><i
                             class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
                     </button>
                 </div>
             </h3>
             <hr>
+            <script type="text/ng-template" id="deletech.html">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+                </div>
+                <div class="modal-body ">
+                    <api-validate></api-validate>
+                    <br>
+                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                    <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+                </div>
+            </script>
+            <!-- end -->
             <label class="control-label col-sm-2">{{'label.input.loanproduct' | translate}}</label>
             <div class="col-sm-8">
                 <textarea type="text" rows="3" name="loanproducts" ng-model="formattedProductNames" class="form-control" disabled></textarea>
@@ -34,8 +46,8 @@
                     <td>{{provisioningcategory.minAge}}</td>
                     <td>{{provisioningcategory.maxAge}}</td>
                     <td>{{provisioningcategory.provisioningPercentage}}</td>
-                    <td>{{provisioningcategory.liabilityCode}}</td>
-                    <td>{{provisioningcategory.expenseCode}}</td>
+                    <td>{{provisioningcategory.liabilityName}}</td>
+                    <td>{{provisioningcategory.expenseName}}</td>
                 </tr>
             </table>
         </fieldset>

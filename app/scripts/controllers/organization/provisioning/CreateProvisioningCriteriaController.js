@@ -7,6 +7,7 @@
             scope.template = [];
             scope.formData = {};
             scope.translate = translate;
+            scope.isRequired = false ;
 
             resourceFactory.provisioningcriteria.template({criteriaId:'template'},function (data) {
                 scope.template = data;
@@ -46,6 +47,7 @@
             };
 
             scope.submit = function () {
+                this.isRequired = true ;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loanProducts = scope.selectedloanproducts ;
                 this.formData.provisioningcriteria = scope.categories ;
@@ -53,6 +55,17 @@
                     location.path('/viewprovisioningcriteria/' + data.resourceId);
                 });
             };
+
+            scope.doFocus = function(index) {
+                if(index > 0 && !scope.categories[index].minAge) {
+                    console.log(scope.categories[index].minAge) ;
+                    scope.categories[index].minAge = scope.categories[index-1].maxAge+1 ;
+                }
+            }
+
+            scope.doBlur = function(index) {
+                console.log("Blur") ;
+            }
         }
     });
     mifosX.ng.application.controller('CreateProvisioningCriteriaController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$translate', mifosX.controllers.CreateProvisioningCriteriaController]).run(function ($log) {
