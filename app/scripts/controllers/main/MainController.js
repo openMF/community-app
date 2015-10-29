@@ -8,6 +8,7 @@
                 scope.releasedate = data.releasedate;
             } );
             uiConfigService.init();
+
             //hides loader
             scope.domReady = true;
             scope.activity = {};
@@ -355,7 +356,24 @@
                 if(addrfound == false) window.open(addresses[10]); // substring not matching to any model -> open start user manual page
             
             };//helpf
-            
+
+            /*redirecticg next pages*/
+            scope.redirectCenter = function (id) {
+                location.path('/viewcenter/' + id);
+            };
+            scope.redirectGroup = function (id) {
+                location.path('/viewgroup/' + id);
+            };
+            scope.redirectOffice = function (id) {
+                location.path('/viewoffice/' + id);
+            };
+
+            scope.viewClient = function (id) {
+                location.path('/viewclient/' + id);
+            };
+
+
+
             sessionManager.restore(function (session) {
                 scope.currentSession = session;
                 scope.start(scope.currentSession);

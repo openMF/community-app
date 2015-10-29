@@ -2,77 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="./images/favicon.ico" />
-    <title>{{ 'label.heading.mifosxclient' | translate }}</title>
+    <link rel="icon" type="image/png" href="./images/confluxlogo12.png"/>
+    <title>Conflux Clients</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
+    <link rel="stylesheet" href="http://css-spinners.com/css/spinner/dots.css" type="text/css">
 
 </head>
-<body  class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
+
+<body  class="preview " id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
+
+
 <!--Loader -->
 
-<div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
-    <div id="loader" style="margin: 175px auto">
-       <span>Shovelling coal into the server...</span>
+<div id="loadrWrappeer"  data-ng-hide="domReady">
+    <div class="loader">
+
+        <figure>
+            <div class="dot white"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+
+        </figure>
+
     </div>
 </div>
 <div data-ng-hide="!domReady" data-ng-cloak>
+<div >
+    <nav class="navbar navbar-fixed-top navbarColor" data-ng-hide="currentSession.user != null">
+        <div class="container-fluid">
+            <div class="col-md-6">
+                <a class="navbar-brand" href="http://www.confluxtechnologies.com/">
+                    <img src="./images/confluxlogo12.png" alt="Conflux" width="40" class="img-responsive"/>
+                </a>
+            </div>
+            <div class="pull-right language">
+                <div class="btn-group" dropdown >
+                    <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+                        {{optlang.name}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu lang-dropdown">
+                        <li ng-repeat="lang in langs">
+                            <a href="#" ng-click="changeLang(lang, $event)">{{lang.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- Login Form  -->
-    <div class="container well" data-ng-hide="currentSession.user != null" >
+    <div class="container"  data-ng-hide="currentSession.user != null">
 
-        <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
-            <div class="pull-right ">
-                {{ 'label.input.changelanguage' | translate }}
-                <div class="btn-group" dropdown>
-			      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
-			        {{optlang.name}} <span class="caret"></span>
-			      </button>
-			      <ul class="dropdown-menu lang-dropdown">
-			         <li ng-repeat="lang in langs">
-			             <a href="#" ng-click="changeLang(lang, $event)">{{lang.name}}</a>
-			         </li>
-			      </ul>
-			    </div>
-            </div>
-            <br/><br/>
-            <div ng-hide="resetPassword">
-    	    <form class="form-inline pull-right" role="form">
-    		<label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
-    		<div class="form-group">
-    		    <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid">
-    		</div>
-    		<div class="form-group">
-    		    <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd">
-    		</div>
-    		<button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
-    	    </form>
-            </div>
-            <div ng-show="resetPassword">
-    	    <form class="form-inline pull-right" role="form">
-    		<label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
-    	        <div class="form-group">
-    	            <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="password">
-    	        </div>
-    		<div class="form-group">
-    		    <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-sm form-control"  required id="repeatPassword">
-    		</div>
-                    <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
-    	    </form>
-            </div>
-        </div>
-        <div class="row col-md-8 col-lg-offset-2 paddedbottom">
-        	<div class="col-md-3">
-                <img src="./images/conflux.png" alt="Conflux CBS" width="150" class="img-responsive"/>
-            </div>
-            <div class="col-md-9">
-                <h1>{{ 'label.heading.mifosx' | translate }}</h1>
-                <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
-            </div>
-        </div>
+        <div class="col-md-3"></div>
 
+        <div class="panel panel-default col-md-6 loginpanel">
+            <div class="row">
+                <span><h2><B>Log in to Conflux</B></h2></span>
+            </div>
+            <div class="panel-body" >
+                <div class="row form-search ng-pristine ng-valid" data-ng-form="loginForm" data-ng-controller="LoginFormController">
+                    <div ng-hide="resetPassword">
+                        <div class="col-md-2"></div>
+                        <form class="form  col-md-8" role="form">
+                            <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
+                            <div class="form-group ">
+                                <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid" style="border-radius: 5px;">
+                            </div>
+                            <div class="form-group  ">
+                                <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd" style="border-radius: 5px;">
+                            </div>
+                            <div>
+                                <button class="btn btn-success btn-md col-md-4" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+                            </div>
+                        </form>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <div ng-show="resetPassword">
+                        <form class="form col-md-4" role="form">
+                            <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+                            <div class="form-group">
+                                <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-sm form-control"  required id="repeatPassword">
+                            </div>
+                            <div>
+                                <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
+        <div class="col-md-3"></div>
     </div>
-
     <!-- Navbar -->
     <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
         <div class="loading-widget-div" data-ng-show="blockUI">
@@ -95,40 +122,39 @@
                 </div>
             </div>
         </div>
-        <div class="left-nav">
-        	<ul class="nav nav-pills nav-stacked margin-nav">
-                <li><a class="black" href="#/help"><i class="icon-keyboard icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.keyboardshortcut' | translate}}</a></li>
+        <div class="left-nav tooltip-wide">
+            <ul class="nav nav-stacked margin-nav">
+                <li><a class="black" href="#/help"><i class="ng-scope icon-keyboard icon-large" tooltip-placement="right" tooltip="{{ 'label.anchor.keyboardshortcut' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/nav/offices"><i class="icon-compass icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.navigation' | translate}}</a></li>
+                <li><a class="black" href="#/nav/offices"  ><i class="icon-compass icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.navigation' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/tasks"><i class="icon-check icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.tasks' | translate}}</a></li>
+                <li><a class="black" href="#/tasks" ><i class="icon-check icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.tasks' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.collectionsheet' | translate}}</a></li>
+                <li><a class="black" href="#/entercollectionsheet" ><i class="icon-tasks icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.collectionsheet' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/individualcollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.individualcollectionsheet' | translate}}</a></li>
+                <li><a class="black" href="#/individualcollectionsheet" ><i class="icon-tasks icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.individualcollectionsheet' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/freqposting"><i class="icon-repeat icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.frequentpostings' | translate}}</a></li>
+                <li><a class="black" href="#/freqposting" ><i class="icon-repeat icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.frequentpostings' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/journalentry"><i class="icon-plus icon-large"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.anchor.addjournalentries' | translate}}</a></li>
+                <li><a class="black" href="#/journalentry" ><i class="icon-plus icon-large"  data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.addjournalentries' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/accounts_closure"><i class="icon-folder-close icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.closingentries' | translate}}</a></li>
+                <li><a class="black" href="#/accounts_closure"><i class="icon-folder-close icon-large"  data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.closingentries' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/accounting_coa"><i class="icon-sitemap icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.heading.chartofaccounts' | translate}}</a></li>
+                <li><a class="black" href="#/accounting_coa"  ><i class="icon-sitemap icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.chartofaccounts' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/createclient"><i class="icon-user icon-large"></i> + {{ 'label.anchor.client' | translate}} </a></li>
+                <li><a class="black" href="#/createclient" ><i class="icon-user icon-large"  data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.client' | translate}}"></i>  </a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/creategroup"><i class="icon-group icon-large"></i> + {{ 'label.anchor.group' | translate}}</a></li>
+                <li><a class="black" href="#/creategroup" ><i class="icon-group icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.group' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" href="#/createcenter"><i class="icon-map-marker icon-large"></i> + {{ 'label.anchor.center' | translate}}</a></li>
+                <li><a class="black" href="#/createcenter"  ><i class="icon-map-marker icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.center' | translate}}"></i></a></li>
                 <li class="divider"></li>
-                <li><a class="black" ng-click= "helpf()" ><i class="icon-question-sign icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.help' | translate }}</a></li>
-
+                <li><a class="black" ng-click= "helpf()" ><i class="icon-question-sign icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.help' | translate}}"> </i></a></li>
             </ul>
         </div>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        	<div class="container-fluid container">
+        <nav class="navbar navbar-inverse navbar-fixed-top navigationhome" role="navigation">
+            <div class="container-fluid container">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <a class="brand" href="#/home"><img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20"></a>
+                    <a class="brand" href="#/home"><img src="./images/confluxlogo12.png" alt="Conflux" width="40"></a>
                     <ul class="nav navbar-nav" id="main-menu-left">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }"  href="#"><i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}<b class="caret"></b></a>
@@ -161,7 +187,7 @@
                                 <li><a href="#/templates" has-permission='READ_TEMPLATE'>{{ 'label.anchor.templates' | translate }}</a></li>
                             </ul>
                         </li>
-                	</ul>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right" id="main-menu-right">
                         <li class="dropdown" id="user-menu">
                             <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#"> {{currentSession.user.name}}<b class="caret"></b></a>
@@ -174,19 +200,7 @@
                         </li>
                     </ul>
                     <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                        <div class="input-group" style="width:250px">
-                            <div class="input-group-btn search-panel">
-                                <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
-                                     {{currentScope.name | translate}}<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li ng-repeat="searchScope in searchScopes" ng-click="changeScope(searchScope)">
-                                        <a href= "">{{ searchScope.name |translate}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <input id ="search" type="text" class="form-control" data-ng-model="search.query"  placeholder="{{'label.searchorpress'|translate}}">
-                        </div>
+                        <input id="search" data-ng-model="search.query" type="text" placeholder="{{ 'label.searchorpress' | translate }}" class="form-control search-query col-md-4" />
                     </form>
                 </div>
             </div>
@@ -195,18 +209,24 @@
             <div>
                 <div class="row whitebg">
                     <div class="col-md-12 pull-right whitebg">
-                        <div class="whitebg" ng-view></div>
+                        <div class="whitebg" ng-view>
+
+                        </div>
                     </div>
-                    <hr>
                     <!-- Footer -->
-					<footer>
-						<p align="center"> <a href="www.confluxtechnologies.com" target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}} </a> </p>
-					</footer>
+
+                    <hr>
                 </div> <!-- /row-fluid -->
             </div><!-- /blockui-->
         </div><!-- /container -->
     </div>
+
 </div>
+
+<!-- Le javascript -->
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
+</div>
 </body>
 </html>
+
+                                                                                      
