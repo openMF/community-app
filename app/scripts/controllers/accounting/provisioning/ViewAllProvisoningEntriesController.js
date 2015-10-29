@@ -1,9 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewAllProvisoningEntriesController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
-            resourceFactory.provisioningentries.getAll(function (data) {
-                scope.entries = data;
-            });
 
             scope.routeTo = function (id) {
                 location.path('/viewprovisioningentry/' + id);
@@ -19,6 +16,10 @@
                 });
             };
 
+            scope.searchTransaction = function () {
+                scope.entries = paginatorService.paginate(fetchFunction, 10);
+            };
+
             var fetchFunction = function (offset, limit, callback) {
                 var params = {};
                 params.offset = offset;
@@ -26,8 +27,12 @@
                 params.locale = scope.optlang.code;
                 params.dateFormat = scope.df;
                 scope.saveSC();
-                resourceFactory.provisioningentries.getAll(params, callback);
+                resourceFactory.provisioningentries.getAll(params, callback) ;
             };
+
+            paginatorService.currentOffset = 0 ;
+            scope.entries = paginatorService.paginate(fetchFunction, 10);
+
         }
 
 

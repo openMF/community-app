@@ -13,7 +13,31 @@
 
             </h3>
             <hr>
-            <table class="table" class="width100" ng-show="entries.length>0">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <select id="offices" chosen="offices" class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select id="loanproducts" chosen="loanproducts" class="form-control" ng-model="formData.loanproductId" ng-options="loanproduct.id as loanproduct.name for loanproduct in loanproducts" value="{{loanproduct.id}}">
+                        <option class="displaynone" value="">{{'label.selectloanproduct' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-3">
+                    <select id="provisioningcategories" chosen="provisioningcategories" class="form-control" ng-model="formData.categoryId" ng-options="category.id as category.categoryName for category in provisioningcategories" value="{{category.id}}">
+                        <option class="displaynone" value="">{{'label.selectprovisioningcategory' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-1 center">
+                    <a ng-click="searchTransaction()" class="btn btn-primary btn-lg" has-permission='READ_JOURNALENTRY'><i
+                            class="icon-search icon-white"></i></a></span>
+                </div>
+            </div>
+
+            <table class="table" class="width100">
                 <tr class="graybg">
                     <th>{{'label.heading.officeName' | translate}}</th>
                     <th>{{'label.heading.productname' | translate}}</th>
@@ -23,7 +47,7 @@
                     <th>{{'label.input.liabilityaccount' | translate}}</th>
                     <th>{{'label.input.expenseaccount' | translate}}</th>
                 </tr>
-                <tr ng-repeat="provisioningentry in entries">
+                <tr ng-repeat="provisioningentry in transactions.currentPageItems">
                     <td>{{provisioningentry.officeName}}</td>
                     <td>{{provisioningentry.productName}}</td>
                     <td>{{provisioningentry.currencyCode}}</td>
@@ -33,6 +57,11 @@
                     <td>{{provisioningentry.expenseAccountName}}</td>
                 </tr>
             </table>
+            <ul class="pager">
+                <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+                <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} </a></li>
+            </ul>
+
             <div class="col-md-offset-3">
                 <button ng-show="isjournalEntriesCreated" id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNAL_ENTRY'>{{'label.button.addjournalentry' | translate}}</button>
             </div>
