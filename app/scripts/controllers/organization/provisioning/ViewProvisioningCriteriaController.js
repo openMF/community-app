@@ -21,11 +21,24 @@
             });
 
             scope.deleteProvisionigCriteria = function () {
-                resourceFactory.provisioningcriteria.delete({criteriaId: scope.criteriaId}, {}, function (data) {
-                    location.path('/viewallprovisionings/');
+                $modal.open({
+                    templateUrl: 'deletech.html',
+                    controller: criteriaDeleteCtrl
                 });
             };
 
+
+            var criteriaDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.provisioningcriteria.delete({criteriaId: scope.criteriaId}, {}, function (data) {
+                        $modalInstance.close('delete');
+                        location.path('/viewallprovisionings/');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
         }
     });
