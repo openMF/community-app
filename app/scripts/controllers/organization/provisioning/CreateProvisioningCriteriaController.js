@@ -39,7 +39,7 @@
                             temp.id = this.selected[i];
                             temp.name = scope.selectedloanproducts[j].name;
                             temp.includeInBorrowerCycle = scope.selectedloanproducts[j].includeInBorrowerCycle;
-                            scope.loanProducts.push(temp);
+                            scope.allloanproducts.push(temp);
                             scope.selectedloanproducts.splice(j, 1);
                         }
                     }
@@ -64,7 +64,7 @@
             }
 
             scope.doBlur = function(index) {
-                console.log("Blur") ;
+                //console.log("Blur") ;
             }
         }
     });
