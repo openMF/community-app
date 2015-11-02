@@ -524,7 +524,7 @@
                     }),
                     provisioningentries: defineResource(apiVer + "/provisioningentries/:entryId",{entryId:'@entryId'},{
                         get: {method: 'GET',params:{}},
-                        getAll: {method: 'GET',params:{}, isArray : true},
+                        getAll: {method: 'GET',params:{}},
                         template: {method: 'GET',params:{}},
                         post:{method:'POST',params:{}},
                         put: {method: 'PUT', params: {}},
@@ -534,6 +534,13 @@
                     }),
                     provisioningjournals: defineResource(apiVer + "/journalentries/provisioning", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    provisioningentriesSearch: defineResource(apiVer + "/provisioningentries/entries", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    provisioningcategory: defineResource(apiVer + "/provisioningcategory", {}, {
+                        getAll: {method: 'GET', params: {}, isArray : true}
                     })
 
                 };
