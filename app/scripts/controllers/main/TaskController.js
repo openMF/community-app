@@ -110,7 +110,7 @@
                     return (checkBoxesMet===scope.loans.length);
                 }
             }
-            scope.approveOrRejectChecker = function (action) {
+            scope.approveChecker = function (action) {
                 if (scope.checkData) {
                     $modal.open({
                         templateUrl: 'approvechecker.html',
@@ -156,7 +156,48 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+			
+			scope.rejectChecker = function () {
+                if (scope.checkData) {
+                    $modal.open({
+                        templateUrl: 'rejectchecker.html',
+                        controller: CheckerRejectCtrl
+                    });
+                }
+            };
+            var CheckerRejectCtrl = function ($scope, $modalInstance) {
+                $scope.reject = function () {
+                    var totalReject = 0;
+                    var rejectCount = 0
+                    _.each(scope.checkData, function (value, key) {
+                        if (value == true) {
+                            totalReject++;
+                        }
+                    });
+                    _.each(scope.checkData, function (value, key) {
+                        if (value == true) {
 
+                            resourceFactory.checkerInboxResource.save({templateResource: key, command: action}, {}, function (data) {
+                                rejectCount++;
+                                if (rejectCount == totalReject) {
+                                    scope.search();
+                                }
+                            }, function (data) {
+                                rejectCount++;
+                                if (rejectCount == totalReject) {
+                                    scope.search();
+                                }
+                            });
+                        }
+                    });
+                    scope.checkData = {};
+                    $modalInstance.close('reject');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+			
             scope.deleteChecker = function () {
                 if (scope.checkData) {
                     $modal.open({
