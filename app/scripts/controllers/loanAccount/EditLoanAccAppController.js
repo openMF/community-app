@@ -150,7 +150,9 @@
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
                     scope.date.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
                 }
-
+                scope.formData.isLoanProductLinkedToFloatingRate = scope.loanaccountinfo.isLoanProductLinkedToFloatingRate ;
+                scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
+                scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
             }
 
             scope.addCharge = function () {

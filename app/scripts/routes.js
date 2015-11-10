@@ -196,6 +196,19 @@
             .when('/viewcharge/:id', {
                 templateUrl: 'views/products/viewcharge.html'
             })
+            .when('/floatingrates', {
+                templateUrl: 'views/products/floatingrates/FloatingRates.html'
+            })
+            .when('/createfloatingrate', {
+                templateUrl: 'views/products/floatingrates/CreateFloatingRate.html'
+            })
+            .when('/viewfloatingrate/:floatingRateId', {
+                templateUrl: 'views/products/floatingrates/ViewFloatingrate.html'
+            })
+            .when('/editfloatingrate/:floatingRateId', {
+                templateUrl: 'views/products/floatingrates/EditFloatingrate.html'
+            })
+
             .when('/savingproducts', {
                 templateUrl: 'views/products/savingproducts.html'
             })
