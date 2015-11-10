@@ -167,7 +167,7 @@
                                 <td>{{'label.heading.amortization' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
                             </tr>
-                            <tr>
+                            <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interest' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span>
                                 </td>
@@ -688,6 +688,19 @@
                                 <td>{{charge.chargeCalculationType.value}}</td>
                                 <td>{{charge.amount | number}}</td>
                                 <td>{{charge.chargeTimeType.value}}</td>
+                            </tr>
+                        </table>
+                    </tab>
+
+                    <tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.fromdate' | translate}}</th>
+                                <th>{{'label.heading.interestrate' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="period in loandetails.interestRatesPeriods">
+                                <td>{{period.fromDate}}</td>
+                                <td>{{period.effectiveInterestRate}}</td>
                             </tr>
                         </table>
                     </tab>

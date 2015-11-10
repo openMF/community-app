@@ -4,6 +4,7 @@
             scope.restrictDate = new Date();
             scope.formData = {};
             scope.charges = [];
+            scope.floatingrateoptions = [];
             scope.loanProductConfigurableAttributes = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
@@ -68,6 +69,7 @@
                 if(scope.product.interestRecalculationData.recalculationRestFrequencyType){
                     scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
                 }
+                scope.floatingRateOptions = data.floatingRateOptions ;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -296,6 +298,20 @@
                     delete scope.formData.recalculationRestFrequencyInterval;
                 }
 
+                if(this.formData.isLinkedToFloatingInterestRates) {
+                    delete scope.formData.interestRatePerPeriod ;
+                    delete scope.formData.minInterestRatePerPeriod ;
+                    delete scope.formData.maxInterestRatePerPeriod ;
+                    delete scope.formData.interestRateFrequencyType ;
+                }else {
+                    delete scope.formData.floatingRatesId ;
+                    delete scope.formData.interestRateDifferential ;
+                    delete scope.formData.isFloatingInterestRateCalculationAllowed ;
+                    delete scope.formData.minDifferentialLendingRate ;
+                    delete scope.formData.defaultDifferentialLendingRate ;
+                    delete scope.formData.maxDifferentialLendingRate ;
+
+                }
 
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);

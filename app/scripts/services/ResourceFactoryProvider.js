@@ -541,8 +541,14 @@
 
                     provisioningcategory: defineResource(apiVer + "/provisioningcategory", {}, {
                         getAll: {method: 'GET', params: {}, isArray : true}
-                    })
+                    }),
 
+                    floatingrates: defineResource(apiVer + "/floatingrates/:floatingRateId",{floatingRateId:'@floatingRateId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}, isArray : true},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}}
+                    })
                 };
             }];
         }

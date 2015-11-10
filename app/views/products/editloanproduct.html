@@ -271,7 +271,66 @@
 	        </table>
 	    </div>
 	</div>
-	<div class="form-group">
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isLinkedToFloatingInterestRates"/>
+            {{'label.input.islinedtofloatinginterestrates' | translate}}
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <select id="floatingrateoptions" name="floatingrateoptions"
+                    ng-model="formData.floatingRatesId"
+                    ng-options="floatingrateoption.id as floatingrateoption.name for floatingrateoption in floatingRateOptions"
+                    value="{{floatingrateoption.id}}" class="form-control">
+                <option value="">{{'label.selectfloatingrateoption' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <input id="differentialinterest" name="differentialinterest" class="form-control" type="text"
+                   ng-model="formData.interestRateDifferential"
+                   placeholder="{{'label.input.differentialrate' | translate}}" number-format/>
+        </div>
+
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isFloatingInterestRateCalculationAllowed"/>
+            {{'label.input.isfloatingcalculationallowed' | translate}}
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <input id="minValue" name="minValue" class="form-control" type="text"
+                   ng-model="formData.minDifferentialLendingRate"
+                   placeholder="{{'label.input.minfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="default" name="default" class="form-control" type="text"
+                   ng-model="formData.defaultDifferentialLendingRate"
+                   placeholder="{{'label.input.defaultfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="maxValue" name="maxValue" class="form-control" type="text"
+                   ng-model="formData.maxDifferentialLendingRate"
+                   placeholder="{{'label.input.maxfloatinginterestrate' | translate}}" number-format/>
+        </div>
+    </div>
+
+    <div class="form-group"  ng-show="!formData.isLinkedToFloatingInterestRates">
 	    <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
 	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
@@ -281,7 +340,7 @@
 	    </div>
 	    <div class="col-sm-2">
 	        <input type="text" id="interestRatePerPeriod" placeholder="{{'label.input.default' | translate}}"
-	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod" required
+	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod"
 	               late-validate/>
 	    </div>
 	    <div class="col-sm-2">
