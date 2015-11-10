@@ -206,6 +206,14 @@
                     });
                 }
 
+                scope.formData.isLinkedToFloatingInterestRates = data.isLinkedToFloatingInterestRates ;
+                scope.formData.floatingRatesId = data.floatingRateId ;
+                scope.formData.interestRateDifferential = data.interestRateDifferential ;
+                scope.formData.isFloatingInterestRateCalculationAllowed = data.isFloatingInterestRateCalculationAllowed ;
+                scope.formData.minDifferentialLendingRate = data.minDifferentialLendingRate ;
+                scope.formData.defaultDifferentialLendingRate = data.defaultDifferentialLendingRate ;
+                scope.formData.maxDifferentialLendingRate = data.maxDifferentialLendingRate ;
+                scope.floatingRateOptions = data.floatingRateOptions ;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -435,6 +443,22 @@
                     delete scope.formData.recalculationRestFrequencyType;
                     delete scope.formData.recalculationRestFrequencyInterval;
                 }
+
+                if(this.formData.isLinkedToFloatingInterestRates) {
+                    delete scope.formData.interestRatePerPeriod ;
+                    delete scope.formData.minInterestRatePerPeriod ;
+                    delete scope.formData.maxInterestRatePerPeriod ;
+                    delete scope.formData.interestRateFrequencyType ;
+                }else {
+                    delete scope.formData.floatingRatesId ;
+                    delete scope.formData.interestRateDifferential ;
+                    delete scope.formData.isFloatingInterestRateCalculationAllowed ;
+                    delete scope.formData.minDifferentialLendingRate ;
+                    delete scope.formData.defaultDifferentialLendingRate ;
+                    delete scope.formData.maxDifferentialLendingRate ;
+
+                }
+
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

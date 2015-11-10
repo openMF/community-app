@@ -33,9 +33,8 @@
             paginatorService.currentOffset = 0 ;
             scope.entries = paginatorService.paginate(fetchFunction, 10);
 
-        }
-
-
+                resourceFactory.provisioningentries.getAll(params, callback);
+            }
     });
     mifosX.ng.application.controller('ViewAllProvisoningEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewAllProvisoningEntriesController]).run(function ($log) {
         $log.info("ViewAllProvisoningEntriesController initialized");
