@@ -4,20 +4,18 @@
         <br/>
         <div class="row">
             <div class="col-sm-3">
-                <select chosen="offices" id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
-                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-                        ng-change="officeSelected(officeId)" required>
-                    <option value="">{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</option>
+                <select chosen="offices" ng-model="officeId" id="officeId"
+                        ng-options="office.id as office.name for office in offices"
+                        ng-change="officeSelected()" required>
                 </select>
             </div>
 
             <div class="col-sm-6">
                 <ul class="list-inline">
-                    <li data-ng-show="officeName">{{officeName}}</li>
-                    <li data-ng-show="loanOfficer"> >>&nbsp;{{loanOfficer}}</li>
-                    <li data-ng-show="centerName"> >>&nbsp;{{centerName}}</li>
-                    <li data-ng-show="groupName"> >>&nbsp;{{groupName}}</li>
-                    <li data-ng-show="clientName"> >>&nbsp;{{clientName}}</li>
+                    <li data-ng-show="staff"> >>&nbsp;{{staff.displayName}}</li>
+                    <li data-ng-show="center"> >>&nbsp;{{center.name}}</li>
+                    <li data-ng-show="group"> >>&nbsp;{{group.name}}</li>
+                    <li data-ng-show="client"> >>&nbsp;{{client.displayName}}</li>
                 </ul>
             </div>
         </div>
@@ -39,7 +37,7 @@
                     <table class="table table-responsive table-hover">
                         <tr valign="top" ng-repeat="staff in staffs  | filter:filterStaff" ng-class="{graybg: staff.id == selectedStaff}">
                             <td style="padding: 0px;">
-                                <a ng-click="staffSelected(staff.id,staff.displayName)">{{staff.displayName}}</a></td>
+                                <a ng-click="staffSelected(staff)">{{staff.displayName}}</a></td>
                             <td style="padding: 0px;">
                                 <a ng-click="redirectOffice(staff.id)" data-toggle="tooltip" title="redirecting to staff">
                                     <i class="icon-user pull-right" style="color: #004444"  aria-hidden="true">
@@ -66,7 +64,7 @@
                     <table class="table table-responsive table-hover">
                         <tr ng-repeat="center in centers  | filter:filterCenter">
                             <td style="padding:0px;padding-right:0px;padding-top: 0px;">
-                                <a ng-click="centerSelected(center.id,center.name)">{{center.name}}</a>
+                                <a ng-click="centerSelected(center)">{{center.name}}</a>
                             </td>
                             <td  style="padding: 0px;">
                                 <a ng-click="redirectCenter(center.id)" data-toggle="tooltip" title="redirecting to centers">
@@ -93,7 +91,7 @@
                     <table class="table table-responsive table-hover">
                         <tr ng-repeat="group in groups  | filter:filterGroup">
                             <td style="padding:0px;padding-right:0px;padding-top: 0px;">
-                                <a ng-click="groupSelected(group.id,group.name)">{{group.name}}</a>
+                                <a ng-click="groupSelected(group)">{{group.name}}</a>
                             </td>
                             <td  style="padding: 0px;">
                                 <a ng-click="redirectGroup(group.id)" data-toggle="tooltip" title="redirecting to groups">
@@ -110,6 +108,7 @@
     </div>
 
     <br/>
+
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <div class="panel panel-default">
@@ -130,7 +129,7 @@
                 </div>
                 <div class="panel-body" style="height: 250px;overflow-y:auto;">
                     <table class="table table-responsive" style="padding: 0px;">
-                        <tr class="pointer-main" dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterClient | itemsPerPage: clientsPerPage" total-items="totalClients">
+                        <tr class="pointer-main" ng-repeat="client in clients | orderBy:'displayName':reverse  | filter:filterClient">
                             <td class="pointer col-sm-2" data-ng-click="viewClient(client.id)">
                                 <i class="icon-stop {{client.status.code | StatusLookup}}"></i> {{client.displayName}}</td>
                             <td class="pointer col-sm-2" data-ng-click="viewClient(client.id)">{{client.accountNo}}</td>

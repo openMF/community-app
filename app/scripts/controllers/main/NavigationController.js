@@ -2,205 +2,70 @@
     mifosX.controllers = _.extend(module, {
         NavigationController: function (scope, resourceFactory, location) {
 
-            scope.offices = [];
-            scope.isCollapsed = false;
-            scope.officerCollapsed = true;
-            scope.groupCollapsed = true;
-            scope.centerCollapsed = true;
-            scope.clientCollapsed = true;
-            scope.clients = [];
-
-            resourceFactory.officeResource.get({officeId: 1}, function (data) {
-                scope.office = data;
-                scope.officeName = data.name;
-            });
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
+                scope.officeId = scope.offices[0].id;
+                scope.officeSelected();
             });
 
-            scope.collapseOthers = function () {
-                scope.filterText = '';
-                scope.isCollapsed = !scope.isCollapsed;
-                if (scope.isCollapsed == false) {
-                    scope.officerCollapsed = true;
-                    scope.groupCollapsed = true;
-                    scope.centerCollapsed = true;
-                    scope.clientCollapsed = true;
-                }
-            };
-            scope.collapseOfficerOthers = function () {
+            var clearOfficeSelection = function(){
                 scope.filterStaff = '';
-                scope.officerCollapsed = !scope.officerCollapsed;
-                if (scope.officerCollapsed == false) {
-                    scope.isCollapsed = true;
-                    scope.groupCollapsed = true;
-                    scope.centerCollapsed = true;
-                    scope.clientCollapsed = true;
-                }
-            };
-            scope.collapseCenterOthers = function () {
-                scope.filterCenter = '';
-                scope.centerCollapsed = !scope.centerCollapsed;
-                if (scope.centerCollapsed == false) {
-                    scope.isCollapsed = true;
-                    scope.groupCollapsed = true;
-                    scope.officerCollapsed = true;
-                    scope.clientCollapsed = true;
-                }
-            };
-            scope.collapseGroupOthers = function () {
-                scope.filterGroup = '';
-                scope.groupCollapsed = !scope.groupCollapsed;
-                if (scope.groupCollapsed == false) {
-                    scope.isCollapsed = true;
-                    scope.centerCollapsed = true;
-                    scope.officerCollapsed = true;
-                    scope.clientCollapsed = true;
-                }
-            };
-            scope.collapseClientOthers = function () {
-                scope.filterClient = '';
-                scope.clientCollapsed = !scope.clientCollapsed;
-                if (scope.clientCollapsed == false) {
-                    scope.isCollapsed = true;
-                    scope.groupCollapsed = true;
-                    scope.officerCollapsed = true;
-                    scope.centerCollapsed = true;
-                }
-            };
-
-            scope.officeSelected = function (officeId, office) {
-                scope.officeName = office;
-                scope.selectedOffice = officeId;
-                scope.filterText = '';
                 scope.staffs = '';
                 scope.staff = '';
-                scope.group = '';
-                scope.center = '';
-                scope.client = '';
-                scope.centers = '';
-                scope.clients = '';
-                scope.groups = '';
-                scope.groupsOrCenters = '';
-                scope.isCollapsed = true;
-                scope.officerCollapsed = false;
-                scope.centerCollapsed = true;
-                scope.clientCollapsed = true;
-                scope.groupCollapsed = true;
-                scope.loanOfficer = '';
-                scope.centerName = '';
-                scope.groupName = '';
-                scope.clientName = '';
-                if (scope.staff == '' && scope.group == '' && scope.center == '' && scope.client == '') {
-                    resourceFactory.officeResource.get({officeId: officeId}, function (data) {
-                        scope.office = data;
-                    });
-                    resourceFactory.employeeResource.getAllEmployees({'officeId': officeId}, function (data) {
-                        scope.staffs = data;
-                    });
-                }
+                clearStaffSelection();
+            }
 
-            };
-
-            scope.staffSelected = function (staffId, staffName) {
-                scope.office = '';
-                scope.group = '';
-                scope.client = '';
-                scope.filterStaff = '';
-                scope.center = '';
-                scope.centerName = '';
-                scope.groupName = '';
-                scope.clientName = '';
-                scope.isCollapsed = true;
-                scope.officerCollapsed = true;
-                scope.centerCollapsed = false;
-                scope.clientCollapsed = true;
-                scope.groupCollapsed = true;
-                scope.clients = '';
-                scope.groups = '';
-                if (scope.office == '' && scope.group == '' && scope.center == '' && scope.client == '') {
-                    resourceFactory.employeeResource.get({staffId: staffId}, function (data) {
-                        scope.staff = data;
-                    });
-                    scope.loanOfficer = staffName;
-                    scope.selectedStaff = staffId;
-                    resourceFactory.runReportsResource.get({reportSource: 'GroupNamesByStaff', 'R_staffId': staffId, genericResultSet: 'false'}, function (data) {
-                        scope.centers = data;
-                    });
-                }
-
-            };
-            scope.centerSelected = function (centerId, centerName) {
-                scope.office = '';
-                scope.staff = '';
-                scope.client = '';
-                scope.group = '';
+            var clearStaffSelection = function(){
                 scope.filterCenter = '';
-                scope.groupName = '';
-                scope.clientName = '';
-                scope.clients = '';
-                scope.centerName = centerName;
-                scope.isCollapsed = true;
-                scope.officerCollapsed = true;
-                scope.centerCollapsed = true;
-                scope.clientCollapsed = true;
-                scope.groupCollapsed = false;
-                if (scope.office == '' && scope.group == '' && scope.staff == '' && scope.client == '') {
-                    resourceFactory.centerResource.get({centerId: centerId, associations: 'groupMembers'}, function (data) {
-                        scope.groups = data.groupMembers;
-                        scope.center = data;
-                    });
-                    resourceFactory.centerAccountResource.get({centerId: centerId}, function (data) {
-                        scope.centerAccounts = data;
-                    });
-                }
+                scope.centers = '';
+                scope.center = '';
+                clearCenterSelection();
+            }
 
-            };
-            scope.groupSelected = function (groupId, groupName) {
-                scope.office = '';
+            var clearCenterSelection = function(){
                 scope.filterGroup = '';
-                scope.staff = '';
-                scope.center = '';
-                scope.client = '';
-                scope.clientName = '';
-                scope.groupName = groupName;
-                scope.isCollapsed = true;
-                scope.officerCollapsed = true;
-                scope.centerCollapsed = true;
-                scope.clientCollapsed = false;
-                scope.groupCollapsed = true;
-                if (scope.office == '' && scope.center == '' && scope.staff == '' && scope.client == '') {
-                    resourceFactory.groupResource.get({groupId: groupId, associations: 'all'}, function (data) {
-                        scope.group = data;
-                        scope.clients = data.clientMembers;
-                    });
-                    resourceFactory.groupAccountResource.get({groupId: groupId}, function (data) {
-                        scope.groupAccounts = data;
-                    });
-                }
-            };
-            scope.clientSelected = function (clientId, clientName) {
-                scope.office = '';
-                scope.filterClient = '';
-                scope.staff = '';
-                scope.center = '';
+                scope.groups = '';
                 scope.group = '';
-                scope.clientName = clientName;
-                scope.isCollapsed = true;
-                scope.officerCollapsed = true;
-                scope.centerCollapsed = true;
-                scope.clientCollapsed = false;
-                scope.groupCollapsed = true;
-                if (scope.office == '' && scope.center == '' && scope.staff == '' && scope.group == '') {
-                    resourceFactory.clientResource.get({clientId: clientId}, function (data) {
-                        scope.client = data;
-                    });
-                    resourceFactory.clientAccountResource.get({clientId: clientId}, function (data) {
-                        scope.clientAccounts = data;
-                    });
-                }
+                clearGroupSelection();
+            }
 
+            var clearGroupSelection = function(){
+                scope.filterClientR = '';
+                scope.clients = '';
+                scope.client = '';
+            }
+
+            scope.officeSelected = function () {
+                clearOfficeSelection();
+                resourceFactory.employeeResource.getAllEmployees({'officeId': scope.officeId}, function (data) {
+                        scope.staffs = data;
+                });
             };
+
+            scope.staffSelected = function (staff) {
+                clearStaffSelection();
+                scope.staff = staff;
+                resourceFactory.runReportsResource.get({reportSource: 'GroupNamesByStaff', 'R_staffId': scope.staff.id, genericResultSet: 'false'}, function (data) {
+                    scope.centers = data;
+                });
+            };
+
+            scope.centerSelected = function (center) {
+                clearCenterSelection();
+                scope.center = center;
+                resourceFactory.centerResource.get({centerId: scope.center.id, associations: 'groupMembers'}, function (data) {
+                    scope.groups = data.groupMembers;
+                });
+            };
+
+            scope.groupSelected = function (group) {
+                clearGroupSelection();
+                scope.group = group;
+                resourceFactory.groupResource.get({groupId: scope.group.id, associations: 'activeClientMembers'}, function (data) {
+                    scope.clients = data.activeClientMembers;
+                });
+            };
+
         }
     });
     mifosX.ng.application.controller('NavigationController', ['$scope', 'ResourceFactory','$location', mifosX.controllers.NavigationController]).run(function ($log) {
