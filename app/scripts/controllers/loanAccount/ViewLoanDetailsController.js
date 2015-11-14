@@ -7,12 +7,11 @@
             scope.formData = {};
             scope.date = {};
             scope.date.payDate = new Date();
-            scope.hideAccrualTransactions = false;
-            scope.isHideAccrualsCheckboxChecked = true;
+            scope.hideTransactions = [];
+            scope.hideTransactions.type =[];
+            scope.hideTransactions.type.accrual = false;
             scope.loandetails = [];
-            scope.updateCheckBoxStatus = function (){
-                scope.isHideAccrualsCheckboxChecked = !scope.isHideAccrualsCheckboxChecked;
-            };
+
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);

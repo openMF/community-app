@@ -508,7 +508,7 @@
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
-                            <input type="checkbox" data-ng-model="hideAccrualTransactions" ng-true-value="false" ng-false-value="" ng-checked="isHideAccrualsCheckboxChecked" ng-change="updateCheckBoxStatus()">&nbsp;&nbsp;
+                            <input type="checkbox" data-ng-model="hideTransactions.type.accrual">&nbsp;&nbsp;
                             <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
                         </div>
                         <br>
@@ -540,7 +540,7 @@
                             </thead>
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
-                                    ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
+                                    ng-repeat="transaction in loandetails.transactions | filter:(!hideTransactions.type.accrual || '') && hideTransactions | orderBy:transactionSort.column:transactionSort.descending">
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.id}}
                                     </td>
