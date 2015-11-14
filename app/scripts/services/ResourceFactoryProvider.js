@@ -421,7 +421,7 @@
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
                      reject:{method:'POST',params:{command:'reject'}},
-                     approve:{method:'POST',params:{command:'approve'}},
+                     approve:{method:'POST',params:{command:'approve'}}
                      }),
                      auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
@@ -514,7 +514,35 @@
                     externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}, isArray : true},
+                        template: {method: 'GET',params:{}},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    provisioningentries: defineResource(apiVer + "/provisioningentries/:entryId",{entryId:'@entryId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        template: {method: 'GET',params:{}},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}},
+                        createJournals:{method:'POST', params:{command : 'createjournalentry'}},
+                        reCreateProvisioningEntries:{method:'POST', params:{command : 'recreateprovisioningentry'}},
+                        getJournals: {method: 'GET', params: {entryId: '@entryId'}}
+                    }),
+                    provisioningjournals: defineResource(apiVer + "/journalentries/provisioning", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    provisioningentriesSearch: defineResource(apiVer + "/provisioningentries/entries", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    provisioningcategory: defineResource(apiVer + "/provisioningcategory", {}, {
+                        getAll: {method: 'GET', params: {}, isArray : true}
                     })
+
                 };
             }];
         }
