@@ -70,6 +70,7 @@
                     scope.formData.recalculationRestFrequencyType = scope.product.interestRecalculationData.recalculationRestFrequencyType.id;
                 }
                 scope.floatingRateOptions = data.floatingRateOptions ;
+                scope.formData.isFloatingInterestRateCalculationAllowed = false ;
             });
 
             scope.chargeSelected = function (chargeId) {
