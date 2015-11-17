@@ -9,7 +9,7 @@
             scope.destinationGroup = "";
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
-                scope.data = data;
+                scope.group = data;
                 scope.allMembers = data.clientMembers;
             });
 
