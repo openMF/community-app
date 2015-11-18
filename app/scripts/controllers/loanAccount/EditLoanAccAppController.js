@@ -150,7 +150,6 @@
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
                     scope.date.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
                 }
-                scope.formData.isLoanProductLinkedToFloatingRate = scope.loanaccountinfo.isLoanProductLinkedToFloatingRate ;
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
             }
@@ -236,7 +235,6 @@
                     scope.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
-
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
@@ -288,7 +286,6 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
-                delete this.formData.isLoanProductLinkedToFloatingRate ;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
