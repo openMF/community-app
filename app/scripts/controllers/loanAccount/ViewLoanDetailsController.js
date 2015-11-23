@@ -584,7 +584,7 @@
 
             scope.showEdit = function(disbursementDetail){
                 if((!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)
-                    && scope.status =='Approved'){
+                    && (scope.status == 'Submitted and pending approval' || scope.status =='Approved' || scope.status == 'Active')){
                     return true;
                 }
                 return false;
