@@ -32,14 +32,18 @@
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+	            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}<span class="required">*</span></label>
 	
 	            <div class="col-sm-3">
-	                <select chosen="staffs" id="staffId" ng-model="formData.staffId"
-	                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control">
+	                <select chosen="staffs" id="staffId" name="staffs" ng-model="formData.staffId"
+	                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control"
+							required="required" late-Validate>
 	                    <option value="">{{'label.menu.selectstaff' | translate}}</option>
 	                </select>
 	            </div>
+				<div class="col-sm-3">
+					<form-validate valattributeform="createcenterform" valattribute="staffs"/>
+				</div>
 	        </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
