@@ -286,6 +286,10 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
+                if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
+                    delete this.formData.interestRateDifferential ;
+                    delete this.formData.isFloatingInterestRate ;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
