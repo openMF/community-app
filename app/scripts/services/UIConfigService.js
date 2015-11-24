@@ -2,8 +2,8 @@
     mifosX.services = _.extend(module, {
 
         UIConfigService: function ($q,$http,$templateCache) {
-            this.appendConfigToScope = function(scope){
 
+            this.appendConfigToScope = function(scope){
                 var jsonData = $templateCache.get("configJsonObj");
                 if(jsonData != null && jsonData != ""){
                     jsonData.then(function(data) {
