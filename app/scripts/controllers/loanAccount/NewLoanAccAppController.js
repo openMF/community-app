@@ -57,13 +57,13 @@
                 });
             }
 
-            scope.$watch('date.second ', function(){
-                if(scope.response.uiDisplayConfigurations.loanAccount.isAutopopulate.interestChargedFromDate){
+            if(scope.response.uiDisplayConfigurations.loanAccount.isAutopopulate.interestChargedFromDate){
+                scope.$watch('date.second ', function(){
                     if(scope.date.second != '' && scope.date.second != undefined){
                         scope.date.third = scope.date.second;
                     }
-                }
-            });
+                });
+            }
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
