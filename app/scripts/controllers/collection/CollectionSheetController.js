@@ -4,7 +4,7 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CollectionSheetController: function (scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout) {
+        CollectionSheetController: function (scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout, uiConfigService) {
             scope.offices = [];
             scope.centers = [];
             scope.groups = [];
@@ -17,11 +17,12 @@
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
 			scope.date.transactionDate = new Date();
+            scope.paymentTypeOptions = [];
             var centerOrGroupResource = '';
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
-
+            uiConfigService.appendConfigToScope(scope);
             scope.productiveCollectionSheet = function () {
                 for (var i = 0; i < scope.offices.length; i++) {
                     if (scope.offices[i].id === scope.officeId) {
@@ -117,14 +118,24 @@
             };
 
             scope.showPaymentDetailsFn = function () {
-                var paymentDetail = {};
+                scope.paymentDetail = {};
                 scope.showPaymentDetails = true;
-                paymentDetail.paymentTypeId = "";
-                paymentDetail.accountNumber = "";
-                paymentDetail.checkNumber = "";
-                paymentDetail.routingCode = "";
-                paymentDetail.receiptNumber = "";
-                paymentDetail.bankNumber = "";
+                if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
+                    for(var i in scope.paymentTypeOptions){
+                        if(angular.lowercase(scope.paymentTypeOptions[i].name) == 'cash'){
+                            scope.paymentDetail.paymentTypeId = scope.paymentTypeOptions[i].id;
+                            break;
+                        }
+                    }
+                }else{
+                    scope.paymentDetail.paymentTypeId = "";
+                }
+
+                scope.paymentDetail.accountNumber = "";
+                scope.paymentDetail.checkNumber = "";
+                scope.paymentDetail.routingCode = "";
+                scope.paymentDetail.receiptNumber = "";
+                scope.paymentDetail.bankNumber = "";
             };
 
             scope.previewCollectionSheet = function () {
@@ -140,6 +151,7 @@
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = data;
+                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -156,6 +168,7 @@
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = data;
+                            scope.paymentTypeOptions = data.paymentTypeOptions;
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -170,6 +183,7 @@
                 } else {
                     resourceFactory.groupResource.save({'groupId': 0, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         scope.collectionsheetdata = data;
+                        scope.paymentTypeOptions = data.paymentTypeOptions;
                     });
                 }
             };
@@ -451,7 +465,7 @@
     })
     ;
     mifosX.ng.application.controller('CollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
-            '$route', '$timeout', mifosX.controllers.CollectionSheetController]).run(function ($log) {
+            '$route', '$timeout', 'UIConfigService', mifosX.controllers.CollectionSheetController]).run(function ($log) {
             $log.info("CollectionSheetController initialized");
         });
 }
