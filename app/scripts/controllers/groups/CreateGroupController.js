@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams) {
+        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams, uiConfigService) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -16,6 +16,7 @@
             scope.formData.clientMembers = [];
             scope.forceOffice = null;
 
+            uiConfigService.appendConfigToScope(scope);
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
@@ -38,6 +39,19 @@
                         scope.formData.staffId = data.staffId;
                     }
                 }
+                if(routeParams.staffId) {
+                    for(var i in scope.staffs) {
+                        if (scope.staffs[i].id == routeParams.staffId) {
+                            scope.formData.staffId = scope.staffs[i].id;
+                            break;
+                        }
+                    }
+                }
+                if(scope.response.uiDisplayConfigurations.createGroup.isAutopulate.active){
+                    scope.formData.active = true;
+                    scope.choice = 1;
+                }
+
             });
 
             scope.viewClient = function (item) {
@@ -114,7 +128,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.CreateGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'UIConfigService', mifosX.controllers.CreateGroupController]).run(function ($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));

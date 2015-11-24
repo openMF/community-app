@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateClientController: function (scope, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+        CreateClientController: function (scope, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams, uiConfigService) {
             scope.offices = [];
             scope.staffs = [];
             scope.savingproducts = [];
@@ -45,6 +45,14 @@
                         scope.formData.staffId = data.staffId;
                     }
                 }
+                if(routeParams.staffId) {
+                    for(var i in scope.staffs) {
+                        if (scope.staffs[i].id == routeParams.staffId) {
+                            scope.formData.staffId = scope.staffs[i].id;
+                            break;
+                        }
+                    }
+                }
             });
 
             scope.changeOffice = function (officeId) {
@@ -69,6 +77,8 @@
             }else {
             	scope.cancel = "#/clients"
             }
+
+            uiConfigService.appendConfigToScope(scope);
 
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
@@ -105,7 +115,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateClientController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', 'UIConfigService', mifosX.controllers.CreateClientController]).run(function ($log) {
         $log.info("CreateClientController initialized");
     });
 }(mifosX.controllers || {}));

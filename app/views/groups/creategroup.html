@@ -55,7 +55,7 @@
 	            <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
 
 	            <div class="col-sm-3">
-	                <select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
+	                <select chosen="staffs" id="staffId" ng-model="formData.staffId" ng-disabled="response.uiDisplayConfigurations.createGroup.isReadOnlyField.staff && formData.staffId != null" class="form-control"
 	                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
 	                    <option value="">{{'label.menu.selectone' | translate}}</option>
 	                </select>
@@ -64,7 +64,8 @@
 	        <div class="form-group">
 	        	<label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
 	        	<div class="col-sm-1">
-	                <input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()">
+	                <input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()"
+							ng-disabled="response.uiDisplayConfigurations.createGroup.isReadOnlyField.active">
 	            </div>
 		        <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">
