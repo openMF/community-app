@@ -11,12 +11,12 @@
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
 
+            uiConfigService.appendConfigToScope(scope);
             scope.date.first = new Date();
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId;
                 scope.formData.clientId = scope.clientId;
             }
-
 
             if (scope.groupId) {
                 scope.inparams.groupId = scope.groupId;
@@ -56,6 +56,14 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
             }
+
+            scope.$watch('date.second ', function(){
+                if(scope.response.uiDisplayConfigurations.loanAccount.isAutopopulate.interestChargedFromDate){
+                    if(scope.date.second != '' && scope.date.second != undefined){
+                        scope.date.third = scope.date.second;
+                    }
+                }
+            });
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
@@ -195,8 +203,6 @@
                 });
 
             }
-
-            uiConfigService.appendConfigToScope(scope);
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
