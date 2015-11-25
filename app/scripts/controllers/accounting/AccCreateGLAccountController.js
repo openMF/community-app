@@ -27,11 +27,10 @@
                 }
                 
                 //by default display assetTagsOptions and assetHeaderAccountOptions
-                scope.types = data.allowedAssetsTagOptions,
-                scope.headerTypes = data.assetHeaderAccountOptions
-                changeType();
+                scope.types = data.allowedAssetsTagOptions;
+                scope.headerTypes = data.assetHeaderAccountOptions;
 
-                function changeType () {
+                    scope.changeType = function(type) {
                     if (scope.formData.type == 1) {
                         scope.types = data.allowedAssetsTagOptions;
                         scope.headerTypes = data.assetHeaderAccountOptions
