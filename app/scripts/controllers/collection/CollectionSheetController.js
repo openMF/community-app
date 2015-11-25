@@ -4,7 +4,7 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CollectionSheetController: function (scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout, uiConfigService) {
+        CollectionSheetController: function (scope, resourceFactory, location, routeParams, dateFilter, localStorageService, route, $timeout) {
             scope.offices = [];
             scope.centers = [];
             scope.groups = [];
@@ -22,7 +22,6 @@
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
-            uiConfigService.appendConfigToScope(scope);
             scope.productiveCollectionSheet = function () {
                 for (var i = 0; i < scope.offices.length; i++) {
                     if (scope.offices[i].id === scope.officeId) {
@@ -465,7 +464,7 @@
     })
     ;
     mifosX.ng.application.controller('CollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
-            '$route', '$timeout', 'UIConfigService', mifosX.controllers.CollectionSheetController]).run(function ($log) {
+            '$route', '$timeout', mifosX.controllers.CollectionSheetController]).run(function ($log) {
             $log.info("CollectionSheetController initialized");
         });
 }

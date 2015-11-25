@@ -1,71 +1,11 @@
 <div id="expertsearch" class="col-md-12" data-ng-controller="RichDashboard">
     <h3 class="paddedleft"><strong>{{'label.heading.dashboard' | translate}}</strong>
     	<div class="btn-group pull-right">
-	        <label class="btn btn-primary" ng-click="switch()" ng-model="dashModel" btn-radio="'dashboard'">{{'label.heading.home' | translate}}</label>
-	        <label class="btn btn-primary" ng-model="dashModel" btn-radio="'rich-dashboard'">{{'label.heading.dashboard' | translate}}</label>
+
 	    </div>
     </h3>
     <hr/>
-    <div id="home" class="row">
-    	<div class="col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-bolt"></i>{{'label.heading.recentactivities' | translate}}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="list-group">
-					  <a href="#{{recent}}" data-ng-repeat="recent in recents" class="list-group-item">
-					  	{{recent | UrlToString | translate}}</a>
-					</div>
-				</div>
-		    </div>
-	    </div>
-	    <div class="col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-laptop"></i>{{'label.heading.frequentactivities' | translate}}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="list-group">
-					  <a href="#{{freq}}" data-ng-repeat="freq in frequent" class="list-group-item">
-					  	{{freq | UrlToString | translate}}</a>
-					</div>
-				</div>
-		    </div>
-	    </div>
-	    <div class="col-sm-4 col-md-4">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">{{'label.heading.amountdisbursedfortoday' | translate}}
-						<select class="form-control input-small-tooltip pull-right"
-		                        data-ng-options="office.id as office.name for office in offices" name="office2"
-		                        data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2"
-		                        ng-model="officeIdDisbursed">
-		                    <option value="">--{{'label.menu.office' | translate}}--</option>
-		                </select>
-					</h3>
-				</div>
-				<div class="panel-body">
-					<h3 class="required panel-error" data-ng-show="showDisbursementerror">{{'label.nodata' | translate}}</h3>
-					<div data-ng-show="!showDisbursementerror" style="margin:-42px 0 0;height: 242px;">
-	                    <nvd3-pie-chart
-	                            data="disbursedData"
-	                            id="piechart2"
-	                            width="425"
-	                            height="375"
-	                            x="xFunction()"
-	                            y="yFunction()"
-	                            tooltips="true"
-	                            donut="true"
-	                            donutRatio=".015"
-	                            color="colorFunctionPie()">
-	                        <svg height="200"></svg>
-	                    </nvd3-pie-chart>
-	                </div>
-				</div>
-		    </div>
-        </div>
-    </div>
+
    	<div class="row">
 		<div class="col-sm-8 col-md-8">
 			<div class="panel panel-default">
@@ -136,5 +76,132 @@
 				</div>
 		    </div>
         </div>
+	</div>
+
+	<div id="home" class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{'label.heading.branchOverview' | translate}}</h3>
+				</div>
+				<div class="panel-body">
+					<div class = "row top-buffer">
+						<div class="col-md-7">Staff</div>
+						<div class="col-md-4"><b>{{324 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Loan Officers</div>
+						<div class="col-md-4"><b>{{302 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Centers</div>
+						<div class="col-md-4"><b>{{4501 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Groups</div>
+						<div class="col-md-4"><b>{{8902 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Clients</div>
+						<div class="col-md-4"><b>{{45089 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Borrowers</div>
+						<div class="col-md-4"><b>{{25456 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Loan Accounts</div>
+						<div class="col-md-4"><b>{{30000 | number}}</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-7">Savings Accounts</div>
+						<div class="col-md-4"><b>{{0 | number}}</b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{'label.heading.arrearsOverview' | translate}}</h3>
+				</div>
+				<div class="panel-body">
+					<div class = "row top-buffer">
+						<div class="col-md-3">Product</div>
+						<div class="col-md-3"><b>Disbursed</b></div>
+						<div class="col-md-3"><b>Outstanding</b></div>
+						<div class="col-md-3"><b>Arrears</b></div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">IGL</div>
+						<div class="col-md-3">{{6914343|number}}</div>
+						<div class="col-md-3">{{89147908|number}}</div>
+						<div class="col-md-3">{{400876|number}}</div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">IGL-2D</div>
+						<div class="col-md-3">{{7144488|number}}</div>
+						<div class="col-md-3">{{85379576|number}}</div>
+						<div class="col-md-3">{{400876|number}}</div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">IGL-3D</div>
+						<div class="col-md-3">{{2445289|number}}</div>
+						<div class="col-md-3">{{30174866|number}}</div>
+						<div class="col-md-3">{{104289|number}}</div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">MEL</div>
+						<div class="col-md-3">{{2445289|number}}</div>
+						<div class="col-md-3">{{30174866|number}}</div>
+						<div class="col-md-3">{{104289|number}}</div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">MEL-2D</div>
+						<div class="col-md-3">{{2023765|number}}</div>
+						<div class="col-md-3">{{28798176|number}}</div>
+						<div class="col-md-3">{{134765|number}}</div>
+					</div>
+					<div class = "row top-buffer">
+						<div class="col-md-3">MEL-3D</div>
+						<div class="col-md-3">{{2675434|number}}</div>
+						<div class="col-md-3">{{26406534|number}}</div>
+						<div class="col-md-3">{{161822|number}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{'label.heading.amountdisbursedfortoday' | translate}}
+						<select class="form-control input-small-tooltip pull-right"
+								data-ng-options="office.id as office.name for office in offices" name="office2"
+								data-ng-change="getDisbursementOffice()" value="{{office.id}}" id="office2"
+								ng-model="officeIdDisbursed">
+							<option value="">--{{'label.menu.office' | translate}}--</option>
+						</select>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<h3 class="required panel-error" data-ng-show="showDisbursementerror">{{'label.nodata' | translate}}</h3>
+					<div data-ng-show="!showDisbursementerror" style="margin:-42px 0 0;height: 242px;">
+						<nvd3-pie-chart
+								data="disbursedData"
+								id="piechart2"
+								width="425"
+								height="375"
+								x="xFunction()"
+								y="yFunction()"
+								tooltips="true"
+								donut="true"
+								donutRatio=".015"
+								color="colorFunctionPie()">
+							<svg height="200"></svg>
+						</nvd3-pie-chart>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

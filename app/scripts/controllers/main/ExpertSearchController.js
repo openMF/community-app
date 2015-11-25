@@ -1,11 +1,77 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ExpertSearchController: function (scope, resourceFactory, location) {
-        	
-        	scope.dashModel = 'dashboard';
-            scope.switch = function() {
-	        	location.path('/richdashboard');
+        ExpertSearchController: function (scope, resourceFactory, localStorageService, location) {
+
+
+			scope.recent = [];
+			scope.recent = localStorageService.getFromLocalStorage('Location');
+			scope.recentEight = [];
+			scope.frequent = [];
+			scope.recentArray = [];
+			scope.uniqueArray = [];
+			scope.searchParams = [];
+			scope.recents = [];
+
+			//to retrieve last 8 recent activities
+			for (var rev = scope.recent.length - 1; rev > 0; rev--) {
+				scope.recentArray.push(scope.recent[rev]);
 			}
+			scope.unique = function (array) {
+				array.forEach(function (value) {
+					if (scope.uniqueArray.indexOf(value) === -1) {
+						if (value) {
+							if (value != '/' && value != '/home' && value != '/richdashboard') {
+								scope.uniqueArray.push(value);
+							}
+						}
+					}
+				});
+			}
+			scope.unique(scope.recentArray);
+			//recent activities retrieved
+
+			//retrieve last 8 recent activities
+			for (var l = 0; l < 8; l++) {
+				scope.recents.push(scope.uniqueArray[l]);
+			}
+			// 8 recent activities retrieved
+
+			//count duplicates
+			var i = scope.recent.length;
+			var obj = {};
+			while (i) {
+				obj[scope.recent[--i]] = (obj[scope.recent[i]] || 0) + 1;
+			}
+			//count ends here
+
+			//to sort based on counts
+			var sortable = [];
+			for (var i in obj) {
+				sortable.push([i, obj[i]]);
+			}
+			sortable.sort(function (a, b) {
+				return a[1] - b[1]
+			});
+			//sort end here
+
+			//to retrieve the locations from sorted array
+			var sortedArray = [];
+			for (var key in sortable) {
+				sortedArray.push(sortable[key][0]);
+			}
+			//retrieving ends here
+
+			//retrieve last 8 frequent actions
+			for (var freq = sortedArray.length - 1; freq >= sortedArray.length - 11; freq--) {
+				if (sortedArray[freq]) {
+					if (sortedArray[freq] != '/') {
+						if (sortedArray[freq] != '/home') {
+							scope.frequent.push(sortedArray[freq]);
+						}
+					}
+				}
+			}
+			// retrieved 8 frequent actions
             
             scope.searchParams = ['create client', 'clients', 'create group', 'groups', 'centers', 'create center', 'configuration', 'tasks', 'templates', 'system users',
                                   'create template', 'create loan product', 'create saving product', 'roles', 'add role', 'configure maker checker tasks',
@@ -186,7 +252,7 @@
         }
 
     });
-    mifosX.ng.application.controller('ExpertSearchController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.ExpertSearchController]).run(function ($log) {
+    mifosX.ng.application.controller('ExpertSearchController', ['$scope', 'ResourceFactory', 'localStorageService', '$location', mifosX.controllers.ExpertSearchController]).run(function ($log) {
         $log.info("ExpertSearchController initialized");
     });
 }(mifosX.controllers || {}));

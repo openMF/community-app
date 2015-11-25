@@ -7,7 +7,7 @@
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             } );
-            uiConfigService.init();
+            uiConfigService.init(scope);
 
             //hides loader
             scope.domReady = true;
