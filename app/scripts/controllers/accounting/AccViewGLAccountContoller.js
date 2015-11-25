@@ -3,8 +3,18 @@
         AccViewGLAccountContoller: function (scope, routeParams, location, resourceFactory, route, $modal) {
             scope.glaccountdata = [];
             scope.accountOptions = [];
+            scope.tags = [];
 
             resourceFactory.accountCoaResource.get({glAccountId: routeParams.id, template: 'true'}, function (data) {
+
+                var tag = '';
+                for(var i=0; i< data.tagId.length; i++){
+                    tag = tag +  data.tagId[i].name ;
+                    if(i !=  data.tagId.length-1){
+                        tag = tag + " , ";
+                    }
+                }
+                scope.tags = tag;
 
                 //to display parent name
                 if (data.type.value == "ASSET") {
