@@ -6,6 +6,28 @@
         </ul>
     </div>
     <form novalidate="" class="form-horizontal">
+        <h3>{{'label.heading.recurringcharges' | translate}}</h3>
+        <hr>
+        <table id="RecurringchargesTable" data-ng-show="clientRecurringCharges.length > 0" class="table table-condensed">
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.startdate' | translate}}</th>
+                <th>{{'label.heading.chargetimetype' | translate}}</th>
+                <th>{{'label.heading.frequencyInterval' | translate}}</th>
+                <th>{{'label.heading.amount' | translate}}</th>
+                <th>{{'label.heading.active' | translate}}</th>
+            </tr>
+            <tr class="pointer-main" ng-repeat="clientRecurringCharge in clientRecurringCharges">
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.chargename}}</td>
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.chargeDueDate|DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.chargeTimeType.value}}</td>
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.feeInterval}}</td>
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.amount | number}}</td>
+                <td class="pointer" data-ng-click="routeToRecurringCharge(clientRecurringCharge.recurringChargeId)">{{clientRecurringCharge.active}}</td>
+            </tr>
+        </table>
+    </form>
+    <form novalidate="" class="form-horizontal">
         <h3>{{'label.heading.charges' | translate}}</h3>
         <hr>
         <table id="chargesTable" data-ng-show="charges.length > 0" class="table table-condensed">

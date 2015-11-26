@@ -65,6 +65,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/AddNewClientChargeController',
             'client/PayClientChargeController',
             'client/ViewClientChargeController',
+            'client/ViewClientRecurringChargeController',
             'client/ClientChargesOverviewController',
             'client/SurveyController',
             'client/ClientAddressController',
