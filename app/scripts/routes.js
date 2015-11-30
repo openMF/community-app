@@ -631,6 +631,18 @@
             .when('/centerattendance', {
                 templateUrl: 'views/centers/centerattendance.html'
             })
+            .when('/villages', {
+                templateUrl: 'views/villages/villages.html'
+            })
+            .when('/viewvillage/:id', {
+                templateUrl: 'views/villages/viewvillage.html'
+            })
+            .when('/createvillage', {
+                templateUrl: 'views/villages/createvillage.html'
+            })
+            .when('/editvillage/:id', {
+                templateUrl: 'views/villages/editvillage.html'
+            })
             .when('/createcharge', {
                 templateUrl: 'views/products/createcharge.html'
             })
