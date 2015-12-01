@@ -89,16 +89,20 @@
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                 <td class="width14"><label>{{ 'label.heading.startdate' | translate }}:</label></td>
                 <td class="width36">{{calendar.startDate | DateFormat}}</td>
-                <td class="width14"><label>{{ 'label.heading.repeatson' | translate }}:</label></td>
-                <td class="width36">{{calendar.humanReadable}}</td>
+                <td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                    <label>{{ 'label.heading.repeatson' | translate }}:</label></td>
+                <td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                    {{calendar.humanReadable}}</td>
             </tr>
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                 <td align="center"><input type="checkbox" ng-model="formData.syncRepaymentsWithMeeting"
                                           ng-change="syncRepaymentsWithMeetingchange()"></td>
                 <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label></td>
-                <td align="center"><input type="checkbox" ng-model="formData.syncDisbursementWithMeeting"
+                <td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                    <input type="checkbox" ng-model="formData.syncDisbursementWithMeeting"
                                           ng-change="syncDisbursementWithMeetingchange()"></td>
-                <td><label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                    <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
