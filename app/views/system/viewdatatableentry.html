@@ -77,13 +77,26 @@
                             value="{{columnValue.id}}" class="form-control">
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
-                    <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
-                            data-ng-switch-when="CODEVALUE"
-                            ng-model="formData[columnHeader.columnName]"
-                            ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
-                            value="{{columnValue.id}}" class="form-control">
-                        <option value="">{{'label.selectone' | translate}}</option>
-                    </select>
+                    <div  ng-show="showSelect==true">
+                        <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                data-ng-switch-when="CODEVALUE"
+                                ng-model="formData[columnHeader.columnName]"
+                                ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
+                                value="{{columnValue.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div ng-show="showSelect==false">
+                        <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                data-ng-switch-when="CODEVALUE"
+                                chosen="columnHeader.columnValues"
+                                ng-model="formData[columnHeader.columnName]"
+                                ng-options="columnValue as columnValue.value for columnValue in columnHeader.columnValues "
+                                value="{{columnValue.id}}" class="form-control"
+                                ng-change="changeVillage(formData[columnHeader.columnName])">
+                            <option value=""> {{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
                 </span>
             </div>
 
