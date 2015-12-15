@@ -17,7 +17,6 @@
             'nvd3': '../bower_components/nvd3/nv.d3',
             'nvd3ChartDirectives': '../scripts/modules/angularjs-nvd3-directives',
             'styles': '../styles',
-            'test': '../../test/functional',
             'notificationWidget': '../scripts/modules/notificationWidget',
             'configurations': '../scripts/modules/configurations',
             'angularFileUpload': '../bower_components/angularjs-file-upload/angular-file-upload',
@@ -105,8 +104,6 @@
     });
 
     require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
-        componentsInit().then(function(){
-                    angular.bootstrap(document, ['MifosX_Application']);
-        });
+        componentsInit().then(function(){angular.bootstrap(document, ['MifosX_Application'])});
     });
 }());

@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
-      target: 'community-app',
+      target: 'conflux-web',
       test: 'test'
     },
     watch: {
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             port:  9000,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://default.confluxcloud.com'
         },
         livereload: {
             options: {

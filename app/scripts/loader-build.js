@@ -17,7 +17,6 @@
             'nvd3': '../bower_components/nvd3/nv.d3.min',
             'nvd3ChartDirectives': '../scripts/modules/angularjs-nvd3-directives',
             'styles': '../styles',
-            'test': '../test/functional',
             'notificationWidget': '../scripts/modules/notificationWidget',
             'modified.datepicker': '../scripts/modules/datepicker',
             'configurations': '../scripts/modules/configurations',
@@ -104,9 +103,7 @@
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
-        componentsInit().then(function(){
-            angular.bootstrap(document, ['MifosX_Application']);
-        });
+    require(['mifosXComponents.js', 'mifosXStyles.js'], function (componentsInit) {
+        componentsInit().then(function(){angular.bootstrap(document, ['MifosX_Application'])});
     });
 }());
