@@ -117,6 +117,9 @@
                     case "reschedule":
                         location.path('/loans/' +accountId + '/reschedule');
                         break;
+                    case "undolastdisbursal":
+                        location.path('/loanaccount/' + accountId + '/undolastdisbursal');
+                        break;
                 }
             };
 
@@ -331,6 +334,10 @@
                             {
                                 name: "button.recoverguarantee",
                                 taskPermissionName: 'RECOVERGUARANTEES_LOAN'
+                            },
+                            {
+                                name: "button.undolastdisbursal",
+                                taskPermissionName: 'DISBURSALLASTUNDO_LOAN'
                             }
                         ]
 
@@ -347,6 +354,15 @@
                             icon: "icon-flag",
                             taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
                         });
+                    }
+                    var count = 0;
+                    for(var i in data.disbursementDetails){
+                        if(data.disbursementDetails[i].actualDisbursementDate){
+                            count++;
+                        }
+                    }
+                    if(count <= 1){
+                        scope.buttons.options.splice(scope.buttons.options.length-1,1);
                     }
                     //loan officer not assigned to loan, below logic
                     //helps to display otherwise not
