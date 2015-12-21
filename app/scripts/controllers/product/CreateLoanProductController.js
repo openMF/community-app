@@ -72,6 +72,8 @@
                 scope.floatingRateOptions = data.floatingRateOptions ;
                 scope.formData.isFloatingInterestRateCalculationAllowed = false ;
                 scope.formData.isLinkedToFloatingInterestRates = false ;
+                scope.formData.allowVariableInstallments = false ;
+                scope.formData.allowVariableInstallments = false ;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -313,6 +315,11 @@
                     delete scope.formData.defaultDifferentialLendingRate ;
                     delete scope.formData.maxDifferentialLendingRate ;
 
+                }
+                //If Variable Installments is not allowed for this product, remove the corresponding formData
+                if(!this.formData.allowVariableInstallments) {
+                    delete scope.formData.minimumGap ;
+                    delete scope.formData.maximumGap ;
                 }
 
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
