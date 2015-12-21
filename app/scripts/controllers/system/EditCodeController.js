@@ -5,6 +5,7 @@
             scope.newcodevalues = [];
             scope.newEle = undefined;
             scope.codevalueerror = false;
+            scope.newEle.isActive = true;
             scope.newEle = {};
 
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
