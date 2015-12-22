@@ -214,6 +214,9 @@
                 scope.formData.defaultDifferentialLendingRate = data.defaultDifferentialLendingRate ;
                 scope.formData.maxDifferentialLendingRate = data.maxDifferentialLendingRate ;
                 scope.floatingRateOptions = data.floatingRateOptions ;
+                scope.formData.allowVariableInstallments = scope.product.allowVariableInstallments ;
+                scope.formData.minimumGap = scope.product.minimumGap;
+                scope.formData.maximumGap = scope.product.maximumGap;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -457,6 +460,12 @@
                     delete scope.formData.defaultDifferentialLendingRate ;
                     delete scope.formData.maxDifferentialLendingRate ;
 
+                }
+
+                //If Variable Installments is not allowed for this product, remove the corresponding formData
+                if(!this.formData.allowVariableInstallments) {
+                    delete scope.formData.minimumGap ;
+                    delete scope.formData.maximumGap ;
                 }
 
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
