@@ -206,10 +206,10 @@
                 templateUrl: 'views/products/floatingrates/CreateFloatingRate.html'
             })
             .when('/viewfloatingrate/:floatingRateId', {
-                templateUrl: 'views/products/floatingrates/ViewFloatingrate.html'
+                templateUrl: 'views/products/floatingrates/ViewFloatingRate.html'
             })
             .when('/editfloatingrate/:floatingRateId', {
-                templateUrl: 'views/products/floatingrates/EditFloatingrate.html'
+                templateUrl: 'views/products/floatingrates/EditFloatingRate.html'
             })
 
             .when('/savingproducts', {

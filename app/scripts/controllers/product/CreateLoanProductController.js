@@ -73,7 +73,6 @@
                 scope.formData.isFloatingInterestRateCalculationAllowed = false ;
                 scope.formData.isLinkedToFloatingInterestRates = false ;
                 scope.formData.allowVariableInstallments = false ;
-                scope.formData.allowVariableInstallments = false ;
             });
 
             scope.chargeSelected = function (chargeId) {
