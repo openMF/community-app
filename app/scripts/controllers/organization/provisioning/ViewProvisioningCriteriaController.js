@@ -7,7 +7,7 @@
             var i = 0 ;
             resourceFactory.provisioningcriteria.get({criteriaId: routeParams.criteriaId}, function (data) {
                 scope.loanproducts = data.loanProducts ;
-                scope.categories = data.definitions;
+                scope.definitions = data.definitions;
                 scope.criterianame = data.criteriaName ;
                 scope.criteriaId = data.criteriaId ;
                 var length = data.loanProducts.length;

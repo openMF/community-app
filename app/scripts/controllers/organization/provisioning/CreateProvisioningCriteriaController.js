@@ -12,7 +12,7 @@
             resourceFactory.provisioningcriteria.template({criteriaId:'template'},function (data) {
                 scope.template = data;
                 scope.allloanproducts = data.loanProducts ;
-                scope.categories = data.definitions;
+                scope.definitions = data.definitions;
                 scope.liabilityaccounts = data.glAccounts;
                 scope.expenseaccounts = data.glAccounts;
             });
@@ -50,16 +50,15 @@
                 this.isRequired = true ;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loanProducts = scope.selectedloanproducts ;
-                this.formData.provisioningcriteria = scope.categories ;
+                this.formData.definitions = scope.definitions ;
                 resourceFactory.provisioningcriteria.post(this.formData, function (data) {
                     location.path('/viewprovisioningcriteria/' + data.resourceId);
                 });
             };
 
             scope.doFocus = function(index) {
-                if(index > 0 && !scope.categories[index].minAge) {
-                    console.log(scope.categories[index].minAge) ;
-                    scope.categories[index].minAge = scope.categories[index-1].maxAge+1 ;
+                if(index > 0 && !scope.definitions[index].minAge) {
+                    scope.definitions[index].minAge = scope.definitions[index-1].maxAge+1 ;
                 }
             }
 
