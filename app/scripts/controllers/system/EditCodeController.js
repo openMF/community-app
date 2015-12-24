@@ -3,10 +3,10 @@
         EditCodeController: function (scope, routeParams, resourceFactory, location) {
             scope.codevalues = [];
             scope.newcodevalues = [];
-            scope.newEle = undefined;
+            scope.newEle = {};
             scope.codevalueerror = false;
             scope.newEle.isActive = true;
-            scope.newEle = {};
+
 
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
