@@ -46,7 +46,7 @@
                 </div>
 
             </div>
-            <table class="table" class="width100" ng-show="categories.length>0">
+            <table class="table" class="width100" ng-show="definitions.length>0">
                 <tr class="graybg">
                     <th>{{'label.heading.provisioningcategory' | translate}}</th>
                     <th>{{'label.heading.minimumage' | translate}}</th>
@@ -55,7 +55,7 @@
                     <th>{{'label.heading.provisioningliabilityaccount' | translate}}</th>
                     <th>{{'label.heading.provisioningexpenseaccount' | translate}}</th>
                 </tr>
-                <tr ng-repeat="provisioningcategory in categories">
+                <tr ng-repeat="provisioningcategory in definitions">
                     <td>{{provisioningcategory.categoryName}}</td>
                     <td>
                         <ng-form name="minage{{$index}}">
@@ -68,7 +68,7 @@
 
                     <td>
                         <ng-form name="maxage{{$index}}">
-                            <input id="maxAge1" name="maxage{{$index}}" class="form-control" type="text"
+                            <input id="maxAge1" name="maxAge1" class="form-control" type="text"
                                    ng-model="provisioningcategory.maxAge"
                                    placeholder="{{'label.input.indays' | translate}}" number-format required/>
                             <span class="error" ng-show="visitValidation&&maxage{{$index}}.maxAge1.$error.required">{{ 'label.requirefield' | translate }}</span>

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewAllProvisoningEntriesController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
+        ViewAllProvisoningEntriesController: function (scope, routeParams, paginatorService, dateFilter, resourceFactory, location, $modal) {
 
             scope.routeTo = function (id) {
                 location.path('/viewprovisioningentry/' + id);
@@ -32,12 +32,9 @@
 
             paginatorService.currentOffset = 0 ;
             scope.entries = paginatorService.paginate(fetchFunction, 10);
-
         }
-
-
     });
-    mifosX.ng.application.controller('ViewAllProvisoningEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewAllProvisoningEntriesController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewAllProvisoningEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'dateFilter', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewAllProvisoningEntriesController]).run(function ($log) {
         $log.info("ViewAllProvisoningEntriesController initialized");
     });
 }(mifosX.controllers || {}));
