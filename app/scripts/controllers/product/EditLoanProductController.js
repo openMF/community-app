@@ -64,6 +64,7 @@
                     amortizationType: scope.product.amortizationType.id,
                     interestType: scope.product.interestType.id,
                     interestCalculationPeriodType: scope.product.interestCalculationPeriodType.id,
+                    allowPartialPeriodInterestCalcualtion:scope.product.allowPartialPeriodInterestCalcualtion,
                     inArrearsTolerance: scope.product.inArrearsTolerance,
                     transactionProcessingStrategyId: scope.product.transactionProcessingStrategyId,
                     graceOnPrincipalPayment: scope.product.graceOnPrincipalPayment,
@@ -466,6 +467,10 @@
                 if(!this.formData.allowVariableInstallments) {
                     delete scope.formData.minimumGap ;
                     delete scope.formData.maximumGap ;
+                }
+
+                if(this.formData.interestCalculationPeriodType == 0){
+                    this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
 
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
