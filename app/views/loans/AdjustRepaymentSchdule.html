@@ -115,7 +115,7 @@
 
                     <div class="col-sm-4">
                         <input id="outstanding" name="outstanding" class="form-control" type="text"
-                               ng-model="adjustmentData.totalOutstandingForPeriod" number-format/>
+                               ng-model="adjustmentData.totalInstallmentAmountForPeriod" number-format/>
                     </div>
                 </div>
 
@@ -143,8 +143,9 @@
             <tr>
                 <th colspan="2" scope="colgroup"></th>
                 <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
-                <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
+                <th colspan="1" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
                 <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                <th colspan="2" scope="colgroup"></th>
             </tr>
             <tr>
                 <th scope="col">#</th>
@@ -154,10 +155,9 @@
                 <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
 
                 <th scope="col">{{'label.heading.interest' | translate}}</th>
-                <th scope="col">{{'label.heading.fees' | translate}}</th>
-                <th scope="col">{{'label.heading.penalties' | translate}}</th>
 
-                <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+                <th scope="col">{{'label.heading.installmentamount' | translate}}</th>
+                <th scope="col" colspan="2">{{'label.heading.actions' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -181,14 +181,12 @@
                 <td ng-show="!enablePrincipal">{{period.principalDue | number}}</td>
                 <td>{{period.principalLoanBalanceOutstanding | number}}</td>
                 <td>{{period.interestOriginalDue | number}}</td>
-                <td>{{period.feeChargesDue | number}}</td>
-                <td>{{period.penaltyChargesDue | number}}</td>
                 <td ng-show="enableInstallment">
-                    <input id="totalOutstandingForPeriod" name="totalOutstandingForPeriod" class="form-control"
+                    <input id="totalInstallmentAmountForPeriod" name="totalInstallmentAmountForPeriod" class="form-control"
                            type="text"
-                           ng-model="period.totalOutstandingForPeriod" number-format/>
+                           ng-model="period.totalInstallmentAmountForPeriod" number-format/>
                 </td>
-                <td ng-show="!enableInstallment">{{period.totalOutstandingForPeriod | number}}</td>
+                <td ng-show="!enableInstallment">{{period.totalInstallmentAmountForPeriod | number}}</td>
 
                 <td>
                     <div>
@@ -209,8 +207,6 @@
                 <th>{{loandetails.repaymentSchedule.totalPrincipalExpected | number}}</th>
                 <th>&nbsp;</th>
                 <th>{{loandetails.repaymentSchedule.totalInterestCharged | number}}</th>
-                <th>{{loandetails.repaymentSchedule.totalFeeChargesCharged | number}}</th>
-                <th>{{loandetails.repaymentSchedule.totalPenaltyChargesCharged | number}}</th>
                 <th>{{loandetails.repaymentSchedule.totalOutstanding | number}}</th>
             </tr>
             </tfoot>
