@@ -153,7 +153,7 @@
                         </tr>
                         <tr>
                             <td>{{'label.heading.balance' | translate}}</td>
-                            <td>{{savingaccountdetails.summary.accountBalance | number}}</td>
+                            <td  ng-class="{statusactiveoverdue : savingaccountdetails.summary.accountBalance < 0}">{{savingaccountdetails.summary.accountBalance | number}}</td>
                         </tr>
                     </table>
                 </div>
@@ -195,7 +195,7 @@
                                 <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' |
                                     translate}}
                                 </td>
-                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned| number}}</span>
+                                <td><span class="padded-td"  ng-class="{statusactiveoverdue : savingaccountdetails.summary.totalInterestEarned < 0}">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned| number}}</span>
                                 </td>
                             </tr>
                             <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
@@ -203,6 +203,13 @@
                                     translate}}
                                 </td>
                                 <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted| number}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="savingaccountdetails.summary.totalOverdraftInterestDerived">
+                                <td class="table-bold-acc fontnormal">{{'label.totaloverdraftinterestderived' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalOverdraftInterestDerived| number}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -251,6 +258,16 @@
                                 <td><span class="padded-td">{{savingaccountdetails.overdraftLimit| number}}</span>
                                 </td>
                             </tr>
+                            <tr data-ng-show="savingaccountdetails.allowOverdraft">
+                                <td class="table-bold-acc fontnormal">{{'label.heading.nominalannualinterestrateoverdraft' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRateOverdraft| number}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.allowOverdraft">
+                                <td class="table-bold-acc fontnormal">{{'label.heading.minoverdraftforinterestcalculation' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.minOverdraftForInterestCalculation| number}}</span>
+                                </td>
+                            </tr>
                             <tr data-ng-show="savingaccountdetails.minBalanceForInterestCalculation">
                                 <td class="table-bold-acc fontnormal"> {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
                                 <td><span class="padded-td">{{savingaccountdetails.minBalanceForInterestCalculation| number}}</span></td>
@@ -294,7 +311,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
+                        <tr class="pointer-main" ng-hide="transaction.reversed"
                             ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column:transactionSort.descending">
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
