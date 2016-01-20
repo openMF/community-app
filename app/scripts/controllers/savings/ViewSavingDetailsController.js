@@ -10,7 +10,8 @@
             scope.fieldOfficers = [];
             scope.savingaccountdetails = [];
             scope.isDebit = function (savingsTransactionType) {
-                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
+                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
+                    || savingsTransactionType.overdraftInterest == true;
             };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {

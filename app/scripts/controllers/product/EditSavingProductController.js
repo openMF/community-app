@@ -34,6 +34,8 @@
                     accountingRule: data.accountingRule.id,
                     allowOverdraft: data.allowOverdraft == true ? 'true' : 'false',
                     overdraftLimit: data.overdraftLimit,
+                    nominalAnnualInterestRateOverdraft: data.nominalAnnualInterestRateOverdraft,
+                    minOverdraftForInterestCalculation: data.minOverdraftForInterestCalculation,
                     minBalanceForInterestCalculation: data.minBalanceForInterestCalculation,
                     enforceMinRequiredBalance: data.enforceMinRequiredBalance,
                     minRequiredBalance:data.minRequiredBalance
