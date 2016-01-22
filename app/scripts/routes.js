@@ -121,6 +121,9 @@
             .when('/addclientidentifierdocument/:clientId/:resourceId', {
                 templateUrl: 'views/clients/addclientidentifierdocument.html'
             })
+            .when('/survey/:clientId', {
+                templateUrl: 'views/clients/survey.html'
+            })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
