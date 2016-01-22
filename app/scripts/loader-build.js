@@ -36,7 +36,7 @@
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min'
         },
         shim: {
-            'angular': { exports: 'angular' },
+            'angular': { deps: ['jquery','chosen.jquery.min'], exports: 'angular' },
             'angular-resource': { deps: ['angular'] },
             'angular-route': { deps: ['angular'] },
             'angular-translate': { deps: ['angular'] },
