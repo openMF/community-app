@@ -4,7 +4,8 @@
 
             scope.formData = {};
             scope.formData.ratePeriods = [] ;
-
+            scope.formData.isBaseLendingRate = false;
+            scope.formData.isActive = false;
             scope.addRatePeriod = function () {
                 scope.formData.ratePeriods.push({
                 });

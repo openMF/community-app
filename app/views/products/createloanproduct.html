@@ -106,7 +106,7 @@
     <div class="col-sm-2">
         <select id="currencyCode" ng-model="formData.currencyCode" class="form-control"
                 ng-options="currency.code as currency.name for currency in product.currencyOptions"
-                value="{{currency.code}}"/>
+                value="{{currency.code}}"></select>
     </div>
     <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span
             class="required">*</span>
@@ -207,7 +207,7 @@
                     <select id="principalValueUsageCondition{{$index}}"
                             ng-model="borrowerCycleVariation.valueConditionType"
                             ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                            class="marginleftn19px form-control" value="{{valueConditionType.id}}"/>
+                            class="marginleftn19px form-control" value="{{valueConditionType.id}}"></select>
                 </td>
                 <td><input id="principalCycleNumber{{$index}}" type="text" class="form-control"
                            ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -284,7 +284,7 @@
                             id="repaymentValueUsageCondition{{$index}}"
                             ng-model="borrowerCycleVariation.valueConditionType"
                             ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                            value="{{valueConditionType.id}}"/>
+                            value="{{valueConditionType.id}}"></select>
                 </td>
                 <td><input id="repaymentCycleNumber{{$index}}" type="text" class="form-control"
                            ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -389,7 +389,7 @@
     <div class="col-sm-2">
         <select class="form-control" id="interestRateFrequencyType" ng-model="formData.interestRateFrequencyType"
                 ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in product.interestRateFrequencyTypeOptions"
-                value="{{interestRateFrequencyType.id}}"/>
+                value="{{interestRateFrequencyType.id}}"></select>
     </div>
     <div class="col-sm-2">
         <form-validate valattributeform="createloanproductform" valattribute="interestRatePerPeriod"/>
@@ -420,7 +420,7 @@
                             id="interestRateValueUsageCondition{{$index}}"
                             ng-model="borrowerCycleVariation.valueConditionType"
                             ng-options="valueConditionType.id as valueConditionType.value for valueConditionType in product.valueConditionTypeOptions"
-                            value="{{valueConditionType.id}}"/>
+                            value="{{valueConditionType.id}}"></select>
                 </td>
                 <td><input id="interestRateCycleNumber{{$index}}" type="text" class="form-control"
                            ng-model="borrowerCycleVariation.borrowerCycleNumber"/>
@@ -461,7 +461,7 @@
         <select id="repaymentFrequencyType" class="form-control"
                 ng-model="formData.repaymentFrequencyType"
                 ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions"
-                value="{{repaymentFrequencyType.id}}"/>
+                value="{{repaymentFrequencyType.id}}"></select>
     </div>
     <div class="col-sm-2">
         <form-validate valattributeform="createloanproductform" valattribute="repaymentEvery"/>
@@ -487,7 +487,7 @@
     <div class="col-sm-2">
         <select id="amortizationType" ng-model="formData.amortizationType" class="form-control"
                 ng-options="amortizationType.id as amortizationType.value for amortizationType in product.amortizationTypeOptions"
-                value="{{amortizationType.id}}"/>
+                value="{{amortizationType.id}}"></select>
     </div>
     <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.interestmethod' | translate }}<span
             class="required">*</span>
@@ -498,9 +498,36 @@
     <div class="col-sm-2">
         <select id="interestType" ng-model="formData.interestType" class="form-control"
                 ng-options="interestType.id as interestType.value for interestType in product.interestTypeOptions"
-                value="{{interestType.id}}"/>
+                value="{{interestType.id}}"></select>
     </div>
 </div>
+<div class="form-group">
+    <label class="control-label col-sm-2">{{ 'label.input.interestcalculationperiod' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
+                class="form-control"
+                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
+                value="{{interestCalculationPeriodType.id}}"></select>
+    </div>
+    <label class="control-label col-sm-3 col-sm-offset-1" ng-show="formData.interestCalculationPeriodType == 1">{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.allowpartialperiodinterestcalcualtion' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2"  ng-show="formData.interestCalculationPeriodType == 1">
+        <label class="checkbox control-label">
+            <input id="allowPartialPeriodInterestCalcualtion" type="checkbox"
+                   ng-model="formData.allowPartialPeriodInterestCalcualtion">
+        </label>
+    </div>
+</div>
+
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.repaymentstrategy' | translate }}<span
             class="required">*</span>
@@ -512,19 +539,7 @@
         <select id="transactionProcessingStrategyId" ng-model="formData.transactionProcessingStrategyId"
                 class="form-control"
                 ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
-                value="{{transactionProcessingStrategy.id}}"/>
-    </div>
-    <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.interestcalculationperiod' | translate }}<span
-            class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
-           tooltip-append-to-body="true"></i>
-    </label>
-
-    <div class="col-sm-2">
-        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
-                class="form-control"
-                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
-                value="{{interestCalculationPeriodType.id}}"/>
+                value="{{transactionProcessingStrategy.id}}"></select>
     </div>
 </div>
 <div class="form-group">

@@ -35,7 +35,7 @@
                             scope.loandetails.repaymentSchedule.periods[i].dueDate = date ;
                             scope.loandetails.repaymentSchedule.periods[i].originalDueDate = scope.loandetails.repaymentSchedule.periods[i].dueDate ;
                             scope.loandetails.repaymentSchedule.periods[i].oroginalPrincipalDue = scope.loandetails.repaymentSchedule.periods[i].principalDue ;
-                            scope.loandetails.repaymentSchedule.periods[i].originalTotalOutstandingForPeriod = scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod ;
+                            scope.loandetails.repaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod = scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod;
                             scope.loandetails.repaymentSchedule.periods[i].formattedDueDate = dateFilter(scope.loandetails.repaymentSchedule.periods[i].dueDate, scope.df);
                             i++ ;
                         }else {
@@ -107,8 +107,8 @@
                     for(var i in scope.loandetails.repaymentSchedule.periods) {
                         if(scope.loandetails.repaymentSchedule.periods[i].dueDate.getTime()>= t1 &&
                             scope.loandetails.repaymentSchedule.periods[i].dueDate.getTime()<= t2) {
-                            if($scope.enableInstallment && $scope.adjustmentData.totalOutstandingForPeriod) {
-                                scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod = $scope.adjustmentData.totalOutstandingForPeriod ;
+                            if($scope.enableInstallment && $scope.adjustmentData.totalInstallmentAmountForPeriod) {
+                                scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod = $scope.adjustmentData.totalInstallmentAmountForPeriod ;
                             }else if($scope.enablePrincipal && $scope.adjustmentData.principalDue){
                                 scope.loandetails.repaymentSchedule.periods[i].principalDue = $scope.adjustmentData.principalDue ;
                             }
@@ -179,7 +179,7 @@
                         tempArray[i].principal = scope.newinstallments[i].principalDue;
                     }
                     if(scope.enableInstallment) {
-                        tempArray[i].installmentAmount = scope.newinstallments[i].totalOutstandingForPeriod;
+                        tempArray[i].installmentAmount = scope.newinstallments[i].totalInstallmentAmountForPeriod;
                     }
                 }
                 return tempArray ;
@@ -215,10 +215,10 @@
                         }
                         var principalModified = scope.loandetails.repaymentSchedule.periods[i].oroginalPrincipalDue !=  scope.loandetails.repaymentSchedule.periods[i].principalDue ;
 
-                        if(!scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod) {
-                            scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod = 0 ;
+                        if(!scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod) {
+                            scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod = 0 ;
                         }
-                        var installmentModified = scope.loandetails.repaymentSchedule.periods[i].originalTotalOutstandingForPeriod !=  scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod ;
+                        var installmentModified = scope.loandetails.repaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod !=  scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod ;
 
                         if(dateModified || principalModified || installmentModified) {
                             var modifiedInstallment = {} ;
@@ -236,9 +236,9 @@
                                 scope.modifiedinstallments[modifiedIndex].principal = scope.loandetails.repaymentSchedule.periods[i].principalDue ;
                             }
                             if(scope.enableInstallment && installmentModified) {
-                                modifiedInstallment.installmentAmount = scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod ;
-                                scope.modifiedinstallments[modifiedIndex].originalTotalOutstandingForPeriod = scope.loandetails.repaymentSchedule.periods[i].originalTotalOutstandingForPeriod ;
-                                scope.modifiedinstallments[modifiedIndex].installmentAmount = scope.loandetails.repaymentSchedule.periods[i].totalOutstandingForPeriod ;
+                                modifiedInstallment.installmentAmount = scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod ;
+                                scope.modifiedinstallments[modifiedIndex].originaltotalInstallmentAmountForPeriod = scope.loandetails.repaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod ;
+                                scope.modifiedinstallments[modifiedIndex].installmentAmount = scope.loandetails.repaymentSchedule.periods[i].totalInstallmentAmountForPeriod ;
                             }
                             modified.push(modifiedInstallment) ;
                             modifiedIndex++ ;
@@ -321,15 +321,15 @@
                             }
 
                             if(scope.modifiedinstallments[index].installmentAmount) {
-                                validRepaymentSchedule.periods[i].originalTotalOutstandingForPeriod = scope.modifiedinstallments[index].originalTotalOutstandingForPeriod ;
+                                validRepaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod = scope.modifiedinstallments[index].originaltotalInstallmentAmountForPeriod ;
                             }else {
-                                validRepaymentSchedule.periods[i].originalTotalOutstandingForPeriod = validRepaymentSchedule.periods[i].totalOutstandingForPeriod ;
+                                validRepaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod = validRepaymentSchedule.periods[i].totalInstallmentAmountForPeriod ;
                             }
                             validRepaymentSchedule.periods[i].formattedDueDate = dateFilter(validRepaymentSchedule.periods[i].dueDate, scope.df);
                         }else {
                             validRepaymentSchedule.periods[i].originalDueDate =  validRepaymentSchedule.periods[i].dueDate ;
                             validRepaymentSchedule.periods[i].oroginalPrincipalDue = validRepaymentSchedule.periods[i].principalDue ;
-                            validRepaymentSchedule.periods[i].originalTotalOutstandingForPeriod = validRepaymentSchedule.periods[i].totalOutstandingForPeriod ;
+                            validRepaymentSchedule.periods[i].originaltotalInstallmentAmountForPeriod = validRepaymentSchedule.periods[i].totalInstallmentAmountForPeriod ;
                             validRepaymentSchedule.periods[i].formattedDueDate = dateFilter(validRepaymentSchedule.periods[i].dueDate, scope.df);
                         }
 

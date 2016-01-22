@@ -59,6 +59,8 @@
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                     scope.formData.allowOverdraft = data.allowOverdraft;
                     scope.formData.overdraftLimit = data.overdraftLimit;
+                    scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
+                    scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
                     scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                     scope.formData.minRequiredBalance = data.minRequiredBalance;
 
