@@ -7,7 +7,11 @@
 
             this.getHomePageIdentifier = function () {
                 var role = _.first(data.selectedRoles || data.roles);
-                return mifosX.models.roleMap[role.id];
+                if (role.id in mifosX.models.roleMap) {
+                    return mifosX.models.roleMap[role.id];
+                } else {
+                    return 'default';
+                }
             };
         }
     });

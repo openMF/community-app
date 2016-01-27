@@ -80,6 +80,7 @@
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
+                scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
                 scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
                 scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
@@ -94,6 +95,10 @@
                 }
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
                     scope.date.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
+                }
+
+                if(scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
+                    scope.formData.isFloatingInterestRate = false ;
                 }
             }
 
@@ -188,6 +193,9 @@
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
+                if(this.formData.interestCalculationPeriodType == 0){
+                    this.formData.allowPartialPeriodInterestCalcualtion = false;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -247,6 +255,9 @@
                 if (scope.date.recalculationCompoundingFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
                     scope.formData.recalculationCompoundingFrequencyDate = restFrequencyDate;
+                }
+                if(this.formData.interestCalculationPeriodType == 0){
+                    this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);

@@ -97,12 +97,27 @@
     <td>{{'label.heading.repayevery' | translate}}:</td>
     <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
 </tr>
-<tr>
+<tr ng-show="!loanproduct.isLinkedToFloatingInterestRates">
     <td>{{'label.heading.nominalinterestrate' | translate}}:</td>
     <td colspan="3">{{loanproduct.interestRatePerPeriod}}&nbsp;&nbsp;&nbsp;(
         Min:{{loanproduct.minInterestRatePerPeriod}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}
     </td>
 </tr>
+<tr ng-show="loanproduct.isLinkedToFloatingInterestRates">
+    <td>{{'label.heading.floatinglendingrate' | translate}}:</td>
+    <td colspan="3">{{loanproduct.floatingRateName}}&nbsp;&nbsp;&nbsp;
+        {{'label.heading.floatinginterestratedifferential' | translate}}:{{loanproduct.interestRateDifferential}} &nbsp;&nbsp;&nbsp;
+        {{'label.heading.isFloatingInterestRateCalculationAllowed' | translate}}:{{loanproduct.isFloatingInterestRateCalculationAllowed}}
+    </td>
+</tr>
+
+<tr ng-show="loanproduct.isLinkedToFloatingInterestRates">
+    <td>{{'label.heading.floatinginterestrate' | translate}}:</td>
+    <td colspan="3">{{loanproduct.defaultDifferentialLendingRate}}&nbsp;&nbsp;&nbsp;
+        (Min:{{loanproduct.minDifferentialLendingRate}}&nbsp;, Max:{{loanproduct.maxDifferentialLendingRate}})&nbsp;&nbsp;
+    </td>
+</tr>
+
 <tr class="bottomborder" ng-show="loanproduct.useBorrowerCycle">
     <td colspan="4"><strong>{{'label.heading.principalCycleVariations' | translate}}:</strong></td>
 </tr>
@@ -176,6 +191,10 @@
     <td>{{'label.heading.interestcalculationperiod' | translate}}</td>
     <td colspan="3">{{loanproduct.interestCalculationPeriodType.value}}</td>
 </tr>
+<tr ng-show="loanproduct.interestCalculationPeriodType.id == 1">
+    <td>{{'label.heading.allowpartialperiodinterestcalcualtion' | translate}}</td>
+    <td colspan="3">{{loanproduct.allowPartialPeriodInterestCalcualtion}}</td>
+</tr>
 <tr>
     <td>{{'label.heading.arrearstolerance' | translate}}</td>
     <td colspan="3">{{loanproduct.inArrearsTolerance|number}}</td>
@@ -219,6 +238,12 @@
 <tr>
     <td>{{'label.input.candefineinstallmentamount' | translate}}</td>
     <td colspan="3">{{loanproduct.canDefineInstallmentAmount | YesOrNo}}</td>
+</tr>
+
+<tr ng-show="loanproduct.allowVariableInstallments">
+    <td>{{'label.input.variableinstallments' | translate}}</td>
+    <td colspan="3">(Min:{{loanproduct.minimumGap}}&nbsp;, Max:{{loanproduct.maximumGap}})
+    </td>
 </tr>
 
 <tr>

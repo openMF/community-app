@@ -271,7 +271,66 @@
 	        </table>
 	    </div>
 	</div>
-	<div class="form-group">
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isLinkedToFloatingInterestRates"/>
+            {{'label.input.islinedtofloatinginterestrates' | translate}}
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <select id="floatingrateoptions" name="floatingrateoptions"
+                    ng-model="formData.floatingRatesId"
+                    ng-options="floatingrateoption.id as floatingrateoption.name for floatingrateoption in floatingRateOptions"
+                    value="{{floatingrateoption.id}}" class="form-control">
+                <option value="">{{'label.selectfloatingrateoption' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <input id="differentialinterest" name="differentialinterest" class="form-control" type="text"
+                   ng-model="formData.interestRateDifferential"
+                   placeholder="{{'label.input.differentialrate' | translate}}" number-format/>
+        </div>
+
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isFloatingInterestRateCalculationAllowed"/>
+            {{'label.input.isfloatingcalculationallowed' | translate}}
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <input id="minValue" name="minValue" class="form-control" type="text"
+                   ng-model="formData.minDifferentialLendingRate"
+                   placeholder="{{'label.input.minfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="default" name="default" class="form-control" type="text"
+                   ng-model="formData.defaultDifferentialLendingRate"
+                   placeholder="{{'label.input.defaultfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="maxValue" name="maxValue" class="form-control" type="text"
+                   ng-model="formData.maxDifferentialLendingRate"
+                   placeholder="{{'label.input.maxfloatinginterestrate' | translate}}" number-format/>
+        </div>
+    </div>
+
+    <div class="form-group"  ng-show="!formData.isLinkedToFloatingInterestRates">
 	    <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
 	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
@@ -281,7 +340,7 @@
 	    </div>
 	    <div class="col-sm-2">
 	        <input type="text" id="interestRatePerPeriod" placeholder="{{'label.input.default' | translate}}"
-	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod" required
+	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod"
 	               late-validate/>
 	    </div>
 	    <div class="col-sm-2">
@@ -390,6 +449,33 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="control-label col-sm-2">{{ 'label.input.interestcalculationperiod' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
+                class="form-control"
+                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
+                value="{{interestCalculationPeriodType.id}}"/>
+    </div>
+    <label class="control-label col-sm-3 col-sm-offset-1" ng-show="formData.interestCalculationPeriodType == 1">{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.allowpartialperiodinterestcalcualtion' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2"  ng-show="formData.interestCalculationPeriodType == 1">
+        <label class="checkbox control-label">
+            <input id="allowPartialPeriodInterestCalcualtion" type="checkbox"
+                   ng-model="formData.allowPartialPeriodInterestCalcualtion">
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.repaymentstrategy' | translate }}<span
             class="required">*</span></label>
 
@@ -399,16 +485,7 @@
                 ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
                 value="{{transactionProcessingStrategy.id}}"/>
     </div>
-    <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.interestcalculationperiod' | translate }}<span
-            class="required">*</span></label>
-
-    <div class="col-sm-2">
-        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
-                class="form-control"
-                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
-                value="{{interestCalculationPeriodType.id}}"/>
-        </div>
-    </div>
+</div>
     <div class="form-group">
         <label class="control-label col-sm-2">{{ 'label.input.grace' | translate }}</label>
         <div class="col-sm-2">
@@ -493,6 +570,32 @@
         <label class="control-label col-sm-4">{{ 'label.input.thresholdforlastinstallment' | translate }}</label>
         <div class="col-sm-2">
             <input id="principalThresholdForLastInstallment" type="text" class="form-control"	ng-model="formData.principalThresholdForLastInstallment">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.allowVariableInstallments"/>
+            {{'label.input.isvariableinstallmentsallowed' | translate}}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="formData.allowVariableInstallments">
+        <label class="control-label col-sm-2">{{ 'label.input.variableinstallments' | translate }}
+        </label>
+
+        <div class="col-sm-2">
+            <input id="minimumgap" name="minimumgap" class="form-control" type="text"
+                   ng-model="formData.minimumGap"
+                   placeholder="{{'label.input.minimumgap' | translate}}" number-format/>
+        </div>
+
+        <div class="col-sm-2">
+            <input id="maximumgap" name="maximumgap" class="form-control" type="text"
+                   ng-model="formData.maximumGap"
+                   placeholder="{{'label.input.maximumgap' | translate}}" number-format/>
         </div>
     </div>
 
