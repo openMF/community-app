@@ -49,6 +49,13 @@
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.previewClientLoanAccInfo();
+                    if(scope.loanaccountinfo.loanOfficerOptions){
+                        resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
+                            if(data.staffId != null){
+                                scope.formData.loanOfficerId =  data.staffId;
+                            }
+                        })
+                    }
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
