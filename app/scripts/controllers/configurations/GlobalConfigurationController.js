@@ -1,10 +1,15 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        GlobalConfigurationController: function (scope, resourceFactory, location, route) {
+        GlobalConfigurationController: function (scope, resourceFactory, location, route, dateFilter) {
             scope.configs = [];
             resourceFactory.configurationResource.get(function (data) {
                 for (var i in data.globalConfiguration) {
                     data.globalConfiguration[i].showEditvalue = true;
+                    /*if(data.globalConfiguration[i].dateValue){
+                      var dateVale = dateFilter(data.globalConfiguration[i].dateValue, scope.df);
+                        data.globalConfiguration[i].dateValue = new Date(dateVale);
+                    }*/
+
                     scope.configs.push(data.globalConfiguration[i])
                 }
                 resourceFactory.cacheResource.get(function (data) {
@@ -63,7 +68,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('GlobalConfigurationController', ['$scope', 'ResourceFactory', '$location', '$route', mifosX.controllers.GlobalConfigurationController]).run(function ($log) {
+    mifosX.ng.application.controller('GlobalConfigurationController', ['$scope', 'ResourceFactory', '$location', '$route', 'dateFilter', mifosX.controllers.GlobalConfigurationController]).run(function ($log) {
         $log.info("GlobalConfigurationController initialized");
     });
 }(mifosX.controllers || {}));
