@@ -5,9 +5,9 @@
             scope.dashModel = 'dashboard';
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
-	            if (sessionManager.get(data)) {
-	                scope.currentSession = sessionManager.get(data);
-	            }
+                if (sessionManager.get(data)) {
+                    scope.currentSession = sessionManager.get(data);
+                }
             });
 
             scope.client = [];
@@ -18,6 +18,8 @@
             scope.chartType = 'Days';
             scope.collectionPieData = [];
             scope.dashModel = 'rich-dashboard';
+            scope.branchOfficeName = 'Head Office';
+            scope.loanOfficeName = 'Head Office';
 
             scope.formatdate = function () {
                 var bardate = new Date();
@@ -337,6 +339,57 @@
                 });
 
             };
+            scope.loanPortfolioData=[];
+            scope.loanPortfolioView = function () {
+                scope.id = this.loanPortfolioOfficeId || 1;
+                for (var i in scope.offices) {
+                    if (scope.offices[i].id == scope.id) {
+                        scope.branchOfficeName = scope.offices[i].name;
+                    }
+                }
+                scope.loanPortfolioData=[];
+                scope.loanData = resourceFactory.runReportsResource.get({reportSource: 'LoanPortFolio', R_officeId: scope.id, genericResultSet: false}, function (data) {
+                    scope.showLoanPortfolioError =false;
+                    if(data && data.length>0){
+                        for(var i=0;i<data.length;i++){
+                            scope.loanPortfolioData.push(data[i]);
+
+                        }
+                        return data;
+                    }else{
+                        scope.showLoanPortfolioError =true;
+                    }
+
+                });
+            };
+            scope.loanPortfolioView();
+            scope.branchViewData=[];
+            scope.branchOverView = function () {
+                scope.id = this.branchOverviewOfficeId || 1;
+                for (var i in scope.offices) {
+                    if (scope.offices[i].id == scope.id) {
+                        scope.branchOfficeName = scope.offices[i].name;
+                    }
+                }
+                scope.branchViewData=[];
+                resourceFactory.runReportsResource.get({reportSource: 'BranchOverView', R_officeId: scope.id, genericResultSet: false}, function (data) {
+                    scope.showBranchOverviewError =false;
+                    if(data && data.length>0) {
+                        for (var i = 0; i < data.length; i++) {
+                            scope.branchViewData.push({
+                                name: data[i].is_loan_officer,
+                                count: data[i]['count(stf.office_id)']
+                            });
+
+                        }
+                        return data;
+                    }else{
+                        scope.showBranchOverviewError =true;
+                    }
+                });
+
+            };
+            scope.branchOverView();
             scope.getDisbursementOffice = function () {
                 var id = this.officeIdDisbursed || 1;
                 for (var i in scope.offices) {
