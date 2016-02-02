@@ -10,7 +10,7 @@ define(['mifosX', 'services/HttpServiceProvider', 'services/ResourceFactoryProvi
                  return _.extend(config, {url: baseUrl + config.url});
                  });*/
 
-                httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+                httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
             }]).run(function ($log) {
                 $log.warn("Using live demo server api -> " + baseUrl);
             });

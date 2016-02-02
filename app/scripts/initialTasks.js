@@ -13,11 +13,11 @@
             console.log('domains---' + domains);
             // For multi tenant hosting
             if (domains[0] == "demo") {
-                $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+                $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
                 ResourceFactoryProvider.setTenantIdenetifier('default');
                 console.log("demo server", domains[0]);
             } else {
-                $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = domains[0];
+                $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = domains[0];
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
                 console.log("other than demo server", domains[0]);
             }
@@ -37,10 +37,10 @@
             host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
             portNumber = queryLink.port;
 
-            $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = 'default';
+            $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
             ResourceFactoryProvider.setTenantIdenetifier('default');
             if (QueryParameters["tenantIdentifier"]) {
-                $httpProvider.defaults.headers.common['X-Mifos-Platform-TenantId'] = QueryParameters["tenantIdentifier"];
+                $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = QueryParameters["tenantIdentifier"];
                 ResourceFactoryProvider.setTenantIdenetifier(QueryParameters["tenantIdentifier"]);
             }
         }
