@@ -14,7 +14,7 @@
             scope.loanApplicationCommonData.submittedOnDate = new Date();
             scope.loanApplicationCommonData.expectedDisbursementDate = new Date();
             scope.loanApplicationCommonData.syncDisbursementWithMeeting = true;
-
+			scope.errorStatus="The next meeting date must be defined";
             if (scope.group.id) {
                 scope.inparams.groupId = scope.group.id;
             }
