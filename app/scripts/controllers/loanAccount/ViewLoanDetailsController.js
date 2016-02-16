@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
             scope.loandocuments = [];
+            scope.client = {};
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.formData = {};
@@ -151,6 +152,16 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                resourceFactory.clientResource.get({clientId: scope.loandetails.clientId}, function (data) {
+                    scope.client.officeName = data.officeName;
+                    scope.client.groupId = data.groups[0].id;
+                    resourceFactory.groupResource.get({groupId: scope.client.groupId, associations: 'all'}, function (data) {
+                        scope.client.groupName = data.name;
+                        scope.client.centerName = data.centerName;
+                        scope.client.centerId = data.centerId;
+                        scope.client.officeId = data.officeId;
+                    });
+                });
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
