@@ -58,7 +58,7 @@
 
             scope.doFocus = function(index) {
                 if(index > 0 && !scope.definitions[index].minAge) {
-                    scope.definitions[index].minAge = scope.definitions[index-1].maxAge+1 ;
+                    scope.definitions[index].minAge = parseInt(scope.definitions[index-1].maxAge)+1 ;
                 }
             }
 
