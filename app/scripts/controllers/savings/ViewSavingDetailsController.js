@@ -110,6 +110,7 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.convertDateArrayToObject('date');
                 if(scope.savingaccountdetails.groupId) {
                     resourceFactory.groupResource.get({groupId: scope.savingaccountdetails.groupId}, function (data) {
                         scope.groupLevel = data.groupLevel;
