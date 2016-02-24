@@ -2,11 +2,56 @@
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
                   uiConfigService, $http) {
-
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             } );
+
+            scope.$on('scrollbar.show', function(){
+                  console.log('Scrollbar show');
+                });
+            scope.$on('scrollbar.hide', function(){
+                  console.log('Scrollbar hide');
+                });
+
+            scope.islogofoldernamefetched = false;
+            scope.islogofoldernameconfig = false;
+            scope.isFaviconPath = false;
+            scope.isHeaderLogoPath = false;
+            scope.isBigLogoPath = false;
+            scope.isLargeLogoPath = false;
+
+            if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
+                scope.islogofoldernamefetched = true;
+                $http.get('scripts/config/LogoConfig.json').success(function(datas) {
+                    for(var i in datas){
+                        var data = datas[i];
+                        if(data.tenantIdentifier != undefined && data.tenantIdentifier == $rootScope.tenantIdentifier){
+                            if(data.logofoldername != undefined && data.logofoldername != ""){
+                                scope.islogofoldernameconfig = true;
+                                scope.logofoldername = data.logofoldername;
+                                if(data.faviconPath){
+                                    scope.isFaviconPath = true;
+                                    scope.faviconPath = data.faviconPath;
+                                }
+                                if(data.bigLogoPath){
+                                    scope.isBigLogoPath = true;
+                                    scope.bigLogoPath = data.bigLogoPath;
+                                }
+                                if(data.headerLogoPath){
+                                    scope.isHeaderLogoPath = true;
+                                    scope.headerLogoPath = data.headerLogoPath;
+                                }
+                                if(data.largeLogoPath){
+                                    scope.isLargeLogoPath = true;
+                                    scope.largeLogoPath = data.largeLogoPath;
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
             uiConfigService.init();
             //hides loader
             scope.domReady = true;
@@ -178,7 +223,7 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            translate.uses(scope.optlang.code);
+            translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {
                 if (route == 'clients') {
@@ -277,7 +322,7 @@
                 document.getElementById('prev').click();
             });
             scope.changeLang = function (lang, $event) {
-                translate.uses(lang.code);
+                translate.use(lang.code);
                 localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;

@@ -7,7 +7,7 @@
             };
 
             if (!scope.searchCriteria.employees) {
-                scope.searchCriteria.employees = null;
+                scope.searchCriteria.employees = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.employees;

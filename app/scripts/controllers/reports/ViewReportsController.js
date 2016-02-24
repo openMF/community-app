@@ -12,10 +12,23 @@
             };
 
             if (!scope.searchCriteria.reports) {
-                scope.searchCriteria.reports = null;
+                scope.searchCriteria.reports = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.reports;
+
+            scope.addLocaleReportName = function (){
+                if(document.getElementsByName("locale_name") != undefined && scope.reports){
+                    if(scope.reports[0].report_locale_name == undefined){
+                        var result = document.getElementsByName("locale_name");
+                        for(var i=0; i<result.length; i++) {
+                            scope.reports[i].report_locale_name = result[i].value;
+                        }
+                        //console.log(JSON.stringify(scope.reports));
+                    }
+                    scope.onFilter();
+                }
+            };
 
             scope.onFilter = function () {
                 scope.searchCriteria.reports = scope.filterText;

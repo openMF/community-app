@@ -10,6 +10,7 @@
             scope.first.date = new Date();
             scope.translate = translate;
             scope.showFrequencyOptions = false;
+            scope.showPenalty = true ;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -23,25 +24,34 @@
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
-                if (chargeAppliesId == 1) {
-                    scope.showChargePaymentByField = true;
-                    scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
-                    scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
-                    scope.showGLAccount = false;
-                }
-                //client fee
-                else if (chargeAppliesId == 3){
-                    scope.showChargePaymentByField = false;
-                    scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
-                    scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
-                    scope.addfeefrequency = false;
-                    scope.showGLAccount = true;
-                } else {
-                    scope.showChargePaymentByField = false;
-                    scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
-                    scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
-                    scope.addfeefrequency = false;
-                    scope.showGLAccount = false;
+                switch(chargeAppliesId) {
+                    case 1:
+                        scope.showChargePaymentByField = true;
+                        scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
+                        scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
+                        scope.showGLAccount = false;
+                        break ;
+                    case 2:
+                        scope.showChargePaymentByField = false;
+                        scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
+                        scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
+                        scope.addfeefrequency = false;
+                        scope.showGLAccount = false;
+                        break ;
+                    case 3:
+                        scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
+                        scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
+                        scope.addfeefrequency = false;
+                        scope.showGLAccount = true;
+                        break ;
+                    case 4:
+                        scope.showChargePaymentByField = false;
+                        scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
+                        scope.chargeTimeTypeOptions = scope.template.shareChargeTimeTypeOptions;
+                        scope.addfeefrequency = false;
+                        scope.showGLAccount = false;
+                        scope.showPenalty = false ;
+                        break ;
                 }
             }
             //when chargeAppliesTo is savings, below logic is
@@ -88,6 +98,15 @@
                 }
             };
 
+	    scope.filterChargeCalculations = function(chargeTimeType) {
+		return function (item) {
+			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
+			{
+				return false;
+			}
+			return true;
+		};
+	    };
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
                 //the formData

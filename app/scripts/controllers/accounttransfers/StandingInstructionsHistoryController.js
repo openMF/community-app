@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        StandingInstructionsHistoryController: function (scope, resourceFactory, paginatorService, dateFilter, $modal) {
+        StandingInstructionsHistoryController: function (scope, resourceFactory, paginatorService, dateFilter, $uibModal) {
             scope.date = {};
             scope.formData = {};
             scope.transactions = {};
@@ -89,7 +89,7 @@
             };
 
             scope.errorLog = function (transaction) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'errorlog.html',
                     controller: ErrorLogCtrl,
                     resolve: {
@@ -100,15 +100,15 @@
                 });
             };
 
-            var ErrorLogCtrl = function ($scope, $modalInstance, transaction) {
+            var ErrorLogCtrl = function ($scope, $uibModalInstance, transaction) {
                 $scope.error = transaction.errorLog;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('close');
+                    $uibModalInstance.dismiss('close');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('StandingInstructionsHistoryController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$modal', mifosX.controllers.StandingInstructionsHistoryController]).run(function ($log) {
+    mifosX.ng.application.controller('StandingInstructionsHistoryController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$uibModal', mifosX.controllers.StandingInstructionsHistoryController]).run(function ($log) {
         $log.info("StandingInstructionsHistoryController initialized");
     });
 }(mifosX.controllers || {}));

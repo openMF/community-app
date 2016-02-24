@@ -6,7 +6,7 @@
             }
 
             if (!scope.searchCriteria.anp) {
-                scope.searchCriteria.anp = null;
+                scope.searchCriteria.anp = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.anp;

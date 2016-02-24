@@ -8,7 +8,7 @@
             }
 
             if (!scope.searchCriteria.codes) {
-                scope.searchCriteria.codes = null;
+                scope.searchCriteria.codes = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.codes;

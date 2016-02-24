@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
@@ -11,7 +11,7 @@
             scope.savingaccountdetails = [];
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
-                    || savingsTransactionType.overdraftInterest == true;
+                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true;
             };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
@@ -104,6 +104,22 @@
                     case "unAssignSavingsOfficer":
                         location.path('/unassignsavingsofficer/' + accountId);
                         break;
+                    case "enableWithHoldTax":
+                        var changes = {
+                            withHoldTax:true
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
+                    case "disableWithHoldTax":
+                        var changes = {
+                            withHoldTax:false
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
 
                 }
             };
@@ -123,6 +139,7 @@
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
+                
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
@@ -139,12 +156,12 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-pencil ",
+                            icon: "fa fa-pencil ",
                             taskPermissionName:"UPDATE_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok-sign",
+                            icon: "fa fa-check",
                             taskPermissionName:"APPROVE_SAVINGSACCOUNT"
                         }
                     ],
@@ -173,17 +190,17 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo",
+                            icon: "fa faf-undo",
                             taskPermissionName:"APPROVALUNDO_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.activate",
-                            icon: "icon-ok-sign",
+                            icon: "fa fa-check",
                             taskPermissionName:"ACTIVATE_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.addcharge",
-                            icon: "icon-plus",
+                            icon: "fa fa-plus",
                             taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
                         }
                     ]
@@ -194,17 +211,17 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.deposit",
-                            icon: "icon-arrow-right",
+                            icon: "fa fa-arrow-right",
                             taskPermissionName:"DEPOSIT_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.withdraw",
-                            icon: "icon-arrow-left",
+                            icon: "fa fa-arrow-left",
                             taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table",
+                            icon: "fa fa-table",
                             taskPermissionName:"CALCULATEINTEREST_SAVINGSACCOUNT"
                         }
                     ],
@@ -239,6 +256,19 @@
                                 });
                                 scope.annualChargeId = scope.charges[i].id;
                             }
+                        }
+                    }
+                    if(data.taxGroup){
+                        if(data.withHoldTax){
+                            scope.buttons.options.push({
+                                name: "button.disableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }else{
+                            scope.buttons.options.push({
+                                name: "button.enableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
                         }
                     }
                 }
@@ -418,7 +448,7 @@
             
         }
     });
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));

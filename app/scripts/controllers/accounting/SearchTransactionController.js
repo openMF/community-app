@@ -54,49 +54,49 @@
                     params.transactionId = scope.formData.transactionId;
                     scope.searchCriteria.journals[0] = params.transactionId;
                 } else
-                    scope.searchCriteria.journals[0] = null;
+                    scope.searchCriteria.journals[0] = '';
 
                 if (scope.formData.glAccount) {
                     params.glAccountId = scope.formData.glAccount;
                     scope.searchCriteria.journals[1] = params.glAccountId;
                 } else
-                    scope.searchCriteria.journals[1] = null;
+                    scope.searchCriteria.journals[1] = '';
 
                 if (scope.formData.officeId) {
                     params.officeId = scope.formData.officeId;
                     scope.searchCriteria.journals[2] = params.officeId;
                 } else
-                    scope.searchCriteria.journals[2] = null;
+                    scope.searchCriteria.journals[2] = '';
 
                 if (scope.formData.manualEntriesOnly == true || scope.formData.manualEntriesOnly == false) {
                     params.manualEntriesOnly = scope.formData.manualEntriesOnly;
                     scope.searchCriteria.journals[3] = params.manualEntriesOnly;
                 } else
-                    scope.searchCriteria.journals[3] = null;
+                    scope.searchCriteria.journals[3] = '';
 
                 if (scope.date.first) {
                     params.fromDate = reqFirstDate;
                     scope.searchCriteria.journals[4] = params.fromDate;
                 } else
-                    scope.searchCriteria.journals[4] = null;
+                    scope.searchCriteria.journals[4] = '';
 
                 if (scope.date.second) {
                     params.toDate = reqSecondDate;
                     scope.searchCriteria.journals[5] = params.toDate;
                 } else
-                    scope.searchCriteria.journals[5] = null;
+                    scope.searchCriteria.journals[5] = '';
 
                 if(scope.formData.loanaccountId){
                     params.loanId = scope.formData.loanaccountId;
                     scope.searchCriteria.journals[6] = params.loanId;
                 } else
-                    scope.searchCriteria.journals[6] = null;
+                    scope.searchCriteria.journals[6] = '';
 
                 if(scope.formData.savingsaccountId){
                     params.savingsId = scope.formData.savingsaccountId;
                     scope.searchCriteria.journals[7] = params.savingsId;
                 } else
-                    scope.searchCriteria.journals[7] = null;
+                    scope.searchCriteria.journals[7] = '';
 
                 scope.saveSC();
                 resourceFactory.journalEntriesResource.search(params, callback);

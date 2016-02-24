@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingsTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
+        ViewSavingsTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $uibModal) {
             scope.flag = false;
             resourceFactory.savingsTrxnsResource.get({savingsId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
@@ -10,7 +10,7 @@
             });
             
             scope.undo = function (accountId, transactionId) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'undotransaction.html',
                     controller: UndoTransactionModel,
                     resolve: {
@@ -24,23 +24,23 @@
                 });
             };
             
-            var UndoTransactionModel = function ($scope, $modalInstance, accountId, transactionId) {
+            var UndoTransactionModel = function ($scope, $uibModalInstance, accountId, transactionId) {
                 $scope.undoTransaction = function () {
                     var params = {savingsId: accountId, transactionId: transactionId, command: 'undo'};
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
                     formData.transactionDate = dateFilter(new Date(), scope.df);
                     resourceFactory.savingsTrxnsResource.save(params, formData, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/viewsavingaccount/' + data.savingsId);
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewSavingsTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', mifosX.controllers.ViewSavingsTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingsTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$uibModal', mifosX.controllers.ViewSavingsTransactionController]).run(function ($log) {
         $log.info("ViewSavingsTransactionController initialized");
     });
 }(mifosX.controllers || {}));

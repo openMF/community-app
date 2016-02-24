@@ -1,12 +1,9 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewFixedDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory,$modal ) {
+    ViewFixedDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory,$uibModal ) {
         resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId , template: 'true'} , function(data) {
             scope.depositproduct = data;
             scope.chartSlabs = scope.depositproduct.activeChart.chartSlabs;
-            scope.depositproduct.activeChart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                return obj.fromPeriod
-            });
             scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
         });
 
@@ -17,7 +14,7 @@
         };
 
         scope.incentives = function(index){
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'incentive.html',
                 controller: IncentiveCtrl,
                 resolve: {
@@ -28,7 +25,7 @@
             });
         }
 
-        var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+        var IncentiveCtrl = function ($scope, $uibModalInstance, chartSlab) {
             $scope.chartSlab = chartSlab;
             _.each($scope.chartSlab.incentives, function (incentive) {
                 if(!incentive.attributeValueDesc){
@@ -36,12 +33,12 @@
                 }
             });
             $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
+                $uibModalInstance.dismiss('cancel');
             };
         };
     }
   });
-  mifosX.ng.application.controller('ViewFixedDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory','$modal', mifosX.controllers.ViewFixedDepositProductController]).run(function($log) {
+  mifosX.ng.application.controller('ViewFixedDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory','$uibModal', mifosX.controllers.ViewFixedDepositProductController]).run(function($log) {
     $log.info("ViewFixedDepositProductController initialized");
   });
 }(mifosX.controllers || {}));

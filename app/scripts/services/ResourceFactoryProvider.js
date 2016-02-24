@@ -4,6 +4,7 @@
             var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
+                console.log(baseUrl);
             };
 
             this.setTenantIdenetifier = function (tenant) {
@@ -40,8 +41,8 @@
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
                     }),
-                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource'}, {
-                        getAllClients: {method: 'GET', params: {limit: 1000}},
+                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
+                        getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
@@ -76,6 +77,14 @@
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
                         get: {method: 'GET', params: {}}
                     }),
+
+                    surveyResource: defineResource(apiVer + "/surveys", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
+                        post: {method: 'POST', params: {}, isArray: false}                       
+                    }),
+
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
@@ -157,8 +166,8 @@
                     batchResource: defineResource(apiVer + "/batches", {}, { 
                         post: {method: 'POST', params: {}, isArray: true}                       
                     }),
-                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
-                        getAllLoans: {method: 'GET', params: {}},
+                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
+                        getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}},
                         getAllNotes: {method: 'GET', params: {}, isArray: true},
                         put: {method: 'PUT', params: {}}
                     }),
@@ -553,6 +562,50 @@
                         validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
                         addVariations:{method:'POST',params:{command: 'addVariations'}},
                         deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    }),
+                    taxcomponent: defineResource(apiVer + "/taxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxcomponenttemplate: defineResource(apiVer + "/taxes/component/template",{},{
+                    }),
+                    taxgroup: defineResource(apiVer + "/taxes/group/:taxGroupId",{taxGroupId:'@taxGroupId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxgrouptemplate: defineResource(apiVer + "/taxes/group/template",{},{
+                    }),
+
+                    productsResource: defineResource(apiVer + "/products/:productType/:resourceType",{productType:'@productType', resourceType:'@resourceType'},{
+                        template: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}}
+                    }),
+                    shareProduct: defineResource(apiVer + "/products/share/:shareProductId",{shareProductId:'@shareProductId'},{
+                        post:{method:'POST',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        get: {method: 'GET', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareAccountTemplateResource: defineResource(apiVer + "/accounts/share/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    sharesAccount: defineResource(apiVer + "/accounts/share/:shareAccountId", {shareAccountId: '@shareAccountId'}, {
+                        get: {method: 'GET', params: {}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareproductdividendresource: defineResource(apiVer + "/shareproduct/:productId/dividend/:dividendId", {productId: '@productId', dividendId: '@dividendId'}, {
+                        get: {method: 'GET', params: {}},
+                        getAll: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}},
+                        approve: {method: 'PUT', params:{command: 'approve'}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
+
                     })
                 };
             }];

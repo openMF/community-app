@@ -137,6 +137,8 @@
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.createStandingInstructionAtDisbursement = scope.loanaccountinfo.createStandingInstructionAtDisbursement;
+                scope.formData.isTopup = scope.loanaccountinfo.isTopup;
+                scope.formData.loanIdToClose = scope.loanaccountinfo.closureLoanId;
 
                 if (scope.loanaccountinfo.meeting) {
                     scope.formData.syncRepaymentsWithMeeting = true;

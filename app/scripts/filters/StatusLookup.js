@@ -14,6 +14,8 @@
                     "savingsAccountStatusType.submitted.and.pending.approval": "statuspending",
                     "savingsAccountStatusType.approved": "statusApproved",
                     "savingsAccountStatusType.active": "statusactive",
+                    "savingsAccountStatusType.activeInactive": "statusactiveoverdue",
+                    "savingsAccountStatusType.activeDormant": "statusactiveoverdue",
                     "savingsAccountStatusType.matured": "statusmatured",
                     "loanProduct.active": "statusactive",
                     "clientStatusType.pending": "statuspending",
@@ -28,7 +30,14 @@
                     "groupingStatusType.active": "statusactive",
                     "groupingStatusType.pending": "statuspending",
                     "groupingStatusType.submitted.and.pending.approval": "statuspending",
-                    "groupingStatusType.approved": "statusApproved"
+                    "groupingStatusType.approved": "statusApproved",
+                    "shareAccountStatusType.submitted.and.pending.approval": "statuspending",
+                    "shareAccountStatusType.approved": "statusApproved",
+                    "shareAccountStatusType.active": "statusactive",
+                    "shareAccountStatusType.rejected": "statusrejected",
+                    "purchasedSharesStatusType.applied": "statuspending",
+                    "purchasedSharesStatusType.approved": "statusApproved",
+                    "purchasedSharesStatusType.rejected": "statusrejected"
                 }
 
                 return cssClassNameLookup[input];

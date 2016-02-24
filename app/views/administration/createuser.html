@@ -1,9 +1,9 @@
-<div class="col-md-12">
+<div class="content-container">
     <ul class="breadcrumb">
         <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
         <li class="active">{{'label.anchor.createuser' | translate}}</li>
     </ul>
-	<form name="createuserform" novalidate="" class="form-horizontal well" ng-controller="CreateUserController"
+	<form name="createuserform" novalidate="" class="card form-horizontal well" ng-controller="CreateUserController"
 	      rc-submit="submit()">
 	    <api-validate></api-validate>
 	    <fieldset>
@@ -76,8 +76,8 @@
 	            </div>
 				
 				<label class="control-label col-sm-3">{{'label.input.overridepasswordexpiry' | translate}}
-				<i class="icon-question-sign control-label icon-align-left"
-				   tooltip="{{'label.tooltip.overridepasswordexpiry' | translate}}"></i></label>
+				<i class="fa fa-question-circle control-label fa fa-align-left"
+				   uib-tooltip="{{'label.tooltip.overridepasswordexpiry' | translate}}"></i></label>
 				<div class="col-sm-3">
 				<label class="checkbox">
 						<input type="checkbox" ng-model="formData.passwordNeverExpires">
@@ -133,21 +133,32 @@
 	                </select>
 	            </div>
 	        </div>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{'label.input.selectroles' | translate}}<span
-	                    class="required">*</span></label>
-	
-	            <div class="col-sm-3">
-	                <select id="roles" ng-model="formData.roles" name="role" class="form-control multiselectmin" multiple required>
-	                    <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
-	                        {{availablerole.name}}
-	                    </option>
-	                </select>
-	            </div>
-	            <div class="col-sm-3">
-	                <form-validate valattributeform="createuserform" valattribute="role"/>
-	            </div>
-	        </div>
+			<div class="form-group">
+				<div class="col-sm-3 col-md-3 col-md-offset-1">
+					<label class="control-label col-sm-9">{{ 'label.input.availableroles' | translate }}</label>
+					<select id="availableroles" ng-model="available" name="availableroles" class="form-control multiselectmin" multiple>
+						<option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
+							{{availablerole.name}}
+						</option>
+					</select>
+				</div>
+				<div class="col-sm-1 col-md-1 paddedtop25px">
+					<button type="button" class="btn btn-primary" data-ng-click="addRole()"><i
+							class="icon-double-angle-right"></i></button>
+					<br/>
+					<button type="button" class="btn btn-primary" data-ng-click="removeRole()"><i
+							class="icon-double-angle-left"></i></button>
+				</div>
+				<div class="col-sm-3 col-md-3">
+					<label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}</label>
+					<select id="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
+						<option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
+							{{availablerole.name}}
+						</option>
+					</select>
+				</div>
+			</div>
+
 	        <div class="col-md-offset-3">
 	            <a id="cancel" href="#/users" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_USER'>{{'label.button.save' | translate}}</button>

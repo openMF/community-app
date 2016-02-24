@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewProvisioningCriteriaController: function (scope, routeParams, resourceFactory, location, $modal) {
+        ViewProvisioningCriteriaController: function (scope, routeParams, resourceFactory, location, $uibModal) {
             scope.charge = [];
             scope.choice = 0;
             var temp = "" ;
@@ -21,28 +21,28 @@
             });
 
             scope.deleteProvisionigCriteria = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletech.html',
                     controller: criteriaDeleteCtrl
                 });
             };
 
 
-            var criteriaDeleteCtrl = function ($scope, $modalInstance) {
+            var criteriaDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.provisioningcriteria.delete({criteriaId: scope.criteriaId}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/viewallprovisionings/');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
-    mifosX.ng.application.controller('ViewProvisioningCriteriaController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewProvisioningCriteriaController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewProvisioningCriteriaController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewProvisioningCriteriaController]).run(function ($log) {
         $log.info("ViewProvisioningCriteriaController initialized");
     });
 }(mifosX.controllers || {}));

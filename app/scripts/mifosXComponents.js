@@ -12,7 +12,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'NotificationResponseHeaderProvider'
         ],
         controllers: [
             'main/MainController',
@@ -44,6 +45,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/ApproveLoanRescheduleRequestController',
             'loanAccount/RejectLoanRescheduleRequestController',
             'loanAccount/PreviewLoanRepaymentScheduleController',
+            'loanAccount/LoanForeclosureController',
             'groups/AssignStaffController',
             'client/ClientController',
             'client/EditClientController',
@@ -59,6 +61,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/PayClientChargeController',
             'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
+            'client/SurveyController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
             'product/CreateSavingProductController',
@@ -72,6 +75,13 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/floatingrates/EditFloatingRateController',
             'product/SavingProductController',
             'product/ViewSavingProductController',
+            'product/ShareProductController',
+            'product/ViewShareProductController',
+            'product/CreateShareProductController',
+            'product/EditShareProductController',
+            'product/ShareProductDividendController',
+            'product/ViewShareProductDividendController',
+            'product/ShareProductActionsController',
             'product/ViewLoanProductController',
             'product/FixedDepositProductController',
             'product/ViewFixedDepositProductController',
@@ -171,6 +181,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/XBRLReportController',
             'savings/CreateSavingAccountController',
             'savings/ViewSavingDetailsController',
+            'shares/CreateShareAccountController',
+            'shares/ViewShareAccountController',
+            'shares/EditShareAccountController',
+            'shares/ShareAccountActionsController',
             'groups/GroupController',
             'groups/ViewGroupController',
             'groups/AttachMeetingController',
@@ -259,7 +273,16 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/DefineOpeningBalancesController',
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
-            'configurations/ViewExternalServicesController'
+            'configurations/ViewExternalServicesController',
+            'product/tax/CreateTaxComponentController',
+            'product/tax/ViewTaxComponentController',
+            'product/tax/EditTaxComponentController',
+            'product/tax/TaxComponentController',
+            'product/tax/CreateTaxGroupController',
+            'product/tax/ViewTaxGroupController',
+            'product/tax/EditTaxGroupController',
+            'product/tax/TaxGroupController',
+            'notification/NotificationsController'
         ],
         filters: [
             'StatusLookup',
@@ -298,6 +321,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
     };
 
     return function() {
+      console.log();
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
             return list.concat(_.map(components[group], function (name) {

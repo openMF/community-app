@@ -1,18 +1,20 @@
-<div class="col-md-12" ng-controller="EditLoanProductController">
+<div class="content-container" ng-controller="EditLoanProductController">
     <ul class="breadcrumb">
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
         <li><a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a></li>
         <li><a href="#/viewloanproduct/{{product.id}}">{{product.name}}</a></li>
         <li class="active">{{'label.anchor.editloanproduct' | translate}}</li>
     </ul>
-	<form name="editloanproductform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+	<form name="editloanproductform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
 	<api-validate></api-validate>
 	<fieldset>
 	<h3>{{ 'label.heading.details' | translate }}</h3>
 	<hr>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span>
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.productname' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.productname' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input type="text" id="name" class="form-control" name="name" ng-model="formData.name"
@@ -22,7 +24,9 @@
 	        <form-validate valattributeform="editloanproductform" valattribute="name"/>
 	    </div>
 	    <label class="control-label col-sm-2">{{ 'label.input.product.shortname' | translate }}<span class="required">*</span>
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.shortname' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.shortname' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input type="text" id="shortName" name="shortName" ng-model="formData.shortName"
@@ -34,13 +38,17 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.description' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.description' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <textarea rows="2"class="form-control" ng-model="formData.description"></textarea>
 	    </div>
 	    <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.fund' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.fund' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.fund' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <select id="fundId" ng-model="formData.fundId" class="form-control"
@@ -52,7 +60,9 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.startdate' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.startdate' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="startDate" sort type="text" class="form-control"
@@ -60,7 +70,9 @@
 	               min="minDate" max="'2020-06-22'"/>
 	    </div>
 	    <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.closedate' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.closedate' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.closedate' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="closeDate" sort type="text" class="form-control"
@@ -70,7 +82,9 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.includeinborrowerloancounter' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.includeborrower' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.includeborrower' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="checkbox col-sm-2">
 	        <label>
@@ -82,7 +96,9 @@
 	<hr>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}<span class="required">*</span>
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.currency' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.currency' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <select id="currencyCode" ng-model="formData.currencyCode" class="form-control"
@@ -90,7 +106,9 @@
 	                value="{{currency.code}}"/>
 	    </div>
 	    <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.decimalplaces' | translate }}<span class="required">*</span>
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.decimalplaces' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.decimalplaces' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
@@ -102,7 +120,9 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.currencyinmultiplesof' | translate }}<span class="required">*</span>
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.currencyinmultiplesof' | translate}}" tooltip-append-to-body="true"></i>
+
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.currencyinmultiplesof' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
@@ -123,7 +143,8 @@
 	<hr>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.useborrowerloancounter' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.useborrowerloancounter' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.useborrowerloancounter' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="checkbox col-sm-2">
 	        <label>
@@ -133,7 +154,7 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.principal' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principal' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.principal' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="minPrincipal" placeholder="{{'label.input.minimum' | translate}}" type="text"
@@ -153,7 +174,7 @@
 	</div>
 	<div class="form-group" ng-show="formData.useBorrowerCycle">
 	    <label class="control-label col-sm-2">{{'label.heading.principalCycleVariations' | translate}}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.principalcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.principalcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
 	    <div class="col-sm-2">
 	        <a class="btn btn-primary" ng-click="addPrincipalVariation()">{{ 'label.button.add' | translate }}</a>
@@ -193,7 +214,7 @@
 	                <td><input type="text" id="maxPrincipalPerCycle{{$index}}" class="form-control"
 	                           number-formatng-model="borrowerCycleVariation.maxValue"/></td>
 	                <td><a ng-click="deletePrincipalVariation($index)"><i
-	                        class="icon-remove icon-white"></i></a>
+	                        class="fa fa-remove "></i></a>
 
 	                </td>
 	            </tr>
@@ -202,7 +223,7 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.numofrepayments' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.numofrepayments' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.numofrepayments' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="minNumberOfRepayments" placeholder="{{'label.input.minimum' | translate}}" type="text"
@@ -224,7 +245,8 @@
 
 	<div class="form-group" ng-show="formData.useBorrowerCycle">
 	    <label class="control-label col-sm-2">{{'label.heading.numerOfRepaymentCycleVariations' | translate}}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.numerofrepaymentcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.numerofrepaymentcyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <a class="btn btn-primary" ng-click="addNumberOfRepaymentVariation()">{{ 'label.button.add' | translate }}</a>
@@ -264,7 +286,7 @@
 	                <td><input type="text" id="maxrepaymentPerCycle{{$index}}" class="form-control"
 	                           ng-model="borrowerCycleVariation.maxValue"/></td>
 	                <td><a ng-click="deleterepaymentVariation($index)"><i
-	                        class="icon-remove icon-white"></i></a>
+	                        class="fa fa-remove "></i></a>
 
 	                </td>
 	            </tr>
@@ -281,7 +303,7 @@
 
     <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
         <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
                tooltip-append-to-body="true"></i>
         </label>
 
@@ -309,7 +331,7 @@
 
     <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
         <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
                tooltip-append-to-body="true"></i>
         </label>
 
@@ -332,7 +354,8 @@
 
     <div class="form-group"  ng-show="!formData.isLinkedToFloatingInterestRates">
 	    <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text"
@@ -358,7 +381,8 @@
 	</div>
 	<div class="form-group" ng-show="formData.useBorrowerCycle">
 	    <label class="control-label col-sm-2">{{'label.heading.interestRateCycleVariations' | translate}}
-	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+	        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.interestratecyclevariations' | translate}}" tooltip-append-to-body="true"></i>
+
 	    </label>
 	    <div class="col-sm-2">
 	        <a class="btn btn-primary" ng-click="addInterestRateVariation()">{{ 'label.button.add' | translate }}</a>
@@ -399,7 +423,7 @@
 	                <td><input type="text" id="maxInterestRatePerCycle{{$index}}" class="form-control"
 	                           ng-model="borrowerCycleVariation.maxValue"/></td>
 	                <td><a ng-click="deleteInterestRateVariation($index)"><i
-	                        class="icon-remove icon-white"></i></a>
+	                        class="fa fa-remove "></i></a>
 
 	                </td>
 	            </tr>
@@ -451,7 +475,7 @@
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.interestcalculationperiod' | translate }}<span
             class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
+        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
 
@@ -463,7 +487,7 @@
     </div>
     <label class="control-label col-sm-3 col-sm-offset-1" ng-show="formData.interestCalculationPeriodType == 1">{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}<span
             class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.allowpartialperiodinterestcalcualtion' | translate}}"
+        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.allowpartialperiodinterestcalcualtion' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
 
@@ -577,7 +601,7 @@
         <div class="col-sm-3">
             <input type="checkbox" name="name1" ng-model="formData.allowVariableInstallments"/>
             {{'label.input.isvariableinstallmentsallowed' | translate}}
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
+            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
                tooltip-append-to-body="true"></i>
         </div>
     </div>
@@ -599,6 +623,14 @@
         </div>
     </div>
 
+	<div class="form-group">
+		<div class="col-sm-3">
+			<input type="checkbox" name="canUseForTopup" ng-model="formData.canUseForTopup"/>
+			{{'label.input.canUseForTopup' | translate}}
+			<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.canUseForTopup' | translate}}"
+			   tooltip-append-to-body="true"></i>
+		</div>
+	</div>
 
     <h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 	<hr>
@@ -648,7 +680,7 @@
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0">
         <label class="control-label col-sm-2">{{'label.input.frequency.for.compounding'
             | translate }}<span class="required">*</span>
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencytocompounding' | translate}}" tooltip-append-to-body="true"></i>
+            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.frequencytocompounding' | translate}}" tooltip-append-to-body="true"></i>
         </label>
 
         <div class="col-sm-2">
@@ -657,25 +689,35 @@
                     ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
                     value="{{type.id}}"></select>
         </div>
+
+		<div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4">
+				<select id="recalculationCompoundingFrequencyNthDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyNthDayType"
+						ng-options="recalculationCompoundingFrequencyNthDayType.id as recalculationCompoundingFrequencyNthDayType.value for recalculationCompoundingFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+						value="{{recalculationCompoundingFrequencyNthDayType.id}}"><option value=""></option><option value="onDay">On day</option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
+				<select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
+						ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+						value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
+				<select id="recalculationCompoundingFrequencyOnDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyOnDayType"
+						ng-options="recalculationCompoundingFrequencyOnDayType as recalculationCompoundingFrequencyOnDayType for recalculationCompoundingFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+						value="{{recalculationCompoundingFrequencyOnDayType}}"></select>&nbsp;
+			</div>
+		</div>
     </div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
         && formData.recalculationCompoundingFrequencyType != 1">
         <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.compounding'
             | translate }}<span class="required">*</span>
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundinginterval' | translate}}" tooltip-append-to-body="true"></i>
+            <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.frequencycompoundinginterval' | translate}}" tooltip-append-to-body="true"></i>
+
         </label>
 
         <div class="col-sm-2">
             <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationCompoundingFrequencyInterval">
-        </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.compounding'
-            | translate }}<span class="required">*</span>
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundingdate' | translate}}" tooltip-append-to-body="true"></i>
-        </label>
-
-        <div class="col-sm-2">
-            <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
         </div>
 
     </div>
@@ -690,6 +732,24 @@
 					ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
 					value="{{type.id}}"></select>
 		</div>
+
+		<div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4">
+				<select id="recalculationRestFrequencyNthDayType" class="form-control" ng-model="formData.recalculationRestFrequencyNthDayType"
+						ng-options="recalculationRestFrequencyNthDayType.id as recalculationRestFrequencyNthDayType.value for recalculationRestFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+						value="{{recalculationRestFrequencyNthDayType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
+				<select id="recalculationRestFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationRestFrequencyDayOfWeekType"
+						ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+						value="{{recalculationRestFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
+				<select id="recalculationRestFrequencyOnDayType" class="form-control" ng-model="formData.recalculationRestFrequencyOnDayType"
+						ng-options="recalculationRestFrequencyOnDayType as recalculationRestFrequencyOnDayType for recalculationRestFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+						value="{{recalculationRestFrequencyOnDayType}}"></select>&nbsp;
+			</div>
+		</div>
 	</div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
         <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
@@ -697,13 +757,7 @@
         <div class="col-sm-2">
             <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
         </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
-            | translate }}<span class="required">*</span></label>
 
-        <div class="col-sm-2">
-            <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-        </div>
 
 	</div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
@@ -867,7 +921,7 @@
 	            <td></td>
 	            <td></td>
 	            <td></td>
-	            <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+	            <td><a ng-click="deleteCharge($index)"><i class="fa fa-remove "></i></a></td>
 	        </tr>
 	    </table>
 	</div>
@@ -911,7 +965,7 @@
 	            <td></td>
 	            <td></td>
 	            <td></td>
-	            <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+	            <td><a ng-click="deleteCharge($index)"><i class="fa fa-remove "></i></a></td>
 	        </tr>
 	    </table>
 	</div>
@@ -942,7 +996,8 @@
 	<div class="form-group">
 	    <h4>{{"label.heading.assets" | translate}}</h4>
 	    <label class="control-label col-sm-2">{{ 'label.input.fundsource' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.fundsource' | translate}}"></i>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.fundsource' | translate}}"></i>
 	    <div class="col-sm-3">
 	        <select id="fundSourceAccountId" ng-model="formData.fundSourceAccountId" chosen="assetAccountOptions"
 	                ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
@@ -950,7 +1005,9 @@
 	        </select>
 	    </div>
 	    <label class="control-label col-sm-2">{{ 'label.input.loanportfolio' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.loanportfolio' | translate}}"></i></a>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.loanportfolio' | translate}}"></i></a>
+
 	    <div class="col-sm-3">
 	        <select id="loanPortfolioAccountId" class="form-control" ng-model="formData.loanPortfolioAccountId"
 	                chosen="assetAccountOptions"
@@ -961,7 +1018,7 @@
 	</div>
 	<div class="form-group" ng-show="isAccrualAccountingEnabled()">
 	    <label class="control-label col-sm-2">{{ 'label.input.receivableinterest' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.receivableinterest' | translate}}"></i>
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.receivableinterest' | translate}}"></i>
 	    <div class="col-sm-3">
 	        <select id="receivableInterestAccountId" class="form-control"
 	                ng-model="formData.receivableInterestAccountId" chosen="assetAccountOptions"
@@ -970,7 +1027,9 @@
 	        </select>
 	    </div>
 	    <label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.receivablefees' | translate}}"></i></a>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.receivablefees' | translate}}"></i></a>
+
 	    <div class="col-sm-3">
 	        <select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId"
 	                chosen="assetAccountOptions"
@@ -981,7 +1040,9 @@
 	</div>
 	<div class="form-group" ng-show="isAccrualAccountingEnabled()">
 	    <label class="control-label col-sm-2">{{ 'label.input.receivablepenalties' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.receivablepenalties' | translate}}"></i>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.receivablepenalties' | translate}}"></i>
+
 	    <div class="col-sm-3">
 	        <select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId"
 	                chosen="assetAccountOptions"
@@ -992,7 +1053,9 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.transfersinsuspense' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.transfersinsuspense' | translate}}"></i></a>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.transfersinsuspense' | translate}}"></i></a>
+
 	    <div class="col-sm-3">
 	        <select id="transfersInSuspenseAccountId" ng-model="formData.transfersInSuspenseAccountId"
 	                chosen="assetAccountOptions"
@@ -1005,7 +1068,9 @@
 	<div class="form-group">
 	    <h4>{{"label.heading.income" | translate}}</h4>
 	    <label class="control-label col-sm-2">{{ 'label.input.incomefrominterest' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefrominterest' | translate}}"></i>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.incomefrominterest' | translate}}"></i>
+
 	    <div class="col-sm-3">
 	        <select id="interestOnLoanAccountId" ng-model="formData.interestOnLoanAccountId"
 	                chosen="incomeAccountOptions"
@@ -1014,7 +1079,9 @@
 	        </select>
 	    </div>
 	    <label class="control-label col-sm-2">{{ 'label.input.incomefromfees' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefromfees' | translate}}"></i></a>
+
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.incomefromfees' | translate}}"></i></a>
+
 	    <div class="col-sm-3">
 	        <select id="incomeFromFeeAccountId" ng-model="formData.incomeFromFeeAccountId"
 	                chosen="incomeAccountOptions"
@@ -1025,7 +1092,8 @@
 	</div>
 	<div class="form-group">
 	    <label class="control-label col-sm-2">{{ 'label.input.incomefrompenalties' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.incomefrompenalties' | translate}}"></i>
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.incomefrompenalties' | translate}}"></i>
+
 	    <div class="col-sm-3">
 	        <select id="incomeFromPenaltyAccountId" ng-model="formData.incomeFromPenaltyAccountId"
 	                chosen="incomeAccountOptions"
@@ -1034,7 +1102,8 @@
 	        </select>
 	    </div>
 	    <label class="control-label col-sm-2">{{ 'label.input.recoverypayments' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.recoverypayments' | translate}}"></i></a>
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.recoverypayments' | translate}}"></i></a>
+
 	    <div class="col-sm-3">
 	        <select id="incomeFromRecoveryAccountId" ng-model="formData.incomeFromRecoveryAccountId"
 	                chosen="incomeAccountOptions"
@@ -1047,7 +1116,7 @@
 	<div class="form-group">
 	    <h4>{{"label.heading.expenses" | translate}}</h4>
 	    <label class="control-label col-sm-2">{{ 'label.input.loseswrittenoff' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.loseswrittenoff' | translate}}"></i>
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.loseswrittenoff' | translate}}"></i>
 	    <div class="col-sm-3">
 	        <select id="writeOffAccountId" ng-model="formData.writeOffAccountId" chosen="expenseAccountOptions"
 	                ng-options="expenseAccount.id as expenseAccount.name for expenseAccount in expenseAccountOptions"
@@ -1059,7 +1128,8 @@
 	<div class="form-group">
 	    <h4>{{"label.heading.liabilities" | translate}}</h4>
 	    <label class="control-label col-sm-2">{{ 'label.input.overpaymentliability' | translate }}</label>
-	    <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.overpaymentliability' | translate}}"></i>
+	    <i class="fa fa-question-circle col-sm-1 " uib-tooltip="{{'label.tooltip.overpaymentliability' | translate}}"></i>
+
 	    <div class="col-sm-3">
 	        <select id="overpaymentLiabilityAccountId" ng-model="formData.overpaymentLiabilityAccountId"
 	                chosen="liabilityAccountOptions"
@@ -1103,7 +1173,7 @@
 	            </td>
 	            <td></td>
 	            <td class="width30">
-	                <a ng-click="deleteFund($index)"><i class="icon-remove icon-white"></i></a>
+	                <a ng-click="deleteFund($index)"><i class="fa fa-remove "></i></a>
 	            </td>
 	        </tr>
 	    </table>
@@ -1138,7 +1208,7 @@
                 </td>
 	            <td></td>
 	            <td class="width30">
-	                <a ng-click="deleteFee($index)"><i class="icon-remove icon-white"></i></a>
+	                <a ng-click="deleteFee($index)"><i class="fa fa-remove "></i></a>
 	            </td>
 	        </tr>
 	    </table>
@@ -1173,7 +1243,7 @@
 	                </select>
 	            </td>
 	            <td></td>
-	            <td class="width30"><a ng-click="deletePenalty($index)"><i class="icon-remove"></i></a></td>
+	            <td class="width30"><a ng-click="deletePenalty($index)"><i class="fa fa-remove"></i></a></td>
 	        </tr>
 	    </table>
 	</div>

@@ -9,7 +9,7 @@
 
             /* -----Throws error on test-----
              if (!scope.searchCriteria.users) {
-             scope.searchCriteria.users = null;
+             scope.searchCriteria.users = '';
              scope.saveSC();
              }
              scope.filterText = scope.searchCriteria.users;

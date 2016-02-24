@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+        EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -15,6 +15,7 @@
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
             scope.deletedincentives = [];
+            scope.isPrimaryGroupingByAmount = false;
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -57,13 +58,14 @@
                     isMandatoryDeposit:data.isMandatoryDeposit,
                     allowWithdrawal:data.allowWithdrawal,
                     adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments,
-                    minBalanceForInterestCalculation:data.minBalanceForInterestCalculation
+                    minBalanceForInterestCalculation:data.minBalanceForInterestCalculation,
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
                 }
 
+                if(data.withHoldTax){
+                    scope.formData.taxGroupId = data.taxGroup.id;
+                }
                 scope.chart = scope.product.activeChart;
-                scope.chart.chartSlabs = _.sortBy(scope.chart.chartSlabs, function (obj) {
-                    return obj.fromPeriod
-                });
 
                 _.each(scope.chart.chartSlabs, function (chartSlab) {
                     _.each(chartSlab.incentives, function (incentive){
@@ -79,6 +81,7 @@
                     var endDate = dateFilter(scope.chart.endDate, scope.df);
                     scope.endDate.date = new Date(endDate);
                 }
+                scope.isPrimaryGroupingByAmount = scope.chart.isPrimaryGroupingByAmount;
 
                 if (data.lockinPeriodFrequencyType) {
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
@@ -260,16 +263,37 @@
                 var fromPeriod = '';
                 var amountRangeFrom = '';
                 var periodType = '';
+                var toPeriod = '';
+                var amountRangeTo = '';
                 if (_.isNull(scope.chart.chartSlabs) || _.isUndefined(scope.chart.chartSlabs)) {
                     scope.chart.chartSlabs = [];
                 } else {
                     var lastChartSlab = {};
                     if (scope.chart.chartSlabs.length > 0) {
                         lastChartSlab = angular.copy(scope.chart.chartSlabs[scope.chart.chartSlabs.length - 1]);
+                    }else{
+                        lastChartSlab = null;
                     }
                     if (!(_.isNull(lastChartSlab) || _.isUndefined(lastChartSlab))) {
-                        fromPeriod = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.toPeriod) + 1;
-                        amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.amountRangeTo) + 1;
+                        if(scope.isPrimaryGroupingByAmount){
+                            if((_.isNull(lastChartSlab.toPeriod) || _.isUndefined(lastChartSlab.toPeriod) || lastChartSlab.toPeriod.length == 0)){
+                                amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.amountRangeTo) + 1;
+                                fromPeriod = (_.isNull(lastChartSlab.fromPeriod) || _.isUndefined(lastChartSlab.fromPeriod) || lastChartSlab.fromPeriod.length == 0)? '' : 1;
+                            }else{
+                                amountRangeFrom = lastChartSlab.amountRangeFrom;
+                                amountRangeTo = lastChartSlab.amountRangeTo;
+                                fromPeriod = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.toPeriod) + 1;
+                            }
+                        }else{
+                            if((_.isNull(lastChartSlab.amountRangeTo) || _.isUndefined(lastChartSlab.amountRangeTo) || lastChartSlab.amountRangeTo.length == 0)){
+                                amountRangeFrom = (_.isNull(lastChartSlab.amountRangeFrom) || _.isUndefined(lastChartSlab.amountRangeFrom) || lastChartSlab.amountRangeFrom.length == 0) ? '' : 1;
+                                fromPeriod = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.toPeriod) + 1;
+                            }else{
+                                fromPeriod = lastChartSlab.fromPeriod;
+                                toPeriod = lastChartSlab.toPeriod;
+                                amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.amountRangeTo) + 1;
+                            }
+                        }
                         periodType = angular.copy(lastChartSlab.periodType);
                     }
                 }
@@ -281,7 +305,12 @@
                     "amountRangeFrom": amountRangeFrom,
                     "incentives":[]
                 };
-
+                if(!_.isUndefined(toPeriod) && toPeriod.length > 0){
+                    chartSlab.toPeriod = toPeriod;
+                }
+                if(!_.isUndefined(amountRangeTo) && amountRangeTo.length > 0){
+                    chartSlab.amountRangeTo = amountRangeTo;
+                }
                 scope.chart.chartSlabs.push(chartSlab);
             }
 
@@ -297,6 +326,7 @@
                     //description: scope.chart.description,
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
+                    isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
                     //savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
@@ -336,7 +366,6 @@
                 var newChartSlabData = {
                     id: chartSlab.id,
                     description: chartSlab.description,
-                    periodType: chartSlab.periodType.id,
                     fromPeriod: chartSlab.fromPeriod,
                     toPeriod: chartSlab.toPeriod,
                     amountRangeFrom: chartSlab.amountRangeFrom,
@@ -344,6 +373,9 @@
                     annualInterestRate: chartSlab.annualInterestRate,
                     locale: scope.optlang.code,
                     incentives:angular.copy(copyIncentives(chartSlab.incentives,chartSlab.id))
+                }
+                if(chartSlab.periodType != undefined) {
+                    newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
                 //remove empty values
@@ -380,7 +412,7 @@
                 scope.chart.chartSlabs.splice(index, 1);
             }
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -438,11 +470,11 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -477,7 +509,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {
         $log.info("EditRecurringDepositProductController initialized");
     });
 }(mifosX.controllers || {}));

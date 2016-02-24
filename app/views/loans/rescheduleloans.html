@@ -1,42 +1,14 @@
-<div ng-controller="RescheduleLoansRequestController">
-    <div>
+<div class="content-container" ng-controller="RescheduleLoansRequestController">
         <ul class="breadcrumb">
             <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li class="active">{{'label.anchor.rescheduleLoan' | translate}}</li>
         </ul>
-    </div>
-    <form name="createloanrescheduleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
-        <api-validate></api-validate>
-        <fieldset>
-            <legend>{{'label.heading.rescheduleloan' | translate}}</legend>
-            <div class="form-group">
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.installmentOn' | translate}}<span class="required">*</span></label>
-
-                <div class="col-sm-3">
-                    <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.rescheduleloan' | translate}}</h4>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.rescheduleReasonId' | translate}}<span class="required">*</span></label>
 
-                <div class="col-sm-3 paddedbottom10 paddedtop">
-                    <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
-                            ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
-                            ng-model="formData.rescheduleReasonId" >
-                        <option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
-                <div class="col-sm-3 paddedbottom10 paddedtop">
-
-                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-                </div>
-            </div>
             <div class="form-group">
 
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{ 'label.input.comments' | translate }}</label>
@@ -106,12 +78,12 @@
                            ng-model="formData.newInterestRate"></div>
             </div>
 
-            <input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
+            <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
                 class="control-label">{{ 'label.input.recalculateInterest' +
                     '' | translate }}&nbsp;</span>
 
             <br>
-            <br>
+            <br>-->
             <div align="center">
 
                 <button type="button" data-ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
@@ -124,6 +96,8 @@
 
         </fieldset>
     </form>
+        </div>
+    </div>
 </div>
 
 

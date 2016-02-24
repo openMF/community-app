@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -56,6 +56,7 @@
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
+                    scope.formData.withHoldTax = data.withHoldTax;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -68,9 +69,6 @@
 
                     scope.chart = data.accountChart;
                     scope.chartSlabs = scope.chart.chartSlabs;
-                    scope.chart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                        return obj.fromPeriod
-                    });
                     //format chart date values
                     if (scope.chart.fromDate) {
                         var fromDate = dateFilter(scope.chart.fromDate, scope.df);
@@ -227,6 +225,7 @@
                     description: scope.chart.description,
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
+                    isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
                     //savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
@@ -267,7 +266,6 @@
                 var newChartSlabData = {
                     id: chartSlab.id,
                     description: chartSlab.description,
-                    periodType: chartSlab.periodType.id,
                     fromPeriod: chartSlab.fromPeriod,
                     toPeriod: chartSlab.toPeriod,
                     amountRangeFrom: chartSlab.amountRangeFrom,
@@ -276,7 +274,9 @@
                     locale: scope.optlang.code,
                     incentives:angular.copy(copyIncentives(chartSlab.incentives))
                 }
-
+                if(chartSlab.periodType != undefined) {
+                    newChartSlabData.periodType = chartSlab.periodType.id;
+                }
                 //remove empty values
                 _.each(newChartSlabData, function (v, k) {
                     if (!v && v != 0)
@@ -306,7 +306,7 @@
                 scope.chart.chartSlabs.splice(index, 1);
             }
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -353,7 +353,7 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 _.each($scope.chartSlab.incentives, function (incentive) {
@@ -362,7 +362,7 @@
                     }
                 });
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -388,7 +388,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
         $log.info("CreateFixedDepositAccountController initialized");
     });
 }(mifosX.controllers || {}));

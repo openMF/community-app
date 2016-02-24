@@ -10,7 +10,7 @@ Travis
 
 ## Online Demo
 
-<a target="_blank" href="https://demo.openmf.org/beta">Access the online demo version here</a>
+<a target="_blank" href="https://demo.openmf.org">Access the online demo version here</a>
 
 
 ## Building from source
@@ -113,6 +113,11 @@ grunt serve
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.
+
+## Getting Started doc
+
+https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/edit#heading=h.vhgp8hu9moqn
+
 
 ## Contribution guidelines
 
