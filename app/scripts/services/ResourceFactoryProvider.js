@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         ResourceFactoryProvider: function () {
-            var baseUrl = "" , apiVer = "/mifosng-provider/api/v1", tenantIdentifier = "";
+            var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
             };
@@ -541,8 +541,19 @@
 
                     provisioningcategory: defineResource(apiVer + "/provisioningcategory", {}, {
                         getAll: {method: 'GET', params: {}, isArray : true}
-                    })
+                    }),
 
+                    floatingrates: defineResource(apiVer + "/floatingrates/:floatingRateId",{floatingRateId:'@floatingRateId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}, isArray : true},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    variableinstallments: defineResource(apiVer + "/loans/:loanId/schedule",{loanId:'@loanId'},{
+                        validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
+                        addVariations:{method:'POST',params:{command: 'addVariations'}},
+                        deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    })
                 };
             }];
         }

@@ -10,7 +10,7 @@
             resourceFactory.provisioningcriteria.get({criteriaId: routeParams.criteriaId, template:'true'}, function (data) {
                 scope.selectedloanproducts = data.selectedLoanProducts;
                 scope.allloanproducts = data.loanProducts ;
-                scope.categories = data.definitions;
+                scope.definitions = data.definitions;
                 scope.criteriaName = data.criteriaName;
                 scope.criteriaId = data.criteriaId;
                 scope.liabilityaccounts = data.glAccounts;
@@ -52,7 +52,7 @@
                 this.formData.criteriaId = scope.criteriaId ;
                 this.formData.criteriaName = scope.criteriaName ;
                 this.formData.loanProducts = scope.selectedloanproducts ;
-                this.formData.provisioningcriteria = scope.categories;
+                this.formData.definitions = scope.definitions;
                 resourceFactory.provisioningcriteria.put({criteriaId: routeParams.criteriaId}, this.formData, function (data) {
                     location.path('/viewprovisioningcriteria/' + data.resourceId);
                 });

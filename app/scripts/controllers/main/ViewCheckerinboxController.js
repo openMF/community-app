@@ -11,7 +11,7 @@
                     scope.jsondata.push({name: key, property: value});
                 });
             });
-            scope.approveOrRejectChecker = function (action) {
+            scope.checkerApprove = function (action) {
                 $modal.open({
                     templateUrl: 'approve.html',
                     controller: ApproveCtrl,
@@ -34,6 +34,28 @@
                 };
             };
 
+			scope.checkerReject = function (action) {
+                $modal.open({
+                    templateUrl: 'reject.html',
+                    controller: RejectCtrl,
+                    resolve: {
+                        action: function () {
+                            return action;
+                        }
+                    }
+                });
+            };
+			var RejectCtrl = function ($scope, $modalInstance, action) {
+                $scope.approve = function () {
+                    resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
+                        $modalInstance.close('reject');
+                        location.path('/checkeractionperformed');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
             scope.checkerDelete = function () {
                 $modal.open({
                     templateUrl: 'delete.html',
@@ -57,5 +79,3 @@
         $log.info("ViewCheckerinboxController initialized");
     });
 }(mifosX.controllers || {}));
-
-

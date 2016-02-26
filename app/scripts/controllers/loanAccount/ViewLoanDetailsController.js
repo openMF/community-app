@@ -117,6 +117,9 @@
                     case "reschedule":
                         location.path('/loans/' +accountId + '/reschedule');
                         break;
+                    case "adjustrepaymentschedule":
+                        location.path('/adjustrepaymentschedule/'+accountId) ;
+                        break ;
                 }
             };
 
@@ -147,6 +150,7 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
                 scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
@@ -171,7 +175,6 @@
                 else {
                     scope.chargeTableShow = false;
                 }
-
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
@@ -230,6 +233,12 @@
                         ]
 
                     };
+                    if(data.isVariableInstallmentsAllowed) {
+                        scope.buttons.options.push({
+                            name: "button.adjustrepaymentschedule",
+                            taskPermissionName: 'ADJUST_REPAYMENT_SCHEDULE'
+                        }) ;
+                    }
                 }
 
                 if (data.status.value == "Approved") {
@@ -510,7 +519,7 @@
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
-                
+
             };
 
             scope.viewloantransactionreceipts = function (transactionId) {
@@ -534,16 +543,16 @@
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
-             scope.viewloantransactionjournalentries = function(transactionId){
+            scope.viewloantransactionjournalentries = function(transactionId){
                 var transactionId = "L" + transactionId;
-                 if(scope.loandetails.clientId != null && scope.loandetails.clientId != ""){
-                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,
-                         accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
-                 }else{
-                     location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,accountNo: scope.loandetails.accountNo,
-                         groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name});
+                if(scope.loandetails.clientId != null && scope.loandetails.clientId != ""){
+                    location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,clientId: scope.loandetails.clientId,
+                        accountNo: scope.loandetails.accountNo,clientName: scope.loandetails.clientName});
+                }else{
+                    location.path('/viewtransactions/' + transactionId).search({productName: scope.loandetails.loanProductName,loanId:scope.loandetails.id,accountNo: scope.loandetails.accountNo,
+                        groupId :scope.loandetails.group.id,groupName :scope.loandetails.group.name});
 
-                 }
+                }
 
             };
 
@@ -567,11 +576,11 @@
             scope.downloadDocument = function (documentId) {
 
             };
-            
+
             scope.transactionSort = {
                 column: 'date',
                 descending: true
-            };    
+            };
             scope.changeTransactionSort = function(column) {
                 var sort = scope.transactionSort;
                 if (sort.column == column) {
@@ -597,11 +606,11 @@
                 return true;
             };
             scope.showDisbursedAmountBasedOnStatus = function(){
-              if(scope.status == 'Submitted and pending approval' ||scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected' ||
-                scope.status == 'Approved'){
-                  return false;
-              }
-              return true;
+                if(scope.status == 'Submitted and pending approval' ||scope.status == 'Withdrawn by applicant' || scope.status == 'Rejected' ||
+                    scope.status == 'Approved'){
+                    return false;
+                }
+                return true;
             };
 
             scope.checkStatus = function(){

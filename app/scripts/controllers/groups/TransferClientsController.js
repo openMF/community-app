@@ -7,6 +7,7 @@
             scope.selectedMembers = [];
             scope.formData = {};
             scope.destinationGroup = "";
+            scope.groupId = routeParams.id;
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
                 scope.data = data;

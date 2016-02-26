@@ -126,6 +126,7 @@
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
+                scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
                 scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
                 scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
@@ -150,7 +151,8 @@
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
                     scope.date.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
                 }
-
+                scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
+                scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
             }
 
             scope.addCharge = function () {
@@ -226,7 +228,7 @@
                     for (var i in scope.collaterals) {
                         scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
                     }
-                    ;
+                    
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
@@ -234,7 +236,6 @@
                     scope.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
-
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
@@ -242,7 +243,10 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
-
+                if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
+                    delete this.formData.interestRateDifferential ;
+                    delete this.formData.isFloatingInterestRate ;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -283,7 +287,10 @@
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
-
+                if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
+                    delete this.formData.interestRateDifferential ;
+                    delete this.formData.isFloatingInterestRate ;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
@@ -299,6 +306,9 @@
                 if (scope.date.recalculationCompoundingFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
                     scope.formData.recalculationCompoundingFrequencyDate = restFrequencyDate;
+                }
+                if(this.formData.interestCalculationPeriodType == 0){
+                    this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);

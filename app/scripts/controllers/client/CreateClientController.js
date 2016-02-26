@@ -8,10 +8,13 @@
             scope.first.date = new Date();
             scope.first.submitondate = new Date ();
             scope.formData = {};
+            scope.clientNonPersonDetails = {};
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
             scope.forceOffice = null;
+            scope.showNonPersonOptions = false;
+            scope.clientPersonId = 1;
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -28,6 +31,9 @@
                 scope.genderOptions = data.genderOptions;
                 scope.clienttypeOptions = data.clientTypeOptions;
                 scope.clientClassificationOptions = data.clientClassificationOptions;
+                scope.clientNonPersonConstitutionOptions = data.clientNonPersonConstitutionOptions;
+                scope.clientNonPersonMainBusinessLineOptions = data.clientNonPersonMainBusinessLineOptions;
+                scope.clientLegalFormOptions = data.clientLegalFormOptions;
                 if (data.savingProductOptions.length > 0) {
                     scope.showSavingOptions = true;
                 }
@@ -54,6 +60,14 @@
                     }
                 }
             });
+
+            scope.displayPersonOrNonPersonOptions = function (legalFormId) {
+                if(legalFormId == scope.clientPersonId || legalFormId == null) {
+                    scope.showNonPersonOptions = false;
+                }else {
+                    scope.showNonPersonOptions = true;
+                }
+            };
 
             scope.changeOffice = function (officeId) {
                 resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: officeId
@@ -101,6 +115,12 @@
 
                 if (scope.first.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
+                }
+
+                if(scope.first.incorpValidityTillDate) {
+                    this.formData.clientNonPersonDetails.locale = scope.optlang.code;
+                    this.formData.clientNonPersonDetails.dateFormat = scope.df;
+                    this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.first.incorpValidityTillDate, scope.df);
                 }
 
                 if (!scope.opensavingsproduct) {

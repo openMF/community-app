@@ -167,7 +167,7 @@
                                 <td>{{'label.heading.amortization' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
                             </tr>
-                            <tr>
+                            <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interest' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}</span>
                                 </td>
@@ -205,6 +205,12 @@
                                     translate}}
                                 </td>
                                 <td><span class="padded-td">{{loandetails.interestCalculationPeriodType.value}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.allowpartialperiodinterestcalcualtion' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{loandetails.allowPartialPeriodInterestCalcualtion}}</span></td>
                             </tr>
                             <tr>
                                 <td>{{'label.heading.interesttype' | translate}}</td>
@@ -260,6 +266,17 @@
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
                                 <td>{{ 'label.input.frequency.for.compounding' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingCalendarData.humanReadable}}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isVariableInstallmentsAllowed">
+                                <td>{{ 'label.input.variable.installments.allowed' | translate }}</td>
+                                <td><span class="padded-td">{{loandetails.isVariableInstallmentsAllowed}}</span></td>
+                            </tr>
+
+                            <tr data-ng-show="loandetails.isVariableInstallmentsAllowed">
+                                <td>{{'label.input.variable.installments.gap' | translate}}</td>
+                                <td colspan="3">(Min:{{loandetails.minimumGap}}&nbsp;{{'label.input.days' | translate }} &nbsp;, Max:{{loandetails.maximumGap}}&nbsp;{{'label.input.days' | translate }})
+                                </td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -688,6 +705,19 @@
                                 <td>{{charge.chargeCalculationType.value}}</td>
                                 <td>{{charge.amount | number}}</td>
                                 <td>{{charge.chargeTimeType.value}}</td>
+                            </tr>
+                        </table>
+                    </tab>
+
+                    <tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.fromdate' | translate}}</th>
+                                <th>{{'label.heading.interestrate' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="period in loandetails.interestRatesPeriods">
+                                <td>{{period.fromDate}}</td>
+                                <td>{{period.effectiveInterestRate}}</td>
                             </tr>
                         </table>
                     </tab>
