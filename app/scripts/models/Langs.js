@@ -2,6 +2,7 @@
     mifosX.models = _.extend(module, {
         Langs: [
             {"name": "English", "code": "en"},
+            {"name": "English (India)", "code": "en_IN"},
             {"name": "Français", "code": "fr"},
             {"name": "Español", "code": "es"},
             {"name": "Português", "code": "pt"},
