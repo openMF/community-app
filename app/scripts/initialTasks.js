@@ -8,21 +8,16 @@
         //accessing from openmf server
         if (mainLink.hostname.indexOf('confluxcloud.com') >= 0) {
             var hostname = window.location.hostname;
-            console.log('hostname---' + hostname);
             domains = hostname.split('.');
-            console.log('domains---' + domains);
             // For multi tenant hosting
             if (domains[0] == "demo") {
                 $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
                 ResourceFactoryProvider.setTenantIdenetifier('default');
-                console.log("demo server", domains[0]);
             } else {
                 $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = domains[0];
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
-                console.log("other than demo server", domains[0]);
             }
             host = "https://" + mainLink.hostname;
-            console.log('hostname from mainLink = ', host);
         }
         //accessing from a file system or other servers
         else {
@@ -42,7 +37,7 @@
             if (QueryParameters["tenantIdentifier"]) {
                 $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = QueryParameters["tenantIdentifier"];
                 ResourceFactoryProvider.setTenantIdenetifier(QueryParameters["tenantIdentifier"]);
-            }
+	        }
         }
 
         ResourceFactoryProvider.setBaseUrl(host);
@@ -68,6 +63,9 @@
 
         $translateProvider.preferredLanguage('en');
         $translateProvider.fallbackLanguage('en');
+        //configure the specified tenantId
+        $translateProvider.preferredTenant(ResourceFactoryProvider.getTenantIdentifier());
+
         //Timeout settings.
         $idleProvider.idleDuration(IDLE_DURATION); //Idle time 
         $idleProvider.warningDuration(WARN_DURATION); //warning time(sec)
