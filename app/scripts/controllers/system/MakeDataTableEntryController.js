@@ -8,6 +8,12 @@
             scope.formData = {};
             scope.formDat = {};
             scope.tf = "HH:mm";
+            scope.showSelect = true;
+            scope.villageName;
+
+            if(scope.tableName =='Address' && scope.fromEntity == 'client'){
+                scope.showSelect=false;
+            }
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
                 var colName = data.columnHeaders[0].columnName;
@@ -29,6 +35,31 @@
                 scope.columnHeaders = data.columnHeaders;
 
             });
+
+            // this function fetch all data of particular village id and assign new value to column name of address table
+
+            scope.changeVillage = function(id) {
+                scope.villageId = id.id;
+                scope.villageName = id.value;
+
+                if (scope.tableName == "Address" && scope.fromEntity == "client") {
+                    resourceFactory.villageResource.get({villageId: scope.villageId}, function (data) {
+                        scope.villageData = data;
+                        for (var i in scope.columnHeaders) {
+                            if (scope.columnHeaders [i].columnName == "Taluk") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.taluk;
+                            } else if (scope.columnHeaders[i].columnName == "District") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.district;
+                            } else if (scope.columnHeaders[i].columnName == "State") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.state;
+                            } else if (scope.columnHeaders[i].columnName == "Pincode") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.pincode;
+                            }
+
+                        }
+                    });
+                }
+            }
 
             //return input type
             scope.fieldType = function (type) {
@@ -74,6 +105,13 @@
                 };
             };
             scope.submit = function () {
+                if(scope.showSelect==false){
+                    for(var i in scope.columnHeaders){
+                        if(scope.columnHeaders [i].columnName == "Village Name"){
+                            this.formData[scope.columnHeaders[i].columnName] = scope.villageName;
+                        }
+                    }
+                }
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();

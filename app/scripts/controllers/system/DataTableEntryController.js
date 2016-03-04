@@ -16,6 +16,14 @@
             scope.formData = {};
             scope.isViewMode = true;
             scope.tf = "HH:mm";
+
+            scope.showSelect = true; //
+            scope.villageName;
+
+            if(routeParams.tableName =="Address"){
+                scope.showSelect=false;
+            }
+
             if(routeParams.mode && routeParams.mode == 'edit'){
                 scope.isViewMode = false;
             }
@@ -35,7 +43,7 @@
                                     data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
                                 }
                             } else if(data.columnHeaders[i].columnDisplayType=='CODEVALUE'){
-                                if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].value) {
+                                if (data.data[0].row[i] == data.columnHeaders[i].columnValues[j].id) {
                                     data.columnHeaders[i].value = data.columnHeaders[i].columnValues[j].value;
                                 }
                             }
@@ -49,6 +57,32 @@
                     scope.editDatatableEntry();
                 }
             });
+
+
+            // this function fetch all data of particular village id and assign new value to column name of address table
+
+            scope.changeVillage = function(id) {
+                scope.villageId = id.id;
+                scope.villageName = id.value;
+                if (scope.tableName == "Address") {
+                    resourceFactory.villageResource.get({villageId: scope.villageId}, function (data) {
+                        scope.villageData = data;
+                        for (var i in scope.columnHeaders) {
+                            if (scope.columnHeaders [i].columnName == "Taluk") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.taluk;
+                            } else if (scope.columnHeaders[i].columnName == "District") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.district;
+                            } else if (scope.columnHeaders[i].columnName == "State") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.state;
+                            } else if (scope.columnHeaders[i].columnName == "Pincode") {
+                                scope.formData[scope.columnHeaders[i].columnName] = data.pincode;
+                            }
+
+                        }
+                    });
+                }
+            };
+
 
             //return input type
             scope.fieldType = function (type) {
@@ -163,6 +197,13 @@
             };
 
             scope.submit = function () {
+                if(scope.showSelect==false){
+                    for(var i in scope.columnHeaders){
+                        if(scope.columnHeaders [i].columnName == "Village Name"){
+                            this.formData[scope.columnHeaders[i].columnName] = scope.villageName;
+                        }
+                    }
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.dateTimeFormat();
                 for (var i = 0; i < scope.columnHeaders.length; i++) {
