@@ -562,6 +562,7 @@
                     }
                 }
 
+                this.this.formData.id = scope.loandetails.id;
                 if (scope.loandetails.fixedEmiAmount != '') {
                     this.formData.fixedEmiAmount = scope.loandetails.fixedEmiAmount;
                 }
@@ -604,6 +605,7 @@
                 if(scope.report == false){
                     resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                         scope.repaymentscheduleinfo = data;
+
                         scope.repaymentData = [];
                         scope.disbursedData = [];
                         for(var i in scope.repaymentscheduleinfo.periods) {
