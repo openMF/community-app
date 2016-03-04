@@ -3,6 +3,7 @@
         CreateCenterController: function (scope, resourceFactory, location, dateFilter) {
             scope.offices = [];
             scope.staffs = [];
+            scope.villages = [];
             scope.data = {};
             scope.first = {};
             scope.first.submitondate = new Date ();
@@ -11,6 +12,9 @@
             scope.first.date = new Date();
             scope.addedGroups = [];
             scope.isHiddenVillageOption = true;
+            scope.villageCount = {};
+            scope.count = "";
+
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
                 scope.villageCount = data.villageCounter;
