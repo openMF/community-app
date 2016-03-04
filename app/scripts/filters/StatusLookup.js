@@ -28,7 +28,11 @@
                     "groupingStatusType.active": "statusactive",
                     "groupingStatusType.pending": "statuspending",
                     "groupingStatusType.submitted.and.pending.approval": "statuspending",
-                    "groupingStatusType.approved": "statusApproved"
+                    "groupingStatusType.approved": "statusApproved",
+                    "VillageStatusType.active": "statusactive",
+                    "VillageStatusType.pending": "statuspending",
+                    "VillageStatusType.submitted.and.pending.approval": "statuspending",
+                    "VillageStatusType.approved": "statusApproved"
                 }
 
                 return cssClassNameLookup[input];

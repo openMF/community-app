@@ -1,0 +1,129 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/villages">{{'label.anchor.villages' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createvillage' | translate}}</li>
+    </ul>
+    <form name="createvillageform" novalidate="" class="form-horizontal well" ng-controller="CreateVillageController"
+          rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createvillage' | translate}}</legend>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select chosen="offices" id="officeId" ng-model="formData.officeId"
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                            ng-change="changeOffice()" class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.village' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="villageName" name = "villageName" ng-model="formData.villageName" class="form-control"
+                           required late-Validate />
+
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createvillageform" valattribute="villageName"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.villageCode' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="villageCode" ng-model="formData.villageCode" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.taluk' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="taluk" name = "taluk" ng-model="formData.taluk" class="form-control"
+                           required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createvillageform" valattribute="taluk"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.district' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="district" name = "district" ng-model="formData.district" class="form-control"
+                           required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createvillageform" valattribute="district"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.pincode' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="pincode" name="pincode" ng-model="formData.pincode" class="form-control"
+                           number-format required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createvillageform" valattribute="pincode"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.state' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="state" name="state" ng-model="formData.state" class="form-control"
+                           required late-Validate />
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createvillageform" valattribute="state"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input type="checkbox" id="active" data-ng-change="setChoice()" ng-model="formData.active" ng-disabled="response.uiDisplayConfigurations.createVillage.isReadOnlyField.active == true"
+                           ng-checked="response.uiDisplayConfigurations.createVillage.isReadOnlyField.active == true">
+                </div>
+                <div data-ng-switch on="choice">
+                    <div class="form-group" data-ng-switch-when="1">
+                        <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+                           ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 paddedleft">
+                <a id="cancel" href="#/villages" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_VILLAGE'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

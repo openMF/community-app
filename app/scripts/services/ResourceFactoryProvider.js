@@ -384,6 +384,15 @@
                     centerTemplateResource: defineResource(apiVer + "/centers/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    villageResource: defineResource(apiVer + "/villages/:villageId/:anotherresource", {villageId: '@villageId', anotherresource: '@anotherresource'}, {
+                        get: {method: 'GET', params: {}},
+                        getAllVillages: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', params: {}}
+
+                    }),
+                    villageTemplateResource: defineResource(apiVer + "/villages/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     jobsResource: defineResource(apiVer + "/jobs/:jobId/:resourceType", {jobId: '@jobId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         getJobDetails: {method: 'GET', params: {}},

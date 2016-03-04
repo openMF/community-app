@@ -1,0 +1,86 @@
+<div ng-controller="ViewVillageController" class="col-md-12">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewoffice/{{village.officeId}}">{{village.officeName}}</a></li>
+            <li><a href="#/villages">{{'label.anchor.villages' | translate}}</a></li>
+            <li>{{village.villageName}}</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <h3 class="client-title">
+                <i class="icon-circle {{village.status.code | StatusLookup}}"></i>
+                <i class="icon-map-marker"></i>
+                <strong>{{village.villageName}} </strong>
+                <small>
+                    <i class="icon-barcode"></i> {{ 'label.uniquelyidentifiedwithid' | translate }} {{village.villageId}} |
+                    <i class="icon-building"></i> {{ 'label.heading.office' | translate }} "{{village.officeName}}
+                </small>
+            </h3>
+        </div>
+    </div>
+    <api-validate></api-validate>
+    <script type="text/ng-template" id="deletevillage.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="col-md-12 well">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/editvillage/{{village.villageId}}?managecode=1" class="btn btn-primary" data-ng-hide="village.status.value=='Active'" has-permission='ACTIVATE_VILLAGE'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
+                    <a href="#/editvillage/{{village.villageId}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_VILLAGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                    <button class="btn btn-primary" ng-click="deleteVillage()" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+                </div>
+            </div>
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{ 'label.heading.villageCode' | translate }}</td>
+                    <td>{{village.villageCode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.externalid' | translate }}</td>
+                    <td>{{village.externalId}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.taluk' | translate }}</td>
+                    <td>{{village.taluk}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.district' | translate }}</td>
+                    <td>{{village.district}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.pincode' | translate }}</td>
+                    <td>{{village.pincode}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.state' | translate }}</td>
+                    <td>{{village.state}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.status' | translate }}</td>
+                    <td>{{village.status.value}}</td>
+                </tr>
+
+                <tr data-ng-hide="village.status.value=='Pending'" class="form-group">
+                    <td>{{ 'label.heading.activationDate' | translate }}</td>
+                    <td>{{village.timeline.activatedOnDate}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.submittedDate' | translate }}</td>
+                    <td>{{village.timeline.submittedOnDate}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+          

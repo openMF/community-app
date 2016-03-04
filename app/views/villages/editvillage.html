@@ -1,0 +1,120 @@
+<div ng-controller="EditVillageController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/villages">{{'label.anchor.villages' | translate}}</a></li>
+            <li><a href="#/viewvillage/{{villageId}}">{{'label.anchor.viewvillage' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editvillage' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div data-ng-switch on="managecode">
+        <form name="editvillageform" novalidate="" class="form-horizontal well" data-ng-switch-when="2">
+            <fieldset>
+                <legend>{{'label.heading.editvillage' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{edit.villageName}}"
+                               ng-model="formData.villageName" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editvillageform" valattribute="name"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="villageCode">{{'label.input.villageCode' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="villageCode" name="villageCode" placeholder="{{edit.villageCode}}"
+                               ng-model="formData.villageCode" class="form-control" required late-Validate/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="taluk">{{'label.input.taluk' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="taluk" name="taluk" placeholder="{{edit.taluk}}"
+                               ng-model="formData.taluk" class="form-control" required late-Validate/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="district">{{'label.input.district' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="district" name="district" placeholder="{{edit.district}}"
+                               ng-model="formData.district" class="form-control" required late-Validate/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="pincode" name="taluk" placeholder="{{edit.pincode}}"
+                               ng-model="formData.pincode" class="form-control" required late-Validate/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="state">{{'label.input.state' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="state" name="taluk" placeholder="{{edit.state}}"
+                               ng-model="formData.state" class="form-control" required late-Validate/>
+                    </div>
+                </div>
+
+                <div data-ng-hide="edit.status.value=='Pending'" class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                               is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-md-offset-2 paddedleft120">
+                    <a href="#/viewvillage/{{edit.villageId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button type="button" class="btn btn-primary" data-ng-click="updateVillage()" has-permission='UPDATE_VILLAGE'>{{'label.button.save' |
+                        translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+        <form ng-switch-when="1" class="form-horizontal well">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+                        class="required">*</span></label>
+                <!--<div class="col-sm-3">
+                    <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened" min="mindate" max="restrictDate"/>
+                </div>-->
+                <div class="col-sm-3">
+                    <input id="activatedOnDate" type="text" name="activatedOnDate" datepicker-pop="dd MMMM yyyy"
+                           ng-model="first.date" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-md-offset-2">
+                    <a id="cancel" href="#/viewvillage/{{edit.villageId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()" has-permission='ACTIVATE_CENTER'><i
+                            class="icon-check-sign icon-white"></i>{{ 'label.button.activate' | translate }}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
