@@ -17,6 +17,8 @@
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
 			scope.date.transactionDate = new Date();
+            scope.date.newtransactionDate = '';
+            scope.isHiddenNewTransactionDate = true;
             scope.paymentTypeOptions = [];
             var centerOrGroupResource = '';
             resourceFactory.officeResource.getAllOffices(function (data) {
@@ -31,6 +33,10 @@
                 scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
                 location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
             };
+
+            if(scope.response != undefined){
+                scope.isHiddenNewTransactionDate = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.newtransactionDate;
+            }
 
             scope.officeSelected = function (officeId) {
                 scope.officeId = officeId;
@@ -418,9 +424,14 @@
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
 
-                if (scope.date.transactionDate) {
+                if (scope.date.newtransactionDate) {
+                    scope.formData.transactionDate = dateFilter(scope.date.newtransactionDate, scope.df);
+                    scope.formData.isTransactionDateOnNonMeetingDate = true;
+                }else{
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
+                    scope.formData.isTransactionDateOnNonMeetingDate = false;
                 }
+
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
                 
                 _.each(scope.savingsgroups, function (group) {
