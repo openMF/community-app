@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditMeetingController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditMeetingController: function (scope, resourceFactory, location, routeParams, dateFilter, UIConfigService) {
             scope.formData = {};
+            UIConfigService.appendConfigToScope(scope);
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;
@@ -95,7 +96,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditMeetingController]).run(function ($log) {
+    mifosX.ng.application.controller('EditMeetingController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'UIConfigService', mifosX.controllers.EditMeetingController]).run(function ($log) {
         $log.info("EditMeetingController initialized");
     });
 }(mifosX.controllers || {}));
