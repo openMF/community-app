@@ -10,22 +10,53 @@
             scope.restrictDate = new Date();
             scope.first.date = new Date();
             scope.addedGroups = [];
+            scope.isHiddenVillageOption = true;
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
+                scope.villageCount = data.villageCounter;
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
+
+                if(scope.response != undefined && scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.active){
+                    scope.choice = 1;
+                }else{
+                    scope.choice = 0;
+                }
+
+            });
+
+            if(scope.response != undefined){
+                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
+            }
+
+            scope.$watch(scope.formData.officeId, function() {
+                scope.changeOffice();
             });
 
             scope.changeOffice = function () {
+                scope.formData.villageId = null;
+                scope.villageCount = null;
                 resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
+                });
+                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true}, function (data) {
+                    scope.villages = data.villageOptions;
                 });
                 resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
                     scope.groups = data.groupMembersOptions;
                 });
             };
+
+            scope.changeVillage = function () {
+                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId, villagesInSelectedOfficeOnly:true,
+                    villageId: scope.formData.villageId}, function (data) {
+                    scope.villageCount = data.villageCounter;
+                    scope.count = scope.villageCount.counter+1;
+                });
+            }
+
             scope.setChoice = function () {
                 if (this.formData.active) {
                     scope.choice = 1;
@@ -60,6 +91,10 @@
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activationDate = reqDate;
+                if(scope.response != undefined && !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions){
+                    this.formData.name = scope.villageCount.villageName +" "+ (scope.villageCount.counter+1);
+                }
+
 
                 if (scope.first.submitondate) {
                     reqDate = dateFilter(scope.first.submitondate, scope.df);
@@ -69,6 +104,10 @@
                 scope.formData.groupMembers = [];
                 for (var i in scope.addedGroups) {
                     scope.formData.groupMembers[i] = scope.addedGroups[i].id;
+                }
+
+                if(scope.response != undefined && scope.response.uiDisplayConfigurations.createCenter.isReadOnlyField.active){
+                    scope.formData.active = true;
                 }
 
                 this.formData.locale = scope.optlang.code;
