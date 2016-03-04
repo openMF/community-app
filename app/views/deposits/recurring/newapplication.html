@@ -254,23 +254,20 @@
         <td colspan="2">
             <table class="table table-bordered width100">
                 <tr class="graybg">
+                    <td ng-show="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-                    <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
+                    <td ng-hide="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.description' | translate}}</td>
                     <td>&nbsp;</td>
                 </tr>
 
                 <tr ng-repeat="chartSlab in chart.chartSlabs">
+                    <td ng-show="chart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
                     <td>{{chartSlab.periodType.value}}</td>
                     <td>{{chartSlab.fromPeriod}}-{{chartSlab.toPeriod}}</td>
-                    <!--<td>
-                        <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
-                               ng-model="chartSlab.amountRangeFrom" readonly/> -
-                        <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
-                               ng-model="chartSlab.amountRangeTo" readonly/>
-                    </td>-->
+                    <td ng-hide="chart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
                     <td>{{chartSlab.annualInterestRate}}</td>
                     <td>{{chartSlab.description}}</td>
                     <td>
