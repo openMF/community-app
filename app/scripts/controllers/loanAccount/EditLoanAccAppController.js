@@ -17,6 +17,14 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
 
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
+                    scope.$watch('formData.expectedDisbursementDate ', function(){
+                        if(scope.formData.expectedDisbursementDate != '' && scope.formData.expectedDisbursementDate != undefined){
+                            scope.formData.interestChargedFromDate = scope.formData.expectedDisbursementDate;
+                        }
+                    });
+                }
+
                 if (data.clientId) {
                     scope.clientId = data.clientId;
                     scope.clientName = data.clientName;
