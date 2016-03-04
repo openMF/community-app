@@ -9,6 +9,155 @@
     </div>
     <div>
         <div class="form-horizontal" ng-show="report">
+
+            <api-validate></api-validate>
+            <div id="print">
+
+                <h3 align="center">{{'label.heading.companyname' | translate}}</h3>
+                <h3 align="center">{{'label.heading.loanrepaymentschedule' | translate}}</h3>
+                <div id="branchName" align="center">
+                    <h3>{{loandetails.transactions[0].officeName}}</h3>
+                    <br>
+                </div>
+
+                <div id="table2" class="pull-right">
+                    <table id="table2" class="table width100">
+                        <tbody>
+                        <tr>
+                            <th>{{'label.heading.sanctiondate' | translate}}:</th>
+                            <td>{{loanApprovedDate}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.sanctionamount' | translate}}:</th>
+                            <td>{{loandetails.approvedPrincipal}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.disbursementdate' | translate}}:</th>
+                            <td>{{dueDate}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.disbursementammount' | translate}}:</th>
+                            <td>{{totalAmount}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.interesttype' | translate}}:</th>
+                            <td>{{loandetails.interestType.value}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.interestperannum' | translate}}:</th>
+                            <td>{{loandetails.interestRatePerPeriod}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div id="table1">
+                    <table id="table1" class="table width40" >
+                        <tbody>
+                        <tr>
+                            <th>{{'label.heading.reportdate' | translate}}:</th>
+                            <td>{{currentDate}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.customername' | translate}}:</th>
+                            <td>{{loandetails.clientName}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.customerid' | translate}}:</th>
+                            <td>{{loandetails.clientAccountNo}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.loanno' | translate}}:</th>
+                            <td>{{loandetails.accountNo}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.centername' | translate}}:</th>
+                            <td>{{loandetails.group.centerName}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.coname' | translate}}:</th>
+                            <td>{{loandetails.loanOfficerName}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>{{'label.heading.productname' | translate}}:</th>
+                            <td>{{loandetails.loanProductName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+                <div id="table3">
+                    <table class="table width100">
+                        <tbody>
+                        <tr>
+                            <th id="heading">{{'label.heading.serialno' | translate}}</th>
+                            <th id="heading">{{'label.heading.disbursaldate' | translate}}</th>
+                            <th id="heading">{{'label.heading.disbursedamount' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="disbursed in disbursedData">
+                            <td>{{$index+1}}</td>
+                            <td>{{disbursed.dueDate}}</td>
+                            <td>{{disbursed.principalDisbursed}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+                <div id="table4">
+                    <table class="table width100" ng-show="previewRepayment">
+                        <tbody>
+                        <tr>
+                            <th id="heading">{{'label.heading.serialno' | translate}}</th>
+                            <th id="heading" width="=150">{{'label.heading.date' | translate}}</th>
+                            <th id="heading">{{'label.heading.principaldue' | translate}}</th>
+                            <th id="heading">{{'label.heading.principalbalance' | translate}}</th>
+                            <th id="heading">{{'label.heading.interestdue' | translate}}</th>
+                            <th id="heading">{{'label.heading.due' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="period in repaymentData">
+                            <td>{{period.period}}</td>
+                            <td width="150">{{period.dueDate | DateFormat}}</td>
+                            <td>{{period.principalDue| number}}</td>
+                            <td>{{period.principalLoanBalanceOutstanding| number}}</td>
+                            <td>{{period.interestDue| number}}</td>
+                            <td>{{period.totalDueForPeriod| number}}</td>
+                        </tr>
+
+                        <br>
+                        <tr>
+                            <td id="heading" colspan="2">{{'label.heading.total' | translate}}</td>
+                            <td id="heading">{{repaymentscheduleinfo.totalPrincipalExpected| number}}</td>
+                            <td id="heading"></td>
+                            <td id="heading">{{repaymentscheduleinfo.totalInterestCharged| number}}</td>
+                            <td id="heading">{{repaymentscheduleinfo.totalRepaymentExpected| number}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button ng-click="printDiv('print');">Print Div</button>
+
+                <span><a ng-hide="report" ng-click="previewRepayment=!previewRepayment"><i class="icon-circle-arrow-left">{{'label.anchor.backtoloaninfo'
+                    | translate}}</i></a><br><br></span>
+
+            <div class="col-md-11 center" ng-show="previewRepayment">
+                <button ng-click="backToLoanDetails()" class="btn btn-default ng-binding">{{'label.button.back' | translate}} </button>
+            </div>
+
         	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
                          class="required">*</span></label>
@@ -399,6 +548,8 @@
                     </tab>
 
                     <tab heading="{{'label.heading.repaymentschedule' | translate}}">
+                        <button class="btn btn-primary pull-right" ng-show="checkStatus() && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"
+                                ng-click="viewRepaymentDetails()">{{'label.button.viewReport' | translate}}</button>
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>

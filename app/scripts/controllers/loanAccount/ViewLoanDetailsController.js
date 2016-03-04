@@ -479,6 +479,11 @@
                 scope.viewReport = false;
             };
 
+            scope.backToLoanDetails = function () {
+                scope.previewRepayment = "";
+                scope.report = false;
+            }
+
             scope.viewLoanCollateral = function (collateralId){
                 location.path('/loan/'+scope.loandetails.id+'/viewcollateral/'+collateralId).search({status:scope.loandetails.status.value});
             };
@@ -494,6 +499,128 @@
             scope.viewLoanChargeDetails = function (chargeId) {
                 location.path('/loan/'+scope.loandetails.id+'/viewcharge/'+chargeId).search({loanstatus:scope.loandetails.status.value});
             };
+
+            scope.viewRepaymentDetails = function() {
+
+                delete scope.formData.charges;
+                scope.formData.disbursementData = [];
+
+                scope.loanApprovedDate = new Date(scope.loandetails.timeline.approvedOnDate);
+                scope.loanApprovedDate = dateFilter(scope.loanApprovedDate, scope.df);
+
+                if (scope.loandetails.disbursementDetails) {
+                    for (var i in scope.loandetails.disbursementDetails) {
+                        scope.loandetails.disbursementDetails[i].actualDisbursementDate = dateFilter(scope.loandetails.disbursementDetails[i].actualDisbursementDate, scope.df);
+                        if (scope.loandetails.disbursementDetails[i].actualDisbursementDate) {
+                            scope.disbursedDate = new Date(scope.loandetails.disbursementDetails[i].actualDisbursementDate);
+                            scope.disbursedDate = dateFilter(scope.disbursedDate, scope.df)
+
+                            scope.formData.disbursementData.push({
+                                expectedDisbursementDate: scope.disbursedDate,
+                                principal: scope.loandetails.disbursementDetails[i].principal
+                            });
+                        }
+                    }
+                }
+
+                if (scope.loandetails.disbursementDetails != '') {
+                    scope.expectedDisbursement = new Date(scope.loandetails.disbursementDetails[0].actualDisbursementDate);
+                } else {
+                    scope.expectedDisbursement = new Date(scope.loandetails.timeline.actualDisbursementDate);
+                }
+
+                scope.formData.charges = [];
+                for (var i in scope.loandetails.charges) {
+                    if (scope.loandetails.charges[i].dueDate != null) {
+                        scope.chargeDueDate = new Date(scope.loandetails.charges[i].dueDate);
+                    }
+                    scope.formData.charges.push({
+                        chargeId: scope.loandetails.charges[i].chargeId, amount: scope.loandetails.charges[i].amount,
+                        dueDate: dateFilter(scope.chargeDueDate, scope.df)
+                    });
+                }
+
+                if (scope.loandetails.group) {
+                    if (scope.loandetails.group.id != '') {
+                        this.formData.groupId = scope.loandetails.group.id;
+                    }
+                }
+
+                if (scope.loandetails.fixedEmiAmount != '') {
+                    this.formData.fixedEmiAmount = scope.loandetails.fixedEmiAmount;
+                }
+
+                if (scope.loandetails.expectedFirstRepaymentOnDate) {
+                    scope.repaymentStartingFrom = new Date(scope.loandetails.expectedFirstRepaymentOnDate);
+                    this.formData.repaymentsStartingFromDate = dateFilter(scope.repaymentStartingFrom, scope.df);
+                }
+                if (scope.loandetails.interestChargedFromDate) {
+                    scope.intrestChargedOnDate = new Date(scope.loandetails.interestChargedFromDate);
+                    this.formData.interestChargedFromDate = dateFilter(scope.intrestChargedOnDate, scope.df);
+                }
+
+                if(scope.loandetails.interestRecalculationData != null && scope.loandetails.interestRecalculationData.calendarData) {
+                    this.formData.calendarId = scope.loandetails.interestRecalculationData.calendarData.id;
+                }
+                this.formData.syncDisbursementWithMeeting = scope.loandetails.syncDisbursementWithMeeting;
+
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.clientId = scope.loandetails.clientId;
+                this.formData.productId = scope.loandetails.loanProductId;
+                this.formData.principal = scope.loandetails.principal;
+                this.formData.loanTermFrequency = scope.loandetails.termFrequency;
+                this.formData.loanTermFrequencyType = scope.loandetails.termPeriodFrequencyType.id;
+                this.formData.numberOfRepayments = scope.loandetails.numberOfRepayments;
+                this.formData.repaymentEvery = scope.loandetails.repaymentEvery;
+                this.formData.repaymentFrequencyType = scope.loandetails.repaymentFrequencyType.id;
+                this.formData.interestRatePerPeriod = scope.loandetails.interestRatePerPeriod;
+                this.formData.amortizationType = scope.loandetails.amortizationType.id;
+                this.formData.interestType = scope.loandetails.interestType.id;
+                this.formData.interestCalculationPeriodType = scope.loandetails.interestCalculationPeriodType.id;
+                this.formData.transactionProcessingStrategyId = scope.loandetails.transactionProcessingStrategyId;
+                this.formData.maxOutstandingLoanBalance = scope.loandetails.repaymentSchedule.totalPrincipalExpected;
+                this.formData.loanType = angular.lowercase(scope.loandetails.loanType.value);
+                this.formData.expectedDisbursementDate = dateFilter(scope.expectedDisbursement, scope.df);
+                scope.submitteddate = new Date(scope.loandetails.timeline.submittedOnDate);
+                this.formData.submittedOnDate = dateFilter(scope.submitteddate, scope.df);
+
+                if(scope.report == false){
+                    resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
+                        scope.repaymentscheduleinfo = data;
+                        scope.repaymentData = [];
+                        scope.disbursedData = [];
+                        for(var i in scope.repaymentscheduleinfo.periods) {
+                            if(scope.repaymentscheduleinfo.periods[i].period) {
+                                scope.repaymentData.push(scope.repaymentscheduleinfo.periods[i]);
+                            } else {
+                                scope.disbursedData.push(scope.repaymentscheduleinfo.periods[i]);
+                            }
+                        }
+
+                        scope.totalAmount = 0;
+                        for(var i in scope.disbursedData) {
+                            scope.dueDate = new Date(scope.disbursedData[i].dueDate);
+                            scope.dueDate = dateFilter(scope.dueDate, scope.df);
+                            scope.disbursedData[i].dueDate = scope.dueDate;
+                            scope.totalAmount = scope.totalAmount + scope.disbursedData[i].principalDisbursed;
+                        }
+
+                    })
+                }
+                scope.previewRepayment = true;
+                scope.report = true;
+
+            }
+
+            scope.printDiv = function(print) {
+                var printContents = document.getElementById(print).innerHTML;
+                var popupWin = window.open('', '_blank', 'width=300,height=300');
+                popupWin.document.open();
+                popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
+                '</head><body onload="window.print()">' + printContents + '<br><br><table class="table"><tr><td width="210"><h4>Credit Officer</h4></td><td width="210"><h4>Branch Manager</h4></td><td><h4>Customer Signature</h4></td></tr></table></body></html>');
+                popupWin.document.close();
+            }
 
             scope.viewprintdetails = function () {
                 //scope.printbtn = true;
