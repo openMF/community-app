@@ -469,6 +469,62 @@
                     <td>{{charge.chargeTimeType.value}}</td>
                 </tr>
             </table>
+        </div><br><br>
+        <hr ng-show="pledges.length>0"/>
+        <div class="col-md-12" ng-show="pledges.length>0">
+            <label><strong>{{ 'label.view.collaterals' | translate }}</strong></label>
+            <br>
+            <div class="">
+                <label class="control-label col-sm-4">
+                    {{'label.input.collateralpledge' | translate}}
+                </label>
+                <div class="col-sm-4">
+                    <select chosen="pledges" id="pledgeId" ng-model="formData.pledgeId"  class="form-control"
+                            ng-options="pledge.id as pledge.pledgeNumber for pledge in pledges" value="{{pledge.id}}"
+                            ng-change="changePledge(formData.pledgeId)"  name="pledgeId">
+                        <option style="display:none" value="">{{'label.menu.selectpledge' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <br><br>
+            <div  class="">
+                <label class="control-label col-sm-4">{{ 'label.input.noofitems' | translate }}</label>
+                <div class="col-sm-4">: {{pledge.collateralDetailsData.length}}</div>
+            </div><br><br>
+            <div  class="">
+                <label class="control-label col-sm-4">{{ 'label.input.systemdefinedprice' | translate }}</label>
+                <div class="col-sm-4">: {{pledge.systemValue}}</div>
+            </div><br><br>
+            <div  class="">
+                <label class="control-label col-sm-4">{{ 'label.input.userdefinedprice' | translate }}</label>
+                <div class="col-sm-4">: {{pledge.userValue}}</div>
+            </div>
+            <br><br>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{ 'label.heading.itemtype' | translate }}</th>
+                    <th>{{ 'label.heading.itemsubtype' | translate }}</th>
+                    <th>{{ 'label.heading.description' | translate }}</th>
+                    <th>{{ 'label.heading.grossWeight' | translate }}</th>
+                    <th>{{ 'label.heading.netWeight' | translate }}</th>
+                    <th>{{ 'label.heading.systemprice' | translate }}</th>
+                    <th>{{ 'label.heading.userprice' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="pledgeData in pledge.collateralDetailsData">
+                    <td class="pointer" >{{pledgeData.collateralName}}</td>
+                    <td class="pointer" >{{pledgeData.name}}</td>
+                    <td class="pointer" >{{pledgeData.description}}</td>
+                    <td class="pointer" >{{pledgeData.grossWeight}}</td>
+                    <td class="pointer" >{{pledgeData.netWeight}}</td>
+                    <td class="pointer" >{{pledgeData.systemPrice}}</td>
+                    <td class="pointer" >{{pledgeData.userPrice}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
         <div class="col-md-12 paddedtop" ng-hide = "response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true">
             <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>

@@ -11,6 +11,9 @@
             scope.openSaving = true;
             scope.updateDefaultSavings = false;
             scope.charges = [];
+            scope.showClosedPledges = false;
+            scope.id = routeParams.id;
+            scope.pledges = [];
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -313,8 +316,10 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
                 scope.clientAccounts = data;
+                scope.pledges = scope.clientAccounts.pledges;
                 if (data.savingsAccounts) {
                     for (var i in data.savingsAccounts) {
                         if (data.savingsAccounts[i].status.value == "Active") {
@@ -594,6 +599,15 @@
                     $modalInstance.dismiss('cancel');
                 };
             }
+
+            scope.deletePledge = function(id){
+                resourceFactory.pledgeResource.delete({pledgeId: id}, function (data) {
+                    resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
+                        scope.pledges = data.pledges;
+                    });
+                });
+
+            };
 
         }
     });

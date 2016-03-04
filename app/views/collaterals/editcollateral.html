@@ -1,0 +1,71 @@
+<form name="editcollateralform" novalidate="" class="col-md-12 form-horizontal" ng-controller="EditCollateralController"
+      rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li ><a href="#/collaterals">{{'label.view.collaterals' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editcollateral' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="well">
+        <fieldset>
+            <legend>{{'label.heading.editcollateral' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{ 'label.input.name' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="name" name="name" ng-model="formData.name"  class="form-control" required
+                           late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcollateralform" valattribute="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="textarea">{{ 'label.input.description' | translate }}</label>
+                <div class="col-sm-3">
+                    <textarea rows="3" class="form-control" id="textarea" ng-model="formData.description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="typeclassifier">{{ 'label.input.collateraltypeclassifier' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                               value="1" required late-Validate>Presious Metal</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                               value="2" required late-Validate>Presious Stone</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                               value="3" required late-Validate>Other</label>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcollateralform" valattribute="typeclassifier"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="baseunitprice">{{ 'label.input.baseunitprice' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="baseunitprice" name="baseunitprice" ng-model="formData.baseUnitPrice"  class="form-control"
+                           number-format="number" required  late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcollateralform" valattribute="baseunitprice"/>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/collaterals" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_COLLATERALS'>{{'label.button.save' | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+        </fieldset>
+
+    </div>
+</form>

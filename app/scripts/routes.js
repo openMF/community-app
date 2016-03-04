@@ -826,6 +826,57 @@
             })
             .when('/editprovisioningcriteria/:criteriaId', {
                 templateUrl: 'views/organization/provisioning/EditProvisioningCriteria.html'
+            })
+            .when('/collaterals', {
+                templateUrl: 'views/collaterals/viewcollaterals.html'
+            })
+            .when('/createcollateral', {
+                templateUrl: 'views/collaterals/createcollateral.html'
+            })
+            .when('/editcollateral/:collateralId', {
+                templateUrl: 'views/collaterals/editcollateral.html'
+            })
+            .when('/viewcollateralqualitystandards/:collateralId', {
+                templateUrl: 'views/collaterals/viewcollateralqualitystandards.html'
+            })
+            .when('/editcollateralqualitystandards/:collateralId/:qualityStandardId', {
+                templateUrl: 'views/collaterals/editcollateralqualitystandards.html'
+            })
+            .when('/viewproductcollateralmapping/', {
+                templateUrl: 'views/collaterals/viewproductcollateralmappings.html'
+            })
+            .when('/createproductcollateralmapping/', {
+                templateUrl: 'views/collaterals/createproductcollateralmapping.html'
+            })
+            .when('/editproductcollateralmapping/:loanProductId/:productCollateralMappingId', {
+                templateUrl: 'views/collaterals/editproductcollateralmapping.html'
+            })
+            .when('/searchpledge', {
+                templateUrl: 'views/collaterals/searchpledge.html'
+            })
+            .when('/viewpledge/:pledgeId', {
+                templateUrl: 'views/collaterals/viewpledge.html'
+            })
+            .when('/collateralvaluecalculator', {
+                templateUrl: 'views/collaterals/collateralvaluecalculator.html'
+            })
+            .when('/collateralvaluecalculator/:clientId', {
+                templateUrl: 'views/collaterals/collateralvaluecalculator.html'
+            })
+            .when('/attachpledgetoclient/:pledgeId', {
+                templateUrl: 'views/collaterals/attachpledgetoexistingcustomer.html'
+            })
+            .when('/searchpledge', {
+                templateUrl: 'views/collaterals/searchpledge.html'
+            })
+            .when('/viewpledge/:pledgeId', {
+                templateUrl: 'views/collaterals/viewpledge.html'
+            })
+            .when('/createclient/:pledgeId', {
+                templateUrl: 'views/clients/createclient.html'
+            })
+            .when('/editpledge/:pledgeId', {
+                templateUrl: 'views/collaterals/editpledge.html'
             });
         $locationProvider.html5Mode(false);
     };

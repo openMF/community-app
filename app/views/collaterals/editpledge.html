@@ -1,0 +1,170 @@
+<div class="col-md-12 form-horizontal" ng-controller="EditPledgeController">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.editpledge' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <a data-ng-click="showAddCollateralDetails()" class="btn btn-primary pull-right" has-permission="UPDATE_COLLATERALPLEDGE"><i class="icon-plus icon-white"></i>{{'label.button.addcollateralDetials' | translate}}</a>
+    <div class="well">
+        <fieldset>
+            <legend>{{'label.heading.editpledge' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="sealnumber">{{ 'label.input.sealnumber' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="sealnumber" name="sealnumber" ng-model="formData.sealNumber"  class="form-control" />
+                </div>
+            </div>
+            <br>
+
+            <form novalidate="" name="addpledgedetails"  class="col-md-12 form-horizontal" ng-show="isshowAddCollateralDetails" ng-submit="validateData() && submit()">
+                <fieldset>
+                    <legend>{{'label.heading.collateralvaluecalculator' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.collateraltype' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-4">
+                            <div>
+                                <select chosen="collaterals" id="collateralId" ng-model="formData.collateralDetails.collateralId"  class="form-control"
+                                        ng-options="collateral.id as collateral.name for collateral in collaterals" value="{{collateral.id}}"
+                                        ng-change="changeCollateral(formData.collateralDetails.collateralId)" required>
+                                    <option value="" style="display:none;">--{{'label.menu.selectcollateral' | translate}}--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" ng-show="requiredCollateral">
+                            <span  class="ng-scope" >
+                                <small class="error ng-binding">
+                                    {{'validation.msg.required' | translate}}
+                                </small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.collateralsubtype' | translate}} <span class="required">*</span>
+                        </label>
+                        <div class="col-sm-4">
+                                <select chosen="collateralQualityStandards.qualityStandards" id="qualityStandardId" ng-model="formData.collateralDetails.qualityStandardId"  class="form-control"
+                                        ng-options="qualityStandard.id as qualityStandard.name for qualityStandard in collateralQualityStandards.qualityStandards" value="{{qualityStandard.id}}"
+                                        name="qualityStandardId" data-ng-change="changeQualityStandards(formData.collateralDetails.collateralId,formData.collateralDetails.qualityStandardId)">
+                                    <option value=""  style="display:none;">--{{'label.menu.selectqualitystandard' | translate}}--</option>
+                                </select>
+                        </div>
+                        <div class="col-sm-4" ng-show="requiredQualityStandard">
+                            <span  class="ng-scope" >
+                                <small class="error ng-binding">
+                                    {{'validation.msg.required' | translate}}
+                                </small>
+                            </span>
+                        </div>
+                    </div>
+                    <div  ng-switch="collateralQualityStandards.typeClassifier"  class="form-group"  ng-show="collateralQualityStandards.typeClassifier==1 || collateralQualityStandards.typeClassifier==2">
+                        <label class="control-label col-sm-2">{{ 'label.input.grossweightingm' | translate }} <span class="required">*</span></label>
+                        <div class="col-sm-4" ng-switch-when="1">
+                            <input type="text" number-format="number" name="grossWeight" ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
+                        </div>
+                        <div class="col-sm-4" ng-switch-when="2">
+                            <input type="text" number-format="number" name="grossWeight"  ng-model="formData.collateralDetails.grossWeight" ng-change="validateGrossWeight(formData.collateralDetails.grossWeight)" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' />
+                        </div>
+                        <div class="col-sm-3" ng-show="requiredGrossWeight">
+                            <span  class="ng-scope" >
+                                <small class="error ng-binding">
+                                    {{'validation.msg.required' | translate}}
+                                </small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="collateralQualityStandards.typeClassifier==1 || collateralQualityStandards.typeClassifier==2">
+                        <label class="control-label col-sm-2">{{ 'label.input.stoneweightingm' | translate }}</label>
+                        <div class="col-sm-4" >
+                            <input type="text"  ng-model="formData.collateralDetails.stoneWeight" ng-change="validateStoneWeight(formData.collateralDetails.stoneWeight)" number-format="number" rows="4" name="stoneWeight" class="form-control" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)'/>
+                        </div>
+                        <div class="col-sm-4" ng-show="!invalidStoneWeight">
+                            {{'label.netweight' | translate}} {{formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight}} &nbsp;{{'label.gm' | translate}}
+                        </div>
+                        <div class="col-sm-4" ng-show="invalidStoneWeight">
+                            <span  class="ng-scope" >
+                                <small class="error ng-binding">
+                                    {{'validation.msg.stone.weight.must.be.less.than.gross.weight' | translate}}
+                                </small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                        <div class="col-sm-4">
+                            <textarea type="text" rows="4" name="description" ng-model="formData.collateralDetails.description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.userprice' | translate }}</label>
+                        <div class="col-sm-4">
+                            <input type="text" number-format="number" rows="4" name="userPrice"  ng-change="validateUserPrice(formData.collateralDetails.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' ng-model="formData.collateralDetails.userPrice" class="form-control"/>
+                        </div>
+                        <div class="col-sm-4" ng-show="((((formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight)*(unitPrice))) > -1) && (collateralQualityStandards.typeClassifier != 3) && !invalidUserPrice">
+                            {{'label.systemcalculatedpriceis' | translate}} {{((formData.collateralDetails.grossWeight-formData.collateralDetails.stoneWeight)*(unitPrice))}}
+                        </div>
+                        <div class="col-sm-4" ng-show="(collateralQualityStandards.typeClassifier==3) && !invalidUserPrice">
+                            {{'label.systemcalculatedpriceis' | translate}} {{unitPrice}}
+                        </div>
+                        <div class="col-sm-6" ng-show="invalidUserPrice">
+                            <span  class="ng-scope" >
+                                <small class="error ng-binding"  ng-show="(collateralQualityStandards.typeClassifier==3)">
+                                    {{'validation.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{unitPrice}}
+
+                                </small>
+                                 <small class="error ng-binding"  ng-show="(collateralQualityStandards.typeClassifier!=3 && ((formData.grossWeight-formData.stoneWeight)*unitPrice > -1))">
+                                     {{'validation.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{((formData.grossWeight-formData.stoneWeight)*(unitPrice))}}
+                                 </small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_COLLATERALPLEDGE'>{{'label.button.add' | translate}}</button>
+                    </div>
+
+                </fieldset>
+            </div>
+            <br>
+            <div ng-show="collateralDetails.length>0">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{{ 'label.heading.name' | translate }}</th>
+                        <th>{{ 'label.heading.description' | translate }}</th>
+                        <th>{{ 'label.heading.grossWeight' | translate }}</th>
+                        <th>{{ 'label.heading.netWeight' | translate }}</th>
+                        <th>{{ 'label.heading.systemvalue' | translate }}</th>
+                        <th>{{ 'label.heading.uservalue' | translate }}</th>
+                        <th>{{ 'label.heading.actions' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="pointer-main" ng-repeat="collateral in collateralDetails">
+                        <td class="pointer" >{{collateral.name}}</td>
+                        <td class="pointer" >{{collateral.description}}</td>
+                        <td class="pointer" >{{collateral.grossWeight}}</td>
+                        <td class="pointer" >{{collateral.netWeight}}</td>
+                        <td class="pointer" >{{collateral.systemPrice}}</td>
+                        <td class="pointer" >{{collateral.userPrice}}</td>
+                        <td>
+                            <button type="button" ng-click="deleteCollateralDetail($index)" class="btn btn-primary ng-binding" has-permission="DELETE_COLLATERALQUALITYSTANDARDS">
+                                <i class="icon-trash icon-white"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/viewpledge/{{pledgeId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button ng-click="updatePledge()" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_COLLATERALPLEDGE'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+
+    </div>
+</form>

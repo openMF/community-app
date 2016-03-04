@@ -1,0 +1,108 @@
+<div class="col-md-12" ng-controller="CollateralQualityStandardsController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/collaterals">{{'label.anchor.collateralTypes' | translate}}</a></li>
+        <li class="active">{{'label.view.viewcollateralqualitystandard' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+    <div>
+        <form name="createCollateralQualityStandard" novalidate="" class="col-md-12 form-horizontal well" ng-submit="validateData() && submit()"><!--rc-submit="!requiredPrice && submit()"-->
+            <api-validate></api-validate>
+            <fieldset>
+                <div  class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.collateral' | translate }}</label>
+                    <div class="col-sm-3">
+                        <label class="form readonly">{{collaterals.name}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
+                        <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="name" name="name" ng-model="formData.name" class="form-control"  ng-change="validateName(formData.userPrice)" />
+                    </div>
+                    <div class="col-sm-3" ng-show="requiredName">
+                        <span  class="ng-scope" >
+                            <small class="error ng-binding">
+                                {{'validation.msg.required' | translate}}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                    <div class="col-sm-4">
+                        <textarea type="text" rows="4" name="description" ng-model="formData.description" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.isPercentage' | translate }}</label>
+                    <div class="col-sm-1 form readonly">
+                        <input type="checkbox"  name="isPercentage" ng-model="formData.isPercentage">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" ng-show="!formData.isPercentage">{{ 'label.input.price' | translate }}<span
+                            class="required">*</span></label>
+                    <label class="control-label col-sm-2" ng-show="formData.isPercentage">{{ 'label.input.percentageprice' | translate }}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" number-format="number" name="price" ng-model="formData.price"  ng-change="validatePrice(formData.userPrice)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' class="form-control"/>
+                    </div>
+                    <div class="col-sm-3" ng-show="requiredPrice">
+                        <span  class="ng-scope" >
+                            <small class="error ng-binding">
+                                {{'validation.msg.required' | translate}}
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-offset-5">
+                    <a id="cancel" href="#/collaterals" class="btn btn-default" ng-show="!formData.id">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI || formData.id" has-permission='CREATE_COLLATERALQUALITYSTANDARDS'>{{'label.button.add' | translate}}</button>
+                    <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <h2>{{'label.heading.viewcollateralqualitystandards' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.percentageprice' | translate }}</th>
+                <th>{{ 'label.heading.absoluteprice' | translate }}</th>
+                <th>{{ 'label.heading.createdby' | translate }}</th>
+                <th>{{ 'label.heading.createddate' | translate }}</th>
+                <th>{{ 'label.heading.updatedby' | translate }}</th>
+                <th>{{ 'label.heading.updateddate' | translate }}</th>
+                <th>{{ 'label.heading.actions' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="" ng-repeat="qualityStandard in collaterals.qualityStandards | orderBy:'name'">
+                  <td>{{qualityStandard.name}}</td>
+                  <td>{{qualityStandard.description}}</td>
+                  <td>{{qualityStandard.percentagePrice}}</td>
+                  <td>{{qualityStandard.absolutePrice}}</td>
+                  <td>{{qualityStandard.createdName}}</td>
+                  <td>{{qualityStandard.createdDate}}</td>
+                  <td>{{qualityStandard.updatedName}}</td>
+                  <td>{{qualityStandard.updatedDate}}</td>
+                  <td>
+                      <a href="#editcollateralqualitystandards/{{qualityStandard.collateralId}}/{{qualityStandard.id}}" class="btn btn-primary ng-binding" has-permission="UPDATE_COLLATERALQUALITYSTANDARDS">
+                          <i class="icon-edit icon-white"></i>
+                      </a>
+                      <button type="button" ng-click="deleteQualityStandards(qualityStandard)" class="btn btn-primary ng-binding" has-permission="DELETE_COLLATERALQUALITYSTANDARDS">
+                          <i class="icon-trash icon-white"></i>
+                      </button>
+                  </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

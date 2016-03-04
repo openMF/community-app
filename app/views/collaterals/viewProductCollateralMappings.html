@@ -1,0 +1,42 @@
+<div class="col-md-12" ng-controller="ProductCollateralMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.view.productcollateralsmapping' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+
+    <a href="#/createproductcollateralmapping" class="btn btn-primary pull-right" has-permission='CREATE_PRODUCTCOLLATERALSMAPPING'><i class="icon-plus icon-white"></i>{{'label.button.addmapping' | translate}}</a>
+    <div class="clearfix"></div>
+
+    <div>
+        <h2>{{'label.view.productcollateralsmapping' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.productname' | translate }}</th>
+                <th>{{ 'label.heading.productshortname' | translate }}</th>
+                <th>{{ 'label.heading.allowedcollateral' | translate }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="mapping in productcollateralmappings | orderBy:'productName'">
+                <td class="pointer" >{{mapping.productName}}</td>
+                <td class="pointer" >{{mapping.productShortName}}</td>
+                <td class="pointer" >{{mapping.collateralName}}</td>
+                <td>
+                    <button type="button" ng-click="editProductCollateralMappings(mapping)" class="btn btn-primary ng-binding" has-permission="UPDATE_PRODUCTCOLLATERALSMAPPING">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                    <button type="button" ng-click="deleteProductCollateralMappings(mapping)" class="btn btn-primary ng-binding" has-permission="DELETE_PRODUCTCOLLATERALSMAPPING">
+                        <i class="icon-trash icon-white"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

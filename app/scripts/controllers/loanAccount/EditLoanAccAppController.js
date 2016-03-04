@@ -13,6 +13,8 @@
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
 
+                scope.getProductPledges(scope.loanaccountinfo);
+
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
@@ -320,6 +322,20 @@
                 }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
+                });
+            };
+
+            scope.getProductPledges = function(data){
+                scope.pledges = data.loanProductCollateralPledgesOptions;
+                scope.formData.pledgeId = data.pledgeId;
+                scope.changePledge(scope.formData.pledgeId);
+            };
+
+            scope.changePledge = function(pledgeId){
+                resourceFactory.pledgeResource.get({'pledgeId' : pledgeId,association: 'collateralDetails'}, function(data){
+                    scope.formData.pledgeId = pledgeId;
+                    scope.pledge = data;
+                    scope.formData.collateralUserValue = data.userValue;
                 });
             };
 
