@@ -67,6 +67,11 @@
                     scope.showDateField = false;
                     scope.taskPermissionName = 'DISBURSALUNDO_LOAN';
                     break;
+                case "undolastdisbursal":
+                    scope.title = 'label.heading.undolastdisbursal';
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'DISBURSALLASTUNDO_LOAN';
+                    break;
                 case "disburse":
                     scope.modelName = 'actualDisbursementDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
