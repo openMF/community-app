@@ -32,6 +32,24 @@
                ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
     </div>
 </div>
+
+    <div class="form-group" ng-show="action == 'disburse'">
+        <label class="control-label col-sm-2" for="nextRepaymentDate">{{'label.input.nextrepaymentdate' | translate}}</label>
+
+        <div class="col-sm-3">
+            <input id="{{nextRepaymentDate}}" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                   ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" ng-disabled="false"/>
+        </div>
+    </div>
+    <div class="form-group" ng-show="action == 'disburse'">
+        <label class="control-label col-sm-2" for="adjustRepaymentDate">{{'label.input.adjusteddate' | translate}}</label>
+
+        <div class="col-sm-3">
+            <input id="{{adjustRepaymentDate}}" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                   ng-model="formData.adjustRepaymentDate" min="minDate" max="'2020-06-22'"/>
+        </div>
+    </div>
+
 <div class="form-group" ng-show="showApprovalAmount">
     <label class="control-label col-sm-2">{{'label.input.expecteddisbursementon' | translate}}</label>
 
