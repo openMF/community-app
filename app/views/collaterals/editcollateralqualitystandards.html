@@ -1,0 +1,57 @@
+<div class="col-md-12" ng-controller="EditCollateralQualityStandardsController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/collaterals">{{'label.anchor.collateralTypes' | translate}}</a></li>
+        <li><a href="#/viewcollateralqualitystandards/{{collateralId}}">{{'label.view.viewcollateralqualitystandard' | translate}}</a></li>
+        <li class="active">{{'label.view.editcollateralqualitystandard' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+    <div>
+        <form name="editCollateralQualityStandard" novalidate="" class="col-md-12 form-horizontal well"
+              rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
+                        <span class="required">*</span>
+                    </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3" >
+                        <form-validate valattributeform="editCollateralQualityStandard" valattribute="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                    <div class="col-sm-4">
+                        <textarea type="text" rows="4" name="description" ng-model="formData.description" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.isPercentage' | translate }}</label>
+                    <div class="col-sm-1 form readonly">
+                        <input type="checkbox"  name="isPercentage" ng-model="formData.isPercentage">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" ng-show="!formData.isPercentage">{{ 'label.input.price' | translate }}<span
+                            class="required">*</span></label>
+                    <label class="control-label col-sm-2" ng-show="formData.isPercentage">{{ 'label.input.percentageprice' | translate }}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input type="text" name="price" ng-model="formData.price" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editCollateralQualityStandard" valattribute="price"/>
+                    </div>
+                </div>
+                <div class="col-md-offset-5">
+                    <a id="clear" href="#viewcollateralqualitystandards/{{collateralId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="update" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_COLLATERALQUALITYSTANDARDS'>{{'label.button.update' | translate}}</button>
+                    <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

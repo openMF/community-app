@@ -1,0 +1,67 @@
+<div class="col-md-12" ng-controller="CreateCollateralController">
+    <ul class="breadcrumb">
+        <li ><a href="#/collaterals">{{'label.view.collaterals' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createcollateral' | translate}}</li>
+    </ul>
+    <form name="createcollateralform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createcollateral' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{ 'label.input.name' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="name" name="name" ng-model="formData.name"  class="form-control" required
+                           late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcollateralform" valattribute="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="textarea">{{ 'label.input.description' | translate }}</label>
+                <div class="col-sm-3">
+                    <textarea rows="3" class="form-control" id="textarea" ng-model="formData.description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="typeclassifier">{{ 'label.input.collateraltypeclassifier' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-4">
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                                value="1" required late-Validate>{{ 'label.input.ispreciousmetal' | translate }}</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                                value="2" required late-Validate>{{ 'label.input.ispreciousstone' | translate }}</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="typeclassifier" id="typeclassifier" ng-model="formData.typeClassifier"
+                                value="3" required late-Validate>{{ 'label.input.others' | translate }}</label>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcollateralform" valattribute="typeclassifier"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="baseunitprice">{{ 'label.input.baseunitprice' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="baseunitprice" name="baseunitprice" ng-model="formData.baseUnitPrice"  class="form-control"
+                           number-format="number" required  late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcollateralform" valattribute="baseunitprice"/>
+                </div>
+            </div>
+            <br>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/collaterals" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_COLLATERALS'>{{'label.button.save' | translate}}</button>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+        </fieldset>
+    </form>
+</div>

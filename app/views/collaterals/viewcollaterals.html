@@ -1,0 +1,45 @@
+<div class="col-md-12" ng-controller="CollateralController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.view.collaterals' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+
+    <a href="#/createcollateral" class="btn btn-primary pull-right" has-permission='CREATE_COLLATERALS'><i class="icon-plus icon-white"></i>{{'label.button.createcollateral' | translate}}</a>
+    <div class="clearfix"></div>
+
+    <div>
+        <h2>{{'label.heading.collaterals' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.baseunitprice' | translate }}</th>
+                <th>{{ 'label.heading.ispreciousmetal' | translate }}</th>
+                <th>{{ 'label.heading.ispreciousstone' | translate }}</th>
+                <th>{{ 'label.heading.Active' | translate }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="collateral in collaterals">
+                <td class="pointer" >{{collateral.name}}</td>
+                <td class="pointer" >{{collateral.description}}</td>
+                <td class="pointer" >{{collateral.baseUnitPrice}}</td>
+                <td class="pointer" >{{collateral.typeClassifier == isPresiousMetal}}</td>
+                <td class="pointer" >{{collateral.typeClassifier == isPresiousStone}}</td>
+                <td class="pointer" >{{collateral.isActive}}</td>
+                <td>
+                    <a href='#/viewcollateralqualitystandards/{{collateral.id}}?action=edit' class="btn btn-primary pull-right" role="button" has-permission='CREATE_COLLATERALQUALITYSTANDARDS'><i class="icon-white"></i>{{'label.button.viewcollateralqualitystandards' | translate}}</a>
+                    <a href='#/viewcollateralqualitystandards/{{collateral.id}}?action=view' class="btn btn-primary pull-right" role="button" has-permission='READ_COLLATERALQUALITYSTANDARDS'><i class="icon-white"></i>{{'label.button.viewcollateral' | translate}}</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

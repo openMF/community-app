@@ -562,6 +562,40 @@
                         validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
                         addVariations:{method:'POST',params:{command: 'addVariations'}},
                         deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    }),
+                    collateralsResource: defineResource(apiVer + "/collaterals/:collateralId", {collateralId:'@collateralId'}, {
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        get: {method: 'GET', params: {collateralId: '@collateralId'}, isArray : false},
+                        getCollateralQualityStandards: {method: 'GET', params: {associations: 'qualityStandards'}, isArray : false},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    collateralsQualityStandardsResource: defineResource(apiVer + "/collaterals/:collateralId/qualitystandards/:qualityId", {collateralId:'@collateralId',qualityId:'@qualityId'}, {
+                        save: {method: 'POST', params: {}},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {} },
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+                    productCollateralsMappingResource: defineResource(apiVer + "/loanproducts/:loanProductId/collaterals/:productCollateralMappingId", {loanProductId:'@loanProductId', productCollateralMappingId:'@productCollateralMappingId'}, {
+                        save: {method: 'POST', params: {}},
+                        get: {method: 'GET',params: {}},
+                        getAll: {method: 'GET', params: {loanProductId: '@loanProductId'}, isArray : true},
+                        delete: {method: 'DELETE', params: {}},
+                        update: {method: 'PUT', params: {} }
+                    }),
+
+                    pledgeResource: defineResource(apiVer + "/pledges/:pledgeId/", {pledgeId:'@pledgeId'}, {
+                        get: {method: 'GET',params: {}},
+                        getCollateralDetails: {method: 'GET',params: {association: 'collateralDetails'}},
+                        getAllPledges: {method: 'GET',params: {limit: 1000}},
+                        getAll: {method: 'GET', params: {pledgeId: '@pledgeId'}, isArray : true},
+                        delete: {method: 'DELETE', params: {}},
+                        deleteCollateralDetails: {method: 'DELETE', params: {collateralDetailId : '@collateralDetailId'}},
+                        update: {method: 'PUT', params: {} },
+                        closePledge : {method: 'POST', params: {command : 'close'} }
+                    }),
+                    collateralDetailsResource: defineResource(apiVer + "/pledges/:pledgeId/collateraldetails/:collateralDetailId", {pledgeId:'@pledgeId',
+                        collateralDetailId : '@collateralDetailId'}, {
+                        delete: {method: 'DELETE', params: {}}
                     })
                 };
             }];

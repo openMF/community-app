@@ -48,6 +48,7 @@
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
                     if(scope.loanaccountinfo.loanOfficerOptions){
                         resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
@@ -273,6 +274,18 @@
                 }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
+                });
+            };
+
+            scope.getProductPledges = function(data){
+                scope.pledges = data.loanProductCollateralPledgesOptions;
+            };
+
+            scope.changePledge = function(pledgeId){
+                resourceFactory.pledgeResource.get({'pledgeId' : pledgeId,association: 'collateralDetails'}, function(data){
+                    scope.formData.pledgeId = pledgeId;
+                    scope.pledge = data;
+                    scope.formData.collateralUserValue = data.userValue;
                 });
             };
 

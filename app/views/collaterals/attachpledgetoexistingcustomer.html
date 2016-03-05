@@ -1,0 +1,52 @@
+<div class="col-md-12" data-ng-controller="AttachPledgeToExistingCustomerController">
+    <ul class="breadcrumb">
+        <li><a href="#/collateralvaluecalculator">{{'label.anchor.collateralvaluecalculator' | translate}}</a></li>
+        <li class="active">{{'label.anchor.attachtocustomer' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <form name="managemembers" class="col-md-12 form-horizontal well">
+        <fieldset>
+            <div class="row">
+                <div class="col-md-12">
+                    <legend>{{'label.heading.associatecustomertopledge' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">{{ 'label.input.searchforclient' | translate }}</label>
+                        <div class="col-sm-4 col-md-4" id="searchBox">
+                            <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                   typeahead-min-length="3"
+                                   typeahead-editable="false"
+                                   typeahead="client as client.displayName for client in clientOptions($viewValue)"
+                                   typeahead-on-select="viewClient(available)" autocomplete="off"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-show="client">
+                        <legend>{{'label.heading.selectedcustomer' | translate}}</legend>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>{{ 'label.heading.name' | translate }}</th>
+                                <th>{{ 'label.heading.account' | translate }}</th>
+                                <th>{{ 'label.heading.office' | translate }}</th>
+                                <th>{{ 'label.heading.action' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="pointer-main">
+                                <td class="pointer" >{{client.displayName}}</td>
+                                <td class="pointer" >{{client.accountNo}}</td>
+                                <td class="pointer" >{{client.officeName}}</td>
+                                <td>
+                                    <div class="col-sm-10 center">
+                                    <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                        {{ 'label.button.add' | translate }}</button>
+                                     </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

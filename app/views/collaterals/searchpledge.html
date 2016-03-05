@@ -1,0 +1,62 @@
+<div class="col-md-12" ng-controller="SearchPledgeController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.searchpledge' | translate}}</li>
+    </ul>
+    <br><br>
+    <form ng-submit="search()" class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-7 col-md-offset-1">
+                <div>
+                    <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByPledgeNumberOrSealNumber' | translate}}" class="form-control"/>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-primary form-control">{{'label.heading.search' | translate}}</button>
+            </div>
+            <br><br>
+            <div class="col-lg-7 col-md-offset-1">
+                <label class="control-label col-sm-2">{{'label.input.initiated' | translate}}</label>
+
+                <div class="control-label pull-left">
+                    <input  type="checkbox" ng-model="status.initiated" data-ng-change="filterByStatus(1, status.initiated)">
+                </div>
+                <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>
+
+                <div class="control-label pull-left">
+                    <input  type="checkbox" ng-model="status.active" data-ng-change="filterByStatus(2, status.active)">
+                </div>
+                <label class="control-label col-sm-2">{{'label.input.closed' | translate}}</label>
+
+                <div class="control-label pull-left">
+                    <input  type="checkbox" ng-model="status.closed" data-ng-change="filterByStatus(3,status.closed)">
+                </div>
+            </div>
+        </div>
+    </form>
+    <br><br>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.pledgenumber' | translate}}</th>
+            <th>{{'label.heading.sealnumber' | translate}}</th>
+            <th>{{'label.heading.systemvalue' | translate}}</th>
+            <th>{{'label.heading.uservalue' | translate}}</th>
+        </tr>
+        </thead>
+        <!---->
+        <tbody>
+        <tr class="pointer-main" dir-paginate="pledge in pledges | itemsPerPage: pledgesPerPage" total-items="totalPledges" ng-show="filteredPledges.indexOf(pledge.status)>-1 || filteredPledges.length==0 || filteredPledges.length==3 ">
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.officeName}}</td>
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.clientName}}</td>
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.pledgeNumber}}</td>
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.sealNumber}}</td>
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.systemValue}}</td>
+            <td class="pointer" data-ng-click="routeTo(pledge.id)">{{pledge.userValue}}</td>
+        </tr>
+        </tbody>
+
+    </table>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+</div>

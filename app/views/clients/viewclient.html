@@ -195,7 +195,10 @@
 								<li >
 									<a ng-href="#{{pathToChargeOverview()}}" has-permission='READ_CLIENTCHARGE'>{{'label.button.chargesoverview' | translate }}</a>
 								</li>
-						    </ul>
+								<li >
+									<a href="#/collateralvaluecalculator/{{client.id}}" has-permission='READ_COLLATERALPLEDGE'>{{'label.button.attachpledge' | translate }}</a>
+								</li>
+							</ul>
 						</span>
 				    </div>
 				</div>
@@ -421,6 +424,48 @@
 						            </tr>
 						        </table>
 						    </div>
+							<div data-ng-show="clientAccounts.pledges">
+								<div class="pull-right">
+						            <span>
+						                <button  type="button" class="btn-primary btn btn-sm" ng-show="!showClosedPledges" ng-click="showClosedPledges=true">
+											{{ 'label.button.viewclosedpledges' | translate }}
+										</button>
+										<button  type="button" class="btn-primary btn btn-sm" ng-show="showClosedPledges" ng-click="showClosedPledges=false">
+											{{ 'label.button.viewpledges' | translate }}
+										</button>
+						            </span>
+								</div>
+								<div class="span gray-head">
+						            <span class="boldlabel">
+						                <strong>{{'label.heading.pledgeoverview' | translate }}</strong>
+						            </span>
+								</div>
+								<table class="table table-condensed">
+									<tr class="graybg">
+										<th>{{'label.heading.pledgenumber' | translate}}</th>
+										<th>{{'label.heading.currentserialnumber' | translate}}</th>
+										<th>{{'label.heading.systemcalculatedvalue' | translate}}</th>
+										<th>{{'label.heading.userdefinedvalue' | translate}}</th>
+										<th>{{'label.heading.actions' | translate}}</th>
+									</tr>
+									<tr class="pointer-main" ng-repeat="pledge in pledges" ng-show="((!showClosedPledges && (pledge.status.id==1 || pledge.status.id==2) ) || (showClosedPledges && pledge.status.id==3))">
+										<td class="pointer">
+											<i tooltip-placement="right" tooltip="{{pledge.status.value}}"
+											   class="icon-stop {{pledge.status.code | StatusLookup}}"></i>
+											{{pledge.pledgeNumber}}
+										</td>
+										<td class="pointer">{{pledge.sealNumber}}</td>
+										<td class="pointer">{{pledge.systemValue}}</td>
+										<td class="pointer">{{pledge.userValue}}</td>
+										<td>
+											<a tooltip="{{'label.button.closepledge' | translate}}" ng-hide="pledge.status.id==3" href='#/viewpledge/{{pledge.id}}?close=true&id={{id}}' class="btn btn-primary pull-right"  has-permission='CLOSE_COLLATERALPLEDGE'><i class="icon-ok icon-white"></i></a>
+											<a tooltip="{{'label.button.deletepledge' | translate}}" ng-show="pledge.status.id==1" ng-click="deletePledge(pledge.id)" class="btn btn-primary pull-right"  has-permission='DELETE_COLLATERALPLEDGE'><i class="icon-trash icon-white"></i></a>
+											<a tooltip="{{'label.button.viewpledge' | translate}}" href='#/viewpledge/{{pledge.id}}?id={{id}}' class="btn btn-primary pull-right"  has-permission='READ_COLLATERALPLEDGE'><i class="icon-eye-open icon-white"></i></a>
+										</td>
+									</tr>
+								</table>
+							</div>
+
 						</div>
 				    </div>
 				    <div class="col-sm-3 col-md-3">

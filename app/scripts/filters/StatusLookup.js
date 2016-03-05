@@ -32,7 +32,10 @@
                     "VillageStatusType.active": "statusactive",
                     "VillageStatusType.pending": "statuspending",
                     "VillageStatusType.submitted.and.pending.approval": "statuspending",
-                    "VillageStatusType.approved": "statusApproved"
+                    "VillageStatusType.approved": "statusApproved",
+                    "pledgeStatusType.initiated" : "statusInitiated",
+                    "pledgeStatusType.active" : "statusactive",
+                    "pledgeStatusType.closed" : "statusclosed"
                 }
 
                 return cssClassNameLookup[input];

@@ -1,0 +1,120 @@
+<div class="col-md-12" ng-controller="ViewPledgeController">
+    <ul class="breadcrumb">
+        <li><a href="#/searchpledge"  ng-show="!isFromClient">{{'label.anchor.searchpledge' | translate}}</a></li>
+        <li><a href="#/viewclient/{{clientId}}" ng-show="isFromClient">{{'label.anchor.client' | translate}}</a></li>
+        <li class="active">{{'label.view.viewpledge' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <button type="button" ng-show="!showClosePledge && pledge.status.id==1" ng-click="openClosePledge()" class="btn btn-primary pull-right" has-permission="READ_COLLATERALPLEDGE">{{'label.button.closepledge' | translate}}</button>
+    <a href="#/editpledge/{{pledge.id}}" ng-show="pledge.status.id==1 && !showClosePledge" class="btn btn-primary pull-right" has-permission="UPDATE_COLLATERALPLEDGE">{{'label.button.edit' | translate}}</a>
+    <a ng-show="!showClosePledge && ( pledge.clientId && pledge.status.id==1)" href="#/newclientloanaccount/{{pledge.clientId}}?pledge={{pledge.id}}" class="btn btn-primary pull-right" has-permission='CREATE_COLLATERALPLEDGE'><i class="icon-plus icon-white"></i>{{'label.button.attachloan' | translate}}</a>
+    <div class="clearfix"></div>
+    <br><br>
+    <div class="well" ng-hide="showClosePledge">
+        <fieldset>
+            <legend>{{'label.heading.viewpledge' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{ 'label.input.pledgenumber' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label>{{pledge.pledgeNumber}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" >{{ 'label.input.sealnumber' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label>{{pledge.sealNumber}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.noofitems' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label>{{noOfitems}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.systemprice' | translate }}</label>
+                <div class="col-sm-3">
+                    <label>{{pledge.systemValue}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.userprice' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label>{{pledge.userValue}}</label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.linkedloanid' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label><a href="#/viewloanaccount/{{pledge.loanId}}">{{pledge.loanAccountNo}}</a></label>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.status' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <label>{{pledge.status.value}}</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.grossWeight' | translate }}</th>
+                <th>{{ 'label.heading.netWeight' | translate }}</th>
+                <th>{{ 'label.heading.systemvalue' | translate }}</th>
+                <th>{{ 'label.heading.uservalue' | translate }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="collateral in collateralDetails">
+                <td class="pointer" >{{collateral.name}}</td>
+                <td class="pointer" >{{collateral.description}}</td>
+                <td class="pointer" >{{collateral.grossWeight}}</td>
+                <td class="pointer" >{{collateral.netWeight}}</td>
+                <td class="pointer" >{{collateral.systemPrice}}</td>
+                <td class="pointer" >{{collateral.userPrice}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-show="showClosePledge">
+        <form class="form-horizontal well">
+            <div class="paddedleft">
+                <legend>{{'label.heading.closepledge' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.closuredate' | translate }}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input id="closureDate" class="form-control col-sm-3" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.closureDate"
+                               is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                    </div>
+                </div>
+
+                <br/>
+                <div class="col-md-offset-2 paddedleft">
+                    <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                    <button id="save" type="button" class="btn btn-primary" data-ng-click="closePledge(pledge.id)" has-permission='CLOSE_COLLATERALPLEDGE'>{{
+                        'label.button.confirm' | translate }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
