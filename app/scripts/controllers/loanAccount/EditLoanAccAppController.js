@@ -122,7 +122,7 @@
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
                     scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate);
                 }
-                if(scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
                     scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
                 }else{
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
