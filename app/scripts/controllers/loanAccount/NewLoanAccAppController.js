@@ -82,9 +82,13 @@
                     scope.formData.syncRepaymentsWithMeeting = true;
                     scope.formData.syncDisbursementWithMeeting = true;
                 }
+                if(scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
+                    scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
+                }else{
+                    scope.formData.fundId = scope.loanaccountinfo.fundId;
+                }
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
-                scope.formData.fundId = scope.loanaccountinfo.fundId;
                 scope.formData.principal = scope.loanaccountinfo.principal;
                 scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
