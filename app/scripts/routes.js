@@ -837,19 +837,19 @@
                 templateUrl: 'views/collaterals/editcollateral.html'
             })
             .when('/viewcollateralqualitystandards/:collateralId', {
-                templateUrl: 'views/collaterals/viewcollateralqualitystandards.html'
+                templateUrl: 'views/collaterals/viewCollateralQualityStandards.html'
             })
             .when('/editcollateralqualitystandards/:collateralId/:qualityStandardId', {
                 templateUrl: 'views/collaterals/editcollateralqualitystandards.html'
             })
             .when('/viewproductcollateralmapping/', {
-                templateUrl: 'views/collaterals/viewproductcollateralmappings.html'
+                templateUrl: 'views/collaterals/viewProductCollateralMappings.html'
             })
             .when('/createproductcollateralmapping/', {
-                templateUrl: 'views/collaterals/createproductcollateralmapping.html'
+                templateUrl: 'views/collaterals/createProductCollateralMapping.html'
             })
             .when('/editproductcollateralmapping/:loanProductId/:productCollateralMappingId', {
-                templateUrl: 'views/collaterals/editproductcollateralmapping.html'
+                templateUrl: 'views/collaterals/editProductCollateralMapping.html'
             })
             .when('/searchpledge', {
                 templateUrl: 'views/collaterals/searchpledge.html'

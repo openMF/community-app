@@ -14,9 +14,12 @@
                 }
             });
 
-            scope.editPropertyToSetUndefined = ['createdName', 'updatedName', 'id', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'];
-
+            scope.editPropertyToSetUndefined = ['price','isPercentage','createdName', 'updatedName', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'];
+            scope.requestParameter = ['id','absolutePrice','percentagePrice','description','locale','name'];
             scope.submit = function () {
+                var id = this.formData.id;
+                var isPercentage = this.formData.isPercentage;
+                var price = this.formData.price;
                 if (this.formData.isPercentage) {
                     this.formData['percentagePrice'] = this.formData.price;
                     this.formData['absolutePrice'] = null;
@@ -26,11 +29,11 @@
                 }
                 this.formData.collateralId = routeParams.collateralId;
                 this.formData.locale = scope.optlang.code;
-                this.formData.isPercentage = undefined;
-                this.formData.price = undefined;
-                var id = this.formData.id;
-                this.formData = scope.setUndefined(this.formData,scope.editPropertyToSetUndefined);
-                    resourceFactory.collateralsQualityStandardsResource.update({collateralId: routeParams.collateralId,qualityId: id}, this.formData, function (data) {
+                var data = {};
+                for(var i=0;i<scope.requestParameter.length;i++){
+                    data[scope.requestParameter[i]] = this.formData[scope.requestParameter[i]];
+                }
+                    resourceFactory.collateralsQualityStandardsResource.update({collateralId: routeParams.collateralId,qualityId: id}, data, function (data) {
                         location.path('viewcollateralqualitystandards/'+routeParams.collateralId);
                     });
 
@@ -41,10 +44,6 @@
                     data[editArr[i]] = undefined;
                 }
                 return data;
-            };
-
-            scope.clear = function(){
-                scope.formData = {};
             };
 
         }

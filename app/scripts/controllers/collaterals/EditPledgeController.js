@@ -104,8 +104,8 @@
                 var totalSystemPrice = 0;
                 var totalUserPrice = 0;
                 for(var j=0;j<data.length;j++){
-                    totalSystemPrice = totalSystemPrice+ data[j].systemPrice;
-                    totalUserPrice = totalUserPrice+ data[j].userPrice;
+                    totalSystemPrice = totalSystemPrice+ parseInt(data[j].systemPrice);
+                    totalUserPrice = totalUserPrice+ parseInt(data[j].userPrice);
                 }
                 scope.totalSystemPrice = totalSystemPrice;
                 scope.totalUserPrice = totalUserPrice;
@@ -189,6 +189,10 @@
                 delete this.formData.pledgeNumber ;
                 delete this.formData.collateralDetailsData ;
                 delete this.formData.status;
+                delete this.formData.createdBy ;
+                delete this.formData.createdDate;
+                delete this.formData.updatedBy ;
+                delete this.formData.updatedDate;
                 this.formData.systemValue = scope.totalSystemPrice;
                 this.formData.userValue = scope.totalUserPrice;
                 this.formData.collateralDetails = scope.collateralDetails;
