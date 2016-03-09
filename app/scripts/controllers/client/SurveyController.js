@@ -55,9 +55,8 @@
                         this.formData.scorecardValues.push(tmp);
                     }
                 }
-                console.log(this.formData);
                 resourceFactory.surveyScorecardResource.post({surveyId: scope.surveyData.id}, this.formData, function (data) {
-                    console.log(data);
+                    location.path('/viewclient/' + scope.clientId);
                 });
             };
 
