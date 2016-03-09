@@ -267,6 +267,9 @@
             var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
+                if(!$scope.chartSlab.incentives) {
+                    $scope.chartSlab.incentives = [];
+                }
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
