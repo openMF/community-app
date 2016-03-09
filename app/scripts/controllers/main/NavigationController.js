@@ -149,6 +149,9 @@
                     resourceFactory.centerAccountResource.get({centerId: centerId}, function (data) {
                         scope.centerAccounts = data;
                     });
+                    resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: centerId}, function (data) {
+                        scope.summary = data[0];
+                    });
                 }
             };
             scope.groupSelected = function (groupId, groupName) {
