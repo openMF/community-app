@@ -199,6 +199,8 @@
                 return false;
             }
 
+		
+                };
             scope.setAttributeValues = function(){
                 if(scope.allowAttributeConfiguration == false){
                     scope.amortization = false;
@@ -211,6 +213,18 @@
                     scope.transactionProcessingStrategy = false;
                 }
             }
+
+	    scope.filterCharges = function(currencyCode, multiDisburseLoan) {
+		return function (item) {
+			if ((multiDisburseLoan != true) && item.chargeTimeType.id == 12) {
+				return false;
+			}
+			if (item.currency.code != currencyCode) { 
+				return false;
+			}
+			return true;
+		};
+	    };
 
             scope.submit = function () {
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);

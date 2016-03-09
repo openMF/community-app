@@ -6,6 +6,7 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
+	   
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
@@ -81,6 +82,14 @@
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
+		if ((chargeTimeType === 12) && (scope.template.chargeAppliesTo.value === "Loan"))
+		{
+			scope.showFrequencyOptions = false;
+		}
+		else
+		{
+			scope.showFrequencyOptions = true;
+		}
                 if (scope.formData.chargeAppliesTo === 2) {
                     for (var i in scope.template.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.template.chargeTimeTypeOptions[i].id) {
