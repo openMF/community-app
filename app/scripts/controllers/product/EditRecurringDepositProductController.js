@@ -15,6 +15,7 @@
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
             scope.deletedincentives = [];
+            scope.isPrimaryGroupingByAmount = false;
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -61,9 +62,6 @@
                 }
 
                 scope.chart = scope.product.activeChart;
-                scope.chart.chartSlabs = _.sortBy(scope.chart.chartSlabs, function (obj) {
-                    return obj.fromPeriod
-                });
 
                 _.each(scope.chart.chartSlabs, function (chartSlab) {
                     _.each(chartSlab.incentives, function (incentive){
@@ -79,6 +77,7 @@
                     var endDate = dateFilter(scope.chart.endDate, scope.df);
                     scope.endDate.date = new Date(endDate);
                 }
+                scope.isPrimaryGroupingByAmount = scope.chart.isPrimaryGroupingByAmount;
 
                 if (data.lockinPeriodFrequencyType) {
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
@@ -260,16 +259,37 @@
                 var fromPeriod = '';
                 var amountRangeFrom = '';
                 var periodType = '';
+                var toPeriod = '';
+                var amountRangeTo = '';
                 if (_.isNull(scope.chart.chartSlabs) || _.isUndefined(scope.chart.chartSlabs)) {
                     scope.chart.chartSlabs = [];
                 } else {
                     var lastChartSlab = {};
                     if (scope.chart.chartSlabs.length > 0) {
                         lastChartSlab = angular.copy(scope.chart.chartSlabs[scope.chart.chartSlabs.length - 1]);
+                    }else{
+                        lastChartSlab = null;
                     }
                     if (!(_.isNull(lastChartSlab) || _.isUndefined(lastChartSlab))) {
-                        fromPeriod = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.toPeriod) + 1;
-                        amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.amountRangeTo) + 1;
+                        if(scope.isPrimaryGroupingByAmount){
+                            if((_.isNull(lastChartSlab.toPeriod) || _.isUndefined(lastChartSlab.toPeriod) || lastChartSlab.toPeriod.length == 0)){
+                                amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.amountRangeTo) + 1;
+                                fromPeriod = (_.isNull(lastChartSlab.fromPeriod) || _.isUndefined(lastChartSlab.fromPeriod) || lastChartSlab.fromPeriod.length == 0)? '' : 1;
+                            }else{
+                                amountRangeFrom = lastChartSlab.amountRangeFrom;
+                                amountRangeTo = lastChartSlab.amountRangeTo;
+                                fromPeriod = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.toPeriod) + 1;
+                            }
+                        }else{
+                            if((_.isNull(lastChartSlab.amountRangeTo) || _.isUndefined(lastChartSlab.amountRangeTo) || lastChartSlab.amountRangeTo.length == 0)){
+                                amountRangeFrom = (_.isNull(lastChartSlab.amountRangeFrom) || _.isUndefined(lastChartSlab.amountRangeFrom) || lastChartSlab.amountRangeFrom.length == 0) ? '' : 1;
+                                fromPeriod = _.isNull(lastChartSlab) ? '' : parseFloat(lastChartSlab.toPeriod) + 1;
+                            }else{
+                                fromPeriod = lastChartSlab.fromPeriod;
+                                toPeriod = lastChartSlab.toPeriod;
+                                amountRangeFrom = _.isNull(lastChartSlab) ? '' : parseInt(lastChartSlab.amountRangeTo) + 1;
+                            }
+                        }
                         periodType = angular.copy(lastChartSlab.periodType);
                     }
                 }
@@ -281,7 +301,12 @@
                     "amountRangeFrom": amountRangeFrom,
                     "incentives":[]
                 };
-
+                if(!_.isUndefined(toPeriod) && toPeriod.length > 0){
+                    chartSlab.toPeriod = toPeriod;
+                }
+                if(!_.isUndefined(amountRangeTo) && amountRangeTo.length > 0){
+                    chartSlab.amountRangeTo = amountRangeTo;
+                }
                 scope.chart.chartSlabs.push(chartSlab);
             }
 
@@ -297,6 +322,7 @@
                     //description: scope.chart.description,
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
+                    isPrimaryGroupingByAmount:scope.isPrimaryGroupingByAmount,
                     //savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
@@ -336,7 +362,6 @@
                 var newChartSlabData = {
                     id: chartSlab.id,
                     description: chartSlab.description,
-                    periodType: chartSlab.periodType.id,
                     fromPeriod: chartSlab.fromPeriod,
                     toPeriod: chartSlab.toPeriod,
                     amountRangeFrom: chartSlab.amountRangeFrom,
@@ -344,6 +369,9 @@
                     annualInterestRate: chartSlab.annualInterestRate,
                     locale: scope.optlang.code,
                     incentives:angular.copy(copyIncentives(chartSlab.incentives,chartSlab.id))
+                }
+                if(chartSlab.periodType != undefined) {
+                    newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
                 //remove empty values

@@ -4,9 +4,6 @@
         resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId , template: 'true'} , function(data) {
             scope.depositproduct = data;
             scope.chartSlabs = scope.depositproduct.activeChart.chartSlabs;
-            scope.depositproduct.activeChart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                return obj.fromPeriod
-            });
             scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
         });
 
