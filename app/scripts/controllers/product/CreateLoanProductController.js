@@ -198,9 +198,6 @@
                 }
                 return false;
             }
-
-		
-                };
             scope.setAttributeValues = function(){
                 if(scope.allowAttributeConfiguration == false){
                     scope.amortization = false;
