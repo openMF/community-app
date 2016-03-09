@@ -30,15 +30,19 @@
             </div>
             <table width="98%" class="table table-bordered">
                 <tr class="bottomborder graybg">
+                    <td ng-show="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-                    <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
+                    <td ng-hide="chart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.description' | translate}}</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr ng-repeat="chartSlab in chart.chartSlabs">
-                    <td>{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
-                    <!--<td>{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>-->
+                    <td ng-show="chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                    <td ng-show="chartSlab.fromPeriod != undefined">{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
+                    <td ng-show="chartSlab.fromPeriod == undefined">&nbsp;</td>
+                    <td ng-show="!chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                    <td ng-show="!chart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom == undefined">&nbsp;</td>
                     <td>{{chartSlab.annualInterestRate}}</td>
                     <td>{{chartSlab.description}}</td>
                     <td >
