@@ -29,7 +29,7 @@
                 <div class="col-sm-3" ng-show="requiredCollateral">
                         <span  class="ng-scope" >
                             <small class="error ng-binding">
-                                {{'validation.msg.required' | translate}}
+                                {{'error.msg.required' | translate}}
                             </small>
                         </span>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="col-sm-3" ng-show="requiredQualityStandard">
                         <span  class="ng-scope" >
                             <small class="error ng-binding">
-                                {{'validation.msg.required' | translate}}
+                                {{'error.msg.required' | translate}}
                             </small>
                         </span>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="col-sm-3" ng-show="requiredGrossWeight">
                         <span  class="ng-scope" >
                             <small class="error ng-binding">
-                                {{'validation.msg.required' | translate}}
+                                {{'error.msg.required' | translate}}
                             </small>
                         </span>
                 </div>
@@ -77,12 +77,12 @@
                     <input type="text" ng-change="validateStoneWeight(formData.stoneWeight)" onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46)' number-format="number" rows="4" name="stoneWeight" ng-model="formData.stoneWeight" class="form-control"/>
                 </div>
                 <div class="col-sm-4" ng-show="!invalidStoneWeight">
-                    {{'label.netweight' | translate}} {{formData.grossWeight-formData.stoneWeight}} &nbsp;{{'label.gm' | translate}}
+                    {{'label.netweightis' | translate}} {{formData.grossWeight-formData.stoneWeight}} &nbsp;{{'label.gm' | translate}}
                 </div>
                 <div class="col-sm-3" ng-show="invalidStoneWeight">
                         <span  class="ng-scope" >
                             <small class="error ng-binding">
-                                {{'validation.msg.stone.weight.must.be.less.than.gross.weight' | translate}}
+                                {{'error.msg.stone.weight.must.be.less.than.gross.weight' | translate}}
                             </small>
                         </span>
                 </div>
@@ -108,11 +108,11 @@
                 <div class="col-sm-6" ng-show="invalidUserPrice">
                         <span  class="ng-scope" >
                             <small class="error ng-binding"  ng-show="(collateralQualityStandards.typeClassifier==3)">
-                                {{'validation.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{unitPrice}}
+                                {{'error.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{unitPrice}}
 
                             </small>
                              <small class="error ng-binding"  ng-show="(collateralQualityStandards.typeClassifier!=3 && ((formData.grossWeight-formData.stoneWeight)*unitPrice > -1))">
-                                 {{'validation.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{((formData.grossWeight-formData.stoneWeight)*(unitPrice))}}
+                                 {{'error.msg.collateral.pledge.user.price.can.not.be.less.system.price' | translate}}{{((formData.grossWeight-formData.stoneWeight)*(unitPrice))}}
                              </small>
                         </span>
                 </div>
@@ -128,8 +128,8 @@
                         <th>{{ 'label.heading.collaterals' | translate }}</th>
                         <th>{{ 'label.heading.collateralquality' | translate }}</th>
                         <th>{{ 'label.heading.description' | translate }}</th>
-                        <th>{{ 'label.heading.grossweight' | translate }}</th>
-                        <th>{{ 'label.heading.netweight' | translate }}</th>
+                        <th>{{ 'label.heading.grossWeight' | translate }}</th>
+                        <th>{{ 'label.heading.netWeight' | translate }}</th>
                         <th>{{ 'label.heading.systemprice' | translate }}</th>
                         <th>{{ 'label.heading.userprice' | translate }}</th>
                         <th>{{ 'label.heading.actions' | translate }}</th>

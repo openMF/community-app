@@ -19,7 +19,6 @@
                 <th>{{ 'label.heading.baseunitprice' | translate }}</th>
                 <th>{{ 'label.heading.ispreciousmetal' | translate }}</th>
                 <th>{{ 'label.heading.ispreciousstone' | translate }}</th>
-                <th>{{ 'label.heading.Active' | translate }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -30,11 +29,11 @@
                 <td class="pointer" >{{collateral.baseUnitPrice}}</td>
                 <td class="pointer" >{{collateral.typeClassifier == isPresiousMetal}}</td>
                 <td class="pointer" >{{collateral.typeClassifier == isPresiousStone}}</td>
-                <td class="pointer" >{{collateral.isActive}}</td>
                 <td>
-                    <a href='#/viewcollateralqualitystandards/{{collateral.id}}?action=edit' class="btn btn-primary pull-right" role="button" has-permission='CREATE_COLLATERALQUALITYSTANDARDS'><i class="icon-white"></i>{{'label.button.viewcollateralqualitystandards' | translate}}</a>
-                    <a href='#/viewcollateralqualitystandards/{{collateral.id}}?action=view' class="btn btn-primary pull-right" role="button" has-permission='READ_COLLATERALQUALITYSTANDARDS'><i class="icon-white"></i>{{'label.button.viewcollateral' | translate}}</a>
-
+                    <a href='#/viewcollateralqualitystandards/{{collateral.id}}' class="btn btn-primary pull-right" role="button" has-permission='CREATE_COLLATERALQUALITYSTANDARDS'><i class="icon-white"></i>{{'label.button.viewcollateralqualitystandards' | translate}}</a>
+                    <button type="button" ng-click="editcollateral(collateral.id)" class="btn btn-primary ng-binding" has-permission="READ_COLLATERALS">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
                 </td>
             </tr>
             </tbody>

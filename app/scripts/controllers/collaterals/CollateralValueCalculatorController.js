@@ -101,11 +101,12 @@
                 scope.requiredQualityStandard = (angular.isUndefined(this.formData.qualityStandardId) || this.formData.qualityStandardId.length==0);
                 if(!scope.isOther) {
                     scope.requiredGrossWeight = (angular.isUndefined(this.formData.grossWeight) || this.formData.grossWeight.length==0);
-                    if(!scope.requiredGrossWeight){
-                        scope.invalidStoneWeight = (angular.isDefined(this.formData.stoneWeight) && (this.formData.grossWeight <= this.formData.stoneWeight));
+                    if(this.formData.stoneWeight && !scope.requiredGrossWeight){
+                        scope.invalidStoneWeight = parseInt(this.formData.grossWeight)<= parseInt(this.formData.stoneWeight)
                     }else{
                         scope.invalidStoneWeight = false;
                     }
+
                 }else{
                     scope.requiredGrossWeight = false;
                     scope.invalidStoneWeight = false;
@@ -120,9 +121,9 @@
                     var systemPrice = 0;
                     if (scope.collateralQualityStandards.typeClassifier != 3) {
                         if (this.formData.stoneWeight) {
-                            netWeight = this.formData.grossWeight - this.formData.stoneWeight
+                            netWeight = parseInt(this.formData.grossWeight) - parseInt(this.formData.stoneWeight);
                         } else {
-                            netWeight = this.formData.grossWeight;
+                            netWeight = parseInt(this.formData.grossWeight);
                         }
                         systemPrice = (netWeight * scope.unitPrice);
                     } else {
@@ -140,7 +141,11 @@
             };
 
             scope.validateStoneWeight = function(weight){
-                scope.invalidStoneWeight = (scope.requiredGrossWeight || weight > this.formData.grossWeight);
+                if(this.formData.grossWeight){
+                    scope.invalidStoneWeight = parseInt(weight) > parseInt(this.formData.grossWeight);
+                }else{
+                    scope.invalidStoneWeight = false;
+                }
             };
 
             scope.validateQualityStandard = function(id){
@@ -148,16 +153,20 @@
             };
 
             scope.validateGrossWeight = function(weight){
+                if(this.formData.stoneWeight){
+                    scope.invalidStoneWeight = parseInt(weight) < parseInt(this.formData.stoneWeight);
+                }else{
+                    scope.invalidStoneWeight = false;
+                }
                 scope.requiredGrossWeight = (angular.isUndefined(weight) || weight.length==0);
-                scope.invalidStoneWeight = false;
             };
 
             scope.calculatedValue = function(data){
                 var totalSystemPrice = 0;
                 var totalUserPrice = 0;
                 for(var i=0;i<data.length;i++){
-                    totalSystemPrice = totalSystemPrice+ data[i].systemPrice;
-                    totalUserPrice = totalUserPrice+ data[i].userPrice;
+                    totalSystemPrice = totalSystemPrice+ parseInt(data[i].systemPrice);
+                    totalUserPrice = totalUserPrice+ parseInt(data[i].userPrice);
                 }
                 scope.totalSystemPrice = totalSystemPrice;
                 scope.totalUserPrice = totalUserPrice;
