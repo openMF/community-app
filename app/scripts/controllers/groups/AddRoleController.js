@@ -10,8 +10,6 @@
                 scope.group = data;
                 scope.clients = data.clientMembers;
                 scope.roles = data.availableRoles;
-                console.log("Client members : ", data.clientMembers);
-                console.log("Available roles : ", data.availableRoles);
 
                 /**
                  * Checking availableRoles[0] is null before applying it to the main scope.

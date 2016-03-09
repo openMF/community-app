@@ -6,7 +6,6 @@
             scope.searchText = "";
             scope.searchResults = [];
             scope.routeTo = function (id) {
-                console.log("Selected Group ID : ",id);
                 location.path('/viewgroup/' + id);
             };
 
