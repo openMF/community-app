@@ -80,7 +80,12 @@
 
                 if (scope.loanaccountinfo.calendarOptions) {
                     scope.formData.syncRepaymentsWithMeeting = true;
-                    scope.formData.syncDisbursementWithMeeting = true;
+                    if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
+                        scope.formData.syncDisbursementWithMeeting = false;
+                    }else{
+                        scope.formData.syncDisbursementWithMeeting = true;
+                    }
+
                 }
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
                     scope.formData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
