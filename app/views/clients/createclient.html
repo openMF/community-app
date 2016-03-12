@@ -54,10 +54,10 @@
 								class="required">*</span></label>
 
 						<div class="col-sm-3">
-							<input type="text" id="firstname" name="firstname" ng-model="formData.firstname"  class="form-control" required
-								   late-Validate/>
+							<input type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control" required ng-pattern="/^[a-zA-Z]*$/" onkeypress="return onlyAlphabets(event,this);" late-Validate/>
 						</div>
 						<div class="col-sm-2">
+                            <span class="error" ng-show="createclientform.firstname.$error.pattern">Text only Please</span>
 							<form-validate valattributeform="createclientform" valattribute="firstname"/>
 						</div>
 					</div>
@@ -84,10 +84,11 @@
 
 						<div class="col-sm-3">
 							<input type="text" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
-								   required late-Validate/>
+								   required ng-pattern="/^[a-zA-Z]*$/" onkeypress="return onlyAlphabets(event,this);" late-Validate/>
 						</div>
 						<div class="col-sm-2">
-							<form-validate valattributeform="createclientform" valattribute="lastname"/>
+                            <span class="error" ng-show="createclientform.lastname.$error.pattern">Text only please</span>
+                            <form-validate valattributeform="createclientform" valattribute="lastname"/>
 						</div>
 					</div>
 				</div>
@@ -287,3 +288,25 @@
 	    </fieldset>
 	</form>
 </div>
+ <script language="Javascript" type="text/javascript">
+ 
+        function onlyAlphabets(e, t) {
+            try {
+                if (window.event) {
+                    var charCode = window.event.keyCode;
+                }
+                else if (e) {
+                    var charCode = e.which;
+                }
+                else { return true; }
+                if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                    return true;
+                else
+                    return false;
+            }
+            catch (err) {
+                alert(err.Description);
+            }
+        }
+ 
+    </script>
