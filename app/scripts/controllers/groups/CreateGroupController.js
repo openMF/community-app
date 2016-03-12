@@ -3,6 +3,7 @@
         CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams) {
             scope.offices = [];
             scope.staffs = [];
+            scope.centers = [];
             scope.data = {};
             scope.choice = 0;
             scope.first = {};
@@ -19,9 +20,7 @@
             var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
-            }
-            else{
-                requestParams.centerId = 1;
+                scope.formData.centerId = requestParams.centerId;
             }
             resourceFactory.groupTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
@@ -70,7 +69,12 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
+                resourceFactory.centerResource.getAllCenters({officeId: officeId}, function (data) {
+                    scope.centers = data;
+                });
+            };
+            scope.changeCenter = function (centerId) {
+                resourceFactory.groupTemplateResource.get({centerId: centerId}, function (data) {
                     scope.clients = data.clientOptions;
                 });
             };
