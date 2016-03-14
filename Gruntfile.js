@@ -184,7 +184,7 @@ module.exports = function(grunt) {
           src: [
             '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**',
-            'angular-utils-pagination/dirPagination.tpl.html'
+            'angular-utils-pagination/dirPagination.tpl.html' , 'angular-translate-finflux/**'
           ]
         }
         ]
