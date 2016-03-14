@@ -36,8 +36,14 @@
     <tr ng-show="formData.productId">
         <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
-        <td class="paddedbottom10">
-            <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId"
+        <td class="paddedbottom10" ng-switch on ="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanPurposeId">
+            <select ng-switch-when="true" chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
+                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                    class="form-control width170px" value="{{loanPurpose.id}}" required late-validate>
+                <option value="">{{'label.selectpurpose' | translate}}</option>
+            </select>
+            <form-validate valattributeform="newloanaccountform" valattribute="loanpurpose"/>
+            <select ng-switch-default chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
                     class="form-control width170px" value="{{loanPurpose.id}}">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
@@ -209,7 +215,7 @@
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
                     <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"
-                           ng-model="formData.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                           ng-model="formData.interestRatePerPeriod" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
