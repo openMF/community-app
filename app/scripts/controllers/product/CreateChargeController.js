@@ -88,6 +88,15 @@
                 }
             };
 
+	    scope.filterChargeCalculations = function(chargeTimeType) {
+		return function (item) {
+			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
+			{
+				return false;
+			}
+			return true;
+		};
+	    };
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to
                 //the formData

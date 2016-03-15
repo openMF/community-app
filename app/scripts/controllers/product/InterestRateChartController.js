@@ -21,9 +21,6 @@
             scope.charts = data;
             _.each(scope.charts,function(chart){
                 scope.chartSlabs = chart.chartSlabs;
-                chart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                    return obj.fromPeriod
-                });
             });
 
         });

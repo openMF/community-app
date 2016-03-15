@@ -883,7 +883,7 @@
 
     <div class="checkbox col-sm-2">
         <label>
-            <input type="checkbox" ng-model="formData.multiDisburseLoan"/>
+            <input type="checkbox" ng-model="formData.multiDisburseLoan" />
         </label>
     </div>
 </div>
@@ -974,7 +974,7 @@
 <div class="form-group">
     <div class="col-sm-3">
         <select id="chargeId" ng-model="chargeId" class="form-control"
-                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:formData.currencyCode:strict"
+                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
                 value="{{charge.id}}">
             <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
         </select>
