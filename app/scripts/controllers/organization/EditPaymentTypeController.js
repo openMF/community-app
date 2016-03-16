@@ -3,13 +3,19 @@
         EditPaymentTypeController: function (scope, routeParams, resourceFactory, location, $modal, route) {
 /*
             scope.formData = {};*/
-
+            scope.fundSources = [];
+            resourceFactory.accountCoaResource.getAllAssetAcountCoas(function(data) {
+                {
+                    scope.fundSources = data;
+                }
+            });
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id}, function (data) {
                 scope.formData = {
                     name: data.name,
                     description: data.description,
                     isCashPayment: data.isCashPayment,
-                    position : data.position
+                    position : data.position,
+                    fundSourceAccountId: data.fundSourceAccountId
                 };
             });
 

@@ -240,6 +240,7 @@
                     }),
                     accountCoaResource: defineResource(apiVer + "/glaccounts/:glAccountId", {glAccountId: '@glAccountId'}, {
                         getAllAccountCoas: {method: 'GET', params: {}, isArray: true},
+                        getAllAssetAcountCoas:{method: 'GET', params: {type:'1'}, isArray: true},
                         update: { method: 'PUT' }
                     }),
                     accountCoaTemplateResource: defineResource(apiVer + "/glaccounts/template", {}, {

@@ -46,6 +46,14 @@
                                   type="text" class="form-control"/>
                     </div>
                 </div>
+                <div class="form-group" ng-show="fundSources">
+                    <label class="control-label col-sm-2" >{{'label.heading.fundsource' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select chosen="fundSources" id="fundSourceAccountId" ng-model="formData.fundSourceAccountId"  class="form-control"
+                                ng-options="fundSource.id as fundSource.name for fundSource in fundSources" value="{{fundSource.id}}">
+                                </select>
+                    </div>
+                </div>
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/viewpaymenttype" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_PAYMENTTYPE'>{{'label.button.save' | translate}}</button>
