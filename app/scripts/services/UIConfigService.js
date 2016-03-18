@@ -3,8 +3,8 @@
 
         UIConfigService: function ($q,$http) {
 
-            this.init  = function(scope) {
-                $http.get('scripts/config/UIconfig.json').success(function(data) {
+            this.init  = function(scope, tenantIdentifier) {
+                $http.get('scripts/config/'+tenantIdentifier+'_UiConfig.json').success(function(data) {
                     if(data != '' && data != null && data != 'undefined'){
                         if(data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true){
                             scope.response = data;
