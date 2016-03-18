@@ -7,7 +7,7 @@
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             } );
-            uiConfigService.init(scope);
+            uiConfigService.init(scope, $rootScope.tenantIdentifier);
 
             //hides loader
             scope.domReady = true;
