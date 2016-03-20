@@ -1,6 +1,7 @@
 (function () {
     require.config({
         paths: {
+            'mdl': '../bower_components/material-design-lite/material',
             'jquery': '../bower_components/jquery/jquery.min',
             'angular': '../bower_components/angular/angular.min',
             'angular-resource': '../bower_components/angular-resource/angular-resource.min',
@@ -46,6 +47,7 @@
             'angular-mocks': { deps: ['angular'] },
             'webstorage': { deps: ['angular'] },
             'd3': {exports: 'd3'},
+            'mdl': {exports: 'mdl'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular', 'nvd3']},
             'configurations': {deps: ['angular']},
@@ -66,6 +68,7 @@
             'mifosX': {
                 deps: [
                     'angular',
+                    'mdl',
                     'jquery',
                     'angular-route',
                     'angular-resource',

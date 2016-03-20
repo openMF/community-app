@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="./images/favicon.ico" />
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.blue-indigo.min.css" />
 </head>
 <body  class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
 <!--Loader -->
-<!-- Colored FAB button -->
-<!-- <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" style="position: absolute; top: 90%; left: 90%; z-index: 1000;">
-  <i class="material-icons">add</i>
-</button> -->
 
 <div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
     <div id="loader" style="margin: 175px auto">
@@ -27,6 +21,7 @@
     <div class="container well" data-ng-hide="currentSession.user != null" >
 
         <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
+            
             <div class="pull-right ">
                 {{ 'label.input.changelanguage' | translate }}
                 <div class="btn-group" dropdown>
@@ -43,21 +38,23 @@
             <br/><br/>
             <div ng-hide="resetPassword">
     	    <form class="form-inline pull-right" role="form">
-            <div data-ng-show="load" style="position: absolute; top: 50%; left: 48%; z-index: 1000;">
-                <img src="images/cubic_loader.gif" class="img-responsive">
-            </div>
-    		<label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
-    		<div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" data-ng-model="loginCredentials.username"  id="uid" required>
-                <label class="mdl-textfield__label" for="uid" >{{ 'label.input.username' | translate }}</label>
-    		    <!-- <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid"> -->
+            <!-- mdl spiner -->
+            <label><div data-ng-show="load" class="mdl-spinner mdl-js-spinner is-active" style="margin-right: 20px;"></div></label>
+            <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
+    		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input ng-autofocus="true" class="mdl-textfield__input" type="text" data-ng-model="loginCredentials.username" id="uid">
+                <label class="mdl-textfield__label" for="uid" required>{{ 'label.input.username' | translate }}</label>
+    		   <!--  <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid"> -->
     		</div>
-    		<div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" data-ng-model="loginCredentials.password" id="pwd" required >
-                <label class="mdl-textfield__label" for="pwd" >{{ 'label.input.password' | translate }}</label>
+    		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" data-ng-model="loginCredentials.password" id="pwd">
+                <label class="mdl-textfield__label" for="pwd" required>{{ 'label.input.password' | translate }}</label>
     		    <!-- <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd"> -->
     		</div>
-    		<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" data-ng-click="login()" style="" id="login-button">{{ 'label.button.signin' | translate }}</button>
+    		<!-- <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button> -->
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit" data-ng-click="login()" id="login-button" style="height: 30px; text-transform: capitalize; background-color: #4CAF50; font-size: small;">
+              {{ 'label.button.signin' | translate }}
+            </button>
     	    </form>
             </div>
             <div ng-show="resetPassword">
@@ -85,12 +82,12 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-md-4">
-                <div style="border: 1px solid #DDDDDD;padding:15px;">
+        <div class="col-md-4" >
+                <div class="mdl-card mdl-shadow--2dp" style="border: 1px solid #DDDDDD;padding:15px; min-height: 100px;">
                     <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
                         <strong>{{ 'label.heading.resources' | translate }}</strong>
                     </div>
-                    <ul>
+                    <ul style="padding-bottom: 2px;">
                         <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual" href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual">{{ 'label.anchor.usermanual' | translate }}</a></li>
                         <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842" href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{ 'label.anchor.functionalspec' | translate }}</a></li>
                         <li><a href="https://mifosforge.jira.com/wiki/display/MDZ/Welcome+in+the+Zone">{{ 'label.anchor.developerzone' | translate }}</a></li>
@@ -98,11 +95,11 @@
                 </div>
         </div>
         <div class="col-md-4">
-                <div style="border: 1px solid #DDDDDD;padding:15px;">
+                <div class="mdl-card mdl-shadow--2dp" style="border: 1px solid #DDDDDD;padding:15px; min-height: 100px;">
                     <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
                         <strong>{{ 'label.heading.community' | translate }}</strong>
                     </div>
-                    <ul>
+                    <ul style="padding-bottom: 2px;">
                         <li><a target="https://groups.google.com/forum/#!forum/mifosusers" href="https://groups.google.com/forum/#!forum/mifosusers">{{ 'label.anchor.usersgroup' | translate }}</a></li>
                         <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper" href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{ 'label.anchor.developergroup' | translate }}</a></li>
                         <li><a target="http://mifos.org/resources/community/communications/#mifos-irc" href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' | translate }}</a></li>
@@ -110,11 +107,11 @@
                 </div>
         </div>
         <div class="col-md-4">
-                <div style="border: 1px solid #DDDDDD;padding:15px;">
+                <div class="mdl-card mdl-shadow--2dp" style="border: 1px solid #DDDDDD;padding:15px; min-height: 100px;">
                     <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
                         <strong>{{ 'label.heading.contribute' | translate }}</strong>
                     </div>
-                    <ul>
+                    <ul style="padding-bottom: 2px;">
                         <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles" href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{ 'label.anchor.keydesignprinciples' | translate }}</a></li>
                         <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Working+with+Code" href="http://sourceforge.net/projects/mifos/">{{ 'label.anchor.workingwithcode' | translate }}</a></li>
                         <li><a target="http://mifos.org/donate/" href="http://mifos.org/donate/">{{ 'label.anchor.donate' | translate }}</a></li>
@@ -260,8 +257,8 @@
     </div>
 </div>
 <!-- Le javascript -->
+<script src="/bower_components/material-design-lite/material.min.js"></script>
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
-<script defer src="https://code.getmdl.io/1.1.2/material.min.js"></script>
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- devcode: !production -->
 <!-- begin olark code -->
