@@ -264,7 +264,7 @@
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
         <td><input id="charges[{{$index}}].amount" class="form-control" type="text" ng-model="charge.amount"
-                   placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+                   number-format placeholder="{{'label.placeholder.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
         <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
             <input id="charges[{{$index}}].feeOnMonthDay" class="date-disable form-control"
@@ -280,7 +280,7 @@
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
             <input id="charges[{{$index}}].amount" class="form-control" type="text"
-                   ng-model="charge.feeInterval"/>
+                   number-format ng-model="charge.feeInterval"/>
         </td>
         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
         <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
