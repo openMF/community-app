@@ -16,12 +16,13 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required
+                    <input type="text" id="username" name="username" ng-model="formData.username" class="form-control"
+                           required
                            late-Validate/>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="edituserform" valattribute="username"/>
-                </div>    
+                </div>
             </div>
 
             <div class="form-group">
@@ -55,7 +56,8 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email" class="form-control"
+                    <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email"
+                           class="form-control"
                            required late-Validate/>
                 </div>
                 <div class="col-sm-3">
@@ -77,7 +79,8 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control" data-ng-change="getOfficeStaff()"
+                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+                            data-ng-change="getOfficeStaff()"
                             ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                         <option value="">--{{'label.menu.selectoffice' | translate}}--</option>
                     </select>
@@ -88,7 +91,7 @@
                 <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
 
                 <div class="col-sm-3">
-                    <select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
+                    <select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
                             ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                         <option value="">--{{'label.menu.selectstaff' | translate}}--</option>
                     </select>
@@ -96,13 +99,15 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="role">{{'label.input.selectroles' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2">{{'label.input.selectroles' | translate}}<span
+                        class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="role" ng-model="formData.selectedRoles" name="role"
-                            ng-options="availablerole.name for availablerole in availableRoles"
-                            value="{{availablerole.id}}" class="form-control multiselectmin" multiple required>
-                    </select>
+                    <div class="role-drop-down">
+                        <div ng-repeat="availablerole in availableRoles" >
+                            <div ng-class="{'item-selected': availablerole.selected,'item-notselected': !availablerole.selected}" ng-click="availablerole.selected = !availablerole.selected">{{availablerole.name}}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-3">
                     <form-validate valattributeform="edituserform" valattribute="role"/>
@@ -113,7 +118,9 @@
                 <a id="cancel" href="#/viewuser/{{userId}}">
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
-                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_USER'>{{'label.button.save' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_USER'>
+                    {{'label.button.save' | translate}}
+                </button>
             </div>
         </fieldset>
     </form>
