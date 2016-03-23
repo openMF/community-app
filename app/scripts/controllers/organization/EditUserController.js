@@ -21,7 +21,16 @@
                 scope.formData.selectedRoles=data.selectedRoles;
                 scope.userId = data.id;
                 scope.offices = data.allowedOffices;
-                scope.availableRoles = data.availableRoles.concat(data.selectedRoles);
+                scope.availableRoles = data.availableRoles;
+                scope.availableRoles.filter(function(element){
+                    element.selected = false;
+                })
+                scope.selectedRoles = data.selectedRoles;
+                scope.selectedRoles.filter(function(element){
+                    element.selected = true;
+                })
+                scope.availableRoles = scope.selectedRoles.concat(data.availableRoles);
+                console.log(scope.availableRoles);
                 scope.formData.passwordNeverExpires = data.passwordNeverExpires;
             });
             scope.getOfficeStaff = function(){
@@ -30,9 +39,13 @@
                 });
             };
             scope.submit = function () {
+                console.log(scope.availableRoles);
                 var roles = [];
-                for (var i = 0; i < scope.formData.selectedRoles.length; i++) {
-                    roles.push(scope.formData.selectedRoles[i].id);
+
+                for (var i = 0; i < scope.availableRoles.length; i++) {
+                    if(scope.availableRoles[i].selected) {
+                        roles.push(scope.availableRoles[i].id);
+                    }
                 }
 
                 this.formData.roles = roles;
