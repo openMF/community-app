@@ -261,6 +261,7 @@
     "label.today": "Today",
     "label.relDate": "Mifos X Release Date: ",
     "label.relVersion": "Release Version: ",
+    "label.select":"Select an Option",
 
     "#Enumeration & Error Messages": "..",
     "label.error": "Error",
@@ -1780,6 +1781,8 @@
     "label.heading.enforceMinRequiredBalance":"Enforce minimum balance",
     "label.heading.minRequiredBalance":"Minimum balance",
     "label.heading.interest.recalulation.settings":"Interest Recalculation Settings",
+    "label.heading.withholdtax":"Is withhold tax Applicable",
+    "label.heading.withholdtaxgroup":"Withhold Tax group",
 
 
     "#Anchors": "..",
@@ -1857,6 +1860,8 @@
     "label.heading.minbalanceforinterestcalculation":"Balance Required For Interest Calculation",
     "label.input.enforceMinRequiredBalance":"Enforce minimum balance",
     "label.input.minRequiredBalance":"Minimum balance",
+    "label.input.withholdtax":"Is Withhold tax applicable",
+
 
     "#Buttons": "..",
     "label.button.undo": "Undo",
@@ -1877,6 +1882,8 @@
     "label.button.inactivatecharge":"Inactivate Charge",
     "label.button.showActiveCharges":"Active Charges",
     "label.button.showInactiveCharges":"Inactive Charges",
+    "label.button.disableWithHoldTax":"Disable Withhold Tax",
+    "label.button.enableWithHoldTax":"Enable Withhold Tax",
 
     "#Misc Labels": "..",
     "label.selectcharge": "Select charge",
@@ -1955,6 +1962,7 @@
     "label.tooltip.incomefrompenalties":"An Income account, which is credited when a penalty is paid by account holder on this account",
     "label.tooltip.incomefromoverdraftinterest":"An Income account, where income generated when client pays interest on overdrafts",
     "label.tooltip.savingsuspense":"An Asset account that is used a suspense account for tracking Portfolio of Loans under transfer",
+    "label.tooltip.withholdtax":"An boolean flag to attach  taxes to interest posting",
 
     "#Tooltips for deposit products": "..",
     "label.tooltip.fixeddepositproduct.defaultamount": "The default deposit amount expected when a fixed deposit account based on this fixed deposit product is opened.",
@@ -2140,6 +2148,7 @@
 
     "validation.msg.fixeddepositaccount.submittedOnDate.cannot.be.blank":"Submitted on date is mandatory.",
     "error.msg.officeToAccountMapping.not.found":"Mapping for office with Id `{{params[0].value}}` does not exist for an account of type `{{params[1].value}}`",
+    "validation.msg.savingsproduct.taxGroupId.cannot.be.blank":"Tax group is required for with hold tax",
 
     "#-------": "------------",
 
@@ -2237,6 +2246,13 @@
     "label.heading.applicableoffices": "Applicable Offices",
     "label.heading.namedecorated": "Name Decorated",
     "label.heading.officeName":"Office Name",
+    "label.heading.createtaxcomponent":"Create Tax Component",
+    "label.heading.edittaxcomponent":"Edit Tax Component",
+    "label.heading.viewtaxcomponent":"View Tax Component",
+    "label.heading.createtaxgroup":"Create Tax Group",
+    "label.heading.edittaxgroup":"Edit Tax Group",
+    "label.heading.viewtaxgroup":"View Tax Group",
+    "label.heading.taxcomponent":"Tax Components",
 
     "#Anchors": "..",
     "label.anchor.organization": "Organization",
@@ -2257,6 +2273,15 @@
     "label.anchor.editrole":"Edit Role",
     "label.anchor.standinginstruction.history":"Standing Instructions History",
     "label.anchor.fund.mapping":"Fund Mapping",
+    "label.anchor.createtaxcomponent":"Create Tax Component",
+    "label.anchor.managetaxcomponents":"Manage Tax Components",
+    "label.anchor.edittaxcomponent":"Edit Tax Component",
+    "label.anchor.viewtaxcomponent":"View Tax Component",
+    "label.anchor.managetaxconfigurations":"Manage Tax Configurations",
+    "label.anchor.managetaxgroup":"Manage Tax Groups",
+    "label.anchor.createtaxgroup":"Create Tax Group",
+    "label.anchor.edittaxgroup":"Edit Tax Group",
+    "label.anchor.viewtaxgroup":"View Tax Group",
 
 
 
@@ -2274,6 +2299,14 @@
     "label.input.filterbynameexternalid": "Filter by name/external id",
     "label.input.fromAccountId":"From Account Id",
     "label.input.tosavingsofficer" : "To Savings Officer",
+    "label.input.percentage":"Percentage",
+    "label.input.debitaccounttype":"Debit Account Type",
+    "label.input.creditaccounttype":"Credit Account Type",
+    "label.input.debitaccount":"Debit Account",
+    "label.input.creditaccount":"Credit Account",
+    "label.input.taxcomponents":"Tax Components",
+    "label.input.taxcomponent":"Tax Component",
+    "label.input.taxgroup":"Tax Group",
 
     "#Buttons": "..",
     "label.button.createemployee": "Create Employee",
@@ -2291,6 +2324,9 @@
     "label.view.standinginstructions.history.logging":"View logged history of standing instructions",
     "label.view.advance.search.fund.mapping":"Bulk entry screen for mapping fund sources to loans",
     "label.view.createprovisioningcriteria" : "Define Loan Provisioning Criteria for Organization",
+    "label.view.taxconfiguration" : "Define Tax components and Tax groups",
+    "label.view.taxcomponent" : "Define Tax components",
+    "label.view.taxgroup" : "Define Tax Groups",
 
     "#Enumeration & Error Messages": "..",
     "validation.msg.currencies.currencies.cannot.be.empty": "You must select at least one currency that is 'allowed' for your organization.",
@@ -2322,6 +2358,14 @@
     "error.msg.holiday.repayments.rescheduled.date.should.not.fall.on.non.working.day": "Repayments rescheduled to date should not fall on non working days.",
     "validation.msg.holiday.offices.cannot.be.blank":"Please select an office",
     "error.msg.currency.currencyCode.inUse":"Currency you are trying to remove is in use",
+    "validation.msg.tax.component.percentage.is.greater.than.max":"Percentage should be less than 100",
+    "validation.msg.tax.component.startDate.is.less.than.date":"Start date must be greter than or equal to current date and previous start date",
+    "validation.msg.tax.group.taxComponents.not.greater.than.zero":"Tax components must be there",
+    "validation.msg.tax.group.component.dates.are.overlapping":"Tax component dates are overlapping",
+    "validation.msg.tax.group.component.start.date.is.less.than.date":"Tax component start date is overlapping",
+    "validation.msg.tax.group.endDate.can.not.modify.end.date.once.updated":"End date modification is not supported",
+    "validation.msg.tax.group.total.percentage.is.greater.than.max":"Group total percentage must be less than 100 at any point of time",
+    "validation.msg.tax.component.group.total.percentage.is.greater.than.max":"One of the group total is more than 100 with this modification",
 
     "#--------------": "------------",
 
@@ -2940,6 +2984,8 @@
     "label.button.createprovisioningcriteria": "Create Provisioning Criteria",
     "label.button.createprovisioning.entry": "Create Provisioning Entry",
     "label.button.createfloatingrate": "Create Floating Rate",
+    "label.button.createtaxcomponent": "Create Tax Component",
+    "label.button.createtaxgroup": "Create Tax Group",
 
     "#Misc Labels": "..",
     "label.selectproduct": "Select Product",
@@ -2988,6 +3034,7 @@
     "validation.msg.charge.chargeTimeType.is.not.within.expected.range": "The selected charge time option is invalid.",
     "validation.msg.charge.chargeCalculationType.cannot.be.blank": "Charge calculation cannot be blank.",
     "validation.msg.charge.chargePaymentMode.cannot.be.blank": "Charge payment Mode cannot be blank.",
+    "validation.msg.charge.chargeCalculationType.is.not.one.of.expected.enumerations":"The selected charge calculation type option is invalid.",
     "error.msg.charge.due.at.disbursement.cannot.be.penalty": "Charge cannot be setup as a penalty due at disbursement.",
     "error.msg.charge.duplicate.name": "Charge with that name already exists.",
     "error.msg.charge.cannot.be.deleted.it.is.already.used.in.loan": "This charge cannot be deleted as it is already associated with a Loan Product and/or a Loan.",

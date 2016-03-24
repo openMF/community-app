@@ -238,6 +238,18 @@
         <td > {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
         <td>{{data.minBalanceForInterestCalculation | number}}</td>
     </tr>
+    <tr ng-show="data.taxGroup">
+        <td colspan="2" class="paddedbottom10">
+            <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
+                class="control-label">{{ 'label.input.withholdtax' | translate }}&nbsp;</span>
+        </td>
+        <td class="width14" ng-show="formData.withHoldTax">
+            <label class="control-label">{{ 'label.input.taxgroup' | translate
+                }}&nbsp;</label></td>
+        <td class="width36 paddedbottom10" ng-show="formData.withHoldTax">
+            {{data.taxGroup.name}}
+        </td>
+    </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
 <label ng-show="data"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
