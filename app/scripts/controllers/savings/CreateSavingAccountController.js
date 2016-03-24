@@ -63,6 +63,7 @@
                     scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
                     scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                     scope.formData.minRequiredBalance = data.minRequiredBalance;
+                    scope.formData.withHoldTax = data.withHoldTax;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
