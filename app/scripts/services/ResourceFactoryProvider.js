@@ -562,6 +562,18 @@
                         validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
                         addVariations:{method:'POST',params:{command: 'addVariations'}},
                         deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    }),
+                    taxcomponent: defineResource(apiVer + "/taxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxcomponenttemplate: defineResource(apiVer + "/taxes/component/template",{},{
+                    }),
+                    taxgroup: defineResource(apiVer + "/taxes/group/:taxGroupId",{taxGroupId:'@taxGroupId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxgrouptemplate: defineResource(apiVer + "/taxes/group/template",{},{
                     })
                 };
             }];

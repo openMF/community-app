@@ -38,8 +38,13 @@
                     minOverdraftForInterestCalculation: data.minOverdraftForInterestCalculation,
                     minBalanceForInterestCalculation: data.minBalanceForInterestCalculation,
                     enforceMinRequiredBalance: data.enforceMinRequiredBalance,
-                    minRequiredBalance:data.minRequiredBalance
+                    minRequiredBalance:data.minRequiredBalance,
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
 
+                }
+
+                if(data.withHoldTax){
+                    scope.formData.taxGroupId = data.taxGroup.id;
                 }
 
                 if (data.lockinPeriodFrequencyType) {
