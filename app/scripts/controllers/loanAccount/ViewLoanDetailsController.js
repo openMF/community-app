@@ -644,7 +644,9 @@
 
             scope.showEdit = function(disbursementDetail){
                 if((!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)
-                    && (scope.status == 'Submitted and pending approval' || scope.status =='Approved' || scope.status == 'Active')){
+                    && ((scope.status == 'Submitted and pending approval' && !scope.response.uiDisplayConfigurations.
+                        viewLoanAccountDetails.isHiddenFeild.editTranches) || (scope.status =='Approved' && !scope.response.uiDisplayConfigurations.
+                        viewLoanAccountDetails.isHiddenFeild.editTranches) || scope.status == 'Active')){
                     return true;
                 }
                 return false;
