@@ -14,6 +14,9 @@
                 if(data.collectionMeetingCalendar) {
                     scope.meeting = data.collectionMeetingCalendar;
                 }
+                var today  =  new Date();
+                scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
+                //scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime);
             });
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);

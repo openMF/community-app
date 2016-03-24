@@ -23,7 +23,7 @@
                     interval: '1'
                 }
             });
-
+            scope.meetingtime = new Date();
             scope.selectedPeriod = function (period) {
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
@@ -59,6 +59,10 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.typeId = "1";
+                this.formData.timeFormat='HH:mm:ss';
+                this.formData.location=scope.formData.location;
+                this.formData.meetingtime = dateFilter(scope.meetingtime,'HH:mm');
+               this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 if (routeParams.entityType == "groups") {
                     this.formData.title = "groups_" + routeParams.id + "_CollectionMeeting";
                     scope.r = "viewgroup/";

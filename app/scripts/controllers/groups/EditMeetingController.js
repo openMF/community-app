@@ -16,6 +16,9 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
+                scope.location=data.location;
+                var today  =  new Date();
+                scope.meetingtime=   new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
                 //to display default in select boxes
@@ -77,7 +80,11 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.repeating = true;
                 this.formData.dateFormat = scope.df;
+                this.formData.timeFormat='HH:mm:ss';
                 this.formData.typeId = "1";
+                this.formData.location=scope.location;
+                this.formData.meetingtime = dateFilter(scope.meetingtime ,'HH:mm');
+                this.formData.meetingtime = this.formData.meetingtime.concat(":00"); // setting the second portion of the time to zero
                 if (this.formData.interval < 0) {
                     scope.formData.interval = Math.abs(this.formData.interval);
                 }
