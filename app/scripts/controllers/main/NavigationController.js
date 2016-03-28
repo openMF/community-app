@@ -8,7 +8,7 @@
             scope.groupCollapsed = true;
             scope.centerCollapsed = true;
             scope.clientCollapsed = true;
-            resourceFactory.officeResource.get({officeId: 1}, function (data) {
+            resourceFactory.officeResource.get({officeId: 0}, function (data) {
                 scope.office = data;
                 scope.officeName = data.name;
             });
