@@ -97,6 +97,7 @@
                 scope.formData.isCalendarInherited = data.isCalendarInherited;
                 scope.formData.recurringFrequency = data.recurringFrequency;
                 scope.formData.recurringFrequencyType = data.recurringFrequencyType.id;
+                scope.formData.withHoldTax = data.withHoldTax;
             });
 
             scope.changeProduct = function () {
@@ -113,6 +114,7 @@
                     scope.formData.depositPeriod = data.depositPeriod;
                     scope.formData.recurringDepositFrequency = data.recurringDepositFrequency;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
+                    scope.formData.withHoldTax = data.withHoldTax;
                     /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                     //scope.formData.annualFeeAmount = data.annualFeeAmount;
                     //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;

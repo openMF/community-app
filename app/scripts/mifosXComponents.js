@@ -260,7 +260,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/DefineOpeningBalancesController',
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
-            'configurations/ViewExternalServicesController'
+            'configurations/ViewExternalServicesController',
+            'product/tax/CreateTaxComponentController',
+            'product/tax/ViewTaxComponentController',
+            'product/tax/EditTaxComponentController',
+            'product/tax/TaxComponentController',
+            'product/tax/CreateTaxGroupController',
+            'product/tax/ViewTaxGroupController',
+            'product/tax/EditTaxGroupController',
+            'product/tax/TaxGroupController'
         ],
         filters: [
             'StatusLookup',

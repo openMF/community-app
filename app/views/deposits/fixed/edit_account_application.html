@@ -196,6 +196,18 @@
             </select>
         </td>
     </tr>
+    <tr ng-show="data.taxGroup">
+        <td colspan="2" class="paddedbottom10">
+            <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
+                class="control-label">{{ 'label.input.withholdtax' | translate }}&nbsp;</span>
+        </td>
+        <td class="width14" ng-show="formData.withHoldTax">
+            <label class="control-label">{{ 'label.input.taxgroup' | translate
+                }}&nbsp;</label></td>
+        <td class="width36 paddedbottom10" ng-show="formData.withHoldTax">
+            {{data.taxGroup.name}}
+        </td>
+    </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
 <label ng-show="data"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
@@ -264,7 +276,7 @@
         <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
         <td>{{charge.chargeCalculationType.value}}</td>
         <td><input id="charges[{{$index}}].amount" class="form-control" type="text" ng-model="charge.amount"
-                   placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+                   number-format placeholder="{{'label.placeholder.amount' | translate}}"/></td>
         <td>{{charge.chargeTimeType.value}}</td>
         <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
             <input id="charges[{{$index}}].feeOnMonthDay" class="date-disable form-control"
@@ -280,7 +292,7 @@
         </td>
         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
             <input id="charges[{{$index}}].amount" class="form-control" type="text"
-                   ng-model="charge.feeInterval"/>
+                   number-format ng-model="charge.feeInterval"/>
         </td>
         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
         <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>

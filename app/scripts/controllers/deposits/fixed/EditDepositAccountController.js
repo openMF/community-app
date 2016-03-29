@@ -53,6 +53,7 @@
                 scope.formData.depositAmount = data.depositAmount;
                 scope.formData.depositPeriod = data.depositPeriod;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
+                scope.formData.withHoldTax = data.withHoldTax;
                 /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                 //scope.formData.annualFeeAmount = data.annualFeeAmount;
                 //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
@@ -118,7 +119,7 @@
                     scope.formData.depositAmount = data.depositAmount;
                     scope.formData.depositPeriod = data.depositPeriod;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
-
+                    scope.formData.withHoldTax = data.withHoldTax;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;

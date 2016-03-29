@@ -817,6 +817,33 @@
             })
             .when('/editprovisioningcriteria/:criteriaId', {
                 templateUrl: 'views/organization/provisioning/EditProvisioningCriteria.html'
+            })
+            .when('/taxconfiguration',{
+                templateUrl: 'views/products/tax/TaxConfigurations.html'
+            })
+            .when('/createtaxcomponent', {
+                templateUrl: 'views/products/tax/CreateTaxComponent.html'
+            })
+            .when('/taxcomponents', {
+                templateUrl: 'views/products/tax/TaxComponents.html'
+            })
+            .when('/viewtaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/ViewTaxComponent.html'
+            })
+            .when('/edittaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/EditTaxComponent.html'
+            })
+            .when('/createtaxgroup', {
+                templateUrl: 'views/products/tax/CreateTaxGroup.html'
+            })
+            .when('/taxgroups', {
+                templateUrl: 'views/products/tax/TaxGroups.html'
+            })
+            .when('/viewtaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/ViewTaxGroup.html'
+            })
+            .when('/edittaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/EditTaxGroup.html'
             });
         $locationProvider.html5Mode(false);
     };
