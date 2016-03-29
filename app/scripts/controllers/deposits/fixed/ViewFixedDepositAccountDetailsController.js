@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
             scope.isDebit = function (savingsTransactionType) {
-                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
+                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
 
             /***
@@ -70,6 +70,22 @@
                         break;
                     case "prematureClose":
                         location.path('/fixeddepositaccount/' + accountId + '/prematureClose');
+                        break;
+                    case "enableWithHoldTax":
+                        var changes = {
+                            withHoldTax:true
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
+                    case "disableWithHoldTax":
+                        var changes = {
+                            withHoldTax:false
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
                         break;
                 }
             };
@@ -160,6 +176,19 @@
                         ]
 
                     };
+                    if(data.taxGroup){
+                        if(data.withHoldTax){
+                            scope.buttons.options.push({
+                                name: "button.disableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }else{
+                            scope.buttons.options.push({
+                                name: "button.enableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }
+                    }
                     /*if (data.clientId) {
                      scope.buttons.options.push({
                      name:"button.transferFunds"

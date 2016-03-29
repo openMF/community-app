@@ -46,6 +46,10 @@
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
                 }
 
+                if(data.taxGroup){
+                    scope.formData.taxGroupId = data.taxGroup.id;
+                }
+
                 if(data.feeFrequency){
                     scope.addfeefrequency = 'true';
                     scope.formData.feeFrequency = data.feeFrequency.id;
