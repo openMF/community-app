@@ -19,6 +19,11 @@ describe("ViewClientController", function () {
                     clientAccountResourceCallback = callback;
                 })
             },
+            groupResource: {
+                get: jasmine.createSpy('groupResource.get()').andCallFake(function (callback) {
+                    groupResourceCallback = callback;
+                })
+            },
             clientNotesResource: {
                 getAllNotes: jasmine.createSpy('clientNotesResource.getAllNotes()').andCallFake(function (callback) {
                     clientNotesResourceCallback = callback;

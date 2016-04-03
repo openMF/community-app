@@ -1,8 +1,15 @@
 <div class="col-md-12" ng-controller="ViewClientController">
 	<div>
 	    <ul class="breadcrumb">
-	        <li>{{client.officeName}}</li>
-	        <li>{{client.staffName}}</li>
+	        <li><a ng-href="#/viewoffice/{{client.center.officeId}}">{{client.officeName}} </a> </li> |
+	      
+            <li ng-show="client.center"><a href="#/viewcenter/{{client.center.centerId}}">{{client.center.centerName}} </a> </li> |
+            
+   	        <li ng-show="client.groups"><a href="#/viewgroup/{{client.groups[0].id}}">{{client.groups[0].name}} </a></li> |
+   	   
+            <li class="active">{{client.displayName}}(#{{client.accountNo}})</li>
+ 
+            
 	    </ul>
 	</div>
 	<div class="row">
