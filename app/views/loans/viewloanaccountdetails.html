@@ -80,10 +80,78 @@
 
             <hr/>
             <br/>
-
+            
             <div class="row span" style="margin-left:-1px;margin-top: -20px">
-                <div class="col-sm-6 col-md-6">
-                    <table class="table table-striped table-bordered">
+                <div class="col-sm-9 col-md-9">
+                    <h3>Current Balance: {{loandetails.summary.totalOutstanding | number}} USD</h3>
+                    <h3> In Arrears By :{{loandetails.summary.totalOverdue | number}} USD</h3>
+                    <h3> Amount Due :  {{loandetails.summary.totalOverdue  + loandetails.repaymentSchedule.periods[1].principalDue }} USD </h3>
+                    <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="empty"></th>
+                                <th>{{'label.heading.original' | translate}}</th>
+                                <th>{{'label.heading.paid' | translate}}</th>
+                                <th>{{'label.heading.waived' | translate}}</th>
+                                <th>{{'label.heading.writtenoff' | translate}}</th>
+                                <th>{{'label.heading.outstanding' | translate}}</th>
+                                <th>{{'label.heading.overdue' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>{{'label.heading.principal' | translate}}</th>
+                                <td>{{loandetails.summary.principalDisbursed | number}}</td>
+                                <td>{{loandetails.summary.principalPaid | number}}</td>
+                                <td>&nbsp;</td>
+                                <td>{{loandetails.summary.principalWrittenOff | number}}</td>
+                                <td>{{loandetails.summary.principalOutstanding | number}}</td>
+                                <td>{{loandetails.summary.principalOverdue | number}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'label.heading.interest' | translate}}</th>
+                                <td>{{loandetails.summary.interestCharged | number}}</td>
+                                <td>{{loandetails.summary.interestPaid | number}}</td>
+                                <td>{{loandetails.summary.interestWaived | number}}</td>
+                                <td>{{loandetails.summary.interestWrittenOff | number}}</td>
+                                <td>{{loandetails.summary.interestOutstanding | number}}</td>
+                                <td>{{loandetails.summary.interestOverdue | number}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'label.heading.fees' | translate}}</th>
+                                <td>{{loandetails.summary.feeChargesCharged | number}}</td>
+                                <td>{{loandetails.summary.feeChargesPaid | number}}</td>
+                                <td>{{loandetails.summary.feeChargesWaived | number}}</td>
+                                <td>{{loandetails.summary.feeChargesWrittenOff | number}}</td>
+                                <td>{{loandetails.summary.feeChargesOutstanding | number}}</td>
+                                <td>{{loandetails.summary.feeChargesOverdue | number}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'label.heading.penalties' | translate}}</th>
+                                <td>{{loandetails.summary.penaltyChargesCharged | number}}</td>
+                                <td>{{loandetails.summary.penaltyChargesPaid | number}}</td>
+                                <td>{{loandetails.summary.penaltyChargesWaived | number}}</td>
+                                <td>{{loandetails.summary.penaltyChargesWrittenOff | number}}</td>
+                                <td>{{loandetails.summary.penaltyChargesOutstanding | number}}</td>
+                                <td>{{loandetails.summary.penaltyChargesOverdue | number}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>{{'label.heading.total' | translate}}</th>
+                                <th>{{loandetails.summary.totalExpectedRepayment | number}}</th>
+                                <th>{{loandetails.summary.totalRepayment | number}}</th>
+                                <th>{{loandetails.summary.totalWaived | number}}</th>
+                                <th>{{loandetails.summary.totalWrittenOff | number}}</th>
+                                <th>{{loandetails.summary.totalOutstanding | number}}</th>
+                                <th>{{loandetails.summary.totalOverdue | number}}</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <table class="table table-striped">
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.disbursementdate' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.timeline.actualDisbursementDate | DateFormat}}<span
@@ -109,9 +177,7 @@
                             <td><span class="padded-td">{{loandetails.externalId}}</span></td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-sm-6 col-md-6">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped">
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.loanpurpose' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.loanPurposeName}}
