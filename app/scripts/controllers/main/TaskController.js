@@ -2,6 +2,8 @@
     mifosX.controllers = _.extend(module, {
         TaskController: function (scope, resourceFactory, route, dateFilter, $modal, location) {
             scope.clients = [];
+            scope.sortType = '';
+            scope.sortReverse = true;
             scope.loans = [];
             scope.offices = [];
             var idToNodeMap = {};
@@ -68,6 +70,20 @@
                     return (checkBoxesMet===scope.groupedClients[officeName].length);
                 }
             }
+            scope.loanApprovalAllCheckBoxesClicked = function(office) {
+                var newValue = !scope.loanApprovalAllCheckBoxesMet(office);
+                if(!angular.isUndefined(scope.offices)) {
+                    for (var i = office.loans.length - 1; i >= 0; i--) {
+                        scope.loanTemplate[office.loans[i].id] = newValue; 
+                    };
+                }
+            }
+        scope.setsortType = function(sortType){
+            scope.sortType = sortType;
+        }
+        scope.sortReverseSwitch = function (){
+            scope.sortReverse = !scope.sortReverse;
+        }
             scope.loanApprovalAllCheckBoxesClicked = function(office) {
                 var newValue = !scope.loanApprovalAllCheckBoxesMet(office);
                 if(!angular.isUndefined(scope.offices)) {

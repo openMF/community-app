@@ -82,6 +82,19 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
+    <script type="text/ng-template" id="result.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.search' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+        	<ul>
+			  <li>{{'label.button.confirm' | translate}}: 2 / 20</li>
+			  <li>{{'label.error' | translate}}: 4  / 20</li>
+			</ul>
+            <br>
+            <button class="btn btn-primary" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+        </div>
+    </script>
 				    <script type="text/ng-template" id="approvechecker.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
@@ -98,16 +111,16 @@
 				            <thead>
 				            <tr class="graybg">
 				                <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()" ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
-				                <th>{{'label.heading.id' | translate}}</th>
-				                <th>{{'label.heading.madeondate' | translate}}</th>
-				                <th>{{'label.heading.status' | translate}}</th>
-				                <th>{{'label.heading.user' | translate}}</th>
-				                <th>{{'label.heading.action' | translate}}</th>
-				                <th>{{'label.heading.entity' | translate}}</th>
+				                <th><a id="t1" name="id" ng-click="setsortType('id'); sortReverseSwitch()">{{'label.heading.id' | translate}} <i class="icon-caret-up" ng-show="sortType == 'id' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'id' && sortReverse"></i></a></th>
+				                <th><a id="t2" name="madeOnDate" ng-click="setsortType('madeOnDate'); sortReverseSwitch()">{{'label.heading.madeondate' | translate}} <i class="icon-caret-up" ng-show="sortType == 'madeOnDate' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'madeOnDate' && sortReverse"></i></a></th>
+				                <th><a id="t3" name="processingResult" ng-click="setsortType('processingResult'); sortReverseSwitch()">{{'label.heading.status' | translate}} <i class="icon-caret-up" ng-show="sortType == 'processingResult' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'processingResult' && sortReverse"></i></a></th>
+				                <th><a id="t4" name="maker" ng-click="setsortType('maker'); sortReverseSwitch()">{{'label.heading.user' | translate}} <i class="icon-caret-up" ng-show="sortType == 'maker' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'maker' && sortReverse"></i></a></th>
+				                <th><a id="t5" name="actionName" ng-click="setsortType('actionName'); sortReverseSwitch()">{{'label.heading.action' | translate}} <i class="icon-caret-up" ng-show="sortType == 'actionName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'actionName' && sortReverse"></i></a></th>
+				                <th><a id="t6" name="entityName" ng-click="setsortType('entityName'); sortReverseSwitch()">{{'label.heading.entity' | translate}} <i class="icon-caret-up" ng-show="sortType == 'entityName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'entityName' && sortReverse"></i></a></th>
 				            </tr>
 				            </thead>
 				            <tbody>
-				            <tr class="pointer-main" ng-repeat="data in searchData">
+				            <tr class="pointer-main" ng-repeat="data in searchData | orderBy:sortType:sortReverse">
 				                <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | DateFormat}}</td>
@@ -134,7 +147,7 @@
 				                            class="icon-ok"></i>{{'label.button.approve' | translate}}
 				                    </button>
 				                </th>
-				            </tr>
+				                </tr>
 				            </thead>
 				        </table>
 				    </div>
@@ -155,30 +168,32 @@
             </button>
         </div>
     </script>
-				    <table class="table condensed-table" ng-repeat="(officeName,values) in groupedClients">
+				    <table class="table condensed-table" ng-repeat="(officeName,values) in groupedClients" ng-show="(values  | filter : {active: 'false', status.value:'Pending'} | filter:filterText).length">
 				        <tr>
 				            <td>
-				                <strong>{{officeName}}</strong>
+				                <strong>{{officeName}} ({{(values  | filter : {active: 'false', status.value:'Pending'} | filter:filterText).length}})</strong>
 				            </td>
 				        </tr>
 				        <tr>
 				            <td>
 				                <table class="table condensed-table">
 				                    <thead>
-				                    <tr class="graybg">
+				                    	<tr class="graybg">
 				                        <th><input type="checkbox" ng-click="clientApprovalAllCheckBoxesClicked(officeName)" ng-checked="clientApprovalAllCheckBoxesMet(officeName)"/></th>
-				                        <th>{{'label.heading.name' | translate}}</th>
-				                        <th>{{'label.heading.accnum' | translate}}</th>
-				                        <th>{{'label.heading.staff' | translate}}</th>
+				                        <th><a id="t1" name="displayName" ng-click="setsortType('displayName'); sortReverseSwitch()">{{'label.heading.name' | translate}} <i class="icon-caret-up" ng-show="sortType == 'displayName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'displayName' && sortReverse"></i></a></th>
+				                        <th><a id="t2" name="accountNo" ng-click="setsortType('accountNo'); sortReverseSwitch()">{{'label.heading.accnum' | translate}} <i class="icon-caret-up" ng-show="sortType == 'accountNo' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'accountNo' && sortReverse"></i></a></th>
+				                        <th><a id="t3" name="staffName" ng-click="setsortType('staffName'); sortReverseSwitch()">{{'label.heading.staff' | translate}} <i class="icon-caret-down" ng-show="sortType == 'staffName' && !sortReverse"></i><i class="icon-caret-up" ng-show="sortType == 'staffName' && sortReverse"></i></a></th>
+				                        <th><a id="t4" name="submittedOnDate" ng-click="setsortType('[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]'); sortReverseSwitch()">{{'label.heading.submittedondate' | translate}} {{'label.heading.date' | translate}} <i class="icon-caret-up" ng-show="sortType == '[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]' && sortReverse"></i></a></th>
 				                    </tr>
 				                    </thead>
 				                    <tbody>
 				                    <tr class="pointer-main"
-				                        data-ng-repeat="client in values  | filter : {active: 'false', status.value:'Pending'} | filter:filterText">
+				                        data-ng-repeat="client in values  | orderBy:sortType:sortReverse | filter : {active: 'false', status.value:'Pending'} | filter:filterText">
 				                        <td><input type="checkbox" data-ng-model="approveData[client.id]"/></td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.displayName}}</td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.accountNo}}</td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>
+				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{[client.timeline.submittedOnDate.1,client.timeline.submittedOnDate.2,client.timeline.submittedOnDate.0] | DayMonthFormat}}</td>
 				                    </tr>
 				                    </tbody>
 				                </table>
@@ -225,20 +240,22 @@
 				                    <thead>
 				                    <tr class="graybg">
 				                        <th><input type="checkbox" ng-click="loanApprovalAllCheckBoxesClicked(office)" ng-checked="loanApprovalAllCheckBoxesMet(office)"/></th>
-				                        <th>{{'label.heading.client' | translate}}</th>
-				                        <th>{{'label.heading.loan' | translate}}</th>
-				                        <th>{{'label.heading.amount' | translate}}</th>
-				                        <th>{{'label.heading.loanpurpose' | translate}}</th>
+				                        <th><a id="t1" name="clientName" ng-click="setsortType('clientName'); sortReverseSwitch()">{{'label.heading.client' | translate}} <i class="icon-caret-up" ng-show="sortType == 'clientName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'clientName' && sortReverse"></i></a></th>
+				                        <th><a id="t2" name="loanProductName" ng-click="setsortType('[loanProductName,accountNo]'); sortReverseSwitch()">{{'label.heading.loan' | translate}} <i class="icon-caret-up" ng-show="sortType == '[loanProductName,accountNo]' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '[loanProductName,accountNo]' && sortReverse"></i></a></th>
+				                        <th><a id="t3" name="principal" ng-click="setsortType('principal'); sortReverseSwitch()">{{'label.heading.amount' | translate}} <i class="icon-caret-up" ng-show="sortType == 'principal' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'principal' && sortReverse"></i></a></th>
+				                        <th><a id="t4" name="loanPurposeName" ng-click="setsortType('loanPurposeName'); sortReverseSwitch()">{{'label.heading.loanpurpose' | translate}} <i class="icon-caret-up" ng-show="sortType == 'loanPurposeName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'loanPurposeName' && sortReverse"></i></a></th>
+				                        <th><a id="t5" name="submittedOnDate" ng-click="setsortType('[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]'); sortReverseSwitch()">{{'label.heading.submittedondate' | translate}} {{'label.heading.date' | translate}} <i class="icon-caret-up" ng-show="sortType == '[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '[timeline.submittedOnDate.0,timeline.submittedOnDate.1,timeline.submittedOnDate.2]' && sortReverse"></i></a></th>
 				                    </tr>
 				                    </thead>
 				                    <tbody>
-				                    <tr ng-repeat="loan in office.loans | filter:filterText1">
+				                    <tr ng-repeat="loan in office.loans | orderBy:sortType:sortReverse | filter:filterText1">
 				                        <td><input type="checkbox" ng-model="loanTemplate[loan.id]"></td>
 				                        <td class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                        <td class="pointer"><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a>
 				                        </td>
 				                        <td class="pointer">{{loan.principal | number}}</td>
 				                        <td class="pointer">{{loan.loanPurposeName}}</td>
+				                     	<td class="pointer">{{[loan.timeline.submittedOnDate.1,loan.timeline.submittedOnDate.2,loan.timeline.submittedOnDate.0] | DayMonthFormat}}</td>
 				                    </tr>
 				                    </tbody>
 				                </table>
@@ -280,19 +297,21 @@
 				            <thead>
 				            <tr class="graybg">
 				            	<th><input type="checkbox" ng-click="loanDisbursalAllCheckBoxesClicked()" ng-checked="loanDisbursalAllCheckBoxesMet()"/></th>
-				                <th>{{'label.heading.client' | translate}}</th>
-				                <th>{{'label.heading.loanaccountnum' | translate}}</th>
-				                <th>{{'label.heading.loanproduct' | translate}}</th>
-				                <th>{{'label.heading.principal' | translate}}</th>
+				                <th><a id="t1" name="clientName" ng-click="setsortType('clientName'); sortReverseSwitch()">{{'label.heading.client' | translate}} <i class="icon-caret-up" ng-show="sortType == 'clientName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'clientName' && sortReverse"></i></a></th>
+				                <th><a id="t2" name="accountNo" ng-click="setsortType('accountNo'); sortReverseSwitch()">{{'label.heading.loanaccountnum' | translate}} <i class="icon-caret-up" ng-show="sortType == 'accountNo' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'accountNo' && sortReverse"></i></a></th>
+				                <th><a id="t3" name="loanProductName" ng-click="setsortType('loanProductName'); sortReverseSwitch()">{{'label.heading.loanproduct' | translate}} <i class="icon-caret-up" ng-show="sortType == 'loanProductName' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'loanProductName' && sortReverse"></i></a></th>
+				                <th><a id="t4" name="principal" ng-click="setsortType('principal'); sortReverseSwitch()">{{'label.heading.principal' | translate}} <i class="icon-caret-up" ng-show="sortType == 'principal' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == 'principal' && sortReverse"></i></a></th>
+				                <th><a id="t5" name="approvedOnDate" ng-click="setsortType('[timeline.approvedOnDate.0,timeline.approvedOnDate.1,timeline.approvedOnDate.2]'); sortReverseSwitch()">{{'label.heading.approvedondate' | translate}} {{'label.heading.date' | translate}} <i class="icon-caret-up" ng-show="sortType == '[timeline.approvedOnDate.0,timeline.approvedOnDate.1,timeline.approvedOnDate.2]' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '[timeline.approvedOnDate.0,timeline.approvedOnDate.1,timeline.approvedOnDate.2]' && sortReverse"></i></a></th>
 				            </tr>
 				            </thead>
 				            <tbody>
-				            <tr ng-repeat="loan in loans | filter : {status.waitingForDisbursal :'true' }| filter:filterText2">
+				            <tr ng-repeat="loan in loans | orderBy:sortType:sortReverse | filter : {status.waitingForDisbursal :'true' }| filter:filterText2">
 				            	<td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td>
 				                <td><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
 				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.accountNo}}</a></td>
 				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}</a></td>
 				                <td>{{loan.principal | number}}</td>
+				                <td class="pointer">{{[loan.timeline.approvedOnDate.1,loan.timeline.approvedOnDate.2,loan.timeline.approvedOnDate.0] | DayMonthFormat}}</td>
 				            </tr>
 				            </tbody>
 				        </table>
@@ -333,15 +352,15 @@
                             <thead>
                             <tr class="graybg">
                                 <th></th>
-                                <th>{{'label.heading.client' | translate}}</th>
-                                <th>{{'label.heading.reschulerequest' | translate}}</th>
-                                <th>{{'label.heading.loanaccountnum' | translate}}</th>
-                                <th>{{'label.heading.loanproduct' | translate}}</th>
-                                <th>{{'label.heading.principal' | translate}}</th>
+                                <th><a id="t1" name="" ng-click="setsortType(''); sortReverseSwitch()">{{'label.heading.client' | translate}} <i class="icon-caret-up" ng-show="sortType == '<FILL ME>' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '<FILL ME>' && sortReverse"></i></a></th>
+                                <th><a id="t2" name="" ng-click="setsortType(''); sortReverseSwitch()">{{'label.heading.reschulerequest' | translate}} <i class="icon-caret-up" ng-show="sortType == '<FILL ME>' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '<FILL ME>' && sortReverse"></i></a></th>
+                                <th><a id="t3" name="" ng-click="setsortType(''); sortReverseSwitch()">{{'label.heading.loanaccountnum' | translate}} <i class="icon-caret-up" ng-show="sortType == '<FILL ME>' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '<FILL ME>' && sortReverse"></i></a></th>
+                                <th><a id="t4" name="" ng-click="setsortType(''); sortReverseSwitch()">{{'label.heading.loanproduct' | translate}} <i class="icon-caret-up" ng-show="sortType == '<FILL ME>' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '<FILL ME>' && sortReverse"></i></a></th>
+                                <th><a id="t5" name="" ng-click="setsortType(''); sortReverseSwitch()">{{'label.heading.principal' | translate}} <i class="icon-caret-up" ng-show="sortType == '<FILL ME>' && !sortReverse"></i><i class="icon-caret-down" ng-show="sortType == '<FILL ME>' && sortReverse"></i></a></th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <!--- Add the sort function: (1) use the "sortType" variables in the tableheader. (2) add | orderBy:sortType:sortReverse to the ng-repeat -->
 
                             </tbody>
                         </table>
