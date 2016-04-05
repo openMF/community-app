@@ -30,8 +30,13 @@
                     <input id="documentKey" type="text" name="identification" ng-model="formData.documentKey"
                            required="required" class="form-control" required late-Validate/>
                 </div>
-                <div class="col-sm-3">
-                    <form-validate valattributeform="clientidentifierform" valattribute="identification"/>
+                <div class="col-sm-3" id="col-sm-2" >
+                    <button type="button" id="validate" ng-click="validateRsaIdnumber()" ng-show="response.uiDisplayConfigurations.clientIdentifier.identitiesMatchLuhnsAlgorithm.passportValidation" >{{'label.button.validate' | translate}} </button>
+                </div>
+                <div class="col-sm-3" class="block" >
+                    <small class="required" ng-show="error">
+                        {{error | translate}}
+                    </small>
                 </div>
             </div>
 
