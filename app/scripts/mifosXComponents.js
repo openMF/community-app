@@ -212,6 +212,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'groups/AddRoleController',
             'groups/MemberManageController',
             'groups/TransferClientsController',
+            'groups/TransferGroupController',
             'centers/CenterController',
             'centers/ViewCenterController',
             'centers/CreateCenterController',
