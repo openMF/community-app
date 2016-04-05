@@ -11,7 +11,7 @@
                             MM = 'January';
                             break;
                         case 2:
-                            MM = 'Febraury';
+                            MM = 'February';
                             break;
                         case 3:
                             MM = 'March';
@@ -44,7 +44,13 @@
                             MM = 'December';
                             break
                     }
-                    return day + ' ' + MM;
+            var datestring = day + ' ' + MM;
+            if(typeof input[2] === 'undefined'){
+                return datestring;
+            }else{
+                return datestring + ' ' + input[2];
+            }
+                    
                 }
 
             }
