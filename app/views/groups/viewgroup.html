@@ -42,11 +42,72 @@
         <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
     </div>
 	</script>
+	
+	<script type="text/ng-template" id="disassociateClient.html">
+		
+	  <div class="modal-header silver">
+      <h3 class="bolder">{{'label.heading.disassociateClient' | translate}}</h3>
+	  </div>
+	  
+	  <div class="modal-body">
+		  
+		  <div class="row" style="margin-bottom: 2%;">
+	      <api-validate></api-validate>
+      </div>
+      
+		  <div class="row text-center" style="margin-bottom: 2%;">
+				<span>{{'label.input.confirmDisassociateClient' | translate}} <strong>{{client.displayName}}</strong>?</span>
+			</div>
+			
+		  <div class="row text-center">
+	      <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	      <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		  </div>
+		  
+	  </div>
+	  
+  </script>
+  
+  <script type="text/ng-template" id="reactivateGroup.html">
+	  
+	  <div class="modal-header silver">
+      <h3 class="bolder">{{'label.heading.reactivateGroup' | translate}}</h3>
+	  </div>
+	  
+	  <div class="modal-body" style="overflow-y: visible;">
+		  
+		  <div class="row" style="margin-bottom: 2%;">
+	      <api-validate></api-validate>
+		  </div>
+		        
+		  <div class="row" style="margin-bottom: 2%;">
+	      <label class="control-label col-sm-3">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+	
+		    <div class="col-sm-9">
+	        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="input.date" is-open="opened" min="'2000-01-01'" max="'{{ restrictDate | date:'yyyy-MM-dd' }}'" class="form-control" />
+		    </div>
+	    </div>
+	    
+      <div class="row text-center">
+	      <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	      <button class="btn btn-primary" ng-click="save()">{{'label.button.confirm' | translate}}</button>
+      </div>
+      
+	  </div>
+	  
+  </script>
+  
 	<div>
 		<tabset tabset-name="groupTabset">
 			<tab heading="{{ 'label.heading.general' | translate }}">
 			<div>
 			<div class="col-md-12 primarydiv">
+			    <div class="btn-group pull-right" data-ng-show="group.status.value == 'Closed'">
+				    <a class="btn btn-primary" data-ng-click="reactivateGroup()">
+					    <i class="icon-check-sign icon-white"></i>
+					    {{'label.button.reactivate' | translate }}
+					  </a>
+			    </div>
 			    <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
 			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP'
 			           data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{
@@ -69,25 +130,28 @@
 		                      <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING'
 		                        data-ng-show="group.collectionMeetingCalendar">{{'label.button.attendance' | translate }}</a>
 	                      </li>
-                          <li>
-                              <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
-                                  'label.button.assignstaff' | translate }}</a>
-                          </li>
-                          <li>
-                              <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{
-                                  'label.button.unassignstaff' | translate }}</a>
-                          </li>
-                          <li>
-                              <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'" has-permission='DELETE_GROUP'>{{
-                                  'label.button.delete' | translate }}</a>
-                          </li>
-                          <li>
-                              <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
-                          </li>
-                          <li data-ng-show="group.status.value=='Active'">
-                              <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId" has-permission='CREATE_MEETING' data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
-                                  translate }}</a>
-                          </li>
+                        <li>
+                            <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId" has-permission='ASSIGNSTAFF_GROUP'>{{
+                                'label.button.assignstaff' | translate }}</a>
+                        </li>
+                        <li>
+                            <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId" has-permission='UNASSIGNSTAFF_GROUP'>{{
+                                'label.button.unassignstaff' | translate }}</a>
+                        </li>
+                        <li>
+                            <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'" has-permission='DELETE_GROUP'>{{
+                                'label.button.delete' | translate }}</a>
+                        </li>
+                        <li>
+                            <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}</a>
+                        </li>
+                        <li data-ng-show="group.status.value=='Active'">
+                            <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId" has-permission='CREATE_MEETING' data-ng-hide="group.collectionMeetingCalendar">{{ 'label.button.attachmeeting' |
+                                translate }}</a>
+                        </li>
+                        <li>
+                            <a href="#/transferGroup/{{group.id}}">{{ 'label.button.transferGroup' | translate }}</a>
+                        </li>
                       </ul>
                     </span>
 			    </div>
@@ -123,6 +187,7 @@
 										                <th>{{'label.heading.accnum' | translate}}</th>
 										                <th>{{'label.heading.name' | translate}}</th>
 										                <th>{{ 'label.heading.actions' | translate }}</th>
+										                <th>{{ 'label.heading.disassociateClient' | translate }}</th>
 										            </tr>
 									            </thead>
 									            <tbody>
@@ -135,6 +200,11 @@
 										                </td>
 										                <td><a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
 										                        class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a></td>
+										                <td>
+											                <a class="btn btn-primary btn-sm" data-ng-click="disassociateClient($index, member.id)">
+												                <i class="icon-remove icon-white"></i>
+												              </a>
+												            </td>
 										            </tr>
 									            </tbody>
 									        </table>
