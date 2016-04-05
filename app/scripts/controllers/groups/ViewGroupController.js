@@ -208,6 +208,78 @@
                     route.reload();
                 });
             };
+            
+            scope.disassociateClient = function(index,id) {
+	            
+              scope.indexOfClientToBeDeleted = index;
+              
+            	scope.disassociate = {};
+            	scope.disassociate.clientMembers = [];
+            	scope.disassociate.clientMembers.push(id);
+            	
+              $modal.open({
+                templateUrl	: 'disassociateClient.html',
+                controller	: DisassociateClientCtrl
+              });
+            	
+            };
+            
+            var DisassociateClientCtrl = function($scope, $modalInstance) {
+	            
+	            $scope.client = scope.group.clientMembers[scope.indexOfClientToBeDeleted];
+	            
+              $scope.delete = function() {
+              	resourceFactory.groupResource.save(
+              		{
+                		groupId : routeParams.id, 
+                		command	: 'disassociateClients'
+                	}, 
+									scope.disassociate, 
+									function(data) {
+                    scope.group.clientMembers.splice(scope.indexOfClientToBeDeleted, 1);
+                    $modalInstance.close('activate');
+                  });
+              };
+              
+              $scope.cancel = function() {
+                $modalInstance.dismiss('cancel');
+              };
+                
+            };
+            
+            scope.reactivateGroup = function() {
+	            
+              $modal.open({
+	              templateUrl	: 'reactivateGroup.html',
+                controller	: ReactivateGroupCtrl
+              });
+              
+            };
+            
+            var ReactivateGroupCtrl = function($scope, $modalInstance) {
+	            
+	            $scope.input = {};
+	            $scope.restrictDate = new Date();
+	            
+	            $scope.save = function() {
+		            var reqDate = dateFilter($scope.input.date, scope.df);
+		            
+		            var formData = {};
+                formData.activationDate = reqDate;
+                formData.locale         = scope.optlang.code;
+                formData.dateFormat     = scope.df;
+                
+                resourceFactory.groupResource.activateGroup({groupId: routeParams.id}, formData, function (data) {
+	                $modalInstance.dismiss('cancel');
+                  route.reload();
+                });
+	            };
+                
+              $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+              };
+              
+            };
 
         }
     });
