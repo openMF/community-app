@@ -94,12 +94,12 @@
 			</div>
 			<div class="col-md-12">
 				<div class="row client">
-		            <div class="col-sm-9 col-md-9 paddingleft0px">
+		            <div class="col-sm-8 col-md-8 paddingleft0px">
 		                <div data-ng-show="group.status.value=='Closed'">
 				            <h3>{{'label.heading.groupclosed' | translate}}</h3>
 				        </div>
 		                <div id="center" class="row">
-		                	<div class="col-md-7">
+		                	<div class="col-md-12">
 		                		<div class="panel panel-default">
 									<div class="panel-heading">
 										<h3 class="panel-title ng-binding">{{ 'label.heading.clients' | translate }}</h3>
@@ -141,29 +141,7 @@
 										</div>
 									</div>
 							    </div>
-		                	</div>
-		                	<div class="col-md-5 meeting">
-		                		<div class="alert alert-warning" role="alert">
-					                <table>
-					                    <tr>
-							                <th>{{ 'label.heading.nextmeetingon' | translate }}</th>
-							                <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
-					                            <a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
-					                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="icon-edit icon-white"></i></a>
-					                            <span class="marginleftn7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
-							                </td>
-							            </tr>
-							            <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
-							                <th>{{ 'label.heading.meetingfrequency' | translate }}</th>
-							                <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
-							            </tr>
-					                    <tr data-ng-show="group.status.value=='Closed'">
-							                <th>{{ 'label.heading.closedate' | translate }}</th>
-							                <td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
-							            </tr>
-					                </table>
-				                </div>
-		                	</div>
+		                	</div>		                	
 		                </div>
 					    <div data-ng-show="groupAccounts.loanAccounts">
 					    	<div class="pull-right">
@@ -351,7 +329,31 @@
 					        </table>
 					    </div>
 		            </div>
-		            <div class="col-sm-3 col-md-3">
+
+		            <div class="col-sm-4 col-md-4 meeting">
+		                <div class="alert alert-warning" role="alert">
+					        <table>
+					                    <tr>
+							                <th>{{ 'label.heading.nextmeetingon' | translate }}</th>
+							                <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+					                            <a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
+					                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="icon-edit icon-white"></i></a>
+					                            <span class="marginleftn7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+							                </td>
+							            </tr>
+							            <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+							                <th>{{ 'label.heading.meetingfrequency' | translate }}</th>
+							                <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
+							            </tr>
+					                    <tr data-ng-show="group.status.value=='Closed'">
+							                <th>{{ 'label.heading.closedate' | translate }}</th>
+							                <td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
+							            </tr>
+					        </table>
+				        </div>
+		            </div>
+
+		            <div class="col-sm-4 col-md-4">
 				    	<div class="thumbnail row">
                             <div class="col-md-12 paddingleft0px">
 					    		<h4><strong>{{group.name}} {{ 'label.heading.details' | translate }}</strong></h4>
