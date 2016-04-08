@@ -59,7 +59,7 @@
                             if(pendingClient.id==queryclientid){scope.unsuccessfulquery.push(pendingClient);}
                         });
                     });
-                    scope.successfulquery = (route.checkClientQuery.length-scope.unsuccessfulquery.length)+'/'+route.checkClientQuery.length;
+                    scope.successfulquery = route.checkClientQuery.length-scope.unsuccessfulquery.length;
                     route.checkClientQuery = [];}
             };
             scope.checkLoanAQuery = function (office) {
