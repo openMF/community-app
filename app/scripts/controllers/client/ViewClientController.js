@@ -132,10 +132,35 @@
                         }
                     ]
                 };
+
                 scope.buttonsArray.singlebuttons = scope.buttons;
+
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                 });
+
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
+                    scope.clientdatatables = data;
+                });
+
+                resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
+                    scope.clientAccounts = data;
+                    scope.pledges = scope.clientAccounts.pledges;
+                    if (data.savingsAccounts) {
+                        for (var i in data.savingsAccounts) {
+                            if (data.savingsAccounts[i].status.value == "Active") {
+                                scope.updateDefaultSavings = true;
+                                break;
+                            }
+                        }
+                    }
+                    resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
+                        scope.charges = data.pageItems;
+
+
+                    });
+                });
+
             });
             scope.deleteClient = function () {
                 $modal.open({
@@ -317,23 +342,6 @@
                 };
             };
 
-            resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
-                scope.clientAccounts = data;
-                scope.pledges = scope.clientAccounts.pledges;
-                if (data.savingsAccounts) {
-                    for (var i in data.savingsAccounts) {
-                        if (data.savingsAccounts[i].status.value == "Active") {
-                            scope.updateDefaultSavings = true;
-                            break;
-                        }
-                    }
-                }
-            });
-            
-            resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
-                scope.charges = data.pageItems;
-            });
-
             scope.isClosed = function (loanaccount) {
                 if (loanaccount.status.code === "loanStatusType.closed.written.off" ||
                     loanaccount.status.code === "loanStatusType.closed.obligations.met" ||
@@ -369,9 +377,18 @@
                     scope.openSaving = true;
                 }
             };
-            resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id}, function (data) {
-                scope.clientNotes = data;
-            });
+
+            scope.isGetAllClientsNotes = false;
+            scope.getAllClientsNotes = function () {
+                if(!scope.isGetAllClientsNotes){
+                    resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id}, function (data) {
+                        scope.clientNotes = data;
+                        scope.isGetAllClientsNotes = true;
+                    });
+                }
+            };
+
+
             scope.getClientIdentityDocuments = function () {
                 resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'}, function (data) {
                     scope.identitydocuments = data;
@@ -392,10 +409,6 @@
                     }
                 });
             };
-
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
-                scope.clientdatatables = data;
-            });
 
             scope.dataTableChange = function (clientdatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
