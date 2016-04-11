@@ -4,6 +4,13 @@
             scope.clientId = routeParams.clientId;
             scope.formData = {};
             scope.documenttypes = [];
+            scope.statusTypes = [{
+                id: 1,
+                label: 'Active'
+            }, {
+                id: 2,
+                label: 'Inactive',
+            }];
             resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
                 scope.documenttypes = data.allowedDocumentTypes;
                 scope.formData.documentTypeId = data.allowedDocumentTypes[0].id;
