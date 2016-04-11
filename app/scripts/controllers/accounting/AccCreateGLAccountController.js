@@ -10,12 +10,13 @@
                 scope.coadata = data;
                 scope.accountTypes = data.accountTypeOptions;
                 scope.usageTypes = data.usageOptions;
-                
+
                 scope.formData = {
-                        manualEntriesAllowed: true,
-                        type: scope.accountTypes[0].id,
-                        usage: scope.usageTypes[0].id
-                    };
+                    manualEntriesAllowed: true,
+                    type: scope.accountTypes[0].id,
+                    usage: scope.usageTypes[0].id
+                };
+
                 scope.formData.type;
                 scope.formData.parentId;
                 
@@ -27,29 +28,11 @@
                 }
                 
                 //by default display assetTagsOptions and assetHeaderAccountOptions
-                scope.types = data.allowedAssetsTagOptions,
-                scope.headerTypes = data.assetHeaderAccountOptions
-                changeType();
+                scope.types = data.allowedAssetsTagOptions;
+                scope.headerTypes = data.assetHeaderAccountOptions;
 
-                function changeType () {
-                    if (scope.formData.type == 1) {
-                        scope.types = data.allowedAssetsTagOptions;
-                        scope.headerTypes = data.assetHeaderAccountOptions
-                    } else if (scope.formData.type == 2) {
-                        scope.types = data.allowedLiabilitiesTagOptions;
-                        scope.headerTypes = data.liabilityHeaderAccountOptions;
-                    } else if (scope.formData.type == 3) {
-                        scope.types = data.allowedEquityTagOptions;
-                        scope.headerTypes = data.equityHeaderAccountOptions;
-                    } else if (scope.formData.type == 4) {
-                        scope.types = data.allowedIncomeTagOptions;
-                        scope.headerTypes = data.incomeHeaderAccountOptions;
-                    } else if (scope.formData.type == 5) {
-                        scope.types = data.allowedExpensesTagOptions;
-                        scope.headerTypes = data.expenseHeaderAccountOptions;
-                    }
+                scope.changeType();
 
-                }
                 for (var i = 0; i < scope.headerTypes.length; i++) {
                     if(scope.headerTypes[i].id == $routeParams.parent ) {
                         console.log($routeParams.parent + scope.headerTypes[i].id)
@@ -58,6 +41,34 @@
                 }
 
             });
+
+            scope.changeType = function () {
+                var data = scope.coadata;
+                if (scope.formData.type == 1) {
+                    scope.types = data.allowedAssetsTagOptions;
+                    scope.headerTypes = data.assetHeaderAccountOptions
+                } else if (scope.formData.type == 2) {
+                    scope.types = data.allowedLiabilitiesTagOptions;
+                    scope.headerTypes = data.liabilityHeaderAccountOptions;
+                } else if (scope.formData.type == 3) {
+                    scope.types = data.allowedEquityTagOptions;
+                    scope.headerTypes = data.equityHeaderAccountOptions;
+                } else if (scope.formData.type == 4) {
+                    scope.types = data.allowedIncomeTagOptions;
+                    scope.headerTypes = data.incomeHeaderAccountOptions;
+                } else if (scope.formData.type == 5) {
+                    scope.types = data.allowedExpensesTagOptions;
+                    scope.headerTypes = data.expenseHeaderAccountOptions;
+                }
+
+                for (var i = 0; i < scope.headerTypes.length; i++) {
+                    if(scope.headerTypes[i].id == $routeParams.parent ) {
+                        console.log($routeParams.parent + scope.headerTypes[i].id)
+                        scope.formData.parentId = scope.headerTypes[i].id;
+                    }
+                }
+
+            }
 
             if($routeParams.parent){
             	scope.cancel = '#/viewglaccount/' + $routeParams.parent
