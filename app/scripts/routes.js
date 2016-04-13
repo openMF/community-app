@@ -626,6 +626,9 @@
             .when('/transferclients/:id', {
                 templateUrl: 'views/groups/transferclients.html'
             })
+            .when('/transferGroup/:id', {
+                templateUrl: 'views/groups/transferGroup.html'
+            })
             .when('/centers', {
                 templateUrl: 'views/centers/centers.html'
             })

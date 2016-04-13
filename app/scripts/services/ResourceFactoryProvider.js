@@ -88,7 +88,8 @@
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT'}
+                        update: { method: 'PUT'},
+                        activateGroup: {method: 'POST', params: {command:'activate'}}
                     }),
                     groupSummaryResource: defineResource(apiVer + "/runreports/:reportSource", {reportSource: '@reportSource'}, {
                         getSummary: {method: 'GET', params: {}}
@@ -385,7 +386,9 @@
                         get: {method: 'GET', params: {}},
                         getAllCenters: {method: 'GET', params: {}, isArray: true},
                         getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT'}
+                        update: { method: 'PUT'},
+                        associateGroups: {method: 'POST', params: {command:'associateGroups'}},
+                        disassociateGroups: {method: 'POST', params: {command:'disassociateGroups'}}
                     }),
                     centerMeetingResource: defineResource(apiVer + "/centers/:centerId/meetings/:templateSource", {centerId: '@centerId', templateSource: '@templateSource'}, {
                         getMeetingInfo: {method: 'GET', params: {}}

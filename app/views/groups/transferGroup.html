@@ -1,0 +1,47 @@
+
+<div class="col-md-12" data-ng-controller="TransferGroupController as TransferGroupCtrl">
+	
+	<form name="transfergroup" novalidate="" class="form-horizontal well" rc-submit="TransferGroupCtrl.transfer()">
+		
+		<fieldset>
+			
+			<legend>{{'label.heading.transferGroup' | translate}}</legend>
+			
+			<api-validate></api-validate>
+      <br>
+			
+			<div class="form-group">
+		    <label class="col-sm-2" style="text-align: right;">{{'label.currentCenter' | translate}}</label>
+        <span class="col-sm-3">
+        	<strong>{{group.centerName}}</strong>
+        	<strong ng-if="!group.centerId">{{'label.nobody' | translate}}</strong>
+        </span>
+        <div class="col-sm-2 col-md-2" ng-if="group.centerId">
+          <button type="button" class="btn angled-btn btn-primary " data-ng-click="TransferGroupCtrl.disassociate()">
+            {{'label.button.disassociate' | translate}}
+          </button>
+	      </div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="center">{{'label.input.newCenter' | translate}}</label>
+								
+		    <div class="col-sm-3">
+	        <select chosen="centers" id="center" ng-model="formData.centerId"
+	                data-ng-options="center.id as center.name for center in centers"
+	                value="{{center.id}}" class="form-control">
+	            <option value="">{{'label.menu.selectCenter' | translate}}</option>
+	        </select>
+		    </div>
+			</div>
+			
+			<div class="col-md-offset-3">
+        <a href="#/viewgroup/{{group.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	      <button type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+      </div>
+	
+		</fieldset>
+		
+	</form>
+	
+</div>
