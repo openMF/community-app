@@ -59,9 +59,13 @@
                     minDepositTermTypeId: minDepositTermTypeId,
                     maxDepositTermTypeId: maxDepositTermTypeId,
                     inMultiplesOfDepositTerm: data.inMultiplesOfDepositTerm,
-                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId
+                    inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId,
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
                 }
 
+                if(data.withHoldTax){
+                    scope.formData.taxGroupId = data.taxGroup.id;
+                }
                 scope.chart = scope.product.activeChart;
 
                 _.each(scope.chart.chartSlabs, function (chartSlab) {
