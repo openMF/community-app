@@ -28,7 +28,14 @@
                     "groupingStatusType.active": "statusactive",
                     "groupingStatusType.pending": "statuspending",
                     "groupingStatusType.submitted.and.pending.approval": "statuspending",
-                    "groupingStatusType.approved": "statusApproved"
+                    "groupingStatusType.approved": "statusApproved",
+                    "shareAccountStatusType.submitted.and.pending.approval": "statuspending",
+                    "shareAccountStatusType.approved": "statusApproved",
+                    "shareAccountStatusType.active": "statusactive",
+                    "shareAccountStatusType.rejected": "statusrejected",
+                    "purchasedSharesStatusType.applied": "statuspending",
+                    "purchasedSharesStatusType.approved": "statusApproved",
+                    "purchasedSharesStatusType.rejected": "statusrejected"
                 }
 
                 return cssClassNameLookup[input];

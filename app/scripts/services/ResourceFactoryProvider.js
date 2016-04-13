@@ -574,6 +574,32 @@
                         put: {method: 'PUT', params: {}}
                     }),
                     taxgrouptemplate: defineResource(apiVer + "/taxes/group/template",{},{
+                    }),
+
+                    productsResource: defineResource(apiVer + "/products/:productType/:resourceType",{productType:'@productType', resourceType:'@resourceType'},{
+                        template: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}}
+                    }),
+                    shareProduct: defineResource(apiVer + "/products/share/:shareProductId",{shareProductId:'@shareProductId'},{
+                        post:{method:'POST',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        get: {method: 'GET', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareAccountTemplateResource: defineResource(apiVer + "/accounts/share/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    sharesAccount: defineResource(apiVer + "/accounts/share/:shareAccountId", {shareAccountId: '@shareAccountId'}, {
+                        get: {method: 'GET', params: {}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareproductdividendresource: defineResource(apiVer + "/shareproduct/:productId/dividend/:dividendId", {productId: '@productId', dividendId: '@dividendId'}, {
+                        get: {method: 'GET', params: {}},
+                        getAll: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}},
+                        approve: {method: 'PUT', params:{command: 'approve'}}
                     })
                 };
             }];
