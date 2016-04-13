@@ -55,7 +55,7 @@
         <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.submittedon' | translate}}"></i></td>
         <td class="paddedbottom10">
-            <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy"
+            <input type="date" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy"
                    ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
         </td>
         <td>
@@ -63,7 +63,7 @@
             <i class="icon-question-sign" tooltip="{{'label.tooltip.disbursementon' | translate}}"></i>
         </td>
         <td class="paddedbottom10">
-            <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
+            <input id="expectedDisbursementDate" sort type="date" name="expecteddisbursementon"
                    datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate"
                    max="'2020-06-22'" class="form-control"/>
         </td>
@@ -189,13 +189,13 @@
                     <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy"
+                    <input id="repaymentsStartingFromDate" type="date" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control"/>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
                 <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
-                    <input id="interestChargedFromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.third"
+                    <input id="interestChargedFromDate" type="date" datepicker-pop="dd MMMM yyyy" ng-model="date.third"
                            is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
                 </td>
             </tr>
@@ -366,7 +366,7 @@
                         translate }}<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="date" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </td>
             </tr>
@@ -392,7 +392,7 @@
                         translate }}<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
+                    <input type="date" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
                            ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </td>
             </tr>
@@ -425,7 +425,7 @@
                     <tbody>
                     <tr ng-repeat="disbursementDetail in formData.disbursementData">
                         <td>
-                            <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                            <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="date"
                                    datepicker-pop="dd MMMM yyyy"
                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                    ng-model="disbursementDetail.expectedDisbursementDate"
@@ -467,7 +467,7 @@
                                placeholder="{{'label.input.amount' | translate}}" number-format></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
-                        <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                        <input id="charges[{{$index}}].duedate" type="date" datepicker-pop="dd MMMM yyyy" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                                is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                     </td>
