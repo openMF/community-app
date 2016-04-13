@@ -218,6 +218,18 @@
             .when('/savingproducts', {
                 templateUrl: 'views/products/savingproducts.html'
             })
+            .when('/shareproducts', {
+                templateUrl: 'views/products/shareproducts.html'
+            })
+            .when('/createshareproduct', {
+                templateUrl: 'views/products/createshareproduct.html'
+            })
+            .when('/editshareproduct/:id', {
+                templateUrl: 'views/products/editshareproduct.html'
+            })
+            .when('/viewshareproduct/:id', {
+                templateUrl: 'views/products/viewshareproduct.html'
+            })
             .when('/viewsavingproduct/:id', {
                 templateUrl: 'views/products/viewsavingproduct.html'
             })
@@ -844,7 +856,35 @@
             })
             .when('/edittaxgroup/:taxGroupId', {
                 templateUrl: 'views/products/tax/EditTaxGroup.html'
-            });
+            })
+            .when('/createshareaccount/:clientId', {
+                templateUrl: 'views/shares/createshareaccount.html'
+            })
+            .when('/viewshareaccount/:id', {
+                templateUrl: 'views/shares/viewshareaccount.html'
+            })
+            .when('/editshareaccount/:accountId', {
+                templateUrl: 'views/shares/editshareaccount.html'
+            })
+            .when('/shareaccount/:accountId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/shareaccount/:accountId/purchasedshares/:purchasedSharesId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/dividends/:productId/', {
+                templateUrl: 'views/products/dividendlisting.html'
+            })
+            .when('/dividends/:productId/dividend/:dividendId', {
+                templateUrl: 'views/products/viewdividends.html'
+            })
+            .when('/shareproduct/:productId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+            .when('/shareproduct/:productId/:dividendId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
