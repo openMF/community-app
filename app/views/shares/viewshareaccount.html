@@ -104,7 +104,8 @@
                 <td ng-show="purchasedShare.purchasedPrice">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.purchasedPrice | number}}</td>
                 <td ng-show="!purchasedShare.purchasedPrice"></td>
                 <td></td>
-                <td>{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.chargeAmount | number}}</td>
+                <td ng-show="!(purchasedShare.type.value=='Charge Payment')">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.chargeAmount | number}}</td>
+                <td ng-show="purchasedShare.type.value=='Charge Payment'">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.amount | number}}</td>
                 <td>{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.amount | number}}</td>
             </tr>
         </table>
