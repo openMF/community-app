@@ -562,6 +562,44 @@
                         validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
                         addVariations:{method:'POST',params:{command: 'addVariations'}},
                         deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    }),
+                    taxcomponent: defineResource(apiVer + "/taxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxcomponenttemplate: defineResource(apiVer + "/taxes/component/template",{},{
+                    }),
+                    taxgroup: defineResource(apiVer + "/taxes/group/:taxGroupId",{taxGroupId:'@taxGroupId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxgrouptemplate: defineResource(apiVer + "/taxes/group/template",{},{
+                    }),
+
+                    productsResource: defineResource(apiVer + "/products/:productType/:resourceType",{productType:'@productType', resourceType:'@resourceType'},{
+                        template: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}}
+                    }),
+                    shareProduct: defineResource(apiVer + "/products/share/:shareProductId",{shareProductId:'@shareProductId'},{
+                        post:{method:'POST',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        get: {method: 'GET', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareAccountTemplateResource: defineResource(apiVer + "/accounts/share/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    sharesAccount: defineResource(apiVer + "/accounts/share/:shareAccountId", {shareAccountId: '@shareAccountId'}, {
+                        get: {method: 'GET', params: {}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareproductdividendresource: defineResource(apiVer + "/shareproduct/:productId/dividend/:dividendId", {productId: '@productId', dividendId: '@dividendId'}, {
+                        get: {method: 'GET', params: {}},
+                        getAll: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}},
+                        approve: {method: 'PUT', params:{command: 'approve'}}
                     })
                 };
             }];
