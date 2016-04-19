@@ -7,8 +7,8 @@
                 scope.shareproduct = data;
             });
 
-            scope.routeTo = function (id) {
-                location.path('/dividends/' + routeParams.productId+'/dividend/'+id);
+            scope.routeTo = function (id, status) {
+                location.path('/dividends/' + routeParams.productId+'/dividend/'+id+"/"+status);
                 scope.saveSC();
             };
 

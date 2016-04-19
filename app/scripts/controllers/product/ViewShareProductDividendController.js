@@ -3,6 +3,9 @@
         ViewShareProductDividendController: function (scope, routeParams, paginatorService, resourceFactory, location) {
             scope.dividendTransactions = [];
             scope.isdividendPosted = false ;
+            if(routeParams.status && (routeParams.status== 'Dividend Approved' || routeParams.status== 'Dividend Posted')) {
+                scope.isdividendPosted = true ;
+            }
             resourceFactory.shareProduct.get({shareProductId: routeParams.productId}, function (data) {
                 scope.shareproduct = data;
             });
