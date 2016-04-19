@@ -875,7 +875,7 @@
             .when('/dividends/:productId/', {
                 templateUrl: 'views/products/dividendlisting.html'
             })
-            .when('/dividends/:productId/dividend/:dividendId', {
+            .when('/dividends/:productId/dividend/:dividendId/:status', {
                 templateUrl: 'views/products/viewdividends.html'
             })
             .when('/shareproduct/:productId/:action', {
