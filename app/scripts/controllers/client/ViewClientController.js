@@ -14,6 +14,8 @@
             scope.showClosedPledges = false;
             scope.id = routeParams.id;
             scope.pledges = [];
+            scope.dob = "label.input.dateofbirth";
+
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -52,6 +54,15 @@
                         scope.image = imageData.data;
                     });
                 }
+                if(data.legalForm.value == 'ENTITY' )
+                {
+                    scope.dob = "label.input.incorporationdate";
+                }
+                else
+                {
+                    scope.dob = "label.input.dateofbirth";
+                }
+
                 http({
                     method: 'GET',
                     url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
