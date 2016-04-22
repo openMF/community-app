@@ -125,7 +125,7 @@
             scope.showPaymentDetailsFn = function () {
                 scope.paymentDetail = {};
                 scope.showPaymentDetails = true;
-                if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
+                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
                     for(var i in scope.paymentTypeOptions){
                         if(angular.lowercase(scope.paymentTypeOptions[i].name) == 'cash'){
                             scope.paymentDetail.paymentTypeId = scope.paymentTypeOptions[i].id;
@@ -452,6 +452,9 @@
                     scope.formData.routingCode =scope.paymentDetail.routingCode;
                     scope.formData.receiptNumber = scope.paymentDetail.receiptNumber;
                     scope.formData.bankNumber = scope.paymentDetail.bankNumber;
+                }
+                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
                 }
                 scope.formData.bulkDisbursementTransactions = [];
                 //construct loan repayment and savings due transactions
