@@ -18,7 +18,12 @@
                 ];
                 scope.location=data.location;
                 var today  =  new Date();
-                scope.meetingtime=   new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
+                if(data.meetingTime == undefined){
+                    scope.meetingtime = new Date();
+                }
+                if(data.meetingTime != undefined) {
+                    scope.meetingtime = new Date(data.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                }
                 scope.repeatsEveryOptions = [1, 2, 3];
                 scope.selectedPeriod(scope.calendarData.frequency.id);
                 //to display default in select boxes
