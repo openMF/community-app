@@ -227,7 +227,40 @@
                     </div>
                 </div>
             </div>
-	    	<h3>{{ 'label.heading.charges' | translate }}</h3>
+
+			<div class="form-group">
+				<label class="control-label col-sm-3">{{ 'label.input.isDormancyTrackingActive' | translate }}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.isDormancyTrackingActive' | translate}}"></i>
+				<div class="col-sm-2">
+					<input id="isDormancyTrackingActive" type="checkbox" ng-model="formData.isDormancyTrackingActive" ng-true-value="true"
+						   ng-false-value="false">
+				</div>
+				<div ng-show="formData.isDormancyTrackingActive">
+					<label class="control-label col-sm-2">{{'label.input.daysToInactive' | translate}}</label>
+					<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToInactive' | translate}}"></i>
+
+					<div class="col-sm-2">
+						<input id="daysToInactive" type="text" class="form-control" ng-model="formData.daysToInactive">
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-show="formData.isDormancyTrackingActive">
+				<label class="control-label col-sm-3">{{'label.input.daysToDormancy' | translate}}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToDormancy' | translate}}"></i>
+
+				<div class="col-sm-2">
+					<input id="daysToDormancy" type="text" class="form-control" ng-model="formData.daysToDormancy">
+				</div>
+
+				<label class="control-label col-sm-2">{{'label.input.daysToEscheat' | translate}}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.daysToEscheat' | translate}}"></i>
+
+				<div class="col-sm-2">
+					<input id="daysToEscheat" type="text" class="form-control" ng-model="formData.daysToEscheat">
+				</div>
+			</div>
+
+			<h3>{{ 'label.heading.charges' | translate }}</h3>
 	    	<hr>
 	    	<div class="form-group">
 	            <div class="col-sm-3">
@@ -322,6 +355,17 @@
 	               		</select>
 	            	</div>
 		        </div>
+				<div class="form-group" ng-show="formData.isDormancyTrackingActive">
+					<label class="control-label col-sm-2">{{ 'label.input.escheatLiability' | translate }}</label>
+					<i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.escheatLiability' | translate}}"></i>
+					<div class="col-sm-3">
+						<select id="escheatLiabilityId" ng-model="formData.escheatLiabilityId"
+								chosen="liabilityAccountOptions"
+								ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
+								value="{{liabilityAccount.id}}">
+						</select>
+					</div>
+				</div>
 		        <hr>
 		        <div class="form-group">
 		        	<h4>{{"label.heading.expenses" | translate}}</h4>

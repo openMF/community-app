@@ -122,6 +122,22 @@
             <td colspan="3">{{savingproduct.taxGroup.name}}</td>
         </tr>
         <tr>
+            <td>{{'label.heading.isDormancyTrackingActive' | translate}}</td>
+            <td colspan="3">{{savingproduct.isDormancyTrackingActive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToInactive' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToInactive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToDormancy' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToDormancy}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToEscheat' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToEscheat}}</td>
+        </tr>
+        <tr>
             <td colspan="4"><br/></td>
         </tr>
         <tr>
@@ -171,6 +187,12 @@
                             translate}})
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+                    </tr>
+                    <tr ng-show="savingproduct.isDormancyTrackingActive">
+                        <td>{{'label.heading.escheatLiability' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.escheatLiabilityAccount.name}}</td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' |
