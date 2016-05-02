@@ -71,7 +71,7 @@
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
-                        this.formData.charges.push({ id: scope.charges[i].id, chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount});
+                        this.formData.charges.push({ id: scope.charges[i].id, chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amountOrPercentage});
                     }
                 }
                 resourceFactory.sharesAccount.put({shareAccountId: routeParams.accountId}, this.formData, function (data) {

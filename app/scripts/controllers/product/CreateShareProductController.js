@@ -12,13 +12,8 @@
                 scope.equityAccountOptions = scope.product.accountingMappingOptions.equityAccountOptions || [] ;
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
-
                 scope.formData.currencyCode = data.currencyOptions[0].code;
                 scope.formData.digitsAfterDecimal = data.currencyOptions[0].decimalPlaces;
-                scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
-                scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
-                scope.formData.interestCalculationType = data.interestCalculationType.id;
-                scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 scope.formData.accountingRule = '1';
 
             });

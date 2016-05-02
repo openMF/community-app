@@ -19,7 +19,7 @@
                     resourceFactory.shareProduct.get({shareProductId: routeParams.productId}, function (data) {
                         scope.shareproductDetails = data;
                     }) ;
-                    scope.title = 'label.heading.approveshareaccount';
+                    scope.title = 'label.heading.initiatedividend';
                     scope.fromDatelabelName = 'label.input.dividendperiodstartdate';
                     scope.endDatelabelName = 'label.input.dividendperiodenddate';
                     scope.createdividend = true;
