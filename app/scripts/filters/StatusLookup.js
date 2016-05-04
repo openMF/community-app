@@ -14,6 +14,8 @@
                     "savingsAccountStatusType.submitted.and.pending.approval": "statuspending",
                     "savingsAccountStatusType.approved": "statusApproved",
                     "savingsAccountStatusType.active": "statusactive",
+                    "savingsAccountStatusType.activeInactive": "statusactiveoverdue",
+                    "savingsAccountStatusType.activeDormant": "statusactiveoverdue",
                     "savingsAccountStatusType.matured": "statusmatured",
                     "loanProduct.active": "statusactive",
                     "clientStatusType.pending": "statuspending",

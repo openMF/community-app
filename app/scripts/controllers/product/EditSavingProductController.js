@@ -39,8 +39,11 @@
                     minBalanceForInterestCalculation: data.minBalanceForInterestCalculation,
                     enforceMinRequiredBalance: data.enforceMinRequiredBalance,
                     minRequiredBalance:data.minRequiredBalance,
-                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
-
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false',
+                    isDormancyTrackingActive: data.isDormancyTrackingActive == true ? 'true':'false',
+                    daysToInactive: data.daysToInactive,
+                    daysToDormancy: data.daysToDormancy,
+                    daysToEscheat: data.daysToEscheat
                 }
 
                 if(data.withHoldTax){
@@ -54,6 +57,7 @@
                 scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
                 scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                 scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
+                scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
                 scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
                 scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
                 scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;

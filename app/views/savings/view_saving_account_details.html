@@ -83,7 +83,7 @@
         <div>
             <div class="span gray-head">
                   <span class="boldlabel">
-                        <strong><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                        <strong><i  ng-show="savingaccountdetails.subStatus.id==0" class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}" ></i><i  ng-hide="savingaccountdetails.subStatus.id==0" class="icon-stop {{savingaccountdetails.status.code+savingaccountdetails.subStatus.value | StatusLookup}}" ></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
                   </span>
             </div>
             <div class="col-md-12 primarydiv">
@@ -246,6 +246,36 @@
                                 <td class="table-bold-acc fontnormal">{{'label.withdrawalfee' | translate}}
                                 </td>
                                 <td><span class="padded-td">{{savingaccountdetails.withdrawalFee.currency.displaySymbol}}&nbsp;&nbsp;{{savingaccountdetails.withdrawalFee.amount| number}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.lastActiveTransactionDate">
+                                <td class="table-bold-acc fontnormal">{{'label.lastActiveTransactionDate' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.lastActiveTransactionDate | DateFormat}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-hide="savingaccountdetails.subStatus.id==0">
+                                <td class="table-bold-acc fontnormal">{{'label.subStatus' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.subStatus.value}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.daysToInactive">
+                                <td class="table-bold-acc fontnormal">{{'label.daysToInactive' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.daysToInactive| number}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.daysToDormancy">
+                                <td class="table-bold-acc fontnormal">{{'label.daysToDormancy' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.daysToDormancy| number}}</span>
+                                </td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.daysToEscheat">
+                                <td class="table-bold-acc fontnormal">{{'label.daysToEscheat' | translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.daysToEscheat| number}}</span>
                                 </td>
                             </tr>
                             <tr data-ng-show="savingaccountdetails.annualFee">
