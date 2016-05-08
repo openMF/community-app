@@ -298,6 +298,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
     };
 
     return function() {
+      console.log();
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
             return list.concat(_.map(components[group], function (name) {

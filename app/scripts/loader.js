@@ -1,7 +1,7 @@
 (function () {
     require.config({
         paths: {
-            'jquery': '../bower_components/jquery/jquery',
+            'jquery': '../bower_components/jquery/dist/jquery',
             'angular': '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-route': '../bower_components/angular-route/angular-route',
@@ -14,17 +14,17 @@
             'webstorage': '../bower_components/angular-webstorage/angular-webstorage',
             'require-css': '../bower_components/require-css/css',
             'd3': '../bower_components/d3/d3',
-            'nvd3': '../bower_components/nvd3/nv.d3',
+            'nvd3': '../bower_components/nvd3/build/nv.d3',
             'nvd3ChartDirectives': '../scripts/modules/angularjs-nvd3-directives',
             'styles': '../styles',
             'test': '../../test/functional',
             'notificationWidget': '../scripts/modules/notificationWidget',
             'configurations': '../scripts/modules/configurations',
-            'angularFileUpload': '../bower_components/angularjs-file-upload/angular-file-upload',
-            'angularFileUploadShim': '../bower_components/angularjs-file-upload/angular-file-upload-shim',
+            'angularFileUpload': '../bower_components/angularjs-file-upload/ng-file-upload',
+            'angularFileUploadShim': '../bower_components/angularjs-file-upload/ng-file-upload-shim',
             'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor': '../bower_components/ckeditor/ckeditor',
-            'ngIdle': '../bower_components/ng-idle/angular-idle.min',
+            'ngIdle': '../bower_components/ng-idle/angular-idle',
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
@@ -32,7 +32,7 @@
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
+            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination'
         },
         shim: {
