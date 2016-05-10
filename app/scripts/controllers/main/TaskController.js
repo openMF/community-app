@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TaskController: function (scope, resourceFactory, route, dateFilter, $modal, location) {
+        TaskController: function (scope, resourceFactory, route, dateFilter, $uibModal, location) {
             scope.clients = [];
             scope.loans = [];
             scope.offices = [];
@@ -112,7 +112,7 @@
             }
             scope.approveOrRejectChecker = function (action) {
                 if (scope.checkData) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'approvechecker.html',
                         controller: CheckerApproveCtrl,
                         resolve: {
@@ -123,7 +123,7 @@
                     });
                 }
             };
-            var CheckerApproveCtrl = function ($scope, $modalInstance, action) {
+            var CheckerApproveCtrl = function ($scope, $uibModalInstance, action) {
                 $scope.approve = function () {
                     var totalApprove = 0;
                     var approveCount = 0;
@@ -149,23 +149,23 @@
                         }
                     });
                     scope.checkData = {};
-                    $modalInstance.close('approve');
+                    $uibModalInstance.close('approve');
 
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.deleteChecker = function () {
                 if (scope.checkData) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'deletechecker.html',
                         controller: CheckerDeleteCtrl
                     });
                 }
             };
-            var CheckerDeleteCtrl = function ($scope, $modalInstance) {
+            var CheckerDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     var totalDelete = 0;
                     var deleteCount = 0
@@ -191,16 +191,16 @@
                         }
                     });
                     scope.checkData = {};
-                    $modalInstance.close('delete');
+                    $uibModalInstance.close('delete');
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.approveClient = function () {
                 if (scope.approveData) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'approveclient.html',
                         controller: ApproveClientCtrl,
                         resolve: {
@@ -226,7 +226,7 @@
                 }
             });
 
-            var ApproveClientCtrl = function ($scope, $modalInstance, items) {
+            var ApproveClientCtrl = function ($scope, $uibModalInstance, items) {
                 $scope.restrictDate = new Date();
                 $scope.date = {};
                 $scope.date.actDate = new Date();
@@ -267,10 +267,10 @@
                     });
 
                     scope.approveData = {};
-                    $modalInstance.close('delete');
+                    $uibModalInstance.close('delete');
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -369,21 +369,21 @@
 
             scope.approveLoan = function () {
                 if (scope.loanTemplate) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'approveloan.html',
                         controller: ApproveLoanCtrl
                     });
                 }
             };
 
-            var ApproveLoanCtrl = function ($scope, $modalInstance) {
+            var ApproveLoanCtrl = function ($scope, $uibModalInstance) {
                 $scope.approve = function () {
                     scope.bulkApproval();
                     route.reload();
-                    $modalInstance.close('approve');
+                    $uibModalInstance.close('approve');
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             }
 
@@ -427,21 +427,21 @@
 
             scope.disburseLoan = function () {
                 if (scope.loanDisbursalTemplate) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'disburseloan.html',
                         controller: DisburseLoanCtrl
                     });
                 }
             };
 
-            var DisburseLoanCtrl = function ($scope, $modalInstance) {
+            var DisburseLoanCtrl = function ($scope, $uibModalInstance) {
                 $scope.disburse = function () {
                     scope.bulkDisbursal();
                     route.reload();
-                    $modalInstance.close('disburse');
+                    $uibModalInstance.close('disburse');
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             }
 
@@ -486,7 +486,7 @@
 
         }
     });
-    mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$modal', '$location', mifosX.controllers.TaskController]).run(function ($log) {
+    mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$uibModal', '$location', mifosX.controllers.TaskController]).run(function ($log) {
         $log.info("TaskController initialized");
     });
 }(mifosX.controllers || {}));
