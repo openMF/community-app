@@ -178,7 +178,7 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            translate.uses(scope.optlang.code);
+            translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {
                 if (route == 'clients') {
@@ -277,7 +277,7 @@
                 document.getElementById('prev').click();
             });
             scope.changeLang = function (lang, $event) {
-                translate.uses(lang.code);
+                translate.use(lang.code);
                 localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;
