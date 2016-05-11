@@ -16,10 +16,7 @@
                     scope.chargeDetails = data;
                     scope.formData.amount = data.amount;
                     if(data.chargeTimeType.value === "Withdrawal Fee"
-                        || data.chargeTimeType.value === "Saving No Activity Fee"
-                        || data.chargeTimeType.value === "Savings Activation"
-                        || data.chargeTimeType.value === "Savings Closure"
-                        || data.chargeTimeType.value === "Overdraft Fee"){
+                        || data.chargeTimeType.value === "Saving No Activity Fee"){
                         scope.dueDateNotRequired = true;
                     }
                     scope.formData.feeInterval = data.feeInterval;
