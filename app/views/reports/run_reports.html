@@ -23,11 +23,11 @@
 	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
 	        <br>
 	
-	        <div class="form-group info" ng-repeat="reportParam in reportParams">
+	        <div class="form-group info" ng-repeat="reportParam in reportParams" ng-hide="isMultiSelectEnabled(reportParam.displayType)">
 	            <label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
 
                 <div class="col-sm-3">
-                    <select chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
+                    <select  chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
 							ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
 							value="{{selectOption.id}}"
 							class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
@@ -35,6 +35,19 @@
 	                </select>
 	            </div>
 	        </div>
+
+			<div class="form-group info" ng-repeat="reportParam in reportParams" ng-show="isMultiSelectEnabled(reportParam.displayType)">
+				<label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
+
+				<div class="col-sm-3">
+					<select  multiple chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
+							 ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
+							 value="{{selectOption.id}}"
+							 class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required>
+					</select>
+				</div>
+			</div>
+
 	        <div class="form-group info" ng-repeat="reportTextParam in reportTextParams">
 	            <label class="control-label col-sm-2" for="{{reportTextParam.variable}}">{{ reportTextParam.label |
 	                translate}}</label>
