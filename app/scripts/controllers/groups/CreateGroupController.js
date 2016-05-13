@@ -63,13 +63,15 @@
             scope.changeOffice = function (officeId) {
                 scope.addedClients = [];
                 scope.available = [];
-                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
-                }, function (data) {
+                resourceFactory.groupTemplateResource.get({officeId: officeId,staffInSelectedOfficeOnly:true}, function (data)
+                {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
+                resourceFactory.centerResource.getAllCenters({officeId: officeId}, function (data) {
+                     resourceFactory.groupTemplateResource.get({centerId: data[0].id}, function (data) {
                     scope.clients = data.clientOptions;
                 });
+            });
             };
             scope.setChoice = function () {
                 if (this.formData.active) {
