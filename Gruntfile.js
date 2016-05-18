@@ -42,7 +42,7 @@ module.exports = function(grunt) {
      // The actual grunt server settings
     connect: {
         options: {
-            port:  9000,
+            port:  9002,
             hostname: 'localhost',
             livereload: 35729,
             open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
