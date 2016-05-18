@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
+        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$uibModal) {
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
@@ -246,7 +246,7 @@
             };
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -257,7 +257,7 @@
                 });
             };
 
-            var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, chartSlab) {
                 $scope.chartSlab = chartSlab;
                 _.each($scope.chartSlab.incentives, function (incentive) {
                     if(!incentive.attributeValueDesc){
@@ -265,12 +265,12 @@
                     }
                 });
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$modal', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$uibModal', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
         $log.info("ViewFixedDepositAccountDetailsController initialized");
     });
 }(mifosX.controllers || {}));

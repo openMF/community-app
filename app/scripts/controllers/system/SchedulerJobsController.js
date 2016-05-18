@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SchedulerJobsController: function (scope, resourceFactory, route, location, $modal) {
+        SchedulerJobsController: function (scope, resourceFactory, route, location, $uibModal) {
             var jobIdArray = [];
             scope.activeall = false;
             resourceFactory.jobsResource.get(function (data) {
@@ -29,7 +29,7 @@
 
             scope.errorLog = function (id){
                 scope.id = id;
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'errorlog.html',
                     controller: ErrorLogCtrl,
                     resolve: {
@@ -40,7 +40,7 @@
                 });
             };
 
-            var ErrorLogCtrl = function ($scope, $modalInstance,ids) {
+            var ErrorLogCtrl = function ($scope, $uibModalInstance,ids) {
                 for (var i in scope.jobs) {
                     if (scope.jobs[i].jobId === ids) {
                         var index = i;
@@ -49,7 +49,7 @@
 
                 $scope.error = scope.jobs[index].lastRunHistory.jobRunErrorLog;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('close');
+                    $uibModalInstance.dismiss('close');
                 };
             };
 
@@ -112,7 +112,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location','$modal', mifosX.controllers.SchedulerJobsController]).run(function($log) {
+    mifosX.ng.application.controller('SchedulerJobsController', ['$scope', 'ResourceFactory', '$route','$location','$uibModal', mifosX.controllers.SchedulerJobsController]).run(function($log) {
       $log.info("SchedulerJobsController initialized");
     });
 }(mifosX.controllers || {}));

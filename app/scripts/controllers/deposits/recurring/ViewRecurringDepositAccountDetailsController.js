@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewRecurringDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
+        ViewRecurringDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$uibModal) {
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
             };
@@ -288,7 +288,7 @@
             };
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -299,7 +299,7 @@
                 });
             };
 
-            var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, chartSlab) {
                 $scope.chartSlab = chartSlab;
                 _.each($scope.chartSlab.incentives, function (incentive) {
                     if(!incentive.attributeValueDesc){
@@ -307,7 +307,7 @@
                     }
                 });
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -327,7 +327,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewRecurringDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$modal', mifosX.controllers.ViewRecurringDepositAccountDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewRecurringDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$uibModal', mifosX.controllers.ViewRecurringDepositAccountDetailsController]).run(function ($log) {
         $log.info("ViewRecurringDepositAccountDetailsController initialized");
     });
 }(mifosX.controllers || {}));

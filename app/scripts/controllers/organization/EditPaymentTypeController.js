@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditPaymentTypeController: function (scope, routeParams, resourceFactory, location, $modal, route) {
+        EditPaymentTypeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
 /*
             scope.formData = {};*/
 
@@ -22,7 +22,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EditPaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.EditPaymentTypeController]).run(function ($log) {
+    mifosX.ng.application.controller('EditPaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', mifosX.controllers.EditPaymentTypeController]).run(function ($log) {
         $log.info("EditPaymentTypeController initialized");
     });
 }(mifosX.controllers || {}));

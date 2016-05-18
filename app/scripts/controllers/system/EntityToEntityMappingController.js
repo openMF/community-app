@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EntityToEntityMappingController: function (scope, dateFilter, routeParams, route, location, resourceFactory, $modal) {
+        EntityToEntityMappingController: function (scope, dateFilter, routeParams, route, location, resourceFactory, $uibModal) {
             scope.entityMappings = [];
             scope.formData = {};
             scope.addFormData = {};
@@ -139,7 +139,7 @@
             }
 
             scope.deleteMapping = function (mapId) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletemap.html',
                     controller: mapDeleteCtrl,
                     resolve: {
@@ -187,18 +187,18 @@
                 });
             };
 
-            var mapDeleteCtrl = function ($scope, $modalInstance, mapId) {
+            var mapDeleteCtrl = function ($scope, $uibModalInstance, mapId) {
                 $scope.delete = function () {
                     resourceFactory.entityMappingResource.delete({
                         mapId: mapId,
                     }, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         scope.showFilteredData();
 
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -216,7 +216,7 @@
 
         }
     });
-    mifosX.ng.application.controller('EntityToEntityMappingController', ['$scope','dateFilter','$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.EntityToEntityMappingController]).run(function ($log) {
+    mifosX.ng.application.controller('EntityToEntityMappingController', ['$scope','dateFilter','$routeParams', '$route', '$location', 'ResourceFactory', '$uibModal', mifosX.controllers.EntityToEntityMappingController]).run(function ($log) {
         $log.info("EntityToEntityMappingController initialized");
     });
 }(mifosX.controllers || {}));

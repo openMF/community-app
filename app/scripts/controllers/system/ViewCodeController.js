@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCodeController: function (scope, routeParams, resourceFactory, location, $modal, route) {
+        ViewCodeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
             scope.codevalues = [];
             scope.formData = [];
             scope.newcode = {};
@@ -14,7 +14,7 @@
             });
 
             scope.delCode = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletecode.html',
                     controller: CodeDeleteCtrl
                 });
@@ -43,28 +43,28 @@
                     route.reload();
                 });
             }
-            var CodeDeleteCtrl = function ($scope, $modalInstance) {
+            var CodeDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.codeResources.delete({codeId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/codes');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
-            var EditCodeValueCtrl = function ($scope, $modalInstance, cid) {
+            var EditCodeValueCtrl = function ($scope, $uibModalInstance, cid) {
                 $scope.edit = function () {
 
-                    $modalInstance.close('delete');
+                    $uibModalInstance.close('delete');
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.deleteCodeValue = function (id) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletecodevalue.html',
                     controller: CodeValueDeleteCtrl,
                     resolve: {
@@ -74,21 +74,21 @@
                     }
                 });
             };
-            var CodeValueDeleteCtrl = function ($scope, $modalInstance, cvid) {
+            var CodeValueDeleteCtrl = function ($scope, $uibModalInstance, cvid) {
                 $scope.delete = function () {
                     resourceFactory.codeValueResource.delete({codeId: routeParams.id, codevalueId: cvid}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
-    mifosX.ng.application.controller('ViewCodeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.ViewCodeController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCodeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', mifosX.controllers.ViewCodeController]).run(function ($log) {
         $log.info("ViewCodeController initialized");
     });
 }(mifosX.controllers || {}));
