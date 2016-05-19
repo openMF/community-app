@@ -58,9 +58,13 @@
                     isMandatoryDeposit:data.isMandatoryDeposit,
                     allowWithdrawal:data.allowWithdrawal,
                     adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments,
-                    minBalanceForInterestCalculation:data.minBalanceForInterestCalculation
+                    minBalanceForInterestCalculation:data.minBalanceForInterestCalculation,
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
                 }
 
+                if(data.withHoldTax){
+                    scope.formData.taxGroupId = data.taxGroup.id;
+                }
                 scope.chart = scope.product.activeChart;
 
                 _.each(scope.chart.chartSlabs, function (chartSlab) {

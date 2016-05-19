@@ -6,7 +6,8 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
-	   
+	        scope.showPenalty = true ;
+
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
@@ -23,7 +24,14 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
-                } else {
+                }else if(data.chargeAppliesTo.value === 'Shares') {
+                    scope.showChargePaymentByField = false;
+                    scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
+                    scope.chargeTimeTypeOptions = scope.template.shareChargeTimeTypeOptions;
+                    scope.addfeefrequency = false;
+                    scope.showGLAccount = false;
+                    scope.showPenalty = false ;
+                }else {
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
@@ -44,6 +52,10 @@
 
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
+                }
+
+                if(data.taxGroup){
+                    scope.formData.taxGroupId = data.taxGroup.id;
                 }
 
                 if(data.feeFrequency){

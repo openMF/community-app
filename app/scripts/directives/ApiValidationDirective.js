@@ -7,13 +7,12 @@
                 link: function (scope, elm, attr, ctrl) {
                     var template = '<div class="error" ng-repeat="errorArray in errorDetails" ng-show="errorStatus || errorDetails">' +
                         '<label>' +
-                        '{{' + "'label.error'" + ' | translate}}' +
+                        '{{' + 'errorArray.args.params[0].value'    +' | translate}}' + ' field is required' +
                         '</label>' +
                         '<label ng-show="errorStatus">{{errorStatus}}</label>' +
                         '<label ng-hide="errorStatus" ng-repeat="error in errorArray">' +
                         '{{error.code | translate:error.args}}' +
                         '</label></div>';
-
                     elm.html('').append($compile(template)(scope));
                 }
             };

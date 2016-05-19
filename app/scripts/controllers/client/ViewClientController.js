@@ -9,6 +9,7 @@
             scope.formData = {};
             scope.openLoan = true;
             scope.openSaving = true;
+            scope.openShares = true ;
             scope.updateDefaultSavings = false;
             scope.charges = [];
             scope.showClosedPledges = false;
@@ -41,6 +42,10 @@
                 }
             };
 
+            scope.routeToShareAccount = function(id) {
+                location.path('/viewshareaccount/'+id)
+            } ;
+
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
@@ -54,14 +59,7 @@
                         scope.image = imageData.data;
                     });
                 }
-                if(data.legalForm.value == 'ENTITY' )
-                {
-                    scope.dob = "label.input.incorporationdate";
-                }
-                else
-                {
-                    scope.dob = "label.input.dateofbirth";
-                }
+               
 
                 http({
                     method: 'GET',
@@ -374,6 +372,15 @@
                     return false;
                 }
             };
+
+            scope.isShareClosed = function (shareAccount) {
+                if ( shareAccount.status.code === "shareAccountStatusType.closed" ||
+                    shareAccount.status.code === "shareAccountStatusType.rejected") {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
             scope.setLoan = function () {
                 if (scope.openLoan) {
                     scope.openLoan = false
@@ -397,7 +404,16 @@
                         scope.isGetAllClientsNotes = true;
                     });
                 }
+            }
+
+            scope.setShares = function () {
+                if (scope.openShares) {
+                    scope.openShares = false;
+                } else {
+                    scope.openShares = true;
+                }
             };
+
 
 
             scope.getClientIdentityDocuments = function () {
@@ -521,6 +537,14 @@
                 }
             };
 
+            scope.isShareNotClosed = function (shareAccount) {
+                if ( shareAccount.status.code === "shareAccountStatusType.closed" ||
+                    shareAccount.status.code === "shareAccountStatusType.rejected") {
+                    return false;
+                } else {
+                    return true;
+                }
+            };
             scope.saveNote = function () {
                 resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
                     var today = new Date();
