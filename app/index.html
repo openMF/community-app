@@ -5,7 +5,6 @@
     <link rel="icon" type="image/png" href="./images/favicon.ico" />
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body  class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
 <!--Loader -->
@@ -38,23 +37,31 @@
             <br/><br/>
             <div ng-hide="resetPassword">
     	    <form class="form-inline pull-right" role="form">
-            <!-- mdl spiner -->
+            <div data-ng-show="load" style="position: absolute; top: 50%; left: 48%; z-index: 1000;">
+                <img src="images/cubic_loader.gif" class="img-responsive">
+            </div>
+            <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
+            <div class="form-group">
+                <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid">
+            </div>
+            <div class="form-group">
+                <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd">
+            </div>
+            <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+            <!-- code for material design input mdl spiner 
             <label><div data-ng-show="load" class="mdl-spinner mdl-js-spinner is-active" style="margin-right: 20px;"></div></label>
             <label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
     		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input ng-autofocus="true" class="mdl-textfield__input" type="text" data-ng-model="loginCredentials.username" id="uid">
                 <label class="mdl-textfield__label" for="uid" required>{{ 'label.input.username' | translate }}</label>
-    		   <!--  <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid"> -->
     		</div>
     		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="password" data-ng-model="loginCredentials.password" id="pwd">
                 <label class="mdl-textfield__label" for="pwd" required>{{ 'label.input.password' | translate }}</label>
-    		    <!-- <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd"> -->
     		</div>
-    		<!-- <button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button> -->
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit" data-ng-click="login()" id="login-button" style="height: 30px; text-transform: capitalize; background-color: #4CAF50; font-size: small;">
               {{ 'label.button.signin' | translate }}
-            </button>
+            </button>-->
     	    </form>
             </div>
             <div ng-show="resetPassword">
@@ -257,7 +264,6 @@
     </div>
 </div>
 <!-- Le javascript -->
-<script src="/bower_components/material-design-lite/material.min.js"></script>
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- devcode: !production -->

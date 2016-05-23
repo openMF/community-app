@@ -9,8 +9,7 @@ define(['underscore'], function () {
             'app',
             'nv.d3',
             'style',
-            'chosen.min',
-            'material.min'
+            'chosen.min'
         ]
     };
 
