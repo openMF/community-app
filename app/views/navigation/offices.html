@@ -117,12 +117,11 @@
     <div class="row">
         <div class="col-sm-5 col-md-5">
             <ng-summary title="# {{ 'label.heading.staff' | translate }}">
-                <h1 class="center">07</h1>
             </ng-summary>
         </div>
         <div class="col-sm-5 col-md-5">
-            <ng-summary title="# Staff">
-                <h1 class="center">07</h1>
+            <ng-summary title="">
+                <h1 class="center">{{staffs.length}}</h1>
             </ng-summary>
         </div>
     </div>
@@ -151,7 +150,18 @@
             <td>{{staff.officeName}}</td>
         </tr>
     </table>
-</div>
+     <div class="row" ng-show="centers.length">
+        <div class="col-sm-5 col-md-5">
+            <ng-summary title="# {{ 'label.heading.center' | translate }}">
+            </ng-summary>
+        </div>
+        <div class="col-sm-5 col-md-5">
+            <ng-summary title="">
+                <h1 class="center">{{centers.length}}</h1>
+            </ng-summary>
+        </div>
+    </div>
+    </div>
 <div ng-show="center">
     <br/>
 
@@ -180,6 +190,30 @@
         <tr data-ng-show="center.staffName">
             <td>{{ 'label.heading.staff' | translate }}</td>
             <td>{{center.staffName}}</td>
+        </tr>
+        <tr data-ng-show="groups.length">
+            <td>{{ 'label.heading.group' | translate }}</td>
+            <td>{{groups.length}}</td>
+        </tr>
+        <tr data-ng-show="summary.activeClients">
+            <td>{{ 'label.numofactiveclient' | translate }}</td>
+            <td>{{summary.activeClients}}</td>
+        </tr>
+        <tr data-ng-show="summary.activeClientLoans">
+            <td>{{ 'label.numofactiveclientloans' | translate }}</td>
+            <td>{{summary.activeClientLoans}}</td>
+        </tr>
+        <tr data-ng-show="summary.activeClientBorrowers">
+            <td>{{ 'label.numofactiveclientborrowers' | translate }}</td>
+            <td>{{summary.activeClientBorrowers}}</td>
+        </tr>
+        <tr data-ng-show="summary.overdueGroupLoans">
+            <td>{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+            <td>{{summary.overdueGroupLoans}}</td>
+        </tr>
+        <tr data-ng-show="summary.overdueClientLoans">
+            <td>{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+            <td>{{summary.overdueClientLoans}}</td>
         </tr>
         <tr data-ng-show="center.collectionMeetingCalendar.nextTenRecurringDates[0]">
             <td>{{ 'label.heading.nextmeetingon' | translate }}</td>

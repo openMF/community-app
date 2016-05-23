@@ -752,6 +752,24 @@
                 ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
                 value="{{type.id}}"></select>
     </div>
+
+    <div>
+        <div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4">
+            <select id="recalculationCompoundingFrequencyNthDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyNthDayType"
+                    ng-options="recalculationCompoundingFrequencyNthDayType.id as recalculationCompoundingFrequencyNthDayType.value for recalculationCompoundingFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+                    value="{{recalculationCompoundingFrequencyNthDayType.id}}"><option value=""></option><option value="onDay">On day</option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
+            <select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
+                    ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                    value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}"><option value="">DAY</option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
+            <select id="recalculationCompoundingFrequencyOnDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyOnDayType"
+                    ng-options="recalculationCompoundingFrequencyOnDayType as recalculationCompoundingFrequencyOnDayType for recalculationCompoundingFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+                    value="{{recalculationCompoundingFrequencyOnDayType}}"></select>&nbsp;
+        </div>
+    </div>
 </div>
 <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
         && formData.recalculationCompoundingFrequencyType != 1">
@@ -764,18 +782,6 @@
     <div class="col-sm-2">
         <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control"
                ng-model="formData.recalculationCompoundingFrequencyInterval">
-    </div>
-    <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.compounding'
-        | translate }}<span class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundingdate' | translate}}"
-           tooltip-append-to-body="true"></i>
-    </label>
-
-    <div class="col-sm-2">
-        <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate"
-               datepicker-pop="dd MMMM yyyy"
-               ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'"
-               max="restrictDate" class="form-control"/>
     </div>
 
 </div>
@@ -794,6 +800,23 @@
                 ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
                 value="{{type.id}}"></select>
     </div>
+    <div>
+        <div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4">
+            <select id="recalculationRestFrequencyNthDayType" class="form-control" ng-model="formData.recalculationRestFrequencyNthDayType"
+                    ng-options="recalculationRestFrequencyNthDayType.id as recalculationRestFrequencyNthDayType.value for recalculationRestFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+                    value="{{recalculationRestFrequencyNthDayType.id}}"><option value=""></option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
+            <select id="recalculationRestFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationRestFrequencyDayOfWeekType"
+                    ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                    value="{{recalculationRestFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
+            <select id="recalculationRestFrequencyOnDayType" class="form-control" ng-model="formData.recalculationRestFrequencyOnDayType"
+                    ng-options="recalculationRestFrequencyOnDayType as recalculationRestFrequencyOnDayType for recalculationRestFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+                    value="{{recalculationRestFrequencyOnDayType}}"></select>&nbsp;
+        </div>
+    </div>
 </div>
 <div class="form-group"
      data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
@@ -806,18 +829,6 @@
     <div class="col-sm-2">
         <input id="recalculationRestFrequencyInterval" type="text" class="form-control"
                ng-model="formData.recalculationRestFrequencyInterval">
-    </div>
-    <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
-        | translate }}<span class="required">*</span>
-        <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencydate' | translate}}"
-           tooltip-append-to-body="true"></i>
-    </label>
-
-    <div class="col-sm-2">
-        <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate"
-               datepicker-pop="dd MMMM yyyy"
-               ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
-               class="form-control"/>
     </div>
 
 </div>
@@ -883,7 +894,7 @@
 
     <div class="checkbox col-sm-2">
         <label>
-            <input type="checkbox" ng-model="formData.multiDisburseLoan"/>
+            <input type="checkbox" ng-model="formData.multiDisburseLoan" />
         </label>
     </div>
 </div>
@@ -974,7 +985,7 @@
 <div class="form-group">
     <div class="col-sm-3">
         <select id="chargeId" ng-model="chargeId" class="form-control"
-                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:formData.currencyCode:strict"
+                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
                 value="{{charge.id}}">
             <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
         </select>

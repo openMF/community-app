@@ -9,6 +9,7 @@
             scope.formData = {};
             scope.openLoan = true;
             scope.openSaving = true;
+            scope.openShares = true ;
             scope.updateDefaultSavings = false;
             scope.charges = [];
             scope.routeToLoan = function (id) {
@@ -35,6 +36,10 @@
                     location.path('/viewrecurringdepositaccount/' + id);
                 }
             };
+
+            scope.routeToShareAccount = function(id) {
+                location.path('/viewshareaccount/'+id)
+            } ;
 
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
@@ -350,6 +355,15 @@
                     return false;
                 }
             };
+
+            scope.isShareClosed = function (shareAccount) {
+                if ( shareAccount.status.code === "shareAccountStatusType.closed" ||
+                    shareAccount.status.code === "shareAccountStatusType.rejected") {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
             scope.setLoan = function () {
                 if (scope.openLoan) {
                     scope.openLoan = false
@@ -364,6 +378,16 @@
                     scope.openSaving = true;
                 }
             };
+
+            scope.setShares = function () {
+                if (scope.openShares) {
+                    scope.openShares = false;
+                } else {
+                    scope.openShares = true;
+                }
+            };
+
+
             resourceFactory.clientNotesResource.getAllNotes({clientId: routeParams.id}, function (data) {
                 scope.clientNotes = data;
             });
@@ -492,6 +516,14 @@
                 }
             };
 
+            scope.isShareNotClosed = function (shareAccount) {
+                if ( shareAccount.status.code === "shareAccountStatusType.closed" ||
+                    shareAccount.status.code === "shareAccountStatusType.rejected") {
+                    return false;
+                } else {
+                    return true;
+                }
+            };
             scope.saveNote = function () {
                 resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
                     var today = new Date();

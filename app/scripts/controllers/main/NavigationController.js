@@ -8,7 +8,7 @@
             scope.groupCollapsed = true;
             scope.centerCollapsed = true;
             scope.clientCollapsed = true;
-            resourceFactory.officeResource.get({officeId: 1}, function (data) {
+            resourceFactory.officeResource.get({officeId: 0}, function (data) {
                 scope.office = data;
                 scope.officeName = data.name;
             });
@@ -148,6 +148,9 @@
                     });
                     resourceFactory.centerAccountResource.get({centerId: centerId}, function (data) {
                         scope.centerAccounts = data;
+                    });
+                    resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: centerId}, function (data) {
+                        scope.summary = data[0];
                     });
                 }
             };

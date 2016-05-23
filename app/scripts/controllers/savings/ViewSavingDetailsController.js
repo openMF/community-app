@@ -11,7 +11,7 @@
             scope.savingaccountdetails = [];
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
-                    || savingsTransactionType.overdraftInterest == true;
+                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true;
             };
 
             scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
@@ -104,6 +104,22 @@
                     case "unAssignSavingsOfficer":
                         location.path('/unassignsavingsofficer/' + accountId);
                         break;
+                    case "enableWithHoldTax":
+                        var changes = {
+                            withHoldTax:true
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
+                    case "disableWithHoldTax":
+                        var changes = {
+                            withHoldTax:false
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
 
                 }
             };
@@ -123,6 +139,7 @@
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
+                
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
@@ -239,6 +256,19 @@
                                 });
                                 scope.annualChargeId = scope.charges[i].id;
                             }
+                        }
+                    }
+                    if(data.taxGroup){
+                        if(data.withHoldTax){
+                            scope.buttons.options.push({
+                                name: "button.disableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }else{
+                            scope.buttons.options.push({
+                                name: "button.enableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
                         }
                     }
                 }

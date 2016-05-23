@@ -109,6 +109,14 @@
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
                 }
 
+                if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
+                    delete this.formData.fullname;
+                } else {
+                    delete this.formData.firstname;
+                    delete this.formData.middlename;
+                    delete this.formData.lastname;
+                }
+
                 if(scope.first.incorpValidityTillDate) {
                     this.formData.clientNonPersonDetails.locale = scope.optlang.code;
                     this.formData.clientNonPersonDetails.dateFormat = scope.df;

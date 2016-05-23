@@ -180,6 +180,10 @@
                     <td><span class="padded-td">{{savingaccountdetails.preClosurePenalInterest | number}} % on {{savingaccountdetails.preClosurePenalInterestOnType.value}}</span>
                     </td>
                 </tr>
+                <tr data-ng-show="savingaccountdetails.withHoldTax">
+                    <td class="active fontnormal"> {{'label.heading.withholdtaxgroup' | translate}}</td>
+                    <td><span class="padded-td">{{savingaccountdetails.taxGroup.name}}</span></td>
+                </tr>
             </table>
         </div>
     </div>
@@ -190,16 +194,20 @@
         <div class="row">
             <table class="table table-bordered view-table">
                 <tr class="graybg">
+                    <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+                    <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
                     <td>{{'label.heading.interestratedetails.description' | translate}}</td>
                     <td>&nbsp;</td>
                 </tr>
 
                 <tr ng-repeat="chartSlab in savingaccountdetails.accountChart.chartSlabs">
+                    <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
                     <td>{{chartSlab.periodType.value}}</td>
                     <td>{{chartSlab.fromPeriod}}-{{chartSlab.toPeriod}}</td>
+                    <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
                     <td>{{chartSlab.annualInterestRate}}</td>
                     <td>{{chartSlab.description}}</td>
                     <td>
