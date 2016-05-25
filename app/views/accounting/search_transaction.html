@@ -72,6 +72,7 @@
                 <th>{{'label.heading.account' | translate}}</th>
                 <th>{{'label.heading.debit' | translate}}</th>
                 <th>{{'label.heading.credit' | translate}}</th>
+                <th>{{'label.heading.entity'| translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -101,6 +102,22 @@
                     <div ng-show="transaction.entryType.value == 'CREDIT'">
                         {{transaction.currency.displaySymbol}}&nbsp;{{transaction.amount | number}}
                     </div>
+                </td>
+                <td class="pointer" data-ng-click="routeTo(transaction.transactionId)">
+                    <div ng-if="transaction.transactionId.toString().indexOf('L')>=0">
+                    {{"L:"+transaction.entityId}}
+                        </div>
+                    <div ng-if="transaction.transactionId.toString().indexOf('S')>=0">
+                        {{"S:"+transaction.entityId}}
+                    </div>
+                    <div ng-if="transaction.transactionId.toString().indexOf('C')>=0">
+                        {{"C:"+transaction.entityId}}
+                    </div>
+                </td>
+                <td>
+                    <a class="pointer" ng-click="viewloantransactionjournalentries(transaction.entityId,transaction.transactionId)" tooltip="View Journal Entries">
+                        <i class="icon-circle-arrow-right icon-large coll"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>
