@@ -191,7 +191,7 @@
                                 <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalAnnualFees| number}}</span>
                                 </td>
                             </tr>
-                            <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
+                            <tr ng-hide="savingaccountdetails.summary.totalInterestEarned >= 0">
                                 <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' |
                                     translate}}
                                 </td>
@@ -205,6 +205,14 @@
                                 <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted| number}}</span>
                                 </td>
                             </tr>
+                            <tr ng-show="savingaccountdetails.summary.interestNotPosted >= 0">{{savingaccountdetails.summary.earnedInterestNotPosted | number}}
+                                <td class="table-bold-acc fontnormal">{{'label.interestEarnedNotPosted' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">
+                                    {{savingaccountdetails.currency.displaySymbol }}&nbsp;{{savingaccountdetails.summary.interestNotPosted | number}}</span>
+                                </td>
+                            </tr>
                             <tr ng-show="savingaccountdetails.summary.totalOverdraftInterestDerived">
                                 <td class="table-bold-acc fontnormal">{{'label.totaloverdraftinterestderived' |
                                     translate}}
@@ -212,6 +220,15 @@
                                 <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalOverdraftInterestDerived| number}}</span>
                                 </td>
                             </tr>
+
+                            <tr ng-show="savingaccountdetails.summary.interestNotPosted < 0">
+                                <td class="table-bold-acc fontnormal">{{'label.overdraftInterestNotPosted' |
+                                    translate}}
+                                </td>
+                                <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.interestNotPosted| number}}</span>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td class="table-bold-acc fontnormal">{{'label.interestrate' | translate}}</td>
                                 <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}%</span></td>
@@ -309,6 +326,10 @@
                             <tr data-ng-show="savingaccountdetails.enforceMinRequiredBalance">
                                 <td class="table-bold-acc fontnormal"> {{'label.heading.minRequiredBalance' | translate}}</td>
                                 <td><span class="padded-td">{{savingaccountdetails.minRequiredBalance| number}}</span></td>
+                            </tr>
+                            <tr data-ng-show="savingaccountdetails.summary.lastInterestCalculationDate">
+                                <td class="table-bold-acc fontnormal"> {{'label.heading.interest.calculation.date' | translate}}</td>
+                                <td><span class="padded-td">{{savingaccountdetails.summary.lastInterestCalculationDate | DateFormat}}</span></td>
                             </tr>
                             <tr ng-show="showonhold">
                                 <td class="table-bold-acc fontnormal"> {{'label.heading.onholdfunds' | translate}}</td>
