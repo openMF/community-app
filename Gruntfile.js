@@ -330,9 +330,25 @@ module.exports = function(grunt) {
             env: 'production'
         }
       }
+    },
+
+    //compass task to compile scss to css files
+    compass: {                  // Task
+        dist: {                   // Target
+          options: {              // Target options
+            sassDir: 'app/styles/',
+            cssDir: 'app/styles/',
+            environment: 'production'
+          }
+        },
+        dev: {                    // Another target
+          options: {
+            sassDir: 'app/styles/',
+            cssDir: 'app/styles/'
+          }
+        }
     }
   });
-
 
   // Run development server using grunt serve
   grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
@@ -342,8 +358,8 @@ module.exports = function(grunt) {
   
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
-  grunt.registerTask('dev', ['clean', 'copy:dev']);
+  grunt.registerTask('prod', ['clean', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
 
 };
