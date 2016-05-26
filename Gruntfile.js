@@ -32,12 +32,12 @@ module.exports = function(grunt) {
                 '<%= mifosx.app %>/**/*.html',
                 '<%= mifosx.app %>/{,*/}*.json',
                 '<%= mifosx.app %>/**/*.js',
-                '<%= mifosx.app %>/**/*.css',
+                '<%= mifosx.app %>/**/*.scss',
                 '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                 // ignore directories to reduce CPU usage by watch/node process
                 '!<%= mifosx.app %>/bower_components/**',
                 // also ignore all css file changes
-                //'!<%= mifosx.app %>/**/*.css'
+                '!<%= mifosx.app %>/**/*.css'
             ]
         }
     },
