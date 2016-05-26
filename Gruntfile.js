@@ -35,7 +35,9 @@ module.exports = function(grunt) {
                 '<%= mifosx.app %>/**/*.css',
                 '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                 // ignore directories to reduce CPU usage by watch/node process
-                '!<%= mifosx.app %>/bower_components/**'
+                '!<%= mifosx.app %>/bower_components/**',
+                // also ignore all css file changes
+                //'!<%= mifosx.app %>/**/*.css'
             ]
         }
     },
@@ -56,7 +58,7 @@ module.exports = function(grunt) {
             }
         }
     },
-    // w3c html calidation
+    // w3c html validation
     validation: {
         options: {
             reset: true,
