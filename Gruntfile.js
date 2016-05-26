@@ -336,14 +336,14 @@ module.exports = function(grunt) {
     compass: {                  // Task
         dist: {                   // Target
           options: {              // Target options
-            sassDir: 'app/styles/',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/',
             environment: 'production'
           }
         },
         dev: {                    // Another target
           options: {
-            sassDir: 'app/styles/',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/'
           }
         }
