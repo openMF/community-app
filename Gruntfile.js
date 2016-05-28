@@ -28,6 +28,7 @@ module.exports = function(grunt) {
             options: {
                 livereload: '<%= connect.options.livereload %>'
             },
+
             files: [
                 '<%= mifosx.app %>/**/*.html',
                 '<%= mifosx.app %>/{,*/}*.json',
@@ -38,7 +39,8 @@ module.exports = function(grunt) {
                 '!<%= mifosx.app %>/bower_components/**',
                 // also ignore all css file changes
                 '!<%= mifosx.app %>/**/*.css'
-            ]
+            ], 
+            tasks: ['compass:dev'],
         }
     },
      // The actual grunt server settings
@@ -126,6 +128,8 @@ module.exports = function(grunt) {
           ]
         }]
       },
+      //trying to remove unused css files
+      /*css: ['<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.css', '!<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.min.css'],*/
       server: '.tmp'
     },
 
@@ -298,7 +302,25 @@ module.exports = function(grunt) {
             '<%= mifosx.app %>/scripts/initialTasks.js',
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
         }
-      }
+      },
+
+      //trying to concatenat css files
+      /*css: {
+        files: {
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css': 
+          ['<%= mifosx.app %>/styles/app.css',
+          '<%= mifosx.app %>/styles/bootstrap-ext.css',
+          '<%= mifosx.app %>/styles/bootswatch.css',
+          '<%= mifosx.app %>/styles/style.css'],
+
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css': 
+          ['<%= mifosx.app %>/styles/bootstrap.min.css',
+          '<%= mifosx.app %>/styles/chosen.min.css',
+          '<%= mifosx.app %>/styles/font-awesome.min.css',
+          '<%= mifosx.app %>/styles/nv.d3.css',
+          '<%= mifosx.app %>/styles/ui-bootstrap-csp.css'],
+        }
+      }*/
     },
     //FIXME: Address issues with requirejs task
     requirejs: {
@@ -347,8 +369,26 @@ module.exports = function(grunt) {
             cssDir: 'app/styles/'
           }
         }
-    }
+    },
+
+    //cssmin task to concatenate and minified css file while running the grunt prod
+    /*cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
+          src: ['*.css'],
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
+          ext: '.min.css'
+        }]
+      }
+    }*/
+  
   });
+
+  
+
 
   // Run development server using grunt serve
   grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
@@ -358,7 +398,7 @@ module.exports = function(grunt) {
   
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
 

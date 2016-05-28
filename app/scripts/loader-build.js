@@ -1,8 +1,7 @@
 (function () {
     require.config({
         paths: {
-            'mdl': '../bower_components/material-design-lite/material',
-            'jquery': '../bower_components/jquery/jquery.min',
+            'jquery': '../bower_components/jquery/dist/jquery.min',
             'angular': '../bower_components/angular/angular.min',
             'angular-resource': '../bower_components/angular-resource/angular-resource.min',
             'angular-route': '../bower_components/angular-route/angular-route.min',
@@ -33,7 +32,7 @@
             'frAngular': '../scripts/modules/KeyboardManager',
             'Q': '../bower_components/q/q.min',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
+            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min'
         },
         shim: {
@@ -47,7 +46,6 @@
             'angular-mocks': { deps: ['angular'] },
             'webstorage': { deps: ['angular'] },
             'd3': {exports: 'd3'},
-            'mdl': {exports: 'mdl'},
             'nvd3': { deps: ['d3']},
             'nvd3ChartDirectives': {deps: ['angular', 'nvd3']},
             'configurations': {deps: ['angular']},
@@ -68,7 +66,6 @@
             'mifosX': {
                 deps: [
                     'angular',
-                    'mdl',
                     'jquery',
                     'angular-route',
                     'angular-resource',
