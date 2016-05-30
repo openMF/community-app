@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="./images/favicon.ico" />
+    <link rel="icon" type="image/png" href="./images/favicon.ico" ng-if="!isFaviconPath" />
+    <link rel="icon" type="image/png" href="{{faviconPath}}" ng-if="isFaviconPath" />
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
 
@@ -65,7 +66,8 @@
         </div>
         <div class="row col-md-8 col-lg-offset-2 paddedbottom">
         	<div class="col-md-3">
-                <img src="./images/MifosX_logo.png" alt="Mifos X" width="150" class="img-responsive"/>
+                <img src="./images/MifosX_logo.png" alt="Mifos X" width="150" class="img-responsive" ng-if="!isBigLogoPath"/>
+                <img src="{{bigLogoPath}}" alt="Mifos X" width="150" class="img-responsive" ng-if="isBigLogoPath">
             </div>
             <div class="col-md-9">
                 <h1>{{ 'label.heading.mifosx' | translate }}</h1>
@@ -170,7 +172,10 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         	<div class="container-fluid container">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <a class="brand" href="#/home"><img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20"></a>
+                    <a class="brand" href="#/home">
+                        <img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20" ng-if="!isHeaderLogoPath">
+                        <img src="{{headerLogoPath}}" alt="Mifos X" height="20" ng-if="isHeaderLogoPath">
+                    </a>
                     <ul class="nav navbar-nav" id="main-menu-left">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }"  href="#"><i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}<b class="caret"></b></a>
