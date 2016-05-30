@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="./images/favicon.png"/>
-    <title>FINFLUX</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png" ng-if="!isFaviconPath" />
+    <link rel="icon" type="image/png" href="{{faviconPath}}" ng-if="isFaviconPath" />
+    <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] { display: none !important; }</style>
     <link rel="stylesheet" href="./styles/dots.css" type="text/css">
 
@@ -34,7 +35,8 @@
         <div class="container-fluid">
             <div class="col-md-6">
                 <a class="navbar-brand" href="http://www.confluxtechnologies.com/">
-                    <img src="./images/top_nav_logo.png" alt="FINFLUX" class="img-responsive"/>
+                    <img src="./images/top_nav_logo.png" alt="FINFLUX" height="20" class="img-responsive" ng-if="!isHeaderLogoPath">
+                    <img src="{{headerLogoPath}}" alt="FINFLUX" height="20"  class="img-responsive" ng-if="isHeaderLogoPath">
                 </a>
             </div>
             <div class="pull-right language">
@@ -145,7 +147,10 @@
         <nav class="navbar navbar-inverse navbar-fixed-top navigationhome" role="navigation">
             <div class="container-fluid container">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <a class="brand" href="#/home"><img src="./images/top_nav_logo.png" alt="FINFLUX" ></a>
+                    <a class="brand" href="#/home">
+                        <img src="./images/top_nav_logo.png" alt="FINFLUX" height="20" ng-if="!isHeaderLogoPath">
+                        <img src="{{headerLogoPath}}" alt="FINFLUX" height="20" ng-if="isHeaderLogoPath">
+                    </a>
                     <ul class="nav navbar-nav" id="main-menu-left">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }"  href="#"><i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}<b class="caret"></b></a>
