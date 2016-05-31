@@ -1,0 +1,226 @@
+<div class="col-md-12 " ng-controller="TrackSmsController">
+    <ul class="breadcrumb">
+        <li class="active" ng-show="tabSelected=='send'">{{'label.anchor.sendsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='pending'">{{'label.anchor.pendingsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='failed'">{{'label.anchor.failedsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='sent'">{{'label.anchor.sentsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='delivered'">{{'label.anchor.deliveredsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='allsms'">{{'label.anchor.allsms' | translate}}</li>
+        <li class="active" ng-show="tabSelected=='search'">{{'label.anchor.searchsms' | translate}}</li>
+    </ul>
+    <br/>
+    <div class="col-sm-12 form-horizontal well">
+        <tabset class=" marginbottom0" tabset-name="clientTabset">
+            <tab heading="{{'label.heading.allsms' | translate}}"  select="allSms()"
+                 has-permission='READ_SMS'>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                            <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                        </tr>
+                        </thead>
+                        </table>
+                </div>
+                <div style="max-height:380px;overflow-y:auto;display: block;">
+                    <table class="table">
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="sms in smsData">
+                            <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                            <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                            <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="{{'label.heading.pendingsms' | translate}}"   select="pendingSms()"
+                 has-permission='READ_SMS'>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                            <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="max-height:380px;overflow-y:auto;display: block;">
+                    <table class="table">
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="sms in smsData">
+                            <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                            <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                            <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="{{'label.heading.sentsms' | translate}}" select="sentSms()" has-permission='READ_SMS'>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                            <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="max-height:380px;overflow-y:auto;display: block;">
+                    <table class="table">
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="sms in smsData">
+                            <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                            <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                            <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="{{'label.heading.failedsms' | translate}}" select="failedSms()" has-permission='READ_SMS'>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                            <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="max-height:380px;overflow-y:auto;display: block;">
+                    <table class="table">
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="sms in smsData">
+                            <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                            <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                            <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="{{'label.heading.deliveredsms' | translate}}" select="deliveredSms()" has-permission='READ_SMS'>
+                <div>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                            <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                            <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                            <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                            <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="max-height:380px;overflow-y:auto;display: block;">
+                    <table class="table">
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="sms in smsData">
+                            <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                            <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                            <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                            <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="{{'label.heading.searchsms' | translate}}"  select="searchSmsByStatus()"
+                 has-permission='READ_SMS'>
+                <div name="searchloantransactionform well form-horizontal">
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="control-label col-sm-2">{{'label.input.smsstatus' | translate}}:</label>
+                        <div class="col-sm-3">
+                                <select chosen="status" id="status" ng-model="formData.status"  class="form-control"
+                                        ng-options="sms.value as sms.name for sms in smsStatus" value="{{sms.value}}"
+                                        name="status" required late-Validate>
+                                    <option value="" style="display:none;">{{'label.menu.selectsmsstatus' | translate}} </option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
+                        <div class="col-sm-3">
+                            <input id="fromDate" type="text" name="fromDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.fromDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        </div>
+                        <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
+                        <div class="col-sm-3">
+                            <input id="toDate" type="text" name="toDate" datepicker-pop="yyyy-MM-dd"
+                                   ng-model="formData.toDate" date-disabled="disabled(date, mode)" is-open="opened"  min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        </div>
+                        <button id="save" ng-click="searchSms()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.search' | translate}}</button>
+                    </div>
+                    <div ng-show="searchedSmsData.length>0">
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th style="width:5%;">{{ 'label.heading.id' | translate }}</th>
+                                <th  style="width:20%;">{{ 'label.heading.sourceaddress' | translate }}</th>
+                                <th style="width:20%;">{{ 'label.heading.mobilenumber' | translate }}</th>
+                                <th style="width:20%;">{{ 'label.heading.message' | translate }}</th>
+                                <th style="width:15%;">{{ 'label.heading.status' | translate }}</th>
+                                <th style="width:auto;">{{ 'label.heading.sentdate' | translate }}</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div ng-show="searchedSmsData.length>0" style="max-height:380px;overflow-y:auto;display: block;">
+                        <table class="table">
+                            <tbody>
+                            <tr class="pointer-main" ng-repeat="sms in searchedSmsData">
+                                <td  style="width:5%;" class="pointer">{{sms.id}}</td>
+                                <td style="width:20%;" class="pointer">{{sms.sourceAddress}}</td>
+                                <td style="width:20%;" class="pointer">{{sms.mobileNo}}</td>
+                                <td style="width:20%;" class="pointer">{{sms.message}}</td>
+                                <td style="width:15%;" class="pointer">{{sms.status.value}}</td>
+                                <td style="width:auto;" class="pointer">{{formatDate(sms.sentDate)}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </tab>
+        </tabset>
+    </div>
+
+</div>

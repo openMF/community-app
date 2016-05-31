@@ -1,0 +1,106 @@
+<div class="col-md-12 " ng-controller="CreateSmsCampaignController">
+    <ul class="breadcrumb">
+        <li><a href="#/sms/viewcampaign">{{'label.view.viewcampaign' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createsmscampaign' | translate}}</li>
+    </ul>
+    <br/>
+    <div  class="col-sm-12 form-horizontal well">
+        <div>
+            <form name="createsmscampaign" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{'label.heading.createsmscampaign' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.campaignname' | translate }}<span class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <input type="text" name="campaignName" required late-Validate ng-model="formData.campaignName" class="form-control" ></textarea>
+                        </div>
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="campaignName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.campaigntype' | translate}} <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <div >
+                                <select chosen="smsCampaignTypes" id="campaignType" ng-model="formData.campaignType"  class="form-control"
+                                        ng-options="smsCampaignType.value as smsCampaignType.name for smsCampaignType in smsCampaignTypes" value="{{smsCampaignType.value}}"
+                                        name="campaigntype" required late-Validate>
+                                    <option value="" style="display:none;">--{{'label.menu.selectcampaigntype' | translate}}--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="campaigntype"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-switch="formData.campaignType" ng-show="formData.campaignType==2">
+                        <label class="control-label col-sm-2">{{ 'label.input.recurrencestartdate' | translate }}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3"  ng-switch-when="2">
+                            <input id="recurrenceStartDate" name="recurrenceStartDate" sort type="text" datepicker-pop="dd MM yyyy" ng-model="formData.recurrenceStartDate"
+                                   class="form-control" is-open="opened" min="minDate" max="restrictDate" required/>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="recurrenceStartDate"/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-switch="formData.campaignType" ng-show="formData.campaignType==2">
+                        <label class="control-label col-sm-2">{{ 'label.input.recurrence' | translate }}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3"  ng-switch-when="2">
+                            <input type="text" name="recurrence" required late-Validate ng-model="formData.recurrence" class="form-control" ></textarea>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="recurrence"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.useevent' | translate}} <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <div >
+                                <select chosen="reports" id="runReportId" ng-model="formData.runReportId"  class="form-control"
+                                        ng-options="report.report_id as report.report_name for report in reports" value="{{report.report_id}}"
+                                        name="runReportId" required>
+                                    <option value="" style="display:none;">--{{'label.menu.selectevent' | translate}}--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="runReportId"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="textarea">{{ 'label.input.message' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <textarea rows="3"  required late-Validate name="message" class="form-control" id="textarea" ng-model="formData.message"></textarea>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <form-validate valattributeform="createsmscampaign" valattribute="message"/>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2">
+                        <a id="cancel"  class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                        <button id="save" type="submit" class="btn btn-primary"  has-permission='CREATE_SMS_CAMPAIGN'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+
+    </div>
+</div>

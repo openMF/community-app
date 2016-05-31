@@ -947,6 +947,33 @@
             .when('/shareproduct/:productId/:dividendId/:action', {
                 templateUrl: 'views/products/shareproductactions.html'
             })
+            .when('/:sendertype/:senderid/sms', {
+                templateUrl: '../views/sms/sendsms.html'
+            })
+            .when('/smsconfiguration', {
+                templateUrl: '../views/sms/smsconfiguration.html'
+            })
+            .when('/sms', {
+                templateUrl: '../views/sms/tracksms.html'
+            })
+            .when('/sms/createcampaign', {
+                templateUrl: '../views/sms/createsmscampaign.html'
+            })
+            .when('/sms/viewcampaign', {
+                templateUrl: '../views/sms/viewsmscampaign.html'
+            })
+            .when('/sms/campaign/close/:campaignId', {
+                templateUrl: '../views/sms/closesmscampaign.html'
+            })
+            .when('/sms/campaign/reactivate/:campaignId', {
+                templateUrl: '../views/sms/reactivatesmscampaign.html'
+            })
+            .when('/sms/campaign/activate/:campaignId', {
+                templateUrl: '../views/sms/activatesmscampaign.html'
+            })
+            .when('/sms/campaign/edit/:campaignId', {
+                templateUrl: '../views/sms/editsmscampaign.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

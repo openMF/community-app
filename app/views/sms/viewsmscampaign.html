@@ -1,0 +1,69 @@
+<div class="col-md-12" ng-controller="ViewSmsCampaignController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.view.viewcampaign' | translate}}</li>
+    </ul>
+    <a href="#/sms/createcampaign" class="btn btn-primary pull-right" has-permission='CREATE_SMS_CAMPAIGN'><i class="icon-plus icon-white"></i>{{'label.button.createsmscampaign' | translate}}</a>
+    <div class="clearfix"></div>
+    <h2>{{'label.heading.viewcampaign' | translate}}</h2>
+    <div  class="form-horizontal well">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.campaigntype' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate }}</th>
+                <th style="width:20%">{{ 'label.heading.message' | translate }}</th>
+                <th>{{ 'label.heading.event' | translate }}</th>
+                <th>{{ 'label.heading.createdby' | translate }}</th>
+                <th>{{ 'label.heading.actions' | translate }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="campaign in campaigns">
+                <td class="pointer" >{{campaign.campaignName}}</td>
+                <td class="pointer" >{{campaignType[campaign.campaignType]}}</td>
+                <td class="pointer" >{{campaign.campaignStatus.value | uppercase}}</td>
+                <td class="pointer"  style="width:20%">{{campaign.message}}</td>
+                <td class="pointer" >{{campaign.event}}</td>
+                <td class="pointer" >{{campaign.smsCampaignTimeLine.submittedByUsername}}</td>
+                <td  ng-show="campaign.campaignStatus.value == 'Pending'">
+                    <a   href="#/sms/campaign/activate/{{campaign.id}}"  class="btn btn-primary pull-left"
+                       has-permission='ACTIVATE_SMS_CAMPAIGN'>
+                        <i class="icon-white"></i>{{'label.button.activate' | translate}}
+                    </a>
+                </td>
+                <td ng-show="campaign.campaignStatus.value != 'Pending' && campaign.campaignStatus.value != 'active'" >
+                    <a href="#/sms/campaign/reactivate/{{campaign.id}}" class="btn btn-primary pull-left"
+                       has-permission='REACTIVATE_SMS_CAMPAIGN'>
+                        <i class="icon-white"></i>{{'label.button.reactivate' | translate}}
+                    </a>
+                </td>
+                <td  ng-show="campaign.campaignStatus.value != 'closed'">
+                    <a href="#/sms/campaign/close/{{campaign.id}}"  class="btn btn-primary pull-left"
+                       has-permission='CLOSE_SMS_CAMPAIGN'>
+                        <i class="icon-white"></i>{{'label.button.close' | translate}}
+                    </a>
+                </td>
+                <td ng-show="campaign.campaignStatus.value != 'active'">
+                    <a  href="#/sms/campaign/edit/{{campaign.id}}"  class="btn btn-primary pull-left"
+                        has-permission='UPDATE_SMS_CAMPAIGN'>
+                        <i class="icon-edit icon-white"></i>
+                    </a>
+                </td>
+                <td ng-show="campaign.campaignStatus.value == 'closed'">
+                    <a  ng-click="deleteCampaign(campaign.id)" class="btn btn-primary pull-left"
+                        has-permission='DELETE_SMS_CAMPAIGN'>
+                        <i class="icon-trash icon-white"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
