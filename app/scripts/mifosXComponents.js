@@ -300,7 +300,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/CreateTaxGroupController',
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
-            'product/tax/TaxGroupController'
+            'product/tax/TaxGroupController',            
+            'sms/SendSmsController',
+            'sms/TrackSmsController',
+            'sms/CreateSmsCampaignController',
+            'sms/ViewSmsCampaignController',
+            'sms/EditSmsCampaignController',
+            'sms/CloseSmsCampaignController',
+            'sms/ActivateSmsCampaignController',
+            'sms/ReactivateCampaignController'
         ],
         filters: [
             'StatusLookup',

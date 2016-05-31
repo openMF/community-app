@@ -1,0 +1,39 @@
+<div class="col-md-12 " ng-controller="SendSmsController">
+    <ul class="breadcrumb">
+        <li ng-show="type=='clients'"><a href="#/viewclient/{{id}}">{{'label.view.client' | translate}}</a></li>
+        <li ng-show="type=='staffs'"><a href="#/viewemployee/{{id}}">{{'label.view.staff' | translate}}</a></li>
+        <li class="active">{{'label.anchor.sendsms' | translate}}</li>
+    </ul>
+    <br/>
+    <div  class="col-sm-12 form-horizontal well">
+        <div>
+            <form name="createsms" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{'label.heading.sendsms' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="textarea">{{ 'label.input.to' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input ng-readonly="true" type="text" rows="3" ng-model="name" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="textarea">{{ 'label.input.message' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <textarea rows="3" class="form-control" id="textarea" ng-model="formData.message"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-offset-2">
+                        <a ng-show="type=='clients'" id="cancel" href="#/viewclient/{{id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                        <a ng-show="type=='staffs'" id="cancel" href="#/viewemployee/{{id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                        <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_SMS'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+
+    </div>
+</div>

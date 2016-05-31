@@ -1,0 +1,35 @@
+<div class="col-md-12 form-horizontal" ng-controller="ActivateSmsCampaignController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/sms/viewcampaign">{{'label.view.viewcampaign' | translate}}</a></li>
+            <li class="active">{{'label.anchor.activatesmscampaign' | translate}}</li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    <div class="form-horizontal well">
+        <form name="activatesmscampaign" novalidate="" rc-submit="submit()" >
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.activationdate' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="activationDate" name="activationDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.activationDate"
+                               class="form-control" is-open="opened" min="minDate" max="restrictDate" required/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="activatesmscampaign" valattribute="activationDate"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div>
+                        <a id="cancel" href="#/sms/viewcampaign" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                        <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
