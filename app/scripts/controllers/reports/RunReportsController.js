@@ -53,7 +53,7 @@
                         inputName: "R_" + data.data[i].row[1] //model name
                     };
                     scope.reqFields.push(temp);
-                    if (temp.displayType == 'select' && temp.parentParameterName == null) {
+                    if ((temp.displayType == 'select' || temp.displayType == 'multiselect') && temp.parentParameterName == null) {
                         intializeParams(temp, {});
                     } else if (temp.displayType == 'date') {
                         scope.reportDateParams.push(temp);
@@ -62,6 +62,14 @@
                     }
                 }
             });
+
+           scope.isMultiSelectEnabled = function (displayType){
+               var multi = false;
+               if(displayType == "multiselect"){
+                   multi = true;
+                }
+               return multi;
+           };
 
             if (scope.reportType == 'Pentaho') {
                 resourceFactory.reportsResource.get({id: scope.reportId, fields: 'reportParameters'}, function (data) {
@@ -107,7 +115,7 @@
                 for (var i = 0; i < scope.reqFields.length; i++) {
                     var temp = scope.reqFields[i];
                     if (temp.parentParameterName == paramData.name) {
-                        if (temp.displayType == 'select') {
+                        if (temp.displayType == 'select' || temp.displayType == 'multiselect') {
                             var parentParamValue = this.formData[paramData.inputName];
                             if (parentParamValue != undefined) {
                                 eval("var params={};params." + paramData.inputName + "='" + parentParamValue + "';");
@@ -171,6 +179,20 @@
                                 scope.errorDetails.push(errorObj);
                             }
                             break;
+                        case "multiselect":
+                            var selectedVal = scope.formData[paramDetails.inputName];
+                            if (selectedVal == undefined || selectedVal == 0) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.parameter.required';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+                            break;
+
                         case "date":
                             var tmpDate = scope.formData[paramDetails.inputName];
                             if (tmpDate == undefined || !(tmpDate > "")) {
