@@ -148,6 +148,7 @@ module.exports = function(grunt) {
             'fonts/*',
             'images/*',
             'scripts/*.js',
+            'scripts/config/*.json',
             'scripts/services/*.js',
             'scripts/modules/*.js',
             '!scripts/routes.js',
@@ -257,7 +258,8 @@ module.exports = function(grunt) {
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js',
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/controllers/controllers.js',
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js',
-                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js'
+                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js',
+                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/config/UIConfig.json'
               ]
           },
           ext : {

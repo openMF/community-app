@@ -23,7 +23,7 @@
             'notificationWidget': '../scripts/modules/notificationWidget',
             'configurations': '../scripts/modules/configurations',
             'angularFileUpload': '../bower_components/angularjs-file-upload/ng-file-upload',
-            'angularFileUploadShim': '../bower_components/angularjs-file-upload/ng-file-upload-shim',
+            'angularFileUploadShim': '../bower_components/angularjs-file-upload/ng-file-upload-shim.min',
             'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor': '../bower_components/ckeditor/ckeditor',
             'ngIdle': '../bower_components/ng-idle/angular-idle',

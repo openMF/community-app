@@ -3,7 +3,7 @@ define(['underscore'], function () {
         css: [
             'bootstrap.min.css',
             'bootstrap-ext.css',
-            'ui-bootstrap-csp',
+            'ui-bootstrap',
             'bootswatch.css',
             'font-awesome.min.css',
             'app.css',
