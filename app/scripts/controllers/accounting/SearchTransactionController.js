@@ -18,10 +18,22 @@
                 location.path('/viewtransactions/' + id);
             };
             scope.viewloantransactionjournalentries = function (entityId,transactionId) {
-                if(transactionId.toString().indexOf("L")>=0)
-                location.path('/viewloantrxn/' + entityId + '/trxnId/' + transactionId.toString().replace("L",""));
-                if(transactionId.toString().indexOf("S")>=0)
-                    location.path('/viewsavingtrxn/' + entityId + '/trxnId/' + transactionId.toString().replace("S",""));
+                if (transactionId.toString().indexOf("L") >= 0)
+                    location.path('/viewloantrxn/' + entityId + '/trxnId/' + transactionId.toString().replace("L", ""));
+                if (transactionId.toString().indexOf("S") >= 0) {
+                resourceFactory.savingsResource.get({accountId: entityId}, function (accountData) {
+                    if (accountData.depositType.code == "depositAccountType.fixedDeposit") {
+                        location.path('/viewfixeddepositaccounttrxn/' + entityId + '/' + transactionId.toString().replace("S", ""));
+                    }
+                    if (accountData.depositType.code == "depositAccountType.recurringDeposit") {
+                        location.path('/viewrecurringdepositaccounttrxn/' + entityId + '/' + transactionId.toString().replace("S", ""));
+                    }
+                    if (accountData.depositType.code == "depositAccountType.savingsDeposit") {
+                        location.path('/viewsavingtrxn/' + entityId + '/trxnId/' + transactionId.toString().replace("S", ""));
+                    }
+
+                });
+            }
                 if(transactionId.toString().indexOf("C")>=0)
                     location.path('/viewclient/' + entityId + '/chargeoverview');
             };
