@@ -884,6 +884,9 @@
             .when('/shareproduct/:productId/:dividendId/:action', {
                 templateUrl: 'views/products/shareproductactions.html'
             })
+            .when('/loanforeclosure/:id', {
+                templateUrl: 'views/loans/loanforeclosure.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

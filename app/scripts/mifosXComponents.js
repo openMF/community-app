@@ -44,6 +44,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/ApproveLoanRescheduleRequestController',
             'loanAccount/RejectLoanRescheduleRequestController',
             'loanAccount/PreviewLoanRepaymentScheduleController',
+            'loanAccount/LoanForeclosureController',
             'groups/AssignStaffController',
             'client/ClientController',
             'client/EditClientController',
