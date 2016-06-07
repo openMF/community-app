@@ -158,7 +158,7 @@ module.exports = function(grunt) {
             '!scripts/mifosXComponents-build.js',
             '!scripts/loader.js',
             '!scripts/loader-build.js',
-            'styles/*.css',
+            'styles/**.css',
             '!scripts/mifosXStyles.js',
             '!scripts/mifosXStyles-build.js',
             'global-translations/**',
@@ -360,32 +360,36 @@ module.exports = function(grunt) {
     compass: {                  // Task
         dist: {                   // Target
           options: {              // Target options
-            sassDir: 'app/styles-dev/',
+            sassDir: 'app/styles-dev/main',
             cssDir: 'app/styles/',
-            environment: 'production'
-          }
+            environment: 'production',
+            require: 'sass-css-importer'
+          },
+          tasks: ['cssmin'],
         },
         dev: {                    // Another target
           options: {
-            sassDir: 'app/styles-dev/',
-            cssDir: 'app/styles/'
-          }
+            sassDir: 'app/styles-dev/main',
+            cssDir: 'app/styles/',
+            require: 'sass-css-importer'
+          },
+          tasks: ['cssmin'],
         }
     },
 
     //cssmin task to concatenate and minified css file while running the grunt prod
-    /*cssmin: {
+    cssmin: {
       target: {
         files: [{
           expand: true,
           dot: true,
           cwd: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
-          src: ['*.css'],
+          src: ['styles.css'],
           dest: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
           ext: '.min.css'
         }]
       }
-    }*/
+    }
   
   });
 

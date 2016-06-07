@@ -1,15 +1,8 @@
 define(['underscore'], function () {
     var styles = {
         css: [
-            'bootstrap.min.css',
-            'bootstrap-ext.css',
-            'ui-bootstrap',
-            'bootswatch.css',
-            'font-awesome.min.css',
-            'app.css',
-            'nv.d3.css',
-            'style.css',
-            'chosen.min.css'
+            'styles.css',
+            'fontawesome.css'
         ]
     };
 
