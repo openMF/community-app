@@ -364,21 +364,19 @@ module.exports = function(grunt) {
             cssDir: 'app/styles/',
             environment: 'production',
             require: 'sass-css-importer'
-          },
-          tasks: ['cssmin'],
+          }
         },
         dev: {                    // Another target
           options: {
             sassDir: 'app/styles-dev/main',
             cssDir: 'app/styles/',
             require: 'sass-css-importer'
-          },
-          tasks: ['cssmin'],
+          }
         }
     },
 
     //cssmin task to concatenate and minified css file while running the grunt prod
-    cssmin: {
+    /*cssmin: {
       target: {
         files: [{
           expand: true,
@@ -389,7 +387,7 @@ module.exports = function(grunt) {
           ext: '.min.css'
         }]
       }
-    }
+    }*/
   
   });
 
