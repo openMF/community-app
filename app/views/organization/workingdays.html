@@ -13,7 +13,7 @@
 
                     <input class="control-label" id="workingDay.value" type="checkbox" value="workingDay.value" ng-model="workingDay.value">
 
-                <label>{{workingDay.day}}</label>
+                <label>{{''+workingDay.code+'' | translate}}</label>
 
             <br/>
             </div>
@@ -21,9 +21,8 @@
             <div class="form-group">
                 <label class="control-label col-sm-2 width20" >{{ 'label.input.paymentsDueOnHolidays' | translate }}</label>
                 <div class="col-sm-3">
-                    <select chosen="repaymentRescheduleOptions" id="repaymentReschedule" ng-model="selectedRepaymentType"
-                            ng-init="selectedRepaymentType" ng-options="repaymentRescheduleType.id as repaymentRescheduleType.value for repaymentRescheduleType in repaymentRescheduleOptions"
-                            class="form-control" value="{{repaymentRescheduleType.id}}">
+                    <select id="repaymentReschedule" ng-model="selectedRepaymentType" class="form-control">
+                        <option ng-repeat="repaymentRescheduleType in repaymentRescheduleOptions" value="{{repaymentRescheduleType.id}}">{{''+repaymentRescheduleType.code+'' | translate}}</option>
                     </select>
                 </div>
             </div>
