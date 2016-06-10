@@ -1042,7 +1042,11 @@
             })
             .when('/createbank', {
                 templateUrl: 'views/bankstatements/createbank.html'
-            });
+            })
+            .when('/loanforeclosure/:id', {
+                templateUrl: 'views/loans/loanforeclosure.html'
+            })
+        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -132,6 +132,8 @@
                         break;
                     case "revokesubsidy":
                         location.path('/loanaccount/' + accountId + '/revokesubsidy');
+                    case "foreclosure":
+                        location.path('loanforeclosure/' + accountId);
                         break;
                 }
             };
@@ -446,6 +448,12 @@
                             name: "button.prepayment",
                             icon: "icon-money",
                             taskPermissionName: 'REPAYMENT_LOAN'
+                        });
+                    }else{
+                        scope.buttons.singlebuttons.splice(1, 0, {
+                            name: "button.foreclosure",
+                            icon: "icon-money",
+                            taskPermissionName: 'FORECLOSURE_LOAN'
                         });
                     }
                 }
