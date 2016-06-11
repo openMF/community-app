@@ -3,8 +3,7 @@ define(['underscore'], function () {
         css: [
             'fontawesome.css',
             'styles.css'
-            
-        ]
+            ]
     };
 
     require(_.reduce(_.keys(styles), function (list, pluginName) {
