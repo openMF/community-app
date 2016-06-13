@@ -34,20 +34,14 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
+        <td><label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
         <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
-        <td class="paddedbottom10" ng-switch on ="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanPurposeId">
-            <select ng-switch-when="true" chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
+        <td class="paddedbottom10"><select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurpose.id}}" required late-validate>
+                    class="form-control width170px" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
-            <form-validate valattributeform="newloanaccountform" valattribute="loanpurpose"/>
-            <select ng-switch-default chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId"
-                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurpose.id}}">
-                <option value="">{{'label.selectpurpose' | translate}}</option>
-            </select>
+            <span class="error" ng-show="isSubmitted && (newloanaccountform.loanpurpose.$error.required)">{{'label.error.required'|translate}}</span>
         </td>
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
@@ -649,7 +643,7 @@
 
 <div class="col-md-offset-6">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
+    <button id="save" type="submit" ng-click="isSubmitted=true"  has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
         translate}}
     </button>
 </div>
