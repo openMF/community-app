@@ -114,7 +114,6 @@
                     if(scope.formData.interestRecalculationCompoundingMethod != 0){
                         scope.formData.recalculationCompoundingFrequencyType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyType.id;
                         scope.formData.recalculationCompoundingFrequencyInterval = scope.product.interestRecalculationData.recalculationCompoundingFrequencyInterval;
-                        
                         if (scope.product.interestRecalculationData.recalculationCompoundingFrequencyOnDay != null) {
                             scope.formData.recalculationCompoundingFrequencyNthDayType = -2;
                             scope.formData.recalculationCompoundingFrequencyOnDayType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyOnDay;
@@ -125,7 +124,10 @@
                                 scope.formData.recalculationCompoundingFrequencyDayOfWeekType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyWeekday.id;
                         }
                     }
-
+                    if (scope.product.interestRecalculationData.isCompoundingToBePostedAsTransaction) {
+                        scope.formData.isCompoundingToBePostedAsTransaction = scope.product.interestRecalculationData.isCompoundingToBePostedAsTransaction;
+                    }
+                    scope.formData.allowCompoundingOnEod = scope.product.interestRecalculationData.allowCompoundingOnEod;
                 }
                 if(scope.product.allowAttributeOverrides != null){
                     scope.amortization = scope.product.allowAttributeOverrides.amortizationType;

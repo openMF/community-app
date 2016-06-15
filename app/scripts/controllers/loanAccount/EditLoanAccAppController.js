@@ -135,6 +135,10 @@
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
                 scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
+                if (scope.loanaccountinfo.repaymentFrequencyNthDayType != null)
+                    scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.repaymentFrequencyNthDayType.id;
+                if(scope.loanaccountinfo.repaymentFrequencyDayOfWeekType != null)
+                    scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.repaymentFrequencyDayOfWeekType.id;
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
@@ -151,7 +155,7 @@
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.createStandingInstructionAtDisbursement = scope.loanaccountinfo.createStandingInstructionAtDisbursement;
 
-                if (scope.loanaccountinfo.meeting) {
+                if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
                     scope.formData.syncRepaymentsWithMeeting = true;
                 }
 

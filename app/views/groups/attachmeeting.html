@@ -70,6 +70,26 @@
                     </td>
                 </tr>
             </table>
+            <table>
+                <tr ng-show="formData.frequency == 3">
+                    <br/>
+                    <td class="width30 paddedleft">
+                        <select id="repeatsOnNthDayOfMonth" class="input-sm form-control" ng-model="formData.repeatsOnNthDayOfMonth"
+                                ng-options="repeatsOnNthDayOfMonth.id as repeatsOnNthDayOfMonth.value for repeatsOnNthDayOfMonth in frequencyNthDayOptions"
+                                value="{{repeatsOnNthDayOfMonth.id}}"><option value=""></option></select>&nbsp;
+                    </td>
+                    <td class="width30 paddedleft" data-ng-hide="formData.repeatsOnNthDayOfMonth == -2">
+                        <select id="repeatsOnLastWeekdayOfMonth" class="input-sm form-control" ng-model="formData.repeatsOnLastWeekdayOfMonth"
+                                ng-options="repeatsOnLastWeekdayOfMonth.value as repeatsOnLastWeekdayOfMonth.name for repeatsOnLastWeekdayOfMonth in frequencyDayOfWeekOptions"
+                                value="{{repeatsOnLastWeekdayOfMonth.value}}"><option value=""></option></select>&nbsp;
+                    </td>
+                    <td class="width30 paddedleft" data-ng-show="formData.repeatsOnNthDayOfMonth == -2">
+                        <select id="repeatsOnDayOfMonth" class="form-control" ng-model="formData.repeatsOnDayOfMonth"
+                                ng-options="repeatsOnDayOfMonth as repeatsOnDayOfMonth for repeatsOnDayOfMonth in repeatsOnDayOfMonthOptions"
+                                value="{{repeatsOnDayOfMonth}}"></select>&nbsp;
+                    </td>
+                </tr>
+            </table>
             <table width="40%">
                 <tr ng-show="formData.repeating">
                     <td ng-show="formData.frequency=='2'" ng-repeat="repeatsOnOption in repeatsOnOptions">
