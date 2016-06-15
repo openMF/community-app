@@ -24,7 +24,16 @@
             scope.reportId = routeParams.reportId;
             scope.pentahoReportParameters = [];
             scope.type = "pie";
+            scope.restrictedDate = getMaximumRestrictedDate(new Date()) ;
 
+            if(scope.response  && scope.response.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
+                scope.restrictedDate = scope.response.reportParameterConfiguration.datePicker.restrictedDate;
+            };
+
+            function  getMaximumRestrictedDate (restrictedDate){
+                    restrictedDate.setYear(restrictedDate.getFullYear() + 5);
+                    return restrictedDate;
+            };
             scope.highlight = function (id) {
                 var i = document.getElementById(id);
                 if (i.className == 'selected-row') {
