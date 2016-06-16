@@ -120,6 +120,9 @@
                             route.reload();
                         });
                         break;
+                    case "postInterestAsOn":
+                        location.path('/savingaccount/' + accountId + '/postInterestAsOn');
+                        break;
 
                 }
             };
@@ -209,6 +212,11 @@
 
                 if (data.status.value == "Active") {
                     scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.postInterestAsOn",
+                            icon: "icon-arrow-right",
+                            taskPermissionName:"POSTINTERESTASON_SAVINGSACCOUNT"
+                        },
                         {
                             name: "button.deposit",
                             icon: "icon-arrow-right",
