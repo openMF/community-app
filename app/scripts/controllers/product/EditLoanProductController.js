@@ -73,6 +73,7 @@
                     inArrearsTolerance: scope.product.inArrearsTolerance,
                     transactionProcessingStrategyId: scope.product.transactionProcessingStrategyId,
                     graceOnPrincipalPayment: scope.product.graceOnPrincipalPayment,
+					recurringMoratoriumOnPrincipalPeriods: scope.product.recurringMoratoriumOnPrincipalPeriods,
                     graceOnInterestPayment: scope.product.graceOnInterestPayment,
                     graceOnInterestCharged: scope.product.graceOnInterestCharged,
                     graceOnArrearsAgeing: scope.product.graceOnArrearsAgeing,
