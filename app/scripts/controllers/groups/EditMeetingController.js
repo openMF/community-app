@@ -2,6 +2,10 @@
     mifosX.controllers = _.extend(module, {
         EditMeetingController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.formData = {};
+            scope.repeatsOnDayOfMonthOptions = [];
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;
@@ -46,6 +50,14 @@
                 //update radio button option
                 if (scope.formData.frequency == 2) {
                     scope.formData.repeatsOnDay = scope.calendarData.repeatsOnDay.id;
+                } else if (scope.formData.frequency == 3) {
+                    scope.formData.repeatsOnNthDayOfMonth = scope.calendarData.repeatsOnNthDayOfMonth.id;
+                    if (scope.calendarData.repeatsOnDay) {
+                        scope.formData.repeatsOnLastWeekdayOfMonth = scope.calendarData.repeatsOnDay.id;
+                    }
+                    if (scope.calendarData.repeatsOnDayOfMonth) {
+                        scope.formData.repeatsOnDayOfMonth = scope.calendarData.repeatsOnDayOfMonth;
+                    }
                 }
             });
 
@@ -71,6 +83,23 @@
                 if (period == 3) {
                     scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
+                    scope.frequencyNthDayOptions = [
+                        {id: 1, value: "first"},
+                        {id: 2, value: "second"},
+                        {id: 3, value: "third"},
+                        {id: 4, value: "fourth"},
+                        {id: -1, value: "last"},
+                        {id: -2, value: "on day"}
+                    ];
+                    scope.frequencyDayOfWeekOptions = [
+                        {name: "MON", value: 1},
+                        {name: "TUE", value: 2},
+                        {name: "WED", value: 3},
+                        {name: "THU", value: 4},
+                        {name: "FRI", value: 5},
+                        {name: "SAT", value: 6},
+                        {name: "SUN", value: 7}
+                    ];
                 }
                 if (period == 4) {
                     scope.periodValue = "year(s)";
