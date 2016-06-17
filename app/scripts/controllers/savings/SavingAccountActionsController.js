@@ -112,11 +112,7 @@
                         scope.paymentTypes = data.paymentTypeOptions;
                     });
                     resourceFactory.savingsResource.get({accountId: routeParams.id, fields:'summary'}, function (accountData) {
-                       // scope.accountBalance = accountData.summary.accountBalance;
-
-                            scope.accountBalance = accountData.summary.accountBalance;
-
-                      //  scope.accountBalance = (accountData.summary.totalDeposits - accountData.summary.totalWithdrawals) + accountData.summary.totalInterestEarned;
+                        scope.accountBalance = accountData.summary.accountBalance;
                     });
                     scope.title = 'label.heading.closesavingaccount';
                     scope.labelName = 'label.input.closedon';
@@ -124,7 +120,8 @@
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     scope.withdrawBalance = true;
-                    scope.checkValidate=true;
+                    scope.postInterestValidationOnClosure=true;
+                    scope.formData.postInterestValidationOnClosure = true;
                     scope.taskPermissionName = 'CLOSE_SAVINGSACCOUNT';
                     break;
                 case "modifytransaction":
@@ -297,8 +294,6 @@
                     } else if (scope.action == "close") {
                         if (this.formData.closedOnDate) {
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
-                            this.formData.postInterestValidationOnClosure=scope.checkValidate;
-
                         }
                     }
 
