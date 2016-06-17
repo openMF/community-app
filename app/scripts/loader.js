@@ -110,7 +110,7 @@
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
+    require(['mifosXComponents'], function (componentsInit) {
         componentsInit().then(function(){
             require(['test/testInitializer'], function (testMode) {
                 if (!testMode) {

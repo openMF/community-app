@@ -21,6 +21,13 @@ module.exports = function(grunt) {
                 livereload: true
             }
         },
+        scss: {
+            files: ['<%= mifosx.app %>/styles-dev/**/*.scss'],
+            options: {
+                livereload: true
+            },
+            tasks: ['compass:dev']
+        },
         gruntfile: {
             files: ['Gruntfile.js']
         },
@@ -33,14 +40,12 @@ module.exports = function(grunt) {
                 '<%= mifosx.app %>/**/*.html',
                 '<%= mifosx.app %>/{,*/}*.json',
                 '<%= mifosx.app %>/**/*.js',
-                '<%= mifosx.app %>/**/*.scss',
                 '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                 // ignore directories to reduce CPU usage by watch/node process
                 '!<%= mifosx.app %>/bower_components/**',
                 // also ignore all css file changes
                 '!<%= mifosx.app %>/**/*.css'
-            ], 
-            tasks: ['compass:dev'],
+            ]
         }
     },
      // The actual grunt server settings
@@ -304,7 +309,7 @@ module.exports = function(grunt) {
             '<%= mifosx.app %>/scripts/initialTasks.js',
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
         }
-      },
+      }
 
       //trying to concatenat css files
       /*css: {
