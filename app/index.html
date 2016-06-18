@@ -168,13 +168,15 @@
 
             <hr/>
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
+                <div class="col-sm-6 col-sm-offset-3 text-center">
                     <br>
-                    <p class="text-center text-muted"><span ng-bind-html="text"></span></p>
+                    <p class=" text-muted"><span ng-bind-html="text"></span>
+                        <br>
+                        <span style=" display: inline-block; margin:auto;min-width:40px; border-bottom:2px solid #e0e0e0;">&nbsp;</span></p>
+
                 </div>
             </div>
             <p class="text-center text-muted small">
-
                 <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
                 <br/> <span>{{ 'label.heading.uptodate' | translate }}</span>
             </p>
@@ -185,206 +187,46 @@
 <!-- Navbar -->
 <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
     <div class="loading-widget-div" data-ng-show="blockUI">
-        <div id="circularG">
-            <div id="circularG_1" class="circularG">
-            </div>
-            <div id="circularG_2" class="circularG">
-            </div>
-            <div id="circularG_3" class="circularG">
-            </div>
-            <div id="circularG_4" class="circularG">
-            </div>
-            <div id="circularG_5" class="circularG">
-            </div>
-            <div id="circularG_6" class="circularG">
-            </div>
-            <div id="circularG_7" class="circularG">
-            </div>
-            <div id="circularG_8" class="circularG">
-            </div>
-        </div>
+        <!-- TODO : insert loader here-->
+        <span>loader....</span>
     </div>
-    <div class="left-nav">
-        <ul class="nav nav-pills nav-stacked margin-nav">
-            <li><a class="black" href="#/help"><i class="icon-keyboard icon-large"></i>&nbsp;&nbsp;{{
-                'label.anchor.keyboardshortcut' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/nav/offices"><i class="icon-compass icon-large"></i>&nbsp;&nbsp;{{
-                'label.anchor.navigation' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/tasks"><i class="icon-check icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.tasks'
-                | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{
-                'label.anchor.collectionsheet' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/individualcollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{
-                'label.anchor.individualcollectionsheet' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/freqposting"><i class="icon-repeat icon-large"></i>&nbsp;&nbsp;&nbsp;{{
-                'label.anchor.frequentpostings' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/journalentry"><i class="icon-plus icon-large"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{
-                'label.anchor.addjournalentries' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/accounts_closure"><i class="icon-folder-close icon-large"></i>&nbsp;&nbsp;&nbsp;{{
-                'label.anchor.closingentries' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/accounting_coa"><i class="icon-sitemap icon-large"></i>&nbsp;&nbsp;&nbsp;{{
-                'label.heading.chartofaccounts' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/createclient"><i class="icon-user icon-large"></i> + {{ 'label.anchor.client' |
-                translate}} </a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/creategroup"><i class="icon-group icon-large"></i> + {{ 'label.anchor.group' |
-                translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" href="#/createcenter"><i class="icon-map-marker icon-large"></i> + {{
-                'label.anchor.center' | translate}}</a></li>
-            <li class="divider"></li>
-            <li><a class="black" ng-click="helpf()"><i class="icon-question-sign icon-large"></i>&nbsp;&nbsp;&nbsp;{{
-                'label.anchor.help' | translate }}</a></li>
 
-        </ul>
-    </div>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid container">
-            <div class="uib-collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <a class="brand" href="#/home"><img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20"></a>
-                <ul class="nav navbar-nav" id="main-menu-left">
-                    <li class="" uib-dropdown>
-                        <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                           ng-class="{ activate: isActive('clients') }" href><i class="icon-group"></i> {{
-                            'label.anchor.clients' | translate }}<b class="caret"></b></a>
-                        <ul class="" uib-dropdown-menu id="swatch-menu">
-                            <li><a href="#/clients" has-permission='READ_CLIENT'>{{ 'label.anchor.clients' | translate
-                                }}</a></li>
-                            <li><a href="#/groups" has-permission='READ_GROUP'>{{ 'label.anchor.groups' | translate
-                                }}</a></li>
-                            <li><a href="#/centers" has-permission='READ_CENTER'>{{ 'label.anchor.centers' | translate
-                                }}</a></li>
-                        </ul>
-                    </li>
-                    <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="icon-money"></i> {{
-                        'label.anchor.accounting' | translate }}</a></li>
-                    <li class="" uib-dropdown id="reports-menu">
-                        <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                           ng-class="{ activate: isActive('rep') }" href><i class="icon-bar-chart"></i> {{
-                            'label.anchor.reports' | translate }}<b class="caret"></b></a>
-                        <ul class="" uib-dropdown-menu>
-                            <li><a href="#/reports/all" has-permission='READ_REPORT'>{{ 'label.anchor.all' | translate
-                                }}</a></li>
-                            <li><a href="#/reports/clients" has-permission='READ_REPORT'>{{ 'label.anchor.clients' |
-                                translate }}</a></li>
-                            <li><a href="#/reports/loans" has-permission='READ_REPORT'>{{ 'label.anchor.loans' |
-                                translate }}</a></li>
-                            <li><a href="#/reports/savings" has-permission='READ_REPORT'>{{ 'label.anchor.savings' |
-                                translate }}</a></li>
-                            <li><a href="#/reports/funds" has-permission='READ_REPORT'>{{ 'label.anchor.funds' |
-                                translate }}</a></li>
-                            <li><a href="#/reports/accounting" has-permission='READ_REPORT'>{{ 'label.anchor.accounting'
-                                | translate }}</a></li>
-                            <li><a href="#/xbrl" has-permission='READ_REPORT'>{{ 'label.anchor.xbrl' | translate }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="" uib-dropdown id="preview-menu">
-                        <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                           ng-class="{ activate: isActive('admin') }" href><i class="icon-wrench"></i> {{
-                            'label.anchor.admin' | translate }}<b class="caret"></b></a>
-                        <ul class="" uib-dropdown-menu>
-                            <li><a href="#/users" has-permission='READ_USER'>{{ 'label.anchor.users' | translate }}</a>
-                            </li>
-                            <li><a href="#/organization">{{ 'label.anchor.organization' | translate }}</a></li>
-                            <li><a href="#/system">{{ 'label.anchor.system' | translate }}</a></li>
-                            <li><a href="#/products">{{ 'label.anchor.products' | translate }}</a></li>
-                            <li><a href="#/templates" has-permission='READ_TEMPLATE'>{{ 'label.anchor.templates' |
-                                translate }}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" id="main-menu-right">
-                    <li class="" uib-dropdown id="user-menu">
-                        <a id="user-dropdown" class="" uib-dropdown-toggle data-toggle="uib-dropdown" href>
-                            {{currentSession.user.name}}<b class="caret"></b></a>
-                        <ul class="" uib-dropdown-menu>
-                            <li><a id="help" ng-click="helpf()"><i class="icon-question-sign"></i> {{
-                                'label.anchor.help' | translate }}</a></li>
-                            <li><a href="#/profile"><i class="icon-user"></i> {{ 'label.anchor.profile' | translate
-                                }}</a></li>
-                            <li><a href="#/usersetting"><i class="icon-cog"></i> {{ 'label.anchor.settings' | translate
-                                }}</a></li>
-                            <li><a id="logout" data-ng-click="logout()"><i class="icon-off"></i> {{
-                                'label.anchor.logout' | translate }}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
-                    <div class="input-group" style="width:250px">
-                        <div class="input-group-btn search-panel">
-                            <button type="button" class="btn btn-warn " data-toggle="uib-dropdown" uib-dropdown-toggle>
-                                {{currentScope.name | translate}}<span class="caret"></span>
-                            </button>
-                            <ul class="" uib-dropdown-menu role="menu
-                                    <li ng-repeat=" searchScope in searchScopes
-                            " ng-click="changeScope(searchScope)">
-                            <a href="">{{ searchScope.name |translate}}</a>
-                            </li>
-                            </ul>
+    <div id="mifos-reskin-ui-container">
+        <div id="mifos-reskin-header-nav" ng-include="'views/_topnavbar.html'"></div>
+
+        <div id="mifos-reskin-body-container">
+            <div id="mifos-reskin-side-nav" ng-include="'views/_leftnav.html'"></div>
+
+            <div id="mifos-reskin-body-view" class="container">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12 pull-right ">
+                            <div class="" ng-view></div>
                         </div>
-                        <input id="search" type="text" class="form-control" data-ng-model="search.query"
-                               placeholder="{{'label.searchorpress'|translate}}">
+                        <!-- Footer -->
+                        <footer>
+                            <p align="center"><a
+                                    href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
+                                    target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
+                                translate}} {{releasedate}} </a></p>
+                        </footer>
+                        <hr>
                     </div>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div class="container whitebg fullscreen">
-        <div>
-            <div class="row whitebg">
-                <div class="col-md-12 pull-right whitebg">
-                    <div class="whitebg" ng-view></div>
+                    <!-- /row-fluid -->
                 </div>
-                <!-- Footer -->
-                <footer>
-                    <p align="center"><a
-                            href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
-                            target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
-                        translate}} {{releasedate}} </a></p>
-                </footer>
-                <hr>
+                <!-- /blockui-->
             </div>
-            <!-- /row-fluid -->
+
         </div>
-        <!-- /blockui-->
+
+
     </div>
-    <!-- /container -->
+
+
+
 </div>
 </div>
 <!-- Le javascript -->
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- devcode: !production -->
-<!-- begin olark code -->
-<!--<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
-f[z]=function(){
-(a.s=a.s||[]).push(arguments)};var a=f[z]._={
-},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
-f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
-0:+new Date};a.P=function(u){
-a.p[u]=new Date-a.p[0]};function s(){
-a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
-hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
-return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
-b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
-b.contentWindow[g].open()}catch(w){
-c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
-var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
-b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
-loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
-/* custom configuration goes here (www.olark.com/documentation) */
-olark.identify('9391-547-10-6064');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9391-547-10-6064/contact" title="Send Feedback" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
-&lt;!&ndash; end olark code &ndash;&gt;
-&lt;!&ndash; endcode &ndash;&gt;-->
 </body>
 </html>

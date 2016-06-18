@@ -23,9 +23,6 @@ module.exports = function(grunt) {
         },
         scss: {
             files: ['<%= mifosx.app %>/styles-dev/**/*.scss'],
-            options: {
-                livereload: true
-            },
             tasks: ['compass:dev']
         },
         gruntfile: {
@@ -44,7 +41,7 @@ module.exports = function(grunt) {
                 // ignore directories to reduce CPU usage by watch/node process
                 '!<%= mifosx.app %>/bower_components/**',
                 // also ignore all css file changes
-                '!<%= mifosx.app %>/**/*.css'
+                '<%= mifosx.app %>/styles/*.css'
             ]
         }
     },
