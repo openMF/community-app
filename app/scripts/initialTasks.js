@@ -60,7 +60,7 @@
         // Configure i18n and preffer language
         //$translateProvider.translations('en', translationsEN);
         //$translateProvider.translations('de', translationsDE);
-        $translateProvider.useSanitizeValueStrategy('sanitize');
+        //$translateProvider.useSanitizeValueStrategy('sanitize');
         $translateProvider.useStaticFilesLoader({
             prefix: 'global-translations/locale-',
             suffix: '.json'
