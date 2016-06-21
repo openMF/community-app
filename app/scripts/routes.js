@@ -803,6 +803,15 @@
             .when('/externalservices/:externalServicesType/editconfig', {
                 templateUrl: 'views/administration/editExternalServicesConfiguration.html'
             })
+            .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+            .when('/externalservicesCB/CreditBureau/editconfig', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+            .when('/externalservicesCB/CreditBureau/addcb', {
+                templateUrl: 'views/administration/addNewCreditBureau.html'
+            })
             .when('/loans/:loanId/reschedule/', {
                 templateUrl: 'views/loans/rescheduleloans.html'
             })

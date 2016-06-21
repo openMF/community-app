@@ -27,7 +27,11 @@
                 $scope.save = function (currentPass) {
                    // var username=scope.userDetails.username;
                     $scope.PostDataResponse=currentPass;
+<<<<<<< Updated upstream
                     resourceFactory.userListResource.update({'userId': userId,'usrnme': usrnme,'currentPass':currentPass}, this.formData, function (data) {
+=======
+                    resourceFactory.userListResource1.update({'userId': userId,'usrnme': usrnme,'currentPass':currentPass}, this.formData, function (data) {
+>>>>>>> Stashed changes
                         $modalInstance.close('modal');
                         if (data.resourceId == userId) {
                             scope.logout();

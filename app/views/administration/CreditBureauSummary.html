@@ -1,4 +1,4 @@
-<div ng-controller="ViewExternalServicesController">
+<div ng-controller="ViewCreditBureauSummaryController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
@@ -6,26 +6,79 @@
             <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
         </ul>
     </div>
-    <a href="#/externalservices/{{externalServicesType}}/editconfig" class="btn btn-primary pull-right" has-permission='UPDATE_EXTERNALSERVICES'><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</a>
+    <a href="#/externalservicesCB/CreditBureau/addcb" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.addcb' | translate}}</a>
+    <div>
     <table class="table">
         <thead>
         <tr class="graybg">
 
-            <th>{{'label.heading.name' | translate}}</th>
-            <th>{{'label.heading.value' | translate}}</th>
+            <th>{{'label.heading.alias' | translate}}</th>
+            <th>{{'label.heading.country' | translate}}</th>
+            <th>{{'label.heading.cbName' | translate}}</th>
+            <th>{{'label.heading.cbproduct' | translate}}</th>
+            <th>{{'label.heading.startdate' | translate}}</th>
+            <th>{{'label.heading.enddate' | translate}}</th>
+            <th>{{'label.heading.is_active' | translate}}</th>
+            <th>Active/Inactive</th>
+
 
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="config in Configs">
+        <tr ng-repeat="config in Configs" data-ng-model="button">
 
-            <td>
-                {{config.name}}
-            </td>
-            <td>{{config.value}}</td>
+            <td>{{config.alias}}</td>
+            <td>{{config.country}}</td>
+            <td>{{config.cb_name}}</td>
+            <td>{{config.cbp_name}}</td>
+            <td>{{config.start_date}}</td>
+            <td>{{config.end_date}}</td>
+            <td>{{config.is_active}}</td>
+            <td ><button ng-mousemove="buttonstatus(config.is_active,config.alias)" id="config.alias" class="btn btn-primary"></button></td>
 
         </tr>
 
         </tbody>
     </table>
+    </div>
+    <br>
+
+    <a href="#/externalservices/{{externalServicesType}}/editconfig" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.mapcblp' | translate}}</a>
+    <div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+
+
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.alias' | translate}}</th>
+                <th>{{'label.heading.cbName' | translate}}</th>
+                <th>{{'label.heading.loanproduct' | translate}}</th>
+                <th>{{'label.heading.cbproduct' | translate}}</th>
+                <th>{{'label.heading.is_creditcheck_mandatory' | translate}}</th>
+                <th>{{'label.heading.skip_credit_check_in_failure' | translate}}</th>
+                <th>{{'label.heading.stale_period' | translate}}</th>
+                <th>{{'label.heading.is_active' | translate}}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="config1 in CBConfigs">
+
+                <td>{{config1.mapping_id}}</td>
+                <td>{{config1.alias}}</td>
+                <td>{{config1.credit_bureau_name}}</td>
+                <td>{{config1.loan_product_name}}</td>
+                <td>{{config1.credit_bureau_product}}</td>
+                <td>{{config1.is_creditcheck_mandatory}}</td>
+                <td>{{config1.skip_credit_check_in_failure}}</td>
+                <td>{{config1.stale_period}}</td>
+                <td>{{config1.is_active}}</td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
 </div>

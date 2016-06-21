@@ -5,31 +5,59 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCreditBureauConfigurationController: function ($scope, resourceFactory, $routeParams, location) {
+        ViewCreditBureauSummaryController: function ($scope, resourceFactory, $routeParams, location) {
             $scope.Configs = [];
+            $scope.CBConfigs=[];
             $scope.externalServicesType = $routeParams.externalServicesType;
             //$scope.name = $routeParams.name;
-            resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
-                for (var i in data) {
-                    if(data[i] != null && data[i].name != null) {
-                        data[i].name.replace(/ /g, '');
-                        if (!angular.equals(data[i].name, "")) {
-                            $scope.Configs.push(data[i]);
 
-                        }
+            resourceFactory.creditBureauSummary.get( function (data) {
+                for (var i in data) {
+
+                    if(data[i] != null && data[i].cbID != null) {
+                        $scope.Configs.push(data[i]);
+                     
                     }
                 }
             });
 
+            resourceFactory.creditBureauMapping.get( function (data) {
+                for (var i in data) {
+
+                    if(data[i] != null && data[i].mapping_id != null) {
+                        $scope.CBConfigs.push(data[i]);
+
+                    }
+                }
+            });
+            
+            $scope.buttonstatus=function(status,id)
+            {   
+                    var biD=document.getElementById(id);
+                alert(status);
+               // $scope.button=status;
+                if(status==true)
+                {
+                   // $scope.button="disable"
+                    biD.settext("disable");
+
+                }
+                else
+                {
+                   // $scope.button="enable"
+                    biD.settext("enable");
+                }
+            }
+
             $scope.cancel = function () {
                 location.path('/externalservices');
-            };
+        };
 
         }
 
     });
-    mifosX.ng.application.controller('ViewExternalServicesController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.ViewExternalServicesController]).run(function ($log) {
-        $log.info("ViewExternalServicesController initialized");
+    mifosX.ng.application.controller('ViewCreditBureauSummaryController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.ViewCreditBureauSummaryController]).run(function ($log) {
+        $log.info("ViewCreditBureauSummaryController initialized");
     });
 
 }(mifosX.controllers || {}));

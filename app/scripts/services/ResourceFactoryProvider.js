@@ -207,7 +207,14 @@
                         update: { method: 'PUT'},
                         upd: { method: 'PUT', params: {}}
                     }),
+<<<<<<< Updated upstream
                     userListResource: defineResource(apiVer + "/users/:userId/usrnme/:usrnme/currentPass/:currentPass", {userId: '@userId',usrnme:'@usrnme',currentPass:'@currentPass'}, {
+=======
+                    userListResource1: defineResource(apiVer + "/users/:userId/usrnme/:usrnme/currentPass/:currentPass", {userId: '@userId',usrnme:'@usrnme',currentPass:'@currentPass'}, {
+                        getAllUsers: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT' }
+                    }),userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
+>>>>>>> Stashed changes
                         getAllUsers: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),
@@ -523,6 +530,23 @@
                     externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    creditBureauSummary: defineResource(apiVer + "/cbconfig",{},{
+                        get: {method: 'GET', isArray: true }
+
+                    }),
+                    creditBureauMapping: defineResource(apiVer + "/cbconfig/mappings",{},{
+                        get: {method: 'GET', isArray: true }
+
+                    }),
+                    creditBureauTemplate: defineResource(apiVer + "/cbconfig/dropdown", {}, {
+                        get: {method: 'GET', isArray: true }
+                    }),
+                    creditBureauByCountry: defineResource(apiVer + "/cbconfig/dropdown/:country", {country:'@country'}, {
+                        get: {method: 'GET',isArray: true }
+                    }),
+                    creditBureauProductByCreditBureau: defineResource(apiVer + "/cbconfig/mappings/:credit_bureau_master_id", {credit_bureau_master_id:'@credit_bureau_master_id'}, {
+                        get: {method: 'GET',isArray : true }
                     }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},

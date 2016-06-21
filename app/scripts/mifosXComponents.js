@@ -273,6 +273,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
+<<<<<<< Updated upstream
             'product/tax/CreateTaxComponentController',
             'product/tax/ViewTaxComponentController',
             'product/tax/EditTaxComponentController',
@@ -281,6 +282,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
             'product/tax/TaxGroupController'
+=======
+            'configurations/ViewCreditBureauSummaryController',
+            'configurations/AddNewCreditBureauController'
+>>>>>>> Stashed changes
         ],
         filters: [
             'StatusLookup',
@@ -293,7 +298,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'FormatNumber',
             'TranslateDataTableColumn',
             'SearchFilter',
-            'AddUpTotalFor'
+            'AddUpTotalFor',
+            'unique'
         ],
         directives: [
             'DialogDirective',
