@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams) {
+        CreateGroupController: function ($q,scope, resourceFactory, location, dateFilter, routeParams) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -84,6 +84,14 @@
                     scope.clients = data.clientOptions;
                 });
             };
+            scope.addClients = function(clientName){
+                var deferred = $q.defer();
+                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: clientName, orderBy : 'displayName', officeId : routeParams.officeId,
+                    sortOrder : 'ASC', orphansOnly : true}, function (data) {
+                    deferred.resolve(data.pageItems);
+                });
+                return deferred.promise;
+            };
             scope.setChoice = function () {
                 if (this.formData.active) {
                     scope.choice = 1;
@@ -127,7 +135,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.CreateGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$q','$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', mifosX.controllers.CreateGroupController]).run(function ($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));
