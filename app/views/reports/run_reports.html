@@ -7,7 +7,7 @@
 	    <api-validate></api-validate>
 	    <div class="span gray-head" style="margin-left:0%;height:30px;">
 	          <span style="margin-left: 10px;font-size:20px;">
-	                <strong>{{reportName}}</strong>
+	                <strong>{{''+reportName+'' | translate}}</strong>
 	                <button type="button" class="btn btn-primary pull-right" ng-show="checkStatus()"
 	                        ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>{{
 	                    'label.button.parameters' | translate }}
@@ -22,7 +22,7 @@
 	    </div>
 	    <div ng-hide="isCollapsed" class="alert-block form-horizontal">
 	        <br>
-	
+
 	        <div class="form-group info" ng-repeat="reportParam in reportParams">
 	            <label class="control-label col-sm-2" for="{{reportParam.variable}}">{{ reportParam.label | translate}}</label>
 
@@ -38,7 +38,7 @@
 	        <div class="form-group info" ng-repeat="reportTextParam in reportTextParams">
 	            <label class="control-label col-sm-2" for="{{reportTextParam.variable}}">{{ reportTextParam.label |
 	                translate}}</label>
-	
+
 	            <div class="col-sm-3">
 	                <input style="width: 257px" id="{{reportTextParam.inputName}}" type="text" ng-model="formData[reportTextParam.inputName]"  class="form-control" required late-Validate/>
 	            </div>
@@ -46,7 +46,7 @@
 	        <div class="form-group info" ng-repeat="reportDateParam in reportDateParams">
 	            <label class="control-label col-sm-2" for="{{reportDateParam.variable}}">{{ reportDateParam.label |
 	                translate}}</label>
-	
+
 	            <div class="col-sm-3">
 	                <input style="width: 257px" id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd"
 	                       ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate"
@@ -55,7 +55,7 @@
 	        </div>
 	        <div class="form-group info" ng-show="reportType == 'Pentaho'">
 	            <label class="control-label col-sm-2" for="outputType">{{ 'label.input.outputtype' | translate }}</label>
-	
+
 	            <div class="col-sm-3">
 	                <select class="form-control input-xlarge" ng-model="formData.outputType">
 	                    <option value="HTML">{{ 'label.input.showreport' | translate }}</option>
@@ -68,7 +68,7 @@
 	        </div>
 	        <div class="form-group info">
 	            <label class="control-label col-sm-2" for="decimalsChoice">{{ 'label.input.decimalplace' | translate }}</label>
-				<div class="col-sm-3">            
+				<div class="col-sm-3">
 					<select id="decimalsChoice"  class="form-control input-xlarge" ng-model="decimalsChoice">
 			            <option value="">{{ 'label.input.no.decimalplaces' | translate }}</option>
 			            <option value="4">4</option>
@@ -79,7 +79,7 @@
 			        </select>
 				</div>
 	        </div>
-	
+
 	        <span class="col-md-offset-3 paddedleft120"><a id="run" ng-click="runReport()" class="btn btn-primary control"></i>
 	            &nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
 	    </div>
@@ -129,7 +129,7 @@
 	            </div>
 	        </div>
 	    </div>
-	
+
 	    <div data-ng-hide="hideTable">
 	        <div class="pull-right" ng-show="reportType == 'Table'">
 	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv'

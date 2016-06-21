@@ -351,6 +351,14 @@
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
                     <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.value}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 3 &&
+                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday != null"> on {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday.value}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
+		                loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay != null">on day {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
+                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay == null &&
+                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyNthDay != null">on {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyNthDay.value}} {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday.value}}
+                    </label>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
@@ -360,15 +368,6 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
                     <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyInterval}}</label>
                 </td>
-
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' |
-                        translate }}<span class="required">*</span></label>
-                </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                           ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-                </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled  && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0">
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
@@ -377,6 +376,14 @@
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
                     <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.value}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 3 &&
+                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday != null"> on {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
+		                loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay != null">on day {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay}}</label>
+                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
+                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay == null &&
+                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyNthDay != null">on {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyNthDay.value}} {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}
+                    </label>
                 </td>
             </tr>
             <tr data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
@@ -385,15 +392,6 @@
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
                     <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</label>
-                </td>
-
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequenc.date.for.compounding' |
-                        translate }}<span class="required">*</span></label>
-                </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                           ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                 </td>
             </tr>
 

@@ -121,6 +121,9 @@
                     case "adjustrepaymentschedule":
                         location.path('/adjustrepaymentschedule/'+accountId) ;
                         break ;
+                    case "foreclosure":
+                        location.path('loanforeclosure/' + accountId);
+                        break;
                 }
             };
 
@@ -293,6 +296,11 @@
                             name: "button.addloancharge",
                             icon: "icon-plus-sign",
                             taskPermissionName: 'CREATE_LOANCHARGE'
+                        },
+                        {
+                            name: "button.foreclosure",
+                            icon: "icon-dollar",
+                            taskPermissionName: 'FORECLOSURE_LOAN'
                         },
                         {
                             name: "button.makerepayment",

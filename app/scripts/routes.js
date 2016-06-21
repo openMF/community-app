@@ -218,6 +218,18 @@
             .when('/savingproducts', {
                 templateUrl: 'views/products/savingproducts.html'
             })
+            .when('/shareproducts', {
+                templateUrl: 'views/products/shareproducts.html'
+            })
+            .when('/createshareproduct', {
+                templateUrl: 'views/products/createshareproduct.html'
+            })
+            .when('/editshareproduct/:id', {
+                templateUrl: 'views/products/editshareproduct.html'
+            })
+            .when('/viewshareproduct/:id', {
+                templateUrl: 'views/products/viewshareproduct.html'
+            })
             .when('/viewsavingproduct/:id', {
                 templateUrl: 'views/products/viewsavingproduct.html'
             })
@@ -817,7 +829,65 @@
             })
             .when('/editprovisioningcriteria/:criteriaId', {
                 templateUrl: 'views/organization/provisioning/EditProvisioningCriteria.html'
-            });
+            })
+            .when('/taxconfiguration',{
+                templateUrl: 'views/products/tax/TaxConfigurations.html'
+            })
+            .when('/createtaxcomponent', {
+                templateUrl: 'views/products/tax/CreateTaxComponent.html'
+            })
+            .when('/taxcomponents', {
+                templateUrl: 'views/products/tax/TaxComponents.html'
+            })
+            .when('/viewtaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/ViewTaxComponent.html'
+            })
+            .when('/edittaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/EditTaxComponent.html'
+            })
+            .when('/createtaxgroup', {
+                templateUrl: 'views/products/tax/CreateTaxGroup.html'
+            })
+            .when('/taxgroups', {
+                templateUrl: 'views/products/tax/TaxGroups.html'
+            })
+            .when('/viewtaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/ViewTaxGroup.html'
+            })
+            .when('/edittaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/EditTaxGroup.html'
+            })
+            .when('/createshareaccount/:clientId', {
+                templateUrl: 'views/shares/createshareaccount.html'
+            })
+            .when('/viewshareaccount/:id', {
+                templateUrl: 'views/shares/viewshareaccount.html'
+            })
+            .when('/editshareaccount/:accountId', {
+                templateUrl: 'views/shares/editshareaccount.html'
+            })
+            .when('/shareaccount/:accountId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/shareaccount/:accountId/purchasedshares/:purchasedSharesId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/dividends/:productId/', {
+                templateUrl: 'views/products/dividendlisting.html'
+            })
+            .when('/dividends/:productId/dividend/:dividendId/:status', {
+                templateUrl: 'views/products/viewdividends.html'
+            })
+            .when('/shareproduct/:productId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+            .when('/shareproduct/:productId/:dividendId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+            .when('/loanforeclosure/:id', {
+                templateUrl: 'views/loans/loanforeclosure.html'
+            })
+        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

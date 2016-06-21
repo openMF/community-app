@@ -15,7 +15,10 @@
                     scope.chargeTimeType = data.chargeTimeType.id;
                     scope.chargeDetails = data;
                     scope.formData.amount = data.amount;
-                    scope.withDrawCharge = data.chargeTimeType.value === "Withdrawal Fee" ? true : false;
+                    if(data.chargeTimeType.value === "Withdrawal Fee"
+                        || data.chargeTimeType.value === "Saving No Activity Fee"){
+                        scope.dueDateNotRequired = true;
+                    }
                     scope.formData.feeInterval = data.feeInterval;
                     if (data.chargeTimeType.value === "Annual Fee" || data.chargeTimeType.value === "Monthly Fee") {
                         scope.chargeTimeTypeAnnualOrMonth = true;
@@ -25,7 +28,7 @@
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
-                if (scope.withDrawCharge !== true) {
+                if (scope.dueDateNotRequired !== true) {
                     if (scope.chargeTimeTypeAnnualOrMonth === true) {
                         this.formData.monthDayFormat = "dd MMMM";
                         if (scope.date.due) {
