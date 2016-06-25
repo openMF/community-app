@@ -9,13 +9,13 @@
 	<div class="row">
 	    <div class="col-md-8 col-sm-8">
 	        <h3 class="client-title">
-	        	<i class="icon-circle {{group.status.code | StatusLookup}}"></i>
-	        	<i class="icon-group"></i>
+	        	<i class="fa fa-circle {{group.status.code | StatusLookup}}"></i>
+	        	<i class="fa fa-group"></i>
 	            <strong>{{group.name}} </strong>
 	            <small>
-	            	<i class="icon-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{group.accountNo}} |
-	            	<i class="icon-building"></i> {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
-	            	<i class="icon-map-marker"></i> {{ 'label.heading.center' | translate }}: "{{group.centerName}}"
+	            	<i class="fa fa-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{group.accountNo}} |
+	            	<i class="fa fa-building"></i> {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
+	            	<i class="fa fa-map-marker"></i> {{ 'label.heading.center' | translate }}: "{{group.centerName}}"
 	            </small>
 	        </h3>
 	    </div>
@@ -49,16 +49,16 @@
 			<div class="col-md-12 primarydiv">
 			    <div class="btn-group pull-right" data-ng-hide="group.status.value == 'Closed'">
 			        <a href="#/editgroup/{{group.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_GROUP'
-			           data-ng-hide="group.status.value=='Active'"><i class="icon-check-sign icon-white"></i>{{
+			           data-ng-hide="group.status.value=='Active'"><i class="fa fa-check-sign "></i>{{
 			            'label.button.activate' | translate }}</a>
-			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
+			        <a href="#/editgroup/{{group.id}}?managecode=1" has-permission='UPDATE_GROUP' class="btn btn-primary"><i class="fa fa-edit "></i>{{
 			            'label.button.edit' | translate }}</a>
 			        <a ng-show="group.active" href="#/new_group_saving_application/{{group.id}}" has-permission='CREATE_SAVINGSACCOUNT' class="btn btn-primary"><i
-			                class="icon-file icon-white"></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
+			                class="fa fa-file "></i>{{ 'label.button.groupsavingapplication' | translate }}</a>
 			        <a ng-show="group.active" href="#/newgrouploanaccount/{{group.id}}" class="btn btn-primary" has-permission='CREATE_LOAN'><i
-			                class="icon-file icon-white"></i>{{ 'label.button.grouploanapplication' | translate }}</a>
+			                class="fa fa-file "></i>{{ 'label.button.grouploanapplication' | translate }}</a>
 			        <a ng-show="group.active" href="#/newjlgloanaccount/{{group.id}}" has-permission='CREATE_LOAN' class="btn btn-primary"><i
-			                class="icon-copy icon-white"></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
+			                class="fa fa-copy "></i>{{ 'label.button.bulkjlgloanapplication' | translate }}</a>
                     <span class="btn-group dropdown" on-toggle="toggled(open)">
                       <a class="btn btn-primary dropdown-toggle">
                           {{ 'label.button.more' | translate}}
@@ -107,15 +107,15 @@
 									<div class="panel-body">
 										<div class="list-group">
 											<a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
-								  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
+								  				<i tooltip="{{group.status.value}}" class="fa fa-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 								  			</a>
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
 									            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
-									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
+									                <i class="fa fa-plus-sign-alt "></i>{{ 'label.button.add' | translate }}</a>
 									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>
-									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
+									                <i class="fa fa-edit "></i>{{'label.button.managemembers' | translate }}</a>
 									            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
-									                <i class="icon-arrow-right icon-white"></i>{{'label.button.transferclients' | translate }}</a>
+									                <i class="fa fa-arrow-right "></i>{{'label.button.transferclients' | translate }}</a>
 									        </div>
 									        <table class="table table-condensed marginbottom0" style="display:inline-table;">
 									            <thead>
@@ -128,13 +128,13 @@
 									            <tbody>
 										            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">
-										                	<i class="icon-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
+										                	<i class="fa fa-stop {{member.status.code | StatusLookup}}" tooltip="{{member.status.value}}"></i>
 										                		{{member.accountNo}}
 										                </td>
 										                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
 										                </td>
 										                <td><a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
-										                        class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a></td>
+										                        class="fa fa-plus "></i>{{ 'label.button.jlgloanapplication' | translate }}</a></td>
 										            </tr>
 									            </tbody>
 									        </table>
@@ -149,7 +149,7 @@
 							                <th>{{ 'label.heading.nextmeetingon' | translate }}</th>
 							                <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
 					                            <a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
-					                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="icon-edit icon-white"></i></a>
+					                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="fa fa-edit "></i></a>
 					                            <span class="marginleftn7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
 							                </td>
 							            </tr>
@@ -198,34 +198,34 @@
 						                ng-repeat="loanaccount in groupAccounts.loanAccounts | orderBy:'productName':reverse | filter:isLoanNotClosed">
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
 						                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
-						                    	class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
+						                    	class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
 						                    <i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
-						                     	class="icon-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
+						                     	class="fa fa-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
 						                	{{loanaccount.accountNo}}
 						                </td>
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
 										<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
-						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-user icon-large"></i>
+						                	<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
 						                </td>
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.originalLoan|number}}</td>
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
 						                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
 						                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
-						                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
+						                	<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
 						                </td>
 						                <td class="pointer center" ng-if="loanaccount.status.active">
 						                	<a tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
-						                		<i class="icon-dollar icon-white"></i>
+						                		<i class="fa fa-dollar "></i>
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
 						                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-						                		<i class="icon-ok icon-white"></i>
+						                		<i class="fa fa-ok "></i>
 						                	</a>
 						                </td>
 						                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
 						                	<a tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
-						                		<i class="icon-flag icon-white"></i>
+						                		<i class="fa fa-flag "></i>
 						                	</a>
 						                </td>
 						            </tr>
@@ -244,16 +244,16 @@
 					            <tr class="pointer-main"
 					                ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanClosed">
 					                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-					                	<i tooltip-placement="right" tooltip="{{loanaccount.status.value}}" class="icon-stop {{loanaccount.status.code | StatusLookup}}"></i>
+					                	<i tooltip-placement="right" tooltip="{{loanaccount.status.value}}" class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
 					                	{{loanaccount.accountNo}}
 					                </td>
 					                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
 					                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
 					                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
-					                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-user icon-large"></i>
+					                	<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
 					                </td>
 					                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
-					                	<i tooltip="{{loanaccount.loanType.value}}" class="icon-group icon-large"></i>
+					                	<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
 					                </td>
 					                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
 					                    <span data-ng-show="loanaccount.timeline.closedOnDate">{{loanaccount.timeline.closedOnDate | DateFormat}}</span>
@@ -291,36 +291,36 @@
 					            <tr class="pointer-main"
 					                ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
-				                		<i tooltip-placement="right" tooltip="{{savingaccount.status.value}}" class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
+				                		<i tooltip-placement="right" tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 				                		{{savingaccount.accountNo}}
 					                </td>
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance | number}}</td>
 					                <td class="pointer" ng-if="savingaccount.status.active">
 					                	<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-					                		<i class="icon-arrow-right icon-white"></i>
+					                		<i class="fa fa-arrow-right "></i>
 					                	</a>
                                            <a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
-                                               <i class="icon-arrow-right icon-white"></i>
+                                               <i class="fa fa-arrow-right "></i>
                                            </a>
 					                	<a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-					                		<i class="icon-arrow-left icon-white"></i>
+					                		<i class="fa fa-arrow-left "></i>
 					                	</a>
                                            <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
-                                               <i class="icon-arrow-left icon-white"></i>
+                                               <i class="fa fa-arrow-left "></i>
                                            </a>
 					                </td>
 					                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 					                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-					                		<i class="icon-ok icon-white"></i>
+					                		<i class="fa fa-ok "></i>
 					                	</a>
 					                </td>
 					                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
 					                	<a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
-					                		<i class="icon-undo icon-white"></i>
+					                		<i class="fa fa-undo "></i>
 					                	</a>
 					                	<a tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
-					                		<i class="icon-ok-sign icon-white"></i>
+					                		<i class="fa fa-ok-sign "></i>
 					                	</a>
 					                </td>
 					            </tr>
@@ -339,7 +339,7 @@
 					            <tr class="pointer-main"
 					                ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingClosed">
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
-					                	<i tooltip="{{savingaccount.status.value}}" class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
+					                	<i tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 					                	{{savingaccount.accountNo}}
 					                </td>
 					                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
@@ -450,7 +450,7 @@
 			    <div class="col-sm-12 col-md-12">
 			        <div class="row primarydiv" data-ng-hide="group.status.value == 'Closed'">
 			            <a href="#/addrole/{{group.id}}" has-permission='ASSIGNROLE_GROUP' class="btn btn-primary pull-right"><i
-			                    class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
+			                    class="fa fa-plus-sign-alt "></i>{{ 'label.button.add' | translate }}</a>
 			        </div>
 			        <table class="table ">
 			            <thead>
@@ -482,15 +482,15 @@
 		        <div data-ng-hide="isClosedGroup" class="btn-group pull-right">
 		            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
 		               ng-click="deleteAll(groupdatatable.registeredTableName, group.id)" has-permission='DELETE_{{groupdatatable.registeredTableName}}'><i
-		                    class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+		                    class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
 		            <a data-ng-show="showDataTableAddButton"
 		               ng-href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group"
 		               class="btn btn-primary" has-permission='CREATE_{{groupdatatable.registeredTableName}}'><i
-		                    class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+		                    class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
 		            <a data-ng-show="showDataTableEditButton"
 		               ng-href="#/viewsingledatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?mode=edit"
 		               class="btn btn-primary" has-permission='UPDATE_{{groupdatatable.registeredTableName}}'><i
-		                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+		                    class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
 		        </div>
 		        <br>
 		        <br>

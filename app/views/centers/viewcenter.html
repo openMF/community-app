@@ -8,12 +8,12 @@
 	<div class="row">
 	    <div class="col-md-8 col-sm-8">
 	        <h3 class="client-title">
-	        	<i class="icon-circle {{center.status.code | StatusLookup}}"></i>
-	        	<i class="icon-map-marker"></i>
+	        	<i class="fa fa-circle {{center.status.code | StatusLookup}}"></i>
+	        	<i class="fa fa-map-marker"></i>
 	            <strong>{{center.name}} </strong>
 	            <small>
-	            	<i class="icon-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{center.accountNo}} |
-	            	<i class="icon-building"></i> {{ 'label.heading.office' | translate }}: "{{center.officeName}}"
+	            	<i class="fa fa-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{center.accountNo}} |
+	            	<i class="fa fa-building"></i> {{ 'label.heading.office' | translate }}: "{{center.officeName}}"
 	            </small>
 	        </h3>
 	    </div>
@@ -46,15 +46,15 @@
 			    <div>
 			        <div class="col-md-12 primarydiv" data-ng-hide="center.status.value == 'Closed'">
 			            <div class="btn-group pull-right">
-			                <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'" has-permission='ACTIVATE_CENTER'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
+			                <a href="#/editcenter/{{center.id}}?managecode=1" class="btn btn-primary" data-ng-hide="center.status.value=='Active'" has-permission='ACTIVATE_CENTER'><i class="fa fa-check-sign "></i>{{'label.button.activate' | translate }}</a>
 			                <a href="#/editcenter/{{center.id}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_CENTER'>
-			                    <i class="icon-edit icon-white"></i>{{ 'label.button.edit' | translate }}</a>
+			                    <i class="fa fa-edit "></i>{{ 'label.button.edit' | translate }}</a>
 			                <a href="#/addgroup?centerId={{center.id}}&officeId={{center.officeId}}" class="btn btn-primary" has-permission='CREATE_GROUP'><i
-				                    class="icon-plus-sign-alt icon-white"></i>{{ 'addgroup' | translate }}</a>
+				                    class="fa fa-plus-sign-alt "></i>{{ 'addgroup' | translate }}</a>
                             <a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER'>
-                                <i class="icon-edit icon-white"></i>{{'label.button.managegroups' | translate }}</a>
+                                <i class="fa fa-edit "></i>{{'label.button.managegroups' | translate }}</a>
 			                <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" has-permission='CREATE_SAVINGSACCOUNT'
-			                   class="btn btn-primary"><i class="icon-file icon-white"></i>{{ 'label.button.centersavingapplication' | translate }}</a>
+			                   class="btn btn-primary"><i class="fa fa-file "></i>{{ 'label.button.centersavingapplication' | translate }}</a>
 			                <span class="btn-group dropdown" on-toggle="toggled(open)">
 			                      <a class="btn btn-primary dropdown-toggle">
 			                          {{ 'label.button.more' | translate}}
@@ -108,7 +108,7 @@
 											<div class="panel-body">
 												<div class="list-group">
 													<a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
-										  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
+										  				<i tooltip="{{group.status.value}}" class="fa fa-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 										  			</a>
 										  			<p ng-if="!center.groupMembers" class="list-group-item">No Groups added.</p>
 												</div>
@@ -123,7 +123,7 @@
 							                        <td><strong>{{ 'label.heading.nextmeetingon' | translate }}</strong></td>
 							                        <td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
 							                            <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}"
-							                               ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="icon-edit icon-white"></i></a>
+							                               ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="fa fa-edit "></i></a>
 							                         <span class="marginleftn7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
 							                        </td>
 							                    </tr>
@@ -159,36 +159,36 @@
 						                <tr class="pointer-main"
 						                    ng-repeat="savingaccount in accounts.savingsAccounts | orderBy:'productName':reverse">
 						                    <td class="pointer" data-ng-click="routeTo(savingaccount.id)">
-						                    	<i tooltip-placement="left" tooltip="{{savingaccount.status.value}}" class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
+						                    	<i tooltip-placement="left" tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 						                    	{{savingaccount.accountNo}}
 						                    </td>
 						                    <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.productName}}</td>
 						                    <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.accountBalance}}</td>
 						                    <td class="pointer" ng-if="savingaccount.status.active">
 							                	<a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-							                		<i class="icon-arrow-right icon-white"></i>
+							                		<i class="fa fa-arrow-right "></i>
 							                	</a>
 			                                          <a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
-			                                              <i class="icon-arrow-right icon-white"></i>
+			                                              <i class="fa fa-arrow-right "></i>
 			                                          </a>
 							                	<a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
-							                		<i class="icon-arrow-left icon-white"></i>
+							                		<i class="fa fa-arrow-left "></i>
 							                	</a>
 			                                          <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
-			                                              <i class="icon-arrow-left icon-white"></i>
+			                                              <i class="fa fa-arrow-left "></i>
 			                                          </a>
 							                </td>
 							                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 							                	<a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-							                		<i class="icon-ok icon-white"></i>
+							                		<i class="fa fa-ok "></i>
 							                	</a>
 							                </td>
 							                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
 							                	<a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
-							                		<i class="icon-undo icon-white"></i>
+							                		<i class="fa fa-undo "></i>
 							                	</a>
 							                	<a tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
-							                		<i class="icon-ok-sign icon-white"></i>
+							                		<i class="fa fa-ok-sign "></i>
 							                	</a>
 							                </td>
 						                </tr>
@@ -292,16 +292,16 @@
 		    <div data-ng-hide="isClosedCenter" class="btn-group pull-right">
 		        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
 		           ng-click="deleteAll(centerdatatable.registeredTableName, center.id)"
-		           has-permission='DELETE_{{centerdatatable.registeredTableName}}'><i class="icon-trash icon-white"></i>{{'label.button.deleteall'
+		           has-permission='DELETE_{{centerdatatable.registeredTableName}}'><i class="fa fa-trash "></i>{{'label.button.deleteall'
 		            | translate}}</a>
 		        <a data-ng-show="showDataTableAddButton"
 		           ng-href="#/makedatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}?fromEntity=center"
 		           class="btn btn-primary" has-permission='CREATE_{{centerdatatable.registeredTableName}}'><i
-		                class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+		                class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
 		        <a data-ng-show="showDataTableEditButton"
 		           ng-href="#/viewsingledatatableentry/{{centerdatatable.registeredTableName}}/{{center.id}}?mode=edit"
 		           class="btn btn-primary" has-permission='UPDATE_{{centerdatatable.registeredTableName}}'><i
-		                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+		                class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
 		    </div>
 		    <br>
 		    <br>
