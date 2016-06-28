@@ -199,9 +199,9 @@
                 scope.formData.clientsAttendance = scope.clientsAttendance;
                 scope.formData.bulkDisbursementTransactions = [];
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
-                scope.formData.flag=false;
+                scope.formData.forcedSubmitOfCollectionSheet=false;
                 if (scope.forcedSubmit == true) {
-                    scope.formData.flag = true;
+                    scope.formData.forcedSubmitOfCollectionSheet = true;
                 }
                 scope.forcedSubmit = false;
 
@@ -232,7 +232,7 @@
                     scope.forcedSubmit = true;
                     scope.submitShow = false;
                     scope.submitNextShow = false;
-                    scope.formData.flag = true;
+                    scope.formData.forcedSubmitOfCollectionSheet = true;
                 });
             };
         }
