@@ -95,7 +95,6 @@
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 scope.formData.principal = scope.loanaccountinfo.principal;
-                scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
@@ -229,6 +228,10 @@
 
             }
 
+            scope.loanTermCalculation=function(){
+              scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repaymentEvery;
+            }
+
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -238,7 +241,7 @@
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
                 var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
-
+                this.formData.loanTermFrequency = scope.loanTerm;
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {

@@ -130,7 +130,6 @@
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan;
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 scope.formData.principal = scope.loanaccountinfo.principal;
-                scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
@@ -229,6 +228,10 @@
                 scope.collaterals.splice(index, 1);
             };
 
+            scope.loanTermCalculation=function(){
+                scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repaymentEvery;
+            }
+
             scope.previewRepayments = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -323,6 +326,7 @@
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
+                this.formData.loanTermFrequency = scope.loanTerm;
                 if (scope.date.recalculationRestFrequencyDate) {
                     var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
                     scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
