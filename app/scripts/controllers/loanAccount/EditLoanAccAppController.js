@@ -266,6 +266,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
+                this.formData.loanTermFrequency = scope.loanTerm;
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);

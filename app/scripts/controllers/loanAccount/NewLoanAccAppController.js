@@ -217,6 +217,7 @@
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
+                this.formData.loanTermFrequency = scope.loanTerm;
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
