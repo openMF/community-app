@@ -1,0 +1,69 @@
+<form name="viewdocumentform" novalidate="" class="row form-horizontal" ng-controller="ViewBankStatementController"
+      rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.viewbankstatement' | translate}}</li>
+        </ul>
+    </div>
+        <div class="pull-right btn-group">
+            <a has-permission="CREATE_BANKSTATEMENT" href="#/uploadbankstatements" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+                'label.button.upload' | translate }}</a>
+        </div>
+        <br>
+
+        <table class="table well" ng-show="bankStatements.length > 0">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.bank' | translate}}</th>
+                <th>{{'label.heading.description' | translate}}</th>
+                <th>{{'label.heading.cpiffile' | translate}}</th>
+                <th>{{'label.heading.orgfile' | translate}}</th>
+                <th>{{'label.heading.createdby' | translate}}</th>
+                <th>{{'label.heading.createdon' | translate}}</th>
+                <th>{{'label.heading.updatedby' | translate}}</th>
+                <th>{{'label.heading.updatedon' | translate}}</th>
+                <th>{{'label.heading.reconcile' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="bankStatement in bankStatements">
+
+                <td>{{bankStatement.name}}</td>
+                <td>{{bankStatement.bankData.name}}</td>
+                <td>{{bankStatement.description}}</td>
+                <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{bankStatement.cpifDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
+                <td ng-show="bankStatement.orgDownloadUri != null">{{bankStatement.orgFileName}}<a target="_blank" href="{{bankStatement.orgDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
+                <td ng-show="bankStatement.orgDownloadUri == null"></td>
+                <td>{{bankStatement.createdByName}}</td>
+                <td>{{bankStatement.createdDate}}</td>
+                <td>{{bankStatement.lastModifiedByName}}</td>
+                <td>{{bankStatement.lastModifiedDate}}</td>
+                <td>
+                    <a role="button" has-permission="RECONCILE_BANKSTATEMENT" ng-click="makeBankStatementReconcile(bankStatement.id)" class="btn btn-danger pull-left" ng-show="!bankStatement.isReconciled">
+                        <i class="icon-check icon-white"></i> {{'label.button.reconcile' | translate}}
+                    </a>
+                    <a role="button" has-permission="RECONCILE_BANKSTATEMENT" ng-click="makeBankStatementReconcile(bankStatement.id)" class="btn btn-primary pull-left"  ng-show="bankStatement.isReconciled">
+                        <i class="icon-undo icon-white"></i>{{'label.button.undoreconcile' | translate}}
+                    </a>
+                </td>
+                <td>
+                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/portfoliotransaction' class="btn btn-primary" role="button"><i  tooltip="Payment Reconciliation Transaction" class="icon-money icon-white"></i></a>&nbsp;&nbsp;
+                </td>
+                <td>
+                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/nonportfoliotransaction' class="btn btn-primary" role="button"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></a>&nbsp;&nbsp;
+                </td>
+                <td><a  has-permission="UPDATE_BANKSTATEMENT" href='#/updatebankstatements/{{bankStatement.id}}' class="btn btn-primary" role="button"><i  tooltip="Edit" class="icon-white icon-edit"></i></a></td>
+                <td>
+                    <button type="button" has-permission="DELETE_BANKSTATEMENT" ng-click="deleteBankStatement(bankStatement.id)" class="btn btn-primary ng-binding">
+                        <i tooltip="Delete" class="icon-trash icon-white"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</form>

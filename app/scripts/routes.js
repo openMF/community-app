@@ -974,6 +974,30 @@
             .when('/sms/campaign/edit/:campaignId', {
                 templateUrl: '../views/sms/editsmscampaign.html'
             })
+            .when('/bankstatements', {
+                templateUrl: 'views/bankstatements/viewbankstatement.html'
+            })
+            .when('/bankstatementsdetails/:bankStatementId/portfoliotransaction', {
+                templateUrl: 'views/bankstatements/viewbankstatementdetails.html'
+            })
+            .when('/bankstatementsdetails/:bankStatementId/nonportfoliotransaction', {
+                templateUrl: 'views/bankstatements/viewbankstatementdetailjournalentry.html'
+            })
+            .when('/uploadbankstatements', {
+                templateUrl: 'views/bankstatements/uploadbankstatement.html'
+            })
+            .when('/updatebankstatements/:bankStatementId', {
+                templateUrl: 'views/bankstatements/updatebankstatement.html'
+            })
+            .when('/viewbank', {
+                templateUrl: 'views/bankstatements/viewbank.html'
+            })
+            .when('/updatebank/:bankId', {
+                templateUrl: 'views/bankstatements/updatebank.html'
+            })
+            .when('/createbank', {
+                templateUrl: 'views/bankstatements/createbank.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

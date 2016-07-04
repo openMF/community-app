@@ -1,0 +1,38 @@
+<form name="viewbankform" novalidate="" class="row form-horizontal" ng-controller="ViewBankController"
+      rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.viewbanks' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_BANK" href="#/createbank" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+            'label.button.createbank' | translate }}</a>
+    </div>
+    <br>
+    <api-validate></api-validate>
+    <table class="table well" ng-show="banks.length > 0">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.glaccount' | translate}}</th>
+            <th>{{'label.heading.glcode' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="bank in banks">
+
+            <td>{{bank.name}}</td>
+            <td>{{bank.glAccount}}</td>
+            <td>{{bank.glCode}}</td>
+            <td>
+                <a  has-permission="UPDATE_BANK" href='#/updatebank/{{bank.id}}' class="btn btn-primary" role="button"><i class="icon-white icon-edit"></i>{{'label.button.updatebank' | translate}}</a>&nbsp;&nbsp;
+                <button type="button" has-permission="DELETE_BANK" ng-click="deleteBank(bank.id)" class="btn btn-primary ng-binding">
+                    <i class="icon-trash icon-white"></i>{{'label.button.deletebank' | translate}}
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
