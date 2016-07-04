@@ -308,7 +308,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'sms/EditSmsCampaignController',
             'sms/CloseSmsCampaignController',
             'sms/ActivateSmsCampaignController',
-            'sms/ReactivateCampaignController'
+            'sms/ReactivateCampaignController',
+            'bankstatements/ViewBankStatementController',
+            'bankstatements/ViewBankStatementDetailsController',
+            'bankstatements/UploadBankStatementController',
+            'bankstatements/UpdateBankStatementController',
+            'bankstatements/ViewBankStatementDetailJournalEntryController',
+            'bankstatements/ViewBankController',
+            'bankstatements/UpdateBankController',
+            'bankstatements/CreateBankController'
         ],
         filters: [
             'StatusLookup',

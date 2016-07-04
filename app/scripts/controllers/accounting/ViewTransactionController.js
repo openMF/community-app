@@ -12,6 +12,8 @@
             scope.groupId = routeParams.groupId;
             scope.groupName = routeParams.groupName;
             scope.journalEntryTransactionId = routeParams.transactionId;
+            scope.bankStatementId = location.search().id;
+            scope.isFromBankStatement = (scope.bankStatementId != undefined);
             if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
             }

@@ -668,6 +668,34 @@
                         edit:{method:'PUT',params:{}},
                         delete: {method: 'DELETE', params: {}}
 
+                    }),
+                    bankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId", {bankStatementId: '@bankStatementId',command:'@command'}, {
+                        getAllBankStatement: {method: 'GET', params: {}, isArray: true},
+                        deleteBankStatement: {method: 'DELETE', params: {bankStatementId : '@bankStatementId'}},
+                        update: {method: 'PUT', params: {bankStatementId : '@bankStatementId'}},
+                        getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
+                        reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
+                    }),
+                    bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
+                        getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},
+                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId'} }
+                    }),
+                    bankStatementDocumentResource: defineResource(apiVer + "/bankstatements/document/:documentId", {documentId: '@documentId'}, {
+                        getBankStatementDocument: {method: 'GET', params: {documentId : '@documentId'}}
+                    }),
+                    bankStatementLoanTransactionResource: defineResource(apiVer + "/bankstatements/:bankStatementId/:bankStatementDetailId/matchingloantransactions", {bankStatementId : '@bankStatementId', bankStatementDetailId : '@bankStatementDetailId'}, {
+                        getLoanTransactions: {method: 'GET', params: {bankStatementId : '@bankStatementId', bankStatementDetailId : '@bankStatementDetailId'}, isArray: true}
+                    }),
+                    bankStatementSearchLoanTransactionResource: defineResource(apiVer + "/bankstatements/:loanId/:bankStatementDetailId/loantransactions", {loanId : '@loanId', bankStatementDetailId : '@bankStatementDetailId'}, {
+                        getLoanTransaction: {method: 'GET', params: {loanId : '@loanId', bankStatementDetailId : '@bankStatementDetailId'}, isArray: true}
+                    }),
+                    bankResource: defineResource(apiVer + "/banks/:bankId", {bankId : '@bankId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', params: {bankId : '@bankId'}},
+                        get: {method: 'GET', params: {bankId : '@bankId'}}
+                    }),
+                    bankNonPortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/nonportfolio", {bankStatementId: '@bankStatementId'}, {
+                        createJournalEntries: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
                     })
                 };
             }];

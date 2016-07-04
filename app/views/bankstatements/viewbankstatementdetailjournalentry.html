@@ -1,0 +1,46 @@
+<div name="createjournalentryform" novalidate="" class="row form-horizontal" ng-controller="ViewBankStatementDetailJournalEntryController"
+     rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.nonportfoliotransactions' | translate}}</li>
+        </ul>
+    </div>
+    <div class="form-horizontal ">
+        <api-validate></api-validate>
+        <div>
+            <div class="col-md-3"><span><h3>{{'label.heading.name' | translate}} : {{bankStatementName}}</h3></span></div>
+            <div class="col-md-3"><span><h3>{{'label.heading.bank' | translate}} : {{bankName}}</h3></span></div>
+        </div>
+        <div>
+            <table class="table well">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.transactionid' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.accountingtype' | translate}}</th>
+                    <th>{{'label.heading.branch' | translate}}</th>
+                    <th>{{'label.heading.glaccount' | translate}}</th>
+                    <th>{{'label.heading.glcode' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bankStatementDetail in bankStatementDetails">
+                    <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail.transactionId)"><a>{{bankStatementDetail.transactionId}}</a></td>
+                    <td ng-show="bankStatementDetail.transactionId == undefined">{{bankStatementDetail.transactionId}}</td>
+                    <td>{{bankStatementDetail.transactionDate}}</td>
+                    <td>{{bankStatementDetail.amount}}</td>
+                    <td>{{bankStatementDetail.accountingType}}</td>
+                    <td>{{bankStatementDetail.branchName}}</td>
+                    <td>{{bankStatementDetail.glAccount}}</td>
+                    <td>{{bankStatementDetail.glCode}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-offset-5">
+            <button ng-show="!isJournalEntryCreated" class="btn btn-primary" ng-click="submit()"><i class="icon-white"></i> {{'label.button.createjournalentry' | translate}}</button>
+        </div>
+    </div>
+</div>
