@@ -124,11 +124,29 @@
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
             })
+            .when('/newloanapplicationreference/:clientId', {
+                templateUrl: 'views/loans/newloanapplicationreference.html'
+            })
+            .when('/viewloanapplicationreference/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/viewloanapplicationreference.html'
+            })
+            .when('/updateloanapplicationreference/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/updateloanapplicationreference.html'
+            })
+            .when('/approveloanapplicationreference/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/approveloanapplicationreference.html'
+            })
+            .when('/disburseloanapplicationreference/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/disburseloanapplicationreference.html'
+            })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
             .when('/newgrouploanaccount/:groupId', {
                 templateUrl: 'views/loans/newloanaccount.html'
+            })
+            .when('/newindividualjlgloanapplicationreference/:groupId/:clientId', {
+                templateUrl: 'views/loans/newloanapplicationreference.html'
             })
             .when('/newindividualjlgloanaccount/:groupId/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'

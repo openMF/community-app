@@ -44,7 +44,12 @@
                     "shareAccountStatusType.rejected": "statusrejected",
                     "purchasedSharesStatusType.applied": "statuspending",
                     "purchasedSharesStatusType.approved": "statusApproved",
-                    "purchasedSharesStatusType.rejected": "statusrejected"
+                    "purchasedSharesStatusType.rejected": "statusrejected",
+                    "loanApplication.created": "statuscreated",
+                    "loanApplication.in.approve.stage" : "statuspending",
+                    "loanApplication.approved": "statusApproved",
+                    "loanApplication.active": "statusactive",
+                    "loanApplication.rejected":"statusrejected"
                 }
 
                 return cssClassNameLookup[input];

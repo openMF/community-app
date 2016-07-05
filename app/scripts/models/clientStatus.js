@@ -69,6 +69,12 @@
                         taskPermissionName: "UPDATE_CLIENT"
                     },
                     {
+                        name: "label.button.newloanapplicationreferences",
+                        href: "#/newloanapplicationreference",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_LOANAPPLICATIONREFERENCE"
+                    },
+                    {
                         name: "label.button.newloan",
                         href: "#/newclientloanaccount",
                         icon: "icon-plus",
