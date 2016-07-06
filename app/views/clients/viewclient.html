@@ -1,146 +1,139 @@
 <div class="content-container" ng-controller="ViewClientController">
-	    <ul class="breadcrumb">
-	        <li>{{client.officeName}}</li>
-	        <li>{{client.staffName}}</li>
-	    </ul>
+	<ul class="breadcrumb">
+	    <li>{{client.officeName}}</li>
+	    <li>{{client.staffName}}</li>
+	</ul>
+		<script type="text/ng-template" id="deleteClient.html">
+	    <div class="modal-header silver">
+	        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+	    </div>
+	    <div class="modal-body">
+	        <api-validate></api-validate>
+	        <br>
+	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+	    </div>
+		</script>
+	    <script type="text/ng-template" id="photo-dialog.html">
+	        <div class="modal-header silver">
+	            <img ng-src="{{largeImage}}" alt="Avatar">
+	        </div>
+	        <div class="modal-body ">
+	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        </div>
+	    </script>
+	    <script type="text/ng-template" id="clientSignature.html">
+	        <div class="modal-header silver">
+	            <img ng-src="{{largeImage}}" alt="Signature">
+	        </div>
+	        <div class="modal-body ">
+	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        </div>
+	    </script>
+	    <script type="text/ng-template" id="clientWithoutSignature.html">
+	        <div class="modal-header silver">
+	            <h3 class="bolder">{{'label.noClientSignature' | translate}}</h3>
+	        </div>
+	        <div class="modal-body ">
+	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.ok' | translate}}</button>
+	        </div>
+	    </script>
+
+	    <script type="text/ng-template" id="uploadpic.html">
+	    <div class="modal-header silver">
+	        <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
+	    </div>
+	    <div class="modal-body">
+	        <api-validate></api-validate>
+	        <br>
+	        <input type="file" nv-file-select="onFileSelect($files)">
+	    </div>
+	    <div class="modal-footer">
+	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+	    </div>
+	    </script>
+		<script type="text/ng-template" id="capturepic.html">
+		    <div class="modal-header silver">
+		        <h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
+		    </div>
+		    <div class="modal-body">
+		        <api-validate></api-validate>
+		        <div ng-show="error != null" class="error">
+		            {{'label.error' | translate}}: {{error}}
+		        </div>
+		        <br>
+		            <div>
+		                <div class="left">
+		                    <webcam on-streaming="onVideoSuccess(video)"
+		                        on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
+		                </div>
+		                <div class="right">
+		                    <canvas id="clientSnapshot" width="320" height="240"></canvas>
+		                </div>
+		            </div>
+		            <div class="center" style="margin-top: 10px">
+		                <button class="btn btn-warning" ng-click="takeScreenshot()">
+		                    <i class="fa fa-camera "></i>
+		                    {{'label.button.capture' | translate}}
+		                </button>
+		            </div>
+		    </div>
+		    <div class="modal-footer">
+		        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+		        <button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}}</button>
+		    </div>
+		</script>
+		<script type="text/ng-template" id="deletePic.html">
+			<div class="modal-header silver">
+				<h3 class="bolder">{{'label.heading.deleteclientimage' | translate}}</h3>
+			</div>
+			<div class="modal-body">
+				<api-validate></api-validate>
+				<br>
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			</div>
+		</script>
+		<script type="text/ng-template" id="clientunassignstaff.html">
+	    <div class="modal-header silver">
+	        <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
+	    </div>
+	    <div class="modal-body">
+	        <api-validate></api-validate>
+	        <br>
+	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+	        <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+	    </div>
+		</script>
+		<script type="text/ng-template" id="uploadsig.html">
+		    <div class="modal-header silver">
+		        <h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+		    </div>
+		    <div class="modal-body">
+		        <api-validate></api-validate>
+		        <br>
+		        <input type="file" nv-file-select="onFileSelect($files)">
+		    </div>
+		    <div class="modal-footer">
+		        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+		        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+		    </div>
+		</script>
 	<div class="card">
 		<div class="content">
-				<div class="row">
-				    <div class="col-md-8 col-sm-8">
-				        <h3 class="client-title">
-				        	<i class="fa fa-circle {{client.status.code | StatusLookup}}"></i>
-							<small ng-if="client.subStatus.description">
-								[{{client.subStatus.description}}]
-							</small>
-				            <strong>{{client.displayName}} </strong>
-				            <small>
-				            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
-				            	{{ 'label.input.externalid' | translate }}: {{client.externalId}} |
-				            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
-				            </small>
-				        </h3>
-				    </div>
-				</div>
-				<hr>
-				<script type="text/ng-template" id="deleteClient.html">
-			    <div class="modal-header silver">
-			        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
-			    </div>
-			    <div class="modal-body">
-			        <api-validate></api-validate>
-			        <br>
-			        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-			    </div>
-				</script>
-			    <script type="text/ng-template" id="photo-dialog.html">
-			        <div class="modal-header silver">
-			            <img ng-src="{{largeImage}}" alt="Avatar">
-			        </div>
-			        <div class="modal-body ">
-			            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			        </div>
-			    </script>
-			    <script type="text/ng-template" id="clientSignature.html">
-			        <div class="modal-header silver">
-			            <img ng-src="{{largeImage}}" alt="Signature">
-			        </div>
-			        <div class="modal-body ">
-			            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			        </div>
-			    </script>
-			    <script type="text/ng-template" id="clientWithoutSignature.html">
-			        <div class="modal-header silver">
-			            <h3 class="bolder">{{'label.noClientSignature' | translate}}</h3>
-			        </div>
-			        <div class="modal-body ">
-			            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.ok' | translate}}</button>
-			        </div>
-			    </script>
-
-			    <script type="text/ng-template" id="uploadpic.html">
-			    <div class="modal-header silver">
-			        <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
-			    </div>
-			    <div class="modal-body">
-			        <api-validate></api-validate>
-			        <br>
-			        <input type="file" nv-file-select="onFileSelect($files)">
-			    </div>
-			    <div class="modal-footer">
-			        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
-			    </div>
-			    </script>
-				<script type="text/ng-template" id="capturepic.html">
-				    <div class="modal-header silver">
-				        <h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
-				    </div>
-				    <div class="modal-body">
-				        <api-validate></api-validate>
-				        <div ng-show="error != null" class="error">
-				            {{'label.error' | translate}}: {{error}}
-				        </div>
-				        <br>
-				            <div>
-				                <div class="left">
-				                    <webcam on-streaming="onVideoSuccess(video)"
-				                        on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
-				                </div>
-				                <div class="right">
-				                    <canvas id="clientSnapshot" width="320" height="240"></canvas>
-				                </div>
-				            </div>
-				            <div class="center" style="margin-top: 10px">
-				                <button class="btn btn-warning" ng-click="takeScreenshot()">
-				                    <i class="fa fa-camera "></i>
-				                    {{'label.button.capture' | translate}}
-				                </button>
-				            </div>
-				    </div>
-				    <div class="modal-footer">
-				        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-				        <button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}}</button>
-				    </div>
-				</script>
-				<script type="text/ng-template" id="deletePic.html">
-					<div class="modal-header silver">
-						<h3 class="bolder">{{'label.heading.deleteclientimage' | translate}}</h3>
-					</div>
-					<div class="modal-body">
-						<api-validate></api-validate>
-						<br>
-						<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-						<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-					</div>
-				</script>
-				<script type="text/ng-template" id="clientunassignstaff.html">
-			    <div class="modal-header silver">
-			        <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
-			    </div>
-			    <div class="modal-body">
-			        <api-validate></api-validate>
-			        <br>
-			        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			        <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
-			    </div>
-				</script>
-				<script type="text/ng-template" id="uploadsig.html">
-				    <div class="modal-header silver">
-				        <h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
-				    </div>
-				    <div class="modal-body">
-				        <api-validate></api-validate>
-				        <br>
-				        <input type="file" nv-file-select="onFileSelect($files)">
-				    </div>
-				    <div class="modal-footer">
-				        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-				        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
-				    </div>
-				</script>
-
-				<uib-tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
+			<div class="toolbar">
+				<h4>
+					<i class="fa fa-circle {{client.status.code | StatusLookup}}"></i> {{client.displayName}}
+				</h4>
+				<br/>
+				<h5>
+					{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
+					{{ 'label.input.externalid' | translate }}: {client.externalId}} |
+					{{ 'label.input.staff' | translate }}: {{client.staffName}}
+				</h5>
+			</div>
+			<uib-tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
 					<tab heading="{{'label.heading.general' | translate}}">
 						<div class="col-md-12 col-sm-12">
 							<div class="row primarydiv">
@@ -216,6 +209,8 @@
 									</div>
 							        <div>
 										<api-validate></api-validate>
+										<hr/>
+										<br>
 										<div class="pull-right" data-ng-show="charges">
 									        <span>
 									            <button type="button" class="btn-primary btn btn-sm" data-ng-click="routeToChargeOverview()">{{
@@ -760,7 +755,7 @@
 					        </div>
 					    </div>
 					</tab>
-				</uib-tabset>
+			</uib-tabset>
 		</div>
 	</div>
 </div>
