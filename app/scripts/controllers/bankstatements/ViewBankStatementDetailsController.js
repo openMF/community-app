@@ -260,7 +260,7 @@
                     criteria = criteria+ ' and mlt.amount <= '+this.formData.max+' ';
                 }
                 if(scope.isValidInput('groupExternalId')){
-                    criteria = criteria+ ' and grou.external_id =  '+this.formData.groupExternalId;
+                    criteria = criteria+ ' and grou.external_id =  \''+this.formData.groupExternalId+'\' ';
                 }
 
                 if(scope.isValidInput('startDate') && scope.isValidInput('endDate')){
