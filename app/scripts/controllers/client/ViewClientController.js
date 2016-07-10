@@ -94,25 +94,25 @@
                             {
                                 name: "button.deposit",
                                 type: "100",
-                                icon: "icon-arrow-right",
+                                icon: "fa fa-arrow-right",
                                 taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
                             },
                             {
                                 name: "button.withdraw",
                                 type: "100",
-                                icon: "icon-arrow-left",
+                                icon: "fa fa-arrow-left",
                                 taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
                             },
                             {
                                 name: "button.deposit",
                                 type: "300",
-                                icon: "icon-arrow-right",
+                                icon: "fa fa-arrow-right",
                                 taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
                             },
                             {
                                 name: "button.withdraw",
                                 type: "300",
-                                icon: "icon-arrow-left",
+                                icon: "fa fa-arrow-left",
                                 taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
                             }
                         ];

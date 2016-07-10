@@ -3,123 +3,124 @@
 	    <li>{{client.officeName}}</li>
 	    <li>{{client.staffName}}</li>
 	</ul>
-		<script type="text/ng-template" id="deleteClient.html">
+	<script type="text/ng-template" id="deleteClient.html">
+	   <div class="modal-header silver">
+	       <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+	   </div>
+	   <div class="modal-body">
+	       <api-validate></api-validate>
+	       <br>
+	       <button class="btn btn-warning" ng-click="cancel()"{{'label.button.cancel' | translate}}</button>
+	       <button class="btn btn-primary" ng-click="delete()"{{'label.button.confirm' | translate}}</button>
+	   </div>
+	</script>
+	<script type="text/ng-template" id="photo-dialog.html">
 	    <div class="modal-header silver">
-	        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+	        <img ng-src="{{largeImage}}" alt="Avatar">
 	    </div>
-	    <div class="modal-body">
-	        <api-validate></api-validate>
-	        <br>
-	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-	        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+	    <div class="modal-body ">
+	        <button class="btn btn-warning" 
+	        ng-click="cancel{{'label.button.cancel' | translate}}"></button>
 	    </div>
-		</script>
-	    <script type="text/ng-template" id="photo-dialog.html">
-	        <div class="modal-header silver">
-	            <img ng-src="{{largeImage}}" alt="Avatar">
-	        </div>
-	        <div class="modal-body ">
-	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-	        </div>
-	    </script>
-	    <script type="text/ng-template" id="clientSignature.html">
-	        <div class="modal-header silver">
-	            <img ng-src="{{largeImage}}" alt="Signature">
-	        </div>
-	        <div class="modal-body ">
-	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-	        </div>
-	    </script>
-	    <script type="text/ng-template" id="clientWithoutSignature.html">
-	        <div class="modal-header silver">
-	            <h3 class="bolder">{{'label.noClientSignature' | translate}}</h3>
-	        </div>
-	        <div class="modal-body ">
-	            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.ok' | translate}}</button>
-	        </div>
-	    </script>
+	</script>
+	<script type="text/ng-template" id="clientSignature.html">
+	    <div class="modal-header silver">
+	        <img ng-src="{{largeImage}}" alt="Signature">
+	    </div>
+	    <div class="modal-body ">
+	        <button class="btn btn-warning" ng-click="cancel{{'label.button.cancel' | translate}}"></button>
+	    </div>
+	</script>
+	<script type="text/ng-template" id="clientWithoutSignature.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.noClientSignature' | translate}}</h3>
+		</div>
+		<div class="modal-body ">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.ok' | translate}}</button>
+		</div>
+	</script>
 
-	    <script type="text/ng-template" id="uploadpic.html">
-	    <div class="modal-header silver">
-	        <h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
-	    </div>
-	    <div class="modal-body">
-	        <api-validate></api-validate>
-	        <br>
-	        <input type="file" nv-file-select="onFileSelect($files)">
-	    </div>
-	    <div class="modal-footer">
-	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-	        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
-	    </div>
-	    </script>
-		<script type="text/ng-template" id="capturepic.html">
-		    <div class="modal-header silver">
-		        <h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
-		    </div>
-		    <div class="modal-body">
-		        <api-validate></api-validate>
-		        <div ng-show="error != null" class="error">
-		            {{'label.error' | translate}}: {{error}}
-		        </div>
-		        <br>
-		            <div>
-		                <div class="left">
-		                    <webcam on-streaming="onVideoSuccess(video)"
-		                        on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
-		                </div>
-		                <div class="right">
-		                    <canvas id="clientSnapshot" width="320" height="240"></canvas>
-		                </div>
-		            </div>
-		            <div class="center" style="margin-top: 10px">
-		                <button class="btn btn-warning" ng-click="takeScreenshot()">
-		                    <i class="fa fa-camera "></i>
-		                    {{'label.button.capture' | translate}}
-		                </button>
-		            </div>
-		    </div>
-		    <div class="modal-footer">
-		        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-		        <button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}}</button>
-		    </div>
-		</script>
-		<script type="text/ng-template" id="deletePic.html">
-			<div class="modal-header silver">
-				<h3 class="bolder">{{'label.heading.deleteclientimage' | translate}}</h3>
+	<script type="text/ng-template" id="uploadpic.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" nv-file-select="onFileSelect($files)">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="capturepic.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<div ng-show="error != null" class="error">
+				{{'label.error' | translate}}: {{error}}
 			</div>
-			<div class="modal-body">
-				<api-validate></api-validate>
-				<br>
-				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			<br>
+			<div>
+				<div class="left">
+					<webcam on-streaming="onVideoSuccess(video)"
+					on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
+				</div>
+				<div class="right">
+					<canvas id="clientSnapshot" width="320" height="240"></canvas>
+				</div>
 			</div>
-		</script>
-		<script type="text/ng-template" id="clientunassignstaff.html">
-	    <div class="modal-header silver">
-	        <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
-	    </div>
-	    <div class="modal-body">
-	        <api-validate></api-validate>
-	        <br>
-	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-	        <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
-	    </div>
-		</script>
-		<script type="text/ng-template" id="uploadsig.html">
-		    <div class="modal-header silver">
-		        <h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
-		    </div>
-		    <div class="modal-body">
-		        <api-validate></api-validate>
-		        <br>
-		        <input type="file" nv-file-select="onFileSelect($files)">
-		    </div>
-		    <div class="modal-footer">
-		        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-		        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
-		    </div>
-		</script>
+			<div class="center" style="margin-top: 10px">
+				<button class="btn btn-warning" ng-click="takeScreenshot()">
+					<i class="fa fa-camera "></i>
+					{{'label.button.capture' | translate}}
+				</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="uploadscreenshot()">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="deletePic.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.deleteclientimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="clientunassignstaff.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="uploadsig.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" nv-file-select="onFileSelect($files)">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
 	<div class="card">
 		<div class="content">
 			<div class="toolbar">
@@ -133,36 +134,37 @@
 					{{ 'label.input.staff' | translate }}: {{client.staffName}}
 				</h5>
 			</div>
-			<uib-tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
-					<tab heading="{{'label.heading.general' | translate}}">
-						<div class="col-md-12 col-sm-12">
-							<div class="row primarydiv">
-							    <div class="pull-right">
-									<span ng-repeat="button in buttonsArray.singlebuttons">
+			<uib-tabset class="overflowhidden" tabset-name="clientTabset">
+				<tab heading="{{'label.heading.general' | translate}}">
+					<div class="col-md-12 col-sm-12">
+						<div class="row primarydiv">
+							<div class="pull-right">
+								<span ng-repeat="button in buttonsArray.singlebuttons">
 									  <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"
 									     has-permission='{{button.taskPermissionName}}'><i
 									          class="{{button.icon}} "></i>{{button.name | translate}}</a>
 									</span>
 							        <button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
 							                data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
-							                class="fa fa-trash "></i>{{"label.button.delete"
+							                class="fa fa-trash-o"></i>{{"label.button.delete"
 							            | translate}}
 							        </button>
 			                        <a href="#/client/{{client.id}}/updatedefaultaccount" class="btn btn-primary"
 			                                data-ng-show="updateDefaultSavings" has-permission='UPDATESAVINGSACCOUNT_CLIENT'><i
-			                                class="fa fa-edit "></i>{{"label.button.updatedefaultsavings" | translate}}
+			                                class="fa fa-pencil-square-o"></i>{{"label.button.updatedefaultsavings" | translate}}
 			                        </a>
 							        <button type="button" class="btn btn-primary" data-ng-click="unassignStaffCenter()"
-							                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="fa fa-user "></i>{{"label.button.unassignstaff"
+							                data-ng-show="client.staffId" has-permission='UNASSIGNSTAFF_CLIENT'><i class="fa fa-user"></i>{{"label.button.unassignstaff"
 							            |
 							            translate}}
 							        </button>
-									<span ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
-									    <a class="btn btn-primary dropdown-toggle">
+									<span ng-show="buttonsArray.options" class="btn-group uib-dropdown" on-toggle="toggled(open)">
+									    <a class="btn btn-primary" 							uib-dropdown-toggle>
 									        {{ 'label.button.more' | translate}}
 			                                    <span class="caret"></span>
 			                                    </a>
-			                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+			                                    <ul class="dropdown  dropdown-menu-right"
+			                                    uib-dropdown-menu>
 			                                        <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
 			                                            <a href="#/clientscreenreport/{{client.id}}"
 									               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
@@ -306,7 +308,7 @@
 									                </td>
 									                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
 									                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-									                		<i class="fa fa-ok "></i>
+									                		<i class="fa fa-check "></i>
 									                	</a>
 									                </td>
 									                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
@@ -391,7 +393,7 @@
 									                </td>
 									                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
 									                	<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-									                		<i class="fa fa-ok "></i>
+									                		<i class="fa fa-check "></i>
 									                	</a>
 									                </td>
 									                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
@@ -399,7 +401,7 @@
 									                		<i class="fa fa-undo "></i>
 									                	</a>
 									                	<a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
-									                		<i class="fa fa-ok-sign "></i>
+									                		<i class="fa fa-check-sign "></i>
 									                	</a>
 									                </td>
 									            </tr>
@@ -469,7 +471,7 @@
 			                                        </td>
 			                                        <td class="pointer" ng-if="shareaccount.status.submittedAndPendingApproval">
 			                                            <a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
-			                                                <i class="fa fa-ok "></i>
+			                                                <i class="fa fa-check "></i>
 			                                            </a>
 			                                        </td>
 			                                        <td class="pointer" ng-if="!shareaccount.status.submittedAndPendingApproval && !shareaccount.status.active">
@@ -477,7 +479,7 @@
 			                                                <i class="fa fa-undo "></i>
 			                                            </a>
 			                                            <a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
-			                                                <i class="fa fa-ok-sign "></i>
+			                                                <i class="fa fa-check-sign "></i>
 			                                            </a>
 			                                        </td>
 			                                    </tr>
@@ -516,7 +518,7 @@
 								        <div class="btn-group-xs center">
 								            <button type="button" class="btn btn-primary" data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'
 								                    tooltip="{{'label.button.uploadpic' | translate}}">
-								                <i class="fa fa-upload-alt"></i>
+								                <i class="fa fa-upload"></i>
 								            </button>
 								            <button type="button" class="btn btn-primary" data-ng-click="capturePic()" has-permission='CREATE_CLIENTIMAGE'
 								                    tooltip="{{'label.button.capturepic' | translate}}">
@@ -606,52 +608,54 @@
 							</div>
 						</div>
 					</tab>
+
 					<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
-					     has-permission='READ_CLIENTIDENTIFIER'>
-					    <div class="pull-right btn-group">
-					        <a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
-					           has-permission='CREATE_CLIENTIDENTIFIER'><i class="fa fa-plus "></i>{{
-					            'label.button.add' | translate }}</a>
-					    </div>
-					    <br>
-					    <table class="table" ng-show="identitydocuments.length > 0">
-					        <thead>
-					        <tr class="graybg">
-					            <th>{{'label.heading.id' | translate}}</th>
-					            <th>{{'label.heading.description' | translate}}</th>
-					            <th>{{'label.heading.type' | translate}}</th>
-					            <th>{{'label.heading.identitydocuments' | translate}}</th>
+					has-permission='READ_CLIENTIDENTIFIER'>
+					<div class="pull-right btn-group">
+						<a href="#/addclientidentifier/{{client.id}}" class="btn btn-primary"
+						has-permission='CREATE_CLIENTIDENTIFIER'><i class="fa fa-plus "></i>{{
+						'label.button.add' | translate }}</a>
+					</div>
+					<br>
+					<table class="table" ng-show="identitydocuments.length > 0">
+						<thead>
+							<tr class="graybg">
+								<th>{{'label.heading.id' | translate}}</th>
+								<th>{{'label.heading.description' | translate}}</th>
+								<th>{{'label.heading.type' | translate}}</th>
+								<th>{{'label.heading.identitydocuments' | translate}}</th>
 								<th>{{'label.heading.status' | translate}}</th>
-					            <th>{{'label.heading.actions' | translate}}</th>
-					        </tr>
-					        </thead>
-					        <tbody>
-					        <tr ng-repeat="document in identitydocuments">
-					            <td>{{document.documentKey}}</td>
-					            <td>{{document.description}}</td>
-					            <td>{{document.documentType.name}}</td>
-					            <td>
-					                  <span ng-repeat="file in document.documents">
-					                    {{file.fileName}}&nbsp;&nbsp;
-					                    <a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
-					                            class="fa fa-cloud-download"></i></a>
-					                  </span>
-					            </td>
-								<td>{{document.status | translate}}</td>
-					            <td>
-					                  <span>
-					                      <a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"
-					                         has-permission='CREATE_DOCUMENT'><i
-					                              class="fa fa-cloud-upload"></i></a>&nbsp;
-					                      <a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
-					                         has-permission='DELETE_CLIENTIDENTIFIER'><i
-					                              class="fa fa-remove"></i></a>
-					                  </span>
-					            </td>
-					        </tr>
-					        </tbody>
-					    </table>
+								<th>{{'label.heading.actions' | translate}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="document in identitydocuments">
+								<td>{{document.documentKey}}</td>
+								<td>{{document.description}}</td>
+								<td>{{document.documentType.name}}</td>
+								<td>
+									<span ng-repeat="file in document.documents">
+										{{file.fileName}}&nbsp;&nbsp;
+										<a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
+											class="fa fa-cloud-download"></i></a>
+										</span>
+									</td>
+									<td>{{document.status | translate}}</td>
+									<td>
+										<span>
+											<a href="#/addclientidentifierdocument/{{client.id}}/{{document.id}}"
+											has-permission='CREATE_DOCUMENT'><i
+											class="fa fa-cloud-upload"></i></a>&nbsp;
+											<a ng-click="deleteClientIdentifierDocument(client.id,document.id,$index)"
+											has-permission='DELETE_CLIENTIDENTIFIER'><i
+											class="fa fa-times"></i></a>
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</tab>
+
 					<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
 					    <div class="pull-right">
 					        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
@@ -675,12 +679,13 @@
 					            <td>{{clientdocument.fileName}}</td>
 					            <td>
 					                <a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
-					                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="fa fa-remove"></i></a>
+					                <a ng-click="deleteDocument(clientdocument.id,$index)"><i class="fa fa-times"></i></a>
 					            </td>
 					        </tr>
 					        </tbody>
 					    </table>
 					</tab>
+
 					<tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
 					     select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
 					    <div>

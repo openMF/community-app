@@ -115,11 +115,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-pencil "
+                            icon: "fa fa-pencil "
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok-sign"
+                            icon: "fa fa-check"
                         }
                     ],
                         options: [
@@ -143,11 +143,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo"
+                            icon: "fa fa-undo"
                         },
                         {
                             name: "button.activate",
-                            icon: "icon-ok-sign"
+                            icon: "fa fa-check"
                         }
                     ]
                     };
@@ -157,15 +157,15 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.deposit",
-                            icon: "icon-arrow-right"
+                            icon: "fa fa-arrow-right"
                         },
                         {
                             name: "button.prematureClose",
-                            icon: "icon-arrow-left"
+                            icon: "fa fa-arrow-left"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table"
+                            icon: "fa fa-table"
                         }
                     ],
                         options: [
@@ -198,7 +198,7 @@
                     if(!scope.isprematureAllowed){
                         scope.buttons.singlebuttons[1] = {
                             name: "button.close",
-                            icon: "icon-arrow-right"
+                            icon: "fa fa-arrow-right"
                         };
                     }
 
@@ -222,15 +222,15 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.close",
-                            icon: "icon-arrow-right"
+                            icon: "fa fa-arrow-right"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table"
+                            icon: "fa fa-table"
                         },
                         {
                             name: "button.postInterest",
-                            icon: "icon-table"
+                            icon: "fa fa-table"
                         }
                     ],
                         options: [
