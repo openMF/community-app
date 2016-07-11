@@ -1,4 +1,22 @@
-<form class="form-horizontal well" ng-controller="MakeDataTableEntryController" ng-submit="submit()">
+<div class="col-md-12" ng-controller="MakeDataTableEntryController">
+    <ul class="breadcrumb">
+        <li ng-show="client"><a
+                ng-href="#/viewclient/{{entityId}}">{{clientName}}</a></li>
+        <li ng-show="group"><a
+                ng-href="#/viewgroup/{{entityId}}">{{groupName}}</a></li>
+        <li ng-show="center"><a
+                ng-href="#/viewcenter/{{entityId}}">{{centerName}}</a></li>
+        <li ng-show="loanproduct"><a
+                ng-href="#/viewclient/{{clientId}}">{{LoanHolderclientName}}</a></li>
+               <li><a ng-href="#/viewloanaccount/{{entityId}}">{{loanproductName}}</a></li>
+        <li ng-show="office"><a
+                ng-href="#/viewoffice/{{entityId}}">{{officeName}}</a></li>
+        <li ng-show="savingsaccount"><a
+                ng-href="#/viewclient/{{clientId}}">{{savingsaccountholderclientName}}</a></li>
+              <li><a ng-href="#/viewsavingaccount/{{entityId}}">{{savingsAccount}}</a></li>
+    </ul>
+<form class="form-horizontal well"  ng-submit="submit()">
+
     <div class="error" ng-show="errorStatus || errorDetails">
         <label>{{"label.error" | translate}}</label>
         <label ng-show="errorStatus">{{errorStatus}}</label>
@@ -81,3 +99,4 @@
         </div>
     </fieldset>
 </form>
+</div>
