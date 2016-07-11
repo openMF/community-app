@@ -264,16 +264,70 @@
 									</tr>
 								</table>
 							</div>
-						    <div class="pull-right">
+
+							<div class="pull-right" ng-hide="true">
+						        <span data-ng-show="clientAccounts.loanAccounts">
+						            <button type="button" class="btn-primary btn btn-sm" data-ng-click="setLonaAppStatusFilter('above300')">{{
+										'label.button.viewclosedloans' | translate }}
+									</button>
+						            <button type="button" class="btn-primary btn btn-sm" data-ng-click="setLonaAppStatusFilter()">{{
+										'label.button.viewactiveloans' | translate }}
+									</button>
+						        </span>
+							</div>
+							<div data-ng-show="loanApplications.length > 0">
+								<div class="span gray-head">
+									<span class="boldlabel">
+									      <strong>{{ 'label.heading.loanapplications' | translate }}</strong>
+									</span>
+								</div>
+								<table class="table table-condensed">
+									<tr class="graybg">
+										<th>{{'label.heading.loan.application.number' | translate}}</th>
+										<th>{{'label.heading.loan.amount.requested' | translate}}</th>
+										<th>{{'label.heading.loanproduct' | translate}}</th>
+										<th>{{'label.heading.type' | translate}}</th>
+										<th>{{'label.heading.actions' | translate}}</th>
+									</tr>
+									<tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'id':true| filter:isLoanAppIncompleted">
+										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">
+											<i tooltip-placement="right" tooltip="{{loanApp.status.value}}"
+											   class="icon-stop {{loanApp.status.code | StatusLookup}}"></i>
+											{{loanApp.loanApplicationReferenceNo}}
+										</td>
+										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">{{loanApp.loanAmountRequested|number}}</td>
+										<td class="pointer" data-ng-click="routeToLoanApplication(loanApp)">{{loanApp.loanProductName}}</td>
+										<td class="pointer center" ng-if="loanApp.accountType.value == 'Individual'" data-ng-click="routeToLoanApplication(loanApp)">
+											<i tooltip="{{loanApp.accountType.value}}" class="icon-user icon-large"></i>
+										</td>
+										<td class="pointer center" ng-if="loanApp.accountType.value != 'Individual'" data-ng-click="routeToLoanApplication(loanApp)">
+											<i tooltip="{{loanApp.accountType.value}}" class="icon-group icon-large"></i>
+										</td>
+										<td class="pointer center">
+											<a tooltip="{{'label.button.request.approval' | translate}}" has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE' data-ng-click="requestApprovalLoanAppRef(loanApp.loanApplicationReferenceId)" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 100">
+												<i class="icon-ok icon-white"></i>
+											</a>
+											<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-href="#/approveloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 200">
+												<i class="icon-ok icon-white"></i>
+											</a>
+											<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOANAPPLICATIONREFERENCE' ng-href="#/disburseloanapplicationreference/{{loanApp.loanApplicationReferenceId}}" class="btn btn-xs btn-primary ng-binding" ng-if="loanApp.status.id === 300">
+												<i class="icon-flag icon-white"></i>
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="pull-right">
 						        <span data-ng-show="clientAccounts.loanAccounts">
 						            <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
-						                'label.button.viewclosedloans' | translate }}
-						            </button>
+										'label.button.viewclosedloans' | translate }}
+									</button>
 						            <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
-						                'label.button.viewactiveloans' | translate }}
-						            </button>
+										'label.button.viewactiveloans' | translate }}
+									</button>
 						        </span>
-						    </div>
+							</div>
 						    <div data-ng-show="clientAccounts.loanAccounts">
 						        <div class="span gray-head">
 									<span class="boldlabel">
