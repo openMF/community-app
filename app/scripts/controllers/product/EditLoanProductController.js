@@ -205,6 +205,12 @@
                     scope.formData.incomeFromRecoveryAccountId = scope.product.accountingMappings.incomeFromRecoveryAccount.id;
                     scope.formData.writeOffAccountId = scope.product.accountingMappings.writeOffAccount.id;
                     scope.formData.overpaymentLiabilityAccountId = scope.product.accountingMappings.overpaymentLiabilityAccount.id;
+                    if(scope.product.accountingMappings.hasOwnProperty("subsidyFundSourceId") && scope.product.accountingMappings.hasOwnProperty("subsidyAccountId")){
+                        scope.formData.subsidyFundSourceId = scope.product.accountingMappings.subsidyFundSourceId.id;
+                        scope.formData.subsidyAccountId = scope.product.accountingMappings.subsidyAccountId.id;
+                    }else{
+                        scope.formData.createSubsidyAccountMappings = true;
+                    }
 
                     _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                         scope.configureFundOptions.push({
@@ -241,6 +247,7 @@
                 scope.formData.allowVariableInstallments = scope.product.allowVariableInstallments ;
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
+                scope.formData.isSubsidyApplicable = scope.product.isSubsidyApplicable;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -495,7 +502,6 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
-
                 if (this.formData.recalculationCompoundingFrequencyType == 4) {
                     if(this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
                         delete this.formData.recalculationCompoundingFrequencyNthDayType;
@@ -519,7 +525,11 @@
                     delete this.formData.recalculationRestFrequencyOnDayType;
                     delete this.formData.recalculationRestFrequencyNthDayType;
                 }
-
+                if(!this.formData.isSubsidyApplicable){
+                    //delete this.formData.isSubsidyApplicable ;
+                    delete scope.formData.subsidyFundSourceId ;
+                    delete scope.formData.subsidyAccountId ;
+                }
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

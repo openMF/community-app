@@ -12,7 +12,6 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
-
                 scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -52,6 +51,7 @@
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
                 scope.formData.externalId = data.externalId;
+                scope.formData.isSubsidyApplicable = data.isSubsidyApplicable;
 
                 //update collaterals
                 if (scope.loanaccountinfo.collateral) {

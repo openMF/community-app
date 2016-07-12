@@ -370,6 +370,31 @@
                     scope.showDateField = false;
                     scope.taskPermissionName = 'UPDATE_DISBURSEMENTDETAIL';
                     break;
+                case "addsubsidy":
+                    scope.modelName = 'subsidyReleaseDate';
+                    scope.title = 'label.heading.addsubsidy';
+                    scope.labelName = 'label.input.subsidyreleasedate';
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        if (data.paymentTypeOptions.length > 0) {
+                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                        }
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                    });
+                    scope.isTransaction = true;
+                    scope.showSubsidyamountReleasedField = true;
+                    scope.showNoteField = false;
+                    scope.taskPermissionName = 'SUBSIDYADD_LOAN';
+                    break;
+                case "revokesubsidy":
+                    scope.modelName = 'subsidyRevokeDate';
+                    scope.title = 'label.heading.revokesubsidy';
+                    scope.labelName = 'label.input.subsidyrevokedate';
+                    scope.isTransaction = false;
+                    scope.showSubsidyamountRevokedField = true;
+                    scope.showNoteField = false;
+                    scope.taskPermissionName = 'SUBSIDYREVOKE_LOAN';
+                    break;revokesubsidy
             }
 
             scope.cancel = function () {
@@ -424,7 +449,8 @@
                     this.formData.dateFormat = scope.df;
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
-                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan") {
+                    || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
+                    || scope.action == "addsubsidy" || scope.action == "revokesubsidy") {
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;

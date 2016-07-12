@@ -11,9 +11,12 @@
             scope.hideTransactions.type =[];
             scope.hideTransactions.type.accrual = false;
             scope.loandetails = [];
+            scope.addSubsidyTransactionTypeId = 50;
+            scope.revokeSubsidyTransactionTypeId = 51;
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
+                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1
+                    || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId ) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 }
                 ;
@@ -123,6 +126,12 @@
                         break ;
                     case "undolastdisbursal":
                         location.path('/loanaccount/' + accountId + '/undolastdisbursal');
+                        break;
+                    case "addsubsidy":
+                        location.path('/loanaccount/' + accountId + '/addsubsidy');
+                        break;
+                    case "revokesubsidy":
+                        location.path('/loanaccount/' + accountId + '/revokesubsidy');
                         break;
                 }
             };
@@ -313,6 +322,10 @@
                     ],
                         options: [
                             {
+                                name: "button.addsubsidy",
+                                taskPermissionName: 'READ_SUBSIDY'
+                            },
+                            {
                                 name: "button.waiveinterest",
                                 taskPermissionName: 'WAIVEINTERESTPORTION_LOAN'
                             },
@@ -355,6 +368,23 @@
                         ]
 
                     };
+
+                    for(var i = 0; i < scope.loandetails.transactions.length; i++){
+                        if(scope.loandetails.transactions[i].type.value == "Add Subsidy"){
+                            scope.buttons.options.unshift({
+                                name: "button.revokesubsidy",
+                                taskPermissionName: 'READ_SUBSIDY'
+                            });
+                            break;
+                        }
+                    }
+
+                    for(var i = 0; i < scope.loandetails.transactions.length; i++){
+                        if(scope.loandetails.isSubsidyApplicable == false){
+                            scope.buttons.options.splice(0,1);
+                            break;
+                        }
+                    }
 
                     if (data.canDisburse) {
                         scope.buttons.singlebuttons.splice(1, 0, {

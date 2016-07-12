@@ -688,6 +688,14 @@
     </div>
 </div>
 
+<div class="form-group">
+    
+    <div class="col-sm-3">
+        <input type="checkbox" name="isSubsidyApplicable" ng-model="formData.isSubsidyApplicable"/>
+        {{'label.input.issubsidyapplicable' | translate}}
+    </div>
+</div>
+
 <h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 <hr>
 <div class="form-group">
@@ -1255,6 +1263,30 @@
     </div>
 </div>
 <hr>
+<div class="form-group" ng-if="formData.isSubsidyApplicable && isAccountingEnabled()">
+    <h3>{{'label.heading.subsidy' | translate}}
+    </h3>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{ 'label.input.subsidyFundSource' | translate }}</label>
+        <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.input.subsidyFundSource' | translate}}"></i>
+        <div class="col-sm-2">
+            <select id="subsidyFundSource" ng-model="formData.subsidyFundSourceId" chosen="liabilityAccountOptions"
+                    ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
+                    value="{{liabilityAccount.id}}">
+            </select>
+        </div>
+        <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.subsidyAccount' | translate }}</label>
+        <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.input.subsidyAccount' | translate}}"></i>
+        <div class="col-sm-2">
+            <select id="subsidyAccount" ng-model="formData.subsidyAccountId" chosen="assetAccountOptions"
+                    ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                    value="{{assetAccount.id}}">
+            </select>
+        </div>
+    </div>
+    <hr>
+</div>
 <h4>{{'label.heading.advancedaccountingrules' | translate}}[<a ng-click="showOrHide(showOrHideValue)">{{showOrHideValue}}</a>]
 </h4>
 
@@ -1366,6 +1398,7 @@
     </table>
 </div>
 </div>
+
 <div class="col-md-offset-5 paddedtop">
     <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
     </button>
