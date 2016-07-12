@@ -3,9 +3,13 @@
         NotificationResponseHeaderProvider: function ($rootScope) {
             return {
                 'response': function (response) {
-                    $rootScope.$emit('eventFired', {
-                       data: response.headers('X-Notification-Refresh')
-                    });
+                    var method = response.config.method;
+                    var url = response.config.url;
+                    if (!url.includes("notifications")) {
+                        $rootScope.$broadcast('eventFired', {
+                            notificationStatus: response.headers('X-Notification-Refresh')
+                        });
+                    }
                     return response;
                 }
             }

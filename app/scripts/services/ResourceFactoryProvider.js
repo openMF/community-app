@@ -602,7 +602,9 @@
                         approve: {method: 'PUT', params:{command: 'approve'}}
                     }),
                     notificationsResource: defineResource(apiVer + "/notifications", {}, {
-                        getAllNotifications : {method : 'GET'}
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
                     })
                 };
             }];
