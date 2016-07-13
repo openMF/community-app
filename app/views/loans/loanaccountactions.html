@@ -167,6 +167,21 @@
         </div>
     </div>
 
+    <div class="form-group"  ng-show="isLoanWriteOff">
+        <label class="control-label col-sm-2">
+            {{'label.input.reason' | translate}}
+        </label>
+        <div class="col-sm-3">
+            <div >
+                <select chosen="reasons" id="writeoffReasonId" ng-model="formData.writeoffReasonId"  class="form-control"
+                        ng-options="reason.id as reason.name for reason in reasons" value="{{reason.id}}"
+                        name="writeoffReasonId">
+                    <option value="" style="display:none;">--{{'label.menu.selectreason' | translate}}--</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group" ng-show="showPenaltyPortionDisplay">
         <label class="col-sm-3" for="transactionAmount">{{ 'label.input.payspenaltyportion' |
             translate}}</label>

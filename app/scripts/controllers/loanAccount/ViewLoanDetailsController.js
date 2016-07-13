@@ -416,6 +416,12 @@
                     ]
                     };
                 }
+                scope.isWriteOff = false;
+                if(scope.loandetails.summary!=null){
+                    if(scope.loandetails.summary.writeoffReasonId!=null){
+                        scope.isWriteOff = true;
+                    }
+                }
             });
 
             resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
