@@ -1,20 +1,26 @@
-<div class="col-md-12">
+<div class="content-container" ng-controller="TellersController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.tellers' | translate}}</li>
     </ul>
-</div>
 
-<div class="col-md-12" ng-controller="TellersController">
-    <div class="pull-right">
-        <a href="#/createTeller" class="btn btn-primary" has-permission='CREATE_TELLER'><i class="fa fa-plus "></i>{{'label.button.createteller'
-            | translate}}</a>
+<div class="card" >
+<div class="content">
+    <div class="toolbar">
+        <div class="row">
+            <div class="col-md-6">
+                <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control col-md-6" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <a href="#/createTeller" class="btn btn-primary" has-permission='CREATE_TELLER'><i class="fa fa-plus "></i>{{'label.button.createteller' | translate}}</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="clear"></div>
     <div ng-hide="isTreeView">
         <api-validate></api-validate>
-    	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
-           placeholder="{{'label.input.filterbynameexternalid' | translate}}">
         <table class="table">
             <thead>
             <tr class="graybg">
@@ -48,4 +54,5 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>

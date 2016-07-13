@@ -1,22 +1,25 @@
 
-<div class="col-md-14" ng-controller="ViewCashiersForTellerController">
-    <div class="col-md-12">
+<div class="content-container" ng-controller="ViewCashiersForTellerController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
         <li class="active">{{'label.anchor.cashiers' | translate}}</li>
     </ul>
-    </div>
-
-    <div class="col-md-12">
+    <div class="card">
+        <div class="content">
+        <div class="toolbar">
         {{'label.heading.cashmgmt.officeName' | translate}} : {{cashiersForTeller.officeName}} | 
         {{'label.heading.cashmgmt.tellerName' | translate }} : {{cashiersForTeller.tellerName}}
-        <a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary pull-right" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="fa fa-plus "></i>
-            {{'label.button.createcashier'| translate}}</a>
-    </div>
-    <div class="col-md-12">
-    	<input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
-           placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+        <div class="row">
+            <div class="col-sm-6">
+            <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
+           placeholder="{{'label.input.filterbynameexternalid' | translate}}"></div>
+            <div class="col-sm-6">
+                <a href="#/tellers/{{cashiersForTeller.tellerId}}/createCashierForTeller" class="btn btn-primary pull-right" has-permission='CREATE_CASHIERS_FOR_TELLER'><i class="fa fa-plus "></i>{{'label.button.createcashier'| translate}}</a>
+            </div>
+        </div>
+        </div>
+        <div class="">
         <table class="table">
             <thead>
             <tr class="graybg">
@@ -71,8 +74,10 @@
                     </button>
 
                 </td>
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
     </div>
 </div>

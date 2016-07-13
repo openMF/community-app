@@ -1,14 +1,19 @@
-<div class="col-md-12" ng-controller="CreateGroupController">
+<div class="content-container" ng-controller="CreateGroupController">
     <ul class="breadcrumb">
         <li ng-if="!centerid"><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
         <li ng-if="centerid"><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
         <li ng-if="centerid"><a href="#/viewcenter/{{centerid}}">{{'label.anchor.viewcenter' | translate}}</a></li>
         <li class="active">{{'label.anchor.creategroup' | translate}}</li>
     </ul>
-	<form name="creategroupform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <div class="card">
+    	<div class="content">
+    		<div class="toolbar">
+    			<h4>{{'label.heading.creategroup' | translate}}</h4>
+    		</div>
+    		<br/>
+    		<form name="creategroupform" novalidate="" class="form-horizontal" rc-submit="submit()">
 	    <api-validate></api-validate>
 	    <fieldset>
-	        <legend class="bolder">{{'label.heading.creategroup' | translate}}</legend>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">
 	                {{'label.input.office' | translate}}<span ng-show="forceOffice == null" class="required">*</span>
@@ -128,4 +133,6 @@
 	        </div>
 	    </fieldset>
 	</form>
+    	</div>
+    </div>
 </div>

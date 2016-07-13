@@ -1,9 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditPaymentTypeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
-/*
-            scope.formData = {};*/
-
+            /*scope.formData = {};*/
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id}, function (data) {
                 scope.formData = {
                     name: data.name,
