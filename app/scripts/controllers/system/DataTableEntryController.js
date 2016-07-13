@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        DataTableEntryController: function (scope, location, routeParams, route, resourceFactory, $modal, dateFilter) {
+        DataTableEntryController: function (scope, location, routeParams, route, resourceFactory, $modal, dateFilter, $rootScope) {
 
             if (routeParams.tableName) {
                 scope.tableName = routeParams.tableName;
@@ -16,6 +16,12 @@
             scope.formData = {};
             scope.isViewMode = true;
             scope.tf = "HH:mm";
+            scope.client=false;
+            scope.group=false;
+            scope.center=false;
+            scope.office=false;
+            scope.savingsaccount=false;
+            scope.loanproduct = false;
 
             scope.showSelect = true; //
             scope.villageName;
@@ -33,6 +39,34 @@
                 reqparams.resourceId = scope.resourceId;
             }
 
+            if (routeParams.fromEntity == 'client') {
+                scope.clientName = $rootScope.clientname;
+                scope.client=true;
+            }
+            if (routeParams.fromEntity == 'group') {
+                scope.groupName = $rootScope.groupNameDataParameter;
+                scope.group=true;
+            }
+            if (routeParams.fromEntity == 'center') {
+                scope.centerName = $rootScope.centerName;
+                scope.center=true;
+            }
+            if (routeParams.fromEntity == 'loan') {
+                scope.loanproductName = $rootScope.loanproductName;
+                scope.loanproduct = true;
+                scope.clientId = $rootScope.clientId;
+                scope.LoanHolderclientName = $rootScope.LoanHolderclientName;
+            }
+            if (routeParams.fromEntity == 'office') {
+                scope.officeName =  $rootScope.officeName;
+                scope.office=true;
+            }
+            if (routeParams.fromEntity == 'savings') {
+                scope.savingsAccount =  $rootScope.savingsAccount;
+                scope.savingsaccount=true;
+                scope.clientId=$rootScope.clientId;
+                scope.savingsaccountholderclientName=$rootScope.savingsaccountholderclientName;
+            }
             resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                 for (var i in data.columnHeaders) {
                     if (data.columnHeaders[i].columnCode) {
@@ -240,7 +274,7 @@
 
         }
     });
-    mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory', '$modal', 'dateFilter', mifosX.controllers.DataTableEntryController]).run(function ($log) {
+    mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory', '$modal', 'dateFilter','$rootScope', mifosX.controllers.DataTableEntryController]).run(function ($log) {
         $log.info("DataTableEntryController initialized");
     });
 }(mifosX.controllers || {}));

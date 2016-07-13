@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewGroupController: function (scope, routeParams, route, location, resourceFactory, dateFilter, $modal) {
+        ViewGroupController: function (scope, routeParams, route, location, resourceFactory, dateFilter, $modal, $rootScope) {
             scope.group = [];
             scope.template = [];
             scope.formData = {};
@@ -20,6 +20,7 @@
             };
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
+                $rootScope.groupNameDataParameter = data.name;
                 scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if(data.collectionMeetingCalendar) {
@@ -211,7 +212,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', mifosX.controllers.ViewGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {
         $log.info("ViewGroupController initialized");
     });
 }(mifosX.controllers || {}));

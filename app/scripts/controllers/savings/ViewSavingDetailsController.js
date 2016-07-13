@@ -129,6 +129,9 @@
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                $rootScope.savingsAccount = data.savingsProductName;
+                $rootScope.clientId=data.clientId;
+                $rootScope.savingsaccountholderclientName=data.clientName;
                 scope.convertDateArrayToObject('date');
                 if(scope.savingaccountdetails.groupId) {
                     resourceFactory.groupResource.get({groupId: scope.savingaccountdetails.groupId}, function (data) {
