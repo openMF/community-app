@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
                   uiConfigService, $http) {
-
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
