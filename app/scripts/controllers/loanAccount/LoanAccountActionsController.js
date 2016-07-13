@@ -168,6 +168,7 @@
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                         scope.writeOffAmount = data.amount;
+                        scope.reasons = data.writeOffReasonOptions;
                         scope.isLoanWriteOff = true;
                     });
                     scope.title = 'label.heading.writeoffloanaccount';
