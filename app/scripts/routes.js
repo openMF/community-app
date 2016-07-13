@@ -884,6 +884,9 @@
             .when('/shareproduct/:productId/:dividendId/:action', {
                 templateUrl: 'views/products/shareproductactions.html'
             })
+            .when('/notifications', {
+                templateUrl: 'views/notification/notifications.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
