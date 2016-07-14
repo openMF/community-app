@@ -19,12 +19,13 @@
                     controller: CodeDeleteCtrl
                 });
             };
-            scope.showEdit = function (id, name, description,position, cv, isActive) {
+            scope.showEdit = function (id, name, description,position, cv, isActive, codeScore) {
                 scope.formData[id] = {
                     name: name,
                     description:description,
                     position: position,
-                    isActive: isActive
+                    isActive: isActive,
+                    codeScore : codeScore
                 }
                 cv.edit = !cv.edit;
             };
