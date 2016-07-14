@@ -29,24 +29,38 @@ $sidebar-hover-width : 240px;
   @include flexbox();
 
   #mifos-reskin-side-nav{
+
+    position: absolute;
+    top: 52px;
+    bottom: 0;
+    z-index: 1;
+
     @include flex(1 100%);
     @include order(0);
     max-width:$sidebar-width;
     overflow: auto;
+    overflow-x: hidden;
 
     background: rgba(8,35,49,1);
 
     border-right:1px solid #e0e0e0;
+    -webkit-transition-duration: 500ms;
+    -moz-transition-duration: 500ms;
+    -ms-transition-duration: 500ms;
+    -o-transition-duration: 500ms;
+    transition-duration: 500ms;
     ul {
       padding:0;
       margin:0;
 
       li{
         list-style: none;
+        white-space: nowrap;
 
         a{
           span{
-            display: none;
+            height:44px;
+            padding:12px 10px;
           }
           
 
@@ -61,53 +75,17 @@ $sidebar-hover-width : 240px;
       }
     }
 
-  }
-
-  #mifos-reskin-side-nav:hover{
-    @include flex(1 100%);
-    @include order(0);
-    max-width:$sidebar-hover-width;
-    overflow: auto;
-
-    background: rgba(8,35,49,1);
-
-    border-right:1px solid #e0e0e0;
-    ul {
-      padding:0;
-      margin:0;
-
-      li{
-        list-style: none;
-        a{
-            span{
-              display: inline;
-              height:44px;
-              padding:12px 10px;
-              color: #adbabd;
-              transition-duration:250ms;
-
-              &:hover,&:active,&:focus{
-                color:#fff;
-                transition-duration:250ms;
-                text-decoration: none;
-                background:rgba(79,153,237,1);
-                outline: none;
-
-              }
-            }
-
-          i{
-            display: inline-block;
-            width:28px;
-            text-align: center;
-            font-size:16px;
-          }
-
-        }
-      }
+    &:hover{
+      -webkit-transition-duration: 500ms;
+      -moz-transition-duration: 500ms;
+      -ms-transition-duration: 500ms;
+      -o-transition-duration: 500ms;
+      transition-duration: 500ms;
+      max-width:$sidebar-hover-width;
     }
 
   }
+
 
   #mifos-reskin-body-view{
     @include flex(1 100%);
