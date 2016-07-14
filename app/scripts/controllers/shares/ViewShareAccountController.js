@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewShareAccountController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewShareAccountController: function (scope, routeParams, resourceFactory, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
@@ -348,7 +348,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewShareAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewShareAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewShareAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewShareAccountController]).run(function ($log) {
         $log.info("ViewShareAccountController initialized");
     });
 }(mifosX.controllers || {}));
