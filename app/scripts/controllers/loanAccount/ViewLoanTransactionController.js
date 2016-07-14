@@ -5,8 +5,16 @@
             resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
                 scope.transaction.accountId = routeParams.accountId;
+                scope.isUndoEditTrxnEnabled();
             });
-            
+
+            scope.isUndoEditTrxnEnabled = function () {
+                scope.hideEditUndoTrxnButton = false;
+                if (scope.transaction.type.contra || scope.transaction.type.revokeSubsidy || scope.transaction.type.addSubsidy) {
+                    scope.hideEditUndoTrxnButton = true;
+                }
+            }
+
             scope.undo = function (accountId, transactionId) {
                 $modal.open({
                     templateUrl: 'undotransaction.html',

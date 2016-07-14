@@ -78,6 +78,7 @@
                 scope.formData.isLinkedToFloatingInterestRates = false ;
                 scope.formData.allowVariableInstallments = false ;
                 scope.product.interestRecalculationNthDayTypeOptions.push({"code" : "onDay", "id" : -2, "value" : "on day"});
+                scope.formData.isSubsidyApplicable = false;
             });
 
             scope.chargeSelected = function (chargeId) {
@@ -340,7 +341,6 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
-
                 if (this.formData.recalculationCompoundingFrequencyType == 4) {
                     if(this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
                         delete this.formData.recalculationCompoundingFrequencyNthDayType;
@@ -363,6 +363,11 @@
                 } else if (this.formData.recalculationRestFrequencyType == 3){
                     delete this.formData.recalculationRestFrequencyOnDayType;
                     delete this.formData.recalculationRestFrequencyNthDayType;
+                }
+                if(!this.formData.isSubsidyApplicable){
+                    delete this.formData.isSubsidyApplicable ;
+                    delete this.formData.subsidyFundSourceId ;
+                    delete this.formData.subsidyAccountId ;
                 }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
