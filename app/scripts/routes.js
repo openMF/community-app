@@ -887,6 +887,12 @@
             .when('/loanforeclosure/:id', {
                 templateUrl: 'views/loans/loanforeclosure.html'
             })
+            .when('/address/:id', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/editAddress/:addrType/:clientId',{
+                templateUrl: 'views/administration/EditAddress.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
