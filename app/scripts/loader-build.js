@@ -33,8 +33,9 @@
             'Q': '../bower_components/q/q.min',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
             'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
-            'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min'
-        },
+            'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination.min',
+            'ng-scrollbar':'../bower_components/ng-scrollbar/dist/ng-scrollbar.min'
+        }
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'], exports: 'angular' },
             'angular-resource': { deps: ['angular'] },
@@ -63,6 +64,7 @@
             'tmh.dynamicLocale': {deps: ['angular']},
             'webcam-directive': {deps: ['angular']},
             'angular-utils-pagination': {deps: ['angular']},
+            'ng-scrollbar': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -90,7 +92,8 @@
                     'Q',
                     'tmh.dynamicLocale',
                     'webcam-directive',
-                    'angular-utils-pagination'
+                    'angular-utils-pagination',
+                    'ng-scrollbar'
                 ],
                 exports: 'mifosX'
             }
