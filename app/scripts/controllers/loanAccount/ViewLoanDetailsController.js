@@ -10,6 +10,15 @@
             scope.hideAccrualTransactions = false;
             scope.isHideAccrualsCheckboxChecked = true;
             scope.loandetails = [];
+           mappingData=[];
+          //  scope.CBConfigs=[];
+            scope.equifaxCreditReport={};
+            scope.creditCheckEnabled=false;
+            scope.requestStatus="not initiated";
+            scope.creditCheckInitiated=false;
+
+
+
             scope.updateCheckBoxStatus = function (){
                 scope.isHideAccrualsCheckboxChecked = !scope.isHideAccrualsCheckboxChecked;
             };
@@ -19,6 +28,38 @@
                 }
                 ;
             };
+
+
+
+
+
+
+           
+
+            scope.creditCheck=function()
+            {
+                scope.requestStatus=" in process";
+
+                resourceFactory.equifaxCreditCheck.get(function(data)
+                {
+                    scope.equifaxCreditReport=data;
+                    scope.requestStatus="complete";
+                    scope.creditCheckInitiated=true;
+
+                })
+            }
+
+
+            resourceFactory.creditBureauMapping.get(function(data)
+                {
+                    mappingData=data;
+
+                }
+            )
+
+
+
+
 
             /***
              * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
@@ -30,6 +71,9 @@
                     scope.loandetails.transactions[i][dateFieldName] = new Date(scope.loandetails.transactions[i].date);
                 }
             };
+
+
+
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
@@ -152,6 +196,7 @@
                 };
             };
 
+            
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
@@ -162,6 +207,19 @@
                 scope.status = data.status.value;
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.decimals = data.currency.decimalPlaces;
+
+                for(var i=0;i<mappingData.length;i++)
+                {
+
+
+                    if(mappingData[i].loanProductName==scope.loandetails.loanProductName)
+                    {
+                        scope.creditCheckEnabled=true;
+
+                    }
+
+
+                }
                 if (scope.loandetails.charges) {
                     scope.charges = scope.loandetails.charges;
                     for (var i in scope.charges) {
@@ -406,6 +464,8 @@
                 }
             });
 
+
+
             resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.loanNotes = data;
             });
@@ -469,6 +529,9 @@
 
                 });
             };
+
+
+
 
             scope.export = function () {
                 scope.report = true;
@@ -565,6 +628,7 @@
 
             };
 
+
             scope.printReport = function () {
                 window.print();
                 window.close();
@@ -658,6 +722,15 @@
             };
         }
     });
+
+
+
+
+
+    
+  
+
+    
     mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });

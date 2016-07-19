@@ -280,7 +280,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/CreateTaxGroupController',
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
-            'product/tax/TaxGroupController'
+            'product/tax/TaxGroupController',
+            'configurations/EditAddressController',
+            'configurations/AddressFormController',
+            'configurations/ViewCreditBureauSummaryController',
+            'configurations/AddNewCreditBureauController',
+            'configurations/MapCreditBureauToLpController'
         ],
         filters: [
             'StatusLookup',

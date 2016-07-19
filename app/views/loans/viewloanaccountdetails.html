@@ -55,7 +55,7 @@
                       </span>
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
-                <div class="pull-right">
+                <div class="pull-right" ng-model="cbCheck">
                       <span ng-repeat="button in buttons.singlebuttons">
                           <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
@@ -69,8 +69,9 @@
                           </a>
                           <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
                               <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+
                                   <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
-                                     has-permission='{{button.taskPermissionName}}'>{{'label.'+
+                                     ng-disabled="cbCheck" has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
                               </li>
                           </ul>
@@ -281,6 +282,123 @@
                             </tbody>
                         </table>
                     </tab>
+
+                    <tab ng-show="creditCheckEnabled" heading="{{'label.heading.creditcheck' | translate}}">
+                        <button class="btn btn-primary" ng-click="creditCheck()"><i class="icon-plus icon-white"></i>{{'label.button.creditcheck' | translate}}</button>
+                        <br>
+                        <br>
+
+                        <div>{{requestStatus}}</div>
+
+                        <div ng-show="creditCheckInitiated">
+                            <table class="table" class="table table-condensed">
+                                <thead>
+                                <tr class="graybg">
+                                    <th class="graybg">{{'label.heading.creditreportsummary' | translate}} </th>
+                                </tr>
+
+                                </thead>
+
+                                <tr>
+                                    <td>
+                                        {{'label.heading.score'| translate}}
+                                    </td>
+                                    <td>
+                                        {{equifaxCreditReport.score}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        {{'label.heading.numberOfAccounts'| translate}}
+                                    </td>
+                                    <td>
+                                        {{equifaxCreditReport.numberOfAccounts}}
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        {{'label.heading.totalPastDues'| translate}}
+                                    </td>
+                                    <td>
+                                        {{equifaxCreditReport.totalPastDues}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        {{'label.heading.numberOfPastDueAccounts'| translate}}
+                                    </td>
+                                    <td>
+                                        {{equifaxCreditReport.numberOfPastDueAccounts}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        {{'label.heading.totalWrittenOfAmount'| translate}}
+                                    </td>
+                                    <td>
+                                        {{equifaxCreditReport.totalWrittenOfAmount}}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <table class="table" ng-repeat="accounts in equifaxCreditReport.account"  class="table table-condensed">
+                                <thead>
+                                <tr class="graybg">
+                                    <th class="graybg"> {{'label.heading.Account'| translate}}{{$index+1}}</th>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        {{'label.heading.institutionName'|translate}}
+                                    </td>
+                                    <td>
+                                        {{accounts.institutionName}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{'label.heading.accountNumber'|translate}}
+                                    </td>
+                                    <td>
+                                        {{accounts.accountNumber}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{'label.heading.disbursementAmount'|translate}}
+                                    </td>
+                                    <td>
+                                        {{accounts.disbursementAmount}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{'label.heading.installmentAmount'|translate}}
+                                    </td>
+                                    <td>
+                                        {{accounts.installmentAmount}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        {{'label.heading.currentBalance'|translate}}
+                                    </td>
+                                    <td>
+                                        {{accounts.currentBalance}}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </tab>
+
                     <tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
                         <table class="table table-striped">
                             <thead>

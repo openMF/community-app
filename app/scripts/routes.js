@@ -887,6 +887,21 @@
             .when('/loanforeclosure/:id', {
                 templateUrl: 'views/loans/loanforeclosure.html'
             })
+            .when('/address/:id', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/editAddress/:addrType/:addrId/:clientId',{
+                templateUrl: 'views/administration/EditAddress.html'
+            })
+            .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+             .when('/externalservicesCB/CreditBureau/addcb', {
+                 templateUrl: 'views/administration/addNewCreditBureau.html'
+            })
+            .when('/externalservicesCB/CreditBureau/mapcblp', {
+                templateUrl: 'views/administration/MapCreditBureauToLP.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

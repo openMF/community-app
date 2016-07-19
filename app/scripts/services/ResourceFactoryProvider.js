@@ -409,6 +409,9 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    configurationResourceByName: defineResource(apiVer + "/configurations/", {configName: '@configName'}, {
+                        get: {method: 'GET', params: {configName:'configName'}}
+                    }),
                     cacheResource: defineResource(apiVer + "/caches", {}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
@@ -523,6 +526,49 @@
                     externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    clientaddressFields:defineResource(apiVer+"/client/addresses/template",{},{
+                            get:{method:'GET',params:{}}
+                        }
+                    ),
+                    addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
+                        get:{method:'GET',params:{},isArray:true }
+                    }),
+                    clientAddress:defineResource(apiVer+"/client/:clientId/addresses",{},{
+
+                        post:{method:'POST',params:{type:'@type'}},
+                        get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
+                        put:{method:'PUT',params:{}}
+                    }),
+                    creditBureauSummary: defineResource(apiVer + "/cbconfig/orgcb",{},{
+                        get: {method: 'GET', isArray: true },
+                        post:{method:'POST',params:{}},
+                        put:{method:'PUT',params:{}}
+                    }),
+                    addOrgCreditBureau: defineResource(apiVer + "/cbconfig/orgcb/:ocbId",{},{
+                        post:{method:'POST',params:{}}
+                    }),
+                    addCreditBureauLoanProductMapping: defineResource(apiVer + "/cbconfig/mappings/:cb_id",{},{
+                        post:{method:'POST',params:{}}
+                    }),
+                    creditBureauMapping: defineResource(apiVer + "/cbconfig/mappings",{},{
+                        get: {method: 'GET', isArray: true },
+                        put:{method:'PUT',params:{}}
+                    }),
+                    creditBureauTemplate: defineResource(apiVer + "/cbconfig/", {}, {
+                        get: {method: 'GET', isArray: true }
+                    }),
+                    creditBureauByCountry: defineResource(apiVer + "/cbconfig/dropdown/:country", {country:'@country'}, {
+                        get: {method: 'GET',isArray: true }
+                    }),
+                    creditBureauProductByCreditBureau: defineResource(apiVer + "/cbconfig/mappings/:credit_bureau_master_id", {credit_bureau_master_id:'@credit_bureau_master_id'}, {
+                        get: {method: 'GET',isArray : true }
+                    }),
+                    equifaxCreditCheck: defineResource(apiVer + "/cbconfig/equifax", {}, {
+                        get: {method: 'GET',params:{} }
+                    }),
+                    lpdropdown: defineResource(apiVer + "/cbconfig/lp", {}, {
+                        get: {method: 'GET', isArray: true }
                     }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},
