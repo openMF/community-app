@@ -19,7 +19,7 @@
             scope.validateRsaIdnumber=function()
             {
                 var invalid = 0;
-                if (scope.formData.documentTypeId == 1) {
+                if (scope.formData.documentTypeId == 2) {
                     var idnumber = scope.formData.documentKey;
                     if (isNaN(idnumber)) {
                         scope.error = "label.error.LuhnsAlgorithm.notvalidnumber";
@@ -89,7 +89,7 @@
 
                                     // if one or more checks fail, display details
                                     if (invalid <= 0) {
-                                        scope.error = "label.error.LuhnsAlgorithm.passportnumbervalid";
+                                        scope.error = "label.error.LuhnsAlgorithm.idnumbervalid";
                                     }
                                 }
                             }
@@ -97,7 +97,7 @@
                     }
                 }
                 else {
-                    scope.error = "label.error.LuhnsAlgorithm.selectpassport";
+                    scope.error = "label.error.LuhnsAlgorithm.selecId";
                 }
             };
 
