@@ -15,6 +15,17 @@
             scope.forceOffice = null;
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
+            //address
+            scope.addressTypes=[];
+            scope.countryOptions=[];
+            scope.stateOptions=[];
+            scope.addressTypeId={};
+            entityname="ADDRESS";
+            scope.addressArray=[];
+            scope.formData.address=[];
+
+
+
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -51,7 +62,79 @@
                         scope.formData.staffId = data.staffId;
                     }
                 }
+
+                scope.addressTypes=data.address.addressTypeIdOptions;
+                scope.countryOptions=data.address.countryIdOptions;
+                scope.stateOptions=data.address.stateProvinceIdOptions;
+                scope.enableAddress=data.isAddressEnabled;
+
+                if(scope.enableAddress===true)
+                {
+                    resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
+                    /*    scope.addressType=data[0].is_enabled;
+                        scope.street=data[1].is_enabled;
+                        scope.addressLine1=data[2].is_enabled;
+                        scope.addressLine2=data[3].is_enabled;
+                        scope.addressLine3=data[4].is_enabled;
+                        scope.townVillage=data[5].is_enabled;
+                        scope.city=data[6].is_enabled;
+                        scope.county_district=data[7].is_enabled;
+                        scope.state_province=data[8].is_enabled;
+                        scope.country=data[9].is_enabled;
+                        scope.postal_code=data[10].is_enabled;
+                        scope.latitue=data[11].is_enabled;
+                        scope.longitude=data[12].is_enabled;
+                        scope.isActive=data[17].is_enabled;*/
+
+
+                        for(var i=0;i<data.length;i++)
+                        {
+                            data[i].field='scope.'+data[i].field;
+                            eval(data[i].field+"="+data[i].is_enabled);
+
+                        }
+
+                       /* for(var i=0;i<data.length;i++)
+                        {
+
+                            eval(data[i].field+"="+data[i].is_enabled);
+
+                        }*/
+
+                       
+
+                    })
+
+
+                }
+
             });
+
+            // address
+
+            scope.addAddress=function()
+            {
+                scope.addressArray.push({});
+            }
+
+            scope.removeAddress=function(index)
+            {
+                scope.addressArray.splice(index,1);
+            }
+
+
+
+
+            /*  resourceFactory.configurationResourceByName.get({configName:"Enable-Address"},function(data)
+             {
+             scope.enableAddress=data.enabled;
+             });*/
+
+
+// end of address
+
+
+
 
             scope.displayPersonOrNonPersonOptions = function (legalFormId) {
                 if(legalFormId == scope.clientPersonId || legalFormId == null) {
@@ -126,6 +209,74 @@
                 if (!scope.opensavingsproduct) {
                     this.formData.savingsProductId = null;
                 }
+
+                if(scope.enableAddress===true)
+                {
+                    for(var i=0;i<scope.addressArray.length;i++)
+                    {
+                        var temp=new Object();
+                        if(scope.addressArray[i].addressTypeId)
+                        {
+                            temp.addressTypeId=scope.addressArray[i].addressTypeId;
+                        }
+                        if(scope.addressArray[i].street)
+                        {
+                            temp.street=scope.addressArray[i].street;
+                        }
+                        if(scope.addressArray[i].addressLine1)
+                        {
+                            temp.addressLine1=scope.addressArray[i].addressLine1;
+                        }
+                        if(scope.addressArray[i].addressLine2)
+                        {
+                            temp.addressLine2=scope.addressArray[i].addressLine2;
+                        }
+                        if(scope.addressArray[i].addressLine3)
+                        {
+                            temp.addressLine3=scope.addressArray[i].addressLine3;
+                        }
+                        if(scope.addressArray[i].townVillage)
+                        {
+                            temp.townVlage=scope.addressArray[i].townVillage;
+                        }
+                        if(scope.addressArray[i].city)
+                        {
+                            temp.city=scope.addressArray[i].city;
+                        }
+                        if(scope.addressArray[i].countyDistrict)
+                        {
+                            temp.countyDistrict=scope.addressArray[i].countyDistrict;
+                        }
+                        if(scope.addressArray[i].countryId)
+                        {
+                            temp.countryId=scope.addressArray[i].countryId;
+                        }
+                        if(scope.addressArray[i].stateProvinceId)
+                        {
+                            temp.stateProvinceId=scope.addressArray[i].stateProvinceId;
+                        }
+                        if(scope.addressArray[i].postalCode)
+                        {
+                            temp.postalCode=scope.addressArray[i].postalCode;
+                        }
+                        if(scope.addressArray[i].latitude)
+                        {
+                            temp.latitude=scope.addressArray[i].latitude;
+                        }
+                        if(scope.addressArray[i].longitude)
+                        {
+                            temp.longitude=scope.addressArray[i].longitude;
+                        }
+                        if(scope.addressArray[i].isActive)
+                        {
+                            temp.isActive=scope.addressArray[i].isActive;
+
+                        }
+                        scope.formData.address.push(temp);
+                    }
+                }
+
+
 
                 resourceFactory.clientResource.save(this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
