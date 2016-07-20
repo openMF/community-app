@@ -6,6 +6,14 @@
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             } );
+
+            scope.$on('scrollbar.show', function(){
+                  console.log('Scrollbar show');
+                });
+            scope.$on('scrollbar.hide', function(){
+                  console.log('Scrollbar hide');
+                });
+
             uiConfigService.init();
             //hides loader
             scope.domReady = true;
