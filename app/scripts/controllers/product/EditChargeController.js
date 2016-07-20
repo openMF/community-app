@@ -47,7 +47,11 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    minCap: data.minCap,
+                    maxCap: data.maxCap,
+                    emiRoundingGoalSeek: data.emiRoundingGoalSeek
+
                 };
 
                 if(data.incomeOrLiabilityAccount){

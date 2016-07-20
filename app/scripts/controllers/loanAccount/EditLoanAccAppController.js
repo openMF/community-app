@@ -9,9 +9,28 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
+            scope.isGLIM = false;
+            scope.GLIMData = {};
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
+                resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
+                    scope.GLIMData = glimData;
+                    scope.isGLIM = (glimData.length>0);
+                    scope.formData.clientMembers = [];
+                    for(var i=0;i<glimData.length;i++){
+                        scope.formData.clientMembers[i] = {};
+                        scope.formData.clientMembers[i].id = glimData[i].clientId;
+                        scope.formData.clientMembers[i].glimId = glimData[i].id;
+                        scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                        scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                        scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                        if(scope.isGLIM){
+                            scope.clientMembers = data.group.clientMembers;
+                        }
+                    }
+                });
+
                 scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {

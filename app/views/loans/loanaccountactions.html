@@ -276,7 +276,40 @@
         </div>
     </div>
 </div>
-<div class="form-group" ng-show="showNoteField">
+    <div class="form-group" ng-show="isGLIM && (action=='approve' || action=='disburse')">
+        <label class="control-label col-sm-2">{{ 'label.heading.amountbreakup' | translate }}</label>
+        <div  class="col-sm-6">
+            <table class="table well">
+                <thead>
+                <tr class="active">
+                    <th></th>
+                    <th >{{'label.heading.clientid' | translate}}</th>
+                    <th >{{'label.heading.clientname' | translate}}</th>
+                    <th >{{'label.heading.externalid' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="clientMember in GLIMData" ng-init="outerIndex = $index">
+                    <td>
+                        <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                    </td>
+                    <td >{{clientMember.clientId}}</td>
+                    <td >{{clientMember.clientName}}</td>
+                    <td >{{clientMember.clientExternalID}}</td>
+                    <td>
+                        <input  type="text"
+                                class="form-control principal"
+                                name="principal"
+                                ng-model="formData.clientMembers[outerIndex].amount"
+                                number-format/>&nbsp;{{productDetails.currency.displaySymbol}}
+                    </td>
+                </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group" ng-show="showNoteField">
     <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
 
     <div class="col-sm-3">
