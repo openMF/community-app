@@ -271,8 +271,8 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div ng-if="charges.length > 0">
-                                <table width="width100">
+                            <div ng-if="charges.length > 0" ng-hide="formData.status.id > 200">
+                                <table class="width100">
                                     <tr class="bottomborder">
                                         <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
                                     </tr>
@@ -282,7 +282,7 @@
                                         <td>{{'label.heading.amount' | translate}}</td>
                                         <td>{{'label.heading.collectedon' | translate}}</td>
                                     </tr>
-                                    <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+                                    <tr ng-repeat="charge in charges">
                                         <td>{{charge.name}}</td>
                                         <td>{{charge.chargeCalculationType.value}}</td>
                                         <td>{{charge.amount|number}}</td>
@@ -376,8 +376,8 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas.length > 0">
-                                    <table width="width100">
+                                <div width="width100" ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas.length > 0">
+                                    <table class="width100">
                                         <tr class="bottomborder">
                                             <td colspan="4"><strong>{{'label.heading.tranche' | translate}}</strong>
                                             </td>
@@ -402,8 +402,8 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div ng-if="charges.length > 0">
-                                    <table width="width100">
+                                <div width="width100" ng-if="charges.length > 0">
+                                    <table class="width100">
                                         <tr class="bottomborder">
                                             <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong>
                                             </td>
@@ -414,7 +414,7 @@
                                             <td>{{'label.heading.amount' | translate}}</td>
                                             <td>{{'label.heading.collectedon' | translate}}</td>
                                         </tr>
-                                        <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+                                        <tr ng-repeat="charge in charges">
                                             <td>{{charge.name}}</td>
                                             <td>{{charge.chargeCalculationType.value}}</td>
                                             <td>{{charge.amount|number}}</td>
@@ -445,10 +445,11 @@
                                                 {{calendar.humanReadable}}
                                             </td>
                                         </tr>
+
                                         <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                                             <td align="center"><input type="checkbox"
                                                                       ng-model="formRequestData.submitApplication.syncRepaymentsWithMeeting"
-                                                                      ng-change="syncRepaymentsWithMeetingchange()">
+                                                                      ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
                                             </td>
                                             <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
                                             </td>

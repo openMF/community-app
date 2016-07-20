@@ -9,6 +9,7 @@
             scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.restrictDate), scope.df);
 
             scope.charges = [];
+            scope.existingCharges = [];
             var curIndex = 0;
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
@@ -45,6 +46,7 @@
                                 }
                             }
                         }
+                        angular.copy(scope.charges,scope.existingCharges);
                     }
                 });
             };
@@ -276,7 +278,7 @@
                     this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                     scope.syncRepaymentsWithMeeting = this.formValidationData.syncRepaymentsWithMeeting;
                 }
-                delete this.formValidationData.syncRepaymentsWithMeeting;
+                //delete this.formValidationData.syncRepaymentsWithMeeting;
 
                 if (scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.interestChargedFromDate = reqThirdDate;
@@ -316,8 +318,11 @@
 
                 this.formValidationData.locale = scope.optlang.code;
                 this.formValidationData.dateFormat = scope.df;
+                scope.calculateLoanScheduleData = {};
+                angular.copy(scope.formValidationData,scope.calculateLoanScheduleData);
+                delete scope.calculateLoanScheduleData.syncRepaymentsWithMeeting;
                 if (isDisplayData) {
-                    resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formValidationData, function (data) {
+                    resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, scope.calculateLoanScheduleData, function (data) {
                         scope.repaymentscheduleinfo = data;
                         scope.formValidationData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
                     });
@@ -353,6 +358,11 @@
                 }
 
                 scope.submitData = {};
+                scope.submitData.formValidationData = {};
+                angular.copy(scope.formValidationData,scope.submitData.formValidationData);
+                if(scope.submitData.formValidationData.syncRepaymentsWithMeeting){
+                    delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
+                }
                 scope.submitData.formValidationData = scope.formValidationData;
                 scope.submitData.formRequestData = scope.formRequestData;
                 /**
