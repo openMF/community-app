@@ -708,7 +708,13 @@
                         get: {method: 'GET', params: {bankId : '@bankId'}}
                     }),
                     bankNonPortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/nonportfolio", {bankStatementId: '@bankStatementId'}, {
-                        createJournalEntries: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
+                        createJournalEntries: {method: 'POST', params: {bankStatementId: '@bankStatementId'}}
+                    }),
+                    glimResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/:clientId", {loanId:'@loanId',clientId:'@clientId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        getAllByLoan: {method: 'GET', params: {loanId:'@loanId'}, isArray : true},
+                        getByLoanAndClient: {method: 'GET', params: {loanId:'@loanId',clientId:'@clientId'}, isArray : false}
+
                     })
                 };
             }];

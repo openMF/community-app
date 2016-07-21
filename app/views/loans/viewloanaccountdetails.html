@@ -795,6 +795,33 @@
                         </table>
                     </tab>
 
+                    <tab heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails">
+                        <table class="table">
+                            <thead>
+                            <th >{{'label.heading.clientid' | translate}}</th>
+                            <th >{{'label.heading.clientname' | translate}}</th>
+                            <th>{{'label.heading.proposedamount' | translate}}</th>
+                            <th>{{'label.heading.approvedamount' | translate}}</th>
+                            <th>{{'label.heading.disburseamount' | translate}}</th>
+                            <th>{{'label.heading.installmentamount' | translate}}</th>
+                            <th>{{'label.heading.totalinterest' | translate}}</th>
+                            <th>{{'label.heading.totalfee' | translate}}</th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="client in glimClientsDetails" class="pointer-main" ng-show="client.isClientSelected">
+                                <td class="pointer" >{{client.clientId}}</td>
+                                <td class="pointer" >{{client.clientName}}</td>
+                                <td class="pointer" >{{client.proposedAmount | number}}</td>
+                                <td class="pointer" >{{client.approvedAmount | number}}</td>
+                                <td class="pointer" >{{client.disbursedAmount | number}}</td>
+                                <td class="pointer" >{{client.installmentAmount | number}}</td>
+                                <td class="pointer" >{{client.interestAmount | number}}</td>
+                                <td class="pointer" >{{client.chargeAmount | number}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+
                     <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
                         <table class="width100">
 

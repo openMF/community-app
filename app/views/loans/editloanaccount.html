@@ -137,6 +137,48 @@
             </tr>
         </table>
         <hr ng-show="loanaccountinfo"/>
+        <div class="row" ng-show="isGLIM">
+            <label class="col-sm-1"><strong>{{ 'label.heading.clients' | translate }}&nbsp;:</strong></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th></th>
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th >{{'label.heading.externalid' | translate}}</th>
+                        <th>{{'label.heading.loanpurpose' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in GLIMData" ng-init="outerIndex = $index">
+                        <td>
+                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                        </td>
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td >{{clientMember.clientExternalID}}</td>
+                        <td><select ng-model="formData.clientMembers[outerIndex].loanPurposeId"
+                                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                                    class="loanPurposeId form-control width170px"
+                                    value="{{loanPurpose.id}}">
+                            <option value="">{{'label.selectpurpose' | translate}}</option>
+                        </select>
+                        </td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].amount"
+                                    number-format/>&nbsp;{{productDetails.currency.displaySymbol}}
+                        </td>
+                    </tr>
+                    <tbody>
+                </table>
+            </div>
+        </div>
+        <hr ng-show="isGLIM"/>
         <label><strong>{{ 'label.heading.terms' | translate }}</strong></label>
         <table class="width100">
             <tr>

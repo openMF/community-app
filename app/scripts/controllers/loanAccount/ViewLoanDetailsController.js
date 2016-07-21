@@ -13,6 +13,7 @@
             scope.loandetails = [];
             scope.addSubsidyTransactionTypeId = 50;
             scope.revokeSubsidyTransactionTypeId = 51;
+            scope.glimClientsDetails = [];
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1
@@ -456,6 +457,10 @@
 
             resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.loanNotes = data;
+            });
+
+            resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
+                scope.glimClientsDetails = data;
             });
 
             scope.saveNote = function () {

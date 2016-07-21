@@ -1016,6 +1016,9 @@
             .when('/createbank', {
                 templateUrl: 'views/bankstatements/createbank.html'
             })
+            .when('/newgrouploanindividualmonitoringloanaccount/:groupId', {
+                templateUrl: 'views/loans/newloanaccount.html'
+            });
         ;
         $locationProvider.html5Mode(false);
     };

@@ -18,17 +18,48 @@
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
 
+            //glim
+            scope.isGLIM = false;
+            scope.GLIMData = {};
+
+            scope.createClientMembersForGLIM = function(){
+                resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
+                    scope.GLIMData = glimData;
+                    scope.isGLIM = (glimData.length>0);
+                    for(var i=0;i<glimData.length;i++){
+                        scope.formData.clientMembers[i] = {};
+                        scope.formData.clientMembers[i].id = glimData[i].clientId;
+                        scope.formData.clientMembers[i].glimId = glimData[i].id;
+                        scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                        if(scope.action == "approve"){
+                            if(glimData[i].approvedAmount == undefined){
+                                scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                            }else{
+                                scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                            }
+                        }else{
+                            if(glimData[i].disbursedAmount == undefined){
+                                scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                            }else{
+                                scope.formData.clientMembers[i].amount = glimData[i].disbursedAmount;
+                            }
+                        }
+                    }
+                });
+            };
+
             switch (scope.action) {
                 case "approve":
                     scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
-
+                        scope.formData.clientMembers = [];
                         scope.title = 'label.heading.approveloanaccount';
                         scope.labelName = 'label.input.approvedondate';
                         scope.modelName = 'approvedOnDate';
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
+                        scope.createClientMembersForGLIM();
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
@@ -86,12 +117,15 @@
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
                         }
+
                     });
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'DISBURSE_LOAN';
+                    scope.formData.clientMembers = [];
+                    scope.createClientMembersForGLIM();
                     break;
                 case "disbursetosavings":
                     scope.modelName = 'actualDisbursementDate';

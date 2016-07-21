@@ -11,6 +11,8 @@
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.formData.isSubsidyApplicable = false;
+            scope.formData.clientMembers = [];
+            scope.isGLIM = ((location.path()+'').indexOf('newgrouploanindividualmonitoringloanaccount')>-1);
 
             scope.date.first = new Date();
             if (scope.clientId) {
@@ -27,7 +29,11 @@
                 scope.inparams.templateType = 'jlg';
             }
             else if (scope.groupId) {
-                scope.inparams.templateType = 'group';
+                if (scope.isGLIM) {
+                    scope.inparams.templateType = 'glim';
+                } else {
+                    scope.inparams.templateType = 'group';
+                }
             }
             else if (scope.clientId) {
                 scope.inparams.templateType = 'individual';
@@ -37,6 +43,12 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                if (scope.isGLIM) {
+                    scope.formData.clientMembers = data.group.clientMembers;
+                    for (var i in scope.formData.clientMembers) {
+                        scope.formData.clientMembers[i].isClientSelected = true;
+                    }
+                }
                 if (data.clientName) {
                     scope.clientName = data.clientName;
                 }
