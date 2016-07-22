@@ -18,7 +18,7 @@
                 </span>
                 <span ng-if="formData.status.id === 100">
                   <a class="btn btn-primary" data-ng-click="requestApprovalLoanAppRef()"
-                     has-permission='REQUEST_APPROVAL_LOANAPPLICATIONREFERENCE'><i
+                     has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE'><i
                           class="icon-ok-sign icon-white"></i>{{'label.button.request.approval' | translate}}</a>
                 </span>
                 <span ng-if="formData.status.id === 200">
@@ -114,8 +114,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div ng-if="charges.length > 0">
-                        <table width="width100">
+                    <div ng-hide="formData.status.id > 200" ng-if="charges.length > 0">
+                        <table class="width100">
                             <tr class="bottomborder">
                                 <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
                             </tr>
@@ -125,7 +125,7 @@
                                 <td>{{'label.heading.amount' | translate}}</td>
                                 <td>{{'label.heading.collectedon' | translate}}</td>
                             </tr>
-                            <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+                            <tr ng-repeat="charge in charges">
                                 <td>{{charge.name}}</td>
                                 <td>{{charge.chargeCalculationType.value}}</td>
                                 <td>{{charge.amount|number}}</td>
@@ -212,7 +212,7 @@
                             </table>
                         </div>
                         <div ng-if="formData.approvedData.loanApplicationSanctionTrancheDatas.length > 0">
-                            <table width="width100">
+                            <table class="width100">
                                 <tr class="bottomborder">
                                     <td colspan="4"><strong>{{'label.heading.tranche' | translate}}</strong></td>
                                 </tr>
@@ -232,7 +232,7 @@
                             </table>
                         </div>
                         <div ng-if="charges.length > 0">
-                            <table width="width100">
+                            <table class="width100">
                                 <tr class="bottomborder">
                                     <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
                                 </tr>
@@ -242,7 +242,7 @@
                                     <td>{{'label.heading.amount' | translate}}</td>
                                     <td>{{'label.heading.collectedon' | translate}}</td>
                                 </tr>
-                                <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+                                <tr ng-repeat="charge in charges">
                                     <td>{{charge.name}}</td>
                                     <td>{{charge.chargeCalculationType.value}}</td>
                                     <td>{{charge.amount|number}}</td>
