@@ -524,6 +524,19 @@
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
+                    clientaddressFields:defineResource(apiVer+"/clients/addresses/template",{},{
+                            get:{method:'GET',params:{}}
+                        }
+                    ),
+                    addressFieldConfiguration:defineResource(apiVer+"/clients/addresses/fieldconfiguration/:entity",{},{
+                        get:{method:'GET',params:{},isArray:true }
+                    }),
+                    clientAddress:defineResource(apiVer+"/clients/:clientId/addresses",{},{
+
+                        post:{method:'POST',params:{type:'@type'}},
+                        get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
+                        put:{method:'PUT',params:{type:'@type',status:'@status'}}
+                    }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},
