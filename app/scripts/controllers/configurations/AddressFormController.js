@@ -7,12 +7,7 @@
             $scope.countryOptions=[];
             $scope.stateOptions=[];
             $scope.addressTypeId={};
-           // $scope.clients={};
-           //$scope.clientId={};
-           // $scope.addressType={};
             entityname="client";
-           // clientId="";
-           // $scope.addStatus="";
             $scope.editable=false;
             clientId=routeParams.id;
             resourceFactory.clientaddressFields.get(function(data){
@@ -21,7 +16,7 @@
                 $scope.stateOptions=data.stateProvinceIdOptions;
             }
             )
-           // clientId=sharedVariables.getClientId();
+
 
             resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
                 $scope.addresstypId=data[0].is_enabled;
@@ -44,9 +39,7 @@
                 location.path('/viewclient/'+clientId);
             }
 
-            /*resourceFactory.clientResource.getAllClientsWithoutLimit( function (data) {
-                $scope.clients = data.pageItems;
-            });*/
+          
 
             $scope.isEditRequired=function(addType)
             {
@@ -57,20 +50,6 @@
                     if(data[0])
                     {
                         $scope.editable=true;
-                      /*  $scope.formData.street=data[0].street;
-                        $scope.formData.address_line_1=data[0].address_line_1;
-                        $scope.formData.address_line_2=data[0].address_line_2;
-                        $scope.formData.address_line_3=data[0].address_line_3;
-                        $scope.formData.town_village=data[0].town_village;
-                        $scope.formData.city=data[0].city;
-                        $scope.formData.county_district=data[0].county_district;
-                        $scope.formData.state_province_id=data[0].state_province_id;
-                        $scope.formData.country_id=data[0].country_id;
-                        $scope.formData.postal_code=data[0].postal_code;
-                        $scope.formData.latitude=data[0].latitude;
-                        $scope.formData.longitude=data[0].longitude;
-                        $scope.formData.is_active=data[0].is_active;
-                            console.log("country id: "+data[0].country_id)*/
                     }
                     else
                     {
@@ -81,7 +60,7 @@
 
             $scope.updateaddress=function()
             {
-                console.log("addresstype id"+$scope.addressTypeId);
+
                 $scope.formData.locale="en";
                 resourceFactory.clientAddress.put({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
 
@@ -90,14 +69,10 @@
             }
 
             $scope.submit = function () {
-                console.log("addresstype id"+$scope.addressTypeId);
-
-                //$scope.formData.locale="en";
-
 
                 resourceFactory.clientAddress.save({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
 
-                    location.path('/system');
+                    location.path('/viewclient/'+clientId);
                 });
 
             };

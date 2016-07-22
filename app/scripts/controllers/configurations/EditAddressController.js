@@ -16,6 +16,7 @@
             $scope.editable=false;
             clientId=routeParams.clientId;
             addresstypid=routeParams.addrType;
+            isActive={};
             resourceFactory.clientaddressFields.get(function(data){
                     $scope.addressTypes=data.addressTypeIdOptions;
                     $scope.countryOptions=data.countryIdOptions;
@@ -68,7 +69,7 @@
                         $scope.formData.postal_code=data[0].postal_code;
                         $scope.formData.latitude=data[0].latitude;
                         $scope.formData.longitude=data[0].longitude;
-                        $scope.formData.is_active=data[0].is_active;
+                    isActive=data[0].is_active;
                         console.log("country id: "+data[0].country_id)
 
                 });
@@ -78,24 +79,13 @@
             {
                 console.log("addresstype id"+addresstypid);
                 $scope.formData.locale="en";
-                resourceFactory.clientAddress.put({'clientId': clientId,'type':addresstypid},$scope.formData,function (data) {
+                resourceFactory.clientAddress.put({'clientId': clientId,'type':addresstypid,'status':isActive},$scope.formData,function (data) {
 
                     location.path('/viewclient/'+clientId);
                 });
             }
 
-         /*   $scope.submit = function () {
-                console.log("addresstype id"+$scope.addressTypeId);
-
-                $scope.formData.locale="en";
-
-
-                resourceFactory.clientAddress.save({'clientId': routeParams.id,'type':$scope.addressTypeId},$scope.formData,function (data) {
-
-                    location.path('/system');
-                });
-
-            };*/
+        
 
 
 

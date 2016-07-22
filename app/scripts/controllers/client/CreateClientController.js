@@ -21,6 +21,8 @@
             scope.stateOptions=[];
             scope.addressTypeId={};
             entityname="client";
+            scope.addressArray=[];
+            scope.formData.address=[];
             //scope.editable=false;
             //  clientId=routeParams.id;
 

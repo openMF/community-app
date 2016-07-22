@@ -57,7 +57,7 @@
 
             scope.ChangeAddressStatus=function(id,status,addtyp)
             {
-
+                console.log("status received "+status)
                 formdata.is_active=!status
                 resourceFactory.clientAddress.put({clientId:id,type:addtyp,status:status},formdata,function(data)
                 {
@@ -152,7 +152,7 @@
                     }
                 }
 
-                
+
                 var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
@@ -396,7 +396,7 @@
                     }
                 }
             });
-            
+
             resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
                 scope.charges = data.pageItems;
             });
@@ -692,7 +692,7 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-            }
+            };
 
         }
     });
