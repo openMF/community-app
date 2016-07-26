@@ -8,6 +8,7 @@
             scope.formData.creditTags = [];
             scope.formData.debitTags = [];
             scope.offices = [];
+            scope.formData.isInheritedToChildOffices = false;
 
             resourceFactory.accountingRulesResource.getById({accountingRuleId: routeParams.id, template: true}, function (data) {
                 //Initialize the template options
@@ -20,6 +21,10 @@
                 scope.formData.name = data.name;
                 scope.formData.officeId = data.officeId;
                 scope.formData.description = data.description;
+
+                if(data.isInheritedToChildOffices){
+                    scope.formData.isInheritedToChildOffices = true;
+                }
 
                 //update formData for view previous details.
                 for (var i = 0; i < data.allowedOffices.length; i++) {
@@ -125,6 +130,7 @@
                 accountingRule.name = this.formData.name;
                 accountingRule.officeId = this.formData.officeId;
                 accountingRule.description = this.formData.description;
+                accountingRule.isInheritedToChildOffices = this.formData.isInheritedToChildOffices || false;
 
                 //Construct creditsTags array
                 if (this.creditRuleType == 'tags') {
