@@ -11,8 +11,12 @@
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.formData.isSubsidyApplicable = false;
-            scope.formData.clientMembers = [];
             scope.isGLIM = ((location.path()+'').indexOf('newgrouploanindividualmonitoringloanaccount')>-1);
+            if(scope.isGLIM){
+                scope.formData.clientMembers = [];
+            }else{
+                scope.formData.clientMembers = undefined;
+            }
 
             scope.date.first = new Date();
             if (scope.clientId) {

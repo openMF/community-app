@@ -26,25 +26,29 @@
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                     scope.GLIMData = glimData;
                     scope.isGLIM = (glimData.length>0);
-                    for(var i=0;i<glimData.length;i++){
-                        scope.formData.clientMembers[i] = {};
-                        scope.formData.clientMembers[i].id = glimData[i].clientId;
-                        scope.formData.clientMembers[i].glimId = glimData[i].id;
-                        scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
-                        if(scope.action == "approve"){
-                            if(glimData[i].approvedAmount == undefined){
-                                scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                    if(scope.isGLIM){
+                        scope.formData.clientMembers = [];
+                        for(var i=0;i<glimData.length;i++){
+                            scope.formData.clientMembers[i] = {};
+                            scope.formData.clientMembers[i].id = glimData[i].clientId;
+                            scope.formData.clientMembers[i].glimId = glimData[i].id;
+                            scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                            if(scope.action == "approve"){
+                                if(glimData[i].approvedAmount == undefined){
+                                    scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                                }else{
+                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                }
                             }else{
-                                scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
-                            }
-                        }else{
-                            if(glimData[i].disbursedAmount == undefined){
-                                scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
-                            }else{
-                                scope.formData.clientMembers[i].amount = glimData[i].disbursedAmount;
+                                if(glimData[i].disbursedAmount == undefined){
+                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                }else{
+                                    scope.formData.clientMembers[i].amount = glimData[i].disbursedAmount;
+                                }
                             }
                         }
                     }
+
                 });
             };
 
@@ -52,7 +56,6 @@
                 case "approve":
                     scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
-                        scope.formData.clientMembers = [];
                         scope.title = 'label.heading.approveloanaccount';
                         scope.labelName = 'label.input.approvedondate';
                         scope.modelName = 'approvedOnDate';
@@ -124,7 +127,6 @@
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'DISBURSE_LOAN';
-                    scope.formData.clientMembers = [];
                     scope.createClientMembersForGLIM();
                     break;
                 case "disbursetosavings":
@@ -154,6 +156,15 @@
                         scope.formData[scope.modelName] = new Date(data.date) || new Date();
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
+                        }
+                    });
+                    resourceFactory.glimTransactionResource.get({loanId: scope.accountId}, function (data) {
+                        if(data.clientMembers.length>0){
+                            scope.formData.clientMembers = data.clientMembers;
+                            scope.isGLIM = true;
+                        }else{
+                            scope.formData.clientMembers = undefined;
+                            scope.isGLIM = false;
                         }
                     });
                     scope.title = 'label.heading.loanrepayments';
@@ -442,6 +453,16 @@
                 }
             };
 
+            scope.getTotalAmount = function(data){
+                var amount = 0;
+                for(var i=0;i<data.length;i++){
+                    amount= amount + parseFloat(data[i].installmentAmount) ;
+                }
+                if(scope.isGLIM){
+                    this.formData.transactionAmount = amount;
+                }
+            };
+
             scope.deleteTranches = function (index) {
                 scope.disbursementDetails.splice(index, 1);
             };
@@ -490,9 +511,15 @@
                         params.transactionId = routeParams.transactionId;
                     }
                     params.loanId = scope.accountId;
-                    resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
-                        location.path('/viewloanaccount/' + data.loanId);
-                    });
+                    if(scope.action == "repayment" && scope.isGLIM){
+                        resourceFactory.glimTransactionResource.save({loanId: params.loanId}, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + params.loanId);
+                        });
+                    }else{
+                        resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + data.loanId);
+                        });
+                    }
                 } else if (scope.action == "deleteloancharge") {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);

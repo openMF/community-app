@@ -17,18 +17,21 @@
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                     scope.GLIMData = glimData;
                     scope.isGLIM = (glimData.length>0);
-                    scope.formData.clientMembers = [];
-                    for(var i=0;i<glimData.length;i++){
-                        scope.formData.clientMembers[i] = {};
-                        scope.formData.clientMembers[i].id = glimData[i].clientId;
-                        scope.formData.clientMembers[i].glimId = glimData[i].id;
-                        scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
-                        scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
-                        scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
-                        if(scope.isGLIM){
-                            scope.clientMembers = data.group.clientMembers;
+                    if(scope.isGLIM){
+                        scope.formData.clientMembers = [];
+                        for(var i=0;i<glimData.length;i++){
+                            scope.formData.clientMembers[i] = {};
+                            scope.formData.clientMembers[i].id = glimData[i].clientId;
+                            scope.formData.clientMembers[i].glimId = glimData[i].id;
+                            scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                            scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                            scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                            if(scope.isGLIM){
+                                scope.clientMembers = data.group.clientMembers;
+                            }
                         }
                     }
+
                 });
 
                 scope.getProductPledges(scope.loanaccountinfo);
