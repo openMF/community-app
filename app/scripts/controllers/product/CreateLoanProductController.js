@@ -369,6 +369,10 @@
                     delete this.formData.subsidyFundSourceId ;
                     delete this.formData.subsidyAccountId ;
                 }
+                if(!this.formData.adjustFirstEMIAmount){
+                    this.formData.adjustedInstallmentInMultiplesOf = null;
+                }
+
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });
