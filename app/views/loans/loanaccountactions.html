@@ -148,12 +148,55 @@
         <div class="col-sm-3">
             <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
-                   number-format required late-Validate>
+                   number-format required late-Validate ng-readonly="isGLIM">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
+        <div class="row" ng-show="action == 'repayment' && isGLIM">
+            <label class="col-sm-1"><strong>{{ 'label.heading.clients' | translate }}&nbsp;:</strong></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th >{{'label.heading.installmentamount' | translate}}</th>
+                        <th>{{'label.heading.interestamount' | translate}}</th>
+                        <th>{{'label.heading.chargeamount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in formData.clientMembers" ng-init="outerIndex = $index">
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].installmentAmount"
+                                    number-format ng-change="getTotalAmount(formData.clientMembers)"/>
+                        </td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].interestAmount"
+                                    number-format ng-readonly="true"/>
+                        </td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].chargeAmount"
+                                    number-format  ng-readonly="true"/>
+                        </td>
+                    </tr>
+                    <tbody>
+                </table>
+            </div>
+        </div>
 
     <div class="form-group" ng-show="principalPortion">
         <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' | translate}}</label>

@@ -715,6 +715,9 @@
                         getAllByLoan: {method: 'GET', params: {loanId:'@loanId'}, isArray : true},
                         getByLoanAndClient: {method: 'GET', params: {loanId:'@loanId',clientId:'@clientId'}, isArray : false}
 
+                    }),
+                    glimTransactionResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions", {loanId:'@loanId'},{
+                        get: {method: 'GET', params: {loanId : '@loanId'}}
                     })
                 };
             }];
