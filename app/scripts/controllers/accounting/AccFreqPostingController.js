@@ -13,9 +13,7 @@
             scope.restrictDate = new Date();
             scope.showPaymentDetails = false;
 
-            resourceFactory.accountingRulesResource.getAllRules({associations: 'all'}, function (data) {
-                scope.rules = data;
-            });
+
 
             resourceFactory.paymentTypeResource.getAll( function (data) {
                 scope.paymentTypes = data;
@@ -28,7 +26,14 @@
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 scope.formData.officeId = scope.offices[0].id;
+                scope.getAccountingRules();
             });
+
+            scope.getAccountingRules = function(){
+                resourceFactory.accountingRulesResource.get({officeId: scope.formData.officeId,includeInheritedRules:true}, function(data){
+                    scope.rules = data;
+                });
+            }
 
             //event for rule change
             scope.resetCrAndDb = function (rule) {

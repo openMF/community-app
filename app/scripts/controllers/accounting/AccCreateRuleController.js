@@ -84,6 +84,7 @@
                 accountingRule.name = this.formData.name;
                 accountingRule.officeId = this.formData.officeId;
                 accountingRule.description = this.formData.description;
+                accountingRule.isInheritedToChildOffices = this.formData.isInheritedToChildOffices || false;
 
                 //Construct creditsTags array
                 if (this.creditRuleType == 'tags') {
