@@ -131,6 +131,7 @@
                         scope.formData.isCompoundingToBePostedAsTransaction = scope.product.interestRecalculationData.isCompoundingToBePostedAsTransaction;
                     }
                     scope.formData.allowCompoundingOnEod = scope.product.interestRecalculationData.allowCompoundingOnEod;
+                    scope.formData.isSubsidyApplicable = scope.product.interestRecalculationData.isSubsidyApplicable;
                 }
                 if(scope.product.allowAttributeOverrides != null){
                     scope.amortization = scope.product.allowAttributeOverrides.amortizationType;
@@ -249,7 +250,6 @@
                 scope.formData.allowVariableInstallments = scope.product.allowVariableInstallments ;
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
-                scope.formData.isSubsidyApplicable = scope.product.isSubsidyApplicable;
             });
 
             scope.chargeSelected = function (chargeId) {

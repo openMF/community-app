@@ -379,9 +379,9 @@
                         }
                     }
 
-                    for(var i = 0; i < scope.loandetails.transactions.length; i++){
-                        if(scope.loandetails.isSubsidyApplicable == false){
-                            scope.buttons.options.splice(0,1);
+                    for (var i = 0; i < scope.loandetails.transactions.length; i++) {
+                        if (angular.isUndefined(scope.loandetails.interestRecalculationData) || !scope.loandetails.interestRecalculationData.isSubsidyApplicable) {
+                            scope.buttons.options.splice(0, 1);
                             break;
                         }
                     }
