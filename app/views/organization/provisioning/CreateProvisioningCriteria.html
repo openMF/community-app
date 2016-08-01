@@ -52,8 +52,12 @@
                     <th>{{'label.heading.minimumage' | translate}}</th>
                     <th>{{'label.heading.maximumage' | translate}}</th>
                     <th>{{'label.heading.provisioningpercentage' | translate}}</th>
-                    <th>{{'label.heading.provisioningliabilityaccount' | translate}}</th>
-                    <th>{{'label.heading.provisioningexpenseaccount' | translate}}</th>
+                    <th>{{'label.heading.provisioningliabilityaccount' | translate}}
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.provisioning.liability.account' | translate}}"
+           tooltip-append-to-body="true"></i></th>
+                    <th>{{'label.heading.provisioningexpenseaccount' | translate}}
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.provisioning.expense.account' | translate}}"
+           tooltip-append-to-body="true"></i></th>
                 </tr>
                 <tr ng-repeat="provisioningcategory in definitions">
                     <td>{{provisioningcategory.categoryName}}</td>
@@ -90,7 +94,7 @@
                         <ng-form name="liabilityaccount{{$index}}">
                             <select id="liabilitaccont" name="liabilitaccont"
                                     ng-model="provisioningcategory.liabilityAccount"
-                                    ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in template.glAccounts | filter: {type.code: 'accountType.liability'}"
+                                    ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in liabilityaccounts"
                                     value="{{liabilitaccont.id}}" class="form-control" required>
                                 <option value="">{{'label.selectliabilitiaccount' | translate}}</option>
                             </select>
@@ -103,7 +107,7 @@
                         <ng-form name="expenseaccount{{$index}}">
                             <select id="expenseaccount" name="expenseaccount"
                                     ng-model="provisioningcategory.expenseAccount"
-                                    ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in template.glAccounts | filter: {type.code: 'accountType.expense'}"
+                                    ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in expenseaccounts"
                                     value="{{liabilitaccont.id}}" class="form-control" required>
                                 <option value="">{{'label.selectexpenseaccount' | translate}}</option>
                             </select>
