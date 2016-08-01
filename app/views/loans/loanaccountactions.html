@@ -148,15 +148,15 @@
         <div class="col-sm-3">
             <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
-                   number-format required late-Validate ng-readonly="isGLIM">
+                   number-format required late-Validate ng-readonly="action == 'repayment' && isGLIM">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
-        <div class="row" ng-show="action == 'repayment' && isGLIM">
-            <label class="col-sm-1"><strong>{{ 'label.heading.clients' | translate }}&nbsp;:</strong></label>
-            <div class="col-sm-8">
+    <div class="form-group"  ng-show="action == 'repayment' && isGLIM">
+         <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
+         <div class="col-sm-8">
                 <table class="table well">
                     <thead>
                     <tr class="active">
@@ -196,7 +196,7 @@
                     <tbody>
                 </table>
             </div>
-        </div>
+    </div>
 
     <div class="form-group" ng-show="principalPortion">
         <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' | translate}}</label>

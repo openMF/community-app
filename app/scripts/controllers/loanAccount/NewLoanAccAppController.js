@@ -74,6 +74,15 @@
                             }
                         })
                     }
+                    // show only glim charges
+                    /*if(scope.isGLIM) {
+                        for(var i in scope.loanaccountinfo.chargeOptions) {
+                            if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge) {
+                                scope.loanaccountinfo.chargeOptions.splice(i,1);
+                            }
+                        }
+                        console.log(scope.loanaccountinfo.chargeOptions.length);
+                    }*/
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
