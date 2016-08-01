@@ -93,7 +93,9 @@
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
-                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
+                    adjustFirstEMIAmount : scope.product.adjustFirstEMIAmount,
+                    adjustedInstallmentInMultiplesOf: scope.product.adjustedInstallmentInMultiplesOf
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -530,6 +532,11 @@
                     delete scope.formData.subsidyFundSourceId ;
                     delete scope.formData.subsidyAccountId ;
                 }
+
+                if(!this.formData.adjustFirstEMIAmount){
+                    this.formData.adjustedInstallmentInMultiplesOf = null;
+                }
+
                 resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });
