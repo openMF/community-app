@@ -50,7 +50,8 @@
                     amount: data.amount,
                     minCap: data.minCap,
                     maxCap: data.maxCap,
-                    emiRoundingGoalSeek: data.emiRoundingGoalSeek
+                    emiRoundingGoalSeek: data.emiRoundingGoalSeek,
+                    isGlimCharge: data.isGlimCharge
 
                 };
 

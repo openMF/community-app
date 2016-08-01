@@ -98,6 +98,7 @@
                 }
             };
 
+
 	    scope.filterChargeCalculations = function(chargeTimeType) {
 		return function (item) {
 			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
@@ -127,6 +128,8 @@
                     delete this.formData.chargePaymentMode;
                 }
                 this.formData.active = this.formData.active || false;
+                this.formData.isGlimCharge = this.formData.isGlimCharge || false;
+                this.formData.emiRoundingGoalSeek = this.formData.emiRoundingGoalSeek || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
                 resourceFactory.chargeResource.save(this.formData, function (data) {
