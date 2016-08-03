@@ -44,6 +44,7 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                console.log(data);
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {
