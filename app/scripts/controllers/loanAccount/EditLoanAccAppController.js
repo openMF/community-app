@@ -51,7 +51,6 @@
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
                 scope.formData.externalId = data.externalId;
-                scope.formData.isSubsidyApplicable = data.isSubsidyApplicable;
 
                 //update collaterals
                 if (scope.loanaccountinfo.collateral) {
