@@ -16,6 +16,18 @@
                     console.log("Configuration file not found");
                 });
 
+                $http.get('scripts/config/chaitanya_UiConfig.json').success(function(data) {
+                    if(data != '' && data != null && data != 'undefined'){
+                        if(data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true){
+                            scope.responseDefaultGisData = data;
+                        }
+                    }
+                }).error(function(data) {
+                    console.log("Configuration file not found");
+                }).catch(function(e){
+                    console.log("Configuration file not found");
+                });
+
             };
         }
 

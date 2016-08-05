@@ -77,6 +77,9 @@
                 templateUrl: 'views/clients/clients.html'
             })
             .when('/createclient', {
+                templateUrl: 'views/clients/createnewclient.html'
+            })
+            .when('/clientcreation', {
                 templateUrl: 'views/clients/createclient.html'
             })
             .when('/editclient/:id', {
@@ -123,6 +126,12 @@
             })
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
+            })
+            .when('/addclientaddress/:clientId', {
+                templateUrl: 'views/clients/addclientaddress.html'
+            })
+            .when('/editaddress/:clientId/:addressId', {
+                templateUrl: 'views/clients/editclientaddress.html'
             })
             .when('/newloanapplicationreference/:clientId', {
                 templateUrl: 'views/loans/newloanapplicationreference.html'
@@ -633,7 +642,7 @@
                 templateUrl: 'views/groups/editgroup.html'
             })
             .when('/addmember', {
-                templateUrl: 'views/clients/createclient.html'
+                templateUrl: 'views/clients/createnewclient.html'
             })
             .when('/groupattendance', {
                 templateUrl: 'views/groups/groupattendance.html'
@@ -906,7 +915,7 @@
                 templateUrl: 'views/collaterals/viewpledge.html'
             })
             .when('/createclient/:pledgeId', {
-                templateUrl: 'views/clients/createclient.html'
+                templateUrl: 'views/clients/createnewclient.html'
             })
             .when('/editpledge/:pledgeId', {
                 templateUrl: 'views/collaterals/editpledge.html'
@@ -1015,8 +1024,7 @@
             })
             .when('/createbank', {
                 templateUrl: 'views/bankstatements/createbank.html'
-            })
-        ;
+            });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

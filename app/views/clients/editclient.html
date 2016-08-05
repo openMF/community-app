@@ -43,53 +43,38 @@
 						<option value="">--{{'label.menu.legalForm' | translate}}--</option>
 					</select>
 				</div>
+				<label class="control-label col-sm-2">{{ 'label.input.accno' | translate }}:</label>
+
+				<div class="col-sm-3">
+					<input id="accountNo" type="text" ng-model="formData.accountNo" class="form-control" disabled="disabled">
+				</div>
 			</div>
 
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="false">
 					<div class="form-group">
-						<label class="control-label col-sm-2">{{ 'label.input.firstname' | translate }}:<span
-								class="required">*</span></label>
-
+						<label class="control-label col-sm-2" for="firstname">{{ 'label.input.applicantname' | translate }}
+							<span class="required">*</span>
+						</label>
 						<div class="col-sm-3">
-							<input type="text" id="firstname" name="firstname" ng-model="formData.firstname"  class="form-control" required
-								   late-Validate/>
+							<input placeholder="FIRST NAME" type="text" id="firstname" name="firstname"
+								   ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
+							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 						</div>
 						<div class="col-sm-3">
-							<form-validate valattributeform="editclientform" valattribute="firstname"/>
+							<input placeholder="MIDDLE NAME" type="text" id="middlename" name="firstname"
+								   ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
+							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 						</div>
-					</div>
-				</div>
-	        </div>
-
-			<div data-ng-switch on="showNonPersonOptions">
-				<div data-ng-switch-when="false">
-					<div class="form-group">
-						<label class="control-label col-sm-2">{{ 'label.input.middlename' | translate }}:</label>
-
 						<div class="col-sm-3">
-							<input id="middlename" type="text" ng-model="formData.middlename" class="form-control">
+							<input placeholder="LAST NAME" type="text" id="lastname" name="firstname"
+								   ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
+							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 						</div>
 					</div>
 				</div>
-	        </div>
+			</div>
 
-			<div data-ng-switch on="showNonPersonOptions">
-				<div data-ng-switch-when="false">
-					<div class="form-group">
-						<label class="control-label col-sm-2">{{ 'label.input.lastname' | translate }}:<span
-								class="required">*</span></label>
-
-						<div class="col-sm-3">
-							<input type="text" id="lastname" name="lastname" ng-model="formData.lastname"  class="form-control" required
-								   late-Validate/>
-						</div>
-						<div class="col-sm-3">
-							<form-validate valattributeform="editclientform" valattribute="lastname"/>
-						</div>
-					</div>
-				</div>
-	        </div>
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="true">
 					<div class="form-group">
@@ -106,34 +91,6 @@
 					</div>
 				</div>
 			</div>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2">{{ 'label.input.accno' | translate }}:</label>
-	
-	            <div class="col-sm-3">
-	                <input id="accountNo" type="text" ng-model="formData.accountNo" class="form-control" disabled="disabled">
-	            </div>
-	        </div>
-			<div class="form-group">
-			    <label class="control-label col-sm-2">{{ 'label.input.clientexternalid' | translate }}:</label>
-			
-			    <div class="col-sm-3">
-			        <input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
-			    </div>
-			</div>
-	        <div class="form-group">
-	            <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
-	
-	            <div class="col-sm-3">
-	                <input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control"/>
-	            </div>
-	            <div class="col-sm-2">
-	                    <span ng-show="editclientform.mobileNo.$invalid && editclientform.mobileNo.$dirty">
-	                      <small class="required" ng-show="editclientform.mobileNo.$error.pattern">
-	                          {{'label.mustbenumeric' | translate}}
-	                      </small>
-	                    </span>
-	            </div>
-	        </div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}</label>
 				<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
@@ -240,6 +197,25 @@
 				</div>
 			</div>
 
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}</label>
+
+				<div class="col-sm-3">
+					<input id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="/^[0-9]+$/" class="form-control"/>
+				</div>
+				<span ng-show="editclientform.mobileNo.$invalid && editclientform.mobileNo.$dirty">
+					<small class="required" ng-show="editclientform.mobileNo.$error.pattern">
+						{{'label.mustbenumeric' | translate}}
+					</small>
+				</span>
+
+				<label class="control-label col-sm-2">{{ 'label.input.externalid' | translate }}:</label>
+
+				<div class="col-sm-3">
+					<input id="externalId" type="text" ng-model="formData.externalId" class="form-control">
+				</div>
+			</div>
+
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span
                         class="required">*</span></label>
@@ -263,9 +239,6 @@
 
 	            </div>
 	        </div>
-
-
-
 
 	        <div class="form-group" ng-show="showSavingOptions">
 	            <label class="control-label col-sm-2">{{ 'label.input.opensavingsproduct' | translate }}&nbsp;</label>
