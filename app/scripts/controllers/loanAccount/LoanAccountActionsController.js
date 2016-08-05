@@ -158,11 +158,11 @@
                             scope.showPenaltyPortionDisplay = true;
                         }
                     });
-                    resourceFactory.glimTransactionResource.get({loanId: scope.accountId}, function (data) {
-                        if(data.clientMembers.length>0){
+                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment'}, function (data) {
+                        if (data.clientMembers.length>0) {
                             scope.formData.clientMembers = data.clientMembers;
                             scope.isGLIM = true;
-                        }else{
+                        } else {
                             scope.formData.clientMembers = undefined;
                             scope.isGLIM = false;
                         }
@@ -207,6 +207,15 @@
                     scope.labelName = 'label.input.interestwaivedon';
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'WAIVEINTERESTPORTION_LOAN';
+                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
+                        if (data.clientMembers.length>0) {
+                            scope.formData.clientMembers = data.clientMembers;
+                            scope.isGLIM = true;
+                        } else {
+                            scope.formData.clientMembers = undefined;
+                            scope.isGLIM = false;
+                        }
+                    });
                     break;
                 case "writeoff":
                     scope.modelName = 'transactionDate';
@@ -453,10 +462,12 @@
                 }
             };
 
-            scope.getTotalAmount = function(data){
+            scope.getTotalAmount = function(data, amountType) {
                 var amount = 0;
-                for(var i=0;i<data.length;i++){
-                    amount= amount + parseFloat(data[i].installmentAmount) ;
+                for (var i=0; i<data.length; i++) {
+                    if (angular.isDefined(data[i][amountType])) {
+                        amount = amount + parseFloat(data[i][amountType]);
+                    }
                 }
                 if(scope.isGLIM){
                     this.formData.transactionAmount = amount;
@@ -511,11 +522,14 @@
                         params.transactionId = routeParams.transactionId;
                     }
                     params.loanId = scope.accountId;
-                    if(scope.action == "repayment" && scope.isGLIM){
-                        resourceFactory.glimTransactionResource.save({loanId: params.loanId}, this.formData, function (data) {
+                    scope.glimCommandParam = scope.action;
+                    if (scope.isGLIM) {
+                        this.formData.locale = scope.optlang.code;
+                        this.formData.dateFormat = scope.df;
+                        resourceFactory.glimTransactionResource.save({loanId: params.loanId, command: scope.glimCommandParam}, this.formData, function (data) {
                             location.path('/viewloanaccount/' + params.loanId);
                         });
-                    }else{
+                    } else {
                         resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
                             location.path('/viewloanaccount/' + data.loanId);
                         });
