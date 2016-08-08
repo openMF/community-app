@@ -426,7 +426,10 @@
 
             scope.entityType = "clients";
             resourceFactory.addressDataResource.getAll({entityType:scope.entityType,entityId :routeParams.id}, function (response) {
-                scope.addressData = response;
+                if(response!=null){
+                    scope.addressData = response;
+                }
+
             });
             scope.deleteAddress = function (addressId) {
                 scope.addressId = addressId;

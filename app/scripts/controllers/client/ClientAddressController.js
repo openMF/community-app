@@ -47,17 +47,31 @@
             };
 
             scope.changeCountry = function (countryId) {
-                scope.selectCountry = _.filter(scope.countries, function (country) {
-                    return country.countryId == countryId;
-                })
-                scope.states = scope.selectCountry[0].statesDatas;
+                if (countryId != null) {
+                    scope.selectCountry = _.filter(scope.countries, function (country) {
+                        return country.countryId == countryId;
+                    })
+                    if (scope.formData.stateId) {
+                        delete scope.formData.stateId;
+                    }
+                    if (scope.formData.districtId) {
+                        delete scope.formData.districtId;
+                    }
+
+                    scope.states = scope.selectCountry[0].statesDatas;
+                }
             }
 
             scope.changeState = function (stateId) {
-                scope.selectState = _.filter(scope.states, function (state) {
-                    return state.stateId == stateId;
-                })
-                scope.districts = scope.selectState[0].districtDatas;
+                if (stateId != null) {
+                    scope.selectState = _.filter(scope.states, function (state) {
+                        return state.stateId == stateId;
+                    })
+                    if (scope.formData.districtId) {
+                        delete scope.formData.districtId;
+                    }
+                    scope.districts = scope.selectState[0].districtDatas;
+                }
             }
 
             scope.submit = function () {
@@ -65,6 +79,16 @@
                 scope.entityType = "clients";
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;
+
+                if (scope.formData.countryId == null || scope.formData.countryId == ""){
+                    delete scope.formData.countryId;
+                }
+                if (scope.formData.stateId == null || scope.formData.stateId == ""){
+                    delete scope.formData.stateId;
+                }
+                if (scope.formData.districtId == null || scope.formData.districtId == ""){
+                    delete scope.formData.districtId;
+                }
                 resourceFactory.addressResource.create({entityType:scope.entityType,entityId :scope.clientId }, {addresses: scope.formDataList}, function (data) {
 
                     location.path('/viewclient/' + scope.clientId);
