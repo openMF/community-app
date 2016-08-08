@@ -16,6 +16,8 @@
             scope.id = routeParams.id;
             scope.pledges = [];
             scope.dob = "label.input.dateofbirth";
+            scope.addressData = [];
+            scope.addressId ;
 
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -422,8 +424,31 @@
                 }
             };
 
+            scope.entityType = "clients";
+            resourceFactory.addressDataResource.getAll({entityType:scope.entityType,entityId :routeParams.id}, function (response) {
+                scope.addressData = response;
+            });
+            scope.deleteAddress = function (addressId) {
+                scope.addressId = addressId;
+                $modal.open({
+                    templateUrl: 'deleteaddress.html',
+                    controller: AddressDeleteCtrl
+                });
+            };
 
-
+            var AddressDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.entityAddressResource.delete({entityType: scope.entityType, entityId: routeParams.id, addressId: scope.addressId}, function (response) {
+                        $modalInstance.close('delete');
+                        if(response != null) {
+                            route.reload();
+                        }
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
             scope.getClientIdentityDocuments = function () {
                 resourceFactory.clientResource.getAllClientDocuments({clientId: routeParams.id, anotherresource: 'identifiers'}, function (data) {
                     scope.identitydocuments = data;

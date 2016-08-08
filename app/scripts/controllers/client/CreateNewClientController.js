@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateClientController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+        CreateNewClientController: function (scope, resourceFactory, location, routeParams, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
             scope.offices = [];
             scope.staffs = [];
             scope.savingproducts = [];
@@ -15,6 +15,13 @@
             scope.forceOffice = null;
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
+            scope.addressType = [];
+            scope.countrys = [];
+            scope.states = [];
+            scope.districts = [];
+            scope.formAddressData = {};
+            scope.formDataList = [scope.formAddressData];
+            scope.formAddressData.addressTypes = [];
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -61,6 +68,39 @@
                 }
             });
 
+            resourceFactory.addressTemplateResource.get({},function (data) {
+                scope.addressType = data.addressTypeOptions;
+                scope.countries = data.countryDatas;
+                scope.setDefaultGISConfig();
+            });
+
+            scope.setDefaultGISConfig = function () {
+                if(scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address){
+                    if(scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
+
+                        var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
+                        scope.defaultCountry = _.filter(scope.countries, function (country) {
+                            return country.countryName === countryName;
+
+                        });
+                        scope.formAddressData.countryId = scope.defaultCountry[0].countryId;
+                        scope.states = scope.defaultCountry[0].statesDatas;
+                    }
+
+                    if(scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
+                        var stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                        scope.defaultState = _.filter(scope.states, function (state) {
+                            return state.stateName === stateName;
+
+                        });
+                        scope.formAddressData.stateId =  scope.defaultState[0].stateId;
+                        scope.districts = scope.defaultState[0].districtDatas;
+                    }
+
+                }
+
+            };
+            
             scope.displayPersonOrNonPersonOptions = function (legalFormId) {
                 if(legalFormId == scope.clientPersonId || legalFormId == null) {
                     scope.showNonPersonOptions = false;
@@ -68,7 +108,7 @@
                     scope.showNonPersonOptions = true;
                 }
             };
-
+            
             scope.changeOffice = function (officeId) {
                 resourceFactory.clientTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: officeId
                 }, function (data) {
@@ -90,6 +130,20 @@
             	scope.groupid = routeParams.groupId;
             }else {
             	scope.cancel = "#/clients"
+            }
+
+            scope.changeCountry = function (countryId) {
+                scope.selectCountry = _.filter(scope.countries, function (country) {
+                    return country.countryId == countryId;
+                })
+                scope.states = scope.selectCountry[0].statesDatas;
+            }
+
+            scope.changeState = function (stateId) {
+                scope.selectState = _.filter(scope.states, function (state) {
+                    return state.stateId == stateId;
+                })
+                scope.districts = scope.selectState[0].districtDatas;
             }
 
             scope.submit = function () {
@@ -117,14 +171,6 @@
                     this.formData.dateOfBirth = dateFilter(scope.first.dateOfBirth, scope.df);
                 }
 
-                if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
-                    delete this.formData.fullname;
-                } else {
-                    delete this.formData.firstname;
-                    delete this.formData.middlename;
-                    delete this.formData.lastname;
-                }
-
                 if(scope.first.incorpValidityTillDate) {
                     this.formData.clientNonPersonDetails.locale = scope.optlang.code;
                     this.formData.clientNonPersonDetails.dateFormat = scope.df;
@@ -135,6 +181,7 @@
                     this.formData.savingsProductId = null;
                 }
 
+                this.formData.addresses=scope.formDataList;
                 resourceFactory.clientResource.save(this.formData, function (data) {
                     if(routeParams.pledgeId){
                         var updatedData = {};
@@ -145,10 +192,11 @@
                     }
                     location.path('/viewclient/' + data.clientId);
                 });
+
             };
         }
     });
-    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateClientController]).run(function ($log) {
-        $log.info("CreateClientController initialized");
+    mifosX.ng.application.controller('CreateNewClientController', ['$scope', 'ResourceFactory', '$location', '$routeParams', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateNewClientController]).run(function ($log) {
+        $log.info("CreateNewClientController initialized");
     });
 }(mifosX.controllers || {}));
