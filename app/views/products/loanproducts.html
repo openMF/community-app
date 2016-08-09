@@ -24,12 +24,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
+            <tr class="pointer-main" 
+            ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">
-                    <i class="fa fa-stop {{loanproduct.status | StatusLookup}}" tooltip="{{'label.tooltip.' + loanproduct.status | translate}}" tooltip-placement="right"></i>
+                    <i class="fa fa-stop {{loanproduct.status | StatusLookup}}" uib-tooltip="{{'label.tooltip.' + loanproduct.status | translate}}" tooltip-placement="right"></i>
                 </td>
             </tr>
             </tbody>

@@ -98,7 +98,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       prod: {
-        files: [{'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-mocks/angular-mocks.min.js'
+        files: [{
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-mocks/angular-mocks.min.js'
           :['<%= mifosx.app %>/bower_components/angular-mocks/angular-mocks.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-webstorage/angular-webstorage.min.js'
           :['<%= mifosx.app %>/bower_components/angular-webstorage/angular-webstorage.js'],
@@ -326,13 +327,15 @@ module.exports = function(grunt) {
         }
       }*/
     },
-    //FIXME: Address issues with requirejs task
+
+    //here is the task for the grunt-contrib-requirejs
     requirejs: {
       compile: {
         options: {
+          name: 'app/bower_components/almond/almond.js',
           baseUrl: '<%= mifosx.app %>',
           mainConfigFile: '<%= mifosx.app %>/scripts/loader.js',
-          out: '<%= mifosx.dist %>/<%=mifosx.target%>/loader.js'
+          out: '<%= mifosx.dist %>/finaljs/app.js'
         }
       }
     },

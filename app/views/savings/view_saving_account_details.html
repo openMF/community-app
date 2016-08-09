@@ -1,10 +1,18 @@
 <div class="content-container" ng-controller="ViewSavingDetailsController">
-        <ul class="breadcrumb">
-            <li ng-show="groupLevel == 1"><a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="groupLevel == 2"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
-            <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
-            <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
-        </ul>
+    <ul class="breadcrumb">
+        <li ng-show="groupLevel == 1">
+            <a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+        </li>
+        <li ng-show="groupLevel == 2">
+            <a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+        </li>
+        <li ng-show="savingaccountdetails.clientName">
+            <a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+        </li>
+        <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})
+        </li>
+    </ul>
+
     <script type="text/ng-template" id="savingsunassignstaff.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
@@ -16,6 +24,7 @@
             <button class="btn btn-primary" ng-click="unassign()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
+
     <script type="text/ng-template" id="savingsassignstaff.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.assignstaff' | translate}}</h3>
@@ -34,6 +43,7 @@
             <br>
         </div>
     </script>
+
     <div class="card">
         <div class="content">
             <form class="form-horizontal" ng-show="report">
@@ -46,13 +56,11 @@
                     <label class="control-label col-sm-2">{{'label.input.todate' | translate}}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="toDate" class="date-disable form-control" readonly type="text"
-                                datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate"
-                                max="restrictDate"/>
+                        <input id="toDate" class="date-disable form-control" 
+                        readonly type="text"
+                        datepicker-pop="{{df}}" ng-model="date.toDate" is-open="opened" min="minDate" max="restrictDate"/>
                     </div>
                 </div>
-
-
                 <div class="col-md-11 center" ng-show="viewSavingReport">
                     <button ng-click="viewSavingDetails()" class="btn btn-default ng-binding">{{'label.button.back' |
                         translate}}
@@ -62,9 +70,9 @@
                     </button>
                 </div>
             </form>
-            <form ng-hide="hidePentahoReport" ng-show="report" class="alert-block tab-content">
-                <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' |
-                                translate}}</button>
+            <form ng-hide="hidePentahoReport" ng-show="report" 
+                class="alert-block tab-content">
+                <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary">{{'label.button.print' | translate}}</button>
                 <div id="printcontent">
                     <iframe id="rptLoadingFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="600px"></iframe>
                 </div>
@@ -82,49 +90,50 @@
                     </div>
                     <div class="col-md-12 primarydiv">
                         <div class="pull-right">
-                              <span ng-repeat="button in buttons.singlebuttons">
+                            <span ng-repeat="button in buttons.singlebuttons">
                                   <a ng-show="button.name" has-permission='{{button.taskPermissionName}}'
                                      ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
                                      class="btn btn-primary"><i class="{{button.icon}} "></i>{{'label.'+button.name |
                                       translate}}</a>
-                               </span>
+                            </span>
                             <button type="button" class="btn btn-primary"
-                                    ng-click="clickEvent('assignSavingsOfficer',savingaccountdetails.accountNo)"
-                                    data-ng-hide="savingaccountdetails.fieldOfficerId" has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
-                                    <i class="fa fa-user "></i>{{"label.button.assignstaff"
-                                |
-                                translate}}
+                                ng-click="clickEvent('assignSavingsOfficer',savingaccountdetails.accountNo)"
+                                data-ng-hide="savingaccountdetails.fieldOfficerId" has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
+                                <span>
+                                <i class="fa fa-user "></i>
+                                {{"label.button.assignstaff" | translate}}
                                 </span>
                             </button>
-                            <button type="button" class="btn btn-primary" ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)" data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="fa fa-user "></i>{{"label.button.unassignstaff"
-                            | translate}}
-                        </button>
-
-                              <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
-                                  <a class="btn btn-primary dropdown-toggle">
+                            <button type="button" class="btn btn-primary" 
+                                ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)" data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
+                                <i class="fa fa-user "></i>
+                                {{"label.button.unassignstaff" | translate}}
+                            </button>
+                            <span ng-show="buttons.options" class="btn-group" uib-dropdown on-toggle="toggled(open)">
+                                  <a class="btn btn-primary " uib-dropdown-toggle>
                                       {{'label.button.more' | translate}}
                                       <span class="caret"></span>
                                   </a>
-                                  <ul class="dropdown dropdown-menu">
+                                  <ul class="dropdown " uib-dropdown-menu>
                                       <li class="{{button.icon}}" ng-repeat="button in buttons.options">
                                           <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
                                       </li>
                                   </ul>
-                              </span>
+                            </span>
                         </div>
                     </div>
                 </div>
                 <hr/>
-                <div class="col-sm-12 col-md-12">
+                <div class="">
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <table class="table table-striped table-bordered">
                                 <tr>
                                     <td>{{'label.heading.activatedon' | translate}}</td>
-                                    <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
-                                            data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
+                                    <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}
+                                    <span data-ng-hide="savingaccountdetails.timeline.activatedOnDate">
+                                    {{ 'label.notactivated' | translate }}</span>
                                     </td>
-
                                 </tr>
                                 <tr>
                                     <td>{{'label.heading.currency' | translate}}</td>
@@ -151,13 +160,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12">
+                <div class="">
                     <hr class="marginbottom"/>
                     <uib-tabset tabset-name="savingsAccountDetails">
-                        <tab heading="{{'label.heading.summary' | translate}}">
-                            <div class="col-sm-8 col-md-8 marginbuttontop25px">
+                        <uib-tab heading="{{'label.heading.summary' | translate}}">
+                            <div class="">
                                 <table class="table table-bordered view-table">
-                                    <tr ng-show="savingaccountdetails.summary.totalDeposits">
+                                    <tr 
+                                    ng-show="savingaccountdetails.summary.totalDeposits">
                                         <td class="table-bold-acc fontnormal">{{'label.totaldeposits' | translate}}
                                         </td>
                                         <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits| number}}</span>
@@ -171,8 +181,7 @@
                                         </td>
                                     </tr>
                                     <tr ng-show="savingaccountdetails.summary.totalWithdrawalFees">
-                                        <td class="table-bold-acc fontnormal">{{'label.totalwithdrawalsfees' |
-                                            translate}}
+                                        <td class="table-bold-acc fontnormal">{{'label.totalwithdrawalsfees' | translate}}
                                         </td>
                                         <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawalFees| number}}</span>
                                         </td>
@@ -184,11 +193,10 @@
                                         </td>
                                     </tr>
                                     <tr ng-show="savingaccountdetails.summary.totalInterestEarned >= 0">
-                                        <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' |
-                                            translate}}
-                                        </td>
-                                        <td><span class="padded-td"  ng-class="{statusactiveoverdue : savingaccountdetails.summary.totalInterestEarned < 0}">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned| number}}</span>
-                                        </td>
+                                    <td class="table-bold-acc fontnormal">{{'label.totalinterestearned' | translate}}
+                                    </td>
+                                    <td><span class="padded-td"  ng-class="{statusactiveoverdue : savingaccountdetails.summary.totalInterestEarned < 0}">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned| number}}</span>
+                                    </td>
                                     </tr>
                                     <tr ng-show="savingaccountdetails.summary.totalInterestPosted">
                                         <td class="table-bold-acc fontnormal">{{'label.totalinterestposted' |
@@ -339,8 +347,8 @@
                                     </tr>
                                 </table>
                             </div>
-                        </tab>
-                        <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
                             <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                             <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button><br>
                             <table class="table table-bordered">
@@ -403,8 +411,8 @@
                                 </div>
 
                             </div>
-                        </tab>
-                        <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
+                        </uib-tab>
+                        <uib-tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
                              select="dataTableChange(savingdatatable)">
                             <div data-ng-show="choice" class="btn-group pull-right">
                                 <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
@@ -442,8 +450,8 @@
                                     </tr>
                                 </table>
                             </div>
-                        </tab>
-                        <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
+                        </uib-tab>
+                        <uib-tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
                             <a class="btn btn-primary pull-right" ng-show="showActiveCharges"
                                ng-click="showActiveCharges=!showActiveCharges">{{'label.button.showInactiveCharges' |
                                 translate}}</a>
@@ -513,37 +521,7 @@
                                     <td></td>
                                 </tr>
                             </table>
-                        </tab>
-                        <!-- <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_SAVINGNOTE'>
-                            <br/>
-
-                            <form>
-                                <div class="form-group">
-                                    <div class="col-sm-12 col-md-12">
-                                        <textarea rows="1" class="form-control marginbottom0px" id="textarea"
-                                                  placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-
-                                        <div class="notewrapper col-sm-12 col-md-12">
-                                                <span class="pull-right noteaddbuttonwrapper">
-                                                    <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_SAVINGNOTE'>{{'label.button.add' | translate}}
-                                                    </button>
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="col-md-12">
-                                <br/>
-                                <div ng-repeat="savingNote in savingNotes | orderBy:predicate:reverse">
-                                    <blockquote>
-                                      <p>{{savingNote.note}}</p>
-                                      {{savingNote.id}}
-                                      <small>{{'label.createdby' | translate}} :&nbsp;{{savingNote.createdByUsername}}</small>
-                                      <small>{{'label.createdon' | translate}} :&nbsp;{{savingNote.createdOn  | DateFormat}}</small>
-                                    </blockquote>
-                                </div>
-                            </div>
-                        </tab> -->
+                        </uib-tab>
                     </uib-tabset>
                 </div>
             </div>

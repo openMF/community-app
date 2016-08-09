@@ -6,12 +6,12 @@
     <div class="card well">
         <h3 class="bolder"><i class="fa fa-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}"></i>&nbsp;&nbsp;{{charge.name}}
             <div class="btn-group pull-right">
-                <a tooltip="{{'label.button.paycharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
+                <a uib-tooltip="{{'label.button.paycharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
                    has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{clientId}}/paycharge/{{charge.id}}"
                    class="btn btn-primary">
                     <i class="fa fa-dollar ">{{'label.button.pay' | translate}}</i>
                 </a> &nbsp;
-                <a tooltip="{{'label.button.waivecharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
+                <a uib-tooltip="{{'label.button.waivecharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
                    has-permission='WAIVE_CLIENTCHARGE' ng-click="waiveCharge(charge.id)" class="btn btn-primary">
                     <i class="fa fa-flag ">{{'label.button.waivecharge' | translate}}</i>
                 </a>
@@ -83,7 +83,7 @@
                     <td class="pointer">{{transaction.date | DateFormat}}</td>
                     <td class="pointer">{{transaction.amount | number}}</td>
                     <td class="pointer">
-                        <a tooltip="{{'label.button.delete' | translate}}" ng-if="!transaction.reversed"
+                        <a uib-tooltip="{{'label.button.delete' | translate}}" ng-if="!transaction.reversed"
                            has-permission='UNDOTRANSACTION_CLIENT' ng-click="undoTransaction(transaction.id)"
                            class="btn btn-xs btn-primary ng-binding">
                             <i class="fa fa-trash "></i>

@@ -2,7 +2,7 @@
     <ul class="breadcrumb">
         <li>
             <a ng-href="#/viewoffice/{{center.officeId}}">
-                {{center.officeNamea>
+                {{center.officeName}}
             </a>
         </li>
         <li>{{center.name}}</li>
@@ -58,12 +58,12 @@
                                 <a href="#/managegroupmembers/{{center.id}}" class="btn btn-primary" has-permission='ASSOCIATEGROUPS_CENTER'>
                                     <i class="fa fa-edit "></i>{{'label.button.managegroups' | translate }}</a>
                                 <a ng-show="center.active" href="#/new_group_saving_application/{{center.id}}/center" has-permission='CREATE_SAVINGSACCOUNT' class="btn btn-primary"><i class="fa fa-file "></i>{{ 'label.button.centersavingapplication' | translate }}</a>
-                                <span class="btn-group dropdown" on-toggle="toggled(open)">
-                                    <a class="btn btn-primary dropdown-toggle">
+                                <span class="btn-group" uib-dropdown on-toggle="toggled(open)">
+                                    <a class="btn btn-primary" uib-dropdown-toggle>
                                         {{ 'label.button.more' | translate}}
                                         <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
+                                    <ul class="dropdown  dropdown-menu-right" uib-dropdown-menu>
                                         <li>
                                             <a href="#/centerattendance?centerId={{center.id}}&calendarId={{meeting.id}}" data-ng-show="center.collectionMeetingCalendar" has-permission='SAVEORUPDATEATTENDANCE_MEETING'>
                                             {{ 'label.button.attendance' | translate }}</a>
@@ -104,7 +104,7 @@
                                                 <div class="panel-body">
                                                     <div class="list-group">
                                                         <a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
-                                                            <i tooltip="{{group.status.value}}" class="fa fa-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
+                                                            <i uib-tooltip="{{group.status.value}}" class="fa fa-stop {{group.status.code | StatusLookup}}" uib-tooltip=""></i> {{group.name}}
                                                         </a>
                                                         <p ng-if="!center.groupMembers" class="list-group-item">No Groups added.</p>
                                                     </div>
@@ -156,34 +156,34 @@
                                             <tbody>
                                                 <tr class="pointer-main" ng-repeat="savingaccount in accounts.savingsAccounts | orderBy:'productName':reverse">
                                                     <td class="pointer" data-ng-click="routeTo(savingaccount.id)">
-                                                        <i tooltip-placement="left" tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i> {{savingaccount.accountNo}}
+                                                        <i tooltip-placement="left" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i> {{savingaccount.accountNo}}
                                                     </td>
                                                     <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.productName}}</td>
                                                     <td class="pointer" data-ng-click="routeTo(savingaccount.id)">{{savingaccount.accountBalance}}</td>
                                                     <td class="pointer" ng-if="savingaccount.status.active">
-                                                        <a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
+                                                        <a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
                                                             <i class="fa fa-arrow-right "></i>
                                                         </a>
-                                                        <a tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+                                                        <a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
                                                             <i class="fa fa-arrow-right "></i>
                                                         </a>
-                                                        <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
+                                                        <a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
                                                             <i class="fa fa-arrow-left "></i>
                                                         </a>
-                                                        <a tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+                                                        <a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
                                                             <i class="fa fa-arrow-left "></i>
                                                         </a>
                                                     </td>
                                                     <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
-                                                        <a tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+                                                        <a uib-tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
                                                             <i class="fa fa-ok "></i>
                                                         </a>
                                                     </td>
                                                     <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
-                                                        <a tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+                                                        <a uib-tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
                                                             <i class="fa fa-undo "></i>
                                                         </a>
-                                                        <a tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+                                                        <a uib-tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
                                                             <i class="fa fa-ok-sign "></i>
                                                         </a>
                                                     </td>
