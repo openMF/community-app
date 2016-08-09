@@ -133,17 +133,30 @@
             }
 
             scope.changeCountry = function (countryId) {
-                scope.selectCountry = _.filter(scope.countries, function (country) {
-                    return country.countryId == countryId;
-                })
-                scope.states = scope.selectCountry[0].statesDatas;
+                if (countryId != null) {
+                    scope.selectCountry = _.filter(scope.countries, function (country) {
+                        return country.countryId == countryId;
+                    })
+                    if(scope.formAddressData.stateId){
+                        delete scope.formAddressData.stateId;
+                    }
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    scope.states = scope.selectCountry[0].statesDatas;
+                }
             }
 
             scope.changeState = function (stateId) {
-                scope.selectState = _.filter(scope.states, function (state) {
-                    return state.stateId == stateId;
-                })
-                scope.districts = scope.selectState[0].districtDatas;
+                if (stateId != null) {
+                    scope.selectState = _.filter(scope.states, function (state) {
+                        return state.stateId == stateId;
+                    })
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    scope.districts = scope.selectState[0].districtDatas;
+                }
             }
 
             scope.submit = function () {
@@ -179,6 +192,15 @@
 
                 if (!scope.opensavingsproduct) {
                     this.formData.savingsProductId = null;
+                }
+                if (scope.formAddressData.countryId == null || scope.formAddressData.countryId == ""){
+                    delete scope.formAddressData.countryId;
+                }
+                if (scope.formAddressData.stateId == null || scope.formAddressData.stateId == ""){
+                    delete scope.formAddressData.stateId;
+                }
+                if (scope.formAddressData.districtId == null || scope.formAddressData.districtId == ""){
+                    delete scope.formAddressData.districtId;
                 }
 
                 this.formData.addresses=scope.formDataList;
