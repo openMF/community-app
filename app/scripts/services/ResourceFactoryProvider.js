@@ -725,6 +725,9 @@
                     update: {method: 'PUT',parms:{}},
                     getAddress: {method: 'GET',parms:{}}    
                     }),
+                    centerLookupResource: defineResource(apiVer + "/centers/:centerId/memberaccountdetails", {centerId:'@centerId'}, {
+                        get: {method: 'GET', params: {}, isArray : true}
+                    })
                 };
             }];
         }

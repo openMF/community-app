@@ -95,54 +95,90 @@
 			        <br/>
 			        <div class="col-md-12">
 				        <div class="row client">
-				            <div class="col-sm-9 col-md-9 paddingleft0px">
+								<div class="col-sm-8 col-md-8 paddingleft0px">
 				                <div data-ng-show="center.status.value=='Closed'">
 				                    <h3>{{'label.heading.centerclosed' | translate}}</h3>
-				                </div>
-				                <div id="center" class="row">
-				                	<div class="col-md-6">
-				                		<div class="panel panel-default">
-											<div class="panel-heading">
-												<h3 class="panel-title ng-binding">{{ 'label.heading.groups' | translate }}</h3>
-											</div>
-											<div class="panel-body">
-												<div class="list-group">
-													<a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
-										  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
-										  			</a>
-										  			<p ng-if="!center.groupMembers" class="list-group-item">No Groups added.</p>
-												</div>
-											</div>
-									    </div>
-				                	</div>
+								</div>
+									<table class="table table-bordered" style="table-layout: fixed;" data-ng-show="groupMemberAccountList">
+										<tr class="graybg" ng-show="groupMemberAccountList[0].isShowLoanDetailsInCenterPageEnabled">
+											<th class="highlightcol text-right" scope="colgroup" colspan="4">{{'label.heading.groups' | translate}}</th>
+											<td colspan="9">
+												<table class="col-md-12">
+													<tr>
+														<td class="highlightcol text-right col-md-2" scope="colgroup" colspan="3">Loan</td>
+														<td class="highlightcol text-left col-sm-1" scope="colgroup">Disb.</td>
+														<td class="highlightcol text-left col-md-1" scope="colgroup">Balance</td>
+														<td class="highlightcol text-left col-md-1" scope="colgroup" colspan="3">Paid</td>
+													</tr>
+												</table>
+											</td>
 
-				                	<div class="col-md-6 meeting">
-				                		<div class="alert alert-warning" role="alert">
-							                <table>
-							                    <tr>
-							                        <td><strong>{{ 'label.heading.nextmeetingon' | translate }}</strong></td>
-							                        <td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
-							                            <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}"
-							                               ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="icon-edit icon-white"></i></a>
-							                         <span class="marginleftn7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
-							                        </td>
-							                    </tr>
-							                    <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
-							                        <td><strong>{{ 'label.heading.meetingfrequency' | translate }}</strong></td>
-							                        <td><span class="padded-td">{{center.collectionMeetingCalendar.humanReadable}}</span></td>
-							                    </tr>
-							                    <tr data-ng-show="center.status.value=='Closed'">
-							                        <td><strong>{{ 'label.heading.closedate' | translate }}</strong></td>
-							                        <td><span class="padded-td">{{center.timeline.closedOnDate | DateFormat}}</span></td>
-							                    </tr>
-												<tr>
-													<td><strong>{{'label.input.meetingtime' | translate}}</strong></td>
-													<td><span class="padded-td">{{meetingtime  | date:"h:mma"}}</span></td>
-												</tr>
-							                </table>
-						                </div>
-				                	</div>
-				                </div>
+											<td class="highlightcol text-right" scope="colgroup" colspan="3"></td>
+										</tr>
+
+										<tr class="graybg" ng-show="!groupMemberAccountList[0].isShowLoanDetailsInCenterPageEnabled">
+											<th class="highlightcol text-left" scope="colgroup" colspan="18">{{'label.heading.groups' | translate}}</th>
+										</tr>
+
+										<tbody ng-repeat="group in groupMemberAccountList">
+										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
+											<th colspan="16" class="pointer" data-ng-click="routeToGroup(group.id)">
+												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
+												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
+												{{group.name}}
+											</th>
+										</tr>
+										<tr ng-show="!group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
+											<th colspan="18" class="pointer" data-ng-click="routeToGroup(group.id)">
+												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
+												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
+												{{group.name}}
+											</th>
+										</tr>
+										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat-start="client in group.activeClientMembers">
+											<th  colspan="13" class="pointer text-left" data-ng-click="routeToClient(client.id)">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<i tooltip="Client" class="icon-user icon-small"></i>
+												<i tooltip-placement="right" tooltip="{{client.status.value}}" class="icon-stop {{client.status.code | StatusLookup}}"></i>
+												{{client.accountNo}} - {{client.displayName}}
+											</th>
+											<td align="center" colspan="3">
+												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
+
+											</td>
+										</tr>
+										<tr colspan="16" ng-repeat-end ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat="loan in client.loanAccountSummaryDatas">
+											<td class="pointer text-right" colspan="7" data-ng-click="routeToLoan(loan.id)">
+												{{loan.accountNo}} - {{loan.shortProductName}}
+											</td>
+											<td class="pointer text-left" colspan="2" data-ng-click="routeToLoan(loan.id)">
+												{{loan.originalLoan}}
+											</td>
+											<td class="pointer text-left" colspan="2" data-ng-click="routeToLoan(loan.id)">
+												{{loan.loanBalance}}
+											</td>
+											<td class="pointer text-left" colspan="5" data-ng-click="routeToLoan(loan.id)">
+												{{loan.amountPaid}}
+											</td>
+											<!--<td class="pointer text-right" colspan="3" data-ng-click="routeToLoan(loan.id)">-->
+											<!--</td>-->
+										</tr>
+
+										<tr ng-show="!group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat="client in group.activeClientMembers">
+											<th  colspan="15" class="pointer text-left" data-ng-click="routeToClient(client.id)">
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<i tooltip="Client" class="icon-user icon-small"></i>
+												<i tooltip-placement="right" tooltip="{{client.status.value}}" class="icon-stop {{client.status.code | StatusLookup}}"></i>
+												{{client.accountNo}} - {{client.displayName}}
+											</th>
+											<td align="center" colspan="3">
+												<a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
+														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
+											</td>
+										</tr>
+										</tbody>
+									</table>
 
 				                <div data-ng-show="accounts.savingsAccounts">
 						            <div class="span gray-head">
@@ -200,7 +236,7 @@
 						            </table>
 						        </div>
 				            </div>
-				            <div class="col-sm-3 col-md-3">
+				            <div class="col-sm-4 col-md-4">
 						    	<div class="thumbnail row">
 							    	<div class="col-md-12 paddingleft0px">
 							    	    <h4><strong>{{center.name}} {{ 'label.heading.details' | translate }}</strong></h4>
@@ -221,6 +257,32 @@
 						                        </td>
 						                    </tr>
 						                </table>
+										<br/>
+										<div class="alert alert-warning" role="alert">
+											<h4><strong>{{ 'label.heading.meeting' | translate }}</strong></h4>
+											<table class="table-minified">
+												<tr>
+													<td><strong>{{ 'label.heading.nextmeetingon' | translate }}</strong></td>
+													<td><span class="padded-td">{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+							                            <a href="#/editcalendar/centers/{{center.id}}/{{center.collectionMeetingCalendar.id}}"
+														   ng-show="center.collectionMeetingCalendar" has-permission='UPDATE_MEETING'><i class="icon-edit icon-white"></i></a>
+							                         <span class="marginleftn7px" data-ng-hide="center.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+													</td>
+												</tr>
+												<tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
+													<td><strong>{{ 'label.heading.meetingfrequency' | translate }}</strong></td>
+													<td><span class="padded-td">{{center.collectionMeetingCalendar.humanReadable}}</span></td>
+												</tr>
+												<tr data-ng-show="center.status.value=='Closed'">
+													<td><strong>{{ 'label.heading.closedate' | translate }}</strong></td>
+													<td><span class="padded-td">{{center.timeline.closedOnDate | DateFormat}}</span></td>
+												</tr>
+												<tr>
+													<td><strong>{{'label.input.meetingtime' | translate}}</strong></td>
+													<td><span class="padded-td">{{meetingtime  | date:"h:mma"}}</span></td>
+												</tr>
+											</table>
+										</div>
 						                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
 								        <table class="table-minified">
 								            <tr>
