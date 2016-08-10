@@ -7,6 +7,23 @@
             scope.formData = {};
             scope.report = false;
             scope.hidePentahoReport = true;
+            scope.groupMemberAccountList = [];
+            scope.routeToLoan = function (id) {
+                location.path('/viewloanaccount/' + id);
+            };
+            scope.routeToGroup = function (id) {
+                location.path('/viewgroup/' + id);
+            };
+            scope.routeToClient = function (id) {
+                location.path('/viewclient/' + id);
+            };
+            scope.isActiveMember = function (status) {
+                if (status == 'clientStatusType.active') {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 $rootScope.centerName=data.name;
@@ -19,6 +36,11 @@
                 scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
                 //scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime);
             });
+
+            resourceFactory.centerLookupResource.get({centerId: routeParams.id}, function(data) {
+                scope.groupMemberAccountList = data;
+            });
+
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);
             };
