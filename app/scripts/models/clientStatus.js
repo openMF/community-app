@@ -61,6 +61,27 @@
                     }
 
                 ],
+                "Rejected":[
+                    {
+                        name: "label.button.undoReject",
+                        href: "#/client",
+                        subhref: "undoReject",
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "UNDOREJECT_CLIENT"
+                    }
+
+                ],
+                "Withdrawn":[
+                    {
+                        name: "label.button.undoWithdrawn",
+                        href: "#/client",
+                        subhref: "undoWithdrawn",
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "UNDOWITHDRAWAL_CLIENT"
+                    }
+
+
+                ],
                 "Active": [
                     {
                         name: "label.button.edit",
@@ -111,7 +132,8 @@
                         subhref: "close",
                         icon: "icon-remove-circle",
                         taskPermissionName: "CLOSE_CLIENT"
-                    }
+                    },
+
                 ],
                 "Transfer in progress": [
                     {
