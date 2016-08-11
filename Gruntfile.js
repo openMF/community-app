@@ -332,7 +332,7 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          name: 'app/bower_components/almond/almond.js',
+          name: '<%= mifosx.app %>/app/bower_components/almond/almond.js',
           baseUrl: '<%= mifosx.app %>',
           mainConfigFile: '<%= mifosx.app %>/scripts/loader.js',
           out: '<%= mifosx.dist %>/finaljs/app.js'
