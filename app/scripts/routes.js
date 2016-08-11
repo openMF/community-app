@@ -7,6 +7,9 @@
             .when('/login', {
                 templateUrl: 'views/login.html'
             })
+            .when('/login', {
+                templateUrl: 'views/login.html'
+            })
             .when('/home', {
                 templateUrl: 'views/home.html'
             })
@@ -886,6 +889,12 @@
             })
             .when('/loanforeclosure/:id', {
                 templateUrl: 'views/loans/loanforeclosure.html'
+            })
+            .when('/address/:id', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/editAddress/:addrType/:addrId/:clientId',{
+                templateUrl: 'views/administration/EditAddress.html'
             })
         ;
         $locationProvider.html5Mode(false);
