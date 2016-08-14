@@ -8,6 +8,7 @@
             scope.translate = translate;
 
             resourceFactory.provisioningcriteria.get({criteriaId: routeParams.criteriaId, template:'true'}, function (data) {
+                scope.template = data;
                 scope.selectedloanproducts = data.selectedLoanProducts;
                 scope.allloanproducts = data.loanProducts ;
                 scope.definitions = data.definitions;
@@ -15,6 +16,10 @@
                 scope.criteriaId = data.criteriaId;
                 scope.liabilityaccounts = data.glAccounts;
                 scope.expenseaccounts = data.glAccounts;
+
+                scope.formData = {
+                    provisioningAmountType : data.provisioningAmountType.id
+                };
             });
 
             scope.addLoanProduct = function () {
