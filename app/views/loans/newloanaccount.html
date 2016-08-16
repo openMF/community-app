@@ -304,6 +304,18 @@
 
                 </td>
             </tr>
+            <tr ng-show="loanaccountinfo.canUseForTopup">
+                <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
+                <td class="paddedbottom10">
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup"/>
+                </td>
+                <td ng-show="formData.isTopup == true"><label>{{ 'label.input.loanIdToClose' | translate }}</label></td>
+                <td class="width36 paddedbottom10" ng-show="formData.isTopup == true">
+                    <select id="loanIdToClose" ng-model="formData.loanIdToClose"
+                            ng-options="loanSummary.id as loanSummary.accountNo for loanSummary in loanaccountinfo.clientActiveLoanOptions" class="form-control width170px"
+                            value="{{loanSummary.id}}"/>
+                </td>
+            </tr>
             <tr>
                 <td colspan="4" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true"><hr></td>
             </tr>
