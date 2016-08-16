@@ -12,7 +12,8 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       target: 'community-app',
-      test: 'test'
+      test: 'test',
+      almond: 'app/bower_components/almond'
     },
     watch: {
         js: {
@@ -332,8 +333,8 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          name: '<%= mifosx.app %>/app/bower_components/almond/almond.js',
-          baseUrl: '<%= mifosx.app %>',
+          name: '../bower_components/almond/almond',
+          baseUrl: './app',
           mainConfigFile: '<%= mifosx.app %>/scripts/loader.js',
           out: '<%= mifosx.dist %>/finaljs/app.js'
         }
