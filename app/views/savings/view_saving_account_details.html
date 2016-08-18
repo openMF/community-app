@@ -96,14 +96,13 @@
                        </span>
                     <button type="button" class="btn btn-primary"
                             ng-click="clickEvent('assignSavingsOfficer',savingaccountdetails.accountNo)"
-                            data-ng-hide="savingaccountdetails.fieldOfficerId" has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
+                            data-ng-hide="!choice || savingaccountdetails.fieldOfficerId "  has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
                             <i class="icon-user icon-white"></i>{{"label.button.assignstaff"
                         |
                         translate}}
-                        </span>
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)"
-                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
+                                 data-ng-show="savingaccountdetails.fieldOfficerId && choice" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
                     |
                     translate}}
                 </button>
