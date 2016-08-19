@@ -207,14 +207,7 @@
                         update: { method: 'PUT'},
                         upd: { method: 'PUT', params: {}}
                     }),
-<<<<<<< Updated upstream
-                    userListResource: defineResource(apiVer + "/users/:userId/usrnme/:usrnme/currentPass/:currentPass", {userId: '@userId',usrnme:'@usrnme',currentPass:'@currentPass'}, {
-=======
-                    userListResource1: defineResource(apiVer + "/users/:userId/usrnme/:usrnme/currentPass/:currentPass", {userId: '@userId',usrnme:'@usrnme',currentPass:'@currentPass'}, {
-                        getAllUsers: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT' }
-                    }),userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
->>>>>>> Stashed changes
+                    userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
                         getAllUsers: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),
@@ -531,15 +524,43 @@
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
-                    creditBureauSummary: defineResource(apiVer + "/cbconfig",{},{
-                        get: {method: 'GET', isArray: true }
+                    clientaddressFields:defineResource(apiVer+"/clients/addresses/template",{},{
+                        get:{method:'GET',params:{}}
+                    }
+                    ),
+                    addressFieldConfiguration:defineResource(apiVer+"/clients/addresses/fieldconfiguration/:entity",{},{
+                        get:{method:'GET',params:{},isArray:true }
+                    }),
+                    clientAddress:defineResource(apiVer+"/clients/:clientId/addresses",{},{
+
+                        post:{method:'POST',params:{type:'@type'}},
+                        get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
+                        put:{method:'PUT',params:{type:'@type',status:'@status'}}
+                    }),
+                    creditBureauSummary: defineResource(apiVer + "/cbconfig/orgcb",{},{
+                        get: {method: 'GET', isArray: true },
+                        post:{method:'POST',params:{}},
+                        put:{method:'PUT',params:{}}
+
+                    }),
+                    addOrgCreditBureau: defineResource(apiVer + "/cbconfig/orgcb/:ocbId",{},{
+                        post:{method:'POST',params:{}}
+
+                    }),
+                 /*   addCreditBureauConfig: defineResource(apiVer + "/cbconfig",{},{
+                        post: {method: 'post', isArray: true }
+
+                    }),*/
+                    addCreditBureauLoanProductMapping: defineResource(apiVer + "/cbconfig/mappings/:cb_id",{},{
+                        post:{method:'POST',params:{}}
 
                     }),
                     creditBureauMapping: defineResource(apiVer + "/cbconfig/mappings",{},{
-                        get: {method: 'GET', isArray: true }
+                        get: {method: 'GET', isArray: true },
+                        put:{method:'PUT',params:{}}
 
                     }),
-                    creditBureauTemplate: defineResource(apiVer + "/cbconfig/dropdown", {}, {
+                    creditBureauTemplate: defineResource(apiVer + "/cbconfig/", {}, {
                         get: {method: 'GET', isArray: true }
                     }),
                     creditBureauByCountry: defineResource(apiVer + "/cbconfig/dropdown/:country", {country:'@country'}, {
@@ -547,6 +568,9 @@
                     }),
                     creditBureauProductByCreditBureau: defineResource(apiVer + "/cbconfig/mappings/:credit_bureau_master_id", {credit_bureau_master_id:'@credit_bureau_master_id'}, {
                         get: {method: 'GET',isArray : true }
+                    }),
+                    lpdropdown: defineResource(apiVer + "/cbconfig/lp", {}, {
+                        get: {method: 'GET', isArray: true }
                     }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},

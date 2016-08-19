@@ -12,7 +12,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'SharedVariables'
         ],
         controllers: [
             'main/MainController',
@@ -273,7 +274,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
-<<<<<<< Updated upstream
+
+
+
             'product/tax/CreateTaxComponentController',
             'product/tax/ViewTaxComponentController',
             'product/tax/EditTaxComponentController',
@@ -281,11 +284,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/CreateTaxGroupController',
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
-            'product/tax/TaxGroupController'
-=======
+            'product/tax/TaxGroupController',
             'configurations/ViewCreditBureauSummaryController',
-            'configurations/AddNewCreditBureauController'
->>>>>>> Stashed changes
+            'configurations/AddNewCreditBureauController',
+            'configurations/MapCreditBureauToLpController',
+            'configurations/EditAddressController',
+            'configurations/AddressFormController',
+            'configurations/AddressController'
+
         ],
         filters: [
             'StatusLookup',

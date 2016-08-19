@@ -12,6 +12,75 @@
             scope.openShares = true ;
             scope.updateDefaultSavings = false;
             scope.charges = [];
+            // address
+            scope.addresses=[];
+            scope.view={};
+            entityname="client";
+            scope.addressTypeId={};
+            formdata={};
+
+
+            scope.routeTo=function()
+            {
+                location.path('/address/'+ routeParams.id);
+            }
+
+
+
+            resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
+                scope.view.addresstypId=data[0].is_enabled;
+                scope.view.street=data[1].is_enabled;
+                scope.view.address_line_1=data[2].is_enabled;
+                scope.view.address_line_2=data[3].is_enabled;
+                scope.view.address_line_3=data[4].is_enabled;
+                scope.view.town_village=data[5].is_enabled;
+                scope.view.city=data[6].is_enabled;
+                scope.view.county_district=data[7].is_enabled;
+                scope.view.state_province=data[8].is_enabled;
+                scope.view.country=data[9].is_enabled;
+                scope.view.postal_code=data[10].is_enabled;
+                scope.view.latitue=data[11].is_enabled;
+                scope.view.longitude=data[12].is_enabled;
+                scope.view.isActive=data[13].is_enabled;
+            })
+
+           // resourceFactory.clientAddress.get({clientId:scope.client.id},function(data)routeParams.id
+            resourceFactory.clientAddress.get({clientId:routeParams.id},function(data)
+            {
+
+                scope.addresses=data;
+                scope.addressTypeId=data[0].addressTypeId;
+
+
+            })
+
+            scope.ChangeAddressStatus=function(id,status,addtyp)
+            {
+
+                formdata.is_active=!status
+                resourceFactory.clientAddress.put({clientId:id,type:addtyp,status:status},formdata,function(data)
+                {
+                    console.log("client id received: "+id)
+                    route.reload();
+                })
+            }
+
+            scope.routeToEdit=function(id)
+            {
+                location.path('/editAddress/'+id+'/'+ routeParams.id);
+
+                console.log("address type"+scope.addressTypeId)
+            }
+
+            // end of address
+
+            scope.clientId=routeParams.id;
+
+            resourceFactory.configurationResource.get({id:29},function(data)
+            {
+                scope.enableAddress=data.enabled;
+            });
+            
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -22,7 +91,7 @@
             scope.pathToChargeOverview =function (){
                 return ('/viewclient/'+ scope.client.id + '/chargeoverview');
             }
-
+            //sharedVariables.setClientId(scope.client.id );
             scope.routeToCharge = function (chargeId) {
                 location.path('/viewclient/'+ scope.client.id + '/charges/' + chargeId);
             };
@@ -626,6 +695,8 @@
                     $modalInstance.dismiss('cancel');
                 };
             }
+
+
 
         }
     });

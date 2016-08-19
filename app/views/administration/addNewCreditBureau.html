@@ -12,12 +12,10 @@
         <fieldset>
             <legend>{{ 'label.anchor.addnewcb' | translate }}</legend>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="alias">{{ 'label.input.alias' | translate }}<span
-                        class="required">*</span></label>
+                <label class="control-label col-sm-2" for="alias">{{ 'label.input.alias' | translate }}</label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="alias" name="alias" ng-model="formData.alias"  class="form-control" required
-                           late-Validate/>
+                    <input type="text" id="alias" name="alias" ng-model="formData.alias"  class="form-control">
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="alias" valattribute="alias"/>
@@ -25,55 +23,49 @@
             </div>
 
 
-            <div class="form-group">
+
+
+
+
+
+            <!-- <div class="form-group">
                 <label class="control-label col-sm-2" for="country">{{'label.input.country' | translate}}<span
                         class="required">*</span> </label>
                 <div class="col-sm-3">
-                    <select chosen="countries" id="country" ng-model="formData.country"  class="form-control"
-                            ng-options="country.country for country in countries | unique:'country'
-                             track by country.country"
-                            ng-change="changecountry(formData.country)" value="formData.country"></select>
+                    <select chosen="formData.country" id="country" ng-model="formData.country"  class="form-control"
+                            ng-options="country.country for country in formData.country | unique:'country'
+                             track by formData.country"
+                            ng-change="changecountry(country.country)" value="country.country">
+
+                    </select>
+
+                   <div>{{ formData.country }} </div>
                 </div>
-            </div>
-
-            <label >{{ formData.country }}</label>
-
+            </div>-->
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="creditbureau">{{'label.input.creditbureau' | translate}}<span
-                        class="required">*</span> </label>
+                <label class="control-label col-sm-2" for="orgcreditbureau">{{'label.input.creditbureau' | translate}}</label>
                 <div class="col-sm-3">
-                    <select chosen="creditbureaus" id="creditbureau" ng-model="formData.creditbureau"  class="form-control"
-                            ng-options="creditbureau.cbID as creditbureau.cbName for creditbureau in creditbureaus"
-                            ng-change="changecreditbureau(formData.creditbureau)" value="formData.creditbureau"></select>
+                    <select chosen="creditbureaus" id="orgcreditbureau" ng-model="creditBureauId"  class="form-control"
+                            ng-options="creditbureau.creditBureauId as creditbureau.cbSummary for creditbureau in creditbureaus"
+                            value="creditBureauId"></select>
                 </div>
+                <div> {{ creditBureauId}}</div>
             </div>
 
 
-            <label >{{ formData.creditbureau }}</label>
 
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="country">{{'label.input.cbproduct' | translate}}<span
-                        class="required">*</span> </label>
 
-                <div class="col-sm-3">
-                    <select chosen="cbproducts" id="cbproduct" ng-model="cbproducts" class="form-control"
-                            ng-options="cbproduct.credit_bureau_name for cbproduct in cbproducts"
-                            value="cbproducts.credit_bureau_name"></select>
-                </div>
-            </div>
-
-            <div>
-                <label >{{cbproducts}}</label>
-            </div>
 
 
             <div class="col-md-offset-3">
                 <a id="cancel" ng-href="#/externalservicesCB/CreditBureau" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" type="submit" ng-disabled="!AddNewCreditBureauController.$valid" has-permission='UPDATE_EXTERNALSERVICES' class="btn btn-primary">{{
+
+                <button id="save" type="submit"   class="btn btn-primary">{{
                     'label.button.save' | translate }}
                 </button>
+
             </div>
 
         </fieldset>

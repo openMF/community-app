@@ -279,6 +279,186 @@
 		            </div>
 		        </div>
 		    </div>
+
+        <div ng-show="enableAddress" class="form-group">
+
+                <div class="form-group">
+                    <div class="control-label col-sm-2">
+                        <h3><strong>{{ 'label.input.address' | translate }}</strong>&nbsp;<a ng-click="addAddress()">&nbsp;<i class="icon-plus icon-white"></i></a></h3>
+
+                    </div>
+
+                </div>
+
+          	<div ng-repeat="addr in addressArray">
+                <div class="form-group" ng-show="addresstypId">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.addressType' | translate }}</label>
+							</div>
+							<div class="col-sm-3"  >
+								<select chosen="addressTypes"  ng-model="addressArray[$index].addressTypeId"  class="form-control"
+										ng-options="addressType.id as addressType.name for addressType in addressTypes track by addressType.id"
+										value="addressTypeId"  ></select>
+
+							</div>
+                              &nbsp;&nbsp; <a ng-click="removeAddress($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+						</div>
+
+
+						<div class="form-group" ng-show="street">
+                            <div class="control-label col-sm-2">
+							<label>{{ 'label.input.street' | translate }}</label>
+                            </div>
+							<div class="col-sm-3">
+								<input type="text" name="street"  ng-model="addressArray[$index].street"  class="form-control"/>
+							</div>
+
+						</div>
+
+
+						<div class="form-group" ng-show="address_line_1">
+							<label class="control-label col-sm-2" >{{ 'label.input.addressline1' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="addressline1" ng-model="addressArray[$index].address_line_1"  class="form-control">
+							</div>
+
+						</div>
+
+
+						<div class="form-group" ng-show="address_line_2">
+							<label class="control-label col-sm-2" >{{ 'label.input.addressline2' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="addressline2" ng-model="addressArray[$index].address_line_2"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="address_line_3">
+							<label class="control-label col-sm-2" >{{ 'label.input.addressline3' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="addressline3" ng-model="addressArray[$index].address_line_3"  class="form-control">
+							</div>
+
+						</div>
+
+
+						<div class="form-group" ng-show="city">
+							<label class="control-label col-sm-2" >{{ 'label.input.city' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text" name="city" ng-model="addressArray[$index].city"  class="form-control">
+							</div>
+
+						</div>
+
+
+
+						<div class="form-group" ng-show="town_village">
+							<label class="control-label col-sm-2" >{{ 'label.input.town_village' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="town_village" ng-model="addressArray[$index].town_village"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="county_district">
+							<label class="control-label col-sm-2" >{{ 'label.input.county_district' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="county_district" ng-model="addressArray[$index].county_district"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="state_province">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.state_province' | translate }}</label>
+							</div>
+							<div class="col-sm-3" >
+								<select chosen="stateOptions"  ng-model="addressArray[$index].state_province_id"  class="form-control"
+										ng-options="stateOption.id as stateOption.name for stateOption in stateOptions track by stateOption.id"
+										value="state_province_id"></select>
+							</div>
+						</div>
+						<div>
+
+						</div>
+
+						<div class="form-group" ng-show="country">
+							<div class="control-label col-sm-2">
+								<label>{{ 'label.input.country' | translate }}</label>
+							</div>
+							<div class="col-sm-3" >
+								<select chosen="countryOptions"  ng-model="addressArray[$index].country_id"  class="form-control"
+										ng-options="countryOption.id as countryOption.name for countryOption in countryOptions track by countryOption.id"
+										value="country_id"></select>
+							</div>
+						</div>
+
+						<div class="form-group" ng-show="postal_code">
+							<label class="control-label col-sm-2" >{{ 'label.input.postal_code' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="postal_code" ng-model="addressArray[$index].postal_code"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="latitue">
+							<label class="control-label col-sm-2" >{{ 'label.input.latitude' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="latitude" ng-model="addressArray[$index].latitude"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="longitude">
+							<label class="control-label col-sm-2" >{{ 'label.input.longitude' | translate }}</label>
+
+							<div class="col-sm-3">
+								<input type="text"  name="longitude" ng-model="addressArray[$index].longitude"  class="form-control">
+							</div>
+
+						</div>
+
+						<div class="form-group" ng-show="isActive">
+
+							<label class="control-label col-sm-2" >{{'label.input.is_active' | translate}} </label>
+							<div class="col-sm-3">
+								<input class="input-mini-small" type="checkbox"
+									   ng-model="addressArray[$index].is_active">
+							</div>
+						</div>
+
+
+						<!--<div class="col-md-offset-3" ng-model="editable">
+							<button id="cancel"   ng-click="routeTo()" class="btn btn-primary">{{
+								'label.button.cancel' | translate }}
+							</button>
+
+							<button id="save" type="submit"  ng-hide="editable" ng-click="submit()" class="btn btn-primary">{{
+								'label.button.save' | translate }}
+							</button>
+
+							<button id="edit" ng-show="editable" ng-click="updateaddress()" class="btn btn-primary">{{
+								'label.button.edit' | translate }}
+							</button>
+
+						</div>-->
+
+
+
+
+			</div>
+
+</div>
+
+
 		    <div class="col-md-offset-5">
 	            <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_CLIENT'>{{'label.button.save' | translate}}</button>

@@ -5,7 +5,7 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCreditBureauSummaryController: function ($scope, resourceFactory, $routeParams, location) {
+        ViewCreditBureauSummaryController: function ($scope, resourceFactory, $routeParams, location,route) {
             $scope.Configs = [];
             $scope.CBConfigs=[];
             $scope.externalServicesType = $routeParams.externalServicesType;
@@ -14,7 +14,7 @@
             resourceFactory.creditBureauSummary.get( function (data) {
                 for (var i in data) {
 
-                    if(data[i] != null && data[i].cbID != null) {
+                    if(data[i] != null && data[i].organisationCreditBureauId != null) {
                         $scope.Configs.push(data[i]);
                      
                     }
@@ -24,7 +24,7 @@
             resourceFactory.creditBureauMapping.get( function (data) {
                 for (var i in data) {
 
-                    if(data[i] != null && data[i].mapping_id != null) {
+                    if(data[i] != null && data[i].creditbureauLoanProductMappingId != null) {
                         $scope.CBConfigs.push(data[i]);
 
                     }
@@ -32,31 +32,55 @@
             });
             
             $scope.buttonstatus=function(status,id)
-            {   
+            {
+                
+
                     var biD=document.getElementById(id);
-                alert(status);
-               // $scope.button=status;
+                
+
                 if(status==true)
                 {
-                   // $scope.button="disable"
-                    biD.settext("disable");
+                    
+                    biD.innerHTML="disable";
 
                 }
                 else
                 {
-                   // $scope.button="enable"
-                    biD.settext("enable");
+
+                    biD.innerHTML="enable";
                 }
             }
 
-            $scope.cancel = function () {
-                location.path('/externalservices');
-        };
+            $scope.changeCbStatus=function(cb_id,status)
+            {
+                //alert("status is"+status);
+                var formData={};
+                formData.cb_id=cb_id;
+                formData.is_active=!status;
+
+                resourceFactory.creditBureauSummary.put(formData, function (data) {
+                    route.reload();
+                    /*location.path('/externalservicesCB/CreditBureau');*/
+                });
+            }
+
+            $scope.changeMappingStatus=function (mappingid,status) {
+                var mappingUpdate={};
+                mappingUpdate.creditbureauLoanProductMappingId=mappingid;
+                mappingUpdate.is_active=!status;
+                resourceFactory.creditBureauMapping.put(mappingUpdate,function (data) {
+
+                    route.reload();
+                    /*location.path('/externalservicesCB/CreditBureau');*/
+                });
+            }
+
+
 
         }
 
     });
-    mifosX.ng.application.controller('ViewCreditBureauSummaryController', ['$scope', 'ResourceFactory', '$routeParams', '$location', mifosX.controllers.ViewCreditBureauSummaryController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCreditBureauSummaryController', ['$scope', 'ResourceFactory', '$routeParams', '$location','$route', mifosX.controllers.ViewCreditBureauSummaryController]).run(function ($log) {
         $log.info("ViewCreditBureauSummaryController initialized");
     });
 
