@@ -1018,6 +1018,9 @@
             })
             .when('/newgrouploanindividualmonitoringloanaccount/:groupId', {
                 templateUrl: 'views/loans/newloanaccount.html'
+            })
+            .when('/glimloanaccountcharge/:loanId/waivecharge', {
+                templateUrl: 'views/loans/glimwaivecharge.html'
             });
         ;
         $locationProvider.html5Mode(false);

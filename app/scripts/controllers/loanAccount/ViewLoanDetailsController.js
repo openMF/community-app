@@ -14,6 +14,8 @@
             scope.addSubsidyTransactionTypeId = 50;
             scope.revokeSubsidyTransactionTypeId = 51;
             scope.glimClientsDetails = [];
+            scope.isGlim = false;
+            scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1
@@ -461,7 +463,13 @@
 
             resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
                 scope.glimClientsDetails = data;
+                scope.isGlim = data.length>0;
             });
+            scope.getChargeWaiveLink = function(loanId, chargeId){
+                var suffix = "loanaccountcharge/"+loanId+"/waivecharge/"+chargeId
+                var link = scope.isGlim?"#/glim"+suffix:"#/"+suffix;
+                return link;
+            }
 
             scope.saveNote = function () {
                 resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {

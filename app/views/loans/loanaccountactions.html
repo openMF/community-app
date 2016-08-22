@@ -154,58 +154,34 @@
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
-        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest') && isGLIM">
+        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM">
             <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
             <div class="col-sm-8">
                 <table class="table well">
                     <thead>
                     <tr class="active">
+                        <th ng-hide="action == 'repayment'"></th>
                         <th >{{'label.heading.clientid' | translate}}</th>
                         <th >{{'label.heading.clientname' | translate}}</th>
                         <th ng-show="action == 'repayment'">{{'label.heading.installmentamount' | translate}}</th>
-                        <th>{{'label.heading.interestamount' | translate}}</th>
-                        <th ng-show="action == 'repayment'">{{'label.heading.chargeamount' | translate}}</th>
-                        <th ng-show="action == 'waiveinterest'">{{'label.heading.transactionamount' | translate}}</th>
+                        <th ng-show="action == 'waiveinterest' || action == 'writeoff'">{{'label.heading.transactionamount' | translate}}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="clientMember in formData.clientMembers" ng-init="outerIndex = $index">
+                        <td ng-hide="action == 'repayment'">
+                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected"
+                                   ng-change="getTotalAmount(formData.clientMembers, 'transactionAmount')">
+                        </td>
                         <td >{{clientMember.clientId}}</td>
                         <td >{{clientMember.clientName}}</td>
-                        <td ng-show="action == 'repayment'">
-                            <input  type="text"
-                                    class="form-control principal"
-                                    name="principal"
-                                    ng-model="formData.clientMembers[outerIndex].installmentAmount"
-                                    number-format ng-change="getTotalAmount(formData.clientMembers, 'installmentAmount')" />
-                        </td>
-                        <td ng-show="action == 'repayment'">
-                            <input  type="text"
-                                    class="form-control principal"
-                                    name="principal"
-                                    ng-model="formData.clientMembers[outerIndex].interestAmount"
-                                    number-format ng-readonly="true"/>
-                        </td>
-                        <td ng-show="action == 'waiveinterest'">
-                            <input  type="text"
-                                    class="form-control principal"
-                                    name="principal"
-                                    ng-model="formData.clientMembers[outerIndex].remainingTransactionAmount"
-                                    number-format ng-readonly="true"/>
-                        </td>
-                        <td ng-show="action == 'repayment'">
-                            <input  type="text"
-                                    class="form-control principal"
-                                    name="principal"
-                                    ng-model="formData.clientMembers[outerIndex].chargeAmount"
-                                    number-format  ng-readonly="true" />
-                        </td>
-                        <td ng-show="action == 'waiveinterest'">
+                        <td>
                             <input  type="text"
                                     class="form-control principal"
                                     name="principal"
                                     ng-model="formData.clientMembers[outerIndex].transactionAmount"
-                                    number-format ng-change="getTotalAmount(formData.clientMembers, 'transactionAmount')"/>
+                                    number-format ng-readonly="action != 'repayment'" ng-change="getTotalAmount(formData.clientMembers, 'transactionAmount')"/>
+
                         </td>
                     </tr>
                     <tbody>
