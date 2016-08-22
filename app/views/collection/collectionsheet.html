@@ -141,7 +141,7 @@
 						<td scope="colgroup" colspan="{{collectionsheetdata.savingsProducts.length}}">&nbsp;</td>
 						<td colspan="1" scope="colgroup">&nbsp;</td>
 					</tr>
-					<tr ng-repeat="client in group.clients">
+					<tr ng-repeat="client in group.clients track by $index" ng-init="parentIndex = $index">
 						<td>
 							<div style="word-wrap: break-word">
 								{{client.clientName}}({{client.clientId}})
@@ -176,11 +176,9 @@
 							</span>
 						</td>
 						<td class="width25">
-							<select id="clientsAttendance[{{$index}}][attendanceType]"
-									ng-model="client.attendanceType.id" class="input-sm form-control"
-									ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
-									value="{{attendance.id}}">
-							</select>
+							<label ng-repeat="attendance in collectionsheetdata.attendanceTypeOptions">
+								<input type="radio" name="attendance{{parentIndex}}" ng-model="client.attendanceType.id" ng-value="attendance.id" />&nbsp;{{attendance.value}}
+							</label>
 						</td>
 					</tr>
 					<tr>
