@@ -22,6 +22,8 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
 
+
+
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                     scope.GLIMData = glimData;
@@ -147,24 +149,23 @@
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
-                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
-                        scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
-                        }
-                        scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
-                        if(data.penaltyChargesPortion>0){
-                            scope.showPenaltyPortionDisplay = true;
-                        }
-                    });
-                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment'}, function (data) {
-                        if (data.clientMembers.length>0) {
-                            scope.formData.clientMembers = data.clientMembers;
-                            scope.isGLIM = true;
-                        } else {
-                            scope.formData.clientMembers = undefined;
-                            scope.isGLIM = false;
+                    resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
+                        scope.GLIMData = glimData;
+                        scope.isGLIM = (glimData.length>0);
+                        if(scope.isGLIM){
+                            scope.formData[scope.modelName] = new Date();
+                        }else{
+                            resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                                scope.paymentTypes = data.paymentTypeOptions;
+                                if (data.paymentTypeOptions.length > 0) {
+                                    scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                                }
+                                scope.formData.transactionAmount = data.amount;
+                                scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                                if(data.penaltyChargesPortion>0){
+                                    scope.showPenaltyPortionDisplay = true;
+                                }
+                            });
                         }
                     });
                     scope.title = 'label.heading.loanrepayments';
@@ -228,6 +229,15 @@
                     scope.title = 'label.heading.writeoffloanaccount';
                     scope.labelName = 'label.input.writeoffondate';
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
+                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
+                        if (data.clientMembers.length>0) {
+                            scope.formData.clientMembers = data.clientMembers;
+                            scope.isGLIM = true;
+                        } else {
+                            scope.formData.clientMembers = undefined;
+                            scope.isGLIM = false;
+                        }
+                    });
                     break;
                 case "close-rescheduled":
                     scope.modelName = 'transactionDate';
@@ -465,12 +475,14 @@
             scope.getTotalAmount = function(data, amountType) {
                 var amount = 0;
                 for (var i=0; i<data.length; i++) {
-                    if (angular.isDefined(data[i][amountType])) {
+                    if ((data[i].isClientSelected)&& angular.isDefined(data[i][amountType])) {
                         amount = amount + parseFloat(data[i][amountType]);
                     }
                 }
-                if(scope.isGLIM){
-                    this.formData.transactionAmount = amount;
+                if(scope.isGLIM && scope.action != 'writeoff'){
+                    this.formData.transactionAmount = amount.toFixed(2);
+                }else{
+                    scope.writeOffAmount = amount.toFixed(2);
                 }
             };
 
@@ -606,7 +618,31 @@
 
             scope.$watch('formData.transactionDate',function(){
                 scope.onDateChange();
+                if(scope.isGLIM && scope.action=='repayment'){
+                    scope.getRepaymentTemplate(scope.formData.transactionDate);
+                }
              });
+
+            scope.getRepaymentTemplate = function(date){
+                var transactionDate = dateFilter(date,  scope.df);
+                resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment', transactionDate: transactionDate}, function (data) {
+                    if (data.clientMembers.length>0) {
+                        scope.formData.clientMembers = data.clientMembers;
+                        var amount = 0;
+                        for (var i=0; i<data.clientMembers.length; i++) {
+                            if (angular.isDefined(data.clientMembers[i].transactionAmount)) {
+                                amount = amount + parseFloat(data.clientMembers[i].transactionAmount);
+                            }
+                        }
+                        if(scope.isGLIM){
+                            scope.formData.transactionAmount = amount.toFixed(2);
+                        }
+                    } else {
+                        scope.formData.clientMembers = undefined;
+                        scope.isGLIM = false;
+                    }
+                });
+            };
 
             scope.onDateChange = function(){
                 if(scope.processDate) {

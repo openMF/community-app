@@ -222,6 +222,11 @@
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
                               </li>
+                              <li class="{{button.icon}}" ng-show="isGlim">
+                                  <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVECHARGE_GLIMTRANSACTION">
+                                      {{'label.button.waiveglimcharge' | translate}}
+                                  </a>
+                              </li>
                           </ul>
                       </span>
                 </div>
@@ -932,7 +937,7 @@
                                 <th>{{'label.heading.paid' | translate}}</th>
                                 <th>{{'label.heading.waived' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
-                                <th>{{'label.heading.actions' | translate}}</th>
+                                <th ng-hide="isGlim">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
@@ -945,7 +950,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
-                                <td>
+                                <td ng-hide="isGlim">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
                                             class="icon-pencil icon-white"></i></a>
@@ -953,7 +958,7 @@
                                        data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)"
                                        title="delete"><i class="icon-remove icon-white"></i></a>
                                     <a class="btn-primary" data-ng-hide="charge.actionFlag"
-                                       href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i
+                                       href="#/loanaccountcharge/{{loanId}}/waivecharge/{{chargeId}}"><i
                                             class="icon-flag icon-white"></i></a>
                                     <a class="btn-success" data-ng-show="charge.chargePayable && status=='Active'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.button.pay" |

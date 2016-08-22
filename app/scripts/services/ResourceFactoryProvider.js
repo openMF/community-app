@@ -716,11 +716,14 @@
                         getByLoanAndClient: {method: 'GET', params: {loanId:'@loanId',clientId:'@clientId'}, isArray : false}
 
                     }),
-                    glimTransactionTemplateResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions/template", {loanId:'@loanId'},{
-                        get: {method: 'GET', params: {loanId : '@loanId'}}
+                    glimTransactionTemplateResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions/template", {loanId:'@loanId', transactionDate:'@transactionDate'},{
+                        get: {method: 'GET', params: {loanId : '@loanId', transactionDate:'@transactionDate'}}
                     }),
                     glimTransactionResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions", {loanId:'@loanId'},{
                         get: {method: 'GET', params: {loanId : '@loanId'}}
+                    }),
+                    glimChargeResource: defineResource(apiVer +"/glimcharges/:loanId/loancharge/:loanChargeId", {loanId:'@loanId', loanChargeId:'@loanChargeId'},{
+                        get: {method: 'GET', params: {loanId : '@loanId', loanChargeId:'@loanChargeId'}}
                     })
                 };
             }];
