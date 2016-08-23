@@ -322,7 +322,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'bankstatements/ViewBankController',
             'bankstatements/UpdateBankController',
             'bankstatements/CreateBankController',
-            'loanAccount/GLIMLoanAccountWaiveChargeController'
+            'loanAccount/GLIMLoanAccountWaiveChargeController',
+            'loanAccount/GLIMPrepayLoanController'
         ],
         filters: [
             'StatusLookup',

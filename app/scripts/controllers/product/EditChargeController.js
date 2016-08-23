@@ -136,6 +136,12 @@
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
                 }
+                if(this.formData.minCap == undefined) {
+                    this.formData.minCap = null;
+                }
+                if(this.formData.maxCap == undefined) {
+                    this.formData.maxCap = null;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;
                 this.formData.penalty = this.formData.penalty || false;
