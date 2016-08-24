@@ -1021,6 +1021,9 @@
             })
             .when('/glimloanaccountcharge/:loanId/waivecharge', {
                 templateUrl: 'views/loans/glimwaivecharge.html'
+            })
+            .when('/glimloanaccountprepay/:loanId', {
+                templateUrl: 'views/loans/glimprepay.html'
             });
         ;
         $locationProvider.html5Mode(false);
