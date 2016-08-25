@@ -6,29 +6,42 @@
             <li class="active">{{'label.anchor.portfoliotransactions' | translate}}</li>
         </ul>
     </div>
-    <br/>
-    <br/>
-
+    <div class="form-horizontal">
+        <div>
+            <table class="table well">
+                <thead>
+                <tr class="graybg" style="height:30px;">
+                    <th style="width:15%;">{{'label.heading.inflowamount' | translate}}</th>
+                    <th style="height:35%;" align="left">{{inflowAmount}}</th>
+                    <th style="width:15%;">{{'label.heading.outflowamount' | translate}}</th>
+                    <th style="height:35%;"  align="left">{{outflowAmount}}</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
     <div class="form-horizontal" ng-show="!isSearch">
         <div style="clear:both"></div>
         <div style="float:left;max-width:50%;">
                 <table class="table well">
                         <thead>
                         <tr class="graybg" style="height:78px;">
-                            <th>{{'label.heading.transactionid' | translate}}</th>
+                            <th>{{'label.heading.transactiondate' | translate}}</th>
                             <th>{{'label.heading.transactiontype' | translate}}</th>
                             <th>{{'label.heading.amount' | translate}}</th>
                             <th>{{'label.heading.mobilenumber' | translate}}</th>
                             <th>{{'label.heading.groupexternalid' | translate}}</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  class="pointer-main" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:55px;cursor: pointer;" ng-show="index==$index || index==-1" ng-click="defaultView($index)">
-                            <td class="pointer">{{bankStatementDetail.transactionId}}</td>
+                        <tr  class="pointer-main" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:55px;cursor: pointer;" ng-show="index==$index || index==-1">
+                            <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
                             <td class="pointer">{{bankStatementDetail.transactionType}}</td>
                             <td class="pointer">{{bankStatementDetail.amount}}</td>
                             <td class="pointer">{{bankStatementDetail.mobileNumber}}</td>
                             <td class="pointer">{{bankStatementDetail.groupExternalId}}</td>
+                            <td ng-hide="showPossibleMatch" ng-click="searchOptions($index)"><i class="icon-search icon-white"></i></td>
                         </tr>
                         </tbody>
                 </table>
@@ -43,7 +56,7 @@
                     <th>{{'label.heading.loanaccountnumber' | translate}}</th>
                     <th>{{'label.heading.officeName' | translate}}</th>
                     <th>{{'label.heading.transactiontype' | translate}}</th>
-                    <th>{{'label.heading.loantransactionnumber' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,7 +72,7 @@
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length==1)">{{bankStatementDetail.bestMatchingLoanTransactions[0].loanAccountNumber}}</td>
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length==1)">{{bankStatementDetail.bestMatchingLoanTransactions[0].officeName}}</td>
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length==1)">{{bankStatementDetail.bestMatchingLoanTransactions[0].type.value}}</td>
-                            <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length==1)">{{bankStatementDetail.bestMatchingLoanTransactions[0].id}}</td>
+                            <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length==1)">{{bankStatementDetail.bestMatchingLoanTransactions[0].submittedOnDate| DateFormat}}</td>
 
                             <!--  when 1 match optional available -->
                             <td align="center" ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">
@@ -71,7 +84,7 @@
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">{{bankStatementDetail.bestMatchingLoanTransactions[trackActualIndex($index)].loanAccountNumber}}</td>
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">{{bankStatementDetail.bestMatchingLoanTransactions[trackActualIndex($index)].officeName}}</td>
                             <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">{{bankStatementDetail.bestMatchingLoanTransactions[trackActualIndex($index)].type.value}}</td>
-                            <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">{{bankStatementDetail.bestMatchingLoanTransactions[trackActualIndex($index)].id}}</td>
+                            <td ng-show = "!bankStatementDetail.isReconciled && (bankStatementDetail.optionsLength==1 && bankStatementDetail.bestMatchingLoanTransactions.length!=1)">{{bankStatementDetail.bestMatchingLoanTransactions[trackActualIndex($index)].submittedOnDate| DateFormat}}</td>
 
 
                             <!--  when more than 1 match, show all options -->
@@ -79,7 +92,10 @@
                                 <a class="btn btn-primary"  role="button" ng-click="possibleMatches($index)">
                                     <i class="icon-eye-open icon-white"></i>{{'label.heading.seeoptions' | translate}}</a>
                             </td>
-                            <td ng-show = "(bankStatementDetail.optionsLength <= (maxPossibleLength) && bankStatementDetail.optionsLength>1) && !isMatchSelected(bankStatementDetail.id)  && !bankStatementDetail.isReconciled"></td>
+                            <td align="center" ng-show = "(bankStatementDetail.optionsLength <= (maxPossibleLength) && bankStatementDetail.optionsLength>1) && !isMatchSelected(bankStatementDetail.id)  && !bankStatementDetail.isReconciled">
+                                <a class="btn btn-primary"  role="button" ng-click="searchOptions($index)">
+                                    <i class="icon-search icon-white"></i>{{'label.heading.search' | translate}}</a>
+                            </td>
                             <td ng-show = "(bankStatementDetail.optionsLength <= (maxPossibleLength) && bankStatementDetail.optionsLength>1) && !isMatchSelected(bankStatementDetail.id)  && !bankStatementDetail.isReconciled"></td>
                             <td ng-show = "(bankStatementDetail.optionsLength <= (maxPossibleLength) && bankStatementDetail.optionsLength>1) && !isMatchSelected(bankStatementDetail.id)  && !bankStatementDetail.isReconciled"></td>
                             <td ng-show = "(bankStatementDetail.optionsLength <= (maxPossibleLength) && bankStatementDetail.optionsLength>1) && !isMatchSelected(bankStatementDetail.id)  && !bankStatementDetail.isReconciled"></td>
@@ -108,7 +124,7 @@
                             <td ng-click="addBankStatementDetailsForBulkReconcile(bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id, bankStatementDetail.id)" ng-if="bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id != undefined && !bankStatementDetail.isReconciled && bankStatementDetail.optionsLength>1 && bankStatementDetail.optionsLength <= (maxPossibleLength) && isMatchSelected(bankStatementDetail.id)">{{bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].loanAccountNumber}}</td>
                             <td ng-click="addBankStatementDetailsForBulkReconcile(bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id, bankStatementDetail.id)" ng-if="bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id != undefined && !bankStatementDetail.isReconciled && bankStatementDetail.optionsLength>1 && bankStatementDetail.optionsLength <= (maxPossibleLength) && isMatchSelected(bankStatementDetail.id)">{{bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].officeName}}</td>
                             <td ng-click="addBankStatementDetailsForBulkReconcile(bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id, bankStatementDetail.id)" ng-if="bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id != undefined && !bankStatementDetail.isReconciled && bankStatementDetail.optionsLength>1 && bankStatementDetail.optionsLength <= (maxPossibleLength) && isMatchSelected(bankStatementDetail.id)">{{bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].type.value}}</td>
-                            <td ng-click="addBankStatementDetailsForBulkReconcile(bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id, bankStatementDetail.id)"  ng-if="bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id != undefined && !bankStatementDetail.isReconciled && bankStatementDetail.optionsLength>1 && bankStatementDetail.optionsLength <= (maxPossibleLength) && isMatchSelected(bankStatementDetail.id)">{{bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id}}</td>
+                            <td ng-click="addBankStatementDetailsForBulkReconcile(bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id, bankStatementDetail.id)"  ng-if="bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].id != undefined && !bankStatementDetail.isReconciled && bankStatementDetail.optionsLength>1 && bankStatementDetail.optionsLength <= (maxPossibleLength) && isMatchSelected(bankStatementDetail.id)">{{bankStatementDetail.bestMatchingLoanTransactions[getLoanIndex($index)].submittedOnDate| DateFormat}}</td>
 
                            <!--  when transaction is reconciled  -->
                             <td align="center" ng-show = "bankStatementDetail.isReconciled">{{'label.heading.yes' | translate}}</td>
@@ -117,7 +133,7 @@
                             <td ng-show = "bankStatementDetail.isReconciled">{{bankStatementDetail.loanAccountNo}}</td>
                             <td ng-show = "bankStatementDetail.isReconciled">{{bankStatementDetail.officeName}}</td>
                             <td ng-show = "bankStatementDetail.isReconciled">{{bankStatementDetail.type.value}}</td>
-                            <td ng-show = "bankStatementDetail.isReconciled">{{bankStatementDetail.loanTransactionId}}</td>
+                            <td ng-show = "bankStatementDetail.isReconciled">{{bankStatementDetail.submittedOnDate| DateFormat}}</td>
                     </tr>
                     <!--  to show possible options  -->
                     <tr ng-repeat="loantxn in bankStatementDetails[index].bestMatchingLoanTransactions" style="height:55px;" 
@@ -131,20 +147,23 @@
                         <td>{{loantxn.loanAccountNumber}}</td>
                         <td>{{loantxn.officeName}}</td>
                         <td>{{loantxn.type.value}}
-                        <td>{{loantxn.id}}</td>
+                        <td>{{loantxn.submittedOnDate| DateFormat}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
 
+    </div>
+    <div ng-show ="showPossibleMatch">
+        <button  class="btn btn-primary" ng-click="defaultView(0)"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
+    </div>
 
     <div class="form-horizontal" ng-show="isSearch">
         <div>
             <table class="table well" ng-show="bankStatementDetails.length > 0">
                 <thead>
                 <tr class="graybg">
-                    <th>{{'label.heading.transactionid' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.transactiontype' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.heading.description' | translate}}</th>
@@ -154,7 +173,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{bankStatementDetails[searchIndex].transactionId}}</td>
+                    <td>{{bankStatementDetails[searchIndex].transactionDate}}</td>
                     <td>{{bankStatementDetails[searchIndex].transactionType}}</td>
                     <td>{{bankStatementDetails[searchIndex].amount}}</td>
                     <td>{{bankStatementDetails[searchIndex].description}}</td>
@@ -220,12 +239,12 @@
                 <thead>
                 <tr class="graybg">
                     <th style="width:5%;"></th>
+                    <th style="width:15%;">{{'label.heading.transactiondate' | translate}}</th>
                     <th style="width:15%;">{{'label.heading.transactiontype' | translate}}</th>
                     <th style="width:15%;">{{'label.heading.loantransactionnumber' | translate}}</th>
                     <th style="width:15%;">{{'label.heading.amount' | translate}}</th>
                     <th style="width:15%;">{{'label.heading.groupexternalid' | translate}}</th>
                     <th style="width:15%;">{{'label.heading.loanaccountnumber' | translate}}</th>
-                    <th style="width:15%;">{{'label.heading.loanofficer' | translate}}</th>
                     <th style="width:auto;">{{'label.heading.branch' | translate}}</th>
                 </tr>
                 </thead>
@@ -240,12 +259,12 @@
                             <td  style="width:5%;">
                               <input ng-checked="isBankTransactionSelected(bankStatementDetails[searchIndex].id,loanTransaction.LOAN_TRANSACTION_NO)" ng-click="addBankStatementDetailsForBulkReconcile(loanTransaction.LOAN_TRANSACTION_NO, bankStatementDetails[searchIndex].id)" type="radio" id="{{bankStatementDetails[searchIndex].id}}" name="{{bankStatementDetails[searchIndex].id}}">
                             </td>
+                            <td style="width:15%;">{{loanTransaction.TRANSACTION_DATE | DateFormat}}</td>
                             <td style="width:15%;">{{loanTransaction.TRANSACTION_TYPE}}</td>
                             <td style="width:15%;">{{loanTransaction.LOAN_TRANSACTION_NO}}</td>
                             <td style="width:15%;">{{loanTransaction.AMOUNT}}</td>
                             <td style="width:15%;">{{loanTransaction.GROUP_EXTERNAL_ID}}</td>
                             <td style="width:15%;">{{loanTransaction.LOAN_ACCOUNT_NO}}</td>
-                            <td style="width:15%;">{{loanTransaction.LOAN_OFFICER}}</td>
                             <td style="width:auto;">{{loanTransaction.BRANCH}}</td>
                         </tr>
                     </tbody>
