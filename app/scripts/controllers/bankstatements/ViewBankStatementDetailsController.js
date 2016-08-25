@@ -14,6 +14,8 @@
             scope.searchIndex = -1;
             scope.isSearch = false;
             scope.bankId = routeParams.bankStatementId;
+            scope.inflowAmount = 0;
+            scope.outflowAmount = 0;
 
             scope.isBankStatementReconcile = function(){
                 resourceFactory.bankStatementsResource.getBankStatement({bankStatementId : routeParams.bankStatementId}, function (data) {
@@ -26,13 +28,19 @@
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
                     scope.bankStatementDetails = data;
+                    scope.inflowAmount = 0;
+                    scope.outflowAmount = 0;
                     for(var i=0;i<data.length;i++){
                         scope.bankStatementDetails[i].optionsLength = 0;
+                        if(scope.bankStatementDetails[i].transactionType == 'Disbursal'){
+                            scope.outflowAmount = scope.outflowAmount + scope.bankStatementDetails[i].amount;
+                        }else{
+                            scope.inflowAmount = scope.inflowAmount + scope.bankStatementDetails[i].amount;
+                        }
                         if(data[i].isReconciled==false){
                             scope.attachPossibleLoanTransactions(scope.bankStatementDetails[i].id,i);
                         }
                     }
-                    
                 });
             };
 
@@ -74,6 +82,10 @@
                 this.formData.max = undefined;
                 this.formData.groupAccountNumber = undefined;
             };
+
+            scope.defaultScreen = function(){
+                scope.showPossibleMatch = false;
+            }
 
             scope.defaultView = function(index){
                 if(!scope.bankStatementDetails[index].isReconciled){
