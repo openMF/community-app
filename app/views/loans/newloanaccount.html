@@ -70,12 +70,12 @@
     </tr>
     <tr ng-show="formData.productId">
         <td><label>{{ 'label.input.loanexternalid' | translate }}&nbsp;<span ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId" class="required">*</span></label></td>
-        <td class="paddedbottom10" ng-show ="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
+        <td class="paddedbottom10" ng-if ="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
             <input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
                    required late-Validate/>
             <form-validate valattributeform="newloanaccountform" valattribute="external"/>
         </td>
-        <td class="paddedbottom10" ng-show ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
+        <td class="paddedbottom10" ng-if ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
             <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"
                     />
         </td>
