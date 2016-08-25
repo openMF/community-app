@@ -8,6 +8,14 @@
 	    <api-validate></api-validate>
 	    <fieldset>
 	        <legend>{{ 'label.heading.addjournalentry' | translate }}</legend>
+			<div class="form-group" class="block" >
+				<small class="required" ng-show="error">
+					{{error | translate}}
+				</small>
+			</div>
+			<div class="form-group" ng-show="showTransactionDetails" >
+				<span><h4><strong>{{'label.heading.entry.created.with.transaction.id' | translate}}&nbsp;:&nbsp;&nbsp;<a href="" ng-click="viewTransaction()">{{transactionnumber}}</a></strong></h4></span>
+			</div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
 	            <div class="col-sm-3">
@@ -42,6 +50,7 @@
 	                    <input type="text" class="input-small form-control" number-format ng-model="dbAccount.debitAmount">
 	                    &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
 	                </div>
+
 	            	<h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a ng-click="addCrAccount()">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
 	                <div ng-repeat="crAccount in formData.crAccounts " class="form-inline paddedbottom10">
 						<select chosen="glAccounts" ng-model="crAccount.select"
@@ -52,7 +61,9 @@
 	                	<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
 	                </div>
 	            </div>
+
 	        </div>
+
 	        <div class="form-group">
 	            <label class="control-label col-sm-2" for="referenceNumber">{{ 'label.input.referencenumber' | translate }}</label>
 	            <div class="col-sm-3">

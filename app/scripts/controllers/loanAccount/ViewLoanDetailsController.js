@@ -161,7 +161,30 @@
                 };
             };
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
+            scope.tabs = [
+                { active: true },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false }
+            ];
+
+
+            /* For multiple disbursement loans, if second loan is due for disbursement, disburse button does not appearing,
+                 hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
+             */
+
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations: 'all', exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
                 $rootScope.loanproductName = data.loanProductName;
                 $rootScope.clientId=data.clientId;
@@ -447,12 +470,86 @@
                     };
                 }
                 scope.isWriteOff = false;
-                if(scope.loandetails.summary!=null){
-                    if(scope.loandetails.summary.writeoffReasonId!=null){
+                if(scope.loandetails.summary!=null) {
+                    if (scope.loandetails.summary.writeoffReasonId != null) {
                         scope.isWriteOff = true;
                     }
                 }
+                //scope.getAllLoanNotes();
             });
+
+            scope.isRepaymentSchedule = false;
+            scope.istransactions = false;
+            scope.iscollateral = false;
+            scope.isMultiDisburseDetails = false;
+            scope.isInterestRatesPeriods = false;
+            scope.ischarges = false;
+            scope.getSpecificData = function (associations){
+                scope.isDataAlreadyFetched = false;
+                if(associations === 'repaymentSchedule'){
+                    associations = "repaymentSchedule,futureSchedule,originalSchedule";
+                }
+                if(associations === 'multiDisburseDetails'){
+                    associations = "multiDisburseDetails,emiAmountVariations";
+                }
+                if((associations === 'repaymentSchedule'  || associations === 'repaymentSchedule,futureSchedule,originalSchedule' )&& scope.isRepaymentSchedule === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'transactions' && scope.istransactions === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'collateral' && scope.iscollateral === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'multiDisburseDetails,emiAmountVariations' && scope.isMultiDisburseDetails === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'interestRatesPeriods' && scope.isInterestRatesPeriods === true){
+                    scope.isDataAlreadyFetched = true;
+                }else if(associations === 'charges' && scope.ischarges === true){
+                    scope.isDataAlreadyFetched = true;
+                }
+                if(!scope.isDataAlreadyFetched){
+                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: associations,isFetchSpecificData: true}, function (data) {
+                        scope.loanSpecificData = data;
+                        if(associations === 'repaymentSchedule' || associations === 'repaymentSchedule,futureSchedule,originalSchedule'){
+                            scope.isRepaymentSchedule = true;
+                            scope.loandetails.originalSchedule = scope.loanSpecificData.originalSchedule;
+                            scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
+                            scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                        }else if(associations === 'transactions'){
+                            scope.istransactions = true;
+                            scope.loandetails.transactions = scope.loanSpecificData.transactions;
+                            scope.convertDateArrayToObject('date');
+                        }else if(associations === 'collateral'){
+                            scope.iscollateral = true;
+                            scope.loandetails.collateral = scope.loanSpecificData.collateral;
+                        }else if(associations === 'multiDisburseDetails,emiAmountVariations'){
+                            scope.isMultiDisburseDetails = true;
+                            scope.loandetails.disbursementDetails = scope.loanSpecificData.disbursementDetails;
+                            scope.loandetails.emiAmountVariations = scope.loanSpecificData.emiAmountVariations;
+                        }else if(associations === 'interestRatesPeriods'){
+                            scope.isInterestRatesPeriods = true;
+                            scope.loandetails.interestRatesPeriods = scope.loanSpecificData.interestRatesPeriods;
+                        }else if(associations === 'charges'){
+                            scope.ischarges = true;
+                            scope.loandetails.charges = scope.loanSpecificData.charges;
+                            if (scope.loandetails.charges) {
+                                scope.charges = scope.loandetails.charges;
+                                for (var i in scope.charges) {
+                                    if (scope.charges[i].paid || scope.charges[i].waived || scope.charges[i].chargeTimeType.value == 'Disbursement' || scope.loandetails.status.value != 'Active') {
+                                        var actionFlag = true;
+                                    }
+                                    else {
+                                        var actionFlag = false;
+                                    }
+                                    scope.charges[i].actionFlag = actionFlag;
+                                }
+
+                                scope.chargeTableShow = true;
+                            }else {
+                                scope.chargeTableShow = false;
+                            }
+                        }
+                    });
+                }
+            };
 
             resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.loanNotes = data;

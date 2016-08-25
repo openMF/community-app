@@ -211,101 +211,124 @@
 	            </div>
             </div>
 
-			<legend></legend>
+			<div ng-show="enableClientAddress">
+				<legend></legend>
 
-			<legend>{{'label.heading.clientaddress' | translate}}</legend>
+				<legend>{{'label.heading.clientaddress' | translate}}</legend>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.input.addresstype' | translate}}<span class="required">*</span>
-                </label>
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						{{'label.input.addresstype' | translate}}
+					</label>
 
-                <div class="col-sm-3">
-					<select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formAddressData.addressTypes[0]"  class="form-control"
-							ng-options="address.id as address.name for address in addressType" value="{{address.id}}" required late-validate>
-                            <option value="">{{'label.menu.addressType' | translate}}</option>
-					</select>
-                </div>
-				<div class="col-sm-2">
-					<form-validate valattributeform="createclientform" valattribute="addressType"/>
+					<div class="col-sm-3">
+						<select chosen="addressType" id="addresstypeId" name="addressType"
+								ng-model="formAddressData.addressTypes[0]" class="form-control"
+								ng-options="address.id as address.name for address in addressType"
+								value="{{address.id}}">
+							<option value="">{{'label.menu.addressType' | translate}}</option>
+						</select>
+					</div>
+					<div ng-show="addressFromVillages">
+						<label class="control-label col-sm-2">
+							{{'label.input.villages' | translate}}
+						</label>
+						<div class="col-sm-3">
+							<select chosen="villages" id="villageId" ng-model="formAddressData.villageId" class="form-control"
+									ng-options="village.villageId as village.villageName for village in villages"
+									value="{{village.villageId}}"
+									ng-change="changeVillage(formAddressData.villageId)">
+								<option value="">{{'label.menu.selectVillages' | translate}}</option>
+							</select>
+						</div>
+					</div>
 				</div>
-            </div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}<span class="required">*</span> </label>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
 
-                <div class="col-sm-3">
-                    <input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control"/>
-                </div>
+					<div class="col-sm-3">
+						<input type="text" id="houseNo" ng-model="formAddressData.houseNo" class="form-control"/>
+					</div>
 
-                <label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}<span class="required">*</span></label>
+					<label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}</label>
 
-                <div class="col-sm-3">
-                    <input type="text" id="streetname" name="streetName" ng-model="formAddressData.addressLineOne"  class="form-control" required late-validate/>
-                </div>
+					<div class="col-sm-3">
+						<input type="text" id="streetname" name="streetName"
+							   ng-model="formAddressData.addressLineOne" class="form-control"/>
+					</div>
 
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createclientform" valattribute="streetName"/>
-                </div>
-            </div>
+				</div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}</label>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' |
+						translate}}</label>
 
-                <div class="col-sm-3">
-                    <input type="text" id="villagename" ng-model="formAddressData.villageTown"  class="form-control"/>
-                </div>
-                <label class="control-label col-sm-2" for="talukname">{{'label.input.talukname' | translate}}</label>
+					<div class="col-sm-3">
+						<input type="text" id="villagename" ng-model="formAddressData.villageTown"
+							   class="form-control"/>
+					</div>
+					<label class="control-label col-sm-2">
+						{{'label.input.countryname' | translate}}
+					</label>
+					<div class="col-sm-3">
+						<select chosen="countries" id="countryId" ng-model="formAddressData.countryId"
+								class="form-control"
+								ng-options="country.countryId as country.countryName for country in countries"
+								value="{{country.countryId}}"
+								ng-change="changeCountry(formAddressData.countryId)">
+							<option value="">{{'label.menu.selectCountry' | translate}}</option>
+						</select>
+					</div>
+				</div>
 
-                <div class="col-sm-3">
-                    <input type="text" id="talukname" ng-model="formAddressData.taluka"  class="form-control"/>
-                </div>
-            </div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						{{'label.input.statename' | translate}}
+					</label>
+					<div class="col-sm-3">
+						<select chosen="states" id="stateId" ng-model="formAddressData.stateId" class="form-control"
+								ng-options="state.stateId as state.stateName for state in states"
+								value="{{state.stateId}}"
+								ng-change="changeState(formAddressData.stateId)">
+							<option value="">{{'label.menu.selectState' | translate}}</option>
+						</select>
+					</div>
+					<label class="control-label col-sm-2">
+						{{'label.input.districtname' | translate}}
+					</label>
+					<div class="col-sm-3">
+						<select chosen="districts" id="districtId" ng-model="formAddressData.districtId"
+								ng-options="district.districtId as district.districtName for district in districts"
+								value="{{district.districtId}}"
+								ng-change="changeDistrict(formAddressData.districtId)">
+							<option value="">{{'label.menu.selectDistrict' | translate}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">
+						{{'label.input.talukname' | translate}}
+					</label>
+					<div class="col-sm-3">
+						<select chosen="talukas" id="talukaId" ng-model="formAddressData.talukaId"
+								ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
+								value="{{taluka.talukaId}}" >
+							<option value="">{{'label.menu.selectTaluka' | translate}}</option>
+						</select>
+					</div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.input.countryname' | translate}}
-                </label>
-                <div class="col-sm-3">
-                    <select chosen="countries" id="countryId" ng-model="formAddressData.countryId" class="form-control"
-                            ng-options="country.countryId as country.countryName for country in countries" value="{{country.countryId}}"
-                            ng-change="changeCountry(formAddressData.countryId)">
-                            <option value="">{{'label.menu.selectCountry' | translate}}</option>
-                    </select>
-                </div>
-                <label class="control-label col-sm-2">
-                    {{'label.input.statename' | translate}}
-                </label>
-                <div class="col-sm-3">
-                    <select chosen="states" id="stateId" ng-model="formAddressData.stateId"  class="form-control"
-                            ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
-                            ng-change="changeState(formAddressData.stateId)">
-                            <option value="">{{'label.menu.selectState' | translate}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.input.districtname' | translate}}
-                </label>
-                <div class="col-sm-3">
-                    <select chosen="districts" id="districtId" ng-model="formAddressData.districtId"  class="form-control"
-                            ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}">
-                            <option value="">{{'label.menu.selectDistrict' | translate}}</option>
-                    </select>
-                </div>
+					<label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}</label>
 
-                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}<span class="required">*</span></label>
+					<div class="col-sm-3">
+						<input type="text" id="pincode" name="pincode" ng-model="formAddressData.postalCode"
+							   class="form-control"/>
+					</div>
+				</div>
 
-                <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formAddressData.postalCode"  ng-pattern="/^[0-9]+$/"  class="form-control" required late-validate/>
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createclientform" valattribute="pincode"/>
-                </div>
-            </div>
+				<legend></legend>
 
-			<legend></legend>
+			</div>
 
 	        <div class="form-group" has-permission="ACTIVATE_CLIENT">
 	            <label class="control-label col-sm-2">{{'label.input.active' | translate}}</label>

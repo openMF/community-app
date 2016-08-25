@@ -12,10 +12,6 @@
                 scope.formData = {
                     villageName: data.villageName,
                     externalId: data.externalId,
-                    taluk: data.taluk,
-                    district: data.district,
-                    pincode: data.pincode,
-                    state: data.state
                 };
 
                 if (data.timeline.activatedOnDate) {

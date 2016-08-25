@@ -4,13 +4,14 @@
             scope.loanproduct = [];
             scope.isAccountingEnabled = false;
             scope.isAccrualAccountingEnabled = false;
+            scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+            scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
                 if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccountingEnabled = true;
                 }
-
                 if (data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccrualAccountingEnabled = true;
                 }
@@ -33,6 +34,12 @@
                     scope.allowAttributeConfiguration = false;
                 }
 
+                if(scope.loanproduct.minimumDaysBetweenDisbursalAndFirstRepayment){
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                }
+                if(scope.loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                }
             });
 
             scope.scrollto = function (link) {

@@ -291,8 +291,8 @@
             </div>
             <div class="row paddedleft">
                 <hr class="marginbottom"/>
-                <tabset tabset-name="loanAccountDetails">
-                    <tab heading="{{'label.heading.accountdetail' | translate}}">
+                <tabset>
+                    <tab active="tabs[0].active" heading="{{'label.heading.accountdetail' | translate}}">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -538,7 +538,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="period in loandetails.originalSchedule.periods">
+                            <tr ng-repeat="period in loandetails.originalSchedule.periods" ng-hide="period.recalculatedInterestComponent">
                                 <td>{{period.dueDate | DateFormat}}</td>
 
                                 <td>{{period.principalDue | number}}</td>
@@ -855,7 +855,7 @@
                             </tr>
                             <tr ng-repeat="emiVariations in loandetails.emiAmountVariations">
                                 <td>{{emiVariations.termVariationApplicableFrom | DateFormat}}</td>
-                                <td>{{emiVariations.termValue}}</td>
+                                <td>{{emiVariations.decimalValue}}</td>
                             </tr>
                         </table>
                     </tab>

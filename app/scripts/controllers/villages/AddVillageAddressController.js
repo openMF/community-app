@@ -1,60 +1,22 @@
 /**
- * Created by jagadeeshakn on 7/29/2016.
+ * Created by jagadeeshakn on 8/12/2016.
  */
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditClientAddressController: function (scope, routeParams, location, resourceFactory) {
-            scope.addressId = routeParams.addressId;
-            scope.clientId = routeParams.clientId;
-            scope.addressType = [];
-            scope.countries = [];
+        AddVillageAddressController: function (scope, routeParams, location, resourceFactory) {
+            scope.villageId = routeParams.id;
+            scope.countrys = [];
             scope.states = [];
             scope.districts = [];
             scope.talukas = [];
             scope.formData = {};
-            scope.formData.addressTypes = [];
-            scope.entityType="clients";
+            scope.formDataList = [scope.formData];
 
-            resourceFactory.entityAddressResource.getAddress({entityType: scope.entityType, entityId: scope.clientId, addressId: scope.addressId}, function (data) {
-
-                if(data.addressEntityData[0].addressType) {
-                    scope.addressTypeId = data.addressEntityData[0].addressType.id;
-                }
-                
-                if(data.houseNo){
-                    scope.formData.houseNo =  data.houseNo;
-                }
-                if(data.addressLineOne){
-                   scope.formData.addressLineOne =  data.addressLineOne;
-                }
-                if(data.villageTown){
-                    scope.formData.villageTown =  data.villageTown;
-                }
-                if(data.postalCode){
-                    scope.formData.postalCode =  data.postalCode;
-                }
-                if(data.districtData && data.districtData.districtId){
-                    scope.formData.districtId =  data.districtData.districtId;
-                }
-                if(data.stateData && data.stateData.stateId){
-                    scope.formData.stateId =  data.stateData.stateId;
-                }
-                if(data.countryData && data.countryData.countryId){
-                    scope.formData.countryId =  data.countryData.countryId;
-                }
-                if(data.talukaData && data.talukaData.talukaId){
-                    scope.talukas = data.districtData.talukaDatas;
-                    scope.formData.talukaId =  data.talukaData.talukaId;
-                }
-            });
-
-
-
-            resourceFactory.addressTemplateResource.get({},function (data) {
-                scope.addressType = data.addressTypeOptions;
+            resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.countries = data.countryDatas;
                 scope.setDefaultGISConfig();
             });
+
             scope.setDefaultGISConfig = function () {
                 if(scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address){
                     if(scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
@@ -77,28 +39,26 @@
                         scope.formData.stateId =  scope.defaultState[0].stateId;
                         scope.districts = scope.defaultState[0].districtDatas;
                     }
+
                 }
+
             };
 
             scope.changeCountry = function (countryId) {
-                if (countryId !=null) {
+                if (countryId != null) {
                     scope.selectCountry = _.filter(scope.countries, function (country) {
                         return country.countryId == countryId;
                     })
-                    if(scope.formData.stateId){
+                    if (scope.formData.stateId) {
                         delete scope.formData.stateId;
                     }
-                    if(scope.formData.districtId){
+                    if (scope.formData.districtId) {
                         delete scope.formData.districtId;
                     }
-                    if(scope.formData.talukaId){
-                        delete scope.formData.talukaId;
-                    }
+
                     scope.states = scope.selectCountry[0].statesDatas;
                     scope.districts = null;
                     scope.talukas = null;
-                        
-                    
                 }
             }
 
@@ -107,11 +67,8 @@
                     scope.selectState = _.filter(scope.states, function (state) {
                         return state.stateId == stateId;
                     })
-                    if(scope.formData.districtId){
+                    if (scope.formData.districtId) {
                         delete scope.formData.districtId;
-                    }
-                    if(scope.formData.talukaId){
-                        delete scope.formData.talukaId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
                     scope.talukas = null;
@@ -120,7 +77,6 @@
 
             scope.changeDistrict = function (districtId) {
                 if (districtId != null) {
-                    scope.talukas = null;
                     scope.selectDistrict = _.filter(scope.districts, function (districts) {
                         return districts.districtId == districtId;
                     })
@@ -131,15 +87,13 @@
                     scope.talukas = scope.selectDistrict[0].talukaDatas;
                 }
             }
-            
+
             scope.submit = function () {
 
-                scope.formData.entityId = scope.clientId;
+                scope.entityType = "villages";
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;
-                scope.formData.addressId = scope.addressId;
-                scope.formData.addressTypes = [scope.addressTypeId];
-                
+
                 if (scope.formData.countryId == null || scope.formData.countryId == ""){
                     delete scope.formData.countryId;
                 }
@@ -152,25 +106,15 @@
                 if (scope.formData.talukaId == null || scope.formData.talukaId == ""){
                     delete scope.formData.talukaId;
                 }
-                if (scope.formData.addressTypes == null || scope.formData.addressTypes == "") {
-                    delete scope.formData.addressTypes;
-                }
-                if (scope.formData.houseNo == null || scope.formData.houseNo == "") {
-                    delete scope.formData.houseNo;
-                }
-                if (scope.formData.addressLineOne == null || scope.formData.addressLineOne == "") {
-                    delete scope.formData.addressLineOne;
-                }
-                                
-                resourceFactory.entityAddressResource.update({entityType:scope.entityType,entityId :scope.clientId,addressId :scope.addressId }, scope.formData, function (data) {
+                resourceFactory.addressResource.create({entityType:scope.entityType,entityId :scope.villageId }, {addresses: scope.formDataList}, function (data) {
 
-                    location.path('/viewclient/' + scope.clientId);
+                    location.path('/viewvillage/' + scope.villageId);
                 });
             };
         }
 
     });
-    mifosX.ng.application.controller('EditClientAddressController', ['$scope', '$routeParams', '$location', 'ResourceFactory',mifosX.controllers.EditClientAddressController]).run(function ($log) {
-        $log.info("EditClientAddressController initialized");
+    mifosX.ng.application.controller('AddVillageAddressController', ['$scope', '$routeParams', '$location', 'ResourceFactory',mifosX.controllers.AddVillageAddressController]).run(function ($log) {
+        $log.info("AddVillageAddressController initialized");
     });
 }(mifosX.controllers || {}));

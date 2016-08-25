@@ -97,6 +97,13 @@
     <td>{{'label.heading.repayevery' | translate}}:</td>
     <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
 </tr>
+<tr ng-show="(loanproduct.minLoanTerm != null)||(loanproduct.maxLoanTerm != null)">
+    <td>{{'label.heading.loanTerm' | translate}}:</td>
+    <td colspan="3">( Min:{{loanproduct.minLoanTerm}}&nbsp;,
+        Max:{{loanproduct.maxLoanTerm}}),&nbsp;{{loanproduct.loanTenureFrequencyType.value}}
+    </td>
+</tr>
+
 <tr ng-show="!loanproduct.isLinkedToFloatingInterestRates">
     <td>{{'label.heading.nominalinterestrate' | translate}}:</td>
     <td colspan="3">{{loanproduct.interestRatePerPeriod | number}}&nbsp;&nbsp;&nbsp;(
@@ -169,9 +176,13 @@
     <td>{{borrowerCycleVariation.defaultValue}}</td>
     <td>{{borrowerCycleVariation.maxValue}}</td>
 </tr>
-<tr>
+<tr ng-show="minimumDaysBetweenDisbursalAndFirstRepaymentShow">
     <td>{{'label.input.minimum.days.between.disbursal.and.first.repayment' | translate}}</td>
-    <td colspan="3">{{loanproduct.minimumDaysBetweenDisbursalAndFirstRepayment}}</td>
+    <td colspan="3">{{loanproduct.minimumDaysBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.heading.days' | translate}}</span></td>
+</tr>
+<tr ng-show="minimumPeriodsBetweenDisbursalAndFirstRepaymentShow">
+    <td>{{'label.input.minimum.period.between.disbursal.and.first.repayment' | translate}}</td>
+    <td colspan="3">{{loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment}}<span>:&nbsp;{{'label.repayment.heading.period' | translate}}</span></td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>
@@ -255,6 +266,14 @@
     <td>{{'label.input.firstinstallmentinmultiplesof' | translate}}</td>
     <td colspan="3">{{loanproduct.adjustedInstallmentInMultiplesOf}}</td>
 </tr>
+<tr>
+    <td>{{'label.input.closeLoanOnOverpayment' | translate}}</td>
+    <td colspan="3">{{loanproduct.closeLoanOnOverpayment | YesOrNo}}</td>
+</tr>
+<tr>
+    <td>{{'label.input.syncExpectedWithDisbursementDate' | translate}}</td>
+    <td colspan="3">{{loanproduct.syncExpectedWithDisbursementDate | YesOrNo}}</td>
+</tr>
 
 <tr ng-show="loanproduct.allowVariableInstallments">
     <td>{{'label.input.variableinstallments' | translate}}</td>
@@ -330,13 +349,17 @@
     <td>{{'label.input.arrearsbasedonoriginalschedule' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.isArrearsBasedOnOriginalSchedule | YesOrNo}}</td>
 </tr>
-    <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
-        <td>{{'label.input.allow.compounding.on.eod' | translate}}</td>
-        <td colspan="3">{{loanproduct.interestRecalculationData.allowCompoundingOnEod | YesOrNo}}</td>
-    </tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
+    <td>{{'label.input.allow.compounding.on.eod' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.allowCompoundingOnEod | YesOrNo}}</td>
+</tr>
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.issubsidyapplicable' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.isSubsidyApplicable | YesOrNo}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
+    <td>{{'label.input.allow.future.disbursement' | translate}}</td>
+    <td colspan="3">{{loanproduct.considerFutureDisbursmentsInSchedule | YesOrNo}}</td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>

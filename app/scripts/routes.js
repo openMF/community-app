@@ -127,7 +127,7 @@
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
             })
-            .when('/addclientaddress/:clientId', {
+            .when('/addclientaddress/:officeId/:clientId', {
                 templateUrl: 'views/clients/addclientaddress.html'
             })
             .when('/editaddress/:clientId/:addressId', {
@@ -370,6 +370,9 @@
             })
             .when('/viewtransactions/:transactionId', {
                 templateUrl: 'views/accounting/view_transactions.html'
+            })
+            .when('/journalentry/:transactionId', {
+                templateUrl: 'views/accounting/journalentry_posting.html'
             })
             .when('/journalentry', {
                 templateUrl: 'views/accounting/journalentry_posting.html'
@@ -698,8 +701,14 @@
             .when('/createvillage', {
                 templateUrl: 'views/villages/createvillage.html'
             })
+            .when('/addvillageAddress/:id', {
+                templateUrl: 'views/villages/addvillageaddress.html'
+            })
             .when('/editvillage/:id', {
                 templateUrl: 'views/villages/editvillage.html'
+            })
+            .when('/editvillageaddress/:id/:addressId', {
+                templateUrl: 'views/villages/editvillageaddress.html'
             })
             .when('/createcharge', {
                 templateUrl: 'views/products/createcharge.html'

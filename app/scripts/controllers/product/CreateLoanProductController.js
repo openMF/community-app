@@ -33,6 +33,13 @@
             for (var i = 1; i <= 28; i++) {
                 scope.interestRecalculationOnDayTypeOptions.push(i);
             }
+            scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
+            scope.minDurationType = [
+                    {id :'1',name:"DAYS"},
+                    {id :'2',name:"REPAYMENT"}
+                ]
+            scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+            scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -67,6 +74,7 @@
                 scope.formData.daysInYearType = scope.product.daysInYearType.id;
                 scope.formData.daysInMonthType = scope.product.daysInMonthType.id;
                 scope.formData.isInterestRecalculationEnabled = scope.product.isInterestRecalculationEnabled;
+                scope.formData.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
                 scope.formData.interestRecalculationCompoundingMethod = scope.product.interestRecalculationData.interestRecalculationCompoundingType.id;
                 scope.formData.rescheduleStrategyMethod = scope.product.interestRecalculationData.rescheduleStrategyType.id;
                 scope.formData.preClosureInterestCalculationStrategy = scope.product.interestRecalculationData.preClosureInterestCalculationStrategy.id;
@@ -79,8 +87,19 @@
                 scope.formData.allowVariableInstallments = false ;
                 scope.product.interestRecalculationNthDayTypeOptions.push({"code" : "onDay", "id" : -2, "value" : "on day"});
                 scope.formData.isSubsidyApplicable = false;
+                scope.formData.loanTenureFrequencyType = scope.product.repaymentFrequencyType.id;
             });
 
+            scope.variableName = function(minDurationType){
+                if(minDurationType == 1){
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = true;
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = false;
+                }
+                if(minDurationType == 2){
+                    scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentshow = true;
+                    scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
+                }
+            };
             scope.chargeSelected = function (chargeId) {
 
                 if (chargeId) {
@@ -237,7 +256,11 @@
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
                 scope.selectedConfigurableAttributes = [];
-
+               if(considerFutureDisbursmentsInSchedule.checked)
+                scope.formData.considerFutureDisbursmentsInSchedule = true;
+                else{
+                    scope.formData.considerFutureDisbursmentsInSchedule = false;
+                }
                 var temp = '';
 
                 //configure fund sources for payment channels
@@ -373,6 +396,21 @@
                     this.formData.adjustedInstallmentInMultiplesOf = null;
                 }
 
+                if(this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType){
+                    delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
+                }
+
+                if(this.formData.minimumDaysBetweenDisbursalAndFirstRepayment){
+                    delete this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment;
+                }
+
+                if(this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment){
+                    delete this.formData.minimumDaysBetweenDisbursalAndFirstRepayment;
+                }
+                if(this.formData.minLoanTerm==null && this.formData.maxLoanTerm== null &&
+                    this.formData.loanTenureFrequencyType != null){
+                    this.formData.loanTenureFrequencyType = null;
+                }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

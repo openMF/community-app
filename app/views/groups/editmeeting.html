@@ -9,7 +9,7 @@
     <form ng-submit="submit()" class="well form-horizontal">
         <fieldset>
 	        <legend>{{'label.heading.editmeeting' | translate}}
-                 <span class="pull-right ">
+                 <span class="pull-right " has-permission='UPDATEFUTUREMEETINGS_CALENDAR'>
  <a class="btn btn-primary" href="#/editcalendarbasedonmeetingdates/{{entityType}}/{{groupOrCenterId}}/{{calendarId}}" >{{ 'label.button.editcalendarbasedonmeetingdates' | translate }}</a></span>
             </legend>
 
@@ -88,9 +88,9 @@
                  </div>
             </div>
 	        <div class="col-md-offset-2">
-	            <a id="cancel" ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
+	            <a id="cancel" ng-show="entityType=='centers'" class="btn btn-default" href="#/viewcenter/{{groupOrCenterId}}">{{'label.button.cancel'
 	                | translate}}</a>
-	            <a ng-hide="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
+	            <a ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
 	                | translate}}</a>
 	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
 	        </div>

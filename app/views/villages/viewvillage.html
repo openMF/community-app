@@ -31,15 +31,30 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="col-md-12 well">
-            <div class="pull-right">
-                <div class="btn-group">
-                    <a href="#/editvillage/{{village.villageId}}?managecode=1" class="btn btn-primary" data-ng-hide="village.status.value=='Active'" has-permission='ACTIVATE_VILLAGE'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
-                    <a href="#/editvillage/{{village.villageId}}?managecode=2" class="btn btn-primary" has-permission='UPDATE_VILLAGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
-                    <button class="btn btn-primary" ng-click="deleteVillage()" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
-                </div>
+
+    <script type="text/ng-template" id="deletevillageaddress.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+
+    <div class="row span" style="margin-left:1px;margin-top:20px">
+        <div class="col-sm-6 col-md-6">
+            <div class="span gray-head">
+                <span class="boldlabel">
+                    <strong>{{'label.heading.basicdetails' | translate}}</strong>
+                   <button class="pull right btn btn-primary" ng-click="deleteVillage()" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+                    <a href="#/editvillage/{{village.villageId}}?managecode=2" class="pull right btn btn-primary" has-permission='UPDATE_VILLAGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                    <a href="#/editvillage/{{village.villageId}}?managecode=1" class="pull right btn btn-primary" data-ng-hide="village.status.value=='Active'" has-permission='ACTIVATE_VILLAGE'><i class="icon-check-sign icon-white"></i>{{'label.button.activate' | translate }}</a>
+                    <a href="#/addvillageAddress/{{village.villageId}}" class="pull right btn btn-primary" ng-show="village.addressData.length <= 0" has-permission='CREATE_ADDRESSES'><i class="icon-plus icon-white"></i>{{'label.button.addaddress' | translate}}</a>
+                </span>
             </div>
-        <div class="col-md-6">
             <table class="table table-bordered table-striped">
                 <tr>
                     <td>{{ 'label.heading.villageCode' | translate }}</td>
@@ -48,22 +63,6 @@
                 <tr>
                     <td>{{ 'label.heading.villageexternalid' | translate }}</td>
                     <td>{{village.externalId}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.taluk' | translate }}</td>
-                    <td>{{village.taluk}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.district' | translate }}</td>
-                    <td>{{village.district}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.pincode' | translate }}</td>
-                    <td>{{village.pincode}}</td>
-                </tr>
-                <tr>
-                    <td>{{ 'label.heading.state' | translate }}</td>
-                    <td>{{village.state}}</td>
                 </tr>
                 <tr>
                     <td>{{ 'label.heading.status' | translate }}</td>
@@ -78,7 +77,40 @@
                     <td>{{ 'label.heading.submittedDate' | translate }}</td>
                     <td>{{village.timeline.submittedOnDate}}</td>
                 </tr>
+            </table>
+        </div>
+    </div>
 
+    <div class="row span" style="margin-left:1px;margin-top:20px" ng-show="village.addressData.length > 0">
+        <div class="col-sm-6 col-md-6">
+            <div class="span gray-head" >
+                <span class="boldlabel">
+                    <strong>{{'label.heading.addressdetails' | translate}}</strong>
+                    <button class="pull right btn btn-primary" ng-click="deleteVillageAddress(village.addressData[0].addressId)" has-permission='DELETE_VILLAGE'><i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</button>
+                    <a href="#/editvillageaddress/{{village.villageId}}/{{village.addressData[0].addressId}}?managecode=2" class="pull right btn btn-primary" has-permission='UPDATE_VILLAGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                </span>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{ 'label.heading.taluk' | translate }}</td>
+                    <td>{{village.addressData[0].talukaData.talukaName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.district' | translate }}</td>
+                    <td>{{village.addressData[0].districtData.districtName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.state' | translate }}</td>
+                    <td>{{village.addressData[0].stateData.stateName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.countryname' | translate }}</td>
+                    <td>{{village.addressData[0].countryData.countryName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.pincode' | translate }}</td>
+                    <td>{{village.addressData[0].postalCode}}</td>
+                </tr>
             </table>
         </div>
     </div>

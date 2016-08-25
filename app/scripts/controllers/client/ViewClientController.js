@@ -429,7 +429,6 @@
                 if(response!=null){
                     scope.addressData = response;
                 }
-
             });
             scope.deleteAddress = function (addressId) {
                 scope.addressId = addressId;

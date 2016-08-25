@@ -47,48 +47,67 @@
                     <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.taluk' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2">
+                    {{'label.input.countryname' | translate}}
+                </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="taluk" name = "taluk" ng-model="formData.taluk" class="form-control"
-                           required late-Validate />
+                    <select chosen="countries" id="countryId" ng-model="formAddressData.countryId" class="form-control"
+                            ng-options="country.countryId as country.countryName for country in countries" value="{{country.countryId}}"
+                            ng-change="changeCountry(formAddressData.countryId)">
+                        <option value="">{{'label.menu.selectCountry' | translate}}</option>
+                    </select>
                 </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createvillageform" valattribute="taluk"/>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.statename' | translate}}
+                </label>
+
+                <div class="col-sm-3">
+                    <select chosen="states" id="stateId" ng-model="formAddressData.stateId"  class="form-control"
+                            ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
+                            ng-change="changeState(formAddressData.stateId)">
+                        <option value="">{{'label.menu.selectState' | translate}}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.district' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2">
+                    {{'label.input.districtname' | translate}}
+                </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="district" name = "district" ng-model="formData.district" class="form-control"
-                           required late-Validate />
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createvillageform" valattribute="district"/>
+                    <select chosen="districts" id="districtId" ng-model="formAddressData.districtId"  class="form-control"
+                            ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}"
+                            ng-change="changeDistrict(formAddressData.districtId)">
+                        <option value="">{{'label.menu.selectDistrict' | translate}}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.pincode' | translate}}<span class="required">*</span></label>
-
+                <label class="control-label col-sm-2">
+                    {{'label.input.talukname' | translate}}
+                </label>
                 <div class="col-sm-3">
-                    <input type="text" id="pincode" name="pincode" ng-model="formData.pincode" class="form-control"
-                           number-format required late-Validate />
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createvillageform" valattribute="pincode"/>
+                    <select chosen="talukas" id="talukaId" ng-model="formAddressData.talukaId"
+                            ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
+                            value="{{taluka.talukaId}}" >
+                        <option value="">{{'label.menu.selectTaluka' | translate}}</option>
+                    </select>
                 </div>
             </div>
+
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.state' | translate}}<span class="required">*</span></label>
+                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+                </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="state" name="state" ng-model="formData.state" class="form-control"
-                           required late-Validate />
-                </div>
-                <div class="col-sm-2">
-                    <form-validate valattributeform="createvillageform" valattribute="state"/>
+                    <input type="text" id="pincode" name="pincode" ng-model="formAddressData.postalCode"
+                           class="form-control"/>
                 </div>
             </div>
 

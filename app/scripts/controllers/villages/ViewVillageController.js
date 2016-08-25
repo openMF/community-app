@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewVillageController: function (scope, routeParams, location, resourceFactory, dateFilter, route, $modal) {
-            scope.village = [];
+            scope.village = {};
+            scope.addressId ;
 
             resourceFactory.villageResource.get({villageId: routeParams.id, associations: 'setOfCenters'}, function (data) {
 
@@ -23,6 +24,27 @@
                     resourceFactory.villageResource.delete({villageId: routeParams.id}, {}, function (data) {
                         $modalInstance.close('delete');
                         location.path('/villages');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+            scope.deleteVillageAddress = function (addressId) {
+                scope.addressId = addressId;
+                $modal.open({
+                    templateUrl: 'deletevillageaddress.html',
+                    controller: VillageAddressDeleteCtrl
+                });
+            }
+            scope.entityType = "villages";
+            var VillageAddressDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.entityAddressResource.delete({entityType: scope.entityType, entityId: routeParams.id, addressId: scope.addressId}, function (response) {
+                        $modalInstance.close('delete');
+                        if(response != null) {
+                            route.reload();
+                        }
                     });
                 };
                 $scope.cancel = function () {

@@ -1,56 +1,15 @@
-<div class="col-md-12" ng-controller="EditClientAddressController">
-    <div>
-        <ul class="breadcrumb">
-            <li><a href="#/clients">{{'label.anchor.clients'|translate}} </a></li>
-            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
-            <li class="active">{{'label.anchor.editclientaddress' | translate}}</li>
-        </ul>
-    </div>
-    <form name="editaddressform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/villages">{{'label.anchor.villages' | translate}}</a></li>
+        <li class="active">{{'label.anchor.villageaddress' | translate}}</li>
+    </ul>
+    <form name="addvillageaddressform" novalidate="" class="form-horizontal well" ng-controller="AddVillageAddressController"
+          rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{'label.heading.editclientAddress' | translate}}</legend>
+            <legend>{{'label.heading.addvillageaddress' | translate}}</legend>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">
-                    {{'label.input.addresstype' | translate}}
-                </label>
-
-                <div class="col-sm-3">
-                    <select chosen="addressType" id="addressId" name="addressType" ng-model="addressTypeId"  class="form-control"
-                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}">
-                            <option value="">{{'label.menu.addressType' | translate}}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2"  for="streetname">{{'label.input.streetname' | translate}}</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="villagename" ng-model="formData.villageTown"  class="form-control"/>
-                </div>
-
-            </div>
-
-            <div class="form-group">
-
                 <label class="control-label col-sm-2">
                     {{'label.input.countryname' | translate}}
                 </label>
@@ -61,7 +20,6 @@
                             ng-change="changeCountry(formData.countryId)">
                         <option value="">{{'label.menu.selectCountry' | translate}}</option>
                     </select>
-
                 </div>
             </div>
 
@@ -74,11 +32,9 @@
                     <select chosen="states" id="stateId" ng-model="formData.stateId"  class="form-control"
                             ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
                             ng-change="changeState(formData.stateId)">
-                            <option value="">{{'label.menu.selectState' | translate}}</option>
+                        <option value="">{{'label.menu.selectState' | translate}}</option>
                     </select>
-
                 </div>
-
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">
@@ -93,6 +49,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="control-label col-sm-2">
                     {{'label.input.talukname' | translate}}
@@ -105,24 +62,20 @@
                     </select>
                 </div>
             </div>
-
             <div class="form-group">
-                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}</label>
+                <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+                </label>
 
                 <div class="col-sm-3">
                     <input type="text" id="pincode" name="pincode" ng-model="formData.postalCode" class="form-control"/>
                 </div>
             </div>
-
-            <div class="col-md-offset-5">
-                <a id="cancel" href="#/viewclient/{{clientId}}">
+            <div class="col-md-offset-2 paddedleft">
+                <a id="cancel" href="#/viewvillage/{{villageId}}">
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
-                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_ADDRESSES'>{{'label.button.save' | translate}}</button>
-                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_VILLAGE'>{{'label.button.save' | translate}}</button>
             </div>
-
         </fieldset>
     </form>
-
 </div>

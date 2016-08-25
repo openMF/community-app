@@ -33,14 +33,16 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
-        <td class="paddedbottom10"><select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
-                                           ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                                           class="form-control width170px" value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
-            <option value="">{{'label.selectpurpose' | translate}}</option>
-        </select>
-            <span class="error" ng-show="isSubmitted && (newloanaccountform.loanpurpose.$error.required)">{{'label.error.required'|translate}}</span>
+        <td>
+            <label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
+        </td>
+        <td class="paddedbottom10">
+            <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" name="loanpurpose" name="loanpurpose" ng-model="formData.loanPurposeId" class="form-control width170px"
+                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                    value="{{loanPurpose.id}}" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">
+                <option value="">{{'label.selectpurpose' | translate}}</option>
+            </select>
+            <span class="error" ng-show="issubmitted && editloanaccountform.loanpurpose.$error.required">{{'label.error.required' | translate}}</span>
         </td>
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
@@ -92,7 +94,8 @@
                     {{calendar.humanReadable}}</td>
             </tr>
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
-                <td align="center"><input type="checkbox" ng-model="formData.syncRepaymentsWithMeeting"
+                <td align="center"><input type="checkbox" ng-disabled="(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting)"
+                                          ng-model="formData.syncRepaymentsWithMeeting"
                                           ng-change="syncRepaymentsWithMeetingchange()"></td>
                 <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label></td>
                 <td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
@@ -164,7 +167,9 @@
                     <input id="repaymentEvery" class="form-control" type="text" name="repaidevery"
                            ng-model="formData.repaymentEvery" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery" required late-Validate/>
                     <select id="repaymentFrequencyType" class="form-control" ng-model="formData.repaymentFrequencyType"
-                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery)||
+                            (response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;<span ng-show="formData.repaymentFrequencyType == 2">on</span>
                     <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
@@ -180,11 +185,13 @@
                 </td>
             </tr>
             <tr>
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true"><label>{{ 'label.input.firstrepaymenton' | translate }}</label></td>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true"><label>{{ 'label.input.firstrepaymenton' | translate }}
+                    <span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span></label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
-                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                    <input id="repaymentsStartingFromDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control" name="repaymentsStartingFromDate"
                            ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate"
-                           max="'2020-06-22'"/>
+                           max="'2020-06-22'" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
+                    <span class="error" ng-show="issubmitted && editloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
@@ -634,7 +641,7 @@
 </div>
 <div class="col-md-offset-6">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-    <button id="save" type="submit" ng-click="isSubmitted = true" class="btn btn-primary" has-permission='UPDATE_LOAN' ng-show="loanaccountinfo">{{'label.button.save' |
+    <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_LOAN' ng-show="loanaccountinfo" ng-click="isSubmitted = true">{{'label.button.save' |
         translate}}
     </button>
 </div>

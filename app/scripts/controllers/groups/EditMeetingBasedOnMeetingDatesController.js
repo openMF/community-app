@@ -28,17 +28,18 @@
                 this.formData.presentMeetingDate = dateFilter(this.formData.presentMeetingDate, scope.df);
                 this.formData.newMeetingDate = dateFilter(this.formData.newMeetingDate, scope.df);
 
-
-                resourceFactory.attachMeetingResource.update({groupOrCenter: routeParams.entityType,
-                    groupOrCenterId: routeParams.groupOrCenterId, templateSource: routeParams.calendarId}, this.formData, function (data) {
-                    var destURI = "";
-                    if (routeParams.entityType == "groups") {
-                        destURI = "viewgroup/" + routeParams.groupOrCenterId;
+                resourceFactory.attachMeetingResource.update({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
+                    templateSource: routeParams.calendarId, isUpdateFutureMeeting : true},this.formData, function (data) {
+                    if(data.changes != null) {
+                        var destURI = "";
+                        if (routeParams.entityType == "groups") {
+                            destURI = "viewgroup/" + routeParams.groupOrCenterId;
+                        }
+                        else if (routeParams.entityType == "centers") {
+                            destURI = "viewcenter/" + routeParams.groupOrCenterId;
+                        }
+                        location.path(destURI);
                     }
-                    else if (routeParams.entityType == "centers") {
-                        destURI = "viewcenter/" + routeParams.groupOrCenterId;
-                    }
-                    location.path(destURI);
                 });
             };
         }

@@ -242,6 +242,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'villages/ViewVillageController',
             'villages/CreateVillageController',
             'villages/EditVillageController',
+            'villages/AddVillageAddressController',
+            'villages/EditVillageAddressController',
             'product/CreateChargeController',
             'product/EditChargeController',
             'configurations/GlobalConfigurationController',
