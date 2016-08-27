@@ -10,6 +10,7 @@
                 scope.definitions = data.definitions;
                 scope.criterianame = data.criteriaName ;
                 scope.criteriaId = data.criteriaId ;
+                scope.provisioningAmountType = data.provisioningAmountType;
                 var length = data.loanProducts.length;
                 for(i = 0 ; i < length; i++) {
                     temp = temp.concat(data.loanProducts[i].name) ;
