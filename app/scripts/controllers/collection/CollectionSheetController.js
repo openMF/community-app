@@ -21,6 +21,7 @@
             scope.isHiddenNewTransactionDate = true;
             scope.paymentTypeOptions = [];
             var centerOrGroupResource = '';
+            scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -161,6 +162,7 @@
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
                             scope.sumTotalDueCollection();
+                            scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                         } else {
                             scope.noData = true;
                             $timeout(function () {
@@ -177,6 +179,7 @@
                             scope.clientsAttendanceArray(data.groups);
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
+                            scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.sumTotalDueCollection();
                         } else {
                             scope.noData = true;
@@ -203,6 +206,7 @@
                 scope.sumLoansTotal();
                 scope.sumLoansDueByCurrency();
                 scope.sumSavingsDueByCurrency();
+                scope.sumSavingWithdrawByCurrency();
             };
 
             scope.sumLoansDueByCurrency = function () {
@@ -245,6 +249,28 @@
                 });
             };
 
+            scope.sumSavingWithdrawByCurrency = function () {
+                _.each(scope.savingsTotal, function (saving) {
+                    var existing = _.findWhere(scope.totalDueCollection, {currencyCode: saving.currencyCode});
+                    var withdrawAmount = saving.withdrawAmount;
+                    if (isNaN(withdrawAmount)) {
+                        withdrawAmount = parseInt(0);
+                    }
+                    var netAmount=parseInt(0);
+                    netAmount = netAmount - withdrawAmount
+                    if (existing === 'undefined' || !(_.isObject(existing))) {
+                        var gp = {
+                            currencyCode: saving.currencyCode,
+                            currencySymbol: saving.currencySymbol,
+                            withdrawAmount: withdrawAmount
+                        };
+                        scope.totalDueCollection.push(gp);
+                    } else {
+                        existing.withdrawAmount = Math.ceil((Number(existing.withdrawAmount) + Number(withdrawAmount)) * 100) / 100;
+                    }
+                });
+            };
+
             /**
              * Sum of loan dues and Savings dues group by group and product
              */
@@ -272,20 +298,26 @@
             scope.sumGroupSavingsDueCollection = function (group, saving) {
                 var existing = _.findWhere(scope.savingsGroupsTotal, {groupId: group.groupId, productId: saving.productId});
                 var dueAmount = saving.dueAmount;
+                var withdrawAmount = saving.withdrawAmount;
                 if (isNaN(dueAmount)) {
                     dueAmount = parseInt(0);
+                }
+                if(isNaN(withdrawAmount)){
+                    withdrawAmount = parseInt(0);
                 }
                 if (existing === 'undefined' || !(_.isObject(existing))) {
                     var gp = {
                         groupId: group.groupId,
                         productId: saving.productId,
                         dueAmount: dueAmount,
+                        withdrawAmount:withdrawAmount,
                         currencyCode: saving.currency.code,
                         currencySymbol: saving.currency.displaySymbol
                     };
                     scope.savingsGroupsTotal.push(gp);
                 } else {
                     existing.dueAmount = Math.ceil((Number(existing.dueAmount) + Number(dueAmount)) * 100) / 100;
+                    existing.withdrawAmount = Math.ceil((Number(existing.withdrawAmount)+Number(withdrawAmount))*100)/100;
                 }
             };
 
@@ -331,21 +363,26 @@
                 scope.savingsTotal = [];
                 _.each(scope.savingsGroupsTotal, function (group) {
                     var dueAmount = group.dueAmount;
+                    var withdrawAmount = group.withdrawAmount;
                     if (isNaN(dueAmount)) {
                         dueAmount = parseInt(0);
                     }
-
+                    if(isNaN(withdrawAmount)){
+                        withdrawAmount = parseInt(0);
+                    }
                     var existing = _.findWhere(scope.savingsTotal, {productId: group.productId});
                     if (existing === 'undefined' || !(_.isObject(existing))) {
                         var gp = {
                             productId: group.productId,
                             currencyCode: group.currencyCode,
                             currencySymbol: group.currencySymbol,
-                            dueAmount: dueAmount
+                            dueAmount: dueAmount,
+                            withdrawAmount: withdrawAmount
                         };
                         scope.savingsTotal.push(gp);
                     } else {
                         existing.dueAmount = Math.ceil((Number(existing.dueAmount) + Number(dueAmount)) * 100) / 100;
+                        existing.withdrawAmount = Math.ceil((Number(existing.withdrawAmount)+Number(withdrawAmount))*100)/100;
                     }
                 });
             };
@@ -391,19 +428,21 @@
 
             scope.constructBulkLoanAndSavingsRepaymentTransactions = function(){
                 scope.bulkRepaymentTransactions = [];
-                scope.bulkSavingsDueTransactions = [];
+                scope.bulkSavingsTransactions = [];
                 _.each(scope.savingsgroups, function (group) {
                         _.each(group.clients, function (client) {
                             _.each(client.savings, function (saving) {
                                 var dueAmount = saving.dueAmount;
+                                var withdrawAmount = saving.withdrawAmount;
                                 if (isNaN(dueAmount)) {
                                     dueAmount = parseInt(0);
                                 }
                                 var savingsTransaction = {
                                     savingsId:saving.savingsId,
-                                    transactionAmount:dueAmount
+                                    transactionAmount:dueAmount,
+                                    withdrawAmount: withdrawAmount
                                 };
-                                scope.bulkSavingsDueTransactions.push(savingsTransaction);
+                                scope.bulkSavingsTransactions.push(savingsTransaction);
                             });
 
                             _.each(client.loans, function (loan) {
@@ -460,7 +499,7 @@
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
-                scope.formData.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
+                scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);

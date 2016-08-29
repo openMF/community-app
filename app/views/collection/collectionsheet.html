@@ -169,8 +169,15 @@
 							<span ng-repeat="savings in client.savings"
 								  ng-show="savingsproduct.id === savings.productId">
 								<div class="col-md-7">
+									<span style="font-size: 12px;">{{'label.heading.savingaccountno' | translate}}:({{savings.accountId}}) </span>
 									<input id="dueAmount" number-format type="text" class="input-sm form-control" number-format
 										   ng-model="savings.dueAmount"
+										   ng-change="sumTotalDueCollection()">
+								</div>
+								<div ng-show="isWithDrawForSavingsIncludedInCollectionSheet" class="col-md-5 paddinglr0px">
+									<span style="font-size: 12px;"> . </span>
+									<input id="withdrawAmount" number-format type="text" class="input-sm form-control" number-format
+										   ng-model="savings.withdrawAmount"
 										   ng-change="sumTotalDueCollection()">
 								</div>
 							</span>
@@ -195,8 +202,10 @@
 						<td class="width25" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="grouptotal in savingsGroupsTotal"
 									ng-show="grouptotal.groupId === group.groupId && savingsproduct.id === grouptotal.productId">
-								  <input style="font-weight: bold;" type="text" class="input-sm form-control"
+								  <input style="font-weight: bold;" class="col-md-5" type="text" class="input-sm form-control"
 										 number-format ng-model="grouptotal.dueAmount" disabled="disabled">
+								  <input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" style="font-weight: bold;" class="col-md-5" type="text" class="input-sm form-control"
+										 number-format ng-model="grouptotal.withdrawAmount" disabled="disabled">
 							  </span>
 						</td>
 						<td></td>
@@ -215,8 +224,10 @@
 						</td>
 						<td style="height:30px" ng-repeat="savingsproduct in collectionsheetdata.savingsProducts">
 							  <span ng-repeat="total in savingsTotal" ng-show="savingsproduct.id == total.productId">
-								<input type="text" class="input-sm form-control" number-format ng-model="total.dueAmount"
+								<input class="col-md-5" type="text" class="input-sm form-control" number-format ng-model="total.dueAmount"
 									   disabled="disabled">
+								<input ng-show="isWithDrawForSavingsIncludedInCollectionSheet" class="col-md-5" type="text" class="input-sm form-control" number-format ng-model="total.withdrawAmount"
+										 disabled="disabled">
 							  </span>
 						</td>
 						<td></td>
