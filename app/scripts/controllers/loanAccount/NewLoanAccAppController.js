@@ -286,6 +286,7 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
+                delete scope.formData.syncRepaymentsWithMeeting;
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
