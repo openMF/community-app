@@ -172,7 +172,7 @@
                         post: {method: 'POST', params: {}, isArray: true}                       
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
-                        getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}},
+                        getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}}
                     }),
                     loanApplicationReferencesResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
                         getByClientId: {method: 'GET', params: {}, isArray: true},
@@ -410,6 +410,9 @@
                     }),
                     centerTemplateResource: defineResource(apiVer + "/centers/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    centerBulkTransactionResource: defineResource(apiVer + "/centers/:centerId/transactions", {centerId: '@centerId', transactionDate: '@transactionDate'}, {
+                        get: {method: 'GET', params: {}, isArray: true}
                     }),
                     villageResource: defineResource(apiVer + "/villages/:villageId/:anotherresource", {villageId: '@villageId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
