@@ -238,6 +238,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'centers/CloseCenterController',
             'centers/CenterAttendanceController',
             'centers/ManageGroupMembersController',
+            'centers/BulkUndoTransactionsController',
             'villages/VillageController',
             'villages/ViewVillageController',
             'villages/CreateVillageController',

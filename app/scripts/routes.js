@@ -692,6 +692,9 @@
             .when('/centerattendance', {
                 templateUrl: 'views/centers/centerattendance.html'
             })
+            .when('/bulkundotransactions/:centerId', {
+                templateUrl: 'views/centers/bulkundotransactions.html'
+            })
             .when('/villages', {
                 templateUrl: 'views/villages/villages.html'
             })
