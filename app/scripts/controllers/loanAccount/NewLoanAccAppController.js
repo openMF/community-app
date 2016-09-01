@@ -260,6 +260,16 @@
               scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repaymentEvery;
             }
 
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                scope.formData.principal = totalPrincipalAmount;
+            };
+
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
