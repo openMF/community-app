@@ -12,6 +12,16 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
 
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                scope.formData.principal = totalPrincipalAmount;
+            };
+
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
                 resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
@@ -31,8 +41,8 @@
                             }
                         }
                         scope.templateType = 'glim';
+                        scope.glimAutoCalPrincipalAmount();
                     }
-
                 });
 
                 scope.getProductPledges(scope.loanaccountinfo);
@@ -303,9 +313,7 @@
                     scope.previewRepayment = true;
                     scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
                 });
-
             }
-
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.

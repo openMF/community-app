@@ -22,7 +22,19 @@
             scope.isGLIM = false;
             scope.GLIMData = {};
 
-
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                if(scope.action == 'approve'){
+                    scope.formData.approvedLoanAmount = totalPrincipalAmount;
+                }else if(scope.action == 'disburse'){
+                    scope.formData.transactionAmount = totalPrincipalAmount;
+                }
+            };
 
             scope.createClientMembersForGLIM = function(){
                 resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
@@ -49,8 +61,10 @@
                                 }
                             }
                         }
+                        if(scope.action == 'approve' || scope.action == 'disburse'){
+                            scope.glimAutoCalPrincipalAmount();
+                        }
                     }
-
                 });
             };
 
