@@ -19,6 +19,7 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -51,7 +52,8 @@
                     minCap: data.minCap,
                     maxCap: data.maxCap,
                     emiRoundingGoalSeek: data.emiRoundingGoalSeek,
-                    isGlimCharge: data.isGlimCharge
+                    isGlimCharge: data.isGlimCharge,
+                    glimChargeCalculation: data.glimChargeCalculation.id
 
                 };
 

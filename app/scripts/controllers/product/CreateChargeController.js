@@ -21,6 +21,7 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -132,6 +133,9 @@
                 this.formData.emiRoundingGoalSeek = this.formData.emiRoundingGoalSeek || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
+                if(this.formData.emiRoundingGoalSeek != true){
+                    this.formData.glimChargeCalculation = undefined;
+                }
                 resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });
