@@ -30,7 +30,7 @@
 
 
             scope.submit = function(){
-                resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'repayment'}, this.formData, function (data) {
+                resourceFactory.glimTransactionResource.save({loanId: scope.loanId, command: 'recoverypayment'}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + scope.loanId);
                 });
             }

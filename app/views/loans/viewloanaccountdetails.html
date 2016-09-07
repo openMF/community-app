@@ -205,11 +205,16 @@
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons">
-                          <a ng-show="((button.name && !isGlim) || (button.taskPermissionName !='CREATE_LOANCHARGE' && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
+                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                          <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
+                      </span>
+                    <span ng-repeat="button in buttons.singlebuttons" ng-show="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                          <a class="btn btn-primary" href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_GLIMTRANSACTION">
+                              <i class="icon-briefcase icon-white"></i>{{'label.button.glimrecoverypayment' | translate}}
+                          </a>
                       </span>
                       <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
                           <a class="btn btn-primary dropdown-toggle">
@@ -217,7 +222,7 @@
                               <span class="caret"></span>
                           </a>
                           <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                              <li class="{{button.icon}}" ng-repeat="button in buttons.options" ng-hide="button.taskPermissionName =='CREATE_LOANCHARGE' && isGlim">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options" ng-hide="( (button.taskPermissionName =='CREATE_LOANCHARGE') && isGlim)">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
