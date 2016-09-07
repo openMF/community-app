@@ -37,9 +37,9 @@
                     
                     scope.group.clients = data.group.clientMembers.map(function(client) {
                         client.principal = data.product.principal;
-                        client.charges = data.product.charges.map(function(charge){
-                            charge.isDeleted = false; 
-                            return _.clone(charge);});
+                            client.charges = data.charges.map(function(charge){
+                                charge.isDeleted = false;
+                                return _.clone(charge);});
                         // return was returing the reference, instead the value, so added _.clone
                         return client; 
                     });

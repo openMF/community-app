@@ -155,8 +155,8 @@
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
                 scope.formData.createStandingInstructionAtDisbursement = scope.loanaccountinfo.createStandingInstructionAtDisbursement;
 
-                if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
-                    scope.formData.syncRepaymentsWithMeeting = true;
+                if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
+                    scope.syncRepaymentsWithMeeting = true;
                 }
 
                 if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
@@ -204,14 +204,14 @@
 
 
             scope.syncRepaymentsWithMeetingchange = function () {
-                if (!scope.formData.syncRepaymentsWithMeeting) {
+                if (!scope.syncRepaymentsWithMeeting) {
                     scope.formData.syncDisbursementWithMeeting = false;
                 }
             };
 
             scope.syncDisbursementWithMeetingchange = function () {
                 if (scope.formData.syncDisbursementWithMeeting) {
-                    scope.formData.syncRepaymentsWithMeeting = true;
+                    scope.syncRepaymentsWithMeeting = true;
                 }
             };
 
@@ -258,11 +258,9 @@
                     
                 }
 
-                if (this.formData.syncRepaymentsWithMeeting) {
+                if (this.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
-                    scope.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
                 }
-                delete this.formData.syncRepaymentsWithMeeting;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.loanType = scope.templateType;
@@ -278,7 +276,6 @@
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
-                    scope.formData.syncRepaymentsWithMeeting = scope.syncRepaymentsWithMeeting;
                 });
 
             }
@@ -310,10 +307,9 @@
                     ;
                 }
 
-                if (this.formData.syncRepaymentsWithMeeting) {
+                if (this.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;
                 if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     delete this.formData.interestRateDifferential ;
