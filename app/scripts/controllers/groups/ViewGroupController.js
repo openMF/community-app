@@ -27,7 +27,7 @@
                     scope.entityId = data.id;
                     scope.entityType = data.collectionMeetingCalendar.entityType.value;
 
-                    if(scope.entityType == "GROUPS" && data.hierarchy == "."+ data.id + "." ){
+                    if(scope.entityType == "GROUPS" && data.hierarchy == "."+ data.id + "." && scope.group.status.value != "Closed"){
                         scope.editMeeting = true;
                     }
                 }
