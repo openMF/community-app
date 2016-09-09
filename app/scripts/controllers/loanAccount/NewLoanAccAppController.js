@@ -51,6 +51,19 @@
                     scope.loanaccountinfo = data;
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
+                    scope.productLoanCharges = data.product.charges || [];
+                    if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                        for(var a in scope.charges){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    if(scope.charges[a].chargeId == scope.productLoanCharges[i].chargeData.id){
+                                        scope.charges[a].isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if(scope.loanaccountinfo.loanOfficerOptions){
                         resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
                             if(data.staffId != null){
@@ -131,6 +144,16 @@
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
+                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
                     });

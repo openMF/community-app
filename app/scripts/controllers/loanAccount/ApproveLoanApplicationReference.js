@@ -43,6 +43,7 @@
                                     scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
                                     scope.charges[i].dueDate = scope.loanAppChargeData[j].dueDate;
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
                             }
                         }
@@ -71,6 +72,7 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.productLoanCharges = data.product.charges || [];
                     if (scope.loanaccountinfo.product.multiDisburseLoan) {
                         scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
                     }
@@ -365,6 +367,21 @@
                 }
                 scope.submitData.formValidationData = scope.formValidationData;
                 scope.submitData.formRequestData = scope.formRequestData;
+                if (scope.charges.length > 0) {
+                    scope.submitData.formRequestData.charges = [];
+                    for (var i in scope.charges) {
+                        var charge = {};
+                        charge.chargeId = scope.charges[i].chargeId;
+                        charge.amount = scope.charges[i].amount;
+                        if(scope.charges[i].dueDate){
+                            charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
+                        }
+                        charge.isMandatory = scope.charges[i].isMandatory;
+                        //charge.locale = scope.optlang.code;
+                        //charge.dateFormat = scope.df;
+                        scope.submitData.formRequestData.charges.push(charge);
+                    }
+                }
                 /**
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
@@ -399,6 +416,16 @@
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
+                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
                     });

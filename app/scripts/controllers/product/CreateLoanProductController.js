@@ -291,8 +291,13 @@
                 }
 
                 for (var i in scope.charges) {
+                    var isMandatory = false;
+                    if(scope.charges[i].isMandatory){
+                        isMandatory = scope.charges[i].isMandatory;
+                    }
                     temp = {
-                        id: scope.charges[i].id
+                        id: scope.charges[i].id,
+                        isMandatory: isMandatory
                     }
                     scope.chargesSelected.push(temp);
                 }

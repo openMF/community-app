@@ -36,8 +36,16 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
-                scope.charges = scope.product.charges || [];
                 scope.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
+                scope.charges = [];
+                for(var i in scope.product.charges){
+                    if(scope.product.charges[i].chargeData){
+                        var charge = scope.product.charges[i].chargeData;
+                        charge.isMandatory = scope.product.charges[i].isMandatory;
+                        scope.charges.push(charge);
+                    }
+                }
+               /* scope.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;*/
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
                 }
@@ -481,8 +489,13 @@
                 }
 
                 for (var i in scope.charges) {
+                    var isMandatory = false;
+                    if(scope.charges[i].isMandatory){
+                        isMandatory = scope.charges[i].isMandatory;
+                    }
                     temp = {
-                        id: scope.charges[i].id
+                        id: scope.charges[i].id,
+                        isMandatory: isMandatory
                     }
                     scope.chargesSelected.push(temp);
                 }

@@ -59,6 +59,19 @@
                         scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         scope.charges = scope.loanaccountinfo.charges || [];
+                        scope.productLoanCharges = data.product.charges || [];
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var a in scope.charges){
+                                for(var i in scope.productLoanCharges){
+                                    if(scope.productLoanCharges[i].chargeData){
+                                        if(scope.charges[a].chargeId == scope.productLoanCharges[i].chargeData.id){
+                                            scope.charges[a].isMandatory = scope.productLoanCharges[i].isMandatory;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }else{
                         scope.formData.externalIdOne = scope.applicationData.externalIdOne;
                         scope.formData.externalIdTwo = scope.applicationData.externalIdTwo;
@@ -107,6 +120,7 @@
                                         scope.charges[i].dueDate = dateFilter(new Date(scope.loanAppChargeData[j].dueDate),scope.df);
                                     }
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
                             }
                         }
@@ -123,6 +137,16 @@
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
+                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
                     });
@@ -146,6 +170,7 @@
                     if(scope.charges[i].dueDate){
                         charge.dueDate = dateFilter(scope.charges[i].dueDate,scope.df);
                     }
+                    charge.isMandatory = scope.charges[i].isMandatory;
                     charge.locale = scope.optlang.code;
                     charge.dateFormat = scope.df;
                     this.formData.charges.push(charge);
