@@ -440,7 +440,7 @@
                         });
                     }
 
-                    if(scope.recalculateInterest){
+                    if(scope.recalculateInterest && scope.loandetails.interestRecalculationData){
                         scope.hideTransactionDetails = scope.loandetails.interestRecalculationData.isCompoundingToBePostedAsTransaction || false;
                         scope.buttons.singlebuttons.splice(1, 0, {
                             name: "button.prepayment",
