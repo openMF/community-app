@@ -674,6 +674,12 @@
             .when('/viewcenter/:id', {
                 templateUrl: 'views/centers/viewcenter.html'
             })
+            .when('/jlgsavingAccountcenterby/:centerId', {
+                templateUrl: 'views/savings/jlgsavingAccountcenterby.html'
+            })
+            .when('/jlgsavingsAccountgroupby/:groupId', {
+                templateUrl: 'views/savings/jlgsavingsAccountgroupby.html'
+            })
             .when('/createcenter', {
                 templateUrl: 'views/centers/createcenter.html'
             })
