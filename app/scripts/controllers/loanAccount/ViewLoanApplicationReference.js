@@ -68,7 +68,7 @@
             };
 
             scope.charges = [];
-            scope.constructExistingCharges = function (index,chargeId) {
+            scope.constructExistingCharges = function (index,chargeId,isMandatory) {
                 resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
                     data.chargeId = data.id;
                     scope.charges.push(data);
@@ -81,6 +81,7 @@
                                     scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
                                     scope.charges[i].dueDate = scope.loanAppChargeData[j].dueDate;
                                     scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
                                 }
                             }
                         }

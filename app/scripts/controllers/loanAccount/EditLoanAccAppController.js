@@ -12,7 +12,6 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
-
                 scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -100,9 +99,33 @@
 
                     }
                 }
-
-
                 scope.charges = scope.loanaccountinfo.charges || [];
+                scope.productLoanCharges = scope.loanaccountinfo.product.charges || [];
+                if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                    for(var i in scope.productLoanCharges){
+                        if(scope.productLoanCharges[i].chargeData){
+                            if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                var isChargeAdded = false;
+                                for(var j in scope.charges){
+                                    if(scope.productLoanCharges[i].chargeData.id == scope.charges[j].chargeId){
+                                        scope.charges[j].isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        isChargeAdded = true;
+                                        break;
+                                    }
+                                }
+                                if(isChargeAdded == false && scope.productLoanCharges[i].chargeData.penalty == false){
+                                    var charge = scope.productLoanCharges[i].chargeData;
+                                    charge.chargeId = charge.id;
+                                    charge.id = null;
+                                    charge.amountOrPercentage = charge.amount;
+                                    charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    scope.charges.push(charge);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 if (scope.formData.disbursementData.length > 0) {
                     for (var i in scope.formData.disbursementData) {
@@ -184,6 +207,16 @@
                         data.chargeId = data.id;
                         data.id = null;
                         data.amountOrPercentage = data.amount;
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
+                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
                     });
@@ -336,7 +369,7 @@
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
                 if(this.formData.fixedEmiAmount == undefined){
-                    this.formData.fixedEmiAmount = null;
+                    //this.formData.fixedEmiAmount = null;
                 }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);

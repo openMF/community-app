@@ -274,22 +274,24 @@
                             <div ng-if="existingCharges.length > 0">
                                 <table class="width100">
                                     <tr class="bottomborder">
-                                        <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
+                                        <td colspan="5"><strong>{{'label.heading.charges' | translate}}</strong></td>
                                     </tr>
                                     <tr class="bottomborder graybg">
                                         <td>{{'label.heading.name' | translate}}</td>
                                         <td>{{'label.heading.type' | translate}}</td>
                                         <td>{{'label.heading.amount' | translate}}</td>
                                         <td>{{'label.heading.collectedon' | translate}}</td>
+                                        <td>{{'label.checkbox.ismandatory' | translate}}</td>
                                     </tr>
                                     <tr ng-repeat="charge in existingCharges">
                                         <td>{{charge.name}}</td>
                                         <td>{{charge.chargeCalculationType.value}}</td>
                                         <td>{{charge.amount|number}}</td>
                                         <td>{{charge.chargeTimeType.value}}</td>
+                                        <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4"><br/></td>
+                                        <td colspan="5"><br/></td>
                                     </tr>
                                 </table>
                             </div>
@@ -611,8 +613,7 @@
                                                ng-model="charge.dueDate"
                                                is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                                     </td>
-                                    <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a>
-                                    </td>
+                                    <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                                 </tr>
                             </table>
 

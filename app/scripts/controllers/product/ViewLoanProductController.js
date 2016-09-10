@@ -9,6 +9,8 @@
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.loanproduct = data;
+                scope.loanProductData = [];
+                angular.copy(scope.loanproduct,scope.loanProductData);
                 if (data.accountingRule.id == 2 || data.accountingRule.id == 3 || data.accountingRule.id == 4) {
                     scope.isAccountingEnabled = true;
                 }
@@ -39,6 +41,15 @@
                 }
                 if(scope.loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
+                }
+
+                scope.loanproduct.charges = [];
+                for(var i in scope.loanProductData.charges){
+                    if(scope.loanProductData.charges[i].chargeData){
+                        var charge = scope.loanProductData.charges[i].chargeData;
+                        charge.isMandatory = scope.loanProductData.charges[i].isMandatory;
+                        scope.loanproduct.charges.push(charge);
+                    }
                 }
             });
 
