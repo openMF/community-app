@@ -15,8 +15,9 @@
             });
 
             scope.getBankStatementDetails = function(){
-                resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'journal'},function (data) {
+                resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'journalentry'},function (data) {
                     scope.bankStatementDetails = data;
+                    console.log('data: ',data);
                     scope.inflowAmount = 0;
                     scope.outflowAmount = 0;
                     for(var i=0;i<data.length;i++){
