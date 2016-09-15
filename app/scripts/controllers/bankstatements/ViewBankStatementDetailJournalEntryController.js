@@ -6,8 +6,6 @@
             scope.isJournalEntryCreated = true;
             scope.bankName = "";
             scope.bankStatementName = "";
-            scope.inflowAmount = 0;
-            scope.outflowAmount = 0;
 
             resourceFactory.bankStatementsResource.getBankStatement({'bankStatementId': routeParams.bankStatementId}, function (data) {
                 scope.bankStatementName = data.name;
@@ -17,16 +15,6 @@
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'journalentry'},function (data) {
                     scope.bankStatementDetails = data;
-                    console.log('data: ',data);
-                    scope.inflowAmount = 0;
-                    scope.outflowAmount = 0;
-                    for(var i=0;i<data.length;i++){
-                        if(data[i].accountingType =='CREDIT'){
-                            scope.outflowAmount = scope.outflowAmount + data[i].amount;
-                        }else{
-                            scope.inflowAmount = scope.inflowAmount + data[i].amount;
-                        }
-                    }
                     scope.isJournalEntriesCreated(data);
                 });
             };

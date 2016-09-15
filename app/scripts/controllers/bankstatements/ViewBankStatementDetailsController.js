@@ -14,14 +14,14 @@
             scope.searchIndex = -1;
             scope.isSearch = false;
             scope.bankId = routeParams.bankStatementId;
-            scope.inflowAmount = 0;
-            scope.outflowAmount = 0;
             scope.action = "default";
 
             scope.isBankStatementReconcile = function(){
                 resourceFactory.bankStatementsResource.getBankStatement({bankStatementId : routeParams.bankStatementId}, function (data) {
                     scope.isBankStatementReconciled = data.isReconciled;
+
                 });
+
             };
 
             scope.isBankStatementReconcile();
@@ -29,10 +29,9 @@
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
                     scope.bankStatementDetails = data;
-                    console.log('data: ',data);
                 });
             };
-
+            scope.getBankStatementDetails();
             scope.possibleMatches = function(index){
                 scope.searchIndex = index;
                 scope.action = 'options';
