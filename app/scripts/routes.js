@@ -1001,6 +1001,15 @@
             .when('/bankstatementsdetails/:bankStatementId/nonportfoliotransaction', {
                 templateUrl: 'views/bankstatements/viewbankstatementdetailjournalentry.html'
             })
+            .when('/bankstatementsdetails/:bankStatementId/miscellaneoustransaction', {
+                templateUrl: '../views/bankstatements/viewmiscellaneousbankstatementdetails.html'
+            })
+            .when('/bankstatementsdetails/:bankStatementId/reconciledtransaction', {
+                templateUrl: '../views/bankstatements/viewreconciledbankstatementdetails.html'
+            })
+            .when('/bankstatement/:bankStatementId/summary', {
+                templateUrl: '../views/bankstatements/viewbankstatementsummary.html'
+            })
             .when('/uploadbankstatements', {
                 templateUrl: 'views/bankstatements/uploadbankstatement.html'
             })

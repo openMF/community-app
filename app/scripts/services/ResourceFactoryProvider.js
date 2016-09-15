@@ -689,6 +689,9 @@
                         getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
                         reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
                     }),
+                    bankStatementSummaryResource: defineResource(apiVer + "/bankstatements/:bankStatementId/summary", {bankStatementId: '@bankStatementId'}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},
                         reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId'} }
