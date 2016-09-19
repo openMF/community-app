@@ -4,97 +4,26 @@
             scope.bankStatementDetails  = [];
             scope.offices = [];
             scope.formData = [];
-            scope.detailFormDta = [];
-            scope.reconcileDatas = {};
             scope.loanTransactionData = [];
-            scope.isBankStatementReconciled = false;
             scope.maxPossibleLength = 3;
-            scope.index = -1;
-            scope.showPossibleMatch  = false;            
             scope.searchIndex = -1;
-            scope.isSearch = false;
             scope.bankId = routeParams.bankStatementId;
             scope.action = "default";
-
-            scope.isBankStatementReconcile = function(){
-                resourceFactory.bankStatementsResource.getBankStatement({bankStatementId : routeParams.bankStatementId}, function (data) {
-                    scope.isBankStatementReconciled = data.isReconciled;
-
-                });
-
-            };
-
-            scope.isBankStatementReconcile();
+            scope.toBulkReconcile = [];
+            scope.isSearchedCriteriaMatched = true;
 
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
                     scope.bankStatementDetails = data;
                 });
             };
-            scope.getBankStatementDetails();
-            scope.possibleMatches = function(index){
-                scope.searchIndex = index;
-                scope.action = 'options';
-            };
-
-            scope.searchOptions = function(index){
-                scope.searchIndex = index;
-                scope.isSearch = true;
-                scope.action = 'search';
-            };
-
-            scope.goToShowMore = function(){
-                var len = scope.toBulkReconcile.length;
-                var loanId = scope.getSelectedLoanIdFromBankDetails(scope.searchIndex);
-                if(scope.toBulkReconcile[len-1] != undefined && (loanId != null)){
-                    resourceFactory.bankStatementSearchLoanTransactionResource.getLoanTransaction({ loanId : loanId, bankStatementDetailId : scope.bankStatementDetails[scope.searchIndex].id},function (data) {
-                        scope.bankStatementDetails[scope.searchIndex].bestMatchingLoanTransactions = data;
-                        scope.bankStatementDetails[scope.searchIndex].optionsLength = 1;
-                        scope.bankStatementDetails[scope.searchIndex].searched = true;
-                        scope.searchIndex = -1;
-                        scope.isSearch = false;
-                        scope.action = 'default';
-                        scope.loanTransactionData = [];
-                    });
-                }else{
-                        scope.searchIndex = -1;
-                        scope.isSearch = false;
-                        scope.action = 'default';
-                        scope.loanTransactionData = [];
-                }
-                this.formData.min = undefined;
-                this.formData.max = undefined;
-                this.formData.groupAccountNumber = undefined;
-            };
-
-            scope.defaultScreen = function(){
-                scope.showPossibleMatch = false;
-            }
-
-            scope.defaultView = function(index){
-                /*if(!scope.bankStatementDetails[index].isReconciled){
-                    var length = scope.bankStatementDetails[index].optionsLength;
-                    if(scope.bankStatementDetails[index].hasOwnProperty('searched') || length > scope.maxPossibleLength || length==0){
-                        scope.searchIndex = index;
-                        scope.isSearch = true;
-                        scope.action = 'search';
-                    }else{
-                        if(scope.showPossibleMatch==false){
-                            scope.index = index;
-                            scope.showPossibleMatch  = true;
-                            scope.action = 'options';
-                        }else{
-                            scope.index = -1;
-                            scope.showPossibleMatch  = false;
-                        }
-                    }
-
-                }*/
-                scope.action = 'default';
-
-            };
 
             scope.getBankStatementDetails();
+
+            scope.goToView = function(index, action){
+                scope.searchIndex = index;
+                scope.action = action;
+            };
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -103,74 +32,53 @@
                 }
             });
 
-            scope.isMatchSelected = function(bankTransctionId){
-                if(scope.toBulkReconcile.length>0){
-                    for(var i=0;i<scope.toBulkReconcile.length;i++){
-                        if(scope.toBulkReconcile[i].bankTransctionId==bankTransctionId){
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            };
-
             scope.isBankTransactionSelected = function(bankTransctionId,loanId){
+                var bankStatementDetailId = null;
+                var isLoanTransactionAdded = false;
                 if(scope.toBulkReconcile.length>0){
                     for(var i=0;i<scope.toBulkReconcile.length;i++){
-                        if(scope.toBulkReconcile[i].bankTransctionId==bankTransctionId && scope.toBulkReconcile[i].loanTransactionId==loanId){
-
-                            return true;
+                        if(scope.toBulkReconcile[i].loanTransactionId==loanId){
+                            bankStatementDetailId = scope.toBulkReconcile[i].bankTransctionId;
+                            isLoanTransactionAdded = true;
+                            break;
                         }
                     }
                 }
-                return false;
+                return ((bankStatementDetailId == bankTransctionId  && isLoanTransactionAdded)|| !isLoanTransactionAdded);
             };
 
             scope.selectedSearchTransaction = function(index,loanTransaction, isFromSearch){
-                if(isFromSearch){
-                    scope.bankStatementDetails[index].loanTransactionData = [];
-                    scope.bankStatementDetails[index].loanTransactionData.amount = loanTransaction.AMOUNT;
-                    scope.bankStatementDetails[index].loanTransactionData.groupExternalId = loanTransaction.GROUP_EXTERNAL_ID;
-                    scope.bankStatementDetails[index].loanTransactionData.officeName = loanTransaction.BRANCH;
-                    scope.bankStatementDetails[index].loanTransactionData.date = loanTransaction.TRANSACTION_DATE;
-                    scope.bankStatementDetails[index].loanTransactionData.id = loanTransaction.LOAN_TRANSACTION_NO;
-                    scope.bankStatementDetails[index].loanTransactionData.loanAccountNumber = loanTransaction.LOAN_ACCOUNT_NO;
-                    scope.bankStatementDetails[index].loanTransactionData.type = {};
-                    scope.bankStatementDetails[index].loanTransactionData.type.value = loanTransaction.TRANSACTION_TYPE;
+                if(scope.isChecked(loanTransaction.id)){
+                    var j = -1;
+                    if(scope.toBulkReconcile.length>0){
+                        for(var i=0;i<scope.toBulkReconcile.length;i++){
+                            if(scope.toBulkReconcile[i].loanTransactionId==loanTransaction.id && scope.toBulkReconcile[i].bankTransctionId == scope.bankStatementDetails[index].id){
+                                j = i;break;
+                            }
+                        }
+                    }
+                    if(j>-1){
+                        scope.toBulkReconcile.splice(j, 1);
+                    }
                 }else{
-                    scope.bankStatementDetails[index].loanTransactionData = loanTransaction;
-                }
-
-                scope.addBankStatementDetailsForBulkReconcile(scope.bankStatementDetails[index].loanTransactionData.id, scope.bankStatementDetails[index].id);
-            };
-
-            scope.isSelectedLoan = function(bankDetailIndex){
-                var data = scope.bankStatementDetails[bankDetailIndex].bestMatchingLoanTransactions;
-                if(data != undefined){
-                    for(var i=0;i<data.length;i++){
-                        if(scope.isChecked(data[i].id)){
-                            return data[i];
-                        }
+                    if(isFromSearch){
+                        scope.bankStatementDetails[index].loanTransactionData = [];
+                        scope.bankStatementDetails[index].loanTransactionData.amount = loanTransaction.AMOUNT;
+                        scope.bankStatementDetails[index].loanTransactionData.groupExternalId = loanTransaction.GROUP_EXTERNAL_ID;
+                        scope.bankStatementDetails[index].loanTransactionData.officeName = loanTransaction.BRANCH;
+                        scope.bankStatementDetails[index].loanTransactionData.date = loanTransaction.TRANSACTION_DATE;
+                        scope.bankStatementDetails[index].loanTransactionData.id = loanTransaction.LOAN_TRANSACTION_NO;
+                        scope.bankStatementDetails[index].loanTransactionData.loanAccountNumber = loanTransaction.LOAN_ACCOUNT_NO;
+                        scope.bankStatementDetails[index].loanTransactionData.type = {};
+                        scope.bankStatementDetails[index].loanTransactionData.type.value = loanTransaction.TRANSACTION_TYPE;
+                    }else{
+                        scope.bankStatementDetails[index].loanTransactionData = loanTransaction;
                     }
+
+                    scope.addBankStatementDetailsForBulkReconcile(scope.bankStatementDetails[index].loanTransactionData.id, scope.bankStatementDetails[index].id);
+
                 }
-
-                return null;
             };
-
-            scope.getLoanIndex = function(bankDetailIndex){
-                var data = scope.bankStatementDetails[bankDetailIndex].bestMatchingLoanTransactions;
-                if(data != undefined){
-                    for(var i=0;i<data.length;i++){
-                        if(scope.isChecked(data[i].id)){
-                            return i;
-                        }
-                    }
-                }
-
-                return -1;
-            };
-
-            scope.toBulkReconcile = [];
 
             scope.addBankStatementDetailsForBulkReconcile = function(loanTxnId, bankTransctionId){
                 if(scope.toBulkReconcile.length>0){
@@ -186,70 +94,7 @@
 
                 }
                 scope.toBulkReconcile.push({'loanTransactionId' : loanTxnId, 'bankTransctionId' : bankTransctionId});
-
-                scope.trackActualOptions();
             };
-
-            scope.trackActualOptions = function(){
-                for(var i=0;i<scope.bankStatementDetails.length;i++){
-                    if(!scope.bankStatementDetails[i].isReconciled && scope.bankStatementDetails[i].bestMatchingLoanTransactions != undefined){
-                        var actualLength = scope.bankStatementDetails[i].bestMatchingLoanTransactions.length;
-                        if(actualLength>0 && actualLength<=scope.maxPossibleLength){
-                            var loanTransactionData = scope.bankStatementDetails[i].bestMatchingLoanTransactions;
-                            for(var j=0;j<loanTransactionData.length;j++){
-                                var id = scope.getSelectedBankDetailsIdFromLoan(loanTransactionData[j].id);
-                                if(id != null && id != scope.bankStatementDetails[i].id){
-                                    actualLength = actualLength -1;
-                                }
-                            }
-                            scope.bankStatementDetails[i].optionsLength = actualLength;
-                        }
-                    }
-                }
-            };
-
-            scope.trackActualIndex = function(index){
-                var data = scope.bankStatementDetails[index].bestMatchingLoanTransactions;
-                if(scope.bankStatementDetails[index] != undefined && scope.bankStatementDetails[index].bestMatchingLoanTransactions != undefined && data != undefined){
-                    for(var i=0;i<data.length;i++){
-                        var bool = scope.isChecked(data[i].id);
-                        if(bool==false){
-                            return i; break;
-                        }
-                    };
-                    for(var i= scope.toBulkReconcile.length-1;i>-1;i--){
-                        var loanId = scope.toBulkReconcile[i].loanTransactionId;
-                        for(var j=0;i<data.length;j++){
-                            if(data[j].id==loanId){
-                                return j; break;
-                            }
-                        };
-                    }
-                }
-                return -1;
-            };
-
-
-            scope.getSelectedLoanIdFromBankDetails = function(index){
-                var id = scope.bankStatementDetails[index].id;
-                for(var i=0;i<scope.toBulkReconcile.length;i++){
-                    if(scope.toBulkReconcile[i].bankTransctionId==id){
-                        return scope.toBulkReconcile[i].loanTransactionId;break;
-                    }
-                }
-                return null;
-            };
-
-            scope.getSelectedBankDetailsIdFromLoan = function(id){
-                for(var i=0;i<scope.toBulkReconcile.length;i++){
-                    if(scope.toBulkReconcile[i].loanTransactionId==id){
-                        return scope.toBulkReconcile[i].bankTransctionId;break;
-                    }
-                }
-                return null;
-            };
-
-
 
             scope.isChecked = function(id){
                 var bool = false;
@@ -261,35 +106,56 @@
                 return bool;
             };
 
-            scope.makeBankStatementUndoReconcile = function(){
-                resourceFactory.bankStatementsResource.reconcileBankStatement({ bankStatementId : routeParams.bankStatementId, command:'reconcile'}, function (data) {
-                    scope.isBankStatementReconcile();
-                    location.path('/bankstatements');
-                });
-            };
-
             scope.submit = function () {
                 var criteria = ' tr.is_reconciled = 0 ';
+                var amountMinRange = false;
+                var amountMaxRange = false;
+                var dateRange = false;
+                var groupId = false;
                 if(scope.isValidInput('min')){
                     criteria = criteria+ ' and tr.amount >= '+(this.formData.min)+' ';
+                    amountMinRange = true;
                 }
                 if(scope.isValidInput('max')){
                     criteria = criteria+ ' and tr.amount <= '+this.formData.max+' ';
+                    amountMaxRange = true;
                 }
+                var amountRange = amountMaxRange && amountMinRange;
                 if(scope.isValidInput('groupExternalId')){
                     criteria = criteria+ ' and g.external_id =  \''+this.formData.groupExternalId+'\' ';
+                    groupId = true;
                 }
 
                 if(scope.isValidInput('startDate') && scope.isValidInput('endDate')){
                     var startDate = dateFilter(this.formData.startDate,'yyyy-MM-dd');
                     var endDate = dateFilter(this.formData.endDate,'yyyy-MM-dd');
                     criteria = criteria+ ' and tr.transaction_date between   \''+startDate+'\' and \''+endDate+'\' ';
+                    dateRange = true;
                 }
-                resourceFactory.runReportsResource.get({reportSource: 'LoanTransactionsForPaymentReconciliation', R_searchCriteria: criteria, R_officeId: this.formData.officeId, genericResultSet: false}, function (data) {
-                    scope.loanTransactionData = data;
-                });
+                if(!amountRange && !dateRange && !groupId){
+                    scope.isSearchedCriteriaMatched = false;
+                    return false;
+
+                }else{
+                    scope.isSearchedCriteriaMatched = true;
+                    resourceFactory.runReportsResource.get({reportSource: 'LoanTransactionsForPaymentReconciliation', R_searchCriteria: criteria, R_officeId: this.formData.officeId, genericResultSet: false}, function (data) {
+                        scope.loanTransactionData = data;
+                    });
+                }
+
             };
 
+            scope.checkCriteria = function(){
+                if(this.formData.groupExternalId != undefined && this.formData.groupExternalId.length > 0){
+                    scope.isSearchedCriteriaMatched = true;
+                }else if((this.formData.min != undefined && this.formData.min.length > 0) && (this.formData.max != undefined && this.formData.max.length > 0)){
+                    scope.isSearchedCriteriaMatched = true;
+                }else if((this.formData.startDate != undefined && this.formData.startDate.length > 0) && (this.formData.endDate != undefined && this.formData.endDate.length > 0)){
+                    scope.isSearchedCriteriaMatched = true;
+                }else{
+                    console.log('else');
+                }
+            };
 
             scope.isValidInput = function(property){
                 if(property == 'startDate' || property == 'endDate' ){
@@ -307,21 +173,10 @@
                 return false;
             };
 
-            scope.makeBankStatementDetailsReconcile = function(index, bankTransctionId){
-                var data = [];
-                data.push({'loanTransactionId' : scope.detailFormDta[index].loanTransactionId, 'bankTransctionId' : bankTransctionId});
-                var reconcileData = {};
-                reconcileData.transactionData = data;
-                resourceFactory.bankStatementDetailsResource.reconcileBankStatement({ bankStatementId : routeParams.bankStatementId},reconcileData, function (data) {
-                    scope.getBankStatementDetails();
-                    scope.detailFormDta[index] = undefined;
-                });
-            };
-
             scope.makeBulkBankStatementDetailsReconcile = function(){
                 var reconcileData = {};
                 reconcileData.transactionData = scope.toBulkReconcile;
-                resourceFactory.bankStatementDetailsResource.reconcileBankStatement({ bankStatementId : routeParams.bankStatementId},reconcileData, function (data) {
+                resourceFactory.bankStatementDetailsResource.reconcileBankStatement({ bankStatementId : routeParams.bankStatementId, command:'reconcile'},reconcileData, function (data) {
                     location.path('/bankstatementsdetails/'+routeParams.bankStatementId+'/reconciledtransaction');
                 });
             };

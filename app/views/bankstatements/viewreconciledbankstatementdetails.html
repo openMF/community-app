@@ -10,6 +10,7 @@
         <a href='#/bankstatementsdetails/{{bankStatementId}}/portfoliotransaction' class="btn btn-primary" role="button">
             {{'label.button.unreconcileddata' | translate }}</a>
     </div>
+    <br/>
     <div class="form-horizontal">
         <div style="clear:both"></div>
         <div style="float:left;max-width:50%;">
@@ -38,6 +39,7 @@
             <table class="table well">
                 <thead>
                 <tr class="graybg" style="height:60px;">
+                    <th></th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.transactiontype' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
@@ -48,6 +50,9 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="bankStatementDetail in reconciledBankStatementDetails" style="height:60px;" ng-class="($index%2!=0)?'graybg':''">
+                    <td align="center">
+                        <input ng-checked="getAddedIndex(bankStatementDetail.id) > -1" type="checkbox"  ng-click="addDetailsForUndoReconcile(bankStatementDetail.id)" name="{{bankStatementDetail.id}}">
+                    </td>
                     <td>{{bankStatementDetail.loanTransactionData.date | DateFormat}}</td>
                     <td>{{bankStatementDetail.loanTransactionData.amount}}</td>
                     <td>{{bankStatementDetail.loanTransactionData.amount}}</td>
@@ -57,6 +62,11 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div align="center" ng-show="undoReconcileData.length>0">
+            <a  align="center" role="button" ng-click="undoReconcile()" class="btn btn-primary">
+                {{'label.button.undoreconcile' | translate}}
+            </a>
         </div>
     </div>
 </div>

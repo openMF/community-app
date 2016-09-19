@@ -694,7 +694,7 @@
                     }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},
-                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId'} }
+                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId',command:'@command'} }
                     }),
                     bankStatementDocumentResource: defineResource(apiVer + "/bankstatements/document/:documentId", {documentId: '@documentId'}, {
                         getBankStatementDocument: {method: 'GET', params: {documentId : '@documentId'}}

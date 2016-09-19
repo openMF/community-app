@@ -6,7 +6,6 @@
             <li class="active">{{'label.anchor.portfoliotransactions' | translate}}</li>
         </ul>
     </div>
-    <br>
     <div class="pull-right btn-group" ng-show="action =='default'">
         <a href='#/bankstatementsdetails/{{bankId}}/reconciledtransaction' class="btn btn-primary" role="button">
             {{'label.button.reconcileddata' | translate }}</a>
@@ -26,13 +25,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:60px;cursor: pointer;" ng-show="index==$index || index==-1">
+                        <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails" style="height:78px;cursor: pointer;">
                             <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
                             <td class="pointer">{{bankStatementDetail.transactionType }}</td>
                             <td class="pointer">{{bankStatementDetail.amount}}</td>
                             <td class="pointer">{{bankStatementDetail.mobileNumber}}</td>
                             <td class="pointer">{{bankStatementDetail.groupExternalId}}</td>
-                            <td ng-click="searchOptions($index)"><i class="icon-search icon-white"></i></td>
+                            <td ng-click="!(bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength <= maxPossibleLength)? goToView($index,'search'): goToView($index,'options')">
+                                <i ng-show="!(bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength <= maxPossibleLength)" - class="icon-search icon-white"></i>
+                                <i ng-show="(bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength <= maxPossibleLength)" class="icon-eye-open icon-white"></i>
+                            </td>
                         </tr>
                         </tbody>
                 </table>
@@ -51,10 +53,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="bankStatementDetail in bankStatementDetails" style="height:60px;" ng-show="!showPossibleMatch"  ng-class="($index%2!=0)?'graybg':''">
+                    <tr ng-repeat="bankStatementDetail in bankStatementDetails" style="height:78px;"   ng-class="($index%2!=0)?'graybg':''">
                             <td align="center" ng-show = "(bankStatementDetail.hasOwnProperty('loanTransactionData'))">
-                                <input ng-value="isChecked(bankStatementDetail.loanTransactionData.id)" ng-click="selectedSearchTransaction($index,bankStatementDetail.loanTransactionData,false)" ng-hide="isChecked(bankStatementDetail.loanTransactionData.id)" type="radio" name="{{bankStatementDetail.id}}">
-                                <a class="btn btn-primary" role="button" ng-show="isChecked(bankStatementDetail.loanTransactionData.id)"><i class="icon-check icon-white"></i></a>
+                                <input ng-checked="isChecked(bankStatementDetail.loanTransactionData.id)" ng-value="isChecked(bankStatementDetail.loanTransactionData.id)"  type="checkbox"  ng-click="selectedSearchTransaction($index,bankStatementDetail.loanTransactionData,false)" name="{{bankStatementDetail.id}}">
+                                <!--<a ng-click="uncheckOptions($index, bankStatementDetail.loanTransactionData.id)" class="btn btn-primary" role="button" ng-show="isChecked(bankStatementDetail.loanTransactionData.id)"><i class="icon-check icon-white"></i></a>-->
                             </td>
                             <td ng-show = "(bankStatementDetail.hasOwnProperty('loanTransactionData'))">{{bankStatementDetail.loanTransactionData.amount}}</td>
                             <td  ng-show = "(bankStatementDetail.hasOwnProperty('loanTransactionData'))">{{bankStatementDetail.loanTransactionData.groupExternalId}}</td>
@@ -65,11 +67,11 @@
 
                             <!--  when search options -->
                             <td align="center"ng-show = "((bankStatementDetail.optionsLength == 0 || bankStatementDetail.optionsLength > maxPossibleLength) && !bankStatementDetail.hasOwnProperty('loanTransactionData'))">
-                                <a class="btn btn-primary"  role="button" ng-click="searchOptions($index)"><i class="icon-search icon-white"></i>{{'label.heading.search' | translate}}</a>
+                                <a class="btn btn-primary"  role="button" ng-click="goToView($index,'search')"><i class="icon-search icon-white"></i>{{'label.heading.search' | translate}}</a>
                             </td>
                             <!--  when options -->
-                            <td align="center"ng-show = "((bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength < maxPossibleLength )&& !bankStatementDetail.hasOwnProperty('loanTransactionData'))">
-                                <a class="btn btn-primary"  role="button" ng-click="possibleMatches($index)">
+                            <td align="center"ng-show = "((bankStatementDetail.optionsLength > 1 && bankStatementDetail.optionsLength <= maxPossibleLength )&& !bankStatementDetail.hasOwnProperty('loanTransactionData'))">
+                                <a class="btn btn-primary"  role="button" ng-click="goToView($index, 'options')">
                                     <i class="icon-eye-open icon-white"></i>{{'label.heading.seeoptions' | translate}}</a>
                             </td>
                             <td ng-show = "(!bankStatementDetail.hasOwnProperty('loanTransactionData'))"></td>
@@ -111,7 +113,7 @@
                     <td class="pointer">{{bankStatementDetails[searchIndex].amount}}</td>
                     <td class="pointer">{{bankStatementDetails[searchIndex].groupExternalId}}</td>
                     <td class="pointer">{{bankStatementDetails[searchIndex].mobileNumber}}</td>
-                    <td ng-click="searchOptions(searchIndex)"><i class="icon-search icon-white"></i></td>
+                    <td ng-click="goToView(searchIndex,'search')"><i class="icon-search icon-white"></i></td>
                 </tr>
                 </tbody>
             </table>
@@ -130,7 +132,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="loanTransactionData in bankStatementDetails[searchIndex].loanTransactionOptions" style="height:60px;" ng-class="($index%2!=0)?'graybg':''">
+                <tr ng-repeat="loanTransactionData in bankStatementDetails[searchIndex].loanTransactionOptions" style="height:60px;" ng-class="($index%2!=0)?'graybg':''" ng-show="isBankTransactionSelected(bankStatementDetails[searchIndex].id, loanTransactionData.id)">
                     <td>
                         <input ng-value="isChecked(loanTransactionData.id)" ng-hide="isChecked(loanTransactionData.id)" ng-click="selectedSearchTransaction(searchIndex,loanTransactionData,false)" type="radio" name="{{bankStatementDetail.id}}">
                         <a class="btn btn-primary" role="button" ng-show="isChecked(loanTransactionData.id)"><i class="icon-check icon-white"></i></a>
@@ -146,7 +148,7 @@
             </table>
         </div>
         <div class="pull-left">
-            <button  class="btn btn-primary" ng-click="defaultView(0)"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
+            <button  class="btn btn-primary" ng-click="action='default'"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
         </div>
     </div>
 
@@ -179,9 +181,11 @@
         <div  class="well">
             <div name="searchloantransactionform" >
                 <fieldset>
+                    <div class="form-group" ng-show="!isSearchedCriteriaMatched" align="center">
+                        <label class="error">{{'error.search.criteria.failed' | translate}}</label>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.branch' | translate}}<span class="required">*</span></label>
-
                         <div class="col-sm-3">
                             <select chosen="offices" id="officeId" ng-model="formData.officeId"
                                     ng-options="office.id as office.name for office in offices" value="{{office.id}}"
@@ -194,20 +198,19 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.groupexternalid' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="groupExternalId" type="text" name="groupExternalId" ng-model="formData.groupExternalId" class="form-control"/>
+                            <input id="groupExternalId" type="text" name="groupExternalId" ng-model="formData.groupExternalId" class="form-control" ng-change="checkCriteria();"/>
                         </div>
-
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
                         <div class="col-sm-3">
                             <input id="startDate" type="text" name="startDate" datepicker-pop="yyyy-MM-dd"
-                                   ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                   ng-model="formData.startDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  ng-change="checkCriteria()"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="endDate" type="text" name="endDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="endDate" type="text" name="endDate" datepicker-pop="yyyy-MM-dd" ng-change="checkCriteria()"
                                    ng-model="formData.endDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
                         </div>
                     </div>
@@ -215,11 +218,11 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.amountrangefrom' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="min" type="text" name="min" ng-model="formData.min" class="form-control"/>
+                            <input id="min" type="text" name="min" ng-model="formData.min"  ng-change="checkCriteria()" class="form-control"/>
                         </div>
                         <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
                         <div class="col-sm-3">
-                            <input id="max" type="text" name="max" ng-model="formData.max" class="form-control"/>
+                            <input id="max" type="text" name="max" ng-model="formData.max"  ng-change="checkCriteria()" class="form-control"/>
                         </div>
                         <button id="save" ng-click="submit()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.search' | translate}}</button>
                     </div>
@@ -245,8 +248,7 @@
             <div style="max-height:110px;overflow-y:auto;display: block;width:100%;">
                 <table class="table" ng-show="loanTransactionData.length > 0">
                     <tbody>
-                        <tr ng-repeat="loanTransaction in loanTransactionData"  ng-show="isBankTransactionSelected(bankStatementDetails[searchIndex].id,loanTransaction.LOAN_TRANSACTION_NO)
-                            || (!isChecked(loanTransaction.LOAN_TRANSACTION_NO))">
+                        <tr ng-repeat="loanTransaction in loanTransactionData"  ng-show="isBankTransactionSelected(bankStatementDetails[searchIndex].id,loanTransaction.LOAN_TRANSACTION_NO)">
                             <td  style="width:5%;">
                               <input ng-checked="isBankTransactionSelected(bankStatementDetails[searchIndex].id,loanTransaction.LOAN_TRANSACTION_NO)" ng-click="selectedSearchTransaction(searchIndex,loanTransaction,true)" type="radio" id="{{bankStatementDetails[searchIndex].id}}" name="{{bankStatementDetails[searchIndex].id}}">
                             </td>
@@ -262,7 +264,7 @@
                 </table>
             </div>
             <div>                
-                <button  class="btn btn-primary" ng-click="goToShowMore()"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
+                <button  class="btn btn-primary" ng-click="action='default'"><i class="icon-arrow-left icon-white"></i> {{'label.button.back' | translate}}</button>
             </div>
 
         </div>
