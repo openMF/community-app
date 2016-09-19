@@ -759,95 +759,101 @@
 		        </tbody>
 		    </table>
 		</tab>
-		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' >
-			<div class="pull-right">
-				<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary" has-permission='CREATE_ADDRESSES'>
-					<i class="icon-plus icon-white"></i>
-					{{'label.button.add'|translate}}
-				</a>
-				</a>
-			</div>
-			<br>
 
-			<div class="row span" style="margin-left:1px;margin-top:20px" ng-repeat="address in addressData">
-				<div class="col-sm-6 col-md-6" >
-                    <div class="span gray-head" ng-show="addressData.length > 0">
+			<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-show="enableClientAddress">
+				<div class="pull-right">
+					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"
+					   has-permission='CREATE_ADDRESSES'>
+						<i class="icon-plus icon-white"></i>
+						{{'label.button.add'|translate}}
+					</a>
+					</a>
+				</div>
+				<br>
+
+				<div class="row span" style="margin-left:1px;margin-top:20px" ng-repeat="address in addressData">
+					<div class="col-sm-6 col-md-6">
+						<div class="span gray-head" ng-show="addressData.length > 0">
                         <span class="boldlabel">
                             <strong>{{address.addressEntityData[0].addressType.name}}</strong>
-                             <button type="button" ng-click="deleteAddress(address.addressId)" class="pull right btn btn-primary" has-permission='DELETE_ADDRESSES'>
+                             <button type="button" ng-click="deleteAddress(address.addressId)"
+									 class="pull right btn btn-primary" has-permission='DELETE_ADDRESSES'>
                                  <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
                             </button>
-							<a href="#/editaddress/{{client.id}}/{{address.addressId}}" class="pull right btn btn-primary" has-permission='UPDATE_ADDRESSES'>
+							<a href="#/editaddress/{{client.id}}/{{address.addressId}}"
+							   class="pull right btn btn-primary" has-permission='UPDATE_ADDRESSES'>
 								<i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}
 							</a>
                         </span>
-                    </div>
-					<table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
+						</div>
+						<table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
 
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.houseno' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.houseNo}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.addressLineOne}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.villageTown}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.talukaData.talukaName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.countryname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.countryData.countryName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.statename' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.stateData.stateName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.districtname' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.districtData.districtName}}</span>
-							</td>
-						</tr>
-						<tr>
-							<th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
-							<td>
-								<span class="padded-td">{{address.postalCode}}</span>
-							</td>
-						</tr>
-						</tr>
-					</table>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.houseno' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.houseNo}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.streetname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.addressLineOne}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.villageTown}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.talukaData.talukaName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.countryname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.countryData.countryName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.statename' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.stateData.stateName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.districtname' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.districtData.districtName}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
+								<td>
+									<span class="padded-td">{{address.postalCode}}</span>
+								</td>
+							</tr>
+							</tr>
+						</table>
+					</div>
 				</div>
-			</div>
-			<script type="text/ng-template" id="deleteaddress.html">
-				<div class="modal-header silver">
-					<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
-				</div>
-				<div class="modal-body ">
-					<api-validate></api-validate>
-					<br>
-					<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-					<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-				</div>
-			</script>
-		</tab>
+				<script type="text/ng-template" id="deleteaddress.html">
+					<div class="modal-header silver">
+						<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+					</div>
+					<div class="modal-body ">
+						<api-validate></api-validate>
+						<br>
+						<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+						</button>
+						<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}
+						</button>
+					</div>
+				</script>
+			</tab>
 		<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
 		    <div class="pull-right">
 		        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
