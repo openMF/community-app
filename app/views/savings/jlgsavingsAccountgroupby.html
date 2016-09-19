@@ -1,0 +1,88 @@
+<div ng-controller="JlgSavingsAccountGroupController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewoffice/{{officeId}}">{{officeName}}</a></li>
+            <li><a href="#/viewgroup/{{groupId}}"><strong>{{groupName}}</strong></a></li>
+            <li class="active">{{'label.heading.bulksavingapplication' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form name="jlgsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
+        <fieldset>
+            <legend>{{ 'label.heading.bulksavingapplication' | translate }}</legend>
+            <table class="width100">
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="productId" ng-model="productId" ng-change="changeProduct(productId)"
+                                ng-options="product.id as product.name for product in products" value="{{product.id}}"
+                                class="form-control width170px" required="required">
+                            <option style="display:none" value="">{{'label.selectsavingproduct' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width14">
+                        <label class="control-label">{{ 'label.input.submittedon' | translate
+                            }}&nbsp;<span class="required">*</span></label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
+                               class="form-control"/>
+                    </td>
+                    <td class="width14">
+                        <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="fieldOfficerId" ng-model="fieldOfficer" class="form-control width170px"
+                                ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers"
+                                value="{{fieldOfficer.id}}" class="form-control">
+                            <option value="">{{'label.selectfieldofficer' | translate}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14">
+                        <label>{{ "label.input.activatesavingsaccount" | translate }}</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input type="checkbox" ng-model="isactivate">
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <table class="table table-condensed" class="col-sm-12">
+                    <thead class="col-sm-8">
+                    <tr class="active">
+                        <th>{{'label.heading.groupname' | translate}}</th>
+                        <th style="width: 250px;"></th>
+                        <th>{{'label.heading.clientaccountNo' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="col-sm-8">
+                        <td><b>{{groupname}}"</b></td>
+                        <td style="width: 254px;"></td>
+                        <td><input type="checkbox" ng-click="selectAll()"></td>
+                        <td>{{'label.heading.selectAll' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="client in groups" class="col-sm-8">
+                        <td style="width: 353px;"></td>
+                        <td>
+                            <input type="checkbox" ng-model="client.ischecked">
+                        </td>
+                        <td>{{client.displayName}}&nbsp;({{client.accountNo}})</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-offset-5">
+                <button id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}
+                </button>
+                <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

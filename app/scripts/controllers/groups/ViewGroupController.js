@@ -21,6 +21,9 @@
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
                 $rootScope.groupNameDataParameter = data.name;
+                $rootScope.groupName = data.centerName;
+                $rootScope.groupOfficeId = data.officeId;
+                $rootScope.groupOfficeName = data.officeName;
                 scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if(data.collectionMeetingCalendar) {
