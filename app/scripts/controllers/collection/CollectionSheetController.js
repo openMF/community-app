@@ -22,6 +22,7 @@
             scope.paymentTypeOptions = [];
             var centerOrGroupResource = '';
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
+            scope.forcedSubmit=false;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -500,17 +501,35 @@
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
+                if (scope.forcedSubmit == true) {
+                    scope.formData.forcedSubmitOfCollectionSheet = true;
+                }
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
-                    });
+                    },
+                        function(data){
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                                scope.forcedSubmit = true;
+                                scope.formData.forcedSubmitOfCollectionSheet = true;
+                                scope.collectionsheetdata = false;
+                            }
+                        });
                 } else if (centerOrGroupResource === "groupResource") {
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
-                    });
+                    },
+                        function(data){
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                                scope.forcedSubmit = true;
+                                scope.formData.forcedSubmitOfCollectionSheet = true;
+                                scope.collectionsheetdata = false;
+                            }
+                        });
                 }
+
             };
 
         }
