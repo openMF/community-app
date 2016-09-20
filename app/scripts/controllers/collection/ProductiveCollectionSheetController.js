@@ -229,10 +229,12 @@
                         }
                     }
                 }, function(data){
-                    scope.forcedSubmit = true;
-                    scope.submitShow = false;
-                    scope.submitNextShow = false;
-                    scope.formData.forcedSubmitOfCollectionSheet = true;
+                    if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                        scope.forcedSubmit = true;
+                        scope.submitShow = false;
+                        scope.submitNextShow = false;
+                        scope.formData.forcedSubmitOfCollectionSheet = true;
+                    }
                 });
             };
         }
