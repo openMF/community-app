@@ -65,7 +65,7 @@
                     </label>
                 </div>
                 <span data-ng-switch on="columnHeader.columnDisplayType">
-                    <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                    <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                             data-ng-switch-when="CODELOOKUP"
                             ng-model="formData[columnHeader.columnName]"
                             ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
@@ -73,7 +73,7 @@
                         <option value="">{{'label.selectone' | translate}}</option>
                     </select>
                     <div  ng-show="showSelect==true">
-                        <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                                 data-ng-switch-when="CODEVALUE"
                                 ng-model="formData[columnHeader.columnName]"
                                 ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
@@ -82,7 +82,7 @@
                         </select>
                     </div>
                     <div ng-show="showSelect==false">
-                        <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                                 data-ng-switch-when="CODEVALUE"
                                 chosen="columnHeader.columnValues"
                                 ng-model="formData[columnHeader.columnName]"
