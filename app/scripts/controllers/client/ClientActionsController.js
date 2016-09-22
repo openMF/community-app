@@ -140,9 +140,36 @@
                     scope.showDateField = false;
                     scope.taskPermissionName = 'REACTIVATE_CLIENT';
                     break;
+                case "undoReject":
+                    resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+                        scope.client = data;
+                        if (data.timeline.submittedOnDate) {
+                            scope.mindate = new Date(data.timeline.submittedOnDate);
+                        }
+                    });
+                    scope.labelName = 'label.input.reopeneddate';
+                    scope.breadcrumbName = 'label.anchor.undoReject';
+                    scope.modelName = 'reopenedDate';
+                    scope.showActivationDateField = true;
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'UNDOREJECT_CLIENT';
+                    break;
+                case "undoWithdrawn":
+                    resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
+                        scope.client = data;
+                        if (data.timeline.submittedOnDate) {
+                            scope.mindate = new Date(data.timeline.submittedOnDate);
+                        }
+                    });
+                    scope.labelName = 'label.input.reopeneddate';
+                    scope.breadcrumbName = 'label.anchor.undoWithdrawn';
+                    scope.modelName = 'reopenedDate';
+                    scope.showActivationDateField = true;
+                    scope.showDateField = false;
+                    scope.taskPermissionName = 'UNDOWITHDRAWAL_CLIENT';
+                    break;
 
             }
-
             scope.cancel = function () {
                 location.path('/viewclient/' + routeParams.id);
             }
@@ -191,6 +218,16 @@
                 }
                 if (scope.action == "reactivate") {
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'reactivate'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "undoReject") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'undoRejection'}, this.formData, function (data) {
+                        location.path('/viewclient/' + data.clientId);
+                    });
+                }
+                if (scope.action == "undoWithdrawn") {
+                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'undoWithdrawal'}, this.formData, function (data) {
                         location.path('/viewclient/' + data.clientId);
                     });
                 }

@@ -292,6 +292,7 @@
                 scope.formData.allowVariableInstallments = scope.product.allowVariableInstallments;
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
+                scope.formData.canUseForTopup = scope.product.canUseForTopup;
             });
             scope.variableName = function (minDurationType) {
                 if (minDurationType == 1) {

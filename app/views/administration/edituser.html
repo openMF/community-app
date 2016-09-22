@@ -96,16 +96,28 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2" for="role">{{'label.input.selectroles' | translate}}<span class="required">*</span></label>
-
-                <div class="col-sm-3">
-                    <select id="role" ng-model="formData.selectedRoles" name="role"
-                            ng-options="availablerole.name for availablerole in availableRoles"
-                            value="{{availablerole.id}}" class="form-control multiselectmin" multiple required>
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9">{{ 'label.input.availableroles' | translate }}</label>
+                    <select id="availableroles" ng-model="available" name="availableroles" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
                     </select>
                 </div>
-                <div class="col-sm-3">
-                    <form-validate valattributeform="edituserform" valattribute="role"/>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addRole()"><i
+                            class="icon-double-angle-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeRole()"><i
+                            class="icon-double-angle-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}</label>
+                    <select id="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
 

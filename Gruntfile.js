@@ -144,6 +144,7 @@ module.exports = function(grunt) {
             'scripts/*.js',
             'scripts/services/*.js',
             'scripts/modules/*.js',
+             'scripts/config/*.json',
             '!scripts/routes.js',
             '!scripts/initialTasks.js',
             '!scripts/webstorage-configuration.js',
