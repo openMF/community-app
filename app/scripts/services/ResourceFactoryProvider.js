@@ -76,6 +76,12 @@
                     clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    clientLookupResource: defineResource(apiVer + "/clients/lookup", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    tasklookupResource: defineResource(apiVer + "/loans/tasklookup", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
                     clientIdenfierTemplateResource: defineResource(apiVer + "/clients/:clientId/identifiers/template", {clientId: '@clientId'}, {
                         get: {method: 'GET', params: {}}
                     }),
