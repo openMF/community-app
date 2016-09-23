@@ -364,6 +364,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ChosenComboboxDirective',
             'NumberFormatDirective',
             'SuccessfulResponsesDirective',
+            'UnSuccessfulResponseDirective',
             'TabsPersistenceDirective',
             'AuditLogDirevtive'
         ]

@@ -2,7 +2,7 @@
 	<ul class="breadcrumb">
         <li class="active">{{'label.anchor.tasks' | translate}}</li>
     </ul>
-    <successful-responses/></successful-responses>
+    <unsuccessful-response/></unsuccessful-response>
     <div class="well">
 		<fieldset>
 			<legend>{{'label.heading.pendingtasks' | translate}}</legend>
@@ -32,13 +32,13 @@
 				    <div collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
 				        <div class="form-group">
 				            <input type="text" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="dd MMMM yyyy"
-				                   ng-model="date.from" is-open="opened" min="minDate" max="'2020-06-22'"
+				                   ng-model="date.from" is-open="opened"  max="'2020-06-22'"
 				                   date-disabled="disabled(date, mode)" class="form-control"/>
 				        </div>
 				        <div class="form-group">
 				            <div>
 				                <input type="text" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy"
-				                       ng-model="date.to" is-open="opened1" min="minDate" max="'2020-06-22'"
+				                       ng-model="date.to" is-open="opened1" max="'2020-06-22'"
 				                       date-disabled="disabled(date, mode)" class="form-control"/>
 				            </div>
 				        </div>
@@ -120,21 +120,67 @@
 				        </table>
 				    </div>
 				</tab>
-				<tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
+				<tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT' ng-click="resetsearchparams()">
 				    <div class="head-affix">
 				        <table class="table condensed-table">
 				            <thead>
-				            <tr>
-				                <th>
-				                    <input ng-autofocus="true" ng-model="filterText" type="text" class="input-sm form-control"
-				                           placeholder="{{'label.input.filterbyname' | translate}}">
-				                </th>
-				                <th>
-				                    <button type="button" class="btn btn-success" data-ng-click="approveClient()" has-permission='ACTIVATE_CLIENT'><i
-				                            class="icon-ok"></i>{{'label.button.approve' | translate}}
-				                    </button>
-				                </th>
-				            </tr>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_client" ng-model="officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)" required>
+										<option value="">{{'label.selectoffice' | translate}}</option>
+									</select>
+									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
+									<select chosen="loanOfficers" id="loanOfficerId_client" ng-model="loanOfficerId"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
+										<option value="">{{'label.selectloanofficer' | translate}}</option>
+									</select>
+
+								</th>
+								<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.center' | translate}}"></i>
+									<select chosen="centers" id="centerId_client" name="center" ng-model="centerId"
+											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+											ng-change="centerSelected(centerId)" class="form-control">
+										<option value="">{{'label.selectcenter' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
+									<select chosen="groups" id="groupId_client" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+											value="{{group.id}}" class="form-control">
+										<option value="">{{'label.selectgroup' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<div class="rowleft">
+									<button  class="btn btn-success" data-ng-click="clientSearch()" has-permission='ACTIVATE_CLIENT'><i
+											class="icon-ok"></i>{{'label.button.search' | translate}}
+									</button>
+										</div>
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<input ng-autofocus="true" ng-model="filterText" type="text" class="input-sm form-control"
+										   placeholder="{{'label.input.filterbyname' | translate}}">
+								</th>
+								<th>
+									<button type="button" class="btn btn-success" data-ng-click="approveClient()" has-permission='ACTIVATE_CLIENT'><i
+											class="icon-ok"></i>{{'label.button.approve' | translate}}
+									</button>
+								</th>
+							</tr>
 				            </thead>
 				        </table>
 				    </div>
@@ -146,27 +192,23 @@
         <div class="modal-body modal-big">
             <api-validate></api-validate>
             <br>
-            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened" min="restrictDate"
+            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
                    max="restrictDate"/>
         </div>
         <div class="modal-footer">
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="approve(date.actDate)">{{'label.button.confirm' | translate}}
+			<button class="btn btn-primary" ng-click="clientApproval(date.actDate)">{{'label.button.confirm' | translate}}
             </button>
         </div>
     </script>
-				    <table class="table condensed-table" ng-repeat="(officeName,values) in groupedClients">
-				        <tr>
-				            <td>
-				                <strong>{{officeName}}</strong>
-				            </td>
-				        </tr>
+				    <table class="table condensed-table" data-ng-show="clientData">
+
 				        <tr>
 				            <td>
 				                <table class="table condensed-table">
 				                    <thead>
 				                    <tr class="graybg">
-				                        <th><input type="checkbox" ng-click="clientApprovalAllCheckBoxesClicked(officeName)" ng-checked="clientApprovalAllCheckBoxesMet(officeName)"/></th>
+				                        <th><input type="checkbox" ng-click="clientApprovalAllCheckBoxesClicked()" ng-checked="clientApprovalAllCheckBoxesMet()"/></th>
 				                        <th>{{'label.heading.name' | translate}}</th>
 				                        <th>{{'label.heading.accnum' | translate}}</th>
 				                        <th>{{'label.heading.staff' | translate}}</th>
@@ -174,11 +216,11 @@
 				                    </thead>
 				                    <tbody>
 				                    <tr class="pointer-main"
-				                        data-ng-repeat="client in values  | filter : {active: 'false', status.value:'Pending'} | filter:filterText">
+				                        data-ng-repeat="client in clientData | filter:filterText">
 				                        <td><input type="checkbox" data-ng-model="approveData[client.id]"/></td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.displayName}}</td>
 				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.accountNo}}</td>
-				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>
+				                        <td class="pointer" data-ng-click="routeToClient(client.id)">{{client.staffName}}</td>									</td>
 				                    </tr>
 				                    </tbody>
 				                </table>
@@ -186,18 +228,66 @@
 				        </tr>
 				    </table>
 				</tab>
-				<tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
+				<tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN' ng-click="resetsearchparams()"  >
 				    <div class="head-affix">
 				        <table class="table condensed-table">
 				            <thead>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_loanaprrove" ng-model="officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)" required>
+										<option value="">{{'label.selectoffice' | translate}}</option>
+									</select>
+									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
+									<select chosen="loanOfficers" id="loanOfficerId_loanapprove" ng-model="loanOfficerId"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
+										<option value="">{{'label.selectloanofficer' | translate}}</option>
+									</select>
+
+								</th>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.center' | translate}}"></i>
+
+									<select chosen="centers" id="centerId_loanapprove" name="center" ng-model="centerId"
+											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+											ng-change="centerSelected(centerId)" class="form-control">
+										<option value="">{{'label.selectcenter' | translate}}</option>
+
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
+									<select chosen="groups" id="groupId_loanapprove" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+											value="{{group.id}}" class="form-control">
+										<option value="">{{'label.selectgroup' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<div class="rowleft">
+										<button  class="btn btn-success" data-ng-click="loanApproveSearch()" has-permission='APPROVE_LOAN'><i
+												class="icon-ok"></i>{{'label.button.search' | translate}}
+										</button>
+									</div>
+								</th>
+							</tr>
 				            <tr>
 				                <th>
 				                    <input ng-autofocus="true" ng-model="filterText1" type="text" class="input-sm form-control"
 				                           placeholder="{{'label.input.filterbyname' | translate}}">
 				                </th>
 				                <th>
-				                    <button type="button" class="btn btn-success" data-ng-click="approveLoan()" has-permission='APPROVE_LOAN'><i class="icon-ok"></i>{{'label.button.approve'
-				                        | translate}}
+				                    <button type="button" class="btn btn-success" data-ng-click="approveLoan()" has-permission='APPROVE_LOAN'><i class="icon-ok">
+									</i>{{'label.button.approve'| translate}}
 				                    </button>
 				                </th>
 				            </tr>
@@ -205,26 +295,30 @@
 				        </table>
 				    </div>
 					<script type="text/ng-template" id="approveloan.html">
-				        <div class="modal-header silver">
-				            <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
-				        </div>
-				        <div class="modal-body">
-				            <api-validate></api-validate>
-				            <br>
-				            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-				            <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
-				        </div>
-			    	</script>
-				    <table ng-repeat="office in offices" class="table condensed-table">
-				        <tr ng-show="office.loans.length > 0">
-				            <td><strong>{{office.name}}</strong></td>
-				        </tr>
-				        <tr ng-show="office.loans.length > 0">
+						<div class="modal-header silver">
+							<h3 class="bolder">{{'label.heading.enterloanapprovaldate' |
+								translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						<div class="modal-body modal-big">
+							<api-validate></api-validate>
+							<br>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+								   max="restrictDate"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+							<button class="btn btn-primary" ng-click="loanApproval(date.actDate)">{{'label.button.confirm' | translate}}
+							</button>
+						</div>
+					</script>
+				    <table data-ng-show="loanApproveData" class="table condensed-table">
+
+				        <tr ng-show="loanApproveData.length > 0">
 				            <td>
 				                <table class="table condensed-table">
 				                    <thead>
 				                    <tr class="graybg">
-				                        <th><input type="checkbox" ng-click="loanApprovalAllCheckBoxesClicked(office)" ng-checked="loanApprovalAllCheckBoxesMet(office)"/></th>
+				                        <th><input type="checkbox" ng-click="loanApprovalAllCheckBoxesClicked()" ng-checked="loanApprovalAllCheckBoxesMet()"/></th>
 				                        <th>{{'label.heading.client' | translate}}</th>
 				                        <th>{{'label.heading.loan' | translate}}</th>
 				                        <th>{{'label.heading.amount' | translate}}</th>
@@ -232,7 +326,8 @@
 				                    </tr>
 				                    </thead>
 				                    <tbody>
-				                    <tr ng-repeat="loan in office.loans | filter:filterText1">
+				                    <tr class="pointer-main"
+										data-ng-repeat="loan in loanApproveData | filter:filterText1">
 				                        <td><input type="checkbox" ng-model="loanTemplate[loan.id]"></td>
 				                        <td class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a></td>
 				                        <td class="pointer"><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a>
@@ -246,17 +341,63 @@
 				        </tr>
 				    </table>
 				</tab>
-				<tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
+				<tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN' ng-click="resetsearchparams()">
 				    <div class="head-affix">
 				        <table class="table condensed-table">
 				            <thead>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_loandisburse" ng-model="officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)"  ng-required="true">
+										<option value="">{{'label.selectoffice' | translate}}</option>
+									</select>
+									<span class="error" ng-show="showMsg">{{'label.error.required'|translate}}</span>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
+									<select chosen="loanOfficers" id="loanOfficerId_loandisburse" ng-model="loanOfficerId"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+											value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)" class="form-control">
+										<option value="">{{'label.selectloanofficer' | translate}}</option>
+									</select>
+
+								</th>
+							<tr>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.center' | translate}}"></i>
+									<select chosen="centers" id="centerId_loandisburse" name="center" ng-model="centerId"
+											ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+											ng-change="centerSelected(centerId)" class="form-control">
+										<option value="">{{'label.selectcenter' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
+									<i class="icon-question-sign" tooltip="{{'label.tooltip.group' | translate}}"></i>
+									<select chosen="groups" id="groupId_loandisburse" ng-model="groupId" ng-options="group.id as group.name for group in groups"
+											value="{{group.id}}" class="form-control">
+										<option value="">{{'label.selectgroup' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<div class="rowleft">
+										<button  class="btn btn-success" data-ng-click="loanDisburseSearch()" has-permission='DISBURSE_LOAN'><i
+												class="icon-ok"></i>{{'label.button.search' | translate}}
+										</button>
+									</div>
+								</th>
+							</tr>
 				            <tr>
 				                <th>
 				                    <input ng-autofocus="true" ng-model="filterText2" type="text" class="input-sm form-control"
 				                           placeholder="{{'label.input.filterbyname' | translate}}">
 				                </th>
 				                <th>
-				                    <button type="button" class="btn btn-success" data-ng-click="disburseLoan()" has-permission='APPROVE_LOAN'><i class="icon-ok"></i>{{'label.button.disburse'
+				                    <button type="button" class="btn btn-success" data-ng-click="disburseLoan()" has-permission='DISBURSE_LOAN'><i class="icon-ok"></i>{{'label.button.disburse'
 				                        | translate}}
 				                    </button>
 				                </th>
@@ -264,42 +405,47 @@
 				            </thead>
 				        </table>
 				    </div>
-				    <script type="text/ng-template" id="disburseloan.html">
-				        <div class="modal-header silver">
-				            <h3 class="bolder">{{'label.heading.disburse' | translate}}</h3>
-				        </div>
-				        <div class="modal-body">
-				            <api-validate></api-validate>
-				            <br>
-				            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-				            <button class="btn btn-primary" ng-click="disburse()">{{'label.button.confirm' | translate}}</button>
-				        </div>
-			    	</script>
+					<script type="text/ng-template" id="disburseloan.html">
+						<div class="modal-header silver">
+							<h3 class="bolder">{{'label.heading.enterloandisbursaldate' |
+								translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						<div class="modal-body modal-big">
+							<api-validate></api-validate>
+							<br>
+							<input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate" is-open="opened"
+								   max="restrictDate"/>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+							<button class="btn btn-primary" ng-click="loandisburse(date.actDate)">{{'label.button.confirm' | translate}}
+							</button>
+						</div>
+					</script>
 				    <div>
-				        <table class="table condensed-table">
+				        <table class="table condensed-table" data-ng-show="loanDisburseData">
 				            <thead>
 				            <tr class="graybg">
 				            	<th><input type="checkbox" ng-click="loanDisbursalAllCheckBoxesClicked()" ng-checked="loanDisbursalAllCheckBoxesMet()"/></th>
 				                <th>{{'label.heading.client' | translate}}</th>
-				                <th>{{'label.heading.loanaccountnum' | translate}}</th>
 				                <th>{{'label.heading.loanproduct' | translate}}</th>
-				                <th>{{'label.heading.principal' | translate}}</th>
+								<th>{{'label.heading.principal' | translate}}</th>
 				            </tr>
 				            </thead>
 				            <tbody>
-				            <tr ng-repeat="loan in loans | filter : {status.waitingForDisbursal :'true' }| filter:filterText2">
+				            <tr class="pointer-main"
+								data-ng-repeat="loan in loanDisburseData | filter:filterText2">
 				            	<td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td>
-				                <td><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
-				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.accountNo}}</a></td>
-				                <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}</a></td>
-				                <td>{{loan.principal | number}}</td>
+				                <td class="pointer"><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
+				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}({{loan.accountNo}})</a></td>
+				                <td class="pointer"><a href="#/viewloanaccount/{{loan.id}}">{{loan.principal | number}}</a></td>
 				            </tr>
 				            </tbody>
 				        </table>
 				    </div>
 				</tab>
 
-                <tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
+                <tab ng-hide="true" heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
                     <div class="head-affix">
                         <table class="table condensed-table">
                             <thead>
