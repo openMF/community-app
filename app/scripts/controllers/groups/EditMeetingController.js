@@ -49,7 +49,7 @@
                 }
                 //update radio button option
                 if (scope.formData.frequency == 2) {
-                    scope.formData.repeatsOnDay = scope.calendarData.repeatsOnDay.id;
+                    scope.formData.repeatsOnDay = scope.calendarData.repeatsOnDay.id.toString();
                 } else if (scope.formData.frequency == 3) {
                     scope.formData.repeatsOnNthDayOfMonth = scope.calendarData.repeatsOnNthDayOfMonth.id;
                     if (scope.calendarData.repeatsOnDay) {
@@ -68,7 +68,7 @@
                 }
                 if (period == 2) {
                     scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
-                    scope.formData.repeatsOnDay = '1';
+                    scope.formData.repeatsOnDay = "1";
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
                         {name: "MON", value: "1"},
