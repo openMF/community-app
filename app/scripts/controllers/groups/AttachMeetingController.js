@@ -23,7 +23,7 @@
                 //to display default in select boxes
                 scope.formData = {
                     repeating: 'true',
-                    frequency: scope.repeatsOptions[0].id,
+                    frequency: '0',
                     interval: '1'
                 }
             });
