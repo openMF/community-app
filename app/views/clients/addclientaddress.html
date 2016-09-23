@@ -13,12 +13,15 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    {{'label.input.addresstype' | translate}}</label>
+                    {{'label.input.addresstype' | translate}} <span class="required">*</span> </label>
                 <div class="col-sm-3">
                     <select chosen="addressType" id="addresstypeId" name="addressType" ng-model="formData.addressTypes[0]"  class="form-control"
-                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}">
+                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}" required late-validate="">
                             <option value="">{{'label.menu.addressType' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="clientaddressform" valattribute="addressType"/>
                 </div>
             </div>
 
