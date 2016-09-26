@@ -212,7 +212,7 @@
                               translate}}</a>
                       </span>
                     <span ng-repeat="button in buttons.singlebuttons" ng-show="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
-                          <a class="btn btn-primary" href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_GLIMTRANSACTION">
+                          <a class="btn btn-primary" href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
                               <i class="icon-briefcase icon-white"></i>{{'label.button.glimrecoverypayment' | translate}}
                           </a>
                       </span>
@@ -228,17 +228,17 @@
                                       button.name | translate}}</a>
                               </li>
                               <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
-                                  <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVECHARGE_GLIMTRANSACTION">
+                                  <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVEINTERESTPORTION_LOAN">
                                       {{'label.button.waiveglimcharge' | translate}}
                                   </a>
                               </li>
                               <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
-                                  <a href="#/glimloanaccountprepay/{{loandetails.id}}" has-permission="REPAYMENT_GLIMTRANSACTION">
+                                  <a href="#/glimloanaccountprepay/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
                                       {{'label.button.glimprepayloan' | translate}}
                                   </a>
                               </li>
                               <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
-                                  <a href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_GLIMTRANSACTION">
+                                  <a href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
                                       {{'label.button.glimrecoverypayment' | translate}}
                                   </a>
                               </li>
@@ -815,7 +815,7 @@
                         </table>
                     </tab>
 
-                    <tab heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails">
+                    <tab heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails && loandetails.status.active">
 
                             <table class="table table-striped" ng-repeat="client in glimClientsDetails" class="pointer-main" ng-show="client.isClientSelected">
                                 <thead>

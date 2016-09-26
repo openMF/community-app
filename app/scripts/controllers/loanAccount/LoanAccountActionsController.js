@@ -630,12 +630,17 @@
                 }
             };
 
-            scope.$watch('formData.transactionDate',function(){
+            var tempTransactionDate = "";
+            scope.$watch('formData.transactionDate', function () {
                 scope.onDateChange();
-                if(scope.isGLIM && scope.action=='repayment'){
-                    scope.getRepaymentTemplate(scope.formData.transactionDate);
+                var transactionDate = dateFilter(scope.formData.transactionDate, scope.df);
+                if (tempTransactionDate === "" || (tempTransactionDate != transactionDate)) {
+                    tempTransactionDate = transactionDate;
+                    if (scope.isGLIM && scope.action == 'repayment') {
+                        scope.getRepaymentTemplate(scope.formData.transactionDate);
+                    }
                 }
-             });
+            });
 
             scope.getRepaymentTemplate = function(date){
                 var transactionDate = dateFilter(date,  scope.df);
