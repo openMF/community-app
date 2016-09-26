@@ -9,6 +9,7 @@
             scope.configureFundOptions = [];
             scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
+            scope.writeOffSpecificExpenseAccountMappings = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.irFlag = false;
@@ -28,6 +29,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
+                scope.writeOffReasonOptions = scope.product.writeOffReasonOptions  || [];
                 scope.charges = scope.product.charges || [];
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
@@ -236,6 +238,13 @@
                             incomeAccountId: penalty.incomeAccount.id
                         })
                     });
+
+                    _.each(scope.product.writeOffReasonToGLAccountMappings, function (writeOffReason) {
+                        scope.writeOffSpecificExpenseAccountMappings.push({
+                            writeOffReasonId: writeOffReason.codeValue.id,
+                            expenseAccountId: writeOffReason.expenseAccount.id
+                        })
+                    });
                 }
 
                 scope.formData.isLinkedToFloatingInterestRates = data.isLinkedToFloatingInterestRates ;
@@ -305,6 +314,15 @@
                     scope.penaltySpecificIncomeaccounts.push({
                         chargeId: scope.penaltyOptions.length > 0 ? scope.penaltyOptions[0].id : '',
                         incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : ''
+                    });
+                }
+            };
+
+            scope.mapWriteOffReason = function () {
+                if (scope.product.writeOffReasonOptions && scope.product.writeOffReasonOptions.length > 0 && scope.expenseAccountOptions && scope.expenseAccountOptions.length > 0) {
+                    scope.writeOffSpecificExpenseAccountMappings.push({
+                        writeOffReasonId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
+                        expenseAccountId: scope.expenseAccountOptions.length > 0 ? scope.expenseAccountOptions[0].id : ''
                     });
                 }
             };
@@ -393,10 +411,15 @@
                 }
             }
 
+            scope.deleteCodeValue = function (index) {
+                scope.writeOffSpecificExpenseAccountMappings.splice(index, 1);
+            };
+
             scope.submit = function () {
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
+                scope.writeOffToExpenseAccountMapping = [];
                 scope.chargesSelected = [];
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
@@ -427,6 +450,15 @@
                         incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId
                     }
                     scope.penaltyToIncomeAccountMappings.push(temp);
+                }
+
+                //map code value to specific expense accounts
+                for (var i in scope.writeOffSpecificExpenseAccountMappings) {
+                    temp = {
+                        writeOffReasonId: scope.writeOffSpecificExpenseAccountMappings[i].writeOffReasonId,
+                        expenseAccountId: scope.writeOffSpecificExpenseAccountMappings[i].expenseAccountId
+                    }
+                    scope.writeOffToExpenseAccountMapping.push(temp);
                 }
 
                 for (var i in scope.charges) {
@@ -462,6 +494,7 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
+                this.formData.writeOffToExpenseAccountMapping = scope.writeOffToExpenseAccountMapping;
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;
