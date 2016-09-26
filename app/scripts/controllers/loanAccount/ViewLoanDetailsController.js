@@ -493,6 +493,26 @@
 
             };
 
+            scope.routeToRepaymentSchedule = function (glimId, disbursedAmount, clientId, clientName) {
+                $rootScope.principalAmount = disbursedAmount;
+                scope.disbursementDate = new Date(scope.loandetails.timeline.actualDisbursementDate);
+                $rootScope.disbursementDate = dateFilter(scope.disbursementDate, scope.df);
+                $rootScope.loanId = scope.loandetails.id;
+                $rootScope.clientName = clientName;
+                $rootScope.clientId = clientId;
+                location.path('/viewglimrepaymentschedule/' + glimId);
+            }
+
+            scope.getTotalAmount = function (amount1, amount2, amount3, amount4) {
+                amount4 = amount4 == null ? 0 : amount4;
+                return (amount1 + amount2 + amount3 + amount4).toFixed(2);
+            }
+
+            scope.getTotalOutstandingLoanBalance = function () {
+                return scope.glimPrincipalOutstandingAmount + scope.glimInterestOutstandingAmount + scope.glimFeeOutstandingAmount + scope.glimFeepenaltyOutstandingAmount
+                + scope.glimFeepenaltyOutstandingAmount.toFixed(2);
+            }
+
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'}, function (data) {
                 scope.loandatatables = data;
             });

@@ -1036,6 +1036,9 @@
             })
             .when('/glimrecoverypayment/:loanId', {
                 templateUrl: 'views/loans/glimrecoverypayment.html'
+            })
+            .when('/viewglimrepaymentschedule/:glimId', {
+                templateUrl: 'views/loans/viewglimrepaymentschedule.html'
             });
         ;
         $locationProvider.html5Mode(false);
