@@ -84,14 +84,20 @@
                 </tbody>
             </table>
         </div>
-        <div align="center" ng-show="toBulkReconcile.length > 0">
-            <a  align="center" role="button" ng-click="makeBulkBankStatementDetailsReconcile()" class="btn btn-primary">
-                {{'label.button.reconcilebanktransaction' | translate}}
-            </a>
+        <div  align="center" >
+            <div class="form-group">
+                <div class="col-sm-6" align="right" has-permission="RECONCILE_BANKSTATEMENTDETAILS">
+                    <a  ng-show="toBulkReconcile.length > 0" align="center" role="button" ng-click="makeBulkBankStatementDetailsReconcile()" class="btn btn-primary">
+                        {{'label.button.reconcilebanktransaction' | translate}}
+                    </a>
+                </div>
+                <div class="col-sm-2" align="right">
+                    <label>{{'label.input.allexactmatch' | translate}}</label>
+                    <input type="checkbox" ng-click="selectAll()">
+                </div>
+            </div>
         </div>
     </div>
-
-
     <div class="form-horizontal" ng-show="action == 'options'" >
         <div style="clear:both"></div>
         <div style="float:left;max-width:50%;">

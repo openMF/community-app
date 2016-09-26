@@ -4,12 +4,15 @@
 
             scope.reconciledBankStatementDetails = [];
             scope.undoReconcileData = [];
+            scope.selectedAll = false;
             scope.bankStatementId = routeParams.bankStatementId;
+
             scope.getReconciledBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : scope.bankStatementId, command:'reconciled'},function (data) {
                     scope.reconciledBankStatementDetails = data;
                 });
             };
+
             scope.getReconciledBankStatementDetails();
 
             scope.getAddedIndex = function(bankTransctionId){
@@ -29,6 +32,17 @@
                     }else{
                         scope.undoReconcileData.push({'bankTransctionId' : bankTransctionId});
                     }
+            };
+
+            scope.selectAll = function(){
+                scope.selectedAll = !scope.selectedAll;
+                if(scope.selectedAll == true){
+                    for(var i=0;i<scope.reconciledBankStatementDetails.length; i++){
+                       scope.addDetailsForUndoReconcile(scope.reconciledBankStatementDetails[i].id)
+                    }
+                }else{
+                    scope.undoReconcileData = [];
+                }
             };
 
             scope.undoReconcile = function(){

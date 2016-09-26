@@ -11,6 +11,7 @@
             scope.action = "default";
             scope.toBulkReconcile = [];
             scope.isSearchedCriteriaMatched = true;
+            scope.selectedAll = false;
 
             scope.getBankStatementDetails = function(){
                 resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'payment'},function (data) {
@@ -152,8 +153,6 @@
                     scope.isSearchedCriteriaMatched = true;
                 }else if((this.formData.startDate != undefined && this.formData.startDate.length > 0) && (this.formData.endDate != undefined && this.formData.endDate.length > 0)){
                     scope.isSearchedCriteriaMatched = true;
-                }else{
-                    console.log('else');
                 }
             };
 
@@ -171,6 +170,19 @@
                     }
                 }
                 return false;
+            };
+
+            scope.selectAll = function(){
+                scope.selectedAll = !scope.selectedAll;
+                if(scope.selectedAll == true){
+                    for(var i=0;i<scope.bankStatementDetails.length; i++){
+                        if(scope.bankStatementDetails[i].hasOwnProperty('loanTransactionData')){
+                            scope.selectedSearchTransaction(i,scope.bankStatementDetails[i].loanTransactionData, false);
+                        }
+                    }
+                }else{
+                    scope.toBulkReconcile = [];
+                }
             };
 
             scope.makeBulkBankStatementDetailsReconcile = function(){

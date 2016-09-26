@@ -1266,6 +1266,42 @@
 	            <td class="width30"><a ng-click="deletePenalty($index)"><i class="icon-remove"></i></a></td>
 	        </tr>
 	    </table>
+		<!-- add write off reason to expense account-->
+		<div class="col-md-8">{{'label.heading.mapwriteoffreasontoexpenseaccounts' | translate}}</div>
+		<div class="col-md-4">
+			<a class="btn btn-primary" ng-click="mapWriteOffReason()">{{ 'label.button.add' | translate }}</a>
+		</div>
+		<table class="table width100">
+			<tr class="graybg">
+				<th class="width30">{{'label.heading.writeoffreason' | translate}}</th>
+				<th></th>
+				<th class="width30">{{'label.heading.expenseaccount' | translate}}</th>
+				<th></th>
+				<th class="width30">{{'label.heading.actions' | translate}}</th>
+			</tr>
+			<tr ng-repeat="writeOffSpecificExpenseAccountMapping in writeOffSpecificExpenseAccountMappings">
+				<td class="width30">
+					<select id="writeOffSpecificExpenseAccountMappings[{{$index}}].writeOffReasonId"
+							ng-model="writeOffSpecificExpenseAccountMapping.writeOffReasonId" class="form-control"
+							ng-options="writeOffReasonOption.id as writeOffReasonOption.name for writeOffReasonOption in writeOffReasonOptions"
+							value="{{writeOffReasonOption.id}}">
+					</select>
+				</td>
+				<td></td>
+				<td class="width30">
+					<select id="writeOffSpecificExpenseAccountMappings[{{$index}}].expenseAccountId"
+							ng-model="writeOffSpecificExpenseAccountMapping.expenseAccountId"
+							chosen="expenseAccountOptions"
+							ng-options="account.id as account.name for account in expenseAccountOptions"
+							value="{{account.id}}">
+					</select>
+				</td>
+				<td></td>
+				<td class="width30">
+					<a ng-click="deleteCodeValue($index)"><i class="icon-remove icon-white"></i></a>
+				</td>
+			</tr>
+		</table>
 	</div>
 	</div>
 	<div class="col-md-offset-5 paddedtop">

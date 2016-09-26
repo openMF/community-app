@@ -616,7 +616,7 @@
                 var popupWin = window.open('', '_blank', 'width=300,height=300');
                 popupWin.document.open();
                 popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
-                '</head><body onload="window.print()">' + printContents + '<br><br><table class="table"><tr><td width="210"><h4>Credit Officer</h4></td><td width="210"><h4>Branch Manager</h4></td><td><h4>Customer Signature</h4></td></tr></table></body></html>');
+                '</head><body onload="window.print()">' + printContents + '<br></body></html>');
                 popupWin.document.close();
             }
 
