@@ -713,11 +713,10 @@
                     bankNonPortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/nonportfolio", {bankStatementId: '@bankStatementId'}, {
                         createJournalEntries: {method: 'POST', params: {bankStatementId: '@bankStatementId'}}
                     }),
-                    glimResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/:clientId", {loanId:'@loanId',clientId:'@clientId'},{
+                    glimResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/:clientId/", {loanId:'@loanId',clientId:'@clientId'},{
                         getAll: {method: 'GET', params: {}, isArray : true},
                         getAllByLoan: {method: 'GET', params: {loanId:'@loanId'}, isArray : true},
                         getByLoanAndClient: {method: 'GET', params: {loanId:'@loanId',clientId:'@clientId'}, isArray : false}
-
                     }),
                     glimTransactionTemplateResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions/template", {loanId:'@loanId', transactionDate:'@transactionDate'},{
                         get: {method: 'GET', params: {loanId : '@loanId', transactionDate:'@transactionDate'}}
@@ -727,6 +726,9 @@
                     }),
                     glimChargeResource: defineResource(apiVer +"/glimcharges/:loanId/loancharge/:loanChargeId", {loanId:'@loanId', loanChargeId:'@loanChargeId'},{
                         get: {method: 'GET', params: {loanId : '@loanId', loanChargeId:'@loanChargeId'}}
+                    }),
+                    glimRepaymentScheduleResource :  defineResource(apiVer +"/grouploanindividualmonitoring/viewrepaymentschedule/:glimId", { glimId:'@glimId'},{
+                        getRepaymentScheduleById : {method: 'GET',params: { glimId:'@glimId', disbursedAmount: '@disbursedAmount', disbursedDate: '@disbursedDate'}, isArray : false}
                     })
                 };
             }];
