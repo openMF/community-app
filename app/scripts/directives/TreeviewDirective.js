@@ -10,8 +10,12 @@
                     var nodeglCode = attrs.glCode || 'glCode';
 					var nodeLabel = attrs.nodeLabel || 'label';					
                     var nodeChildren = attrs.nodeChildren || 'children';
-                    var parentId = attrs.parentId || 'parentId';					
-					var template = "";					
+                    var parentId = attrs.parentId || 'parentId';
+                    var nodeGetFetchData = false;
+                    if(!_.isUndefined(scope.getFetchData)){
+                    var nodeGetFetchData = scope.getFetchData;
+                    }
+					var template = "";
 					
                     if (treeId === "holidaytreeview") {
                         template =
@@ -26,7 +30,7 @@
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-                                '<span ng-show="node.'+ nodeId + ' >= 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'">({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +								
+                                '<span ng-show="node.'+ nodeId + ' >= 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'>({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +
 								'<span ng-show="node.'+ nodeId + ' < 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)" >{{node.' + nodeLabel + '}}</span>' +
                                 '<div data-ng-hide="node.collapsed"  data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label="' + nodeLabel + '" data-node-children="' + nodeChildren + '"></div>' +
                                 '</li>' +
@@ -43,7 +47,8 @@
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-                                '<span ng-show="node.'+ nodeId + ' >= 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'">({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +								
+                                '<span ng-show="node.'+ nodeId + ' >= 0 &&  '+ !nodeGetFetchData +' " data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +'">({{node.'+ nodeglCode +'}}) {{node.' + nodeLabel + '}} </span>' +
+                                '<span ng-show="node.'+ nodeId + ' >= 0 &&  '+ nodeGetFetchData +' " data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node); $root.tempNodeID = node.'+ nodeId +';fetchData($root.tempNodeID)">({{node.'+ nodeId +'}}) {{node.' + nodeLabel + '}} </span>' +
 								'<span ng-show="node.'+ nodeId + ' < 0" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)" >{{node.' + nodeLabel + '}}</span>' +								
 								'<div data-ng-hide="node.collapsed"  data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label="' + nodeLabel + '" data-node-children="' + nodeChildren + '"></div>' +
                                 '</li>' +
