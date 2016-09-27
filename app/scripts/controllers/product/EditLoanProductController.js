@@ -9,7 +9,7 @@
             scope.configureFundOptions = [];
             scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
-            scope.writeOffSpecificExpenseAccountMappings = [];
+            scope.codeValueSpecificAccountMappings = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.irFlag = false;
@@ -29,7 +29,12 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
-                scope.writeOffReasonOptions = scope.product.writeOffReasonOptions  || [];
+                scope.writeOffReasonOptions = [];
+                if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
+                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", sqlSearch: "cv.is_active = 1"}, function (codeValueData) {
+                        scope.writeOffReasonOptions = scope.getCodeValues(scope.product.codeValueOptions,codeValueData);
+                    });
+                }
                 scope.charges = scope.product.charges || [];
                 if (data.startDate) {
                     scope.date.first = new Date(data.startDate);
@@ -239,10 +244,10 @@
                         })
                     });
 
-                    _.each(scope.product.writeOffReasonToGLAccountMappings, function (writeOffReason) {
-                        scope.writeOffSpecificExpenseAccountMappings.push({
-                            writeOffReasonId: writeOffReason.codeValue.id,
-                            expenseAccountId: writeOffReason.expenseAccount.id
+                    _.each(scope.product.codeValueToGLAccountMappings, function (codeValues) {
+                        scope.codeValueSpecificAccountMappings.push({
+                            codeValueId: codeValues.codeValue.id,
+                            expenseAccountId: codeValues.expenseAccount.id
                         })
                     });
                 }
@@ -271,6 +276,18 @@
                         scope.penalityId = '';
                     });
                 }
+            };
+
+            scope.getCodeValues = function(optionsArray,codeValues){
+                var codeValuesData = [];
+                    for(var  i=0; i<optionsArray.length;i++){
+                        for(var j=0;j<codeValues.length;j++){
+                            if(codeValues[j].id==optionsArray[i].id){
+                                codeValuesData.push(optionsArray[i]);
+                            }
+                        }
+                    }
+                return codeValuesData;
             };
 
             scope.deleteCharge = function (index) {
@@ -319,9 +336,9 @@
             };
 
             scope.mapWriteOffReason = function () {
-                if (scope.product.writeOffReasonOptions && scope.product.writeOffReasonOptions.length > 0 && scope.expenseAccountOptions && scope.expenseAccountOptions.length > 0) {
-                    scope.writeOffSpecificExpenseAccountMappings.push({
-                        writeOffReasonId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
+                if (scope.writeOffReasonOptions && scope.writeOffReasonOptions.length > 0 && scope.expenseAccountOptions && scope.expenseAccountOptions.length > 0) {
+                    scope.codeValueSpecificAccountMappings.push({
+                        codeValueId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
                         expenseAccountId: scope.expenseAccountOptions.length > 0 ? scope.expenseAccountOptions[0].id : ''
                     });
                 }
@@ -412,14 +429,14 @@
             }
 
             scope.deleteCodeValue = function (index) {
-                scope.writeOffSpecificExpenseAccountMappings.splice(index, 1);
+                scope.codeValueSpecificAccountMappings.splice(index, 1);
             };
 
             scope.submit = function () {
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
-                scope.writeOffToExpenseAccountMapping = [];
+                scope.codeValueSpecificAccountMapping = [];
                 scope.chargesSelected = [];
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
@@ -453,12 +470,13 @@
                 }
 
                 //map code value to specific expense accounts
-                for (var i in scope.writeOffSpecificExpenseAccountMappings) {
+                for (var i in scope.codeValueSpecificAccountMappings) {
                     temp = {
-                        writeOffReasonId: scope.writeOffSpecificExpenseAccountMappings[i].writeOffReasonId,
-                        expenseAccountId: scope.writeOffSpecificExpenseAccountMappings[i].expenseAccountId
+                        codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
+                        expenseAccountId: scope.codeValueSpecificAccountMappings[i].expenseAccountId
                     }
-                    scope.writeOffToExpenseAccountMapping.push(temp);
+                    scope.codeValueSpecificAccountMapping.push(temp);
+
                 }
 
                 for (var i in scope.charges) {
@@ -494,7 +512,7 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
-                this.formData.writeOffToExpenseAccountMapping = scope.writeOffToExpenseAccountMapping;
+                this.formData.codeValueSpecificAccountMapping = scope.codeValueSpecificAccountMapping;
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;
