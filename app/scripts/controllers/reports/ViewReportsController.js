@@ -56,9 +56,18 @@
                     scope.reports = scope.getReports(data);
                 });
             } else if (routeParams.type == 'accounting') {
-                resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Accounting', parameterType: true, genericResultSet: false}, function (data) {
+                resourceFactory.runReportsResource.get({
+                    reportSource: 'reportCategoryList',
+                    R_reportCategory: 'Accounting',
+                    parameterType: true,
+                    genericResultSet: false
+                }, function (data) {
                     scope.reports = scope.getReports(data);
                 });
+            }else if (routeParams.type == 'custom') {
+                    resourceFactory.runReportsResource.get({reportSource: 'reportCategoryList', R_reportCategory: 'Custom', parameterType: true, genericResultSet: false}, function (data) {
+                        scope.reports = scope.getReports(data);
+                    });
             }
 
             // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
