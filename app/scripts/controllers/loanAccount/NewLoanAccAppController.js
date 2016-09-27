@@ -263,7 +263,7 @@
             scope.glimAutoCalPrincipalAmount = function () {
                 var totalPrincipalAmount = 0.0;
                 for(var i in scope.formData.clientMembers){
-                    if(scope.formData.clientMembers[i].amount){
+                    if(scope.formData.clientMembers[i].isClientSelected && scope.formData.clientMembers[i].amount){
                         totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
                     }
                 }
