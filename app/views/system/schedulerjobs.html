@@ -40,7 +40,11 @@
 	        <tbody>
 	            <tr ng-repeat="job in jobs | orderBy:'displayName':reverse" class="pointer-main">
 	                <td><input type="checkbox" ng-model="job.checkbox" ng-change="runJobSelected(job.jobId, job.checkbox)"/></td>
-	                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
+	                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}
+						<button ng-show="job.dependentJobNames" ng-mouseenter="DependentJob=job.dependentJobNames" ng-mouseleave="DependentJob=null">
+							Depends  On {{DependentJob}}
+						</button>
+					</td>
 	                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.nextRunTime}}</td>
 	                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.jobRunStartTime}}</td>
 	                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.status}}</td>
