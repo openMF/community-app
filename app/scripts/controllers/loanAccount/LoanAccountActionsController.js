@@ -552,6 +552,9 @@
                     if (scope.isGLIM) {
                         this.formData.locale = scope.optlang.code;
                         this.formData.dateFormat = scope.df;
+                        if(scope.action == "writeoff") {
+                            this.formData.transactionAmount = scope.writeOffAmount;
+                        }
                         resourceFactory.glimTransactionResource.save({loanId: params.loanId, command: scope.glimCommandParam}, this.formData, function (data) {
                             location.path('/viewloanaccount/' + params.loanId);
                         });
