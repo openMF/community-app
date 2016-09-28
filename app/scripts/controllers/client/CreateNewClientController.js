@@ -77,7 +77,7 @@
                 resourceFactory.configurationResource.get({configName: addressConfig}, function (response) {
                     if (response.enabled == true) {
                         scope.enableClientAddress = true;
-                        resourceFactory.villageResource.getAllVillages({officeId:scope.formData.officeId},function (data) {
+                        resourceFactory.villageResource.getAllVillages({officeId:scope.formData.officeId, limit: 1000},function (data) {
                             scope.villages = data;
                         });
                         resourceFactory.addressTemplateResource.get({}, function (data) {
@@ -144,7 +144,7 @@
                     scope.savingproducts = data.savingProductOptions;
                 });
                 if(scope.addressFromVillages ) {
-                    resourceFactory.villageResource.getAllVillages({officeId: officeId}, function (data) {
+                    resourceFactory.villageResource.getAllVillages({officeId: officeId, limit: 1000}, function (data) {
                         scope.villages = data;
                     });
                 }
@@ -167,6 +167,13 @@
 
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
+
+                    if(scope.formAddressData.districtId){
+                        delete scope.formAddressData.districtId;
+                    }
+                    if(scope.formAddressData.talukaId){
+                        delete scope.formAddressData.talukaId;
+                    }
                     scope.formAddressData.villageTown = null
                     scope.talukas = null;
                     scope.formAddressData.postalCode = null;
@@ -180,6 +187,7 @@
                             if (response.addressData[0].countryData) {
                                 scope.formAddressData.countryId = response.addressData[0].countryData.countryId;
                             }
+
                             if (response.addressData[0].stateData) {
                                 scope.states = response.addressData[0].countryData.statesDatas;
                                 scope.formAddressData.stateId = response.addressData[0].stateData.stateId;
@@ -188,8 +196,8 @@
                                 scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formAddressData.districtId = response.addressData[0].districtData.districtId;
                             }
+                            scope.talukas = response.addressData[0].districtData.talukaDatas;
                             if (response.addressData[0].talukaData) {
-                                scope.talukas = response.addressData[0].districtData.talukaDatas;
                                 scope.formAddressData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
 

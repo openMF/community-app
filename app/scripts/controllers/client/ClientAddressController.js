@@ -21,7 +21,7 @@
                 scope.setDefaultGISConfig();
             });
 
-            resourceFactory.villageResource.getAllVillages({officeId: routeParams.officeId},function (data) {
+            resourceFactory.villageResource.getAllVillages({officeId: routeParams.officeId, limit: 1000},function (data) {
                 scope.villages = data;
             });
 
@@ -110,6 +110,12 @@
 
             scope.changeVillage = function (villageId) {
                 if (villageId != null) {
+                    if (scope.formData.districtId) {
+                        delete scope.formData.districtId;
+                    }
+                    if(scope.formData.talukaId){
+                        delete scope.formData.talukaId;
+                    }
                     scope.formData.villageTown =null;
                     scope.talukas = null;
                     scope.formData.postalCode = null;
@@ -130,8 +136,8 @@
                                 scope.districts = response.addressData[0].stateData.districtDatas;
                                 scope.formData.districtId = response.addressData[0].districtData.districtId;
                             }
+                            scope.talukas = response.addressData[0].districtData.talukaDatas;
                             if (response.addressData[0].talukaData) {
-                                scope.talukas = response.addressData[0].districtData.talukaDatas;
                                 scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
                             }
                             if (response.addressData[0].postalCode) {
