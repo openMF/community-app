@@ -21,6 +21,7 @@
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
+                this.formData.synchMeeting = scope.synchmeeting;
                 if (scope.date.specificduedate) {
                     this.formData.dueDate = dateFilter(scope.date.specificduedate, scope.df);
                 }
