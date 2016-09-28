@@ -1,0 +1,64 @@
+<div ng-controller="ViewClientRecurringChargeController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">ViewClientRecurringCharge</li>
+        </ul>
+    </div>
+    <div class="well">
+        <h3 class="bolder"><i class="icon-stop  {{ ((recurringcharge.active)) |StatusLookup}}"></i>&nbsp;&nbsp;{{recurringcharge.chargename}}
+            <div class="btn-group pull-right">
+                <button type="button" data-ng-click="deleteRecurringCharge()" ng-show="recurringcharge.active"
+                        class="btn btn-danger" has-permission='DELETE_CLIENTCHARGE'><i
+                        class="icon-power-off icon-white"></i>{{'label.button.inactivate' | translate}}
+                </button>
+            </div>
+        </h3>
+        <hr>
+
+        <api-validate></api-validate>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{recurringcharge.currency.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.chargetimetype' | translate}}</td>
+                        <td>{{recurringcharge.chargeTimeType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.chargecalculationtype' | translate}}</td>
+                        <td>{{recurringcharge.chargeCalculationType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.startdate' | translate}}</td>
+                        <td>{{recurringcharge.chargeDueDate|DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.amount' | translate}}</td>
+                        <td>{{recurringcharge.amount|number}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.active' | translate}}</td>
+                        <td>{{recurringcharge.active}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.penalty' | translate}}</td>
+                        <td>{{recurringcharge.penalty}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-show="!recurringcharge.active">{{'label.heading.inactivatedondate' | translate}}</td>
+                        <td ng-show="!recurringcharge.active">{{recurringcharge.inactivatedOnDate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-offset-5">
+            <a id="cancel" href="#/viewclient/{{clientId}}/chargeoverview" class="btn btn-default">{{'label.button.back'
+                |translate}}</a>
+        </div>
+    </div>
+</div>
+

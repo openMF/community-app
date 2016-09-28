@@ -4,10 +4,21 @@
             scope.clientId = routeParams.id
             scope.charges = [];
             scope.chargesPerPage = 14;
+            scope.clientRecurringCharges=[];
 
             scope.routeToCharge = function (chargeId) {
                 location.path('/viewclient/' + scope.clientId + '/charges/' + chargeId);
             };
+            scope.routeToRecurringCharge = function (recurringChargeId) {
+                location.path('/viewclient/' + scope.clientId + '/recurringcharges/' + recurringChargeId);
+            };
+
+                var items = resourceFactory.clientRecurringChargesResource.getRecurringCharges({
+                    clientId:routeParams.id
+                },function(data){
+                    scope.clientRecurringCharges=data;
+                })
+
 
             scope.getClientChargeResultsPage = function (pageNumber) {
                 var items = resourceFactory.clientChargesResource.getCharges({
