@@ -10,8 +10,8 @@
             scope.configureFundOptions = [];
             scope.specificIncomeAccountMapping = [];
             scope.penaltySpecificIncomeaccounts = [];
-            scope.writeOffSpecificExpenseAccountMappings = [];
-            scope.writeOffToExpenseAccountMapping = [];
+            scope.codeValueSpecificAccountMappings = [];
+            scope.codeValueSpecificAccountMapping = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.pvFlag = false;
@@ -44,7 +44,12 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
-                scope.writeOffReasonOptions = scope.product.writeOffReasonOptions  || [];
+                scope.writeOffReasonOptions = [];
+                if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
+                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", sqlSearch: "cv.is_active = 1"}, function (codeValueData) {
+                        scope.writeOffReasonOptions = scope.getCodeValues(scope.product.codeValueOptions,codeValueData);
+                    });
+                }
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
                     if (scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment') {
@@ -103,6 +108,18 @@
                 }
             };
 
+            scope.getCodeValues = function(optionsArray,codeValues){
+                var codeValuesData = [];
+                for(var  i=0; i<optionsArray.length;i++){
+                    for(var j=0;j<codeValues.length;j++){
+                        if(codeValues[j].id==optionsArray[i].id){
+                            codeValuesData.push(optionsArray[i]);
+                        }
+                    }
+                }
+                return codeValuesData;
+            };
+
             scope.deleteCharge = function (index) {
                 scope.charges.splice(index, 1);
             };
@@ -140,8 +157,8 @@
 
             scope.mapWriteOffReason = function () {
                 scope.writeOffFlag = true;
-                scope.writeOffSpecificExpenseAccountMappings.push({
-                    writeOffReasonId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
+                scope.codeValueSpecificAccountMappings.push({
+                    codeVaueId: scope.writeOffReasonOptions.length > 0 ? scope.writeOffReasonOptions[0].id : '',
                     expenseAccountId: scope.expenseAccountOptions.length > 0 ? scope.expenseAccountOptions[0].id : ''
                 });
             };
@@ -182,7 +199,7 @@
             };
 
             scope.deleteCodeValue = function (index) {
-                scope.writeOffSpecificExpenseAccountMappings.splice(index, 1);
+                scope.codeValueSpecificAccountMappings.splice(index, 1);
             };
 
             scope.deletePenalty = function (index) {
@@ -283,12 +300,12 @@
                 }
 
                 //map code value to specific expense accounts
-                for (var i in scope.writeOffSpecificExpenseAccountMappings) {
+                for (var i in scope.codeValueSpecificAccountMappings) {
                     temp = {
-                        writeOffReasonId: scope.writeOffSpecificExpenseAccountMappings[i].writeOffReasonId,
-                        expenseAccountId: scope.writeOffSpecificExpenseAccountMappings[i].expenseAccountId
+                        codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
+                        expenseAccountId: scope.codeValueSpecificAccountMappings[i].expenseAccountId
                     }
-                    scope.writeOffToExpenseAccountMapping.push(temp);
+                    scope.codeValueSpecificAccountMapping.push(temp);
                 }
 
                 for (var i in scope.charges) {
@@ -322,7 +339,7 @@
                 this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
-                this.formData.writeOffToExpenseAccountMapping = scope.writeOffToExpenseAccountMapping;
+                this.formData.codeValueSpecificAccountMapping = scope.codeValueSpecificAccountMapping;
                 this.formData.charges = scope.chargesSelected;
                 this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
                 this.formData.locale = scope.optlang.code;

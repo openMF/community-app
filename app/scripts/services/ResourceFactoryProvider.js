@@ -294,6 +294,9 @@
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+                    codeValueByCodeNameResources: defineResource(apiVer + "/codes/codeValues", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
 					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
                         getAllHooks: {method: 'GET', params: {}, isArray: true},
                         getHook: {method: 'GET', params: {}},
