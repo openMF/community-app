@@ -166,21 +166,21 @@
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
                         scope.isGLIM = (glimData.length>0);
-                        if(scope.isGLIM){
-                            scope.formData[scope.modelName] = new Date();
-                        }else{
-                            resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
-                                scope.paymentTypes = data.paymentTypeOptions;
-                                if (data.paymentTypeOptions.length > 0) {
-                                    scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
-                                }
+                        resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                            scope.paymentTypes = data.paymentTypeOptions;
+                            if (data.paymentTypeOptions.length > 0) {
+                                scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                            }
+                            if (scope.isGLIM) {
+                                scope.formData[scope.modelName] = new Date();
+                            } else {
                                 scope.formData.transactionAmount = data.amount;
                                 scope.formData[scope.modelName] = new Date(data.date) || new Date();
-                                if(data.penaltyChargesPortion>0){
+                                if (data.penaltyChargesPortion > 0) {
                                     scope.showPenaltyPortionDisplay = true;
                                 }
-                            });
-                        }
+                            }
+                        });
                     });
                     scope.title = 'label.heading.loanrepayments';
                     scope.labelName = 'label.input.transactiondate';
