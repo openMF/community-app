@@ -7,6 +7,8 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.taskPermissionName = 'ALL_FUNCTIONS';
+            scope.forcedSubmit = false;
+            scope.forceActivateClientPermission = 'FORCE_ACTIVATE_CLIENT';
 
             // Transaction UI Related
 
@@ -182,9 +184,18 @@
                 }
 
                 if (scope.action == "activate") {
-                    resourceFactory.clientResource.save({clientId: routeParams.id, command: 'activate'}, this.formData, function (data) {
+                    var queryParams = {clientId: routeParams.id, command: 'activate'};
+                    if(scope.forcedSubmit){
+                        queryParams = {clientId: routeParams.id, command: 'forceActivate'};
+                    }
+                    resourceFactory.clientResource.save(queryParams, this.formData, function (data) {
                         location.path('/viewclient/' + data.clientId);
-                    });
+                    },
+                        function(data){
+                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.duplicate.client.entry") {
+                                scope.forcedSubmit = true;
+                            }
+                        });
                 }
                 if (scope.action == "assignstaff") {
                     delete this.formData.locale;

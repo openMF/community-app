@@ -132,6 +132,7 @@
                         break;
                     case "revokesubsidy":
                         location.path('/loanaccount/' + accountId + '/revokesubsidy');
+                        break;
                     case "foreclosure":
                         location.path('loanforeclosure/' + accountId);
                         break;
