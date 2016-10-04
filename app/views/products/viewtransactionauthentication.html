@@ -1,0 +1,55 @@
+<div ng-controller="ViewTransactionAuthenticationController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.heading.products' | translate}}</a></li>
+            <li class="active">{{'label.anchor.transactionAuthentication' | translate}}</li>
+        </ul>
+        <a href="#/createtransactionauthentication" class="btn btn-primary pull-right" has-permission='CREATE_TRANSACTIONAUTHENTICATIONSERVICE'><i class="icon-plus icon-white"></i>{{'label.button.addtransactionauthentication' | translate }}</a>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <script type="text/ng-template" id="deleteTransactionAuthentication.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <table class="table table-striped">
+        <thead>
+        <tr class="graybg">
+            <th>{{ 'label.heading.producttype' | translate }}</th>
+            <th>{{ 'label.heading.transactiontype' | translate }}</th>
+            <th>{{ 'label.heading.paymenttype' | translate }}</th>
+            <th>{{ 'label.heading.amount' | translate }}</th>
+            <th>{{ 'label.heading.authenticationtype' | translate }}</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="tansactionAuthentication in transactionAuthentications">
+            <td>{{tansactionAuthentication.portfolioType | translate}}</td>
+            <td>{{tansactionAuthentication.transactionType}}</td>
+            <td>{{tansactionAuthentication.paymentType.name}}</td>
+            <td>{{tansactionAuthentication.amount}}</td>
+            <td>{{tansactionAuthentication.authenticationType}}</td>
+            <td>
+                <button type="button" ng-click="showEdit(tansactionAuthentication.authenticationRuleId)" class="btn btn-primary ng-binding" has-permission="UPDATE_TRANSACTIONAUTHENTICATIONSERVICE">
+                    <i class="icon-edit icon-white"></i>
+                </button>
+                <button type="button" ng-click="deleteTransactionAuthentication(tansactionAuthentication.authenticationRuleId)" class="btn btn-danger ng-binding" has-permission="DELETE_TRANSACTIONAUTHENTICATIONSERVICE">
+                    <i class="icon-trash icon-white"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+

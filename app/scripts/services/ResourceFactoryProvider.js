@@ -744,6 +744,20 @@
                     }),
                     centerLookupResource: defineResource(apiVer + "/centers/:centerId/memberaccountdetails", {centerId:'@centerId'}, {
                         get: {method: 'GET', params: {}, isArray : true}
+                    }),
+                    transactionAuthenticationTemplateResource: defineResource(apiVer + "/transactions/authentication/template", {},{
+                       getTemplate: {method: 'GET', params: {}}
+                    }),
+                    transactionAuthenticationResource: defineResource(apiVer + "/transactions/authentication/:transactionAuthenticationId", {transactionAuthenticationId: '@transactionAuthenticationId'}, {
+                        getAllTransactionAuthenticationDetails: {method: 'GET', params: {}, isArray: true},
+                        getByTransactionAuthenticationId: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+                    viewTransactionAuthenticationServicesResource: defineResource(apiVer + "/external/authentications/services/:serviceId",{serviceId: '@serviceId'},{
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
                     })
                 };
             }];
