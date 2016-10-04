@@ -19,7 +19,7 @@
             scope.addressData = [];
             scope.addressId ;
             scope.enableClientAddress = false;
-
+            scope.loancycledetail = [];
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -153,6 +153,7 @@
 
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
+                    scope.loancycledetail = data;
                 });
 
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
