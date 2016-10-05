@@ -104,7 +104,7 @@
                 if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                     for(var i in scope.productLoanCharges){
                         if(scope.productLoanCharges[i].chargeData){
-                            if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                            //if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
                                 var isChargeAdded = false;
                                 for(var j in scope.charges){
                                     if(scope.productLoanCharges[i].chargeData.id == scope.charges[j].chargeId){
@@ -121,7 +121,7 @@
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
                                     scope.charges.push(charge);
                                 }
-                            }
+                            //}
                         }
                     }
                 }

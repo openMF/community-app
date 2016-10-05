@@ -61,11 +61,17 @@
                         scope.charges = scope.loanaccountinfo.charges || [];
                         scope.productLoanCharges = data.product.charges || [];
                         if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
-                            for(var a in scope.charges){
-                                for(var i in scope.productLoanCharges){
-                                    if(scope.productLoanCharges[i].chargeData){
-                                        if(scope.charges[a].chargeId == scope.productLoanCharges[i].chargeData.id){
-                                            scope.charges[a].isMandatory = scope.productLoanCharges[i].isMandatory;
+
+                            for(var i in scope.productLoanCharges){
+                                if(scope.productLoanCharges[i].chargeData){
+                                    for(var j in scope.loanaccountinfo.chargeOptions){
+                                        if(scope.productLoanCharges[i].chargeData.id == scope.loanaccountinfo.chargeOptions[j].id){
+                                            //if(scope.productLoanCharges[i].isMandatory && scope.productLoanCharges[i].isMandatory == true){
+                                                var charge = scope.productLoanCharges[i].chargeData;
+                                                charge.chargeId = charge.id;
+                                                charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                                scope.charges.push(charge);
+                                            //}
                                             break;
                                         }
                                     }
