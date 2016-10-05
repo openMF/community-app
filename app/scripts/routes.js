@@ -1049,7 +1049,18 @@
             .when('/loanforeclosure/:id', {
                 templateUrl: 'views/loans/loanforeclosure.html'
             })
-        ;
+            .when('/viewtransactionauthentication',{
+                templateUrl: 'views/products/viewtransactionauthentication.html'
+            })
+            .when('/edittransactionauthentication/:id',{
+                templateUrl: 'views/products/edittransactionauthentication.html'
+            })
+            .when('/createtransactionauthentication', {
+                templateUrl: 'views/products/createtransactionauthentication.html'
+            })
+            .when('/viewexternalauthenticationservices', {
+                templateUrl: 'views/system/viewexternalauthenticationservices.html'
+            });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

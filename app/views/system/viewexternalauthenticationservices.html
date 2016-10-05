@@ -1,0 +1,31 @@
+<div class="col-md-12" ng-controller="ViewExternalAuthenticationServices">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li class="active">{{'label.anchor.externalauthenticationservices' | translate}}</li>
+        </ul>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr class="graybg">
+            <th>{{ 'label.heading.authenticationtype' | translate }}</th>
+            <th>{{ 'label.heading.status' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="externalAuthentication in formData.pageItems">
+            <td>{{externalAuthentication.name}}</td>
+            <td ng-switch="externalAuthentication.isActive">
+                <button type="button" ng-switch-when="true" ng-click="serviceUpdate(externalAuthentication)" class="btn btn-primary ng-binding" has-permission="UPDATE_AUTHENTICATIONSERVICE">
+                    {{'label.heading.active' | translate}}
+                </button>
+                <button type="button" ng-switch-when="false" ng-click="serviceUpdate(externalAuthentication)" class="btn btn-danger ng-binding" has-permission="UPDATE_AUTHENTICATIONSERVICE">
+                    {{'label.heading.inactive' | translate}}
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

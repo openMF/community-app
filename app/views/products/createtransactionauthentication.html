@@ -1,0 +1,74 @@
+<div class="col-md-12" ng-controller="CreateTransactionAuthentication">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.heading.products' | translate}}</a></li>
+            <li><a href="#/viewtransactionauthentication">{{'label.anchor.transactionAuthentication' | translate}}</a></li>
+            <li class="active">{{'label.anchor.createtransactionauthentication' | translate}} </li>
+        </ul>
+        <form name="createpaymenttype" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+
+                <legend>{{'label.heading.createtransactionauthentication' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="portfolioTypeId">{{'label.input.producttype' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select  id="portfolioTypeId" name="portfolioTypeId" ng-model="formData.portfolioTypeId" class="form-control"
+                                 data-ng-options="transactionAuthentication.id as transactionAuthentication.value for transactionAuthentication in transactionAuthenticationAppliesTo"
+                                 value="{{transactionAuthentication.id}}"
+                                 ng-change="transactionTypeAppliesToSelected(formData.portfolioTypeId)">
+                            <option value="">{{'label.producttype' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="transactionType">{{'label.input.transactiontype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="transactionType" name="transactionType" ng-model="formData.transactionTypeId" class="form-control"
+                                value="{{formData.transactionTypeId}}"
+                                ng-options="transactionType.id as transactionType.value for transactionType in transactionTypeOptions">
+                            <option value="">{{'label.transactiontype' | translate}}</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" >{{'label.input.amount' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" name="amount" ng-model="formData.amount" placeholder="{{'label.amount.greaterthan.or.equalto' | translate}}"
+                               class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="paymentType">{{'label.input.paymenttype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="paymentType" name="paymentType" ng-model="formData.paymentTypeId" class="form-control"
+                                value="{{formData.paymentTypeId}}"
+                                data-ng-options="paymentType.id as paymentType.name for paymentType in paymentOptions">
+                            <option value="">{{'label.paymenttype' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="authenticationType">{{'label.input.authenticationtype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select id="authenticationType" name="authenticationType" ng-model="formData.authenticationTypeId" class="form-control"
+                                ng-options="authenticationType.id as authenticationType.name for authenticationType in availableAuthenticationServices">
+                            <option value="">{{'label.authenticationtype' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/viewtransactionauthentication" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_TRANSACTIONAUTHENTICATIONSERVICE'>{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
