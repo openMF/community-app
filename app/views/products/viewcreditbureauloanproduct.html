@@ -1,0 +1,57 @@
+<div class="col-md-12" ng-controller="ViewCreditBureauLoanProductController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/creditbureauloanproducts">{{'label.anchor.creditbureau.loanproducts' | translate}}</a></li>
+            <li class="active">{{creditbureauLoanProduct.loanProductName | translate}}</li>
+        </ul>
+    </div>
+
+    <div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a ng-click="changeStatus()" class="btn btn-warning"><i
+                        class="{{creditbureauLoanProduct.isActive ? 'icon-remove-circle' : 'icon-ok-circle'}} icon-white"></i>{{creditbureauLoanProduct.isActive ? 'label.button.inactive' : 'label.button.active' | translate}}</a>
+                <a href="#/editcreditbureauloanproduct/{{creditbureauLoanProduct.id}}" class="btn btn-primary"><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+            </div>
+        </div>
+        <legend>{{creditbureauLoanProduct.loanProductName}}</legend>
+        <table width="100%">
+            <tr>
+                <td>
+                    <a id="test" class="old-syle-anchor">&nbsp;</a>
+                </td>
+            </tr>
+            <tr class="bottomborder">
+                <td colspan="4">
+                    <strong>{{'label.heading.details' | translate}}</strong>
+                </td>
+            </tr>
+            <tr class="toppadding">
+                <td>{{'label.heading.cbName' | translate}} :</td>
+                <td colspan="3">{{creditbureauLoanProduct.creditBureauData.creditBureauName}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.stale.period' | translate}} :</td>
+                <td colspan="3">{{creditbureauLoanProduct.stalePeriod}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.creditcheckmandatory' | translate}}:</td>
+                <td colspan="3">{{creditbureauLoanProduct.isCreditcheckMandatory ? 'Yes' : 'No'}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.heading.skipcreditcheckinfailure' | translate}}:</td>
+                <td colspan="3">{{creditbureauLoanProduct.skipCreditcheckInFailure ? 'Yes' : 'No'}}</td>
+            </tr>
+            <tr>
+                <td>{{'label.active' | translate}}:</td>
+                <td colspan="3">{{creditbureauLoanProduct.isActive ? 'Yes' : 'No'}}</td>
+            </tr>
+            <tr>
+                <td colspan="4"><br/></td>
+            </tr>
+        </table>
+    </div>
+
+</div>

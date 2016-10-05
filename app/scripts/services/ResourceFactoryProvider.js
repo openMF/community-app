@@ -149,7 +149,9 @@
                     }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", {resourceType: '@resourceType', loanProductId: '@loanProductId'}, {
                         getAllLoanProducts: {method: 'GET', params: {}, isArray: true},
+                        getAllCreditbureauLoanProducts: {method: 'GET', params: {}, isArray: true},
                         getProductmix: {method: 'GET', params: {}},
+                        getCreditbureauLoanProducts: {method: 'GET', params: {}},
                         put: {method: 'PUT', params: {}}
                     }),
                     chargeResource: defineResource(apiVer + "/charges/:chargeId", {chargeId: '@chargeId'}, {
@@ -191,6 +193,15 @@
                         getChargesByLoanAppId: {method: 'GET', params: {}, isArray: true},
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}}
+                    }),
+                    loanApplicationReferencesCreditBureauReportResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureport", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    loanApplicationReferencesCreditBureauReportOtherInstituteLoansSummaryResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/otherinstituteloanssummary", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        get: {method: 'GET', params: {sourceId: '@sourceId'}}
+                    }),
+                    loanApplicationReferencesCreditBureauReportFileContentResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/creditbureaureportfile", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        get: {method: 'GET', params: {}}
                     }),
                     loanApplicationReferencesTemplateResource: defineResource(apiVer + "/loanapplicationreferences/template", {}, {
                         get: {method: 'GET', params: {}}
@@ -755,9 +766,20 @@
                         update: {method: 'PUT', params: {}},
                         delete: {method: 'DELETE', params: {}}
                     }),
-                    viewTransactionAuthenticationServicesResource: defineResource(apiVer + "/external/authentications/services/:serviceId",{serviceId: '@serviceId'},{
+                    viewTransactionAuthenticationServicesResource: defineResource(apiVer + "/external/authentications/services/:serviceId",{serviceId: '@serviceId'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
+                    }),
+                    creditBureauResource: defineResource(apiVer +"/creditbureau/:resourceId", {resourceId:'@resourceId', command: '@command'},{
+                        activate:{method:'POST',params:{resourceId:'@resourceId',command: 'activate'}},
+                        deactivate:{method:'POST',params:{resourceId:'@resourceId',command: 'deactivate'}},
+                        get: {method: 'GET', isArray: true }
+                    }),
+                    creditBureauLoanProductResource: defineResource(apiVer +"/loanproducts/:productId/creditbureau/:creditBureauId", {productId:'@productId',creditBureauId:'@creditBureauId', command: '@command'},{
+                        post: {method: 'POST', params:{}},
+                        update: {method: 'PUT', params:{}},
+                        activate:{method:'POST',params:{resourceId:'@resourceId',command: 'activate'}},
+                        inactivate:{method:'POST',params:{resourceId:'@resourceId',command: 'inactivate'}}
                     })
                 };
             }];

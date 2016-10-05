@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ApproveLoanApplicationReference: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        ApproveLoanApplicationReference: function (scope, routeParams, $modal, resourceFactory, location, dateFilter) {
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.restrictDate = new Date();
@@ -466,10 +466,10 @@
 
             scope.backToLoanDetails = function () {
                 scope.report = false;
-            }
+            };
         }
     });
-    mifosX.ng.application.controller('ApproveLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.ApproveLoanApplicationReference]).run(function ($log) {
+    mifosX.ng.application.controller('ApproveLoanApplicationReference', ['$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.ApproveLoanApplicationReference]).run(function ($log) {
         $log.info("ApproveLoanApplicationReference initialized");
     });
 }(mifosX.controllers || {}));

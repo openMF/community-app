@@ -1,0 +1,107 @@
+<div ng-controller="CreditBureauReportController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
+            <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a></li>
+            <li class="active">{{'label.anchor.creditbureauteport' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="col-md-12 col-sm-12">
+        <div class="row primarydiv">
+            <div class="pull-right">
+
+            </div>
+        </div>
+        <div class="row client">
+            <form class="well form-inline">
+                <div class="span gray-head">
+                    <span class="boldlabel">
+                          <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
+                    </span>
+                </div>
+                <div class="col-md-12 well">
+                    <div class="col-md-12 pull-right">
+                        <div ng-hide="loansSummary && loansSummary.cbStatus">
+                            <button id="creditBureauReport" type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.initiatecreditbureauenquiry' | translate}}</button>
+                        </div>
+                        <div class="row" ng-show="viewCreditBureauReport == false && loansSummary && loansSummary.cbStatus">
+                            <div class="col-md-7">
+                                <h3 ng-show="loansSummary && loansSummary.cbStatus" class="bolder">
+                                    {{'label.credit.bureau.enquiry.initiated' | translate}} on {{loansSummary.cbInitiatedDateTime}} .
+                                </h3>
+                            </div>
+                            <div class="col-md-5">
+                                <button id="getCreditBureauReport" type="button" class="btn btn-primary" ng-click="viewCreditBureauReport = true">Get Rport</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="viewCreditBureauReport == true">
+                        <div class="col-md-12" ng-if="loansSummary && loansSummary.cbStatus && loansSummary.cbStatus.value != 'SUCCESS'">
+                            <div ng-show="loansSummary && loansSummary.cbStatus">
+                                <button type="button" class="btn btn-primary" ng-click="creditBureauReport();">{{'label.button.re.initiatecreditbureauenquiry' | translate}}</button>
+                            </div>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td colspan="2"><span class="boldlabel"><strong>Credit Bureau Response Message</strong></span></td>
+                                </tr>
+                                <tr>
+                                    <td ng-if="loansSummary.cbResponse">{{convertByteToString(loansSummary.cbResponse)}}</td>
+                                    <td ng-if="loansSummary.cbLoanEnqResponse">{{convertByteToString(loansSummary.cbLoanEnqResponse)}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-8" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="boldlabel"><strong>Other Institute Loans Summary</strong></span>
+                                        <div class="pull-right">
+                                            <button id="viewReportFile" type="button" class="btn btn-primary" ng-click="creditBureauReportView();">View Report File</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Amount Borrowed</label></td>
+                                    <td>{{loansSummary.totalAmountBorrowed |number}}</td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Current Outstanding</label></td>
+                                    <td>{{loansSummary.totalCurrentOutstanding |number}}</td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Amount Overdue</label></td>
+                                    <td>{{loansSummary.totalAmtOverdue |number}}</td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Installment Amount</label></td>
+                                    <td>{{loansSummary.totalInstallmentAmount |number}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-primary" ng-click="proceedToNext();">{{'label.button.proceed.to.next' | translate}}</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" ng-if="loansSummary && loansSummary.cbStatus.value == 'SUCCESS'">
+                    <table class="width100">
+                        <tr>
+                            <td colspan="0">&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="width100">
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div ng-controller="ViewCreditBureauSummaryController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
+        </ul>
+    </div>
+
+    <fieldset>
+        <legend>{{ 'label.anchor.cbconfigured' | translate}}</legend>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.cbid' | translate}}</th>
+                        <th>{{'label.heading.cbName' | translate}}</th>
+                        <th>{{'label.heading.cbproduct'|translate}}</th>
+                        <th>{{'label.heading.country'|translate}}</th>
+                        <th>{{'label.heading.is_active' | translate}}</th>
+                        <th>Active/Inactive</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="config in Configs" data-ng-model="button">
+                        <td>{{$index+1}}</td>
+                        <td>{{config.creditBureauName}}</td>
+                        <td>{{config.creditBureauProduct}}</td>
+                        <td>{{config.creditBureauCountry}}</td>
+                        <td>
+                            <i class="icon-ok-sign icon-green" data-ng-show="config.is_active"></i>
+                            <i class="icon-remove-sign icon-red" data-ng-hide="config.is_active"></i>
+                        </td>
+                        <td>
+                            <button ng-click="changeCbStatus(config.creditBureauId,config.is_active)" data-ng-hide="config.is_active" class="btn btn-primary">
+                            {{"label.button.enable" | translate}}
+                            </button>
+                            <button ng-click="changeCbStatus(config.creditBureauId,config.is_active)"  data-ng-show="config.is_active" class="btn btn-primary">
+                            {{"label.button.disable" | translate}}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>

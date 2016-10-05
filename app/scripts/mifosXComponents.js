@@ -31,6 +31,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/NewLoanAccAppController',
             'loanAccount/UpdateLoanApplicationReference',
             'loanAccount/ApproveLoanApplicationReference',
+            'loanAccount/CreditBureauReportController',
             'loanAccount/LoanAccountActionsController',
             'loanAccount/AddLoanChargeController',
             'loanAccount/AddLoanCollateralController',
@@ -335,7 +336,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'bankstatements/UpdateBankController',
             'bankstatements/CreateBankController',
             'savings/JlgSavingsAccountController',
-            'savings/JlgSavingsAccountGroupController'
+            'savings/JlgSavingsAccountGroupController',
+            'configurations/ViewCreditBureauSummaryController',
+            'configurations/AddNewCreditBureauController',
+            'configurations/MapCreditBureauToLpController',
+            'product/CreditBureauLoanProductsController',
+            'product/CreateCreditBureauLoanProductController',
+            'product/EditCreditBureauLoanProductController',
+            'product/ViewCreditBureauLoanProductController'
         ],
         filters: [
             'StatusLookup',

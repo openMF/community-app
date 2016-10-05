@@ -16,15 +16,20 @@
                      has-permission='UPDATE_LOANAPPLICATIONREFERENCE'><i
                           class="icon-edit icon-white"></i>{{'label.button.modifyapplication' | translate}}</a>
                 </span>
-                <span ng-if="formData.status.id === 100">
+                <span ng-if="isCBCheckReq == false && formData.status.id === 100">
                   <a class="btn btn-primary" data-ng-click="requestApprovalLoanAppRef()"
                      has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE'><i
                           class="icon-ok-sign icon-white"></i>{{'label.button.request.approval' | translate}}</a>
                 </span>
+                <span ng-if="isCBCheckReq == true && formData.status.id < 300">
+                    <a href="#/creditbureaureport/{{loanApplicationReferenceId}}"
+                       class="btn btn-primary" ng-show="isCBCheckReq == true"><i
+                            class="icon-ok-sign icon-white"></i>Credit Bureau Report</a>
+                </span>
                 <span ng-if="formData.status.id === 200">
                   <a href="#/approveloanapplicationreference/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"
-                     has-permission='APPROVE_LOANAPPLICATIONREFERENCE'><i
+                     has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-hide="isCBCheckReq == true"><i
                           class="icon-ok-sign icon-white"></i>{{'label.button.approve' | translate}}</a>
                 </span>
                 <span ng-if="formData.status.id === 300">
