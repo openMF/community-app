@@ -186,7 +186,7 @@
         </thead>
         <tbody>
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
-            ng-repeat="transaction in savingaccountdetails.transactions">
+            ng-repeat="transaction in savingaccountdetails.transactions  | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
             <td class="pointer"
                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 {{transaction.id}}
