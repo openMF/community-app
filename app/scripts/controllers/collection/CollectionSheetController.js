@@ -513,7 +513,7 @@
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
-                                scope.collectionsheetdata = false;
+                                scope.collectionsheetdata = "";
                             }
                         });
                 } else if (centerOrGroupResource === "groupResource") {
@@ -525,7 +525,7 @@
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
-                                scope.collectionsheetdata = false;
+                                scope.collectionsheetdata = "";
                             }
                         });
                 }
