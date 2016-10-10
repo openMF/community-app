@@ -5,16 +5,6 @@
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
-            scope.convertDateArrayToObject = function(dateFieldName){
-                for(var i in scope.savingaccountdetails.transactions){
-                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
-                }
-            };
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
@@ -260,6 +250,7 @@
                  annualdueDate = data.annualFee.feeOnMonthDay;
                  annualdueDate.push(2013);
                  scope.annualdueDate = new Date(annualdueDate);*/
+                scope.convertDateArrayToObject('date');
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
@@ -339,10 +330,23 @@
                 };
             };
 
+            /***
+             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
+             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
+             * @param dateFieldName
+             */
+            scope.convertDateArrayToObject = function(dateFieldName){
+                for(var i in scope.savingaccountdetails.transactions){
+                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                }
+            };
+
             scope.transactionSort = {
                 column: 'date',
+                columnId: 'id',
                 descending: true
             };
+
             scope.changeTransactionSort = function(column) {
                 var sort = scope.transactionSort;
                 if (sort.column == column) {

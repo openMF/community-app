@@ -22,16 +22,6 @@
                 }
             };
 
-            /***
-             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
-             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
-             * @param dateFieldName
-             */
-            scope.convertDateArrayToObject = function(dateFieldName){
-                for(var i in scope.savingaccountdetails.transactions){
-                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
-                }
-            };
             scope.isRecurringCharge = function (charge) {
                 return charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee' || charge.chargeTimeType.value == 'Weekly Fee';
             }
@@ -289,6 +279,7 @@
                     annualdueDate.push(new Date().getFullYear());
                     scope.annualdueDate = new Date(annualdueDate);
                 };
+                scope.convertDateArrayToObject('date');
             });
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
@@ -434,8 +425,20 @@
                 location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
             };
 
+            /***
+             * we are using orderBy(https://docs.angularjs.org/api/ng/filter/orderBy) filter to sort fields in ui
+             * api returns dates in array format[yyyy, mm, dd], converting the array of dates to date object
+             * @param dateFieldName
+             */
+            scope.convertDateArrayToObject = function(dateFieldName){
+                for(var i in scope.savingaccountdetails.transactions){
+                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                }
+            };
+
             scope.transactionSort = {
                 column: 'date',
+                columnId: 'id',
                 descending: true
             };
 
