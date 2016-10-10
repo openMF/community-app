@@ -1,0 +1,73 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/creditbureauloanproducts">{{'label.anchor.creditbureau.loanproducts' | translate}}</a></li>
+        <li class="active">{{'label.anchor.create.loanproduct.creditbureau.mapping' | translate}}</li>
+    </ul>
+    <form name="createcreditbureauloanproductfrom" novalidate="" class="form-horizontal well" ng-controller="CreateCreditBureauLoanProductController" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <h3>{{ 'label.heading.details' | translate }}</h3>
+            <hr>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.creditbureau.product.name' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="creditBureauProductId" name="creditBureauProductId" ng-model="formData.creditBureauProductId" class="form-control"
+                            ng-options="creditBureauProduct.creditBureauId as creditBureauProduct.creditBureauName for creditBureauProduct in creditBureauProducts" value="{{product.creditBureauId}}" required late-validate>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauloanproductfrom" valattribute="creditBureauProductId"/>
+                </div>
+
+                <label class="control-label col-sm-2">{{ 'label.input.productname' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="loanProductId" name="loanProductId" ng-model="formData.loanProductId" class="form-control"
+                            ng-options="product.id as product.name for product in products" value="{{product.id}}" required late-validate>
+                        <option value="">{{'label.selectloanproduct' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauloanproductfrom" valattribute="loanProductId"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.stale.period' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <input type="text" id="stalePeriod" name="stalePeriod" class="form-control"
+                           ng-model="formData.stalePeriod" required late-validate number-format="" maxlength="3"/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createcreditbureauloanproductfrom" valattribute="stalePeriod"/>
+                </div>
+
+                <label class="control-label col-sm-2">{{ 'label.input.isCreditCheckMandatory' | translate }}<span class="required"></span></label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="isCreditcheckMandatory" name="isCreditcheckMandatory" ng-model="formData.isCreditcheckMandatory" />
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.skipcreditcheckinfailure' | translate }}<span class="required"></span></label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="skipCreditcheckInFailure" name="skipCreditcheckInFailure" ng-model="formData.skipCreditcheckInFailure" />
+                </div>
+                <div class="col-sm-2"></div>
+
+                <label class="control-label col-sm-2">{{ 'label.input.isactive' | translate }}<span class="required"></span></label>
+                <div class="col-sm-2">
+                    <input type="checkbox" id="isActive" name="isActive" ng-model="formData.isActive" />
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+
+            <div class="col-md-offset-5 paddedtop">
+                <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CREDIT_BUREAU_LOANPRODUCT_MAPPING'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

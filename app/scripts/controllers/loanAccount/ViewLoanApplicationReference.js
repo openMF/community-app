@@ -4,8 +4,17 @@
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             var curIndex = 0;
+            scope.isCBCheckReq = false;
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
+                if(scope.formData.loanProductId && scope.formData.status.id < 300){
+                    resourceFactory.loanProductResource.getCreditbureauLoanProducts({loanProductId: scope.formData.loanProductId,associations: 'creditBureaus'},function (creditbureauLoanProduct) {
+                        scope.creditbureauLoanProduct = creditbureauLoanProduct;
+                        if(scope.creditbureauLoanProduct.isActive == true){
+                            scope.isCBCheckReq = true;
+                        }
+                    });
+                }
                 scope.loanProductChange(scope.formData.loanProductId);
                 resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,

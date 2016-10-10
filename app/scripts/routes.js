@@ -148,6 +148,9 @@
             .when('/approveloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/approveloanapplicationreference.html'
             })
+            .when('/creditbureaureport/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/creditbureaureport.html'
+            })
             .when('/disburseloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/disburseloanapplicationreference.html'
             })
@@ -1060,6 +1063,27 @@
             })
             .when('/viewexternalauthenticationservices', {
                 templateUrl: 'views/system/viewexternalauthenticationservices.html'
+            })
+            .when('/externalservicesCB/CreditBureau/addcb', {
+                templateUrl: 'views/administration/addNewCreditBureau.html'
+             })
+            .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+             })
+            .when('/externalservicesCB/CreditBureau/mapcblp', {
+                templateUrl: 'views/administration/MapCreditBureauToLP.html'
+             })
+            .when('/createcreditbureauloanproduct',{
+                templateUrl:'views/products/createcreditbureauloanproduct.html'
+            })
+            .when('/editcreditbureauloanproduct/:loanProductId',{
+                templateUrl:'views/products/editcreditbureauloanproduct.html'
+            })
+            .when('/viewcreditbureauloanproduct/:loanProductId',{
+                templateUrl:'views/products/viewcreditbureauloanproduct.html'
+            })
+            .when('/creditbureauloanproducts',{
+                templateUrl:'views/products/creditbureauloanproducts.html'
             });
         $locationProvider.html5Mode(false);
     };

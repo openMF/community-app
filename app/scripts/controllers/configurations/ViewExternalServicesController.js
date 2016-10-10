@@ -7,6 +7,7 @@
             $scope.Configs = [];
             $scope.externalServicesType = $routeParams.externalServicesType;
             //$scope.name = $routeParams.name;
+
             resourceFactory.externalServicesResource.get({id: $scope.externalServicesType}, function (data) {
                 for (var i in data) {
                     if(data[i] != null && data[i].name != null) {

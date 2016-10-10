@@ -40,8 +40,8 @@
                         this.formData.dividendPeriodEndDate = dateFilter(this.formData.dividendPeriodEndDate, scope.df);
                     }
                     resourceFactory.shareproductdividendresource.save({productId: routeParams.productId},this.formData, function (data) {
-                        location.path('/dividends/' + routeParams.productId);
-                    });
+                    location.path('/dividends/' + routeParams.productId);
+                });
             };
         }
     });
