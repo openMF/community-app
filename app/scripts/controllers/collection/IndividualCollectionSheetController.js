@@ -159,7 +159,7 @@
                 //construct loan repayment and savings due transactions
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 data.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
-                data.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
+                data.bulkSavingsTransactions = scope.bulkSavingsDueTransactions;
                 resourceFactory.collectionSheetResource.save({command: 'saveCollectionSheet'}, data, function (data) {
                     localStorageService.addToLocalStorage('Success', true);
                     route.reload();
