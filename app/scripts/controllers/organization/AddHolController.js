@@ -9,6 +9,15 @@
             scope.date.third = new Date();
             var idToNodeMap = {};
             var holidayOfficeIdArray = [];
+            scope.isRepayRescheduleToRequired = true;
+
+            scope.isRepayRescheduleTypeScheduleOnlyOnDate = function(){
+                scope.isRepayRescheduleToRequired = false;
+                if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
+                    scope.isRepayRescheduleToRequired = true;
+                }
+                return scope.isRepayRescheduleToRequired;
+            };
 
             scope.deepCopy = function (obj) {
                 if (Object.prototype.toString.call(obj) === '[object Array]') {
@@ -29,6 +38,24 @@
             }
 
             resourceFactory.officeResource.getAllOffices(function (data) {
+
+                resourceFactory.holidayTemplateResource.get(function(repaymentSchedulingRulesData){
+                    scope.repaymentSchedulingRules = repaymentSchedulingRulesData;
+
+                    angular.forEach(scope.repaymentSchedulingRules, function(repaymentSchedulingRule) {
+                        if(repaymentSchedulingRule.value == 'SCHEDULEONLYONDATE'){
+                            repaymentSchedulingRule.value = 'Reschedule to specified date';
+                        }else if(repaymentSchedulingRule.value == 'EXTENDREPAYMENTSCHEDULE'){
+                            repaymentSchedulingRule.value = 'Give Repayment Holiday';
+                        }
+                    });
+                    angular.forEach(scope.repaymentSchedulingRules, function(repaymentSchedulingRule) {
+                        if(repaymentSchedulingRule.value == 'Reschedule to specified date'){
+                            scope.repaymentSchedulingRuleType = repaymentSchedulingRule;
+                        }
+                    });
+                });
+
                 scope.offices = scope.deepCopy(data);
                 for (var i in data) {
                     data[i].children = [];
@@ -105,7 +132,11 @@
                 newholiday.name = this.formData.name;
                 newholiday.fromDate = reqFirstDate;
                 newholiday.toDate = reqSecondDate;
-                newholiday.repaymentsRescheduledTo = reqThirdDate;
+                newholiday.extendRepaymentReschedule = true;
+                if(scope.repaymentSchedulingRuleType && scope.repaymentSchedulingRuleType.value == 'Reschedule to specified date'){
+                    newholiday.repaymentsRescheduledTo = reqThirdDate;
+                    newholiday.extendRepaymentReschedule = false;
+                }
                 newholiday.description = this.formData.description;
                 newholiday.offices = [];
                 for (var i in holidayOfficeIdArray) {
