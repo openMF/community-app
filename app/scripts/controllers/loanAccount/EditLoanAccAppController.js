@@ -113,7 +113,7 @@
                                         break;
                                     }
                                 }
-                                if(isChargeAdded == false && scope.productLoanCharges[i].chargeData.penalty == false){
+                                if(isChargeAdded == false && scope.productLoanCharges[i].chargeData.penalty == false && scope.productLoanCharges[i].isMandatory == true){
                                     var charge = scope.productLoanCharges[i].chargeData;
                                     charge.chargeId = charge.id;
                                     charge.id = null;
