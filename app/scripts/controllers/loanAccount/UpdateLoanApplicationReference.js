@@ -58,10 +58,9 @@
                         scope.formData.termPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
-                        scope.charges = scope.loanaccountinfo.charges || [];
+                        scope.charges = [];//scope.loanaccountinfo.charges || [];
                         scope.productLoanCharges = data.product.charges || [];
                         if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
-
                             for(var i in scope.productLoanCharges){
                                 if(scope.productLoanCharges[i].chargeData){
                                     for(var j in scope.loanaccountinfo.chargeOptions){

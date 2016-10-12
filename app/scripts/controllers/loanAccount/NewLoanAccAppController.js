@@ -53,7 +53,6 @@
                     scope.previewClientLoanAccInfo();
                     scope.productLoanCharges = data.product.charges || [];
                     if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
-
                         for(var i in scope.productLoanCharges){
                             if(scope.productLoanCharges[i].chargeData){
                                 for(var j in scope.loanaccountinfo.chargeOptions){
@@ -94,7 +93,7 @@
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
-                scope.charges = scope.loanaccountinfo.charges || [];
+                scope.charges = [];//scope.loanaccountinfo.charges || [];
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 scope.collaterals = [];
 
