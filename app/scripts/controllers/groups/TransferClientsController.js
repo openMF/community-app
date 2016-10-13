@@ -82,9 +82,9 @@
 
             scope.label = function(group){
                 if(angular.isDefined(group)){
-                    var labelName = group.name+'('+group.id+')';
+                    var labelName = group.name+' ('+group.id+')';
                     if(angular.isDefined(group.externalId)){
-                        labelName = labelName+'('+group.externalId+')';
+                        labelName = labelName+' ('+group.externalId+')';
                     }
                     return labelName;
                 }
