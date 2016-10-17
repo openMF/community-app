@@ -12,7 +12,7 @@
             };
 
             if (!scope.searchCriteria.acoa) {
-                scope.searchCriteria.acoa = null;
+                scope.searchCriteria.acoa = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.acoa;

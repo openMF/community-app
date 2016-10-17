@@ -6,7 +6,7 @@
             };
 
             if (!scope.searchCriteria.fdp) {
-                scope.searchCriteria.fdp = null;
+                scope.searchCriteria.fdp = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.fdp;

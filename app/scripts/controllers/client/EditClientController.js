@@ -64,7 +64,7 @@
                     scope.formData.clientNonPersonDetails.mainBusinessLineId = data.clientNonPersonDetails.mainBusinessLine.id;
                 }
 
-                if (data.savingsProductId != null) {
+                if (data.savingsProductId != '') {
                     scope.opensavingsproduct = 'true';
                     scope.showSavingOptions = 'true';
                 } else if (data.savingProductOptions.length > 0) {

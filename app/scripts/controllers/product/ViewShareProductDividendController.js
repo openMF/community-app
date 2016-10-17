@@ -17,7 +17,7 @@
             };
 
             if (!scope.searchCriteria.savingP) {
-                scope.searchCriteria.savingP = null;
+                scope.searchCriteria.savingP = '';
             }
             scope.filterText = scope.searchCriteria.savingP;
 

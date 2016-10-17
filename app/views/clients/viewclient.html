@@ -134,19 +134,26 @@
 	<div class="card">
 		<div class="content">
 			<div class="toolbar">
+				
 				<h4>
-					<i class="fa fa-circle {{client.status.code | StatusLookup}}"></i>{{client.displayName}}&nbsp;
-					{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
-					{{ 'label.input.externalid' | translate }}: {{client.externalId}} |
-					{{ 'label.input.staff' | translate }}: {{client.staffName}}
+					<i class="fa fa-circle {{client.status.code | StatusLookup}}"></i>
+					<strong> {{client.displayName}} | </strong>
+					<small>
+					    <i class="fa fa-barcode"></i> 
+					    {{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
+					    <i class="fa fa-building"></i> 
+					    {{ 'label.heading.office' | translate }}: "{{center.officeName}}" |
+					    <i class="fa fa-user"></i>
+					    {{ 'label.input.staff' | translate }}: {{client.staffName}}
+					</small>
 				</h4>
 			</div>
 			<br/>
-			<uib-tabset class="overflowhidden" tabset-name="clientTabset">
+			<uib-tabset tabset-name="clientTabset">
 			    <uib-tab heading="{{'label.heading.general' | translate}}">
 			        <div class="">
-			            <div class="">
-			                <div class="pull-right">
+			            <div class="" style="margin-top: 25px; margin-bottom: 25px">
+			                <div class="btn-group pull-right">
 			                    <span ng-repeat="button in buttonsArray.singlebuttons">
 								<a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"
 								has-permission='{{button.taskPermissionName}}'><i

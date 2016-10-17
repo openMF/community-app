@@ -12,7 +12,7 @@
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
             scope.opensavingsproduct = false;
-            scope.forceOffice = null;
+            scope.forceOffice = '';
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
 
@@ -124,7 +124,7 @@
                 }
 
                 if (!scope.opensavingsproduct) {
-                    this.formData.savingsProductId = null;
+                    this.formData.savingsProductId = '';
                 }
 
                 resourceFactory.clientResource.save(this.formData, function (data) {

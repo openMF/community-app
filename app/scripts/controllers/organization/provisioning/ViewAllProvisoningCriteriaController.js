@@ -16,7 +16,7 @@
             };
 
             if (!scope.searchCriteria.criterias) {
-                scope.searchCriteria.criterias = null;
+                scope.searchCriteria.criterias = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.criterias;

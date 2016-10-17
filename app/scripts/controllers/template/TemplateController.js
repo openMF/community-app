@@ -6,7 +6,7 @@
             };
 
             if (!scope.searchCriteria.templates) {
-                scope.searchCriteria.templates = null;
+                scope.searchCriteria.templates = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.templates;

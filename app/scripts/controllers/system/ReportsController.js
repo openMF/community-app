@@ -8,7 +8,7 @@
             };
 
             if (!scope.searchCriteria.manrep) {
-                scope.searchCriteria.manrep = null;
+                scope.searchCriteria.manrep = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.manrep;

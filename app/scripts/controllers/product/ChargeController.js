@@ -8,7 +8,7 @@
             };
 
             if (!scope.searchCriteria.charges) {
-                scope.searchCriteria.charges = null;
+                scope.searchCriteria.charges = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.charges;

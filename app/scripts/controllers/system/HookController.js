@@ -8,7 +8,7 @@
             }
 
             if (!scope.searchCriteria.hooks) {
-                scope.searchCriteria.hooks = null;
+                scope.searchCriteria.hooks = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.hooks;

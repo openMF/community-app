@@ -329,7 +329,7 @@ module.exports = function(grunt) {
       }*/
     },
 
-    //here is the task for the grunt-contrib-requirejs
+    /*here is the task for the grunt-contrib-requirejs
     requirejs: {
       compile: {
         options: {
@@ -339,7 +339,7 @@ module.exports = function(grunt) {
           out: '<%= mifosx.dist %>/finaljs/app.js'
         }
       }
-    },
+    },*/
 
     devcode: {
       options: {
