@@ -92,7 +92,7 @@
                     minimumDaysBetweenDisbursalAndFirstRepayment: scope.product.minimumDaysBetweenDisbursalAndFirstRepayment,
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
-                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -238,6 +238,7 @@
                 scope.formData.allowVariableInstallments = scope.product.allowVariableInstallments ;
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
+                scope.formData.canUseForTopup = scope.product.canUseForTopup;
             });
 
             scope.chargeSelected = function (chargeId) {

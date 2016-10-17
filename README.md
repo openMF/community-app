@@ -114,6 +114,11 @@ grunt serve
 
 Just open test/SpecRunner.html in the browser.
 
+## Getting Started doc
+
+https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/edit#heading=h.vhgp8hu9moqn
+
+
 ## Contribution guidelines
 
 Please read the <a href="https://github.com/openMF/community-app/blob/master/Contributing.md" >contribution guidelines</a>

@@ -4,13 +4,13 @@
             scope.workingDays = [];
             scope.selectedRepaymentType = "";
             scope.compareWith = [
-                {name: "MO", value: "Monday"},
-                {name: "TU", value: "Tuesday"},
-                {name: "WE", value: "Wednesday"},
-                {name: "TH", value: "Thursday"},
-                {name: "FR", value: "Friday"},
-                {name: "SA", value: "Saturday"},
-                {name: "SU", value: "Sunday"}
+                {name: "MO", value: "Monday", code: "day.monday"},
+                {name: "TU", value: "Tuesday", code: "day.tuesday"},
+                {name: "WE", value: "Wednesday", code: "day.wednesday"},
+                {name: "TH", value: "Thursday", code: "day.thursday"},
+                {name: "FR", value: "Friday", code: "day.friday"},
+                {name: "SA", value: "Saturday", code: "day.saturday"},
+                {name: "SU", value: "Sunday", code: "day.sunday"}
             ];
 
             resourceFactory.workingDaysResource.get(function(data){
@@ -28,12 +28,14 @@
                     if(days.indexOf(scope.compareWith[i].name.toString()) > -1){
                         scope.workingDays.push({
                             day : scope.compareWith[i].value,
+                            code : scope.compareWith[i].code,
                             value : true
                         });
                     }
                     else{
                         scope.workingDays.push({
                             day : scope.compareWith[i].value,
+                            code : scope.compareWith[i].code,
                             value : false
                         });
                     }

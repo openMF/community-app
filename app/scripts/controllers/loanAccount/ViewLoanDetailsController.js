@@ -121,6 +121,9 @@
                     case "adjustrepaymentschedule":
                         location.path('/adjustrepaymentschedule/'+accountId) ;
                         break ;
+                    case "foreclosure":
+                        location.path('loanforeclosure/' + accountId);
+                        break;
                 }
             };
 
@@ -149,7 +152,7 @@
                 };
             };
 
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors'}, function (data) {
+            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
                 scope.loandetails = data;
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
@@ -293,6 +296,11 @@
                             name: "button.addloancharge",
                             icon: "fa fa-plus",
                             taskPermissionName: 'CREATE_LOANCHARGE'
+                        },
+                        {
+                            name: "button.foreclosure",
+                            icon: "icon-dollar",
+                            taskPermissionName: 'FORECLOSURE_LOAN'
                         },
                         {
                             name: "button.makerepayment",
