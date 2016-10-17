@@ -3,8 +3,7 @@
         ViewLoanPurposeGroupController: function (scope, routeParams, resourceFactory, location, $modal, route) {
 
             resourceFactory.loanPurposeGroupResource.get({
-                loanPurposeGroupsId: routeParams.id,
-                isFetchLoanPurposeDatas: true
+                loanPurposeGroupsId: routeParams.id
             }, function (data) {
                 scope.loanpurposegroup = data;
             });

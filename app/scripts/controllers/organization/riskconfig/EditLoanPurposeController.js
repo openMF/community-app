@@ -22,23 +22,22 @@
                 resourceFactory.loanPurposeResource.get({loanPurposeId: routeParams.id, isFetchLoanPurposeGroupDatas: true},
                     function (data) {
                         scope.formData = data;
-                        for (var i = 0; i < scope.loanPurposeGroupDatas.length; i++) {
-                            if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Grouping") {
-                                scope.categoryId = scope.loanPurposeGroupDatas[i].id;
+                        if (!_.isUndefined(scope.formData.loanPurposeGroupDatas)) {
+                            for (var i = 0; i < scope.formData.loanPurposeGroupDatas.length; i++) {
+                                if (scope.formData.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Grouping") {
+                                    scope.categoryId = scope.formData.loanPurposeGroupDatas[i].id;
+                                }
+                                if (scope.formData.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Consumption") {
+                                    scope.classificationId = scope.formData.loanPurposeGroupDatas[i].id;
+                                }
                             }
-                            if (scope.loanPurposeGroupDatas[i].loanPurposeGroupType.name === "Consumption") {
-                                scope.classificationId = scope.loanPurposeGroupDatas[i].id;
-                            }
+                            delete scope.formData.loanPurposeGroupDatas;
                         }
-                        delete scope.formData.loanPurposeGroupDatas;
-
                     });
             });
 
             scope.submit = function () {
-                scope.formData.locale = "en";
                 scope.formData.loanPurposeGroupIds = [];
-
                 if (scope.formData) {
                     delete scope.formData.id;
                 }
@@ -48,18 +47,17 @@
                 if (scope.classificationId != null && !angular.isUndefined(scope.classificationId)) {
                     scope.formData.loanPurposeGroupIds.push(scope.classificationId);
                 }
-
                 if (scope.formData.loanPurposeGroupIds.length == 0) {
                     delete scope.formData.loanPurposeGroupIds;
                 }
                 if (scope.formData.shortName != "") {
                     delete scope.formData.shortName;
                 }
-
+                scope.formData.locale = "en";
                 resourceFactory.loanPurposeResource.update({loanPurposeId: routeParams.id},
                     scope.formData, function (data) {
-                        location.path('/loanpurpose/');
-                    });
+                    location.path('/loanpurpose/');
+                });
             };
         }
     });

@@ -2,18 +2,16 @@
     mifosX.controllers = _.extend(module, {
         ViewLoanPurposeController: function (scope, routeParams, resourceFactory, location, $modal, route, $http) {
 
-            scope.loanPurposes = [];
-
             resourceFactory.loanPurposeResource.get({loanPurposeId: routeParams.id, isFetchLoanPurposeGroupDatas: true},
                 function (data) {
                     scope.loanPurpose = data;
                     scope.loanPurposeData = data.loanPurposeGroupDatas;
                     for (var i in scope.loanPurposeData) {
                         if (scope.loanPurposeData[i].loanPurposeGroupType.name === "Grouping") {
-                            scope.classificationName = scope.loanPurposeData[i].name;
+                            scope.categoryName = scope.loanPurposeData[i].name;
                         }
                         if (scope.loanPurposeData[i].loanPurposeGroupType.name === "Consumption") {
-                            scope.categoryName = scope.loanPurposeData[i].name;
+                            scope.classificationName = scope.loanPurposeData[i].name;
                         }
                     }
                 });

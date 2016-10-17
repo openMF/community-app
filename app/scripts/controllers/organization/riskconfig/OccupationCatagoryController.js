@@ -2,9 +2,6 @@
     mifosX.controllers = _.extend(module, {
         OccupationCatagoryController: function (scope, routeParams, resourceFactory, location, $modal, route) {
 
-            scope.categoryEnumOptions = [];
-            scope.typeEnumOptions = [];
-
             resourceFactory.cashFlowCategoryResource.getAll(function (response) {
                 scope.cashFlowCategories = response;
             });

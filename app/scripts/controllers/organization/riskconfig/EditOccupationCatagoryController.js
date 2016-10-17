@@ -6,33 +6,27 @@
             scope.categoryEnumOptions = [];
             scope.typeEnumOptions = [];
 
-
             resourceFactory.cashFloawCategoryTemplate.get(function (response) {
                 scope.categoryEnumOptions = response.cashFlowCategoryTypeOptions;
                 scope.typeEnumOptions = response.cashFlowTypeOptions;
-
                 resourceFactory.cashFlowCategoryResource.get({cashFlowCategoryId: routeParams.id}, function (response) {
                     scope.formData = response;
                     scope.cashFlowCategory = response;
-                    console.log(JSON.stringify(scope.cashFlowCategory));
-
                     scope.formData.categoryEnumId = response.categoryEnum.id;
                     scope.formData.typeEnumId = response.typeEnum.id;
-
                     delete scope.formData.categoryEnum;
                     delete scope.formData.typeEnum;
                 });
             });
 
             scope.submit = function () {
-                scope.formData.locale = 'en';
                 if (scope.formData) {
                     delete scope.formData.id;
                 }
                 if (scope.formData.shortName != null || scope.formData.shortName != "") {
                     delete scope.formData.shortName;
                 }
-
+                scope.formData.locale = 'en';
                 resourceFactory.cashFlowCategoryResource.update({cashFlowCategoryId: routeParams.id}, scope.formData, function (response) {
                     if(scope.entityType == 'viewocccategory'){
                         location.path('/viewoccupationcategory/'+routeParams.id);
