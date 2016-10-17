@@ -60,6 +60,24 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="main-menu-right">
+                <li class="" uib-dropdown id="notification-icon" ng-controller="NotificationsController">
+                    <a href class="" uib-dropdown-toggle data-toggle="uib-dropdown"
+                       ng-click="fetchItemsInNotificationTray()">
+                        <span class="fa fa-bell"></span>
+                    </a>
+                    <div class="numberCircle" ng-hide="numberOfUnreadNotifications == 0">{{ numberOfUnreadNotifications }}</div>
+                    <ul class="notification-container" uib-dropdown-menu>
+                        <ul class="notification-list" ng-repeat="notification in notifications">
+                            <li ng-click="navigateToAction(notification)">
+                                <h4>{{ notification.content }}</h4>
+                                <span>{{ notification.createdAt }}</span>
+                            </li>
+                        </ul>
+                        <li class="notification-list-link">
+                            <a href="#/notifications">Show all notifications</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="" uib-dropdown id="user-menu">
                     <a id="user-dropdown" class="" uib-dropdown-toggle data-toggle="uib-dropdown" href>
                         {{currentSession.user.name}}<b class="caret"></b></a>
@@ -74,6 +92,7 @@
                             'label.anchor.logout' | translate }}</a></li>
                     </ul>
                 </li>
+
             </ul>
             <form ng-submit="search()" class="navbar-form navbar-right">
                 <div class="input-group pull-left" >
