@@ -10,7 +10,7 @@
             };
 
             if (!scope.searchCriteria.offices) {
-                scope.searchCriteria.offices = null;
+                scope.searchCriteria.offices = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.offices;

@@ -6,7 +6,7 @@
             };
 
             if (!scope.searchCriteria.datatables) {
-                scope.searchCriteria.datatables = null;
+                scope.searchCriteria.datatables = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.datatables;

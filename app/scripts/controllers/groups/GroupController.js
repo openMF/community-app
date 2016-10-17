@@ -10,7 +10,7 @@
             };
 
             if (!scope.searchCriteria.groups) {
-                scope.searchCriteria.groups = null;
+                scope.searchCriteria.groups = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.groups;

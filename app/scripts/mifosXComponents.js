@@ -12,7 +12,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'NotificationResponseHeaderProvider'
         ],
         controllers: [
             'main/MainController',
@@ -280,7 +281,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/tax/CreateTaxGroupController',
             'product/tax/ViewTaxGroupController',
             'product/tax/EditTaxGroupController',
-            'product/tax/TaxGroupController'
+            'product/tax/TaxGroupController',
+            'notification/NotificationsController'
         ],
         filters: [
             'StatusLookup',
@@ -319,6 +321,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
     };
 
     return function() {
+      console.log();
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
             return list.concat(_.map(components[group], function (name) {

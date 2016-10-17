@@ -600,6 +600,11 @@
                         post: {method: 'POST', params:{}},
                         put: {method: 'PUT', params:{}},
                         approve: {method: 'PUT', params:{command: 'approve'}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
                     })
                 };
             }];

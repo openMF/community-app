@@ -12,7 +12,7 @@
             };
 
             if (!scope.searchCriteria.reports) {
-                scope.searchCriteria.reports = null;
+                scope.searchCriteria.reports = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.reports;

@@ -17,11 +17,12 @@
                             scope.configs.push(cache);
                         }
                     }
+
                 });
             });
 
             if (!scope.searchCriteria.config) {
-                scope.searchCriteria.config = null;
+                scope.searchCriteria.config = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.config;

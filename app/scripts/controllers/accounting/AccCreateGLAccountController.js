@@ -29,6 +29,7 @@
                 //by default display assetTagsOptions and assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
                 scope.headerTypes = data.assetHeaderAccountOptions
+                console.log(scope.headerTypes);
                 changeType();
 
                 function changeType () {

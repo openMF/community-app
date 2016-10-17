@@ -6,7 +6,7 @@
             };
 
             if (!scope.searchCriteria.rdp) {
-                scope.searchCriteria.rdp = null;
+                scope.searchCriteria.rdp = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.rdp;

@@ -1,15 +1,9 @@
 define(['underscore'], function () {
     var styles = {
         css: [
-            'bootstrap.min.css',
-            'bootstrap-ext.css',
-            'bootswatch.css',
-            'font-awesome.min.css',
-            'app.css',
-            'nv.d3.css',
-            'style.css',
-            'chosen.min.css'
-        ]
+            'fontawesome.css',
+            'styles.css'
+            ]
     };
 
     require(_.reduce(_.keys(styles), function (list, pluginName) {

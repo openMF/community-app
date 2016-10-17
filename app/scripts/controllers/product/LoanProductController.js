@@ -8,7 +8,7 @@
             };
 
             if (!scope.searchCriteria.loanP) {
-                scope.searchCriteria.loanP = null;
+                scope.searchCriteria.loanP = '';
                 scope.saveSC();
             }
             scope.filterText = scope.searchCriteria.loanP;
