@@ -476,6 +476,9 @@
                     loanProductTemplateResource: defineResource(apiVer + "/loanproducts/template", {}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    loanProductAssociationResource: defineResource(apiVer + "/loanproducts", {associations: "@associations"}, {
+                        getAll: {method: 'GET', params: {associations: '@associations'}, isArray: true},
+                    }),
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
@@ -775,11 +778,126 @@
                         deactivate:{method:'POST',params:{resourceId:'@resourceId',command: 'deactivate'}},
                         get: {method: 'GET', isArray: true }
                     }),
-                    creditBureauLoanProductResource: defineResource(apiVer +"/loanproducts/:productId/creditbureau/:creditBureauId", {productId:'@productId',creditBureauId:'@creditBureauId', command: '@command'},{
-                        post: {method: 'POST', params:{}},
-                        update: {method: 'PUT', params:{}},
-                        activate:{method:'POST',params:{resourceId:'@resourceId',command: 'activate'}},
-                        inactivate:{method:'POST',params:{resourceId:'@resourceId',command: 'inactivate'}}
+                    creditBureauLoanProductResource: defineResource(apiVer +"/loanproducts/:productId/creditbureau/:creditBureauId", {productId:'@productId',creditBureauId:'@creditBureauId', command: '@command'}, {
+                        post: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        activate: {method: 'POST', params: {resourceId: '@resourceId', command: 'activate'}},
+                        inactivate: {method: 'POST', params: {resourceId: '@resourceId', command: 'inactivate'}}
+                    }),
+                    loanPurposeGroupTemplateResource: defineResource(apiVer + "/loanpurposegroups/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    loanPurposesTemplate: defineResource(apiVer + "/loanpurposes/template", {}, {
+                       get: {method: 'GET', params: {}}
+                    }),
+                    loanPurposeGroupResource: defineResource(apiVer + "/loanpurposegroups/:loanPurposeGroupsId", {loanPurposeGroupsId:'@loanPurposeGroupsId',isFetchLoanPurposeDatas:'@isFetchLoanPurposeDatas'}, {
+                        getAll: {method: 'GET',params: {}, isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {command:'@inActive'}}
+                    }),
+                    loanPurposeResource: defineResource(apiVer + "/loanpurposes/:loanPurposeId", {loanPurposeId:'@loanPurposeId',
+                        type:'@typeId', isFetchLoanPurposeGroupDatas:'@isFetchLoanPurposeGroupDatas'}, {
+                        getAll: {method: 'GET',params: {}, isArray:true},
+                        get: {method: 'GET', params: {isFetchLoanPurposeGroupDatas:'@isFetchLoanPurposeGroupDatas'}},
+                        update: {method: 'PUT', params: {command:'@inActive'}}
+                    }),
+                    cashFloawCategoryTemplate: defineResource(apiVer + "/cashflowcategories/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    cashFlowCategoryResource: defineResource(apiVer + "/cashflowcategories/:cashFlowCategoryId",
+                        {cashFlowCategoryId: '@cashFlowCategoryId'}, {
+                            getAll: {method: 'GET', params: {}, isArray: true},
+                            get: {method: 'GET', params: {isFetchIncomeExpenseDatas: '@isFetchIncomeExpenseDatas'}},
+                            update: {method: 'PUT', params: {}}
+                        }),
+                    incomeExpensesTemplate: defineResource(apiVer + "/incomesorexpenses/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    incomeExpenses: defineResource(apiVer + "/incomesorexpenses/:incomeAndExpenseId", {incomeAndExpenseId: '@incomeAndExpenseId'}, {
+                        getAll: {method: "GET", params: {cashFlowCategoryId: '@cashFlowCategoryId'}, isArray: true},
+                        get: {method: "GET", params: {isFetchCashflowCategoryData: '@isFetchCashflowCategoryData'}},
+                        update: {method: "PUT", params: {}}
+                    }),
+                    loanUtilizationCheckGroupTemplate: defineResource(apiVer + '/groups/:groupId/utilizationchecks/template', {groupId: '@groupId'}, {
+                        get: {method: "GET", params: {}, isArray: true}
+                    }),
+                    loanUtilizationCheckCenterTemplate: defineResource(apiVer + '/centers/:centerId/utilizationchecks/template', {centerId: '@centerId'}, {
+                        get: {method: "GET", params: {}, isArray: true}
+                    }),
+                    loanUtilizationCheck: defineResource(apiVer + "/loans/:loanId/utilizationchecks/:utilizationCheckId", {loanId:"@loanId", utilizationCheckId:'@utilizationCheckId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    centerLoanUtilizationCheck: defineResource(apiVer + "/centers/:centerId/utilizationchecks", {centerId:'@centerId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                    }),
+                    groupLoanUtilizationCheck: defineResource(apiVer + "/groups/:groupId/utilizationchecks", {groupId:'@groupId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                    }),
+                    familyDetailsTemplate: defineResource(apiVer + "/clients/:clientId/familydetails/template", {clientId:'@clientId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    familyDetailsSummary: defineResource(apiVer + "/clients/:clientId/familydetailssummary/:familyDetailsSummaryId", {clientId:'@clientId',familyDetailsSummaryId:'@familyDetailsSummaryId'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    familyDetails: defineResource(apiVer + "/clients/:clientId/familydetails/:familyDetailId", {clientId:'@clientId', familyDetailId:'@familyDetailId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+                    incomeExpenseAndHouseHoldExpense: defineResource(apiVer + "/clients/:clientId/incomesandexpenses/:incomeAndExpenseId", {clientId:'@clientId', incomeAndExpenseId:'@incomeAndExpenseId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+                    clientExistingLoanTemplate: defineResource(apiVer + "/clients/:clientId/existingloans/template", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    clientExistingLoan: defineResource(apiVer + "/clients/:clientId/existingloans/:existingloanId", {clientId: '@clientId', existingloanId:'@existingloanId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'Get', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    riskField: defineResource(apiVer + "/risk/field",{},{
+                        getAll: {method: 'GET',params:{},isArray: true},
+                    }),
+                    riskFactor: defineResource(apiVer + "/risk/factor/:factorId", {factorId:'@factorId'}, {
+                        getAll: {method: 'GET',params: {}, isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    riskDimension: defineResource(apiVer + "/risk/dimension/:dimensionId", {dimensionId:'@dimensionId'}, {
+                        getAll: {method: 'GET',params: {}, isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    riskCriteria: defineResource(apiVer + "/risk/criteria/:criteriaId", {criteriaId:'@criteriaId'}, {
+                        getAll: {method: 'GET',params: {}, isArray:true},
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    loanProductEligibility: defineResource(apiVer + "/loanproduct/:loanProductId/eligibility", {loanProductId:'@loanProductId'}, {
+                        get: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    riskCalculation: defineResource(apiVer + "/risk/execute/loanapplication/:loanApplicationReferenceId", {loanApplicationReferenceId:'@loanApplicationReferenceId'}, {
+                        getForLoanAppId: {method: 'GET', params: {}},
+                        redoForLoanAppId: {method: 'POST', params: {}},
+                    }),
+                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId:'@surveyId'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    surveyResourceScore: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId:'@surveyId'}, {
+                        save: {method: 'POST', param: {}},
+                    }),
+                    surveyResourceScorecards: defineResource(apiVer + "/surveys/:surveyId/scorecards/clients/:clientId", {surveyId:'@surveyId', clientId:'@clientId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', params: {}}
                     })
                 };
             }];

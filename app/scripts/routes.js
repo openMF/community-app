@@ -1082,8 +1082,248 @@
             .when('/viewcreditbureauloanproduct/:loanProductId',{
                 templateUrl:'views/products/viewcreditbureauloanproduct.html'
             })
-            .when('/creditbureauloanproducts',{
-                templateUrl:'views/products/creditbureauloanproducts.html'
+            .when('/creditbureauloanproducts', {
+                templateUrl: 'views/products/creditbureauloanproducts.html'
+            })
+            .when('/riskrating', {
+                templateUrl: 'views/organization/riskconfig/riskrating.html'
+            })
+            .when('/loanpurposegroups', {
+                templateUrl: 'views/organization/riskconfig/loanpurposegroup.html'
+            })
+            .when('/createloanpurposegroup', {
+                templateUrl: 'views/organization/riskconfig/createloanpurposegroup.html'
+            })
+            .when('/:entityType/editloanpurposegroup/:id', {
+                templateUrl: 'views/organization/riskconfig/editloanpurposegroup.html'
+            })
+            .when('/viewloanpurposegroup/:id', {
+                templateUrl: 'views/organization/riskconfig/viewloanpurposegroup.html'
+            })
+            .when('/loanpurpose', {
+                templateUrl: 'views/organization/riskconfig/loanpurpose.html'
+            })
+            .when('/loanpurpose/:id', {
+                templateUrl: 'views/organization/riskconfig/loanpurpose.html'
+            })
+            .when('/:entityType/createloanpurpose', {
+                templateUrl: 'views/organization/riskconfig/createloanpurpose.html'
+            })
+            .when('/:entityType/:entityId/createloanpurpose', {
+                templateUrl: 'views/organization/riskconfig/createloanpurpose.html'
+            })
+            .when('/viewloanpurpose/:id', {
+                templateUrl: 'views/organization/riskconfig/viewloanpurpose.html'
+            })
+            .when('/editloanpurpose/:id', {
+                templateUrl: 'views/organization/riskconfig/editloanpurpose.html'
+            })
+            .when('/:entityType/editloanpurpose/:id', {
+                templateUrl: 'views/organization/riskconfig/editloanpurpose.html'
+            })
+            .when('/loanpurposeandtagging', {
+                templateUrl: 'views/organization/riskconfig/loanpurposeandtagging.html'
+            })
+            .when('/occupationcatagory', {
+                templateUrl: 'views/organization/riskconfig/occupationcatagory.html'
+            })
+            .when('/incomegeneratingasset', {
+                templateUrl: 'views/organization/riskconfig/incomegeneratingasset.html'
+            })
+            .when('/createincomegeneratingasset', {
+                templateUrl: 'views/organization/riskconfig/createincomegeneratingasset.html'
+            })
+            .when('/editincomegeneratingasset/:id', {
+                templateUrl: 'views/organization/riskconfig/editincomegenerating.html'
+            })
+            .when('/:entityType/editincomegeneratingasset/:id', {
+                templateUrl: 'views/organization/riskconfig/editincomegenerating.html'
+            })
+            .when('/viewincomegeneratingasset/:id', {
+                templateUrl: 'views/organization/riskconfig/viewincomegenerating.html'
+            })
+            .when('/assets/:incomeGeneratingAssetId', {
+                templateUrl: 'views/organization/riskconfig/asset.html'
+            })
+            .when('/:entityType/:entityId/assets/:assetId', {
+                templateUrl: 'views/organization/riskconfig/asset.html'
+            })
+            .when('/:entityId/assets/:assetId', {
+                templateUrl: 'views/organization/riskconfig/asset.html'
+            })
+            .when('/:entityType/createasset/:incomeGeneratingAssetId', {
+                templateUrl: 'views/organization/riskconfig/addasset.html'
+            })
+            .when('/:entityType/:entityId/editasset/:assetId', {
+                templateUrl: 'views/organization/riskconfig/editasset.html'
+            })
+            .when('/:entityType/editasset/:assetId', {
+                templateUrl: 'views/organization/riskconfig/editasset.html'
+            })
+            .when('/:entityId/viewasset/:assetId', {
+                templateUrl: 'views/organization/riskconfig/viewasset.html'
+            })
+            .when('/householdexpense', {
+                templateUrl: 'views/organization/riskconfig/householdexpense.html'
+            })
+            .when('/addhouseholdexpense', {
+                templateUrl: 'views/organization/riskconfig/addhouseholdexpense.html'
+            })
+            .when('/edithouseholdexpense/:id', {
+                templateUrl: 'views/organization/riskconfig/edithouseholdexpense.html'
+            })
+            .when('/:entityType/edithouseholdexpense/:id', {
+                templateUrl: 'views/organization/riskconfig/edithouseholdexpense.html'
+            })
+            .when('/viewhouseholdexpense/:id', {
+                templateUrl: 'views/organization/riskconfig/viewhouseholdexpense.html'
+            })
+            .when('/risk/createfactor', {
+                templateUrl: 'views/organization/riskconfig/createriskfactor.html'
+            })
+            .when('/risk/editfactor/:id', {
+                templateUrl: 'views/organization/riskconfig/editriskfactor.html'
+            })
+            .when('/risk/factor/:id', {
+                templateUrl: 'views/organization/riskconfig/viewriskfactor.html'
+            })
+            .when('/risk/factor', {
+                templateUrl: 'views/organization/riskconfig/riskfactor.html'
+            })
+            .when('/risk/createdimension', {
+                templateUrl: 'views/organization/riskconfig/createriskdimension.html'
+            })
+            .when('/risk/editdimension/:id', {
+                templateUrl: 'views/organization/riskconfig/editriskdimension.html'
+            })
+            .when('/risk/dimension/:id', {
+                templateUrl: 'views/organization/riskconfig/viewriskdimension.html'
+            })
+            .when('/risk/dimension', {
+                templateUrl: 'views/organization/riskconfig/riskdimension.html'
+            })
+            .when('/risk/createcriteria', {
+                templateUrl: 'views/organization/riskconfig/createriskcriteria.html'
+            })
+            .when('/risk/editcriteria/:id', {
+                templateUrl: 'views/organization/riskconfig/editriskcriteria.html'
+            })
+            .when('/risk/criteria/:id', {
+                templateUrl: 'views/organization/riskconfig/viewriskcriteria.html'
+            })
+            .when('/risk/criteria', {
+                templateUrl: 'views/organization/riskconfig/riskcriteria.html'
+            })
+            .when('/loanproduct/createeligibility', {
+                templateUrl: 'views/organization/riskconfig/createloanproducteligibility.html'
+            })
+            .when('/loanproduct/:id/vieweligibility', {
+                templateUrl: 'views/organization/riskconfig/viewloanproducteligibility.html'
+            })
+            .when('/loanproduct/listeligibility', {
+                templateUrl: 'views/organization/riskconfig/loanproducteligibility.html'
+            })
+            .when('/loanproduct/:id/editeligibility', {
+                templateUrl: 'views/organization/riskconfig/editloanproducteligibility.html'
+            })
+            .when('/createoccupationcatagory', {
+                templateUrl: 'views/organization/riskconfig/createoccupationcatagory.html'
+            })
+            .when('/:entityType/editoccupationcategory/:id', {
+                templateUrl: 'views/organization/riskconfig/editoccupationcategory.html'
+            })
+            .when('/viewoccupationcategory/:id', {
+                templateUrl: 'views/organization/riskconfig/viewoccupationcategory.html'
+            })
+            .when('/expenses/:houseHoldExpenseId', {
+                templateUrl: 'views/organization/riskconfig/expense.html'
+            })
+            .when('/:entityType/:houseHoldExpenseId/expenses', {
+                templateUrl: 'views/organization/riskconfig/expense.html'
+            })
+            .when('/:entityType/createexpense/:houseHoldExpenseId', {
+                templateUrl: 'views/organization/riskconfig/createexpense.html'
+            })
+            .when('/:entityType/:entityId/viewexpense/:houseHoldExpenseId', {
+                templateUrl: 'views/organization/riskconfig/viewexpense.html'
+            })
+            .when('/:entityType/:houseHoldExpenseId/editexpense/:entityId', {
+                templateUrl: 'views/organization/riskconfig/editexpense.html'
+            })
+            .when('/occupation/:cashFlowCategoryId', {
+                templateUrl: 'views/organization/riskconfig/occupation.html'
+            })
+            .when('/:entityType/createoccupation/:cashFlowCategoryId', {
+                templateUrl: 'views/organization/riskconfig/createoccupation.html'
+            })
+            .when('/occupation/:cashFlowCategoryId/viewoccupation/:incomeAndExpenseId', {
+                templateUrl: 'views/organization/riskconfig/viewoccupation.html'
+            })
+            .when('/viewoccupation/:incomeAndExpenseId', {
+                templateUrl: 'views/organization/riskconfig/viewoccupation.html'
+            })
+            .when('/editoccupation/:incomeAndExpenseId', {
+                templateUrl: 'views/organization/riskconfig/editoccupation.html'
+            })
+            .when('/:occupation/:cashFlowCategoryId/editoccupation/:incomeAndExpenseId', {
+                templateUrl: 'views/organization/riskconfig/editoccupation.html'
+            })
+            .when('/:entityType/:entityId/createutilizationcheck', {
+                templateUrl: 'views/groups/createutilizationcheck.html'
+            })
+            .when('/:entityType/:entityId/loans/:loanId/editloanutilization/:utilizationCheckId', {
+                templateUrl: 'views/groups/editloanutilizationcheck.html'
+            })
+            .when('/:entityType/:entityId/listgrouploanutillization', {
+                templateUrl: 'views/groups/listgouputilizationcheck.html'
+            })
+            .when('/createfamilydetailsummary/:clientId', {
+                templateUrl: 'views/clients/createfamilydetailsummary.html'
+            })
+            .when('/listfamilydetails/:clientId', {
+                templateUrl: 'views/clients/listfamilydetail.html'
+            })
+            .when('/createfamilydetails/:clientId', {
+                templateUrl: 'views/clients/createfamilydetail.html'
+            })
+            .when('/clients/:clientId/viewfamilydetails/:familyDetailId', {
+                templateUrl: 'views/clients/viewfamilydetails.html'
+            })
+            .when('/clients/:clientId/editfamilydetails/:familyDetailId', {
+                templateUrl: 'views/clients/editfamilydetail.html'
+            })
+            .when('/clients/:clientId/createclientoccupationdetails', {
+                templateUrl: 'views/clients/createclientoccupationdetail.html'
+            })
+            .when('/client/:clientId/editclientoccupation/:occupationId', {
+                 templateUrl: 'views/clients/editclientoccupationdetail.html'
+            })
+            .when('/clients/:clientId/createclientassetdetails', {
+                templateUrl: 'views/clients/createclientassetdetail.html'
+            })
+            .when('/client/:clientId/editclientasset/:assetId', {
+                templateUrl: 'views/clients/editclientassetdetail.html'
+            })
+            .when('/clients/:clientId/createclienthouseholddetails', {
+                templateUrl: 'views/clients/createclienthouseholddetail.html'
+            })
+            .when('/client/:clientId/editclienthouseholdexpense/:houseHoldExpenseId', {
+                templateUrl: 'views/clients/edithouseholdexpense.html'
+            })
+            .when('/clients/:clientId/createexistingloan', {
+                templateUrl: 'views/clients/createexistingloan.html'
+            })
+            .when('/client/:clientId/editclientexistingloan/:existingloanId', {
+                templateUrl: 'views/clients/editexistingloan.html'
+            })
+            .when('/client/:clientId/viewclientexistingloan/:existingloanId', {
+                templateUrl: 'views/clients/viewexistingloan.html'
+            })
+            .when('/viewclient/:clientId/viewloanapplicationreference/:loanApplicationReferenceId/surveys', {
+                templateUrl: 'views/loans/listsurvey.html'
+            })
+            .when('/viewclient/:clientId/viewloanapplicationreference/:loanApplicationReferenceId/viewscorecards/:surveyId', {
+                templateUrl: 'views/loans/viewscorecard.html'
             });
         $locationProvider.html5Mode(false);
     };

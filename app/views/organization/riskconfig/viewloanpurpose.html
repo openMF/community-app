@@ -1,0 +1,84 @@
+<div class="col-md-12" ng-controller="ViewLoanPurposeController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/loanpurposeandtagging">{{'label.anchor.loanpurposeandtagging' | translate}}</a></li>
+            <li><a href="#/loanpurpose">{{'label.view.loanpurpose' | translate}}</a></li>
+            <li class="active">{{loanPurpose.name}}</li>
+            <li class="active">{{'label.view.viewloanpurpose' | translate}}</li>
+        </ul>
+
+        <script type="text/ng-template" id="activateloanpurpose.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.activate' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="inactivateloanpurpose.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.inactivate' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+
+        <div class="clearfix"></div>
+        <div class="well">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/editloanpurposes/editloanpurpose/{{loanPurpose.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
+                        {{'label.button.edit' | translate}}</a>
+                    <a role="button" class="btn btn-primary" ng-show="loanPurpose.isActive == false"
+                            data-ng-click="activateLoanPurpose(loanPurpose.id)" ng-show="loanPurpose.isActive == false">
+                        <span >{{'label.button.active' | translate}}</span>
+                    </a>
+                    <a role="button" class="btn btn-primary"
+                            data-ng-click="inActivateLoanPurpose(loanPurpose.id)" ng-show="loanPurpose.isActive == true">
+                        <span>{{'label.button.inActive' | translate}}</span>
+                    </a>
+                </div>
+            </div>
+            <h3 class="bolder">{{'label.view.viewloanpurpose' | translate}}</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.input.loanpurpose' | translate}}:</td>
+                            <td>{{loanPurpose.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.shortName' | translate}}:</td>
+                            <td>{{loanPurpose.shortName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.category' | translate}}:</td>
+                            <td>{{categoryName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.classfication' | translate}}:</td>
+                            <td>{{classificationName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.description' | translate}}:</td>
+                            <td>{{loanPurpose.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.isActive' | translate}}:</td>
+                            <td>{{loanPurpose.isActive == true ? 'Active' : 'In Active'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

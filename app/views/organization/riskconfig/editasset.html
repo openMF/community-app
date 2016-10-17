@@ -1,0 +1,144 @@
+<div class="col-md-12" ng-controller="EditIncomeAssetController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/incomegeneratingasset">{{'label.anchor.income.generating' | translate}}</a></li>
+            <li ng-show="entityType === 'asset'"><a href="#/{{entityType}}/{{entityId}}/assets/{{assetId}}">{{'label.anchor.income.gen.asset' | translate}}</a></li>
+            <li ng-show="entityType == 'viewasset'"><a href="#/{{entityId}}/viewasset/{{formData.id}}">{{'label.anchor.view.income.gen.asset' | translate}}</a></li>
+            <li class="active">{{'label.anchor.edit.income.gen.asset' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+        <form name="editAsset" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <fieldset>
+                <legend>{{'label.heading.income.generating' | translate}}: {{cashFlowCategories.name}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="asset">{{ 'label.heading.assetname' | translate
+                        }}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="asset" name="asset"
+                               ng-model="formData.name" class="form-control" required late-validate/>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="asset"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.description' | translate
+                        }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea ng-autofocus="true" type="text" id="description" name="description"
+                                  ng-model="formData.description" class="form-control"/>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="description"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+
+                    <div class="col-sm-3">
+                        <input id="isQuantifierNeeded" name="isQuantifierNeeded" type="checkbox"
+                               ng-model="formData.isQuantifierNeeded"> {{ 'label.heading.quantifier' | translate }}
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="isQuantifierNeeded"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.isQuantifierNeeded == true">
+                    <label class="control-label col-sm-2" for="quantifier">{{ 'label.heading.quantifierLabel' | translate
+                        }}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="quantifier" name="quantifier"
+                               ng-model="formData.quantifierLabel"
+                               class="form-control"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="quantifier"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+
+                    <div class="col-sm-3">
+                        <input id="isCaptureMonthWiseIncome" name="isCaptureMonthWiseIncome" type="checkbox"
+                               ng-model="formData.isCaptureMonthWiseIncome"> {{'label.heading.campure.income' |
+                        translate}}
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="isCaptureMonthWiseIncome"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.stability.of.occupation' | translate
+                        }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="stabilityEnumId" name="stabilityEnumId" ng-model="formData.stabilityEnumId"
+                                class="form-control"
+                                ng-options="stabilityEnumOption.id as stabilityEnumOption.value for stabilityEnumOption in stabilityEnumOptions"
+                                value="stabilityEnumOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="stabilityEnumId"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.default.income' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="income" name="income" type="number" ng-model="formData.defaultIncome"
+                               class="form-control" required late-validate>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="income"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.default.expense' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input id="expense" name="expense" type="number" ng-model="formData.defaultExpense"
+                               class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" name="isActive" type="checkbox" ng-model="formData.isActive"> {{'label.heading.active' | translate}}
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editAsset" valattribute="isActive"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/{{entityType}}/{{entityId}}/assets/{{assetId}}" class="btn btn-default" ng-show="entityType == 'asset'">{{'label.button.cancel'
+                        | translate}}</a>
+                    <a id="cancel" href="#/{{entityId}}/viewasset/{{formData.id}}" class="btn btn-default" ng-show="entityType == 'viewasset'">{{'label.button.cancel'
+                        | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

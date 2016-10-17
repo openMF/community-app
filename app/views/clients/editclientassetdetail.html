@@ -1,0 +1,88 @@
+<div class="col-md-12" ng-controller="EditClientAssetController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{'label.view.edit.client.asset' | translate}}</li>
+        </ul>
+
+        <api-validate></api-validate>
+        <div class="clearfix"></div>
+
+        <form name="" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <fieldset>
+                <legend>{{'label.view.edit.client.asset' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="occupationId" name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupations |  filter : {categoryEnum : {value : 'Asset'}}"
+                                value="occupationOption.id" data-ng-change="subOccupationNotAvailable(occupationOption.id)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.sub.asset' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="subOccupation" name="subOccupation" ng-model="formData.incomeExpenseId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id"  ng-change="slectedOccupation(occupationOption.id, formData.incomeExpenseId)">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="isQuantifierNeeded == true">
+                    <label class="control-label col-sm-2" for="hectare">{{ quantifierLabel }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="number" id="hectare" name="hectare"
+                               ng-model="formData.quintity" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="income">{{ 'label.input.income' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="income" name="income"
+                               ng-model="formData.totalIncome" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="expenses">{{ 'label.input.expenses' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="expenses" name="expenses"
+                               ng-model="formData.totalExpense" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isPrimaryIncome" type="checkbox" ng-model="formData.isPrimaryIncome">
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</a>
+                    <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</a>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</div>

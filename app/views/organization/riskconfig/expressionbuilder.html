@@ -1,0 +1,38 @@
+<div class="alert alert-warning alert-group">
+    <div class="form-inline">
+        <select ng-model="expressionnode.connector"
+                ng-options="connector.value as connector.display for connector in connectors">
+        </select>
+        <button ng-click="addNewCondition()" class="btn btn-sm btn-success">Add Condition</button>
+        <button ng-click="addNestedCondition()" class="btn btn-sm btn-success">Add Group</button>
+        <button ng-click="removeMe($index)" class="btn btn-sm btn-danger"><i class="icon-remove icon-white"></i>Remove Group</button>
+    </div>
+    <div class="group-conditions">
+        <div ng-repeat="childnode in expressionnode.nodes">
+            <div ng-switch="childnode.hasOwnProperty('expression')">
+                <div ng-switch-when="true">
+                    <div class="form-inline">
+                        <select ng-change="refreshExpression(childnode.expression)" ng-model="childnode.expression.parameter"
+                                ng-options="field.uname as field.name for field in filterfields">
+                        </select>
+                        <select ng-options="comparator.value as comparator.display for comparator in filterfieldsmap[childnode.expression.parameter].comparators" ng-model="childnode.expression.comparator">
+                        </select>
+                        <span ng-if="filterfieldsmap[childnode.expression.parameter].options !== undefined">
+                            <select ng-options="option.key as option.value for option in filterfieldsmap[childnode.expression.parameter].options" ng-model="childnode.expression.value" ></select>
+                        </span>
+                        <span ng-if="filterfieldsmap[childnode.expression.parameter].options  == undefined">
+                            <input ng-model="childnode.expression.value" type="text" value="{{childnode.expression.value}}" />
+                        </span>
+                        <button ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><i class="icon-remove icon-white"></i></button>
+                    </div>
+                    <!--<query-builder group="rule.group"></query-builder>-->
+                </div>
+                <div ng-switch-default="ng-switch-default">
+                    <!--<expression-builder expressionnode="childnode" connectors="connectors" filterfields="filterfields"-->
+                                        <!--comparators="comparators" filterfieldsmap="filterfieldsmap"></expression-builder>-->
+                    <expression-builder expressionnode="childnode" filterfields="filterfields"></expression-builder>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

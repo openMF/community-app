@@ -1,0 +1,43 @@
+<div class="col-md-12" ng-controller="IncomeExpenseGeneratingController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+        <li class="active">{{'label.view.incomeexpense.category' | translate}}</li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <a href="#/createincomegeneratingasset" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>
+        {{'label.button.create.incomegenerating' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.view.incomeexpense.category' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.income.generating' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-if="incomeGeneratingAsset.categoryEnum.id == 2" ng-repeat="incomeGeneratingAsset in incomeGeneratingAssets">
+                <td class="pointer" data-ng-click="routeTo(incomeGeneratingAsset.id)">{{incomeGeneratingAsset.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(incomeGeneratingAsset.id)">{{incomeGeneratingAsset.description}}</td>
+                <td class="pointer" data-ng-click="routeTo(incomeGeneratingAsset.id)">{{incomeGeneratingAsset.isActive == true ? 'Active' : 'In Active'}}</td>
+                <td>
+                    <button role="button" ng-click="showEdit(incomeGeneratingAsset.id)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                    <a href="#/assets/{{incomeGeneratingAsset.id}}" role="button" class="btn-link ng-binding">
+                        <i class="icon-cog icon-white"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

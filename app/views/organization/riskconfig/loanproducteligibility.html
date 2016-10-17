@@ -1,0 +1,37 @@
+<div class="col-md-12" ng-controller="LoanProductEligibilityController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.view.loanproducteligibility' | translate}}</li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <a href="#/loanproduct/createeligibility" class="btn btn-primary pull-right">
+        <i class="icon-plus icon-white"></i>{{'label.button.createloanproducteligibility' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.heading.loanproducteligibility' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.loanproduct' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="loanProduct in loanProducts track by $index">
+                <td class="pointer" data-ng-click="routeTo(loanProduct.loanProductId)">{{loanProduct.loanProductName}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanProduct.loanProductId)">{{loanProduct.isActive ? 'Active' : 'In Active'}}</td>
+                <td>
+                    <button role="button" ng-click="showEdit(loanProduct.loanProductId)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

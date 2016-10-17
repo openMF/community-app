@@ -768,7 +768,7 @@
 		    </table>
 		</tab>
 
-			<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress">
+		<tab heading="{{'label.heading.address'|translate}}" has-permission='READ_ADDRESSES' ng-if="enableClientAddress">
 				<div class="pull-right">
 					<a href="#/addclientaddress/{{client.officeId}}/{{client.id}}" class="btn btn-primary"
 					   has-permission='CREATE_ADDRESSES'>
@@ -862,6 +862,7 @@
 					</div>
 				</script>
 			</tab>
+
 		<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
 		    <div class="pull-right">
 		        <a href="#/addclientdocument/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT'><i
@@ -891,6 +892,300 @@
 		        </tbody>
 		    </table>
 		</tab>
+
+		<tab heading="{{ 'label.heading.familymember' | translate }}" ng-init="familyDetails()" ng-if="isBetaEnabled && isBetaEnabled == true">
+		<br/>
+		<a href="#/createfamilydetails/{{id}}" class="btn btn-primary pull-right"><i
+				class="icon-plus icon-white"></i>
+			{{'label.button.create.familymembers' | translate}}</a>
+
+		<script type="text/ng-template" id="deletefamilydetail.html">
+			<div class="modal-header silver">
+				<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+			</div>
+			<div class="modal-body ">
+
+				<br>
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			</div>
+		</script>
+
+		<div class="form-horizontal well">
+			<h2>{{'label.heading.familymember' | translate}}</h2>
+			<br>
+			<table class="table">
+				<thead>
+				<tr>
+					<th>{{ 'label.heading.name' | translate }}</th>
+					<th>{{ 'label.heading.relationship' | translate }}</th>
+					<th>{{ 'label.heading.dob' | translate }}</th>
+					<th>{{ 'label.heading.age' | translate }}</th>
+					<th>{{ 'label.heading.dependent' | translate }}</th>
+					<th>{{ 'label.heading.medical.condition' | translate }}</th>
+					<th>{{ 'label.heading.occupation' | translate }}</th>
+					<th>{{ 'label.heading.deceased' | translate }}</th>
+
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr class="pointer-main" ng-repeat="familyMember in familyMembers">
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.firstname}}
+						{{familyMember.lastname}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">
+						{{familyMember.relationship.name}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.dateOfBirth |
+						DateFormat}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.age}}</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDependent == true
+						? 'Yes' : 'No'}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isSeriousIllness ==
+						true ? 'Yes' : 'No'}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.occupation.name}}
+					</td>
+					<td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDeceased == true ?
+						'Yes' : 'No'}}
+					</td>
+					<td class="pull-right">
+						<button role="button" ng-click="showEdit(familyMember.id)" class="btn-link ng-binding">
+							<i class="icon-edit icon-white"></i>
+						</button>
+
+						<button role="button" class="btn-link ng-binding"
+								data-ng-click="deleteFamilyDetail(familyMember.id)"><i
+								class="icon-remove icon-white"></i>
+						</button>
+
+					</td>
+
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<a href="#/createfamilydetailsummary/{{id}}" class="btn btn-primary pull-right"><i
+				class="icon-arrow-right icon-white"></i>
+			{{'label.button.next' | translate}}</a>
+		</tab>
+
+
+		<tab heading="{{'label.heading.cashflow' | translate}}" ng-init="incomeAndexpense()" ng-if="isBetaEnabled && isBetaEnabled == true">
+			<br/>
+			<a href="#/clients/{{id}}/createclientoccupationdetails" class="btn btn-primary pull-right"><i
+					class="icon-plus icon-white"></i>
+				{{'label.button.create.clientoccupation' | translate}}</a>
+
+
+			<div class="form-horizontal well">
+				<h2>{{'label.heading.occupationdetails' | translate}}</h2>
+				<br>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>{{ 'label.heading.occupationname' | translate }}</th>
+						<th>{{ 'label.heading.quantity' | translate }}</th>
+						<th>{{ 'label.heading.income' | translate }}</th>
+						<th>{{ 'label.heading.expense' | translate }}</th>
+						<th>{{ 'label.heading.net' | translate}}</th>
+						<th>{{}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1" ng-repeat="incomeAndExpense in incomeAndExpenses">
+						<td class="pointer" data-ng-click="routeToClientIncome(incomeAndExpense.id)">
+							{{incomeAndExpense.incomeExpenseData.name}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.quintity}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.totalIncome}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.totalExpense}}
+						</td>
+						<td>
+							<span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+						</td>
+						<td class="pull-right">
+							<button role="button" ng-click="showEditClientIncome(incomeAndExpense.id)" class="btn-link ng-binding">
+								<i class="icon-edit icon-white"></i>
+							</button>
+						</td>
+
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<a href="#/clients/{{id}}/createclientassetdetails" class="btn btn-primary pull-right"><i
+					class="icon-plus icon-white"></i>
+				{{'label.button.create.clientasset' | translate}}</a>
+
+			<div class="form-horizontal well">
+				<h2>{{'label.heading.assetdetails' | translate}}</h2>
+				<br>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>{{ 'label.heading.assetname' | translate }}</th>
+						<th>{{ 'label.heading.quantity' | translate }}</th>
+						<th>{{ 'label.heading.income' | translate }}</th>
+						<th>{{ 'label.heading.expense' | translate }}</th>
+						<th>{{ 'label.heading.net' | translate}}</th>
+						<th>{{}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.incomeExpenseData.name}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.quintity}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.totalIncome}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.totalExpense}}
+						</td>
+						<td>
+							<span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+						</td>
+						<td class="pull-right">
+							<button role="button" ng-click="showEditClientAsset(incomeAndExpense.id)" class="btn-link ng-binding">
+								<i class="icon-edit icon-white"></i>
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<a href="#/clients/{{id}}/createclienthouseholddetails" class="btn btn-primary pull-right"><i
+					class="icon-plus icon-white"></i>
+				{{'label.button.create.household.expense' | translate}}</a>
+
+			<div class="form-horizontal well">
+				<h2>{{'label.heading.householddetails' | translate}}</h2>
+				<br>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>{{ 'label.heading.expensename' | translate }}</th>
+						<th>{{ 'label.heading.quantity' | translate }}</th>
+						<th>{{ 'label.heading.expense' | translate }}</th>
+						<th>{{}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.incomeExpenseData.name}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.quintity}}
+						</td>
+						<td class="pointer" data-ng-click="">
+							{{incomeAndExpense.totalExpense}}
+						</td>
+						<td class="pull-right">
+							<button role="button" ng-click="showEditClientHouseHoldExpense(incomeAndExpense.id)" class="btn-link ng-binding">
+								<i class="icon-edit icon-white"></i>
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="well">
+				<h3 class="bolder">{{'label.view.summary' | translate}}</h3>
+					<div class="row">
+						<div class="col-md-5">
+							<table class="table table-bordered table-striped">
+								<tr>
+									<td>{{'label.input.occ.income' | translate}}:</td>
+									<td>{{totalIncomeOcc}}</td>
+								</tr>
+								<tr>
+									<td>{{'label.input.asset.income' | translate}}:</td>
+									<td>{{totalIncomeAsset}}</td>
+								</tr>
+								<tr>
+									<td>{{'label.input.household.expense' | translate}}:</td>
+									<td>{{totalHouseholdExpense}}</td>
+								</tr>
+								<tr>
+									<td>{{'label.input.net.surplex' | translate}}:</td>
+									<td>{{totalIncomeOcc + totalIncomeAsset - totalHouseholdExpense}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</tab>
+
+		<tab heading="{{'label.heading.existingloan' | translate}}" ng-init="existingLoans()" ng-if="isBetaEnabled && isBetaEnabled == true">
+			<br/>
+			<a href="#/clients/{{id}}/createexistingloan" class="btn btn-primary pull-right"><i
+					class="icon-plus icon-white"></i>
+				{{'label.button.create.existingloan' | translate}}</a>
+
+			<div class="form-horizontal well">
+				<h2>{{'label.heading.existingloan' | translate}}</h2>
+				<br>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>{{ 'label.heading.source' | translate }}</th>
+						<th>{{ 'label.heading.purpose' | translate }}</th>
+						<th>{{ 'label.heading.amountborrowed' | translate }}</th>
+						<th>{{ 'label.heading.tenure' | translate }}</th>
+						<th>{{ 'label.heading.outstanding.amount' | translate}}</th>
+						<th>{{ 'label.heading.status' | translate}}</th>
+						<th>{{}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" ng-repeat="existingLoan in existingLoans">
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							{{existingLoan.source.name}}
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							{{existingLoan.externalLoanPurpose.name}}
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							{{existingLoan.amountBorrowed}}
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							{{existingLoan.loanTenure}}
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							{{existingLoan.currentOutstanding}}
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							<span>{{existingLoan.loanStatus.value}}</span>
+						</td>
+						<td class="pull-right">
+							<button role="button" ng-click="showEditClientExistLoan(existingLoan.id)"
+									class="btn-link ng-binding">
+								<i class="icon-edit icon-white"></i>
+							</button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</tab>
+
+
 		<tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
 		     select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
 		    <div>

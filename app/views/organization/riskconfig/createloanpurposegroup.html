@@ -1,0 +1,80 @@
+<div class="col-md-12" ng-controller="CreateLoanPurposeGroupsController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a> </li>
+            <li><a href="#/loanpurposeandtagging">{{'label.anchor.loanpurposeandtagging' | translate}}</a></li>
+            <li><a href="#/loanpurposegroups">{{'label.anchor.loanpurpose.groups' | translate}}</a></li>
+            <li class="active">{{'label.view.createloanpurpose.group' | translate}} </li>
+        </ul>
+        <form name="createLoanPurposeGroups" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.heading.createloanpurpose.group' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="loanpurposegroup">{{ 'label.input.loanpurpose.group' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="loanpurposegroup" name="loanpurposegroup"  ng-model="formData.name"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createLoanPurposeGroups" valattribute="loanpurposegroup"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="shortName">{{ 'label.input.shortName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="shortName" name="shortName"  ng-model="formData.shortName"
+                               class="form-control" required late-validate/>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createLoanPurposeGroups" valattribute="shortName"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" >{{ 'label.input.description' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea name="description" id="description" name="description" ng-model="formData.description"
+                                  type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="type">{{ 'label.input.type' | translate }}<span
+                        class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="type" name="type" ng-model="formData.loanPurposeGroupTypeId" class="form-control"
+                                ng-options="typeEnumOption.id as typeEnumOption.name for typeEnumOption in typeEnums" value="typeEnumOption.id"
+                                required late-validate>
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createLoanPurposeGroups" valattribute="type"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isActive' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" type="checkbox" ng-model="formData.isActive">
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/loanpurposegroups" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

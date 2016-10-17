@@ -1,0 +1,87 @@
+<div class="col-md-12" ng-controller="ViewOccupationCategoryController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/occupationcatagory">{{'label.anchor.occupation.category' | translate}}</a></li>
+            <li class="active">{{cashFlowCategory.name}}</li>
+            <li class="active">{{'label.anchor.view.occupation.category' | translate}}</li>
+        </ul>
+
+        <script type="text/ng-template" id="activatecashflowcatagory.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.activate' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="inactivecashflowcatagory.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.button.inActive' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+
+        <div class="well">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/viewcashflowcategory/createoccupation/{{cashFlowCategory.id}}" class="btn btn-primary">
+                        <i class="icon-plus icon-white"></i>{{'label.button.add.occ.category' | translate}}
+                        <i class="icon-question-sign icon-white"  data-toggle="tooltip" tooltip-placement="bottom"
+                           tooltip="{{ 'label.anchor.income' | translate}}"></i>
+                    </a>
+                    <a href="#/viewocccategory/editoccupationcategory/{{cashFlowCategory.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
+                        {{'label.button.edit' | translate}}</a>
+                    <a role="button" class="btn btn-primary" ng-show="cashFlowCategory.isActive == false"
+                       data-ng-click="activateCashFlowCatagory(cashFlowCategory.id)">
+                        <span>{{'label.button.active' | translate}}</span>
+                    </a>
+                    <a role="button" class="btn btn-primary" ng-show="cashFlowCategory.isActive == true"
+                       data-ng-click="inActiveCashFlowCatagory(cashFlowCategory.id)">
+                        <span>{{'label.button.inActive' | translate}}</span>
+                    </a>
+                </div>
+            </div>
+            <h3 class="bolder">{{'label.heading.view.occ.category' | translate}}</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.heading.cashflow.category' | translate}}:</td>
+                            <td>{{cashFlowCategory.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.shortName' | translate}}:</td>
+                            <td>{{cashFlowCategory.shortName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.description' | translate}}:</td>
+                            <td>{{cashFlowCategory.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.category.type' | translate}}:</td>
+                            <td>{{cashFlowCategory.categoryEnum.value}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.cashflow.type' | translate}}:</td>
+                            <td>{{cashFlowCategory.typeEnum.value}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.isActive' | translate}}:</td>
+                            <td>{{cashFlowCategory.isActive == true ? 'Active' : 'In Active'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

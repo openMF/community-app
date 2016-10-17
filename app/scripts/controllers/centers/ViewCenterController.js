@@ -24,6 +24,9 @@
                     return false;
                 }
             };
+            scope.loanUtilizationChecks = [];
+            scope.centerId = routeParams.id;
+
             resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,collectionMeetingCalendar'}, function (data) {
                 scope.center = data;
                 $rootScope.officeName = data.officeName;
@@ -58,6 +61,7 @@
             resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
                 scope.notes = data;
             });
+
             scope.deleteCenter = function () {
                 $modal.open({
                     templateUrl: 'delete.html',
@@ -163,6 +167,20 @@
                 scope.baseURL = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
+
+            resourceFactory.centerLoanUtilizationCheck.getAll({centerId: routeParams.id}, function (data) {
+                scope.loanUtilizationChecks = data;
+                for (var i in scope.loanUtilizationChecks) {
+                    for (var j in scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData) {
+                        scope.loanId = scope.loanUtilizationChecks[i].loanUtilizationCheckDetailData[j].loanId;
+                        scope.auditDoneOn = dateFilter(new Date(scope.loanUtilizationChecks[i].auditDoneOn), scope.df);
+                    }
+                }
+            });
+
+            scope.showEdit = function(id) {
+                location.path('/center/'+scope.centerId+'/loans/'+scope.loanId+'/editloanutilization/'+id);
+            }
 
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {

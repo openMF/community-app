@@ -1,0 +1,93 @@
+<div class="col-md-12" ng-controller="EditIncomeGeneratingController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/incomegeneratingasset">{{'label.view.incomeexpense.category' | translate}}</a></li>
+            <li class="active">{{formData.name}}</li>
+            <li ng-show="entityType == 'viewincomegenasset'"><a href="#/viewincomegeneratingasset/{{formData.id}}">
+                {{'label.anchor.view.income.asset' | translate}}</a></li>
+            <li class="active">{{'label.anchor.edit.income.generating.asset' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+        <form name="editOccupationCategory" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <fieldset>
+                <legend>{{'label.anchor.edit.income.generating.asset' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="category">{{ 'label.input.asset.name' | translate
+                        }}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="category" name="categary" ng-model="formData.name"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editOccupationCategory" valattribute="category"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea name="description" id="description" name="description" ng-model="formData.description"
+                                  type="text" class="form-control"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editOccupationCategory" valattribute="description"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.category.type' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="categoryEnumId" name="categoryEnumId" ng-model="formData.categoryEnumId"
+                                class="form-control"
+                                ng-options="categoryEnumOption.id as categoryEnumOption.value for categoryEnumOption in categoryEnumOptions"
+                                value="categoryEnumOption.id" ng-disabled = "true">
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editOccupationCategory" valattribute="categoryEnumId"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.cashflow.type' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="typeEnumId" name="typeEnumId" ng-model="formData.typeEnumId" class="form-control"
+                                ng-options="typeEnumOption.id as typeEnumOption.value for typeEnumOption in typeEnumOptions"
+                                value="typeEnumOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editOccupationCategory" valattribute="typeEnumId"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isActive' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" name="isActive" type="checkbox" ng-model="formData.isActive"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editOccupationCategory" valattribute="isActive"/>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/incomegeneratingasset" class="btn btn-default" ng-hide="entityType == 'viewincomegenasset'">{{'label.button.cancel' |
+                        translate}}</a>
+                    <a id="cancel" href="#/viewincomegeneratingasset/{{formData.id}}" class="btn btn-default" ng-show="entityType == 'viewincomegenasset'">{{'label.button.cancel' |
+                        translate}}</a>
+
+
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

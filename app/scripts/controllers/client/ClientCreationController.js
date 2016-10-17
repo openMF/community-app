@@ -18,6 +18,7 @@
             scope.forceOffice = null;
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
+            scope.isFamilyMembers = true;
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {

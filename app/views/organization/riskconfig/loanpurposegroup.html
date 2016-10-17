@@ -1,0 +1,42 @@
+<div class="col-md-12" ng-controller="LoanPurposeGroupsController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/loanpurposeandtagging">{{'label.anchor.loanpurposeandtagging' | translate}}</a></li>
+        <li class="active">{{'label.anchor.loanpurpose.groups' | translate}}</li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <a href="#/createloanpurposegroup" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>{{'label.button.create.loanpurpose.group' | translate}}</a>
+
+
+    <div class="form-horizontal well">
+        <h2>{{'label.heading.loanpurpose.group' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.loanpurpose.group' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.type' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="loanPurposegroup in loanpurposegroups">
+                    <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.description}}</td>
+                    <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.loanPurposeGroupType.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(loanPurposegroup.id)">{{loanPurposegroup.isActive == true ? 'Active' : 'In Active' }}</td>
+                    <td>
+                        <button role="button" ng-click="showEdit(loanPurposegroup.id)" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

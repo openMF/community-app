@@ -1,0 +1,177 @@
+<div class="col-md-12" ng-controller="CreateFamilyMemberController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li><a href="#/listfamilydetails/{{clientId}}">{{'label.anchor.familymember' | translate}}</a></li>
+            <li class="active">{{'label.view.add.familymember' | translate}}</li>
+        </ul>
+
+        <api-validate></api-validate>
+        <div class="clearfix"></div>
+
+        <form name="" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <fieldset>
+                <legend>{{'label.view.add.familymember' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="salutation" name="salutation" ng-model="salutationId" class="form-control"
+                                ng-options="salutationOption.id as salutationOption.name for salutationOption in salutations "
+                                value="salutationOpcreateFamilyDetailstion.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="salutation"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="firstName">{{ 'label.input.firstName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="firstName" name="firstName"
+                               ng-model="formData.firstname" class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="firstName"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="middlename">{{ 'label.input.middlename' | translate
+                        }}</label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="middleName" name="middleName"
+                               ng-model="formData.middlename" class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="middleName"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="lastName">{{ 'label.input.lastName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="lastName" name="lastName"
+                               ng-model="formData.lastname" class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="lastName"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="relationship" name="relationship" ng-model="relationshipId" class="form-control"
+                                ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationships "
+                                value="categoryOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="gender" name="gender" ng-model="genderId" class="form-control"
+                                ng-options="genderOption.id as genderOption.name for genderOption in gender"
+                                value="categoryOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.dateOfBirth' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.dateOfBirth" is-open="opened1" max="restrictDate"
+                               class="form-control"/>
+                    </div>
+
+                    <label class="control-label col-sm-2">{{ 'label.input.age' | translate }}</label>
+
+                    <div class="col-sm-2">
+                        <input id="age" type="text" name="age"
+                               ng-model="formData.age" class="form-control"/>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+
+                    <div class="col-sm-3">
+                        <input id="isDependent" type="checkbox" ng-model="formData.isDependent"> {{
+                        'label.input.dependent' | translate }}
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="isSeriousIllness" type="checkbox" ng-model="formData.isSeriousIllness"> {{
+                        'label.input.isSeriousIllness' | translate }}
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="isDeceased" type="checkbox" ng-model="formData.isDeceased"> {{
+                        'label.input.isDeceased' | translate }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="occupationId" name="occupation" ng-model="occupationOption" class="form-control"
+                                    ng-options="occupationOption as occupationOption.name for occupationOption in occupationOptions"
+                                    value="occupationOption.id">
+                                <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="subOccupation" name="subOccupation" ng-model="incomeExpenseId"
+                                    class="form-control"
+                                    ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                    value="subOccupation.id">
+                                <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="education" name="education" ng-model="educationId" class="form-control"
+                                ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
+                                value="occupationOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createFamilyDetails" valattribute="education"/>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/listfamilydetails/{{clientId}}" class="btn btn-default">{{'label.button.cancel'
+                        |
+                        translate}}</a>
+                    <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</a>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</div>
