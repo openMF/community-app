@@ -19,7 +19,7 @@
                 <span ng-if="isCBCheckReq == false && formData.status.id === 100">
                   <a class="btn btn-primary" data-ng-click="requestApprovalLoanAppRef()"
                      has-permission='REQUESTFORAPPROVAL_LOANAPPLICATIONREFERENCE'><i
-                          class="icon-ok-sign icon-white"></i>{{'label.button.request.approval' | translate}}</a>
+                          class="icon-ok-sign icon-white"></i>{{'label.button.next.stage' | translate}}</a>
                 </span>
                 <span ng-if="isCBCheckReq == true && formData.status.id < 300">
                     <a href="#/creditbureaureport/{{loanApplicationReferenceId}}"
@@ -268,6 +268,43 @@
                         <td colspan="4">&nbsp;</td>
                     </tr>
                 </table>
+            </form>
+        </div>
+
+        <div class="row client">
+            <form class="well form-inline">
+                <div class="span gray-head">
+                    <span class="boldlabel">
+                          <strong>{{ 'label.heading.request.eligibility.check' | translate }}</strong>
+                    </span>
+                </div>
+                <div ng-if="riskCheckDone == true">
+                    <div class="col-sm-offset-9 col-sm-3"><button ng-click="doRiskCheck()">Do Risk Check</button></div>
+                </div>
+                <div ng-if="riskCheckDone == false" >
+                    <div>
+                        {{ 'label.heading.request.eligibility.tobe' | translate }} {{riskCalculation.status}}. <a ng-click="triggerRiskDetail()">Show Detail</a>
+                    </div>
+                    <div ng-show="showRiskDetail">
+                        <div >
+                            <strong>{{ 'label.heading.request.eligibility.detail' | translate }}</strong>
+                        </div>
+                        <div>
+                            {{riskCalculation.criteriaOutput.name}} - {{riskCalculation.criteriaOutput.output.bucket}} - {{riskCalculation.criteriaOutput.output.value}} - {{riskCalculation.criteriaOutput.output.reason}} - {{riskCalculation.criteriaOutput.output.error}}
+                            <ul>
+                                <li ng-repeat="dimensionResult in riskCalculation.criteriaOutput.ruleResultHierarchy">
+                                    {{dimensionResult.name}} - {{dimensionResult.output.bucket}} - {{dimensionResult.output.value}} - {{dimensionResult.output.reason}} - {{dimensionResult.output.error}}
+                                    <ol>
+                                        <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                            {{factorResult.name}} - {{factorResult.output.bucket}} - {{factorResult.output.value}} - {{factorResult.output.reason}} - {{factorResult.output.error}}
+                                    </ol>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-4 col-sm-4"><button ng-click="doRiskCheck()">Do Fresh Check</button></div>
+                </div>
             </form>
         </div>
     </div>

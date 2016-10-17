@@ -1,0 +1,144 @@
+<div class="col-md-12" ng-controller="CreateRiskDimensionController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/risk/dimension">{{'label.anchor.riskdimension' | translate}}</a></li>
+            <li class="active">{{'label.anchor.riskdimension.create' | translate}}</li>
+        </ul>
+        <form name="createRiskDimension" novalidate="" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.anchor.riskdimension.create' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{ 'label.input.riskdimension.name' | translate
+                        }}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="name" name="name" ng-model="ruleData.name"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createRiskDimension" valattribute="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="uname">{{ 'label.input.shortName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="uname" name="uname"
+                               ng-model="ruleData.uname" class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createRiskDimension" valattribute="uname"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea name="description" id="description" name="description" ng-model="ruleData.description"
+                                  type="text" class="form-control"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createRiskDimension" valattribute="description"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isActive' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" name="isActive" type="checkbox" ng-model="ruleData.isActive">
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createRiskDimension" valattribute="isActive"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.defaultoutput' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select name="output" ng-options="option.key as option.value for option in ruleData.outputConfiguration.options"
+                                ng-model="ruleData.outputConfiguration.defaultValue" class="form-control" >&nbsp;&nbsp;
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createRiskFactor" valattribute="outputConfiguration.defaultValue"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.addbucket' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input ng-model="bucketData.name" name="bucketName" type="text"
+                                   placeholder="{{'label.input.bucketname' | translate}}" class="form-control"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <select name="output" ng-options="option.key as option.value for option in ruleData.outputConfiguration.options"  ng-model="bucketData.output" class="form-control" >&nbsp;&nbsp;
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <a ng-click="addBucket()"><i class="icon-plus icon-white"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <table ng-show="ruleData.buckets.length > 0" class="width100">
+                    <tr class="form-group">
+                        <td class="width11">
+                            <label class="control-label col-sm-2"><h4>{{ 'label.heading.buckets' | translate }}</h4></label>
+                        </td>
+                        <td class="blockquoteresult width86">
+                            <table class="table width100">
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.name' | translate}}</th>
+                                    <th>{{'label.heading.output' | translate}}</th>
+                                    <th>{{'label.heading.expression' | translate}}</th>
+                                    <th><i class="icon-remove-circle icon-white"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="bucket in ruleData.buckets">
+                                    <td><input ng-model="bucket.name" type="text" class="input-sm form-control"
+                                               placeholder="{{'label.input.name' | translate}}"/></td>
+                                    <td>
+                                        <select  ng-options="option.key as option.value for option in ruleData.outputConfiguration.options" ng-model="bucket.output" class="form-control" >&nbsp;&nbsp;</select>
+                                    </td>
+                                    <td>
+                                        <!--<expression-builder expressionnode="bucket.filter" connectors="connectors" filterfields="filterfields"-->
+                                        <!--comparators="comparators" filterfieldsmap="filterfieldsmap"></expression-builder>-->
+                                        <expression-builder expressionnode="bucket.filter" filterfields="filterfields"></expression-builder>
+                                    </td>
+                                    <td>
+                                        <a ng-click="removeBucket($index)"><i class="icon-remove-circle icon-white"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!---->
+                <!--<expression-builder expressionnode="expressionnode" connectors="connectors" filterfields="filterfields"-->
+                                    <!--comparators="comparators" filterfieldsmap="filterfieldsmap"></expression-builder>-->
+
+                <!--<div>-->
+                    <!--{{expressionstr()}}-->
+                <!--</div>-->
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/risk/dimension" class="btn btn-default">{{'label.button.cancel' |
+                        translate}}</a>
+                    <button id="save" ng-click="onSave()" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+
+       </form>
+    </div>
+</div>

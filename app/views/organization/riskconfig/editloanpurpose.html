@@ -1,0 +1,90 @@
+<div class="col-md-12" ng-controller="EditLoanPurposeController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/loanpurposeandtagging">{{'label.anchor.loanpurposeandtagging' | translate}}</a></li>
+            <li><a href="#/loanpurpose">{{'label.view.loanpurpose' | translate}}</a></li>
+            <li class="active">{{formData.name}}</li>
+            <li ng-if="entityType == 'editloanpurposes'"><a href="#/viewloanpurpose/{{formData.id}}">{{'label.view.viewloanpurpose' | translate}}</a></li>
+            <li class="active">{{'label.view.edit.loanpurpose' | translate}}</li>
+        </ul>
+        <api-validate></api-validate>
+        <div class="clearfix"></div>
+
+        <form name="editLoanPurpose" novalidate="" class="form-horizontal well"
+              rc-submit="submit()">
+            <fieldset>
+                <legend>{{'label.view.edit.loanpurpose' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="loanpurpose">{{ 'label.input.loanpurpose' | translate
+                        }}<span
+                                class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="loanpurpose" name="loanpurpose"
+                               ng-model="formData.name"
+                               class="form-control" required late-validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editLoanPurpose" valattribute="loanpurpose"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.category' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="categoryOption" name="categoryOption" ng-model="categoryId" class="form-control"
+                                ng-options="categoryOption.id as categoryOption.name for categoryOption in categoryOptions"
+                                value="categoryOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createLoanPurposeGroups" valattribute="categoryOption"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.classfication' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="classfication" name="classfication" ng-model="classificationId" class="form-control"
+                                ng-options="classificationOption.id as classificationOption.name for classificationOption in classificationOptions"
+                                value="classificationOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createLoanPurposeGroups" valattribute="categoryOption"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <textarea name="description" id="description" name="description" ng-model="formData.description"
+                                  type="text" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isActive' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" type="checkbox" ng-model="formData.isActive">
+                    </div>
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/loanpurpose" class="btn btn-default" ng-show="entityType != 'editloanpurposes'">{{'label.button.cancel' |
+                        translate}}</a>
+                    <a id="cancel" href="#/viewloanpurpose/{{formData.id}}" class="btn btn-default" ng-show="entityType == 'editloanpurposes'">{{'label.button.cancel' |
+                        translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+</div>

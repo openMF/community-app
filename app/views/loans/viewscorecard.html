@@ -1,0 +1,39 @@
+<div class="col-md-12" ng-controller="ViewScoreCardController">
+    <div class="row">
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li><a href="/viewloanapplicationreference/{{loanApplicationReferenceId}}">{{'label.anchor.viewloanapplication' | translate}}</a></li>
+            <li class="active">{{'label.anchor.view.scorecard' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.anchor.view.scorecard' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.questionname' | translate }}</th>
+                <th>{{ 'label.heading.answername' | translate}} </th>
+                <th>{{ 'label.heading.createdon' | translate}} </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="scorecardValue in scorecardValues">
+                <td class="pointer">{{scorecardValue.questionName}}</td>
+                <td class="pointer">{{scorecardValue.answerName}}</td>
+                <td class="pointer">{{createdOn}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div>
+        <a href="#/approveloanapplicationreference/{{loanApplicationReferenceId}}" class="btn btn-primary pull-right"><i
+                class="icon-arrow-right icon-white"></i>
+            {{'label.button.next' | translate}}</a>
+    </div>
+
+</div>

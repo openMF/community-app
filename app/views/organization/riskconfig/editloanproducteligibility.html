@@ -1,0 +1,120 @@
+<div class="col-md-12" ng-controller="EditLoanProductEligibilityController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/loanproduct/listeligibility">{{'label.anchor.loanproducteligibility' | translate}}</a></li>
+            <li><a href="#/loanproduct/{{eligibilityData.loanProductId}}/vieweligibility">{{eligibilityData.loanProductName}}</a></li>
+            <li class="active">{{'label.view.loanproducteligibility.edit' | translate}}</li>
+        </ul>
+        <form name="editloanproducteligibility" novalidate="" class="form-horizontal well">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.anchor.loanproducteligibility.edit' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.isActive' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="isActive" name="isActive" type="checkbox" ng-model="formData.isActive">
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="editLoanProductEligibility" valattribute="isActive"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.addcriteria' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <input ng-model="criteriaData.minAmount" name="minAmount" type="text" number-format
+                                   placeholder="{{'label.input.minamount' | translate}}" class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input ng-model="criteriaData.maxAmount" name="maxAmount" type="text" number-format
+                                   placeholder="{{'label.input.maxamount' | translate}}" class="form-control"/>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <select ng-model="criteriaData.riskCriteriaId"
+                                    ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias">
+                            </select>
+                            <a ng-click="addEligibilityCriteria()"><i class="icon-plus icon-white"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+                <table ng-show="formData.criterias.length > 0" class="width100">
+                    <tr class="form-group">
+                        <td class="width11">
+                            <label class="control-label col-sm-2"><h4>{{ 'label.heading.criterias' | translate }}</h4></label>
+                        </td>
+                        <td class="blockquoteresult width86">
+                            <table class="table width100">
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.minamount' | translate}}</th>
+                                    <th>{{'label.heading.maxamount' | translate}}</th>
+                                    <th>{{'label.heading.riskcriteria' | translate}}</th>
+                                    <th>{{'label.heading.approvallogic' | translate}}</th>
+                                    <th>{{'label.heading.rejectionlogic' | translate}}</th>
+                                    <th><i class="icon-remove-circle icon-white"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="eligibilityCriteria in formData.criterias">
+                                    <td>
+                                        <input ng-model="eligibilityCriteria.minAmount" type="text" number-format
+                                               placeholder="{{'label.input.minamount' | translate}}" class="form-control"/>
+                                    </td>
+                                    <td>
+                                        <input ng-model="eligibilityCriteria.maxAmount" type="text" number-format
+                                               placeholder="{{'label.input.maxamount' | translate}}" class="form-control"/>
+                                    </td>
+                                    <td>
+                                        <select  ng-model="eligibilityCriteria.riskCriteriaId"
+                                                 ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias"
+                                                 required late-Validate>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-options="comparator.value as comparator.display for comparator in riskCriteriaMap[eligibilityCriteria.riskCriteriaId].comparators" ng-model="eligibilityCriteria.approvalLogic.expression.comparator">
+                                        </select>
+                                        <select ng-options="option.key as option.value for option in riskCriteriaMap[eligibilityCriteria.riskCriteriaId].possibleOutputs" ng-model="eligibilityCriteria.approvalLogic.expression.value" >
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select ng-options="comparator.value as comparator.display for comparator in riskCriteriaMap[eligibilityCriteria.riskCriteriaId].comparators" ng-model="eligibilityCriteria.rejectionLogic.expression.comparator">
+                                        </select>
+                                        <select ng-options="option.key as option.value for option in riskCriteriaMap[eligibilityCriteria.riskCriteriaId].possibleOutputs" ng-model="eligibilityCriteria.rejectionLogic.expression.value" >
+                                        </select>
+
+                                    </td>
+                                    <td>
+                                        <a ng-click="removeCriteria($index)"><i class="icon-remove-circle icon-white"></i></a>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!---->
+                <!--<expression-builder expressionnode="expressionnode" connectors="connectors" filterfields="filterfields"-->
+                <!--comparators="comparators" filterfieldsmap="filterfieldsmap"></expression-builder>-->
+
+                <!--<div>-->
+                <!--{{expressionstr()}}-->
+                <!--</div>-->
+
+                <div class="col-md-offset-2 paddedleft">
+                    <a id="cancel" href="#/loanproduct/{{eligibilityData.loanProductId}}/vieweligibility" class="btn btn-default">{{'label.button.cancel' |
+                        translate}}</a>
+                    <button id="save" ng-click="onSave()" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="col-md-12" ng-controller="ListFamilyDetailController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+        <li class="active">{{'label.anchor.familymember' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+
+    <a href="#/createfamilydetails/{{clientId}}" class="btn btn-primary pull-right"><i
+            class="icon-plus icon-white"></i>
+        {{'label.button.create.familymembers' | translate}}</a>
+
+    <script type="text/ng-template" id="deletefamilydetail.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+
+
+    <div class="form-horizontal well">
+        <h2>{{'label.heading.familymember' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.name' | translate }}</th>
+                <th>{{ 'label.heading.relationship' | translate }}</th>
+                <th>{{ 'label.heading.dob' | translate }}</th>
+                <th>{{ 'label.heading.age' | translate }}</th>
+                <th>{{ 'label.heading.dependent' | translate }}</th>
+                <th>{{ 'label.heading.medical.condition' | translate }}</th>
+                <th>{{ 'label.heading.occupation' | translate }}</th>
+                <th>{{ 'label.heading.deceased' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="familyMember in familyMembers">
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.firstname}} {{familyMember.lastname}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.relationship.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.dateOfBirth | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.age}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDependent == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isSeriousIllness == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.occupation.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(familyMember.id)">{{familyMember.isDeceased == true ? 'Yes' : 'No'}}</td>
+                <td class="pull-right">
+                    <button role="button" ng-click="showEdit(familyMember.id)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+
+                    <button role="button" class="btn-link ng-binding"
+                            data-ng-click="deleteFamilyDetail(familyMember.id)"><i class="icon-remove icon-white"></i>
+                    </button>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="#/createfamilydetailsummary/{{clientId}}" class="btn btn-primary pull-right"><i
+            class="icon-arrow-right icon-white"></i>
+        {{'label.button.next' | translate}}</a>
+
+</div>

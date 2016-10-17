@@ -1,0 +1,91 @@
+<div class="col-md-12" ng-controller="ViewExpenseController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/householdexpense">{{'label.anchor.expense.catagory' | translate}}</a></li>
+            <li><a href="#/view/{{entityId}}/expenses">{{'label.anchor.expense' | translate}}</a></li>
+            <li class="active">{{'label.anchor.view.expense' | translate}}</li>
+        </ul>
+
+        <script type="text/ng-template" id="activateoccupation.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.activate' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="inactivateoccupation.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.inactivate' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+        </script>
+
+        <div class="well">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/viewexpense/{{entityId}}/editexpense/{{incomeExpense.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
+                        {{'label.button.edit' | translate}}</a>
+                    <a role="button" class="btn btn-primary" ng-show="incomeExpense.isActive == true"
+                       data-ng-click="inActivateOccupation(incomeExpense.id)">
+                        <span>{{'label.button.inActive' | translate}}</span>
+                    </a>
+                    <a role="button" class="btn btn-primary" ng-show="incomeExpense.isActive == false"
+                       data-ng-click="activateOccupation(incomeExpense.id)">
+                        <span>{{'label.button.active' | translate}}</span>
+                    </a>
+
+                </div>
+            </div>
+            <h3 class="bolder">{{'label.heading.householdexp.category' | translate}}: &nbsp; {{cashFlowCategories.name}}</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.heading.household.exp' | translate}}:</td>
+                            <td>{{incomeExpense.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.description' | translate}}:</td>
+                            <td>{{incomeExpense.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.quantifier' | translate}}:</td>
+                            <td>{{incomeExpense.isQuantifierNeeded == true ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.quantifierLabel' | translate}}:</td>
+                            <td>{{incomeExpense.quantifierLabel}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.campute.income' | translate}}:</td>
+                            <td>{{incomeExpense.isCaptureMonthWiseIncome == true ? 'Yes' : 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.stability.of.occupation' | translate}}:</td>
+                            <td>{{stabilityEnumName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.default.expense' | translate}}:</td>
+                            <td>{{incomeExpense.defaultExpense}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.active' | translate}}:</td>
+                            <td>{{incomeExpense.isActive == true ? 'Active' : 'In Active'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

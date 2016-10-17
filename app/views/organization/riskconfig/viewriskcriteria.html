@@ -1,0 +1,66 @@
+<div class="col-md-12" ng-controller="ViewRiskCriteriaController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+            <li><a href="#/risk/criteria">{{'label.anchor.riskcriteria' | translate}}</a></li>
+            <li class="active">{{riskCriteria.name}}</li>
+        </ul>
+
+
+        <div class="clearfix"></div>
+        <div class="well">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/risk/editcriteria/{{riskCriteria.id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>
+                        {{'label.button.edit' | translate}}</a>
+                </div>
+            </div>
+            <h3 class="bolder">{{'label.view.viewriskcriteria' | translate}}</h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>{{'label.input.riskcriteria' | translate}}:</td>
+                            <td>{{riskCriteria.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.shortName' | translate}}:</td>
+                            <td>{{riskCriteria.uname}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.description' | translate}}:</td>
+                            <td>{{riskCriteria.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.defaultvalue' | translate}}:</td>
+                            <td>{{riskCriteria.defaultValue}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.input.isActive' | translate}}:</td>
+                            <td>{{loanPurpose.isActive == true ? 'Active' : 'In Active'}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <h4 class="bolder">{{'label.view.viewriskcriteriabucket' | translate}}</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped" >
+                        <tr>
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.value' | translate}}</th>
+                            <th>{{'label.heading.expression' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="bucket in riskCriteria.buckets">
+                            <td>{{bucket.name}}</td>
+                            <td>{{bucket.output}}</td>
+                            <td>{{bucket.filterstr}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

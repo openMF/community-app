@@ -1,0 +1,43 @@
+<div class="col-md-12" ng-controller="OccupationCatagoryController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+        <li class="active">{{'label.view.occupation.category' | translate}}</li>
+    </ul>
+
+    <div class="clearfix"></div>
+
+    <a href="#/createoccupationcatagory" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>
+        {{'label.button.create.occupationcategory' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.heading.occupation.category' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.cashflow.category' | translate }}</th>
+                <th>{{ 'label.heading.description' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-if="cashFlowCatagory.categoryEnum.id == 1" ng-repeat="cashFlowCatagory in cashFlowCategories">
+                <td class="pointer" data-ng-click="routeTo(cashFlowCatagory.id)">{{cashFlowCatagory.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(cashFlowCatagory.id)">{{cashFlowCatagory.description}}</td>
+                <td class="pointer" data-ng-click="routeTo(cashFlowCatagory.id)">{{cashFlowCatagory.isActive == true ? 'Active' : 'In Active'}}</td>
+                <td>
+                    <button role="button" ng-click="showEdit(cashFlowCatagory.id)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                    <a href="#/occupation/{{cashFlowCatagory.id}}" role="button" class="btn-link ng-binding">
+                        <i class="icon-cog icon-white"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

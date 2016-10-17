@@ -5,6 +5,10 @@
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             var curIndex = 0;
             scope.isCBCheckReq = false;
+            scope.riskCaluculation = {};
+            scope.riskCheckDone = false;
+            scope.showRiskDetail =false;
+
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (data) {
                 scope.formData = data;
                 if(scope.formData.loanProductId && scope.formData.status.id < 300){
@@ -40,6 +44,32 @@
                 };
             });
 
+            function fetchRiskCalculation (){
+                resourceFactory.riskCalculation.getForLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId},
+                    function (data) {
+                        scope.riskCalculation = data;
+                        if(scope.riskCalculation !== undefined && scope.riskCalculation.status !== undefined){
+                            scope.riskCheckDone = false;
+                        }
+                    }
+                );
+            }
+            fetchRiskCalculation();
+
+            scope.doRiskCheck = function () {
+                resourceFactory.riskCalculation.save({loanApplicationReferenceId: scope.loanApplicationReferenceId},{}, function (response) {
+                    fetchRiskCalculation();
+                });
+            }
+
+            scope.triggerRiskDetail = function(){
+                if(scope.showRiskDetail){
+                    scope.showRiskDetail = false;
+                }else{
+                    scope.showRiskDetail = true;
+                }
+            }
+
             scope.loanProductChange = function (loanProductId) {
 
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
@@ -72,9 +102,12 @@
 
             scope.requestApprovalLoanAppRef = function () {
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId,command: 'requestforapproval'},{}, function (data) {
-                    location.path('/viewclient/' + scope.formData.clientId);
+                    location.path('/viewclient/' + scope.formData.clientId + '/viewloanapplicationreference/'+ scope.loanApplicationReferenceId +'/surveys');
                 });
             };
+
+
+
 
             scope.charges = [];
             scope.constructExistingCharges = function (index,chargeId,isMandatory) {

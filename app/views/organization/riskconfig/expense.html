@@ -1,0 +1,47 @@
+<div class="col-md-12" ng-controller="ExpenseController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+        <li><a href="#/householdexpense">{{'label.anchor.expense.catagory' | translate}}</a></li>
+        <li class="active">{{'label.view.expense' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+
+    <a href="#/expense/createexpense/{{houseHoldExpenseId}}" class="btn btn-primary pull-right"><i
+            class="icon-plus icon-white"></i>
+        {{'label.button.add.expense' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.view.expense' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.occupation' | translate }}</th>
+                <th>{{ 'label.heading.quantifier' | translate }}</th>
+                <th>{{ 'label.heading.campure.income' | translate }}</th>
+                <th>{{ 'label.heading.stability' | translate }}</th>
+                <th>{{ 'label.heading.default.income' | translate }}</th>
+                <th>{{ 'label.heading.active' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="occupation in occupations">
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.isQuantifierNeeded == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.isCaptureMonthWiseIncome == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.stabilityEnum.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.defaultExpense}}</td>
+                <td class="pointer" data-ng-click="routeTo(occupation.id)">{{occupation.isActive == true ? 'Active' : 'In Active'}}</td>
+                <td class="pull-right">
+                    <button role="button" ng-click="showEdit(occupation.id)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

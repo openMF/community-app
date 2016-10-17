@@ -1,0 +1,130 @@
+<div class="col-md-12" ng-controller="CreateCenterLoanUtilization">
+    <ul class="breadcrumb" ng-show="entityType=='center'">
+        <li><a href="#/viewcenter/{{entityId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createluc' | translate}}</li>
+    </ul>
+    <ul class="breadcrumb" ng-show="entityType=='group'">
+        <li><a href="#/viewgroup/{{entityId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createluc' | translate}}</li>
+    </ul>
+
+    <br/>
+
+    <div class="col-sm-12">
+
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.group' | translate }}</th>
+                <th>{{ 'label.heading.client' | translate }}</th>
+                <th>{{ 'label.heading.loan' | translate }}</th>
+                <th>{{ 'label.heading.amount.disb' | translate }}</th>
+                <th>{{ 'label.heading.auditdoneon' | translate }}</th>
+                <th>{{ 'label.heading.loanutilization' | translate }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="centerTemplate in loanCenterTemplate track by $index" ng-init="parentIndex = $index">
+                <td class="col-md-1">
+                    <span>{{centerTemplate.groupName}}</span>
+                </td>
+                <td class="col-md-1">
+                    <span>{{centerTemplate.clientName}}-{{centerTemplate.clientId}}</span>
+                </td>
+                <td class="col-md-1">
+                    <span>{{centerTemplate.loanType.value}}-{{centerTemplate.loanId}}</span>
+                </td>
+                <td class="col-md-1">
+                    <span>{{centerTemplate.principalAmount}}</span>
+                </td>
+                <td class="col-md-1">
+                    <ng-form name="auditDoneOn" rc-submit="submit()">
+                        <input id="submittedon"
+                               type="text"
+                               name="submittedon"
+                               datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.auditDoneOn"
+                               is-open="opened1"
+                               max="restrictDate"
+                               class="form-control"/>
+                </td>
+                <td ng-if="centerTemplate.loanUtilizationCheckDetail">
+                    <table class="table center"
+                           ng-if="centerTemplate.loanUtilizationCheckDetail.utilizationDetails.length > 0">
+                        <tbody>
+                        <tr data-ng-repeat="utilizationDetails in centerTemplate.loanUtilizationCheckDetail.utilizationDetails track by $index">
+                            <td class="col-md-4">
+                                <ng-form name="loanPurposeForm" rc-submit="submit()">
+                                    <select id="loanPurposeId"
+                                            name="loanPurpose"
+                                            ng-model="utilizationDetails.loanPurposeId"
+                                            class="form-control"
+                                            ng-options="loanPurposeOption.id as loanPurposeOption.name for loanPurposeOption in loanPurposes"
+                                            data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
+                                            value="{{loanPurposeOption.id}}"
+                                            required late-validate
+                                            data-ng-change="checkLoanPurpose(parentIndex,$index)">
+                                        <option value=""></option>
+                                    </select>
+                            </td>
+                            <td class="col-md-2">
+                                <ng-form name="principalAmountForm" rc-submit="submit()">
+                                    <input type="text"
+                                           id="principalAmountId"
+                                           name="principalAmount"
+                                           ng-model="utilizationDetails.amount"
+                                           class="form-control"
+                                           ng-pattern="/^(?!0+$)\d+$/"
+                                           maxlength="9"
+                                           ng-change="percentail(parentIndex,$index)"/>
+                                        <span class="red"
+                                              ng-show="(loanUtilizationCheckDetail.amount > centerTemplate.principalAmount) && principalAmountForm.principalAmount.$dirty">
+                                                <h4><em>{{'label.input.loan.principalAmount' | translate}}</em></h4>
+                                        </span>
+                            </td>
+                            <td class="col-md-2">
+                                {{utilizationDetails.percentailOfUsage}}%
+                            </td>
+                            <td class="col-md-4">
+                                <ng-form name="commentForm" rc-submit="submit()">
+                                    <textarea type="text"
+                                              id="comment"
+                                              name="comment"
+                                              ng-model="utilizationDetails.comment"
+                                              class="form-control"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" type="submit"
+                                        ng-click="deleteLoanPurpose(parentIndex,$index)"><i
+                                        class="icon-remove icon-white icon-small"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <button class="btn btn-primary pull-right" type="submit" ng-click="addLoanPurpose(parentIndex)"><i
+                            class="icon-plus icon-white icon-small"></i></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="col-md-offset-5 paddedleft">
+            <a id="cancelcenter" href="#/viewcenter/{{entityId}}" class="btn btn-default"
+               ng-show="entityType=='center'">{{'label.button.cancel' |
+                translate}}</a>
+            <a id="cancelgroup" href="#/group/{{entityId}}/listgrouploanutillization" class="btn btn-default"
+               ng-show="entityType=='group'">{{'label.button.cancel' |
+                translate}}</a>
+            <a id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                translate}}</a>
+        </div>
+    </div>
+
+</div>

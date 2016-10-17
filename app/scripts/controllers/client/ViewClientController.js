@@ -436,6 +436,10 @@
                 }
             });
 
+            resourceFactory.configurationResource.get({configName: 'enable-beta'}, function (response) {
+                scope.isBetaEnabled = response.enabled;
+            });
+
             scope.fetchEntityAddress = function () {
                 scope.entityType = "clients";
                 resourceFactory.addressDataResource.getAll({
@@ -726,6 +730,116 @@
                     location.path('/viewloanapplicationreference/' + loanApplicationReferenceId);
                 });
             };
+
+            scope.familyDetails = function(){
+                resourceFactory.familyDetails.getAll({clientId: routeParams.id}, function (data) {
+                    scope.familyMembers = data;
+                });
+            };
+
+            scope.routeTo = function (id) {
+                location.path('/clients/' + routeParams.id + '/viewfamilydetails/' + id);
+            };
+
+            scope.showEdit = function (id) {
+                location.path('/clients/' + routeParams.id + '/editfamilydetails/' + id);
+            };
+
+            var FamilyDetailsDeleteCtrl = function ($scope, $modalInstance, familyDetailsId) {
+                $scope.delete = function () {
+                    resourceFactory.familyDetails.delete({
+                        clientId: scope.id,
+                        familyDetailId: familyDetailsId
+                    }, {}, function (data) {
+                        $modalInstance.close('delete');
+                        route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+            scope.deleteFamilyDetail = function (id) {
+                $modal.open({
+                    templateUrl: 'deletefamilydetail.html',
+                    controller: FamilyDetailsDeleteCtrl,
+                    resolve: {
+                        familyDetailsId: function () {
+                            return id;
+                        }
+                    }
+                });
+            };
+            scope.incomeAndexpense = function(){
+                resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: routeParams.id},function(data){
+                    scope.incomeAndExpenses = data;
+                    scope.totalIncomeOcc = scope.calculateOccupationTotal();
+                    scope.totalIncomeAsset = scope.calculateTotalAsset();
+                    scope.totalHouseholdExpense = scope.calculateTotalExpense();
+                });
+            };
+
+            scope.calculateOccupationTotal = function(){
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function(data){
+                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1){
+                        if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
+                            total = total + data.totalIncome;
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.calculateTotalAsset = function(){
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function(data){
+                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.categoryEnum) && data.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2){
+                        if(!_.isUndefined(data.totalIncome) && !_.isNull(data.totalIncome)){
+                            total = total + data.totalIncome;
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.calculateTotalExpense = function(){
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function(data){
+                    if(!_.isUndefined(data.incomeExpenseData.cashFlowCategoryData.typeEnum) && data.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2){
+                        if(!_.isUndefined(data.totalExpense) && !_.isNull(data.totalExpense)){
+                            total = total + data.totalExpense;
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.showEditClientIncome = function(id){
+                location.path('/client/'+scope.id+'/editclientoccupation/'+id);
+            };
+
+            scope.showEditClientAsset = function(id){
+                location.path('/client/'+scope.id+'/editclientasset/'+id);
+            };
+
+            scope.showEditClientHouseHoldExpense = function(id){
+                location.path('/client/'+scope.id+'/editclienthouseholdexpense/'+id);
+            };
+
+            scope.existingLoans = function(){
+              resourceFactory.clientExistingLoan.getAll({clientId: routeParams.id}, function(data){
+                  scope.existingLoans = data;
+              });
+            };
+
+            scope.showEditClientExistLoan = function(id){
+                location.path('/client/'+scope.id+'/editclientexistingloan/'+id);
+            }
+
+            scope.routeToViewExistingLoan = function(id){
+                location.path('/client/'+scope.id+'/viewclientexistingloan/'+id);
+            }
         }
     });
 

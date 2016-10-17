@@ -1,0 +1,49 @@
+<div class="col-md-12" ng-controller="IncomeAssetController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/riskrating">{{'label.anchor.riskrating' | translate}}</a></li>
+        <li><a href="#/incomegeneratingasset">{{'label.anchor.income.generating' | translate}}</a></li>
+        <li class="active">{{'label.view.asset' | translate}}</li>
+    </ul>
+    <div class="clearfix"></div>
+
+    <a href="#/asset/createasset/{{entityId}}" class="btn btn-primary pull-right"><i
+            class="icon-plus icon-white"></i>
+        {{'label.button.add.asset' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.view.asset' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'label.heading.assets' | translate }}</th>
+                <th>{{ 'label.heading.quantifier' | translate }}</th>
+                <th>{{ 'label.heading.campure.income' | translate }}</th>
+                <th>{{ 'label.heading.stability' | translate }}</th>
+                <th>{{ 'label.heading.default.income' | translate }}</th>
+                <th>{{ 'label.heading.default.expense' | translate }}</th>
+                <th>{{ 'label.heading.active' | translate }}</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="asset in assets">
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.isQuantifierNeeded == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.isCaptureMonthWiseIncome == true ? 'Yes' : 'No'}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.stabilityEnum.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.defaultIncome}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.defaultExpense}}</td>
+                <td class="pointer" data-ng-click="routeTo(asset.id)">{{asset.isActive == true ? 'Active' : 'In Active'}}</td>
+                <td class="pull-right">
+                    <button role="button" ng-click="showEdit(asset.id)" class="btn-link ng-binding">
+                        <i class="icon-edit icon-white"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
