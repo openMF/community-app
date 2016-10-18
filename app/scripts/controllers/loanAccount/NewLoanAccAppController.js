@@ -11,6 +11,7 @@
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.formData.isSubsidyApplicable = false;
+            scope.glimMembers = [];
             scope.isGLIM = ((location.path()+'').indexOf('newgrouploanindividualmonitoringloanaccount')>-1);
             if(scope.isGLIM){
                 scope.formData.clientMembers = [];
@@ -83,6 +84,12 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                    for(var i in scope.charges){
+                        if(scope.isGLIM && scope.charges[i].isGlimCharge && scope.charges[i].isGlimCharge == true && scope.charges[i].chargeTimeType.id == 50) {
+                            scope.charges[i].glims = [];
+                            angular.copy(scope.formData.clientMembers,scope.charges[i].glims);
                         }
                     }
                     if(scope.loanaccountinfo.loanOfficerOptions){
@@ -174,15 +181,20 @@
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
-                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
-                            for(var i in scope.productLoanCharges){
-                                if(scope.productLoanCharges[i].chargeData){
-                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
+                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0) {
+                            for (var i in scope.productLoanCharges) {
+                                if (scope.productLoanCharges[i].chargeData) {
+                                    if (data.chargeId == scope.productLoanCharges[i].chargeData.id) {
                                         data.isMandatory = scope.productLoanCharges[i].isMandatory;
                                         break;
                                     }
                                 }
                             }
+                        }
+                        if(scope.isGLIM && scope.formData.clientMembers){
+                            var clientMembers = scope.formData.clientMembers || [];
+                            data.glims = [];
+                            angular.copy(clientMembers,data.glims);
                         }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
@@ -294,6 +306,16 @@
                 scope.formData.principal = totalPrincipalAmount;
             };
 
+            scope.glimAutoCalFlatFeeAmount = function (index, glimMembers) {
+                var totalUpfrontChargeAmount = 0.0;
+                for(var i in glimMembers){
+                    if(glimMembers[i].upfrontChargeAmount){
+                        totalUpfrontChargeAmount += parseFloat(glimMembers[i].upfrontChargeAmount);
+                    }
+                }
+                scope.charges[index].amount = totalUpfrontChargeAmount;
+            };
+
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
@@ -307,7 +329,8 @@
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {
-                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df) });
+                        scope.formData.charges.push({ chargeId: scope.charges[i].chargeId, amount: scope.charges[i].amount, dueDate: dateFilter(scope.charges[i].dueDate, scope.df),
+                            upfrontChargesAmount : scope.charges[i].glims});
                     }
                 }
 
