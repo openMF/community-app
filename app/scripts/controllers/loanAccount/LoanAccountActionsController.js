@@ -18,17 +18,67 @@
             scope.showTrancheAmountTotal = 0;
             scope.processDate = false;
 
+            //glim
+            scope.isGLIM = false;
+            scope.GLIMData = {};
+
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].isClientSelected && scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                if(scope.action == 'approve'){
+                    scope.formData.approvedLoanAmount = totalPrincipalAmount;
+                }else if(scope.action == 'disburse'){
+                    scope.formData.transactionAmount = totalPrincipalAmount;
+                }
+            };
+
+            scope.createClientMembersForGLIM = function(){
+                resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
+                    scope.GLIMData = glimData;
+                    scope.isGLIM = (glimData.length>0);
+                    if(scope.isGLIM){
+                        scope.formData.clientMembers = [];
+                        for(var i=0;i<glimData.length;i++){
+                            scope.formData.clientMembers[i] = {};
+                            scope.formData.clientMembers[i].id = glimData[i].clientId;
+                            scope.formData.clientMembers[i].glimId = glimData[i].id;
+                            scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                            if(scope.action == "approve"){
+                                if(glimData[i].approvedAmount == undefined){
+                                    scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                                }else{
+                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                }
+                            }else{
+                                if(glimData[i].disbursedAmount == undefined){
+                                    scope.formData.clientMembers[i].amount = glimData[i].approvedAmount;
+                                }else{
+                                    scope.formData.clientMembers[i].amount = glimData[i].disbursedAmount;
+                                }
+                            }
+                        }
+                        if(scope.action == 'approve' || scope.action == 'disburse'){
+                            scope.glimAutoCalPrincipalAmount();
+                        }
+                    }
+                });
+            };
+
             switch (scope.action) {
                 case "approve":
                     scope.taskPermissionName = 'APPROVE_LOAN';
                     resourceFactory.loanTemplateResource.get({loanId: scope.accountId, templateType: 'approval'}, function (data) {
-
                         scope.title = 'label.heading.approveloanaccount';
                         scope.labelName = 'label.input.approvedondate';
                         scope.modelName = 'approvedOnDate';
                         scope.formData[scope.modelName] =  new Date();
                         scope.showApprovalAmount = true;
                         scope.formData.approvedLoanAmount =  data.approvalAmount;
+                        scope.createClientMembersForGLIM();
                     });
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'multiDisburseDetails'}, function (data) {
                         scope.expectedDisbursementDate = new Date(data.timeline.expectedDisbursementDate);
@@ -86,12 +136,14 @@
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
                         }
+
                     });
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'DISBURSE_LOAN';
+                    scope.createClientMembersForGLIM();
                     break;
                 case "disbursetosavings":
                     scope.modelName = 'actualDisbursementDate';
@@ -111,16 +163,24 @@
                     break;
                 case "repayment":
                     scope.modelName = 'transactionDate';
-                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
-                        scope.paymentTypes = data.paymentTypeOptions;
-                        if (data.paymentTypeOptions.length > 0) {
-                            scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
-                        }
-                        scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
-                        if(data.penaltyChargesPortion>0){
-                            scope.showPenaltyPortionDisplay = true;
-                        }
+                    resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
+                        scope.GLIMData = glimData;
+                        scope.isGLIM = (glimData.length>0);
+                        resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                            scope.paymentTypes = data.paymentTypeOptions;
+                            if (data.paymentTypeOptions.length > 0) {
+                                scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
+                            }
+                            if (scope.isGLIM) {
+                                scope.formData[scope.modelName] = new Date();
+                            } else {
+                                scope.formData.transactionAmount = data.amount;
+                                scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                                if (data.penaltyChargesPortion > 0) {
+                                    scope.showPenaltyPortionDisplay = true;
+                                }
+                            }
+                        });
                     });
                     scope.title = 'label.heading.loanrepayments';
                     scope.labelName = 'label.input.transactiondate';
@@ -162,6 +222,15 @@
                     scope.labelName = 'label.input.interestwaivedon';
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'WAIVEINTERESTPORTION_LOAN';
+                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'waiveinterest'}, function (data) {
+                        if (data.clientMembers.length>0) {
+                            scope.formData.clientMembers = data.clientMembers;
+                            scope.isGLIM = true;
+                        } else {
+                            scope.formData.clientMembers = undefined;
+                            scope.isGLIM = false;
+                        }
+                    });
                     break;
                 case "writeoff":
                     scope.modelName = 'transactionDate';
@@ -174,6 +243,15 @@
                     scope.title = 'label.heading.writeoffloanaccount';
                     scope.labelName = 'label.input.writeoffondate';
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
+                    resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
+                        if (data.clientMembers.length>0) {
+                            scope.formData.clientMembers = data.clientMembers;
+                            scope.isGLIM = true;
+                        } else {
+                            scope.formData.clientMembers = undefined;
+                            scope.isGLIM = false;
+                        }
+                    });
                     break;
                 case "close-rescheduled":
                     scope.modelName = 'transactionDate';
@@ -408,6 +486,20 @@
                 }
             };
 
+            scope.getTotalAmount = function(data, amountType) {
+                var amount = 0;
+                for (var i=0; i<data.length; i++) {
+                    if ((data[i].isClientSelected)&& angular.isDefined(data[i][amountType])) {
+                        amount = amount + parseFloat(data[i][amountType]);
+                    }
+                }
+                if(scope.isGLIM && scope.action != 'writeoff'){
+                    this.formData.transactionAmount = amount.toFixed(2);
+                }else{
+                    scope.writeOffAmount = amount.toFixed(2);
+                }
+            };
+
             scope.deleteTranches = function (index) {
                 scope.disbursementDetails.splice(index, 1);
             };
@@ -456,9 +548,21 @@
                         params.transactionId = routeParams.transactionId;
                     }
                     params.loanId = scope.accountId;
-                    resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
-                        location.path('/viewloanaccount/' + data.loanId);
-                    });
+                    scope.glimCommandParam = scope.action;
+                    if (scope.isGLIM) {
+                        this.formData.locale = scope.optlang.code;
+                        this.formData.dateFormat = scope.df;
+                        if(scope.action == "writeoff") {
+                            this.formData.transactionAmount = scope.writeOffAmount;
+                        }
+                        resourceFactory.glimTransactionResource.save({loanId: params.loanId, command: scope.glimCommandParam}, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + params.loanId);
+                        });
+                    } else {
+                        resourceFactory.loanTrxnsResource.save(params, this.formData, function (data) {
+                            location.path('/viewloanaccount/' + data.loanId);
+                        });
+                    }
                 } else if (scope.action == "deleteloancharge") {
                     resourceFactory.LoanAccountResource.delete({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId}, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
@@ -529,9 +633,38 @@
                 }
             };
 
-            scope.$watch('formData.transactionDate',function(){
+            var tempTransactionDate = "";
+            scope.$watch('formData.transactionDate', function () {
                 scope.onDateChange();
-             });
+                var transactionDate = dateFilter(scope.formData.transactionDate, scope.df);
+                if (tempTransactionDate === "" || (tempTransactionDate != transactionDate)) {
+                    tempTransactionDate = transactionDate;
+                    if (scope.isGLIM && scope.action == 'repayment') {
+                        scope.getRepaymentTemplate(scope.formData.transactionDate);
+                    }
+                }
+            });
+
+            scope.getRepaymentTemplate = function(date){
+                var transactionDate = dateFilter(date,  scope.df);
+                resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment', transactionDate: transactionDate}, function (data) {
+                    if (data.clientMembers.length>0) {
+                        scope.formData.clientMembers = data.clientMembers;
+                        var amount = 0;
+                        for (var i=0; i<data.clientMembers.length; i++) {
+                            if (angular.isDefined(data.clientMembers[i].transactionAmount)) {
+                                amount = amount + parseFloat(data.clientMembers[i].transactionAmount);
+                            }
+                        }
+                        if(scope.isGLIM){
+                            scope.formData.transactionAmount = amount.toFixed(2);
+                        }
+                    } else {
+                        scope.formData.clientMembers = undefined;
+                        scope.isGLIM = false;
+                    }
+                });
+            };
 
             scope.onDateChange = function(){
                 if(scope.processDate) {

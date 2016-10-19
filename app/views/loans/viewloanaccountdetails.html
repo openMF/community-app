@@ -205,11 +205,16 @@
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
                 <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons">
-                          <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
+                      <span ng-repeat="button in buttons.singlebuttons" ng-hide="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                          <a ng-show="((button.name && !isGlim) || ((button.taskPermissionName !='CREATE_LOANCHARGE') && isGlim))"  ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
                                   class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
+                      </span>
+                    <span ng-repeat="button in buttons.singlebuttons" ng-show="button.taskPermissionName =='RECOVERYPAYMENT_LOAN' && isGlim">
+                          <a class="btn btn-primary" href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
+                              <i class="icon-briefcase icon-white"></i>{{'label.button.glimrecoverypayment' | translate}}
+                          </a>
                       </span>
                       <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
                           <a class="btn btn-primary dropdown-toggle">
@@ -217,10 +222,25 @@
                               <span class="caret"></span>
                           </a>
                           <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options" ng-hide="( (button.taskPermissionName =='CREATE_LOANCHARGE') && isGlim)">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
+                              </li>
+                              <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
+                                  <a href="#/glimloanaccountcharge/{{loandetails.id}}/waivecharge" has-permission="WAIVEINTERESTPORTION_LOAN">
+                                      {{'label.button.waiveglimcharge' | translate}}
+                                  </a>
+                              </li>
+                              <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
+                                  <a href="#/glimloanaccountprepay/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
+                                      {{'label.button.glimprepayloan' | translate}}
+                                  </a>
+                              </li>
+                              <li class="{{button.icon}}" ng-show="isGlim && loandetails.status.active==true">
+                                  <a href="#/glimrecoverypayment/{{loandetails.id}}" has-permission="REPAYMENT_LOAN">
+                                      {{'label.button.glimrecoverypayment' | translate}}
+                                  </a>
                               </li>
                           </ul>
                       </span>
@@ -807,6 +827,69 @@
                         </table>
                     </tab>
 
+                    <tab heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails && loandetails.status.active">
+
+                            <table class="table table-striped" ng-repeat="client in glimClientsDetails" class="pointer-main" ng-show="client.isClientSelected">
+                                <thead>
+                                <tr>
+                                <tr><td>{{client.clientName}} : {{client.clientId}}</td></tr>
+                                    <th class="empty"></th>
+                                    <th>{{'label.heading.original' | translate}}</th>
+                                    <th>{{'label.heading.paid' | translate}}</th>
+                                    <th>{{'label.heading.waived' | translate}}</th>
+                                    <th>{{'label.heading.writtenoff' | translate}}</th>
+                                    <th>{{'label.heading.outstanding' | translate}}</th>
+                                    <th><button ng-click="routeToRepaymentSchedule(client.id, client.disbursedAmount, client.clientId, client.clientName)" class="btn btn-primary ng-binding pull-right">{{'label.heading.viewrepaymentschedule' | translate}} </button></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>{{'label.heading.principal' | translate}}</th>
+                                    <td>{{client.disbursedAmount | number}}</td>
+                                    <td>{{client.paidPrincipalAmount | number}}</td>
+                                    <td>&nbsp;</td>
+                                    <td>{{client.principalWrittenOffAmount | number}}</td>
+                                    <td>{{client.totalPrincipalOutstanding | number}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'label.heading.interest' | translate}}</th>
+                                    <td>{{client.interestAmount | number}}</td>
+                                    <td>{{client.paidInterestAmount | number}}</td>
+                                    <td>{{client.waivedInterestAmount | number}}</td>
+                                    <td>{{client.interestWrittenOffAmount | number}}</td>
+                                    <td>{{client.totalInterestOutstanding}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'label.heading.fees' | translate}}</th>
+                                    <td>{{client.chargeAmount | number}}</td>
+                                    <td>{{client.paidChargeAmount | number}}</td>
+                                    <td>{{client.waivedChargeAmount | number}}</td>
+                                    <td>{{client.chargeWrittenOffAmount | number}}</td>
+                                    <td>{{client.totalFeeChargeOutstanding}}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>{{'label.heading.penalties' | translate}}</th>
+                                    <td>{{client.penaltyAmount | number}}</td>
+                                    <td>{{client.paidpenaltyAmount | number}}</td>
+                                    <td>{{client.waivedpenaltyAmount | number}}</td>
+                                    <td>{{client.penaltyWrittenOffAmount | number}}</td>
+                                    <td>{{client.totalpenaltyChargeOutstanding}}</td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>{{'label.heading.total' | translate}}</th>
+                                    <th>{{getTotalAmount(client.disbursedAmount, client.interestAmount, client.chargeAmount, client.penaltyAmount)}}</th>
+                                    <th>{{getTotalAmount(client.paidPrincipalAmount, client.paidInterestAmount, client.paidChargeAmount, client.paidpenaltyAmount)}}</th>
+                                    <th>{{getTotalAmount(0, client.waivedInterestAmount, client.waivedChargeAmount, client.waivedpenaltyAmount)}}</th>
+                                    <th>{{getTotalAmount(client.principalWrittenOffAmount, client.interestWrittenOffAmount, client.chargeWrittenOffAmount, client.penaltyWrittenOffAmount)}}</th>
+                                    <th>{{getTotalAmount(client.totalPrincipalOutstanding, client.totalInterestOutstanding, client.totalFeeChargeOutstanding, client.totalpenaltyChargeOutstanding) | number}}</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                    </tab>
+
                     <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
                         <table class="width100">
 
@@ -915,7 +998,7 @@
                                 <th>{{'label.heading.paid' | translate}}</th>
                                 <th>{{'label.heading.waived' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
-                                <th>{{'label.heading.actions' | translate}}</th>
+                                <th ng-hide="isGlim">{{'label.heading.actions' | translate}}</th>
                             </tr>
                             <tr ng-repeat="charge in charges" class="pointer-main">
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
@@ -928,7 +1011,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
-                                <td>
+                                <td ng-hide="isGlim">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
                                             class="icon-pencil icon-white"></i></a>

@@ -316,6 +316,9 @@
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+                    codeValueByCodeNameResources: defineResource(apiVer + "/codes/codeValues", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
 					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
                         getAllHooks: {method: 'GET', params: {}, isArray: true},
                         getHook: {method: 'GET', params: {}},
@@ -477,7 +480,7 @@
                         get: {method: 'GET', params: {}}
                     }),
                     loanProductAssociationResource: defineResource(apiVer + "/loanproducts", {associations: "@associations"}, {
-                        getAll: {method: 'GET', params: {associations: '@associations'}, isArray: true},
+                        getAll: {method: 'GET', params: {associations: '@associations'}, isArray: true}
                     }),
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
@@ -721,9 +724,12 @@
                         getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
                         reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
                     }),
+                    bankStatementSummaryResource: defineResource(apiVer + "/bankstatements/:bankStatementId/summary", {bankStatementId: '@bankStatementId'}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},
-                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId'} }
+                        reconcileBankStatement : {method: 'PUT', params: {bankStatementId: '@bankStatementId',command:'@command'} }
                     }),
                     bankStatementDocumentResource: defineResource(apiVer + "/bankstatements/document/:documentId", {documentId: '@documentId'}, {
                         getBankStatementDocument: {method: 'GET', params: {documentId : '@documentId'}}
@@ -830,10 +836,10 @@
                         update: {method: 'PUT', params: {}}
                     }),
                     centerLoanUtilizationCheck: defineResource(apiVer + "/centers/:centerId/utilizationchecks", {centerId:'@centerId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     groupLoanUtilizationCheck: defineResource(apiVer + "/groups/:groupId/utilizationchecks", {groupId:'@groupId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     familyDetailsTemplate: defineResource(apiVer + "/clients/:clientId/familydetails/template", {clientId:'@clientId'}, {
                         get: {method: 'GET', params: {}}
@@ -863,7 +869,7 @@
                         update: {method: 'PUT', params: {}}
                     }),
                     riskField: defineResource(apiVer + "/risk/field",{},{
-                        getAll: {method: 'GET',params:{},isArray: true},
+                        getAll: {method: 'GET',params:{},isArray: true}
                     }),
                     riskFactor: defineResource(apiVer + "/risk/factor/:factorId", {factorId:'@factorId'}, {
                         getAll: {method: 'GET',params: {}, isArray:true},
@@ -886,18 +892,35 @@
                     }),
                     riskCalculation: defineResource(apiVer + "/risk/execute/loanapplication/:loanApplicationReferenceId", {loanApplicationReferenceId:'@loanApplicationReferenceId'}, {
                         getForLoanAppId: {method: 'GET', params: {}},
-                        redoForLoanAppId: {method: 'POST', params: {}},
+                        redoForLoanAppId: {method: 'POST', params: {}}
                     }),
                     surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId:'@surveyId'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
                     }),
                     surveyResourceScore: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId:'@surveyId'}, {
-                        save: {method: 'POST', param: {}},
+                        save: {method: 'POST', param: {}}
                     }),
                     surveyResourceScorecards: defineResource(apiVer + "/surveys/:surveyId/scorecards/clients/:clientId", {surveyId:'@surveyId', clientId:'@clientId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
+                    }),
+                    glimResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/:clientId/", {loanId:'@loanId',clientId:'@clientId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        getAllByLoan: {method: 'GET', params: {loanId:'@loanId'}, isArray : true},
+                        getByLoanAndClient: {method: 'GET', params: {loanId:'@loanId',clientId:'@clientId'}, isArray : false}
+                    }),
+                    glimTransactionTemplateResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions/template", {loanId:'@loanId', transactionDate:'@transactionDate'},{
+                        get: {method: 'GET', params: {loanId : '@loanId', transactionDate:'@transactionDate'}}
+                    }),
+                    glimTransactionResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/transactions", {loanId:'@loanId'},{
+                        get: {method: 'GET', params: {loanId : '@loanId'}}
+                    }),
+                    glimChargeResource: defineResource(apiVer +"/glimcharges/:loanId/loancharge/:loanChargeId", {loanId:'@loanId', loanChargeId:'@loanChargeId'},{
+                        get: {method: 'GET', params: {loanId : '@loanId', loanChargeId:'@loanChargeId'}}
+                    }),
+                    glimRepaymentScheduleResource :  defineResource(apiVer +"/grouploanindividualmonitoring/viewrepaymentschedule/:glimId", { glimId:'@glimId'},{
+                        getRepaymentScheduleById : {method: 'GET',params: { glimId:'@glimId', disbursedAmount: '@disbursedAmount', disbursedDate: '@disbursedDate'}, isArray : false}
                     })
                 };
             }];

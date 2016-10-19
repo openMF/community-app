@@ -6,13 +6,14 @@
             scope.isJournalEntryCreated = true;
             scope.bankName = "";
             scope.bankStatementName = "";
+
             resourceFactory.bankStatementsResource.getBankStatement({'bankStatementId': routeParams.bankStatementId}, function (data) {
                 scope.bankStatementName = data.name;
                 scope.bankName = data.bankData.name;
             });
 
             scope.getBankStatementDetails = function(){
-                resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'journal'},function (data) {
+                resourceFactory.bankStatementDetailsResource.getBankStatementDetails({ bankStatementId : routeParams.bankStatementId, command:'journalentry'},function (data) {
                     scope.bankStatementDetails = data;
                     scope.isJournalEntriesCreated(data);
                 });

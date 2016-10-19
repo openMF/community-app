@@ -19,6 +19,7 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -47,7 +48,13 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    minCap: data.minCap,
+                    maxCap: data.maxCap,
+                    emiRoundingGoalSeek: data.emiRoundingGoalSeek,
+                    isGlimCharge: data.isGlimCharge,
+                    glimChargeCalculation: data.glimChargeCalculation.id
+
                 };
 
                 if(data.incomeOrLiabilityAccount){
@@ -130,6 +137,12 @@
                 }else if(scope.addfeefrequency == 'false'){
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
+                }
+                if(this.formData.minCap == undefined) {
+                    this.formData.minCap = null;
+                }
+                if(this.formData.maxCap == undefined) {
+                    this.formData.maxCap = null;
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;

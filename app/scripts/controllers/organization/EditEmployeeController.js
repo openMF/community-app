@@ -18,7 +18,8 @@
                     officeId: data.officeId,
                     mobileNo: data.mobileNo,
                     isActive: data.isActive,
-                    joiningDate: data.joiningDate
+                    joiningDate: data.joiningDate,
+                    externalId: data.externalId
                 };
 
             });

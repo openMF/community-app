@@ -1034,6 +1034,15 @@
             .when('/bankstatementsdetails/:bankStatementId/nonportfoliotransaction', {
                 templateUrl: 'views/bankstatements/viewbankstatementdetailjournalentry.html'
             })
+            .when('/bankstatementsdetails/:bankStatementId/miscellaneoustransaction', {
+                templateUrl: '../views/bankstatements/viewmiscellaneousbankstatementdetails.html'
+            })
+            .when('/bankstatementsdetails/:bankStatementId/reconciledtransaction', {
+                templateUrl: '../views/bankstatements/viewreconciledbankstatementdetails.html'
+            })
+            .when('/bankstatement/:bankStatementId/summary', {
+                templateUrl: '../views/bankstatements/viewbankstatementsummary.html'
+            })
             .when('/uploadbankstatements', {
                 templateUrl: 'views/bankstatements/uploadbankstatement.html'
             })
@@ -1324,7 +1333,23 @@
             })
             .when('/viewclient/:clientId/viewloanapplicationreference/:loanApplicationReferenceId/viewscorecards/:surveyId', {
                 templateUrl: 'views/loans/viewscorecard.html'
+            })
+            .when('/newgrouploanindividualmonitoringloanaccount/:groupId', {
+                templateUrl: 'views/loans/newloanaccount.html'
+            })
+            .when('/glimloanaccountcharge/:loanId/waivecharge', {
+                templateUrl: 'views/loans/glimwaivecharge.html'
+            })
+            .when('/glimloanaccountprepay/:loanId', {
+                templateUrl: 'views/loans/glimprepay.html'
+            })
+            .when('/glimrecoverypayment/:loanId', {
+                templateUrl: 'views/loans/glimrecoverypayment.html'
+            })
+            .when('/viewglimrepaymentschedule/:glimId', {
+                templateUrl: 'views/loans/viewglimrepaymentschedule.html'
             });
+        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

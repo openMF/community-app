@@ -21,6 +21,7 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -98,6 +99,7 @@
                 }
             };
 
+
 	    scope.filterChargeCalculations = function(chargeTimeType) {
 		return function (item) {
 			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
@@ -127,8 +129,13 @@
                     delete this.formData.chargePaymentMode;
                 }
                 this.formData.active = this.formData.active || false;
+                this.formData.isGlimCharge = this.formData.isGlimCharge || false;
+                this.formData.emiRoundingGoalSeek = this.formData.emiRoundingGoalSeek || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
+                if(this.formData.emiRoundingGoalSeek != true){
+                    this.formData.glimChargeCalculation = undefined;
+                }
                 resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });

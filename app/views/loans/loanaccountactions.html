@@ -65,7 +65,7 @@
 
     <div class="col-sm-3">
         <input id="approvedAmt" type="text" name="amount" ng-model="formData.approvedLoanAmount" class="form-control"
-               number-format required late-Validate>
+               number-format required late-Validate ng-readonly="isGLIM">
     </div>
 </div>
 <div class="form-group col-sm-3" ng-show="approveTranches" style="width: 100%;padding-left: 26px">
@@ -134,7 +134,7 @@
         <div class="col-sm-3">
             <input id="approvedAmount" type="text" name="amount" ng-model="formData.approvedLoanAmount"
                    class="form-control"
-                   number-format required late-Validate>
+                   number-format required late-Validate ng-readonly="isGLIM">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
@@ -148,12 +148,46 @@
         <div class="col-sm-3">
             <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
                    class="form-control"
-                   number-format required late-Validate>
+                   number-format required late-Validate ng-readonly="(action == 'repayment' || action == 'waiveinterest') && isGLIM">
         </div>
         <div class="col-sm-3">
             <form-validate valattributeform="loanactionform" valattribute="amount"/>
         </div>
     </div>
+        <div class="form-group"  ng-show="(action == 'repayment' || action == 'waiveinterest' || action == 'writeoff') && isGLIM">
+            <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th ng-hide="action == 'repayment'"></th>
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th ng-show="action == 'repayment'">{{'label.heading.installmentamount' | translate}}</th>
+                        <th ng-show="action == 'waiveinterest' || action == 'writeoff'">{{'label.heading.transactionamount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in formData.clientMembers" ng-init="outerIndex = $index">
+                        <td ng-hide="action == 'repayment'">
+                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected"
+                                   ng-change="getTotalAmount(formData.clientMembers, 'transactionAmount')">
+                        </td>
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].transactionAmount"
+                                    number-format ng-readonly="action != 'repayment'" ng-change="getTotalAmount(formData.clientMembers, 'transactionAmount')"/>
+
+                        </td>
+                    </tr>
+                    <tbody>
+                </table>
+            </div>
+        </div>
 
     <div class="form-group" ng-show="principalPortion">
         <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' | translate}}</label>
@@ -276,7 +310,40 @@
         </div>
     </div>
 </div>
-<div class="form-group" ng-show="showNoteField">
+    <div class="form-group" ng-show="isGLIM && (action=='approve' || action=='disburse')">
+        <label class="control-label col-sm-2">{{ 'label.heading.amountbreakup' | translate }}</label>
+        <div  class="col-sm-6">
+            <table class="table well">
+                <thead>
+                <tr class="active">
+                    <th></th>
+                    <th >{{'label.heading.clientid' | translate}}</th>
+                    <th >{{'label.heading.clientname' | translate}}</th>
+                    <th >{{'label.heading.externalid' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="clientMember in GLIMData" ng-init="outerIndex = $index">
+                    <td>
+                        <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected" ng-change="glimAutoCalPrincipalAmount()">
+                    </td>
+                    <td >{{clientMember.clientId}}</td>
+                    <td >{{clientMember.clientName}}</td>
+                    <td >{{clientMember.clientExternalID}}</td>
+                    <td>
+                        <input  type="text"
+                                class="form-control principal"
+                                name="principal"
+                                ng-model="formData.clientMembers[outerIndex].amount"
+                                number-format ng-keyup="glimAutoCalPrincipalAmount()"/>&nbsp;{{productDetails.currency.displaySymbol}}
+                    </td>
+                </tr>
+                <tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group" ng-show="showNoteField">
     <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
 
     <div class="col-sm-3">

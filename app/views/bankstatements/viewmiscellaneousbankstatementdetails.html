@@ -1,0 +1,35 @@
+<div name="viewdocumentform" novalidate="" class="row form-horizontal" ng-controller="ViewMiscellaneousBankStatementDetailsController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.miscellaneoustransactions' | translate}}</li>
+        </ul>
+    </div>
+    <br>
+    <div class="form-horizontal">
+            <table class="table well" style="margin-bottom: 0px;">
+                <thead>
+                <tr class="graybg">
+                    <th class="pointer col-sm-2" align="center">{{'label.heading.transactiondate' | translate}}</th>
+                    <th class="pointer col-sm-2" align="center">{{'label.heading.transactiontype' | translate}}</th>
+                    <th class="pointer col-sm-2" align="center">{{'label.heading.amount' | translate}}</th>
+                    <th class="pointer col-sm-2" align="center">{{'label.heading.mobilenumber' | translate}}</th>
+                    <th  class="pointer" align="center">{{'label.heading.groupexternalid' | translate}}</th>
+                </tr>
+                </thead>
+            </table>
+    </div>
+    <div  class="form-horizontal" style="overflow-y:scroll; max-height: 400px;">
+            <table class="table well" style="margin-top: 0px;">
+                <tbody>
+                <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in bankStatementDetails">
+                    <td class="pointer col-sm-2" align="left">{{bankStatementDetail.transactionDate}}</td>
+                    <td class="pointer  col-sm-2" align="left">{{bankStatementDetail.transactionType }}</td>
+                    <td class="pointer  col-sm-2" align="left">{{bankStatementDetail.amount}}</td>
+                    <td class="pointer  col-sm-2" align="left">{{bankStatementDetail.mobileNumber}}</td>
+                    <td class="pointer" align="left">{{bankStatementDetail.groupExternalId}}</td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

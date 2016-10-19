@@ -407,7 +407,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/riskconfig/EditIncomeAssetController',
             'organization/riskconfig/ViewIncomeAssetController',
             'loanAccount/ListSurveyController',
-            'loanAccount/ViewScoreCardController'
+            'loanAccount/ViewScoreCardController',
+            'bankstatements/ViewMiscellaneousBankStatementDetailsController',
+            'bankstatements/ViewReconciledBankStatementDetailsController',
+            'bankstatements/ViewBankStatementSummaryController',
+            'loanAccount/GLIMLoanAccountWaiveChargeController',
+            'loanAccount/GLIMPrepayLoanController',
+            'loanAccount/GLIMRecoveryPaymentController',
+            'loanAccount/ViewGlimRepaymentScheduleController'
         ],
         filters: [
             'StatusLookup',
