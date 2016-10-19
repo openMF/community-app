@@ -1,0 +1,67 @@
+<div ng-controller="GLIMRecoveryPaymentController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.recoverypayment' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="glimrecoverypayment" novalidate="" ng-submit="submit()">
+        <fieldset>
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
+                        translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
+                               class="form-control"
+                               number-format required late-Validate ng-readonly="true">
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="glimrecoverypayment" valattribute="amount"/>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label class="control-label col-sm-2">{{ 'label.heading.clients' | translate }}<span class="required">*</span></label>
+                    <div class="col-sm-8">
+                        <table class="table well">
+                            <thead>
+                            <tr class="active">
+                                <th></th>
+                                <th >{{'label.heading.clientid' | translate}}</th>
+                                <th >{{'label.heading.clientname' | translate}}</th>
+                                <th>{{'label.heading.transactionamount' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="clientMember in formData.clientMembers" ng-init="outerIndex = $index">
+                                <td>
+                                    <input type="checkbox" ng-change="getTransactionAmount(formData.clientMembers)" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                                </td>
+                                <td >{{clientMember.clientId}}</td>
+                                <td >{{clientMember.clientName}}</td>
+                                <td>
+                                    <input  type="text"
+                                            class="form-control principal"
+                                            name="principal"
+                                            ng-model="formData.clientMembers[outerIndex].transactionAmount"
+                                            number-format ng-change="getTransactionAmount(formData.clientMembers)"/>
+                                </td>
+                            </tr>
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-offset-8" >
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |
+                    translate}}
+                </button>
+                <button id="save" type="submit" has-permission='RECOVERYPAYMENT_LOAN' class="btn btn-primary">{{
+                    'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

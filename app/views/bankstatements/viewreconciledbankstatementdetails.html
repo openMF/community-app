@@ -1,0 +1,80 @@
+<div name="viewdocumentform" novalidate="" class="row form-horizontal" ng-controller="ViewReconciledBankStatementDetailsController"
+     >
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.reconciledtransactions' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group">
+        <a href='#/bankstatementsdetails/{{bankStatementId}}/portfoliotransaction' class="btn btn-primary" role="button">
+            {{'label.button.unreconcileddata' | translate }}</a>
+    </div>
+    <br/>
+    <div class="form-horizontal">
+        <div style="clear:both"></div>
+        <div style="float:left;max-width:50%;">
+            <table class="table well">
+                <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.transactiontype' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.groupexternalid' | translate}}</th>
+                    <th>{{'label.heading.mobilenumber' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  ng-class="($index%2!=0)?'graybg':''" ng-repeat="bankStatementDetail in reconciledBankStatementDetails" style="height:60px;cursor: pointer;">
+                    <td class="pointer">{{bankStatementDetail.transactionDate}}</td>
+                    <td class="pointer">{{bankStatementDetail.transactionType }}</td>
+                    <td class="pointer">{{bankStatementDetail.amount}}</td>
+                    <td class="pointer">{{bankStatementDetail.groupExternalId}}</td>
+                    <td class="pointer">{{bankStatementDetail.mobileNumber}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div  style="float:left; width:50%;">
+            <table class="table well">
+                <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th></th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.transactiontype' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.groupexternalid' | translate}}</th>
+                    <th>{{'label.heading.loanaccountnumber' | translate}}</th>
+                    <th>{{'label.heading.officeName' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bankStatementDetail in reconciledBankStatementDetails" style="height:60px;" ng-class="($index%2!=0)?'graybg':''">
+                    <td align="center">
+                        <input ng-checked="getAddedIndex(bankStatementDetail.id) > -1" type="checkbox"  ng-click="addDetailsForUndoReconcile(bankStatementDetail.id)" name="{{bankStatementDetail.id}}">
+                    </td>
+                    <td>{{bankStatementDetail.loanTransactionData.date | DateFormat}}</td>
+                    <td>{{bankStatementDetail.loanTransactionData.amount}}</td>
+                    <td>{{bankStatementDetail.loanTransactionData.amount}}</td>
+                    <td>{{bankStatementDetail.loanTransactionData.groupExternalId}}</td>
+                    <td>{{bankStatementDetail.loanTransactionData.loanAccountNumber}}</td>
+                    <td>{{bankStatementDetail.loanTransactionData.officeName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div  align="center" >
+            <div class="form-group">
+                <div class="col-sm-6" align="right" has-permission="UNDORECONCILE_BANKSTATEMENTDETAILS">
+                    <a  role="button" ng-click="undoReconcile()" class="btn btn-primary">
+                        {{'label.button.undoreconcile' | translate}}
+                    </a>
+                </div>
+                <div class="col-sm-2" align="right">
+                    <label>{{'label.input.selectall' | translate}}</label>
+                    <input type="checkbox" ng-click="selectAll()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

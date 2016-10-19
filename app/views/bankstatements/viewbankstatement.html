@@ -19,13 +19,10 @@
                 <th>{{'label.heading.description' | translate}}</th>
                 <th>{{'label.heading.cpiffile' | translate}}</th>
                 <th>{{'label.heading.orgfile' | translate}}</th>
-                <th>{{'label.heading.createdby' | translate}}</th>
-                <th>{{'label.heading.createdon' | translate}}</th>
                 <th>{{'label.heading.updatedby' | translate}}</th>
                 <th>{{'label.heading.updatedon' | translate}}</th>
                 <th>{{'label.heading.reconcile' | translate}}</th>
                 <th>{{'label.heading.actions' | translate}}</th>
-                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -39,8 +36,6 @@
                 <td>{{bankStatement.cpifFileName}}<a target="_blank" href="{{bankStatement.cpifDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
                 <td ng-show="bankStatement.orgDownloadUri != null">{{bankStatement.orgFileName}}<a target="_blank" href="{{bankStatement.orgDownloadUri}}"><i class="icon-cloud-download"></i></a></td>
                 <td ng-show="bankStatement.orgDownloadUri == null"></td>
-                <td>{{bankStatement.createdByName}}</td>
-                <td>{{bankStatement.createdDate}}</td>
                 <td>{{bankStatement.lastModifiedByName}}</td>
                 <td>{{bankStatement.lastModifiedDate}}</td>
                 <td>
@@ -52,16 +47,26 @@
                     </a>
                 </td>
                 <td>
-                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/portfoliotransaction' class="btn btn-primary" role="button"><i  tooltip="Payment Reconciliation Transaction" class="icon-money icon-white"></i></a>&nbsp;&nbsp;
+                   <div class="btn-group" style="background-color: #33ff33;">
+                       <a has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/portfoliotransaction' class="btn" role="button"><i  tooltip="Portfolio Transaction" class="icon-money icon-white"></i></a>
+                       <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/nonportfoliotransaction' class="btn" role="button"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></a>
+                       <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/miscellaneoustransaction' class="btn" role="button"><i  tooltip="Miscellaneous Transaction" class="icon-exclamation-sign icon-white"></i></a>
+                   </div>
                 </td>
                 <td>
-                    <a  has-permission="READ_BANKSTATEMENTDETAILS" href='#/bankstatementsdetails/{{bankStatement.id}}/nonportfoliotransaction' class="btn btn-primary" role="button"><i tooltip="Non Portfolio Transaction" class="icon-plus-sign icon-white"></i></a>&nbsp;&nbsp;
+                    <div class="btn-group">
+                        <a href='#/bankstatement/{{bankStatement.id}}/summary' tooltip="Summary" class="btn btn-primary">
+                            <i class="icon-list icon-white"></i>
+                        </a>
+                    </div>
                 </td>
-                <td><a  has-permission="UPDATE_BANKSTATEMENT" href='#/updatebankstatements/{{bankStatement.id}}' class="btn btn-primary" role="button"><i  tooltip="Edit" class="icon-white icon-edit"></i></a></td>
                 <td>
-                    <button type="button" has-permission="DELETE_BANKSTATEMENT" ng-click="deleteBankStatement(bankStatement.id)" class="btn btn-primary ng-binding">
-                        <i tooltip="Delete" class="icon-trash icon-white"></i>
-                    </button>
+                     <div class="btn-group"  style="background-color: #cc3300;">
+                         <a  style="background-color: #cc3300;" has-permission="UPDATE_BANKSTATEMENT" href='#/updatebankstatements/{{bankStatement.id}}' class="btn" role="button"><i  tooltip="Edit" class="icon-white icon-edit"></i></a>
+                         <button  style="background-color: #cc3300;" type="button" has-permission="DELETE_BANKSTATEMENT" ng-click="deleteBankStatement(bankStatement.id)" class="btn">
+                             <i tooltip="Delete" class="icon-trash icon-white"></i>
+                         </button>
+                     </div>
                 </td>
             </tr>
             </tbody>

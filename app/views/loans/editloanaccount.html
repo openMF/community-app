@@ -71,9 +71,15 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.loanexternalid' | translate }}</label></td>
-        <td class="paddedbottom10">
-            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"/>
+        <td><label>{{ 'label.input.loanexternalid' | translate }}&nbsp;<span ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId" class="required">*</span></label></td>
+        <td class="paddedbottom10" ng-if ="response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
+            <input type="text" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
+                    required late-Validate/>
+            <form-validate valattributeform="editloanaccountform" valattribute="external"/>
+        </td>
+        <td class="paddedbottom10" ng-if ="!response.uiDisplayConfigurations.loanAccount.isMandatory.externalId">
+            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"
+                   />
         </td>
     </tr>
 </table>
@@ -133,6 +139,48 @@
             </tr>
         </table>
         <hr ng-show="loanaccountinfo"/>
+        <div class="row" ng-show="isGLIM">
+            <label class="col-sm-1"><strong>{{ 'label.heading.clients' | translate }}&nbsp;:</strong></label>
+            <div class="col-sm-8">
+                <table class="table well">
+                    <thead>
+                    <tr class="active">
+                        <th></th>
+                        <th >{{'label.heading.clientid' | translate}}</th>
+                        <th >{{'label.heading.clientname' | translate}}</th>
+                        <th >{{'label.heading.externalid' | translate}}</th>
+                        <th>{{'label.heading.loanpurpose' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="clientMember in GLIMData" ng-init="outerIndex = $index">
+                        <td>
+                            <input type="checkbox" ng-model="formData.clientMembers[outerIndex].isClientSelected">
+                        </td>
+                        <td >{{clientMember.clientId}}</td>
+                        <td >{{clientMember.clientName}}</td>
+                        <td >{{clientMember.clientExternalID}}</td>
+                        <td><select ng-model="formData.clientMembers[outerIndex].loanPurposeId"
+                                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+                                    class="loanPurposeId form-control width170px"
+                                    value="{{loanPurpose.id}}">
+                            <option value="">{{'label.selectpurpose' | translate}}</option>
+                        </select>
+                        </td>
+                        <td>
+                            <input  type="text"
+                                    class="form-control principal"
+                                    name="principal"
+                                    ng-model="formData.clientMembers[outerIndex].amount"
+                                    number-format ng-keyup="glimAutoCalPrincipalAmount()"/>&nbsp;{{productDetails.currency.displaySymbol}}
+                        </td>
+                    </tr>
+                    <tbody>
+                </table>
+            </div>
+        </div>
+        <hr ng-show="isGLIM"/>
         <label><strong>{{ 'label.heading.terms' | translate }}</strong></label>
         <table class="width100">
             <tr>
@@ -140,7 +188,7 @@
                         class="required">*</span>:</label></td>
                 <td class="width31 paddedbottom10">
                     <input type="text" class="form-control" id="principal" name="principal" ng-model="formData.principal"
-                           number-format required late-Validate/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                           number-format required late-Validate ng-readonly="isGLIM"/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                     <form-validate valattributeform="editloanaccountform" valattribute="principal"/>
                 </td>
                 <td class="width14"><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required">*</span>:</label>

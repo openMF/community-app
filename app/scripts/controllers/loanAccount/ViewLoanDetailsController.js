@@ -13,6 +13,9 @@
             scope.loandetails = [];
             scope.addSubsidyTransactionTypeId = 50;
             scope.revokeSubsidyTransactionTypeId = 51;
+            scope.glimClientsDetails = [];
+            scope.isGlim = false;
+            scope.waiveLink = "#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}";
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1
@@ -554,6 +557,16 @@
                 scope.loanNotes = data;
             });
 
+            resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (data) {
+                scope.glimClientsDetails = data;
+                scope.isGlim = data.length>0;
+            });
+            scope.getChargeWaiveLink = function(loanId, chargeId){
+                var suffix = "loanaccountcharge/"+loanId+"/waivecharge/"+chargeId
+                var link = scope.isGlim?"#/glim"+suffix:"#/"+suffix;
+                return link;
+            }
+
             scope.saveNote = function () {
                 resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
                     var today = new Date();
@@ -575,6 +588,26 @@
                 });
 
             };
+
+            scope.routeToRepaymentSchedule = function (glimId, disbursedAmount, clientId, clientName) {
+                $rootScope.principalAmount = disbursedAmount;
+                scope.disbursementDate = new Date(scope.loandetails.timeline.actualDisbursementDate);
+                $rootScope.disbursementDate = dateFilter(scope.disbursementDate, scope.df);
+                $rootScope.loanId = scope.loandetails.id;
+                $rootScope.clientName = clientName;
+                $rootScope.clientId = clientId;
+                location.path('/viewglimrepaymentschedule/' + glimId);
+            }
+
+            scope.getTotalAmount = function (amount1, amount2, amount3, amount4) {
+                amount4 = amount4 == null ? 0 : amount4;
+                return (amount1 + amount2 + amount3 + amount4).toFixed(2);
+            }
+
+            scope.getTotalOutstandingLoanBalance = function () {
+                return scope.glimPrincipalOutstandingAmount + scope.glimInterestOutstandingAmount + scope.glimFeeOutstandingAmount + scope.glimFeepenaltyOutstandingAmount
+                + scope.glimFeepenaltyOutstandingAmount.toFixed(2);
+            }
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan'}, function (data) {
                 scope.loandatatables = data;
@@ -679,7 +712,7 @@
                 var popupWin = window.open('', '_blank', 'width=300,height=300');
                 popupWin.document.open();
                 popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
-                '</head><body onload="window.print()">' + printContents + '<br><br><table class="table"><tr><td width="210"><h4>Credit Officer</h4></td><td width="210"><h4>Branch Manager</h4></td><td><h4>Customer Signature</h4></td></tr></table></body></html>');
+                '</head><body onload="window.print()">' + printContents + '<br></body></html>');
                 popupWin.document.close();
             }
 

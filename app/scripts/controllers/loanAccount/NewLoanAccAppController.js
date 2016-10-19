@@ -11,6 +11,12 @@
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.date = {};
             scope.formData.isSubsidyApplicable = false;
+            scope.isGLIM = ((location.path()+'').indexOf('newgrouploanindividualmonitoringloanaccount')>-1);
+            if(scope.isGLIM){
+                scope.formData.clientMembers = [];
+            }else{
+                scope.formData.clientMembers = undefined;
+            }
 
             scope.date.first = new Date();
             if (scope.clientId) {
@@ -27,7 +33,11 @@
                 scope.inparams.templateType = 'jlg';
             }
             else if (scope.groupId) {
-                scope.inparams.templateType = 'group';
+                if (scope.isGLIM) {
+                    scope.inparams.templateType = 'glim';
+                } else {
+                    scope.inparams.templateType = 'group';
+                }
             }
             else if (scope.clientId) {
                 scope.inparams.templateType = 'individual';
@@ -37,6 +47,12 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                if (scope.isGLIM) {
+                    scope.formData.clientMembers = data.group.clientMembers;
+                    for (var i in scope.formData.clientMembers) {
+                        scope.formData.clientMembers[i].isClientSelected = true;
+                    }
+                }
                 if (data.clientName) {
                     scope.clientName = data.clientName;
                 }
@@ -76,6 +92,15 @@
                             }
                         })
                     }
+                    // show only glim charges
+                    /*if(scope.isGLIM) {
+                        for(var i in scope.loanaccountinfo.chargeOptions) {
+                            if(!scope.loanaccountinfo.chargeOptions[i].isGlimCharge) {
+                                scope.loanaccountinfo.chargeOptions.splice(i,1);
+                            }
+                        }
+                        console.log(scope.loanaccountinfo.chargeOptions.length);
+                    }*/
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -258,6 +283,16 @@
             scope.loanTermCalculation=function(){
               scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repaymentEvery;
             }
+
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].isClientSelected && scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                scope.formData.principal = totalPrincipalAmount;
+            };
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.

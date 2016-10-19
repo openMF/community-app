@@ -9,9 +9,42 @@
             scope.collaterals = [];
             scope.restrictDate = new Date();
             scope.date = {};
+            scope.isGLIM = false;
+            scope.GLIMData = {};
+
+            scope.glimAutoCalPrincipalAmount = function () {
+                var totalPrincipalAmount = 0.0;
+                for(var i in scope.formData.clientMembers){
+                    if(scope.formData.clientMembers[i].amount){
+                        totalPrincipalAmount += parseFloat(scope.formData.clientMembers[i].amount);
+                    }
+                }
+                scope.formData.principal = totalPrincipalAmount;
+            };
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
+                resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
+                    scope.GLIMData = glimData;
+                    scope.isGLIM = (glimData.length > 0);
+                    if (scope.isGLIM){
+                        scope.formData.clientMembers = [];
+                        for (var i=0;i<glimData.length;i++) {
+                            scope.formData.clientMembers[i] = {};
+                            scope.formData.clientMembers[i].id = glimData[i].clientId;
+                            scope.formData.clientMembers[i].glimId = glimData[i].id;
+                            scope.formData.clientMembers[i].amount = glimData[i].proposedAmount;
+                            scope.formData.clientMembers[i].loanPurposeId = glimData[i].loanPurpose.id;
+                            scope.formData.clientMembers[i].isClientSelected = glimData[i].isClientSelected;
+                            if (scope.isGLIM) {
+                                scope.clientMembers = data.group.clientMembers;
+                            }
+                        }
+                        scope.templateType = 'glim';
+                        scope.glimAutoCalPrincipalAmount();
+                    }
+                });
+
                 scope.getProductPledges(scope.loanaccountinfo);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -312,9 +345,7 @@
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
                 });
-
             }
-
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.

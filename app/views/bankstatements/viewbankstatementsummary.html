@@ -1,0 +1,150 @@
+<div name="viewdocumentform" novalidate="" class="row form-horizontal" ng-controller="ViewBankStatementSummaryController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.bankstatementsummary' | translate}}</li>
+        </ul>
+    </div>
+    <br>
+    <div  class="col-md-12 form-horizontal well" id="print">
+        <table class="table">
+            <tr>
+                <td class="col-sm-2" align="right">
+                   <b> {{ 'label.heading.name' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10" align="left">
+                    <label>{{bankStatement.name}}</label>
+                </td>
+            </tr>
+            <tr >
+                <td  class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.bank' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10" align="left">
+                    <label>{{bankStatement.bankData.name}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.createdby' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10" align="left">
+                    <label>{{bankStatement.createdByName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.createdon' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10" align="left">
+                    <label>{{bankStatement.createdDate}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.lastupdatedby' | translate }}:</b>
+                </td>
+                <td class="col-sm-10" align="left">
+                    <label>{{bankStatement.lastModifiedByName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.lastupdatedon' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10" align="left">
+                    <label>{{bankStatement.lastModifiedDate}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.reconciliationstatus' | translate }}:</b>
+                </td>
+                <td  class="col-sm-10">
+                </td>
+            </tr>
+            <tr>
+                <td class="col-sm-2" align="right"></td>
+                <td  class="col-sm-9">
+                    <table class="table well"  style="border: 1px solid black;">
+                        <thead>
+                        <tr class="graybg">
+                            <th class="col-sm-3 border1px"></th>
+                            <th  class="col-sm-3 border1px" colspan="3" style="text-align: center;">{{'label.heading.inflowamount' | translate}}</th>
+                            <th  class="col-sm-3 border1px" colspan="3" style="text-align: center;">{{'label.heading.outflowamount' | translate}}</th>
+                        </tr>
+                        <tr class="graybg">
+                            <th  class="col-sm-3 border1px">{{'label.heading.transactioncategory' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.reconciled' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.unreconciled' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.total' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.reconciled' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.unreconciled' | translate}}</th>
+                            <th  class="col-sm-1 border1px">{{'label.heading.total' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th  class="col-sm-3 border1px">{{'label.heading.portfoliotransactions' | translate}}</th>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioUnReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioReconciledInflowAmount + bankStatement.portFolioUnReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioReconciledOutflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioUnReconciledOutflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.portFolioReconciledOutflowAmount + bankStatement.portFolioUnReconciledOutflowAmount}}</td>
+                            </tr>
+                            <tr>
+                                <th  class="col-sm-3 border1px">{{'label.heading.standardnonportfoliotransactions' | translate}}</th>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioUnReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioUnReconciledInflowAmount + bankStatement.nonPortFolioReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioReconciledOutflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioUnReconciledOutflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.nonPortFolioReconciledOutflowAmount + bankStatement.nonPortFolioUnReconciledOutflowAmount}}</td>
+                            </tr>
+                            <tr>
+                                <th  class="col-sm-3 border1px">{{'label.heading.miscellaneoustransactions' | translate}}</th>
+                                <td  class="col-sm-1 border1px">{{bankStatement.miscellaneousReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.miscellaneousUnReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.miscellaneousReconciledInflowAmount + bankStatement.miscellaneousUnReconciledInflowAmount}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.miscellaneousReconciledOutflowAmount * -1}}</td>
+                                <td  class="col-sm-1 border1px">{{bankStatement.miscellaneousUnReconciledOutflowAmount * -1}}</td>
+                                <td  class="col-sm-1 border1px">{{(bankStatement.miscellaneousReconciledOutflowAmount + bankStatement.miscellaneousUnReconciledOutflowAmount) * -1}}</td>
+                            </tr>
+                            <tr>
+                                <th  class="col-sm-3 border1px">{{'label.heading.total' | translate}}</th>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioReconciledInflowAmount + bankStatement.nonPortFolioReconciledInflowAmount + bankStatement.miscellaneousReconciledInflowAmount}}
+                                </td>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioUnReconciledInflowAmount + bankStatement.nonPortFolioUnReconciledInflowAmount + bankStatement.miscellaneousUnReconciledInflowAmount}}
+                                </td>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioReconciledInflowAmount + bankStatement.portFolioUnReconciledInflowAmount + bankStatement.nonPortFolioUnReconciledInflowAmount + bankStatement.nonPortFolioReconciledInflowAmount +
+                                    bankStatement.miscellaneousReconciledInflowAmount + bankStatement.miscellaneousUnReconciledInflowAmount}}
+                                </td>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioReconciledOutflowAmount + bankStatement.nonPortFolioReconciledOutflowAmount + (bankStatement.miscellaneousReconciledOutflowAmount * -1)}}
+                                </td>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioUnReconciledOutflowAmount + bankStatement.nonPortFolioUnReconciledOutflowAmount + (bankStatement.miscellaneousUnReconciledOutflowAmount * -1)}}
+                                </td>
+                                <td  class="col-sm-1 border1px">
+                                    {{bankStatement.portFolioReconciledOutflowAmount + bankStatement.portFolioUnReconciledOutflowAmount + bankStatement.nonPortFolioReconciledOutflowAmount + bankStatement.nonPortFolioUnReconciledOutflowAmount + ((bankStatement.miscellaneousReconciledOutflowAmount + bankStatement.miscellaneousUnReconciledOutflowAmount) * -1)}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div align="center">
+        <button ng-click="printDiv('print');">
+            <i class="icon-print">{{'label.button.print'
+                | translate}}</i>
+        </button>
+    </div>
+
+</div>
