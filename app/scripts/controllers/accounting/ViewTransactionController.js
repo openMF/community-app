@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal) {
+        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal, http, API_VERSION, $rootScope, $sce) {
             scope.flag = false;
             scope.manualEntry = false;
             scope.productName = routeParams.productName;
@@ -12,8 +12,12 @@
             scope.groupId = routeParams.groupId;
             scope.groupName = routeParams.groupName;
             scope.journalEntryTransactionId = routeParams.transactionId;
+            scope.transactionIdStringvalue = routeParams.transactionId.toString();
             scope.bankStatementId = location.search().id;
             scope.isFromBankStatement = (scope.bankStatementId != undefined);
+            scope.hidePentahoReport = true;
+            scope.reportName = 'Journal Voucher';
+            scope.reportOutputType = 'PDF';
             if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
             }
@@ -105,9 +109,27 @@
                 };
             };
 
+            scope.runReport = function () {
+                scope.hidePentahoReport = false;
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
+                reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier + "&locale="
+                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionIdStringvalue;
+
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+
+                http.get(reportURL, {responseType: 'arraybuffer'}).
+                    success(function (data, status, headers, config) {
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], {type: contentType});
+                        var fileContent = URL.createObjectURL(file);
+
+                        scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                });
+            }
         }
     });
-    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', mifosX.controllers.ViewTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.ViewTransactionController]).run(function ($log) {
         $log.info("ViewTransactionController initialized");
     });
 }(mifosX.controllers || {}));
