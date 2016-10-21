@@ -18,37 +18,38 @@
                 scope.genderOptions = data.genderOptions;
                 scope.educationOptions = data.educationOptions;
                 scope.occupationOptions = data.occupationOptions;
-            });
 
-            resourceFactory.familyDetails.get({
-                clientId: scope.clientId,
-                familyDetailId: scope.familyDetailId
-            }, function (data) {
-                scope.formData = {};
-                scope.formData.firstname = data.firstname;
-                scope.formData.middlename = data.middlename;
-                scope.formData.lastname = data.lastname;
-                scope.formData.dateOfBirth = dateFilter(new Date(data.dateOfBirth), scope.df);
-                scope.formData.age = data.age;
-                scope.formData.isDependent = data.isDependent;
-                scope.formData.isSeriousIllness = data.isSeriousIllness;
-                scope.formData.isDeceased = data.isDeceased;
-                if(data.salutation){
-                    scope.formData.salutationId = data.salutation.id;
-                }
-                if(data.relationship){
-                    scope.formData.relationshipId = data.relationship.id;
-                }
-                if(data.gender){
-                    scope.formData.genderId = data.gender.id;
-                }
-                if(data.education){
-                    scope.formData.educationId = data.education.id;
-                }
-                if(data.occupation){
-                    scope.occupationOption = data.occupation;
-                    scope.formData.occupationDetailsId = scope.occupationOption.id;
-                }
+                resourceFactory.familyDetails.get({
+                    clientId: scope.clientId,
+                    familyDetailId: scope.familyDetailId
+                }, function (data) {
+                    //console.log(JSON.stringify(data));
+                    scope.formData = {};
+                    scope.formData.firstname = data.firstname;
+                    scope.formData.middlename = data.middlename;
+                    scope.formData.lastname = data.lastname;
+                    scope.formData.dateOfBirth = dateFilter(new Date(data.dateOfBirth), scope.df);
+                    scope.formData.age = data.age;
+                    scope.formData.isDependent = data.isDependent;
+                    scope.formData.isSeriousIllness = data.isSeriousIllness;
+                    scope.formData.isDeceased = data.isDeceased;
+                    if(data.salutation){
+                        scope.formData.salutationId = data.salutation.id;
+                    }
+                    if(data.relationship){
+                        scope.formData.relationshipId = data.relationship.id;
+                    }
+                    if(data.gender){
+                        scope.formData.genderId = data.gender.id;
+                    }
+                    if(data.education){
+                        scope.formData.educationId = data.education.id;
+                    }
+                    if(data.occupation){
+                        scope.occupationOption = data.occupation;
+                        scope.formData.occupationDetailsId = scope.occupationOption.id;
+                    }
+                });
             });
 
             scope.submit = function () {

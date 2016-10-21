@@ -63,7 +63,7 @@
 
             scope.onSave = function () {
                 // this.formData.locale = "en";
-                console.log(JSON.stringify(scope.formData));
+                //console.log(JSON.stringify(scope.formData));
                 resourceFactory.loanProductEligibility.update({loanProductId: scope.formData.loanProductId},
                     this.formData, function (response) {
                     location.path('/loanproduct/listeligibility')

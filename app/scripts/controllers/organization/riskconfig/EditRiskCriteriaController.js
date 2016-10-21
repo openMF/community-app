@@ -45,7 +45,7 @@
 
             scope.onSave = function () {
                 // this.formData.locale = "en";
-                // console.log(JSON.stringify(this.ruleData));
+                //console.log(JSON.stringify((this.ruleData));
                 resourceFactory.riskCriteria.update({criteriaId:routeParams.id},
                     this.ruleData, function (response) {
                     location.path('/risk/criteria')

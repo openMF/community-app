@@ -45,7 +45,7 @@
 
             scope.onSave = function () {
                 // this.formData.locale = "en";
-                // console.log(JSON.stringify(this.ruleData));
+                //console.log(JSON.stringify((this.ruleData));
                 resourceFactory.riskDimension.update({dimensionId:routeParams.id},
                     this.ruleData, function (response) {
                     location.path('/risk/dimension')
