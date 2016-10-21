@@ -51,6 +51,30 @@
                 <td>{{ 'label.heading.amount' | translate}}</td>
                 <td>{{transaction.amount | number}}</td>
             </tr>
+            <tr>
+                <td>{{ 'label.heading.createddate' | translate}}</td>
+                <td>{{transaction.createdDate | DateFormat}}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.heading.createdby' | translate}}</td>
+                <td>{{transaction.createdBy.firstname}}&nbsp;{{transaction.createdBy.lastname}}</td>
+            </tr>
+            <tr ng-show="transaction.manuallyReversed">
+                <td>{{ 'label.heading.reverseddate' | translate}}</td>
+                <td>{{transaction.updatedDate | DateFormat}}</td>
+            </tr>
+            <tr ng-show="transaction.manuallyReversed">
+                <td>{{ 'label.heading.reversedby' | translate}}</td>
+                <td>{{transaction.updatedBy.firstname}}&nbsp;{{transaction.updatedBy.lastname}}</td>
+            </tr>
+            <tr ng-show="!transaction.manuallyReversed">
+                <td>{{ 'label.heading.updateddate' | translate}}</td>
+                <td>{{transaction.updatedDate | DateFormat}}</td>
+            </tr>
+            <tr ng-show="!transaction.manuallyReversed">
+                <td>{{ 'label.heading.updatedby' | translate}}</td>
+                <td>{{transaction.updatedBy.firstname}}&nbsp;{{transaction.updatedBy.lastname}}</td>
+            </tr>
             <tr class="span2"></tr>
         </table>
         <table width="100%" ng-show="transaction.paymentDetailData">
