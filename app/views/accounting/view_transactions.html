@@ -123,6 +123,9 @@
         </div>
     </script>
     <div class="well">
+        <div class="text-right form-group">
+            <span><a id="run" ng-click="runReport()" class="btn btn-primary icon-print"></i>&nbsp;&nbsp;{{ 'label.button.print' | translate }}</a></span>
+        </div>
         <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
         <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
     	<div class="row">
@@ -187,6 +190,9 @@
                 <a href="#/viewloanaccount/{{loanId}}"
                   class="btn btn-primary center"><i
                     class="icon-white"></i>{{'label.button.back' | translate}}</a></div>
+            <div data-ng-hide="hidePentahoReport" class="row alert-block span tab-content">
+                <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
+            </div>
     	</div>
     </div>
 </form>
