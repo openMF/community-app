@@ -143,7 +143,8 @@
                     minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType: scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentTypeDefaultValue.id,
                     canDefineInstallmentAmount: scope.product.canDefineInstallmentAmount,
                     loanTenureFrequencyType : scope.loanTenureFrequencyType,
-                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount
+                    canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
+                    weeksInYearType : scope.product.weeksInYearType.id
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
