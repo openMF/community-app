@@ -1,0 +1,95 @@
+<div class="col-md-12" ng-controller="ViewSurveyController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li>{{'label.anchor.admin' | translate}}</li>
+            <li><a href="#/system">{{'system' | translate}}</a></li>
+            <li><a href="#/admin/system/surveys">{{'label.anchor.surveys' | translate}}</a></li>
+            <li class="active">{{formData.name}}</li>
+        </ul>
+    </div>
+    <div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/admin/system/surveys/edit/{{formData.id}}" class="btn btn-primary"><i
+                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+            </div>
+        </div>
+        <legend>{{formData.name}}</legend>
+        <table width="100%">
+            <tr>
+                <td>
+                    <a id="test" class="old-syle-anchor">&nbsp;</a>
+                </td>
+            </tr>
+            <tr class="bottomborder">
+                <td colspan="4">
+                    <strong>{{'label.heading.details' | translate}}</strong>
+                </td>
+            </tr>
+            <tr class="toppadding" ng-show="formData.key && formData.key != null">
+                <td>Survey Key :</td>
+                <td colspan="3">{{formData.key}}</td>
+            </tr>
+            <tr ng-show="formData.entityTypeValue && formData.entityTypeValue != null">
+                <td>Applicable to :</td>
+                <td colspan="3">{{formData.entityTypeValue}}</td>
+            </tr>
+            <tr ng-show="formData.description && formData.description != null">
+                <td>Description :</td>
+                <td colspan="3">{{formData.description}}</td>
+            </tr>
+            <tr ng-show="formData.active && formData.active != null">
+                <td>Status :</td>
+                <td colspan="3">{{formData.active == true ? 'Active' : 'In Active'}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+        </table>
+        <div ng-if="formData.componentDatas && formData.componentDatas.length > 0">
+            <div class="col-md-12 well" ng-repeat="componentData in formData.componentDatas track by $index"
+                 ng-init="componentIndex = $index">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">
+                        Component Key : {{componentData.key}}
+                    </label>
+                    <label class="control-label col-sm-6">
+                        Component Name : {{componentData.text}}
+                    </label>
+                </div>
+                <div ng-if="componentData.questionDatas.length > 0">
+                    <div class="col-md-12 well" ng-repeat="questionData in componentData.questionDatas track by $index"
+                         ng-init="questionIndex = $index">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">
+                                Question Key : {{questionData.key}}
+                            </label>
+                            <label class="control-label col-sm-6">
+                                Question Name : {{questionData.text}}
+                            </label>
+                            <legend ng-show="questionData.responseDatas && questionData.responseDatas.length > 0"></legend>
+                        </div>
+                        <div ng-if="questionData.responseDatas.length > 0">
+                            <table width="100%">
+                                <tr class="bottomborder">
+                                    <td colspan="4"><strong>Question Options</strong></td>
+                                </tr>
+                                <tr class="bottomborder graybg">
+                                    <td>Sl. No</td>
+                                    <td>Name</td>
+                                    <td>Score</td>
+                                </tr>
+                                <tr ng-repeat="responseData in questionData.responseDatas track by $index"
+                                    ng-init="responseIndex = $index">
+                                    <td>{{(responseIndex+1)}}</td>
+                                    <td>{{responseData.text}}</td>
+                                    <td>{{responseData.value}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1348,8 +1348,22 @@
             })
             .when('/viewglimrepaymentschedule/:glimId', {
                 templateUrl: 'views/loans/viewglimrepaymentschedule.html'
+            })
+            .when('/viewglimrepaymentschedule/:glimId', {
+                templateUrl: 'views/loans/viewglimrepaymentschedule.html'
+            })
+            .when('/admin/system/surveys', {
+                templateUrl: 'views/survey/surveys.html'
+            })
+            .when('/admin/system/surveys/create', {
+                templateUrl: 'views/survey/createsurvey.html'
+            })
+            .when('/admin/system/surveys/edit/:surveyId', {
+                templateUrl: 'views/survey/editsurvey.html'
+            })
+            .when('/admin/system/surveys/view/:surveyId', {
+                templateUrl: 'views/survey/viewsurvey.html'
             });
-        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -93,9 +93,13 @@
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
                         get: {method: 'GET', params: {}}
                     }),
-
-                    surveyResource: defineResource(apiVer + "/surveys", {}, {
-                        get: {method: 'GET', params: {}, isArray: true}
+                    surveyTemplateResource: defineResource(apiVer + "/surveys/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
+                        get: {method: 'GET', params: {}, isArray: true},
+                        getBySurveyId: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}}
                     }),
                     surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
                         post: {method: 'POST', params: {}, isArray: false}                       
@@ -894,10 +898,11 @@
                         getForLoanAppId: {method: 'GET', params: {}},
                         redoForLoanAppId: {method: 'POST', params: {}}
                     }),
-                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId:'@surveyId'}, {
+                    /*surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId:'@surveyId'}, {
                         get: {method: 'GET', params: {}, isArray: true},
+                        getBySurveyId: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
-                    }),
+                    }),*/
                     surveyResourceScore: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId:'@surveyId'}, {
                         save: {method: 'POST', param: {}}
                     }),
