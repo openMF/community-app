@@ -96,6 +96,7 @@
                 scope.product.interestRecalculationNthDayTypeOptions.push({"code" : "onDay", "id" : -2, "value" : "on day"});
                 scope.formData.isSubsidyApplicable = false;
                 scope.formData.loanTenureFrequencyType = scope.product.repaymentFrequencyType.id;
+                scope.formData.weeksInYearType = scope.product.weeksInYearTypeOptions[0].id;
             });
 
             scope.variableName = function(minDurationType){
