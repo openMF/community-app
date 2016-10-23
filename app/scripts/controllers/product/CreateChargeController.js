@@ -11,6 +11,9 @@
             scope.translate = translate;
             scope.showFrequencyOptions = false;
             scope.showPenalty = true ;
+            scope.slabs = [];
+            scope.slab = {};
+            scope.showSlabBasedCharges = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -90,6 +93,25 @@
                 }
             }
 
+            scope.chargeCalculationType = function (chargeCalculationType) {
+                if(chargeCalculationType == 6) {
+                    scope.showSlabBasedCharges = true;
+                } else {
+                    scope.showSlabBasedCharges = false;
+                }
+            }
+
+            scope.addSlabCharge = function (slab) {
+                if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
+                    var slabCharge = {"fromLoanAmount" : slab.fromLoanAmount, "toLoanAmount" : slab.toLoanAmount, "amount": slab.amount};
+                    scope.slabs.push(slabCharge);
+                }
+            }
+
+            scope.deleteSlabCharge = function (index) {
+                scope.slabs.splice(index, 1);
+            }
+
             scope.setChoice = function () {
                 if (this.formData.active) {
                     scope.choice = 1;
@@ -118,6 +140,10 @@
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
+                }
+
+                if (scope.slabs.length > 0) {
+                    scope.formData.slabs = scope.slabs;
                 }
 
                 if( (scope.formData.chargeAppliesTo === 1 || scope.formData.chargeAppliesTo === 3 )&& scope.addfeefrequency == 'false'){

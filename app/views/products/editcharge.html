@@ -58,8 +58,53 @@
                 <div class="col-sm-3">
                     <select id="chargeCalculationType" ng-model="formData.chargeCalculationType"
                             data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions"
-                            value="{{chargecalculation.id}}" class="form-control">
+                            value="{{chargecalculation.id}}" class="form-control" ng-change="chargeCalculationType(formData.chargeCalculationType)" >
                     </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showSlabBasedCharges">
+                <label class="control-label col-sm-2">{{'label.input.slabbasedcharges' | translate}}<span
+                        class="required">*</span></label>
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input id="fromLoanAmount" type="text" ng-model="slab.fromLoanAmount" name="fromLoanAmount"
+                               placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="toLoanAmount" type="text" ng-model="slab.toLoanAmount" name="toLoanAmount"
+                               placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="chargeAmount" type="text" ng-model="slab.amount" name="chargeAmount"
+                               placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editchargeform" valattribute="chargeAmount"/>
+                    </div>
+                    <a id="addslab">
+                        <button  class="btn btn-default" ng-click="addSlabCharge(slab)">{{'label.button.addslabcharges' | translate}}</button>
+                    </a>
+                </div>
+            </div>
+            <div class="form-group center-block" ng-show="showSlabBasedCharges">
+                <div class="col-sm-12 center-block">
+                    <div class="col-sm-3">&nbsp;</div>
+                    <div class="col-sm-9">
+                        <table class="table center-block">
+                            <tr class="graybg">
+                                <th>{{'label.heading.fromloanamount' | translate}}</th>
+                                <th>{{'label.heading.toloanamount' | translate}}</th>
+                                <th>{{'label.heading.chargeamount' | translate}}</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="slab in formData.slabs">
+                                <td>{{slab.fromLoanAmount}}</td>
+                                <td>{{slab.toLoanAmount}}</td>
+                                <td>{{slab.amount}}</td>
+                                <td><a ng-click="deleteSlabCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="form-group" ng-hide="showdatefield || flag">
@@ -126,13 +171,13 @@
                     <form-validate valattributeform="editchargeform" valattribute="feeInterval"/>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="!showSlabBasedCharges">
                 <label class="control-label col-sm-2" for="amount">{{'label.input.amount' | translate}}<span
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="amount" type="text" id="amount" ng-model="formData.amount" class="form-control" number-format required late-Validate/>
-                    <form-validate valattributeform="editchargeform" valattribute="amount"/>
+                    <input name="amount" type="text" id="amount" ng-model="formData.amount" class="form-control" number-format ng-required="!showSlabBasedCharges"/>
+                    <span class="error" ng-show="issubmitted && editchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                 </div>
             </div>
             <div class="form-group">
@@ -150,6 +195,15 @@
                 <div class="col-sm-3">
                     <label class="checkbox">
                         <input id="ispenalty" type="checkbox" ng-model="formData.penalty">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showSlabBasedCharges">
+                <label class="control-label col-sm-2" for="iscapitalized">{{'label.input.iscapitalize' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="iscapitalized" type="checkbox" ng-model="formData.isCapitalized">
                     </label>
                 </div>
             </div>

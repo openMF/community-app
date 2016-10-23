@@ -78,6 +78,13 @@
                                             var charge = scope.productLoanCharges[i].chargeData;
                                             charge.chargeId = charge.id;
                                             charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                            if(charge.chargeCalculationType.id == 6 && charge.slabs.length > 0){
+                                                for(var i in charge.slabs) {
+                                                    if(scope.formData.principal >= charge.slabs[i].fromLoanAmount && scope.formData.principal <= charge.slabs[i].toLoanAmount) {
+                                                        charge.amount = charge.slabs[i].amount;
+                                                    }
+                                                }
+                                            }
                                             scope.charges.push(charge);
                                        // }
                                         break;
@@ -191,10 +198,17 @@
                                 }
                             }
                         }
-                        if(scope.isGLIM && scope.formData.clientMembers){
+                        if(scope.isGLIM && scope.formData.clientMembers) {
                             var clientMembers = scope.formData.clientMembers || [];
                             data.glims = [];
-                            angular.copy(clientMembers,data.glims);
+                            angular.copy(clientMembers, data.glims);
+                        }
+                        if(data.chargeCalculationType.id == 6 && data.slabs.length > 0){
+                            for(var i in data.slabs) {
+                                if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
+                                    data.amount = data.slabs[i].amount;
+                                }
+                            }
                         }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
