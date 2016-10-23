@@ -74,7 +74,7 @@
                 //when chargeAppliesTo is savings, below logic is
                 //to display 'Due date' field, if chargeTimeType is
                 // 'annual fee' or 'monthly fee'
-                if (scope.formData.chargeAppliesTo === 2) {
+                if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     if (data.chargeTimeType.value === "Annual Fee" || data.chargeTimeType.value === "Monthly Fee") {
                         scope.showdatefield = true;
                         if (data.feeOnMonthDay) {
@@ -109,7 +109,7 @@
 		{
 			scope.showFrequencyOptions = true;
 		}
-                if (scope.formData.chargeAppliesTo === 2) {
+                if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     for (var i in scope.template.chargeTimeTypeOptions) {
                         if (chargeTimeType === scope.template.chargeTimeTypeOptions[i].id) {
                             if (scope.template.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.template.chargeTimeTypeOptions[i].value == "Monthly Fee") {
@@ -128,7 +128,7 @@
                 }
             }
             scope.submit = function () {
-                if (scope.formData.chargeAppliesTo === 2) {
+                if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     if (scope.showdatefield === true) {
                         var reqDate = dateFilter(scope.first.date, 'dd MMMM');
                         this.formData.monthDayFormat = 'dd MMM';
