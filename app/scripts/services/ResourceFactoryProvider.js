@@ -723,13 +723,18 @@
                     }),
                     bankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getAllBankStatement: {method: 'GET', params: {}, isArray: true},
-                        deleteBankStatement: {method: 'DELETE', params: {bankStatementId : '@bankStatementId'}},
                         update: {method: 'PUT', params: {bankStatementId : '@bankStatementId'}},
                         getBankStatement: {method: 'GET', params: {bankStatementId : '@bankStatementId'}},
                         reconcileBankStatement: {method: 'POST', params: {command : 'reconcile'}}
                     }),
+                    deleteBankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/delete", {bankStatementId: '@bankStatementId',command:'@command'}, {
+                        deleteBankStatement: {method: 'POST', params: {bankStatementId : '@bankStatementId'},command:'command'}
+                    }),
                     bankStatementSummaryResource: defineResource(apiVer + "/bankstatements/:bankStatementId/summary", {bankStatementId: '@bankStatementId'}, {
                         get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    bankStatementGeneratePortfolioResource: defineResource(apiVer + "/bankstatements/:bankStatementId/generatetransactions", {bankStatementId: '@bankStatementId'}, {
+                        createPortfolioTransactions: {method: 'POST', params: {bankStatementId : '@bankStatementId'}}
                     }),
                     bankStatementDetailsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/details", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getBankStatementDetails: {method: 'GET', params: {bankStatementId: '@bankStatementId'}, isArray : true},

@@ -1043,6 +1043,9 @@
             .when('/bankstatement/:bankStatementId/summary', {
                 templateUrl: '../views/bankstatements/viewbankstatementsummary.html'
             })
+            .when('/bankstatementsdetails/:bankStatementId/generateportfoliotransactions', {
+                templateUrl: 'views/bankstatements/viewgenerateportfoliotransactions.html'
+            })
             .when('/uploadbankstatements', {
                 templateUrl: 'views/bankstatements/uploadbankstatement.html'
             })
