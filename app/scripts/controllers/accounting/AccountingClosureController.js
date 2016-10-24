@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope) {
+        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope, paginatorService) {
             scope.first = {};
             scope.formData = {};
             scope.first.date = new Date();
@@ -8,14 +8,17 @@
             scope.restrictDate = new Date();
             scope.isTreeView = false;
             var idToNodeMap = {};
-            scope.showclosure = false;
+            scope.showclosure = true;
             scope.getFetchData = true;
-
+            scope.tempOfficeId = 1;
             var params = {}
+            scope.showClosure = false;
+            scope.accountClosurePerPage = 10;
+            scope.limitToOne = false;
+
             if (routeParams.officeId != undefined) {
                 params.officeId = routeParams.officeId;
             }
-
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 for (var i in data) {
@@ -58,8 +61,10 @@
                 });
             }
 
+
+
             scope.updateLastClosed = function (officeId) {
-                resourceFactory.accountingClosureResource.get({officeId: officeId}, function (data) {
+                resourceFactory.accountingClosureResource.get({officeId: officeId, limitToOne: false}, function (data) {
                     scope.accountClosures = data;
                     scope.lastClosed = undefined;
                     if (data.length > 0) {
@@ -67,25 +72,38 @@
                     }
                 });
             }
-            scope.closedAccountingDetails = function (officeId) {
-                resourceFactory.accountingClosureResource.get({officeId: officeId}, function (data) {
-                    scope.accountClosures = data;
-                });
-            }
-            scope.fetchData = function (officeId) {
-                resourceFactory.accountingClosureResource.get({officeId: officeId}, function (data) {
-                    scope.accountClosures = data;
-                    if(scope.accountClosures.length > 0){
-                        scope.showclosure = true;
-                    } else {
-                        scope.showclosure = false;
-                    }
-                });
+
+            scope.fetchFunction = function (offset, limit, callback) {
+                var params = {};
+                params.offset = offset;
+                params.limit = limit;
+                params.paged ='true';
+                params.orderBy = 'name';
+                params.officeId = scope.tempOfficeId;
+                params.limitToOne = scope.limitToOne;
+                params.sortOrder = 'ASC';
+                resourceFactory.accountingClosureResource.getView(params, callback);
             }
 
+
+            scope.closedAccountingDetails = function (officeId, limitToOne) {
+                scope.tempOfficeId = officeId;
+                scope.limitToOne = limitToOne;
+                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
+            }
+            scope.fetchData = function (officeId) {
+                scope.tempOfficeId = officeId;
+                scope.limitToOne = false;
+                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
+                if( scope.accountClosures) {
+                    scope.showClosure = true;
+                }else{
+                        scope.showClosure = false;
+                }
+                }
         }
     });
-    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter','$rootScope', mifosX.controllers.AccountingClosureController]).run(function ($log) {
+    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', '$rootScope', 'PaginatorService', mifosX.controllers.AccountingClosureController]).run(function ($log) {
         $log.info("AccountingClosureController initialized");
     });
 }(mifosX.controllers || {}));
