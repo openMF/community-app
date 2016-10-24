@@ -4,6 +4,7 @@
 
             scope.previewRepayment = false;
             scope.formData = {};
+            scope.temp = {};
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.collaterals = [];
@@ -249,7 +250,7 @@
                 scope.formData.loanIdToClose = scope.loanaccountinfo.closureLoanId;
 
                 if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
-                    scope.syncRepaymentsWithMeeting = true;
+                    scope.temp.syncRepaymentsWithMeeting = true;
                 }
 
                 if(scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting){
@@ -320,14 +321,14 @@
 
 
             scope.syncRepaymentsWithMeetingchange = function () {
-                if (!scope.syncRepaymentsWithMeeting) {
+                if (!scope.temp.syncRepaymentsWithMeeting) {
                     scope.formData.syncDisbursementWithMeeting = false;
                 }
             };
 
             scope.syncDisbursementWithMeetingchange = function () {
                 if (scope.formData.syncDisbursementWithMeeting) {
-                    scope.syncRepaymentsWithMeeting = true;
+                    scope.temp.syncRepaymentsWithMeeting = true;
                 }
             };
 
@@ -374,7 +375,7 @@
                     
                 }
 
-                if (this.syncRepaymentsWithMeeting) {
+                if (scope.temp.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
                 this.formData.locale = scope.optlang.code;
@@ -422,7 +423,7 @@
                     ;
                 }
 
-                if (this.syncRepaymentsWithMeeting) {
+                if (scope.temp.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
                 delete this.formData.interestRateFrequencyType;
