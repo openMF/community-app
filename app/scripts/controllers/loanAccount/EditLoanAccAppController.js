@@ -145,6 +145,14 @@
                         }
 
                     }
+                    if(scope.loanaccountinfo.charges[i].chargeCalculationType.id == 6) {
+                        for(var j in scope.loanaccountinfo.charges[i].slabs){
+                            if(scope.formData.principal >= scope.loanaccountinfo.charges[i].slabs[j].fromLoanAmount &&
+                                scope.formData.principal <= scope.loanaccountinfo.charges[i].slabs[j].toLoanAmount) {
+                                scope.loanaccountinfo.charges[i].amountOrPercentage = scope.loanaccountinfo.charges[i].slabs[j].amount;
+                            }
+                        }
+                    }
                 }
                 scope.charges = scope.loanaccountinfo.charges || [];
                 scope.productLoanCharges = scope.loanaccountinfo.product.charges || [];
@@ -166,6 +174,13 @@
                                     charge.id = null;
                                     charge.amountOrPercentage = charge.amount;
                                     charge.isMandatory = scope.productLoanCharges[i].isMandatory;
+                                    if(charge.slabs != undefined && charge.slabs.length > 0){
+                                        for(var i in charge.slabs) {
+                                            if(scope.formData.principal >= charge.slabs[i].fromLoanAmount && scope.formData.principal <= charge.slabs[i].toLoanAmount) {
+                                                charge.amountOrPercentage = charge.slabs[i].amount;
+                                            }
+                                        }
+                                    }
                                     scope.charges.push(charge);
                                 }
                             //}
@@ -275,7 +290,15 @@
                         if (scope.isGLIM && scope.formData.clientMembers) {
                             var clientMembers = scope.formData.clientMembers || [];
                             data.glims = [];
-                            angular.copy(clientMembers,data.glims);
+                            angular.copy(clientMembers, data.glims);
+                        }
+                        if(data.slabs != undefined && data.slabs.length > 0){
+                            for(var i in data.slabs) {
+                                if(scope.formData.principal >= data.slabs[i].fromLoanAmount && scope.formData.principal <= data.slabs[i].toLoanAmount) {
+                                    data.amountOrPercentage = data.slabs[i].amount;
+                                    data.slabs[i].isAmountReadOnly = true;
+                                }
+                            }
                         }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;

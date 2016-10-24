@@ -534,19 +534,22 @@
                     <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.heading.collectedon' | translate}}</th>
                     <th>{{'label.heading.date' | translate}}</th>
+                    <th>{{'label.heading.iscapitalized' | translate}}</th>
                     <th>{{'label.heading.actions' | translate}}</th>
                 </tr>
                 <tr ng-repeat="charge in charges">
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td><input id="{{charges[$index].amount}}" class="form-control" type="text" ng-model="charge.amount"
-                               placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="charge.chargeTimeType.id == 50"></td>
+                               placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="charge.chargeTimeType.id == 50
+                        || charge.chargeCalculationType.id == 6"></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                                is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                     </td>
+                    <td>{{charge.isCapitalized}}</td>
                     <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>
             </table>

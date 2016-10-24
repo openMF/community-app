@@ -7,6 +7,9 @@
             scope.first = {};
             scope.flag = false;
 	        scope.showPenalty = true ;
+            scope.slabs = [];
+            scope.slab = {};
+            scope.showSlabBasedCharges = false;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -53,9 +56,16 @@
                     maxCap: data.maxCap,
                     emiRoundingGoalSeek: data.emiRoundingGoalSeek,
                     isGlimCharge: data.isGlimCharge,
-                    glimChargeCalculation: data.glimChargeCalculation.id
-
+                    glimChargeCalculation: data.glimChargeCalculation.id,
+                    slabs: data.slabs,
+                    isCapitalized: data.isCapitalized
                 };
+
+                if(data.chargeCalculationType.id == 6) {
+                    scope.showSlabBasedCharges = true;
+                } else {
+                    scope.showSlabBasedCharges = false;
+                }
 
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
@@ -127,6 +137,31 @@
                     }
                 }
             }
+
+            scope.chargeCalculationType = function (chargeCalculationType) {
+                if(chargeCalculationType == 6) {
+                    scope.showSlabBasedCharges = true;
+                    scope.formData.amount = undefined;
+                } else {
+                    scope.showSlabBasedCharges = false;
+                    scope.formData.slabs = [];
+                }
+            }
+
+            scope.addSlabCharge = function (slab) {
+                if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
+                    var slabCharge = {"fromLoanAmount" : slab.fromLoanAmount, "toLoanAmount" : slab.toLoanAmount, "amount": slab.amount};
+                    if( scope.formData.slabs == undefined) {
+                        scope.formData.slabs = [];
+                    }
+                    scope.formData.slabs.push(slabCharge);
+                }
+            }
+
+            scope.deleteSlabCharge = function (index) {
+                scope.formData.slabs.splice(index, 1);
+            }
+
             scope.submit = function () {
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (scope.showdatefield === true) {

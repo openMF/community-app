@@ -95,8 +95,26 @@
 					<tr ng-show="charge.emiRoundingGoalSeek == true">
 						<td>{{'label.input.glimchargecalculationtype' | translate}}</td>
 						<td>{{charge.glimChargeCalculation.value}}</td>
+					<tr>
+						<td>{{'label.input.iscapitalize' | translate}}</td>
+						<td>{{charge.isCapitalized}}</td>
 					</tr>
 	            </table>
+				<div class="form-group" ng-show="charge.slabs.length>0">
+					<label>{{'label.heading.slabbasedcharges' | translate}}</label><br>
+					<table class="table">
+						<tr class="graybg">
+							<th>{{'label.heading.fromloanamount' | translate}}</th>
+							<th>{{'label.heading.toloanamount' | translate}}</th>
+							<th>{{'label.heading.chargeamount' | translate}}</th>
+						</tr>
+						<tr ng-repeat="slab in charge.slabs">
+							<td>{{slab.fromLoanAmount}}</td>
+							<td>{{slab.toLoanAmount}}</td>
+							<td>{{slab.amount}}</td>
+						</tr>
+					</table>
+				</div>
 	    	</div>
         </div>
     </div>
