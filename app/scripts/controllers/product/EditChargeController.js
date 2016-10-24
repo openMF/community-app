@@ -195,6 +195,11 @@
                 if(this.formData.maxCap == undefined) {
                     this.formData.maxCap = null;
                 }
+                if(scope.formData.chargeCalculationType == 6){
+                    this.formData.amount = null;
+                }else {
+                    this.formData.isCapitalized = false;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;
                 this.formData.penalty = this.formData.penalty || false;
