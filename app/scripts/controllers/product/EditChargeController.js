@@ -23,11 +23,19 @@
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
                     scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
+                    scope.showIsGlimCharge = true;
+                    scope.showEmiRoundingGoalSeek = true;
+                    scope.showMinimunCapping = true;
+                    scope.showMaximumCapping = true;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
+                    scope.showIsGlimCharge = false;
+                    scope.showEmiRoundingGoalSeek = false;
+                    scope.showMinimunCapping = false;
+                    scope.showMaximumCapping = false;
                 }else if(data.chargeAppliesTo.value === 'Shares') {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
@@ -35,12 +43,20 @@
                     scope.addfeefrequency = false;
                     scope.showGLAccount = false;
                     scope.showPenalty = false ;
+                    scope.showIsGlimCharge = false;
+                    scope.showEmiRoundingGoalSeek = false;
+                    scope.showMinimunCapping = false;
+                    scope.showMaximumCapping = false;
                 }else {
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.showIsGlimCharge = false;
+                    scope.showEmiRoundingGoalSeek = false;
+                    scope.showMinimunCapping = false;
+                    scope.showMaximumCapping = false;
                 }
 
                 scope.formData = {

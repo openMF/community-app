@@ -88,19 +88,18 @@
                     <div class="form-group">
                         <div class="col-sm-2">
                             <input id="fromLoanAmount" type="text" ng-model="slab.fromLoanAmount" name="fromLoanAmount"
-                                   placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control" required late-Validate/>
+                                   placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
                         </div>
                         <div class="col-sm-2">
                             <input id="toLoanAmount" type="text" ng-model="slab.toLoanAmount" name="toLoanAmount"
-                                   placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control" required late-Validate/>
+                                   placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
                         </div>
                         <div class="col-sm-2">
                             <input id="chargeAmount" type="text" ng-model="slab.amount" name="amount"
-                                   placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control" required late-Validate/>
+                                   placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
+                            <span class="error" ng-show="issubmitted && createchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                         </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="createchargeform" valattribute="amount"/>
-                        </div>
+
                         <a id="addslab">
                             <button  class="btn btn-default" ng-click="addSlabCharge(slab)">{{'label.button.addslabcharges' | translate}}</button>
                         </a>
@@ -260,21 +259,21 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-show="showMinimunCapping">
                     <label class="control-label col-sm-2" for="minCap">{{'label.input.minCap' | translate}}</label>
 
                     <div class="col-sm-3">
                         <input id="minCap" name="minCap" type="text" ng-model="formData.minCap" class="form-control" number-format/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-show="showMaximumCapping">
                     <label class="control-label col-sm-2" for="maxCap">{{'label.input.maxCap' | translate}}</label>
 
                     <div class="col-sm-3">
                         <input id="maxCap" name="maxCap" type="text" ng-model="formData.maxCap" class="form-control" number-format/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-show="showEmiRoundingGoalSeek">
                     <label class="control-label col-sm-2" for="emiRoundingGoalSeek">{{'label.input.applygoalseektoroundemi' | translate}}</label>
                     <div class="col-sm-3">
                         <label class="checkbox">
@@ -296,7 +295,7 @@
                         <form-validate valattributeform="createchargeform" valattribute="glimChargeCalculation"/>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-show="showIsGlimCharge">
                     <label class="control-label col-sm-2" for="isGlimCharge">{{'label.heading.glimcharge' | translate}}</label>
                     <div class="col-sm-3">
                         <label class="checkbox">
