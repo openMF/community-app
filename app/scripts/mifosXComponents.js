@@ -418,7 +418,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'survey/SurveysController',
             'survey/CreateSurveyController',
             'survey/EditSurveyController',
-            'survey/ViewSurveyController'
+            'survey/ViewSurveyController',
+            'bankstatements/ViewGeneratePortfolioTransactionsController'
         ],
         filters: [
             'StatusLookup',

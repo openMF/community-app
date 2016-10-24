@@ -21,7 +21,10 @@
             scope.getBankStatement();
 
             scope.deleteBankStatement = function(bankStatementId){
-                resourceFactory.bankStatementsResource.deleteBankStatement({bankStatementId : bankStatementId}, function (data) {
+                scope.formData = {};
+                scope.formData.locale = scope.optlang.code;
+                scope.formData.dateFormat = scope.df;
+                resourceFactory.deleteBankStatementsResource.deleteBankStatement({bankStatementId : bankStatementId},scope.formData, function (data) {
                     scope.getBankStatement();
                 });
             };

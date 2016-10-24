@@ -1,0 +1,40 @@
+<div name="createjournalentryform" novalidate="" class="row form-horizontal" ng-controller="ViewGeneratePortfolioTransactionsController"
+     rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
+            <li class="active">{{'label.anchor.generateportfoliotransactions' | translate}}</li>
+        </ul>
+    </div>
+    <div class="form-horizontal ">
+        <api-validate></api-validate>
+        <div>
+            <table class="table well">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.transactionid' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.loanaccountnumber' | translate}}</th>
+                    <th>{{'label.heading.description' | translate}}</th>
+                    <th>{{'label.heading.transactiontype' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bankStatementDetail in bankStatementDetails" ng-class="($index%2!=0)?'graybg':''">
+                    <td ng-show="bankStatementDetail.transactionId != undefined" ng-click="routeTo(bankStatementDetail)"><a>{{bankStatementDetail.transactionId}}</a></td>
+                    <td ng-show="bankStatementDetail.transactionId == undefined">{{bankStatementDetail.transactionId}}</td>
+                    <td>{{bankStatementDetail.transactionDate}}</td>
+                    <td>{{bankStatementDetail.amount}}</td>
+                    <td>{{bankStatementDetail.loanAccountNumber}}</td>
+                    <td>{{bankStatementDetail.description}}</td>
+                    <td>{{bankStatementDetail.transactionType}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-offset-5">
+            <button ng-show="isTransactionsCreated" class="btn btn-primary" ng-click="submit()"><i class="icon-white"></i> {{'label.button.generateportfoliotransactions' | translate}}</button>
+        </div>
+    </div>
+</div>
