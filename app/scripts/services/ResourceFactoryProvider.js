@@ -104,7 +104,10 @@
                     surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
                         post: {method: 'POST', params: {}, isArray: false}                       
                     }),
-
+                    takeSurveysResource: defineResource(apiVer + "/:entityType/:entityId/takesurveys", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        post: {method: 'POST', params: {}}
+                    }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},

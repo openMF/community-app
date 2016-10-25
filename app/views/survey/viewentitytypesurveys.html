@@ -1,0 +1,36 @@
+<div class="col-md-12" ng-controller="ViewEntityTypeSurveys">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/{{entityTypeUrl}}">{{entityTypeName | translate}}</a></li>
+            <li><a href="#/{{backUrl}}">{{entityDisplayName | translate}}</a></li>
+            <li class="active">{{'label.anchor.surveys' | translate}}</li>
+        </ul>
+    </div>
+    <div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/{{entityType}}/{{entityId}}/takesurvey" class="btn btn-primary"><i
+                        class="icon-plus-sign icon-white"></i>{{'label.button.take.survey' | translate}}</a>
+            </div>
+        </div>
+
+        <table class="table" ng-show="surveys && surveys.length > 0">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.survey.name' | translate}}</th>
+                <th>{{'label.survey.taken.date' | translate}}</th>
+                <th>{{'label.survey.taken.doneby' | translate}}</th>
+                <th>{{'label.survey.taken.score' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="survey in surveys">
+                <td>{{survey.surveyName}}</td>
+                <td>{{survey.surveyedOn}}</td>
+                <td>{{survey.surveyedByName}}</td>
+                <td>{{survey.totalScore}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

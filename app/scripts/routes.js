@@ -1366,6 +1366,12 @@
             })
             .when('/admin/system/surveys/view/:surveyId', {
                 templateUrl: 'views/survey/viewsurvey.html'
+            })
+            .when('/:entityType/:entityId/surveys', {
+                templateUrl: 'views/survey/viewentitytypesurveys.html'
+            })
+            .when('/:entityType/:entityId/takesurvey', {
+                templateUrl: 'views/survey/takesurvey.html'
             });
         $locationProvider.html5Mode(false);
     };

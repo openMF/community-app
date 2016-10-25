@@ -1,0 +1,78 @@
+<div class="col-md-12" ng-controller="TakeNewSurveyController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/{{entityTypeUrl}}">{{entityTypeName | translate}}</a></li>
+            <li><a href="#/{{backUrl}}">{{entityDisplayName | translate}}</a></li>
+            <li ng-show="false"><a href="#/{{surveysUrl}}">{{'label.anchor.surveys' | translate}}</a></li>
+            <li class="active">{{'label.button.take.new.survey' | translate}}</li>
+        </ul>
+    </div>
+    <form name="takesurveyform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.menu.select.survey' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="surveyId" name="surveyId" ng-model="surveyId" class="form-control"
+                            ng-options="survey.id as survey.name for survey in surveys" value="{{survey.id}}" required
+                            late-validate="" ng-change="getSurveyDetails(surveyId)">
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="takesurveyform" valattribute="surveyId"/>
+                </div>
+
+                <label class="control-label col-sm-2">{{'label.survey.done.on' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <input id="surveyedOn" type="text" name="surveyedOn" datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.surveyedOn" is-open="opened1" class="form-control" required/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="takesurveyform" valattribute="surveyedOn"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.survey.done.by' | translate}}<span class="required">*</span></label>
+                <div class="col-sm-2">
+                    <select id="surveyedBy" name="surveyedBy" ng-model="formData.surveyedBy" class="form-control"
+                            ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                            value="{{loanOfficer.id}}" required late-validate="">
+                        <option value="">{{'label.selectloanofficer' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="takesurveyform" valattribute="surveyedBy"/>
+                </div>
+            </div>
+
+            <div ng-if="questionDatas && questionDatas.length > 0">
+                <legend></legend>
+                <div ng-repeat="questionData in questionDatas track by $index" ng-init="questionIndex = $index">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.survey.question' |translate}}&nbsp;:&nbsp;</label>
+                        <div class="col-sm-10">{{questionData.text}} ?</div>
+                    </div>
+                    <div ng-if="questionData.responseDatas && questionData.responseDatas.length > 0">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{'label.survey.answers' |translate}}&nbsp;:&nbsp;</label>
+                            <div class="col-sm-10">
+                                <div ng-repeat="responseData in questionData.responseDatas track by $index" ng-init="responseIndex = $index">
+                                    <input type="radio" name="response{{questionIndex}}" value="{{responseData.id}}" ng-model="responseData.responseId">
+                                        {{responseData.text}}<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <legend></legend>
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/{{backUrl}}" class="btn btn-default">{{ 'label.button.cancel' |
+                    translate }}</a>
+                <button id="save" ng-show="isValidEntityType" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
