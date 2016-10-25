@@ -210,6 +210,10 @@
                 scope.sumSavingWithdrawByCurrency();
             };
 
+            scope.reset = function () {
+                scope.totalDueCollection = [];
+            }
+
             scope.sumLoansDueByCurrency = function () {
                 _.each(scope.loansTotal, function (loan) {
                     var existing = _.findWhere(scope.totalDueCollection, {currencyCode: loan.currencyCode});
