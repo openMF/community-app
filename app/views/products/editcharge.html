@@ -68,17 +68,16 @@
                 <div class="form-group">
                     <div class="col-sm-2">
                         <input id="fromLoanAmount" type="text" ng-model="slab.fromLoanAmount" name="fromLoanAmount"
-                               placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
+                               placeholder="{{'label.input.fromloanamount' | translate}}" number-format class="form-control"/>
                     </div>
                     <div class="col-sm-2">
                         <input id="toLoanAmount" type="text" ng-model="slab.toLoanAmount" name="toLoanAmount"
-                               placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
+                               placeholder="{{'label.input.toloanamount' | translate}}" number-format class="form-control"/>
                     </div>
                     <div class="col-sm-2">
                         <input id="chargeAmount" type="text" ng-model="slab.amount" name="chargeAmount"
-                               placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control" ng-required="showSlabBasedCharges"/>
+                               placeholder="{{'label.input.chargeamount' | translate}}" number-format class="form-control"/>
                     </div>
-                    <span class="error" ng-show="issubmitted && editchargeform.amount.$error.required">{{'label.error.required'|translate}}</span>
                     <a id="addslab">
                         <button  class="btn btn-default" ng-click="addSlabCharge(slab)">{{'label.button.addslabcharges' | translate}}</button>
                     </a>
@@ -95,7 +94,7 @@
                                 <th>{{'label.heading.chargeamount' | translate}}</th>
                                 <th></th>
                             </tr>
-                            <tr ng-repeat="slab in formData.slabs">
+                            <tr ng-repeat="slab in formData.slabs | orderBy : slab.fromLoanAmount">
                                 <td>{{slab.fromLoanAmount}}</td>
                                 <td>{{slab.toLoanAmount}}</td>
                                 <td>{{slab.amount}}</td>
@@ -196,6 +195,8 @@
                     </label>
                 </div>
             </div>
+            <hr>
+            <label>{{'label.heading.advancesetting' | translate}}</label>
             <div class="form-group" ng-show="showSlabBasedCharges">
                 <label class="control-label col-sm-2" for="iscapitalized">{{'label.input.iscapitalize' | translate}}</label>
 

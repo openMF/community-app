@@ -122,6 +122,7 @@
                 if(slab.fromLoanAmount != undefined && slab.toLoanAmount != undefined && slab.amount != undefined) {
                     var slabCharge = {"fromLoanAmount" : slab.fromLoanAmount, "toLoanAmount" : slab.toLoanAmount, "amount": slab.amount};
                     scope.slabs.push(slabCharge);
+                    scope.slab = {};
                 }
             }
 
