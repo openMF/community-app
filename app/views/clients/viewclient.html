@@ -19,7 +19,7 @@
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}}
 	            </small>
 	        </h3>
-	    </div>
+  </div>
 	</div>
 	<script type="text/ng-template" id="deleteClient.html">
     <div class="modal-header silver">
@@ -609,6 +609,142 @@
 				    </div>
 				</div>
 			</div>
+		</tab>
+		<tab ng-show="enableAddress" heading="{{'label.heading.address' | translate}}" >
+			<!--<fieldset>-->
+				<!-- <div ng-controller="AddressController">-->
+				<div ng-show="enableAddress">
+					<button class="btn btn-primary pull-right" ng-click="routeTo()"><i class="icon-plus icon-white"></i>{{'label.button.addAddress' | translate}}</button>
+					<br>
+
+					<table class="table" ng-repeat="address in addresses"  class="table table-condensed">
+						<thead>
+						<tr class="graybg">
+							<th class="graybg"> {{address.addressType}}</th>
+							<td>
+								<button ng-click="ChangeAddressStatus(address.client_id,address.isActive,address.addressId)" data-ng-hide="address.isActive" class="btn btn-primary">
+									{{"label.button.enable" | translate}}
+								</button>
+								<button ng-click="ChangeAddressStatus(address.client_id,address.isActive,address.addressId)"  data-ng-show="address.isActive" class="btn btn-primary">
+									{{"label.button.disable" | translate}}
+								</button>
+								<button class="btn btn-primary pull-right" ng-click="routeToEdit(address.addressTypeId,address.addressId)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+							</td>
+
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-show="view.street">
+							<th >
+								{{'label.input.street' | translate }}
+							</th>
+							<td>
+								{{address.street}}
+							</td>
+						</tr>
+						<tr ng-show="view.addressLine1">
+							<th>
+								{{'label.input.addressline1' | translate }}
+							</th>
+							<td>
+								{{address.addressLine1}}
+							</td>
+						</tr>
+						<tr ng-show="view.addressLine2">
+							<th >
+								{{'label.input.addressline2' | translate }}
+							</th>
+							<td>
+								{{address.addressLine2}}
+							</td>
+						</tr>
+						<tr ng-show="view.addressLine3">
+							<th >
+								{{'label.input.addressline3' | translate }}
+							</th>
+							<td>
+								{{address.addressLine3}}
+							</td>
+						</tr>
+						<tr ng-show="view.city">
+							<th >
+								{{ 'label.input.city' | translate }}
+							</th>
+							<td>
+								{{address.city}}
+							</td>
+						</tr>
+						<tr ng-show="view.townVillage">
+							<th >
+								{{'label.input.town_village' | translate }}
+							</th>
+							<td>
+								{{address.townVillage}}
+							</td>
+						</tr>
+						<tr ng-show="view.countyDistrict">
+							<th >
+								{{ 'label.input.county_district' | translate }}
+							</th>
+							<td>
+								{{address.countyDistrict}}
+							</td>
+						</tr>
+						<tr ng-show="view.stateProvinceId">
+							<th>
+								{{ 'label.input.state_province' | translate }}
+							</th>
+							<td>
+								{{address.stateName}}
+							</td>
+						</tr>
+						<tr ng-show="view.countryId">
+							<th >
+								{{ 'label.input.country' | translate }}
+							</th>
+							<td>
+								{{address.countryName}}
+							</td>
+						</tr>
+						<tr ng-show="view.postalCode">
+							<th >
+								{{ 'label.input.postal_code' | translate }}
+							</th>
+							<td>
+								{{address.postalCode}}
+							</td>
+						</tr>
+						<tr ng-show="view.latitude">
+							<th >
+								{{ 'label.input.latitude' | translate }}
+							</th>
+							<td>
+								{{address.latitude}}
+							</td>
+
+						</tr>
+						<tr ng-show="view.longitude">
+							<th >
+								{{ 'label.input.longitude' | translate }}
+							</th>
+							<td>
+								{{address.longitude}}
+							</td>
+						</tr>
+						<tr ng-show="view.isActive">
+							<th>
+								{{'label.input.is_active' | translate}}
+							</th>
+							<td>
+								{{address.isActive}}
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
+				</div>
+			<!--</fieldset>-->
+
 		</tab>
 		<tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
 		     has-permission='READ_CLIENTIDENTIFIER'>
