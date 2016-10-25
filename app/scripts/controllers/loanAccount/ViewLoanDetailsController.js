@@ -119,6 +119,9 @@
                     case "undolastdisbursal":
                         location.path('/loanaccount/' + accountId + '/undolastdisbursal');
                         break;
+                    case "schedulepreview":
+                        scope.previewSchedule();
+                        break;
                     case "addsubsidy":
                         location.path('/loanaccount/' + accountId + '/addsubsidy');
                         break;
@@ -365,6 +368,10 @@
                             },
                             {
                                 name: "button.loanscreenreport",
+                                taskPermissionName: 'READ_LOAN'
+                            },
+                            {
+                                name: "button.schedulepreview",
                                 taskPermissionName: 'READ_LOAN'
                             },
                             {
@@ -842,6 +849,25 @@
                     return true;
                 }
                 return false;
+            };
+
+            scope.previewSchedule = function () {
+                $modal.open({
+                    templateUrl: 'showschedule.html',
+                    controller: PreviewScheduleCtrl,
+                    windowClass: 'app-modal-window'
+                });
+            };
+
+            var PreviewScheduleCtrl = function ($scope, $modalInstance) {
+                $scope.loandetails = scope.loandetails;
+                resourceFactory.loanResource.get({loanId: routeParams.id, resourceType: 'schedulepreview'}, function (data) {
+                    $scope.repaymentscheduleinfo = data;
+                });
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
             };
 
             /***

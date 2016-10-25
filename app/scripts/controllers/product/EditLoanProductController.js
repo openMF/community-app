@@ -37,7 +37,6 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
-                scope.considerFutureDisbursmentsInSchedule = scope.product.considerFutureDisbursmentsInSchedule;
                 scope.charges = [];
                 for(var i in scope.product.charges){
                     if(scope.product.charges[i].chargeData){
@@ -496,11 +495,6 @@
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                if(isFutureDisbursementsToBeShown.checked)
-                    scope.formData.considerFutureDisbursmentsInSchedule = true;
-                else{
-                    scope.formData.considerFutureDisbursmentsInSchedule = false;
-                }
                 var temp = '';
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
