@@ -12,6 +12,80 @@
             scope.openShares = true ;
             scope.updateDefaultSavings = false;
             scope.charges = [];
+
+
+            // address
+            scope.addresses=[];
+            scope.view={};
+            scope.view.data=[];
+            var entityname="ADDRESS";
+            formdata={};
+
+
+            resourceFactory.clientTemplateResource.get(function(data)
+            {
+                scope.enableAddress=data.isAddressEnabled;
+                if(scope.enableAddress===true)
+                {
+
+                    resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
+
+
+                        for(var i=0;i<data.length;i++)
+                        {
+                            data[i].field='scope.view.'+data[i].field;
+                            eval(data[i].field+"="+data[i].is_enabled);
+
+                        }
+
+
+                    })
+
+
+                    resourceFactory.clientAddress.get({clientId:routeParams.id},function(data)
+                    {
+
+                        scope.addresses=data;
+
+
+                    })
+
+
+                }
+
+            });
+
+
+
+
+            scope.routeTo=function()
+            {
+                location.path('/address/'+ routeParams.id);
+            }
+
+            scope.ChangeAddressStatus=function(id,status,addressId)
+            {
+
+                formdata.isActive=!status
+                formdata.addressId=addressId
+                resourceFactory.clientAddress.put({clientId:id},formdata,function(data)
+                {
+                    route.reload();
+                })
+            }
+
+            scope.routeToEdit=function(clientId,addressId)
+            {
+                location.path('/editAddress/'+clientId+'/'+addressId+'/'+ routeParams.id);
+
+
+            }
+
+
+            // end of address
+            
+            
+            
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -85,7 +159,7 @@
                     }
                 }
 
-                
+
                 var clientStatus = new mifosX.models.ClientStatus();
 
                 if (clientStatus.statusKnown(data.status.value)) {
@@ -329,7 +403,7 @@
                     }
                 }
             });
-            
+
             resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
                 scope.charges = data.pageItems;
             });
@@ -625,7 +699,7 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
-            }
+            };
 
         }
     });
