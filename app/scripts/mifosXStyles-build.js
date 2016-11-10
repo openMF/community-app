@@ -8,6 +8,7 @@ define(['underscore'], function () {
             'app.css',
             'nv.d3.css',
             'style.css',
+            'angular-wizard.css',
             'chosen.min.css'
         ]
     };

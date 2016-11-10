@@ -305,6 +305,7 @@
                     scope.isCollapsed = true;
                     switch (scope.reportType) {
                         case "Table":
+                        case "SMS":
                             scope.hideTable = false;
                             scope.hidePentahoReport = true;
                             scope.hideChart = true;
