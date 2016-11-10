@@ -616,6 +616,24 @@
                         post: {method: 'POST', params:{}},
                         put: {method: 'PUT', params:{}},
                         approve: {method: 'PUT', params:{command: 'approve'}}
+                    }),
+
+                    smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        preview: {method: 'POST', params: {}},
+                        withCommand: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+
+                    smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getByStatus: {method: 'GET', params:{}}
                     })
                 };
             }];
