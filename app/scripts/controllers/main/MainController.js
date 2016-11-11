@@ -71,6 +71,7 @@
                     scope.dateformat = 'dd MMMM yyyy';
                 }
                 scope.df = scope.dateformat;
+                scope.dft = scope.dateformat + ' ' + 'HH:mm:ss'
             };
 
             scope.updateDf = function(dateFormat){
