@@ -7,7 +7,15 @@
 
 
             scope.submit = function () {
+                scope.errorDetails = [];
                 this.formData.isCashPayment = this.formData.isCashPayment || false;
+                if (typeof this.formData.position != "number"){
+                    var errorObj = new Object();
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value:"validation.msg.invalid.postion.input"});
+                    scope.errorDetails.push(errorObj);
+
+                }
                 resourceFactory.paymentTypeResource.save(this.formData, function (data) {
                     location.path('/viewpaymenttype/');
                 });
