@@ -8,6 +8,13 @@
 
             scope.submit = function () {
                 this.formData.isCashPayment = this.formData.isCashPayment || false;
+                if (isNaN(this.formData.position)){
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value:"validation.msg.invalid.position.input"});
+                    scope.errorDetails.push(errorObj);
+                }
                 resourceFactory.paymentTypeResource.save(this.formData, function (data) {
                     location.path('/viewpaymenttype/');
                 });
