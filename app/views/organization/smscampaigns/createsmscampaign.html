@@ -167,7 +167,7 @@
                                                         class="form-control"
                                                         ng-options="businessRuleOption as businessRuleOption.reportName for businessRuleOption in filteredBusinessRules"
                                                         value="{{businessRuleOption}}" ng-change="reportSelected(campaignData.report.reportName)"
-                                                        data-placeholder="{{'label.menu.businessRule' | translate}}">
+                                                        data-placeholder="{{'label.menu.businessRule' | translate}}" required="">
                                                     <option value=""></option>
                                                 </select>
                                             </div>
@@ -186,12 +186,12 @@
                                                     <span class="required">*</span></label>
 
                                                 <div class="col-sm-3">
-                                                    <select chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
-                                                            ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
-                                                            value="{{selectOption.id}}"
-                                                            class="form-control input-xlarge" ng-change="getDependencies(reportParam)">
-                                                        <option value="">--{{"label.menu.selectone" | translate}}--</option>
-                                                    </select>
+                                                        <select chosen="reportParam.selectOptions" id="{{reportParam.inputName}}" ng-model="formData[reportParam.inputName]"
+                                                                ng-options="selectOption.id as selectOption.name for selectOption in reportParam.selectOptions"
+                                                                value="{{selectOption.id}}"
+                                                                class="form-control input-xlarge" ng-change="getDependencies(reportParam)" required late-validate>
+                                                            <option value="">--{{"label.menu.selectone" | translate}}--</option>
+                                                        </select>
                                                 </div>
                                                 <form-validate valattributeform="createsmsform"
                                                                valattribute="{{reportParam.inputName}}"/>
@@ -200,7 +200,7 @@
                                                 <label class="control-label col-sm-2" for="{{reportTextParam.variable}}">{{ reportTextParam.label |
                                                     translate}} <span class="required">*</span></label>
                                                 <div class="col-sm-3">
-                                                    <input id="{{reportTextParam.inputName}}" type="text" ng-model="formData[reportTextParam.inputName]"  class="form-control"/>
+                                                    <input id="{{reportTextParam.inputName}}" type="text" ng-model="formData[reportTextParam.inputName]"  class="form-control" required=""/>
                                                 </div>
                                                 <form-validate valattributeform="createsmsform"
                                                                valattribute="{{reportParam.inputName}}"/>
@@ -212,7 +212,7 @@
                                                 <div class="col-sm-3">
                                                     <input id="{{reportDateParam.inputName}}" type="text" datepicker-pop="yyyy-MM-dd"
                                                            ng-model="formData[reportDateParam.inputName]" is-open="'opened'+$index" min="minDate"
-                                                           max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control"/>
+                                                           max="'2020-06-22'" date-disabled="disabled(date, mode)"  class="form-control" required=""/>
                                                 </div>
                                                 <form-validate valattributeform="createsmsform"
                                                                valattribute="{{reportParam.inputName}}"/>

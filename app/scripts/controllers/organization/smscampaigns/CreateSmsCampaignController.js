@@ -143,25 +143,22 @@
             };
 
             scope.getColumnHeaders = function () {
-                //scope.formData = scope.reportParams;
-                // if (scope.campaignData.triggerType.value != 'Triggered') {
+                parameterValidationErrors();
+                if (scope.errorDetails.length === 0) {
                     scope.formData.reportSource = scope.campaignData.report.reportName;
-                  //  var inQueryParameters = buildReportParms();
-                    //scope.formData = inQueryParameters;
 
-                for (var i = 0; i <  scope.reqFields.length; i++) {
-                    var tempForm = {} ;
-                    var tempParam =  scope.reqFields[i];
-                    if (tempParam.displayType == 'none') {
-                        var paramName = tempParam.variable;
-                        scope.formData[tempParam.inputName] = -1 ;
+                    for (var i = 0; i < scope.reqFields.length; i++) {
+                        var tempForm = {};
+                        var tempParam = scope.reqFields[i];
+                        if (tempParam.displayType == 'none') {
+                            var paramName = tempParam.variable;
+                            scope.formData[tempParam.inputName] = -1;
+                        }
                     }
-                }
                     resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
-                        // get column headers for the given report
                         scope.reportData.columnHeaders = data.columnHeaders;
                     });
-                // }
+                }
             };
 
             function buildPreviewParms() {
@@ -228,6 +225,80 @@
                 }*/
                 return reportParams;
             };
+
+            function parameterValidationErrors() {
+                var tmpStartDate = "";
+                var tmpEndDate = "";
+                scope.errorDetails = [];
+                for (var i in scope.reqFields) {
+                    var paramDetails = scope.reqFields[i];
+                    switch (paramDetails.displayType) {
+                        case "select":
+                            var selectedVal = scope.formData[paramDetails.inputName];
+                            if (selectedVal == undefined || selectedVal == 0) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.parameter.required';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+                            break;
+                        case "date":
+                            var tmpDate = scope.formData[paramDetails.inputName];
+                            if (tmpDate == undefined || !(tmpDate > "")) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.parameter.required';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+                            if (tmpDate && invalidDate(tmpDate) == true) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.invalid.value.for.parameter';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+
+                            if (paramDetails.variable == "startDate") tmpStartDate = tmpDate;
+                            if (paramDetails.variable == "endDate") tmpEndDate = tmpDate;
+                            break;
+                        case "text":
+                            var selectedVal = scope.formData[paramDetails.inputName];
+                            if (selectedVal == undefined || selectedVal == 0) {
+                                var fieldId = '#' + paramDetails.inputName;
+                                $(fieldId).addClass("validationerror");
+                                var errorObj = new Object();
+                                errorObj.field = paramDetails.inputName;
+                                errorObj.code = 'error.message.report.parameter.required';
+                                errorObj.args = {params: []};
+                                errorObj.args.params.push({value: paramDetails.label});
+                                scope.errorDetails.push(errorObj);
+                            }
+                            break;
+                    }
+                }
+
+                if (tmpStartDate > "" && tmpEndDate > "") {
+                    if (tmpStartDate > tmpEndDate) {
+                        var errorObj = new Object();
+                        errorObj.field = paramDetails.inputName;
+                        errorObj.code = 'error.message.report.incorrect.values.for.date.fields';
+                        errorObj.args = {params: []};
+                        errorObj.args.params.push({value: paramDetails.label});
+                        scope.errorDetails.push(errorObj);
+                    }
+                }
+            }
 
             resourceFactory.smsCampaignTemplateResource.get(function (data) {
                 scope.triggerTypeOptions = data.triggerTypeOptions ;
