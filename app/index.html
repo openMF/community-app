@@ -4,16 +4,17 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="./images/favicon.ico" ng-if="!isFaviconPath" />
     <link rel="icon" type="image/png" href="{{faviconPath}}" ng-if="isFaviconPath" />
-
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] {
         display: none !important;
     }</style>
     <link href="styles/styles.css" rel="stylesheet"/>
 </head>
-<body class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80">
-<!--Loader -->
+<body class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80"
+      data-ng-controller="MainController">
 
+
+<!--Loaders -->
 <div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
     <div id="loader" style="margin: 175px auto">
         <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto"
@@ -21,11 +22,7 @@
         <img src="./images/loader.gif" style="margin: 10px auto" class="img-responsive">
     </div>
 </div>
-<!-- for the login loading 
-     <span data-ng-hide="load" class="centerloader">
-        <img src="images/small-loader.gif" class="img-responsive">
-    </span>
--->
+
 <div data-ng-hide="!domReady" data-ng-cloak>
     <!-- Login Form  -->
     <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null">
@@ -52,6 +49,7 @@
                         <label><div data-ng-show="load" class="mdl-spinner mdl-js-spinner is-active" style="margin-right: 20px;"></div></label>
 
                         <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+
                         <div class="form-group">
                             <input type="password" data-ng-model="passwordDetails.password"
                                    placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"
@@ -124,7 +122,9 @@
 
                         </div>
                     </div>
+
                 </div>
+
 
                 <hr/>
 
@@ -177,9 +177,6 @@
                         </ul>
 
                     </div>
-
-
-                    </div>
                 </div>
 
                 <hr/>
@@ -205,15 +202,18 @@
     <!-- Navbar -->
     <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
         <div class="loading-widget-div" data-ng-show="blockUI">
+            <!-- TODO : insert loader here-->
+
              <span class="centerloader">
                 <img src="images/small-loader.gif" class="img-responsive">
             </span>
-
         </div>
+
         <div id="mifos-reskin-ui-container">
             <div id="mifos-reskin-header-nav" ng-include="'views/_topnavbar.html'"></div>
 
             <div id="mifos-reskin-body-container">
+
                 <div id="mifos-reskin-side-nav"  ng-scrollbar>
                     <div class="left-nav">
                         <ul>
@@ -332,9 +332,9 @@
 
 
         </div>
-    </div>
 
-</div>
+
+    </div>
 </div>
 <!-- Le javascript -->
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
