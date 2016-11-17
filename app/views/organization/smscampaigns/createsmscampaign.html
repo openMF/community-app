@@ -100,7 +100,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-sm-3">
                                                 <input id="scheduleDate" name="scheduleDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="campaignData.recurrenceStartDate"
-                                                       is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" ng-required="campaignData.triggerType.value === 'Scheduled'"/>
+                                                       is-open="opened" min="minDate" class="form-control" ng-required="campaignData.triggerType.value === 'Scheduled'" readonly/>
                                             </div>
                                             <div class="col-sm-3">
                                                 <form-validate valattributeform="createsmsform" valattribute="scheduleDate"/>
@@ -158,8 +158,8 @@
                                         <br/>
                                         <div class="form-group">
                                             <label class="control-label col-sm-2">{{'label.input.businessRule' |
-                                                translate}} <span class="required">*</span> </label>
-                                            <div class="col-sm-3">
+                                                translate}} <span class="required">*</span></label>
+                                            <div class="col-sm-4">
                                                 <select id="businessRule"
                                                         name="businessRule"
                                                         chosen="filteredBusinessRules"
@@ -169,7 +169,9 @@
                                                         value="{{businessRuleOption}}" ng-change="reportSelected(campaignData.report.reportName)"
                                                         data-placeholder="{{'label.menu.businessRule' | translate}}" required="">
                                                     <option value=""></option>
-                                                </select>
+                                                </select>&nbsp;
+                                                <i class="icon-question-sign" tooltip="{{campaignData.report.reportDescription}}"
+                                                   tooltip-append-to-body="true"></i>
                                             </div>
                                             <div class="col-sm-3">
                                                 <form-validate valattributeform="createsmsform" valattribute="businessRule"/>
