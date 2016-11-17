@@ -10,7 +10,8 @@
             scope.reportData.columnHeaders = [];
             scope.reportData.data = [];
             scope.submissionData = {};
-
+            scope.minDate = new Date();
+            scope.restrictDate = new Date();
             scope.offices = [];
             scope.staffs = [];
             scope.selectedObjects = {};
@@ -274,7 +275,7 @@
                             break;
                         case "text":
                             var selectedVal = scope.formData[paramDetails.inputName];
-                            if (selectedVal == undefined || selectedVal == 0) {
+                            if (selectedVal == undefined) {
                                 var fieldId = '#' + paramDetails.inputName;
                                 $(fieldId).addClass("validationerror");
                                 var errorObj = new Object();
