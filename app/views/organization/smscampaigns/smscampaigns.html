@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="smsCampaign in smsCampaigns |orderBy:'criteriaName' | filter:filterText">
+        <tr class="pointer-main" dir-paginate="smsCampaign in smsCampaigns | itemsPerPage: smsCampaignsPerPage" total-items="totalSMSCampaigns">
             <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignName}}</td>
             <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignMessage}}</td>
             <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignType.value}}</td>
@@ -29,4 +29,5 @@
         </tr>
         </tbody>
     </table>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>

@@ -4,7 +4,7 @@
             scope.tabsList = [{id: 'pending', name: 'Pending SMS', status: 100}, {id: 'waiting', name: 'Waiting for Delivery Report', status: 150}, {id: 'sent', name: 'Sent SMS', status: 200}, {id: 'delivered', name: 'Delivered SMS', status: 300}, {id: 'failed', name: 'Failed SMS', status: 400}];
             scope.smsList = [];
             scope.formData = {};
-            scope.smsPerPage = 14;
+            scope.smsPerPage = 15;
             resourceFactory.smsCampaignResource.get({campaignId: routeParams.campaignId}, function (data) {
                 scope.campaignData = data;
             });

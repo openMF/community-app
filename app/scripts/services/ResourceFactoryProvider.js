@@ -623,7 +623,7 @@
                     }),
 
                     smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
+                        getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
                         update: {method: 'PUT', params: {}},
