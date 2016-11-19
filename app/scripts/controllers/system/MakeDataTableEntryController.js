@@ -89,6 +89,16 @@
                     } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
                         + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                    } else if(scope.columnHeaders[i].columnDisplayType == "INTEGER" || scope.columnHeaders[i].columnDisplayType == "DECIMAL"){
+                        if(typeof this.formData[scope.columnHeaders[i].columnName] != "number"){
+                            scope.errorDetails = [];
+                            var errorObj = new Object();
+                            errorObj.code = "validation.msg.invalid.number.format"
+                            errorObj.args = {params: []};
+                            errorObj.args.params.push({value:this.formData[scope.columnHeaders[i].columnName]});
+                            errorObj.field = scope.columnHeaders[i].columnName
+                            scope.errorDetails.push(errorObj);
+                        }
                     }
                 }
 
