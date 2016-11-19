@@ -22,47 +22,27 @@
                     usage: data.usage.id,
                     parentId: data.parentId
                 };
-
-                //to display tag name on i/p field
-                if (data.type.value == "ASSET") {
-                    scope.tags = data.allowedAssetsTagOptions;
-                    scope.headerTypes = data.assetHeaderAccountOptions;
-                } else if (data.type.value == "LIABILITY") {
-                    scope.tags = data.allowedLiabilitiesTagOptions;
-                    scope.headerTypes = data.liabilityHeaderAccountOptions;
-                } else if (data.type.value == "EQUITY") {
-                    scope.tags = data.allowedEquityTagOptions;
-                    scope.headerTypes = data.equityHeaderAccountOptions;
-                } else if (data.type.value == "INCOME") {
-                    scope.tags = data.allowedIncomeTagOptions;
-                    scope.headerTypes = data.incomeHeaderAccountOptions;
-                } else if (data.type.value == "EXPENSE") {
-                    scope.tags = data.allowedExpensesTagOptions;
-                    scope.headerTypes = data.expenseHeaderAccountOptions;
-                }
-
-                //this function calls when change account types
-                scope.changeType = function (value) {
-                    if (value == 1) {
-                        scope.tags = data.allowedAssetsTagOptions;
-                        scope.headerTypes = data.assetHeaderAccountOptions;
-                    } else if (value == 2) {
-                        scope.tags = data.allowedLiabilitiesTagOptions;
-                        scope.headerTypes = data.liabilityHeaderAccountOptions;
-                    } else if (value == 3) {
-                        scope.tags = data.allowedEquityTagOptions;
-                        scope.headerTypes = data.equityHeaderAccountOptions;
-                    } else if (value == 4) {
-                        scope.tags = data.allowedIncomeTagOptions;
-                        scope.headerTypes = data.incomeHeaderAccountOptions;
-                    } else if (value == 5) {
-                        scope.tags = data.allowedExpensesTagOptions;
-                        scope.headerTypes = data.expenseHeaderAccountOptions;
-                    }
-
-                }
-
+                scope.changeType() ;
             });
+
+            scope.changeType = function () {
+                if (scope.formData.type == 1) {
+                    scope.types = scope.coadata.allowedAssetsTagOptions;
+                    scope.headerTypes = scope.coadata.assetHeaderAccountOptions
+                } else if (scope.formData.type == 2) {
+                    scope.types = scope.coadata.allowedLiabilitiesTagOptions;
+                    scope.headerTypes = scope.coadata.liabilityHeaderAccountOptions;
+                } else if (scope.formData.type == 3) {
+                    scope.types = scope.coadata.allowedEquityTagOptions;
+                    scope.headerTypes = scope.coadata.equityHeaderAccountOptions;
+                } else if (scope.formData.type == 4) {
+                    scope.types = scope.coadata.allowedIncomeTagOptions;
+                    scope.headerTypes = scope.coadata.incomeHeaderAccountOptions;
+                } else if (scope.formData.type == 5) {
+                    scope.types = scope.coadata.allowedExpensesTagOptions;
+                    scope.headerTypes = scope.coadata.expenseHeaderAccountOptions;
+                }
+            } ;
 
             scope.submit = function () {
                 resourceFactory.accountCoaResource.update({'glAccountId': routeParams.id}, this.formData, function (data) {

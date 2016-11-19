@@ -71,6 +71,7 @@
                     scope.dateformat = 'dd MMMM yyyy';
                 }
                 scope.df = scope.dateformat;
+                scope.dft = scope.dateformat + ' ' + 'HH:mm:ss'
             };
 
             scope.updateDf = function(dateFormat){
@@ -329,7 +330,7 @@
                 "https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67141762","https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=report&startIndex=0&where=docs",
                 "https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=accounting&startIndex=0&where=docs",  "https://mifosforge.jira.com/wiki/display/docs/Manage+Clients",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Groups","https://mifosforge.jira.com/wiki/display/docs/Manage+Centers",
-                "https://mifosforge.jira.com/wiki/display/docs/Community+App+User+Manual","https://mifosforge.jira.com/wiki/display/docs/Manage+Offices",
+                "https://mifosforge.jira.com/wiki/display/docs/User+Manual","https://mifosforge.jira.com/wiki/display/docs/Manage+Offices",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Holidays","https://mifosforge.jira.com/wiki/display/docs/Manage+Employees",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Funds","https://mifosforge.jira.com/wiki/display/docs/Bulk+Loan+Reassignment",
                 "https://mifosforge.jira.com/wiki/display/docs/Currency+Configuration","https://mifosforge.jira.com/wiki/display/docs/Standing+Instructions+History",

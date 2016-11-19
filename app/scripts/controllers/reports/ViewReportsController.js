@@ -30,6 +30,10 @@
                 }
             };
 
+            scope.filterByReportSubType = function(report) {
+                return !(report.report_subtype === 'Triggered');
+            }
+
             scope.onFilter = function () {
                 scope.searchCriteria.reports = scope.filterText;
                 scope.saveSC();

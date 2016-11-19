@@ -409,6 +409,9 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    configurationResourceByName: defineResource(apiVer + "/configurations/", {configName: '@configName'}, {
+                        get: {method: 'GET', params: {configName:'configName'}}
+                    }),
                     cacheResource: defineResource(apiVer + "/caches", {}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
@@ -524,6 +527,19 @@
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
+                    clientaddressFields:defineResource(apiVer+"/client/addresses/template",{},{
+                            get:{method:'GET',params:{}}
+                        }
+                    ),
+                    addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
+                        get:{method:'GET',params:{},isArray:true }
+                    }),
+                    clientAddress:defineResource(apiVer+"/client/:clientId/addresses",{},{
+
+                        post:{method:'POST',params:{type:'@type'}},
+                        get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
+                        put:{method:'PUT',params:{}}
+                    }),
                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},
@@ -600,6 +616,24 @@
                         post: {method: 'POST', params:{}},
                         put: {method: 'PUT', params:{}},
                         approve: {method: 'PUT', params:{command: 'approve'}}
+                    }),
+
+                    smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        preview: {method: 'POST', params: {}},
+                        withCommand: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+
+                    smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getByStatus: {method: 'GET', params:{}}
                     })
                 };
             }];

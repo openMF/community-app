@@ -17,6 +17,7 @@
                            ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group" data-ng-show="withdrawBalance">
                 <label class="control-label col-sm-2" for="withdrawBalance">{{ 'label.input.withdrawBalance' |
                     translate}}<span class="required">*</span></label>
@@ -26,6 +27,17 @@
                            ng-model="formData.withdrawBalance" ng-change="isTransaction=formData.withdrawBalance"/>
                 </div>
             </div>
+
+            <div class="form-group" data-ng-show="postInterestValidationOnClosure">
+                <label class="control-label col-sm-2" for="checkValidate">{{ 'label.input.postInterestValidationOnClosure' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="checkValidate" type="checkbox" name="Validation"
+                           ng-model="formData.postInterestValidationOnClosure" ng-checked="true"/>
+                </div>
+            </div>
+
             <div class="form-group" data-ng-show="formData.withdrawBalance">
                 <label class="control-label col-sm-2" >{{ 'label.input.transactionamount' |
                     translate}}<span class="required">*</span></label>
@@ -33,6 +45,8 @@
                 <div class="col-sm-3">
                     <input type="text" class="form-control" ng-model="accountBalance" readonly/>
                 </div>
+                
+
             </div>
             <div ng-show="isTransaction">
                 <div class="form-group" data-ng-show="transactionAmountField">

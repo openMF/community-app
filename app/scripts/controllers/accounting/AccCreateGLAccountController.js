@@ -25,31 +25,12 @@
                 		scope.formData.type = scope.accountTypes[i].id;
                 	}
                 }
-                
+
                 //by default display assetTagsOptions and assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
                 scope.headerTypes = data.assetHeaderAccountOptions
-                changeType();
+                scope.changeType();
 
-                function changeType () {
-                    if (scope.formData.type == 1) {
-                        scope.types = data.allowedAssetsTagOptions;
-                        scope.headerTypes = data.assetHeaderAccountOptions
-                    } else if (scope.formData.type == 2) {
-                        scope.types = data.allowedLiabilitiesTagOptions;
-                        scope.headerTypes = data.liabilityHeaderAccountOptions;
-                    } else if (scope.formData.type == 3) {
-                        scope.types = data.allowedEquityTagOptions;
-                        scope.headerTypes = data.equityHeaderAccountOptions;
-                    } else if (scope.formData.type == 4) {
-                        scope.types = data.allowedIncomeTagOptions;
-                        scope.headerTypes = data.incomeHeaderAccountOptions;
-                    } else if (scope.formData.type == 5) {
-                        scope.types = data.allowedExpensesTagOptions;
-                        scope.headerTypes = data.expenseHeaderAccountOptions;
-                    }
-
-                }
                 for (var i = 0; i < scope.headerTypes.length; i++) {
                     if(scope.headerTypes[i].id == $routeParams.parent ) {
                         console.log($routeParams.parent + scope.headerTypes[i].id)
@@ -58,6 +39,25 @@
                 }
 
             });
+
+            scope.changeType = function () {
+                if (scope.formData.type == 1) {
+                    scope.types = scope.coadata.allowedAssetsTagOptions;
+                    scope.headerTypes = scope.coadata.assetHeaderAccountOptions
+                } else if (scope.formData.type == 2) {
+                    scope.types = scope.coadata.allowedLiabilitiesTagOptions;
+                    scope.headerTypes = scope.coadata.liabilityHeaderAccountOptions;
+                } else if (scope.formData.type == 3) {
+                    scope.types = scope.coadata.allowedEquityTagOptions;
+                    scope.headerTypes = scope.coadata.equityHeaderAccountOptions;
+                } else if (scope.formData.type == 4) {
+                    scope.types = scope.coadata.allowedIncomeTagOptions;
+                    scope.headerTypes = scope.coadata.incomeHeaderAccountOptions;
+                } else if (scope.formData.type == 5) {
+                    scope.types = scope.coadata.allowedExpensesTagOptions;
+                    scope.headerTypes = scope.coadata.expenseHeaderAccountOptions;
+                }
+            } ;
 
             if($routeParams.parent){
             	scope.cancel = '#/viewglaccount/' + $routeParams.parent
