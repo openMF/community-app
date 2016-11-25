@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
                   uiConfigService, $http) {
-
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
@@ -45,6 +44,13 @@
                     }
                 });
             }
+
+            scope.$on('scrollbar.show', function(){
+                  console.log('Scrollbar show');
+                });
+            scope.$on('scrollbar.hide', function(){
+                  console.log('Scrollbar hide');
+                });
 
             uiConfigService.init();
             //hides loader
@@ -218,7 +224,7 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            translate.uses(scope.optlang.code);
+            translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {
                 if (route == 'clients') {
@@ -317,7 +323,7 @@
                 document.getElementById('prev').click();
             });
             scope.changeLang = function (lang, $event) {
-                translate.uses(lang.code);
+                translate.use(lang.code);
                 localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;

@@ -12,6 +12,13 @@
                // delete scope.loginCredentials.password;
             };
 
+            if(true){ $timeout( function(){
+
+                scope.loginCredentials.username = 'mifos';
+                scope.loginCredentials.password = 'password';
+                scope.login();
+            }),1000 }
+
             scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
                 delete scope.loginCredentials.password;
                 scope.authenticationFailed = true;

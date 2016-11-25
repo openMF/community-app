@@ -7,7 +7,7 @@
 <div>
     <div class="span gray-head">
           <span class="boldlabel">
-                <strong><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                <strong><i class="fa fa-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}(#{{savingaccountdetails.accountNo}})</strong>
           </span>
     </div>
     <div class="col-md-12 primarydiv">
@@ -15,7 +15,7 @@
               <span ng-repeat="button in buttons.singlebuttons">
                   <a ng-show="button.name"
                      ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                     class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
+                     class="btn btn-primary"><i class="{{button.fa fa}} "></i>{{'label.'+button.name |
                       translate}}</a>
               </span>
               <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
@@ -24,7 +24,7 @@
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown dropdown-menu">
-                      <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                      <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
                           <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)">{{'label.'+button.name
                               | translate}}</a>
                       </li>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="col-sm-12 col-md-12 paddedtop25px">
-<tabset tabset-name="recurringAccountDetails">
+<uib-tabset tabset-name="recurringAccountDetails">
 <tab heading="{{'label.heading.summary' | translate}}">
     <div class="col-sm-12 col-md-12 paddedtop25px">
         <div class="row">
@@ -211,7 +211,7 @@
                     <td>{{chartSlab.annualInterestRate}}</td>
                     <td>{{chartSlab.description}}</td>
                     <td>
-                        <a ng-click="incentives($index)"  ><i class="icon-white"></i>{{'label.incentive.row'
+                        <a ng-click="incentives($index)"  ><i class=""></i>{{'label.incentive.row'
                             | translate}}</a>
                     </td>
                 </tr>
@@ -271,10 +271,10 @@
             <span data-ng-show="choice">
                 <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
                    ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
-                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                        class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
                 <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
                   <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}"
-                     class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                     class="btn btn-primary"><i class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
                 </span></br>
             </span>
 
@@ -347,20 +347,20 @@
                         <span ng-show="chargeAction">
                             <a title="{{'label.edit' | translate}}"
                                href="#/recurringdepositaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
-                                    class="icon-pencil icon-white"></i></a>
+                                    class="fa fa-pencil "></i></a>
                             <a title="{{'label.delete' | translate}}"
                                href="#/recurringdepositaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
-                                    class="icon-remove icon-white"></i></a>
+                                    class="fa fa-remove "></i></a>
                         </span>
                         <span ng-hide="chargeAction">
                             <span ng-hide="charge.amountOutstanding == 0"
                                   ng-show="charge.chargeTimeType.value == 'Monthly Fee' || charge.chargeTimeType.value == 'Annual Fee'|| charge.chargeTimeType.value == 'Specified due date'">
                                 <a title="{{'label.button.paycharge' | translate}}"
                                    href="#/recurringdepositaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
-                                        class="icon-check icon-white"></i></a>
+                                        class="fa fa-check "></i></a>
                                 <a title="{{'label.button.waivecharge' | translate}}"
                                    href="#/recurringdepositaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
-                                        class="icon-flag icon-white"></i></a>
+                                        class="fa fa-flag "></i></a>
                             </span>
                         </span>
             </td>
@@ -368,7 +368,7 @@
         </tr>
     </table>
 </tab>
-</tabset>
+</uib-tabset>
 <script type="text/ng-template" id="incentive.html">
     <div class="modal-header silver">
         <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
