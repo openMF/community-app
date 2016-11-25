@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        DataTableEntryController: function (scope, location, routeParams, route, resourceFactory, $modal, dateFilter) {
+        DataTableEntryController: function (scope, location, routeParams, route, resourceFactory, $uibModal, dateFilter) {
 
             if (routeParams.tableName) {
                 scope.tableName = routeParams.tableName;
@@ -120,12 +120,12 @@
                 }
             };
             scope.deleteDatatableEntry = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletedatatable.html',
                     controller: DatatableDeleteCtrl
                 });
             };
-            var DatatableDeleteCtrl = function ($scope, $modalInstance) {
+            var DatatableDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.DataTablesResource.delete(reqparams, {}, function (data) {
                         var destination = "";
@@ -144,12 +144,12 @@
                         } else if (data.officeId) {
                             destination = '/viewoffice/' + data.officeId;
                         }
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path(destination);
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -199,7 +199,7 @@
 
         }
     });
-    mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory', '$modal', 'dateFilter', mifosX.controllers.DataTableEntryController]).run(function ($log) {
+    mifosX.ng.application.controller('DataTableEntryController', ['$scope', '$location', '$routeParams', '$route', 'ResourceFactory', '$uibModal', 'dateFilter', mifosX.controllers.DataTableEntryController]).run(function ($log) {
         $log.info("DataTableEntryController initialized");
     });
 }(mifosX.controllers || {}));

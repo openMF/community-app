@@ -1,15 +1,15 @@
-<div class="col-md-12">
+<div class="content-container">
     <ul class="breadcrumb">
         <li><a href="#/reports/all">{{'label.anchor.reports' | translate}}</a></li>
         <li class="active">{{'label.anchor.runreport' | translate}}</li>
     </ul>
-	<div ng-controller="RunReportsController">
+	<div class="card well" ng-controller="RunReportsController">
 	    <api-validate></api-validate>
 	    <div class="span gray-head" style="margin-left:0%;height:30px;">
 	          <span style="margin-left: 10px;font-size:20px;">
 	                <strong>{{''+reportName+'' | translate}}</strong>
 	                <button type="button" class="btn btn-primary pull-right" ng-show="checkStatus()"
-	                        ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>{{
+	                        ng-click="isCollapsed=!isCollapsed"><i class="fa fa-chevron-down "></i>{{
 	                    'label.button.parameters' | translate }}
 	                </button>
 	                <button type="button" data-ng-hide="hideChart" class="btn btn-primary pull-right" ng-click="setTypePie()">{{
@@ -132,7 +132,7 @@
 
 	    <div data-ng-hide="hideTable">
 	        <div class="pull-right" ng-show="reportType == 'Table'">
-	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="icon-file icon-white"></i>{{'label.button.exportcsv'
+	            <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="fa fa-file "></i>{{'label.button.exportcsv'
 	                | translate }}
 	            </button>
 	        </div>
@@ -155,7 +155,7 @@
 	            </table>
 	        </div>
 	    </div>
-	    <div collapse="hidePentahoReport" class="row alert-block span tab-content">
+	    <div uib-collapse="hidePentahoReport" class="row alert-block span tab-content">
 	        <br>
 	        <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="600px"></iframe>
 	    </div>

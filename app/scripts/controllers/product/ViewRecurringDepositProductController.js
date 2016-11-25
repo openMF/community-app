@@ -1,6 +1,6 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
-    ViewRecurringDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory,$modal ) {
+    ViewRecurringDepositProductController: function(scope, routeParams , location , anchorScroll , resourceFactory,$uibModal ) {
         resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId , template: 'true'} , function(data) {
             scope.depositproduct = data;
             scope.chartSlabs = scope.depositproduct.activeChart.chartSlabs;
@@ -14,7 +14,7 @@
         };
 
         scope.incentives = function(index){
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'incentive.html',
                 controller: IncentiveCtrl,
                 resolve: {
@@ -25,7 +25,7 @@
             });
         };
 
-        var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+        var IncentiveCtrl = function ($scope, $uibModalInstance, chartSlab) {
             $scope.chartSlab = chartSlab;
             _.each($scope.chartSlab.incentives, function (incentive) {
                 if(!incentive.attributeValueDesc){
@@ -33,12 +33,12 @@
                 }
             });
             $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
+                $uibModalInstance.dismiss('cancel');
             };
         };
     }
   });
-  mifosX.ng.application.controller('ViewRecurringDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory','$modal', mifosX.controllers.ViewRecurringDepositProductController]).run(function($log) {
+  mifosX.ng.application.controller('ViewRecurringDepositProductController', ['$scope', '$routeParams', '$location', '$anchorScroll' , 'ResourceFactory','$uibModal', mifosX.controllers.ViewRecurringDepositProductController]).run(function($log) {
     $log.info("ViewRecurringDepositProductController initialized");
   });
 }(mifosX.controllers || {}));

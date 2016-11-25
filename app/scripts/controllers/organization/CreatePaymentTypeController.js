@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreatePaymentTypeController: function (scope, routeParams, resourceFactory, location, $modal, route) {
+        CreatePaymentTypeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
 
             scope.formData = {};
             scope.isCashPayment =true;
@@ -15,7 +15,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreatePaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.CreatePaymentTypeController]).run(function ($log) {
+    mifosX.ng.application.controller('CreatePaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', mifosX.controllers.CreatePaymentTypeController]).run(function ($log) {
         $log.info("CreatePaymentTypeController initialized");
     });
 }(mifosX.controllers || {}));
