@@ -1,7 +1,7 @@
 (function () {
     require.config({
         paths: {
-            'jquery': '../bower_components/jquery/jquery',
+            'jquery': '../bower_components/jquery/dist/jquery',
             'angular': '../bower_components/angular/angular',
             'angular-resource': '../bower_components/angular-resource/angular-resource',
             'angular-route': '../bower_components/angular-route/angular-route',
@@ -10,21 +10,24 @@
             'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
             'angularui': '../bower_components/angular-bootstrap/ui-bootstrap',
             'angularuitpls': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+            'bootstrap': '../bower_compnonents/bootstrap-sass/assets/javascripts/bootstrap.min',
             'underscore': '../bower_components/underscore/underscore',
             'webstorage': '../bower_components/angular-webstorage/angular-webstorage',
+            'angular-animate': '../bower_components/angular-animate/angular-animate',
+            'angular-touch': '../bower_components/angular-touch/angular-touch',
             'require-css': '../bower_components/require-css/css',
             'd3': '../bower_components/d3/d3',
-            'nvd3': '../bower_components/nvd3/nv.d3',
+            'nvd3': '../bower_components/nvd3/build/nv.d3',
             'nvd3ChartDirectives': '../scripts/modules/angularjs-nvd3-directives',
             'styles': '../styles',
             'test': '../../test/functional',
             'notificationWidget': '../scripts/modules/notificationWidget',
             'configurations': '../scripts/modules/configurations',
-            'angularFileUpload': '../bower_components/angularjs-file-upload/angular-file-upload',
-            'angularFileUploadShim': '../bower_components/angularjs-file-upload/angular-file-upload-shim',
+            'angularFileUpload': '../bower_components/angularjs-file-upload/ng-file-upload',
+            'angularFileUploadShim': '../bower_components/angularjs-file-upload/ng-file-upload-shim.min',
             'ngSanitize': '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor': '../bower_components/ckeditor/ckeditor',
-            'ngIdle': '../bower_components/ng-idle/angular-idle.min',
+            'ngIdle': '../bower_components/ng-idle/angular-idle',
             'LocalStorageModule': '../scripts/modules/localstorage',
             'ngCsv': "../scripts/modules/csv",
             'chosen.jquery.min': "../scripts/modules/chosen.jquery.min",
@@ -32,9 +35,12 @@
             'modified.datepicker': '../scripts/modules/datepicker',
             'Q': '../bower_components/q/q',
             'tmh.dynamicLocale': '../bower_components/angular-dynamic-locale/tmhDynamicLocale.min',
-            'webcam-directive':'../bower_components/webcam-directive/dist/1.1.0/webcam.min',
+
             'angular-wizard': '../scripts/modules/angular-wizard',
-            'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination'
+
+            'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
+            'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
+            'ng-scrollbar':'../bower_components/ng-scrollbar/dist/ng-scrollbar'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
@@ -42,9 +48,12 @@
             'angular-route': { deps: ['angular'] },
             'angular-translate': { deps: ['angular'] },
             'angular-translate-loader-static-files': {deps: ['angular' , 'angular-translate'] },
-            'angularui': { deps: ['angular'] },
+            'angular-touch': {deps: ['angular']},
+            'angular-animate': {deps: ['angular']},
+            'angularui': { deps: ['angular', 'angular-touch', 'angular-animate'] },
             'angularuitpls': { deps: ['angular' , 'angularui' ] },
             'angular-mocks': { deps: ['angular'] },
+            'bootstrap' : {deps:['jquery']},
             'ngSanitize': {deps: ['angular'], exports: 'ngSanitize'},
             'webstorage': { deps: ['angular'] },
             'd3': {exports: 'd3'},
@@ -65,6 +74,7 @@
             'webcam-directive': {deps: ['angular']},
             'angular-wizard': {deps: ['angular', 'underscore']},
             'angular-utils-pagination': {deps: ['angular']},
+            'ng-scrollbar': {deps: ['angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -73,6 +83,8 @@
                     'angular-route',
                     'angular-translate',
                     'angular-translate-loader-static-files',
+                    'angular-animate',
+                    'angular-touch',
                     'angularui',
                     'angularuitpls',
                     'webstorage',
@@ -93,7 +105,8 @@
                     'tmh.dynamicLocale',
                     'webcam-directive',
                     'angular-wizard',
-                    'angular-utils-pagination'
+                    'angular-utils-pagination',
+                    'ng-scrollbar'
                 ],
                 exports: 'mifosX'
             }
@@ -107,7 +120,7 @@
         ]
     });
 
-    require(['mifosXComponents', 'mifosXStyles'], function (componentsInit) {
+    require(['mifosXComponents'], function (componentsInit) {
         componentsInit().then(function(){
             require(['test/testInitializer'], function (testMode) {
                 if (!testMode) {

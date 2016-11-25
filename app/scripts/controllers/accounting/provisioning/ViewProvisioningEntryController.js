@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewProvisioningEntryController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
+        ViewProvisioningEntryController: function (scope, routeParams, paginatorService, resourceFactory, location, $uibModal) {
             scope.charge = [];
             scope.choice = 0;
             var i = 0 ;
@@ -62,7 +62,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewProvisioningEntryController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewProvisioningEntryController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewProvisioningEntryController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewProvisioningEntryController]).run(function ($log) {
         $log.info("ViewProvisioningEntryController initialized");
     });
 }(mifosX.controllers || {}));

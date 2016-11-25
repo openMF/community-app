@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewProductMixController: function (scope, resourceFactory, routeParams, location, $modal) {
+        ViewProductMixController: function (scope, resourceFactory, routeParams, location, $uibModal) {
             scope.productmix = [];
             scope.choice = 0;
             scope.allowed = [];
@@ -12,20 +12,20 @@
             });
 
             scope.deleteProductmix = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteproductmix.html',
                     controller: ProductmixDeleteCtrl
                 });
             };
-            var ProductmixDeleteCtrl = function ($scope, $modalInstance) {
+            var ProductmixDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.loanProductResource.delete({loanProductId: routeParams.id, resourceType: 'productmix'}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/productmix');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.restrict = function () {
@@ -71,7 +71,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewProductMixController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.ViewProductMixController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewProductMixController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$uibModal', mifosX.controllers.ViewProductMixController]).run(function ($log) {
         $log.info("ViewProductMixController initialized");
     });
 }(mifosX.controllers || {}));

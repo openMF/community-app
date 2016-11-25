@@ -83,7 +83,7 @@
         <div>
             <div class="span gray-head">
                   <span class="boldlabel">
-                        <strong><i  ng-show="savingaccountdetails.subStatus.id==0" class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}" ></i><i  ng-hide="savingaccountdetails.subStatus.id==0" class="icon-stop {{savingaccountdetails.status.code+savingaccountdetails.subStatus.value | StatusLookup}}" ></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                        <strong><i  ng-show="savingaccountdetails.subStatus.id==0" class="fa fa-stop {{savingaccountdetails.status.code | StatusLookup}}" ></i><i  ng-hide="savingaccountdetails.subStatus.id==0" class="fa fa-stop {{savingaccountdetails.status.code+savingaccountdetails.subStatus.value | StatusLookup}}" ></i>&nbsp;{{savingaccountdetails.savingsProductName}}(#{{savingaccountdetails.accountNo}})</strong>
                   </span>
             </div>
             <div class="col-md-12 primarydiv">
@@ -91,19 +91,19 @@
                       <span ng-repeat="button in buttons.singlebuttons">
                           <a ng-show="button.name" has-permission='{{button.taskPermissionName}}'
                              ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                             class="btn btn-primary"><i class="{{button.icon}} icon-white"></i>{{'label.'+button.name |
+                             class="btn btn-primary"><i class="{{button.fa fa}} "></i>{{'label.'+button.name |
                               translate}}</a>
                        </span>
                     <button type="button" class="btn btn-primary"
                             ng-click="clickEvent('assignSavingsOfficer',savingaccountdetails.accountNo)"
                             data-ng-hide="savingaccountdetails.fieldOfficerId" has-permission='ASSIGNFIELDOFFICER_SAVINGSACCOUNT'>
-                            <i class="icon-user icon-white"></i>{{"label.button.assignstaff"
+                            <i class="fa fa-user "></i>{{"label.button.assignstaff"
                         |
                         translate}}
                         </span>
                     </button>
                     <button type="button" class="btn btn-primary" ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)"
-                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="icon-user icon-white"></i>{{"label.button.unassignstaff"
+                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="fa fa-user "></i>{{"label.button.unassignstaff"
                     |
                     translate}}
                 </button>
@@ -114,7 +114,7 @@
                               <span class="caret"></span>
                           </a>
                           <ul class="dropdown dropdown-menu">
-                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                              <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
                               </li>
                           </ul>
@@ -161,7 +161,7 @@
         </div>
         <div class="col-sm-12 col-md-12">
             <hr class="marginbottom"/>
-            <tabset tabset-name="savingsAccountDetails">
+            <uib-tabset tabset-name="savingsAccountDetails">
                 <tab heading="{{'label.heading.summary' | translate}}">
                     <div class="col-sm-8 col-md-8 marginbuttontop25px">
                         <table class="table table-bordered view-table">
@@ -396,14 +396,14 @@
                                 {{transaction.runningBalance| number}}
                             </td>
                             <td> <a ng-if=" transaction.reversed!=true" ng-click="viewSavingsTransactionReceipts(transaction.id)">
-                            <i class="icon-file-text icon-large"></i>
+                            <i class="fa fa-file-text fa fa-large"></i>
                             </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                     <div>
-                        <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i class="icon-print icon-white">{{'label.button.print' |
+                        <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i class="fa fa-print ">{{'label.button.print' |
                             translate}}
                         </i></button>
                         <div id="printreceiptcontent">
@@ -418,15 +418,15 @@
                         <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
                            has-permission='DELETE_{{savingdatatable.registeredTableName}}'
                            ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
-                                class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                                class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
                         <a data-ng-show="showDataTableAddButton"
                            href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=savings"
                            class="btn btn-primary" has-permission='CREATE_{{savingdatatable.registeredTableName}}'><i
-                                class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                                class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
                         <a data-ng-show="showDataTableEditButton"
                            ng-href="#/viewsingledatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}?mode=edit"
                            class="btn btn-primary" has-permission='UPDATE_{{savingdatatable.registeredTableName}}'><i
-                                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                                class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
                     </div>
                     <br>
                     <br>
@@ -497,23 +497,23 @@
                                 <span ng-show="chargeAction">
                                     <a title="{{'label.edit' | translate}}" has-permission="UPDATE_SAVINGSACCOUNTCHARGE"
                                        href="#/savingaccountcharge/{{savingaccountdetails.id}}/editsavingcharge/{{charge.id}}"><i
-                                            class="icon-pencil icon-white"></i></a>
+                                            class="fa fa-pencil "></i></a>
                                     <a title="{{'label.delete' | translate}}" has-permission="DELETE_SAVINGSACCOUNTCHARGE"
                                        href="#/savingaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
-                                            class="icon-remove icon-white"></i></a>
+                                            class="fa fa-remove "></i></a>
                                 </span>
                                 <span ng-show="chargePayAction">
                                     <span ng-hide="charge.amountOutstanding == 0">
                                         <a title="{{'label.button.paycharge' | translate}}" has-permission="PAY_SAVINGSACCOUNTCHARGE"
                                            href="#/savingaccountcharge/{{savingaccountdetails.id}}/paycharge/{{charge.id}}"><i
-                                                class="icon-check icon-white"></i></a>
+                                                class="fa fa-check "></i></a>
                                         <a title="{{'label.button.waivecharge' | translate}}" has-permission="WAIVE_SAVINGSACCOUNTCHARGE"
                                            href="#/savingaccountcharge/{{savingaccountdetails.id}}/waive/{{charge.id}}"><i
-                                                class="icon-flag icon-white"></i></a>
+                                                class="fa fa-flag "></i></a>
                                         <span ng-show="isRecurringCharge(charge)">
                                             <a title="{{'label.button.inactivatecharge' | translate}}" has-permission="INACTIVATE_SAVINGSACCOUNTCHARGE"
                                                href="#/savingaccountcharge/{{savingaccountdetails.id}}/inactivate/{{charge.id}}"><i
-                                                    class="icon-ban-circle icon-white"></i></a>
+                                                    class="fa fa-ban-circle "></i></a>
                                         </span>
                                     </span>
                                 </span>
@@ -552,7 +552,7 @@
                         </div>
                     </div>
                 </tab> -->
-            </tabset>
+            </uib-tabset>
         </div>
     </div>
 </div>
