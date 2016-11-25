@@ -12,7 +12,8 @@ module.exports = function(grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       target: 'community-app',
-      test: 'test'
+      test: 'test',
+      almond: 'app/bower_components/almond'
     },
     watch: {
         js: {
@@ -21,6 +22,10 @@ module.exports = function(grunt) {
                 livereload: true
             }
         },
+        scss: {
+            files: ['<%= mifosx.app %>/styles-dev/**/*.scss'],
+            tasks: ['compass:dev']
+        },
         gruntfile: {
             files: ['Gruntfile.js']
         },
@@ -28,21 +33,23 @@ module.exports = function(grunt) {
             options: {
                 livereload: '<%= connect.options.livereload %>'
             },
+
             files: [
                 '<%= mifosx.app %>/**/*.html',
                 '<%= mifosx.app %>/{,*/}*.json',
                 '<%= mifosx.app %>/**/*.js',
-                '<%= mifosx.app %>/**/*.css',
                 '<%= mifosx.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                 // ignore directories to reduce CPU usage by watch/node process
-                '!<%= mifosx.app %>/bower_components/**'
+                '!<%= mifosx.app %>/bower_components/**',
+                // also ignore all css file changes
+                '<%= mifosx.app %>/styles/*.css'
             ]
         }
     },
      // The actual grunt server settings
     connect: {
         options: {
-            port:  9000,
+            port:  9002,
             hostname: 'localhost',
             livereload: 35729,
             open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
@@ -56,7 +63,7 @@ module.exports = function(grunt) {
             }
         }
     },
-    // w3c html calidation
+    // w3c html validation
     validation: {
         options: {
             reset: true,
@@ -92,7 +99,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       prod: {
-        files: [{'<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-mocks/angular-mocks.min.js'
+        files: [{
+          '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-mocks/angular-mocks.min.js'
           :['<%= mifosx.app %>/bower_components/angular-mocks/angular-mocks.js'],
           '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components/angular-webstorage/angular-webstorage.min.js'
           :['<%= mifosx.app %>/bower_components/angular-webstorage/angular-webstorage.js'],
@@ -124,6 +132,8 @@ module.exports = function(grunt) {
           ]
         }]
       },
+      //trying to remove unused css files
+      /*css: ['<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.css', '!<%= mifosx.dist %>/<%=mifosx.target%>/styles/*.min.css'],*/
       server: '.tmp'
     },
 
@@ -142,6 +152,7 @@ module.exports = function(grunt) {
             'fonts/*',
             'images/*',
             'scripts/*.js',
+            'scripts/config/*.json',
             'scripts/services/*.js',
             'scripts/modules/*.js',
             '!scripts/routes.js',
@@ -151,7 +162,7 @@ module.exports = function(grunt) {
             '!scripts/mifosXComponents-build.js',
             '!scripts/loader.js',
             '!scripts/loader-build.js',
-            'styles/*.css',
+            'styles/**.css',
             '!scripts/mifosXStyles.js',
             '!scripts/mifosXStyles-build.js',
             'global-translations/**',
@@ -251,7 +262,8 @@ module.exports = function(grunt) {
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/routes-initialTasks-webstorage-configuration.js',
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/controllers/controllers.js',
                       '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/filters/filters.js',
-                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js'
+                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/models/models.js',
+                      '<%= mifosx.dist %>/<%=mifosx.target%>/scripts/config/UIConfig.json'
               ]
           },
           ext : {
@@ -297,14 +309,34 @@ module.exports = function(grunt) {
             '<%= mifosx.app %>/scripts/webstorage-configuration.js']
         }
       }
+
+      //trying to concatenat css files
+      /*css: {
+        files: {
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css': 
+          ['<%= mifosx.app %>/styles/app.css',
+          '<%= mifosx.app %>/styles/bootstrap-ext.css',
+          '<%= mifosx.app %>/styles/bootswatch.css',
+          '<%= mifosx.app %>/styles/style.css'],
+
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css': 
+          ['<%= mifosx.app %>/styles/bootstrap.min.css',
+          '<%= mifosx.app %>/styles/chosen.min.css',
+          '<%= mifosx.app %>/styles/font-awesome.min.css',
+          '<%= mifosx.app %>/styles/nv.d3.css',
+          '<%= mifosx.app %>/styles/ui-bootstrap-csp.css'],
+        }
+      }*/
     },
-    //FIXME: Address issues with requirejs task
+
+    //here is the task for the grunt-contrib-requirejs
     requirejs: {
       compile: {
         options: {
-          baseUrl: '<%= mifosx.app %>',
+          name: '../bower_components/almond/almond',
+          baseUrl: './app',
           mainConfigFile: '<%= mifosx.app %>/scripts/loader.js',
-          out: '<%= mifosx.dist %>/<%=mifosx.target%>/loader.js'
+          out: '<%= mifosx.dist %>/finaljs/app.js'
         }
       }
     },
@@ -328,8 +360,44 @@ module.exports = function(grunt) {
             env: 'production'
         }
       }
-    }
+    },
+
+    //compass task to compile scss to css files
+    compass: {                  // Task
+        dist: {                   // Target
+          options: {              // Target options
+            sassDir: 'app/styles-dev/main',
+            cssDir: 'app/styles/',
+            environment: 'production',
+            require: 'sass-css-importer'
+          }
+        },
+        dev: {                    // Another target
+          options: {
+            sassDir: 'app/styles-dev/main',
+            cssDir: 'app/styles/',
+            require: 'sass-css-importer'
+          }
+        }
+    },
+
+    //cssmin task to concatenate and minified css file while running the grunt prod
+    /*cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
+          src: ['styles.css'],
+          dest: '<%= mifosx.dist %>/<%=mifosx.target%>/styles/',
+          ext: '.min.css'
+        }]
+      }
+    }*/
+  
   });
+
+  
 
 
   // Run development server using grunt serve
@@ -340,8 +408,8 @@ module.exports = function(grunt) {
   
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
-  grunt.registerTask('dev', ['clean', 'copy:dev']);
+  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
 
 };

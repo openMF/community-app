@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewProvisioningJournalEntriesController: function (scope, routeParams, paginatorService, resourceFactory, location, $modal) {
+        ViewProvisioningJournalEntriesController: function (scope, routeParams, paginatorService, resourceFactory, location, $uibModal) {
             scope.charge = [];
             scope.choice = 0;
             scope.transactions = [];
@@ -24,7 +24,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewProvisioningJournalEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewProvisioningJournalEntriesController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewProvisioningJournalEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewProvisioningJournalEntriesController]).run(function ($log) {
         $log.info("ViewProvisioningJournalEntriesController initialized");
     });
 }(mifosX.controllers || {}));

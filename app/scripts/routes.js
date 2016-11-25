@@ -905,6 +905,9 @@
             .when('/editsmscampaign/:campaignId', {
                 templateUrl: 'views/organization/smscampaigns/editsmscampaign.html'
             })
+            .when('/notifications', {
+                templateUrl: 'views/notification/notifications.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
