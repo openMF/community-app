@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+        EditInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
             scope.formData = {};//used for update/save form data
             scope.restrictDate = new Date();
             scope.fromDate = {}; //required for date formatting
@@ -206,7 +206,7 @@
             }
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -264,14 +264,14 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 if(!$scope.chartSlab.incentives) {
                     $scope.chartSlab.incentives = [];
                 }
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -307,7 +307,7 @@
         }
 
     });
-    mifosX.ng.application.controller('EditInterestRateChartController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.EditInterestRateChartController]).run(function ($log) {
+    mifosX.ng.application.controller('EditInterestRateChartController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.EditInterestRateChartController]).run(function ($log) {
         $log.info("EditInterestRateChartController initialized");
     });
 }(mifosX.controllers || {}));

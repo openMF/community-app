@@ -1,20 +1,22 @@
-<div class="col-md-12" ng-controller="ViewCashierController">
+<div class="content-container" ng-controller="ViewCashierController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li><a href="#/tellers/{{cashier.tellerId}}/cashiers">{{ 'label.heading.cashmgmt.cashierName' | translate }}</a> </li>
         <li class="active">{{cashier.staffName}}</li>
     </ul>
 
-        <div class="col-md-12 col-sm-12">
-            <div class="row primarydiv">
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.cashmgmt.cashierName' | translate }} : {{cashier.staffName}}</h4>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a href="#/tellers/{{cashier.tellerId}}/editcashier/{{cashier.id}}" class="btn btn-primary" has-permission='UPDATE_CASHIER'><i class="icon-edit icon-white"></i>{{
-                            'label.button.edit' | translate }}</a>
-                    </div>
+                    <a href="#/tellers/{{cashier.tellerId}}/editcashier/{{cashier.id}}" class="btn btn-primary" has-permission='UPDATE_CASHIER'><i class="fa fa-edit "></i>
+                    {{'label.button.edit' | translate }}</a>
+                </div>
                 </div>
             </div>
-            <h3><strong>{{ 'label.heading.cashmgmt.cashierName' | translate }} : {{cashier.staffName}}</strong></h3>
+            <br>
             <table class="table-bordered table view-table" style="width: 350px">
                 <tr>
                     <td>{{ 'label.heading.cashmgmt.tellerName' | translate }}</td>
@@ -44,11 +46,10 @@
                     <td>{{ 'label.input.teller.cashier.endTime' | translate }}</td>
                     <td>{{cashier.endTime}}</td>
                 </tr>
-
             </table>
         </div>
-
     </div>
+</div>
 
 
 

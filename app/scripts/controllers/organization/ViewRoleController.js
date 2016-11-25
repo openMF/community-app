@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewRoleController: function (scope, routeParams, resourceFactory, route, $modal) {
+        ViewRoleController: function (scope, routeParams, resourceFactory, route, $uibModal) {
 
             scope.permissions = [];
             scope.groupings = [];
@@ -45,59 +45,59 @@
                 };
 
                 scope.disableRolesConfirmation = function () {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'disablerole.html',
                         controller: RoleDisableCtrl
                     });
                 };
 
-                var RoleDisableCtrl = function ($scope, $modalInstance) {
+                var RoleDisableCtrl = function ($scope, $uibModalInstance) {
                     $scope.disableRoles = function () {
                         resourceFactory.roleResource.disableRoles({roleId: routeParams.id, command: 'disable'}, function (data) {
-                            $modalInstance.close('disableRoles');
+                            $uibModalInstance.close('disableRoles');
                             location.href = '#/admin/roles';
                         });
                     };
                     $scope.cancelDisableRole = function () {
-                        $modalInstance.dismiss('cancelDisableRole');
+                        $uibModalInstance.dismiss('cancelDisableRole');
                     };
                 };
 
                 scope.enableRolesConfirmation = function () {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'enablerole.html',
                         controller: RoleEnableCtrl
                     });
                 };
 
-                var RoleEnableCtrl = function ($scope, $modalInstance) {
+                var RoleEnableCtrl = function ($scope, $uibModalInstance) {
                     $scope.enableRoles = function () {
                         resourceFactory.roleResource.enableRoles({roleId: routeParams.id, command: 'enable'}, function (data) {
-                            $modalInstance.close('enableRoles');
+                            $uibModalInstance.close('enableRoles');
                             location.href = '#/admin/roles';
                         });
                     };
                     $scope.cancelEnableRole = function () {
-                        $modalInstance.dismiss('cancelEnableRole');
+                        $uibModalInstance.dismiss('cancelEnableRole');
                     };
                 };
 
                 scope.deleteRolesConfirmation = function () {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'deleterole.html',
                         controller: RoleDeleteCtrl
                     });
                 };
 
-                var RoleDeleteCtrl = function ($scope, $modalInstance) {
+                var RoleDeleteCtrl = function ($scope, $uibModalInstance) {
                     $scope.deleteRoles = function () {
                         resourceFactory.roleResource.deleteRoles({roleId: routeParams.id}, function(data){
-                            $modalInstance.close('deleteRoles');
+                            $uibModalInstance.close('deleteRoles');
                             location.href = '#/admin/roles';
                         });
                     };
                     $scope.cancelDeleteRole = function () {
-                        $modalInstance.dismiss('cancelDeleteRole');
+                        $uibModalInstance.dismiss('cancelDeleteRole');
                     };
                 };
 
@@ -202,7 +202,7 @@
             });
         }
     });
-    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route','$modal', mifosX.controllers.ViewRoleController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewRoleController', ['$scope', '$routeParams', 'ResourceFactory', '$route','$uibModal', mifosX.controllers.ViewRoleController]).run(function ($log) {
         $log.info("ViewRoleController initialized");
     });
 }(mifosX.controllers || {}));
