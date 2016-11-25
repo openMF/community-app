@@ -17,6 +17,7 @@
                             scope.configs.push(cache);
                         }
                     }
+
                 });
             });
 

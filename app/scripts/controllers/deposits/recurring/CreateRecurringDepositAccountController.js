@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateRecurringDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+        CreateRecurringDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -310,7 +310,7 @@
             }
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -357,7 +357,7 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 _.each($scope.chartSlab.incentives, function (incentive) {
@@ -366,7 +366,7 @@
                     }
                 });
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -392,7 +392,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreateRecurringDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.CreateRecurringDepositAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateRecurringDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.CreateRecurringDepositAccountController]).run(function ($log) {
         $log.info("CreateRecurringDepositAccountController initialized");
     });
 }(mifosX.controllers || {}));

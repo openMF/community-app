@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCheckerinboxController: function (scope, resourceFactory, routeParams, location, $modal) {
+        ViewCheckerinboxController: function (scope, resourceFactory, routeParams, location, $uibModal) {
             scope.details = {};
             resourceFactory.auditResource.get({templateResource: routeParams.id}, function (data) {
                 scope.details = data;
@@ -12,7 +12,7 @@
                 });
             });
             scope.checkerApprove = function (action) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'approve.html',
                     controller: ApproveCtrl,
                     resolve: {
@@ -22,20 +22,20 @@
                     }
                 });
             };
-            var ApproveCtrl = function ($scope, $modalInstance, action) {
+            var ApproveCtrl = function ($scope, $uibModalInstance, action) {
                 $scope.approve = function () {
                     resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
-                        $modalInstance.close('approve');
+                        $uibModalInstance.close('approve');
                         location.path('/checkeractionperformed');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
 			scope.checkerReject = function (action) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'reject.html',
                     controller: RejectCtrl,
                     resolve: {
@@ -45,37 +45,37 @@
                     }
                 });
             };
-			var RejectCtrl = function ($scope, $modalInstance, action) {
+			var RejectCtrl = function ($scope, $uibModalInstance, action) {
                 $scope.approve = function () {
                     resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
-                        $modalInstance.close('reject');
+                        $uibModalInstance.close('reject');
                         location.path('/checkeractionperformed');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.checkerDelete = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'delete.html',
                     controller: DeleteCtrl
                 });
             };
-            var DeleteCtrl = function ($scope, $modalInstance) {
+            var DeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.checkerInboxResource.delete({templateResource: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/checkeractionperformed');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.ViewCheckerinboxController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCheckerinboxController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$uibModal', mifosX.controllers.ViewCheckerinboxController]).run(function ($log) {
         $log.info("ViewCheckerinboxController initialized");
     });
 }(mifosX.controllers || {}));
