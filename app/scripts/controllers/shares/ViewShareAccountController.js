@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewShareAccountController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewShareAccountController: function (scope, routeParams, resourceFactory, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
@@ -131,12 +131,12 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-pencil ",
+                            icon: "fa fa-pencil ",
                             taskPermissionName:"UPDATE_SHAREACCOUNT"
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok-sign",
+                            icon: "fa fa-check",
                             taskPermissionName:"APPROVE_SHAREACCOUNT"
                         }
                     ],
@@ -157,12 +157,12 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo",
+                            icon: "fa fa-undo",
                             taskPermissionName:"APPROVALUNDO_SHAREACCOUNT"
                         },
                         {
                             name: "button.activate",
-                            icon: "icon-ok-sign",
+                            icon: "fa fa-check",
                             taskPermissionName:"ACTIVATE_SHAREACCOUNT"
                         }
                     ]
@@ -174,22 +174,22 @@
                         scope.buttons = { singlebuttons: [
                             {
                                 name:"button.applyadditionalshares",
-                                icon:"icon-arrow-right",
+                                icon:"fa fa-arrow-right",
                                 taskPermissionName:"APPLYADDITIONAL_SHAREACCOUNT"
                             },
                             {
                                 name:"button.approveadditionalshares",
-                                icon:"icon-arrow-right",
+                                icon:"fa fa-arrow-right",
                                 taskPermissionName:"APPROVEADDITIONAL_SHAREACCOUNT"
                             },
                             {
                                 name:"button.rejectadditionalshares",
-                                icon:"icon-arrow-right",
+                                icon:"fa fa-arrow-right",
                                 taskPermissionName:"REJECTADDITIONAL_SHAREACCOUNT"
                             },
                             {
                                 name: "button.redeemshares",
-                                icon: "icon-arrow-left",
+                                icon: "fa fa-arrow-left",
                                 taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                             },
                         ],
@@ -206,12 +206,12 @@
                         scope.buttons = { singlebuttons: [
                             {
                                 name:"button.applyadditionalshares",
-                                icon:"icon-arrow-right",
+                                icon:"fa fa-arrow-right",
                                 taskPermissionName:"APPLYADDITIONAL_SHAREACCOUNT"
                             },
                             {
                                 name: "button.redeemshares",
-                                icon: "icon-arrow-left",
+                                icon: "fa fa-arrow-left",
                                 taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                             },
                         ],
@@ -348,7 +348,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewShareAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewShareAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewShareAccountController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewShareAccountController]).run(function ($log) {
         $log.info("ViewShareAccountController initialized");
     });
 }(mifosX.controllers || {}));

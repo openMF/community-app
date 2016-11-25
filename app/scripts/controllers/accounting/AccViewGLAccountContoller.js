@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccViewGLAccountContoller: function (scope, routeParams, location, resourceFactory, route, $modal) {
+        AccViewGLAccountContoller: function (scope, routeParams, location, resourceFactory, route, $uibModal) {
             scope.glaccountdata = [];
             scope.accountOptions = [];
 
@@ -47,20 +47,20 @@
             });
 
             scope.deleteGLAccount = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteglacc.html',
                     controller: GlAccDeleteCtrl
                 });
             };
-            var GlAccDeleteCtrl = function ($scope, $modalInstance) {
+            var GlAccDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.accountCoaResource.delete({glAccountId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/accounting_coa');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.changeState = function (disabled) {
@@ -70,7 +70,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', '$route', '$modal', mifosX.controllers.AccViewGLAccountContoller]).run(function ($log) {
+    mifosX.ng.application.controller('AccViewGLAccountContoller', ['$scope', '$routeParams', '$location', 'ResourceFactory', '$route', '$uibModal', mifosX.controllers.AccViewGLAccountContoller]).run(function ($log) {
         $log.info("AccViewGLAccountContoller initialized");
     });
 }(mifosX.controllers || {}));

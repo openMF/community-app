@@ -633,7 +633,12 @@
                     }),
 
                     smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
-                        getByStatus: {method: 'GET', params:{}}
+                        getByStatus: {method: 'GET', params: {}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
                     })
                 };
             }];

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewHolController: function (scope, routeParams, resourceFactory, $modal, location, route) {
+        ViewHolController: function (scope, routeParams, resourceFactory, $uibModal, location, route) {
 
             resourceFactory.holValueResource.getholvalues({officeId: 1, holId: routeParams.id}, function (data) {
                 scope.holiday = data;
@@ -15,46 +15,46 @@
             });
 
             scope.activateHoliday = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'activateHoliday.html',
                     controller: activateHolidayCtrl
                 });
             };
 
-            var activateHolidayCtrl = function ($scope, $modalInstance) {
+            var activateHolidayCtrl = function ($scope, $uibModalInstance) {
                 $scope.activate = function () {
                     resourceFactory.holValueResource.save({holId: routeParams.id, command: 'Activate'}, {}, function (data) {
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.deleteHoliday = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteHoliday.html',
                     controller: deleteHolidayCtrl
                 });
             };
 
-            var deleteHolidayCtrl = function ($scope, $modalInstance) {
+            var deleteHolidayCtrl = function ($scope, $uibModalInstance) {
                 $scope.activate = function () {
                     resourceFactory.holValueResource.delete({holId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                         location.path('holidays');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
-    mifosX.ng.application.controller('ViewHolController', ['$scope', '$routeParams', 'ResourceFactory', '$modal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewHolController', ['$scope', '$routeParams', 'ResourceFactory', '$uibModal', '$location', '$route', mifosX.controllers.ViewHolController]).run(function ($log) {
         $log.info("ViewHolController initialized");
     });
 }(mifosX.controllers || {}));

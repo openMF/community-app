@@ -1,8 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
+        MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale,
                   uiConfigService, $http) {
-
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
@@ -45,6 +44,13 @@
                     }
                 });
             }
+
+            scope.$on('scrollbar.show', function(){
+                  console.log('Scrollbar show');
+                });
+            scope.$on('scrollbar.hide', function(){
+                  console.log('Scrollbar hide');
+                });
 
             uiConfigService.init();
             //hides loader
@@ -218,7 +224,8 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            translate.uses(scope.optlang.code);
+            console.log(translate.use);
+            translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {
                 if (route == 'clients') {
@@ -317,7 +324,7 @@
                 document.getElementById('prev').click();
             });
             scope.changeLang = function (lang, $event) {
-                translate.uses(lang.code);
+                translate.use(lang.code);
                 localStorageService.addToLocalStorage('Language', lang);
                 tmhDynamicLocale.set(lang.code);
                 scope.optlang = lang;
@@ -345,7 +352,7 @@
                 "https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67895308","https://mifosforge.jira.com/wiki/display/docs/Add+Journal+Entries",
                 "https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=search%20journal%20entries&startIndex=0&where=docs",  "https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=accounts%20linked&startIndex=0&where=docs",
                 "https://mifosforge.jira.com/wiki/display/docs/Chart+of+Accounts+and+General+Ledger+Setup", "https://mifosforge.jira.com/wiki/display/docs/Closing+Entries",
-                "https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67895308","https://mifosforge.jira.com/wiki/display/docs/Accruals"]; 
+                "https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67895308","https://mifosforge.jira.com/wiki/display/docs/Accruals"];
             // array is huge, but working good
             // create second array with address models
             var addrmodels = ['/users/','/organization','/system','/products','/templates', '', '/accounting',
@@ -355,27 +362,27 @@
                                 '/savingproducts','/charges','/productmix', '/fixeddepositproducts','/recurringdepositproducts','/freqposting',
                                 '/journalentry','/searchtransaction','/financialactivityaccountmappings','/accounting_coa', '/accounts_closure','/accounting_rules','/run_periodic_accrual'];
             // * text-based address-recognize system *
-            var actualadr = location.absUrl();  // get full URL     
+            var actualadr = location.absUrl();  // get full URL
             var lastchar = 0;
             for( var i = 0; i<actualadr.length;i++)
                 {
-                    
+
                     if(actualadr.charAt(i) == '#')
                     {
-                        lastchar = i+1;                     
+                        lastchar = i+1;
                         break;
                         // found '#' and save position of it
                     }
                 }//for
-            
+
             var whereweare = actualadr.substring(lastchar); // cut full URL to after-'#' part
-            
+
             // string after '#' is compared with model
             var addrfound = false;
             if(whereweare == '/reports/all' || whereweare == '/reports/clients' || whereweare == '/reports/loans' || whereweare == '/reports/savings' || whereweare == '/reports/funds' || whereweare == '/reports/accounting' || whereweare == '/xbrl'  )
                      {
                         window.open(addresses[5]);
-                        addrfound = true;                   
+                        addrfound = true;
                      }// '/reports/...' are exception -> link to Search in Documentation word 'report'
                      else{
                             for(var i = 0; i< addrmodels.length; i++)
@@ -386,16 +393,16 @@
                                         {
                                                 addrfound = true;
                                                 window.open(addresses[i]);
-                                                break;          
+                                                break;
                                                 // model found -> open address and break
                                         }
-                                    }                               
+                                    }
                             }//for
                           }//else
                 if(addrfound == false) window.open(addresses[10]); // substring not matching to any model -> open start user manual page
-            
+
             };//helpf
-            
+
             sessionManager.restore(function (session) {
                 scope.currentSession = session;
                 scope.start(scope.currentSession);
