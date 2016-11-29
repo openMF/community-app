@@ -4,10 +4,24 @@
 
             scope.formData = {};
             scope.isCashPayment =true;
+                        
 
 
             scope.submit = function () {
+                scope.errorDetails = [];
+                scope.errorArray = [];
                 this.formData.isCashPayment = this.formData.isCashPayment || false;
+                if (isNaN(this.formData.position)){
+                    var errorObj = new Object();
+                    errorObj.field = "Position"
+                    errorObj.code = "validation.msg.invalid.integer.format"
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value:this.formData.position});
+                    scope.errorArray.push(errorObj);
+                    scope.errorDetails.push(scope.errorArray);
+                    
+                    
+                }
                 resourceFactory.paymentTypeResource.save(this.formData, function (data) {
                     location.path('/viewpaymenttype/');
                 });

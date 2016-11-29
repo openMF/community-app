@@ -11,12 +11,12 @@
                         '</label>' +
                         '<label ng-show="errorStatus">{{errorStatus}}</label>' +
                         '<label ng-hide="errorStatus" ng-repeat="error in errorArray">' +
-                        '{{error.code | translate:error.args}}' +
+                        '{{error.code | translate:error.args}}' + ' - {{error.field}}' +
                         '</label></div>';
                     elm.html('').append($compile(template)(scope));
                 }
             };
-        }
+        } 
     });
 }(mifosX.directives || {}));
 
