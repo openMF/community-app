@@ -163,12 +163,12 @@
 				            |
 				            translate}}
 				        </button>
-						<span ng-show="buttonsArray.options" class="btn-group dropdown" on-toggle="toggled(open)">
-						    <a class="btn btn-primary dropdown-toggle">
+						<span ng-show="buttonsArray.options" class="btn-group dropdown more_btn" on-toggle="toggled(open)">
+						    <a class="btn btn-primary dropdown-toggle" onclick="more_btn_click()">
 						        {{ 'label.button.more' | translate}}
                                     <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown dropdown-menu">
+                                    <ul class="dropdown dropdown-menu dropdown-menu-right dropdown-menu-more">
                                         <li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
                                             <a href="#/clientscreenreport/{{client.id}}"
 						               has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
@@ -897,3 +897,18 @@
 		</tab>
 	</tabset>
 </div>
+
+
+<script>
+		function more_btn_click() {
+			var offset = $('.more_btn').offset()
+			var left = offset.left;
+			var right = $(window).width() - (left + $('.more_btn').width());
+			console.log(left);
+			console.log(right);
+			if(left < right){
+				// the dropdown is on left 
+				$('.dropdown-menu-more').removeClass('dropdown-menu-right');
+			}
+		}	
+</script>
