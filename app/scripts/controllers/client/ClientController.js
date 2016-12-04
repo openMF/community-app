@@ -76,7 +76,6 @@
                         var numberOfClients = scope.actualClients.length;
                         scope.totalClients = numberOfClients;
                         scope.clients = scope.actualClients.slice(0, scope.clientsPerPage);
-                        console.log(scope.clients)
                     });
                 }
             }
