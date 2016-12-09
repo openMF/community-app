@@ -44,12 +44,16 @@
                     scope.groupName = data.group.name;
                 }
             });
-
             scope.loanProductChange = function (loanProductId) {
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.previewClientLoanAccInfo();
+                    if('groupId' in routeParams) {
+                        resourceFactory.groupAccountResource.getAll({groupId: scope.groupId, fields:"savingsAccounts"} ,function (data) {
+                            scope.loanaccountinfo.accountLinkingOptions = data.savingsAccounts;
+                        });
+                    }
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
