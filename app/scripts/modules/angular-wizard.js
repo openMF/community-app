@@ -181,6 +181,11 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                     $scope.goTo($scope.steps[index - 1]);
                 }
             };
+
+            //deletes steps from $scope.steps array starting with index to length
+            this.removeSteps = function (index, length) {
+                $scope.steps.splice(index, length);
+            };
         }]
     };
 });
