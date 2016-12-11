@@ -41,7 +41,6 @@
                             var temp = {};
                             temp.id = this.restricted[i];
                             temp.name = scope.restrictedProducts[j].name;
-                            temp.includeInBorrowerCycle = scope.restrictedProducts[j].includeInBorrowerCycle;
                             scope.allowedProducts.push(temp);
                             scope.restrictedProducts.splice(j, 1);
                         }
