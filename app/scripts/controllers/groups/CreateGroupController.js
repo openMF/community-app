@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateGroupController: function (scope, resourceFactory, location, dateFilter, routeParams, WizardHandler) {
+        CreateGroupController: function ($q, scope, resourceFactory, location, dateFilter, routeParams, WizardHandler) {
             scope.offices = [];
             scope.staffs = [];
             scope.data = {};
@@ -30,7 +30,6 @@
             resourceFactory.groupTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
-                scope.clients = data.clientOptions;
 
                 scope.datatables = data.datatables;
                 if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
@@ -55,7 +54,7 @@
                         });
                     });
                 }
-
+								
                 if(routeParams.officeId) {
                     scope.formData.officeId = routeParams.officeId;
                     for(var i in data.officeOptions) {
@@ -85,7 +84,16 @@
                 }
             };
 
-
+            
+            scope.clientOptions = function(value){
+                var deferred = $q.defer();
+                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: value, orderBy : 'displayName', officeId : scope.formData.officeId,
+                sortOrder : 'ASC', orphansOnly : true}, function (data) {
+                    deferred.resolve(data.pageItems);
+                });
+                return deferred.promise;
+            };
+            
             scope.viewClient = function (item) {
                 scope.client = item;
             };
@@ -112,9 +120,6 @@
                 resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
                 }, function (data) {
                     scope.staffs = data.staffOptions;
-                });
-                resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
-                    scope.clients = data.clientOptions;
                 });
             };
             scope.setChoice = function () {
@@ -206,7 +211,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateGroupController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'WizardHandler', mifosX.controllers.CreateGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateGroupController', ['$q', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'WizardHandler', mifosX.controllers.CreateGroupController]).run(function ($log) {
         $log.info("CreateGroupController initialized");
     });
 }(mifosX.controllers || {}));
