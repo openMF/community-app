@@ -634,6 +634,13 @@
 
                     smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
                         getByStatus: {method: 'GET', params:{}}
+                    }),
+
+                    entityDatatableChecksResource: defineResource(apiVer + "/entityDatatableChecks/:entityDatatableCheckId/:additionalParam", {entityDatatableCheckId: '@entityDatatableCheckId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {}}
                     })
                 };
             }];

@@ -286,7 +286,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/SmsCampaignsController',
             'organization/smscampaigns/CreateSmsCampaignController',
             'organization/smscampaigns/ViewSmsCampaignController',
-            'organization/smscampaigns/EditSmsCampaignController'
+            'organization/smscampaigns/EditSmsCampaignController',
+            'organization/entitydatatablechecks/EntityDatatableChecksController',
         ],
         filters: [
             'StatusLookup',

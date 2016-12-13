@@ -309,17 +309,6 @@
                 scope.frequencyTypeOptions = data.frequencyTypeOptions;
                 scope.weekDays = data.weekDays;
                 scope.filterBusinessRule();
-                //scope.months = data.months;
-                //scope.periodFrequencyOptions = data.periodFrequencyOptions;
-
-                resourceFactory.groupResource.get({groupId: routeParams.groupId, template: true}, function (data) {
-                    scope.formData.client.staffId = data.staffId;
-                    scope.centerId = data.centerId;
-                    scope.staffs = data.staffOptions;
-                    scope.changeStaff(data.staffId);
-                    scope.formData.client.officeId = data.officeId;
-                    scope.minActivationDate = data.activationDate;
-                });
             });
 
             scope.changeStaff = function (staffId) {
