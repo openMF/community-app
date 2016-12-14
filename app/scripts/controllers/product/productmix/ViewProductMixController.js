@@ -41,6 +41,13 @@
                         }
                     }
                 }
+                for (var i in this.allowed) {
+                     for (var j in scope.restrictedProducts) {
+                         if(scope.restrictedProducts[j].id == this.allowed[i]) {
+                             scope.allowed.splice(i, 1);
+                         }
+                     }
+                 }
             };
             scope.allow = function () {
                 for (var i in this.restricted) {
@@ -55,6 +62,13 @@
                         }
                     }
                 }
+                for (var i in this.restricted) {
+                    for (var j in scope.allowedProducts) {
+                        if(scope.allowedProducts[j].id == this.restricted[i]) {
+                            scope.restricted.splice(i, 1);
+                        }
+                    }
+                }            
             };
             scope.submit = function () {
                 var temp = [];
