@@ -69,7 +69,8 @@
                                                 <i class="icon-question-sign" tooltip="{{'label.tooltip.submittedon' | translate}}"></i></td>
                                             <td class="paddedbottom10">
                                                 <input type="text" id="submittedOnDate" name="submittedon" datepicker-pop="dd MMMM yyyy"
-                                                       ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                                       ng-model="date.first" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" required/>
+                                                <form-validate valattributeform="newloanaccountform" valattribute="submittedon"/>
                                             </td>
                                             <td>
                                                 <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' | translate }}<span class="required">*</span>:&nbsp;</label>
@@ -78,7 +79,8 @@
                                             <td class="paddedbottom10">
                                                 <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
                                                        datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate"
-                                                       max="'2020-06-22'" class="form-control"/>
+                                                       max="'2020-06-22'" class="form-control" required/>
+                                                <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
                                             </td>
                                         </tr>
                                         <tr ng-show="formData.productId">
@@ -610,8 +612,8 @@
                                             {{'label.button.proceed' | translate}}
                                         </button>
                                         <div ng-if="!datatables">
-                                            <button id="cancel2" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                                            <button id="save2" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
+                                            <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                                            <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
                                                 translate}}
                                             </button>
                                         </div>

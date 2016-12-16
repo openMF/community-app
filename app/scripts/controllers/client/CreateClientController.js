@@ -12,7 +12,8 @@
             scope.clientNonPersonDetails = {};
             scope.restrictDate = new Date();
             scope.showSavingOptions = false;
-            scope.opensavingsproduct = false;
+            scope.savings = {};
+            scope.savings.opensavingsproduct = false;
             scope.forceOffice = null;
             scope.showNonPersonOptions = false;
             scope.clientPersonId = 1;
@@ -282,7 +283,7 @@
                     this.formData.clientNonPersonDetails.incorpValidityTillDate = dateFilter(scope.first.incorpValidityTillDate, scope.df);
                 }
 
-                if (!scope.opensavingsproduct) {
+                if (!scope.savings.opensavingsproduct) {
                     this.formData.savingsProductId = null;
                 }
 
