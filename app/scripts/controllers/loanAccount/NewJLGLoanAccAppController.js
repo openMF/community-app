@@ -17,6 +17,8 @@
             scope.datatables = [];
             scope.noOfTabs = 1;
             scope.step = '-';
+            scope.formData = {};
+            scope.formDat = {};
             scope.formData.datatables = [];
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
