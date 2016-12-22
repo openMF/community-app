@@ -90,9 +90,12 @@
 								<div class="col-sm-9 col-md-9">
 									<div class="row">
 										<div class="col-sm-4 col-md-4">
-											<input id="clientMembers" type="text" data-ng-model="available" class="col-md-4 form-control" typeahead-on-select="viewClient(available)"
-												   ng-autofocus="true" typeahead="client as client.displayName for client in clients | filter:$viewValue | limitTo:8"/>
-											<div data-ng-show="available" class="paddedtop10">
+											<input id="members" type="text" ng-model="clientData.available" class="col-md-4 form-control"
+												typeahead-min-length="3"
+												typeahead-editable="false"
+												typeahead="client as client.displayName for client in clientOptions($viewValue)"
+												typeahead-on-select="viewClient(clientData.available)"/>
+											<div data-ng-show="clientData.available" class="paddedtop10">
 												<p>{{'label.heading.clientdetails' | translate}}</p>
 												<table class="table">
 													<tr>
@@ -111,7 +114,7 @@
 											</div>
 										</div>
 										<div class="col-sm-1 col-md-1">
-											<button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+											<button ng-show="clientData.available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
 												{{ 'label.button.add' | translate }}
 												<i class="icon-double-angle-right"></i></button>
 										</div>
