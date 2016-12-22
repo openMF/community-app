@@ -21,9 +21,15 @@
                             var temp = {};
                             temp.id = this.allowed[i];
                             temp.name = scope.allowedProducts[j].name;
-                            temp.includeInBorrowerCycle = scope.allowedProducts[j].includeInBorrowerCycle;
                             scope.restrictedProducts.push(temp);
                             scope.allowedProducts.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in this.allowed) {
+                    for (var j in scope.restrictedProducts) {
+                        if(scope.restrictedProducts[j].id == this.allowed[i]) {
+                            scope.allowed.splice(i, 1);
                         }
                     }
                 }
@@ -35,9 +41,15 @@
                             var temp = {};
                             temp.id = this.restricted[i];
                             temp.name = scope.restrictedProducts[j].name;
-                            temp.includeInBorrowerCycle = scope.restrictedProducts[j].includeInBorrowerCycle;
                             scope.allowedProducts.push(temp);
                             scope.restrictedProducts.splice(j, 1);
+                        }
+                    }
+                }
+                for (var i in this.restricted) {
+                    for (var j in scope.allowedProducts) {
+                        if(scope.allowedProducts[j].id == this.restricted[i]) {
+                            scope.restricted.splice(i, 1);
                         }
                     }
                 }
