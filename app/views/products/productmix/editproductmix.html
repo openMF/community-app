@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-sm-3 col-md-3 col-md-offset-1">
                 <label class="control-label col-sm-9">{{ 'label.input.allowedproducts' | translate }}</label>
-                <select multiple ng-model="allowed" class="form-control clear" 
-                		ng-options="allowedProduct.id as allowedProduct.name for allowedProduct in allowedProducts">
+                <select multiple ng-model="allowed" class="form-control clear multiselectmin">
+                    <option ng-repeat="allowedProduct in allowedProducts" value="{{allowedProduct.id}}">{{allowedProduct.name}}</option>
                 </select>
             </div>
             <div class="paddedtop10 col-sm-1 col-md-1 paddedleft0">
@@ -19,8 +19,8 @@
             </div>
             <div class="col-sm-3 col-md-3">
                 <label class="control-label col-sm-9">{{ 'label.input.restrictedproducts' | translate }}</label>
-                <select multiple ng-model="restricted" class="form-control clear" 
-                    	ng-options="restrictedProduct.id as restrictedProduct.name for restrictedProduct in restrictedProducts">
+                <select multiple ng-model="restricted" class="form-control clear multiselectmin">
+                    <option ng-repeat="restrictedProduct in restrictedProducts" value="{{restrictedProduct.id}}">{{restrictedProduct.name}}</option>
                 </select>
             </div>
         </div>
