@@ -114,6 +114,10 @@
                     columnHeaderData.splice(0, 1);
                 }
             };
+            //Wizard is creating new scope on every step. So resetting the variable here
+            scope.resetPreviewFlag = function() {
+                scope.previewRepayment =  !scope.previewRepayment;
+            };
 
             scope.previewClientLoanAccInfo = function () {
                 scope.previewRepayment = false;
