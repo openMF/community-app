@@ -4,6 +4,7 @@
     <li ng-if="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a></li>
     <li class="active">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
 </ul>
+THIS IS COOL
 <div>
     <div class="span gray-head">
           <span class="boldlabel">
@@ -34,9 +35,77 @@
     </div>
 </div>
 
+<!-- navbar start -->
+<br>
+<div class="row pull-right" style="margin-right: 0px;">
+    <ul id="depositAmountNavBar">
+        <li><a href="">Deposit</a></li>
+        <li><a href="">Premature Closed</a></li>
+        <li><a href="">Calculate Interest</a></li>
+        <li><a href="">More <span class="caret"></span></a></li>
+    </ul>
+</div>
+<br>
+<br>
+<!-- navbar end -->
+
+<!-- new summary layout start-->
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <fieldset class="savings-Account-Details">
+            <legend class="savings-Account-Details">{{'label.heading.summary' | translate}}</legend>
+            <div class="">
+                <strong class="fieldset-tittle">{{'label.heading.balance' | translate}}: {{savingaccountdetails.summary.accountBalance | number:2 }} {{savingaccountdetails.summary.currency.code}}</strong>
+                <p>Ucoming Deposit: 25.00 USD</p>
+                <p>{{'label.heading.date' | translate}} {{'label.heading.due' | translate}}: <span data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}
+                    <span
+                            data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
+                    </span>
+                    <span ng-show="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.expectedFirstDepositOnDate | DateFormat}}<span
+                            data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate">{{ 'label.notactivated' | translate }}</span>
+                    </span></p>
+            </div>
+        </fieldset>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <fieldset class="savings-Account-Details">
+                <legend class="savings-Account-Details">{{'label.button.savingdetails' | translate}}</legend>
+                <div class="">
+                    <p>{{'label.heading.activationdate' | translate}}: {{savingaccountdetails.timeline.activatedOnDate | DateFormat}}</p>
+                    <p>{{'label.account.maturity.date' | translate}}: 
+                    {{savingaccountdetails.maturityDate | DateFormat}}</p>
+                    <p>{{'label.account.deposit.period' | translate}}:
+                    {{savingaccountdetails.depositPeriod}} &nbsp; {{savingaccountdetails.depositPeriodFrequency.value}}</p>
+                    <p>{{ 'label.interestrate' | translate }}: {{ savingaccountdetails.nominalAnnualInterestRate | number }}</p>
+                    <p>{{ 'label.account.deposit.frequency' | translate }}: <span class="padded-td">{{savingaccountdetails.recurringFrequency}}&nbsp;{{savingaccountdetails.recurringFrequencyType.code | translate}}</span></p>
+                </div>
+            </fieldset>
+            <fieldset class="savings-Account-Details">
+                <legend class="savings-Account-Details">{{'label.heading.performancehistory' | translate}}</legend>
+                <div class="">
+                    <p>{{'label.account.deposit.principal.amount' | translate}}: <span class="padded-td" data-ng-show="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
+                        </td></p>
+                    <p>{{'label.account.maturity.amount' | translate}}: <span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.maturityAmount | number}}</span></p>
+                    <p># of Deposit: 
+                    {{ savingaccountdetails.recurringFrequency }}</p>
+                    <p>{{ 'label.heading.totaldeposits' | translate }}: <span class="padded-td" data-ng-show="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}
+                    &nbsp;{{savingaccountdetails.summary.totalDeposits | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span></p>
+                    <p>{{ 'label.totalwithdarawals' | translate }}: <span class="padded-td" data-ng-show="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
+                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span></p>
+                    <p>{{'label.account.rate.of.interest' | translate}}: <span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}</span></p>
+                </div>
+            </fieldset>
+        </div>
+        
+    </div>
+<!-- new summary layout end -->
+
 <div class="col-sm-12 col-md-12 paddedtop25px">
 <tabset tabset-name="recurringAccountDetails">
-<tab heading="{{'label.heading.summary' | translate}}">
+<!-- tabset start-->
+<!-- <tab heading="{{'label.heading.summary' | translate}}">
     <div class="col-sm-12 col-md-12 paddedtop25px">
         <div class="row">
             <table class="table table-bordered view-table">
@@ -44,7 +113,8 @@
                     <td class="active fontnormal col-md-3">{{'label.account.deposit.date' | translate}}
                     </td>
                     <td class="col-md-3">
-                    <span data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
+                    <span data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}
+                    <span
                             data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
                     </span>
                     <span ng-show="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.expectedFirstDepositOnDate | DateFormat}}<span
@@ -218,7 +288,9 @@
             </table>
         </div>
     </div>
-</tab>
+</tab> -->
+<!-- tabset end -->
+
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
     <table class="table table-bordered">
         <colgroup span="4"></colgroup>

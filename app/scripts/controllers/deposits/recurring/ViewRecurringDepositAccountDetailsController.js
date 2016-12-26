@@ -97,6 +97,7 @@
 
             resourceFactory.recurringDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                console.log(scope.savingaccountdetails);
                 scope.convertDateArrayToObject('date');
                 scope.chartSlabs = scope.savingaccountdetails.accountChart.chartSlabs;
                 scope.isprematureAllowed = data.maturityDate != null;
