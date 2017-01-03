@@ -22,6 +22,18 @@
             formdata={};
 
 
+            scope.more_btn_click = function(){
+                var offset = $('.more_btn').offset()
+                var left = offset.left;
+                var right = $(window).width() - (left + $('.more_btn').width());
+                console.log(left);
+                console.log(right);
+                if(left < right){
+                    // the dropdown is on left 
+                    $('.dropdown-menu-more').removeClass('dropdown-menu-right');
+                }                
+            }
+
             resourceFactory.clientTemplateResource.get(function(data)
             {
                 scope.enableAddress=data.isAddressEnabled;

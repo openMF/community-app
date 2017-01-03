@@ -55,14 +55,13 @@
                     resourceFactory.globalSearch.search({query: searchString , resource: "clients,clientIdentifiers",exactMatch: exactMatch}, function (data) {
                         var arrayLength = data.length;
                         for (var i = 0; i < arrayLength; i++) {
-                            var result = data[i];
+                            var result = data[i];                            
                             var client = {};
                             client.status = {};
                             client.subStatus = {};
                             client.status.value = result.entityStatus.value;
-                            client.status.code  = result.entityStatus.code;
+                            client.status.code  = result.entityStatus.code; 
                             if(result.entityType  == 'CLIENT'){
-
                                 client.displayName = result.entityName;
                                 client.accountNo = result.entityAccountNo;
                                 client.id = result.entityId;
@@ -71,7 +70,6 @@
                                 numberOfClients = numberOfClients + 1;
                                 client.displayName = result.parentName;
                                 client.id = result.parentId;
-
                             }
                             scope.actualClients.push(client);
                         }
