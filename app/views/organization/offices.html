@@ -10,6 +10,26 @@
         <a href="#/createoffice" class="btn btn-primary" has-permission='CREATE_OFFICE'><i class="icon-plus icon-white"></i>{{'label.button.createoffice' | translate}}</a>
     </div>
     <div class="clear"></div>
+    <div ng-show="isTreeView && !treedata[0].collapsed && isNodeSelected" style="position: fixed; margin-left: 20%; margin-top: 5%;">
+    	<table class="table-bordered table view-table" style="width: 350px">
+                    <tr>
+                        <td>{{ 'label.heading.parentoffice' | translate }}</td>
+                        <td>{{treeview.currentNode.parentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.openedon' | translate }}</td>
+                        <td>{{treeview.currentNode.openingDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.namedecorated' | translate }}</td>
+                        <td>{{treeview.currentNode.nameDecorated | DotRemove}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.externalid' | translate }}</td>
+                        <td>{{treeview.currentNode.externalId}}</td>
+                    </tr>
+                </table>
+    </div>
     <div ng-hide="isTreeView">
         <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control span marginbottom0px" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
         <table class="table">

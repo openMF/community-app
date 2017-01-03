@@ -3,6 +3,7 @@
         OfficesController: function (scope, resourceFactory, location) {
             scope.offices = [];
             scope.isTreeView = false;
+            scope.isNodeSelected = false
             var idToNodeMap = {};
 
             scope.routeTo = function (id) {
@@ -37,6 +38,7 @@
                 }
                 return obj;
             }
+            
 
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = scope.deepCopy(data);
@@ -65,6 +67,12 @@
                 }
                 scope.treedata = root;
             });
+            
+            scope.$watch('treeview.currentNode', function(oldObj, newObj) {
+            	if (!scope.isNodeSelected && oldObj.id != '') {
+            		scope.isNodeSelected = true;
+            	}
+            }, false);
         }
     });
     mifosX.ng.application.controller('OfficesController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.OfficesController]).run(function ($log) {
