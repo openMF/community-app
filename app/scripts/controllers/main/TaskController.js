@@ -15,6 +15,8 @@
             scope.restrictDate = new Date();
             //this value will be changed within each specific tab
             scope.requestIdentifier = "loanId";
+            
+            scope.itemsPerPage = 15;
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
