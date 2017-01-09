@@ -49,7 +49,7 @@
                 scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                 scope.formData.mandatoryRecommendedDepositAmount = data.mandatoryRecommendedDepositAmount;
                 scope.formData.depositPeriod = data.depositPeriod;
-                scope.formData.recurringDepositFrequency = data.recurringDepositFrequency;
+                scope.formData.recurringFrequency = data.recurringFrequency;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                 var depositPeriodFrequencyId = (_.isNull(data.depositPeriodFrequency) || _.isUndefined(data.depositPeriodFrequency)) ? '' : data.depositPeriodFrequency.id;
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
@@ -57,6 +57,7 @@
                 if (data.interestCalculationType) scope.formData.interestCalculationType = data.interestCalculationType.id;
                 if (data.interestCalculationDaysInYearType) scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 if (data.lockinPeriodFrequencyType) scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
+                if (data.recurringFrequencyType) scope.formData.recurringFrequencyType = data.recurringFrequencyType.id;
 
                 scope.chart = data.accountChart;
                 scope.chartSlabs = scope.chart.chartSlabs;
@@ -95,8 +96,6 @@
                 scope.formData.allowWithdrawal = data.allowWithdrawal;
                 scope.formData.adjustAdvanceTowardsFuturePayments = data.adjustAdvanceTowardsFuturePayments;
                 scope.formData.isCalendarInherited = data.isCalendarInherited;
-                scope.formData.recurringFrequency = data.recurringFrequency;
-                scope.formData.recurringFrequencyType = data.recurringFrequencyType.id;
                 scope.formData.withHoldTax = data.withHoldTax;
             });
 
@@ -112,7 +111,7 @@
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.mandatoryRecommendedDepositAmount = data.mandatoryRecommendedDepositAmount;
                     scope.formData.depositPeriod = data.depositPeriod;
-                    scope.formData.recurringDepositFrequency = data.recurringDepositFrequency;
+                    scope.formData.recurringFrequency = data.recurringFrequency;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                     scope.formData.withHoldTax = data.withHoldTax;
                     /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
@@ -125,6 +124,7 @@
                     if (data.interestCalculationType) scope.formData.interestCalculationType = data.interestCalculationType.id;
                     if (data.interestCalculationDaysInYearType) scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                     if (data.lockinPeriodFrequencyType) scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
+                    if (data.recurringFrequencyType) scope.formData.recurringFrequencyType = data.recurringFrequencyType.id;
                     //if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
 
                     scope.chart = data.accountChart;
