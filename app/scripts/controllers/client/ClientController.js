@@ -66,11 +66,13 @@
                                 client.displayName = result.entityName;
                                 client.accountNo = result.entityAccountNo;
                                 client.id = result.entityId;
+                                client.externalId = result.entityExternalId;
                                 client.officeName = result.parentName;
                             }else if (result.entityType  == 'CLIENTIDENTIFIER'){
                                 numberOfClients = numberOfClients + 1;
                                 client.displayName = result.parentName;
                                 client.id = result.parentId;
+                                client.externalId = result.parentExternalId;
 
                             }
                             scope.actualClients.push(client);
