@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams) {
+        CreateSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, Upload, $rootScope, routeParams) {
 
             scope.reportParams = new Array();
             scope.reportDateParams = new Array();
@@ -399,7 +399,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', mifosX.controllers.CreateSmsCampaignController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', 'Upload', '$rootScope', '$routeParams', mifosX.controllers.CreateSmsCampaignController]).run(function ($log) {
         $log.info("CreateSmsCampaignController initialized");
     });
 }(mifosX.controllers || {}));
