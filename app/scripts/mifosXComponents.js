@@ -12,7 +12,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'AuthenticationService',
             'SessionManager',
             'Paginator',
-            'UIConfigService'
+            'UIConfigService',
+            'NotificationResponseHeaderProvider'
         ],
         controllers: [
             'main/MainController',
@@ -288,6 +289,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
+            'notification/NotificationsController'
         ],
         filters: [
             'StatusLookup',
@@ -326,6 +328,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
     };
 
     return function() {
+      console.log();
         var defer = Q.defer();
         require(_.reduce(_.keys(components), function (list, group) {
             return list.concat(_.map(components[group], function (name) {

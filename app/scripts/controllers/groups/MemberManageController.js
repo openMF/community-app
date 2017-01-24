@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        MemberManageController: function ($q, scope, routeParams, route, location, resourceFactory, $modal) {
+        MemberManageController: function ($q, scope, routeParams, route, location, resourceFactory, $uibModal) {
             scope.group = [];
             scope.indexOfClientToBeDeleted = "";
             scope.allMembers = [];
@@ -42,7 +42,7 @@
 
             scope.remove = function (index,id) {
                 scope.indexOfClientToBeDeleted = index;
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'delete.html',
                     controller: MemberDeleteCtrl
                 });
@@ -51,20 +51,20 @@
             	scope.disassociate.clientMembers.push(id);
             };
             
-            var MemberDeleteCtrl = function ($scope, $modalInstance) {
+            var MemberDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                 	resourceFactory.groupResource.save({groupId: routeParams.id, command: 'disassociateClients'}, scope.disassociate, function (data) {
                         scope.allMembers.splice(scope.indexOfClientToBeDeleted, 1);
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('MemberManageController', ['$q','$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.MemberManageController]).run(function ($log) {
+    mifosX.ng.application.controller('MemberManageController', ['$q','$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$uibModal', mifosX.controllers.MemberManageController]).run(function ($log) {
         $log.info("MemberManageController initialized");
     });
 }(mifosX.controllers || {}));

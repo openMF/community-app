@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $uibModal, API_VERSION, $rootScope, Upload) {
             scope.client = [];
             scope.identitydocuments = [];
             scope.buttons = [];
@@ -83,9 +83,9 @@
 
 
             // end of address
-            
-            
-            
+
+
+
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -118,6 +118,7 @@
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                console.log(data);
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {
@@ -165,31 +166,31 @@
                 if (clientStatus.statusKnown(data.status.value)) {
                     scope.buttons = clientStatus.getStatus(data.status.value);
                     scope.savingsActionbuttons = [
-                            {
-                                name: "button.deposit",
-                                type: "100",
-                                icon: "icon-arrow-right",
-                                taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
-                            },
-                            {
-                                name: "button.withdraw",
-                                type: "100",
-                                icon: "icon-arrow-left",
-                                taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
-                            },
-                            {
-                                name: "button.deposit",
-                                type: "300",
-                                icon: "icon-arrow-right",
-                                taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
-                            },
-                            {
-                                name: "button.withdraw",
-                                type: "300",
-                                icon: "icon-arrow-left",
-                                taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
-                            }
-                        ];
+                        {
+                            name: "button.deposit",
+                            type: "100",
+                            icon: "fa fa-arrow-right",
+                            taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
+                        },
+                        {
+                            name: "button.withdraw",
+                            type: "100",
+                            icon: "fa fa-arrow-left",
+                            taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
+                        },
+                        {
+                            name: "button.deposit",
+                            type: "300",
+                            icon: "fa fa-arrow-right",
+                            taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
+                        },
+                        {
+                            name: "button.withdraw",
+                            type: "300",
+                            icon: "fa fa-arrow-left",
+                            taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
+                        }
+                    ];
                 }
 
                 if (data.status.value == "Pending" || data.status.value == "Active") {
@@ -214,24 +215,24 @@
                 });
             });
             scope.deleteClient = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteClient.html',
                     controller: ClientDeleteCtrl
                 });
             };
             scope.uploadPic = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'uploadpic.html',
                     controller: UploadPicCtrl
                 });
             };
-            var UploadPicCtrl = function ($scope, $modalInstance) {
+            var UploadPicCtrl = function ($scope, $uibModalInstance) {
                 $scope.onFileSelect = function ($files) {
                     scope.file = $files[0];
                 };
                 $scope.upload = function () {
                     if (scope.file) {
-                        $upload.upload({
+                        Upload.upload({
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
                             data: {},
                             file: scope.file
@@ -240,23 +241,23 @@
                             if (!scope.$$phase) {
                                 scope.$apply();
                             }
-                            $modalInstance.close('upload');
+                            $uibModalInstance.close('upload');
                             route.reload();
                         });
                     }
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.capturePic = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'capturepic.html',
                     controller: CapturePicCtrl,
                     windowClass: 'modalwidth700'
                 });
             };
-            var CapturePicCtrl = function ($scope, $modalInstance) {
+            var CapturePicCtrl = function ($scope, $uibModalInstance) {
 
                 $scope.video = null;
                 $scope.picture = null;
@@ -295,25 +296,25 @@
                             if (!scope.$$phase) {
                                 scope.$apply();
                             }
-                            $modalInstance.close('upload');
+                            $uibModalInstance.close('upload');
                             route.reload();
                         });
                     }
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
                 $scope.reset = function () {
                     $scope.picture = null;
                 }
             };
             scope.deletePic = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletePic.html',
                     controller: DeletePicCtrl
                 });
             };
-            var DeletePicCtrl = function ($scope, $modalInstance) {
+            var DeletePicCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     http({
                         method: 'DELETE',
@@ -322,27 +323,27 @@
                         if (!scope.$$phase) {
                             scope.$apply();
                         }
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.uploadSig = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'uploadsig.html',
                     controller: UploadSigCtrl
                 });
             };
-            var UploadSigCtrl = function ($scope, $modalInstance) {
+            var UploadSigCtrl = function ($scope, $uibModalInstance) {
                 $scope.onFileSelect = function ($files) {
                     scope.file = $files[0];
                 };
                 $scope.upload = function () {
                     if (scope.file) {
-                        $upload.upload({
+                        Upload.upload({
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
                             data: {
                                 name: 'clientSignature',
@@ -350,46 +351,46 @@
                             },
                             file: scope.file,
                         }).then(function (imageData) {
-                                // to fix IE not refreshing the model
-                                if (!scope.$$phase) {
-                                    scope.$apply();
-                                }
-                                $modalInstance.close('upload');
-                                route.reload();
-                            });
+                            // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
                     }
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.unassignStaffCenter = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'clientunassignstaff.html',
                     controller: ClientUnassignCtrl
                 });
             };
-            var ClientDeleteCtrl = function ($scope, $modalInstance) {
+            var ClientDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/clients');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
-            var ClientUnassignCtrl = function ($scope, $modalInstance) {
+            var ClientUnassignCtrl = function ($scope, $uibModalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'unassignstaff'}, scope.staffData, function (data) {
-                        $modalInstance.close('unassign');
+                        $uibModalInstance.close('unassign');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
@@ -626,16 +627,16 @@
 
             scope.showSignature = function()
             {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'clientSignature.html',
                     controller: ViewLargerClientSignature,
                     size: "lg"
                 });
-             };
+            };
 
             scope.showWithoutSignature = function()
             {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'clientWithoutSignature.html',
                     controller: ViewClientWithoutSignature,
                     size: "lg"
@@ -643,24 +644,24 @@
             };
 
             scope.showPicture = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'photo-dialog.html',
                     controller: ViewLargerPicCtrl,
                     size: "lg"
                 });
             };
 
-            var ViewClientWithoutSignature = function($scope,$modalInstance){
+            var ViewClientWithoutSignature = function($scope,$uibModalInstance){
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
-            var ViewLargerClientSignature = function($scope,$modalInstance){
-                    var loadSignature = function(){
-                     http({
+            var ViewLargerClientSignature = function($scope,$uibModalInstance){
+                var loadSignature = function(){
+                    http({
                         method: 'GET',
                         url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
-                     }).then(function (docsData) {
+                    }).then(function (docsData) {
                         var docId = -1;
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
@@ -668,23 +669,23 @@
                                 scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             }
                         }
-                    if (scope.signature_url != null) {
-                        http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
-                    }).then(function (docsData) {
-                            $scope.largeImage = scope.signature_url;
-                        });
-                    }
+                        if (scope.signature_url != null) {
+                            http({
+                                method: 'GET',
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                            }).then(function (docsData) {
+                                $scope.largeImage = scope.signature_url;
+                            });
+                        }
                     });
                 };
                 loadSignature();
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
-             };
+            };
 
-            var ViewLargerPicCtrl = function ($scope, $modalInstance) {
+            var ViewLargerPicCtrl = function ($scope, $uibModalInstance) {
                 var loadImage = function () {
                     if (scope.client.imagePresent) {
                         http({
@@ -697,14 +698,14 @@
                 };
                 loadImage();
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$uibModal', 'API_VERSION', '$rootScope', 'Upload', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

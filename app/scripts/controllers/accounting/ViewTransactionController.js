@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal) {
+        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $uibModal) {
             scope.flag = false;
             scope.manualEntry = false;
             scope.productName = routeParams.productName;
@@ -28,7 +28,7 @@
                 }
             });
             scope.confirmation = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'confirmation.html',
                     controller: ConfirmationCtrl,
                     resolve: {
@@ -39,20 +39,20 @@
                 });
             };
 
-            var ConfirmationCtrl = function ($scope, $modalInstance, id) {
+            var ConfirmationCtrl = function ($scope, $uibModalInstance, id) {
                 $scope.transactionnumber = id.transactionId;
                 $scope.redirect = function () {
-                    $modalInstance.close('delete');
+                    $uibModalInstance.close('delete');
                     location.path('/viewtransactions/' + id.transactionId);
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.showTransaction = function (transaction) {
                 scope.transaction = transaction;
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'viewjournalentry.html',
                     controller: ViewJournalEntryCtrl,
                     resolve: {
@@ -63,15 +63,15 @@
                 });
             };
 
-            var ViewJournalEntryCtrl = function ($scope, $modalInstance, transaction) {
+            var ViewJournalEntryCtrl = function ($scope, $uibModalInstance, transaction) {
                 $scope.transaction = transaction;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.reverseTransaction = function (transactionId) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'reverseTransaction.html',
                     controller: ReverseJournalEntriesCtrl,
                     resolve: {
@@ -82,14 +82,14 @@
                 });
             }
 
-            var ReverseJournalEntriesCtrl = function ($scope, $modalInstance, transactionId) {
+            var ReverseJournalEntriesCtrl = function ($scope, $uibModalInstance, transactionId) {
                 $scope.data = {
                     reverseComments:""
                 };
                 $scope.reverse = function () {
                     reverseData = {transactionId: transactionId, comments: $scope.data.reverseComments};
                     resourceFactory.journalEntriesResource.reverse(reverseData, function (data) {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
 
                     scope.trxnid = data;
                     scope.confirmation();
@@ -99,13 +99,13 @@
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
-    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', mifosX.controllers.ViewTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$uibModal', mifosX.controllers.ViewTransactionController]).run(function ($log) {
         $log.info("ViewTransactionController initialized");
     });
 }(mifosX.controllers || {}));
