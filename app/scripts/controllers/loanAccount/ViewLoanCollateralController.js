@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanCollateralController: function (scope, resourceFactory, routeParams, location, $modal) {
+        ViewLoanCollateralController: function (scope, resourceFactory, routeParams, location, $uibModal) {
 
             scope.loanId = routeParams.loanId;
             scope.collateralId = routeParams.id;
@@ -9,25 +9,25 @@
                 scope.collateral = data;
             });
             scope.deleteCollateral = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletecollateral.html',
                     controller: CollateralDeleteCtrl
                 });
             };
-            var CollateralDeleteCtrl = function ($scope, $modalInstance) {
+            var CollateralDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.loanResource.delete({ resourceType: 'collaterals', loanId: scope.loanId, resourceId: scope.collateralId}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/viewloanaccount/' + scope.loanId);
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewLoanCollateralController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$modal', mifosX.controllers.ViewLoanCollateralController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanCollateralController', ['$scope', 'ResourceFactory', '$routeParams', '$location', '$uibModal', mifosX.controllers.ViewLoanCollateralController]).run(function ($log) {
         $log.info("ViewLoanCollateralController initialized");
     });
 }(mifosX.controllers || {}));

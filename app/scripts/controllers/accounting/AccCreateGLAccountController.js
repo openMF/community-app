@@ -28,8 +28,9 @@
 
                 //by default display assetTagsOptions and assetHeaderAccountOptions
                 scope.types = data.allowedAssetsTagOptions,
-                scope.headerTypes = data.assetHeaderAccountOptions
+                scope.headerTypes = data.assetHeaderAccountOptions;
                 scope.changeType();
+
 
                 for (var i = 0; i < scope.headerTypes.length; i++) {
                     if(scope.headerTypes[i].id == $routeParams.parent ) {

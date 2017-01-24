@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewPaymentTypeController: function (scope, routeParams, resourceFactory, location, $modal, route) {
+        ViewPaymentTypeController: function (scope, routeParams, resourceFactory, location, $uibModal, route) {
             scope.paymentTypes = [];
             scope.formData = [];
             resourceFactory.paymentTypeResource.getAll( function (data) {
@@ -11,19 +11,19 @@
                 location.path('/editPaymentType/' + id);
             }
 
-           var PaymentTypeDeleteCtrl = function ($scope, $modalInstance,paymentTypeId) {
+           var PaymentTypeDeleteCtrl = function ($scope, $uibModalInstance,paymentTypeId) {
                $scope.delete = function () {
                    resourceFactory.paymentTypeResource.delete({paymentTypeId: paymentTypeId}, {}, function (data) {
-                       $modalInstance.close('delete');
+                       $uibModalInstance.close('delete');
                        route.reload();
                    });
                };
                $scope.cancel = function () {
-                   $modalInstance.dismiss('cancel');
+                   $uibModalInstance.dismiss('cancel');
                };
            }
                 scope.deletePaymentType = function (id) {
-                    $modal.open({
+                    $uibModal.open({
                         templateUrl: 'deletePaymentType.html',
                         controller: PaymentTypeDeleteCtrl,
                         resolve: {
@@ -36,7 +36,7 @@
 
                 }
     });
-    mifosX.ng.application.controller('ViewPaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.ViewPaymentTypeController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewPaymentTypeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', '$route', mifosX.controllers.ViewPaymentTypeController]).run(function ($log) {
         $log.info("ViewPaymentTypeController initialized");
     });
 }(mifosX.controllers || {}));
