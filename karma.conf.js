@@ -59,7 +59,7 @@ module.exports = function (config) {
 
         autoWatch : false,
 
-        browsers : ['Chrome'],
+        browsers : ['PhantomJS2'],
 
         // If browser does not capture in given timeout [ms], kill it
         captureTimeout : 5000,
