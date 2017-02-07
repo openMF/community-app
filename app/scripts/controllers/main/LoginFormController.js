@@ -7,7 +7,8 @@
             scope.load = false;
 
             scope.login = function () {
-                scope.load = true;
+                //activate the loading
+                scope.$emit('LOAD');
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
                // delete scope.loginCredentials.password;
             };
@@ -17,18 +18,21 @@
                 scope.authenticationFailed = true;
                 if(status != 401) {
                     scope.authenticationErrorMessage = 'error.connection.failed';
-                    scope.load = false;
+                    //deactivate the loading
+                    scope.$emit('UNLOAD');
                 } else {
                    scope.authenticationErrorMessage = 'error.login.failed';
-                   scope.load = false;
+                    //deactivate the loading
+                    scope.$emit('UNLOAD');
                 }
             });
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
-                scope.load = false;
                 timer = $timeout(function(){
                     delete scope.loginCredentials.password;
                 },2000);
+                //deactivate the loading
+                scope.$emit('UNLOAD');
              });
 
             /*This logic is no longer required as enter button is binded with text field for submit.
