@@ -11,7 +11,7 @@
                 scope.searchCriteria.codes = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.codes;
+            scope.filterText = scope.searchCriteria.codes || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.codes = scope.filterText;
