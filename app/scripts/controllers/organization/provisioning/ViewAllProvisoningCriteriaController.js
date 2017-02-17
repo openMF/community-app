@@ -19,7 +19,7 @@
                 scope.searchCriteria.criterias = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.criterias;
+            scope.filterText = scope.searchCriteria.criterias || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.criterias = scope.filterText;

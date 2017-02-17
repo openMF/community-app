@@ -43,7 +43,7 @@
 
             scope.initPage();
 
-            scope.filterText = scope.searchCriteria.criterias;
+            scope.filterText = scope.searchCriteria.criterias || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.criterias = scope.filterText;
