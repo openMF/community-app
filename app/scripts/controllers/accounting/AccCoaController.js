@@ -18,7 +18,7 @@
             scope.filterText = scope.searchCriteria.acoa;
 
             scope.onFilter = function () {
-                scope.searchCriteria.acoa = scope.filterText;
+                scope.searchCriteria.acoa = scope.filterText || '';
                 scope.saveSC();
             };
 

@@ -15,7 +15,7 @@
                 scope.searchCriteria.reports = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.reports;
+            scope.filterText = scope.searchCriteria.reports || '';
 
             scope.addLocaleReportName = function (){
                 if(document.getElementsByName("locale_name") != undefined && scope.reports){

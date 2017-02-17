@@ -11,7 +11,7 @@
                 scope.searchCriteria.charges = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.charges;
+            scope.filterText = scope.searchCriteria.charges || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.charges = scope.filterText;
