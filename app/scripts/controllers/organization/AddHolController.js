@@ -57,22 +57,22 @@
             });
 
             scope.holidayApplyToOffice = function (node) {
-                if (node.selectedCheckBox === 'true') {
+                if (node.selectedCheckBox) {
                     recurHolidayApplyToOffice(node);
                     holidayOfficeIdArray = _.uniq(holidayOfficeIdArray);
                 } else {
-                    node.selectedCheckBox = 'false';
+                    node.selectedCheckBox = false;
                     recurRemoveHolidayAppliedOOffice(node);
 
                 }
             };
 
             function recurHolidayApplyToOffice(node) {
-                node.selectedCheckBox = 'true';
+                node.selectedCheckBox = true;
                 holidayOfficeIdArray.push(node.id);
                 if (node.children.length > 0) {
                     for (var i = 0; i < node.children.length; i++) {
-                        node.children[i].selectedCheckBox = 'true';
+                        node.children[i].selectedCheckBox = true;
                         holidayOfficeIdArray.push(node.children[i].id);
                         if (node.children[i].children.length > 0) {
                             recurHolidayApplyToOffice(node.children[i]);
@@ -85,7 +85,7 @@
                 holidayOfficeIdArray = _.without(holidayOfficeIdArray, node.id);
                 if (node.children.length > 0) {
                     for (var i = 0; i < node.children.length; i++) {
-                        node.children[i].selectedCheckBox = 'false';
+                        node.children[i].selectedCheckBox = false;
                         holidayOfficeIdArray = _.without(holidayOfficeIdArray, node.children[i].id);
                         if (node.children[i].children.length > 0) {
                             recurRemoveHolidayAppliedOOffice(node.children[i]);
