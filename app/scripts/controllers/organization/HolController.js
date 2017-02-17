@@ -13,7 +13,7 @@
                 scope.searchCriteria.holidays = [null, null];
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.holidays[0];
+            scope.filterText = scope.searchCriteria.holidays[0] || '';
             scope.formData.officeId = scope.searchCriteria.holidays[1];
 
             scope.onFilter = function () {
