@@ -25,7 +25,7 @@
                 scope.searchCriteria.config = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.config;
+            scope.filterText = scope.searchCriteria.config || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.config = scope.filterText;
