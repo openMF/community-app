@@ -32,10 +32,7 @@
                             <option selected="selected" value="">{{'label.all' | translate}}</option>
                             <option ng-repeat="action in template.actionNames" value="{{action}}">{{action}}</option>
                         </select>
-                        <a ng-click="clearFilters()" class="btn btn-primary control pull-right"><i class="fa fa-remove-sign">{{'label.button.reset' | translate}}</i></a>
-                    </div>
-
-                    <div class="form-inline">
+                        <br>
                         <input type="text" placeholder="{{'label.input.resourceid' | translate}}" ng-model="formData.resourceId" class="form-control">
                         <input type="text" sort placeholder="{{'label.input.todate' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" class="form-control"/>
                         <input type="text" sort placeholder="{{'label.input.checkedto' | translate}}" datepicker-pop="dd MMMM yyyy" ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control"/>
@@ -49,18 +46,20 @@
                             <option selected="selected" value="">{{'label.all' | translate}}</option>
                             <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
                         </select>
-                        <span><a ng-click="searchAudit()" class="btn btn-primary control pull-right" has-permission='READ_AUDIT'><i class="fa fa-search "></i>{{'label.button.advancesearch' | translate}}</a></span>
+                        <a ng-click="searchAudit()" class="btn btn-primary control pull-right" has-permission='READ_AUDIT'><i class="fa fa-search "></i>{{'label.button.advancesearch' | translate}}</a>
+                        <a ng-click="clearFilters()" class="btn btn-primary control pull-right"><i class="fa fa-times">{{'label.button.reset' | translate}}</i></a>
                     </div>
                 </div>
 
                 <div ng-show="displayResults">
                 <br>
+                    <br>
                     <div data-ng-show="flag" class="pull-right">
                         <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="fa fa-file "></i>{{'label.button.exportcsv' | translate }}</button>
                     </div>
                     <br> 
                     <div scroll data-ng-show="flag">
-                        <table class="table table-bordered width1200px" data-anchor>
+                        <table class="table table-bordered" style="width:1200px" data-anchor>
                             <thead>
                             <tr class="graybg">
                                 <th>{{'label.heading.id' | translate}}</th>
