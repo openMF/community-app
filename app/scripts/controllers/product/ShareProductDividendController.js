@@ -15,7 +15,7 @@
             if (!scope.searchCriteria.savingP) {
                 scope.searchCriteria.savingP = null;
             }
-            scope.filterText = scope.searchCriteria.savingP;
+            scope.filterText = scope.searchCriteria.savingP || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.savingP = scope.filterText;

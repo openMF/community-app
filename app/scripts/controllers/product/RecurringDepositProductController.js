@@ -9,7 +9,7 @@
                 scope.searchCriteria.rdp = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.rdp;
+            scope.filterText = scope.searchCriteria.rdp || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.rdp = scope.filterText;

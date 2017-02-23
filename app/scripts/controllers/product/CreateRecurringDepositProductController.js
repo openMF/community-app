@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateRecurringDepositProductController: function (scope, resourceFactory, location, dateFilter,$modal) {
+        CreateRecurringDepositProductController: function (scope, resourceFactory, location, dateFilter,$uibModal) {
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -310,7 +310,7 @@
             }
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -357,11 +357,11 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -386,7 +386,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$modal', mifosX.controllers.CreateRecurringDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$uibModal', mifosX.controllers.CreateRecurringDepositProductController]).run(function ($log) {
         $log.info("CreateRecurringDepositProductController initialized");
     });
 }(mifosX.controllers || {}));

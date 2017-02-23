@@ -18,7 +18,7 @@ describe('ViewUserController', function(){
         })
       }
     };
-    this.$modal = jasmine.createSpyObj('$modal', ['open']);
+    this.$uibModal = jasmine.createSpyObj('$uibModal', ['open']);
   
     this.controller = new mifosX.controllers.ViewUserController(
       this.scope,
@@ -26,7 +26,7 @@ describe('ViewUserController', function(){
       this.route,
       this.location,
       this.resourceFactory,
-      this.$modal);
+      this.$uibModal);
   }));
 
   it('should add the user data to the scope from user List Resource', function(){
@@ -40,21 +40,21 @@ describe('ViewUserController', function(){
 
     beforeEach(function(){
       this.scope.open();
-      var modalOpenArgs = this.$modal.open.mostRecentCall.args[0];
+      var modalOpenArgs = this.$uibModal.open.mostRecentCall.args[0];
       templateUrl = modalOpenArgs.templateUrl;
       modalOpenCtrl = modalOpenArgs.controller;
     });
 
-    it('$modal should be called with the "password.html"', function(){
+    it('$uibModal should be called with the "password.html"', function(){
       expect(templateUrl).toEqual('password.html');
     });
 
     describe('ModalOpenCtrl', function(){
-      var $modalInstance;
+      var $uibModalInstance;
       
       beforeEach(function(){
-        $modalInstance = jasmine.createSpyObj('$modalInstance', ['close','dismiss']);
-        modalOpenCtrl(this.scope, $modalInstance);
+        $uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['close','dismiss']);
+        modalOpenCtrl(this.scope, $uibModalInstance);
       });
 
       describe('On Save', function(){
@@ -66,7 +66,7 @@ describe('ViewUserController', function(){
           });
 
           it('should close the modal', function(){
-            expect($modalInstance.close).toHaveBeenCalledWith('activate'); 
+            expect($uibModalInstance.close).toHaveBeenCalledWith('activate'); 
           });
           it('should call the logout method when equal to current user', function(){
             expect(this.scope.logout).toHaveBeenCalled();
@@ -87,7 +87,7 @@ describe('ViewUserController', function(){
 
       it('should dismiss the modal on close', function(){
         this.scope.cancel();
-        expect($modalInstance.dismiss).toHaveBeenCalledWith('cancel'); 
+        expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel'); 
       });
     });
   });
@@ -97,21 +97,21 @@ describe('ViewUserController', function(){
 
     beforeEach(function(){
       this.scope.deleteuser();
-      var modalDeleteArgs = this.$modal.open.mostRecentCall.args[0];
+      var modalDeleteArgs = this.$uibModal.open.mostRecentCall.args[0];
       templateUrl = modalDeleteArgs.templateUrl;
       modalDeleteCtrl = modalDeleteArgs.controller;
     });
 
-    it('$modal should be called with the "deleteuser.html"', function(){
+    it('$uibModal should be called with the "deleteuser.html"', function(){
       expect(templateUrl).toEqual('deleteuser.html');
     });
 
     describe('UserDeleteCtrl', function(){
-      var $modalInstance;
+      var $uibModalInstance;
       
       beforeEach(function(){
-        $modalInstance = jasmine.createSpyObj('$modalInstance', ['close','dismiss']);
-        modalDeleteCtrl(this.scope, $modalInstance);
+        $uibModalInstance = jasmine.createSpyObj('$uibModalInstance', ['close','dismiss']);
+        modalDeleteCtrl(this.scope, $uibModalInstance);
       });
 
       describe('on delete', function(){
@@ -119,7 +119,7 @@ describe('ViewUserController', function(){
           this.scope.delete();
         });
         it('should close the modal', function(){
-          expect($modalInstance.close).toHaveBeenCalledWith('delete');
+          expect($uibModalInstance.close).toHaveBeenCalledWith('delete');
         });
 
         it('should navagate to the "/users" page', function(){
@@ -130,7 +130,7 @@ describe('ViewUserController', function(){
       
       it('should dismiss the modal on close', function(){
         this.scope.cancel();
-        expect($modalInstance.dismiss).toHaveBeenCalledWith('cancel'); 
+        expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel'); 
       });
     });
   });
