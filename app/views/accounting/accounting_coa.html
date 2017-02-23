@@ -8,18 +8,15 @@
             <api-validate></api-validate>
             <div class="toolbar">
                 <h4>{{'label.heading.chartofaccounts' | translate}}</h4>
+                <div class="pull-right">
+                    <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="fa fa-list "></i>{{'label.button.listview' | translate}}</a>
+                    <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="fa fa-sitemap "></i>{{'label.button.treeview' | translate}}</a>
+                    <a href="#/createglaccount" class="btn btn-primary btn-sm" has-permission='CREATE_GLACCOUNT'><i class="fa fa-plus "></i>{{'label.button.addaccount' | translate}}</a>
+                </div>
             </div>
-            <br>
-            <div class="clear"></div>
-            <div class="pull-right">
-                <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="fa fa-list "></i>{{'label.button.listview' | translate}}</a>
-                <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="fa fa-sitemap "></i>{{'label.button.treeview' | translate}}</a>
-                <a href="#/createglaccount" class="btn btn-primary btn-sm" has-permission='CREATE_GLACCOUNT'><i class="fa fa-plus "></i>{{'label.button.addaccount' | translate}}</a>
-            </div><br>
             <div ng-hide="isTreeView">
-            <hr>
                 <div class="">
-                    <input ng-model="filterText" type="text" ng-keyup="onFilter()" 
+                    <input ng-model="filterText" type="text" ng-keyup="onFilter()"
                     class="form-control " placeholder="{{'label.input.filterbyAccountGlcodeAccounttype' | translate}}">
                 </div>
                 <br>
@@ -71,7 +68,7 @@
                             </tr>
                     </table>
                 </div>
-                <div 
+                <div
                     data-angular-treeview="true"
                     data-tree-id="treeview"
                     data-tree-model="treedata"
