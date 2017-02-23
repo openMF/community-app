@@ -15,6 +15,7 @@
                $scope.delete = function () {
                    resourceFactory.paymentTypeResource.delete({paymentTypeId: paymentTypeId}, {}, function (data) {
                        $uibModalInstance.close('delete');
+                       $uibModalInstance.dismiss('cancel');
                        route.reload();
                    });
                };
