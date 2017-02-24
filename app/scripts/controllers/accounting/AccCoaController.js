@@ -40,14 +40,14 @@
                 return obj;
             }
 
-            resourceFactory.accountCoaResource.getAllAccountCoas(async function (data) {
+            resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
                 scope.coadatas = scope.deepCopy(data);
-                scope.ASSET = await translate('ASSET') ;
-                scope.LIABILITY = await translate('LIABILITY') ;
-                scope.EQUITY = await translate('EQUITY') ;
-                scope.INCOME = await translate('INCOME') ;
-                scope.EXPENSE = await translate('EXPENSE') ;
-                scope.Accounting = await translate('Accounting') ;
+                scope.ASSET = translate.instant('ASSET') ;
+                scope.LIABILITY = translate.instant('LIABILITY') ;
+                scope.EQUITY = translate.instant('EQUITY') ;
+                scope.INCOME = translate.instant('INCOME') ;
+                scope.EXPENSE = translate.instant('EXPENSE') ;
+                scope.Accounting = translate.instant('Accounting') ;
 
                 var assetObject = {id: -1, name: scope.ASSET, parentId: -999, children: []};
                 var liabilitiesObject = {id: -2, name: scope.LIABILITY, parentId: -999, children: []};
