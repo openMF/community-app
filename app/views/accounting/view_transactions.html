@@ -17,7 +17,7 @@
             </div>
             <div class="modal-footer">
                 <api-validate></api-validate>
-                <br>        
+                <br>
                 <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                 <button class="btn btn-primary" ng-click="redirect()">{{'label.button.redirecttonewtrx' | translate}}
                 </button>
@@ -125,37 +125,39 @@
             <div class="content">
                 <div class="alert alert-success" role="alert" ng-if="clientId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Client Loan transaction with Id : {{journalEntryTransactionId}} </div>
                 <div class="alert alert-success" role="alert" ng-if="groupId != null">These journal entries were created by the portfolio  transaction with the following details: <br> Group Loan transaction with Id : {{journalEntryTransactionId}} </div>
-                <div class="toolbar">
-                    <h4>{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}</h4>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="pull-right" ng-show="manualEntry">
-                            <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
-                            }}</strong></span>
-                            <div class="btn-group">
-                                <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="fa fa-undo "></i>{{'label.button.reverse' | translate}}</a>
+               <div class="toolbar">
+                    <div class="col-md-11">
+                        <span>
+                            <strong class="h4">{{ 'label.heading.transactionnumber' | translate }}&nbsp;-&nbsp;{{transactionNumber}}</strong>
+                            <div class="pull-right" ng-show="manualEntry">
+                                <span class="required" data-ng-show="!flag"><strong>{{ 'label.transactionisreversedonce' | translate
+                                }}</strong></span>
+                                <div class="btn-group">
+                                    <a data-ng-show="flag" ng-click="reverseTransaction(transactionNumber)" class="btn btn-primary" has-permission='REVERSE_JOURNALENTRY'><i class="fa fa-undo "></i>{{'label.button.reverse' | translate}}</a>
+                                </div>
                             </div>
-                        </div>
+                        </span>
                     </div>
-                    <div class="col-md-2"></div>
+                    <div class="col-md-1"></div>
                 </div>
-                
+
                 <div class="row">
-                    <table class="table">
-                        <tr>
-                            <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
-                            <td class="width36">{{transactions[0].officeName}}</td>
-                            <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
-                            <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
-                        </tr>
-                        <tr>
-                            <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
-                            <td class="width36">{{transactions[0].createdByUserName}}</td>
-                            <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
-                            <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
-                        </tr>
-                    </table>
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tr>
+                                <td class="width14"><label>{{'label.input.office' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].officeName}}</td>
+                                <td class="width19"><label>{{'label.input.transactiondate' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].transactionDate | DateFormat}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width14"><label>{{'label.createdby' | translate}}</label></td>
+                                <td class="width36">{{transactions[0].createdByUserName}}</td>
+                                <td class="width19"><label>{{'label.createdon' | translate}}</label></td>
+                                <td class="width31">{{transactions[0].createdDate | DateFormat}}</td>
+                            </tr>
+                        </table>
+                    </div>
                     <div class="col-md-12">
                         <table class="table">
                             <thead>
