@@ -8,13 +8,11 @@
                 <h4>{{'label.heading.pendingtasks' | translate}}</h4>
             </div>
             <br>
-            <successful-responses/>
             <div class="">
                 <fieldset>
-
                     <api-validate></api-validate>
                     <uib-tabset tabset-name="taskTabset">
-                        <tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ'>
+                        <uib-tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
                                     <div class="form-inline">
@@ -165,8 +163,8 @@
                                                              template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                                 </center>
                             </div>
-                        </tab>
-                        <tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
                                     <thead>
@@ -230,7 +228,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr class="pointer-main"
-                                                    dir-paginate="client in values | filter : {active: 'false', status.value:'Pending'} | filter:filterText | itemsPerPage: itemsPerPage"
+                                                    dir-paginate="client in values | filter : {active: 'false', status: { value:'Pending'}} | filter:filterText | itemsPerPage: itemsPerPage"
                                                     pagination-id="'_' + $index">
                                                     <td><input type="checkbox" data-ng-model="approveData[client.id]"/>
                                                     </td>
@@ -253,8 +251,8 @@
                                                          boundary-links="true"
                                                          template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                             </div>
-                        </tab>
-                        <tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
                                     <thead>
@@ -328,8 +326,8 @@
                                                          boundary-links="true"
                                                          template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                             </div>
-                        </tab>
-                        <tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
                                     <thead>
@@ -377,7 +375,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="loan in loans | filter : {status.waitingForDisbursal :'true' }| filter:filterText2 | itemsPerPage: itemsPerPage"
+                                    <tr dir-paginate="loan in loans | filter : {status : { waitingForDisbursal :'true' }}| filter:filterText2 | itemsPerPage: itemsPerPage"
                                         pagination-id="loan-disbursal">
                                         <td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td>
                                         <td><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
@@ -391,9 +389,9 @@
                                                          boundary-links="true"
                                                          template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                             </div>
-                        </tab>
+                        </uib-tab>
 
-                        <tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
+                        <uib-tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
                                     <thead>
@@ -447,7 +445,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </tab>
+                        </uib-tab>
                     </uib-tabset>
                 </fieldset>
             </div>
