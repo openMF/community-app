@@ -7,6 +7,10 @@
                 scope.releasedate = data.releasedate;
             });
 
+            // to controle the event action on the login button
+            scope.$on('LOAD', function(){ scope.loading = true});
+            scope.$on('UNLOAD', function(){ scope.loading = false});
+
             scope.islogofoldernamefetched = false;
             scope.islogofoldernameconfig = false;
             scope.isFaviconPath = false;
