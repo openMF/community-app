@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewJLGLoanAccAppController: function (scope, rootScope, routeParams, resourceFactory, location, dateFilter, WizardHandler) {
+        NewJLGLoanAccAppController: function (scope, rootScope, routeParams, resourceFactory, location, dateFilter) {
 
             scope.response = {success:[],failed:[]};
             scope.group = {};
@@ -41,12 +41,11 @@
 
             scope.loanProductChange = function (loanProductId) {
                 _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
-                WizardHandler.wizard().removeSteps(1, scope.tempDataTables.length);
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
 
                     scope.productDetails = data.product;
-                    
+                    console.log('scope', scope.productDetails);
                     scope.group.clients = data.group.clientMembers.map(function(client) {
                         client.principal = data.product.principal;
                         client.charges = data.product.charges.map(function(charge){
@@ -140,11 +139,6 @@
 
             /* Submit button action */
             scope.submit = function () {
-                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
-                    WizardHandler.wizard().next();
-                    return;
-                }
-
                 if (!_.isUndefined(scope.datatables) && scope.datatables.length > 0) {
                     angular.forEach(scope.datatables, function (datatable, index) {
                         scope.columnHeaders = datatable.columnHeaderData;
@@ -258,7 +252,7 @@
         } // End of NewJLGLoanAccAppController
 
     });
-    mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$rootScope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'WizardHandler', mifosX.controllers.NewJLGLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('NewJLGLoanAccAppController', ['$scope', '$rootScope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.NewJLGLoanAccAppController]).run(function ($log) {
         $log.info("NewJLGLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));
