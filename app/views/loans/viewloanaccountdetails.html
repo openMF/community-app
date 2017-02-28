@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="ViewLoanDetailsController">
+<div class="content-container" ng-controller="ViewLoanDetailsController">
     <div>
         <ul class="breadcrumb">
             <li ng-show="loandetails.clientName"><a
@@ -7,7 +7,18 @@
             <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
         </ul>
     </div>
-    <div>
+    <script type="text/ng-template" id="delcharge.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
         <div class="form-horizontal" ng-show="report">
         	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -59,7 +70,7 @@
                       <span ng-repeat="button in buttons.singlebuttons">
                           <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
-                                  class="{{button.fa fa}} "></i>&nbsp;{{'label.' + button.name |
+                                  class="{{button.icon}} "></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
                       </span>
                       <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
@@ -68,7 +79,7 @@
                               <span class="caret"></span>
                           </a>
                           <ul style='margin-left:-95px;' class="dropdown dropdown-menu">
-                              <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                                      has-permission='{{button.taskPermissionName}}'>{{'label.'+
                                       button.name | translate}}</a>
@@ -81,7 +92,7 @@
             <hr/>
             <br/>
 
-            <div class="row span" style="margin-left:-1px;margin-top: -20px">
+            <div class="row span" style="margin-left:-1px;margin-top: -20px; margin-right: 1px;">
                 <div class="col-sm-6 col-md-6">
                     <table class="table table-striped table-bordered">
                         <tr>
@@ -140,7 +151,7 @@
 
                 </div>
             </div>
-            <div class="row paddedleft">
+            <div class="row paddedleft" style="margin-left:-2px;margin-top: -20px; margin-right: 2px; padding: 10px;">
                 <hr class="marginbottom"/>
                 <uib-tabset tabset-name="loanAccountDetails">
                     <tab heading="{{'label.heading.accountdetail' | translate}}">
@@ -778,17 +789,6 @@
                         </table>
                     </tab>
 
-                    <script type="text/ng-template" id="delcharge.html">
-                        <div class="modal-header silver">
-                            <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
-                        </div>
-                        <div class="modal-body">
-                            <api-validate></api-validate>
-                            <br>
-                            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-                        </div>
-                    </script>
                     <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
                         <div class="pull-right" data-ng-show="choice">
                             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="fa fa-plus "></i>{{'label.button.upload'
