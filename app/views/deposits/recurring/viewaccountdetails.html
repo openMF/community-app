@@ -15,7 +15,7 @@
               <span ng-repeat="button in buttons.singlebuttons">
                   <a ng-show="button.name"
                      ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                     class="btn btn-primary"><i class="{{button.fa fa}} "></i>{{'label.'+button.name |
+                     class="btn btn-primary"><i class="fa {{button.fa}} "></i>{{'label.'+button.name |
                       translate}}</a>
               </span>
               <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
@@ -24,7 +24,7 @@
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown dropdown-menu">
-                      <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
+                      <li class="fa {{button.fa}}" ng-repeat="button in buttons.options">
                           <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)">{{'label.'+button.name
                               | translate}}</a>
                       </li>
@@ -266,8 +266,9 @@
         </tbody>
     </table>
 </tab>
-<tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
+<tab ng-repeat="savingdatatable in savingdatatables" heading="{{savingdatatable.registeredTableName}}" 
      select="dataTableChange(savingdatatable)">
+     <label><strong>{{savingdatatable.registeredTableName}}</strong></label>
             <span data-ng-show="choice">
                 <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
                    ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
