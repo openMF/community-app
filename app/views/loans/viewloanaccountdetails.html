@@ -153,7 +153,7 @@
             <div class="row paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
                 <hr class="marginbottom"/>
                 <uib-tabset tabset-name="loanAccountDetails">
-                    <tab heading="{{'label.heading.accountdetail' | translate}}">
+                    <uib-tab heading="{{'label.heading.accountdetail' | translate}}">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -302,8 +302,8 @@
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
-                    <tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
+                    </uib-tab>
+                    <uib-tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -367,9 +367,9 @@
                             </tr>
                             </tfoot>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
+                    <uib-tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -418,9 +418,9 @@
                             </tfoot>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.repaymentschedule' | translate}}">
+                    <uib-tab heading="{{'label.heading.repaymentschedule' | translate}}">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -499,9 +499,9 @@
                             </tfoot>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
+                    <uib-tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -540,10 +540,10 @@
                             </tbody>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
 
-                    <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
+                    <uib-tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
@@ -630,9 +630,9 @@
                                 <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
+                    <uib-tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
                         <table class="table">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
@@ -647,9 +647,9 @@
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
+                    <uib-tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
                         <table class="width100">
 
                             <tr>
@@ -712,9 +712,9 @@
                                 <td>{{emiVariations.termValue}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
+                    <uib-tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -729,9 +729,9 @@
                                 <td>{{charge.chargeTimeType.value}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
+                    <uib-tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.fromdate' | translate}}</th>
@@ -742,10 +742,10 @@
                                 <td>{{period.effectiveInterestRate}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
 
-                    <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+                    <uib-tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -786,9 +786,9 @@
                                 </td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
+                    <uib-tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
                         <div class="pull-right" data-ng-show="choice">
                             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="fa fa-plus "></i>{{'label.button.upload'
                                 | translate}}</a>
@@ -813,8 +813,8 @@
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
-                    <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
+                    </uib-tab>
+                    <uib-tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
                         <br/>
 
                         <form>
@@ -844,8 +844,8 @@
                                 </blockquote>
                             </div>
                         </div>
-                    </tab>
-                    <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
+                    </uib-tab>
+                    <uib-tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
                          select="dataTableChange(loandatatable)">
                         <api-validate></api-validate>
                         <div>
@@ -886,7 +886,7 @@
                                 </table>
                             </div>
                         </div>
-                    </tab>
+                    </uib-tab>
                 </uib-tabset>
             </div>
         </div>
