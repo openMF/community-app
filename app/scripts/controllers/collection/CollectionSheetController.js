@@ -16,7 +16,7 @@
             scope.date = {};
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
-			scope.date.transactionDate = new Date();
+            scope.date.transactionDate = new Date();
             var centerOrGroupResource = '';
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -27,6 +27,11 @@
                     if (scope.offices[i].id === scope.officeId) {
                         scope.officeName = scope.offices[i].name;
                     }
+                }
+                console.log("Officer ID : ", scope.loanOfficerId);
+                if (scope.loanOfficerId == undefined) {
+                    scope.showErrorMessage = true;
+                    return
                 }
                 scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
                 location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
@@ -39,11 +44,21 @@
                         scope.loanOfficers = data;
                     });
 
-                    resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.centerResource.getAllCenters({
+                        officeId: scope.officeId,
+                        orderBy: 'name',
+                        sortOrder: 'ASC',
+                        limit: -1
+                    }, function (data) {
                         scope.centers = data;
                     });
 
-                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.groupResource.getAllGroups({
+                        officeId: scope.officeId,
+                        orderBy: 'name',
+                        sortOrder: 'ASC',
+                        limit: -1
+                    }, function (data) {
                         scope.groups = data;
                     });
                 }
@@ -60,11 +75,23 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
-                    resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.centerResource.getAllCenters({
+                        officeId: scope.officeId,
+                        staffId: loanOfficerId,
+                        orderBy: 'name',
+                        sortOrder: 'ASC',
+                        limit: -1
+                    }, function (data) {
                         scope.centers = data;
                     });
 
-                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
+                    resourceFactory.groupResource.getAllGroups({
+                        officeId: scope.officeId,
+                        staffId: loanOfficerId,
+                        orderBy: 'name',
+                        sortOrder: 'ASC',
+                        limit: -1
+                    }, function (data) {
                         scope.groups = data;
                     });
                 } else {
@@ -76,7 +103,10 @@
             scope.centerSelected = function (centerId) {
                 if (centerId) {
                     scope.collectionsheetdata = "";
-                    resourceFactory.centerResource.get({'centerId': centerId, associations: 'groupMembers,collectionMeetingCalendar' }, function (data) {
+                    resourceFactory.centerResource.get({
+                        'centerId': centerId,
+                        associations: 'groupMembers,collectionMeetingCalendar'
+                    }, function (data) {
                         scope.centerdetails = data;
                         if (data.groupMembers.length > 0) {
                             scope.groups = data.groupMembers;
@@ -98,7 +128,10 @@
             scope.groupSelected = function (groupId) {
                 if (groupId) {
                     scope.collectionsheetdata = "";
-                    resourceFactory.groupResource.get({'groupId': groupId, associations: 'collectionMeetingCalendar'}, function (data) {
+                    resourceFactory.groupResource.get({
+                        'groupId': groupId,
+                        associations: 'collectionMeetingCalendar'
+                    }, function (data) {
                         scope.groupdetails = data.pageItems;
                         if (data.collectionMeetingCalendar) {
                             scope.calendarId = data.collectionMeetingCalendar.id;
@@ -137,7 +170,10 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 if (centerOrGroupResource === "centerResource" && scope.calendarId !== "") {
-                    resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.centerResource.save({
+                        'centerId': scope.centerId,
+                        command: 'generateCollectionSheet'
+                    }, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = data;
                             scope.clientsAttendanceArray(data.groups);
@@ -153,7 +189,10 @@
 
                     });
                 } else if (centerOrGroupResource === "groupResource" && scope.calendarId !== "") {
-                    resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.groupResource.save({
+                        'groupId': scope.groupId,
+                        command: 'generateCollectionSheet'
+                    }, scope.formData, function (data) {
                         if (data.groups.length > 0) {
                             scope.collectionsheetdata = data;
                             scope.clientsAttendanceArray(data.groups);
@@ -168,7 +207,10 @@
                         }
                     });
                 } else {
-                    resourceFactory.groupResource.save({'groupId': 0, command: 'generateCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.groupResource.save({
+                        'groupId': 0,
+                        command: 'generateCollectionSheet'
+                    }, scope.formData, function (data) {
                         scope.collectionsheetdata = data;
                     });
                 }
@@ -251,7 +293,10 @@
              * @param saving
              */
             scope.sumGroupSavingsDueCollection = function (group, saving) {
-                var existing = _.findWhere(scope.savingsGroupsTotal, {groupId: group.groupId, productId: saving.productId});
+                var existing = _.findWhere(scope.savingsGroupsTotal, {
+                    groupId: group.groupId,
+                    productId: saving.productId
+                });
                 var dueAmount = saving.dueAmount;
                 if (isNaN(dueAmount)) {
                     dueAmount = parseInt(0);
@@ -294,7 +339,7 @@
                 }
             };
 
-            scope.getLoanTotalDueAmount = function(loan){
+            scope.getLoanTotalDueAmount = function (loan) {
                 var principalInterestDue = loan.totalDue;
                 var chargesDue = loan.chargesDue;
                 if (isNaN(principalInterestDue)) {
@@ -370,7 +415,7 @@
                 }
             };
 
-            scope.constructBulkLoanAndSavingsRepaymentTransactions = function(){
+            scope.constructBulkLoanAndSavingsRepaymentTransactions = function () {
                 scope.bulkRepaymentTransactions = [];
                 scope.bulkSavingsDueTransactions = [];
                 _.each(scope.savingsgroups, function (group) {
@@ -381,8 +426,8 @@
                                     dueAmount = parseInt(0);
                                 }
                                 var savingsTransaction = {
-                                    savingsId:saving.savingsId,
-                                    transactionAmount:dueAmount
+                                    savingsId: saving.savingsId,
+                                    transactionAmount: dueAmount
                                 };
                                 scope.bulkSavingsDueTransactions.push(savingsTransaction);
                             });
@@ -390,8 +435,8 @@
                             _.each(client.loans, function (loan) {
                                 var totalDue = scope.getLoanTotalDueAmount(loan);
                                 var loanTransaction = {
-                                    loanId:loan.loanId,
-                                    transactionAmount:totalDue
+                                    loanId: loan.loanId,
+                                    transactionAmount: totalDue
                                 };
                                 scope.bulkRepaymentTransactions.push(loanTransaction);
                             });
@@ -409,7 +454,7 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
-                
+
                 _.each(scope.savingsgroups, function (group) {
                     _.each(group.clients, function (client) {
                         var clientAttendanceDetails = {
@@ -421,11 +466,11 @@
                 });
                 scope.formData.clientsAttendance = scope.clientsAttendance;
 
-                if(scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != ""){
+                if (scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != "") {
                     scope.formData.paymentTypeId = scope.paymentDetail.paymentTypeId;
                     scope.formData.accountNumber = scope.paymentDetail.accountNumber;
                     scope.formData.checkNumber = scope.paymentDetail.checkNumber;
-                    scope.formData.routingCode =scope.paymentDetail.routingCode;
+                    scope.formData.routingCode = scope.paymentDetail.routingCode;
                     scope.formData.receiptNumber = scope.paymentDetail.receiptNumber;
                     scope.formData.bankNumber = scope.paymentDetail.bankNumber;
                 }
@@ -435,12 +480,18 @@
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsDueTransactions = scope.bulkSavingsDueTransactions;
                 if (centerOrGroupResource === "centerResource") {
-                    resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.centerResource.save({
+                        'centerId': scope.centerId,
+                        command: 'saveCollectionSheet'
+                    }, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     });
                 } else if (centerOrGroupResource === "groupResource") {
-                    resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.groupResource.save({
+                        'groupId': scope.groupId,
+                        command: 'saveCollectionSheet'
+                    }, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     });
@@ -451,10 +502,10 @@
     })
     ;
     mifosX.ng.application.controller('CollectionSheetController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'localStorageService',
-            '$route', '$timeout', mifosX.controllers.CollectionSheetController]).run(function ($log) {
-            $log.info("CollectionSheetController initialized");
-        });
+        '$route', '$timeout', mifosX.controllers.CollectionSheetController]).run(function ($log) {
+        $log.info("CollectionSheetController initialized");
+    });
 }
-    (mifosX.controllers || {})
-    )
+(mifosX.controllers || {})
+)
 ;
