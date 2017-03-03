@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EntityDatatableChecksController: function (scope, resourceFactory, location, dateFilter, translate, $modal, route) {
+        EntityDatatableChecksController: function (scope, resourceFactory, location, dateFilter, translate, $uibModal, route) {
             scope.template = [];
             scope.formData = {};
             scope.first = {};
@@ -51,13 +51,13 @@
             };
 
             scope.createDatatableCheck = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'createentitydatatablecheck.html',
                     controller: CreateDataTableCheckCtrl
                 });
             };
 
-            var CreateDataTableCheckCtrl = function ($scope, $modalInstance) {
+            var CreateDataTableCheckCtrl = function ($scope, $uibModalInstance) {
                 $scope.checkForm = {};
                 $scope.templateData = {};
                 $scope.entities = [];
@@ -87,7 +87,7 @@
                 $scope.create = function () {
                     //$scope.formData = {};
                     resourceFactory.entityDatatableChecksResource.save($scope.checkForm, function (data) {
-                        $modalInstance.close('create');
+                        $uibModalInstance.close('create');
                         route.reload();
                     });
                 };
@@ -122,12 +122,12 @@
                 }
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
             scope.deleteDataTableCheck = function (id) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteentitydatatablecheck.html',
                     controller: DeleteDataTableCheckCtrl,
                     resolve: {
@@ -138,21 +138,21 @@
                 });
             };
 
-            var DeleteDataTableCheckCtrl = function ($scope, $modalInstance, entityDatatableCheckId) {
+            var DeleteDataTableCheckCtrl = function ($scope, $uibModalInstance, entityDatatableCheckId) {
                 $scope.delete = function () {
                     resourceFactory.entityDatatableChecksResource.delete({entityDatatableCheckId: entityDatatableCheckId}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         route.reload();
                     });
                 };
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             }
         }
     });
-    mifosX.ng.application.controller('EntityDatatableChecksController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$translate', '$modal', '$route', mifosX.controllers.EntityDatatableChecksController]).run(function ($log) {
+    mifosX.ng.application.controller('EntityDatatableChecksController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$translate', '$uibModal', '$route', mifosX.controllers.EntityDatatableChecksController]).run(function ($log) {
         $log.info("EntityDatatableChecksController initialized");
     });
 }(mifosX.controllers || {}));
