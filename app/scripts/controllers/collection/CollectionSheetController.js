@@ -23,6 +23,10 @@
             });
 
             scope.productiveCollectionSheet = function () {
+                if (scope.loanOfficerId == undefined) {
+                    scope.noStaffError = true;
+                    return
+                }
                 for (var i = 0; i < scope.offices.length; i++) {
                     if (scope.offices[i].id === scope.officeId) {
                         scope.officeName = scope.offices[i].name;
@@ -409,7 +413,7 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
-                
+
                 _.each(scope.savingsgroups, function (group) {
                     _.each(group.clients, function (client) {
                         var clientAttendanceDetails = {
