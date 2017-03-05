@@ -136,11 +136,11 @@
 					</small>
 				</h3>
 			</div>
-			<br>
 			<uib-tabset class="" tabset-name="clientTabset">
 				<uib-tab heading="{{'label.heading.general' | translate}}">
-					<div class="row">
-						<div class="pull-right">
+                    <br>
+                    <div class="container">
+						<div class="row">
 								<span ng-repeat="button in buttonsArray.singlebuttons">
 								  <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary"
 									 has-permission='{{button.taskPermissionName}}'>
@@ -148,7 +148,7 @@
 								</span>
 							<button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
 									data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
-									class="fa fa-trash "></i>{{"label.button.delete"
+									class="fa fa-trash-o "></i>{{"label.button.delete"
 								| translate}}
 							</button>
 							<a href="#/client/{{client.id}}/updatedefaultaccount" class="btn btn-primary"
@@ -196,7 +196,7 @@
 									</ul>
 								</span>
 						</div>
-					</div>
+                    </div>
 					<div class="row">
 						<div class="col-sm-9 col-md-9">
 							<div data-ng-show="client.status.value=='Closed'">
@@ -208,6 +208,7 @@
 							<div data-ng-show="client.status.value=='Withdrawn'">
 								<h3>{{'label.heading.withdrawn' | translate}}</h3>
 							</div>
+							<br>
 							<div>
 								<api-validate></api-validate>
 								<div class="pull-right" data-ng-show="charges">
@@ -243,16 +244,17 @@
 											<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
 											<td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
 											<td class="pointer center">
-												<a tooltip="{{'label.button.paycharge' | translate}}" has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{client.id}}/paycharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.paycharge' | translate}}" has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{client.id}}/paycharge/{{charge.id}}" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-dollar "></i>
 												</a>&thinsp;
-												<a tooltip="{{'label.button.waivecharge' | translate}}" has-permission='WAIVE_CLIENTCHARGE' ng-click="waiveCharge(charge.id)" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.waivecharge' | translate}}" has-permission='WAIVE_CLIENTCHARGE' ng-click="waiveCharge(charge.id)" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-flag "></i>
 												</a>
 											</td>
 										</tr>
 									</table>
 								</div>
+								<br>
 								<div class="pull-right">
 										<span data-ng-show="clientAccounts.loanAccounts">
 											<button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
@@ -264,12 +266,11 @@
 										</span>
 								</div>
 								<div data-ng-show="clientAccounts.loanAccounts">
-									<div class="span gray-head">
-											<span class="boldlabel">
-												  <strong>{{ 'label.heading.loanaccoverview' | translate }}</strong>
-											</span>
-									</div>
+
 									<table class="table table-condensed" data-ng-show="openLoan">
+										<span class="span gray-head">
+											<strong>{{ 'label.heading.loanaccoverview' | translate }}</strong>
+										</span>
 										<tr class="graybg">
 											<th>{{'label.heading.accnum' | translate}}</th>
 											<th>{{'label.heading.loanaccount' | translate}}</th>
@@ -282,9 +283,9 @@
 										<tr class="pointer-main"
 											ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-												<i ng-hide="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
+												<i ng-hide="loanaccount.inArrears" uib-tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}"
 												   class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
-												<i ng-show="loanaccount.inArrears" tooltip-placement="right" tooltip="{{loanaccount.status.value}}"
+												<i ng-show="loanaccount.inArrears" uib-tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}"
 												   class="fa fa-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
 												{{loanaccount.accountNo}}
 											</td>
@@ -293,23 +294,23 @@
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
 											<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
-												<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-user"></i>
+												<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-user"></i>
 											</td>
 											<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
-												<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-group"></i>
+												<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-group"></i>
 											</td>
 											<td class="pointer center" ng-if="loanaccount.status.active">
-												<a tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-dollar"></i>
 												</a>
 											</td>
 											<td class="pointer center" ng-if="loanaccount.status.pendingApproval">
-												<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-check"></i>
 												</a>
 											</td>
 											<td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
-												<a tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.disburse' | translate}}" has-permission='DISBURSE_LOAN' ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-flag"></i>
 												</a>
 											</td>
@@ -325,7 +326,7 @@
 										<tr class="pointer-main"
 											ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isClosed">
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-												<i tooltip-placement="right" tooltip="{{loanaccount.status.value}}" class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}" class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
 												{{loanaccount.accountNo}}
 											</td>
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.productName}}</td>
@@ -333,10 +334,10 @@
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
 											<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
-												<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
+												<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
 											</td>
 											<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
-												<i tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
+												<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
 											</td>
 											<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
 												<span data-ng-show="loanaccount.timeline.closedOnDate">{{loanaccount.timeline.closedOnDate | DateFormat}}</span>
@@ -373,8 +374,8 @@
 										<tr class="pointer-main"
 											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed">
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
-												<i tooltip-placement="right" ng-show="savingaccount.subStatus.id==0" tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
-												<i tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
+												<i uib-tooltip-placement="right" ng-show="savingaccount.subStatus.id==0" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  uib-tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
 												{{savingaccount.accountNo}}
 											</td>
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
@@ -382,22 +383,22 @@
 											<td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
 											<td class="pointer" ng-if="savingaccount.status.active">
 											<span ng-repeat="button in savingsActionbuttons">
-											  <a tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+											  <a uib-tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
 												 ng-click="navigateToSavingsOrDepositAccount(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
 												 class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} "></i>
 											  </a>
 											</span>
 											</td>
 											<td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
-												<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-check "></i>
 												</a>
 											</td>
 											<td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
-												<a tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-undo "></i>
 												</a>
-												<a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-check-circle "></i>
 												</a>
 											</td>
@@ -412,7 +413,7 @@
 										<tr class="pointer-main"
 											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed">
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
-												<i tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 												{{savingaccount.accountNo}}
 											</td>
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
@@ -451,7 +452,7 @@
 										<tr class="pointer-main"
 											ng-repeat="shareaccount in clientAccounts.shareAccounts | orderBy:'id':true | filter:isShareNotClosed">
 											<td class="pointer" data-ng-click="routeToShareAccount(shareaccount.id)">
-												<i tooltip-placement="right" tooltip="{{shareaccount.status.value}}" class="fa fa-stop {{shareaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip-placement="right" uib-tooltip="{{shareaccount.status.value}}" class="fa fa-stop {{shareaccount.status.code | StatusLookup}}"></i>
 												{{shareaccount.accountNo}}
 											</td>
 											<td class="pointer" data-ng-click="routeToShareAccount(shareaccount.id)">{{shareaccount.productName}}</td>
@@ -459,22 +460,22 @@
 											<td class="pointer center" data-ng-click="routeToShareAccount(shareaccount.id)">{{shareaccount.totalPendingForApprovalShares|number}}</td>
 											<td class="pointer" ng-if="shareaccount.status.active">
 											<span ng-repeat="button in savingsActionbuttons">
-											  <a tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+											  <a uib-tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
 												 ng-click="navigateToSavingsOrDepositAccount(button.name.replace('button.',''), shareaccount.id)"
 												 class="btn btn-xs btn-primary ng-binding" ng-if="shareaccount.depositType.id==button.type"><i class="{{button.icon}} "></i>
 											  </a>
 											</span>
 											</td>
 											<td class="pointer" ng-if="shareaccount.status.submittedAndPendingApproval">
-												<a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-check "></i>
 												</a>
 											</td>
 											<td class="pointer" ng-if="!shareaccount.status.submittedAndPendingApproval && !shareaccount.status.active">
-												<a tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-undo "></i>
 												</a>
-												<a tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+												<a uib-tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SHAREACCOUNT' ng-href="#/shareaccount/{{shareaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
 													<i class="fa fa-check-circle "></i>
 												</a>
 											</td>
@@ -491,7 +492,7 @@
 										<tr class="pointer-main"
 											ng-repeat="shareaccount in clientAccounts.shareAccounts | orderBy:'id':true | filter:isShareClosed">
 											<td class="pointer" data-ng-click="routeToShareAccount(shareaccount.id)">
-												<i tooltip="{{shareaccount.status.value}}" class="fa fa-stop {{shareaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip="{{shareaccount.status.value}}" class="fa fa-stop {{shareaccount.status.code | StatusLookup}}"></i>
 												{{shareaccount.accountNo}}
 											</td>
 											<td class="pointer" data-ng-click="routeToShareAccount(shareaccount.id)">{{shareaccount.productName}}</td>
@@ -505,6 +506,7 @@
 								</div>
 							</div>
 						</div>
+                        <br>
 						<div class="col-sm-3 col-md-3">
 							<div class="thumbnail row">
 								<h4><strong>{{client.displayName}}</strong></h4>
@@ -512,20 +514,20 @@
 								<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
 								<div class="btn-group-xs center">
 									<button type="button" class="btn btn-primary" data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'
-											tooltip="{{'label.button.uploadpic' | translate}}">
+											uib-tooltip="{{'label.button.uploadpic' | translate}}">
 										<i class="fa fa-upload"></i>
 									</button>
 									<button type="button" class="btn btn-primary" data-ng-click="capturePic()" has-permission='CREATE_CLIENTIMAGE'
-											tooltip="{{'label.button.capturepic' | translate}}">
+											uib-tooltip="{{'label.button.capturepic' | translate}}">
 										<i class="fa fa-camera"></i>
 									</button>
 									<button type="button" class="btn btn-primary" ng-show="client.imagePresent" data-ng-click="deletePic()" has-permission='DELETE_CLIENTIMAGE'
-											tooltip="{{'label.button.deletepic' | translate}}">
-										<i class="fa fa-trash"></i>
+											uib-tooltip="{{'label.button.deletepic' | translate}}">
+										<i class="fa fa-trash-o"></i>
 									</button>
 								</div>
-								<div ng-show="signature_url" class="show-large-picture" data-ng-click="showSignature()">{{'label.showClientSignature' | translate}}</div>
-								<div ng-hide="signature_url" class="show-large-picture" data-ng-click="showWithoutSignature()">{{'label.showClientSignature' | translate}}</div>
+                                <div ng-show="signature_url" class="show-large-picture center" data-ng-click="showSignature()"><a>{{'label.showClientSignature' | translate}}</a></div>
+                                <div ng-hide="signature_url" class="show-large-picture center" data-ng-click="showWithoutSignature()"><a>{{'label.showClientSignature' | translate}}</a></div>
 								<table class="table-minified">
 									<tr>
 										<th class="table-bold">{{ 'label.input.activationdate' | translate }}</th>
@@ -606,6 +608,7 @@
 							</div>
 						</div>
 					</div>
+
 				</uib-tab>
 				<uib-tab ng-show="enableAddress" heading="{{'label.heading.address' | translate}}" >
 					<!--<fieldset>-->
@@ -824,7 +827,7 @@
 						<div data-ng-hide="isClosedClient" class="btn-group pull-right">
 							<a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
 							   ng-click="deleteAll(clientdatatable.registeredTableName, client.id)" has-permission='DELETE_{{clientdatatable.registeredTableName}}'><i
-									class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
+									class="fa fa-trash-o "></i>{{'label.button.deleteall' | translate}}</a>
 							<a data-ng-show="showDataTableAddButton"
 							   ng-href="#/makedatatableentry/{{clientdatatable.registeredTableName}}/{{client.id}}?fromEntity=client"
 							   class="btn btn-primary" has-permission='CREATE_{{clientdatatable.registeredTableName}}'><i
