@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateSavingAccountController: function (scope, resourceFactory, location, routeParams, dateFilter, WizardHandler) {
+        CreateSavingAccountController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -88,7 +88,6 @@
 
             scope.changeProduct = function () {
                 _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
-                WizardHandler.wizard().removeSteps(1, scope.tempDataTables.length);
                 scope.inparams.productId = scope.formData.productId;
                 resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
 
@@ -177,10 +176,6 @@
             };
 
             scope.submit = function () {
-                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
-                    WizardHandler.wizard().next();
-                    return;
-                }
                 if (scope.date) {
                     this.formData.submittedOnDate = dateFilter(scope.date.submittedOnDate, scope.df);
                 }
@@ -255,7 +250,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'WizardHandler', mifosX.controllers.CreateSavingAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function ($log) {
         $log.info("CreateSavingAccountController initialized");
     });
 }(mifosX.controllers || {}));

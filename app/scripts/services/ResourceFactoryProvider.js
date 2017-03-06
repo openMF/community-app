@@ -640,7 +640,13 @@
                         getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
-                        delete: {method: 'DELETE', params: {}}
+                        delete: {method: 'DELETE', params: {}},
+                        getByStatus: {method: 'GET', params: {}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
                     })
                 };
             }];

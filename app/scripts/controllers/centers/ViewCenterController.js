@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
 
             scope.center = [];
             scope.staffData = {};
@@ -29,38 +29,38 @@
                 scope.notes = data;
             });
             scope.deleteCenter = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'delete.html',
                     controller: CenterDeleteCtrl
                 });
             };
             scope.unassignStaffCenter = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'unassignstaff.html',
                     controller: CenterUnassignCtrl
                 });
             };
-            var CenterDeleteCtrl = function ($scope, $modalInstance) {
+            var CenterDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.centerResource.delete({centerId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                         location.path('/centers');
                     });
 
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
-            var CenterUnassignCtrl = function ($scope, $modalInstance) {
+            var CenterUnassignCtrl = function ($scope, $uibModalInstance) {
                 $scope.unassign = function () {
                     resourceFactory.groupResource.save({groupId: routeParams.id, command: 'unassignStaff'}, scope.staffData, function (data) {
-                        $modalInstance.close('activate');
+                        $uibModalInstance.close('activate');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
             scope.saveNote = function () {
@@ -142,7 +142,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewCenterController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewCenterController]).run(function ($log) {
         $log.info("ViewCenterController initialized");
     });
 }(mifosX.controllers || {}));

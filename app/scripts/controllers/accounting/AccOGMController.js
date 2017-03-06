@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccOGMController: function (scope, resourceFactory, paginatorService,routeParams, location,$modal) {
+        AccOGMController: function (scope, resourceFactory, paginatorService,routeParams, location,$uibModal) {
             scope.routeTo = function (id) {
                 location.path('/viewofficeglmapping/' + id);
             };
@@ -14,7 +14,7 @@
 
         }
     });
-    mifosX.ng.application.controller('AccOGMController', ['$scope', 'ResourceFactory',  'PaginatorService', '$routeParams','$location','$modal', mifosX.controllers.AccOGMController]).run(function ($log) {
+    mifosX.ng.application.controller('AccOGMController', ['$scope', 'ResourceFactory',  'PaginatorService', '$routeParams','$location','$uibModal', mifosX.controllers.AccOGMController]).run(function ($log) {
         $log.info("AccOGMController initialized");
     });
 }(mifosX.controllers || {}));

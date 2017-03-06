@@ -1,14 +1,12 @@
-<div class="col-md-12" ng-controller="SurveyController">
-    <div class="row">
+<div class="content-container" ng-controller="SurveyController">
         <ul class="breadcrumb">
             <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
             <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
             <li class="active">{{'label.anchor.survey' | translate}}</li>
         </ul>
-    </div>
     <api-validate></api-validate>
     
-    <div class="row well">
+    <div class="card row well">
         <legend>{{ 'label.heading.Survey' | translate }}</legend>
         <div class="col-md-12">
             <div class="form-group">
@@ -26,7 +24,7 @@
             <br>
             <hr>
             <div class="form-horizontal">
-                <tabset ng-show="survey" class="marginbottom0" tabset-name="surveyTabset">
+                <ui-tabset ng-show="survey" class="marginbottom0" ui-tabset-name="surveyTabset">
                     <tab ng-repeat="component in componentGroups" heading="{{ component[0].componentKey ? component[0].componentKey : 'Questions' }}">
                         
                         <div ng-repeat="question in component" class="form-group">
@@ -46,7 +44,7 @@
                             </div> -->
                         </div>
                     </tab>
-                </tabset>
+                </ui-tabset>
 
                 <div class="col-md-offset-3" ng-show="!showDeleteClient">
                     <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}

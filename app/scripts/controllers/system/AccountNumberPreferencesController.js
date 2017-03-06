@@ -9,7 +9,7 @@
                 scope.searchCriteria.anp = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.anp;
+            scope.filterText = scope.searchCriteria.anp || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.anp = scope.filterText;

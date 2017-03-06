@@ -10,7 +10,7 @@
                 scope.searchCriteria.employees = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.employees;
+            scope.filterText = scope.searchCriteria.employees || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.employees = scope.filterText;

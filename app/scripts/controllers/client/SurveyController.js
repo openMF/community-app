@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SurveyController: function (scope, resourceFactory, location, routeParams, localStorageService,$modal) {
+        SurveyController: function (scope, resourceFactory, location, routeParams, localStorageService, $uibModal) {
             
             scope.clientId = routeParams.clientId;
             scope.formData = {};
@@ -70,7 +70,7 @@
 
         }
     });
-    mifosX.ng.application.controller('SurveyController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'localStorageService','$modal', mifosX.controllers.SurveyController]).run(function ($log) {
+    mifosX.ng.application.controller('SurveyController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'localStorageService','$uibModal', mifosX.controllers.SurveyController]).run(function ($log) {
         $log.info("SurveyController initialized");
     });
 }(mifosX.controllers || {}));

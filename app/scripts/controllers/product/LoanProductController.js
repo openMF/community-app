@@ -11,7 +11,7 @@
                 scope.searchCriteria.loanP = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.loanP;
+            scope.filterText = scope.searchCriteria.loanP || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.loanP = scope.filterText;

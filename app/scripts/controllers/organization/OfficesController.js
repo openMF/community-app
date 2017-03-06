@@ -13,7 +13,7 @@
                 scope.searchCriteria.offices = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.offices;
+            scope.filterText = scope.searchCriteria.offices || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.offices = scope.filterText;
