@@ -296,20 +296,35 @@
                                                                 value="{{transactionProcessingStrategy.id}}"
                                                                 ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.transactionProcessingStrategyId" class="form-control width170px"/>
                                                     </td>
-                                                    <td colspan=2>
-                                                        <lable>{{'label.input.grace' | translate }}:</lable>
+                                                    <td>
+                                                        <lable >{{'label.input.grace' | translate }}:</lable>
                                                         <i class="icon-question-sign" tooltip="{{'label.tooltip.moratorium' | translate}}"></i>
-                                                        <label>{{'label.input.onprincipalpayment' | translate}}</label>
-                                                        <input id="graceOnPrincipalPayment" type="text" class="input-mini-small"
-                                                               ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
-                                                               ng-model="formData.graceOnPrincipalPayment">
-                                                        <label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true">{{'label.input.oninterestpayment' | translate}}</label>
-                                                        <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text" class="input-mini-small"
-                                                               ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
-                                                               ng-model="formData.graceOnInterestPayment">
-                                                        <label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true">{{'label.input.onduedate' | translate}}</label>
-                                                        <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true" id="graceOnArrearsAgeing" type="text" class="input-mini-small"
-                                                               ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing" ng-model="formData.graceOnArrearsAgeing">
+                                                    </td>
+
+                                                    <td class="row">
+                                                        <span class=" col-sm-6 row">
+                                                            <label class="col-sm-12">{{'label.input.onprincipalpayment' | translate}}</label>
+                                                            <input id="graceOnPrincipalPayment" type="text"
+                                                                   ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
+                                                                   ng-model="formData.graceOnPrincipalPayment" 
+                                                                   class="form-control col-sm-9">
+                                                        </span>
+                                                        
+                                                        <span class=" col-sm-6 row">
+                                                            <label class="col-sm-12" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true">{{'label.input.oninterestpayment' | translate}}</label>
+                                                            <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text"
+                                                                   ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
+                                                                   ng-model="formData.graceOnInterestPayment"
+                                                                   class="form-control">
+                                                        </span>
+                                                        <span class=" col-sm-6 row">
+                                                            <label class="col-sm-12" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true">{{'label.input.onduedate' | translate}}</label>
+                                                            <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true" id="graceOnArrearsAgeing"  
+                                                                   type="text"
+                                                                   ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnArrearsAgeing" 
+                                                                   ng-model="formData.graceOnArrearsAgeing"
+                                                                   class="form-control col-sm-12">
+                                                        </span>                                                        
                                                     </td>
                                                 </tr>
                                                 <tr data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
