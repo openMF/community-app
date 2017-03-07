@@ -91,7 +91,7 @@
                       <span ng-repeat="button in buttons.singlebuttons">
                           <a ng-show="button.name" has-permission='{{button.taskPermissionName}}'
                              ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                             class="btn btn-primary"><i class="{{button.fa fa}} "></i>{{'label.'+button.name |
+                             class="btn btn-primary"><i class="{{button.icon}} "></i>{{'label.'+button.name |
                               translate}}</a>
                        </span>
                     <button type="button" class="btn btn-primary"
@@ -102,19 +102,17 @@
                         translate}}
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary" ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)"
-                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="fa fa-user "></i>{{"label.button.unassignstaff"
-                    |
-                    translate}}
-                </button>
+                    <button type="button" class="btn btn-primary " ng-click="clickEvent('unAssignSavingsOfficer',savingaccountdetails.accountNo)"
+                                 data-ng-show="savingaccountdetails.fieldOfficerId" has-permission='UNASSIGNFIELDOFFICER_SAVINGSACCOUNT'><i class="fa fa-user "></i>{{"label.button.unassignstaff" | translate}}
+                    </button>
 
-                      <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
-                          <a class="btn btn-primary dropdown-toggle">
+                      <span ng-show="buttons.options" uib-dropdown class="btn-group dropdown" on-toggle="toggled(open)">
+                          <a uib-dropdown-toggle class="btn btn-primary" >
                               {{'label.button.more' | translate}}
                               <span class="caret"></span>
                           </a>
-                          <ul class="dropdown dropdown-menu">
-                              <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
+                          <ul class="dropdown dropdown-menu dropdown-menu-right">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
                                   <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
                               </li>
                           </ul>
