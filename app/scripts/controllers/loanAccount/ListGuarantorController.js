@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ListGuarantorController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ListGuarantorController: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
 
             scope.modified = 0;
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'guarantors'}, function (data) {
@@ -26,7 +26,7 @@
                     scope.guarantorFundDetail = scope.guarantorData.guarantorFundingDetails[index];
                 }
 
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'viewguarantor.html',
                     controller: GuarantorViewCtrl,
                     resolve: {
@@ -41,11 +41,11 @@
             };
 
 
-            var GuarantorViewCtrl = function ($scope, $modalInstance, guarantorData, guarantorFundDetail) {
+            var GuarantorViewCtrl = function ($scope, $uibModalInstance, guarantorData, guarantorFundDetail) {
                 $scope.guarantorFundDetail = guarantorFundDetail;
                 $scope.guarantorData = guarantorData;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -53,7 +53,7 @@
             scope.deleteGuarantor = function (id,fundId) {
                 scope.guarantorId = id;
                 scope.guarantorFundId = fundId;
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deleteguarantor.html',
                     controller: GuarantorDeleteCtrl,
                     resolve: {
@@ -66,20 +66,20 @@
                     }
                 });
             };
-            var GuarantorDeleteCtrl = function ($scope, $modalInstance, id, fundId) {
+            var GuarantorDeleteCtrl = function ($scope, $uibModalInstance, id, fundId) {
                 $scope.delete = function () {
                     resourceFactory.guarantorResource.delete({loanId: routeParams.id, templateResource: id,guarantorFundingId:fundId}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         route.reload();
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ListGuarantorController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ListGuarantorController]).run(function ($log) {
+    mifosX.ng.application.controller('ListGuarantorController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ListGuarantorController]).run(function ($log) {
         $log.info("ListGuarantorController initialized");
     });
 }(mifosX.controllers || {}));

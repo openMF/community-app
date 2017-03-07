@@ -22,7 +22,7 @@
                                 '<a data-ng-click="' + treeId + '.setCollapsedRoot(' + treeModel + ', true)">{{\'label.button.collapse.all\' | translate}}</a>' +
                                 '</div>' +
                                 '<li data-ng-repeat="node in ' + treeModel + '">' +
-                                '<input ng-model="node.selectedCheckBox" ng-true-value="true" ng-false-value="false" type="checkbox" data-ng-change="holidayApplyToOffice(node)"></input>' +
+                                '<input type="checkbox" data-ng-model="node.selectedCheckBox" data-ng-change="holidayApplyToOffice(node)"></input>' +
                                 '<i class="collapsed" data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
                                 '<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
@@ -51,16 +51,13 @@
 								
 								
                     }
-
                     if (treeId && treeModel) {
 
                         if (attrs.angularTreeview) {
 							
-							
                             scope[treeId] = scope[treeId] || {};
 
                             scope[treeId].selectNodeHead = scope[treeId].selectNodeHead || function (selectedNode) {
-
                                 selectedNode.collapsed = !selectedNode.collapsed;
                             };
                             scope[treeId].selectNodeLabel = scope[treeId].selectNodeLabel || function (selectedNode) {

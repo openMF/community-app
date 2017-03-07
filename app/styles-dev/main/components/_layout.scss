@@ -1,0 +1,108 @@
+/* @import this file */
+
+#bs-example-navbar-collapse-1 {
+  @media screen and (max-width: 767px){
+    padding: 0 0 0 65px;    
+  }
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav > li > a{
+  color: #4f99ed !important;
+}
+
+#mifos-reskin-ui-container{
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  overflow: auto;
+
+  @include flexbox();
+  @include flexdiretion(column);
+}
+
+#mifos-reskin-header-nav{
+  // @include flex(1 100%);
+  @include order(0);
+  // max-height:52px;
+}
+
+$sidebar-width : 51px;
+$sidebar-hover-width : 240px;
+#mifos-reskin-body-container{
+  @include flex(1 100%);
+  @include order(1);
+
+
+  @include flexbox();
+
+  #mifos-reskin-side-nav{
+
+    position: fixed;
+    top: 52px;
+    bottom: 0;
+    z-index: 9999;
+
+    @include flex(1 100%);
+    @include order(0);
+    max-width:$sidebar-width;
+    overflow: auto;
+    overflow-x: hidden;
+
+    background: rgba(8,35,49,1);
+
+    border-right:1px solid #e0e0e0;
+    -webkit-transition-duration: 500ms;
+    -moz-transition-duration: 500ms;
+    -ms-transition-duration: 500ms;
+    -o-transition-duration: 500ms;
+    transition-duration: 500ms;
+    ul {
+      padding:0;
+      margin:0;
+
+      li{
+        list-style: none;
+        white-space: nowrap;
+
+        a{
+          span{
+            height:40px;
+            padding:12px 10px;
+          }
+          
+
+          i{
+            display: inline-block;
+            width:28px;
+            text-align: center;
+            font-size:16px;
+          }
+
+        }
+      }
+    }
+
+    &:hover{
+      -webkit-transition-duration: 500ms;
+      -moz-transition-duration: 500ms;
+      -ms-transition-duration: 500ms;
+      -o-transition-duration: 500ms;
+      transition-duration: 500ms;
+      max-width:$sidebar-hover-width;
+    }
+
+  }
+
+
+  #mifos-reskin-body-view{
+    padding: 10px 0 0 65px;
+    // @include flex(1 100%);
+    // @include order(0);
+    overflow: auto;
+    background-color: #ebeff1;
+
+  }
+  
+}

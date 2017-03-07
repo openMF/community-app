@@ -13,7 +13,7 @@
                 scope.searchCriteria.centers = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.centers;
+            scope.filterText = scope.searchCriteria.centers || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.centers = scope.filterText;

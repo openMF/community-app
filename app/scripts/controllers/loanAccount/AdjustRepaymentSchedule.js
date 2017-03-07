@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AdjustRepaymentSchedule: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        AdjustRepaymentSchedule: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
             scope.formData = {};
             scope.enablePrincipal = false ;
             scope.enableInstallment = false ;
@@ -59,7 +59,7 @@
             }
 
             scope.pattern = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'pattern.html',
                     controller: patternController,
                     resolve: {
@@ -84,7 +84,7 @@
             };
 
 
-            var patternController = function ($scope, $modalInstance, periods, enablePrincipal, enableInstallment, months, days) {
+            var patternController = function ($scope, $uibModalInstance, periods, enablePrincipal, enableInstallment, months, days) {
                 $scope.periods = periods ;
                 $scope.enablePrincipal = enablePrincipal;
                 $scope.enableInstallment = enableInstallment ;
@@ -103,7 +103,7 @@
                         }
                     }
                     $scope.invaliddaterangeerror = false ;
-                    $modalInstance.close($scope.adjustmentData);
+                    $uibModalInstance.close($scope.adjustmentData);
                     for(var i in scope.loandetails.repaymentSchedule.periods) {
                         if(scope.loandetails.repaymentSchedule.periods[i].dueDate.getTime()>= t1 &&
                             scope.loandetails.repaymentSchedule.periods[i].dueDate.getTime()<= t2) {
@@ -141,7 +141,7 @@
                 }
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -249,22 +249,22 @@
             };
 
             scope.resetToOriginalSchedule = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'resetschedule.html',
                     controller: resetToOriginalSchedule
                 });
             };
 
-            var resetToOriginalSchedule = function ($scope, $modalInstance) {
+            var resetToOriginalSchedule = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.variableinstallments.deleteVariations({loanId: routeParams.accountId}, function (data) {
-                        $modalInstance.close("Close");
+                        $uibModalInstance.close("Close");
                         loadData() ;
                     });
                 };
 
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
@@ -349,7 +349,7 @@
         }
     });
 
-    mifosX.ng.application.controller('AdjustRepaymentSchedule', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.AdjustRepaymentSchedule]).run(function ($log) {
+    mifosX.ng.application.controller('AdjustRepaymentSchedule', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.AdjustRepaymentSchedule]).run(function ($log) {
         $log.info("AdjustRepaymentSchedule initialized");
     });
 }(mifosX.controllers || {}));

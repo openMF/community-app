@@ -11,7 +11,7 @@
                 scope.searchCriteria.hooks = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.hooks;
+            scope.filterText = scope.searchCriteria.hooks || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.hooks = scope.filterText;

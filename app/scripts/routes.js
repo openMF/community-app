@@ -908,6 +908,9 @@
             .when('/entitydatatablechecks', {
                 templateUrl: 'views/organization/entitydatatablechecks/entitydatatablechecks.html'
             })
+            .when('/notifications', {
+                templateUrl: 'views/notification/notifications.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
