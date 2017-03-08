@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanForeclosureController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, $filter) {
+        LoanForeclosureController: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, $filter) {
             scope.accountId = routeParams.id;
             scope.formData = {};
             scope.formData.loanId = scope.accountId;
@@ -76,7 +76,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter','$filter', mifosX.controllers.LoanForeclosureController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$uibModal', 'dateFilter','$filter', mifosX.controllers.LoanForeclosureController]).run(function ($log) {
         $log.info("LoanForeclosureController initialized");
     });
 }(mifosX.controllers || {}));

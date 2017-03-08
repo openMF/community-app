@@ -72,8 +72,8 @@
                                   class="{{button.icon}} "></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
                       </span>
-                      <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
-                          <a class="btn btn-primary dropdown-toggle">
+                      <span ng-show="buttons.options" uib-dropdown  class="btn-group dropdown" on-toggle="toggled(open)">
+                          <a class="btn btn-primary" uib-dropdown-toggle>
                               {{ 'label.button.more' | translate}}
                               <span class="caret"></span>
                           </a>
@@ -579,7 +579,7 @@
                             </thead>
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
-                                    ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
+                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-if="transaction.outstandingLoanBalance > 0">
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.id}}
                                     </td>
