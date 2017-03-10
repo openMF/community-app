@@ -407,6 +407,10 @@
 
             resourceFactory.clientChargesResource.getCharges({clientId: routeParams.id, pendingPayment:true}, function (data) {
                 scope.charges = data.pageItems;
+                if(scope.charges.length == 0)
+                  scope.formData.upcomingcharges = "";
+                else
+                  scope.formData.upcomingcharges = "true";
             });
 
             scope.isClosed = function (loanaccount) {
