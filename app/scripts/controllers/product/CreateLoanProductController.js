@@ -50,7 +50,7 @@
                 }
                 scope.formData.currencyCode = scope.product.currencyOptions[0].code;
                 scope.formData.includeInBorrowerCycle = 'false';
-                scope.formData.useBorrowerCycle = 'false';
+                scope.formData.useBorrowerCycle = false;
                 scope.formData.digitsAfterDecimal = '2';
                 scope.formData.inMultiplesOf = '0';
                 scope.formData.repaymentFrequencyType = scope.product.repaymentFrequencyType.id;
@@ -221,7 +221,7 @@
 			if ((multiDisburseLoan != true) && item.chargeTimeType.id == 12) {
 				return false;
 			}
-			if (item.currency.code != currencyCode) { 
+			if (item.currency.code != currencyCode) {
 				return false;
 			}
 			return true;
