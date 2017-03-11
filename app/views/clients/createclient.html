@@ -7,7 +7,7 @@
       <li class="active">{{'label.anchor.createclient' | translate}}</li>
    </ul>
    <wizard current-step="step">
-    <wz-step icon="fa fa-circle-o" title="{{'label.heading.createclient' | translate}}">
+    <wz-step icon="fa fa-circle-o" data-title="{{'label.heading.createclient' | translate}}">
         <div class="card-content">
             <form name="createclientform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
                <api-validate></api-validate>
@@ -252,7 +252,7 @@
                   <div ng-show="enableAddress" class="form-group">
                      <div class="form-group">
                         <div class="control-label col-sm-2">
-                           <h3><strong>{{ 'label.input.address' | translate }}</strong>&nbsp;<a ng-click="addAddress()">&nbsp;<i class="icon-plus icon-white"></i></a></h3>
+                           <h3><strong>{{ 'label.input.address' | translate }}</strong>&nbsp;<a ng-click="addAddress()" ><i class="fa fa-plus" uib-tooltip="{{'label.button.addAddress' | translate}}"></i></a></h3>
                         </div>
                      </div>
                      <div ng-repeat="addr in addressArray">
@@ -265,7 +265,7 @@
                                  ng-options="addressType.id as addressType.name for addressType in addressTypes track by addressType.id"
                                  value="addressTypeId"  ></select>
                            </div>
-                           &nbsp;&nbsp; <a ng-click="removeAddress($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+                           <a ng-click="removeAddress($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
                         </div>
                         <div class="form-group" ng-show="street">
                            <div class="control-label col-sm-2">
@@ -374,7 +374,7 @@
             </form>
         </div>
     </wz-step>
-    <wz-step ng-if="datatables" ng-repeat="datatable in datatables" icon="fa fa-circle-o" title="{{datatable.registeredTableName}}">
+    <wz-step ng-if="datatables" ng-repeat="datatable in datatables" icon="fa fa-circle-o" data-title="{{datatable.registeredTableName}}">
     	<div class="card-content">
 		   <form class="card form-horizontal well" ng-submit="submit()">
 		      <api-validate></api-validate>
