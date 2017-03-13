@@ -104,6 +104,10 @@
 			{
 				return false;
 			}
+            if (chargeTimeType == 1 && item.id == 5)
+            {
+                return false;
+            }
 			return true;
 		};
 	    };
