@@ -24,6 +24,13 @@
                             ng-change="changeProduct()" class="form-control width170px" required="required">
                         <option style="display:none" value="">{{'label.selectshareproduct' | translate}}</option>
                     </select>
+                    <span class="left-cell" ng-hide="formData.productId">
+            <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-success" ng-show="data" has-permission='CREATE_SHAREACCOUNT'>{{
+                'label.button.save' | translate
+                }}
+            </button>
+        </span>
                 </td>
                 <td class="" style="position: relative; left: 185px;">
                     <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
@@ -202,9 +209,9 @@
             </tr>
         </table>
         </div>
-        <div class="col-md-offset-6">
-            <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
-            <button id="save" type="submit" class="btn btn-primary" ng-show="data" has-permission='CREATE_SHAREACCOUNT'>{{
+        <div class="col-md-offset-6" ng-show="formData.productId">
+            <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-success" ng-show="data" has-permission='CREATE_SHAREACCOUNT'>{{
                 'label.button.save' | translate
                 }}
             </button>
