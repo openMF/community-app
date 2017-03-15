@@ -401,6 +401,25 @@
                             break;
                         }
                     }
+                    scope.totalAllSavingsAccountsBalanceBasedOnCurrency=[];
+                    for (var i in data.savingsAccounts) {
+                        if (!scope.isSavingClosed(data.savingsAccounts[i])) {
+                            var isNewEntryMap = true;
+                           for(var j in scope.totalAllSavingsAccountsBalanceBasedOnCurrency){
+                               if(scope.totalAllSavingsAccountsBalanceBasedOnCurrency[j].code === data.savingsAccounts[i].currency.code){
+                                   isNewEntryMap = false;
+                                   var totalSavings = scope.totalAllSavingsAccountsBalanceBasedOnCurrency[j].totalSavings + data.savingsAccounts[i].accountBalance;
+                                   scope.totalAllSavingsAccountsBalanceBasedOnCurrency[j].totalSavings = totalSavings;
+                               }
+                           }
+                           if(isNewEntryMap){
+                               var map = {};
+                               map.code = data.savingsAccounts[i].currency.code;
+                               map.totalSavings = data.savingsAccounts[i].accountBalance;
+                               scope.totalAllSavingsAccountsBalanceBasedOnCurrency.push(map);
+                           }
+                        }
+                    }
                 }
             });
 
