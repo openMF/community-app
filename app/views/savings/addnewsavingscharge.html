@@ -2,24 +2,25 @@
     <ul class="breadcrumb">
         <li class="active">{{ 'label.anchor.addsavingcharges' | translate }}</li>
     </ul>
+<div class="card">
+-  <div class="content">
+        <form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController"
+              rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                  <div class="form-group">
+                      <label class="control-label col-sm-2">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
 
-    <form name="savingccountchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewSavingsChargeController"
-          rc-submit="submit()">
-            <api-validate></api-validate>
-            <fieldset>
-              <div class="form-group">
-                  <label class="control-label col-sm-2">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
-
-                  <div class="col-sm-3">
-                      <select ng-model="formData.chargeId" id="chargeId" name="charge"
-                              ng-options="charge.id as (charge.name+' ('+charge.currency.name+')') for charge in chargeOptions"
-                              value="{{formData.chargeId}}"
-                              ng-change="chargeSelected(formData.chargeId)" class="form-control" required>
-                          <option style="display:none" value="">{{ 'label.selectcharge' | translate }}</option>
-                      </select>
-                      <form-validate valattributeform="savingccountchargeform" valattribute="charge"/>
+                      <div class="col-sm-3">
+                          <select ng-model="formData.chargeId" id="chargeId" name="charge"
+                                  ng-options="charge.id as (charge.name+' ('+charge.currency.name+')') for charge in chargeOptions"
+                                  value="{{formData.chargeId}}"
+                                  ng-change="chargeSelected(formData.chargeId)" class="form-control" required>
+                              <option style="display:none" value="">{{ 'label.selectcharge' | translate }}</option>
+                          </select>
+                          <form-validate valattributeform="savingccountchargeform" valattribute="charge"/>
+                      </div>
                   </div>
-              </div>
 
                 <div ng-show="chargeDetails">
                     <div class="form-group">
@@ -88,4 +89,6 @@
                 </div>
             </fieldset>
             </form>
+        </div>
+-    </div>
 </div>
