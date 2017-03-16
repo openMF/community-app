@@ -201,6 +201,21 @@
                                             is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
                                     </td>
                                 </tr>
+                                <tr ng-show="!loanaccountinfo.isLoanProductLinkedToFloatingRate">
+                                    <td><label>{{ 'label.input.nominalinterestrate' | translate }}&nbsp;<span
+                                        class="required">*</span></label></td>
+                                    <td class="paddedbottom10">
+                                        <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"
+                                        ng-model="formData.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                                     </td>
+                                     <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
+                                        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
+                                            <select id="interestType" ng-model="formData.interestType"
+                                              ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestType"
+                                              ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" class="form-control width170px"
+                                              value="{{interestType.id}}"/>
+                                      </td>
+                                </tr>
                                 <tr>
                                     <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true"><label>{{ 'label.input.arearstolerance' | translate }}</label></td>
                                     <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.inArrearsTolerance == true">
