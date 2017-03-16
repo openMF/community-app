@@ -10,7 +10,7 @@
             'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
             'angularui': '../bower_components/angular-bootstrap/ui-bootstrap',
             'angularuitpls': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-            'bootstrap': '../bower_compnonents/bootstrap-sass/assets/javascripts/bootstrap.min',
+            'bootstrap': '../bower_components/bootstrap-sass/assets/javascripts/bootstrap.min',
             'underscore': '../bower_components/underscore/underscore',
             'webstorage': '../bower_components/angular-webstorage/angular-webstorage',
             'angular-animate': '../bower_components/angular-animate/angular-animate',
