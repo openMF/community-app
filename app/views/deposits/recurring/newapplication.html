@@ -22,6 +22,11 @@
                     ng-change="changeProduct()" class="form-control width170px" required="required">
                 <option class="displaynone" value="">{{'label.selectrecurringdepositproduct' | translate}}</option>
             </select>
+            <span class="left-cell" ng-hide="formData.productId">
+            <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-success" ng-show="data">{{ 'label.button.save' | translate }}
+            </button>
+            </span>
         </td>
         <td class="width14">
             <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
@@ -342,9 +347,9 @@
     </tr>
 </table>
 </div>
-<div class="paddedtop col-md-offset-5">
-    <button id="cancel" ng-click="cancel()" class="btn">{{ 'label.button.cancel' | translate }}</button>
-    <button id="save" type="submit" class="btn btn-primary" ng-show="data">{{ 'label.button.save' | translate }}
+<div class="paddedtop col-md-offset-5" ng-show="formData.productId">
+    <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+    <button id="save" type="submit" class="btn btn-success" ng-show="data">{{ 'label.button.save' | translate }}
     </button>
 </div>
 <script type="text/ng-template" id="incentive.html">

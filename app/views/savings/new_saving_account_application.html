@@ -25,6 +25,13 @@
                             ng-change="changeProduct()" class="form-control width170px" required="required">
                         <option style="display:none" value="">{{'label.selectsavingproduct' | translate}}</option>
                     </select>
+                    <span class="left-cell" ng-hide="formData.productId">
+                       <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+                       <button id="save" type="submit" class="btn btn-success" ng-show="data" has-permission='CREATE_SAVINGSACCOUNT'>{{
+                'label.button.save' | translate
+                }}
+                      </button>
+                       </span>
                 </td>
                 <td class="width14">
                     <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
@@ -288,9 +295,9 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-offset-6">
-            <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
-            <button id="save" type="submit" class="btn btn-primary" ng-show="data" has-permission='CREATE_SAVINGSACCOUNT'>{{
+        <div class="col-md-offset-6" ng-show="formData.productId">
+            <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-success" ng-show="data" has-permission='CREATE_SAVINGSACCOUNT'>{{
                 'label.button.save' | translate
                 }}
             </button>

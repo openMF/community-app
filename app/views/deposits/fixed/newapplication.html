@@ -9,19 +9,26 @@
         <div class="content">
             <form name="newsavingccountform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <fieldset>
-                <table class="">
+                <table class="table width100">
                     <tr>
-                        <td class="">
+                        <td class="width14">
                             <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
                         </td>
-                        <td class="">
+                        <td class="width36 paddedbottom10">
                             <select id="productId" ng-model="formData.productId"
                                     ng-options="product.id as product.name for product in products" value="{{product.id}}"
-                                    ng-change="changeProduct()" class="form-control " required="required">
+                                    ng-change="changeProduct()" class="form-control width170px" required="required">
                                 <option class="displaynone" value="">{{'label.selectfixeddepositproduct' | translate}}</option>
                             </select>
                         </td>
-                        <td class="">
+                        <td class="width36 paddedbottom10">
+                            <span class="left-cell" ng-hide="formData.productId">
+                            <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+                            <button id="save" type="submit" class="btn btn-success" ng-show="data">{{ 'label.button.save' | translate }}
+                            </button>
+                            </span>
+                        </td>
+                        <td class="width14">
                             <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
                                 }}&nbsp;<span class="required">*</span></label>
                         </td>
@@ -299,9 +306,9 @@
                     </tr>
                 </table>
                 </div>
-                <div class="col-md-offset-5 ">
-                    <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
-                    <button id="save" type="submit" class="btn btn-primary" ng-show="data">{{ 'label.button.save' | translate }}
+                <div class="col-md-offset-5" ng-show="formData.productId">
+                    <button id="cancel" ng-click="cancel()" class="btn btn-danger">{{ 'label.button.cancel' | translate }}</button>
+                    <button id="save" type="submit" class="btn btn-success" ng-show="data">{{ 'label.button.save' | translate }}
                     </button>
                 </div>
                 <script type="text/ng-template" id="incentive.html">

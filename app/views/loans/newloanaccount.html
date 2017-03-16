@@ -23,6 +23,17 @@
                                         ng-change="loanProductChange(formData.productId)" required="required">
                                     <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
                                 </select>
+                                <span class="left-cell" ng-hide="formData.productId">
+                            <button id="save1" type="submit" class="btn btn-success" ng-if="datatables">
+                                {{'label.button.proceed' | translate}}
+                            </button>
+                            <div ng-if="!datatables">
+                                <button id="cancel" type="reset" class="btn btn-danger" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                                <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-success" ng-show="loanaccountinfo">{{'label.button.save' |
+                                    translate}}
+                                </button>
+                            </div>
+                        </span>
                             </td>
                             <td class="width14">
                                 <label ng-show="formData.productId">{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
@@ -671,13 +682,13 @@ class="fa fa-circle-arrow-right"></i></a></span>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pull-right">
-                            <button id="save1" type="submit" class="btn btn-primary" ng-if="datatables">
+                        <div class="pull-right" ng-show="formData.productId">
+                            <button id="save1" type="submit" class="btn btn-success" ng-if="datatables">
                                 {{'label.button.proceed' | translate}}
                             </button>
                             <div ng-if="!datatables">
-                                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                                <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo">{{'label.button.save' |
+                                <button id="cancel" type="reset" class="btn btn-danger" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                                <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-success" ng-show="loanaccountinfo">{{'label.button.save' |
                                     translate}}
                                 </button>
                             </div>
