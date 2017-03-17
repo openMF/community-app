@@ -44,7 +44,8 @@
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
             'ng-scrollbar':'../bower_components/ng-scrollbar/dist/ng-scrollbar',
             'ng-scrollbar-css':'../bower_components/ng-scrollbar/dist/ng-scrollbar.css',
-            'styles': '../styles/styles.css'
+            'styles-css': '../styles/styles.css',
+            'ui-config': '../scripts/config/UIconfig.json'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
