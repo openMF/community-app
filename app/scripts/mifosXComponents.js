@@ -298,8 +298,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
 			'adhocquery/AdHocQueryListController',
             'adhocquery/CreateAdHocQueryController',
             'adhocquery/ViewAdHocQueryController',
-            'adhocquery/EditAdHocQueryController'
-
+            'adhocquery/EditAdHocQueryController',
+            'selfservice/CreateSelfServiceUserController'
         ],
         filters: [
             'StatusLookup',
