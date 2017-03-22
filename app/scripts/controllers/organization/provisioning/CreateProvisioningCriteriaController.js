@@ -7,12 +7,21 @@
             scope.template = [];
             scope.formData = {};
             scope.translate = translate;
-            scope.isRequired = false ;
 
             resourceFactory.provisioningcriteria.template({criteriaId:'template'},function (data) {
                 scope.template = data;
                 scope.allloanproducts = data.loanProducts ;
                 scope.definitions = data.definitions;
+
+                //Logic to allow Max age of Loss to be blank => Symbolises infinity
+                for(definitionKey in scope.definitions){
+                    if(scope.definitions[definitionKey].categoryName == "LOSS"){
+                        scope.definitions[definitionKey].isMaxAgeRequired = false;
+                    }
+                    else{
+                        scope.definitions[definitionKey].isMaxAgeRequired = true;
+                    }
+                }
                 scope.liabilityaccounts = data.glAccounts;
                 scope.expenseaccounts = data.glAccounts;
             });
@@ -50,6 +59,13 @@
                 this.isRequired = true ;
                 this.formData.locale = scope.optlang.code;
                 this.formData.loanProducts = scope.selectedloanproducts ;
+                //Cleaning up parameter isMaxAgeRequired
+                for(definitionKey in scope.definitions){
+                    delete scope.definitions[definitionKey].isMaxAgeRequired;
+                    if(scope.definitions[definitionKey].maxAge === undefined){
+                        scope.definitions[definitionKey].maxAge = null;
+                    }
+                }
                 this.formData.definitions = scope.definitions ;
                 resourceFactory.provisioningcriteria.post(this.formData, function (data) {
                     location.path('/viewprovisioningcriteria/' + data.resourceId);
