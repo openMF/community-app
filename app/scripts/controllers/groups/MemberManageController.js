@@ -12,8 +12,17 @@
             scope.clientOptions = function(value){
                 var deferred = $q.defer();
                 resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: value, orderBy : 'displayName', officeId : scope.group.officeId,
-                sortOrder : 'ASC', orphansOnly : true}, function (data) {
+                sortOrder : 'ASC', orphansOnly : false}, function (data) {
                     deferred.resolve(data.pageItems);
+                    scope.allMembers.filter(function(member){
+                        var i = 0;
+                        for(i=0;i<data.pageItems.length;i++){
+                            if(data.pageItems[i].id == member.id){
+                                data.pageItems.splice(i, 1);
+                                i--;
+                            }
+                        }
+                    })
                 });
                 return deferred.promise;
             };
