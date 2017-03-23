@@ -46,11 +46,11 @@
 		<div class="modal-body">
 			<api-validate></api-validate>
 			<br>
-			<input type="file" nv-file-select="onFileSelect($files)">
+			<input type="file" ngf-select ng-model="file">
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
 		</div>
 	</script>
 	<script type="text/ng-template" id="capturepic.html">
@@ -65,8 +65,8 @@
 			<br>
 			<div>
 				<div class="left">
-					<webcam on-streaming="onVideoSuccess(video)"
-							on-error="onVideoError(err)" video-width="320" video-height="240"></webcam>
+					<webcam on-streaming="onVideoSuccess()"
+							on-error="onVideoError(err)" channel="videoChannel"></webcam>
 				</div>
 				<div class="right">
 					<canvas id="clientSnapshot" width="320" height="240"></canvas>
@@ -113,11 +113,11 @@
 		<div class="modal-body">
 			<api-validate></api-validate>
 			<br>
-			<input type="file" nv-file-select="onFileSelect($files)">
+			<input type="file" ngf-select ng-model="file"">
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-			<button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
 		</div>
 	</script>
 	<div class="card">
