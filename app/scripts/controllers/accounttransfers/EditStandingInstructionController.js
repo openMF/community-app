@@ -29,7 +29,7 @@
                 }
                 
                 if(data.fromClient.id == data.toClient.id){
-                    allowclientedit = true;
+                    scope.allowclientedit = false;
                 }
                 if (data.recurrenceOnMonthDay) {
                     var d = new Date();
