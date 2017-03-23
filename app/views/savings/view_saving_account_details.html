@@ -160,7 +160,7 @@
         <div class="col-sm-12 col-md-12">
             <hr class="marginbottom"/>
             <uib-tabset tabset-name="savingsAccountDetails">
-                <tab heading="{{'label.heading.summary' | translate}}">
+                <uib-tab heading="{{'label.heading.summary' | translate}}">
                     <div class="col-sm-8 col-md-8 marginbuttontop25px">
                         <table class="table table-bordered view-table">
                             <tr ng-show="savingaccountdetails.summary.totalDeposits">
@@ -345,8 +345,8 @@
                             </tr>
                         </table>
                     </div>
-                </tab>
-                <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
+                </uib-tab>
+                <uib-tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
                     <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                     <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button><br>
                     <table class="table table-bordered">
@@ -409,8 +409,8 @@
                         </div>
 
                     </div>
-                </tab>
-                <tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
+                </uib-tab>
+                <uib-tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables" has-permission='READ_{{savingdatatable.registeredTableName}}'
                      select="dataTableChange(savingdatatable)">
                     <api-validate></api-validate>
                     <div data-ng-show="choice" class="btn-group pull-right">
@@ -449,8 +449,8 @@
                             </tr>
                         </table>
                     </div>
-                </tab>
-                <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
+                </uib-tab>
+                <uib-tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
                     <a class="btn btn-primary pull-right" ng-show="showActiveCharges"
                        ng-click="showActiveCharges=!showActiveCharges">{{'label.button.showInactiveCharges' |
                         translate}}</a>
@@ -520,7 +520,7 @@
                             <td></td>
                         </tr>
                     </table>
-                </tab>
+                </uib-tab>
                 <!-- <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_SAVINGNOTE'>
                     <br/>
 
