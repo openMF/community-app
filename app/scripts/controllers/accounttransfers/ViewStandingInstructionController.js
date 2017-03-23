@@ -12,7 +12,7 @@
             resourceFactory.standingInstructionResource.get(params, function (data) {
                 scope.standinginstruction = data;
                 if(data.fromClient.id == data.toClient.id){
-                    allowclientedit = true;
+                    scope.allowclientedit = false;
                 }
                 
             });
