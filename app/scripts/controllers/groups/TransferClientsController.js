@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferClientsController: function ($q, scope, routeParams, route, location, resourceFactory) {
+          TransferClientsController: function ($q, scope, routeParams, route, location, resourceFactory) {
             scope.group = [];
             scope.tempData = [];
             scope.selectedClients = [];
@@ -13,8 +13,8 @@
             scope.availableClients = null;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
                 scope.data = data;
+
                 scope.allMembers = data.clientMembers.filter((member) => {
-                  debugger
                   return member.active;
                 });
             });
@@ -32,7 +32,6 @@
             };
 
             scope.addClient = function () {
-              debugger
                 for (var i in this.availableClients) {
                     for (var j in scope.allMembers) {
                         if (scope.allMembers[j].id == this.availableClients) {
