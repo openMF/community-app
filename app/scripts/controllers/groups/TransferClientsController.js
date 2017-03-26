@@ -11,7 +11,9 @@
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
                 scope.data = data;
-                scope.allMembers = data.clientMembers;
+                scope.allMembers = data.clientMembers.filter(function(member) {
+                  return member.active;
+                });
             });
 
             scope.groups = function(value){
