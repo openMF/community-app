@@ -1,5 +1,5 @@
 describe("TransferClientsController", function() {
-  let clientMembersGet, transferClientsController, scope, $q;
+  var clientMembersGet;
 
   beforeEach(function() {
     this.scope = {};
