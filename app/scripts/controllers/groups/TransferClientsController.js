@@ -9,9 +9,14 @@
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
 
+
+            scope.availableClients = null;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
                 scope.data = data;
-                scope.allMembers = data.clientMembers;
+                scope.allMembers = data.clientMembers.filter((member) => {
+                  debugger
+                  return member.active;
+                });
             });
 
             scope.groups = function(value){
@@ -27,6 +32,7 @@
             };
 
             scope.addClient = function () {
+              debugger
                 for (var i in this.availableClients) {
                     for (var j in scope.allMembers) {
                         if (scope.allMembers[j].id == this.availableClients) {
@@ -54,7 +60,7 @@
                     }
                 }
             };
-            
+
             scope.viewgroup = function (group) {
                 resourceFactory.groupResource.get({groupId: group.id}, function (data) {
                     scope.groupdata = data;
