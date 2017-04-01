@@ -15,6 +15,10 @@
                 }
                 ;
 
+                if(scope.searchResults.length>0){
+                    scope.resultMsg = true;
+                }
+
                 if (scope.searchResults.length <= 0) {
                     scope.flag = true;
                 }
