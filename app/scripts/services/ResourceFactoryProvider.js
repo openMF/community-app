@@ -207,7 +207,7 @@
                         update: { method: 'PUT'},
                         upd: { method: 'PUT', params: {}}
                     }),
-                    userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
+                    userListResource: defineResource(apiVer + "/users/:userId/usrnme/:usrnme/currentPass/:currentPass", {userId: '@userId',usrnme:'@usrnme',currentPass:'@currentPass'}, {
                         getAllUsers: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT' }
                     }),

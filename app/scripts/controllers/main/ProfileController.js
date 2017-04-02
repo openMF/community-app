@@ -16,13 +16,18 @@
                     resolve: {
                         userId: function () {
                             return scope.userDetails.userId;
+                        },
+                        usrnme : function () {
+                            return scope.userDetails.username;
                         }
                     }
                 });
             };
-            var UpdatePasswordCtrl = function ($scope, $modalInstance, userId) {
-                $scope.save = function () {
-                    resourceFactory.userListResource.update({'userId': userId}, this.formData, function (data) {
+            var UpdatePasswordCtrl = function ($scope, $modalInstance, userId,usrnme) {
+                $scope.save = function (currentPass) {
+                   // var username=scope.userDetails.username;
+                    $scope.PostDataResponse=currentPass;
+                    resourceFactory.userListResource.update({'userId': userId,'usrnme': usrnme,'currentPass':currentPass}, this.formData, function (data) {
                         $modalInstance.close('modal');
                         if (data.resourceId == userId) {
                             scope.logout();
