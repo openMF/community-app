@@ -112,10 +112,6 @@
                          scope.columns[i].newName = scope.columns[i].columnCode + "_cd_" + scope.columns[i].newName;
                          }
                          }*/
-
-                        delete scope.columns[i].originalName;
-                        delete scope.columns[i].type;
-
                         if (scope.columns[i].code) {
                             scope.columns[i].newCode = scope.columns[i].newCode || scope.columns[i].code;
                         }
