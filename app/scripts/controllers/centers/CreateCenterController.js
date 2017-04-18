@@ -3,6 +3,7 @@
         CreateCenterController: function (scope, resourceFactory, location, dateFilter) {
             scope.offices = [];
             scope.staffs = [];
+            scope.groups = [];
             scope.data = {};
             scope.first = {};
             scope.first.submitondate = new Date ();
@@ -13,8 +14,12 @@
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true},function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
-                scope.groups = data.groupMembersOptions;
+                // scope.groups = data.groupMembersOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
+            });
+
+            resourceFactory.groupResource.getAllGroups(function (data) {
+                scope.groups = data;
             });
 
             scope.changeOffice = function () {
@@ -22,9 +27,9 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
-                    scope.groups = data.groupMembersOptions;
-                });
+                // resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
+                //     scope.groups = data.groupMembersOptions;
+                // });
             };
             scope.setChoice = function () {
                 if (this.formData.active) {
