@@ -212,7 +212,10 @@
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                 });
-            });
+                resourceFactory.groupResource.get({groupId: scope.client.groups[0].id, associations: 'all'}, function (data) {
+                      scope.client.center = data;
+                  });
+              });
             scope.deleteClient = function () {
                 $modal.open({
                     templateUrl: 'deleteClient.html',
