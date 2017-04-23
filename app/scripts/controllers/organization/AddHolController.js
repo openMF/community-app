@@ -117,6 +117,35 @@
                     location.path('/holidays');
                 });
             };
+            scope.submit=function(){
+			  var fromtxt=angular.element('#fromDate').val();
+			  var toDatetxt=angular.element('#toDate').val();
+			  var repaymentsRescheduleTotxt=angular.element('#repaymentsRescheduledTo').val();
+			  if(new Date(fromtxt)<new Date()||new Date(toDatetxt)<new Date()||new Date(repaymentsRescheduleTotxt)<new Date()){
+				alert("Invalid date(s) given");
+				//scope.errorStatus=false;
+				//scope.errorArray.push("Invalid date(s) given");
+			  }	
+			  else{
+				var newholiday = new Object();
+                newholiday.locale = scope.optlang.code;
+                newholiday.dateFormat = scope.df;
+                newholiday.name = this.formData.name;
+                newholiday.fromDate = dateFilter(new Date(fromtxt), scope.df);
+                newholiday.toDate = dateFilter(new Date(toDatetxt), scope.df);
+                newholiday.repaymentsRescheduledTo = dateFilter(new Date(repaymentsRescheduleTotxt), scope.df);
+                newholiday.description = this.formData.description;
+                newholiday.offices = [];
+                for (var i in holidayOfficeIdArray) {
+                    var temp = new Object();
+                    temp.officeId = holidayOfficeIdArray[i];
+                    newholiday.offices.push(temp);
+                }
+                resourceFactory.holValueResource.save(newholiday, function (data) {
+                    location.path('/holidays');
+                });				  
+			  }	
+			}			
         }
     });
     mifosX.ng.application.controller('AddHolController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.AddHolController]).run(function ($log) {
