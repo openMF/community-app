@@ -30,6 +30,9 @@
                 resourceFactory.clientAccountResource.get({clientId: clientId}, function (data) {
                     scope.clientAccounts = data;
                 });
+                resourceFactory.clientChargesResource.getCharges({clientId: clientId, pendingPayment:true}, function (data) {
+                    scope.charges = data.pageItems;
+                });
             };
 
            scope.getGroupDetails = function (groupId) {
