@@ -1,0 +1,53 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/productmix">{{'label.anchor.productmix' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addproductmix' | translate}}</li>
+    </ul>
+	<form name="addproductmixform" novalidate class="card form-horizontal well" ng-controller="AddProductMixController"
+	      rc-submit="submit()">
+	    <api-validate></api-validate>
+	    <fieldset>
+	        <legend>{{'label.heading.addproductmix' | translate}}</legend>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2">{{ 'label.input.selectproduct' | translate }}</label>
+	
+	            <div class="col-sm-3">
+	                <select id="productId" name="product" ng-model="formData.productId"
+	                        ng-options="product.id as product.name for product in products" value="{{product.id}}"
+	                        data-ng-change="productInfo(formData.productId)" class="form-control" required>
+	                    <option value="">{{'label.selectproduct' | translate}}</option>
+	                </select>
+	                <form-validate valattributeform="addproductmixform" valattribute="product"/>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <div class="row" data-ng-show="formData.productId">
+	                <div class="col-sm-3 col-md-3 col-md-offset-1">
+	                    <label class="control-label col-sm-9">{{ 'label.input.allowedproducts' | translate }}</label>
+	                    <select multiple ng-model="allowed" class="form-control clear multiselectmin">
+							<option ng-repeat="allowedProduct in allowedProducts" value="{{allowedProduct.id}}">{{allowedProduct.name}}</option>
+	                    </select>
+	                </div>
+	                <div class="col-sm-1 col-md-1 paddedtop25px">
+	                    <button type="button" class="btn btn-primary" data-ng-click="restrict()"><i
+	                            class="fa fa-angle-double-right"></i></button>
+	                    <br/>
+	                    <button type="button" class="btn btn-primary" data-ng-click="allow()"><i
+	                            class="fa fa-angle-double-left"></i></button>
+	                </div>
+	                <div class="col-sm-3 col-md-3">
+	                    <label class="control-label col-sm-9">{{ 'label.input.restrictedproducts' | translate }}</label>
+	                    <select multiple ng-model="restricted" class="form-control clear multiselectmin">
+							<option ng-repeat="restrictedProduct in restrictedProducts" value="{{restrictedProduct.id}}">{{restrictedProduct.name}}</option>
+	                    </select>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-md-offset-3">
+	            <a href="#/productmix" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_PRODUCTMIX'>{{ 'label.button.save' | translate }}</button>
+	        </div>
+	    </fieldset>
+	</form>
+</div>

@@ -1,0 +1,88 @@
+<div class="content-container" data-ng-controller="MemberManageController">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managemembers' | translate}}</li>
+    </ul>
+
+    <script type="text/ng-template" id="delete.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+            </div>
+            <div class="modal-body ">
+                <api-validate></api-validate>
+                <br>
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            </div>
+    </script>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.associatenewmembers' | translate}}</h4>
+            </div>
+            <br/>
+             <form name="managemembers" class="form-horizontal">
+                 <fieldset>
+                     <div class="row">
+                         <div class="col-md-7">
+                             <div class="form-group">
+                                 <label class="control-label col-sm-4">{{ 'label.input.searchformember' | translate }}</label>
+                                 <div class="col-sm-4 col-md-4">
+                                     <input id="members" type="text" ng-model="available" class="col-md-4 form-control"
+                                            typeahead-min-length="3"
+                                            typeahead-editable="false"
+                                            uib-typeahead="client as client.displayName for client in clientOptions($viewValue)"
+                                            typeahead-on-select="viewClient(available)"/>
+                                 </div>
+                                 <div class="col-sm-1 col-md-1">
+                                     <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+                                         {{ 'label.button.add' | translate }} 
+                                         <i class="fa fa-double-angle-right"></i></button>
+                                 </div>
+                             </div>
+                             <div class="form-group">
+                                 <div data-ng-show="available" class="col-md-6 col-md-offset-1">
+                                     <p>{{'label.heading.groupdetails' | translate}}</p>
+                                     <table class="table">
+                                         <tr>
+                                             <td>{{'label.heading.name' | translate}}</td>
+                                             <td>{{client.displayName}}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>{{ 'label.heading.id' | translate }}</td>
+                                             <td valign="top">{{client.id}}</td>
+                                         </tr>
+                                         <tr>
+                                             <td>{{ 'label.heading.office' | translate }}</td>
+                                             <td>{{client.officeName}}</td>
+                                         </tr>
+                                     </table>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-md-5">
+                             <legend>{{'label.heading.groupmembers' | translate}}</legend>
+                             <div class="form-group" ng-repeat="members in allMembers">
+                                 <div class="col-sm-6 col-md-6">
+                                     <input disabled="" class="form-control input-xxlarge" placeholder="{{members.displayName}} (Id: {{members.id}})"
+                                            type="text"/>
+                                 </div>
+                                 <div class="col-sm-2 col-md-2">
+                                     <button type="button" class="btn angled-btn btn-primary " data-ng-click="remove($index,members.id)">
+                                             <i class="fa fa-times"></i>
+                                     </button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-sm-3 col-md-offset-5">
+                         <br>
+                         <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default"><i class="fa fa-double-angle-left"></i> {{ 'label.button.back' | translate }}</a>
+                     </div>
+                 </fieldset>
+            </form> 
+        </div>
+    </div>    
+</div>

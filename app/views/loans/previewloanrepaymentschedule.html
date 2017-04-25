@@ -1,0 +1,74 @@
+<div class="content-container" ng-controller="PreviewLoanRepaymentScheduleController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li><a href="#/loans/{{loanId}}/viewreschedulerequest/" class="active">{{'label.anchor.reschedulerequest' | translate}}</a></li>
+        </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.newrepaymentreschedule' | translate }}</h4>
+                <div class="btn-group pull-right">
+                    <button type="button" ng-click="reject()" class="btn btn-md btn-warning" has-permission="REJECTRESCHEDULE_LOAN"><i class="fa fa-times"></i>
+                        {{'label.button.reject' | translate}}</button>
+                    <button type="button" ng-click="approve()" class="btn btn-md btn-success" has-permission="APPROVERESCHEDULE_LOAN"><i class="fa fa-ok"></i>
+                        {{ 'label.button.approve' | translate }}</button>
+                </div>
+            </div>
+            <br/>
+            <form name="previewloanrescheduleform" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <table class="table table-striped .width100">
+                        <colgroup span="4"></colgroup>
+                        <thead>
+                            <tr>
+                                <th colspan="1" scope="colgroup"></th>
+                                <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
+                                <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
+                                <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'label.heading.date' | translate}}</th>
+
+                                <th scope="col">{{'label.heading.principaldue' | translate}}</th>
+                                <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+
+                                <th scope="col">{{'label.heading.interest' | translate}}</th>
+                                <th scope="col">{{'label.heading.fees' | translate}}</th>
+                                <th scope="col">{{'label.heading.penalties' | translate}}</th>
+
+                                <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="period in data.periods">
+                                <td>{{period.dueDate | DateFormat}}</td>
+                                <td>{{period.principalDue | number}}</td>
+                                <td>{{period.principalLoanBalanceOutstanding | number}}</td>
+                                <td>{{period.interestOriginalDue | number}}</td>
+                                <td>{{period.feeChargesDue | number}}</td>
+                                <td>{{period.penaltyChargesDue | number}}</td>
+                                <td>{{period.totalOutstandingForPeriod | number}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="ui-widget-header">
+                            <tr>
+                                <th >{{'label.heading.total' | translate}}</th>
+                                <th>{{data.totalPrincipalExpected | number}}</th>
+                                <th>&nbsp;</th>
+                                <th>{{data.totalInterestCharged | number}}</th>
+                                <th>{{data.totalFeeChargesCharged | number}}</th>
+                                <th>{{data.totalPenaltyChargesCharged | number}}</th>
+                                <th>{{data.totalRepaymentExpected | number}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div align="center">
+                        <button type="button" ng-click="back()" class="btn btn-default">
+                            {{'label.button.back' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

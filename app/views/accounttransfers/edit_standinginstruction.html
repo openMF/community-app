@@ -1,0 +1,183 @@
+<div class="content-container" ng-controller="EditStandingInstructionController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewstandinginstruction/{{standinginstruction.id}}" ng-hide="fromlist">{{'label.heading.viewstandinginstruction' | translate}}</a><a href="#/liststandinginstructions/{{standinginstruction.fromOffice.id}}/{{standinginstruction.fromClient.id}}" ng-show="fromlist">{{'label.heading.liststandinginstruction'| translate}}</a></li>
+            <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
+        </ul>
+
+    <div class="card">
+        <div class="content">
+            <api-validate></api-validate>
+            <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
+                <fieldset>
+                    <legend>{{ 'label.heading.editstandinginstruction' | translate }}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="name">{{'label.heading.name' | translate}}</label>
+
+                        <div class="col-sm-3">
+                           {{standinginstruction.name}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="displayName">{{'label.heading.applicant' | translate}}</label>
+
+                        <div class="col-sm-3">{{standinginstruction.fromClient.displayName}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="transferType">{{'label.heading.type' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            {{standinginstruction.transferType.value}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label col-sm-2" for="priority">{{'label.heading.priority' | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                           <select id="priority" ng-model="formData.priority" name="priority"
+                                ng-options="priority.id as priority.value for priority in standinginstruction.priorityOptions" value="{{priority.id}}" required>
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                            <form-validate valattributeform="standinginstructionform" valattribute="priority"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label col-sm-2" for="status">{{'label.heading.status' | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                           <select id="status" ng-model="formData.status" name="status"
+                                ng-options="status.id as status.value for status in standinginstruction.statusOptions" value="{{status.id}}" required>
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                            <form-validate valattributeform="standinginstructionform" valattribute="status"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="fromAccountType">{{ 'label.heading.fromaccounttype' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            {{standinginstruction.fromAccountType.value}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="fromAccountId">{{ 'label.heading.fromaccount' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            {{standinginstruction.fromAccount.productName}} - {{standinginstruction.fromAccount.accountNo}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="destination">{{ 'label.heading.destination' | translate }}</label>
+
+                        <div class="col-sm-3" ng-show="allowclientedit">
+                           {{'label.heading.withinbank' | translate}}
+                        </div>
+                        <div class="col-sm-3" ng-hide="allowclientedit">
+                           {{'label.heading.ownaccount' | translate}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="toOfficeId">{{ 'label.input.tooffice' | translate }}</label>
+                        <div class="col-sm-3" >{{standinginstruction.toOffice.name}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="toClientId">{{ 'label.input.toclient' | translate }}</label>
+                        <div class="col-sm-3" >{{standinginstruction.toClient.displayName}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="toAccountType">{{ 'label.input.toaccounttype' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            {{standinginstruction.toAccountType.value}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="toAccountId">{{ 'label.input.toaccount' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            {{standinginstruction.toAccount.productName}} - {{standinginstruction.toAccount.accountNo}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="instructionType">{{ 'label.input.instructiontype' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="instructionType" ng-model="formData.instructionType" name="instructionType"
+                                    ng-options="instructionType.id as (instructionType.value) for instructionType in standinginstruction.instructionTypeOptions"
+                                    value="{{instructionType.id}}" required>
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                            <form-validate valattributeform="standinginstructionform" valattribute="instructionType"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.amount' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="transferAmount" name="transferAmount" number-format ng-model="formData.amount"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="validFrom">{{ 'label.heading.validfrom' | translate }}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="validFrom" datepicker-pop="dd MMMM yyyy" ng-model="formData.validFrom"
+                                   is-open="opened" min="restrictDate" />
+                        </div>
+                         <label class="control-label col-sm-2" for="validTill">{{ 'label.heading.to' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="validTill" datepicker-pop="dd MMMM yyyy" ng-model="formData.validTill"
+                                   is-open="opened" min="restrictDate"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="recurrenceType">{{ 'label.heading.recurrencetype' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <select id="recurrenceType" ng-model="formData.recurrenceType" name="recurrenceType"
+                                    ng-options="recurrenceType.id as (recurrenceType.value) for recurrenceType in standinginstruction.recurrenceTypeOptions"
+                                    value="{{recurrenceType.id}}" required>
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                            <form-validate valattributeform="standinginstructionform" valattribute="recurrenceType"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="recurrenceInterval">{{ 'label.heading.recurrenceinterval' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="recurrenceInterval" name="recurrenceInterval"
+                                   ng-model="formData.recurrenceInterval" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="recurrenceFrequency">{{ 'label.heading.recurrencefrequency' | translate }}</label>
+                        <div class="col-sm-3">
+                            <select id="recurrenceFrequency" ng-model="formData.recurrenceFrequency" name="recurrenceFrequency"
+                                    ng-options="recurrenceFrequency.id as (recurrenceFrequency.value) for recurrenceFrequency in standinginstruction.recurrenceFrequencyOptions"
+                                    value="{{recurrenceFrequency.id}}" >
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="recurrenceOnMonthDay">{{ 'label.heading.recurrenceonmonthday' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="recurrenceOnMonthDay" name="recurrenceOnMonthDay"
+                                   ng-model="recurrenceOnMonthDay" datepicker-pop="dd MMMM" 
+                                   is-open="opened"/>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3">
+                        <a id="cancel" class="btn btn-default" data-ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
+                        <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION'>{{ 'label.button.save' | translate }}</button>
+                    </div>
+                </fieldset>
+            </form>  
+        </div>
+    </div>
+</div>

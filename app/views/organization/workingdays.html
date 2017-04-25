@@ -1,0 +1,50 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.workingDays' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form class="form-horizontal" ng-controller="EditWorkingDaysController" ng-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{'label.heading.workingDays' | translate}}</legend>
+                    <label class="control-label col-sm-2 width20">{{ 'label.input.workingDays' | translate }}</label>
+                    <div class="form-group" ng-repeat="workingDay in workingDays">
+                        <label class="control-label col-sm-2 width20" ng-show="showLabel(workingDay.day)" style="padding-right: 214px;"></label>
+
+                            <input class="control-label" id="workingDay.value" type="checkbox" value="workingDay.value" ng-model="workingDay.value">
+
+                <label>{{''+workingDay.code+'' | translate}}</label>
+
+                    <br/>
+                    </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2 width20" >{{ 'label.input.paymentsDueOnHolidays' | translate }}</label>
+                <div class="col-sm-3">
+                    <select id="repaymentReschedule" ng-model="selectedRepaymentType" class="form-control"
+                            ng-options="repaymentRescheduleType.id as repaymentRescheduleType.code | translate for repaymentRescheduleType in repaymentRescheduleOptions"
+                            value="{{repaymentRescheduleType.id}}">
+                    </select>
+                </div>
+            </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 width20" >{{ 'label.input.extendTermForDailyRepayments' | translate }}</label>
+                        <div class="col-sm-3">
+                            <input type="checkbox" ng-model="extendTermForDailyRepayments">
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-3">
+                        <a href="#/organization">
+                            <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                        </a>
+                        <button type="submit" class="btn btn-primary" has-permission='UPDATE_WORKINGDAYS'>{{'label.button.save' | translate}}</button>
+                    </div>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+</div>

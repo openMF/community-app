@@ -1,0 +1,41 @@
+<div class="content-container" data-ng-controller="CloseCenterController">
+	<div class="card">
+		<div class="content">
+			<div class="toolbar">
+				<h4>{{'closecenter' | translate}}</h4>
+			</div>
+			<hr/>
+			<form class="form-horizontal" >
+				    <api-validate></api-validate>
+				    <fieldset>
+					    <div class="">
+					        <div class="form-group">
+					            <label class="control-label col-sm-2">{{ 'label.input.closuredate' | translate }}<span
+					                    class="required">*</span></label>
+					            <div class="col-sm-3">
+					            <input id="closureDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
+					                   min="'2000-01-01'" max="restrictDate" class="form-control"/>
+					            </div>
+					        </div>
+					        <div class="form-group">
+					            <label class="control-label col-sm-2">{{ 'label.input.closurereason' | translate }}<span
+					                    class="required">*</span></label>
+					            <div class="col-sm-3">
+					            <select id="closureReasonId" ng-model="formData.closureReasonId" class="form-control col-sm-3"
+					                    ng-options="reason.id as reason.name for reason in template.closureReasons" value="{{reason.id}}">
+					            </select></div>
+					        </div>
+					        <br/>
+					
+					        <div class="col-md-offset-2 paddedleft">
+					            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default paddedleft">{{ 'label.button.cancel' | translate }}</a>
+					            <button id="save" type="button" class="btn btn-primary" data-ng-click="closeGroup()" has-permission='CLOSE_CENTER'>{{ 'label.button.confirm'
+					                | translate }}
+					            </button>
+					        </div>
+					    </div>
+				    </fieldset>
+				</form>
+		</div>
+	</div>
+</div>

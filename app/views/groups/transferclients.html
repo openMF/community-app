@@ -1,0 +1,93 @@
+<div class="content-container" data-ng-controller="TransferClientsController">
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.transferclientsbetweengroups' | translate }}</h4>
+            </div>
+            <br/>
+                <form name="tranferclientsform" class="form-horizontal" novalidate="" rc-submit="transfer()">
+                    <div class="">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.clients' | translate }}</label>
+                            <div class="col-sm-3 col-md-3">
+                                <label class="control-label col-sm-12 center">{{ 'label.input.availableclients' | translate }}</label>
+                               <select multiple ng-model="availableClients" class="form-control clear">
+                                    <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.accountNo}} | {{member.displayName}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-1 col-md-1 paddedtop25px">
+                                <button type="button" class="btn btn-primary" data-ng-click="addClient()"><i
+                                        class="fa fa-angle-double-right"></i></button>
+                                <button type="button" class="btn btn-primary" data-ng-click="removeClient()"><i
+                                        class="fa fa-angle-double-left"></i></button>
+                            </div>
+                            <div class="col-sm-3 col-md-3">
+                                <label class="control-label col-sm-12 center">{{ 'label.input.selectedclients' | translate }}</label>
+                                <select multiple ng-model="selectedClients" class="form-control clear">
+                                    <option ng-repeat="member in selectedMembers" value="{{member.id}}">{{member.accountNo}} | {{member.displayName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{'label.input.inheritgrouploanofficer' | translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="formData.inheritDestinationGroupLoanOfficer">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.destinationgroup' | translate }}<span
+                                    class="required">*</span></label>
+                            <div class="col-md-3">
+                                <input type="text" data-ng-model="destinationGroup" class="form-control" required
+                                       ng-autofocus="true"
+                                       typeahead-min-length="3"
+                                       typeahead-editable="false"
+                                       uib-typeahead="group as group.name for group in groups($viewValue)"
+                                       typeahead-on-select="viewgroup(destinationGroup)"/>
+
+                            </div>
+                            <form-validate valattributeform="tranferclientsform" valattribute="destinationgroup"/>
+                        </div>
+                        <div ng-show="destinationGroup" data-ng-switch on="view">
+                            <table data-ng-switch-when="1">
+                                <tr>
+                                    <td>
+                                        <h3>{{'label.heading.destinationgroupdetails' | translate}}</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.name' | translate}}</td>
+                                    <td>{{groupdata.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.id' | translate }}</td>
+                                    <td>{{groupdata.id}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.activationdate' | translate }}</td>
+                                    <td valign="top">{{groupdata.activationDate | DateFormat}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.staff' | translate }}</td>
+                                    <td>{{groupdata.staffName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.externalid' | translate }}</td>
+                                    <td>{{groupdata.externalId}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+
+                        <div class="col-md-offset-3">
+                            <a id="cancel" href="#/viewgroup/{{groupId}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                            <button id="save" type="submit" class="btn btn-primary" has-permission='TRANSFERCLIENTS_GROUP'>{{ 'label.button.save' | translate }}</button>
+                        </div>
+                    </div>
+                    <hr/>
+                </form>
+        </div>
+    </div>
+</div>

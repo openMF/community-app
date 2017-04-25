@@ -1,0 +1,451 @@
+<div class="content-container" ng-controller="NavigationController">
+<ul class="breadcrumb">
+    <li data-ng-show="officeName">{{officeName}}</li>
+    <li data-ng-show="loanOfficer">/&nbsp;{{loanOfficer}}</li>
+    <li data-ng-show="centerName">/&nbsp;{{centerName}}</li>
+    <li data-ng-show="groupName">/&nbsp;{{groupName}}</li>
+    <li data-ng-show="clientName">/&nbsp;{{clientName}}</li>
+</ul>
+
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>Navigation</h4>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                  <input ng-model="filterText" type="text" class="form-control"
+                    placeholder="{{'label.input.filterbyname' | translate}}"/>
+              </div>
+            </div>
+            <hr/>
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="">
+                <button type="button" class="collapse-header-main" data-ng-click="collapseOthers()">
+                <strong>{{'label.button.offices' | translate}}&nbsp;&nbsp;({{officeName}})</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pull-right"><i   class="fa fa-chevron-up" data-ng-show="!isCollapsed"></i><i class="fa fa-chevron-down" data-ng-show="isCollapsed"></i></span>
+                </button>
+                </div>
+                <div>
+                <div uib-collapse="isCollapsed">
+                    <table class="table table-striped tablesize">
+                        <tr ng-repeat="office in offices  | filter:filterText" ng-class="{graybg: office.id == selectedOffice}">
+                            <td><a ng-click="officeSelected(office.id,office.name)">{{office.name}}</a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+                <div>
+                <div>
+                    <button type="button" class="collapse-header-main" data-ng-click="collapseOfficerOthers()"><strong>{{'label.button.loanofficers'
+                        | translate}}<span data-ng-show="loanOfficer">&nbsp;&nbsp;&nbsp;({{loanOfficer}})</span></strong><span
+                            class="pull-right"><i class="fa fa-chevron-up" data-ng-show="!officerCollapsed"></i><i
+                            class="fa fa-chevron-down" data-ng-show="officerCollapsed"></i></span></button>
+                </div>
+                <div uib-collapse="officerCollapsed">
+                    <table class="table table-striped tablesize">
+                        <tr ng-repeat="staff in staffs  | filter:filterText" ng-class="{graybg: staff.id == selectedStaff}">
+                            <td><a ng-click="staffSelected(staff.id,staff.displayName)">{{staff.displayName}}</a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+                <div>
+                <div>
+                    <button type="button" class="collapse-header-main" data-ng-click="collapseCenterOthers()"><strong>{{'label.button.centers'
+                        | translate}}<span data-ng-show="centerName">&nbsp;&nbsp;&nbsp;({{centerName}})</span></strong><span
+                            class="pull-right"><i class="fa fa-chevron-up" data-ng-show="!centerCollapsed"></i><i
+                            class="fa fa-chevron-down" data-ng-show="centerCollapsed"></i></span></button>
+                </div>
+                <div uib-collapse="centerCollapsed">
+                    <table class="table table-striped tablesize">
+                        <tr ng-repeat="center in centers  | filter:filterText">
+                            <td><a ng-click="centerSelected(center.id,center.name)">{{center.name}}</a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+                <div>
+                <div>
+                    <button type="button" class="collapse-header-main" data-ng-click="collapseGroupOthers()"><strong>{{'label.button.groups'
+                        | translate}}<span data-ng-show="groupName">&nbsp;&nbsp;&nbsp;({{groupName}})</span></strong><span
+                            class="pull-right"><i class="fa fa-chevron-up" data-ng-show="!groupCollapsed"></i><i
+                            class="fa fa-chevron-down" data-ng-show="groupCollapsed"></i></span></button>
+                </div>
+                <div uib-collapse="groupCollapsed">
+                    <table class="table table-striped tablesize">
+                        <tr ng-repeat="group in groups  | filter:filterText">
+                            <td><a ng-click="groupSelected(group.id,group.name)">{{group.name}}</a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+                <div>
+                <div>
+                    <button type="button" class="collapse-header-main" data-ng-click="collapseclientOthers()"><strong>{{'label.button.clients'
+                        | translate}}<span data-ng-show="clientName">&nbsp;&nbsp;&nbsp;({{clientName}})</span></strong><span
+                            class="pull-right"><i class="fa fa-chevron-up" data-ng-show="!clientCollapsed"></i><i
+                            class="fa fa-chevron-down" data-ng-show="clientCollapsed"></i></span></button>
+                </div>
+                <div uib-collapse="clientCollapsed">
+                    <table class="table table-striped tablesize">
+                        <tr ng-repeat="client in clients  | filter:filterText">
+                            <td><a ng-click="clientSelected(client.id,client.displayName)">{{client.displayName}}</a></td>
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="">
+                <div ng-show="office">
+                <br/>
+
+                <div class="black">
+                    <span class="pull-left">
+                        <i class="fa fa-building fa fa-3x"></i>
+                    </span>
+                    <span class="pull-left">
+                        <h3 class="table-font-nav">&nbsp;{{officeName}}</h3>
+                    </span>
+                </div>
+                <table class="table table-font-nav">
+                    <tr data-ng-show="office.parentName">
+                        <td width="20%">{{ 'label.heading.parentoffice' | translate }}</td>
+                        <td width="70%">{{office.parentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.openedon' | translate }}</td>
+                        <td>{{office.openingDate | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.externalid' | translate }}</td>
+                        <td>{{office.externalId}}</td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-sm-5 col-md-5">
+                        <ng-summary title="# {{ 'label.heading.staff' | translate }}">
+                        </ng-summary>
+                    </div>
+                    <div class="col-sm-5 col-md-5">
+                        <ng-summary title="">
+                            <h1 class="center">{{staffs.length}}</h1>
+                        </ng-summary>
+                    </div>
+                </div>
+                </div>
+                <div ng-show="staff">
+                <br/>
+
+                <div class="black">
+                            <span class="pull-left">
+                              <i class="fa fa-user fa fa-3x"></i>
+                            </span>
+                            <span class="pull-left">
+                               <h3 class="table-font-nav">
+                                   &nbsp;
+                                   {{loanOfficer}}
+                               </h3>
+                            </span>
+                </div>
+                <table class="table table-font-nav">
+                    <tr data-ng-show="office.parentName">
+                        <td width="20%">{{ 'label.office.parentoffice' | translate }}</td>
+                        <td width="70%">{{office.parentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.office' | translate }}</td>
+                        <td>{{staff.officeName}}</td>
+                    </tr>
+                </table>
+                <div class="row" ng-show="centers.length">
+                    <div class="col-sm-5 col-md-5">
+                        <ng-summary title="# {{ 'label.heading.center' | translate }}">
+                        </ng-summary>
+                    </div>
+                    <div class="col-sm-5 col-md-5">
+                        <ng-summary title="">
+                            <h1 class="center">{{centers.length}}</h1>
+                        </ng-summary>
+                    </div>
+                </div>
+                </div>
+                <div ng-show="center">
+                <br/>
+
+                <div>
+                    <a class="black" href="#/viewcenter/{{center.id}}">
+                        <span class="pull-left">
+                            <i class="fa fa-map-marker fa fa-3x"></i>
+                        </span>
+                        <span class="pull-left">
+                            <h3 class="table-font-nav">&nbsp;{{centerName}}&nbsp;
+                                <i class="fa fa-circle {{center.status.value | StatusLookup}}"></i>&nbsp;
+                            </h3>
+                        </span>
+                    </a>
+                </div>
+                <br/>
+                <table class="table table-font-nav">
+                    <tr data-ng-show="center.activationDate">
+                        <td>{{ 'label.heading.activationdate' | translate }}</td>
+                        <td valign="top">{{center.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="center.staffName">
+                        <td>{{ 'label.heading.staff' | translate }}</td>
+                        <td>{{center.staffName}}</td>
+                    </tr>
+                    <tr data-ng-show="groups.length">
+                        <td>{{ 'label.heading.group' | translate }}</td>
+                        <td>{{groups.length}}</td>
+                    </tr>
+                    <tr data-ng-show="summary.activeClients">
+                        <td>{{ 'label.numofactiveclient' | translate }}</td>
+                        <td>{{summary.activeClients}}</td>
+                    </tr>
+                    <tr data-ng-show="summary.activeClientLoans">
+                        <td>{{ 'label.numofactiveclientloans' | translate }}</td>
+                        <td>{{summary.activeClientLoans}}</td>
+                    </tr>
+                    <tr data-ng-show="summary.activeClientBorrowers">
+                        <td>{{ 'label.numofactiveclientborrowers' | translate }}</td>
+                        <td>{{summary.activeClientBorrowers}}</td>
+                    </tr>
+                    <tr data-ng-show="summary.overdueGroupLoans">
+                        <td>{{ 'label.numofactiveoverduegrouploans' | translate }}</td>
+                        <td>{{summary.overdueGroupLoans}}</td>
+                    </tr>
+                    <tr data-ng-show="summary.overdueClientLoans">
+                        <td>{{ 'label.numofactiveoverdueclientloans' | translate }}</td>
+                        <td>{{summary.overdueClientLoans}}</td>
+                    </tr>
+                    <tr data-ng-show="center.collectionMeetingCalendar.nextTenRecurringDates[0]">
+                        <td>{{ 'label.heading.nextmeetingon' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="center.collectionMeetingCalendar.humanReadable">
+                        <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
+                        <td>{{center.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+                <br/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in centerAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in centerAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <div ng-show="client">
+                <br/>
+
+                <div>
+                    <a class="black" href="#/viewclient/{{client.id}}">
+                        <span class="pull-left">
+                            <i class="fa fa-user fa fa-3x"></i>
+                        </span>
+                        <span class="pull-left">
+                            <h3 class="table-font-nav">&nbsp;{{clientName}}&nbsp;
+                                <i class="fa fa-circle {{client.status.value | StatusLookup}}"></i>&nbsp;</h3>
+                        </span>
+                    </a>
+                </div>
+                <br/>
+                <table class="table table-font-nav">
+                    <tr data-ng-show="client.firstname">
+                        <td width="35%">{{'label.heading.firstname' | translate}}</td>
+                        <td width="65%">{{client.firstname}}</td>
+                    </tr>
+                    <tr data-ng-show="client.lastname">
+                        <td>{{'label.heading.lastname' | translate}}</td>
+                        <td>{{client.lastname}}</td>
+                    </tr>
+                    <tr data-ng-show="client.accountNo">
+                        <td>{{ 'label.heading.accnum' | translate }}</td>
+                        <td>{{client.accountNo}}</td>
+                    </tr>
+                    <tr data-ng-show="client.activationDate">
+                        <td>{{ 'label.heading.activationdate' | translate }}</td>
+                        <td valign="top">{{client.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="client.officeName">
+                        <td>{{ 'label.heading.office' | translate }}</td>
+                        <td>{{client.officeName}}</td>
+                    </tr>
+                    <tr data-ng-show="client.staffName">
+                        <td>{{ 'label.heading.staff' | translate }}</td>
+                        <td>{{client.staffName}}</td>
+                    </tr>
+                </table>
+                <hr/>
+                <table>
+                    <tr>
+                        <td class="table-font-nav">{{ 'label.heading.memberof' | translate }}</td>
+                        <td>
+                            <span ng-repeat="group in client.groups">
+                            {{group.name}}&nbsp;<span ng-show="!$last">|</span></span>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+                <div ng-show="group">
+                <br/>
+
+                <div>
+                    <a class="black" href="#/viewgroup/{{group.id}}">
+                        <span class="pull-left">
+                            <i class="fa fa-group fa fa-3x"></i>
+                        </span>
+                        <span class="pull-left">
+                            <h3 class="table-font-nav">&nbsp;{{groupName}}&nbsp;
+                                <i class="fa fa-circle {{group.status.value | StatusLookup}}"></i>&nbsp;</h3>
+                        </span>
+                    </a>
+                </div>
+                <br/>
+                <table class="table table-font-nav">
+                    <tr data-ng-show="group.activationDate">
+                        <td>{{ 'label.heading.activationdate' | translate }}</td>
+                        <td valign="top">{{group.activationDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="group.staffName">
+                        <td>{{ 'label.heading.staff' | translate }}</td>
+                        <td>{{group.staffName}}</td>
+                    </tr>
+                    <tr data-ng-show="group.collectionMeetingCalendar.nextTenRecurringDates[0]">
+                        <td>{{ 'label.heading.nextmeetingon' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+                        <td>{{ 'label.heading.meetingfrequency' | translate }}</td>
+                        <td>{{group.collectionMeetingCalendar.humanReadable}}</td>
+                    </tr>
+                </table>
+                <br/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

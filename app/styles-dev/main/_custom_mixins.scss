@@ -1,0 +1,148 @@
+$xs-small-screen:  320px;
+$small-screen:     480px;
+$medium-screen:    768px;
+$large-screen:     992px;
+$xs-large-screen:  1200px;
+
+// Custom mixins
+
+@mixin utility-responsive($width) {
+  @media only screen and (min-width: $width) { @content; }
+}
+// @include responsive(wide-screens) { width: 80%; }
+@mixin custom-retinize($file, $type, $width, $height) {
+  background-image: url('../images/' + $file + '.' + $type);
+
+  @media (-webkit-min-device-pixel-ratio: 1.5),
+  (min--moz-device-pixel-ratio: 1.5),
+  (-o-min-device-pixel-ratio: 3/2),
+  (min-device-pixel-ratio: 1.5),
+  (min-resolution: 1.5dppx) {
+    & {
+      background-image: url('../images/' + $file + '.' + $type);
+      -webkit-background-size: $width $height;
+      -moz-background-size: $width $height;
+      background-size: $width $height;
+    }
+  }
+}
+// how to use @include retinize('icon-dribbble', 'png', 24px, 24px);
+@mixin custom-background-body($file, $type) {
+  background: url('../images/' + $file + '.' + $type) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+// how to use @include retinize('icon-dribbble', 'png', 24px, 24px);
+@mixin custom-rounded($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin custom-shadow($x, $y, $z, $blur, $color) {
+  -webkit-box-shadow: $x $y $z $blur $color;
+  -moz-box-shadow: $x $y $z $blur $color;
+  box-shadow: $x $y $z $blur $color;
+}
+@mixin custom-shadow-inset($x, $y, $z, $blur, $color) {
+  -webkit-box-shadow: inset $x $y $z $blur $color;
+  -moz-box-shadow: inset $x $y $z $blur $color;
+  box-shadow: inset $x $y $z $blur $color;
+}
+@mixin custom-transition($property) {
+  -webkit-transition: $property .2s ease;
+  -moz-transition: $property .2s ease;
+  -o-transition: $property .2s ease;
+  transition: $property .2s ease;
+}
+@mixin custom-box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@mixin custom-linear-gradient($from, $to) {
+  /* Fallback for sad browsers */
+  background-color: $to;
+  /* Mozilla Firefox */
+  background-image:-moz-linear-gradient($from, $to);
+  /* Opera */
+  background-image:-o-linear-gradient($from, $to);
+  /* WebKit (Chrome 11+) */
+  background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, $from), color-stop(1, $to));
+  /* WebKit (Safari 5.1+, Chrome 10+) */
+  background-image: -webkit-linear-gradient($from, $to);
+  /* IE10 */
+  background-image: -ms-linear-gradient($from, $to);
+  /* W3C */
+  backgrouncd-image: linear-gradient($from, $to);
+}
+@mixin text-highlight-selection($background, $color) {
+  ::selection { background: $background; color: $color; text-shadow: none; }
+  ::-webkit-selection{ background: $background; color: $color; text-shadow: none; }
+  ::-moz-selection{ background: $background; color: $color; text-shadow: none; }
+}
+@mixin bootstrap-column($name, $width) {
+  .col-xs-#{$name}, .col-sm-#{$name}, .col-md-#{$name}, .col-lg-#{$name} {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .col-xs-#{$name} {
+    width: $width;
+    float: left;
+  }
+
+  /*Define extended grid system for bootstrap*/
+  @media (min-width: 768px) {
+    .col-sm-#{$name} {
+      width: $width;
+      float: left;
+    }
+  }
+  @media (min-width: 992px) {
+    .col-md-#{$name} {
+      width: $width;
+      float: left;
+    }
+  }
+  @media (min-width: 1200px) {
+    .col-lg-#{$name} {
+      width: $width;
+      float: left;
+    }
+  }
+}
+
+// use @include bootstrap-column(15, 20%);
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin flexdiretion($direction:"column"){
+  -webkit-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}

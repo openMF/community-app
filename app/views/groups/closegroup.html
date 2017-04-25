@@ -1,0 +1,39 @@
+<div class="content-container">
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'closegroup' | translate}}</h4>
+            </div>
+            <br/>
+            <form data-ng-controller="CloseGroupController" class="form-horizontal">
+                <api-validate></api-validate>
+                <div class="paddedleft">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.closuredate' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                        <input id="closureDate" class="date-disable form-control col-sm-3" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                               is-open="opened" min="'2000-01-01'" max="restrictDate" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.closurereasons' | translate }}<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                        <select id="closureReasonId" ng-model="formData.closureReasonId"
+                                ng-options="reason.id as reason.name for reason in template.closureReasons" value="{{reason.id}}" class="form-control">
+                        </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="col-md-offset-2 paddedleft">
+                        <a id="cancel" href="#/viewgroup/{{group.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                        <button id="save" type="button" class="btn btn-primary" data-ng-click="closeGroup()" has-permission='CLOSE_GROUP'>{{
+                            'label.button.confirm' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

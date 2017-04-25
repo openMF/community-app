@@ -1,0 +1,77 @@
+<div class="content-container" ng-controller="ViewProvisioningEntryController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/viewprovisioningentries">{{'label.anchor.viewprovisioningeentries' | translate}}</a></li>
+        <li class="active">{{'label.anchor.provisionigetriespreview' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4></h4>
+            </div>
+            <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <h3 class="bolder">{{'label.heading.createdby' | translate}} {{':  '}} {{createdby}} &nbsp;&nbsp;&nbsp;&nbsp;
+                        {{'label.heading.createdon' | translate}} {{':  '}} {{createdDate | DateFormat}}&nbsp;&nbsp;&nbsp;&nbsp;
+                        {{'label.heading.amounttobereserved' | translate}} {{':  '}} {{totalReservedAmount | number}}
+
+                    </h3>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <select id="offices" chosen="offices" class="form-control" ng-model="formData.officeId" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                                <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select id="loanproducts" chosen="loanproducts" class="form-control" ng-model="formData.loanproductId" ng-options="loanproduct.id as loanproduct.name for loanproduct in loanproducts" value="{{loanproduct.id}}">
+                                <option class="displaynone" value="">{{'label.selectloanproduct' | translate}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <select id="provisioningcategories" chosen="provisioningcategories" class="form-control" ng-model="formData.categoryId" ng-options="category.id as category.categoryName for category in provisioningcategories" value="{{category.id}}">
+                                <option class="displaynone" value="">{{'label.selectprovisioningcategory' | translate}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-1 center">
+                            <a ng-click="searchTransaction()" class="btn btn-primary btn-sm" has-permission='READ_JOURNALENTRY'><i
+                                    class="fa fa-search "></i></a></span>
+                        </div>
+                    </div>
+
+                    <table class="table" class="width100">
+                        <tr class="graybg">
+                            <th>{{'label.heading.officeName' | translate}}</th>
+                            <th>{{'label.heading.productname' | translate}}</th>
+                            <th>{{'label.heading.currencycode' | translate}}</th>
+                            <th>{{'label.heading.categoryname' | translate}}</th>
+                            <th>{{'label.heading.provisioningamount' | translate}}</th>
+                            <th>{{'label.input.liabilityaccount' | translate}}</th>
+                            <th>{{'label.input.expenseaccount' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="provisioningentry in transactions.currentPageItems">
+                            <td>{{provisioningentry.officeName}}</td>
+                            <td>{{provisioningentry.productName}}</td>
+                            <td>{{provisioningentry.currencyCode}}</td>
+                            <td>{{provisioningentry.categoryName}}</td>
+                            <td>{{provisioningentry.amountreserved | number}}</td>
+                            <td>{{provisioningentry.liabilityAccountName}}</td>
+                            <td>{{provisioningentry.expenseAccountName}}</td>
+                        </tr>
+                    </table>
+                    <ul class="pager">
+                        <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a></li>
+                        <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} </a></li>
+                    </ul>
+
+                    <div class="col-md-offset-3">
+                        <button ng-show="isjournalEntriesCreated" id="save" type="submit" class="btn btn-primary" has-permission='CREATE_JOURNAL_ENTRY'>{{'label.button.addjournalentry' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
