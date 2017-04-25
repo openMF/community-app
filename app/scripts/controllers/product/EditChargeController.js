@@ -120,6 +120,22 @@
                     }
                 }
             }
+
+            scope.filterChargeCalculations = function(chargeTimeType) {
+            
+                return function (item) {
+                    if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
+                    {
+                        return false;
+                    }
+                    if (chargeTimeType != 12 && item.id == 5)
+                    {
+                        return false;
+                    }
+                    return true;
+                };
+             };
+
             scope.submit = function () {
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (scope.showdatefield === true) {
