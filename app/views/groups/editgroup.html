@@ -1,0 +1,77 @@
+<div class="content-container" ng-controller="EditGroupController">
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div data-ng-switch on="managecode">
+        <form name="editgroupform" novalidate="" class="form-horizontal" rc-submit="updateGroup()"
+              data-ng-switch-when="1">
+            <fieldset>
+                <legend>{{'label.heading.editgroup' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{editGroup.name}}"
+                               ng-model="formData.name" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="editgroupform" valattribute="name"/>
+                    </div>
+                </div>
+                <div class="form-group info">
+                    <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <select chosen="editGroup.staffOptions" id="staffId" ng-model="formData.staffId"
+                                data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions"
+                                value="{{staff.id}}" class="form-control">
+                            <option value="">{{'label.menu.selectstaff' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                    </div>
+                </div>
+                <div ng-hide="editGroup.status.value == 'Pending'">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
+                                   min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <a href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button type="submit" class="btn btn-primary" has-permission='UPDATE_GROUP'>{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+        <form class="form-horizontal well" ng-switch-when="2">
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+                            class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                           is-open="opened" min="mindate" max="restrictDate" required class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 col-md-offset-2">
+                    <a id="cancel" href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="button" class="btn btn-primary" data-ng-click="activate()"><i
+                            class="fa fa-check-sign " has-permission='ACTIVATE_GROUP'></i>{{ 'label.button.activate' | translate }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+        </div>
+    </div>
+</div>

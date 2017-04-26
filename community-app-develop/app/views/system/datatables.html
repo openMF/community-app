@@ -1,0 +1,23 @@
+<div class="col-md-12" ng-controller="DataTableController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managedatatables' | translate}}</li>
+    </ul>
+
+    <input type="text" ng-model="filterText" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a href="#/createdatatable" class="btn btn-primary pull-right" has-permission='CREATE_DATATABLE'><i class="icon-plus icon-white"></i>{{'label.button.createdatatable' | translate}}</a>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.datatablename' | translate}}</th>
+            <th>{{'label.heading.associatedwith' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.registeredTableName}}</td>
+            <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.applicationTableName}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

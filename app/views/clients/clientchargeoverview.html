@@ -1,0 +1,40 @@
+<div class="content-container" ng-controller="ClientChargesOverviewController">
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{label.heading.charges | translate}}</li>
+        </ul>
+    <form novalidate="" class="card form-horizontal well">
+        <h3>{{'label.heading.charges' | translate}}</h3>
+        <hr>
+        <table id="chargesTable" data-ng-show="charges.length > 0" class="table table-condensed">
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.dueasof' | translate}}</th>
+                <th>{{'label.heading.due' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.waived' | translate}}</th>
+                <th>{{'label.heading.outstanding' | translate}}</th>
+            </tr>
+            <tr class="pointer-main" dir-paginate="charge in charges | itemsPerPage: chargesPerPage"
+                total-items="totalCharges" pagination-id="chargesPage">
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)"><i
+                        class="fa fa-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}"></i>&nbsp;{{charge.name}}
+                </td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.dueDate|DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amount | number}}</td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountPaid | number}}</td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountWaived | number}}</td>
+                <td class="pointer" data-ng-click="routeToCharge(charge.id)">{{charge.amountOutstanding | number}}</td>
+            </tr>
+        </table>
+        <dir-pagination-controls boundary-links="true"
+                                 template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
+                                 on-page-change="getClientChargeResultsPage(newPageNumber)"
+                                 pagination-id="chargesPage"></dir-pagination-controls>
+        <div class="col-md-offset-5">
+            <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
+                translate}}</a>
+        </div>
+
+    </form>
+</div>

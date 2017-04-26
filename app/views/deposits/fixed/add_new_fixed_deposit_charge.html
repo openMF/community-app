@@ -1,0 +1,101 @@
+<div class="content-container" ng-controller="AddNewFixedDepositChargeController">
+	<ul class="breadcrumb">
+		<li><a href="#/viewfixeddepositaccount/{{cancelRoute}}">{{'label.anchor.viewfixeddepositaccount' |
+                translate}}</a></li>
+	    <li class="active">{{ 'label.anchor.add.fixed.deposit.charges' | translate }}</li>
+	</ul>
+	<div class="content-container">
+		<div class="card">
+			<div class="content">
+				<form name="savingccountchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
+				    <api-validate></api-validate>
+				    <fieldset>
+				        <div class="form-group">
+				            <label class="control-label col-sm-2">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
+				
+				            <div class="col-sm-3">
+				                <select class="form-control" ng-model="formData.chargeId" id="chargeId" name="charge"
+				                        ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions"
+				                        value="{{formData.chargeId}}"
+				                        ng-change="chargeSelected(formData.chargeId)" required>
+				                    <option style="display:none" value="">{{ 'label.selectcharge' | translate }}</option>
+				                </select>
+				            </div>
+				            <div class="col-sm-3">
+				                <form-validate valattributeform="savingccountchargeform" valattribute="charge"/>
+				            </div>
+				        </div>
+				
+				        <div ng-show="chargeDetails">
+				            <div class="form-group">
+				                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate }}<span
+				                        class="required">*</span></label>
+				
+				                <div class="col-sm-3">
+				                    <input class="form-control" id="amount" type="text" number-format name="amount" ng-model="formData.amount" required ng-late-Validate/>
+				                </div>
+				                <div class="col-sm-3">
+				                    <form-validate valattributeform="savingccountchargeform" valattribute="amount"/>
+				                </div>
+				            </div>
+				
+				            <div class="form-group">
+				                <label class="control-label col-sm-2">{{ 'label.input.chargecalculation' | translate }}</label>
+				
+				                <div class="col-sm-3">
+				                    <select class="form-control" id="chargeCalculationType" ng-model="chargeCalculationType"
+				                            ng-options="chargeCalculation.id as chargeCalculation.value for chargeCalculation in chargeDetails.chargeCalculationTypeOptions"
+				                            value="{{chargeCalculation.id}}" disabled="disabled">
+				                    </select>
+				                </div>
+				            </div>
+				
+				            <div class="form-group">
+				                <label class="control-label col-sm-2">{{ 'label.input.chargetimetype' | translate }}</label>
+				
+				                <div class="col-sm-3">
+				                    <select class="form-control" id="chargeTimeType" ng-model="chargeTimeType"
+				                            ng-options="chargeTime.id as chargeTime.value for chargeTime in chargeDetails.chargeTimeTypeOptions"
+				                            value="{{chargeTime.id}}" disabled="disabled">
+				                    </select>
+				                </div>
+				            </div>
+				            <div class="form-group" ng-show="!withDrawCharge && !chargeTimeTypeAnnualOrMonth">
+				                <label class="control-label col-sm-2">{{ 'label.input.dueforcollectedon' | translate }}<span
+				                        class="required">*</span></label>
+				
+				                <div class="col-sm-3">
+				                    <input class="form-control" id="feeOnAnnualMonthDay" sort type="text" datepicker-pop="dd MMMM yyyy"
+				                           ng-model="date.specificduedate" is-open="opened"/>
+				                </div>
+				            </div>
+				            <div class="form-group" ng-show="!withDrawCharge && chargeTimeTypeAnnualOrMonth">
+				                <label class="control-label col-sm-2">{{ 'label.input.dueon' | translate }}<span
+				                        class="required">*</span></label>
+				
+				                <div class="col-sm-3">
+				                    <input class="form-control" id="feeOnMonthDay" sort type="text" datepicker-pop="dd MMMM" ng-model="date.due"
+				                           is-open="opened"/>
+				                </div>
+				            </div>
+				            <div class="form-group" ng-show="chargeTimeType.value == 'Monthly Fee' ">
+				                <label class="control-label col-sm-2">{{ 'label.repeatsevery' | translate }}<span
+				                        class="required">*</span></label>
+				
+				                <div class="col-sm-3">
+				                    <input class="form-control" type="text" class="input-small" ng-model="formData.feeInterval"/>
+				                </div>
+				            </div>
+				        </div>
+				
+				        <div class="col-md-offset-3">
+				            <a id="cancel" href="#/viewfixeddepositaccount/{{cancelRoute}}" class="btn btn-default">{{'label.button.cancel' |
+				                translate}}</a>
+				            <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+				        </div>
+				    </fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+<div class="content-container" ng-controller="EditSchedulerJobController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/jobs">{{'label.anchor.manageschedulerjobs' | translate}}</a></li>
+        <li><a href="#/viewschedulerjob/{{job.jobId}}">{{job.displayName}}</a></li>
+        <li class="active">{{'label.anchor.editschedulerjob' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br/>
+            <form class="form-horizontal" ng-submit="submit()">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.jobname' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="displayName" type="text" ng-model="formData.displayName" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.cornexpression' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="cronExpression" type="text" ng-model="formData.cronExpression" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.isactivejob' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="formData.active">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-3">
+                        <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+                        </button>
+                        </a>
+                        <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_SCHEDULER'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

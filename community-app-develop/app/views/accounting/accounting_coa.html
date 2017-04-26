@@ -1,0 +1,85 @@
+<div class="col-md-12" ng-controller="AccCoaController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.coa' | translate}}</li>
+    </ul>
+
+    <api-validate></api-validate>
+    <h3 class="bolder col-md-12">{{'label.heading.chartofaccounts' | translate}}
+        <div class="pull-right">
+            <a ng-show="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="icon-list icon-white"></i>{{'label.button.listview' | translate}}</a>
+            <a ng-hide="isTreeView" ng-click="isTreeView=!isTreeView" class="btn btn-primary btn-sm"><i class="icon-sitemap icon-white"></i>{{'label.button.treeview' | translate}}</a>
+            <a href="#/createglaccount" class="btn btn-primary btn-sm" has-permission='CREATE_GLACCOUNT'><i class="icon-plus icon-white"></i>{{'label.button.addaccount' | translate}}</a>
+        </div>
+    </h3>
+    <div class="clear"></div>
+    <div ng-hide="isTreeView">
+        <input ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control marginbottom0px" placeholder="{{'label.input.filterbyAccountGlcodeAccounttype' | translate}}">
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.account' | translate}}</th>
+                <th>{{'label.heading.glcode' | translate}}</th>
+                <th>{{'label.heading.acctype' | translate}}</th>
+                <th>{{'label.heading.disabled' | translate}}?</th>
+                <th>{{'label.heading.manualentriesallowed' | translate}}</th>
+                <th>{{'label.heading.usedas' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="coadata in coadatas | orderBy:'type.value' | SearchFilter:filterText">
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.glCode}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.type.value | translate}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.disabled}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.manualEntriesAllowed}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.usage.value | translate}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="isTreeView">
+		<div ng-show="$root.tempNodeID >= 0" class="col-md-6 divscrollable" >
+		
+				<table class="table table-bordered table-striped">
+					<tr>
+						<td>{{ 'label.heading.glcode' | translate }}</td>
+						<td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.glCode | translate}}</td>
+					</tr>
+	            <tr>
+	                <td>{{ 'label.heading.acctype' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.type.value | translate}}</td>
+	            </tr>
+	           
+	            <tr>
+	                <td>{{ 'label.heading.accountusage' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.usage.value | translate}}</td>
+	            </tr>
+	
+	            <tr>
+	                <td class="width40">{{ 'label.heading.manualentriesallowed' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.manualEntriesAllowed}}</td>
+	            </tr>
+	            <tr>
+	                <td>{{ 'label.heading.description' | translate }}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.description}}</td>
+	            </tr>
+	        </table>
+		</div>
+		
+        <div 
+                data-angular-treeview="true"
+                data-tree-id="treeview"
+                data-tree-model="treedata"
+                data-node-id="id"
+                data-node-label="name"
+                data-node-children="children"
+				data-node-glCode="glCode">
+        </div>
+		
+    </div>
+	<br>
+	<br>
+	<br><br><br><br><br><br>
+	<!-- <br> was needed to move footer a bit down, because detail-table was covered by version details -->
+</div>

@@ -1,0 +1,55 @@
+<div class="col-md-12" ng-controller="ViewCashierController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers/{{cashier.tellerId}}/cashiers">{{ 'label.heading.cashmgmt.cashierName' | translate }}</a> </li>
+        <li class="active">{{cashier.staffName}}</li>
+    </ul>
+
+        <div class="col-md-12 col-sm-12">
+            <div class="row primarydiv">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a href="#/tellers/{{cashier.tellerId}}/editcashier/{{cashier.id}}" class="btn btn-primary" has-permission='UPDATE_CASHIER'><i class="icon-edit icon-white"></i>{{
+                            'label.button.edit' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+            <h3><strong>{{ 'label.heading.cashmgmt.cashierName' | translate }} : {{cashier.staffName}}</strong></h3>
+            <table class="table-bordered table view-table" style="width: 350px">
+                <tr>
+                    <td>{{ 'label.heading.cashmgmt.tellerName' | translate }}</td>
+                    <td>{{cashier.tellerName}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.input.teller.description' | translate }}</td>
+                    <td>{{cashier.description}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.input.teller.startDate' | translate }}</td>
+                    <td>{{cashier.startDate | DateFormat }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.input.teller.endDate' | translate }}</td>
+                    <td>{{cashier.endDate | DateFormat }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.input.teller.cashier.fullDay' | translate }}</td>
+                    <td>{{cashier.isFullDay}}</td>
+                </tr>
+                <tr ng-show="!cashier.isFullDay">
+                    <td>{{ 'label.input.teller.cashier.startTime' | translate }}</td>
+                    <td>{{cashier.startTime}}</td>
+                </tr>
+                <tr ng-show="!cashier.isFullDay">
+                    <td>{{ 'label.input.teller.cashier.endTime' | translate }}</td>
+                    <td>{{cashier.endTime}}</td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+
+
+
+

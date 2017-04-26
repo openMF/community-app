@@ -1,0 +1,45 @@
+<div class="col-md-12">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.accountsclosure' | translate}}</li>
+    </ul>
+</div>
+<div class="col-md-12" ng-controller="AccountingClosureController">
+    <legend>{{ 'label.heading.accountingclosures' | translate }}
+    	<div class="pull-right">
+	        <a href="#/createclosure" class="btn btn-primary" has-permission='CREATE_GLCLOSURE'><i
+	                class="icon-plus icon-white"></i>{{'label.button.createclosure'
+	            | translate}}</a>
+	    </div>
+    </legend>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-7">
+            	<b>{{ 'label.input.filterclosuresbyoffice' | translate }}</b>
+            	<select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option class="displaynone" value="">{{'label.alloffice' | translate}}</option>
+                </select>
+                <button class="btn btn-primary" ng-click="closedAccountingDetails(formData.officeId)">{{ 'label.button.save' | translate }}</button>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{ 'label.heading.office' | translate }}</th>
+            <th>{{ 'label.heading.accountingclosuredate' | translate }}</th>
+            <th>{{ 'label.heading.comments' | translate }}</th>
+            <th>{{ 'label.heading.closeaccountingcreatedby' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="accountClosure in accountClosures">
+            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.officeName}}</td>
+            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.closingDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.comments}}</td>
+            <td class="pointer" data-ng-click="routeTo(accountClosure.id)">{{accountClosure.createdByUsername}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

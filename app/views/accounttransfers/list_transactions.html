@@ -1,0 +1,66 @@
+<div class="content-container" ng-controller="ListTransactionsController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewstandinginstruction/{{details.id}}">{{details.name}}</a></li>
+        <li class="active">{{'label.heading.transactionhistory' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.standinginstructionhistory' | translate }}</h4>
+            </div>  
+            <api-validate></api-validate>
+            <form class="form-horizontal" name="standinginstructionform" 
+                  novalidate="" rc-submit="submit()">
+                    <fieldset>
+                    <div class="form-group">
+                        <label  class="col-sm-2" for="fromAccountId">
+                        {{ 'label.heading.fromaccount' | translate }}</label>
+                        <div class="col-sm-3">
+                            {{details.fromAccount.accountNo}}({{details.fromAccountType.value}})
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-1" for="fromAccountId">
+                             {{ 'label.heading.toaccount' | translate }}</label>
+                             <div class="col-sm-3">
+                                 {{details.toAccount.accountNo}}({{details.toAccountType.value}})
+                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2" for="fromAccountId">{{ 'label.heading.destination' | translate }}</label>
+                        <div class="col-sm-3">
+                            {{details.toClient.displayName}}
+                        </div>
+                    </div>
+
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                                    <th>{{'label.heading.amount' | translate}}</th>
+                                    <th>{{'label.heading.notes' | translate}}</th>
+                                    <th>{{'label.heading.reversed' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="pointer-main" ng-repeat="transaction in      transactions.currentPageItems">
+                                    <td>{{transaction.transferDate | DateFormat}}</td>
+                                    <td>{{transaction.transferAmount|number}}</td>
+                                    <td>{{transaction.transferDescription}}</td>
+                                    <td ng-show="transaction.reversed">{{'label.heading.yes' |      translate}}</td>
+                                    <td ng-hide="transaction.reversed">{{'label.heading.no' |       translate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ul class="pager">
+                            <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' |  translate}}</a></li>
+                            <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next'
+                            | translate}} &rarr;</a></li>
+                        </ul>
+                    </div>
+                </fieldset>
+            </form>          
+        </div>
+    </div>
+</div>

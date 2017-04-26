@@ -1,0 +1,47 @@
+<div class="col-md-12" ng-controller="ViewFinancialActivityController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li><a href="#/financialactivityaccountmappings">{{'label.anchor.financialactivity.accountmappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewfinancialmapping' | translate}}</li>
+    </ul>
+    <script type="text/ng-template" id="deletemapping.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="well">
+    	<div class="row">
+    		<div class="col-md-12">
+		    	<legend>{{ 'label.heading.viewfinancialmapping' | translate }}
+		    		<div class="pull-right">
+				        <div class="btn-group">
+				            <a href="#/editfinancialactivitymapping/{{mapping.id}}" class="btn btn-primary"
+				               has-permission='UPDATE_FINANCIALACTIVITYACCOUNT'><i
+				                    class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+				            <a class="btn btn-danger" ng-click="deletemapping()" has-permission='DELETE_FINANCIALACTIVITYACCOUNT'><i
+				                    class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+				        </div>
+				    </div>
+		    	</legend>
+			    <div class="col-md-6">
+				    <table class="table table-bordered">
+				        <tr>
+				            <th class="table-bold-acc">{{'label.heading.financialactivity' | translate}}</th>
+				            <td><span class="padded-td">{{mapping.financialActivityData.name | translate }}</span></td>
+				        </tr>
+				        <tr>
+				            <th class="table-bold-acc">{{ 'label.heading.financial.activity.account.name' | translate }}</th>
+				            <td><span class="padded-td">{{mapping.glAccountData.name}}({{mapping.glAccountData.glCode}})</span></td>
+				        </tr>
+				    </table>
+			    </div>
+			</div>
+	    </div>
+    </div>
+</div>

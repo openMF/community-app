@@ -1,0 +1,32 @@
+<div class="content-container" ng-controller="LoanScreenReportController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.loanscreenreport' | translate}}</li>
+        </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.loanscreenreport' | translate}}</h4>
+            </div>
+            <br/>
+            <div class="span"></div>
+            <div class="span2">
+                <table class="table">
+                    <tr ng-repeat="templateData in loanTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
+                        <td>
+                            <a ng-click="getLoanTemplate(templateData.id)">{{templateData.name}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="span8" ng-show="template">
+                <span ng-bind-html="template"></span>
+            <span class="col-md-offset-3 paddedtop10">
+              <button type="button" data-ng-click="print(template)" class="btn btn-primary"><i class="fa fa-print"></i>&nbsp;&nbsp;{{'label.button.print'|
+                  translate}}
+              </button>
+            </span>
+            </div>
+        </div>
+    </div>
+</div>

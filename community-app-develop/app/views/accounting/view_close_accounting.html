@@ -1,0 +1,63 @@
+<div class="col-md-12" ng-controller="ViewAccountingClosureController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/accounts_closure">{{'label.anchor.accountclosure' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewclosure' | translate}}</li>
+        </ul>
+    </div>
+    <script type="text/ng-template" id="deleteacc.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>            
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="well">
+        <legend>{{ 'label.heading.viewaccountingclosures' | translate }}
+			<div class="pull-right">
+		        <button class="btn btn-primary" data-ng-click="deleteAcc()" has-permission='DELETE_GLCLOSURE'><i class="icon-trash icon-white"></i>{{
+		            'label.button.delete' | translate }}
+		        </button>
+		    </div>        
+        </legend>
+        <div class="row">
+	        <div class="col-md-6">
+	            <table class="table table-bordered table-striped">
+	                <tr>
+	                    <td><strong>{{ 'label.heading.office' | translate }}:</strong></td>
+	                    <td>{{accountClosure.officeName}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.closuredate' | translate }}:</strong></td>
+	                    <td>{{accountClosure.closingDate | DateFormat}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.closedby' | translate }}:</strong></td>
+	                    <td>{{accountClosure.createdByUsername}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.updatedby' | translate }}:</strong></td>
+	                    <td>{{accountClosure.lastUpdatedByUsername}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.updatedon' | translate }}:</strong></td>
+	                    <td>{{accountClosure.lastUpdatedDate | DateFormat}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.closurecreationdate' | translate }}:</strong></td>
+	                    <td>{{accountClosure.createdDate | DateFormat}}</td>
+	                </tr>
+	                <tr>
+	                    <td><strong>{{ 'label.heading.comments' | translate }}:</strong></td>
+	                    <td>{{accountClosure.comments}}</td>
+	                </tr>
+	            </table>
+	    	</div>
+	    </div>
+	</div>
+</div>
