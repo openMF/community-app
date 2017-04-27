@@ -1,7 +1,12 @@
-<div class="content-container">
-    <ul class="breadcrumb">
+<div class="content-container" ng-controller="MakeDataTableEntryController">
+    <ul class="breadcrumb" ng-if="!makedatatableentry">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.managehooks' | translate}}</li>
+    </ul>
+    <ul class="breadcrumb" ng-if="makedatatableentry">
+        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li><a href="#{{path}}">{{'label.anchor.viewclient' | translate}}</a></li>
+        <li class="active">{{ 'label.heading.makedatatableentry' | translate }}</li>
     </ul>
     <div class="card">
         <div class="content">
@@ -9,7 +14,7 @@
                 <h4>{{ 'label.heading.makedatatableentry' | translate }}</h4>
             </div>
             <br/>
-           <form class="form-horizontal" ng-controller="MakeDataTableEntryController" ng-submit="submit()">
+           <form class="form-horizontal"  ng-submit="submit()">
                <div class="error" ng-show="errorStatus || errorDetails">
                    <label>{{"label.error" | translate}}</label>
                    <label ng-show="errorStatus">{{errorStatus}}</label>
@@ -77,7 +82,7 @@
                        <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_{{tableName}}'>{{ 'label.button.save' | translate }}</button>
                    </div>
                </fieldset>
-           </form> 
+           </form>
         </div>
     </div>
 </div>
