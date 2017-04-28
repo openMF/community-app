@@ -7,38 +7,41 @@
     <div class="card">
         <div class="content">
             <uib-tabset class="overflowhidden marginbottom0" tabset-name="officeTabset">
-                <tab heading="{{'label.heading.general' | translate}}">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="row primarydiv">
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="fa fa-edit "></i>{{
-                                        'label.button.edit' | translate }}</a>
+                <uib-tab heading="{{'label.heading.general' | translate}}">
+                    <div class="container-fluid">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="row primarydiv">
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="fa fa-edit "></i>{{
+                                            'label.button.edit' | translate }}</a>
+                                    </div>
                                 </div>
                             </div>
+
+                            <h3><strong>{{office.name}}</strong></h3>
+                            <table class="table-bordered table view-table" style="width: 350px">
+                                <tr>
+                                    <td>{{ 'label.heading.parentoffice' | translate }}</td>
+                                    <td>{{office.parentName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.openedon' | translate }}</td>
+                                    <td>{{office.openingDate | DateFormat}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.namedecorated' | translate }}</td>
+                                    <td>{{office.nameDecorated | DotRemove}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.externalid' | translate }}</td>
+                                    <td>{{office.externalId}}</td>
+                                </tr>
+                            </table>
                         </div>
-                        <h3><strong>{{office.name}}</strong></h3>
-                        <table class="table-bordered table view-table" style="width: 350px">
-                            <tr>
-                                <td>{{ 'label.heading.parentoffice' | translate }}</td>
-                                <td>{{office.parentName}}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ 'label.heading.openedon' | translate }}</td>
-                                <td>{{office.openingDate | DateFormat}}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ 'label.heading.namedecorated' | translate }}</td>
-                                <td>{{office.nameDecorated | DotRemove}}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ 'label.heading.externalid' | translate }}</td>
-                                <td>{{office.externalId}}</td>
-                            </tr>
-                        </table>
                     </div>
-                </tab>
-                <tab heading="{{officedatatable.registeredTableName}}" ng-repeat="officedatatable in officedatatables"
+                </uib-tab>
+                <uib-tab heading="{{officedatatable.registeredTableName}}" ng-repeat="officedatatable in officedatatables"
                      select="dataTableChange(officedatatable)" has-permission='READ_{{officedatatable.registeredTableName}}'>
                     <div>
                         <div class="btn-group pull-right">
@@ -78,7 +81,7 @@
                             </table>
                         </div>
                     </div>
-                </tab>
+                </uib-tab>
             </uib-tabset>
         </div>
     </div>
