@@ -15,7 +15,7 @@
               <span ng-repeat="button in buttons.singlebuttons">
                   <a ng-show="button.name"
                      ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)"
-                     class="btn btn-primary"><i class="{{button.fa fa}} "></i>{{'label.'+button.name |
+                     class="btn btn-primary"><i class="fa {{button.fa}} "></i>{{'label.'+button.name |
                       translate}}</a>
               </span>
               <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
@@ -24,7 +24,7 @@
                       <span class="caret"></span>
                   </a>
                   <ul class="dropdown dropdown-menu">
-                      <li class="{{button.fa fa}}" ng-repeat="button in buttons.options">
+                      <li class="fa {{button.fa}}" ng-repeat="button in buttons.options">
                           <a ng-click="clickEvent(button.name.replace('button.',''), savingaccountdetails.id)">{{'label.'+button.name
                               | translate}}</a>
                       </li>
@@ -36,7 +36,7 @@
 
 <div class="col-sm-12 col-md-12 paddedtop25px">
 <uib-tabset tabset-name="recurringAccountDetails">
-<tab heading="{{'label.heading.summary' | translate}}">
+<uib-tab heading="{{'label.heading.summary' | translate}}">
     <div class="col-sm-12 col-md-12 paddedtop25px">
         <div class="row">
             <table class="table table-bordered view-table">
@@ -218,8 +218,8 @@
             </table>
         </div>
     </div>
-</tab>
-<tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
+</uib-tab>
+<uib-tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
     <table class="table table-bordered">
         <colgroup span="4"></colgroup>
         <thead>
@@ -265,9 +265,10 @@
             </td>
         </tbody>
     </table>
-</tab>
-<tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
+</uib-tab>
+<uib-tab ng-repeat="savingdatatable in savingdatatables" heading="{{savingdatatable.registeredTableName}}"
      select="dataTableChange(savingdatatable)">
+     <label><strong>{{savingdatatable.registeredTableName}}</strong></label>
             <span data-ng-show="choice">
                 <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
                    ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
@@ -304,8 +305,8 @@
             </tr>
         </table>
     </div>
-</tab>
-<tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+</uib-tab>
+<uib-tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
     <table class="table" width="100%">
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
@@ -350,7 +351,7 @@
                                     class="fa fa-pencil "></i></a>
                             <a title="{{'label.delete' | translate}}"
                                href="#/recurringdepositaccountcharge/{{savingaccountdetails.id}}/deletesavingcharge/{{charge.id}}"><i
-                                    class="fa fa-remove "></i></a>
+                                    class="fa fa-times "></i></a>
                         </span>
                         <span ng-hide="chargeAction">
                             <span ng-hide="charge.amountOutstanding == 0"
@@ -367,7 +368,7 @@
             <td></td>
         </tr>
     </table>
-</tab>
+</uib-tab>
 </uib-tabset>
 <script type="text/ng-template" id="incentive.html">
     <div class="modal-header silver">

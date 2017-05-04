@@ -227,15 +227,12 @@
                 });
             };
             var UploadPicCtrl = function ($scope, $uibModalInstance) {
-                $scope.onFileSelect = function ($files) {
-                    scope.file = $files[0];
-                };
-                $scope.upload = function () {
-                    if (scope.file) {
+                $scope.upload = function (file) {
+                    if (file) {
                         Upload.upload({
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images',
                             data: {},
-                            file: scope.file
+                            file: file
                         }).then(function (imageData) {
                             // to fix IE not refreshing the model
                             if (!scope.$$phase) {
@@ -259,12 +256,15 @@
             };
             var CapturePicCtrl = function ($scope, $uibModalInstance) {
 
-                $scope.video = null;
                 $scope.picture = null;
                 $scope.error = null;
+                $scope.videoChannel = {
+                    video: null,
+                    videoWidth: 320,
+                    videoHeight: 240
+                };
 
-                $scope.onVideoSuccess = function (video) {
-                    $scope.video = video;
+                $scope.onVideoSuccess = function () {
                     $scope.error = null;
                 };
 
@@ -274,17 +274,19 @@
                 };
 
                 $scope.takeScreenshot = function () {
-                    var picCanvas = document.createElement('canvas');
-                    var width = $scope.video.width;
-                    var height = $scope.video.height;
+                    if($scope.videoChannel.video) {
+                        var picCanvas = document.createElement('canvas');
+                        var width = $scope.videoChannel.video.width;
+                        var height = $scope.videoChannel.video.height;
 
-                    picCanvas.width = width;
-                    picCanvas.height = height;
-                    var ctx = picCanvas.getContext("2d");
-                    ctx.drawImage($scope.video, 0, 0, width, height);
-                    var imageData = ctx.getImageData(0, 0, width, height);
-                    document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
-                    $scope.picture = picCanvas.toDataURL();
+                        picCanvas.width = width;
+                        picCanvas.height = height;
+                        var ctx = picCanvas.getContext("2d");
+                        ctx.drawImage($scope.videoChannel.video, 0, 0, width, height);
+                        var imageData = ctx.getImageData(0, 0, width, height);
+                        document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
+                        $scope.picture = picCanvas.toDataURL();
+                    }
                 };
                 $scope.uploadscreenshot = function () {
                     if($scope.picture != null) {
@@ -338,18 +340,15 @@
                 });
             };
             var UploadSigCtrl = function ($scope, $uibModalInstance) {
-                $scope.onFileSelect = function ($files) {
-                    scope.file = $files[0];
-                };
-                $scope.upload = function () {
-                    if (scope.file) {
+                $scope.upload = function (file) {
+                    if (file) {
                         Upload.upload({
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
                             data: {
                                 name: 'clientSignature',
                                 description: 'client signature'
                             },
-                            file: scope.file,
+                            file: file
                         }).then(function (imageData) {
                             // to fix IE not refreshing the model
                             if (!scope.$$phase) {

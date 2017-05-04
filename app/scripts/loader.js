@@ -10,7 +10,9 @@
             'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
             'angularui': '../bower_components/angular-bootstrap/ui-bootstrap',
             'angularuitpls': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-            'bootstrap': '../bower_compnonents/bootstrap-sass/assets/javascripts/bootstrap.min',
+            'bootstrap': '../bower_components/bootstrap-sass/assets/javascripts/bootstrap.min',
+            'chosen': '../bower_components/angular-bootstrap/ui-bootstrap-csp.css',
+            'bootstrap-csp': '../bower_components/angular-bootstrap/ui-bootstrap-csp.css',
             'underscore': '../bower_components/underscore/underscore',
             'webstorage': '../bower_components/angular-webstorage/angular-webstorage',
             'angular-animate': '../bower_components/angular-animate/angular-animate',
@@ -40,7 +42,10 @@
 
             'webcam-directive':'../bower_components/webcam-directive/dist/webcam.min',
             'angular-utils-pagination':'../bower_components/angular-utils-pagination/dirPagination',
-            'ng-scrollbar':'../bower_components/ng-scrollbar/dist/ng-scrollbar'
+            'ng-scrollbar':'../bower_components/ng-scrollbar/dist/ng-scrollbar',
+            'ng-scrollbar-css':'../bower_components/ng-scrollbar/dist/ng-scrollbar.css',
+            'styles-css': '../styles/styles.css',
+            'ui-config': '../scripts/config/UIconfig.json'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },

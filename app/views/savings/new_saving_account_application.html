@@ -5,7 +5,6 @@
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
         <li class="active">{{'label.anchor.savingapplication' | translate}}</li>
     </ul>
-<api-validate></api-validate>
 <div class="card">
     <div class="content">
         <div class="toolbar">
@@ -13,8 +12,9 @@
         </div>
         <br/>
         <form name="newsavingccountform" novalidate="" class="form-inline" rc-submit="submit()">
+            <api-validate></api-validate>
         <fieldset>
-        <table class="width100">
+        <table class="table width100">
             <tr>
                 <td class="width14">
                     <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
@@ -60,7 +60,7 @@
         <label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
         <div ng-show="data">
-            <table class="width100">
+            <table class="table width100">
                 <tr>
                     <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
                     </td>
@@ -261,7 +261,7 @@
                     <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
-                               ng-model="charge.amount" number-format 
+                               ng-model="charge.amount" number-format
                                placeholder="{{'label.input.amount' | translate}}"/></td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td ng-switch on="charge.chargeTimeType.value">
@@ -274,8 +274,8 @@
                         <input readonly class="date-disable" class="input-medium form-control" readonly
                                class="date-disable" type="text" datepicker-pop="dd MMMM"
                                ng-model="charge.feeOnMonthDay" is-open="opened" ng-switch-when='Monthly Fee'/>
-                        <input id="charges[{{$index}}].dueDate" class="input-medium form-control" 
-                               datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" 
+                        <input id="charges[{{$index}}].dueDate" class="input-medium form-control"
+                               datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate"
                                is-open="opened" ng-switch-when='Weekly Fee'/>
                     </td>
                     <td ng-switch on="charge.chargeTimeType.value">
@@ -284,7 +284,7 @@
                         <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text"
                                ng-model="charge.feeInterval" ng-switch-when='Weekly Fee'/>
                     </td>
-                    <td><a ng-click="deleteCharge($index)"><i class="fa fa-remove "></i></a></td>
+                    <td><a ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
                 </tr>
             </table>
         </div>

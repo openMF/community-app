@@ -5,23 +5,21 @@
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>{{clientName}}</strong></a></li>
         <li class="active">{{'label.anchor.fixeddepositapplication' | translate}}</li>
     </ul>
-    <div class="card">
-        <div class="content">
-            <form name="newsavingccountform" novalidate="" class="form-horizontal" rc-submit="submit()">
+    <form name="newsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
                 <fieldset>
-                <table class="">
+                <table class="width100">
                     <tr>
-                        <td class="">
+                        <td class="width14">
                             <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
                         </td>
-                        <td class="">
+                        <td class="width36 paddedbottom10">
                             <select id="productId" ng-model="formData.productId"
                                     ng-options="product.id as product.name for product in products" value="{{product.id}}"
-                                    ng-change="changeProduct()" class="form-control " required="required">
+                                    ng-change="changeProduct()" class="form-control width170px" required="required">
                                 <option class="displaynone" value="">{{'label.selectfixeddepositproduct' | translate}}</option>
                             </select>
                         </td>
-                        <td class="">
+                        <td class="width14">
                             <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
                                 }}&nbsp;<span class="required">*</span></label>
                         </td>
@@ -35,7 +33,7 @@
                         <td class="width14">
                             <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>
                         </td>
-                        <td class="">
+                        <td class="width36 paddedbottom10">
                             <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" class="form-control width170px"
                                     ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers"
                                     value="{{fieldOfficer.id}}" class="form-control">
@@ -48,7 +46,7 @@
                 <label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
                 <div ng-show="data">
-                <table class="">
+                <table class="width100">
                     <tr>
                         <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
                         </td>
@@ -128,7 +126,7 @@
                         <td class="width14">
                             <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
                         </td>
-                        <td class="">
+                        <td class="width36 paddedbottom10">
                             <div class="form-inline">
                                 <input id="lockinPeriodFrequency" type="text" class="form-control"
                                        ng-model="formData.lockinPeriodFrequency">&nbsp;
@@ -141,12 +139,12 @@
                             </div>
                         </td>
                         <td class="width14"></td>
-                        <td class=""></td>
+                        <td class="width36 paddedbottom10"></td>
                     </tr>
                 </table>
                 <hr data-ng-show="formData.productId"/>
                 <label ng-show="data"><strong>{{ 'label.heading.settings' | translate }}</strong></label>
-                <table class="">
+                <table class="width100">
                     <tr>
                         <td colspan="2" class="width50"><label class="control-label">{{ 'label.input.minimumdepositterm' | translate
                             }}:&nbsp;&nbsp;{{formData.minDepositTerm}}-{{data.minDepositTermType.value}}</label>
@@ -211,12 +209,12 @@
                 </table>
                 <hr data-ng-show="formData.productId"/>
                 <label ng-show="data"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
-                <table class="">
+                <table class="width100">
                     <tr>
-                        <td class=""><label class="control-label">{{ 'label.input.interestratechart.valid.from' |
+                        <td class="width50"><label class="control-label">{{ 'label.input.interestratechart.valid.from' |
                             translate }}<span class="required">*</span>: {{fromDate.date | DateFormat}}</label>
                         </td>
-                        <td class=""><label class="control-label">{{ 'label.input.interestratechart.valid.to' |
+                        <td class="width50"><label class="control-label">{{ 'label.input.interestratechart.valid.to' |
                             translate}}: {{endDate.date | DateFormat}}</label>
                         </td>
                     </tr>
@@ -241,7 +239,7 @@
                                     <td>{{chartSlab.annualInterestRate}}</td>
                                     <td>{{chartSlab.description}}</td>
                                     <td>
-                                        <a ng-click="incentives($index)"  ><i class=""></i>{{'label.incentive.row'
+                                        <a ng-click="incentives($index)"  ><i class="icon-white"></i>{{'label.incentive.row'
                                             | translate}}</a>
                                     </td>
                                 </tr>
@@ -262,7 +260,7 @@
                             {{'label.'+labelchargeerror | translate}}
                         </small>
                     </span>
-                <table class="table" class="" ng-show="charges.length>0">
+                <table class="table" class="width100" ng-show="charges.length>0">
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
                         <th>{{'label.heading.type' | translate}}</th>
@@ -295,7 +293,7 @@
                         </td>
                         <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
                         <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
-                        <td><a ng-click="deleteCharge($index)"><i class="fa fa-remove "></i></a></td>
+                        <td><a ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
                     </tr>
                 </table>
                 </div>
@@ -331,6 +329,4 @@
                 </script>
                 </fieldset>
                 </form>
-            </div>
-        </div>
 </div>
