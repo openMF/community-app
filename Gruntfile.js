@@ -193,7 +193,7 @@ module.exports = function(grunt) {
           cwd: '<%= mifosx.app %>/bower_components',
           dest: '<%= mifosx.dist %>/<%=mifosx.target%>/bower_components',
           src: [
-            '**/*min.js', 'ckeditor/**', 'require-css/*.js', 'require-less/*.js',
+            '**/*min.js', 'ckeditor/**', 'chosen/**', 'require-css/*.js', 'require-less/*.js',
             '!jasmine/**', '!requirejs/**/**', 'requirejs/require.js', '!underscore/**',
             'angular-utils-pagination/dirPagination.tpl.html'
           ]
