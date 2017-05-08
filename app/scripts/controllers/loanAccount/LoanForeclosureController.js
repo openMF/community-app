@@ -8,10 +8,7 @@
             scope.subTaskTypeName = 'Foreclosure';
             scope.formData.transactionDate = new Date();
             scope.restrictDate = new Date();
-
-            resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all'}, function (data) {
-                scope.loandetails = data;
-            });
+            
             scope.$watch('formData.transactionDate',function(){
                 scope.retrieveLoanForeclosureTemplate();
             });
