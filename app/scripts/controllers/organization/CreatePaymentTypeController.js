@@ -4,8 +4,13 @@
 
             scope.formData = {};
             scope.isCashPayment =true;
+            scope.fundSources = [];
 
-
+            resourceFactory.accountCoaResource.getAllAssetAcountCoas(function(data) {
+                {
+                    scope.fundSources = data;
+                }
+            });
             scope.submit = function () {
                 this.formData.isCashPayment = this.formData.isCashPayment || false;
                 resourceFactory.paymentTypeResource.save(this.formData, function (data) {
