@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             port:  9002,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
         },
         livereload: {
             options: {
@@ -313,13 +313,13 @@ module.exports = function(grunt) {
       //trying to concatenat css files
       /*css: {
         files: {
-          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css':
           ['<%= mifosx.app %>/styles/app.css',
           '<%= mifosx.app %>/styles/bootstrap-ext.css',
           '<%= mifosx.app %>/styles/bootswatch.css',
           '<%= mifosx.app %>/styles/style.css'],
 
-          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css':
           ['<%= mifosx.app %>/styles/bootstrap.min.css',
           '<%= mifosx.app %>/styles/chosen.min.css',
           '<%= mifosx.app %>/styles/font-awesome.min.css',
@@ -394,22 +394,23 @@ module.exports = function(grunt) {
         }]
       }
     }*/
-  
+
   });
 
-  
+
 
 
   // Run development server using grunt serve
   grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
-  
+
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
-  
+
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
+  grunt.loadNpmTasks('grunt-karma');
 
 };
