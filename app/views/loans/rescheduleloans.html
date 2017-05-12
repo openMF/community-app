@@ -14,7 +14,8 @@
 
                 <div class="col-sm-3">
                     <input id="rescheduleFromDate" type="text" name="rescheduleFromDate" datepicker-pop="dd MMMM yyyy"
-                           class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+					class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate" 
+					is-open="opened" min="'2000-01-01'" max="restrictDate" ng-required="true"/>
                 </div>
             </div>
             <div class="form-group">
@@ -23,7 +24,7 @@
                 <div class="col-sm-3 paddedbottom10 paddedtop">
                     <select chosen="codes" class="form-control ng-pristine ng-valid" value="{{rescheduleReasonCode.id}}"
                             ng-options="rescheduleReasonCode.id as rescheduleReasonCode.name for rescheduleReasonCode in codes"
-                            ng-model="formData.rescheduleReasonId" >
+							ng-required="true" ng-model="formData.rescheduleReasonId" >
                         <option style="display:none" value="">{{'label.menu.rescheduleReason' | translate}}</option>
                     </select>
                 </div>
@@ -33,16 +34,19 @@
                 <label class="control-label col-sm-2 width20" style="text-align: left;">{{'label.input.submittedOnDate' | translate}}<span class="required">*</span></label>
                 <div class="col-sm-3 paddedbottom10 paddedtop">
 
-                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
+                    <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy" ng-required="true"
                            class="form-control" ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
             <div class="form-group">
 
-                <label class="control-label col-sm-2 width20" style="text-align: left;">{{ 'label.input.comments' | translate }}</label>
+                <label class="control-label col-sm-2 width20" style="text-align: left;" >
+					{{ 'label.input.comments' | translate }}
+					<span class="required">*</span>
+				</label>
                 <div class="col-sm-3 paddedbottom10 paddedtop">
 
-                    <textarea rows="2"  style="width: 402px; height: 76px;" class="form-control" ng-model="comments" ></textarea>
+                    <textarea rows="2"  style="width: 402px; height: 76px;" class="form-control" ng-model="comments" ng-required="true" ></textarea>
                 </div>
             </div>
 
@@ -53,7 +57,7 @@
                 <label class="control-label col-sm-2 width20" data-ng-show="changeRepaymentDate" style="padding-left: 32px;text-align: left;">{{ 'label.input.installemtrescheduledto' | translate
                     }}&nbsp;</label>
                 <div class="col-sm-3 paddedbottom10">
-                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+                    <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" ng-required="true" name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
                            class="form-control " ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
                 </div>
             </div>
@@ -116,7 +120,7 @@
 
                 <button type="button" data-ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
 
-                <button type="button" data-ng-click="submit()" class="btn btn-primary"  has-permission='RESCHEDULE_LOAN'>
+                <button type="button" ng-disabled="!createloanrescheduleform.$valid" data-ng-click="submit()" class="btn btn-primary"  has-permission='RESCHEDULE_LOAN'>
                     {{'label.button.save' | translate}}
 
                 </button>
