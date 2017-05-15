@@ -208,8 +208,7 @@
                         loanApplication.charges = [];
 
                         for (var j in scope.group.clients[i].charges) {
-
-                            if(!scope.group.clients[i].charges[j].isDeleted){
+                            if(!scope.group.clients[i].charges[j].isDeleted && scope.group.clients[i].charges[j].chargeTimeType.code !="chargeTimeType.overdueInstallment"){
                                 var charge = {};
                                 charge.amount = scope.group.clients[i].charges[j].amount;
                                 charge.chargeId = scope.group.clients[i].charges[j].id;
@@ -217,6 +216,7 @@
                             }
 
                         }
+
                         if (!_.isUndefined(scope.formData.datatables) && scope.formData.datatables.length > 0) {
                             loanApplication.datatables = scope.formData.datatables;
                         }
