@@ -2,8 +2,8 @@
     mifosX.controllers = _.extend(module, {
         ClientDocumentController: function (scope, location, http, routeParams, API_VERSION, Upload, $rootScope) {
             scope.clientId = routeParams.clientId;
-            scope.onFileSelect = function ($files) {
-                scope.file = $files[0];
+            scope.onFileSelect = function ($event) {
+                scope.file = $event.target.files[0];
             };
 
             scope.submit = function () {
