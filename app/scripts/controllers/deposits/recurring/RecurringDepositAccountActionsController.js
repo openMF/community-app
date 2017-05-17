@@ -53,7 +53,12 @@
                     break;
                 case "deposit":
                     resourceFactory.recurringDepositTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'deposit'}, function (data) {
+                        scope.amount = data.amount;
                         scope.formData.transactionAmount = data.amount;
+                        if(data.outstandingChargeAmount && data.outstandingChargeAmount > 0){
+                            scope.outstandingChargeAmount = data.outstandingChargeAmount;
+                            scope.formData.transactionAmount = scope.formData.transactionAmount + scope.outstandingChargeAmount;
+                        }
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.formData.transactionDate=new Date(dateFilter(data.date, scope.df));
                     });
