@@ -116,7 +116,83 @@
                 resourceFactory.holValueResource.save(newholiday, function (data) {
                     location.path('/holidays');
                 });
-            };
+            };	
+
+
+            //scope.submit = function () {
+            //    var reqFirstDate = dateFilter(scope.date.first, scope.df);
+            //    var reqSecondDate = dateFilter(scope.date.second, scope.df);
+            //    var reqThirdDate = dateFilter(scope.date.third, scope.df);
+            //    var now = scope.minDat = new Date();
+            //    scope.invalid = false;
+            //    //check if given dates are either present day or future days
+            //    if (new Date(reqFirstDate) >= new Date(now) && new Date(reqSecondDate) >= new Date(now) && new Date(reqThirdDate) >= new Date(now)) {
+            //        var newholiday = new Object();
+            //        newholiday.locale = scope.optlang.code;
+            //        newholiday.dateFormat = scope.df;
+            //        newholiday.name = this.formData.name;
+            //        newholiday.fromDate = reqFirstDate;
+            //        newholiday.toDate = reqSecondDate;
+            //        newholiday.repaymentsRescheduledTo = reqThirdDate;
+            //        newholiday.description = this.formData.description;
+            //        newholiday.offices = [];
+            //        for (var i in holidayOfficeIdArray) {
+            //            var temp = new Object();
+            //            temp.officeId = holidayOfficeIdArray[i];
+            //            newholiday.offices.push(temp);
+            //        }
+            //        resourceFactory.holValueResource.save(newholiday, function (data) {
+            //            location.path('/holidays');
+            //        });
+            //        //Validation: past day is given
+            //    } else {
+            //        scope.invalid = true;
+            //    }
+            //};
+
+            //angular.module('module', []).directive('validateFromDateDir', function () {
+            //    return {
+            //        link: function ($scope, element, attrs) {
+            //            element.bind('submit', function () {
+            //                validateFromDate();
+            //            });
+
+            //        }
+            //    };
+            //});
+
+            //function validateFromDate() {
+            //    var reqFirstDate = dateFilter(scope.date.first, scope.df);
+            //    var reqSecondDate = dateFilter(scope.date.second, scope.df);
+            //    var reqThirdDate = dateFilter(scope.date.third, scope.df);
+            //    scope.invalid = false
+            //    scope.minDat = new Date();
+            //    //check if given dates are either present day or future days
+            //    if (reqFirstDate >= dateFilter(scope.minDat, scope.df)) {
+            //        var newholiday = new Object();
+            //        newholiday.locale = scope.optlang.code;
+            //        newholiday.dateFormat = scope.df;
+            //        newholiday.name = this.formData.name;
+            //        newholiday.fromDate = reqFirstDate;
+            //        newholiday.toDate = reqSecondDate;
+            //        newholiday.repaymentsRescheduledTo = reqThirdDate;
+            //        newholiday.description = this.formData.description;
+            //        newholiday.offices = [];
+            //        for (var i in holidayOfficeIdArray) {
+            //            var temp = new Object();
+            //            temp.officeId = holidayOfficeIdArray[i];
+            //            newholiday.offices.push(temp);
+            //        }
+            //        resourceFactory.holValueResource.save(newholiday, function (data) {
+            //            location.path('/holidays');
+            //        });
+            //        //Validation: past day is given
+            //    } else {
+            //        scope.invalid = true;
+            //    }
+            //};
+
+
         }
     });
     mifosX.ng.application.controller('AddHolController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.AddHolController]).run(function ($log) {

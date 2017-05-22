@@ -321,7 +321,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ChosenComboboxDirective',
             'NumberFormatDirective',
             'SuccessfulResponsesDirective',
-            'TabsPersistenceDirective'
+            'TabsPersistenceDirective',
+            'AgeLimitDirective'
         ]
     };
 
