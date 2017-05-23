@@ -1,5 +1,7 @@
 apply plugin:"war"
 apply plugin:"maven"
+apply plugin:"jacoco"
+apply plugin:"application"
 
 war {
 	// TODO This, for now, really *SHOULD* normally be:
@@ -33,4 +35,20 @@ install {
         pom.version = '1.0.0-SNAPSHOT'
     }
 }
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/MifosJacocoReportDir")
+}
+
+// If you want a different output format just add:
+//jacocoTestReport {
+//    reports {
+//        xml.enabled false (eneble if you want xml)
+//        csv.enabled false (eneble if you want csv)
+//        html.destination "${buildDir}/jacocoHtml" (If you want custom destination of the report
+//    }
+//}
+
+
 
