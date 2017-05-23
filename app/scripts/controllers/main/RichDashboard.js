@@ -406,7 +406,7 @@
                         scope.showCollectionerror = true;
                     }
                     scope.collectedData = [
-                        {key: "Disbursed", y: scope.collectionPieData.AmountPaid},
+                        {key: "Collected", y: scope.collectionPieData.AmountPaid},
                         {key: "Pending", y: scope.collectionPieData.AmountDue}
                     ];
 
