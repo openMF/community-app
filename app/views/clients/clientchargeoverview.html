@@ -33,6 +33,27 @@
                                  template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
                                  on-page-change="getClientChargeResultsPage(newPageNumber)"
                                  pagination-id="chargesPage"></dir-pagination-controls>
+        <h3>Recurring Charges</h3>
+        <table id="clientRecurringChargesDetails" data-ng-show="recurringCharges.length>0" class="table table-condensed">
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.effetivefrom' | translate}}</th>
+                <th>{{'label.heading.amount' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+            <tr class="pointer-main" data-ng-repeat="recurringCharge in recurringCharges">
+                <td class="pointer">{{recurringCharge.name}}</td>
+                <td class="pointer">{{recurringCharge.chargeDueDate|DateFormat}}</td>
+                <td class="pointer">{{recurringCharge.amount | number}}</td>
+                <td class="pointer"> <a tooltip="{{'label.button.inactivate' | translate}}" ng-if="recurringCharge.active" has-permission='INACTIVATE' ng-click="inactivateCharge(recurringCharge.id)" class="btn btn-warning ng-binding">
+                    <i class="icon-remove icon-white"></i>
+                </a>
+                    <a tooltip="{{'label.button.activate' | translate}}" ng-if="!recurringCharge.active" has-permission='ACTIVATE' ng-click="activateCharge(recurringCharge.id)" class="btn btn-warning ng-binding">
+                        <i class="icon-check-sign icon-white"></i>
+                    </a></td>
+            </tr>
+        </table>
+
         <div class="col-md-offset-5">
             <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
                 translate}}</a>
