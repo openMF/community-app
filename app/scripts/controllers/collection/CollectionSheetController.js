@@ -67,7 +67,7 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
-                    $scope.loanOfficerId = loanOfficerId;
+                    scope.loanOfficerId = loanOfficerId;
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
                     });
