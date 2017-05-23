@@ -56,8 +56,11 @@
                            <div ng-show="debitRuleType=='tags'" class="row">
                                <div class="col-sm-5 col-md-5">
                                    <label class="control-label col-sm-12 center">{{ 'label.input.availabledebittags' | translate }}</label>
-                                   <select ng-model="availableDebit" multiple class="form-control clear"
-                                       ng-options="debitTag.name for debitTag in debitTagOptions"></select>
+                                   <select ng-model="availableDebit" multiple class="form-control clear">
+                                       <option ng-repeat="debitTag in debitTagOptions" value="{{debitTag.id}}">
+                                           {{debitTag.name}}
+                                       </option>
+                                   </select>
                                </div>
                                <div class="col-sm-1 col-md-1 paddedtop25px">
                                    <button type="button" class="btn btn-primary" data-ng-click="addDebitTag()"><i
@@ -67,8 +70,11 @@
                                </div>
                                <div class="col-sm-5 col-md-5">
                                    <label class="control-label col-sm-12 center">{{ 'label.input.selecteddebittags' | translate }}</label>
-                                   <select ng-model="selectedDebit" multiple class="form-control clear"
-                                       ng-options="dbTag.name for dbTag in formData.debitTags"></select>
+                                   <select ng-model="selectedDebit" multiple class="form-control clear">
+                                       <option ng-repeat="dbTag in formData.debitTags" value="{{dbTag.id}}">
+                                           {{dbTag.name}}
+                                       </option>
+                                   </select>
                                </div>
                                <label>{{ 'label.input.allowMultipleDebitEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
                                        type="checkbox" ng-model="formData.allowMultipleDebitEntries"></label>
@@ -88,8 +94,11 @@
                            <div ng-show="creditRuleType=='tags'" class="row">
                                <div class="col-sm-5 col-md-5">
                                    <label class="control-label col-sm-12 center">{{ 'label.input.availablecredittags' | translate }}</label>
-                                   <select ng-model="availableCredit" multiple class="form-control clear"
-                                       ng-options="creditTag.name for creditTag in creditTagOptions"></select>
+                                   <select ng-model="availableCredit" multiple class="form-control clear">
+                                       <option ng-repeat="creditTag in creditTagOptions" value="{{creditTag.id}}">
+                                           {{creditTag.name}}
+                                       </option>
+                                   </select>
                                </div>
                                <div class="col-sm-1 col-md-1 paddedtop25px">
                                    <button type="button" class="btn btn-primary" data-ng-click="addCreditTag()"><i
@@ -99,8 +108,11 @@
                                </div>
                                <div class="col-sm-5 col-md-5">
                                    <label class="control-label col-sm-12 center">{{ 'label.input.selectedcredittags' | translate }}</label>
-                                   <select ng-model="selectedCredit" multiple class="form-control clear"
-                                       ng-options="crTag.name for crTag in formData.creditTags"></select>
+                                   <select ng-model="selectedCredit" multiple class="form-control clear">
+                                       <option ng-repeat=" crTag in formData.creditTags" value="{{crTag.id}}">
+                                           {{crTag.name}}
+                                       </option>
+                                   </select>
                                </div>
                                <label>{{ 'label.input.allowMultipleCreditEntries' | translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
                                        type="checkbox" ng-model="formData.allowMultipleCreditEntries"></label>
