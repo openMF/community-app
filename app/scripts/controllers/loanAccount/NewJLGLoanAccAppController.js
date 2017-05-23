@@ -241,6 +241,7 @@
                             }
 
                         }
+
                         if (!_.isUndefined(scope.formData.datatables) && scope.formData.datatables.length > 0) {
                             loanApplication.datatables = scope.formData.datatables;
                         }
