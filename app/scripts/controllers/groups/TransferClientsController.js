@@ -10,13 +10,13 @@
             scope.groupId = routeParams.id;
 
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
-                scope.data = data;
+                scope.group = data;
                 scope.allMembers = data.clientMembers;
             });
 
             scope.groups = function(value){
                 var deferred = $q.defer();
-                resourceFactory.groupResource.getAllGroups({name : value, orderBy : 'name', officeId : scope.data.officeId,
+                resourceFactory.groupResource.getAllGroups({name : value, orderBy : 'name', officeId : scope.group.officeId,
                     sortOrder : 'ASC'}, function(data){
                     scope.group = _.reject(data, function (group) {
                         return group.id == routeParams.id;
