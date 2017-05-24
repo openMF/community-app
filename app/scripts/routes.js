@@ -913,6 +913,11 @@
             })
             .when('/selfservice/createuser/:clientId',{
                 templateUrl: 'views/selfservice/createuser.html'
+            .when('/surveys',{
+                templateUrl: 'views/surveys/surveys.html'
+            })
+            .when('/surveys/add',{
+                templateUrl: 'views/surveys/createsurvey.html'
             })
         ;
         $locationProvider.html5Mode(false);

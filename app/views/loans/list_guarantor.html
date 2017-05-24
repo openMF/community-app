@@ -28,7 +28,7 @@
                             <td><span class="padded-td"><span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span>{{loandetails.loanOfficerName}}&nbsp;
                                 <span ng-show="loandetails.loanOfficerName">
                                   <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i
-                                          class="fa fa-remove"></i></a>
+                                          class="fa fa-times"></i></a>
                                 </span>
                                 </span>
                             </td>
@@ -104,7 +104,7 @@
                         <td>{{guarantorfund.status.code | translate}}</td>
                         <td>
                             <button class="btn btn-info" data-ng-click="showDetails($parent.$index,$index)"
-                                    ><i class="fa fa-eye-open "></i></button>
+                                    ><i class="fa fa-eye "></i></button>
                             <a has-permission='READ_SAVINGSACCOUNT' id="viewtransactions"
                                href="#/viewguarantortransactions/{{guarantorfund.savingsAccount.id}}/{{guarantorfund.id}}/listguarantors/{{guarantor.loanId}}"
                                class="btn btn-default">{{ 'label.button.viewtransactions' |
@@ -113,7 +113,7 @@
                                     data-ng-show="guarantorfund.status.code == 'guarantorFundStatusType.active'"
                                     data-ng-click="deleteGuarantor(guarantor.id,guarantorfund.id)"
                                     has-permission='DELETE_GUARANTOR'
-                                    ><i class="fa fa-trash "></i></button>
+                                    ><i class="fa fa-trash-o "></i></button>
                         </td>
                     </tr>
                     <tr data-ng-hide="guarantor.guarantorFundingDetails">
@@ -127,13 +127,13 @@
                         <td data-ng-hide="guarantor.status">{{'guarantorFundStatusType.deleted' | translate}}</td>
                         <td>
                             <button class="btn btn-info" data-ng-click="showDetails($index,null)"
-                                    ><i class="fa fa-eye-open "></i></button>
+                                    ><i class="fa fa-eye "></i></button>
                             <a data-ng-show="guarantor.status && guarantor.guarantorType.id == 3 && guarantor.id"
                                href="#/editguarantor/{{guarantor.id}}/{{guarantor.loanId}}" class="btn btn-primary"><i
                                     class="fa fa-edit"></i></a>
                             <button class="btn btn-warning" data-ng-click="deleteGuarantor(guarantor.id,null)"
                                     has-permission='DELETE_GUARANTOR'
-                                    data-ng-show="guarantor.status"><i class="fa fa-trash "></i></button>
+                                    data-ng-show="guarantor.status"><i class="fa fa-trash-o "></i></button>
                         </td>
                     </tr>
                     </tbody>
@@ -230,7 +230,7 @@
             </div>
 
 
-            <div ng-show="guarantorDetails" class="col-md-offset-10" 
+            <div ng-show="guarantorDetails" class="col-md-offset-10"
                 style="margin-bottom: 40px">
                 <a id="cancel" href="#/viewloanaccount/{{loandetails.id}}" class="btn btn-default">{{ 'label.button.cancel' |
                     translate }}</a>
