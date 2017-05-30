@@ -163,6 +163,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.principal' | translate }}
+        <span class="required">*</span>
         <i class="fa fa-question-sign" tooltip="{{'label.tooltip.loanproduct.principal' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
@@ -236,6 +237,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.numofrepayments' | translate }}
+        <span class="required">*</span>
         <i class="fa fa-question-sign" tooltip="{{'label.tooltip.loanproduct.numofrepayments' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
@@ -449,6 +451,7 @@
 </div>
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.repaidevery' | translate }}
+        <span class="required">*</span>
         <i class="fa fa-question-sign" tooltip="{{'label.tooltip.repaidevery' | translate}}"
            tooltip-append-to-body="true"></i>
     </label>
@@ -522,9 +525,12 @@
 
     <div class="col-sm-2"  ng-show="formData.interestCalculationPeriodType == 1">
         <label class="checkbox control-label">
-            <input id="allowPartialPeriodInterestCalcualtion" type="checkbox"
-                   ng-model="formData.allowPartialPeriodInterestCalcualtion">
+            <input name="allowPartialPeriodInterestCalcualtion" id="allowPartialPeriodInterestCalcualtion" type="checkbox"
+                   ng-model="formData.allowPartialPeriodInterestCalcualtion" required>
         </label>
+    </div>
+    <div class="col-sm-2">
+        <form-validate valattributeform="createloanproductform" valattribute="allowPartialPeriodInterestCalcualtion"/>
     </div>
 </div>
 
@@ -644,8 +650,11 @@
     <div class="col-sm-2">
         <label class="checkbox control-label">
             <input id="accountMovesOutOfNPAOnlyOnArrearsCompletion" type="checkbox"
-                   ng-model="formData.accountMovesOutOfNPAOnlyOnArrearsCompletion">
+                   ng-model="formData.accountMovesOutOfNPAOnlyOnArrearsCompletion" name="accountMovesOutOfNPAOnlyOnArrearsCompletion" required>
         </label>
+    </div>
+     <div class="col-sm-2">
+        <form-validate valattributeform="createloanproductform" valattribute="accountMovesOutOfNPAOnlyOnArrearsCompletion"/>
     </div>
 </div>
 
