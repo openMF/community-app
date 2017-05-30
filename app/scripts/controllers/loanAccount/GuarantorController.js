@@ -12,7 +12,7 @@
                 scope.template = data;
                 scope.loanId = routeParams.id;
             });
-            resourceFactory.clientResource.getAllClients(function (data) {
+            resourceFactory.clientResource.getAllClientsWithoutLimit(function (data) {
                 scope.clients = data.pageItems;
             });
             scope.viewClient = function (item) {
