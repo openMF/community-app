@@ -214,16 +214,18 @@
                 }
             };
 
-            $(window).scroll(function () {
+            $('#mifos-reskin-ui-container').on('scroll',function () {
                 if ($(this).scrollTop() > 100) {
                     $('.head-affix').css({
-                        "position": "fixed",
-                        "top": "50px"
+                        position: "fixed",
+                        top: "50px",
+                        width: "80%"
                     });
 
                 } else {
                     $('.head-affix').css({
-                        position: 'static'
+                        position: 'static',
+                        width: "100%"
                     });
                 }
             });
