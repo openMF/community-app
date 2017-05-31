@@ -10,9 +10,6 @@
             scope.hideAccrualTransactions = false;
             scope.isHideAccrualsCheckboxChecked = true;
             scope.loandetails = [];
-            scope.updateCheckBoxStatus = function (){
-                scope.isHideAccrualsCheckboxChecked = !scope.isHideAccrualsCheckboxChecked;
-            };
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
