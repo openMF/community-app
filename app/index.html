@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="http://localhost:9002/?baseApiUrl=https://demo.openmf.org#/">
+    <meta name="theme-color" content="#fcf8e3">
     <link rel="icon" type="image/png" href="./images/favicon.ico"/>
     <title>{{ 'label.heading.mifosxclient' | translate }}</title>
     <style>[data-ng-cloak] {
         display: none !important;
     }</style>
     <link href="styles/styles.css" rel="stylesheet"/>
+    <link rel="manifest" href="./manifest.json"/>
 </head>
 <body class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80"
       data-ng-controller="MainController">
@@ -17,9 +21,11 @@
     <div id="loader" style="margin: 175px auto">
         <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto"
              class="img-responsive">
-        <img src="images/loader.gif" style="margin: 10px auto" class="img-responsive">
+        <img src="./images/loader.gif" alt="MifosX" style="margin: 10px auto" class="img-responsive">
     </div>
 </div>
+
+<!--<p class="connection-status">You are Online</p>-->
 
 <div data-ng-hide="!domReady" data-ng-cloak>
     <!-- Login Form  -->
@@ -203,7 +209,7 @@
             <!-- TODO : insert loader here-->
              <span class="centerloader">
                 <img src="images/833.svg" class="img-responsive">
-            </span> 
+            </span>
             <!--<div style="margin: 175px auto">
             </div>-->
         </div>
@@ -319,7 +325,7 @@
                 <footer>
                     <p align="center"><a
                             href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
-                            target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
+                            target="_blank" rel="noopener"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
                         translate}} {{releasedate}} </a></p>
                 </footer>
                 <hr>
@@ -328,6 +334,8 @@
     </div>
 </div>
 <!-- Le javascript -->
+<noscript>Your browser doesn't support JS</noscript>
+<script type="text/javascript" src="./service-worker-registration.js"></script>
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
 </body>
 </html>
