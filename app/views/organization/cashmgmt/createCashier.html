@@ -26,7 +26,8 @@
     			</div>
 
     			<div class="form-group">
-    				<label class="control-label col-sm-2">{{'label.heading.cashmgmt.tellerCashiers.cashierName' | translate}}</label>
+    				<label class="control-label col-sm-2">{{'label.heading.cashmgmt.tellerCashiers.cashierName' | translate}}
+                    <span class="required">*</span></label>
     				<div class="col-sm-3">
     					<select chosen="cashier.staffOptions" id="staffId" ng-model="formData.staffId" class="form-control"
     							ng-options="staff.id as staff.displayName for staff in cashier.staffOptions"
@@ -43,19 +44,25 @@
     			</div>
 
     			<div class="form-group">
-    				<label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startDate' | translate }}</label>
+    				<label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startDate' | translate }}<span class="required">*</span></label>
     				<div class="col-sm-3">
-    					<input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-    						   class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+    					<input id="startDate" name="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+    						   class="form-control" is-open="opened" min="minDate" max="restrictDate" required/>
     				</div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createcashierform" valattribute="startDate"/>
+                    </div>
     			</div>
 
     			<div class="form-group">
-    				<label class="control-label col-sm-2"> {{ 'label.input.teller.cashier.endDate' | translate }}</label>
+    				<label class="control-label col-sm-2"> {{ 'label.input.teller.cashier.endDate' | translate }}<span class="required">*</span></label>
     				<div class="col-sm-3">
-    					<input id="endDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.endDate"
-    						   class="form-control" is-open="opened" min="minDate" />
+    					<input id="endDate" name="endDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.endDate"
+    						   class="form-control" is-open="opened" min="minDate" required/>
     				</div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createcashierform" valattribute="endDate"/>
+                    </div>
     			</div>
     			<div class="form-group">
     				<label class="control-label col-sm-2">{{ 'label.input.teller.cashier.fullDay' | translate }}</label>

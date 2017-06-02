@@ -12,6 +12,7 @@
 
             resourceFactory.tellerCashierTemplateResource.get({tellerId: routeParams.tellerId}, function (data) {
                 scope.cashier = data;
+                scope.formData.staffId = data.staffOptions[0].id;
             });
 
             scope.setChoice = function () {
@@ -35,7 +36,7 @@
                 this.formData.hourEndTime;
                 this.formData.minEndTime;
                 resourceFactory.tellerCashierResource.save(
-                    {'tellerId': routeParams.tellerId, 'cashierId': routeParams.cashierId}, 
+                    {'tellerId': routeParams.tellerId, 'cashierId': routeParams.cashierId},
                     this.formData, function (data) {
                         location.path('tellers/' + routeParams.tellerId + '/cashiers');
                 });
