@@ -166,6 +166,14 @@
                             ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;
+                    <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
+                            ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
+                            ng-show="formData.repaymentFrequencyType == 2"
+                            value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
+                    <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
+                            ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
+                            ng-show="formData.repaymentFrequencyType == 2"
+                            value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
                 </td>
             </tr>
