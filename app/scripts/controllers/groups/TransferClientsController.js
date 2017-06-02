@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferClientsController: function ($q, scope, routeParams, route, location, resourceFactory) {
+          TransferClientsController: function ($q, scope, routeParams, route, location, resourceFactory) {
             scope.group = [];
             scope.tempData = [];
             scope.selectedClients = [];
@@ -9,9 +9,14 @@
             scope.destinationGroup = "";
             scope.groupId = routeParams.id;
 
+
+            scope.availableClients = null;
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers'}, function (data) {
                 scope.data = data;
-                scope.allMembers = data.clientMembers;
+
+                scope.allMembers = data.clientMembers.filter(function(member) {
+                  return member.active;
+                });
             });
 
             scope.groups = function(value){
@@ -54,7 +59,7 @@
                     }
                 }
             };
-            
+
             scope.viewgroup = function (group) {
                 resourceFactory.groupResource.get({groupId: group.id}, function (data) {
                     scope.groupdata = data;
