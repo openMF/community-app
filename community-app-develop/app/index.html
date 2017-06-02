@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="./images/favicon.ico" ng-if="!isFaviconPath" />
+    <link rel="icon" type="image/png" href="{{faviconPath}}" ng-if="isFaviconPath" />
+    <title>{{ 'label.heading.mifosxclient' | translate }}</title>
+    <style>[data-ng-cloak] { display: none !important; }</style>
+
+</head>
+<body  class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80" data-ng-controller="MainController">
+<!--Loader -->
+
+<div id="loaderWrapper" data-ng-hide="domReady" style="position:relative; height: 100%;">
+    <div id="loader" style="  margin:auto;   height: 300px;  width: 300px;  position:fixed;  top:0;  bottom:0;  left:0; right:0;   display:flex;  flex-direction:column;  justify-content:center; ">
+        <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 10px auto" class="img-responsive">
+        <img src="./images/loader.gif" style="margin: 10px auto" class="img-responsive">
+    </div>
+</div>
+<div data-ng-hide="!domReady" data-ng-cloak>
+    <!-- Login Form  -->
+    <div class="container well" data-ng-hide="currentSession.user != null" >
+
+        <div class="row form-search ng-pristine ng-valid paddedbottom" data-ng-form="loginForm" data-ng-controller="LoginFormController">
+            <div class="pull-right ">
+                {{ 'label.input.changelanguage' | translate }}
+                <div class="btn-group" dropdown>
+			      <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">
+			        {{optlang.name}} <span class="caret"></span>
+			      </button>
+			      <ul class="dropdown-menu lang-dropdown">
+			         <li ng-repeat="lang in langs">
+			             <a href="#" ng-click="changeLang(lang, $event)">{{lang.name}}</a>
+			         </li>
+			      </ul>
+			    </div>
+            </div>
+            <br/><br/>
+            <div ng-hide="resetPassword">
+    	    <form class="form-inline pull-right" role="form">
+            <div data-ng-show="load" style="position: absolute; top: 50%; left: 48%; z-index: 1000;">
+                <img src="images/cubic_loader.gif" class="img-responsive">
+            </div>
+    		<label class="error" data-ng-show="authenticationFailed"><strong>{{ authenticationErrorMessage | translate }}</strong></label>
+    		<div class="form-group">
+    		    <input ng-autofocus="true" type="text" data-ng-model="loginCredentials.username" placeholder="{{ 'label.input.username' | translate }}" class="input-sm form-control" required id="uid">
+    		</div>
+    		<div class="form-group">
+    		    <input type="password" data-ng-model="loginCredentials.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="pwd">
+    		</div>
+    		<button class="btn btn-success" type="submit" data-ng-click="login()" id="login-button">{{ 'label.button.signin' | translate }}</button>
+    	    </form>
+            </div>
+            <div ng-show="resetPassword">
+    	    <form class="form-inline pull-right" role="form">
+    		<label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+    	        <div class="form-group">
+    	            <input type="password" data-ng-model="passwordDetails.password" placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"  required id="password">
+    	        </div>
+    		<div class="form-group">
+    		    <input type="password" data-ng-model="passwordDetails.repeatPassword" placeholder="{{ 'label.input.repeatpassword' | translate }}" class="input-sm form-control"  required id="repeatPassword">
+    		</div>
+                    <button class="btn btn-success" type="submit" data-ng-click="updatePassword()" id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}</button>
+    	    </form>
+            </div>
+        </div>
+        <div class="row col-md-8 col-lg-offset-2 paddedbottom">
+        	<div class="col-md-3">
+                <img src="./images/MifosX_logo.png" alt="Mifos X" width="150" class="img-responsive" ng-if="!isBigLogoPath"/>
+                <img src="{{bigLogoPath}}" alt="Mifos X" width="150" class="img-responsive" ng-if="isBigLogoPath">
+            </div>
+            <div class="col-md-9">
+                <h1>{{ 'label.heading.mifosx' | translate }}</h1>
+    <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
+                <br /> <span>{{ 'label.heading.uptodate' | translate }}</span>
+                <br /> <span ng-bind-html="text"></span>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-4">
+                <div style="border: 1px solid #DDDDDD;padding:15px;">
+                    <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
+                        <strong>{{ 'label.heading.resources' | translate }}</strong>
+                    </div>
+                    <ul>
+                        <li><a target="_blank" href="https://mifosforge.jira.com/wiki/display/docs/User+Manual">{{ 'label.anchor.usermanual' | translate }}</a></li>
+                        <li><a target="_blank" href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{ 'label.anchor.functionalspec' | translate }}</a></li>
+                        <li><a target = "_blank" href="https://mifosforge.jira.com/wiki/display/MDZ/Welcome+to+the+Zone">{{ 'label.anchor.developerzone' | translate }}</a></li>
+                    </ul>
+                </div>
+        </div>
+        <div class="col-md-4">
+                <div style="border: 1px solid #DDDDDD;padding:15px;">
+                    <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
+                        <strong>{{ 'label.heading.community' | translate }}</strong>
+                    </div>
+                    <ul>
+                        <li><a target="https://groups.google.com/forum/#!forum/mifosusers" href="https://groups.google.com/forum/#!forum/mifosusers">{{ 'label.anchor.usersgroup' | translate }}</a></li>
+                        <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper" href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{ 'label.anchor.developergroup' | translate }}</a></li>
+                        <li><a target="http://mifos.org/resources/community/communications/#mifos-irc" href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' | translate }}</a></li>
+                    </ul>
+                </div>
+        </div>
+        <div class="col-md-4">
+                <div style="border: 1px solid #DDDDDD;padding:15px;">
+                    <div style="background-color: #F5F5F5;border-bottom: 1px solid #DDDDDD;padding: 10px 15px;margin: -15px -15px 15px;">
+                        <strong>{{ 'label.heading.contribute' | translate }}</strong>
+                    </div>
+                    <ul>
+                        <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles" href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{ 'label.anchor.keydesignprinciples' | translate }}</a></li>
+                        <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Working+with+Code" href="http://sourceforge.net/projects/mifos/">{{ 'label.anchor.workingwithcode' | translate }}</a></li>
+                        <li><a target="http://mifos.org/donate/" href="http://mifos.org/donate/">{{ 'label.anchor.donate' | translate }}</a></li>
+                    </ul>
+                </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
+        <div class="loading-widget-div" data-ng-show="blockUI">
+            <div id="circularG">
+                <div id="circularG_1" class="circularG">
+                </div>
+                <div id="circularG_2" class="circularG">
+                </div>
+                <div id="circularG_3" class="circularG">
+                </div>
+                <div id="circularG_4" class="circularG">
+                </div>
+                <div id="circularG_5" class="circularG">
+                </div>
+                <div id="circularG_6" class="circularG">
+                </div>
+                <div id="circularG_7" class="circularG">
+                </div>
+                <div id="circularG_8" class="circularG">
+                </div>
+            </div>
+        </div>
+        <div class="left-nav" style="display:flex">
+        	<ul class="nav nav-pills nav-stacked margin-nav">
+                <li><a class="black" href="#/help"><i class="icon-keyboard icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.keyboardshortcut' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/nav/offices"><i class="icon-compass icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.navigation' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/tasks"><i class="icon-check icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.tasks' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/entercollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.collectionsheet' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/individualcollectionsheet"><i class="icon-tasks icon-large"></i>&nbsp;&nbsp;{{ 'label.anchor.individualcollectionsheet' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/freqposting"><i class="icon-repeat icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.frequentpostings' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/journalentry"><i class="icon-plus icon-large"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.anchor.addjournalentries' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/accounts_closure"><i class="icon-folder-close icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.closingentries' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/accounting_coa"><i class="icon-sitemap icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.heading.chartofaccounts' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/createclient"><i class="icon-user icon-large"></i> + {{ 'label.anchor.client' | translate}} </a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/creategroup"><i class="icon-group icon-large"></i> + {{ 'label.anchor.group' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" href="#/createcenter"><i class="icon-map-marker icon-large"></i> + {{ 'label.anchor.center' | translate}}</a></li>
+                <li class="divider"></li>
+                <li><a class="black" ng-click= "helpf()" ><i class="icon-question-sign icon-large"></i>&nbsp;&nbsp;&nbsp;{{ 'label.anchor.help' | translate }}</a></li>
+
+            </ul>
+        </div>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        	<div class="container-fluid container">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <a class="brand" href="#/home">
+                        <img src="./images/MifosX_logoSmall.png" alt="Mifos X" height="20" ng-if="!isHeaderLogoPath">
+                        <img src="{{headerLogoPath}}" alt="Mifos X" height="20" ng-if="isHeaderLogoPath">
+                    </a>
+                    <ul class="nav navbar-nav" id="main-menu-left">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('clients') }"  href="#"><i class="icon-group"></i> {{ 'label.anchor.clients' | translate }}<b class="caret"></b></a>
+                            <ul class="dropdown-menu" id="swatch-menu">
+                                <li><a href="#/clients" has-permission='READ_CLIENT'>{{ 'label.anchor.clients' | translate }}</a></li>
+                                <li><a href="#/groups" has-permission='READ_GROUP'>{{ 'label.anchor.groups' | translate }}</a></li>
+                                <li><a href="#/centers" has-permission='READ_CENTER'>{{ 'label.anchor.centers' | translate }}</a></li>
+                            </ul>
+                        </li>
+                        <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="icon-money"></i> {{ 'label.anchor.accounting' | translate }}</a></li>
+                        <li class="dropdown" id="reports-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('rep') }" href="#"><i class="icon-bar-chart"></i> {{ 'label.anchor.reports' | translate }}<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/reports/all" has-permission='READ_REPORT'>{{ 'label.anchor.all' | translate }}</a></li>
+                                <li><a href="#/reports/clients" has-permission='READ_REPORT'>{{ 'label.anchor.clients' | translate }}</a></li>
+                                <li><a href="#/reports/loans" has-permission='READ_REPORT'>{{ 'label.anchor.loans' | translate }}</a></li>
+                                <li><a href="#/reports/savings" has-permission='READ_REPORT'>{{ 'label.anchor.savings' | translate }}</a></li>
+                                <li><a href="#/reports/funds" has-permission='READ_REPORT'>{{ 'label.anchor.funds' | translate }}</a></li>
+                                <li><a href="#/reports/accounting" has-permission='READ_REPORT'>{{ 'label.anchor.accounting' | translate }}</a></li>
+                                <li><a href="#/xbrl" has-permission='READ_REPORT'>{{ 'label.anchor.xbrl' | translate }}</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="preview-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('admin') }" href="#"><i class="icon-wrench"></i> {{ 'label.anchor.admin' | translate }}<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#/users" has-permission='READ_USER'>{{ 'label.anchor.users' | translate }}</a></li>
+                                <li><a href="#/organization">{{ 'label.anchor.organization' | translate }}</a></li>
+                                <li><a href="#/system">{{ 'label.anchor.system' | translate }}</a></li>
+                                <li><a href="#/products">{{ 'label.anchor.products' | translate }}</a></li>
+                                <li><a href="#/templates" has-permission='READ_TEMPLATE'>{{ 'label.anchor.templates' | translate }}</a></li>
+                            </ul>
+                        </li>
+                	</ul>
+                    <ul class="nav navbar-nav navbar-right" id="main-menu-right">
+                        <li class="dropdown" id="user-menu">
+                            <a id="user-dropdown" class="dropdown-toggle" data-toggle="dropdown" href="#"> {{currentSession.user.name}}<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="help" ng-click="helpf()"><i class="icon-question-sign"></i> {{ 'label.anchor.help' | translate }}</a></li>
+                                <li><a href="#/profile"><i class="icon-user"></i> {{ 'label.anchor.profile' | translate }}</a></li>
+                                <li><a href="#/usersetting"><i class="icon-cog"></i> {{ 'label.anchor.settings' | translate }}</a></li>
+                                <li><a id="logout" data-ng-click="logout()"><i class="icon-off"></i> {{ 'label.anchor.logout' | translate }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form ng-submit="search()" class="navbar-form navbar-right ng-pristine ng-valid">
+                        <div class="input-group" style="width:250px">
+                            <div class="input-group-btn search-panel">
+                                <button type="button" class="btn btn-warn dropdown-toggle" data-toggle="dropdown">
+                                     {{currentScope.name | translate}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="searchScope in searchScopes" ng-click="changeScope(searchScope)">
+                                        <a href= "">{{ searchScope.name |translate}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input id ="search" type="text" class="form-control" data-ng-model="search.query"  placeholder="{{'label.searchorpress'|translate}}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container whitebg fullscreen">
+            <div>
+                <div class="row whitebg">
+                    <div class="col-md-12 pull-right whitebg">
+                        <div class="whitebg" ng-view></div>
+                    </div>
+                    <!-- Footer -->
+                    <footer>
+                        <p align="center">
+                            <a href="https://github.com/openMF/incubator-fineract/blob/master/MIFOS-CHANGELOG.md" target="_blank">
+                                {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' | translate}} {{releasedate}}
+                            </a>
+                        </p>
+                    </footer>
+                    <hr>
+                </div> <!-- /row-fluid -->
+            </div><!-- /blockui-->
+        </div><!-- /container -->
+    </div>
+</div>
+<!-- Le javascript -->
+<script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- devcode: !production -->
+<!-- begin olark code -->
+<!--<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+f[z]=function(){
+(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+0:+new Date};a.P=function(u){
+a.p[u]=new Date-a.p[0]};function s(){
+a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+b.contentWindow[g].open()}catch(w){
+c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('9391-547-10-6064');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9391-547-10-6064/contact" title="Send Feedback" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+&lt;!&ndash; end olark code &ndash;&gt;
+&lt;!&ndash; endcode &ndash;&gt;-->
+</body>
+</html>

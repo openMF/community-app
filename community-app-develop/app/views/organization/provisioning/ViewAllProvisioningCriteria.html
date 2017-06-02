@@ -1,0 +1,24 @@
+<div class="col-md-12" ng-controller="ViewAllProvisoningCriteriaController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.provisioningcriteria' | translate}}</li>
+    </ul>
+
+    <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a href="#/createprovisioningcriteria" class="btn btn-primary pull-right" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="icon-plus icon-white"></i>{{'label.button.createprovisioningcriteria' | translate}}</a>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.createdby' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="criteriaObject in criterias |orderBy:'criteriaName':reverse | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.criteriaName}}</td>
+            <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.createdBy}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

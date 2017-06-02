@@ -1,0 +1,36 @@
+apply plugin:"war"
+apply plugin:"maven"
+
+war {
+	// TODO This, for now, really *SHOULD* normally be:
+	//    from "app"
+	// but, because of pending https://github.com/openMF/community-app/issues/201
+	// we unfortunately need to package the entiry project (and then access /app), so:
+	from "."
+	exclude "build/**"
+	exclude "node_modules"
+	exclude "dist"
+	exclude ".settings"
+	exclude ".gradle"
+	exclude "app/WEB-INF/"
+	webInf { from 'app/WEB-INF' }  
+
+	// TODO Later, when the Grunt-based minification etc. works,
+	// this will instead have to package the result of that (and kick of Grunt, from Gradle):
+	//    from "dist"
+}
+
+war.doFirst {
+    exec {
+        commandLine 'bower', 'install'
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = 'org.mifosplatform.angularui'
+        pom.artifactId = 'community-app'
+        pom.version = '1.0.0-SNAPSHOT'
+    }
+}
+
