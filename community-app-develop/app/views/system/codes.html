@@ -1,0 +1,24 @@
+<div class="col-md-12" data-ng-controller="CodeController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managecodes' | translate}}</li>
+    </ul>
+
+    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a href="#/addcode" class="btn btn-primary pull-right" has-permission='CREATE_CODE'><i class="icon-plus icon-white"></i>{{'label.button.addcode' | translate }}</a>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{ 'label.heading.codename' | translate }}</th>
+            <th>{{ 'label.heading.systemdefined' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-code" data-ng-repeat="code in codes | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(code.id)">{{code.name | translate}}</td>
+            <td class="pointer" data-ng-click="routeTo(code.id)">{{code.systemDefined}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,28 @@
+<div class="col-md-12" ng-controller="ClientScreenReportController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href='#/viewclient/{{clientId}}'>{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{'label.anchor.clientscreenreport' | translate}}</li>
+        </ul>
+    </div>
+    <legend>{{'label.heading.clientscreenreport' | translate}}</legend>
+    <div class="span"></div>
+    <div class="col-sm-3 col-md-3">
+        <table class="table">
+            <tr ng-repeat="templateData in clientTemplateData" ng-class="{graybg: templateData.id == selectedTemplate}">
+                <td>
+                    <a ng-click="getClientTemplate(templateData.id)">{{templateData.name}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-8 col-md-8" ng-show="template">
+        <span ng-bind-html="template"></span>
+    <span class="col-md-offset-3 paddedtop10">
+       <button type="button" data-ng-click="print(template)" class="btn btn-primary"><i class="icon-print"></i>&nbsp;&nbsp;{{'label.button.print'|
+           translate}}
+       </button>
+    </span>
+    </div>
+</div>

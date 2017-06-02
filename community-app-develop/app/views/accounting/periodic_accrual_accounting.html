@@ -1,0 +1,26 @@
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li class="active">{{'label.anchor.periodicaccrualaccounting' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="periodicaccrualform" novalidate="" ng-submit="submit()" ng-controller="PeriodicAccrualAccountingController">
+        <fieldset>
+            <legend>{{ 'label.heading.periodicaccrualaccounting' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="accrueTill">{{'label.periodicaccrual.tilldate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="accrueTill" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control" is-open="opened"
+                           ng-model="accrueTill" min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='EXECUTE_PERIODICACCRUALACCOUNTING'>{{ 'label.button.execute.periodic.accruals' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+ </div>

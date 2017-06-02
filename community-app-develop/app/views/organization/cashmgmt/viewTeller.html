@@ -1,0 +1,41 @@
+<div class="col-md-12" ng-controller="ViewTellerController">
+	<ul class="breadcrumb">
+	    <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+	    <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+	    <li class="active">{{teller.name}}</li>
+	</ul>
+	<div class="col-md-12 col-sm-12">
+        <div class="row primarydiv">
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/editteller/{{teller.id}}" class="btn btn-primary" has-permission='UPDATE_TELLER'><i class="icon-edit icon-white"></i>{{
+                    'label.button.edit' | translate }}</a>
+            </div>
+        </div>
+        </div>
+        <h3><strong>{{teller.name}}</strong></h3>
+        <table class="table-bordered table view-table" style="width: 350px">
+            <tr>
+                <td>{{ 'label.input.teller.office' | translate }}</td>
+                <td>{{teller.officeName}}</td>
+            </tr>
+	            <tr>
+                <td>{{ 'label.input.teller.description' | translate }}</td>
+                <td>{{teller.description}}</td>
+            </tr>
+	            <tr>
+                <td>{{ 'label.input.teller.startDate' | translate }}</td>
+                <td>{{teller.startDate | DateFormat }}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.input.teller.endDate' | translate }}</td>
+                <td>{{teller.endDate | DateFormat }}</td>
+            </tr>
+            <tr>
+                <td>{{ 'label.input.teller.status' | translate }}</td>
+                <td>{{teller.status}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
