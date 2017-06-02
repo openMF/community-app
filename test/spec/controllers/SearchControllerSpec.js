@@ -33,7 +33,12 @@ describe("SearchController", function () {
             centerAccountResource: {
                 get: jasmine.createSpy('centerAccountResources.get()').andCallFake(function (params, callback) {
                     centerAccountGet = callback;
-                })}
+                })},
+            clientChargesResource: {
+                getCharges: jasmine.createSpy('clientChargesResource.getCharges()').andCallFake(function (params, callback){
+
+                })
+            }
         }
         this.controller = new mifosX.controllers.SearchController(this.scope, this.route, this.resourceFactory);
 

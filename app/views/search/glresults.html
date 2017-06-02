@@ -69,6 +69,26 @@
         <br/>
         <table width="100%" class="table">
             <tr class="graybg">
+                <th>{{'label.heading.upcomingcharges'| translate}}</th>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.dueasof' | translate}}</th>
+                <th>{{'label.heading.paid' | translate}}</th>
+                <th>{{'label.heading.outstanding' | translate}}</th>
+            </tr>
+            <tr ng-repeat="charge in charges | filter:isNotClosed">
+                <td></td>
+                <td>
+                    <i class="icon-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}" ></i>
+                    &nbsp;{{charge.name}}
+                </td>
+                <td>{{charge.dueDate | DateFormat}}</td>
+                <td>{{(charge.amountPaid) ? (charge.ammountPaid | number) : 0}}</td>
+                <td>{{charge.amountOutstanding | number}}</td>
+            </tr>
+            <tr>
+                <td colspan="5">&nbsp;</td>
+            </tr>
+            <tr class="graybg">
                 <th>{{'label.heading.loanaccount'| translate}}</th>
                 <th></th>
                 <th>{{'label.heading.loantype'| translate}}</th>
