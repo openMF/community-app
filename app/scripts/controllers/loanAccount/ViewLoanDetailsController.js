@@ -41,6 +41,7 @@
                         location.path('/addcollateral/' + accountId);
                         break;
                     case "assignloanofficer":
+                    case "changeloanofficer":
                         location.path('/assignloanofficer/' + accountId);
                         break;
                     case "modifyapplication":
@@ -207,7 +208,7 @@
                     ],
                         options: [
                             {
-                                name: "button.assignloanofficer",
+                                name: (scope.loandetails.loanOfficerName?"button.changeloanofficer":"button.assignloanofficer"),
                                 taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                             },
                             {
@@ -248,7 +249,7 @@
                 if (data.status.value == "Approved") {
                     scope.buttons = { singlebuttons: [
                         {
-                            name: "button.assignloanofficer",
+                            name: (scope.loandetails.loanOfficerName?"button.changeloanofficer":"button.assignloanofficer"),
                             icon: "fa fa-user",
                             taskPermissionName: 'UPDATELOANOFFICER_LOAN'
                         },
