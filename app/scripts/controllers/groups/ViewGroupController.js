@@ -9,6 +9,7 @@
             scope.openLoan = true;
             scope.openSaving = true;
             scope.editMeeting = false;
+            scope.isGroupMembersAvailable = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -20,6 +21,9 @@
             };
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'all'}, function (data) {
                 scope.group = data;
+                if(scope.group.clientMembers){
+                    scope.isGroupMembersAvailable = (scope.group.clientMembers.length>0);
+                }
                 scope.isClosedGroup = scope.group.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if(data.collectionMeetingCalendar) {
