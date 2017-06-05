@@ -8,6 +8,20 @@
             scope.formData = {};
             scope.formDat = {};
             scope.tf = "HH:mm";
+            scope.makedatatableentry = true;
+            if (scope.fromEntity == 'client') {
+                scope.path = ('/viewclient/' + routeParams.entityId);
+            } else if (scope.fromEntity == 'group') {
+                scope.path = ('/viewgroup/' + routeParams.entityId);
+            } else if (scope.fromEntity == 'center') {
+                scope.path = ('/viewcenter/' + routeParams.entityId);
+            } else if (scope.fromEntity == 'loan') {
+                scope.path = ('/viewloanaccount/' + routeParams.entityId);
+            } else if (scope.fromEntity == 'savings') {
+              scope.path = ('/viewsavingaccount/' + routeParams.entityId);
+            } else if (scope.fromEntity == 'office') {
+                scope.path = ('/viewoffice/' + routeParams.entityId);
+            }
             resourceFactory.DataTablesResource.getTableDetails({ datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true' }, function (data) {
 
                 var colName = data.columnHeaders[0].columnName;
@@ -59,19 +73,7 @@
             };
 
             scope.cancel = function () {
-                if (scope.fromEntity == 'client') {
-                    location.path('/viewclient/' + routeParams.entityId).search({});
-                } else if (scope.fromEntity == 'group') {                    
-                    location.path('/viewgroup/' + routeParams.entityId).search({});
-                } else if (scope.fromEntity == 'center') {                    
-                    location.path('/viewcenter/' + routeParams.entityId).search({});
-                } else if (scope.fromEntity == 'loan') {                    
-                    location.path('/viewloanaccount/' + routeParams.entityId).search({});
-                } else if (scope.fromEntity == 'savings') {
-                    location.path('/viewsavingaccount/' + routeParams.entityId).search({});
-                } else if (scope.fromEntity == 'office') {
-                    location.path('/viewoffice/' + routeParams.entityId).search({});
-                };
+                location.path(scope.path).search({});
             };
             scope.submit = function () {
                 var params = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
