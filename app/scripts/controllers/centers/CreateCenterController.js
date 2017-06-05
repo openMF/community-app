@@ -15,16 +15,22 @@
                 scope.staffs = data.staffOptions;
                 scope.groups = data.groupMembersOptions;
                 scope.formData.officeId = data.officeOptions[0].id;
+                scope.getGroups();
             });
+
+            scope.getGroups = function() {
+                resourceFactory.groupResource.getAllGroups({officeId: scope.formData.officeId }, function (data) {
+                    scope.groups = data;
+                });
+            }
 
             scope.changeOffice = function () {
                 resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true, officeId: scope.formData.officeId
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                 });
-                resourceFactory.centerTemplateResource.get({officeId: scope.formData.officeId }, function (data) {
-                    scope.groups = data.groupMembersOptions;
-                });
+                scope.getGroups();
+
             };
             scope.setChoice = function () {
                 if (this.formData.active) {
