@@ -64,17 +64,17 @@
                 <tr ng-repeat="rateperiod in formData.ratePeriods">
                     <td>
                         <ng-form name="fromDate{{$index}}">
-                        <input type="text" id="fromDate1" name="fromDate1" datepicker-pop="dd MMMM yyyy"
+                        <input type="text" id="fromDate{{$index}}" name="fromDate" datepicker-pop="dd MMMM yyyy"
                                ng-model="rateperiod.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
                                class="form-control" required/>
-                            <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate1.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate.$error.required">{{ 'label.requirefield' | translate }}</span>
                         </ng-form>
                     </td>
                     <td>
                         <ng-form name="interestRate{{$index}}">
-                            <input id="interestRate1" name="interestRate1" class="form-control" type="text"
+                           <input id="interestRate{{$index}}" name="interestRate" class="form-control" type="text"
                                    ng-model="rateperiod.interestRate" number-format required/>
-                            <span class="error" ng-show="visitValidation&&interestRate{{$index}}.interestRate1.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            <span class="error" ng-show="visitValidation&&interestRate{{$index}}.interestRate.$error.required">{{ 'label.requirefield' | translate }}</span>
                         </ng-form>
                     </td>
                     <td>
