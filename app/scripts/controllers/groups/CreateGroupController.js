@@ -28,6 +28,9 @@
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
             }
+            else{
+                requestParams.centerId = 1;
+            }
             resourceFactory.groupTemplateResource.get(requestParams, function (data) {
                 scope.offices = data.officeOptions;
                 scope.staffs = data.staffOptions;
