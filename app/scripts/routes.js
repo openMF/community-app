@@ -121,6 +121,9 @@
             .when('/addclientidentifierdocument/:clientId/:resourceId', {
                 templateUrl: 'views/clients/addclientidentifierdocument.html'
             })
+            .when('/survey/:clientId', {
+                templateUrl: 'views/clients/survey.html'
+            })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
@@ -135,6 +138,9 @@
             })
             .when('/viewloanaccount/:id', {
                 templateUrl: 'views/loans/viewloanaccountdetails.html'
+            })
+            .when('/adjustrepaymentschedule/:accountId', {
+                templateUrl: 'views/loans/AdjustRepaymentSchdule.html'
             })
             .when('/loanaccount/:id/:action', {
                 templateUrl: 'views/loans/loanaccountactions.html'
@@ -196,44 +202,69 @@
             .when('/viewcharge/:id', {
                 templateUrl: 'views/products/viewcharge.html'
             })
+            .when('/floatingrates', {
+                templateUrl: 'views/products/floatingrates/FloatingRates.html'
+            })
+            .when('/createfloatingrate', {
+                templateUrl: 'views/products/floatingrates/CreateFloatingRate.html'
+            })
+            .when('/viewfloatingrate/:floatingRateId', {
+                templateUrl: 'views/products/floatingrates/ViewFloatingRate.html'
+            })
+            .when('/editfloatingrate/:floatingRateId', {
+                templateUrl: 'views/products/floatingrates/EditFloatingRate.html'
+            })
+
             .when('/savingproducts', {
                 templateUrl: 'views/products/savingproducts.html'
+            })
+            .when('/shareproducts', {
+                templateUrl: 'views/products/shareproducts.html'
+            })
+            .when('/createshareproduct', {
+                templateUrl: 'views/products/createshareproduct.html'
+            })
+            .when('/editshareproduct/:id', {
+                templateUrl: 'views/products/editshareproduct.html'
+            })
+            .when('/viewshareproduct/:id', {
+                templateUrl: 'views/products/viewshareproduct.html'
             })
             .when('/viewsavingproduct/:id', {
                 templateUrl: 'views/products/viewsavingproduct.html'
             })
             .when('/fixeddepositproducts', {
-              templateUrl: 'views/products/fixeddepositproducts.html'
+                templateUrl: 'views/products/fixeddepositproducts.html'
             })
             .when('/viewfixeddepositproduct/:productId', {
-              templateUrl: 'views/products/viewfixeddepositproduct.html'
+                templateUrl: 'views/products/viewfixeddepositproduct.html'
             })
             .when('/createfixeddepositproduct', {
-              templateUrl: 'views/products/createfixeddepositproduct.html'
+                templateUrl: 'views/products/createfixeddepositproduct.html'
             })
             .when('/editfixeddepositproduct/:productId', {
-              templateUrl: 'views/products/editfixeddepositproduct.html'
+                templateUrl: 'views/products/editfixeddepositproduct.html'
             })
             .when('/recurringdepositproducts', {
-              templateUrl: 'views/products/recurringdepositproducts.html'
+                templateUrl: 'views/products/recurringdepositproducts.html'
             })
             .when('/viewrecurringdepositproduct/:productId', {
-              templateUrl: 'views/products/viewrecurringdepositproduct.html'
+                templateUrl: 'views/products/viewrecurringdepositproduct.html'
             })
             .when('/createrecurringdepositproduct', {
-              templateUrl: 'views/products/createrecurringdepositproduct.html'
+                templateUrl: 'views/products/createrecurringdepositproduct.html'
             })
             .when('/editrecurringdepositproduct/:productId', {
-              templateUrl: 'views/products/editrecurringdepositproduct.html'
+                templateUrl: 'views/products/editrecurringdepositproduct.html'
             })
             .when('/createinterestratechart/:productId/:productName/:productType', {
-              templateUrl: 'views/products/createinterestratechart.html'
+                templateUrl: 'views/products/createinterestratechart.html'
             })
             .when('/interestratecharts/:productId/:productName/:productType', {
-              templateUrl: 'views/products/interestratecharts.html'
+                templateUrl: 'views/products/interestratecharts.html'
             })
             .when('/editinterestratecharts/:chartId/:productId/:productName/:productType', {
-              templateUrl: 'views/products/editinterestratechart.html'
+                templateUrl: 'views/products/editinterestratechart.html'
             })
             .when('/offices', {
                 templateUrl: 'views/organization/offices.html'
@@ -343,6 +374,18 @@
             .when('/openingbalances',{
                 templateUrl: 'views/accounting/openingbalances.html'
             })
+            .when('/viewprovisioningentries',{
+                templateUrl: 'views/accounting/provisioning/ProvisioningEntries.html'
+            })
+            .when('/createprovisioningentries',{
+                templateUrl: 'views/accounting/provisioning/CreateProvisioningEntries.html'
+            })
+            .when('/viewprovisioningentry/:entryId',{
+                templateUrl: 'views/accounting/provisioning/ViewProvisioningEntry.html'
+            })
+            .when('/viewprovisioningjournalentry/:entryId',{
+                templateUrl: 'views/accounting/provisioning/ViewProvisioningJournalEntries.html'
+            })
             .when('/viewcode/:id', {
                 templateUrl: 'views/system/viewcode.html'
             })
@@ -388,13 +431,13 @@
             .when('/editcode/:id', {
                 templateUrl: 'views/system/editcode.html'
             })
-			.when('/hooks', {
+            .when('/hooks', {
                 templateUrl: 'views/system/hooks.html'
             })
-			.when('/viewhook/:id', {
+            .when('/viewhook/:id', {
                 templateUrl: 'views/system/viewhook.html'
             })
-			.when('/addhook', {
+            .when('/addhook', {
                 templateUrl: 'views/system/addhook.html'
             })
             .when('/edithook/:id', {
@@ -497,8 +540,8 @@
                 templateUrl: 'views/groups/attachmeeting.html'
             })
             .when('/editcalendarbasedonmeetingdates/:entityType/:groupOrCenterId/:calendarId', {
-             templateUrl: 'views/groups/editmeeting_based_on_meeting_date.html'
-             })
+                templateUrl: 'views/groups/editmeeting_based_on_meeting_date.html'
+            })
             .when('/editcalendar/:entityType/:groupOrCenterId/:calendarId', {
                 templateUrl: 'views/groups/editmeeting.html'
             })
@@ -524,19 +567,19 @@
                 templateUrl: 'views/savings/view_saving_transaction.html'
             })
             .when('/newclientfixeddepositaccount/:clientId', {
-              templateUrl: 'views/deposits/fixed/newapplication.html'
+                templateUrl: 'views/deposits/fixed/newapplication.html'
             })
             .when('/viewfixeddepositaccount/:id', {
-              templateUrl: 'views/deposits/fixed/viewaccountdetails.html'
+                templateUrl: 'views/deposits/fixed/viewaccountdetails.html'
             })
             .when('/editfixeddepositaccount/:id', {
-              templateUrl: 'views/deposits/fixed/edit_account_application.html'
+                templateUrl: 'views/deposits/fixed/edit_account_application.html'
             })
             .when('/fixeddepositaccount/:id/charges', {
                 templateUrl: 'views/deposits/fixed/add_new_fixed_deposit_charge.html'
             })
             .when('/fixeddepositaccount/:id/:action', {
-              templateUrl: 'views/deposits/fixed/fixed_deposit_account_actions.html'
+                templateUrl: 'views/deposits/fixed/fixed_deposit_account_actions.html'
             })
             .when('/fixeddepositaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/deposits/fixed/fixed_deposit_account_actions.html'
@@ -545,19 +588,19 @@
                 templateUrl: 'views/deposits/fixed/view_fixed_deposit_transaction.html'
             })
             .when('/newclientrecurringdepositaccount/:clientId', {
-              templateUrl: 'views/deposits/recurring/newapplication.html'
+                templateUrl: 'views/deposits/recurring/newapplication.html'
             })
             .when('/viewrecurringdepositaccount/:id', {
-              templateUrl: 'views/deposits/recurring/viewaccountdetails.html'
+                templateUrl: 'views/deposits/recurring/viewaccountdetails.html'
             })
             .when('/editrecurringdepositaccount/:id', {
-              templateUrl: 'views/deposits/recurring/edit_account_application.html'
+                templateUrl: 'views/deposits/recurring/edit_account_application.html'
             })
             .when('/recurringdepositaccount/:id/charges', {
                 templateUrl: 'views/deposits/recurring/add_new_recurring_deposit_charge.html'
             })
             .when('/recurringdepositaccount/:id/:action', {
-              templateUrl: 'views/deposits/recurring/recurring_deposit_account_actions.html'
+                templateUrl: 'views/deposits/recurring/recurring_deposit_account_actions.html'
             })
             .when('/recurringdepositaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/deposits/recurring/recurring_deposit_account_actions.html'
@@ -716,7 +759,7 @@
                 templateUrl: 'views/savings/assignsavingsofficer.html'
             })
             .when('/unassignsavingsofficer/:id', {
-            templateUrl: 'views/savings/unassignsavingsofficer.html'
+                templateUrl: 'views/savings/unassignsavingsofficer.html'
             })
             .when('/tellers', {
                 templateUrl: 'views/organization/cashmgmt/tellers.html'
@@ -774,7 +817,98 @@
             })
             .when('/loans/:loanId/previewloanrepaymentschedule/:requestId', {
                 templateUrl: 'views/loans/previewloanrepaymentschedule.html'
-            });
+            })
+            .when('/viewallprovisionings', {
+                templateUrl: 'views/organization/provisioning/ViewAllProvisioningCriteria.html'
+            })
+            .when('/createprovisioningcriteria', {
+                templateUrl: 'views/organization/provisioning/CreateProvisioningCriteria.html'
+            })
+            .when('/viewprovisioningcriteria/:criteriaId', {
+                templateUrl: 'views/organization/provisioning/ViewProvisioningCriteria.html'
+            })
+            .when('/editprovisioningcriteria/:criteriaId', {
+                templateUrl: 'views/organization/provisioning/EditProvisioningCriteria.html'
+            })
+            .when('/taxconfiguration',{
+                templateUrl: 'views/products/tax/TaxConfigurations.html'
+            })
+            .when('/createtaxcomponent', {
+                templateUrl: 'views/products/tax/CreateTaxComponent.html'
+            })
+            .when('/taxcomponents', {
+                templateUrl: 'views/products/tax/TaxComponents.html'
+            })
+            .when('/viewtaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/ViewTaxComponent.html'
+            })
+            .when('/edittaxcomponent/:taxComponentId', {
+                templateUrl: 'views/products/tax/EditTaxComponent.html'
+            })
+            .when('/createtaxgroup', {
+                templateUrl: 'views/products/tax/CreateTaxGroup.html'
+            })
+            .when('/taxgroups', {
+                templateUrl: 'views/products/tax/TaxGroups.html'
+            })
+            .when('/viewtaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/ViewTaxGroup.html'
+            })
+            .when('/edittaxgroup/:taxGroupId', {
+                templateUrl: 'views/products/tax/EditTaxGroup.html'
+            })
+            .when('/createshareaccount/:clientId', {
+                templateUrl: 'views/shares/createshareaccount.html'
+            })
+            .when('/viewshareaccount/:id', {
+                templateUrl: 'views/shares/viewshareaccount.html'
+            })
+            .when('/editshareaccount/:accountId', {
+                templateUrl: 'views/shares/editshareaccount.html'
+            })
+            .when('/shareaccount/:accountId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/shareaccount/:accountId/purchasedshares/:purchasedSharesId/:action', {
+                templateUrl: 'views/shares/shareaccountactions.html'
+            })
+            .when('/dividends/:productId/', {
+                templateUrl: 'views/products/dividendlisting.html'
+            })
+            .when('/dividends/:productId/dividend/:dividendId/:status', {
+                templateUrl: 'views/products/viewdividends.html'
+            })
+            .when('/shareproduct/:productId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+            .when('/shareproduct/:productId/:dividendId/:action', {
+                templateUrl: 'views/products/shareproductactions.html'
+            })
+            .when('/loanforeclosure/:id', {
+                templateUrl: 'views/loans/loanforeclosure.html'
+            })
+            .when('/address/:id', {
+                templateUrl: 'views/administration/AddressForm.html'
+            })
+            .when('/editAddress/:addrType/:addrId/:clientId', {
+                templateUrl: 'views/administration/EditAddress.html'
+            })
+            .when('/smscampaigns', {
+                templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
+            })
+            .when('/createsmscampaign', {
+                templateUrl: 'views/organization/smscampaigns/createsmscampaign.html'
+            })
+            .when('/viewsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/viewsmscampaign.html'
+            })
+            .when('/editsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/editsmscampaign.html'
+            })
+            .when('/entitydatatablechecks', {
+                templateUrl: 'views/organization/entitydatatablechecks/entitydatatablechecks.html'
+            })
+        ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

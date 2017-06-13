@@ -97,12 +97,27 @@
     <td>{{'label.heading.repayevery' | translate}}:</td>
     <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
 </tr>
-<tr>
+<tr ng-show="!loanproduct.isLinkedToFloatingInterestRates">
     <td>{{'label.heading.nominalinterestrate' | translate}}:</td>
-    <td colspan="3">{{loanproduct.interestRatePerPeriod}}&nbsp;&nbsp;&nbsp;(
-        Min:{{loanproduct.minInterestRatePerPeriod}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}
+    <td colspan="3">{{loanproduct.interestRatePerPeriod | number}}&nbsp;&nbsp;&nbsp;(
+        Min:{{loanproduct.minInterestRatePerPeriod | number}}&nbsp;, Max:{{loanproduct.maxInterestRatePerPeriod | number}})&nbsp;&nbsp;{{loanproduct.interestRateFrequencyType.value}}
     </td>
 </tr>
+<tr ng-show="loanproduct.isLinkedToFloatingInterestRates">
+    <td>{{'label.heading.floatinglendingrate' | translate}}:</td>
+    <td colspan="3">{{loanproduct.floatingRateName}}&nbsp;&nbsp;&nbsp;
+        {{'label.heading.floatinginterestratedifferential' | translate}}:{{loanproduct.interestRateDifferential}} &nbsp;&nbsp;&nbsp;
+        {{'label.heading.isFloatingInterestRateCalculationAllowed' | translate}}:{{loanproduct.isFloatingInterestRateCalculationAllowed}}
+    </td>
+</tr>
+
+<tr ng-show="loanproduct.isLinkedToFloatingInterestRates">
+    <td>{{'label.heading.floatinginterestrate' | translate}}:</td>
+    <td colspan="3">{{loanproduct.defaultDifferentialLendingRate}}&nbsp;&nbsp;&nbsp;
+        (Min:{{loanproduct.minDifferentialLendingRate}}&nbsp;, Max:{{loanproduct.maxDifferentialLendingRate}})&nbsp;&nbsp;
+    </td>
+</tr>
+
 <tr class="bottomborder" ng-show="loanproduct.useBorrowerCycle">
     <td colspan="4"><strong>{{'label.heading.principalCycleVariations' | translate}}:</strong></td>
 </tr>
@@ -176,6 +191,10 @@
     <td>{{'label.heading.interestcalculationperiod' | translate}}</td>
     <td colspan="3">{{loanproduct.interestCalculationPeriodType.value}}</td>
 </tr>
+<tr ng-show="loanproduct.interestCalculationPeriodType.id == 1">
+    <td>{{'label.heading.allowpartialperiodinterestcalcualtion' | translate}}</td>
+    <td colspan="3">{{loanproduct.allowPartialPeriodInterestCalcualtion}}</td>
+</tr>
 <tr>
     <td>{{'label.heading.arrearstolerance' | translate}}</td>
     <td colspan="3">{{loanproduct.inArrearsTolerance|number}}</td>
@@ -221,6 +240,16 @@
     <td colspan="3">{{loanproduct.canDefineInstallmentAmount | YesOrNo}}</td>
 </tr>
 
+<tr ng-show="loanproduct.allowVariableInstallments">
+    <td>{{'label.input.variableinstallments' | translate}}</td>
+    <td colspan="3">(Min:{{loanproduct.minimumGap}}&nbsp;, Max:{{loanproduct.maximumGap}})
+    </td>
+</tr>
+<tr>
+    <td>{{'label.input.canUseForTopup' | translate}}</td>
+    <td colspan="3">{{loanproduct.canUseForTopup | YesOrNo}}</td>
+</tr>
+
 <tr>
 <td colspan="4"><br/></td>
 </tr>
@@ -246,32 +275,42 @@
 </tr>
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0">
     <td>{{'label.input.frequency.for.compounding' | translate}}</td>
-    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.value}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.value}}
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id == 3 &&
+                        loanproduct.interestRecalculationData.recalculationCompoundingFrequencyWeekday != null"> on {{ loanproduct.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
+		                loanproduct.interestRecalculationData.recalculationCompoundingFrequencyOnDay != null">on day {{ loanproduct.interestRecalculationData.recalculationCompoundingFrequencyOnDay}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
+                        loanproduct.interestRecalculationData.recalculationCompoundingFrequencyOnDay == null &&
+                        loanproduct.interestRecalculationData.recalculationCompoundingFrequencyNthDay != null">on {{ loanproduct.interestRecalculationData.recalculationCompoundingFrequencyNthDay.value}} {{ loanproduct.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}
+        </label>
+    </td>
 </tr>
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0
         && loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
     <td>{{'label.input.frequenc.interval.for.compounding' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</td>
 </tr>
-<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.interestRecalculationCompoundingType.id != 0
-        && loanproduct.interestRecalculationData.recalculationCompoundingFrequencyType.id!=1">
-    <td>{{'label.input.frequenc.date.for.compounding' | translate}}</td>
-    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationCompoundingFrequencyDate | DateFormat}}</td>
-</tr>
 
 
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.frequency.for.recalculte.outstanding.principal' | translate}}</td>
-    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationRestFrequencyType.value}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationRestFrequencyType.value}}
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationRestFrequencyType.id == 3 &&
+                        loanproduct.interestRecalculationData.recalculationRestFrequencyWeekday != null"> on {{ loanproduct.interestRecalculationData.recalculationRestFrequencyWeekday.value}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
+		                loanproduct.interestRecalculationData.recalculationRestFrequencyOnDay != null">on day {{ loanproduct.interestRecalculationData.recalculationRestFrequencyOnDay}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
+                        loanproduct.interestRecalculationData.recalculationRestFrequencyOnDay == null &&
+                        loanproduct.interestRecalculationData.recalculationRestFrequencyNthDay != null">on {{ loanproduct.interestRecalculationData.recalculationRestFrequencyNthDay.value}} {{ loanproduct.interestRecalculationData.recalculationRestFrequencyWeekday.value}}
+        </label>
+    </td>
 </tr>
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.recalculationRestFrequencyType.id != 1">
     <td>{{'label.input.frequenc.interval.for.recalculte.outstanding.principal' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.recalculationRestFrequencyInterval}}</td>
 </tr>
-<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.recalculationRestFrequencyType.id!=1">
-    <td>{{'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate}}</td>
-    <td colspan="3">{{loanproduct.interestRecalculationData.recalculationRestFrequencyDate | DateFormat}}</td>
-</tr>
+
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.arrearsbasedonoriginalschedule' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.isArrearsBasedOnOriginalSchedule | YesOrNo}}</td>

@@ -22,9 +22,9 @@
     <api-validate></api-validate>
     <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>
 
-    <div ng-hide="transaction.reversed" class="pull-right">
+    <div ng-hide="transaction.interestedPostedAsOn==false && (transaction.transactionType.id==17 || transaction.transactionType.id==3)" class="pull-right">
         <div class="btn-group">
-            <a data-ng-hide="flag" has-permission='ADJUSTTRANSACTION_SAVINGSACCOUNT' 
+            <a ng-show="flag" has-permission='ADJUSTTRANSACTION_SAVINGSACCOUNT'
                href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary"><i class="icon-pencil icon-white"></i>{{ 'label.button.edit' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td>{{ 'label.heading.amount' | translate}}</td>
-                <td>{{transaction.amount}}</td>
+                <td>{{transaction.amount | number}}</td>
             </tr>
         </table>
         <table class="width100" ng-show="transaction.paymentDetailData">

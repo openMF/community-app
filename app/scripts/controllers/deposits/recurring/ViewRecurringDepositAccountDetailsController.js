@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ViewRecurringDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
             scope.isDebit = function (savingsTransactionType) {
-                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
+                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
 
             /***
@@ -76,15 +76,29 @@
                     case "prematureClose":
                         location.path('/recurringdepositaccount/' + accountId + '/prematureClose');
                         break;
+                    case "enableWithHoldTax":
+                        var changes = {
+                            withHoldTax:true
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
+                    case "disableWithHoldTax":
+                        var changes = {
+                            withHoldTax:false
+                        };
+                        resourceFactory.savingsResource.update({accountId: accountId, command: 'updateWithHoldTax'}, changes, function (data) {
+                            route.reload();
+                        });
+                        break;
                 }
             };
 
             resourceFactory.recurringDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.convertDateArrayToObject('date');
                 scope.chartSlabs = scope.savingaccountdetails.accountChart.chartSlabs;
-                scope.savingaccountdetails.accountChart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                    return obj.fromPeriod
-                });
                 scope.isprematureAllowed = data.maturityDate != null;
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
@@ -187,6 +201,21 @@
                             icon: "icon-arrow-right"
                         };
                     }
+
+                    if(data.taxGroup){
+                        if(data.withHoldTax){
+                            scope.buttons.options.push({
+                                name: "button.disableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }else{
+                            scope.buttons.options.push({
+                                name: "button.enableWithHoldTax",
+                                taskPermissionName:"UPDATEWITHHOLDTAX_SAVINGSACCOUNT"
+                            });
+                        }
+                    }
+
                 }
 
                 if (data.status.value == "Matured") {

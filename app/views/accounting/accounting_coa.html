@@ -30,30 +30,30 @@
             <tr class="pointer-main" ng-repeat="coadata in coadatas | orderBy:'type.value' | SearchFilter:filterText">
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.glCode}}</td>
-                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.type.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.type.value | translate}}</td>
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.disabled}}</td>
                 <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.manualEntriesAllowed}}</td>
-                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.usage.value}}</td>
+                <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.usage.value | translate}}</td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div ng-show="isTreeView"  >
+    <div ng-show="isTreeView">
 		<div ng-show="$root.tempNodeID >= 0" class="col-md-6 divscrollable" >
 		
 				<table class="table table-bordered table-striped">
 					<tr>
 						<td>{{ 'label.heading.glcode' | translate }}</td>
-						<td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.glCode}}</td>
+						<td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.glCode | translate}}</td>
 					</tr>
 	            <tr>
 	                <td>{{ 'label.heading.acctype' | translate }}</td>
-	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.type.value}}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.type.value | translate}}</td>
 	            </tr>
 	           
 	            <tr>
 	                <td>{{ 'label.heading.accountusage' | translate }}</td>
-	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.usage.value}}</td>
+	                <td ng-repeat="coadata in coadatas" ng-show="coadata.id == $root.tempNodeID">{{coadata.usage.value | translate}}</td>
 	            </tr>
 	
 	            <tr>

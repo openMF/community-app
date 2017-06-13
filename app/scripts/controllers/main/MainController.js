@@ -6,7 +6,46 @@
             $http.get('release.json').success(function(data) {
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
-            } );
+            });
+
+            scope.islogofoldernamefetched = false;
+            scope.islogofoldernameconfig = false;
+            scope.isFaviconPath = false;
+            scope.isHeaderLogoPath = false;
+            scope.isBigLogoPath = false;
+            scope.isLargeLogoPath = false;
+
+            if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
+                scope.islogofoldernamefetched = true;
+                $http.get('scripts/config/LogoConfig.json').success(function(datas) {
+                    for(var i in datas){
+                        var data = datas[i];
+                        if(data.tenantIdentifier != undefined && data.tenantIdentifier == $rootScope.tenantIdentifier){
+                            if(data.logofoldername != undefined && data.logofoldername != ""){
+                                scope.islogofoldernameconfig = true;
+                                scope.logofoldername = data.logofoldername;
+                                if(data.faviconPath){
+                                    scope.isFaviconPath = true;
+                                    scope.faviconPath = data.faviconPath;
+                                }
+                                if(data.bigLogoPath){
+                                    scope.isBigLogoPath = true;
+                                    scope.bigLogoPath = data.bigLogoPath;
+                                }
+                                if(data.headerLogoPath){
+                                    scope.isHeaderLogoPath = true;
+                                    scope.headerLogoPath = data.headerLogoPath;
+                                }
+                                if(data.largeLogoPath){
+                                    scope.isLargeLogoPath = true;
+                                    scope.largeLogoPath = data.largeLogoPath;
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
             uiConfigService.init();
             //hides loader
             scope.domReady = true;
@@ -32,6 +71,7 @@
                     scope.dateformat = 'dd MMMM yyyy';
                 }
                 scope.df = scope.dateformat;
+                scope.dft = scope.dateformat + ' ' + 'HH:mm:ss'
             };
 
             scope.updateDf = function(dateFormat){
@@ -119,7 +159,7 @@
             });
 
             var setSearchScopes = function () {
-                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
+                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,shares,loans"};
                 var clients = {
                     name: "label.search.scope.clients.and.clientIdentifiers",
                     value: "clients,clientIdentifiers"
@@ -129,8 +169,9 @@
                     value: "groups"
                 };
                 var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
+				var shares = {name: "label.search.scope.shares", value: "shares"};
                 var loans = {name: "label.search.scope.savings", value: "savings"};
-                scope.searchScopes = [all,clients,groups,loans,savings];
+                scope.searchScopes = [all,clients,groups,loans,savings,shares];
                 scope.currentScope = all;
             }
 
@@ -156,7 +197,7 @@
 
             };
             scope.text = '<span>Mifos X is designed by the <a href="http://www.openmf.org/">Mifos Initiative</a>.' +
-            '<a href="http://mifos.org/resources/community/"> A global community </a> thats aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
+            '<a href="http://mifos.org/resources/community/"> A global community </a> that aims to speed the elimination of poverty by enabling Organizations to more effectively and efficiently deliver responsible financial services to the world’s poor and unbanked </span><br/>' +
             '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
             scope.logout = function () {
@@ -290,7 +331,7 @@
                 "https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=67141762","https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=report&startIndex=0&where=docs",
                 "https://mifosforge.jira.com/wiki/dosearchsite.action?queryString=accounting&startIndex=0&where=docs",  "https://mifosforge.jira.com/wiki/display/docs/Manage+Clients",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Groups","https://mifosforge.jira.com/wiki/display/docs/Manage+Centers",
-                "https://mifosforge.jira.com/wiki/display/docs/Community+App+User+Manual","https://mifosforge.jira.com/wiki/display/docs/Manage+Offices",
+                "https://mifosforge.jira.com/wiki/display/docs/User+Manual","https://mifosforge.jira.com/wiki/display/docs/Manage+Offices",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Holidays","https://mifosforge.jira.com/wiki/display/docs/Manage+Employees",
                 "https://mifosforge.jira.com/wiki/display/docs/Manage+Funds","https://mifosforge.jira.com/wiki/display/docs/Bulk+Loan+Reassignment",
                 "https://mifosforge.jira.com/wiki/display/docs/Currency+Configuration","https://mifosforge.jira.com/wiki/display/docs/Standing+Instructions+History",

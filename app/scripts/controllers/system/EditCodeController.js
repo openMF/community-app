@@ -3,10 +3,10 @@
         EditCodeController: function (scope, routeParams, resourceFactory, location) {
             scope.codevalues = [];
             scope.newcodevalues = [];
-            scope.newEle = undefined;
-            scope.codevalueerror = false;
             scope.newEle = {};
-
+            scope.errorDetails = [];
+            scope.codevalueerror = false;
+            scope.newEle.isActive = true;
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codeId = data.id;
@@ -19,7 +19,7 @@
 
             scope.addCv = function () {
                 if (scope.newEle != undefined && scope.newEle.hasOwnProperty('name')) {
-                    scope.codevalueerror = true;
+                    //scope.codevalueerror = true;
                     resourceFactory.codeValueResource.save({codeId: routeParams.id}, this.newEle, function (data) {
                         scope.stat = false;
                         location.path('/viewcode/' + routeParams.id);
@@ -27,6 +27,13 @@
                 } else if (!scope.newEle.name) {
                     scope.codevalueerror = true;
                     scope.labelerror = "codevalueerror";
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({value:'label.input.codevalue'});
+                    scope.errorDetails.push(errorObj);
                 }
 
             };
@@ -43,3 +50,5 @@
         $log.info("EditCodeController initialized");
     });
 }(mifosX.controllers || {}));
+
+

@@ -4,43 +4,37 @@
             scope.workingDays = [];
             scope.selectedRepaymentType = "";
             scope.compareWith = [
-                {name: "MO", value: "Monday"},
-                {name: "TU", value: "Tuesday"},
-                {name: "WE", value: "Wednesday"},
-                {name: "TH", value: "Thursday"},
-                {name: "FR", value: "Friday"},
-                {name: "SA", value: "Saturday"},
-                {name: "SU", value: "Sunday"}
+                {name: "MO", value: "Monday", code: "day.monday"},
+                {name: "TU", value: "Tuesday", code: "day.tuesday"},
+                {name: "WE", value: "Wednesday", code: "day.wednesday"},
+                {name: "TH", value: "Thursday", code: "day.thursday"},
+                {name: "FR", value: "Friday", code: "day.friday"},
+                {name: "SA", value: "Saturday", code: "day.saturday"},
+                {name: "SU", value: "Sunday", code: "day.sunday"}
             ];
-
-            resourceFactory.workingDaysResource.get(function(data){
-                scope.repaymentRescheduleTypes = [{
-                    id: data.repaymentRescheduleType.id,
-                    value:data.repaymentRescheduleType.value,
-                    code :data.repaymentRescheduleType.code
-                }];
-                scope.selectedRepaymentType = scope.repaymentRescheduleTypes[0].id;
+            resourceFactory.workingDaysResource.get(function (data) {
+                scope.selectedRepaymentType = data.repaymentRescheduleType.id;
+                scope.repaymentRescheduleOptions = data.repaymentRescheduleOptions ; //Good have template options as part of a single REST call
                 scope.extendTermForDailyRepayments = data.extendTermForDailyRepayments;
                 var temp = data.recurrence.split("=");
                 var days = temp[3].split(",");
 
-                for(var i in scope.compareWith){
-                    if(days.indexOf(scope.compareWith[i].name.toString()) > -1){
+                for (var i in scope.compareWith) {
+                    if (days.indexOf(scope.compareWith[i].name.toString()) > -1) {
                         scope.workingDays.push({
-                            day : scope.compareWith[i].value,
-                            value : true
+                            day: scope.compareWith[i].value,
+                            code: scope.compareWith[i].code,
+                            value: true
                         });
                     }
-                    else{
+                    else {
                         scope.workingDays.push({
-                            day : scope.compareWith[i].value,
-                            value : false
+                            day: scope.compareWith[i].value,
+                            code: scope.compareWith[i].code,
+                            value: false
                         });
                     }
                 }
-            });
-            resourceFactory.workingDaysResourceTemplate.get(function(data){
-                scope.repaymentRescheduleOptions = data.repaymentRescheduleOptions;
             });
 
             scope.showLabel = function(day){
@@ -65,9 +59,9 @@
                 if(selectedDays == ""){
                     selectedDays = ",";
                 }
+                this.formData.repaymentRescheduleType = scope.selectedRepaymentType ;
                 this.formData.recurrence = 	stringFormat.concat(selectedDays);
                 this.formData.locale = scope.optlang.code;
-                this.formData.repaymentRescheduleType = scope.selectedRepaymentType;
                 this.formData.extendTermForDailyRepayments = scope.extendTermForDailyRepayments;
                 resourceFactory.workingDaysResource.put(this.formData, function(data){
                     location.path('/organization/');

@@ -66,6 +66,15 @@
                     scope.showPaymentDetails = false;
                     scope.taskPermissionName = 'DEPOSIT_SAVINGSACCOUNT';
                     break;
+                case "postInterestAsOn":
+                    resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
+                       scope.accountnumber=data.accountNo;
+                    });
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.modelName = 'transactionDate';
+                    scope.showDateField = true;
+                    scope.showAccountNumber=true;
+                    break;
                 case "withdrawal":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
@@ -111,6 +120,8 @@
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     scope.withdrawBalance = true;
+                    scope.postInterestValidationOnClosure = true;
+                    scope.formData.postInterestValidationOnClosure = true;
                     scope.taskPermissionName = 'CLOSE_SAVINGSACCOUNT';
                     break;
                 case "modifytransaction":
@@ -203,7 +214,7 @@
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                 }
-                if (scope.action == "deposit" || scope.action == "withdrawal" || scope.action == "modifytransaction") {
+                if (scope.action == "deposit" || scope.action == "withdrawal" || scope.action == "modifytransaction" || scope.action=="postInterestAsOn") {
                     if (scope.action == "withdrawal") {
                         if (this.formData.transactionDate) {
                             this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
@@ -220,7 +231,14 @@
                         }
                         params.transactionId = routeParams.transactionId;
                     }
+                    if(scope.action=="postInterestAsOn"){
+                        if (this.formData.transactionDate) {
+                            this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                        }
+                        this.formData.isPostInterestAsOn=true;
+                    }
                     params.savingsId = scope.accountId;
+
                     resourceFactory.savingsTrxnsResource.save(params, this.formData, function (data) {
                         location.path('/viewsavingaccount/' + data.savingsId);
                     });
@@ -276,6 +294,7 @@
                     } else if (scope.action == "close") {
                         if (this.formData.closedOnDate) {
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
+
                         }
                     }
 

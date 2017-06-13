@@ -2,7 +2,6 @@
     mifosX.controllers = _.extend(module, {
 
         RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce) {
-
             scope.isCollapsed = false; //displays options div on startup
             scope.hideTable = true; //hides the results div on startup
             scope.hidePentahoReport = true; //hides the results div on startup
@@ -158,7 +157,6 @@
                 scope.errorDetails = [];
                 for (var i in scope.reqFields) {
                     var paramDetails = scope.reqFields[i];
-
                     switch (paramDetails.displayType) {
                         case "select":
                             var selectedVal = scope.formData[paramDetails.inputName];
@@ -213,7 +211,6 @@
                             }
                             break;
                         default:
-                            console.log(paramDetails.displayType);
                             var errorObj = new Object();
                             errorObj.field = paramDetails.inputName;
                             errorObj.code = 'error.message.report.parameter.invalid';
@@ -308,6 +305,7 @@
                     scope.isCollapsed = true;
                     switch (scope.reportType) {
                         case "Table":
+                        case "SMS":
                             scope.hideTable = false;
                             scope.hidePentahoReport = true;
                             scope.hideChart = true;
@@ -377,7 +375,6 @@
                                     x.values.push(inner);
                                 }
                                 scope.barData.push(x);
-                                console.log(scope.barData);
                             });
                             break;
                         default:

@@ -5,6 +5,7 @@
             scope.cashiertxns = [];
             scope.txnPerPage = 15;
             scope.formData = [];
+            scope.cashierTransactions = [];
 
             scope.routeTo = function (id) {
                 location.path('/viewcashiertxns/' + id);
@@ -56,9 +57,11 @@
                     limit:scope.txnPerPage
                 }, function (data) {
                     scope.cashierSummaryAndTxns = data;
-                    scope.cashierTransactions = data.pageItems;
+                    scope.totaltxn = data.cashierTransactions.totalFilteredRecords;
+                    scope.cashierTransactions = data.cashierTransactions.pageItems;
                 });
             }
+
             scope.initPage = function () {
                 var items = resourceFactory.tellerCashierSummaryAndTxnsResource.getCashierSummaryAndTransactions({
                     tellerId: routeParams.tellerId,
@@ -68,8 +71,8 @@
                     limit: scope.txnPerPage
                 }, function (data) {
                     scope.cashierSummaryAndTxns = data;
-                    scope.totaltxn = data.totalFilteredRecords;
-                    scope.cashierTransactions = data.cashierTransactions;
+                    scope.totaltxn = data.cashierTransactions.totalFilteredRecords;
+                    scope.cashierTransactions = data.cashierTransactions.pageItems;
                 });
             }
             scope.initPage();

@@ -93,6 +93,14 @@
             <td>{{'label.heading.overdraftlimit' | translate}}</td>
             <td colspan="3">{{savingproduct.overdraftLimit}}</td>
         </tr>
+        <tr ng-show="savingproduct.allowOverdraft">
+            <td>{{'label.heading.nominalannualinterestrateoverdraft' | translate}}</td>
+            <td colspan="3">{{savingproduct.nominalAnnualInterestRateOverdraft}}</td>
+        </tr>
+        <tr ng-show="savingproduct.allowOverdraft">
+            <td>{{'label.heading.minoverdraftforinterestcalculation' | translate}}</td>
+            <td colspan="3">{{savingproduct.minOverdraftForInterestCalculation}}</td>
+        </tr>
         <tr>
             <td>{{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
             <td colspan="3">{{savingproduct.minBalanceForInterestCalculation|number}}</td>
@@ -104,6 +112,30 @@
         <tr>
             <td>{{'label.heading.minRequiredBalance' | translate}}</td>
             <td colspan="3">{{savingproduct.minRequiredBalance|number}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.withholdtax' | translate}}</td>
+            <td colspan="3">{{savingproduct.withHoldTax}}</td>
+        </tr>
+        <tr ng-show="savingproduct.withHoldTax">
+            <td>{{'label.heading.withholdtaxgroup' | translate}}</td>
+            <td colspan="3">{{savingproduct.taxGroup.name}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.isDormancyTrackingActive' | translate}}</td>
+            <td colspan="3">{{savingproduct.isDormancyTrackingActive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToInactive' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToInactive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToDormancy' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToDormancy}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToEscheat' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToEscheat}}</td>
         </tr>
         <tr>
             <td colspan="4"><br/></td>
@@ -155,6 +187,12 @@
                             translate}})
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+                    </tr>
+                    <tr ng-show="savingproduct.isDormancyTrackingActive">
+                        <td>{{'label.heading.escheatLiability' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.escheatLiabilityAccount.name}}</td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' |

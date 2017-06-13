@@ -61,6 +61,27 @@
                     }
 
                 ],
+                "Rejected":[
+                    {
+                        name: "label.button.undoReject",
+                        href: "#/client",
+                        subhref: "undoReject",
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "UNDOREJECT_CLIENT"
+                    }
+
+                ],
+                "Withdrawn":[
+                    {
+                        name: "label.button.undoWithdrawn",
+                        href: "#/client",
+                        subhref: "undoWithdrawn",
+                        icon: "icon-ok-sign",
+                        taskPermissionName: "UNDOWITHDRAWAL_CLIENT"
+                    }
+
+
+                ],
                 "Active": [
                     {
                         name: "label.button.edit",
@@ -81,6 +102,12 @@
                         taskPermissionName: "CREATE_SAVINGSACCOUNT"
                     },
                     {
+                        name: "label.button.newshareaccount",
+                        href: "#/createshareaccount",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_SHAREACCOUNT"
+                    },
+                    {
                         name: "label.button.newcharge",
                         href: "#/viewclient",
                         subhref: "addcharge",
@@ -99,7 +126,8 @@
                         subhref: "close",
                         icon: "icon-remove-circle",
                         taskPermissionName: "CLOSE_CLIENT"
-                    }
+                    },
+
                 ],
                 "Transfer in progress": [
                     {

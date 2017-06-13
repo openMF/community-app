@@ -428,7 +428,7 @@
                         scope.showDisbursementerror = true;
                     }
                     scope.disbursedData = [
-                        {key: "Collected", y: scope.disbursedPieData.disbursedAmount},
+                        {key: "Disbursed", y: scope.disbursedPieData.disbursedAmount},
                         {key: "Pending", y: scope.disbursedPieData.amountToBeDisburse}
                     ];
                 });

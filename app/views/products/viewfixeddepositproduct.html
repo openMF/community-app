@@ -121,6 +121,14 @@
     </td>
 </tr>
 <tr>
+    <td>{{'label.heading.withholdtax' | translate}}</td>
+    <td colspan="3">{{depositproduct.withHoldTax}}</td>
+</tr>
+<tr ng-show="depositproduct.withHoldTax">
+    <td>{{'label.heading.withholdtaxgroup' | translate}}</td>
+    <td colspan="3">{{depositproduct.taxGroup.name}}</td>
+</tr>
+<tr>
     <td colspan="4"><br/></td>
 </tr>
 <tr class="bottomborder">
@@ -144,15 +152,19 @@
     &nbsp;
 </tr>
 <tr class="bottomborder graybg">
+    <td ng-show="depositproduct.activeChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
     <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-    <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
+    <td ng-hide="depositproduct.activeChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
     <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
     <td>{{'label.heading.interestratedetails.description' | translate}}</td>
     <td>&nbsp;</td>
 </tr>
-<tr ng-repeat="chartSlab in depositproduct.activeChart.chartSlabs | orderBy:'fromPeriod':reverse">
-    <td>{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
-    <!--<td>{{chartSlabs.amountRangeFrom}} - {{chartSlabs.amountRangeTo}}</td>-->
+<tr ng-repeat="chartSlab in depositproduct.activeChart.chartSlabs ">
+    <td ng-show="depositproduct.activeChart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+    <td ng-show="chartSlab.fromPeriod != undefined">{{chartSlab.fromPeriod}} - {{chartSlab.toPeriod}} {{chartSlab.periodType.value}}</td>
+    <td ng-show="chartSlab.fromPeriod == undefined">&nbsp;</td>
+    <td ng-show="!depositproduct.activeChart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom != undefined">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+    <td ng-show="!depositproduct.activeChart.isPrimaryGroupingByAmount && chartSlab.amountRangeFrom == undefined">&nbsp;</td>
     <td>{{chartSlab.annualInterestRate}}</td>
     <td>{{chartSlabs.description}}</td>
     <td>

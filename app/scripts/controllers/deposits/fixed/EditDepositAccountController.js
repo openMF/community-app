@@ -53,6 +53,7 @@
                 scope.formData.depositAmount = data.depositAmount;
                 scope.formData.depositPeriod = data.depositPeriod;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
+                scope.formData.withHoldTax = data.withHoldTax;
                 /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                 //scope.formData.annualFeeAmount = data.annualFeeAmount;
                 //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
@@ -67,9 +68,6 @@
 
                 scope.chart = data.accountChart;
                 scope.chartSlabs = scope.chart.chartSlabs;
-                scope.chart.chartSlabs = _.sortBy(scope.chartSlabs, function (obj) {
-                    return obj.fromPeriod
-                });
                 //format chart date values
                 if (scope.chart.fromDate) {
                     var fromDate = dateFilter(scope.chart.fromDate, scope.df);
@@ -121,7 +119,7 @@
                     scope.formData.depositAmount = data.depositAmount;
                     scope.formData.depositPeriod = data.depositPeriod;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
-
+                    scope.formData.withHoldTax = data.withHoldTax;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -276,6 +274,7 @@
                     description: scope.chart.description,
                     fromDate: dateFilter(scope.fromDate.date, scope.df),
                     endDate: dateFilter(scope.endDate.date, scope.df),
+                    isPrimaryGroupingByAmount:scope.chart.isPrimaryGroupingByAmount,
                     //savingsProductId: scope.productId,
                     dateFormat: scope.df,
                     locale: scope.optlang.code,
@@ -316,7 +315,6 @@
                 var newChartSlabData = {
                     id: chartSlab.id,
                     description: chartSlab.description,
-                    periodType: chartSlab.periodType.id,
                     fromPeriod: chartSlab.fromPeriod,
                     toPeriod: chartSlab.toPeriod,
                     amountRangeFrom: chartSlab.amountRangeFrom,
@@ -324,6 +322,10 @@
                     annualInterestRate: chartSlab.annualInterestRate,
                     locale: scope.optlang.code,
                     incentives:angular.copy(copyIncentives(chartSlab.incentives))
+                }
+
+                if(chartSlab.periodType != undefined) {
+                    newChartSlabData.periodType = chartSlab.periodType.id;
                 }
 
                 //remove empty values

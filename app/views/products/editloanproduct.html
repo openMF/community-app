@@ -271,22 +271,81 @@
 	        </table>
 	    </div>
 	</div>
-	<div class="form-group">
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isLinkedToFloatingInterestRates"/>
+            {{'label.input.islinedtofloatinginterestrates' | translate}}
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <select id="floatingrateoptions" name="floatingrateoptions"
+                    ng-model="formData.floatingRatesId"
+                    ng-options="floatingrateoption.id as floatingrateoption.name for floatingrateoption in floatingRateOptions"
+                    value="{{floatingrateoption.id}}" class="form-control">
+                <option value="">{{'label.selectfloatingrateoption' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-2">
+            <input id="differentialinterest" name="differentialinterest" class="form-control" type="text"
+                   ng-model="formData.interestRateDifferential"
+                   placeholder="{{'label.input.differentialrate' | translate}}" number-format/>
+        </div>
+
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.isFloatingInterestRateCalculationAllowed"/>
+            {{'label.input.isfloatingcalculationallowed' | translate}}
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-show="formData.isLinkedToFloatingInterestRates">
+        <label class="control-label col-sm-2">{{ 'label.input.floatinginterestrate' | translate }}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.floatinginterestrate' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </label>
+
+        <div class="col-sm-2">
+            <input id="minValue" name="minValue" class="form-control" type="text"
+                   ng-model="formData.minDifferentialLendingRate"
+                   placeholder="{{'label.input.minfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="default" name="default" class="form-control" type="text"
+                   ng-model="formData.defaultDifferentialLendingRate"
+                   placeholder="{{'label.input.defaultfloatinginterestrate' | translate}}" number-format/>
+        </div>
+        <div class="col-sm-2">
+            <input id="maxValue" name="maxValue" class="form-control" type="text"
+                   ng-model="formData.maxDifferentialLendingRate"
+                   placeholder="{{'label.input.maxfloatinginterestrate' | translate}}" number-format/>
+        </div>
+    </div>
+
+    <div class="form-group"  ng-show="!formData.isLinkedToFloatingInterestRates">
 	    <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
 	        <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}" tooltip-append-to-body="true"></i>
 	    </label>
 	    <div class="col-sm-2">
 	        <input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text"
-	               class="form-control" ng-model="formData.minInterestRatePerPeriod">
+	               class="form-control" number-format ng-model="formData.minInterestRatePerPeriod">
 	    </div>
 	    <div class="col-sm-2">
 	        <input type="text" id="interestRatePerPeriod" placeholder="{{'label.input.default' | translate}}"
-	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod" required
-	               late-validate/>
+	               name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod"
+                   number-format late-validate/>
 	    </div>
 	    <div class="col-sm-2">
 	        <input id="maxInterestRatePerPeriod" placeholder="{{'label.input.maximum' | translate}}" type="text"
-	               class="form-control" ng-model="formData.maxInterestRatePerPeriod">
+                   number-format class="form-control" ng-model="formData.maxInterestRatePerPeriod">
 	    </div>
 	    <div class="col-sm-2">
 	        <select class="form-control" id="interestRateFrequencyType" ng-model="formData.interestRateFrequencyType"
@@ -390,6 +449,33 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="control-label col-sm-2">{{ 'label.input.interestcalculationperiod' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.interestcalculationperiod' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2">
+        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
+                class="form-control"
+                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
+                value="{{interestCalculationPeriodType.id}}"/>
+    </div>
+    <label class="control-label col-sm-3 col-sm-offset-1" ng-show="formData.interestCalculationPeriodType == 1">{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}<span
+            class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.allowpartialperiodinterestcalcualtion' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-2"  ng-show="formData.interestCalculationPeriodType == 1">
+        <label class="checkbox control-label">
+            <input id="allowPartialPeriodInterestCalcualtion" type="checkbox"
+                   ng-model="formData.allowPartialPeriodInterestCalcualtion">
+        </label>
+    </div>
+</div>
+
+<div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.repaymentstrategy' | translate }}<span
             class="required">*</span></label>
 
@@ -399,16 +485,7 @@
                 ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in product.transactionProcessingStrategyOptions"
                 value="{{transactionProcessingStrategy.id}}"/>
     </div>
-    <label class="control-label col-sm-3 col-sm-offset-1">{{ 'label.input.interestcalculationperiod' | translate }}<span
-            class="required">*</span></label>
-
-    <div class="col-sm-2">
-        <select id="interestCalculationPeriodType" ng-model="formData.interestCalculationPeriodType"
-                class="form-control"
-                ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in product.interestCalculationPeriodTypeOptions"
-                value="{{interestCalculationPeriodType.id}}"/>
-        </div>
-    </div>
+</div>
     <div class="form-group">
         <label class="control-label col-sm-2">{{ 'label.input.grace' | translate }}</label>
         <div class="col-sm-2">
@@ -496,6 +573,40 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" name="name1" ng-model="formData.allowVariableInstallments"/>
+            {{'label.input.isvariableinstallmentsallowed' | translate}}
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.variableinstallments' | translate}}"
+               tooltip-append-to-body="true"></i>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="formData.allowVariableInstallments">
+        <label class="control-label col-sm-2">{{ 'label.input.variableinstallments' | translate }}
+        </label>
+
+        <div class="col-sm-2">
+            <input id="minimumgap" name="minimumgap" class="form-control" type="text"
+                   ng-model="formData.minimumGap"
+                   placeholder="{{'label.input.minimumgap' | translate}}" number-format/>
+        </div>
+
+        <div class="col-sm-2">
+            <input id="maximumgap" name="maximumgap" class="form-control" type="text"
+                   ng-model="formData.maximumGap"
+                   placeholder="{{'label.input.maximumgap' | translate}}" number-format/>
+        </div>
+    </div>
+
+	<div class="form-group">
+		<div class="col-sm-3">
+			<input type="checkbox" name="canUseForTopup" ng-model="formData.canUseForTopup"/>
+			{{'label.input.canUseForTopup' | translate}}
+			<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.canUseForTopup' | translate}}"
+			   tooltip-append-to-body="true"></i>
+		</div>
+	</div>
 
     <h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 	<hr>
@@ -554,6 +665,24 @@
                     ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
                     value="{{type.id}}"></select>
         </div>
+
+		<div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4">
+				<select id="recalculationCompoundingFrequencyNthDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyNthDayType"
+						ng-options="recalculationCompoundingFrequencyNthDayType.id as recalculationCompoundingFrequencyNthDayType.value for recalculationCompoundingFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+						value="{{recalculationCompoundingFrequencyNthDayType.id}}"><option value=""></option><option value="onDay">On day</option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
+				<select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
+						ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+						value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
+				<select id="recalculationCompoundingFrequencyOnDayType" class="form-control" ng-model="formData.recalculationCompoundingFrequencyOnDayType"
+						ng-options="recalculationCompoundingFrequencyOnDayType as recalculationCompoundingFrequencyOnDayType for recalculationCompoundingFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+						value="{{recalculationCompoundingFrequencyOnDayType}}"></select>&nbsp;
+			</div>
+		</div>
     </div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
         && formData.recalculationCompoundingFrequencyType != 1">
@@ -564,15 +693,6 @@
 
         <div class="col-sm-2">
             <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationCompoundingFrequencyInterval">
-        </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.compounding'
-            | translate }}<span class="required">*</span>
-            <i class="icon-question-sign" tooltip="{{'label.tooltip.frequencycompoundingdate' | translate}}" tooltip-append-to-body="true"></i>
-        </label>
-
-        <div class="col-sm-2">
-            <input type="text" id="recalculationCompoundingFrequencyDate" name="recalculationCompoundingFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.recalculationCompoundingFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
         </div>
 
     </div>
@@ -587,6 +707,24 @@
 					ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
 					value="{{type.id}}"></select>
 		</div>
+
+		<div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4">
+				<select id="recalculationRestFrequencyNthDayType" class="form-control" ng-model="formData.recalculationRestFrequencyNthDayType"
+						ng-options="recalculationRestFrequencyNthDayType.id as recalculationRestFrequencyNthDayType.value for recalculationRestFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+						value="{{recalculationRestFrequencyNthDayType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
+				<select id="recalculationRestFrequencyDayOfWeekType" class="form-control" ng-model="formData.recalculationRestFrequencyDayOfWeekType"
+						ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+						value="{{recalculationRestFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
+			</div>
+			<div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
+				<select id="recalculationRestFrequencyOnDayType" class="form-control" ng-model="formData.recalculationRestFrequencyOnDayType"
+						ng-options="recalculationRestFrequencyOnDayType as recalculationRestFrequencyOnDayType for recalculationRestFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+						value="{{recalculationRestFrequencyOnDayType}}"></select>&nbsp;
+			</div>
+		</div>
 	</div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
         <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
@@ -594,13 +732,7 @@
         <div class="col-sm-2">
             <input id="recalculationRestFrequencyInterval" type="text" class="form-control" ng-model="formData.recalculationRestFrequencyInterval">
         </div>
-        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.frequenc.date.for.recalculte.outstanding.principal'
-            | translate }}<span class="required">*</span></label>
 
-        <div class="col-sm-2">
-            <input type="text" id="recalculationRestFrequencyDate" name="recalculationRestFrequencyDate" datepicker-pop="dd MMMM yyyy"
-                   ng-model="date.recalculationRestFrequencyDate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-        </div>
 
 	</div>
     <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">

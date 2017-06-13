@@ -50,8 +50,11 @@
                 scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
                 scope.formData.allowOverdraft = data.allowOverdraft;
                 scope.formData.overdraftLimit = data.overdraftLimit;
+                scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
+                scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
                 scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                 scope.formData.minRequiredBalance = data.minRequiredBalance;
+                scope.formData.withHoldTax = data.withHoldTax;
 
                 if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                 if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -78,6 +81,7 @@
                     //scope.formData.annualFeeAmount = data.annualFeeAmount;
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
                     scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
+                    scope.formData.withHoldTax = data.withHoldTax;
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;

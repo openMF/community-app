@@ -1,9 +1,10 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         ResourceFactoryProvider: function () {
-            var baseUrl = "" , apiVer = "/mifosng-provider/api/v1", tenantIdentifier = "";
+            var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
+                console.log(baseUrl);
             };
 
             this.setTenantIdenetifier = function (tenant) {
@@ -40,8 +41,8 @@
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
                     }),
-                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource'}, {
-                        getAllClients: {method: 'GET', params: {limit: 1000}},
+                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
+                        getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
@@ -76,6 +77,14 @@
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
                         get: {method: 'GET', params: {}}
                     }),
+
+                    surveyResource: defineResource(apiVer + "/surveys", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
+                        post: {method: 'POST', params: {}, isArray: false}                       
+                    }),
+
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
@@ -157,8 +166,8 @@
                     batchResource: defineResource(apiVer + "/batches", {}, { 
                         post: {method: 'POST', params: {}, isArray: true}                       
                     }),
-                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId'}, {
-                        getAllLoans: {method: 'GET', params: {}},
+                    loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
+                        getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}},
                         getAllNotes: {method: 'GET', params: {}, isArray: true},
                         put: {method: 'PUT', params: {}}
                     }),
@@ -400,6 +409,9 @@
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT', params: {}}
                     }),
+                    configurationResourceByName: defineResource(apiVer + "/configurations/", {configName: '@configName'}, {
+                        get: {method: 'GET', params: {configName:'configName'}}
+                    }),
                     cacheResource: defineResource(apiVer + "/caches", {}, {
                         get: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}
@@ -421,7 +433,7 @@
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
                      reject:{method:'POST',params:{command:'reject'}},
-                     approve:{method:'POST',params:{command:'approve'}},
+                     approve:{method:'POST',params:{command:'approve'}}
                      }),
                      auditResource: defineResource(apiVer + "/audits/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
@@ -514,6 +526,121 @@
                     externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
+                    }),
+                    clientaddressFields:defineResource(apiVer+"/client/addresses/template",{},{
+                            get:{method:'GET',params:{}}
+                        }
+                    ),
+                    addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
+                        get:{method:'GET',params:{},isArray:true }
+                    }),
+                    clientAddress:defineResource(apiVer+"/client/:clientId/addresses",{},{
+
+                        post:{method:'POST',params:{type:'@type'}},
+                        get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
+                        put:{method:'PUT',params:{}}
+                    }),
+                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}, isArray : true},
+                        template: {method: 'GET',params:{}},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    provisioningentries: defineResource(apiVer + "/provisioningentries/:entryId",{entryId:'@entryId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        template: {method: 'GET',params:{}},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}},
+                        createJournals:{method:'POST', params:{command : 'createjournalentry'}},
+                        reCreateProvisioningEntries:{method:'POST', params:{command : 'recreateprovisioningentry'}},
+                        getJournals: {method: 'GET', params: {entryId: '@entryId'}}
+                    }),
+                    provisioningjournals: defineResource(apiVer + "/journalentries/provisioning", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    provisioningentriesSearch: defineResource(apiVer + "/provisioningentries/entries", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    provisioningcategory: defineResource(apiVer + "/provisioningcategory", {}, {
+                        getAll: {method: 'GET', params: {}, isArray : true}
+                    }),
+
+                    floatingrates: defineResource(apiVer + "/floatingrates/:floatingRateId",{floatingRateId:'@floatingRateId'},{
+                        get: {method: 'GET',params:{}},
+                        getAll: {method: 'GET',params:{}, isArray : true},
+                        post:{method:'POST',params:{}},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    variableinstallments: defineResource(apiVer + "/loans/:loanId/schedule",{loanId:'@loanId'},{
+                        validate:{method:'POST',params:{command: 'calculateLoanSchedule'}},
+                        addVariations:{method:'POST',params:{command: 'addVariations'}},
+                        deleteVariations:{method:'POST',params:{command: 'deleteVariations'}}
+                    }),
+                    taxcomponent: defineResource(apiVer + "/taxes/component/:taxComponentId",{taxComponentId:'@taxComponentId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxcomponenttemplate: defineResource(apiVer + "/taxes/component/template",{},{
+                    }),
+                    taxgroup: defineResource(apiVer + "/taxes/group/:taxGroupId",{taxGroupId:'@taxGroupId'},{
+                        getAll: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params: {}}
+                    }),
+                    taxgrouptemplate: defineResource(apiVer + "/taxes/group/template",{},{
+                    }),
+
+                    productsResource: defineResource(apiVer + "/products/:productType/:resourceType",{productType:'@productType', resourceType:'@resourceType'},{
+                        template: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}}
+                    }),
+                    shareProduct: defineResource(apiVer + "/products/share/:shareProductId",{shareProductId:'@shareProductId'},{
+                        post:{method:'POST',params:{}},
+                        getAll: {method: 'GET',params:{}},
+                        get: {method: 'GET', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareAccountTemplateResource: defineResource(apiVer + "/accounts/share/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    sharesAccount: defineResource(apiVer + "/accounts/share/:shareAccountId", {shareAccountId: '@shareAccountId'}, {
+                        get: {method: 'GET', params: {}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}}
+                    }),
+                    shareproductdividendresource: defineResource(apiVer + "/shareproduct/:productId/dividend/:dividendId", {productId: '@productId', dividendId: '@dividendId'}, {
+                        get: {method: 'GET', params: {}},
+                        getAll: {method: 'GET',params:{}},
+                        post: {method: 'POST', params:{}},
+                        put: {method: 'PUT', params:{}},
+                        approve: {method: 'PUT', params:{command: 'approve'}}
+                    }),
+
+                    smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+
+                    smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        preview: {method: 'POST', params: {}},
+                        withCommand: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),
+
+                    smsResource: defineResource(apiVer + "/sms/:campaignId/messageByStatus", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getByStatus: {method: 'GET', params:{}}
+                    }),
+
+                    entityDatatableChecksResource: defineResource(apiVer + "/entityDatatableChecks/:entityDatatableCheckId/:additionalParam", {entityDatatableCheckId: '@entityDatatableCheckId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {}}
                     })
                 };
             }];

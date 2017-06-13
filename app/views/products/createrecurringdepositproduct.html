@@ -242,6 +242,25 @@
         </div>
 
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">{{ 'label.input.withholdtax' | translate }}</label>
+        <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.withholdtax' | translate}}"></i>
+        <div class="col-sm-2">
+            <input id="withHoldTax" type="checkbox" ng-model="formData.withHoldTax" ng-true-value="true"
+                   ng-false-value="false">
+        </div>
+        <div ng-show="formData.withHoldTax">
+            <label class="control-label col-sm-2">{{ 'label.input.taxgroup' | translate }}</label>
+            <div class="col-sm-2">
+                <select id="taxGroupId" ng-model="formData.taxGroupId"
+                        chosen="product.taxGroupOptions"
+                        ng-options="taxGroup.id as taxGroup.name for taxGroup in product.taxGroupOptions"
+                        value="{{taxGroup.id}}">
+                    <option value="">{{'label.select' | translate}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
 	<h3>{{ 'label.heading.interestchart' | translate }}</h3>
 	<hr>
 	<!--<tr>
@@ -285,12 +304,23 @@
 	               ng-model="endDate.date" is-open="opened" min="minDate" max="restrictDate"/>
 	    </div>
 	</div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.primary.grouping.amount' |
+            translate }}<span class="required">*</span></label>
+        <div class="col-sm-2">
+            <label class="checkbox">
+                <input id="isPrimaryGroupingByAmount" type="checkbox" ng-model="isPrimaryGroupingByAmount">
+
+            </label>
+        </div>
+    </div>
 	<div class="col-md-12">
 	    <table class="table table-bordered width100">
 	        <tr class="graybg">
+                <td ng-show="isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
 	            <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
 	            <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-	            <!--<td>{{'label.heading.interestratedetails.amount.range' | translate}}</td>-->
+	            <td ng-hide="isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
 	            <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
 	            <td>{{'label.heading.interestratedetails.description' | translate}}</td>
 	            <td>
@@ -303,6 +333,12 @@
 	        </tr>
 
 	        <tr ng-repeat="chartSlab in chart.chartSlabs">
+                <td ng-show="isPrimaryGroupingByAmount">
+                    <input id="amountRangeFrom1" name="amountRangeFrom" type="text" class="input-mini"
+                           ng-model="chartSlab.amountRangeFrom"/> -
+                    <input id="amountRangeTo1" name="amountRangeTo" type="text" class="input-mini"
+                           ng-model="chartSlab.amountRangeTo"/>
+                </td>
 	            <td class="width20">
 	                <select class="form-control" id="periodType" ng-model="chartSlab.periodType.id"
 	                        ng-options="type.id as type.value for type in chart.periodTypes"
@@ -319,12 +355,12 @@
 	                    </tr>
 	                </table>
 	            </td>
-	            <!--<td>
+	            <td ng-hide="isPrimaryGroupingByAmount">
 	                <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
 	                       ng-model="chartSlab.amountRangeFrom"/> -
 	                <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
 	                       ng-model="chartSlab.amountRangeTo"/>
-	            </td>-->
+	            </td>
 	            <td class="width15">
 	                <input id="annualInterestRate" name="annualInterestRate" type="text"
 	                       class="form-control"

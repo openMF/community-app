@@ -4,16 +4,18 @@
         <li class="active">{{'label.anchor.manageholidays' | translate}}</li>
     </ul>
 
-    <div class="form-group">
-        <input ng-model="filterText" type="text" class="form-control span marginbottom0px" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}"/>
-        <select chosen="offices" name="office" id="office" ng-model="formData.officeId" class="form-control input-sm" data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()" value="{{office.id}}" required>
+    <div class="form-group col-md-12">
+      <div class="row">
+        <input ng-model="filterText" type="text" class="form-control span marginbottom0px col-md-6" style="width: 50%" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}"/>
+        <select chosen="offices" name="office" id="office" ng-model="formData.officeId" class="form-control input-sm col-md-4" data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()" value="{{office.id}}" required>
             <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
         </select>
         <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
             <small class="error" ng-show="creategroupform.office.$error.required">{{'label.requiredfield' | translate}}</small>
         </span>
         <a href="#/createholiday" class="btn btn-primary pull-right" has-permission='CREATE_HOLIDAY'><i class="icon-plus icon-white"></i>{{'label.button.createholiday' | translate}}</a>
-    </div>
+       </div>
+     </div>
     <div>
         <table class="table">
             <thead>

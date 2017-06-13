@@ -178,7 +178,64 @@
 	            </div>
 
 	        </div>
-	    	<h3>{{ 'label.heading.charges' | translate }}</h3>
+            <div class="form-group" ng-show="formData.allowOverdraft">
+                <label class="control-label col-sm-3">{{ 'label.input.nominalannualinterestrateoverdraft' | translate }}</label>
+                <div class="col-sm-2">
+                    <input id="nominalAnnualInterestRateOverdraft" type="text" class="form-control"
+                           ng-model="formData.nominalAnnualInterestRateOverdraft">
+                </div>
+                <label class="control-label col-sm-2">{{ 'label.input.minoverdraftforinterestcalculation' | translate }}</label>
+                <div class="col-sm-2">
+                    <input id="minOverdraftForInterestCalculation" type="text" class="form-control"
+                           ng-model="formData.minOverdraftForInterestCalculation">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{ 'label.input.withholdtax' | translate }}</label>
+                <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.withholdtax' | translate}}"></i>
+                <div class="col-sm-2">
+                    <input id="withHoldTax" type="checkbox" ng-model="formData.withHoldTax" ng-true-value="true"
+                           ng-false-value="false">
+                </div>
+                <div ng-show="formData.withHoldTax">
+                    <label class="control-label col-sm-2">{{ 'label.input.taxgroup' | translate }}</label>
+                    <div class="col-sm-2">
+                        <select id="taxGroupId" ng-model="formData.taxGroupId"
+                                chosen="product.taxGroupOptions"
+                                ng-options="taxGroup.id as taxGroup.name for taxGroup in product.taxGroupOptions"
+                                value="{{taxGroup.id}}">
+                            <option value="">{{'label.select' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+			<div class="form-group" >
+				<label class="control-label col-sm-3">{{ 'label.input.isDormancyTrackingActive' | translate }}</label>
+				<div class="col-sm-2">
+					<input id="isDormancyTrackingActive" type="checkbox" ng-model="formData.isDormancyTrackingActive" ng-true-value="true"
+						   ng-false-value="false">
+				</div>
+				<label class="control-label col-sm-2" ng-show="formData.isDormancyTrackingActive">{{ 'label.input.daysToInactive' | translate }}</label>
+				<div class="col-sm-2" ng-show="formData.isDormancyTrackingActive">
+					<input id="daysToInactive" type="text" class="form-control"
+						   ng-model="formData.daysToInactive">
+				</div>
+
+			</div>
+			<div class="form-group" ng-show="formData.isDormancyTrackingActive">
+				<label class="control-label col-sm-3">{{ 'label.input.daysToDormancy' | translate }}</label>
+				<div class="col-sm-2">
+					<input id="daysToDormancy" type="text" class="form-control"
+						   ng-model="formData.daysToDormancy">
+				</div>
+				<label class="control-label col-sm-2">{{ 'label.input.daysToEscheat' | translate }}</label>
+				<div class="col-sm-2">
+					<input id="daysToEscheat" type="text" class="form-control"
+						   ng-model="formData.daysToEscheat">
+				</div>
+			</div>
+
+			<h3>{{ 'label.heading.charges' | translate }}</h3>
 	    	<hr>
 	    	<div class="form-group">
 	            <div class="col-sm-3">
@@ -273,6 +330,17 @@
                 		</select>
 	            	</div>	            
 		        </div>
+				<div class="form-group" ng-show="formData.isDormancyTrackingActive">
+					<label class="control-label col-sm-2">{{ 'label.input.escheatLiability' | translate }}</label>
+					<i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.escheatLiability' | translate}}"></i>
+					<div class="col-sm-3">
+						<select id="escheatLiabilityId" ng-model="formData.escheatLiabilityId"
+								chosen="liabilityAccountOptions"
+								ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
+								value="{{liabilityAccount.id}}">
+						</select>
+					</div>
+				</div>
 		        <hr>
 		        <div class="form-group">
 		        	<h4>{{"label.heading.expenses" | translate}}</h4>
