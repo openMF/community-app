@@ -641,7 +641,21 @@
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
-                    })
+                    }),
+                    adHocQueryResource: defineResource(apiVer + "/adhocquery/:adHocId", {adHocId: '@adHocId'}, {
+                        getAllAdHocQuery: {method: 'GET', params: {}, isArray: true},
+                       // deleteAdHocQuery: {method: 'DELETE'},
+                        disableAdHocQuery: {method: 'POST'},
+                        enableAdHocQuery: {method: 'POST'},
+                        update: { method: 'PUT' }
+                    }),
+                    adHocQueryTemplateResource: defineResource(apiVer + "/adhocquery/template", {}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    /*userListResource: defineResource(apiVer + "/users/:userId", {userId: '@userId'}, {
+                        getAllUsers: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT' }
+                    }),*/
                 };
             }];
         }
