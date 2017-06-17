@@ -46,7 +46,7 @@
                 });
             };
 			var RejectCtrl = function ($scope, $uibModalInstance, action) {
-                $scope.approve = function () {
+                $scope.reject = function () {
                     resourceFactory.checkerInboxResource.save({templateResource: routeParams.id, command: action}, {}, function (data) {
                         $uibModalInstance.close('reject');
                         location.path('/checkeractionperformed');
