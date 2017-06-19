@@ -1,5 +1,8 @@
 # MifosX Community App
 
+[![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
 ## Build Status
@@ -16,7 +19,7 @@ Travis
 ## Building from source
 
 1. Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.       
-<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem). 
+<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
 <br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
@@ -33,7 +36,7 @@ Travis
     bower install
    ```
    ```
-    npm install 
+    npm install
    ```
 
 1. To preview the app, run the following command on the project root folder
@@ -43,7 +46,7 @@ Travis
    ```
    or open the 'index.html' file in FIREFOX browser
 
-   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/ 
+   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
 
    ```
     Waiting...Warning: EMFILE, too many open files
@@ -71,7 +74,7 @@ e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=d
 e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
 ## Adding dependencies
 
-You can also add more dependencies on bower.json. 
+You can also add more dependencies on bower.json.
 You can search for them in http://sindresorhus.com/bower-components/ or even:
 
 ```
@@ -122,4 +125,3 @@ https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/
 ## Contribution guidelines
 
 Please read the <a href="https://github.com/openMF/community-app/blob/master/Contributing.md" >contribution guidelines</a>
-
