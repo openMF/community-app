@@ -296,6 +296,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
+            'configurations/AddressFormController',
+            'configurations/ViewCreditBureauSummaryController',
+            'configurations/AddNewCreditBureauController',
+            'configurations/MapCreditBureauToLpController',
             'notification/NotificationsController',
             'selfservice/CreateSelfServiceUserController',
             'notification/NotificationsController',
@@ -324,7 +328,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'adhocquery/CreateAdHocQueryController',
             'adhocquery/ViewAdHocQueryController',
             'adhocquery/EditAdHocQueryController'
-
         ],
         filters: [
             'StatusLookup',
