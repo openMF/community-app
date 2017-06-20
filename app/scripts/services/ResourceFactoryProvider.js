@@ -427,8 +427,9 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId'},{
+                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId', command: '@command'},{
                      get: {method: 'GET',params:{}},
+                     getAll: {method: 'GET', params: {}, isArray: true},
                      template: {method: 'GET',params:{}},
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
