@@ -11,7 +11,7 @@
                 scope.searchCriteria.manrep = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.manrep;
+            scope.filterText = scope.searchCriteria.manrep || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.manrep = scope.filterText;

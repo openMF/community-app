@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewDataTableController: function (scope, routeParams, resourceFactory, location, $modal) {
+        ViewDataTableController: function (scope, routeParams, resourceFactory, location, $uibModal) {
 
             resourceFactory.DataTablesResource.getTableDetails({datatablename: routeParams.tableName}, function (data) {
 
@@ -24,25 +24,25 @@
                 scope.datatable = data;
             });
             scope.deleteTable = function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'deletetable.html',
                     controller: TableDeleteCtrl
                 });
             };
-            var TableDeleteCtrl = function ($scope, $modalInstance) {
+            var TableDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.DataTablesResource.delete({datatablename: routeParams.tableName}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/datatables');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', mifosX.controllers.ViewDataTableController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewDataTableController]).run(function ($log) {
         $log.info("ViewDataTableController initialized");
     });
 }(mifosX.controllers || {}));

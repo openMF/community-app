@@ -13,7 +13,7 @@
                 scope.searchCriteria.groups = null;
                 scope.saveSC();
             }
-            scope.filterText = scope.searchCriteria.groups;
+            scope.filterText = scope.searchCriteria.groups || '';
 
             scope.onFilter = function () {
                 scope.searchCriteria.groups = scope.filterText;

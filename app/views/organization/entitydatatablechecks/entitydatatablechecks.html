@@ -6,7 +6,7 @@
 
     <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
     <a data-ng-click="createDatatableCheck()" class="btn btn-primary pull-right" has-permission='CREATE_ENTITY_DATATABLE_CHECK'><i
-            class="icon-plus icon-white"></i>&nbsp;{{'label.button.createdatatablecheck' | translate}}</a>
+            class="fa fa-plus"></i>&nbsp;{{'label.button.createdatatablecheck' | translate}}</a>
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -26,7 +26,7 @@
             <td>{{entityDatatableCheck.status.value}}</td>
             <td>{{entityDatatableCheck.systemDefined}}</td>
             <td><a class="btn btn-sm btn-danger" data-ng-click="deleteDataTableCheck(entityDatatableCheck.id)" has-permission='DELETE_ENTITY_DATATABLE_CHECK'><i
-                    class="icon-trash icon-white"></i></a></td>
+                    class="fa fa-trash-o "></i></a></td>
         </tr>
         </tbody>
     </table>
@@ -48,7 +48,7 @@
                             <select id="checkEntity"
                                     name="checkEntity"
                                     chosen="entities"
-                                    ng-model="$parent.checkForm.entity"
+                                    ng-model="checkForm.entity"
                                     class="form-control" required
                                     ng-options="entity  | translate for entity in entities"
                                     value="{{entity}}"
@@ -69,7 +69,7 @@
                             <select id="checkStatus"
                                     name="checkStatus"
                                     chosen="statusList"
-                                    ng-model="$parent.checkForm.status"
+                                    ng-model="checkForm.status"
                                     class="form-control" required
                                     ng-options="status.code as status.name for status in statusList"
                                     value="{{status.code}}"
@@ -90,7 +90,7 @@
                             <select id="checkDatatable"
                                     name="checkDatatable"
                                     chosen="filteredDatatables"
-                                    ng-model="$parent.checkForm.datatableName"
+                                    ng-model="checkForm.datatableName"
                                     class="form-control" required
                                     ng-options="datatable.dataTableName as datatable.dataTableName for datatable in filteredDatatables"
                                     value="{{datatable.dataTableName}}"
@@ -104,13 +104,13 @@
                     </div>
                     <br/>
                     <br/>
-                    <div class="form-group" ng-if="products">
+                    <div class="form-group" ng-if="checkForm.entity == 'm_loan' || checkForm.entity == 'm_savings_account'">
                         <label class="control-label col-sm-3">{{'label.input.product' | translate}}</label>
                         <div class="col-sm-3">
                             <select id="checkProduct"
                                     name="checkProduct"
                                     chosen="products"
-                                    ng-model="$parent.checkForm.productId"
+                                    ng-model="checkForm.productId"
                                     class="form-control" required
                                     ng-options="product.id as product.name for product in products"
                                     value="{{product.id}}"

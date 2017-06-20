@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
+        ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$uibModal) {
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
             };
@@ -117,11 +117,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.modifyapplication",
-                            icon: "icon-pencil "
+                            icon: "fa fa-pencil "
                         },
                         {
                             name: "button.approve",
-                            icon: "icon-ok-sign"
+                            icon: "fa fa-check"
                         }
                     ],
                         options: [
@@ -145,11 +145,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.undoapproval",
-                            icon: "icon-undo"
+                            icon: "fa fa-undo"
                         },
                         {
                             name: "button.activate",
-                            icon: "icon-ok-sign"
+                            icon: "fa fa-ok-sign"
                         }
                     ]
                     };
@@ -159,11 +159,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.prematureClose",
-                            icon: "icon-arrow-left"
+                            icon: "fa fa-arrow-left"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table"
+                            icon: "fa fa-table"
                         }
                     ],
                         options: [
@@ -199,11 +199,11 @@
                     scope.buttons = { singlebuttons: [
                         {
                             name: "button.close",
-                            icon: "icon-arrow-right"
+                            icon: "fa fa-arrow-right"
                         },
                         {
                             name: "button.calculateInterest",
-                            icon: "icon-table"
+                            icon: "fa fa-table"
                         }
                     ],
                         options: [
@@ -272,7 +272,7 @@
             };
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -283,7 +283,7 @@
                 });
             };
 
-            var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, chartSlab) {
                 $scope.chartSlab = chartSlab;
                 _.each($scope.chartSlab.incentives, function (incentive) {
                     if(!incentive.attributeValueDesc){
@@ -291,12 +291,12 @@
                     }
                 });
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
         }
     });
-    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$modal', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewFixedDepositAccountDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', 'dateFilter','$uibModal', mifosX.controllers.ViewFixedDepositAccountDetailsController]).run(function ($log) {
         $log.info("ViewFixedDepositAccountDetailsController initialized");
     });
 }(mifosX.controllers || {}));

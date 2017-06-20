@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ListStandingInstructionController: function (scope, resourceFactory, paginatorService,routeParams, dateFilter, location,$modal) {
+        ListStandingInstructionController: function (scope, resourceFactory, paginatorService,routeParams, dateFilter, location,$uibModal) {
             scope.restrictDate = new Date();
             var params = {officeId:routeParams.officeId,clientId: routeParams.clientId};
             if(routeParams.clientId){
@@ -56,7 +56,7 @@
 
 
             scope.deletestandinginstruction = function (id) {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'delInstruction.html',
                     controller: DelInstructionCtrl,
                     resolve: {
@@ -67,21 +67,21 @@
                 });
             };
 
-            var DelInstructionCtrl = function ($scope, $modalInstance, ids) {
+            var DelInstructionCtrl = function ($scope, $uibModalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
                         scope.searchTransaction();
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
         }
     });
-    mifosX.ng.application.controller('ListStandingInstructionController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams','dateFilter', '$location','$modal', mifosX.controllers.ListStandingInstructionController]).run(function ($log) {
+    mifosX.ng.application.controller('ListStandingInstructionController', ['$scope', 'ResourceFactory', 'PaginatorService', '$routeParams','dateFilter', '$location','$uibModal', mifosX.controllers.ListStandingInstructionController]).run(function ($log) {
         $log.info("ListStandingInstructionController initialized");
     });
 }(mifosX.controllers || {}));

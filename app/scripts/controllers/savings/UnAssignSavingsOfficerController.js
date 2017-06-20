@@ -7,9 +7,9 @@
             scope.staffData = {};
             scope.accountNo = routeParams.id;
 
-            resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
+            /*resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
                 scope.data = data;
-            });
+            });*/
 
             scope.cancel = function () {
                 location.path('/viewsavingaccount/' + scope.accountNo);

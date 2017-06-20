@@ -1,19 +1,19 @@
-<div class="paddedbottom10">
+<div class="content-container">
     <ul class="breadcrumb">
         <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
         <li class="active">{{ 'label.button.addcharge' | translate }}</li>
     </ul>
-</div>
-<form name="clientchargeform" novalidate="" class="form-horizontal" ng-controller="AddNewClientChargeController"
+
+<form name="clientchargeform" novalidate="" class="card form-horizontal" ng-controller="AddNewClientChargeController"
       rc-submit="submit()">
     <api-validate></api-validate>
-    <fieldset>
+    <fieldset class="content">
         <div class="form-group">
             <label class="control-label col-sm-2">{{ 'label.input.charges' | translate }}<span class="required">*</span></label>
 
             <div class="col-sm-3">
                 <select ng-model="formData.chargeId" id="chargeId" name="charge"
-                        ng-options="charge.id as (charge.name+&nbsp;+'('+charge.currency.name+')') for charge in chargeOptions"
+                        ng-options="charge.id as (charge.name+'('+charge.currency.name+')') for charge in chargeOptions"
                         value="{{formData.chargeId}}"
                         ng-change="chargeSelected(formData.chargeId)" class="form-control" required>
                     <option style="display:none" value="">{{ 'label.selectcharge' | translate }}</option>
@@ -73,3 +73,4 @@
         </div>
     </fieldset>
 </form>
+</div>

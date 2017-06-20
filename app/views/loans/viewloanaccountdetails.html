@@ -1,13 +1,23 @@
-<div class="col-md-12" ng-controller="ViewLoanDetailsController">
-    <div>
-        <ul class="breadcrumb">
-            <li ng-show="loandetails.clientName"><a
-                    ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
-            <li ng-show="loandetails.group"><a ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
-            <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
-        </ul>
-    </div>
-    <div>
+<div class="content-container" ng-controller="ViewLoanDetailsController">
+    <ul class="breadcrumb">
+        <li ng-show="loandetails.clientName"><a
+                ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
+        <li ng-show="loandetails.group"><a ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
+        <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
+    </ul>
+
+    <script type="text/ng-template" id="delcharge.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
         <div class="form-horizontal" ng-show="report">
         	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -49,9 +59,9 @@
             <div class="span gray-head" style="margin-left:0%;">
                       <span style="margin-left: 10px;font-size:20px">
                             <strong> <i ng-hide="loandetails.inArrears"
-                                        class="icon-stop {{loandetails.status.code | StatusLookup}}"></i>
+                                        class="fa fa-stop {{loandetails.status.code | StatusLookup}}"></i>
                                 <i ng-show="loandetails.inArrears"
-                                   class="icon-stop {{loandetails.status.code | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
+                                   class="fa fa-stop {{loandetails.status.code | StatusLookup}}overdue"></i>&nbsp;{{loandetails.loanProductName}}(#{{loandetails.accountNo}})</strong>
                       </span>
             </div>
             <div class="col-sm-12 col-md-12 primarydiv">
@@ -59,11 +69,11 @@
                       <span ng-repeat="button in buttons.singlebuttons">
                           <a ng-show="button.name" ng-click="clickEvent(button.name.replace('button.',''), loandetails.id)"
                              class="btn btn-primary" has-permission='{{button.taskPermissionName}}'><i
-                                  class="{{button.icon}} icon-white"></i>&nbsp;{{'label.' + button.name |
+                                  class="{{button.icon}} "></i>&nbsp;{{'label.' + button.name |
                               translate}}</a>
                       </span>
-                      <span ng-show="buttons.options" class="btn-group dropdown" on-toggle="toggled(open)">
-                          <a class="btn btn-primary dropdown-toggle">
+                      <span ng-show="buttons.options" uib-dropdown  class="btn-group dropdown" on-toggle="toggled(open)">
+                          <a class="btn btn-primary" uib-dropdown-toggle>
                               {{ 'label.button.more' | translate}}
                               <span class="caret"></span>
                           </a>
@@ -81,7 +91,7 @@
             <hr/>
             <br/>
 
-            <div class="row span" style="margin-left:-1px;margin-top: -20px">
+            <div class="row span" style="margin-left:-1px;margin-top: -20px; margin-right: 1px;">
                 <div class="col-sm-6 col-md-6">
                     <table class="table table-striped table-bordered">
                         <tr>
@@ -99,7 +109,7 @@
                             <td><span class="padded-td"><span data-ng-hide="loandetails.loanOfficerName">{{'label.unassigned' | translate}}</span>{{loandetails.loanOfficerName}}&nbsp;
                                     <span ng-show="loandetails.loanOfficerName">
                                       <a ng-click="clickEvent('unassignloanofficer', loandetails.id)"><i
-                                              class="icon-remove"></i></a>
+                                              class="fa fa-times"></i></a>
                                     </span>
                                     </span>
                             </td>
@@ -140,10 +150,10 @@
 
                 </div>
             </div>
-            <div class="row paddedleft">
+            <div class="row paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
                 <hr class="marginbottom"/>
-                <tabset tabset-name="loanAccountDetails">
-                    <tab heading="{{'label.heading.accountdetail' | translate}}">
+                <uib-tabset tabset-name="loanAccountDetails">
+                    <uib-tab heading="{{'label.heading.accountdetail' | translate}}">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -292,8 +302,8 @@
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
-                    <tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
+                    </uib-tab>
+                    <uib-tab heading="{{'label.heading.summary' | translate}}" ng-show="loandetails.summary">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -357,9 +367,9 @@
                             </tr>
                             </tfoot>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
+                    <uib-tab heading="{{'label.heading.originalschedule' | translate}}"  ng-show="loandetails.originalSchedule">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -408,9 +418,9 @@
                             </tfoot>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.repaymentschedule' | translate}}">
+                    <uib-tab heading="{{'label.heading.repaymentschedule' | translate}}">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -450,7 +460,7 @@
                                 <td>{{period.dueDate | DateFormat}}</td>
                                 <td>{{period.obligationsMetOnDate | DateFormat}}</td>
                                 <td>
-                                    <div ng-show="period.obligationsMetOnDate"><i class="icon-check icon-white"></i></div>
+                                    <div ng-show="period.obligationsMetOnDate"><i class="fa fa-check "></i></div>
                                 </td>
 
                                 <td>{{period.principalDue | number}}</td>
@@ -489,9 +499,9 @@
                             </tfoot>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
+                    <uib-tab heading="{{'label.heading.futureschedule' | translate}}"  ng-show="loandetails.repaymentSchedule.futurePeriods">
 
                         <table class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
@@ -530,14 +540,14 @@
                             </tbody>
                         </table>
 
-                    </tab>
+                    </uib-tab>
 
 
-                    <tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
+                    <uib-tab heading="{{'label.heading.transactions' | translate}}" ng-show="loandetails.transactions" select="convertDateArrayToObject('date')">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
                         <div class="pull-right">
-                            <input type="checkbox" data-ng-model="hideAccrualTransactions" ng-true-value="false" ng-false-value="" ng-checked="isHideAccrualsCheckboxChecked" ng-change="updateCheckBoxStatus()">&nbsp;&nbsp;
+                            <input type="checkbox" data-ng-model="hideAccrualTransactions" ng-init = "hideAccuralTransactions = true">&nbsp;
                             <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
                         </div>
                         <br>
@@ -569,7 +579,7 @@
                             </thead>
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
-                                    ng-repeat="transaction in loandetails.transactions | filter:{type.accrual:hideAccrualTransactions} | orderBy:transactionSort.column:transactionSort.descending">
+                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-hide = "hideAccrualTransactions && transaction.type.accrual">    
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.id}}
                                     </td>
@@ -601,28 +611,28 @@
                                         {{transaction.outstandingLoanBalance | number}}
                                     </td>
 
-                                    <td> <a tooltip="{{'label.heading.viewreceipts' | translate }}" ng-if="transaction.manuallyReversed!=true" ng-click="viewloantransactionreceipts(transaction.id)">
-                                        <i class="icon-file-text icon-large"></i>
-                                    </a>
+                                    <td> <span uib-tooltip="{{'label.heading.viewreceipts' | translate }}" ng-if="transaction.manuallyReversed!=true" ng-click="viewloantransactionreceipts(transaction.id)">
+                                        <i class="fa fa-file-text fa fa-large"></i>
+                                    </span>
                                     </td>
-									 <td> <a tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewloantransactionjournalentries(transaction.id)">
-                                        <i class="icon-circle-arrow-right icon-large coll"></i>
-                                    </a>
+									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewloantransactionjournalentries(transaction.id)">
+                                        <i class="fa fa-arrow-circle-right fa fa-large coll"></i>
+                                    </span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div>
-                            <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i class="icon-print icon-white">{{'label.button.print' |
+                            <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i class="fa fa-print ">{{'label.button.print' |
                                 translate}}
                             </i></button>
                             <div id="printreceiptcontent">
                                 <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
                             </div>
                         </div>
-                    </tab>
+                    </uib-tab>
 
-                    <tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
+                    <uib-tab heading="{{'label.heading.loancollaterals' | translate}}" ng-show="loandetails.collateral">
                         <table class="table">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
@@ -637,9 +647,9 @@
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
+                    <uib-tab ng-show="loandetails.multiDisburseLoan" heading="{{'label.heading.tranchedetails' | translate}}">
                         <table class="width100">
 
                             <tr>
@@ -654,11 +664,11 @@
                                 <td align="right">
                                 <a type="button" ng-show="showAddDeleteTrancheButtons('adddisbursedetails')" class="btn btn-primary" align="right"
                                    href="#/loandisbursedetail/{{loandetails.id}}/adddisbursedetails">
-                                    <i class="icon-plus"></i>{{ 'label.button.add' | translate }}
+                                    <i class="fa fa-plus"></i>{{ 'label.button.add' | translate }}
                                 </a>
                                     <a type="button" ng-show="showAddDeleteTrancheButtons('deletedisbursedetails')" class="btn btn-danger" align="right"
                                        href="#/loandisbursedetail/{{loandetails.id}}/deletedisbursedetails">
-                                        <i class="icon-trash"></i>{{ 'label.button.delete' | translate }}
+                                        <i class="fa fa-trash"></i>{{ 'label.button.delete' | translate }}
                                     </a>
                                 </td>
                             </tr>
@@ -675,12 +685,12 @@
                                 <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.principal | number}}</td>
                                 <td>
-                                    <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="icon-check icon-white"></i>
+                                    <div ng-show="disbursementDetail.actualDisbursementDate != null"><i class="fa fa-check "></i>
                                     </div>
                                     <a title="{{'label.edit' | translate}}"
                                        data-ng-show="showEdit(disbursementDetail)"
                                        href="#/loandisbursedetail/{{loandetails.id}}/editdisbursedate/{{disbursementDetail.id}}"><i
-                                            class="icon-pencil icon-white"></i></a>
+                                            class="fa fa-pencil "></i></a>
                                 </td>
                             </tr>
                         </table>
@@ -702,9 +712,9 @@
                                 <td>{{emiVariations.termValue}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
+                    <uib-tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -719,9 +729,9 @@
                                 <td>{{charge.chargeTimeType.value}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
+                    <uib-tab ng-show="loandetails.isLoanProductLinkedToFloatingRate" heading="{{'label.heading.floatinginterestrates' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.fromdate' | translate}}</th>
@@ -732,10 +742,10 @@
                                 <td>{{period.effectiveInterestRate}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
 
-                    <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
+                    <uib-tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -763,35 +773,24 @@
                                 <td>
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
-                                            class="icon-pencil icon-white"></i></a>
+                                            class="fa fa-pencil "></i></a>
                                     <a title="{{'label.delete' | translate}}" class="btn-warning"
                                        data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)"
-                                       title="delete"><i class="icon-remove icon-white"></i></a>
+                                       title="delete"><i class="fa fa-times "></i></a>
                                     <a class="btn-primary" data-ng-hide="charge.actionFlag"
                                        href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i
-                                            class="icon-flag icon-white"></i></a>
+                                            class="fa fa-flag "></i></a>
                                     <a class="btn-success" data-ng-show="charge.chargePayable && status=='Active'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/paycharge/{{charge.id}}">{{"label.button.pay" |
                                         translate}}</a>
                                 </td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <script type="text/ng-template" id="delcharge.html">
-                        <div class="modal-header silver">
-                            <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
-                        </div>
-                        <div class="modal-body">
-                            <api-validate></api-validate>
-                            <br>
-                            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
-                        </div>
-                    </script>
-                    <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
+                    <uib-tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
                         <div class="pull-right" data-ng-show="choice">
-                            <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload'
+                            <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="fa fa-plus "></i>{{'label.button.upload'
                                 | translate}}</a>
                         </div>
                         <br>
@@ -808,14 +807,14 @@
                                 <td>{{document.description}}</td>
                                 <td>{{document.fileName}}</td>
                                 <td>
-                                    <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="icon-cloud-download"></i></a>&nbsp;
-                                    <a ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                                    <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
+                                    <a ng-click="deleteDocument(document.id,$index)"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </tab>
-                    <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
+                    </uib-tab>
+                    <uib-tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
                         <br/>
 
                         <form>
@@ -845,8 +844,8 @@
                                 </blockquote>
                             </div>
                         </div>
-                    </tab>
-                    <tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
+                    </uib-tab>
+                    <uib-tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
                          select="dataTableChange(loandatatable)">
                         <api-validate></api-validate>
                         <div>
@@ -854,15 +853,15 @@
                                 <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
                                    has-permission='DELETE_{{loandatatable.registeredTableName}}'
                                    ng-click="deleteAll(loandatatable.registeredTableName, loandetails.id)"><i
-                                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+                                        class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
                                 <a data-ng-show="showDataTableAddButton"
                                    href="#/makedatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?fromEntity=loan"
                                    has-permission='CREATE_{{loandatatable.registeredTableName}}' class="btn btn-primary"><i
-                                        class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+                                        class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
                                 <a data-ng-show="showDataTableEditButton"
                                    ng-href="#/viewsingledatatableentry/{{loandatatable.registeredTableName}}/{{loandetails.id}}?mode=edit"
                                    class="btn btn-primary" has-permission='UPDATE_{{loandatatable.registeredTableName}}'><i
-                                        class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                                        class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
                             </div>
                             <br>
                             <br>
@@ -887,8 +886,8 @@
                                 </table>
                             </div>
                         </div>
-                    </tab>
-                </tabset>
+                    </uib-tab>
+                </uib-tabset>
             </div>
         </div>
     </div>

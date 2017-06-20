@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+        CreateInterestRateChartController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
             scope.formData = {};//used for update/save form data
             scope.restrictDate = new Date();
             scope.fromDate = {}; //required for date formatting
@@ -198,7 +198,7 @@
             }
 
             scope.incentives = function(index){
-                $modal.open({
+                $uibModal.open({
                     templateUrl: 'incentive.html',
                     controller: IncentiveCtrl,
                     resolve: {
@@ -245,11 +245,11 @@
                 return newIncentiveDataData;
             }
 
-            var IncentiveCtrl = function ($scope, $modalInstance, data,chartSlab) {
+            var IncentiveCtrl = function ($scope, $uibModalInstance, data,chartSlab) {
                 $scope.data = data;
                 $scope.chartSlab = chartSlab;
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
 
                 $scope.addNewRow = function () {
@@ -276,7 +276,7 @@
         }
 
     });
-    mifosX.ng.application.controller('CreateInterestRateChartController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.CreateInterestRateChartController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateInterestRateChartController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.CreateInterestRateChartController]).run(function ($log) {
         $log.info("CreateInterestRateChartController initialized");
     });
 }(mifosX.controllers || {}));

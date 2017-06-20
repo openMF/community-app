@@ -18,7 +18,7 @@
             scope.filterText = scope.searchCriteria.acoa;
 
             scope.onFilter = function () {
-                scope.searchCriteria.acoa = scope.filterText;
+                scope.searchCriteria.acoa = scope.filterText || '';
                 scope.saveSC();
             };
 
@@ -42,12 +42,12 @@
 
             resourceFactory.accountCoaResource.getAllAccountCoas(function (data) {
                 scope.coadatas = scope.deepCopy(data);
-                scope.ASSET = translate('ASSET') ;
-                scope.LIABILITY = translate('LIABILITY') ;
-                scope.EQUITY = translate('EQUITY') ;
-                scope.INCOME = translate('INCOME') ;
-                scope.EXPENSE = translate('EXPENSE') ;
-                scope.Accounting = translate('Accounting') ;
+                scope.ASSET = translate.instant('ASSET') ;
+                scope.LIABILITY = translate.instant('LIABILITY') ;
+                scope.EQUITY = translate.instant('EQUITY') ;
+                scope.INCOME = translate.instant('INCOME') ;
+                scope.EXPENSE = translate.instant('EXPENSE') ;
+                scope.Accounting = translate.instant('Accounting') ;
 
                 var assetObject = {id: -1, name: scope.ASSET, parentId: -999, children: []};
                 var liabilitiesObject = {id: -2, name: scope.LIABILITY, parentId: -999, children: []};

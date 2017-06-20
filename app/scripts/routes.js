@@ -908,6 +908,15 @@
             .when('/entitydatatablechecks', {
                 templateUrl: 'views/organization/entitydatatablechecks/entitydatatablechecks.html'
             })
+            .when('/notifications', {
+                templateUrl: 'views/notification/notifications.html'
+            })
+            .when('/surveys',{
+                templateUrl: 'views/surveys/surveys.html'
+            })
+            .when('/surveys/add',{
+                templateUrl: 'views/surveys/createsurvey.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

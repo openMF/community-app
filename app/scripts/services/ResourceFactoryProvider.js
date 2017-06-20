@@ -43,7 +43,7 @@
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
                         getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
-                        getAllClientsWithoutLimit: {method: 'GET', params: {}},
+                        getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
@@ -640,7 +640,13 @@
                         getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
-                        delete: {method: 'DELETE', params: {}}
+                        delete: {method: 'DELETE', params: {}},
+                        getByStatus: {method: 'GET', params: {}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
+                        getAllNotifications : {method : 'GET', params: {isRead:true}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
+                        update: {method: 'PUT'}
                     })
                 };
             }];

@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateClientController: function (scope, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams, WizardHandler) {
+        CreateClientController: function (scope, resourceFactory, location, http, dateFilter, API_VERSION, Upload, $rootScope, routeParams, WizardHandler) {
+
             scope.offices = [];
             scope.staffs = [];
             scope.savingproducts = [];
@@ -31,6 +32,7 @@
             scope.formData.datatables = [];
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
+            scope.clientId = routeParams.clientId;
 
 
             var requestParams = {staffInSelectedOfficeOnly:true};
@@ -361,7 +363,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', 'WizardHandler', mifosX.controllers.CreateClientController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateClientController', ['$scope', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', 'Upload', '$rootScope', '$routeParams', 'WizardHandler', mifosX.controllers.CreateClientController]).run(function ($log) {
         $log.info("CreateClientController initialized");
     });
 }(mifosX.controllers || {}));
