@@ -540,7 +540,37 @@
                         get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
                         put:{method:'PUT',params:{}}
                     }),
-                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
+                    creditBureauSummary: defineResource(apiVer + "/CreditBureauConfiguration/organisationCreditBureau",{},{
+                        get: {method: 'GET', isArray: true },
+                        post:{method:'POST',params:{}},
+                        put:{method:'PUT',params:{}}
+                    }),
+                    addOrgCreditBureau: defineResource(apiVer + "/CreditBureauConfiguration/organisationCreditBureau/:ocbId",{},{
+                        post:{method:'POST',params:{}}
+                    }),
+                    addCreditBureauLoanProductMapping: defineResource(apiVer + "/CreditBureauConfiguration/mappings/:cb_id",{},{
+                        post:{method:'POST',params:{}}
+                    }),
+                    creditBureauMapping: defineResource(apiVer + "/CreditBureauConfiguration/mappings",{},{
+                        get: {method: 'GET', isArray: true },
+                        put:{method:'PUT',params:{}}
+                    }),
+                    creditBureauTemplate: defineResource(apiVer + "/CreditBureauConfiguration/", {}, {
+                        get: {method: 'GET', isArray: true }
+                    }),
+                    creditBureauByCountry: defineResource(apiVer + "/CreditBureauConfiguration/dropdown/:country", {country:'@country'}, {
+                        get: {method: 'GET',isArray: true }
+                    }),
+                    creditBureauProductByCreditBureau: defineResource(apiVer + "/CreditBureauConfiguration/mappings/:credit_bureau_master_id", {credit_bureau_master_id:'@credit_bureau_master_id'}, {
+                        get: {method: 'GET',isArray : true }
+                    }),
+                    equifaxCreditCheck: defineResource(apiVer + "/CreditBureauConfiguration/equifax", {}, {
+                        get: {method: 'GET',params:{} }
+                    }),
+                    lpdropdown: defineResource(apiVer + "/CreditBureauConfiguration/loanProduct", {}, {
+                        get: {method: 'GET', isArray: true }
+                    }),
+                     provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                         get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},
                         template: {method: 'GET',params:{}},

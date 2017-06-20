@@ -917,6 +917,15 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
+             .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+             .when('/externalservicesCB/CreditBureau/addcb', {
+                 templateUrl: 'views/administration/addNewCreditBureau.html'
+            })
+            .when('/externalservicesCB/CreditBureau/mapcblp', {
+                templateUrl: 'views/administration/MapCreditBureauToLP.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
