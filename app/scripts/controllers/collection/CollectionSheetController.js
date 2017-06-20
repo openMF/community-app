@@ -23,13 +23,20 @@
             });
 
             scope.productiveCollectionSheet = function () {
-                for (var i = 0; i < scope.offices.length; i++) {
-                    if (scope.offices[i].id === scope.officeId) {
-                        scope.officeName = scope.offices[i].name;
+                if (scope.officeId && scope.loanOfficerId ) {
+                    for (var i = 0; i < scope.offices.length; i++) {
+                        if (scope.offices[i].id === scope.officeId) {
+                            scope.officeName = scope.offices[i].name;
+                        }
                     }
+                    scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
+                    location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
+                } else {
+                    scope.collectionsheetform.office.$valid = true;
+                    scope.collectionsheetform.office.$error.req = true;
+                    scope.collectionsheetform.loanOfficer.$valid = true;
+                    scope.collectionsheetform.loanOfficer.$error.req = true;
                 }
-                scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
-                location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
             };
 
             scope.officeSelected = function (officeId) {
@@ -60,6 +67,7 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
+                    $scope.loanOfficerId = loanOfficerId;
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
                     });
@@ -409,7 +417,7 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
-                
+
                 _.each(scope.savingsgroups, function (group) {
                     _.each(group.clients, function (client) {
                         var clientAttendanceDetails = {
