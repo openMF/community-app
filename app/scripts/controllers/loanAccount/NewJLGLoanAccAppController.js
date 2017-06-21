@@ -23,6 +23,7 @@
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.tempDataTables = [];
+            scope.isAllClientSelected = false;
 
             if (scope.group.id) {
                 scope.inparams.groupId = scope.group.id;
@@ -136,6 +137,27 @@
 
             };
 
+            scope.checkerInboxAllCheckBoxesClicked = function() {
+                scope.isAllClientSelected = !scope.isAllClientSelected;
+                if(!angular.isUndefined(scope.group.clients)) {
+                    for (var i in scope.group.clients) {
+                        scope.group.clients[i].isSelected = scope.isAllClientSelected;
+                    }
+                }
+            }
+
+            scope.checkerInboxAllCheckBoxesMet = function() {
+                if(!angular.isUndefined(scope.group.clients)) {
+                    var count = 0;
+                    for (var i in scope.group.clients) {
+                        if(scope.group.clients[i].isSelected){
+                            count++;
+                        }
+                    }
+                    scope.isAllClientSelected = (scope.group.clients.length==count);
+                    return scope.isAllClientSelected;
+                }
+            }
 
             /* Submit button action */
             scope.submit = function () {
@@ -173,7 +195,9 @@
                         loanApplication.dateFormat =  scope.df;
                         loanApplication.groupId = scope.group.id;
                         loanApplication.clientId = scope.group.clients[i].id;
-                        loanApplication.calendarId = scope.caledars[0].id;
+                        if(scope.caledars){
+                            loanApplication.calendarId = scope.caledars[0].id;
+                        }
                         loanApplication.loanType = 'jlg';
                         loanApplication.productId = scope.productDetails.id;
                         loanApplication.fundId = scope.loanApplicationCommonData.fundId;
@@ -203,7 +227,7 @@
 
                         for (var j in scope.group.clients[i].charges) {
 
-                            if(!scope.group.clients[i].charges[j].isDeleted){
+                            if(!scope.group.clients[i].charges[j].isDeleted && scope.group.clients[i].charges[j].chargeTimeType.code !="chargeTimeType.overdueInstallment"){
                                 var charge = {};
                                 charge.amount = scope.group.clients[i].charges[j].amount;
                                 charge.chargeId = scope.group.clients[i].charges[j].id;
