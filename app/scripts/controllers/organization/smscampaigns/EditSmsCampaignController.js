@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams, $modal) {
+        EditSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, Upload, $rootScope, routeParams, $uibModal) {
 
             scope.reportParams = new Array();
             scope.reportDateParams = new Array();
@@ -241,7 +241,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', '$modal', mifosX.controllers.EditSmsCampaignController]).run(function ($log) {
+    mifosX.ng.application.controller('EditSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', 'Upload', '$rootScope', '$routeParams', '$uibModal', mifosX.controllers.EditSmsCampaignController]).run(function ($log) {
         $log.info("EditSmsCampaignController initialized");
     });
 }(mifosX.controllers || {}));
