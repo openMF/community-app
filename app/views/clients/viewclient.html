@@ -601,10 +601,9 @@
 										<th>{{ 'label.numofactiveloans' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.activeLoans}}</span></td>
 									</tr>
-									<tr>
-										<th>{{ 'label.totalsavings' | translate }}</th>
-										<td><span class="padded-td">{{client.ClientSummary.totalSavings|number}}</span></td>
-									</tr>
+									<tr ng-repeat="t in totalAllSavingsAccountsBalanceBasedOnCurrency">
+										<th>{{ 'label.totalsavings' | translate }}({{t.code}})</th>
+										<td><span class="padded-td">{{t.totalSavings|number}}</span></td>
 									<tr>
 										<th>{{ 'label.numofactivesavings' | translate }}</th>
 										<td><span class="padded-td">{{client.ClientSummary.activeSavings}}</span></td>
