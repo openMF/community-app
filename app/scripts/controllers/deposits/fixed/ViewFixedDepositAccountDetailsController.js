@@ -100,6 +100,7 @@
 
             resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.savingaccountdetails.availableBalance = scope.savingaccountdetails.enforceMinRequiredBalance?(scope.savingaccountdetails.summary.accountBalance - scope.savingaccountdetails.minRequiredOpeningBalance):scope.savingaccountdetails.summary.accountBalance;
                 scope.convertDateArrayToObject('date');
                 scope.chartSlabs = scope.savingaccountdetails.accountChart.chartSlabs;
                 scope.status = data.status.value;

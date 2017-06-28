@@ -3,21 +3,19 @@
         <li ng-show="shareaccountdetails.clientName"><a href="#/viewclient/{{shareaccountdetails.clientId}}">{{shareaccountdetails.clientName}}</a>
         <li class="active">{{shareaccountdetails.productName}}({{shareaccountdetails.accountNo}})</li>
     </ul>
-    <div class="card">
-        <div class="content">
+    <div class="card well">
+        <div class="">
                 <div class="span gray-head">
-                    <span class="boldlabel">
-                        <strong><i class="fa fa-stop {{shareaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{shareaccountdetails.savingsProductName}}(#{{shareaccountdetails.accountNo}})</strong>
+                    <span style="margin-left: 10px;font-size:24px">
+                        <strong><i class="fa fa-stop {{shareaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{shareaccountdetails.productName}}(#{{shareaccountdetails.accountNo}})</strong>
                     </span>
                 </div>
                 <div class="col-md-12 ">
-                    <div class="pull-right">
-                      <span ng-repeat="button in buttons.singlebuttons">
-                          <a ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+                    <div class="pull-right btn-group">
+                          <a ng-show="button.name"  ng-repeat="button in buttons.singlebuttons" has-permission='{{button.taskPermissionName}}'
                           ng-click="clickEvent(button.name.replace('button.',''), shareaccountdetails.id)"
                           class="btn btn-primary"><i class="{{button.icon}} "></i>{{'label.'+button.name |
                           translate}}</a>
-                      </span>
                       <span ng-show="buttons.options" uib-dropdown class="btn-group dropdown" on-toggle="toggled(open)">
                           <a class="btn btn-primary" uib-dropdown-toggle>
                               {{'label.button.more' | translate}}
@@ -71,10 +69,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12">
+            <div class="paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
                 <hr class="marginbottom"/>
-                <tabset tabset-name="shareAccountDetails">
-                    <tab ng-show="purchasedSharesTableShow"                                   has-permission="READ_SHAREACCOUNTPURCHASE" heading="{{'label.heading.purchasedsharesoverview' | translate}}">
+                <uib-tabset tabset-name="shareAccountDetails">
+                    <uib-tab ng-show="purchasedSharesTableShow" has-permission="READ_SHAREACCOUNTPURCHASE" heading="{{'label.heading.purchasedsharesoverview' | translate}}">
                      <br>
                         <table class="table width100">
                             <tr class="graybg">
@@ -101,9 +99,9 @@
                                 <td>{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.amount | number}}</td>
                             </tr>
                         </table>
-                    </tab>
+                    </uib-tab>
 
-                    <tab ng-show="chargeTableShow" has-permission="READ_SHAREACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
+                    <uib-tab ng-show="chargeTableShow" has-permission="READ_SHAREACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
                         <br>
                         <table class="table width100">
                             <tr class="graybg">
@@ -137,8 +135,8 @@
                                 <td></td>
                             </tr>
                         </table>
-                    </tab>
-                    <tab ng-show="showDividends" has-permission="READ_SHAREACCOUNTDIVIDENDS" heading="{{'label.heading.dividends' | translate}}">
+                    </uib-tab>
+                    <uib-tab ng-show="showDividends" has-permission="READ_SHAREACCOUNTDIVIDENDS" heading="{{'label.heading.dividends' | translate}}">
                         <br>
                         <table class="table width100">
                             <tr class="graybg">
@@ -155,8 +153,8 @@
                                 <td>{{dividend.status.value}}</td>
                             </tr>
                         </table>
-                    </tab>
-                </tabset>
+                    </uib-tab>
+                </uib-tabset>
             </div>
         </div>
     </div>
