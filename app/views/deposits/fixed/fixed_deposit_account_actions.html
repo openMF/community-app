@@ -20,7 +20,18 @@
                                    ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate"/>
                         </div>
                     </div>
-
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{'label.input.depositamount' | translate}}</label>
+                      <label class="col-sm-3">{{depositAmount}}</label>
+                    </div>
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{ 'label.input.activationcharge' | translate}}</label>
+                      <label class="col-sm-3">{{activationChargeAmount}}</label>
+                    </div>
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{ 'label.heading.transactionamount' | translate}}</label>
+                      <label class="col-sm-2">{{totalAmountIncludingActivationCharge}}</label>
+                    </div>
                     <div class="form-group" ng-show="showAmount">
                         <label class="control-label col-sm-2">{{ 'label.input.amount' | translate}}<span
                                 class="required">*</span></label>

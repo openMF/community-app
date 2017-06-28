@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.repaymentdate' |  translate }}<span
                             class="required">*</span></label>
-            
+
                     <div class="col-sm-3">
                         <input type="text" id="transactionDate" name="transactiondate"  datepicker-pop="dd MMMM yyyy"
                                ng-model="date.transactionDate" is-open="opened" class=" form-control"/>
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.staff' | translate }}</label>
-            
+
                     <div class="col-sm-3">
                         <select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId"
                                 ng-options="loanOfficer.id as loanOfficer.displayName for   loanOfficer in loanOfficers"
@@ -93,7 +93,7 @@
                                        ng-model="loan.totalDue">
                             </td>
                             <td>
-                                <input type="text" class="input-sm form-control" ng-model="loan.chargesDue">
+                                {{loan.feeDue}}
                             </td>
                             <td>
                                 <button class="btn btn-default" ng-show="!loan.showPaymentDetails"
@@ -149,6 +149,7 @@
 
                         </tr>
                         <tr>
+                            <th>{{'label.heading.depositaccounttype' | translate }}</th>
                             <th>{{'label.heading.savingsaccountno' | translate}}</th>
                             <th>{{'label.heading.productname' | translate}}</th>
                             <th>{{'label.heading.clientname' | translate}}</th>
@@ -158,6 +159,7 @@
                         </thead>
                         <tbody ng-repeat="client in collectionsheetdata.clients">
                         <tr ng-repeat-start="saving in client.savings">
+                            <td>{{saving.depositAccountType}}</td>
                             <td>{{saving.accountId}}</td>
                             <td>{{saving.productName}}({{saving.productId}})</td>
                             <td>{{client.clientName}}({{client.clientId}})</td>

@@ -280,19 +280,19 @@
                             <input id="charges[{{$index}}].feeOnMonthDay" class="date-disable form-control"
                                    type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
                         </td>
-                        <td ng-show="charge.chargeTimeType.value=='Specified due date'">
+                        <td ng-show="charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.code=='chargeTimeType.weeklyFee'">
                             <input id="charges[{{$index}}].dueDate" class="date-disable form-control"
                                    type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
                         </td>
                         <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
-                            <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM" number-format ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                            <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.feeOnMonthDay" is-open="opened"/>
                         </td>
-                        <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+                        <td ng-show="charge.chargeTimeType.value=='Monthly Fee' || charge.chargeTimeType.code=='chargeTimeType.weeklyFee'">
                             <input id="charges[{{$index}}].amount" class="form-control" type="text"
                                    number-format ng-model="charge.feeInterval"/>
                         </td>
-                        <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
-                        <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
+                        <td ng-hide="charge.chargeTimeType.value=='Monthly Fee' || charge.chargeTimeType.code=='chargeTimeType.weeklyFee'"></td>
+                        <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee' || charge.chargeTimeType.code=='chargeTimeType.weeklyFee'"></td>
                         <td><a ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
                     </tr>
                 </table>
