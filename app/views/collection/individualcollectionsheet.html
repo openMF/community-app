@@ -96,7 +96,7 @@
                                ng-model="loan.totalDue">
                     </td>
                     <td>
-                        <input type="text" class="input-sm form-control" ng-model="loan.chargesDue">
+                        {{loan.feeDue}}
                     </td>
                     <td>
                         <button class="btn btn-default" ng-show="!loan.showPaymentDetails"
@@ -152,6 +152,7 @@
 
                 </tr>
                 <tr>
+                    <th>{{'label.heading.depositaccounttype' | translate}}</th>
                     <th>{{'label.heading.savingsaccountno' | translate}}</th>
                     <th>{{'label.heading.productname' | translate}}</th>
                     <th>{{'label.heading.clientname' | translate}}</th>
@@ -161,6 +162,7 @@
                 </thead>
                 <tbody ng-repeat="client in collectionsheetdata.clients">
                 <tr ng-repeat-start="saving in client.savings">
+                    <td>{{saving.depositAccountType}}</td>
                     <td>{{saving.accountId}}</td>
                     <td>{{saving.productName}}({{saving.productId}})</td>
                     <td>{{client.clientName}}({{client.clientId}})</td>
