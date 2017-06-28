@@ -355,7 +355,7 @@
                             </div>
                             <script type="text/ng-template" id="disburseloan.html">
                                 <div class="modal-header silver">
-                                    <h3 class="bolder">{{'label.heading.disburse' | translate}}</h3>
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <api-validate></api-validate>
@@ -409,7 +409,7 @@
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-success"
-                                                    data-ng-click="approveLoanReschedule()"
+                                                    data-ng-click="approveBulkLoanReschedule()"
                                                     has-permission='APPROVE_LOANRESCHEDULE'><i class="icon-ok"></i>{{'label.button.approve'
                                                 | translate}}
                                             </button>
@@ -420,7 +420,7 @@
                             </div>
                             <script type="text/ng-template" id="loanreschedule.html">
                                 <div class="modal-header silver">
-                                    <h3 class="bolder">{{'label.heading.disburse' | translate}}</h3>
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <api-validate></api-validate>
@@ -437,17 +437,22 @@
                                 <table class="table condensed-table">
                                     <thead>
                                     <tr class="graybg">
-                                        <th></th>
+                                        <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval()" ng-checked="checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval()"/></th>
                                         <th>{{'label.heading.client' | translate}}</th>
                                         <th>{{'label.heading.reschulerequest' | translate}}</th>
                                         <th>{{'label.heading.loanaccountnum' | translate}}</th>
-                                        <th>{{'label.heading.loanproduct' | translate}}</th>
-                                        <th>{{'label.heading.principal' | translate}}</th>
+                                        <th>{{'label.heading.reschedulefrom' | translate}}</th>
+                                        <th>{{'label.heading.reschedulereason' | translate}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-
+                                      <tr dir-paginate="loanReschedule in loanRescheduleData | itemsPerPage: itemsPerPage">         	<td><input type="checkbox" data-ng-model="checkForBulkLoanRescheduleApprovalData[loanReschedule.id]"/></td>
+                                      <td><a href="#/viewclient/{{loanReschedule.clientId}}">{{loanReschedule.clientName}}</a></td>
+                                      <td><a href="#/loans/{{loanReschedule.loanId}}/viewreschedulerequest/{{loanReschedule.id}}">{{loanReschedule.id}}</a></td>
+                                      <td><a href="#/viewloanaccount/{{loanReschedule.loanId}}">{{loanReschedule.loanAccountNumber}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleFromDate | DateFormat}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleReasonCodeValue.name}}</a></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

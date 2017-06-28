@@ -43,7 +43,7 @@
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
                         getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
-                        getAllClientsWithoutLimit: {method: 'GET', params: {limit: -1}},
+                        getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
@@ -81,8 +81,8 @@
                     surveyResource: defineResource(apiVer + "/surveys", {}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
-                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, { 
-                        post: {method: 'POST', params: {}, isArray: false}                       
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
+                        post: {method: 'POST', params: {}, isArray: false}
                     }),
 
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
@@ -163,8 +163,8 @@
                         update: {method: 'PUT', params: {}},
                         getAllInterestRateCharts: {method: 'GET', params: {productId: '@productId'}, isArray: true}
                     }),
-                    batchResource: defineResource(apiVer + "/batches", {}, { 
-                        post: {method: 'POST', params: {}, isArray: true}                       
+                    batchResource: defineResource(apiVer + "/batches", {}, {
+                        post: {method: 'POST', params: {}, isArray: true}
                     }),
                     loanResource: defineResource(apiVer + "/loans/:loanId/:resourceType/:resourceId", {resourceType: '@resourceType', loanId: '@loanId', resourceId: '@resourceId', limit: '@limit', sqlSearch: '@sqlSearch'}, {
                         getAllLoans: {method: 'GET', params: {limit:'@limit', sqlSearch: '@sqlSearch'}},
@@ -427,8 +427,9 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId'},{
+                    loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId', command: '@command'},{
                      get: {method: 'GET',params:{}},
+                     getAll: {method: 'GET', params: {}, isArray: true},
                      template: {method: 'GET',params:{}},
                      preview:{method:'GET',params:{command:'previewLoanReschedule'}},
                      put: {method: 'POST', params: {command:'reschedule'}},
@@ -640,13 +641,7 @@
                         getAll: {method: 'GET', params: {}},
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
-                        delete: {method: 'DELETE', params: {}},
-                        getByStatus: {method: 'GET', params: {}}
-                    }),
-                    notificationsResource: defineResource(apiVer + "/notifications", {}, {
-                        getAllNotifications : {method : 'GET', params: {isRead:true}},
-                        getAllUnreadNotifications: {method: 'GET', params: {isRead:false}},
-                        update: {method: 'PUT'}
+                        delete: {method: 'DELETE', params: {}}
                     })
                 };
             }];
