@@ -113,7 +113,8 @@
                             }
                             var savingsTransaction = {
                                 savingsId: saving.savingsId,
-                                transactionAmount: dueAmount
+                                transactionAmount: dueAmount,
+                                depositAccountType: saving.depositAccountType=='Saving Deposit'?100:(saving.depositAccountType=='Recurring Deposit'?300:400)
                             };
                             if(saving.showPaymentDetails && saving.paymentTypeId != ""){
                                 savingsTransaction.paymentTypeId = saving.paymentTypeId;
@@ -123,7 +124,10 @@
                                 savingsTransaction.receiptNumber = saving.receiptNumber;
                                 savingsTransaction.bankNumber = saving.bankNumber;
                             }
-                            scope.bulkSavingsDueTransactions.push(savingsTransaction);
+                            if(savingsTransaction.transactionAmount>0){
+                                scope.bulkSavingsDueTransactions.push(savingsTransaction);
+                            }
+                            
                         });
 
                         _.each(client.loans, function (loan) {
