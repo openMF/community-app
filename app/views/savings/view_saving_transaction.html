@@ -1,4 +1,4 @@
-<div ng-controller="ViewSavingsTransactionController">
+<div class="content-container" ng-controller="ViewSavingsTransactionController">
     <div class="paddedbottom10">
         <ul class="breadcrumb">
             <li><a href="#/viewsavingaccount/{{transaction.accountId}}">{{'label.anchor.viewsavingaccount' |
@@ -18,17 +18,18 @@
             <button class="btn btn-primary" ng-click="undoTransaction()">{{'label.button.undo' | translate}}</button>
         </div>
     </script>
-
+<div class="card well">
     <api-validate></api-validate>
+    <br>
     <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>
-
+    <hr>
     <div ng-hide="transaction.interestedPostedAsOn==false && (transaction.transactionType.id==17 || transaction.transactionType.id==3)" class="pull-right">
         <div class="btn-group">
             <a ng-show="flag" has-permission='ADJUSTTRANSACTION_SAVINGSACCOUNT'
                href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary"><i class="fa fa-pencil "></i>{{ 'label.button.edit' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
-                    class="fa fa-trash "></i>{{ 'label.button.undo' | translate}}</a>
+                    class="fa fa-trash-o "></i>{{ 'label.button.undo' | translate}}</a>
         </div>
     </div>
 
@@ -86,4 +87,5 @@
             </tr>
         </table>
     </div>
+</div>
 </div>
