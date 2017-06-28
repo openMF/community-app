@@ -14,7 +14,10 @@
                 <span>{{'label.heading.branch' | translate}}&nbsp;:{{officeName}}</span>
                 <span class="paddedleft90">{{'label.input.meetingdate' | translate}}&nbsp;:{{meetingDate}}</span>
             </div>
-            <div class="tabbable tabs-below paddedtop">
+            <div class="tabbable tabs-below paddedtop" ng-show="noData">
+               <span  class="col-sm-6 alert alert-warning"> <h3>{{'label.heading.nodataavailablefor' | translate}}&nbsp;{{officeName}}&nbsp;{{'label.heading.onmeetingdate' | translate}}{{meetingDate}}</h3><span>
+            </div>
+            <div class="tabbable tabs-below paddedtop" ng-hide="noData">
                 <ul class="nav nav-tabs nav-pills">
                     <li ng-class="{statusactive: selectedTab == center.id}" ng-repeat="center in staffCenterData">
                         <a ng-click="getAllGroupsByCenter(center.id, center.collectionMeetingCalendar.id)">
@@ -26,7 +29,7 @@
                     </li>
                 </ul>
             </div>
-            <div>
+            <div  ng-hide="noData">
                 <span>
                     <button id="add" class="btn btn-primary" ng-click="detailsShow()">
                         <i class="icon-plus-sign-alt icon-white" ng-hide="details"></i>
@@ -45,7 +48,7 @@
                 </span>
 
             </div>
-            <div ng-show="details">
+            <div ng-show="details"  ng-hide="noData">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -98,7 +101,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-offset-9 paddedtop">
+            <div class="col-md-offset-9 paddedtop"  ng-hide="noData">
                 <button id="save" type="submit" class="btn btn-primary" ng-show="submitNextShow" ng-click="submit()">
                     {{'label.button.submitandnextcenter' | translate}}
                 </button>
