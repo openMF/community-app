@@ -7,77 +7,71 @@
         <li class="active">{{'label.anchor.creategroup' | translate}}</li>
     </ul>
 	<wizard current-step="step">
-		<div class="card">
 			<wz-step icon="fa fa-circle-o" data-title="{{'label.heading.creategroup' | translate}}">
-				<div class="content">
-					<div class="toolbar">
-						<h4>{{'label.heading.creategroup' | translate}}</h4>
-					</div>
-					<br/>
-					<form name="creategroupform" novalidate="" class="form-horizontal" rc-submit="submit()">
-						<api-validate></api-validate>
+					<form name="creategroupform" novalidate="" class="form-horizontal card well" rc-submit="submit()">
 						<fieldset>
+							<api-validate></api-validate>
+							<h3>{{'label.heading.creategroup' | translate}}</h3>
+							<hr>
 							<div class="form-group">
 								<label class="control-label col-sm-2">
 									{{'label.input.office' | translate}}<span ng-show="forceOffice == null" class="required">*</span>
 								</label>
-												<div class="col-sm-3">
-													<div ng-show="forceOffice == null">
-														<select chosen="offices" name="office" id="officeId" ng-model="formData.officeId"
-																ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-																ng-change="changeOffice(formData.officeId)" class="form-control" required>
-															<option value="">{{'label.menu.selectoffice' | translate}}</option>
-														</select>
-													</div>
-													<div ng-show="forceOffice != null">
-														<p class="form-control-static">{{forceOffice.name}}</p>
-													</div>
-												</div>
-												<div class="col-sm-2">
-													<form-validate valattributeform="creategroupform" valattribute="office"/>
-												</div>
-												<label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
-												<div class="col-sm-3">
-													<input type="text" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control"/>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
-														class="required">*</span></label>
+								<div class="col-sm-3">
+									<div ng-show="forceOffice == null">
+										<select chosen="offices" name="office" id="officeId" ng-model="formData.officeId"
+												ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+												ng-change="changeOffice(formData.officeId)" class="form-control" required>
+											<option value="">{{'label.menu.selectoffice' | translate}}</option>
+										</select>
+									</div>
+									<div ng-show="forceOffice != null">
+										<p class="form-control-static">{{forceOffice.name}}</p>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="creategroupform" valattribute="office"/>
+								</div>
+								<label class="control-label col-sm-2" for="externalId">{{'label.input.externalid' | translate}}</label>
+								<div class="col-sm-3">
+									<input type="text" name="externalid" id="externalId" ng-model="formData.externalId" class="form-control"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+										class="required">*</span></label>
 
-												<div class="col-sm-3">
-													<input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
-												</div>
-												<div class="col-sm-2">
-													<form-validate valattributeform="creategroupform" valattribute="name"/>
-												</div>
-												<label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+								<div class="col-sm-3">
+									<input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+								</div>
+								<div class="col-sm-2">
+									<form-validate valattributeform="creategroupform" valattribute="name"/>
+								</div>
+								<label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
 
-												<div class="col-sm-3">
-													<input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
-														ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
+								<div class="col-sm-3">
+									<input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+										   ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
 
-												<div class="col-sm-3">
-													<select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
-															ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
-														<option value="">{{'label.menu.selectone' | translate}}</option>
-													</select>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
-												<div class="col-sm-1">
-													<input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()">
-												</div>
-												<div data-ng-switch on="choice">
-													<div data-ng-switch-when="1">
-														<label class="control-label col-sm-2 col-md-offset-4">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
-
-
+								<div class="col-sm-3">
+									<select chosen="staffs" id="staffId" ng-model="formData.staffId" class="form-control"
+											ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+										<option value="">{{'label.menu.selectone' | translate}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+								<div class="col-sm-1">
+									<input type="checkbox" id="active" ng-model="formData.active" data-ng-change="setChoice()">
+								</div>
+								<div data-ng-switch on="choice">
+									<div data-ng-switch-when="1">
+										<label class="control-label col-sm-2 col-md-offset-4">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
 										<div class="col-sm-3">
 											<input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
 												is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
@@ -91,7 +85,7 @@
 									<div class="row">
 										<div class="col-sm-4 col-md-4">
 											<input id="clientMembers" type="text" ng-model="clientData.available" class="col-md-4 form-control"
-																typeahead-min-length="3"
+																typeahead-min-length="2"
 																typeahead-editable="false"
 																uib-typeahead="client as client.displayName for client in clientOptions($viewValue)"
 																typeahead-on-select="viewClient(clientData.available)"/>
@@ -139,8 +133,6 @@
 							</div>
 						</fieldset>
 					</form>
-				</div>
 			</wz-step>
-		</div>
 	</wizard>
 </div>
