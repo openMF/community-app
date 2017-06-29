@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditDataTableController: function (scope, routeParams, resourceFactory, location) {
+        EditDataTableController: function (scope, routeParams, resourceFactory, location, $uibModal) {
 
             scope.columns = [];
             scope.dropColumns = [];
@@ -79,9 +79,25 @@
 
             scope.removeColumn = function (index) {
                 if (scope.columns[index].originalName) {
-                    scope.dropColumns.push({name: scope.columns[index].originalName});
+                  $uibModal.open({
+                      templateUrl: 'deletetable.html',
+                      controller: TableDeleteCtrl
+                  });
+                  scope.dropColumns.push({name: scope.columns[index].originalName});
                 }
                 scope.columns.splice(index, 1);
+            };
+            var TableDeleteCtrl = function ($scope, $uibModalInstance) {
+                $scope.delete = function () {
+                    resourceFactory.DataTablesResource.delete({datatablename: routeParams.tableName}, {}, function (data) {
+                        $uibModalInstance.close('delete');
+                        location.path('/viewdatatable/' + routeParams.tableName);
+                    });
+                };
+                $scope.cancel = function () {
+                    location.path('/viewdatatable/' + routeParams.tableName);
+                    $uibModalInstance.dismiss('cancel');
+                };
             };
 
             scope.updateDepenedencies = function (index) {
@@ -139,7 +155,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.EditDataTableController]).run(function ($log) {
+    mifosX.ng.application.controller('EditDataTableController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.EditDataTableController]).run(function ($log) {
         $log.info("EditDataTableController initialized");
     });
 }(mifosX.controllers || {}));
