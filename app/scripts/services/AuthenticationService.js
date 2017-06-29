@@ -1,12 +1,18 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage) {
-            var onSuccess = function (data) {
-                scope.$broadcast("UserAuthenticationSuccessEvent", data);
-                localStorageService.addToLocalStorage('userData', data);
+            var userData = null;
+            var onLoginSuccess = function (data) {
+                if(data.isTwoFactorAuthenticationRequired != null && data.isTwoFactorAuthenticationRequired == true) {
+                    userData = data;
+                    scope.$broadcast("UserAuthenticationTwoFactorRequired", data);
+                } else {
+                    scope.$broadcast("UserAuthenticationSuccessEvent", data);
+                    localStorageService.addToLocalStorage('userData', data);
+                }
             };
 
-            var onFailure = function (data, status) {
+            var onLoginFailure = function (data, status) {
                 scope.$broadcast("UserAuthenticationFailureEvent", data, status);
             };
 
@@ -17,8 +23,8 @@
                 localStorageService.addToLocalStorage('tokendetails', data);
                 setTimer(data.expires_in);
                 httpService.get( apiVer + "/userdetails?access_token=" + data.access_token)
-                    .success(onSuccess)
-                    .error(onFailure);
+                    .success(onLoginSuccess)
+                    .error(onLoginFailure);
 
             }
 
@@ -50,12 +56,29 @@
         		if(SECURITY === 'oauth'){
 	                httpService.post( "/fineract-provider/api/oauth/token?username=" + credentials.username + "&password=" + credentials.password +"&client_id=community-app&grant_type=password&client_secret=123")
 	                    .success(getUserDetails)
-	                    .error(onFailure);
+	                    .error(onLoginFailure);
         		} else {
 	                httpService.post(apiVer + "/authentication?username=" + credentials.username + "&password=" + credentials.password)
-	                    .success(onSuccess)
-	                    .error(onFailure);
+	                    .success(onLoginSuccess)
+	                    .error(onLoginFailure);
         		}
+            };
+
+            var onOTPValidateSuccess = function (data) {
+                var accessToken = data.token;
+                httpService.setTwoFactorAccessToken(accessToken);
+                scope.$broadcast("UserAuthenticationSuccessEvent", userData);
+
+            };
+
+            var onOTPValidateError = function (data, status) {
+                scope.$broadcast("TwoFactorAuthenticationFailureEvent", data, status);
+            };
+
+            this.validateOTP = function (token) {
+                httpService.post(apiVer + "/twofactor/validate?token=" + token)
+                    .success(onOTPValidateSuccess)
+                    .error(onOTPValidateError);
             };
         }
     });

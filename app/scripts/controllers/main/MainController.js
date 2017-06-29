@@ -148,6 +148,12 @@
             };
 
             scope.leftnav = false;
+            scope.$on("UserAuthenticationTwoFactorRequired", function (event, data) {
+                if (sessionManager.get(data)) {
+                    scope.start(scope.currentSession);
+                }
+            });
+
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
                 scope.authenticationFailed = false;
                 scope.resetPassword = data.shouldRenewPassword;
