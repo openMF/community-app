@@ -131,17 +131,14 @@
                 </div>
             </div>
             <br>
-            <div class="col-md-12" ng-show="savingaccountdetails.status.value == 'Active'">
-                <h3>{{'label.heading.currentBalance' | translate}}: {{savingaccountdetails.summary.accountBalance | number}} {{savingaccountdetails.currency.code}}</h3>
-                <h3>{{'label.heading.availableBalance' | translate}}: {{savingaccountdetails.availableBalance | number}} {{savingaccountdetails.currency.code}}</h3>
+            <div class="col-md-12" ng-show="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
+                <h3>{{'label.heading.currentBalance' | translate}}: {{savingaccountdetails.summary.accountBalance | number}} {{savingaccountdetails.currency.displaySymbol}}</h3>
+                <h3>{{'label.heading.availableBalance' | translate}}: {{savingaccountdetails.availableBalance | number}} {{savingaccountdetails.currency.displaySymbol}}</h3>
             </div>
-            <br>
-            <br>
-            <br>
             <div class="row" style="margin-left:-1px;margin-right: 1px;">
                 <div class="col-sm-7 col-md-7">
 
-                    <table class="table table-striped table-bordered" ng-hide="savingaccountdetails.status.value == 'Active'">
+                    <table class="table table-striped table-bordered" ng-hide="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
                         <tr>
                             <th>{{'label.heading.activatedon' | translate}}</th>
                             <td>{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
@@ -158,7 +155,7 @@
                             <td>{{savingaccountdetails.externalId}}</td>
                         </tr>
                     </table>
-                            <table class="table table-bordered view-table" ng-show="savingaccountdetails.status.value == 'Active'">
+                            <table class="table table-bordered view-table" ng-show="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
                                 <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
                                     <th class="table-bold-acc fontnormal">{{'label.totalwithdarawals' |
                                         translate}}
@@ -367,7 +364,7 @@
                             </table>
                 </div>
                 <div class="col-sm-5 col-md-5">
-                    <table class="table table-bordered table-striped" ng-hide="savingaccountdetails.status.value == 'Active'">
+                    <table class="table table-bordered table-striped" ng-hide="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
                         <tr>
                             <th>{{'label.heading.fieldofficer' | translate}}</th>
                             <td>{{savingaccountdetails.fieldOfficerName}}<span data-ng-hide="savingaccountdetails.fieldOfficerName">{{'label.unassigned' | translate}}</span>
@@ -378,7 +375,7 @@
                             <td  ng-class="{statusactiveoverdue : savingaccountdetails.summary.accountBalance < 0}">{{savingaccountdetails.summary.accountBalance | number}}</td>
                         </tr>
                     </table>
-                    <table class="table table-bordered table-striped" ng-show="savingaccountdetails.status.value == 'Active'">
+                    <table class="table table-bordered table-striped" ng-show="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
                         <tr>
                             <th colspan="2"><center>{{'label.heading.savingsDetails' | translate}}</center></th>
                         </tr>
@@ -393,6 +390,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>{{'label.heading.externalid' | translate}}</th>
+                            <td><span>{{savingaccountdetails.externalId}}</span><span ng-hide="loandetails.externalId">{{'label.heading.notprovided' | translate}}</span></td></td>
+                        </tr>
+                        <tr>
+                            <th class="table-bold-loan">{{'label.heading.currency' | translate}}</th>
+                            <td><span class="padded-td">{{savingaccountdetails.currency.name}}({{savingaccountdetails.currency.code}})</span></td>
+                        </tr>
+                        <tr>
                             <th class="table-bold-acc fontnormal">{{'label.interestrate' | translate}}</th>
                             <td><span
                                     class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}%</span>
@@ -400,7 +405,7 @@
                         </tr>
                     </table>
                     <br>
-                    <table class="table table-bordered table-striped" ng-show="savingaccountdetails.status.value == 'Active'">
+                    <table class="table table-bordered table-striped" ng-show="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
                         <tr>
                             <th colspan="2"><center>{{'label.heading.performancehistory' | translate}}</center></th>
                         </tr>
