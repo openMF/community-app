@@ -917,7 +917,13 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
-        ;
+            .when('/editfamilymember/:clientId/:familyMemberId', {
+                templateUrl: 'views/clients/editfamilymembers.html'
+            })
+            .when('/addfamilymembers/:clientId/', {
+                templateUrl: 'views/clients/addfamilymembers.html'
+            })
+            ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

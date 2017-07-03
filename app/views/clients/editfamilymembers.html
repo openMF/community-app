@@ -1,0 +1,152 @@
+<div ng-controller="EditFamilyMemberController">
+
+
+    <form name="familymemberInfo" novalidate="" class="form-horizontal well" >
+        <api-validate></api-validate>
+        <fieldset>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="firstName">{{'label.input.firstname' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="firstName" name="firstName"  ng-model="formData.firstName"  class="form-control">
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="middleName">{{'label.input.middlename' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="middleName" name="middleName" ng-model="formData.middleName"  class="form-control">
+                </div>
+
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="lastName">{{'label.input.lastname' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="lastName" name="lastName" ng-model="formData.lastName"  class="form-control">
+                </div>
+
+            </div>
+
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="qualification">{{ 'label.input.qualification' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="qualification" name="qualification" ng-model="formData.qualification"  class="form-control">
+                </div>
+
+            </div>
+
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="mobileNumber">{{ 'label.input.mobileNumber' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="mobileNumber" name="mobileNumber" ng-model="formData.mobileNumber"  class="form-control">
+                </div>
+
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="age">{{ 'label.input.age' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="age" name="age" ng-model="formData.age"  class="form-control">
+                </div>
+
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="isDependent">{{ 'label.input.isDependent' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="checkbox" class="input-mini-small"  id="isDependent" name="isDependent" ng-model="formData.isDependent" >
+                </div>
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.relationship' | translate }}</label>
+                </div>
+                <div class="col-sm-3" >
+                    <select chosen="relationshipIdOptions" id="relationshipIdOption" ng-model="formData.relationshipId"  class="form-control"
+                            ng-options="relationshipIdOption.id as relationshipIdOption.name for relationshipIdOption in relationshipIdOptions track by relationshipIdOption.id"
+                            value="formData.relationshipId"></select>
+                </div>
+            </div>
+            <div>
+
+            </div>
+
+            <div class="form-group" >
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.gender' | translate }}</label>
+                </div>
+                <div class="col-sm-3" >
+                    <select chosen="genderIdOptions" id="genderIdOption" ng-model="formData.genderId"  class="form-control"
+                            ng-options="genderIdOption.id as genderIdOption.name for genderIdOption in genderIdOptions track by genderIdOption.id"
+                            value="formData.genderId"></select>
+                </div>
+            </div>
+
+
+            <div class="form-group" >
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.profession' | translate }}</label>
+                </div>
+                <div class="col-sm-3" >
+                    <select chosen="professionIdOptions" id="professionIdOption" ng-model="formData.professionId"  class="form-control"
+                            ng-options="professionIdOption.id as professionIdOption.name for professionIdOption in professionIdOptions track by professionIdOption.id"
+                            value="formData.professionId"></select>
+                </div>
+            </div>
+
+
+            <div class="form-group" >
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.maritalstatus' | translate }}</label>
+                </div>
+                <div class="col-sm-3" >
+                    <select chosen="maritalStatusIdOptions" id="maritalStatusId" ng-model="formData.maritalStatusId"  class="form-control"
+                            ng-options="maritalStatusIdOption.id as maritalStatusIdOption.name for maritalStatusIdOption in maritalStatusIdOptions track by maritalStatusIdOption.id"
+                            value="formData.maritalStatusId"></select>
+                </div>
+            </div>
+
+            <div class="form-group" >
+                <label class="control-label col-sm-2" for="dateofbirth">{{ 'label.input.dateofbirth' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                           ng-model="date.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-offset-3" ng-model="editable">
+                <button id="cancel"   ng-click="routeTo()" class="btn btn-primary">{{
+                    'label.button.cancel' | translate }}
+                </button>
+
+
+
+                <button id="edit"  ng-click="updateClientMember()" class="btn btn-primary">{{
+                    'label.button.edit' | translate }}
+                </button>
+
+            </div>
+
+        </fieldset>
+
+    </form>
+</div>
