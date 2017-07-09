@@ -1,6 +1,6 @@
-'use strict';
-
 module.exports = function(grunt) {
+  var swPrecache = require('./node_modules/sw-precache/lib/sw-precache.js'),
+  path = require('path');
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
   // Project configuration.
@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             port:  9002,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'            
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
         },
         livereload: {
             options: {
@@ -168,6 +168,10 @@ module.exports = function(grunt) {
             'global-translations/**',
             '*.html',
             'release.json',
+            'manifest.json',
+            'sw-api.js',
+            'service-worker-registration.js',
+            'service-worker.js',
             'views/**',
             'angular/**'
           ]
@@ -217,6 +221,9 @@ module.exports = function(grunt) {
             '*.html',
             'views/**',
             'images/**',
+            'service-worker-registration.js',
+            'service-worker.js',
+            'sw-api.js',
             'bower_components/**'
           ]
         },
@@ -313,13 +320,13 @@ module.exports = function(grunt) {
       //trying to concatenat css files
       /*css: {
         files: {
-          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/mifosXstyle.css':
           ['<%= mifosx.app %>/styles/app.css',
           '<%= mifosx.app %>/styles/bootstrap-ext.css',
           '<%= mifosx.app %>/styles/bootswatch.css',
           '<%= mifosx.app %>/styles/style.css'],
 
-          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css': 
+          '<%= mifosx.dist %>/<%=mifosx.target%>/styles/vendorStyle.css':
           ['<%= mifosx.app %>/styles/bootstrap.min.css',
           '<%= mifosx.app %>/styles/chosen.min.css',
           '<%= mifosx.app %>/styles/font-awesome.min.css',
@@ -381,6 +388,12 @@ module.exports = function(grunt) {
         }
     },
 
+    swPrecache:{                      //Task
+      dev:{                          //Target
+        handleFetch: false,
+        rootDir : '<%= mifosx.app %>'
+      }
+    },
     //cssmin task to concatenate and minified css file while running the grunt prod
     /*cssmin: {
       target: {
@@ -394,22 +407,47 @@ module.exports = function(grunt) {
         }]
       }
     }*/
-  
+
   });
 
-  
-
+  function writeServiceWorkerFile(rootDir, handleFetch, callback){
+    var config = {
+      cacheId : 'Mifos-app',
+      handleFetch : handleFetch,
+      logger : grunt.log.writeln,
+      staticFileGlobs: [
+        rootDir  + '/{fonts,global-translations,images,scripts,styles,styles-dev,views}/**/*',
+        rootDir + '/*'
+      ],
+      importScripts:['/bower_components/sw-toolbox/sw-toolbox.js','/sw-api.js'],
+      stripPrefix : rootDir + '/',
+      verbose: true
+    };
+    swPrecache.write(path.join(rootDir,'service-worker.js'), config, callback);
+  }
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
-  
+  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload','swPrecache','watch']);
+
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
-  
+
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
   grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
-  grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev']);
+  grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev','swPrecache:dev']);
   grunt.registerTask('test', ['karma']);
+  grunt.registerMultiTask('swPrecache', function(){
+    var done = this.async();
+    var rootDir = this.data.rootDir;
+    var handleFetch = this.data.handleFetch;
+
+    writeServiceWorkerFile(rootDir, handleFetch, function(error){
+      if( error){
+        grunt.fail.warn(error);
+      }
+      done();
+    });
+  });
 
 };
