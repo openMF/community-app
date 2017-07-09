@@ -169,6 +169,10 @@ module.exports = function(grunt) {
             'global-translations/**',
             '*.html',
             'release.json',
+            'manifest.json',
+            'sw-api.js',
+            'service-worker-registration.js',
+            'service-worker.js',
             'views/**',
             'angular/**'
           ]
