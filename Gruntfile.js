@@ -1,4 +1,3 @@
-'use strict';
 module.exports = function(grunt) {
   var swPrecache = require('./node_modules/sw-precache/lib/sw-precache.js'),
   path = require('path');
@@ -222,6 +221,9 @@ module.exports = function(grunt) {
             '*.html',
             'views/**',
             'images/**',
+            'service-worker-registration.js',
+            'service-worker.js',
+            'sw-api.js',
             'bower_components/**'
           ]
         },
