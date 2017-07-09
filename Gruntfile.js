@@ -434,7 +434,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace', 'swPrecache:dev']);
+  grunt.registerTask('prod', ['clean:dist', 'clean:server', 'compass:dist', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'compass:dev', 'copy:dev','swPrecache:dev']);
   grunt.registerTask('test', ['karma']);
   grunt.registerMultiTask('swPrecache', function(){
