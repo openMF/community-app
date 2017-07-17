@@ -339,7 +339,7 @@
                             // Allow untrusted urls for the ajax request.
                             // http://docs.angularjs.org/error/$sce/insecurl
                             reportURL = $sce.trustAsResourceUrl(reportURL);
-
+                            reportURL = $sce.valueOf(reportURL);
                             http.get(reportURL, {responseType: 'arraybuffer'}).
                               success(function(data, status, headers, config) {
                                 var contentType = headers('Content-Type');
