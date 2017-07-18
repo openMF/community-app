@@ -20,9 +20,8 @@
             }
 
             return {
-                require: '^tabset',
-                restrict: 'E',
-                link: function (scope, elm, attrs, tabsetCtrl) {
+                restrict: 'A',
+                link: function (scope, elm, attrs) {
                     var tabScope = elm.isolateScope();
                     // Tab persistence is not needed
                     if(attrs.tabsetName == null) {
@@ -31,30 +30,20 @@
 
                     tabScope.tabName = attrs.tabsetName;
 
-                    tabScope.$watchCollection('tabs', function (tabs) {
-                        var savedTabHeading = getSavedTabHeading(tabScope.tabName);
-                        angular.forEach(tabs, function(tab) {
-                            if(typeof tab.usePersistence === "undefined") {
-                                if(tab.heading == savedTabHeading) {
-                                    tabsetCtrl.select(tab);
-                                }
-
-                                tab.usePersistence = true;
-                                // Register the state watcher for new entries
-                                tab.$watch('active', function (active, prevValue) {
-                                    if (active === true && prevValue !== true) {
-                                        setSavedTab(tabScope.tabName, tab.heading);
-                                    }
-                                });
-                            }
-                        });
+                    tabScope.$watch('tabset.active', function (data) {
+                       setSavedTab(tabScope.tabName, data);
                     });
+
+                    var savedTabIndex = getSavedTabHeading(tabScope.tabName);
+                    if(savedTabIndex != null) {
+                        tabScope.tabset.active = savedTabIndex;
+                    }
                 }
             }
         }
     });
 }(mifosX.directives || {}));
 
-mifosX.ng.application.directive("tabset", ['localStorageService', mifosX.directives.TabsPersistenceDirective]).run(function ($log) {
+mifosX.ng.application.directive("persistentTab", ['localStorageService', mifosX.directives.TabsPersistenceDirective]).run(function ($log) {
     $log.info("tabsPersistenceDirective initialized");
 });
