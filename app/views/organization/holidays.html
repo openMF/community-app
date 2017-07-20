@@ -39,7 +39,8 @@
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
-                    <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)"  ng-show="holiday.repaymentsRescheduledTo == undefined || holiday.repaymentsRescheduledTo == null">{{'label.nextrepaymentdate' | translate}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)"  ng-show="holiday.repaymentsRescheduledTo != undefined && holiday.repaymentsRescheduledTo != null">{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.status.value}}</td>
                 </tr>
             </tbody>
