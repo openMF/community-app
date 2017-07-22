@@ -15,6 +15,7 @@
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
             scope.submittedDatatables = [];
+            scope.tf = "HH:mm";
             var submitStatus = [];
 
             rootScope.RequestEntities = function(entity,status,productId){
@@ -48,7 +49,12 @@
                                 scope.entityformData.datatables[k] = {data:{}};
                                 submitStatus[k] = "save";
                                 _.each(data.columnHeaders,function(Header){
-                                    scope.entityformData.datatables[k].data[Header.columnName] = "";
+                                    if(Header.columnDisplayType == 'DATETIME'){
+                                        scope.entityformData.datatables[k].data[Header.columnName] = {};
+                                    }
+                                    else {
+                                        scope.entityformData.datatables[k].data[Header.columnName] = "";
+                                    }
                                 });
                                 k++;
                                 scope.isEntityDatatables = true;
@@ -440,17 +446,17 @@
                                 columnHeader = dateFilter(columnHeader.dateType.date, params.dateFormat);
                             }
                             else if (columnHeader.dateTimeType) {
-                                columnHeader = dateFilter(columnHeader.columnName.date, scope.df) + " " + dateFilter(columnHeader.columnName.time, scope.tf);
+                                columnHeader = dateFilter(columnHeader.dateTimeType.date, scope.df) + " " + dateFilter(columnHeader.dateTimeType.time, scope.tf);
                             }
                         });
-
+                        console.log(scope.entityformData);
                         var action = submitStatus[cnt];
                         resourceFactory.DataTablesResource[action](params, formData.data, function (data) {
 
                             submitStatus[cnt] = "update";
                             scope.submittedDatatables.push(scope.datatables[cnt].registeredTableName);
                             loop.next();
-
+x
                         },function(){
                             rootScope.errorDetails[0].push({datatable:scope.datatables[cnt].registeredTableName});
                             loop.break();
