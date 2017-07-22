@@ -1,12 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanAccountActionsController: function (scope, rootScope, resourceFactory, location, routeParams, dateFilter) {
+        LoanAccountActionsController: function (scope, rootScope, entityTable, resourceFactory, location, routeParams, dateFilter) {
 
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id;
             scope.formData = {};
-            scope.entityformData = {};
-            scope.entityformData.datatables = {};
+            // scope.entityformData = {datatables:{}};
             scope.showDateField = true;
             scope.showNoteField = true;
             scope.showAmountField = false;
@@ -23,59 +22,64 @@
             scope.submittedDatatables = [];
             var submitStatus = [];
 
-            rootScope.RequestEntities = function(entity,status,productId){
-                resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
-                    scope.entityDatatableChecks = _.filter(response.pageItems , function(datatable){
-                        var specificProduct = (datatable.entity == entity && datatable.status.value == status && datatable.productId == productId);
-                        var AllProducts = (datatable.entity == entity && datatable.status.value == status);
-                        return (datatable.productId?specificProduct:AllProducts);
-                    });
-                    scope.entityDatatableChecks = _.pluck(scope.entityDatatableChecks,'datatableName');
-                    scope.datatables = [];
-                    var k=0;
-                    _.each(scope.entityDatatableChecks,function(entitytable) {
-                        resourceFactory.DataTablesResource.getTableDetails({datatablename:entitytable,entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
-                            data.registeredTableName = entitytable;
-                            var colName = data.columnHeaders[0].columnName;
-                            if (colName == 'id') {
-                                data.columnHeaders.splice(0, 1);
-                            }
-
-                            colName = data.columnHeaders[0].columnName;
-                            if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
-                                data.columnHeaders.splice(0, 1);
-                                scope.isCenter = (colName == 'center_id') ? true : false;
-                            }
-
-
-                            data.noData = (data.data.length == 0);
-                            if(data.noData){
-                                scope.datatables.push(data);
-                                scope.entityformData.datatables[k] = {data:{}};
-                                submitStatus[k] = "save";
-                                _.each(data.columnHeaders,function(Header){
-                                    scope.entityformData.datatables[k].data[Header.columnName] = "";
-                                });
-                                k++;
-                                scope.isEntityDatatables = true;
-                            }
-                        });
-
-
-                    });
-
-                });
-            };
+            // rootScope.RequestEntities = function(entity,status,productId){
+            //     resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
+            //         scope.entityDatatableChecks = _.filter(response.pageItems , function(datatable){
+            //             var specificProduct = (datatable.entity == entity && datatable.status.value == status && datatable.productId == productId);
+            //             var AllProducts = (datatable.entity == entity && datatable.status.value == status);
+            //             return (datatable.productId?specificProduct:AllProducts);
+            //         });
+            //         scope.entityDatatableChecks = _.pluck(scope.entityDatatableChecks,'datatableName');
+            //         scope.datatables = [];
+            //         var k=0;
+            //         _.each(scope.entityDatatableChecks,function(entitytable) {
+            //             resourceFactory.DataTablesResource.getTableDetails({datatablename:entitytable,entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
+            //                 data.registeredTableName = entitytable;
+            //                 var colName = data.columnHeaders[0].columnName;
+            //                 if (colName == 'id') {
+            //                     data.columnHeaders.splice(0, 1);
+            //                 }
+            //
+            //                 colName = data.columnHeaders[0].columnName;
+            //                 if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+            //                     data.columnHeaders.splice(0, 1);
+            //                     scope.isCenter = (colName == 'center_id') ? true : false;
+            //                 }
+            //
+            //
+            //                 data.noData = (data.data.length == 0);
+            //                 if(data.noData){
+            //                     scope.datatables.push(data);
+            //                     scope.entityformData.datatables[k] = {data:{}};
+            //                     submitStatus[k] = "save";
+            //                     _.each(data.columnHeaders,function(Header){
+            //                         scope.entityformData.datatables[k].data[Header.columnName] = "";
+            //                     });
+            //                     k++;
+            //                     scope.isEntityDatatables = true;
+            //                 }
+            //             });
+            //
+            //
+            //         });
+            //
+            //     });
+            // };
 
             scope.fetchEntities = function(entity,status,productId){
                 if(!productId){
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id}, function (data) {
                         scope.productId = data.loanProductId;
-                        rootScope.RequestEntities(entity,status,scope.productId);
+                        var returnData = entityTable.RequestEntities(entity,status,scope.productId);
+                        angular.extend(scope,returnData);
+                        console.log(scope.entityDatatableChecks);
                     });
                 }
                 else{
-                    rootScope.RequestEntities(entity,status,productId);
+                   var returnData = entityTable.RequestEntities(entity,status,productId);
+
+                    scope = angular.extend(scope,returnData);
+                    console.log(returnData,scope);
                 }
             };
 
@@ -687,7 +691,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope','$rootScope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanAccountActionsController', ['$scope','$rootScope', 'EntityDatatableFactory', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.LoanAccountActionsController]).run(function ($log) {
         $log.info("LoanAccountActionsController initialized");
     });
 }(mifosX.controllers || {}));

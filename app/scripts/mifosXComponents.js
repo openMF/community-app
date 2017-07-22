@@ -13,8 +13,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'SessionManager',
             'Paginator',
             'UIConfigService',
-            'NotificationResponseHeaderProvider'
+            'NotificationResponseHeaderProvider',
+            'EntityDatatableFactoryProvider'
         ],
+
         controllers: [
             'main/MainController',
             'main/LoginFormController',
