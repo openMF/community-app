@@ -56,7 +56,11 @@
                                     <td>{{ 'label.heading.todate' | translate }}</td>
                                     <td>{{holiday.toDate | DateFormat}}</td>
                                 </tr>
-                                <tr>
+                                <tr ng-show="holiday.repaymentsRescheduledTo == undefined || holiday.repaymentsRescheduledTo == null">
+                                    <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
+                                    <td>{{'label.nextrepaymentdate' | translate}}</td>
+                                </tr>
+                                <tr ng-show="holiday.repaymentsRescheduledTo != undefined && holiday.repaymentsRescheduledTo != null">
                                     <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
                                     <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
                                 </tr>

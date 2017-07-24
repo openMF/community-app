@@ -428,7 +428,7 @@
             </div>
             <div class="paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
                 <hr class="marginbottom"/>
-                <uib-tabset class="" tabset-name="savingsAccountDetails" scrollable>
+                <uib-tabset class="scrollable" tabset-name="savingsAccountDetails" scrollable>
                     <uib-tab heading="{{'label.heading.transactions' | translate}}"
                              ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
                         <br>
@@ -517,6 +517,49 @@
                             </div>
 
                         </div>
+                    </uib-tab>
+                    <uib-tab heading="{{'label.anchor.standinginstruction' | translate}}" ng-show="instructions.currentPageItems.length > 0">
+                        <br>
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th>{{'label.heading.client' | translate}}</th>
+                                <th>{{'label.heading.fromaccount' | translate}}</th>
+                                <th>{{'label.heading.toclient' | translate}}</th>
+                                <th>{{'label.heading.toaccount' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.validity' | translate}}</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="instruction in instructions.currentPageItems">
+                                <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
+                                <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
+                                <td>
+                                    <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
+                                    <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
+
+                                </td>
+                                <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
+                                <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
+                                <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
+                                <td class="select-row:selection">
+                                    <a type="button"  class="btn btn-primary" uib-tooltip="{{'label.tooltip.editInstruction' | translate}}" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-danger" uib-tooltip="{{'label.tooltip.deleteInstruction' | translate}}" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-warning" uib-tooltip="{{'label.tooltip.viewInstruction' | translate}}" has-permission='READ_STANDINGINSTRUCTION'
+                                       href="#/viewstandinginstruction/{{instruction.id}}">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </uib-tab>
                     <uib-tab heading="{{savingdatatable.registeredTableName}}"
                              ng-repeat="savingdatatable in savingdatatables"
@@ -698,3 +741,14 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="delInstruction.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.areyousure' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>

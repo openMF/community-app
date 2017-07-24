@@ -52,7 +52,20 @@
     		                </div>
     		            </div>
     		        </div>
-    		        <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.heading.repaymentscheduleing.rule' | translate }}<span
+                            class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <select id="repaymentSchedulingRuleType" name="schedulingRule" class="form-control" ng-model="reschedulingType" ng-change="selectRescheduleType(reschedulingType)"
+                                    ng-options="repaymentSchedulingRule.value | translate for repaymentSchedulingRule in repaymentSchedulingRules"
+                                    value="{{repaymentSchedulingRule.id}}" required></select>
+                        </div>
+                        <form-validate valattributeform="addholidayform" valattribute="schedulingRule"/>
+
+                  </div>
+
+    		        <div class="form-group"  ng-show="reschedulingType.id == specificRescheduleType">
     		            <label class="control-label col-sm-2">{{ 'label.input.repaymentsheduleto' | translate }}<span
     		                    class="required">*</span></label>
 
