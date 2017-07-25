@@ -40,10 +40,10 @@
                 scope.formData.digitsAfterDecimal = data.currencyOptions[0].decimalPlaces;
 
                 scope.formData.accountingRule = data.accountingRule.id ;
-                scope.formData.shareReferenceId = data.accountingMappings.shareReferenceId.id ;
-                scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccountId.id ;
-                scope.formData.shareEquityId = data.accountingMappings.shareEquityId.id ;
-                scope.formData.shareSuspenseId = data.accountingMappings.shareSuspenseId.id
+                //scope.formData.shareReferenceId = data.accountingMappings.shareReferenceId.id ;
+                //scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccountId.id ;
+                //scope.formData.shareEquityId = data.accountingMappings.shareEquityId.id ;
+                //scope.formData.shareSuspenseId = data.accountingMappings.shareSuspenseId.id
 
             });
 
