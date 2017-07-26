@@ -1,17 +1,134 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SavingAccountActionsController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        SavingAccountActionsController: function (scope, rootScope, resourceFactory, location, routeParams, dateFilter) {
 
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id;
             scope.savingAccountId = routeParams.id;
             scope.formData = {};
+            scope.entityformData = {};
+            scope.entityformData.datatables = {};
             scope.restrictDate = new Date();
             // Transaction UI Related
             scope.isTransaction = false;
             scope.transactionAmountField = false;
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
+            scope.submittedDatatables = [];
+            scope.tf = "HH:mm";
+            var submitStatus = [];
+
+            rootScope.RequestEntities = function(entity,status,productId){
+                resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
+                    scope.entityDatatableChecks = _.filter(response.pageItems , function(datatable){
+                        var specificProduct = (datatable.entity == entity && datatable.status.value == status && datatable.productId == productId);
+                        var AllProducts = (datatable.entity == entity && datatable.status.value == status);
+                        return (datatable.productId?specificProduct:AllProducts);
+                    });
+                    scope.entityDatatableChecks = _.pluck(scope.entityDatatableChecks,'datatableName');
+                    scope.datatables = [];
+                    var k=0;
+                    _.each(scope.entityDatatableChecks,function(entitytable) {
+                        resourceFactory.DataTablesResource.getTableDetails({datatablename:entitytable,entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
+                            data.registeredTableName = entitytable;
+                            var colName = data.columnHeaders[0].columnName;
+                            if (colName == 'id') {
+                                data.columnHeaders.splice(0, 1);
+                            }
+
+                            colName = data.columnHeaders[0].columnName;
+                            if (colName == 'client_id' || colName == 'office_id' || colName == 'group_id' || colName == 'center_id' || colName == 'loan_id' || colName == 'savings_account_id') {
+                                data.columnHeaders.splice(0, 1);
+                                scope.isCenter = (colName == 'center_id') ? true : false;
+                            }
+
+
+                            data.noData = (data.data.length == 0);
+                            if(data.noData){
+                                scope.datatables.push(data);
+                                scope.entityformData.datatables[k] = {data:{}};
+                                submitStatus[k] = "save";
+                                _.each(data.columnHeaders,function(Header){
+                                    if(Header.columnDisplayType == 'DATETIME'){
+                                        scope.entityformData.datatables[k].data[Header.columnName] = {};
+                                    }
+                                    else {
+                                        scope.entityformData.datatables[k].data[Header.columnName] = "";
+                                    }
+                                });
+                                k++;
+                                scope.isEntityDatatables = true;
+                            }
+                        });
+
+
+                    });
+
+                });
+            };
+
+            scope.fetchEntities = function(entity,status,productId){
+                if(!productId){
+                    resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'},
+                        function (data) {
+                            scope.productId = data.savingsProductId;
+                            rootScope.RequestEntities(entity,status,scope.productId);
+                        });
+                }
+                else{
+                    rootScope.RequestEntities(entity,status,productId);
+                }
+            };
+
+            function asyncLoop(iterations, func, callback) {
+                var index = 0;
+                var done = false;
+                var loop = {
+                    next: function() {
+                        if (done) {
+                            return;
+                        }
+
+                        if (index < iterations) {
+                            index++;
+                            func(loop);
+
+                        } else {
+                            done = true;
+                            callback();
+                        }
+                    },
+
+                    iteration: function() {
+                        return index - 1;
+                    },
+
+                    break: function() {
+                        done = true;
+                    }
+                };
+                loop.next();
+                return loop;
+            }
+
+            scope.fieldType = function (type) {
+                var fieldType = "";
+                if (type) {
+                    if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                        fieldType = 'SELECT';
+                    } else if (type == 'DATE') {
+                        fieldType = 'DATE';
+                    } else if (type == 'DATETIME') {
+                        fieldType = 'DATETIME';
+                    } else if (type == 'BOOLEAN') {
+                        fieldType = 'BOOLEAN';
+                    } else {
+                        fieldType = 'TEXT';
+                    }
+                }
+                return fieldType;
+            };
+
 
             switch (scope.action) {
                 case "approve":
@@ -21,6 +138,7 @@
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'APPROVE_SAVINGSACCOUNT';
+                    scope.fetchEntities('m_savings_account','APPROVE');
                     break;
                 case "reject":
                     scope.title = 'label.heading.rejectsavingaccount';
@@ -29,6 +147,7 @@
                     scope.showDateField = true;
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'REJECT_SAVINGSACCOUNT';
+                    scope.fetchEntities('m_savings_account','REJECT');
                     break;
                 case "withdrawnByApplicant":
                     scope.title = 'label.heading.withdrawsavingaccount';
@@ -51,6 +170,7 @@
                     scope.showDateField = true;
                     scope.showNoteField = false;
                     scope.taskPermissionName = 'ACTIVATE_SAVINGSACCOUNT';
+                    scope.fetchEntities('m_savings_account','ACTIVATE');
                     break;
                 case "deposit":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
@@ -88,6 +208,7 @@
                     scope.transactionAmountField = true;
                     scope.showPaymentDetails = false;
                     scope.taskPermissionName = 'WITHDRAWAL_SAVINGSACCOUNT';
+                    scope.fetchEntities('m_savings_account','WITHDRAWN');
                     break;
                 case "applyAnnualFees":
                     resourceFactory.savingsResource.get({accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId},
@@ -123,6 +244,7 @@
                     scope.postInterestValidationOnClosure = true;
                     scope.formData.postInterestValidationOnClosure = true;
                     scope.taskPermissionName = 'CLOSE_SAVINGSACCOUNT';
+                    scope.fetchEntities('m_savings_account','CLOSE');
                     break;
                 case "modifytransaction":
                     resourceFactory.savingsTrxnsResource.get({savingsId: scope.accountId, transactionId: routeParams.transactionId, template: 'true'},
@@ -303,9 +425,54 @@
                     });
                 }
             };
+
+            scope.submitDatatable = function(){
+                if(scope.datatables) {
+                    asyncLoop(Object.keys(scope.entityformData.datatables).length,function(loop){
+                        var cnt = loop.iteration();
+                        var formData = scope.entityformData.datatables[cnt];
+                        formData.registeredTableName = scope.datatables[cnt].registeredTableName;
+
+                        var params = {
+                            datatablename: formData.registeredTableName,
+                            entityId: routeParams.id,
+                            genericResultSet: 'true',
+                            dateFormat: scope.df,
+                            locale: scope.optlang.code
+                        };
+
+                        _.each(formData.data, function (columnHeader) {
+                            if (columnHeader.dateType) {
+                                columnHeader = dateFilter(columnHeader.dateType.date, params.dateFormat);
+                            }
+                            else if (columnHeader.dateTimeType) {
+                                columnHeader = dateFilter(columnHeader.dateTimeType.date, scope.df) + " " + dateFilter(columnHeader.dateTimeType.time, scope.tf);
+                            }
+                        });
+                        console.log(scope.entityformData);
+                        var action = submitStatus[cnt];
+                        resourceFactory.DataTablesResource[action](params, formData.data, function (data) {
+
+                            submitStatus[cnt] = "update";
+                            scope.submittedDatatables.push(scope.datatables[cnt].registeredTableName);
+                            loop.next();
+x
+                        },function(){
+                            rootScope.errorDetails[0].push({datatable:scope.datatables[cnt].registeredTableName});
+                            loop.break();
+                        });
+
+                    },function(){
+                        scope.submit();
+                    });
+                }
+                else{
+                    scope.submit();
+                }
+            };
         }
     });
-    mifosX.ng.application.controller('SavingAccountActionsController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.SavingAccountActionsController]).run(function ($log) {
+    mifosX.ng.application.controller('SavingAccountActionsController', ['$scope','$rootScope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.SavingAccountActionsController]).run(function ($log) {
         $log.info("SavingAccountActionsController initialized");
     });
 }(mifosX.controllers || {}));
