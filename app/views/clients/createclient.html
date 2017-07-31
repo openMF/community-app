@@ -6,13 +6,13 @@
       <li ng-if="groupid"><a href="#/viewgroup/{{groupid}}">{{'label.anchor.viewgroup' | translate}}</a></li>
       <li class="active">{{'label.anchor.createclient' | translate}}</li>
    </ul>
-   <wizard current-step="step">
+   <wizard current-step="step" class="card well">
     <wz-step icon="fa fa-circle-o" data-title="{{'label.heading.createclient' | translate}}">
         <div class="card-content">
-            <form name="createclientform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+            <form name="createclientform" novalidate="" class="form-horizontal" rc-submit="submit()">
                <api-validate></api-validate>
                <fieldset>
-                  <legend>{{'label.heading.createclient' | translate}}</legend>
+                  <!--<legend>{{'label.heading.createclient' | translate}}</legend>-->
                   <div class="form-group">
                      <label class="control-label col-sm-2">
                      {{'label.input.office' | translate}} <span ng-show="forceOffice == null" class="required">*</span>
@@ -405,7 +405,7 @@
     </wz-step>
     <wz-step ng-if="datatables" ng-repeat="datatable in datatables" icon="fa fa-circle-o" data-title="{{datatable.registeredTableName}}">
     	<div class="card-content">
-		   <form class="card form-horizontal well" ng-submit="submit()">
+		   <form class="form-horizontal" ng-submit="submit()">
 		      <api-validate></api-validate>
 		      <fieldset>
 		      	<legend>{{datatable.registeredTableName}}</legend>

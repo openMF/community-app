@@ -5,13 +5,12 @@
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>'{{clientName}}'</strong></a></li>
         <li class="active">{{'label.anchor.loanapplication' | translate}}</li>
     </ul>
-    <wizard current-step="step" on-finish="submit()">
+    <wizard current-step="step" on-finish="submit()" class="card well">
         <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.details' | translate}}">
-            <form name="Details" novalidate="" rc-submit="submit()" class=" card well form-inline">
+            <form name="Details" novalidate="" rc-submit="submit()" class="form-inline">
                 <fieldset>
                     <api-validate></api-validate>
-                    <h3>{{'label.heading.details' | translate}}</h3>
-                    <hr>
+                    <!--<h3>{{'label.heading.details' | translate}}</h3>-->
                     <table class=" width100">
                         <tr>
                             <td class="width14">
@@ -164,10 +163,10 @@
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.terms' | translate }}" ng-if="formData.productId">
-            <form name="Terms" class="form-inline card well">
+            <form name="Terms" class="form-inline">
                 <fieldset>
                     <api-validate></api-validate>
-                    <h3>{{ 'label.heading.terms' | translate }}</h3>
+                    <!--<h3>{{ 'label.heading.terms' | translate }}</h3>-->
                     <hr>
                     <table ng-show="loanaccountinfo" ng-hide="previewRepayment" class=" width100">
                         <tr>
@@ -591,10 +590,10 @@
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.charges' | translate }}" ng-if="formData.productId" >
-            <form name="Charges" class="form-horizontal card well">
+            <form name="Charges" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
-                    <h3>{{'label.heading.charges' | translate}}</h3>
+                    <!--<h3>{{'label.heading.charges' | translate}}</h3>-->
                     <hr>
                     <div ng-show="loanaccountinfo" ng-hide="previewRepayment">
                         <div class="form-group">
@@ -765,10 +764,10 @@
         </wz-step>
         <wz-step icon="fa fa-circle-o" ng-if="datatables" ng-repeat="datatable in datatables"
                  title="{{datatable.registeredTableName}}" id="dynamicSteps">
-            <form name="Datatables" class="card form-inline well" ng-submit="submit()">
+            <form name="Datatables" class="form-horizontal" ng-submit="submit()">
                 <fieldset>
                     <api-validate></api-validate>
-                    <h3><strong>{{datatable.registeredTableName}}</strong></h3>
+                    <!--<h3><strong>{{datatable.registeredTableName}}</strong></h3>-->
                     <hr/>
                     <div class="form-group" ng-repeat="columnHeader in datatable.columnHeaderData">
                         <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn }}
@@ -844,11 +843,10 @@
             </form>
         </wz-step>
         <wz-step wz-title="Review" ng-if="formData.productId">
-            <form name="review" class="form-horizontal card well">
+            <form name="review" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
-                    <h3>Review</h3>
-                    <hr>
+                    <!--<h3>Review</h3>-->
                     <table width="100%">
                         <tr class="bottomborder">
                             <td colspan="7"><strong>{{'label.heading.details' | translate}}</strong></td>
@@ -1122,4 +1120,5 @@
             </form>
         </wz-step>
     </wizard>
+    </div>
 </div>

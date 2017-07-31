@@ -18,26 +18,23 @@ angular.module("wizard.html", []).run(["$templateCache", function($templateCache
             "<div class = \"wiz-container\">\n" +
             "    <div class = \"row \">\n" +
             "    <div class = \"col-md-12 \">\n" +
-            "    <div class = \"helper-set-block\">\n" +
-            "    <div class = \"arrow-wrapper steps-indicator\">\n" +
+            // "    <div class = \"helper-set-block\">\n" +
+            // "    <div class = \"arrow-wrapper steps-indicator\">\n" +
            // "    <div class=\"steps-indicator\" ng-if=\"!hideIndicators\">\n" +
            // "      <div ng-repeat=\"step in steps\" ng-class=\"{'active':step.title == selectedStep.title, default: !step.completed && !step.selected, 'current': step.selected && !step.completed, 'done': step.completed && !step.selected, 'editing': step.selected && step.completed}\">\n" +
-            "        <a ng-repeat=\"step in steps\" ng-click=\"goTo(step)\" ng-class=\"{'active':step.title == selectedStep.title, default: " +
-                "!step.completed && !step.selected, 'current': step.selected && !step.completed, " +
-                "'done': step.completed && !step.selected, 'editing': step.selected && step.completed," +
-                "'current icon-arrow-right': step.selected && !step.completed, 'done icon-check': step.completed && !step.selected, " +
-                "'editing icon-repeat': step.selected && step.completed}\">\n" +
-                "<span class=\"fa-stack\">" +
-                "<span class=\"fa fa-circle-thin fa-stack-2x\"></span>" +
-                "<span class=\"fa fa-check fa-stack-1x\" ng-show=\"step.completed\"></span>" +
-                "</span>"+
-           // "      <span class=\"{{step.icon}}\"></span> " +
-            "&nbsp;    {{step.title || step.wzTitle}}\n" +
-            "        </a>\n" +
+                "<h3 ng-hide='steps.length > 1'>{{steps[0].title || steps[0].wzTitle}}</h3>"+
+                " <ul class=\"progress-indicator\" ng-show='steps.length > 1'>"+
+            "        <li ng-repeat=\"step in steps\" ng-click=\"goTo(step)\" ng-class=\"{'progress-current':step.selected,'progress-todo': " +
+                "!step.completed && !step.selected, " +
+                "'progress-done': step.completed && !step.selected}\">" +
+                "<span class='bubble'></span><i class='fa fa-check' ng-show='step.completed && !step.selected'></i>"+
+                "<i class='fa fa-repeat' ng-show='step.selected && step.completed'></i> {{step.title || step.wzTitle}}"+
+            "        </li>" +
+                "</ul>" +
            // "      </div>\n" +
             //"    </div>\n" +
-            "    </div>\n" +
-            "    </div>\n" +
+            // "    </div>\n" +
+            // "    </div>\n" +
             "    </div>\n" +
             "    </div>\n" +
             "    <div class = \"row \">\n" +
