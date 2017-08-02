@@ -18,6 +18,7 @@
             scope.addresses=[];
             scope.view={};
             scope.view.data=[];
+           // scope.families=[];
             var entityname="ADDRESS";
             formdata={};
 
@@ -53,6 +54,15 @@
 
                 }
 
+
+               /* resourceFactory.getAllFamilyMembers.get({clientId:routeParams.id},function(data)
+                {
+
+                    scope.families=data;
+
+
+                })*/
+
             });
 
 
@@ -83,6 +93,49 @@
 
 
             // end of address
+
+
+            // family members
+
+            scope.families=[];
+
+
+
+
+            resourceFactory.familyMembers.get({clientId:routeParams.id},function(data)
+            {
+
+                scope.families=data;
+
+
+            });
+
+            scope.deleteFamilyMember=function(clientFamilyMemberId)
+            {
+
+                resourceFactory.familyMember.delete({clientId:routeParams.id,clientFamilyMemberId:clientFamilyMemberId},function(data)
+                {
+
+                    route.reload();
+                })
+
+            }
+
+            scope.editFamilyMember=function(clientFamilyMemberId)
+            {
+
+                location.path('/editfamilymember/'+routeParams.id+'/'+clientFamilyMemberId);
+
+
+            }
+
+            scope.routeToaddFamilyMember=function()
+            {
+                location.path('/addfamilymembers/'+ routeParams.id);
+            }
+
+
+            // end of family members
 
 
 

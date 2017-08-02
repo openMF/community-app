@@ -544,8 +544,25 @@
                         get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
                         put:{method:'PUT',params:{}}
                     }),
-                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
-                        get: {method: 'GET',params:{}},
+                    familyMember:defineResource(apiVer+"/clients/:clientId/familymembers/:clientFamilyMemberId",{},{
+
+                        get:{method: 'GET',params:{} },
+                        delete:{method: 'DELETE',params:{}},
+                            put:{method:'PUT',params:{}}
+
+                    }),
+                    familyMembers:defineResource(apiVer+"/clients/:clientId/familymembers/",{},{
+
+                        get:{method: 'GET',isArray: true },
+                        post:{method:'POST',params:{}}
+
+
+                    }),
+                    familyMemberTemplate:defineResource(apiVer+"/clients/:clientId/familymembers/template",{},{
+                        get:{method: 'GET',params:{}}
+                    }),
+                   provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
+                         get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},
                         template: {method: 'GET',params:{}},
                         post:{method:'POST',params:{}},

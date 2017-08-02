@@ -750,6 +750,151 @@
 					<!--</fieldset>-->
 
 				</uib-tab>
+
+				<!--family tab-->
+
+				<uib-tab ng-show="families" heading="{{'label.heading.familymembers' | translate}}" >
+					<div ng-show="families">
+						<button class="btn btn-primary pull-right" ng-click="routeToaddFamilyMember()"><i class="icon-plus icon-white"></i>{{'label.button.addfamilymember' | translate}}</button>
+						<br>
+						<table class="table" ng-repeat="family in families"  class="table table-condensed">
+							<thead>
+							<tr class="graybg">
+								<th class="graybg"> {{family.relationship}}</th>
+								<td>
+									<button class="btn btn-primary pull-right" ng-click="deleteFamilyMember(family.id)"><i class="icon-plus icon-white"></i>{{'label.button.delete' | translate}}</button>
+
+									<button class="btn btn-primary pull-right" ng-click="editFamilyMember(family.id)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+								</td>
+
+							</tr>
+							</thead>
+
+							<tbody>
+
+							<tr >
+								<th >
+									{{'label.input.firstname' | translate }}
+								</th>
+								<td>
+									{{family.firstName}}
+								</td>
+							</tr>
+
+                            <tr >
+                                <th >
+                                    {{'label.input.middlename' | translate }}
+                                </th>
+                                <td>
+                                    {{family.middleName}}
+                                </td>
+                            </tr>
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.lastname' | translate }}
+                                </th>
+                                <td>
+                                    {{family.lastName}}
+                                </td>
+                            </tr>
+
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.qualification' | translate }}
+                                </th>
+                                <td>
+                                    {{family.qualification}}
+                                </td>
+                            </tr>
+
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.mobileNumber' | translate }}
+                                </th>
+                                <td>
+                                    {{family.mobileNumber}}
+                                </td>
+                            </tr>
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.age' | translate }}
+                                </th>
+                                <td>
+                                    {{family.age}}
+                                </td>
+                            </tr>
+
+                            <tr >
+                                <th >
+                                    {{'label.input.isDependent' | translate }}
+                                </th>
+                                <td>
+                                    {{family.isDependent}}
+                                </td>
+                            </tr>
+
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.maritalstatus' | translate }}
+                                </th>
+                                <td>
+                                    {{family.maritalStatus}}
+                                </td>
+                            </tr>
+
+
+
+                            <tr >
+                                <th >
+                                    {{'label.input.gender' | translate }}
+                                </th>
+                                <td>
+                                    {{family.gender}}
+                                </td>
+                            </tr>
+
+                            <tr >
+                                <th >
+                                    {{'label.input.profession' | translate }}
+                                </th>
+                                <td>
+                                    {{family.profession}}
+                                </td>
+                            </tr>
+
+
+
+							<tr >
+								<th >
+									{{'label.input.dateofbirth' | translate }}
+								</th>
+								<td>
+									{{family.dateOfBirth | DateFormat }}
+								</td>
+							</tr>
+
+							</tbody>
+
+
+
+						</table>
+
+					</div>
+				</uib-tab>
+
+
+				<!--end of family tab-->
+
 				<uib-tab heading="{{'label.heading.identities' | translate}}" select="getClientIdentityDocuments()"
 						 has-permission='READ_CLIENTIDENTIFIER'>
 					<div class="pull-right btn-group">

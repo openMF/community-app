@@ -290,7 +290,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
-            'notification/NotificationsController'
+            'notification/NotificationsController',
+            'notification/NotificationsController',
+            'configurations/AddressFormController',
+            'client/EditFamilyMemberController',
+            'client/AddFamilyMembersController'
+
         ],
         filters: [
             'StatusLookup',
