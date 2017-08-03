@@ -113,7 +113,7 @@
 		<div class="modal-body">
 			<api-validate></api-validate>
 			<br>
-			<input type="file" ngf-select ng-model="file"">
+			<input type="file" ngf-select ng-model="file">
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -138,14 +138,10 @@
 			</div>
 			<uib-tabset class="scrollable" tabset-name="clientTabset" scrollable persistent-tab>
 				<uib-tab heading="{{'label.heading.general' | translate}}">
-                    <br>
-                    <div class="container">
-						<div class="row col-md-12 col-sm-12">
-								<span ng-repeat="button in buttonsArray.singlebuttons">
+						<div class="col-md-11 col-sm-11 btn-group row pull-right">
 								  <a href="{{button.href}}/{{client.id}}/{{button.subhref}}" class="btn btn-primary btn-offset"
-									 has-permission='{{button.taskPermissionName}}'>
+									 has-permission='{{button.taskPermissionName}}' ng-repeat="button in buttonsArray.singlebuttons" >
 									  <i class="{{button.icon}} icon-white"></i>{{button.name | translate}}</a>
-								</span>
 							<button type="button" class="btn btn-primary" data-ng-click="deleteClient()"
 									data-ng-show="client.status.value=='Pending'" has-permission='DELETE_CLIENT'><i
 									class="fa fa-trash-o "></i>{{"label.button.delete"
@@ -163,7 +159,7 @@
 										{{ 'label.button.more' | translate}}
 										<span class="caret"></span>
 									</a>
-                                    <ul class="dropdown dropdown-menu dropdown-menu-left">
+                                    <ul class="dropdown dropdown-menu dropdown-menu-right">
 										<li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
 											<a href="#/clientscreenreport/{{client.id}}"
 											   has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
@@ -181,10 +177,13 @@
 											<a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction'
 												| translate}}</a>
 										</li>
-										<li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
+                                        <li data-ng-show="client.status.value=='Active'">
+											<a href="#/createshareaccount/{{client.id}}" has-permission='CREATE_SHAREACCOUNT'>{{'label.button.newshareaccount' | translate}}</a>
+										</li>
+										<li data-ng-show="client.status.value=='Active'">
 											<a href="#/newclientfixeddepositaccount/{{client.id}}" has-permission='CREATE_FIXEDDEPOSITACCOUNT'>{{'label.newfixeddepositaccount' | translate}}</a>
 										</li>
-										<li class="{{button.icon}}" data-ng-show="client.status.value=='Active'">
+										<li data-ng-show="client.status.value=='Active'">
 											<a href="#/newclientrecurringdepositaccount/{{client.id}}" has-permission='CREATE_RECURRINGDEPOSITACCOUNT'>{{'label.newrecurringdepositaccount' | translate}}</a>
 										</li>
 										<li >
@@ -196,7 +195,9 @@
 									</ul>
 								</span>
 						</div>
-                    </div>
+                    <br>
+                    <br>
+                    <br>
 					<div class="row">
 						<div class="col-sm-9 col-md-9">
 							<div data-ng-show="client.status.value=='Closed'">
