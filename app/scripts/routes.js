@@ -917,6 +917,18 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
+			.when('/adhocquery/', {
+                templateUrl: 'views/adhocquery/adhocquerylists.html'
+            })
+            .when('/createadhocquery/', {
+                templateUrl: 'views/adhocquery/createadhocquery.html'
+            })
+            .when('/viewadhocquery/:id', {
+                templateUrl: 'views/adhocquery/viewadhocquery.html'
+            })
+            .when('/editadhocquery/:id', {
+                templateUrl: 'views/adhocquery/editadhocquery.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };
