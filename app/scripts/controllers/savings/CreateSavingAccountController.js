@@ -1,10 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateSavingAccountController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        CreateSavingAccountController: function (scope, $rootScope, resourceFactory, location, routeParams, dateFilter) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
             scope.formDat = {};
+            scope.savingdetails = {};
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -26,15 +27,15 @@
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId
             }
-            ;
+
             if (scope.groupId) {
                 scope.inparams.groupId = scope.groupId
             }
-            ;
+
             if (scope.centerId) {
                 scope.inparams.centerId = scope.centerId
             }
-            ;
+
 
             scope.inparams.staffInSelectedOfficeOnly = true;
             
@@ -86,6 +87,15 @@
                 }
             };
 
+            scope.formValue = function(array,model,findattr,retAttr){
+                findattr = findattr ? findattr : 'id';
+                retAttr = retAttr ? retAttr : 'value';
+                console.log(findattr,retAttr,model);
+                return _.find(array, function (obj) {
+                    return obj[findattr] === model;
+                })[retAttr];
+            };
+
             scope.changeProduct = function () {
                 _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
                 scope.inparams.productId = scope.formData.productId;
@@ -124,8 +134,15 @@
                     if (data.withdrawalFeeType) scope.formData.withdrawalFeeType = data.withdrawalFeeType.id;
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
+                    scope.savingdetails = angular.copy(scope.formData);
+                    scope.savingdetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
+                    scope.savingdetails.fieldOfficer
                 });
             };
+
+            scope.$watch('formData',function(newVal){
+               scope.savingdetails = angular.extend(scope.savingdetails,newVal);
+            });
 
             scope.addCharge = function (chargeId) {
                 scope.errorchargeevent = false;
@@ -250,7 +267,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateSavingAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateSavingAccountController', ['$scope','$rootScope','ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateSavingAccountController]).run(function ($log) {
         $log.info("CreateSavingAccountController initialized");
     });
 }(mifosX.controllers || {}));
