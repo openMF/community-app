@@ -2,10 +2,17 @@
     mifosX.services = _.extend(module, {
         AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage) {
             var userData = null;
+            var twoFactorIsRememberMeRequest = false;
+
             var onLoginSuccess = function (data) {
                 if(data.isTwoFactorAuthenticationRequired != null && data.isTwoFactorAuthenticationRequired == true) {
-                    userData = data;
-                    scope.$broadcast("UserAuthenticationTwoFactorRequired", data);
+                    if(hasValidTwoFactorToken(data.username)) {
+                        var token = getTokenFromStorage(data.username);
+                        onTwoFactorRememberMe(data, token);
+                    } else {
+                        userData = data;
+                        scope.$broadcast("UserAuthenticationTwoFactorRequired", data);
+                    }
                 } else {
                     scope.$broadcast("UserAuthenticationSuccessEvent", data);
                     localStorageService.addToLocalStorage('userData', data);
@@ -64,18 +71,53 @@
         		}
             };
 
-            var onOTPValidateSuccess = function (data) {
-                var accessToken = data.token;
+            var onTwoFactorRememberMe = function (userData, tokenData) {
+                var accessToken = tokenData.token;
                 httpService.setTwoFactorAccessToken(accessToken);
                 scope.$broadcast("UserAuthenticationSuccessEvent", userData);
+            };
 
+            var onOTPValidateSuccess = function (data) {
+                var accessToken = data.token;
+                if(twoFactorIsRememberMeRequest) {
+                    saveTwoFactorTokenToStorage(userData.username, data);
+                }
+                httpService.setTwoFactorAccessToken(accessToken);
+                scope.$broadcast("UserAuthenticationSuccessEvent", userData);
             };
 
             var onOTPValidateError = function (data, status) {
                 scope.$broadcast("TwoFactorAuthenticationFailureEvent", data, status);
             };
 
-            this.validateOTP = function (token) {
+            var getTokenFromStorage = function (user) {
+                var twoFactorStorage = localStorageService.getFromLocalStorage("twofactor");
+
+                if(twoFactorStorage) {
+                    return twoFactorStorage[user]
+                }
+                return null;
+            };
+
+            var saveTwoFactorTokenToStorage = function (user, tokenData) {
+                var storageData = localStorageService.getFromLocalStorage("twofactor");
+                if(!storageData) {
+                    storageData = {}
+                }
+                storageData[user] = tokenData;
+                localStorageService.addToLocalStorage('twofactor', storageData);
+            };
+
+            var hasValidTwoFactorToken = function (user) {
+                var token = getTokenFromStorage(user);
+                if(token) {
+                    return (new Date).getTime() + 7200000 < token.validTo;
+                }
+                return false;
+            };
+
+            this.validateOTP = function (token, rememberMe) {
+                twoFactorIsRememberMeRequest = rememberMe;
                 httpService.post(apiVer + "/twofactor/validate?token=" + token)
                     .success(onOTPValidateSuccess)
                     .error(onOTPValidateError);

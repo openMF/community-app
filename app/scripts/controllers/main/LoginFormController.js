@@ -12,6 +12,7 @@
             scope.otpRequestData = {};
             scope.otpToken = null;
             scope.selectedDeliveryMethodName = null;
+            scope.twofactorRememberMe = false;
 
             scope.login = function () {
                 scope.load = true;
@@ -42,6 +43,7 @@
 
                 delete scope.otpToken;
                 scope.otpTokenError = false;
+                scope.twofactorRememberMe = false;
              });
 
             scope.$on("UserAuthenticationTwoFactorRequired", function (event, data) {
@@ -79,7 +81,7 @@
             scope.requestOTP = function () {
                 if(scope.selectedDeliveryMethodName != null) {
                     scope.load = true;
-                    resourceFactory.twoFactorResource.requestOTP({deliveryMethod: scope.selectedDeliveryMethodName}, function (data) {
+                    resourceFactory.twoFactorResource.requestOTP({deliveryMethod: scope.selectedDeliveryMethodName, extendedToken: scope.twofactorRememberMe}, function (data) {
                         scope.load = false;
                         if(data.deliveryMethod !== null) {
                             scope.otpRequestData.deliveryMethod = data.deliveryMethod;
@@ -94,7 +96,7 @@
             scope.validateOTP = function () {
                 if(scope.otpToken !== null) {
                     scope.load = true;
-                    authenticationService.validateOTP(scope.otpToken);
+                    authenticationService.validateOTP(scope.otpToken, scope.twofactorRememberMe);
                 }
             };
 

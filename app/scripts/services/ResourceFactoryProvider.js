@@ -674,9 +674,9 @@
                         get: {method: 'GET', params: {}}
                     }),
 
-                    twoFactorResource: defineResource(apiVer+"/twofactor", {deliveryMethod: "@deliveryMethod"}, {
+                    twoFactorResource: defineResource(apiVer+"/twofactor", {deliveryMethod: "@deliveryMethod", extendedToken: "@extendedToken"}, {
                         getDeliveryMethods: {method: 'GET', params: {}, isArray: true},
-                        requestOTP: {method: 'POST', params: {deliveryMethod: "@deliveryMethod"}}
+                        requestOTP: {method: 'POST', params: {deliveryMethod: "@deliveryMethod", extendedToken: "@extendedToken"}}
                     }),
                     twoFactorConfigResource: defineResource(apiVer+"/twofactor/configure", {}, {
                         getAllConfigs: {method: 'GET', params: {}},
