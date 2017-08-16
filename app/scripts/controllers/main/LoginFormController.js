@@ -5,9 +5,10 @@
             scope.passwordDetails = {};
             scope.authenticationFailed = false;
             scope.load = false;
-
+            scope.$parent.user = null;
             scope.login = function () {
                 scope.load = true;
+                scope.$parent.user = scope.loginCredentials.username;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
                // delete scope.loginCredentials.password;
             };
@@ -49,6 +50,7 @@
                     //clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;
+                    scope.loginCredentials.username  = scope.$parent.user;        
                     scope.loginCredentials.password = scope.passwordDetails.password;
                     authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
                 });
