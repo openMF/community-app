@@ -662,6 +662,16 @@
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
+                    }),
+					
+					adHocQueryResource: defineResource(apiVer + "/adhocquery/:adHocId", {adHocId: '@adHocId'}, {
+                        getAllAdHocQuery: {method: 'GET', params: {}, isArray: true},
+                        disableAdHocQuery: {method: 'POST'},
+                        enableAdHocQuery: {method: 'POST'},
+                        update: { method: 'PUT' }
+                    }),
+                    adHocQueryTemplateResource: defineResource(apiVer + "/adhocquery/template", {}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
