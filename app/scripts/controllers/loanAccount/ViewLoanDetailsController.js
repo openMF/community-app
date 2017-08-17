@@ -488,6 +488,7 @@
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
                     scope.datatabledetails = data;
+                    console.log(data);
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
