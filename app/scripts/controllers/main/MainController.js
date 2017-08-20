@@ -213,6 +213,7 @@
             '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
             scope.logout = function () {
+                $rootScope.$broadcast("OnUserPreLogout");
                 scope.currentSession = sessionManager.clear();
                 scope.resetPassword = false;
                 location.path('/').replace();

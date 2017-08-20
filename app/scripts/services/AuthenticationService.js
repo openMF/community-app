@@ -3,6 +3,7 @@
         AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage) {
             var userData = null;
             var twoFactorIsRememberMeRequest = false;
+            var twoFactorAccessToken = null;
 
             var onLoginSuccess = function (data) {
                 if(data.isTwoFactorAuthenticationRequired != null && data.isTwoFactorAuthenticationRequired == true) {
@@ -73,8 +74,10 @@
 
             var onTwoFactorRememberMe = function (userData, tokenData) {
                 var accessToken = tokenData.token;
+                twoFactorAccessToken = accessToken;
                 httpService.setTwoFactorAccessToken(accessToken);
                 scope.$broadcast("UserAuthenticationSuccessEvent", userData);
+                localStorageService.addToLocalStorage('userData', userData);
             };
 
             var onOTPValidateSuccess = function (data) {
@@ -82,8 +85,10 @@
                 if(twoFactorIsRememberMeRequest) {
                     saveTwoFactorTokenToStorage(userData.username, data);
                 }
+                twoFactorAccessToken = accessToken;
                 httpService.setTwoFactorAccessToken(accessToken);
                 scope.$broadcast("UserAuthenticationSuccessEvent", userData);
+                localStorageService.addToLocalStorage('userData', userData);
             };
 
             var onOTPValidateError = function (data, status) {
@@ -108,6 +113,16 @@
                 localStorageService.addToLocalStorage('twofactor', storageData);
             };
 
+            var removeTwoFactorTokenFromStorage = function (username) {
+                var storageData = localStorageService.getFromLocalStorage("twofactor");
+                if(!storageData) {
+                    return;
+                }
+
+                delete storageData[username]
+                localStorageService.addToLocalStorage('twofactor', storageData);
+            };
+
             var hasValidTwoFactorToken = function (user) {
                 var token = getTokenFromStorage(user);
                 if(token) {
@@ -122,6 +137,16 @@
                     .success(onOTPValidateSuccess)
                     .error(onOTPValidateError);
             };
+
+            scope.$on("OnUserPreLogout", function (event) {
+                var userDate = localStorageService.getFromLocalStorage("userData");
+
+                // Remove user data and two-factor access token if present
+                localStorageService.removeFromLocalStorage("userData");
+                removeTwoFactorTokenFromStorage(userDate.username);
+
+                httpService.post(apiVer + "/twofactor/invalidate", '{"token": "' + twoFactorAccessToken + '"}');
+            });
         }
     });
     mifosX.ng.services.service('AuthenticationService', ['$rootScope', 'HttpService', 'SECURITY', 'localStorageService','$timeout','webStorage', mifosX.services.AuthenticationService]).run(function ($log) {
