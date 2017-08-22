@@ -294,7 +294,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'notification/NotificationsController',
             'configurations/AddressFormController',
             'client/EditFamilyMemberController',
-            'client/AddFamilyMembersController'
+            'client/AddFamilyMembersController',
+			'adhocquery/AdHocQueryListController',
+            'adhocquery/CreateAdHocQueryController',
+            'adhocquery/ViewAdHocQueryController',
+            'adhocquery/EditAdHocQueryController'
 
         ],
         filters: [
