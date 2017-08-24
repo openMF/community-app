@@ -124,6 +124,12 @@
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
             })
+            .when('/viewsurvey/:id', {
+                templateUrl: 'views/surveys/viewsurvey.html'
+            })
+            .when('/clients/survey/:clientId', {
+                templateUrl: 'views/surveys/viewclientsurvey.html'
+            })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
             })
@@ -916,6 +922,9 @@
             })
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
+            })
+            .when('/editsurvey/:id',{
+                templateUrl: 'views/surveys/editsurvey.html'
             })
             .when('/editfamilymember/:clientId/:familyMemberId', {
                 templateUrl: 'views/clients/editfamilymembers.html'

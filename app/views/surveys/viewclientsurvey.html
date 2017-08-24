@@ -1,0 +1,58 @@
+<div class="content-container" ng-controller="ViewClientSurveyController">
+    <ul class="breadcrumb">
+    	<li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+        <li class="active">{{'label.anchor.survey' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="toolbar">
+            <h4>{{ 'label.heading.surveys' | translate }}</h4>
+        </div>
+        <div class="content">
+            <br>
+            <div class="row">
+                <div class="col-sm-10">
+                    <form name="filtersurveys" class="form-horizontal">
+                        <div class="col-md-6">
+                                <div class="input-group">
+                                    <input data-ng-model="searchText" type="text"
+                                           placeholder="{{'label.input.searchsurveys' | translate}}"
+                                           class="form-control unstyled"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default form-control">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                                </div> 
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <a  ng-click="routeTo()" class="btn btn-primary pull-right"><i
+                            class="fa fa-plus"></i> {{'label.button.takesurvey' | translate}}</a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{'label.heading.survey' | translate}}</th>
+                    <th>{{'label.heading.createdby' | translate}}</th>
+                    <th>{{'label.heading.date' | translate}}</th>
+                    <th>{{'label.heading.score' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="survey in surveys | filter: searchText" class="pointer-main">
+	                    <td class="pointer">{{survey.surveyName}}</td>
+	                    <td class="pointer">{{survey.createdby}}</td>
+	                    <td class="pointer">{{survey.date | DateFormat}}</td>
+	                    <td class="pointer">{{survey.score}}</td>
+	                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
