@@ -41,6 +41,11 @@
                         getAllOfficesInAlphabeticalOrder: {method: 'GET', params: {orderBy: 'name', sortOrder: 'ASC'}, isArray: true},
                         update: { method: 'PUT'}
                     }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {sqlSearch: '@sqlSearch'}, {
+                        getAllNotifications: {method: 'GET', params: {isRead: true, sqlSearch: '@sqlSearch'}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead: false, sqlSearch: '@sqlSearch'}},
+                        update: {method: 'PUT'}
+                    }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
                         getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
