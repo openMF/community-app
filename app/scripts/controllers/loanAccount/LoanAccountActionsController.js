@@ -143,7 +143,7 @@
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
-                    scope.action = 'repayment';
+                    scope.action = 'prepayloan';
                     break;
                 case "waiveinterest":
                     scope.modelName = 'transactionDate';
