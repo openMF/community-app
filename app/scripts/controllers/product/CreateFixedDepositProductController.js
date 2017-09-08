@@ -12,6 +12,7 @@
             //interest rate details
             scope.chart = {};
             scope.restrictDate = new Date();
+            scope.maxDate = new Date("2050-01-01");
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
             scope.isPrimaryGroupingByAmount = false;
