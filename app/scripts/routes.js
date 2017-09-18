@@ -917,6 +917,27 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
+            .when('/editfamilymember/:clientId/:familyMemberId', {
+                templateUrl: 'views/clients/editfamilymembers.html'
+            })
+            .when('/addfamilymembers/:clientId/', {
+                templateUrl: 'views/clients/addfamilymembers.html'
+            })
+			.when('/adhocquery/', {
+                templateUrl: 'views/adhocquery/adhocquerylists.html'
+            })
+            .when('/createadhocquery/', {
+                templateUrl: 'views/adhocquery/createadhocquery.html'
+            })
+            .when('/viewadhocquery/:id', {
+                templateUrl: 'views/adhocquery/viewadhocquery.html'
+            })
+            .when('/editadhocquery/:id', {
+                templateUrl: 'views/adhocquery/editadhocquery.html'
+            })
+            .when('/selfservice/createuser/:clientId',{
+                templateUrl: 'views/selfservice/createuser.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

@@ -8,6 +8,21 @@ describe("ViewClientController", function () {
         this.scope = {};
 
         this.resourceFactory = {
+            familyMember:{
+                get:jasmine.createSpy('familyMember.get()').andCallFake(function(query, callback){
+                    familyMemberCallback=callback;
+                })
+            },
+            familyMembers:{
+                get:jasmine.createSpy('familyMembers.get()').andCallFake(function(query, callback){
+                    familyMembersCallback=callback;
+                })
+            },
+            familyMemberTemplate:{
+                get:jasmine.createSpy('familyMemberTemplate.get()').andCallFake(function(query, callback){
+                    familyMemberTemplateCallback=callback;
+                })
+            },
             addressFieldConfiguration:{
                 get:jasmine.createSpy('addressFieldConfiguration.get()').andCallFake(function(query, callback){
                     addressFieldConfigurationCallback=callback;
