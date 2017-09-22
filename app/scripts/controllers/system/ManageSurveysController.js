@@ -2,13 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ManageSurveysController: function (scope, resourceFactory, location,WizardHandler) {
             scope.surveys = [];
-            scope.step = 1;
-            scope.noOfTabs = 2;
-            scope.showQForm = false;
-            scope.showOptForm = false;
-            scope.showQBtn = true;
-            scope.showOptBtn = false;
-            //this will cause the step to be hidden
+            
             scope.disabled = 'true';
             scope.question = {
                 responseDatas: []
@@ -17,76 +11,103 @@
             scope.formData = {
                 questionDatas: []
             };
-            resourceFactory.surveyResource.get(function(data){
-                scope.surveys = data;
-            });
 
-            scope.submitDetails = function () {
-                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
-                    WizardHandler.wizard().next();
+            scope.showQuestions = false;
+            scope.getAllSurveys = function(){
+                resourceFactory.surveyResource.getAll(function(data){
+                    scope.surveys = data;
+                });
+            };
+            
+            scope.getAllSurveys();
+
+            scope.isActive = function(validFrom,validTo){
+                var curdate = new Date().getTime();                
+                return (curdate>validFrom && curdate<validTo);
+            };
+
+            scope.showQuestionsForm = function(){
+                if(scope.formData.key != undefined && scope.formData.key.length>0 &&  
+                    scope.formData.name != undefined && scope.formData.name.length>0 && 
+                    scope.formData.countryCode != undefined && scope.formData.countryCode.length>0){
+                    scope.showQuestions = true; 
+                    if(scope.formData.questionDatas == undefined || scope.formData.questionDatas.length==0){
+                        scope.showQuestionForm();
+                    }
                 }
+                
             }
-            scope.checkBasicDetails = function(){
-                return false;
-            }
+            
             scope.showQuestionForm = function(){
-                scope.showQForm = true;
-                scope.showQBtn = false;
-                scope.showOptBtn = true;
+                var question = {};
+                question.responseDatas = [];
+                question.responseDatas.push({});
+                scope.formData.questionDatas.push(question);
             }
-            scope.showOptionForm = function(){
-                scope.showOptForm = true;
-                scope.showOptBtn = false;
+            scope.showOptionForm = function(question){
+                if(question.responseDatas == undefined){
+                    question.responseDatas = [];
+                }
+                question.responseDatas.push({});
             }
             scope.discardOpt = function(){
                 scope.option = {};
-                scope.showOptForm = false;
-                scope.showOptBtn = true;
             }
-            scope.deleteOption = function(index){
-                scope.question.responseDatas.splice(index,1);
-                for (var i = 0; i < scope.question.responseDatas.length; i++) {
-                    scope.question.responseDatas[i].sequenceNo = i + 1;
-                }
+            scope.deleteOption = function(question,index){
+                question.responseDatas.splice(index,1);
             }
+
             scope.deleteQuestion = function(index){
                 scope.formData.questionDatas.splice(index,1);
-                for (var i = 0; i < scope.formData.questionDatas.length; i++) {
-                    scope.formData.questionDatas[i].sequenceNo = i + 1;
-                }
             }
             scope.discardQuestion = function(){
                 scope.option = {};
-                scope.showOptForm = false;
-                scope.showOptBtn = false;
                 scope.question = {
                     responseDatas: []
                 };
-                scope.showQBtn =true;
-                scope.showQForm = false;
 
             }
             scope.addOpt = function(){
-                scope.option.sequenceNo = scope.question.responseDatas.length + 1;
-                scope.question.responseDatas.push(scope.option);
-                scope.option = {};
-                scope.showOptForm = false;
-                scope.showOptBtn = true;
+                if(scope.isValidOption(scope.option)){
+                    scope.option.sequenceNo = scope.question.responseDatas.length + 1;
+                    scope.question.responseDatas.push(scope.option);                     
+                    scope.option = {};
+                }                
             }
-            scope.addQuestion = function(){
-                if(scope.question.responseDatas.length == 0){
-                    alert("Cannot add question without options");
-                    return;
-                }
-                scope.question.sequenceNo = scope.formData.questionDatas.length + 1;
-                scope.formData.questionDatas.push(scope.question);
-                scope.discardQuestion();
+
+            scope.isValidOption = function(data){
+                return (data.value != undefined  && data.text != undefined && data.text.length >0);
             }
+
+            scope.updateSequenceNumber = function(){
+                if(scope.formData.questionDatas != undefined && scope.formData.questionDatas.length>0){
+                    for(var i=0;i<scope.formData.questionDatas.length;i++){
+                        scope.formData.questionDatas[i].sequenceNo = i + 1;
+                        if(scope.formData.questionDatas[i].responseDatas != undefined && scope.formData.questionDatas[i].responseDatas.length>0){
+                            for(var j=0;j<scope.formData.questionDatas[i].responseDatas.length;j++){
+                                scope.formData.questionDatas[i].responseDatas[j].sequenceNo = j + 1;
+                            }
+                        }
+                    }
+                }   
+            };
+
             scope.createSurvey = function(){
+                scope.updateSequenceNumber();
                 resourceFactory.surveyResource.save(scope.formData,function(data){
-                    location.path('/surveys');
+                    location.path('/viewsurvey/'+data.resourceId);
                 });
             }
+
+            scope.routeTo = function(id){
+                location.path('/viewsurvey/'+id);
+            };
+
+            scope.deactivateSurvey = function(id){
+                resourceFactory.surveyResource.deactivate({surveyId: id},function(data){
+                    location.path('/surveys');
+                });
+            };
         }
     });
 

@@ -40,16 +40,21 @@
                     <th>{{'label.heading.description' | translate}}</th>
                     <th>{{'label.heading.countrycode' | translate}}</th>
                     <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                    <tr ng-repeat="survey in surveys | filter: searchText">
-                        <td>{{ survey.key }}</td>
-                        <td>{{ survey.name }}</td>
-                        <td>{{ survey.description }}</td>
-                        <td>{{ survey.countryCode }}</td>
-                        <td></td>
+                    <tr ng-repeat="survey in surveys | filter: searchText" ng-click="routeTo(survey.id)"  class="pointer-main" >
+                        <td class="pointer">{{ survey.key }}</td>
+                        <td class="pointer">{{ survey.name }}</td>
+                        <td class="pointer">{{ survey.description }}</td>
+                        <td class="pointer">{{ survey.countryCode }}</td>
+                        <td class="pointer" ng-show="isActive(survey.validFrom, survey.validTo)">{{'label.heading.active' | translate}}</td>
+                        <td class="pointer" ng-show="!isActive(survey.validFrom, survey.validTo)">{{'label.heading.deactivated' | translate}}
+                        </td>
+                        <td ng-show="isActive(survey.validFrom, survey.validTo)"><a type="button" class="btn btn-danger" ng-click="deactivateSurvey(survey.id)">{{'label.button.deactivate' | translate}}</a></td>
+                        <td ng-show="!isActive(survey.validFrom, survey.validTo)"></td>
                     </tr>
                 </tbody>
             </table>

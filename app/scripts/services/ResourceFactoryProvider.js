@@ -78,13 +78,18 @@
                         get: {method: 'GET', params: {}}
                     }),
 
-                    surveyResource: defineResource(apiVer + "/surveys", {}, {
-                        get: {method: 'GET', params: {}, isArray: true}
+                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {surveyId: '@surveyId'}, isArray: false},
+                        update: {method: 'PUT', params: {surveyId: '@surveyId'}},
+                        deactivate: {method: 'DELETE', params: {surveyId: '@surveyId'}},
                     }),
-                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/:surveyId", {surveyId: '@surveyId'}, {
                         post: {method: 'POST', params: {}, isArray: false}
                     }),
-
+                    clientSurveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/clients/:clientId", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {clientId: '@clientId'}, isArray: true}
+                    }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
