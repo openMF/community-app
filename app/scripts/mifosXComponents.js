@@ -16,6 +16,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'NotificationResponseHeaderProvider'
         ],
         controllers: [
+            'system/UpdateSchedulerController',
+            'system/ViewSchedulerController',
             'main/MainController',
             'main/LoginFormController',
             'main/TaskController',
@@ -62,7 +64,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
             'client/SurveyController',
-            'client/ViewClientSurveyController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
             'product/CreateSavingProductController',
@@ -153,6 +154,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/ViewDataTableController',
             'system/DataTableController',
             'system/ReportsController',
+            'system/ScheduleReportController',
             'system/ViewReportController',
             'system/CreateReportController',
             'system/EditReportController',
@@ -170,8 +172,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/AddAccountNumberPreferencesController',
             'system/EditAccountNumberPreferencesController',
             'system/ManageSurveysController',
-            'system/EditSurveyController',
-            'system/ViewSurveyController',
             'organization/HolController',
             'organization/ViewHolController',
             'organization/EditHolidayController',

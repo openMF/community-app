@@ -56,8 +56,8 @@
 
         //Set headers
         $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
-
-        // Configure i18n and preffer language
+    
+       // Configure i18n and preffer language
         //$translateProvider.translations('en', translationsEN);
         //$translateProvider.translations('de', translationsDE);
         $translateProvider.useSanitizeValueStrategy('escaped');

@@ -1,15 +1,18 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         ResourceFactoryProvider: function () {
+
+            
             var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
                 console.log(baseUrl);
+               
             };
 
             this.setTenantIdenetifier = function (tenant) {
                 tenantIdentifier = tenant;
-            }
+            };
             this.$get = ['$resource', '$rootScope', function (resource, $rootScope) {
                 var defineResource = function (url, paramDefaults, actions) {
                     var tempUrl = baseUrl;
@@ -78,18 +81,13 @@
                         get: {method: 'GET', params: {}}
                     }),
 
-                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
-                        get: {method: 'GET', params: {surveyId: '@surveyId'}, isArray: false},
-                        update: {method: 'PUT', params: {surveyId: '@surveyId'}},
-                        deactivate: {method: 'DELETE', params: {surveyId: '@surveyId'}},
+                    surveyResource: defineResource(apiVer + "/surveys", {}, {
+                        get: {method: 'GET', params: {}, isArray: true}
                     }),
-                    surveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/:surveyId", {surveyId: '@surveyId'}, {
+                    surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
                         post: {method: 'POST', params: {}, isArray: false}
                     }),
-                    clientSurveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/clients/:clientId", {clientId: '@clientId'}, {
-                        get: {method: 'GET', params: {clientId: '@clientId'}, isArray: true}
-                    }),
+
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
@@ -677,8 +675,18 @@
                     }),
                     adHocQueryTemplateResource: defineResource(apiVer + "/adhocquery/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    ScheduleReportResource: defineResource(apiVer + "/reportmailingjobs", {id: '@id', resourceType: '@resourceType'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {id: '@id'}},
+                        save: {method: 'POST', params: {}},
+                        delete: {method: 'DELETE', params: {id: '@id'}},
+                        update: {method: 'PUT', params: {id: '@id'}}
                     })
+					
                 };
+                
+                
             }];
         }
     });
