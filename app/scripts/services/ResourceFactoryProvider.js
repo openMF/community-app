@@ -81,9 +81,12 @@
                         get: {method: 'GET', params: {}}
                     }),
 
-                    surveyResource: defineResource(apiVer + "/surveys", {}, {
-                        get: {method: 'GET', params: {}, isArray: true}
-                    }),
+                    surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
+                       getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {surveyId: '@surveyId'}, isArray: false},
+                        update: {method: 'PUT', params: {surveyId: '@surveyId'}},
+                        deactivate: {method: 'DELETE', params: {surveyId: '@surveyId'}},
+						   }),
                     surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
                         post: {method: 'POST', params: {}, isArray: false}
                     }),
