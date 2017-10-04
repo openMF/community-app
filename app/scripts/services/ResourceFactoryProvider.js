@@ -87,6 +87,8 @@
                         update: {method: 'PUT', params: {surveyId: '@surveyId'}},
                         deactivate: {method: 'DELETE', params: {surveyId: '@surveyId'}},
 						   }),
+			surveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/:surveyId", {surveyId: '@surveyId'}, {
+						   }),
                     surveyScorecardResource: defineResource(apiVer + "/surveys/:surveyId/scorecards", {surveyId: '@surveyId'}, {
                         post: {method: 'POST', params: {}, isArray: false}
                     }),
