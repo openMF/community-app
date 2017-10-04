@@ -29,15 +29,18 @@
                 templateUrl: 'views/accounttransfers/view_standinginstruction.html'
             })
             .when('/viewsurvey/:id', {
--                templateUrl: 'views/surveys/viewsurvey.html'
--            })
--           
+                templateUrl: 'views/surveys/viewsurvey.html'
+            })
+           
             .when('/viewscheduler/:id', {
                 templateUrl : 'views/system/viewscheduler.html'
             })
 	     .when('/clients/survey/:clientId', {
--                templateUrl: 'views/surveys/viewclientsurvey.html'
--            })
+                templateUrl: 'views/surveys/viewclientsurvey.html'
+            })
+	     .when('/editsurvey/:id',{
+                templateUrl: 'views/surveys/editsurvey.html'
+           })
             .when('/liststandinginstructions/:officeId/:clientId', {
                 templateUrl: 'views/accounttransfers/list_standinginstruction.html'
             })
