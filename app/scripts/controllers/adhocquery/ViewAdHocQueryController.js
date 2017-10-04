@@ -8,7 +8,7 @@
                 scope.adhocquery = data;
 
                 scope.customReportRunFrequencyFieldShow = data.reportRunFrequency === 5;
-                for (var i = 0; i <= data.reportRunFrequencies.length; i+= 1) {
+                for (var i = 0; i < data.reportRunFrequencies.length; i+= 1) {
                     if (data.reportRunFrequency === data.reportRunFrequencies[i].id) {
                         data.reportRunFrequency = data.reportRunFrequencies[i].code;
                         break;
