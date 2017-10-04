@@ -28,6 +28,19 @@
             .when('/viewstandinginstruction/:instructionId', {
                 templateUrl: 'views/accounttransfers/view_standinginstruction.html'
             })
+            .when('/viewsurvey/:id', {
+                templateUrl: 'views/surveys/viewsurvey.html'
+            })
+           
+            .when('/viewscheduler/:id', {
+                templateUrl : 'views/system/viewscheduler.html'
+            })
+	     .when('/clients/survey/:clientId', {
+                templateUrl: 'views/surveys/viewclientsurvey.html'
+            })
+	     .when('/editsurvey/:id',{
+                templateUrl: 'views/surveys/editsurvey.html'
+           })
             .when('/liststandinginstructions/:officeId/:clientId', {
                 templateUrl: 'views/accounttransfers/list_standinginstruction.html'
             })
@@ -123,12 +136,6 @@
             })
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
-            })
-            .when('/viewsurvey/:id', {
-                templateUrl: 'views/surveys/viewsurvey.html'
-            })
-            .when('/clients/survey/:clientId', {
-                templateUrl: 'views/surveys/viewclientsurvey.html'
             })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
@@ -455,8 +462,14 @@
             .when('/reports', {
                 templateUrl: 'views/system/reports.html'
             })
+            .when('/schedulereport', {
+                templateUrl: 'views/system/schedulereport.html'
+            })
             .when('/system/viewreport/:id', {
                 templateUrl: 'views/system/viewreport.html'
+            })
+            .when('/updatescheduler/:id' , {
+                 templateUrl : 'views/system/updatescheduler.html'
             })
             .when('/createreport', {
                 templateUrl: 'views/system/createreport.html'
@@ -922,9 +935,6 @@
             })
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
-            })
-            .when('/editsurvey/:id',{
-                templateUrl: 'views/surveys/editsurvey.html'
             })
             .when('/editfamilymember/:clientId/:familyMemberId', {
                 templateUrl: 'views/clients/editfamilymembers.html'
