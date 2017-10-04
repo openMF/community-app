@@ -1,0 +1,213 @@
+<div class="content-container" >
+      
+        
+
+
+
+
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">Schedule Report</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">Schedule Report</div>
+            <br/>
+
+            <div class="bootstrap-iso">
+                    <div class="container-fluid">
+                     <div class="row">
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                       <form name="schedulereportform"  class="" ng-controller="ScheduleReportController" ng-submit = "submit()">
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="name">
+                          Name
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <input class="form-control" id="name" name = "Name" ng-model = "schedulerData.name" type="text"/>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label " for="description">
+                          Description
+                         </label>
+                         <textarea class="form-control" cols="40" id="description" name = "Description" ng-model = "schedulerData.description" rows="10"></textarea>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="startDateTime">
+                          Date
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <input class="form-control" id="startDateTime" name = "dateTime" ng-model = "schedulerData.startDateTime" placeholder="MM/DD/YYYY" type="datetime-local"/>
+                        </div>
+                       
+                        <div id = "frequency">
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="frequency">
+                          Frequency
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <select class="select form-control" id="frequency" name = "Frequency" ng-model = "schedulerData.frequency" >
+                          <option value="Daily">
+                           Daily
+                          </option>
+                          <option value="Weekly">
+                           Weekly
+                          </option>
+                          <option value="Monthly">
+                           Monthly
+                          </option>
+                          <option value="Yearly">
+                           Yearly
+                          </option>
+                         </select>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="frequency-interval">
+                          Every
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <select class="select form-control" id="frequency-interval" name = "Interval" ng-model = "schedulerData.frequency_interval">
+                          <option value="1">
+                           1
+                          </option>
+                          <option value="2">
+                           2
+                          </option>
+                          <option value="3">
+                           3
+                          </option>
+                         </select>
+                         Days(s)/Week(s)/Month(s)/Year(s)
+                        </div>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="emailRecipients">
+                          Enter Recipients
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <input class="form-control" id="emailRecipients" name = "Recipients" ng-model = "schedulerData.emailRecipients" placeholder="example@domain.com. example1@domain.com" type="text"/>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="subject">
+                          Subject
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <input class="form-control" id="subject" name = "Subject" ng-model = "schedulerData.emailSubject" type="text"/>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="emailMessage">
+                          Message
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <textarea class="form-control" cols="40" id="emailMessage" name = "Message" ng-model = "schedulerData.emailMessage" rows="10"></textarea>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField"  for="isActive">
+                          Active
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <select class="select form-control" id="isActive"name = "Active"  ng-model = "schedulerData.isActive">
+                          <option value="true">
+                           Yes
+                          </option>
+                          <option value="false">
+                           No
+                          </option>
+                         </select>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="report-category">
+                          Report Category
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <select class="select form-control" name = "report" id="report-category" >
+                          <option value="Client">
+                           Client
+                          </option>
+                          <option value="Loan">
+                           Loan
+                          </option>
+                          <option value="Financial">
+                           Financial
+                          </option>
+                          <option value="Group">
+                           Group
+                          </option>
+                          <option value="Savings">
+                           Savings
+                          </option>
+                          <option value="Organisation">
+                           Organisation
+                          </option>
+                         </select>
+                        </div>
+                        <div class="form-group ">
+                         <label class="control-label requiredField" for="emailAttachmentFormatId">
+                          Attachment File Format
+                          <span class="asteriskField">
+                           *
+                          </span>
+                         </label>
+                         <select class="select form-control" name = "Attachment" id="emailAttachmentFormatId" ng-model = "schedulerData.emailAttachmentFormatId">
+                          <option value="1">
+                           PDF
+                          </option>
+                          <option value="2">
+                           XLS
+                          </option>
+                          <option value="3">
+                           CSV
+                          </option>
+                         </select>
+                        </div>
+                        
+                        <input id="save" type="submit" class="btn btn-primary" />
+                         
+                        
+                    </form>
+                      </div>
+                     </div>
+                    </div>
+                   </div>
+                     </div>
+                    </div>
+                   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

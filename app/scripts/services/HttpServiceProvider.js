@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         HttpServiceProvider: function () {
+            
             var requestInterceptors = {};
 
             this.addRequestInterceptor = function (id, interceptorFn) {
@@ -50,6 +51,7 @@
                     this.cancelAuthorization = function () {
                         delete http.defaults.headers.common.Authorization;
                     };
+                    
                 };
                 return new HttpService();
             }];
