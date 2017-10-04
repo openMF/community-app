@@ -3,8 +3,17 @@
         ViewAdHocQueryController: function (scope, routeParams, route, location, resourceFactory, $modal) {
             scope.adhocquery = [];
             scope.formData = {};
+            scope.customReportRunFrequencyFieldShow = false;
             resourceFactory.adHocQueryResource.get({'adHocId': routeParams.id}, function (data) {
                 scope.adhocquery = data;
+
+                scope.customReportRunFrequencyFieldShow = data.reportRunFrequency === 5;
+                for (var i = 0; i <= data.reportRunFrequencies.length; i+= 1) {
+                    if (data.reportRunFrequency === data.reportRunFrequencies[i].id) {
+                        data.reportRunFrequency = data.reportRunFrequencies[i].code;
+                        break;
+                    }
+                }
             });
             
             var AdHocDeleteCtrl = function ($scope, $uibModalInstance) {
