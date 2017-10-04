@@ -16,6 +16,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'NotificationResponseHeaderProvider'
         ],
         controllers: [
+	      'system/EditSurveyController',
+-            'system/ViewSurveyController',
             'system/UpdateSchedulerController',
             'system/ViewSchedulerController',
             'main/MainController',
