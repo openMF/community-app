@@ -80,7 +80,9 @@
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
                         get: {method: 'GET', params: {}}
                     }),
-
+                    clientSurveyScorecardResource: defineResource(apiVer + "/surveys/scorecards/clients/:clientId", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {clientId: '@clientId'}, isArray: true}
+                    }),
                     surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
                        getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {surveyId: '@surveyId'}, isArray: false},
