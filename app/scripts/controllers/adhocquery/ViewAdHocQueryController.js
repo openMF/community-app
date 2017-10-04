@@ -7,29 +7,29 @@
                 scope.adhocquery = data;
             });
             
-            scope.deleteadhocquery = function () {
-                $modal.open({
-                    templateUrl: 'deleteadhocquery.html',
-                    controller: AdHocDeleteCtrl
-                });
-            };
-            var AdHocDeleteCtrl = function ($scope, $modalInstance) {
+            var AdHocDeleteCtrl = function ($scope, $uibModalInstance) {
                 $scope.delete = function () {
                     resourceFactory.adHocQueryResource.delete({adHocId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
+                        $uibModalInstance.close('delete');
                         location.path('/adhocquery');
                         // added dummy request param because Content-Type header gets removed
                         // if the request does not contain any data (a request body)
                     });
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                 };
             };
 
+            scope.deleteadhocquery = function () {
+                $modal.open({
+                    templateUrl: 'deleteadhocquery.html',
+                    controller: AdHocDeleteCtrl
+                });
+            };
         }
     });
-    mifosX.ng.application.controller('ViewAdHocQueryController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$modal', mifosX.controllers.ViewAdHocQueryController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewAdHocQueryController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$uibModal', mifosX.controllers.ViewAdHocQueryController]).run(function ($log) {
         $log.info("ViewAdHocQueryController initialized");
     });
 }(mifosX.controllers || {}));
