@@ -25,7 +25,7 @@
              scope.formData.dateFormat = scope.df;
              resourceFactory.ScheduleReportResource.update({
                 id: routeParams.id
-             }, function(data) {
+             }, this.formData, function(data) {
                 location.path('/reports');
              });
           };
