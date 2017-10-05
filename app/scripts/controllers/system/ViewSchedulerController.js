@@ -10,7 +10,7 @@
           });
  
           scope.deleteScheduler = function() {
-             resourceFactory.ScheduleReportResource.delete({id: routeParams.id},function(data){
+             resourceFactory.ScheduleReportResource.delete({id: routeParams.id},{}, function(data){
  
                 location.path('/reports');
              });
