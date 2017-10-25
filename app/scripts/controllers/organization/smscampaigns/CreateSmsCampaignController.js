@@ -32,10 +32,21 @@
             scope.simpleDate = new Date();
             var simpleTime = new Date(scope.simpleDate.getTime());
             scope.campaignData.time = new Date(0, 0, 0, simpleTime.getHours(), simpleTime.getMinutes(), simpleTime.getSeconds());
+            
+            scope.campaignData.isNotification = false;
+            scope.choice = 0;
 
             scope.buildMessageTemplate = function (paramName) {
                 scope.campaignData.campaignMessage += " " + "{{" + paramName + "}}";
             }
+
+            scope.setChoice = function () {
+                if (scope.campaignData.isNotification) {
+                    scope.choice = 1;
+                }else{
+                    scope.choice = 0;
+                }
+            };
 
             scope.reportSelected = function (reportName) {
                 scope.reqFields = [] ;
@@ -365,11 +376,11 @@
                 }
                     //dateFilter(scope.campaignData.recurrenceStartDate, scope.df) + ' ' + scope.campaignData.time.getHours() + ':' + scope.campaignData.time.getMinutes() + ':' + scope.campaignData.time.getSeconds();
                 scope.submissionData = {
-                    providerId: scope.campaignData.smsProvider.id,
+                    providerId: (scope.campaignData.smsProvider != null)?scope.campaignData.smsProvider.id:null,
                     //runReportId: scope.campaignData.report.reportId,
                     triggerType: scope.campaignData.triggerType.id,
                     campaignName: scope.campaignData.campaignName,
-                    campaignType: 1,
+                    campaignType: scope.getcampaignType(),
                     message: scope.campaignData.campaignMessage,
                     //paramValue: scope.paramValues,
                     dateFormat: scope.df,
@@ -379,7 +390,8 @@
                     dateTimeFormat: scope.dft,
                     frequency: scope.campaignData.frequency,
                     interval: scope.campaignData.repeatsEvery,
-                    repeatsOnDay: scope.campaignData.repeatsOnDay
+                    repeatsOnDay: scope.campaignData.repeatsOnDay,
+                    isNotification: scope.campaignData.isNotification
                 }
 
                 scope.submissionData.runReportId = scope.campaignData.report.reportId;
@@ -389,6 +401,14 @@
                     location.path('/viewsmscampaign/' + data.resourceId);
                 });
 
+            };
+
+            scope.getcampaignType = function(){
+                if(scope.campaignData.isNotification==false){
+                    return 1;
+                }else{
+                    return 2;
+                }
             };
 
             var setDisableTimeout = function(){
