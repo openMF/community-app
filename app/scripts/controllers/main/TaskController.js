@@ -16,7 +16,7 @@
             //this value will be changed within each specific tab
             scope.requestIdentifier = "loanId";
 
-            scope.itemsPerPage = 15;
+            scope.itemsPerPage = 1000;
 
             scope.loanRescheduleData = [];
             scope.checkForBulkLoanRescheduleApprovalData = [];
