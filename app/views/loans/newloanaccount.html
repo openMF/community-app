@@ -214,10 +214,14 @@
                                      </td>
                                      <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                                         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
-                                            <select id="interestType" ng-model="formData.interestType"
+                                            <div class="width170px">
+                                                <select id="interestType" ng-model="formData.interestType"
                                               ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestType"
                                               ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" class="form-control width170px"
                                               value="{{interestType.id}}"/>
+                                              <label class="col-sm-offset-1">{{ 'label.input.isequalamortization' | translate }}</label>
+                                              <input type="checkbox" ng-model="formData.isEqualAmortization" ng-true-value="true" ng-false-value="false">
+                                            </div>
                                       </td>
                                 </tr>
 
