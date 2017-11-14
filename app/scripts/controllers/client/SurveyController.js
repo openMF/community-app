@@ -7,7 +7,7 @@
             scope.surveyData = {};
             scope.survey = {};
 
-            resourceFactory.surveyResource.getAll({}, function (data) {
+            resourceFactory.surveyResource.getAll({isActive: true}, function (data) {
                 scope.surveys = data;
             });
 
@@ -62,6 +62,14 @@
                 resourceFactory.surveyScorecardResource.post({surveyId: scope.surveyData.id}, this.formData, function (data) {
                     location.path('/clients/survey/' + scope.clientId);
                 });
+            };
+            scope.isAnyResponse = function(){
+                for(i=0; i < scope.surveyData.questionDatas.length; i++){
+                    if(scope.surveyData.questionDatas[i].answer) {
+                        return false;
+                    }
+                }
+                return true;
             };
 
             scope.cancel = function () {
