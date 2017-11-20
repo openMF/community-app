@@ -532,6 +532,10 @@
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
                     }),
+                    externalServicesNotificationResource: defineResource(apiVer + "/externalservice/NOTIFICATION", {},{
+                        get: {method: 'GET', params: {}, isArray : true},
+                        put: {method: 'PUT', params:{}}
+                    }),
                     externalServicesResource: defineResource(apiVer + "/externalservice/:id", {id: '@id'},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
