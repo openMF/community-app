@@ -6,6 +6,8 @@
             scope.formData = {};
             scope.loanId = routeParams.id;
             var fields = "id,loanOfficerId,loanOfficerOptions";
+            scope.formData.assignmentDate = new Date();
+            scope.restrictDate = new Date();
 
             resourceFactory.loanResource.get({loanId: scope.loanId, template: true, fields: fields, staffInSelectedOfficeOnly:true}, function (data) {
                 if (data.loanOfficerOptions) {
