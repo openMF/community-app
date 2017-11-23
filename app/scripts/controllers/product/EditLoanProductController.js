@@ -93,6 +93,7 @@
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
+                    isEqualAmortization : scope.product.isEqualAmortization,
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -128,6 +129,7 @@
 
                 }
                 if(scope.product.allowAttributeOverrides != null){
+                    console.log('scope.product.allowAttributeOverrides : ',scope.product.allowAttributeOverrides);
                     scope.amortization = scope.product.allowAttributeOverrides.amortizationType;
                     scope.arrearsTolerance = scope.product.allowAttributeOverrides.inArrearsTolerance;
                     scope.graceOnArrearsAging = scope.product.allowAttributeOverrides.graceOnArrearsAgeing;
