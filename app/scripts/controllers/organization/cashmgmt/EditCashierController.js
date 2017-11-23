@@ -11,9 +11,10 @@
 
                 scope.formData.description= scope.cashier.description;
                 scope.formData.startDate = scope.cashier.startDate;
+                scope.formData.endDate = scope.cashier.endDate;
                 var startDate = dateFilter(scope.cashier.startDate, scope.df);
                 scope.formData.startDate  = new Date(startDate);
-                var endDate = dateFilter(scope.cashier.startDate, scope.df);
+                var endDate = dateFilter(scope.cashier.endDate, scope.df);
                 scope.formData.endDate  = new Date(endDate);
                 scope.formData.staffId = scope.cashier.staffId;
                 scope.formData.isFullDay = scope.cashier.isFullDay;

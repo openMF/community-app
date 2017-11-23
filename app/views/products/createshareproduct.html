@@ -87,11 +87,11 @@
         <form-validate valattributeform="createshareproductform" valattribute="totalnumberofshares"/>
     </div>
 
-    <label class="control-label col-sm-2">{{ 'label.input.totalsharestobeissue' | translate }}</label>
+    <label class="control-label col-sm-2">{{ 'label.input.totalsharestobeissue' | translate }}<span class="required">*</span></label>
     <i class="fa fa-question-circle col-sm-1" uib-tooltip="{{'label.tooltip.totalsharestobeissued' | translate}}"></i>
 
     <div class="col-sm-2">
-        <input type="text" id="totalsharestobeissued" name="totalsharestobeissued" ng-model="formData.sharesIssued"
+        <input ng-autofocus="true"type="text" id="totalsharestobeissued" name="totalsharestobeissued" ng-model="formData.sharesIssued" ng-change = "shareCapitaValue()" 
                number-format class="form-control"/>
     </div>
 </div>
@@ -101,7 +101,7 @@
     <i class="fa fa-question-circle col-sm-1" uib-tooltip="{{'label.tooltip.nominalprice' | translate}}"></i>
     <div class="col-sm-2">
         <input id="nominalprice" name="nominalprice"  number-format class="form-control"
-               ng-model="formData.unitPrice" required late-validate/>
+               ng-model="formData.unitPrice" ng-change = "shareCapitaValue()"  required late-validate/>
     </div>
     <div class="col-sm-2">
         <form-validate valattributeform="createshareproductform" valattribute="nominalprice"/>
@@ -111,8 +111,8 @@
     <i class="fa fa-question-circle col-sm-1" uib-tooltip="{{'label.tooltip.capitalvalue' | translate}}"></i>
 
     <div class="col-sm-2">
-        <input type="text" id="capitalvalue" name="capitalvaue" ng-model="formData.shareCapital"
-               class="form-control" maxlength="4" disabled/>
+        <input type="text" id="capitalvalue" name="capitalvaue" ng-model="formData.shareCapital" 
+        number-format class="form-control" maxlength="4" disabled/>
     </div>
 </div>
 
@@ -121,12 +121,12 @@
 <hr>
 
 <div class="form-group">
-    <label class="control-label col-sm-3">{{ 'label.input.sharesperclient' | translate }}</label>
+    <label class="control-label col-sm-3">{{ 'label.input.sharesperclient' | translate }}<span class="required">*</span></label>
     <i class="fa fa-question-circle col-sm-1" uib-tooltip="{{'label.tooltip.sharesperclient' | translate}}"></i>
 
     <div class="col-sm-2">
         <input id="minimumshares" placeholder="{{'label.input.minimum' | translate}}" type="text"
-               class="form-control" ng-model="formData.minimumShares">
+               class="form-control" ng-model="formData.minimumShares" required>
     </div>
     <div class="col-sm-2">
         <input type="text" id="nominalsharesperclient" placeholder="{{'label.input.default' | translate}}"
@@ -134,7 +134,7 @@
     </div>
     <div class="col-sm-2">
         <input id="maximumshares" placeholder="{{'label.input.maximum' | translate}}" type="text"
-               class="form-control" ng-model="formData.maximumShares">
+               class="form-control" ng-model="formData.maximumShares" required>
     </div>
     <div class="col-sm-2">
         <form-validate valattributeform="createshareproductform" valattribute="nominalsharesperclient"/>

@@ -17,6 +17,10 @@
                 scope.formData.accountingRule = '1';
 
             });
+            
+            scope.shareCapitaValue = function () {
+                 scope.formData.shareCapital =   scope.formData.unitPrice * scope.formData.sharesIssued;
+            };
 
             scope.addMarketPricePeriod = function () {
                 var marketPrice = {} ;
