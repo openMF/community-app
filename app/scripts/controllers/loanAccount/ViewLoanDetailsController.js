@@ -83,6 +83,12 @@
                     case "writeoff":
                         location.path('/loanaccount/' + accountId + '/writeoff');
                         break;
+                    case "undoWriteoff":
+                        $uibModal.open({
+                            templateUrl: 'UndoWriteoff.html',
+                            controller: UndoWriteOffCtrl
+                        });
+                        break;
                     case "recoverypayment":
                         location.path('/loanaccount/' + accountId + '/recoverypayment');
                         break;
@@ -145,6 +151,18 @@
                     });
                 };
                 $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
+            var UndoWriteOffCtrl = function($scope, $uibModalInstance){
+                $scope.confirm = function(){
+                    resourceFactory.loanTrxnsResource.save({command: "undowriteoff", loanId : routeParams.id},{}, function (data) {
+                        $scope.cancel();
+                        route.reload();
+                    })
+                };
+                $scope.cancel = function(){
                     $uibModalInstance.dismiss('cancel');
                 };
             };
@@ -393,6 +411,11 @@
                 }
                 if (data.status.value == "Closed (written off)") {
                     scope.buttons = { singlebuttons: [
+                        {
+                            name:"button.undoWriteoff",
+                            icon: "fa fa-undo",
+                            taskPermissionName:"ALL_FUNCTIONS"
+                        },
                         {
                             name: "button.recoverypayment",
                             icon: "fa fa-briefcase",
