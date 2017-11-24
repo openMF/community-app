@@ -6,6 +6,17 @@ $xs-large-screen:  1200px;
 
 // Custom mixins
 
+@mixin bubble-style($color) {
+  background-color: $color;
+  color: $color;
+  border-color: darken($color, $darken-amount);
+  &:before,
+  &:after {
+    background-color: $color;
+    border-color: darken($color, $darken-amount);
+  }
+}
+
 @mixin utility-responsive($width) {
   @media only screen and (min-width: $width) { @content; }
 }
