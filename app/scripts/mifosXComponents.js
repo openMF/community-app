@@ -15,7 +15,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService',
             'NotificationResponseHeaderProvider'
         ],
-
         controllers: [
             'main/MainController',
             'main/LoginFormController',

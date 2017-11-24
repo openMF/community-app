@@ -6,7 +6,6 @@
             scope.groupId = routeParams.groupId;
             scope.restrictDate = new Date();
             scope.formData = {};
-            scope.loandetails = {};
             scope.chargeFormData = {}; //For charges
             scope.collateralFormData = {}; //For collaterals
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
@@ -21,7 +20,6 @@
             scope.loanApp = "LoanApp";
             scope.customSteps = [];
             scope.tempDataTables = [];
-            scope.disabled = true;
 
             scope.date.first = new Date();
 
@@ -50,6 +48,7 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                scope.datatables = data.datatables;
 
                 if (data.clientName) {
                     scope.clientName = data.clientName;
@@ -57,11 +56,12 @@
                 if (data.group) {
                     scope.groupName = data.group.name;
                 }
+                scope.handleDatatables(scope.datatables);
             });
 
             scope.loanProductChange = function (loanProductId) {
-                // _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
-                // WizardHandler.wizard().removeSteps(1, scope.tempDataTables.length);
+                _.isUndefined(scope.datatables) ? scope.tempDataTables = [] : scope.tempDataTables = scope.datatables;
+                WizardHandler.wizard().removeSteps(1, scope.tempDataTables.length);
                 scope.inparams.productId = loanProductId;
                 // scope.datatables = [];
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
@@ -69,7 +69,6 @@
                     scope.previewClientLoanAccInfo();
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
-                    scope.disabled = false;
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -136,26 +135,20 @@
                 scope.formData.principal = scope.loanaccountinfo.principal;
                 scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
-                scope.loandetails.loanTermFrequencyValue = scope.loanaccountinfo.termPeriodFrequencyType.value;
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
                 scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
-                scope.loandetails.repaymentFrequencyValue = scope.loanaccountinfo.repaymentFrequencyType.value;
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
-                scope.loandetails.amortizationValue = scope.loanaccountinfo.amortizationType.value;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
-                scope.loandetails.interestValue = scope.loanaccountinfo.interestType.value;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
-                scope.loandetails.interestCalculationPeriodValue = scope.loanaccountinfo.interestCalculationPeriodType.value;
                 scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
                 scope.formData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
                 scope.formData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
                 scope.formData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
                 scope.formData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
-                scope.loandetails.transactionProcessingStrategyValue = scope.formValue(scope.loanaccountinfo.transactionProcessingStrategyOptions,scope.formData.transactionProcessingStrategyId,'id','name');
                 scope.formData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                 scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
@@ -170,23 +163,7 @@
                 if(scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     scope.formData.isFloatingInterestRate = false ;
                 }
-
-                scope.loandetails = angular.copy(scope.formData);
-                scope.loandetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
-            };
-
-            scope.$watch('formData',function(newVal){
-                scope.loandetails = angular.extend(scope.loandetails,newVal);
-            },true);
-
-            scope.formValue = function(array,model,findattr,retAttr){
-                findattr = findattr ? findattr : 'id';
-                retAttr = retAttr ? retAttr : 'value';
-                console.log(findattr,retAttr,model);
-                return _.find(array, function (obj) {
-                    return obj[findattr] === model;
-                })[retAttr];
-            };
+            }
 
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
@@ -315,10 +292,10 @@
             };
 
             scope.submit = function () {
-                // if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
-                //     WizardHandler.wizard().next();
-                //     return;
-                // }
+                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
+                    WizardHandler.wizard().next();
+                    return;
+                }
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
