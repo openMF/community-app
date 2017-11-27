@@ -53,11 +53,18 @@
                                                 <form-validate valattributeform="createsmsform" valattribute="campaigntype"/>
                                             </div>
                                         </div>-->
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-2">{{'label.input.smsprovider' |
+                                         <div class="form-group">
+                                             <label class="control-label col-sm-2">{{'label.input.isnotification' | translate}}</label>
+                                             <div class="col-sm-3">
+                                                <input id="activeCheckbox" type="checkbox" ng-model="campaignData.isNotification" data-ng-change="setChoice()">
+                                             </div>
+                                          </div>
+
+                                        <div class="form-group" data-ng-switch on="choice">
+                                            <label class="control-label col-sm-2" data-ng-switch-when="0" >{{'label.input.smsprovider' |
                                                 translate}} <span class="required">*</span> </label>
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3"  data-ng-switch-when="0" >
                                                     <select id="smsProvider"
                                                             name="smsProvider"
                                                             chosen="providerOptions"
@@ -69,7 +76,7 @@
                                                         <option value=""></option>
                                                     </select>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-3" data-ng-switch-when="0" >
                                                 <form-validate valattributeform="createsmsform" valattribute="smsProvider"/>
                                             </div>
                                         </div>

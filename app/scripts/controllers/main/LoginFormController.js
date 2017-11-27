@@ -15,6 +15,7 @@
             scope.twofactorRememberMe = false;
 
             scope.login = function () {
+                scope.authenticationFailed = false;
                 scope.load = true;
                 authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
                // delete scope.loginCredentials.password;

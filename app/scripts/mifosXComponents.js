@@ -15,6 +15,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService',
             'NotificationResponseHeaderProvider'
         ],
+
         controllers: [
             'main/MainController',
             'main/LoginFormController',
@@ -62,6 +63,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
             'client/SurveyController',
+            'client/ViewClientSurveyController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
             'product/CreateSavingProductController',
@@ -169,6 +171,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/AddAccountNumberPreferencesController',
             'system/EditAccountNumberPreferencesController',
             'system/ManageSurveysController',
+            'system/EditSurveyController',
+            'system/ViewSurveyController',
             'organization/HolController',
             'organization/ViewHolController',
             'organization/EditHolidayController',
