@@ -279,6 +279,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
+            'configurations/ViewTwoFactorConfigController',
+            'configurations/EditTwoFactorConfigController',
             'product/tax/CreateTaxComponentController',
             'product/tax/ViewTaxComponentController',
             'product/tax/EditTaxComponentController',

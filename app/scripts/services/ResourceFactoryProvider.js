@@ -672,7 +672,7 @@
                         save: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
                     }),
-					
+
 					adHocQueryResource: defineResource(apiVer + "/adhocquery/:adHocId", {adHocId: '@adHocId'}, {
                         getAllAdHocQuery: {method: 'GET', params: {}, isArray: true},
                         disableAdHocQuery: {method: 'POST'},
@@ -681,6 +681,15 @@
                     }),
                     adHocQueryTemplateResource: defineResource(apiVer + "/adhocquery/template", {}, {
                         get: {method: 'GET', params: {}}
+                    }),
+
+                    twoFactorResource: defineResource(apiVer+"/twofactor", {deliveryMethod: "@deliveryMethod", extendedToken: "@extendedToken"}, {
+                        getDeliveryMethods: {method: 'GET', params: {}, isArray: true},
+                        requestOTP: {method: 'POST', params: {deliveryMethod: "@deliveryMethod", extendedToken: "@extendedToken"}}
+                    }),
+                    twoFactorConfigResource: defineResource(apiVer+"/twofactor/configure", {}, {
+                        getAllConfigs: {method: 'GET', params: {}},
+                        put: {method: 'PUT', params: {}}
                     })
                 };
             }];
