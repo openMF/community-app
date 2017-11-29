@@ -4,3 +4,5 @@
 4. Aryaman Verma (https://github.com/aryamanverma) : Learner!
 5. Sagnik Anupam (https://github.com/sagnikanupam): I like Python and C++.
 6. Yibin Long (https://github.com/YibinLong): Head programmer for an FTC Robotics team, using Java, learning Python!
+7. Katrina Florendo (https://github.com/kflorendo) : I love Java, and coffee too.
+
