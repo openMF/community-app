@@ -5,3 +5,4 @@
 5. Sagnik Anupam (https://github.com/sagnikanupam): I like Python and C++.
 6. Yibin Long (https://github.com/YibinLong): Head programmer for an FTC Robotics team, using Java, learning Python!
 7. Katrina Florendo (https://github.com/kflorendo) : Java lover and VEX Robotics programmer!
+8. Shameek Dutta (https://github.com/ShameekDutta) : Java enthusiast.Trying to learn new languages.
