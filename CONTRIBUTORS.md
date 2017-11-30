@@ -10,3 +10,4 @@
 10. Daniil Durnev (https://github.com/danmoop) : JavaScript / Java coder
 11. Junhao Yang (https://github.com/junhao312) : Java Student, Relative Beginnner. 
 12. Amriyono Maju Ompusunggu (https://github.com/amryarios) : Html, Css, Java and learning Android Developer.
+13. Shivam Kumar Singh (https://github.com/Shivamkumar4848) : learner(html, css, js)
