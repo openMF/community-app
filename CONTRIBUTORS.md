@@ -9,3 +9,4 @@
 9. Osmosis (https://github.com/osmosis1800) : Android lover and Learner ! 
 10. Daniil Durnev (https://github.com/danmoop) : JavaScript / Java coder
 11. Junhao Yang (https://github.com/junhao312) : Java Student, Relative Beginnner. 
+12. Kimberlee Innis (https://github.com/kialmighty) : High School Student who loves coding!
