@@ -8,3 +8,4 @@
 8. Shameek Dutta (https://github.com/ShameekDutta) : Java enthusiast.Trying to learn new languages.
 9. Osmosis (https://github.com/osmosis1800) : Android lover and Learner ! 
 10. Daniil Durnev (https://github.com/danmoop) : JavaScript / Java coder
+11. Kimberlee Innis (https://github.com/kialmighty) : High School Student who loves coding!
