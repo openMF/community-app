@@ -795,6 +795,188 @@
                     </label>
                 </div>
             </div>
+            <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+                <label class="control-label col-sm-2">{{'label.input.preclose.interest.calculation.strategy'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle "
+                       uib-tooltip="{'label.tooltip.preclosureinterestcalculationstrategy' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <select id="preClosureInterestCalculationStrategy" class="form-control"
+                            ng-model="formData.preClosureInterestCalculationStrategy"
+                            ng-options="type.id as type.code | translate for type in product.preClosureInterestCalculationStrategyOptions"
+                            ng-change = "loanproduct.interestRecalculationData.preClosureInterestCalculationStrategyCode.code = formValue(product.preClosureInterestCalculationStrategyOptions,formData.preClosureInterestCalculationStrategy,'id','code')"
+                            value="{{type.id}}"></select>
+                </div>
+                <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.advancepayments' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <select id="rescheduleStrategyMethod" class="form-control"
+                            ng-model="formData.rescheduleStrategyMethod"
+                            ng-options="type.id as type.value for type in product.rescheduleStrategyTypeOptions"
+                            ng-change = "loanproduct.interestRecalculationData.rescheduleStrategyType.value = formValue(product.rescheduleStrategyTypeOptions,formData.rescheduleStrategyMethod)"
+                            value="{{type.id}}"></select>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+                <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.interestrecalculation' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <select id="interestRecalculationCompoundingMethod" class="form-control"
+                            ng-model="formData.interestRecalculationCompoundingMethod"
+                            ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
+                            ng-change = "loanproduct.interestRecalculationData.interestRecalculationCompoundingType.value = formValue(product.interestRecalculationCompoundingTypeOptions,formData.interestRecalculationCompoundingMethod)"
+                            value="{{type.id}}"></select>
+                </div>
+            </div>
+
+            <div class="form-group"
+                 data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0">
+                <label class="control-label col-sm-2">{{'label.input.frequency.for.compounding'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle "
+                       uib-tooltip="{'label.tooltip.frequencytocompounding' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <select id="recalculationCompoundingFrequencyType" class="form-control"
+                            ng-model="formData.recalculationCompoundingFrequencyType"
+                            ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                            ng-change = "loanproduct.interestRecalculationData.interestRecalculationFrequencyType.value = formValue(product.interestRecalculationFrequencyTypeOptions,formData.recalculationCompoundingFrequencyType)"
+                            value="{{type.id}}"></select>
+                </div>
+
+                <div>
+                    <div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4">
+                        <select id="recalculationCompoundingFrequencyNthDayType" class="form-control"
+                                ng-model="formData.recalculationCompoundingFrequencyNthDayType"
+                                ng-options="recalculationCompoundingFrequencyNthDayType.id as recalculationCompoundingFrequencyNthDayType.value for recalculationCompoundingFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyNthDay.value = formValue(product.interestRecalculationNthDayTypeOptions,formData.recalculationCompoundingFrequencyNthDayType)"
+                                value="{{recalculationCompoundingFrequencyNthDayType.id}}">
+                            <option value=""></option>
+                            <option value="onDay">On day</option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="col-sm-2"
+                         data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
+                        <select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control"
+                                ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
+                                ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value = formValue(product.interestRecalculationDayOfWeekTypeOptions,formData.recalculationCompoundingFrequencyDayOfWeekType)"
+                                value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}">
+                            <option value="">DAY</option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="col-sm-2"
+                         data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
+                        <select id="recalculationCompoundingFrequencyOnDayType" class="form-control"
+                                ng-model="formData.recalculationCompoundingFrequencyOnDayType"
+                                ng-options="recalculationCompoundingFrequencyOnDayType as recalculationCompoundingFrequencyOnDayType for recalculationCompoundingFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyOnDay.value = formValue(interestRecalculationOnDayTypeOptions,formData.recalculationCompoundingFrequencyOnDayType)"
+                                value="{{recalculationCompoundingFrequencyOnDayType}}"></select>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
+        && formData.recalculationCompoundingFrequencyType != 1">
+                <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.compounding'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle "
+                       uib-tooltip="{'label.tooltip.frequencycompoundinginterval' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control"
+                           ng-model="formData.recalculationCompoundingFrequencyInterval">
+                </div>
+
+            </div>
+
+
+            <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+                <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle "
+                       uib-tooltip="{'label.tooltip.frequencytorecalculate' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <select id="recalculationRestFrequencyType" class="form-control"
+                            ng-model="formData.recalculationRestFrequencyType"
+                            ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                            ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyType.value = formValue(product.interestRecalculationFrequencyTypeOptions,formData.recalculationRestFrequencyType)"
+                            value="{{type.id}}"></select>
+                </div>
+                <div>
+                    <div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4">
+                        <select id="recalculationRestFrequencyNthDayType" class="form-control"
+                                ng-model="formData.recalculationRestFrequencyNthDayType"
+                                ng-options="recalculationRestFrequencyNthDayType.id as recalculationRestFrequencyNthDayType.value for recalculationRestFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyNthDay.value = formValue(product.interestRecalculationNthDayTypeOptions,formData.recalculationRestFrequencyNthDayType)"
+                                value="{{recalculationRestFrequencyNthDayType.id}}">
+                            <option value=""></option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="col-sm-2"
+                         data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
+                        <select id="recalculationRestFrequencyDayOfWeekType" class="form-control"
+                                ng-model="formData.recalculationRestFrequencyDayOfWeekType"
+                                ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyWeekday.value = formValue(product.interestRecalculationDayOfWeekTypeOptions,formData.recalculationRestFrequencyDayOfWeekType)"
+                                value="{{recalculationRestFrequencyDayOfWeekType.id}}">
+                            <option value=""></option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="col-sm-2"
+                         data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
+                        <select id="recalculationRestFrequencyOnDayType" class="form-control"
+                                ng-model="formData.recalculationRestFrequencyOnDayType"
+                                ng-options="recalculationRestFrequencyOnDayType as recalculationRestFrequencyOnDayType for recalculationRestFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
+                                ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyOnDay.value = formData.recalculationRestFrequencyOnDayType"
+                                value="{{recalculationRestFrequencyOnDayType}}"></select>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"
+                 data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
+                <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
+                    | translate }}<span class="required">*</span>
+                    <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.frequencyInterval' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                </label>
+
+                <div class="col-sm-2">
+                    <input id="recalculationRestFrequencyInterval" type="text" class="form-control"
+                           ng-model="formData.recalculationRestFrequencyInterval">
+                </div>
+
+            </div>
+
+            <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+                <label class="control-label col-sm-2">{{'label.input.arrearsbasedonoriginalschedule'
+                    | translate }}<span class="required">*</span></label>
+
+                <div class="col-sm-2 checkbox">
+                    <label>
+                        <input id="isArrearsBasedOnOriginalSchedule" type="checkbox"
+                               ng-model="formData.isArrearsBasedOnOriginalSchedule">
+                    </label>
+                </div>
+            </div>
             <h3>{{ 'label.heading.gauranteeRequirements' | translate }}</h3>
             <hr>
                     <div class="form-group">
@@ -804,6 +986,33 @@
                             <label>
                                 <input type="checkbox" ng-model="formData.holdGuaranteeFunds"/>
                             </label>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
+                        <label class="control-label col-sm-2">{{'label.input.mandatory.guarantee'
+                            | translate }}<span class="required">*</span></label>
+
+                        <div class="col-sm-2">
+                            <input id="mandatoryGuarantee" type="text" class="form-control"
+                                   ng-model="formData.mandatoryGuarantee"/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
+                        <label class="control-label col-sm-2">{{'label.input.minimum.guarantee.from.own.funds'
+                            | translate }}</label>
+
+                        <div class="col-sm-2">
+                            <input id="minimumGuaranteeFromOwnFunds" type="text" class="form-control"
+                                   ng-model="formData.minimumGuaranteeFromOwnFunds"/>
+
+                        </div>
+                        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.minimum.guarantee.from.guarantor'
+                            | translate }}</label>
+
+                        <div class="col-sm-2"><input id="minimumGuaranteeFromGuarantor" type="text" class="form-control"
+                                                     ng-model="formData.minimumGuaranteeFromGuarantor"/>
                         </div>
                     </div>
             <h3>{{ 'label.heading.tranchedetails' | translate }}</h3>
@@ -906,237 +1115,6 @@
                     <input type="checkbox" ng-model="graceOnArrearsAging"/>
                 </div>
             </div>
-                    <hr>
-                    <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
-                </fieldset>
-            </form>
-        </wz-step>
-        <wz-step wz-title="{{ 'label.heading.interestRecalculation' | translate }}" wz-disabled="{{!formData.isInterestRecalculationEnabled}}">
-            <form class="form-horizontal">
-                <fieldset>
-                    <api-validate></api-validate>
-                    <hr>
-                    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-                        <label class="control-label col-sm-2">{{'label.input.preclose.interest.calculation.strategy'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle "
-                               uib-tooltip="{'label.tooltip.preclosureinterestcalculationstrategy' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <select id="preClosureInterestCalculationStrategy" class="form-control"
-                                    ng-model="formData.preClosureInterestCalculationStrategy"
-                                    ng-options="type.id as type.code | translate for type in product.preClosureInterestCalculationStrategyOptions"
-                                    ng-change = "loanproduct.preClosureInterestCalculationStrategy.preClosureInterestCalculationStrategy.code = formValue(product.preClosureInterestCalculationStrategyOptions,formData.preClosureInterestCalculationStrategy,'id','code')"
-                                    value="{{type.id}}"></select>
-                        </div>
-                        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.interest.recalculation.reschdule.strategy'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.advancepayments' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <select id="rescheduleStrategyMethod" class="form-control"
-                                    ng-model="formData.rescheduleStrategyMethod"
-                                    ng-options="type.id as type.value for type in product.rescheduleStrategyTypeOptions"
-                                    ng-change = "loanproduct.interestRecalculationData.rescheduleStrategyType.value = formValue(product.rescheduleStrategyTypeOptions,formData.rescheduleStrategyMethod)"
-                                    value="{{type.id}}"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-                        <label class="control-label col-sm-2">{{'label.input.interest.recalculation.compounding.method'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.interestrecalculation' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <select id="interestRecalculationCompoundingMethod" class="form-control"
-                                    ng-model="formData.interestRecalculationCompoundingMethod"
-                                    ng-options="type.id as type.value for type in product.interestRecalculationCompoundingTypeOptions"
-                                    ng-change = "loanproduct.interestRecalculationData.interestRecalculationCompoundingType.value = formValue(product.interestRecalculationCompoundingTypeOptions,formData.interestRecalculationCompoundingMethod)"
-                                    value="{{type.id}}"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group"
-                         data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0">
-                        <label class="control-label col-sm-2">{{'label.input.frequency.for.compounding'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle "
-                               uib-tooltip="{'label.tooltip.frequencytocompounding' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <select id="recalculationCompoundingFrequencyType" class="form-control"
-                                    ng-model="formData.recalculationCompoundingFrequencyType"
-                                    ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
-                                    ng-change = "loanproduct.interestRecalculationData.interestRecalculationFrequencyType.value = formValue(product.interestRecalculationFrequencyTypeOptions,formData.recalculationCompoundingFrequencyType)"
-                                    value="{{type.id}}"></select>
-                        </div>
-
-                        <div>
-                            <div class="col-sm-2" data-ng-show="formData.recalculationCompoundingFrequencyType == 4">
-                                <select id="recalculationCompoundingFrequencyNthDayType" class="form-control"
-                                        ng-model="formData.recalculationCompoundingFrequencyNthDayType"
-                                        ng-options="recalculationCompoundingFrequencyNthDayType.id as recalculationCompoundingFrequencyNthDayType.value for recalculationCompoundingFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyNthDay.value = formValue(product.interestRecalculationNthDayTypeOptions,formData.recalculationCompoundingFrequencyNthDayType)"
-                                        value="{{recalculationCompoundingFrequencyNthDayType.id}}">
-                                    <option value=""></option>
-                                    <option value="onDay">On day</option>
-                                </select>&nbsp;
-                            </div>
-                            <div class="col-sm-2"
-                                 data-ng-show="(formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType != -2) || formData.recalculationCompoundingFrequencyType == 3">
-                                <select id="recalculationCompoundingFrequencyDayOfWeekType" class="form-control"
-                                        ng-model="formData.recalculationCompoundingFrequencyDayOfWeekType"
-                                        ng-options="recalculationCompoundingFrequencyDayOfWeekType.id as recalculationCompoundingFrequencyDayOfWeekType.value for recalculationCompoundingFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value = formValue(product.interestRecalculationDayOfWeekTypeOptions,formData.recalculationCompoundingFrequencyDayOfWeekType)"
-                                        value="{{recalculationCompoundingFrequencyDayOfWeekType.id}}">
-                                    <option value="">DAY</option>
-                                </select>&nbsp;
-                            </div>
-                            <div class="col-sm-2"
-                                 data-ng-show="formData.recalculationCompoundingFrequencyType == 4 && formData.recalculationCompoundingFrequencyNthDayType == -2">
-                                <select id="recalculationCompoundingFrequencyOnDayType" class="form-control"
-                                        ng-model="formData.recalculationCompoundingFrequencyOnDayType"
-                                        ng-options="recalculationCompoundingFrequencyOnDayType as recalculationCompoundingFrequencyOnDayType for recalculationCompoundingFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationCompoundingFrequencyOnDay.value = formValue(interestRecalculationOnDayTypeOptions,formData.recalculationCompoundingFrequencyOnDayType)"
-                                        value="{{recalculationCompoundingFrequencyOnDayType}}"></select>&nbsp;
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
-                && formData.recalculationCompoundingFrequencyType != 1">
-                        <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.compounding'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle "
-                               uib-tooltip="{'label.tooltip.frequencycompoundinginterval' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <input id="recalculationCompoundingFrequencyInterval" type="text" class="form-control"
-                                   ng-model="formData.recalculationCompoundingFrequencyInterval">
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-                        <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle "
-                               uib-tooltip="{'label.tooltip.frequencytorecalculate' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <select id="recalculationRestFrequencyType" class="form-control"
-                                    ng-model="formData.recalculationRestFrequencyType"
-                                    ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
-                                    ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyType.value = formValue(product.interestRecalculationFrequencyTypeOptions,formData.recalculationRestFrequencyType)"
-                                    value="{{type.id}}"></select>
-                        </div>
-                        <div>
-                            <div class="col-sm-2" data-ng-show="formData.recalculationRestFrequencyType == 4">
-                                <select id="recalculationRestFrequencyNthDayType" class="form-control"
-                                        ng-model="formData.recalculationRestFrequencyNthDayType"
-                                        ng-options="recalculationRestFrequencyNthDayType.id as recalculationRestFrequencyNthDayType.value for recalculationRestFrequencyNthDayType in product.interestRecalculationNthDayTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyNthDay.value = formValue(product.interestRecalculationNthDayTypeOptions,formData.recalculationRestFrequencyNthDayType)"
-                                        value="{{recalculationRestFrequencyNthDayType.id}}">
-                                    <option value=""></option>
-                                </select>&nbsp;
-                            </div>
-                            <div class="col-sm-2"
-                                 data-ng-show="(formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType != -2) || formData.recalculationRestFrequencyType == 3">
-                                <select id="recalculationRestFrequencyDayOfWeekType" class="form-control"
-                                        ng-model="formData.recalculationRestFrequencyDayOfWeekType"
-                                        ng-options="recalculationRestFrequencyDayOfWeekType.id as recalculationRestFrequencyDayOfWeekType.value for recalculationRestFrequencyDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyWeekday.value = formValue(product.interestRecalculationDayOfWeekTypeOptions,formData.recalculationRestFrequencyDayOfWeekType)"
-                                        value="{{recalculationRestFrequencyDayOfWeekType.id}}">
-                                    <option value=""></option>
-                                </select>&nbsp;
-                            </div>
-                            <div class="col-sm-2"
-                                 data-ng-show="formData.recalculationRestFrequencyType == 4 && formData.recalculationRestFrequencyNthDayType == -2">
-                                <select id="recalculationRestFrequencyOnDayType" class="form-control"
-                                        ng-model="formData.recalculationRestFrequencyOnDayType"
-                                        ng-options="recalculationRestFrequencyOnDayType as recalculationRestFrequencyOnDayType for recalculationRestFrequencyOnDayType in interestRecalculationOnDayTypeOptions"
-                                        ng-change="loanproduct.interestRecalculationData.recalculationRestFrequencyOnDay.value = formData.recalculationRestFrequencyOnDayType"
-                                        value="{{recalculationRestFrequencyOnDayType}}"></select>&nbsp;
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group"
-                         data-ng-show="formData.isInterestRecalculationEnabled && formData.recalculationRestFrequencyType != 1">
-                        <label class="control-label col-sm-2">{{'label.input.frequenc.interval.for.recalculte.outstanding.principal'
-                            | translate }}<span class="required">*</span>
-                            <i class="fa fa-question-circle " uib-tooltip="{'label.tooltip.frequencyInterval' | translate}}"
-                               tooltip-append-to-body="true"></i>
-                        </label>
-
-                        <div class="col-sm-2">
-                            <input id="recalculationRestFrequencyInterval" type="text" class="form-control"
-                                   ng-model="formData.recalculationRestFrequencyInterval">
-                        </div>
-
-                    </div>
-
-                    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
-                        <label class="control-label col-sm-2">{{'label.input.arrearsbasedonoriginalschedule'
-                            | translate }}<span class="required">*</span></label>
-
-                        <div class="col-sm-2 checkbox">
-                            <label>
-                                <input id="isArrearsBasedOnOriginalSchedule" type="checkbox"
-                                       ng-model="formData.isArrearsBasedOnOriginalSchedule">
-                            </label>
-                        </div>
-                    </div>
-                    <hr>
-                    <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
-                </fieldset>
-            </form>
-        </wz-step>
-        <wz-step wz-title="{{ 'label.heading.gauranteeRequirements' | translate }}" wz-disabled="{{!formData.holdGuaranteeFunds}}">
-            <form class="form-horizontal">
-                <fieldset>
-                    <api-validate></api-validate>
-                    <hr>
-                    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
-                        <label class="control-label col-sm-2">{{'label.input.mandatory.guarantee'
-                            | translate }}<span class="required">*</span></label>
-
-                        <div class="col-sm-2">
-                            <input id="mandatoryGuarantee" type="text" class="form-control"
-                                   ng-model="formData.mandatoryGuarantee"/>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group" data-ng-show="formData.holdGuaranteeFunds">
-                        <label class="control-label col-sm-2">{{'label.input.minimum.guarantee.from.own.funds'
-                            | translate }}</label>
-
-                        <div class="col-sm-2">
-                            <input id="minimumGuaranteeFromOwnFunds" type="text" class="form-control"
-                                   ng-model="formData.minimumGuaranteeFromOwnFunds"/>
-
-                        </div>
-                        <label class="control-label col-sm-2 col-sm-offset-2">{{'label.input.minimum.guarantee.from.guarantor'
-                            | translate }}</label>
-
-                        <div class="col-sm-2"><input id="minimumGuaranteeFromGuarantor" type="text" class="form-control"
-                                                     ng-model="formData.minimumGuaranteeFromGuarantor"/>
-                        </div>
-                    </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
                     <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
@@ -1824,7 +1802,7 @@
                 </tr>
                 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
                     <td>{{'label.input.preclose.interest.calculation.strategy' | translate}}</td>
-                    <td colspan="3">{{loanproduct.interestRecalculationData.preClosureInterestCalculationStrategy.code | translate}}</td>
+                    <td colspan="3">{{loanproduct.interestRecalculationData.preClosureInterestCalculationStrategyCode.code | translate}}</td>
                 </tr>
                 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
                     <td>{{'label.input.interest.recalculation.compounding.method' | translate}}</td>
