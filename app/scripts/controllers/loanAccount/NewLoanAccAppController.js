@@ -265,6 +265,7 @@
                     scope.formData.collateral = [];
                     for (var i in scope.collaterals) {
                         scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
+                        
                     }
                     ;
                 }
