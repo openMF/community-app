@@ -14,3 +14,4 @@
 14. Matthew Katz (https://github.com/mykatz): Fullstack Web Dev.  Proficient in Nodejs, Java, Python.
 15. Rohit Tanikella (https://github.com/rohittanikella): Python and Java enthusiast.
 16. HARSH PAL (https://github.com/iamhp2k) : C++ and Android tricks.
+17. Avikam Mangla (https://github.com/Avikam03) : Open Source Enthusiast!
