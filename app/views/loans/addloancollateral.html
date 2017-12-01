@@ -9,7 +9,7 @@
             <h4>{{ 'label.heading.addloancollateral' | translate }}</h4>
         </div>
         <br/>
-        <form class="form-horizontal" ng-submit="submit()">
+        <form name="addloancollateralform" class="form-horizontal" ng-submit="submit()">
             <api-validate></api-validate>
             <fieldset>
                 <div class="form-group">
@@ -23,11 +23,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="value">{{ 'label.input.value' | translate }}</label>
+                    <label class="control-label col-sm-2" for="value">{{ 'label.input.value' | translate }}<span
+                            class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="value" type="text" class="form-control" ng-model="formData.value">
+                        <input id="value" name="value" type="text" class="form-control" ng-model="formData.value" required late-validate>
                     </div>
+                    
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="addloancollateralform" valattribute="value"/>
+                    </div>
+                
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="description">{{ 'label.input.description' | translate }}</label>
