@@ -16,3 +16,4 @@
 16. HARSH PAL (https://github.com/iamhp2k) : C++ and Android tricks.
 17. Avikam Mangla (https://github.com/Avikam03) : Open Source Enthusiast!
 18. Sudhanshu Singh (https://github.com/ssudhanshu488) : Programming Lover
+19. Leo Anuonyeh(https://github.com/ynxxleo) : web front-end developer
