@@ -18,3 +18,4 @@
 18. Sudhanshu Singh (https://github.com/ssudhanshu488) : Programming Lover
 19. Leo Anuonyeh(https://github.com/ynxxleo) : web front-end developer
 20. Sagar Keim(https://github.com/sagarkeim) : Open-Source Enthusiast 
+21. Sean Kelly (https://github.com/Boogi56) : Java and Arduino Student
