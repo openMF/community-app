@@ -180,7 +180,7 @@
                     scope.labelName = 'label.input.transactiondate';
                     scope.modelName = 'transactionDate';
                     scope.showDateField = true;
-                    scope.showNoteField = false;
+                    scope.showNoteField = true;
                     scope.isTransaction = true;
                     scope.transactionAmountField = true;
                     scope.showPaymentDetails = false;
@@ -203,7 +203,7 @@
                     scope.labelName = 'label.input.transactiondate';
                     scope.modelName = 'transactionDate';
                     scope.showDateField = true;
-                    scope.showNoteField = false;
+                    scope.showNoteField = true;
                     scope.isTransaction = true;
                     scope.transactionAmountField = true;
                     scope.showPaymentDetails = false;
