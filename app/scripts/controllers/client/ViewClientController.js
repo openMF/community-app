@@ -697,11 +697,72 @@
                 resourceFactory.clientResource.save({clientId: routeParams.id, anotherresource: 'notes'}, this.formData, function (data) {
                     var today = new Date();
                     temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
-                    scope.clientNotes.push(temp);
+                    scope.clientNotes.unshift(temp);
                     scope.formData.note = "";
                     scope.predicate = '-id';
                 });
             }
+
+            scope.showEditNote = function(clientId, clientNote, index) {
+                $uibModal.open({
+                    templateUrl: 'editNote.html',
+                    controller: EditNoteCtrl,
+                    resolve: {
+                        items: function(){
+                            return {
+                                clientId: clientId,
+                                clientNote: clientNote,
+                                index: index
+                            }
+                        }
+                    },
+                    size: "lg"
+                });
+            }
+
+            scope.showDeleteNote = function(clientId, clientNote, index) {
+                $uibModal.open({
+                    templateUrl: 'deleteNote.html',
+                    controller: DeleteNoteCtrl,
+                    resolve: {
+                        items: function(){
+                            return {
+                                clientId: clientId,
+                                clientNote: clientNote,
+                                index: index
+                            }
+                        }
+                    },
+                    size: "lg"
+                });
+            }
+            
+            var EditNoteCtrl = function ($scope, $uibModalInstance, items) {
+                scope.editData = {};
+                editData = {};
+                $scope.editNote = function (clientId, entityId, index, editData) {
+                    resourceFactory.clientNotesResource.put({clientId: items.clientId, noteId: items.clientNote}, {note: this.editData.editNote}, function(data) {
+                        scope.clientNotes[items.index].note = $scope.editData.editNote;
+                        scope.editData.editNote = "";
+                        $uibModalInstance.close();
+                    });
+                };
+                $scope.cancel = function (index) {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+            
+            var DeleteNoteCtrl = function ($scope, $uibModalInstance, items) {
+                $scope.deleteNote = function (clientId, entityId, index) {
+                    resourceFactory.clientNotesResource.delete({clientId: items.clientId, noteId: items.clientNote}, '', function(data) {
+                        $uibModalInstance.close();
+                        scope.clientNotes.splice(items.index, 1);
+                    });
+                };
+                $scope.cancel = function (index) {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
 
             scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
                 resourceFactory.clientIdenfierResource.delete({clientId: clientId, id: entityId}, '', function (data) {

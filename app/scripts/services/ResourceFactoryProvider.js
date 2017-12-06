@@ -65,8 +65,10 @@
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
                     }),
-                    clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes", {clientId: '@clientId'}, {
-                        getAllNotes: {method: 'GET', params: {}, isArray: true}
+                    clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes/:noteId", {clientId: '@clientId', noteId: '@noteId'}, {
+                        getAllNotes: {method: 'GET', params: {}, isArray: true},
+                        delete:{method:'DELETE',params:{}},
+                        put:{method:'PUT',params:{}}
                     }),
                     clientTemplateResource: defineResource(apiVer + "/clients/template", {}, {
                         get: {method: 'GET', params: {}}

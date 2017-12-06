@@ -120,6 +120,34 @@
 			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="deleteNote.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<p>{{'label.areyousure' | translate}}</p>
+		</div>
+		<div class="modal-footer">
+			<span class="pull-right">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="deleteNote(client.id,clientNote.id,$index)">{{'label.button.confirm' | translate}}</button>
+			</span>
+		</div>
+	</script>
+	<script type="text/ng-template" id="editNote.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.edit' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<textarea rows="1" class="form-control marginbottom0px" id="textarea" placeholder="{{'label.input.enternote' | translate}}" ng-model="this.editData.editNote">  </textarea>
+		</div>
+		<div class="modal-footer">
+			<span class="pull-right">
+				<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="editNote(client.id,clientNote.id,$index)">{{'label.button.confirm' | translate}}</button>
+			</span>
+		</div>
+	</script>
 	<div class="card">
 		<div class="content">
 			<div class="toolbar">
@@ -1035,8 +1063,11 @@
 					<br/>
 					<div ng-repeat="clientNote in clientNotes | orderBy:predicate:reverse">
 						<blockquote>
-							<p>{{clientNote.note}}</p>
-							{{clientNote.id}}
+							<span class="pull-right noteaddbuttonwrapper btn-group">
+								<button class="btn btn-primary" type="submit" ng-click="showEditNote(client.id,clientNote.id,$index)" has-permission='CREATE_CLIENTNOTE'><i class="fa fa-edit"></i>{{'label.button.edit' |translate}}</button>
+								<button class="btn btn-danger" ng-click="showDeleteNote(client.id,clientNote.id,$index)" has-permission='DELETE_CLIENTNOTE'><i class="fa fa-trash-o"></i>{{'label.button.delete' |translate}}</button>
+							</span>
+							<p>{{$index + 1}}. {{clientNote.note}}</p>
 							<small>{{'label.createdby' | translate}} :&nbsp;{{clientNote.createdByUsername}}</small>
 							<small>{{'label.createdon' | translate}} :&nbsp;{{clientNote.createdOn | DateFormat}}</small>
 						</blockquote>
