@@ -292,6 +292,25 @@
                             </td>
                         </tr>
 
+                        <tr ng-show="loanaccountinfo.isLoanProductLinkedToFloatingRate">
+                            <td><label>{{ 'label.heading.floatinginterestratedifferential' | translate }}&nbsp;<span
+                                    class="required">*</span></label></td>
+                            <td class="paddedbottom10">
+                                <input id="interestratedifferential" class="form-control" type="text" name="interestratedifferential"
+                                       ng-model="formData.interestRateDifferential" />
+                            </td>
+                            <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
+                            <td class="width36 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
+                                <select id="interestType1" ng-model="formData.interestType"
+                                        ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestType"
+                                        ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions" class="form-control width170px"
+                                        value="{{interestType.id}}"/>
+                                <label>{{ 'label.input.isfloatingrate' | translate}}</label>
+                                <input id="isfloatingrate" class="input-mini-small" type="checkbox"
+                                       ng-model="formData.isFloatingInterestRate"/>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.amortizationType == true">
                                 <label>{{ 'label.input.amortization' | translate }}&nbsp;<span class="required">*</span>:</label>
@@ -922,9 +941,17 @@
                             <td colspan="6">{{ 'label.input.nominalinterestrate' | translate }}</td>
                             <td>{{loandetails.interestRatePerPeriod}}&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}</td>
                         </tr>
+                        <tr ng-show="loanaccountinfo.isLoanProductLinkedToFloatingRate">
+                            <td colspan = "6">{{ 'label.heading.floatinginterestratedifferential' | translate }}</td>
+                            <td>{{formData.interestRateDifferential}}</td>
+                        </tr>
                         <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType">
                             <td colspan="6">{{ 'label.input.interestmethod' | translate }}</td>
                             <td>{{loandetails.interestValue}}</td>
+                        </tr>
+                        <tr ng-show="loanaccountinfo.isLoanProductLinkedToFloatingRate">
+                            <td colspan = "6">{{ 'label.input.isfloatingrate' | translate}}</td>
+                            <td>{{loandetails.isFloatingInterestRate}}</td>
                         </tr>
                         <tr ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType">
                             <td colspan="6">{{ 'label.input.isequalamortization' | translate }}</td>
