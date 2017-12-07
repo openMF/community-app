@@ -315,7 +315,7 @@
                     holValueResource: defineResource(apiVer + "/holidays/:holId", {holId: '@holId'}, {
                         getholvalues: {method: 'GET', params: {}},
                         update: { method: 'PUT', params: {}}
-                    }),                    
+                    }),
                     holidayTemplateResource: defineResource(apiVer + "/holidays/template", {}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),

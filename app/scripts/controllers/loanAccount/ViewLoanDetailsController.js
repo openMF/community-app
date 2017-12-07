@@ -474,6 +474,12 @@
                         var loandocs = {};
                         loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                         data[i].docUrl = loandocs;
+                        if (data[i].fileName)
+                            if (data[i].fileName.toLowerCase().indexOf('.jpg') != -1 || data[i].fileName.toLowerCase().indexOf('.jpeg') != -1 || data[i].fileName.toLowerCase().indexOf('.png') != -1)
+                                data[i].fileIsImage = true;
+                        if (data[i].type)
+                             if (data[i].type.toLowerCase().indexOf('image') != -1)
+                                data[i].fileIsImage = true;
                     }
                     scope.loandocuments = data;
                 });
@@ -629,6 +635,15 @@
                 resourceFactory.LoanDocumentResource.delete({loanId: scope.loandetails.id, documentId: documentId}, '', function (data) {
                     scope.loandocuments.splice(index, 1);
                 });
+            };
+
+            scope.previewDocument = function (url, fileName) {
+                scope.preview =  true;
+                scope.fileUrl = scope.hostUrl + url;
+                if(fileName.toLowerCase().indexOf('.png') != -1)
+                    scope.fileType = 'image/png';
+                else if((fileName.toLowerCase().indexOf('.jpg') != -1) || (fileName.toLowerCase().indexOf('.jpeg') != -1))
+                    scope.fileType = 'image/jpg';
             };
 
             scope.downloadDocument = function (documentId) {
