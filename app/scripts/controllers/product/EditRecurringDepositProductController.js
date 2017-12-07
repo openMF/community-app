@@ -25,6 +25,7 @@
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 var preClosurePenalInterestOnTypeId = (_.isNull(data.preClosurePenalInterestOnType) || _.isUndefined(data.preClosurePenalInterestOnType)) ? '' : data.preClosurePenalInterestOnType.id;
+                var depositEveryFrequencyTypeId = (_.isNull(data.depositEveryFrequencyType) || _.isUndefined(data.depositEveryFrequencyType)) ? '' : data.depositEveryFrequencyType.id;
                 var minDepositTermTypeId = (_.isNull(data.minDepositTermType) || _.isUndefined(data.minDepositTermType)) ? '' : data.minDepositTermType.id;
                 var maxDepositTermTypeId = (_.isNull(data.maxDepositTermType) || _.isUndefined(data.maxDepositTermType)) ? '' : data.maxDepositTermType.id;
                 var inMultiplesOfDepositTermTypeId = (_.isNull(data.inMultiplesOfDepositTermType) || _.isUndefined(data.inMultiplesOfDepositTermType)) ? '' : data.inMultiplesOfDepositTermType.id;
@@ -49,8 +50,10 @@
                     preClosurePenalApplicable: data.preClosurePenalApplicable,
                     preClosurePenalInterest: data.preClosurePenalInterest,
                     preClosurePenalInterestOnTypeId: preClosurePenalInterestOnTypeId,
+                    depositEveryFrequency: data.depositEveryFrequency,
                     minDepositTerm: data.minDepositTerm,
                     maxDepositTerm: data.maxDepositTerm,
+                    depositEveryFrequencyTypeId: data.depositEveryFrequencyTypeId,
                     minDepositTermTypeId: minDepositTermTypeId,
                     maxDepositTermTypeId: maxDepositTermTypeId,
                     inMultiplesOfDepositTerm: data.inMultiplesOfDepositTerm,

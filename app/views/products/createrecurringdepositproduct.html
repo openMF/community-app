@@ -215,6 +215,25 @@
                     </div>
 
                     <div class="form-group">
+                        <!-- BEGIN "Deposit every" -->
+                        <label class="control-label col-sm-2">{{ 'label.input.depositEveryFrequency' | translate }}</label>
+                        <div class="col-sm-2">
+                            <input id="depositEveryFrequency" type="text" class="form-control"
+                                   ng-model="formData.depositEveryFrequency">
+                        </div>
+                        <div class="col-sm-2">
+                            <select id="depositEveryFrequencyTypeId" ng-model="formData.depositEveryFrequencyTypeId"
+                                    class="form-control"
+                                    ng-options="type.id as type.value for type in product.periodFrequencyTypeOptions"
+                                    ng-change="depositproduct.depositEveryFrequencyType.value = formValue(product.periodFrequencyTypeOptions,formData.depositEveryFrequencyTypeId)"
+                                    value="{{type.id}}">
+                                <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </div>
+                        <!-- END "Deposit every" -->
+                    </div>
+
+                    <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate
                             }}</label>
                         <div class="col-sm-2">
@@ -850,6 +869,11 @@
                             <td>{{'label.heading.minimumopeningbalance' | translate}}</td>
                             <td colspan="3">{{depositproduct.minRequiredOpeningBalance}}</td>
                         </tr>-->
+                        <tr>
+                            <td>{{'label.heading.depositEveryFrequency' | translate}}</td>
+                            <td>{{depositproduct.depositEveryFrequency}} &nbsp; {{depositproduct.depositEveryFrequencyType.value}}
+                            </td>
+                        </tr>
                         <tr>
                             <td>{{'label.heading.lockinPeriodFrequency' | translate}}</td>
                             <td>{{depositproduct.lockinPeriodFrequency}}
