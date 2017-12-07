@@ -620,6 +620,12 @@
                         var loandocs = {};
                         loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                         data[l].docUrl = loandocs;
+                        if (data[l].fileName)
+                            if (data[l].fileName.toLowerCase().indexOf('.jpg') != -1 || data[l].fileName.toLowerCase().indexOf('.jpeg') != -1 || data[l].fileName.toLowerCase().indexOf('.png') != -1)
+                                data[l].fileIsImage = true;
+                        if (data[l].type)
+                             if (data[l].type.toLowerCase().indexOf('image') != -1)
+                                data[l].fileIsImage = true;
                     }
                     scope.clientdocuments = data;
                 });
@@ -629,6 +635,17 @@
                 resourceFactory.clientDocumentsResource.delete({clientId: routeParams.id, documentId: documentId}, '', function (data) {
                     scope.clientdocuments.splice(index, 1);
                 });
+            };
+
+            scope.previewDocument = function (url, fileName) {
+                scope.preview =  true;
+                scope.fileUrl = scope.hostUrl + url;
+                if(fileName.toLowerCase().indexOf('.png') != -1)
+                    scope.fileType = 'image/png';
+                else if(fileName.toLowerCase().indexOf('.jpg') != -1)
+                    scope.fileType = 'image/jpg';
+                else if(fileName.toLowerCase().indexOf('.jpeg') != -1)
+                    scope.fileType = 'image/jpeg';
             };
 
             scope.viewDataTable = function (registeredTableName, data) {

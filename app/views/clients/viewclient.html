@@ -960,16 +960,20 @@
 						</thead>
 						<tbody>
 						<tr ng-repeat="clientdocument in clientdocuments">
-							<td>{{clientdocument.name}}</td>
+						  <td>{{clientdocument.name}}</td>
 							<td>{{clientdocument.description}}</td>
 							<td>{{clientdocument.fileName}}</td>
 							<td>
 								<a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
+								<a ng-show="clientdocument.fileIsImage" ng-click="previewDocument(clientdocument.docUrl,clientdocument.fileName)"><i class="fa fa-eye"></i></a>
 								<a ng-click="deleteDocument(clientdocument.id,$index)"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 						</tbody>
 					</table>
+					<div style="padding-left: 25%;">
+					  <object height="60%" width="70%" ng-show="preview" data="{{fileUrl}}" type="{{fileType}}"></object>
+				  </div>
 				</uib-tab>
 				<uib-tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
 						 select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
