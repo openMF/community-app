@@ -315,10 +315,15 @@
                     videoWidth: 320,
                     videoHeight: 240
                 };
+                $scope.stream = null;
 
                 $scope.onVideoSuccess = function () {
                     $scope.error = null;
                 };
+                
+                $scope.onStream = function(stream) {
+                    $scope.stream = stream
+                }
 
                 $scope.onVideoError = function (err) {
                     if(typeof err != "undefined")
@@ -350,6 +355,7 @@
                             if (!scope.$$phase) {
                                 scope.$apply();
                             }
+                            $scope.stream.getVideoTracks()[0].stop();
                             $uibModalInstance.close('upload');
                             route.reload();
                         });
@@ -357,6 +363,7 @@
                 };
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel');
+                    $scope.stream.getVideoTracks()[0].stop();
                 };
                 $scope.reset = function () {
                     $scope.picture = null;

@@ -1,0 +1,46 @@
+<div class="content-container" ng-controller="EditTwoFactorConfigController">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li class="active">{{'label.anchor.edittwofactorconfig' | translate}}</li>
+        </ul>
+    <form name="editTwoFactorConfigForm" novalidate=""
+    class="card form-horizontal well" ng-submit="submit()" ng-hide="disabledTwoFactor">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{ 'label.anchor.editExternalServicesConfiguration' | translate }}</legend>
+            <div class="form-group" ng-repeat="config in configs">
+                <label class="control-label col-sm-3" for="{{config.name}}">{{config.name}}</label>
+                <div ng-show="config.type == 'TEXT'" class="col-sm-9">
+                    <input type="text" id="{{config.name}}" name="{{config.name}}" ng-model="config.value" class="form-control"/>
+                </div>
+                <div ng-show="config.type == 'BOOLEAN'" class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="config.value"
+                               value="true"/>
+                        {{'label.input.true' | translate}}
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="config.value"
+                               value="false"/>
+                        {{'label.input.false' | translate}}
+                    </label>
+                </div>
+                <div ng-show="config.type == 'MULTILINE'" class="col-sm-9">
+                        <textarea id="{{config.name}}" name="{{config.name}}" ng-model="config.value" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
+                    }}
+                </button>
+                <button id="save" type="submit" ng-disabled="!editTwoFactorConfigForm.$valid" has-permission='UPDATE_TWOFACTOR_CONFIGURATION' class="btn btn-primary">{{
+                    'label.button.save' | translate }}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+
+    <div class="content" ng-show="disabledTwoFactor">
+        <p>{{'error.twofactor.config.disabled' | translate}}</p>
+    </div>
+</div>

@@ -17,7 +17,7 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card" style="min-height: 550px; overflow: hidden;">
         <div class="form-horizontal" ng-show="report">
         	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -318,6 +318,10 @@
                             <tr>
                                 <td>{{'label.heading.amortization' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.equalamortization' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.isEqualAmortization}}</span></td>
                             </tr>
                             <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interest' | translate}}</td>
@@ -655,7 +659,7 @@
                             </thead>
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
-                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-hide = "hideAccrualTransactions && transaction.type.accrual">    
+                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-hide = "hideAccrualTransactions && transaction.type.accrual">
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.id}}
                                     </td>
@@ -691,7 +695,7 @@
                                         <i class="fa fa-file-text fa fa-large"></i>
                                     </span>
                                     </td>
-									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewloantransactionjournalentries(transaction.id)">
+									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" tooltip-placement="left" ng-click="viewloantransactionjournalentries(transaction.id)">
                                         <i class="fa fa-arrow-circle-right fa fa-large coll"></i>
                                     </span>
                                     </td>
@@ -897,8 +901,8 @@
                             <div class="form-group">
                                 <div class="col-sm-12 col-md-12">
                                     <textarea rows="1" class="form-control marginbottom0px" id="textarea"
-                                              placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-
+                                              placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note" style="min-width: 1050px; max-width: 1050px; "></textarea>
+                                    <br>
                                     <div class="notewrapper col-sm-12 col-md-12">
                                         <span class="pull-right noteaddbuttonwrapper">
                                             <button class="btn btn-primary" type="submit" ng-click="saveNote()"

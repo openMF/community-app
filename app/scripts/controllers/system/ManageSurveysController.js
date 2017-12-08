@@ -103,8 +103,8 @@
                 location.path('/viewsurvey/'+id);
             };
 
-            scope.deactivateSurvey = function(id){
-                resourceFactory.surveyResource.deactivate({surveyId: id},function(data){
+            scope.activateOrDeactivateSurvey = function(id, commandParam){
+                resourceFactory.surveyResource.activateOrDeactivate({surveyId: id, command:commandParam},function(data){
                     location.path('/surveys');
                 });
             };
