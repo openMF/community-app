@@ -233,6 +233,7 @@
                         }
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
+                        scope.feeChargesPortion = data.feeChargesPortion;
                         scope.processDate = true;
                     });
                     scope.title = 'label.heading.prepayloan';
