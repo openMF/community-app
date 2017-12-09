@@ -35,6 +35,52 @@
                     }
                     checkboxesChanged = true; // user started editing - set flag to true
                 };
+                
+                scope.showEditName = function() {
+                    $uibModal.open({
+                        templateUrl: 'editName.html',
+                        controller: EditNameCtrl,
+                        size: "lg"
+                    });
+                }
+
+                var EditNameCtrl = function ($scope, $uibModalInstance) {
+                    scope.editData = {};
+                    editData = {};
+                    $scope.editName = function (roleId, editData) {
+                        resourceFactory.roleResource.update({roleId: routeParams.id}, {name: this.editData.editName}, function(data) {
+                            scope.role.name = $scope.editData.editName;
+                            scope.editData.editName = "";
+                            $uibModalInstance.close();
+                        });
+                    };
+                    $scope.cancel = function (index) {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                };
+
+                scope.showEditDesc = function() {
+                    $uibModal.open({
+                        templateUrl: 'editDesc.html',
+                        controller: EditDescCtrl,
+                        size: "lg"
+                    });
+                }
+
+                var EditDescCtrl = function ($scope, $uibModalInstance) {
+                    scope.editData = {};
+                    editData = {};
+                    $scope.editDesc = function (roleId, editData) {
+                        resourceFactory.roleResource.update({roleId: routeParams.id}, {description: this.editData.editDesc}, function(data) {
+                            scope.role.description = $scope.editData.editDesc;
+                            scope.editData.editDesc = "";
+                            $uibModalInstance.close();
+                        });
+                    };
+                    $scope.cancel = function (index) {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                };
 
                 scope.isRoleEnable = function(value) {
                     return value;
