@@ -104,7 +104,7 @@
                         scope.shareaccountdetails = data;
                         scope.formData.unitPrice = data.currentMarketPrice ;
                     }) ;
-                    scope.title = 'label.heading.applyadditionalshares';
+                    scope.title = 'label.button.redeemshares';
                     scope.labelName = 'label.input.requesteddate';
                     scope.modelName = 'requestedDate';
                     scope.showDateField = true;
