@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewLoanDetailsController: function (scope, routeParams, resourceFactory,paginatorService, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
             scope.loandocuments = [];
             scope.report = false;
             scope.hidePentahoReport = true;
@@ -13,8 +13,7 @@
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
-                }
-                ;
+                };
             };
 
             /***
@@ -402,11 +401,62 @@
                     ]
                     };
                 }
+
+                resourceFactory.standingInstructionTemplateResource.get({fromClientId: scope.loandetails.clientId,fromAccountType: 1,fromAccountId: routeParams.id},function (response) {
+                    scope.standinginstruction = response;
+                    scope.searchTransaction();
+                });
             });
+
+            var fetchFunction = function (offset, limit, callback) {
+                var params = {};
+                params.offset = offset;
+                params.limit = limit;
+                params.locale = scope.optlang.code;
+                params.fromAccountId = routeParams.id;
+                params.fromAccountType = 1;
+                params.clientId = scope.loandetails.clientId;
+                params.clientName = scope.loandetails.clientName;
+                params.dateFormat = scope.df;
+
+                resourceFactory.standingInstructionResource.search(params, callback);
+            };
+
+            scope.searchTransaction = function () {
+                scope.displayResults = true;
+                scope.instructions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+            };
+
+            scope.deletestandinginstruction = function (id) {
+                $uibModal.open({
+                    templateUrl: 'delInstruction.html',
+                    controller: DelInstructionCtrl,
+                    resolve: {
+                        ids: function () {
+                            return id;
+                        }
+                    }
+                });
+            };
+
+            var DelInstructionCtrl = function ($scope, $uibModalInstance, ids) {
+                $scope.delete = function () {
+                    resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
+                        scope.searchTransaction();
+                        $uibModalInstance.close('delete');
+                    });
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
 
             resourceFactory.loanResource.getAllNotes({loanId: routeParams.id,resourceType:'notes'}, function (data) {
                 scope.loanNotes = data;
             });
+
+
 
             scope.saveNote = function () {
                 resourceFactory.loanResource.save({loanId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
@@ -424,6 +474,12 @@
                         var loandocs = {};
                         loandocs = API_VERSION + '/loans/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                         data[i].docUrl = loandocs;
+                        if (data[i].fileName)
+                            if (data[i].fileName.toLowerCase().indexOf('.jpg') != -1 || data[i].fileName.toLowerCase().indexOf('.jpeg') != -1 || data[i].fileName.toLowerCase().indexOf('.png') != -1)
+                                data[i].fileIsImage = true;
+                        if (data[i].type)
+                             if (data[i].type.toLowerCase().indexOf('image') != -1)
+                                data[i].fileIsImage = true;
                     }
                     scope.loandocuments = data;
                 });
@@ -438,6 +494,7 @@
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
                     scope.datatabledetails = data;
+                    console.log(data);
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.showDataTableAddButton = !scope.datatabledetails.isData || scope.datatabledetails.isMultirow;
@@ -580,6 +637,15 @@
                 });
             };
 
+            scope.previewDocument = function (url, fileName) {
+                scope.preview =  true;
+                scope.fileUrl = scope.hostUrl + url;
+                if(fileName.toLowerCase().indexOf('.png') != -1)
+                    scope.fileType = 'image/png';
+                else if((fileName.toLowerCase().indexOf('.jpg') != -1) || (fileName.toLowerCase().indexOf('.jpeg') != -1))
+                    scope.fileType = 'image/jpg';
+            };
+
             scope.downloadDocument = function (documentId) {
 
             };
@@ -656,7 +722,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
 }(mifosX.controllers || {}));

@@ -49,7 +49,12 @@
 
                     this.cancelAuthorization = function () {
                         delete http.defaults.headers.common.Authorization;
+                        delete http.defaults.headers.common['Fineract-Platform-TFA-Token'];
                     };
+
+                    this.setTwoFactorAccessToken = function (token) {
+                        http.defaults.headers.common['Fineract-Platform-TFA-Token'] = token;
+                    }
                 };
                 return new HttpService();
             }];

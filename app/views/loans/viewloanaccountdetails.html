@@ -17,7 +17,7 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="card">
+    <div class="card" style="min-height: 550px; overflow: hidden;">
         <div class="form-horizontal" ng-show="report">
         	<div class="form-group" ng-show="viewLoanReport">
                  <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}<span
@@ -318,6 +318,10 @@
                             <tr>
                                 <td>{{'label.heading.amortization' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.equalamortization' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.isEqualAmortization}}</span></td>
                             </tr>
                             <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
                                 <td>{{'label.heading.interest' | translate}}</td>
@@ -655,7 +659,7 @@
                             </thead>
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
-                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-hide = "hideAccrualTransactions && transaction.type.accrual">    
+                                    ng-repeat="transaction in loandetails.transactions | orderBy:transactionSort.column:transactionSort.descending" ng-hide = "hideAccrualTransactions && transaction.type.accrual">
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         {{transaction.id}}
                                     </td>
@@ -691,7 +695,7 @@
                                         <i class="fa fa-file-text fa fa-large"></i>
                                     </span>
                                     </td>
-									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewloantransactionjournalentries(transaction.id)">
+									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" tooltip-placement="left" ng-click="viewloantransactionjournalentries(transaction.id)">
                                         <i class="fa fa-arrow-circle-right fa fa-large coll"></i>
                                     </span>
                                     </td>
@@ -847,12 +851,12 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
                                 <td>
-                                    <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval'"
+                                    <a title="{{'label.edit' | translate}}" class="btn btn-primary" data-ng-show="status=='Submitted and pending approval'"
                                        href="#/loanaccountcharge/{{loandetails.id}}/editcharge/{{charge.id}}"><i
-                                            class="fa fa-pencil "></i></a>
-                                    <a title="{{'label.delete' | translate}}" class="btn-warning"
+                                            class="fa fa-edit "></i></a>
+                                    <a title="{{'label.delete' | translate}}" class="btn btn-primary" class="btn-warning"
                                        data-ng-show="status=='Submitted and pending approval'" data-ng-click="delCharge(charge.id)"
-                                       title="delete"><i class="fa fa-times "></i></a>
+                                       title="delete"><i class="fa fa-trash-o "></i></a>
                                     <a class="btn-primary" data-ng-hide="charge.actionFlag"
                                        href="#/loanaccountcharge/{{loandetails.id}}/waivecharge/{{charge.id}}"><i
                                             class="fa fa-flag "></i></a>
@@ -884,11 +888,15 @@
                                 <td>{{document.fileName}}</td>
                                 <td>
                                     <a target="_blank" href="{{hostUrl}}{{document.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
+                                    <a ng-show="document.fileIsImage" ng-click="previewDocument(document.docUrl,document.fileName)"><i class="fa fa-eye"></i></a>
                                     <a ng-click="deleteDocument(document.id,$index)"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                        <div style="padding-left: 25%;">
+                          <object height="60%" width="70%" ng-show="preview" data="{{fileUrl}}" type="{{fileType}}"></object>
+                        </div>
                     </uib-tab>
                     <uib-tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE'>
                         <br/>
@@ -897,8 +905,8 @@
                             <div class="form-group">
                                 <div class="col-sm-12 col-md-12">
                                     <textarea rows="1" class="form-control marginbottom0px" id="textarea"
-                                              placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note"></textarea>
-
+                                              placeholder="{{'label.input.enternote' | translate}}" ng-model="formData.note" style="min-width: 1050px; max-width: 1050px; "></textarea>
+                                    <br>
                                     <div class="notewrapper col-sm-12 col-md-12">
                                         <span class="pull-right noteaddbuttonwrapper">
                                             <button class="btn btn-primary" type="submit" ng-click="saveNote()"
@@ -920,6 +928,49 @@
                                 </blockquote>
                             </div>
                         </div>
+                    </uib-tab>
+                    <uib-tab heading="{{'label.anchor.standinginstruction' | translate}}" ng-show="instructions.currentPageItems.length > 0">
+                        <br>
+                        <table class="table">
+                            <thead>
+                            <tr class="graybg">
+                                <th>{{'label.heading.client' | translate}}</th>
+                                <th>{{'label.heading.fromaccount' | translate}}</th>
+                                <th>{{'label.heading.toclient' | translate}}</th>
+                                <th>{{'label.heading.toaccount' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.validity' | translate}}</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="instruction in instructions.currentPageItems">
+                                <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
+                                <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
+                                <td>
+                                    <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
+                                    <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
+
+                                </td>
+                                <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
+                                <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
+                                <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
+                                <td class="select-row:selection">
+                                    <a type="button"  class="btn btn-primary" uib-tooltip="{{'label.tooltip.editInstruction' | translate}}" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-danger" uib-tooltip="{{'label.tooltip.deleteInstruction' | translate}}" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-warning" uib-tooltip="{{'label.tooltip.viewInstruction' | translate}}" has-permission='READ_STANDINGINSTRUCTION'
+                                       href="#/viewstandinginstruction/{{instruction.id}}">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </uib-tab>
                     <uib-tab heading="{{loandatatable.registeredTableName}}" ng-repeat="loandatatable in loandatatables" has-permission='READ_{{loandatatable.registeredTableName}}'
                          select="dataTableChange(loandatatable)">
@@ -968,3 +1019,14 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="delInstruction.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.areyousure' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>

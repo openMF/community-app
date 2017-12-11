@@ -194,41 +194,178 @@
         <div class="paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
             <br>
             <uib-tabset class="scrollable" tabset-name="recurringAccountDetails" scrollable>
-                <uib-tab heading="{{'label.heading.interestchart' | translate}}">
+                <uib-tab heading="{{heading | translate}}">
                     <br>
-                    <label><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
-                    <table class="table table-bordered view-table">
-                        <tr class="graybg">
-                            <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">
-                                {{'label.heading.interestratedetails.amount.range' | translate}}
-                            </td>
-                            <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
-                            <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-                            <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">
-                                {{'label.heading.interestratedetails.amount.range' | translate}}
-                            </td>
-                            <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
-                            <td>{{'label.heading.interestratedetails.description' | translate}}</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                            <table class="table table-bordered view-table" ng-if="savingaccountdetails.status.rejected || savingaccountdetails.status.submittedAndPendingApproval">
+                                <tr>
+                                    <td class="active fontnormal col-md-3">{{'label.account.deposit.date' | translate}}
+                                    </td>
+                                    <td class="col-md-3">
+                    <span data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.timeline.activatedOnDate | DateFormat}}<span
+                            data-ng-hide="savingaccountdetails.timeline.activatedOnDate">{{ 'label.notactivated' | translate }}</span>
+                    </span>
+                                        <span ng-show="savingaccountdetails.expectedFirstDepositOnDate" class="padded-td">{{savingaccountdetails.expectedFirstDepositOnDate | DateFormat}}<span
+                                                data-ng-hide="savingaccountdetails.expectedFirstDepositOnDate">{{ 'label.notactivated' | translate }}</span>
+                    </span>
+                                    </td>
+                                    <td class="active fontnormal col-md-3">{{'label.account.deposit.principal.amount' | translate}}
+                                    </td>
+                                    <td class="col-md-3"><span class="padded-td" data-ng-show="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.depositAmount | number}}</span>
+                                        <span class="padded-td" data-ng-hide="savingaccountdetails.depositAmount">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active fontnormal">{{'label.account.deposit.period' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.depositPeriod}} &nbsp; {{savingaccountdetails.depositPeriodFrequency.value}}</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.account.rate.of.interest' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.nominalAnnualInterestRate}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="savingaccountdetails.maturityDate">
+                                    <td class="active fontnormal">{{'label.account.maturity.date' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.maturityDate | DateFormat}}</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.account.maturity.amount' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.maturityAmount | number}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active fontnormal">{{'label.account.total.deposit' | translate}}
+                                    </td>
+                                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalDeposits | number}}</span>
+                                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalDeposits">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.account..total.withdrawals' | translate}}
+                                    </td>
+                                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
+                                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalWithdrawals">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active fontnormal">{{'label.account.balance' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.accountBalance | number}}</span>
+                                    </td>
+                                    <td ng-show="savingaccountdetails.timeline.closedOnDate" class="active fontnormal">{{'label.account.closed.on.date' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.timeline.closedOnDate | DateFormat}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active fontnormal">{{'label.account.recurring.deposit.amount' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.mandatoryRecommendedDepositAmount | number}}</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.account.deposit.frequency' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.recurringFrequency}}&nbsp;{{savingaccountdetails.recurringFrequencyType.code | translate}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="savingaccountdetails.summary.totalInterestEarned">
+                                    <td class="active fontnormal">{{'label.totalinterestearned' |
+                                        translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestEarned | number}}</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.totalinterestposted' |
+                                        translate}}
+                                    </td>
+                                    <td><span class="padded-td" data-ng-show="savingaccountdetails.summary.totalInterestPosted">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalInterestPosted | number}}</span>
+                                        <span class="padded-td" data-ng-hide="savingaccountdetails.summary.totalInterestPosted">{{savingaccountdetails.currency.displaySymbol}}&nbsp;0</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="savingaccountdetails.summary.totalWithdrawals">
+                                    <td class="active fontnormal">{{'label.totalwithdarawals' |
+                                        translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr ng-show="savingaccountdetails.minBalanceForInterestCalculation">
+                                    <td class="active fontnormal"> {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
+                                    <td><span class="padded-td">{{savingaccountdetails.minBalanceForInterestCalculation | number}}</span></td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                            <table class="table table-bordered view-table" ng-if="savingaccountdetails.status.rejected || savingaccountdetails.status.submittedAndPendingApproval">
+                                <tr>
+                                    <td class="active fontnormal col-md-3">{{'label.interestcompoundingperiod' |
+                                        translate}}
+                                    </td>
+                                    <td class="col-md-3"><span
+                                            class="padded-td">{{savingaccountdetails.interestCompoundingPeriodType.value}}</span>
+                                    </td>
+                                    <td class="active fontnormal col-md-3">{{'label.interestpostingperiod' |
+                                        translate}}
+                                    </td>
+                                    <td class="col-md-3"><span class="padded-td">{{savingaccountdetails.interestPostingPeriodType.value}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active fontnormal">{{'label.interestcalculatedusing' |
+                                        translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span>
+                                    </td>
+                                    <td class="active fontnormal">{{'label.noofdaysinyear' | translate}}
+                                    </td>
+                                    <td><span
+                                            class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
+                                    <td class="active fontnormal">{{'label.preclosurepenal' | translate}}
+                                    </td>
+                                    <td><span class="padded-td">{{savingaccountdetails.preClosurePenalInterest | number}} % on {{savingaccountdetails.preClosurePenalInterestOnType.value}}</span>
+                                    </td>
+                                </tr>
+                                <tr data-ng-show="savingaccountdetails.withHoldTax">
+                                    <td class="active fontnormal"> {{'label.heading.withholdtaxgroup' | translate}}</td>
+                                    <td><span class="padded-td">{{savingaccountdetails.taxGroup.name}}</span></td>
+                                </tr>
+                            </table>
+                        <hr class="marginbottom"/>
+                        <label><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>
+                            <table class="table table-bordered view-table">
+                                <tr class="graybg">
+                                    <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+                                    <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
+                                    <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
+                                    <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{'label.heading.interestratedetails.amount.range' | translate}}</td>
+                                    <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+                                    <td>{{'label.heading.interestratedetails.description' | translate}}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
 
-                        <tr ng-repeat="chartSlab in savingaccountdetails.accountChart.chartSlabs">
-                            <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">
-                                {{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}
-                            </td>
-                            <td>{{chartSlab.periodType.value}}</td>
-                            <td>{{chartSlab.fromPeriod}}-{{chartSlab.toPeriod}}</td>
-                            <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">
-                                {{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}
-                            </td>
-                            <td>{{chartSlab.annualInterestRate}}</td>
-                            <td>{{chartSlab.description}}</td>
-                            <td>
-                                <a ng-click="incentives($index)"><i class=""></i>{{'label.incentive.row'
-                                    | translate}}</a>
-                            </td>
-                        </tr>
-                    </table>
+                                <tr ng-repeat="chartSlab in savingaccountdetails.accountChart.chartSlabs">
+                                    <td ng-show="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                                    <td>{{chartSlab.periodType.value}}</td>
+                                    <td>{{chartSlab.fromPeriod}}-{{chartSlab.toPeriod}}</td>
+                                    <td ng-hide="savingaccountdetails.accountChart.isPrimaryGroupingByAmount">{{chartSlab.amountRangeFrom}} - {{chartSlab.amountRangeTo}}</td>
+                                    <td>{{chartSlab.annualInterestRate}}</td>
+                                    <td>{{chartSlab.description}}</td>
+                                    <td>
+                                        <a ng-click="incentives($index)"  ><i class=""></i>{{'label.incentive.row'
+                                            | translate}}</a>
+                                    </td>
+                                </tr>
+                            </table>
                 </uib-tab>
                 <uib-tab heading="{{'label.heading.transactions' | translate}}"
                          ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
@@ -288,6 +425,49 @@
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{transaction.runningBalance | number}}
                             </td>
+                        </tbody>
+                    </table>
+                </uib-tab>
+                <uib-tab heading="{{'label.anchor.standinginstruction' | translate}}" ng-show="instructions.currentPageItems.length > 0">
+                    <br>
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.client' | translate}}</th>
+                            <th>{{'label.heading.fromaccount' | translate}}</th>
+                            <th>{{'label.heading.toclient' | translate}}</th>
+                            <th>{{'label.heading.toaccount' | translate}}</th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th>{{'label.heading.validity' | translate}}</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="instruction in instructions.currentPageItems">
+                            <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
+                            <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
+                            <td>
+                                <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
+                                <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
+
+                            </td>
+                            <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
+                            <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
+                            <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
+                            <td class="select-row:selection">
+                                <a type="button"  class="btn btn-primary" uib-tooltip="{{'label.tooltip.editInstruction' | translate}}" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a type="button" class="btn btn-danger" uib-tooltip="{{'label.tooltip.deleteInstruction' | translate}}" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                <a type="button" class="btn btn-warning" uib-tooltip="{{'label.tooltip.viewInstruction' | translate}}" has-permission='READ_STANDINGINSTRUCTION'
+                                   href="#/viewstandinginstruction/{{instruction.id}}">
+                                    <i class="fa fa-eye-slash"></i>
+                                </a>
+
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </uib-tab>
@@ -434,5 +614,16 @@
                 </div>
             </script>
         </div>
+</div
 </div>
-</div>
+<script type="text/ng-template" id="delInstruction.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.areyousure' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>

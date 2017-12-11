@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, paginatorService, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
@@ -127,9 +127,9 @@
                 }
             };
 
+
             resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
-                console.log(data);
                 scope.savingaccountdetails.availableBalance = scope.savingaccountdetails.enforceMinRequiredBalance?(scope.savingaccountdetails.summary.accountBalance - scope.savingaccountdetails.minRequiredOpeningBalance):scope.savingaccountdetails.summary.accountBalance;
                 scope.convertDateArrayToObject('date');
                 if(scope.savingaccountdetails.groupId) {
@@ -288,7 +288,32 @@
                     annualdueDate.push(new Date().getFullYear());
                     scope.annualdueDate = new Date(annualdueDate);
                 };
+
+                resourceFactory.standingInstructionTemplateResource.get({fromClientId: scope.savingaccountdetails.clientId,fromAccountType: 2,fromAccountId: routeParams.id},function (response) {
+                    scope.standinginstruction = response;
+                    scope.searchTransaction();
+                });
             });
+
+            var fetchFunction = function (offset, limit, callback) {
+                var params = {};
+                params.offset = offset;
+                params.limit = limit;
+                params.locale = scope.optlang.code;
+                params.fromAccountId = routeParams.id;
+                params.fromAccountType = 2;
+                params.clientId = scope.savingaccountdetails.clientId;
+                params.clientName = scope.savingaccountdetails.clientName;
+                params.dateFormat = scope.df;
+
+                resourceFactory.standingInstructionResource.search(params, callback);
+            };
+
+            scope.searchTransaction = function () {
+                scope.displayResults = true;
+                scope.instructions = paginatorService.paginate(fetchFunction, 14);
+                scope.isCollapsed = false;
+            };
 
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
@@ -418,6 +443,31 @@
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
             };
+
+            scope.deletestandinginstruction = function (id) {
+                $uibModal.open({
+                    templateUrl: 'delInstruction.html',
+                    controller: DelInstructionCtrl,
+                    resolve: {
+                        ids: function () {
+                            return id;
+                        }
+                    }
+                });
+            };
+
+            var DelInstructionCtrl = function ($scope, $uibModalInstance, ids) {
+                $scope.delete = function () {
+                    resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
+                        scope.searchTransaction();
+                        $uibModalInstance.close('delete');
+                    });
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
             scope.printReport = function () {
                 window.print();
                 window.close();
@@ -458,7 +508,7 @@
             
         }
     });
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));

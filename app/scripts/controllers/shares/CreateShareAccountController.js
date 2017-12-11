@@ -4,6 +4,7 @@
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
+            scope.sharedetails = {};
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.date = {};
@@ -26,7 +27,23 @@
                     scope.formData.unitPrice = data.currentMarketPrice ;
                     scope.formData.requestedShares = data.defaultShares ;
                     scope.charges = data.charges;
+                    scope.sharedetails = angular.copy(scope.formData);
+                    scope.sharedetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
                 });
+
+            };
+
+            scope.$watch('formData',function(newVal){
+               scope.sharedetails = angular.extend(scope.sharedetails,newVal);
+            });
+
+            scope.formValue = function(array,model,findattr,retAttr){
+                findattr = findattr ? findattr : 'id';
+                retAttr = retAttr ? retAttr : 'value';
+                console.log(findattr,retAttr,model);
+                return _.find(array, function (obj) {
+                    return obj[findattr] === model;
+                })[retAttr];
             };
 
             scope.addCharge = function (chargeId) {

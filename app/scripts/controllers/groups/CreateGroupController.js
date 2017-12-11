@@ -159,10 +159,10 @@
             };
 
             scope.submit = function () {
-                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
-                    WizardHandler.wizard().next();
-                    return;
-                }
+                // if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
+                //     WizardHandler.wizard().next();
+                //     return;
+                // }
                 for (var i in scope.addedClients) {
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
                 }
