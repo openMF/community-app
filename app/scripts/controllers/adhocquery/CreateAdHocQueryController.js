@@ -2,6 +2,17 @@
     mifosX.controllers = _.extend(module, {
     	CreateAdHocQueryController: function (scope, location, resourceFactory) {
             scope.formData = {};
+            scope.template = {};
+            scope.customReportRunFrequencyFieldShow = false;
+
+            resourceFactory.adHocQueryTemplateResource.get(function(data) {
+              scope.template = data;
+            });
+
+            scope.reportRunFrequencySelected = function(id) {
+              scope.customReportRunFrequencyFieldShow = id === 5;
+            };
+
             scope.submit = function () {
                 resourceFactory.adHocQueryResource.save(this.formData, function (data) {
                 	//alert(this.formData.isActive);

@@ -19,13 +19,10 @@
     <div class="well">
         <div class="pull-right">
             <div class="btn-group">
-                <a href="#/editadhocquery/{{adhocquery.id}}" class="btn btn-primary" has-permission='UPDATE_USER'><i class="icon-edit icon-white"></i>
+                <a href="#/editadhocquery/{{adhocquery.id}}" class="btn btn-primary" has-permission='UPDATE_ADHOC'><i class="icon-edit icon-white"></i>
                     {{'label.button.edit' | translate}}</a>
                 <button type="button" ng-click="deleteadhocquery()" class="btn btn-primary" has-permission='DELETE_ADHOC'>
                     <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
-                </button>
-                <button type="button" class="btn btn-primary" data-ng-click="open()" has-permission='UPDATE_USER'><i class="icon-cog icon-white"></i>
-                    Update<!-- {{'label.button.changepassword' | translate}} -->
                 </button>
             </div>
         </div>
@@ -44,6 +41,14 @@
 		            <tr>
 		                <td>{{'label.heading.tableaffected' | translate}}:</td>
 		                <td>{{adhocquery.tableName}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.reportrunfrequncy' | translate}}:</td>
+		                <td>{{adhocquery.reportRunFrequency | translate}}</td>
+		            </tr>
+		            <tr ng-show="customReportRunFrequencyFieldShow">
+		                <td>{{'label.input.runreportevery' | translate}}:</td>
+		                <td>{{adhocquery.reportRunEvery | translate}} {{'label.input.runreporteverydays' | translate}}</td>
 		            </tr>
 		            <tr>
 		                <td>{{'label.heading.isactive' | translate}}:</td>
