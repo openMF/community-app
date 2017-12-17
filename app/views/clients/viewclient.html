@@ -190,11 +190,11 @@
                                     <ul class="dropdown dropdown-menu dropdown-menu-right">
 										<li class="{{button.icon}}" ng-repeat="button in buttonsArray.options">
 											<a href="#/clientscreenreport/{{client.id}}"
-											   has-permission='{{button.taskPermissionName}}'>{{'label.'+ button.name |
+											   has-permission='{{button.taskPermissionName}}' ng-show="client.status.value!='Transfer on hold'">{{'label.'+ button.name |
 												translate}}</a>
 										</li>
 										<li>
-											<a data-ng-click="uploadSig()" has-permission='CREATE_CLIENTIMAGE'>{{'label.button.uploadsig'
+											<a data-ng-click="uploadSig()" has-permission='CREATE_CLIENTIMAGE' ng-show="client.status.value!='Transfer on hold'">{{'label.button.uploadsig'
 												| translate}}</a>
 										</li>
 										<li data-ng-show="clientAccounts.savingsAccounts">
@@ -202,7 +202,7 @@
 												| translate}}</a>
 										</li>
 										<li data-ng-show="clientAccounts.savingsAccounts">
-											<a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION'>{{'label.button.createstandinginstruction'
+											<a data-ng-click="createstandinginstruction()" has-permission='READ_STANDINGINSTRUCTION' ng-show="client.status.value!='Transfer on hold'">{{'label.button.createstandinginstruction'
 												| translate}}</a>
 										</li>
                                         <li data-ng-show="client.status.value=='Active'">
