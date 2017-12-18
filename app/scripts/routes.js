@@ -951,7 +951,7 @@
                 templateUrl: 'views/adhocquery/editadhocquery.html'
             })
             .otherwise({
-                templateUrl: "views/404.html"
+                templateUrl: "views/errors/404.html"
             })
             ;
         $locationProvider.html5Mode(false);
