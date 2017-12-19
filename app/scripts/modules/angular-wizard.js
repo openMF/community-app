@@ -26,9 +26,9 @@ angular.module("wizard.html", []).run(["$templateCache", function($templateCache
                 " <ul class=\"progress-indicator\" ng-show='getEnabledSteps().length > 1'>"+
             "        <li ng-repeat=\"step in getEnabledSteps()\" ng-click=\"goTo(step)\" ng-class=\"{'progress-current':step.selected,'progress-todo': " +
                 "!step.completed && !step.selected, " +
-                "'progress-done': step.completed && !step.selected}\">" +
+                "'progress-done': step.completed && !step.selected , 'progress-danger': step.danger && !step.selected}\">" +
                 "<span class='bubble'></span><i class='fa fa-check' ng-show='step.completed && !step.selected'></i>"+
-                "<i class='fa fa-repeat' ng-show='step.selected && step.completed'></i> {{step.title || step.wzTitle}}"+
+                "<i class='fa fa-repeat' ng-show='step.selected'></i><i class='fa fa-times' ng-show='step.danger && !step.selected'></i>{{step.title || step.wzTitle}}"+
             "        </li>" +
                 "</ul>" +
            // "      </div>\n" +
@@ -366,6 +366,19 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             this.currentStepNumber = function(){
                 return $scope.currentStepNumber();
             };
+
+            this.checkValid = function(form){
+                if(form.$valid){
+                    $scope.selectedStep.danger = false;
+                    this.next();
+                }
+                else{
+                    
+                    this.next(function(){
+                        return $scope.selectedStep.danger = true;
+                    });
+                }
+            }
             //method used for next button within step
             this.next = function(callback) {
                 var enabledSteps = $scope.getEnabledSteps();
@@ -386,8 +399,14 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                 }
                 if (!callback) {
                     //completed property set on scope which is used to add class/remove class from progress bar
+                    console.log("No callback");
                     $scope.selectedStep.completed = true;
                 }
+                else{
+                    $scope.selectedStep.completed = false;
+                }
+
+                console.log($scope.selectedStep.completed);
                 //checking to see if this is the last step.  If it is next behaves the same as finish()
                 if (index === enabledSteps.length - 1) {
                     this.finish();

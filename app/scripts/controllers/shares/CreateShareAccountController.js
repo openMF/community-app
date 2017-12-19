@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateShareAccountController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        CreateShareAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,WizardHandler) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -32,6 +32,10 @@
                 });
 
             };
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
 
             scope.$watch('formData',function(newVal){
                scope.sharedetails = angular.extend(scope.sharedetails,newVal);
@@ -87,7 +91,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateShareAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.CreateShareAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateShareAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','WizardHandler', mifosX.controllers.CreateShareAccountController]).run(function ($log) {
         $log.info("CreateShareAccountController initialized");
     });
 }(mifosX.controllers || {}));

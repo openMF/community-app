@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateShareProductController: function (scope, resourceFactory, dateFilter, location) {
+        CreateShareProductController: function (scope, resourceFactory, dateFilter, location,WizardHandler) {
             scope.formData = {};
             scope.shareproduct = {};
             scope.charges = [];
@@ -27,6 +27,10 @@
             scope.$watch('formData',function(newVal){
                 scope.shareproduct = angular.extend(scope.shareproduct,newVal);
             },true);
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
             
             scope.formValue = function(array,model,findattr,retAttr){
                 findattr = findattr ? findattr : 'id';
@@ -87,7 +91,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateShareProductController', ['$scope', 'ResourceFactory', 'dateFilter', '$location', mifosX.controllers.CreateShareProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateShareProductController', ['$scope', 'ResourceFactory', 'dateFilter', '$location','WizardHandler', mifosX.controllers.CreateShareProductController]).run(function ($log) {
         $log.info("CreateShareProductController initialized");
     });
 }(mifosX.controllers || {}));

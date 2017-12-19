@@ -7,7 +7,7 @@
     </ul>
     <wizard current-step="step" on-finish="submit()" class="card well">
         <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.details' | translate}}">
-            <form name="Details" novalidate="" rc-submit="submit()" class="form-inline">
+            <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-inline">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{'label.heading.details' | translate}}</h3>-->
@@ -89,7 +89,8 @@
                                 <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon"
                                        datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1"
                                        min="minDate"
-                                       max="'2020-06-22'" class="form-control"/>
+                                       max="'2020-06-22'" class="form-control" required late-validate/>
+                                <form-validate valattribute="expecteddisbursementon" valattributeform="Details"/>
                             </td>
                         </tr>
                         <tr ng-show="formData.productId">
@@ -158,13 +159,13 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.terms' | translate }}" wz-disabled="{{disabled}}">
-            <form name="Terms" class="form-inline">
+            <form name="Terms" ng-submit="goNext(Terms)" class="form-inline">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{ 'label.heading.terms' | translate }}</h3>-->
@@ -609,13 +610,13 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.charges' | translate }}" wz-disabled="{{disabled}}" >
-            <form name="Charges" class="form-horizontal">
+            <form name="Charges" ng-submit="goNext(Charges)" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{'label.heading.charges' | translate}}</h3>-->
@@ -783,7 +784,7 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
@@ -864,7 +865,7 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>

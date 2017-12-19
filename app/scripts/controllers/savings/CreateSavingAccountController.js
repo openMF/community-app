@@ -74,6 +74,10 @@
                 }
             };
 
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
+
             scope.updateColumnHeaders = function(columnHeaderData) {
                 var colName = columnHeaderData[0].columnName;
                 if (colName == 'id') {

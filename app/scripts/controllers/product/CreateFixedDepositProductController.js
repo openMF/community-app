@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFixedDepositProductController: function (scope, resourceFactory, location, dateFilter,$uibModal) {
+        CreateFixedDepositProductController: function (scope, resourceFactory, location, dateFilter,$uibModal,WizardHandler) {
             scope.formData = {};
             scope.depositproduct = {};
             scope.charges = [];
@@ -43,6 +43,10 @@
             scope.$watch('formData',function(newVal){
                 scope.depositproduct = angular.extend(scope.depositproduct,newVal);
             },true);
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
 
             scope.formValue = function(array,model,findattr,retAttr){
                 findattr = findattr ? findattr : 'id';
@@ -401,7 +405,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateFixedDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$uibModal', mifosX.controllers.CreateFixedDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFixedDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$uibModal','WizardHandler', mifosX.controllers.CreateFixedDepositProductController]).run(function ($log) {
         $log.info("CreateFixedDepositProductController initialized");
     });
 }(mifosX.controllers || {}));

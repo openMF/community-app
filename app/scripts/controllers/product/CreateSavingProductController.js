@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateSavingProductController: function (scope, $rootScope, resourceFactory, location) {
+        CreateSavingProductController: function (scope, $rootScope, resourceFactory, location , WizardHandler) {
             scope.formData = {};
             scope.savingproduct = {};
             scope.charges = [];
@@ -31,6 +31,10 @@
             scope.$watch('formData',function(newVal){
                 scope.savingproduct = angular.extend(scope.savingproduct,newVal);
             },true);
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
 
             scope.formValue = function(array,model,findattr,retAttr){
                 findattr = findattr ? findattr : 'id';
@@ -174,7 +178,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateSavingProductController', ['$scope', '$rootScope', 'ResourceFactory', '$location', mifosX.controllers.CreateSavingProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateSavingProductController', ['$scope', '$rootScope', 'ResourceFactory', '$location','WizardHandler', mifosX.controllers.CreateSavingProductController]).run(function ($log) {
         $log.info("CreateSavingProductController initialized");
     });
 }(mifosX.controllers || {}));

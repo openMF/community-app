@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateLoanProductController: function (scope, $rootScope, resourceFactory, location, dateFilter) {
+        CreateLoanProductController: function (scope, $rootScope, resourceFactory, location, dateFilter,WizardHandler) {
             scope.restrictDate = new Date();
             scope.formData = {};
             scope.loanproduct = {};
@@ -95,6 +95,10 @@
                     return obj[findattr] === model;
                  })[retAttr];
             };
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
 
             scope.chargeSelected = function (chargeId) {
 
@@ -386,7 +390,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateLoanProductController', ['$scope','$rootScope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateLoanProductController', ['$scope','$rootScope', 'ResourceFactory', '$location', 'dateFilter','WizardHandler', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
         $log.info("CreateLoanProductController initialized");
     });
 }(mifosX.controllers || {}));

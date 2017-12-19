@@ -6,7 +6,7 @@
     </ul>
     <wizard current-step="step" on-finish="submit()" class="card well">
         <wz-step wz-title="{{'label.heading.details'|translate}}">
-            <form name="Details" novalidate="" class=" form-horizontal ">
+            <form name="Details" novalidate="" class=" form-horizontal " ng-submit="goNext(Details)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.details' | translate }}</h3>-->
@@ -105,12 +105,12 @@
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous disabled><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.currency' | translate }}">
-            <form name="Currency" novalidate="" class=" form-horizontal ">
+            <form name="Currency" novalidate="" class=" form-horizontal " ng-submit="goNext(Currency)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.currency' | translate }}</h3>-->
@@ -167,17 +167,20 @@
                 <div class="col-sm-2">
                     <input type="text" id="installmentAmountInMultiplesOf" class="form-control"
                            name="installmentAmountInMultiplesOf"
-                           ng-model="formData.installmentAmountInMultiplesOf"/>
+                           ng-model="formData.installmentAmountInMultiplesOf" required late-validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="Currency" valattribute="installmentAmountInMultiplesOf"/>
                 </div>
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit" >Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.terms' | translate }}">
-            <form name="Terms" novalidate="" class=" form-horizontal ">
+            <form name="Terms" novalidate="" class=" form-horizontal " ng-submit="goNext(Terms)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.terms' | translate }}</h3>-->
@@ -535,12 +538,12 @@
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title = "{{ 'label.heading.settings' | translate }}">
-            <form name="Settings" novalidate="" class=" form-horizontal ">
+            <form name="Settings" novalidate="" class=" form-horizontal " ng-submit="goNext(Settings)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.settings' | translate }}</h3>-->
@@ -1117,12 +1120,12 @@
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.charges' | translate }}">
-            <form name="Charges" novalidate="" class=" form-horizontal ">
+            <form name="Charges" novalidate="" class=" form-horizontal " ng-submit="goNext(Charges)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.charges' | translate }}</h3>-->
@@ -1215,12 +1218,12 @@
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{ 'label.heading.accounting' | translate }}">
-            <form name="Accounting" novalidate="" class=" form-horizontal ">
+            <form name="Accounting" novalidate="" class=" form-horizontal " ng-submit="goNext(Accounting)">
                 <fieldset>
                     <api-validate></api-validate>
             <!--<h3>{{ 'label.heading.accounting' | translate }}</h3>-->
@@ -1533,7 +1536,7 @@
             </div>
                     <hr>
                     <button class = "btn btn-default pull-left" wz-previous><i class = "fa fa-arrow-left"></i>&nbsp;&nbsp;Previous</button>
-                    <button class = "btn btn-default pull-right" wz-next>&nbsp;&nbsp;Next<i class = "fa fa-arrow-right"></i></button>
+                    <button class = "btn btn-default pull-right" type="submit">&nbsp;&nbsp;Next<i class = "fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
         </wz-step>
