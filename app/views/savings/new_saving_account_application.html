@@ -8,7 +8,7 @@
     </ul>
     <wizard current-step="step" on-finish="submit()" class="card well">
         <wz-step wz-title="{{'label.heading.details' | translate}}">
-            <form name="Details" novalidate="" class="form-horizontal">
+            <form name="Details" novalidate="" ng-submit="goNext(Details)" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{'label.heading.details' | translate}}</h3>-->
@@ -58,13 +58,13 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous disabled><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
                     </button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{'label.heading.terms' | translate}}"  wz-disabled="{{disabled}}">
-            <form name="Terms" novalidate="" class="form-horizontal">
+            <form name="Terms" novalidate="" ng-submit="goNext(Terms)" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{ 'label.heading.terms' | translate }}</h3>-->
@@ -234,13 +234,13 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
                     </button>
                 </fieldset>
             </form>
         </wz-step>
         <wz-step wz-title="{{'label.heading.charges' | translate}}"  wz-disabled="{{disabled}}">
-            <form name="Details" novalidate="" class="form-horizontal">
+            <form name="Charges" novalidate="" ng-submit="goNext(Charges)" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
                     <!--<h3>{{ 'label.heading.charges' | translate }}</h3>-->
@@ -304,7 +304,7 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
                     </button>
                 </fieldset>
             </form>
@@ -385,7 +385,7 @@
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;<i
                             class="fa fa-arrow-right"></i></button>
                 </fieldset>
             </form>
@@ -547,8 +547,8 @@
                         <button id="cancel" ng-click="cancel()" class="btn btn-warning">{{ 'label.button.cancel' |
                             translate }}
                         </button>
-                        <button id="save" type="submit" class="btn btn-primary" ng-show="data"
-                                has-permission='CREATE_SAVINGSACCOUNT' wz-next>{{
+                        <button id="save" wz-next class="btn btn-primary" ng-show="data"
+                                has-permission='CREATE_SAVINGSACCOUNT' type="submit">{{
                             'label.button.save' | translate
                             }}
                         </button>

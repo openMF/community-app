@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateRecurringDepositProductController: function (scope, resourceFactory, location, dateFilter,$uibModal) {
+        CreateRecurringDepositProductController: function (scope, resourceFactory, location, dateFilter,$uibModal,WizardHandler) {
             scope.formData = {};
             scope.depositproduct = {};
             scope.charges = [];
@@ -75,6 +75,10 @@
                 }
             }
 
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
+            
             scope.deleteCharge = function (index) {
                 scope.charges.splice(index, 1);
             }
@@ -398,7 +402,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CreateRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$uibModal', mifosX.controllers.CreateRecurringDepositProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$uibModal','WizardHandler', mifosX.controllers.CreateRecurringDepositProductController]).run(function ($log) {
         $log.info("CreateRecurringDepositProductController initialized");
     });
 }(mifosX.controllers || {}));
