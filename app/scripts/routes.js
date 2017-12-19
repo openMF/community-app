@@ -950,6 +950,9 @@
             .when('/editadhocquery/:id', {
                 templateUrl: 'views/adhocquery/editadhocquery.html'
             })
+            .otherwise({
+                templateUrl: "views/errors/404.html"
+            })
             ;
         $locationProvider.html5Mode(false);
     };
