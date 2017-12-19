@@ -14,6 +14,17 @@
 			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="deletesig.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.button.deletesig' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<span ng-show="docId == -1">{{'label.noClientSignature' | translate}}</span> <br> <br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-show="docId != -1" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="photo-dialog.html">
 		<div class="modal-header silver">
 			<img ng-src="{{largeImage}}" alt="Avatar">
@@ -195,6 +206,10 @@
 										</li>
 										<li>
 											<a data-ng-click="uploadSig()" has-permission='CREATE_CLIENTIMAGE' ng-show="client.status.value!='Transfer on hold'">{{'label.button.uploadsig'
+												| translate}}</a>
+										</li>
+										<li>
+											<a data-ng-click="deleteSig()" has-permission='DELETE_CLIENTIMAGE'>{{'label.button.deletesig'
 												| translate}}</a>
 										</li>
 										<li data-ng-show="clientAccounts.savingsAccounts">

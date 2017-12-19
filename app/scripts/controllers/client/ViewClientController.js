@@ -422,6 +422,42 @@
                     $uibModalInstance.dismiss('cancel');
                 };
             };
+            
+            scope.deleteSig = function () {
+                $uibModal.open({
+                    templateUrl: 'deletesig.html',
+                    controller: DeleteSigCtrl
+                });
+            };
+            var DeleteSigCtrl = function ($scope, $uibModalInstance) {
+                http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
+                    }).then(function (docsData) {
+                        $scope.docId = -1;
+                        for (var i = 0; i < docsData.data.length; ++i) {
+                            if (docsData.data[i].name == 'clientSignature') {
+                                $scope.docId = docsData.data[i].id;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                            }
+                        }
+                    });
+                $scope.delete = function (file) {
+                    http({
+                        method: 'DELETE',
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + $scope.docId
+                    }).then(function () {
+                        if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                    });
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
 
             scope.unassignStaffCenter = function () {
                 $uibModal.open({
