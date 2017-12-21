@@ -39,6 +39,7 @@
                         scope.showGLAccount = false;
                         break ;
                     case 3:
+                        scope.showChargePaymentByField = false;
                         scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
