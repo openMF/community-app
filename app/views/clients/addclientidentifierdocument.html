@@ -30,7 +30,7 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input type="file" id="file" nv-file-select="onFileSelect($files)">
+                    <input type="file" ng-model="picFile" id="file" ngf-select>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 <a id="cancel" href="#/viewclient/{{clientId}}">
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
-                <button id="save" type="submit" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
+                <button id="save" type="submit" ng-click="uploadPic(picFile)" ng-disabled="!clientidentifierform.$valid" class="btn btn-primary" has-permission='CREATE_CLIENTIDENTIFIER'>
                     {{'label.button.save' | translate}}
                 </button>
             </div>
