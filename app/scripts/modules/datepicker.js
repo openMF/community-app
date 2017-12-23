@@ -93,7 +93,7 @@ angular.module('modified.datepicker', ['strap.position'])
         startingDay: 0,
         yearRange: 20,
         minDate: new Date(new Date().getFullYear(), 0, 1),
-        maxDate: new Date()
+        maxDate: null
     })
 
     .controller('DatepickController', ['$scope', '$attrs', 'dateFilter', 'datepickerConf', function ($scope, $attrs, dateFilter, dtConfig) {
