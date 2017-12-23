@@ -221,25 +221,25 @@
                         {
                             name: "button.deposit",
                             type: "100",
-                            icon: "fa fa-arrow-right",
+                            icon: "fa fa-arrow-up",
                             taskPermissionName: "DEPOSIT_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.withdraw",
                             type: "100",
-                            icon: "fa fa-arrow-left",
+                            icon: "fa fa-arrow-down",
                             taskPermissionName: "WITHDRAW_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.deposit",
                             type: "300",
-                            icon: "fa fa-arrow-right",
+                            icon: "fa fa-arrow-up",
                             taskPermissionName: "DEPOSIT_RECURRINGDEPOSITACCOUNT"
                         },
                         {
                             name: "button.withdraw",
                             type: "300",
-                            icon: "fa fa-arrow-left",
+                            icon: "fa fa-arrow-down",
                             taskPermissionName: "WITHDRAW_RECURRINGDEPOSITACCOUNT"
                         }
                     ];
@@ -320,7 +320,7 @@
                 $scope.onVideoSuccess = function () {
                     $scope.error = null;
                 };
-                
+
                 $scope.onStream = function(stream) {
                     $scope.stream = stream
                 }
@@ -772,7 +772,7 @@
                     size: "lg"
                 });
             }
-            
+
             var EditNoteCtrl = function ($scope, $uibModalInstance, items) {
                 scope.editData = {};
                 editData = {};
@@ -787,7 +787,7 @@
                     $uibModalInstance.dismiss('cancel');
                 };
             };
-            
+
             var DeleteNoteCtrl = function ($scope, $uibModalInstance, items) {
                 $scope.deleteNote = function (clientId, entityId, index) {
                     resourceFactory.clientNotesResource.delete({clientId: items.clientId, noteId: items.clientNote}, '', function(data) {
