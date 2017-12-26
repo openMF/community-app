@@ -5,7 +5,8 @@
         <li ng-show="clientName"><a href="#/viewclient/{{clientId}}"><strong>{{clientName}}</strong></a></li>
         <li class="active">{{'label.anchor.fixeddepositapplication' | translate}}</li>
     </ul>
-    <form name="newsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
+    <form name="newsavingccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+                <api-validate></api-validate>
                 <fieldset>
                 <table class="width100">
                     <tr>
@@ -24,9 +25,10 @@
                                 }}&nbsp;<span class="required">*</span></label>
                         </td>
                         <td class="width36 paddedbottom10">
-                            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+                            <input ng-show="formData.productId" id="submittedOnDate" sort type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
                                    ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
-                                   class="form-control"/>
+                                   class="form-control" required late-validate>
+                            <form-validate valattributeform="newsavingccountform" valattribute="submittedOnDate"/>
                         </td>
                     </tr>
                     <tr ng-show="formData.productId">
@@ -106,20 +108,24 @@
                                 class="required">*</span></label>
                         </td>
                         <td class="width36 paddedbottom10">
-                            <input id="depositAmount" type="text" class="form-control" number-format ng-model="formData.depositAmount">
+                             <input id="depositAmount" type="text" class="form-control" name="depositAmount" number-format ng-model="formData.depositAmount" required late-validate>
+                            <form-validate valattributeform="newsavingccountform" valattribute="depositAmount"/>
                         </td>
-                        <td class="width14"><label class="control-label">{{ 'label.input.depositperiod' | translate }}&nbsp;</label>
+                        <td class="width14"><label class="control-label">{{ 'label.input.depositperiod' | translate }}
+                            <span class="required">*</span>&nbsp;</label>
                         </td>
 
                         <td class="width36 paddedbottom10">
                             <div class="form-inline">
-                                <input id="depositPeriod" class="form-control" type="text" ng-model="formData.depositPeriod">
+                                <input id="depositPeriod" class="form-control" type="text" name="depositPeriod" ng-model="formData.depositPeriod" required late-validate>
                                 <select id="depositPeriodFrequencyId" ng-model="formData.depositPeriodFrequencyId"
                                         class="form-control width170px"
                                         ng-options="type.id as type.value for type in data.periodFrequencyTypeOptions"
                                         value="{{type.id}}">
                                     <option value="">{{'label.selectone' | translate}}</option>
-                                </select></div>
+                                </select>
+                                <form-validate valattributeform="newsavingccountform" valattribute="depositPeriod"/>
+                            </div>
                         </td>
                     </tr>
                     <tr>
