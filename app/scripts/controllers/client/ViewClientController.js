@@ -846,24 +846,29 @@
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel');
                 };
+                $scope.uploadSig = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    scope.uploadSig();
+                };
             };
+
             var ViewLargerClientSignature = function($scope,$uibModalInstance){
                 var loadSignature = function(){
                     http({
                         method: 'GET',
                         url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents'
                     }).then(function (docsData) {
-                        var docId = -1;
+                        $scope.docId = -1;
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
-                                docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                $scope.docId = docsData.data[i].id;
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + $scope.docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
                             }
                         }
                         if (scope.signature_url != null) {
                             http({
                                 method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + $scope.docId + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier
                             }).then(function (docsData) {
                                 $scope.largeImage = scope.signature_url;
                             });
@@ -871,6 +876,14 @@
                     });
                 };
                 loadSignature();
+                $scope.deleteSig = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    scope.deleteSig();
+                };
+                $scope.uploadSig = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    scope.uploadSig();
+                };
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel');
                 };
