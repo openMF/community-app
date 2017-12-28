@@ -356,9 +356,9 @@
                 //onclick Disable proceed button to avoid multiple cilent creation
                 setDisableTimeout();
 
-                if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
+                if (WizardHandler.wizard().currentStepNumber() != scope.noOfTabs) {
                     WizardHandler.wizard().next();
-                    /*if (WizardHandler.wizard().getCurrentStep() == 2) {
+                    /*if (WizardHandler.wizard().currentStepNumber() == 2) {
                      if (scope.validateFiles())
                      WizardHandler.wizard().next();
                      } else {
