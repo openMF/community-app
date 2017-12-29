@@ -144,7 +144,7 @@
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
                 scope.date.fromDate = new Date(data.timeline.activatedOnDate);
-                
+
                 scope.status = data.status.value;
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
@@ -221,12 +221,12 @@
                         },
                         {
                             name: "button.deposit",
-                            icon: "fa fa-arrow-right",
+                            icon: "fa fa-arrow-up",
                             taskPermissionName:"DEPOSIT_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.withdraw",
-                            icon: "fa fa-arrow-left",
+                            icon: "fa fa-arrow-down",
                             taskPermissionName:"WITHDRAW_SAVINGSACCOUNT"
                         },
                         {
@@ -419,7 +419,7 @@
 
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
-                
+
             };
 
             scope.viewSavingsTransactionReceipts = function (transactionId) {
@@ -505,7 +505,7 @@
                 }
                 return false;
             };
-            
+
         }
     });
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
