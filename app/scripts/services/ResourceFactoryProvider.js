@@ -461,7 +461,8 @@
                     }),
                     checkerInboxResource: defineResource(apiVer + "/makercheckers/:templateResource", {templateResource: '@templateResource'}, {
                         get: {method: 'GET', params: {}},
-                        search: {method: 'GET', params: {}, isArray: true}
+                        search: {method: 'GET', params: {}, isArray: true},
+                        save: {method: 'POST', params: {command : '@command'}}
                     }),
                     officeToGLAccountMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId", {mappingId: '@mappingId'}, {
                         get: {method: 'GET', params: {mappingId: '@mappingId'}},
