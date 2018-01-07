@@ -22,3 +22,4 @@
 22. Janice Kim (https://github.com/janicek1m) :Programming newbie and robotics enthusiast
 23. Janvi Bajoria (https://github.com/janvi01) :Beginner and java coder
 24. Sri Sahith.U (https://github.com/Enenra06) : Open source enthusiast
+25. Daniel Genkin (https://github.com/Danki567) : Java, C#, Objective-C developer/enthusiast and I am always learning! 
