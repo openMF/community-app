@@ -5,7 +5,7 @@
                 restrict: 'E',
                 require: '?ngmodel',
                 link: function (scope, elm, attr, ctrl) {
-                    var template = '<div uib-alert type="danger" ng-show="errorStatus || errorDetails.length > 0">' +
+                    var template = '<div uib-alert type="danger" ng-show="errorStatus && errorDetails.length > 0">' +
                         '<div ng-repeat="errorArray in errorDetails">' +
                         '<label><i class="fa fa-exclamation-circle"></i>' +
                         '{{' + 'errorArray.args.params[0].value'    +' | translate}}' + ' field is required' +
