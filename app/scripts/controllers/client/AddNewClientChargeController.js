@@ -1,8 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         AddNewClientChargeController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+            scope.clientId = routeParams.id;
             scope.offices = [];
-            scope.cancelRoute = routeParams.id;
             scope.date = {};
 
             resourceFactory.clientChargesResource.get({clientId: routeParams.id, resourceType: 'template'}, function (data) {
