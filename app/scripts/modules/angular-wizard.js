@@ -28,7 +28,7 @@ angular.module("wizard.html", []).run(["$templateCache", function($templateCache
                 "!step.completed && !step.selected, " +
                 "'progress-done': step.completed && !step.selected , 'progress-danger': step.danger && !step.selected}\">" +
                 "<span class='bubble'></span><i class='fa fa-check' ng-show='step.completed && !step.selected'></i>"+
-                "<i class='fa fa-repeat' ng-show='step.selected'></i><i class='fa fa-times' ng-show='step.danger && !step.selected'></i>{{step.title || step.wzTitle}}"+
+                "<i class='fa fa-repeat' ng-show='step.selected'></i><i class='fa fa-times-circle fa-2x' ng-show='step.danger && !step.selected'></i>{{step.title || step.wzTitle}}"+
             "        </li>" +
                 "</ul>" +
            // "      </div>\n" +
