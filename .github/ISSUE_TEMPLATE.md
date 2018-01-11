@@ -14,3 +14,7 @@ Don't assume the reader knows anything about the Mifos X Web App.
 - Browser used:
 
 ## Screenshots, if any
+
+## Would you like to work on the issue?
+Please tell if you would like to claim this issue or someone else you think can help with this.
+
