@@ -162,12 +162,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
-                                <center>
+                            <div class="text-center">
                                     <dir-pagination-controls pagination-id="inbox"
                                                              boundary-links="true"
                                                              template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
-                                </center>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
@@ -253,9 +251,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <dir-pagination-controls pagination-id="'_' + $index"
-                                                         boundary-links="true"
-                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'_' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
@@ -328,9 +328,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <dir-pagination-controls pagination-id="'__' + $index"
-                                                         boundary-links="true"
-                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'__' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
@@ -391,6 +393,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="text-center">
                                 <dir-pagination-controls pagination-id="loan-disbursal"
                                                          boundary-links="true"
                                                          template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
@@ -446,7 +450,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                      <tr dir-paginate="loanReschedule in loanRescheduleData | itemsPerPage: itemsPerPage">         	<td><input type="checkbox" data-ng-model="checkForBulkLoanRescheduleApprovalData[loanReschedule.id]"/></td>
+                                      <tr dir-paginate="loanReschedule in loanRescheduleData | filter:filterText2 | itemsPerPage: itemsPerPage"
+                                          pagination-id="rescheduleLoan">
+                                      <td><input type="checkbox" data-ng-model="checkForBulkLoanRescheduleApprovalData[loanReschedule.id]"/></td>
                                       <td><a href="#/viewclient/{{loanReschedule.clientId}}">{{loanReschedule.clientName}}</a></td>
                                       <td><a href="#/loans/{{loanReschedule.loanId}}/viewreschedulerequest/{{loanReschedule.id}}">{{loanReschedule.id}}</a></td>
                                       <td><a href="#/viewloanaccount/{{loanReschedule.loanId}}">{{loanReschedule.loanAccountNumber}}</a></td>
@@ -455,6 +461,11 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="text-center">
+                                <dir-pagination-controls pagination-id="rescheduleLoan"
+                                                         boundary-links="true"
+                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                             </div>
                         </uib-tab>
                     </uib-tabset>
