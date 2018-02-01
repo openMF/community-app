@@ -21,12 +21,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="pointer-main" ng-repeat="shareproduct in shareproducts.pageItems | orderBy:'name':reverse | filter:filterText">
-                <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.name}}</td>
-                <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.shortName}}</td>
-                <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.totalShares}}</td>
-            </tr>
+        <tr class="pointer-main" dir-paginate="shareproduct in shareproducts.pageItems | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: ShareProductsPerPage">
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.shortName}}</td>
+            <td class="pointer" data-ng-click="routeTo(shareproduct.id)">{{shareproduct.totalShares}}</td>
+        </tr>
         </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>    

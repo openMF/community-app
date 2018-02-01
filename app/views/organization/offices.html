@@ -28,7 +28,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="pointer-main" ng-repeat="office in offices| orderBy:'name':reverse  | filter:filterText">
+                    <tr class="pointer-main" dir-paginate="office in offices | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: OfficesPerPage">
                         <td class="pointer" data-ng-click="routeTo(office.id)">{{office.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(office.id)">{{office.externalId}}</td>
                         <td class="pointer" data-ng-click="routeTo(office.id)">{{office.parentName}}</td>
@@ -36,6 +36,7 @@
                     </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
             </div>
             <div ng-show="isTreeView">
                 <div

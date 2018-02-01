@@ -24,12 +24,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" data-ng-repeat="code in codes | filter:filterText">
+                <tr class="pointer-main" dir-paginate="code in codes | filter:filterText |  itemsPerPage: CodesPerPage">
                     <td class="pointer" data-ng-click="routeTo(code.id)">{{code.name | translate}}</td>
                     <td class="pointer" data-ng-click="routeTo(code.id)">{{code.systemDefined}}</td>
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
         </div>
     </div>
 </div>

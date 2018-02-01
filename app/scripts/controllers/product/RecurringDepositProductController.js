@@ -16,6 +16,7 @@
                 scope.saveSC();
             };
 
+            scope.RecurringDepositsPerPage =15;
             resourceFactory.recurringDepositProductResource.getAllRecurringDepositProducts(function (data) {
                 scope.depositproducts = data;
             });

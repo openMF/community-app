@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="pointer-main" data-ng-repeat="holiday in holidays | orderBy:'fromDate' | filter:filterText" ng-show="holiday.status.value != 'Deleted'">
+                <tr class="pointer-main" dir-paginate="holiday in holidays | orderBy:'fromDate' | filter:filterText | itemsPerPage: HolidaysPerPage" ng-show="holiday.status.value != 'Deleted'">
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
                     <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
@@ -45,6 +45,7 @@
                 </tr>
             </tbody>
         </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>
 </div>

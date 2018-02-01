@@ -18,7 +18,7 @@
 	        </tr>
 	        </thead>
 	        <tbody>
-	        <tr class="pointer-main" data-ng-repeat="role in roles | orderBy:'name':reverse">
+	        <tr class="pointer-main" dir-paginate="role in roles | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: RolesPerPage">
 	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.name}}</td>
 	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.description}}</td>
 				<td class="pointer" data-ng-click="routeTo(role.id)">
@@ -28,5 +28,6 @@
 	        </tr>
 	        </tbody>
 	    </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
 	</div>
 </div>
