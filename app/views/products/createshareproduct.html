@@ -84,7 +84,7 @@
                            uib-tooltip="{{'label.tooltip.shareproductdecimalplaces' | translate}}"></i>
                         <div class="col-sm-2">
                             <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
-                                   ng-model="formData.digitsAfterDecimal" required late-validate/>
+                                   ng-model="formData.digitsAfterDecimal" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="decimalplace"/>
@@ -98,7 +98,7 @@
                         <div class="col-sm-2">
                             <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
                                    ng-model="formData.inMultiplesOf"
-                                   required late-validate/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="multiplesof"/>
@@ -126,7 +126,7 @@
                         <div class="col-sm-2">
                             <input id="totalnumberofshares" name="totalnumberofshares" number-format
                                    class="form-control"
-                                   ng-model="formData.totalShares" required late-validate/>
+                                   ng-model="formData.totalShares" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="totalnumberofshares"/>
@@ -139,8 +139,8 @@
                         <div class="col-sm-2">
                             <input ng-autofocus="true" type="text" id="totalsharestobeissued" name="totalsharestobeissued"
                                    ng-model="formData.sharesIssued"
-                                   number-format class="form-control" ng-change = "shareCapitaValue()" required late-validate>
-                            <form-validate valattributeform="Terms" valattribute="totalsharestobeissued"/>
+                                   number-format class="form-control" ng-change = "shareCapitaValue()" required late-validate number=true />
+                        <form-validate valattributeform="Terms" valattribute="totalsharestobeissued"/>
                         </div>
 
                     </div>
@@ -151,7 +151,7 @@
                            uib-tooltip="{{'label.tooltip.nominalprice' | translate}}"></i>
                         <div class="col-sm-2">
                             <input id="nominalprice" name="nominalprice" number-format class="form-control"
-                                   ng-model="formData.unitPrice" required late-validate  ng-change = "shareCapitaValue()"/>
+                                   ng-model="formData.unitPrice" required late-validate number=true ng-change = "shareCapitaValue()"/>
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="nominalprice"/>
@@ -195,7 +195,7 @@
                             <input type="text" id="nominalsharesperclient"
                                    placeholder="{{'label.input.default' | translate}}"
                                    name="interestRatePerPeriod" class="form-control" ng-model="formData.nominalShares"
-                                   required/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <input id="maximumshares" placeholder="{{'label.input.maximum' | translate}}" type="text"
@@ -212,8 +212,9 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.minimumactiveperiod' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="minimumactiveperiod" type="text" class="form-control"
-                                   number-format ng-model="formData.minimumActivePeriodForDividends">
+                            <input id="minimumactiveperiod" type="text" name="minimumactiveperiod" class="form-control"
+                                   number-format ng-model="formData.minimumActivePeriodForDividends" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="minimumactiveperiod"/>
                         </div>
 
                         <div class="col-sm-2">
@@ -234,8 +235,9 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.shareproductlockinPeriodFrequency' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="lockinPeriodFrequency" type="text" class="form-control"
-                                   ng-model="formData.lockinPeriodFrequency">
+                            <input id="lockinPeriodFrequency" type="text" name="lockinPeriodFrequency" class="form-control"
+                                   ng-model="formData.lockinPeriodFrequency" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="lockinPeriodFrequency"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
@@ -311,7 +313,7 @@
                             <td>
                                 <ng-form name="shareValue{{$index}}">
                                     <input id="shareValue" name="shareValue" class="form-control" type="text"
-                                           ng-model="marketpriceperiod.shareValue" number-format required/>
+                                           ng-model="marketpriceperiod.shareValue" number-format required late-validate number=true />
                                     <span class="error"
                                           ng-show="visitValidation&&shareValue{{$index}}.shareValue.$error.required">{{ 'label.requirefield' | translate }}</span>
                                 </ng-form>

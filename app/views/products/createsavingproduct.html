@@ -83,7 +83,7 @@
                            uib-tooltip="{{'label.tooltip.decimalplaces' | translate}}"></i>
                         <div class="col-sm-2">
                             <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
-                                   ng-model="formData.digitsAfterDecimal" required late-validate/>
+                                   ng-model="formData.digitsAfterDecimal" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="decimalplace"/>
@@ -97,7 +97,7 @@
                         <div class="col-sm-2">
                             <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
                                    ng-model="formData.inMultiplesOf"
-                                   required late-validate/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="multiplesof"/>
@@ -125,7 +125,7 @@
                         <div class="col-sm-2">
                             <input id="nominalAnnualInterestRate" name="nominalAnnualInterestRate" type="text"
                                    class="form-control"
-                                   ng-model="formData.nominalAnnualInterestRate" required late-validate/>
+                                   ng-model="formData.nominalAnnualInterestRate" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="nominalAnnualInterestRate"/>
@@ -199,16 +199,18 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.minimumopeningbalance' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="minRequiredOpeningBalance" type="text" class="form-control"
-                                   number-format ng-model="formData.minRequiredOpeningBalance">
+                            <input id="minRequiredOpeningBalance" type="text" name="minRequiredOpeningBalance" class="form-control"
+                                   number-format ng-model="formData.minRequiredOpeningBalance" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="minRequiredOpeningBalance"/>
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate
                             }}</label>
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.lockinPeriodFrequency' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="lockinPeriodFrequency" type="text" class="form-control"
-                                   ng-model="formData.lockinPeriodFrequency">
+                            <input id="lockinPeriodFrequency" type="text" name="lockinPeriodFrequency" class="form-control"
+                                   ng-model="formData.lockinPeriodFrequency" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="lockinPeriodFrequency"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"

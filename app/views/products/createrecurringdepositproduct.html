@@ -66,7 +66,7 @@
                             }}<span class="required">*</span></label>
                         <div class="col-sm-2">
                             <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
-                                   ng-model="formData.digitsAfterDecimal" required late-validate/>
+                                   ng-model="formData.digitsAfterDecimal" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributFeform="Currency"
@@ -79,7 +79,7 @@
                         <div class="col-sm-2">
                             <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof" number-format
                                    ng-model="formData.inMultiplesOf"
-                                   required late-validate/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency"
@@ -105,24 +105,25 @@
                             }}<span class="required">*</span></label>
                         <div class="col-sm-2">
                             <input type="text" id="depositAmount" name="depositAmount" class="form-control"
-                                   number-format ng-model="formData.depositAmount" required late-validate/>
+                                   number-format ng-model="formData.depositAmount" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
-                            <form-validate valattributeform="Terms"
-                                           valattribute="depositAmount"/>
+                            <form-validate valattributeform="Terms" valattribute="depositAmount"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.minDepositAmount' | translate }}</label>
                         <div class="col-sm-2">
                             <input type="text" id="minDepositAmount" name="minDepositAmount" class="form-control"
-                                   number-format ng-model="formData.minDepositAmount"/>
+                                   number-format ng-model="formData.minDepositAmount" late-validate number=true />
+                            <form-validate valattributeform="Terms" valattribute="minDepositAmount"/>
                         </div>
                         <label class="control-label col-sm-2 col-sm-offset-2">{{ 'label.input.maxDepositAmount' |
                             translate }}</label>
                         <div class="col-sm-2">
                             <input type="text" id="maxDepositAmount" name="maxDepositAmount" class="form-control"
-                                   number-format ng-model="formData.maxDepositAmount"/>
+                                   number-format ng-model="formData.maxDepositAmount" late-validate number=true />
+                            <form-validate valattributeform="Terms" valattribute="maxDepositAmount"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -218,8 +219,9 @@
                         <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate
                             }}</label>
                         <div class="col-sm-2">
-                            <input id="lockinPeriodFrequency" type="text" class="form-control"
-                                   ng-model="formData.lockinPeriodFrequency">
+                            <input id="lockinPeriodFrequency" type="text" name="lockinPeriodFrequency" class="form-control"
+                                   ng-model="formData.lockinPeriodFrequency" late-validate number=true >
+                            <form-validate valattributeform="Settings" valattribute="lockinPeriodFrequency"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
@@ -232,8 +234,9 @@
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.minimumdepositterm' | translate }}</label>
                         <div class="col-sm-2">
-                            <input id="minimumDepositTerm" type="text" class="form-control"
-                                   ng-model="formData.minDepositTerm">
+                            <input id="minimumDepositTerm" type="text" name="minimumDepositTerm" class="form-control"
+                                   ng-model="formData.minDepositTerm" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="minimumDepositTerm"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="minDepositTermTypeId" ng-model="formData.minDepositTermTypeId"
@@ -248,8 +251,9 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.inmultiplesof' | translate }}</label>
                         <div class="col-sm-2">
-                            <input id="inMultiplesOfDepositTerm" type="text" class="form-control"
-                                   ng-model="formData.inMultiplesOfDepositTerm">
+                            <input id="inMultiplesOfDepositTerm" type="text" name="inMultiplesOfDepositTerm" class="form-control"
+                                   ng-model="formData.inMultiplesOfDepositTerm" late-validate number=true >
+                            <form-validate valattributeform="Settings" valattribute="inMultiplesOfDepositTerm"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="inMultiplesOfDepositTermTypeId"
@@ -263,8 +267,9 @@
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.maximumdepositterm' | translate }}</label>
                         <div class="col-sm-2">
-                            <input id="maximumDepositTerm" type="text" class="form-control"
-                                   ng-model="formData.maxDepositTerm">
+                            <input id="maximumDepositTerm" type="text" name="maximumDepositTerm" class="form-control"
+                                   ng-model="formData.maxDepositTerm" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="maximumDepositTerm"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="maxDepositTermTypeId" ng-model="formData.maxDepositTermTypeId"
@@ -311,7 +316,8 @@
                             <input id="minBalanceForInterestCalculation" name="minBalanceForInterestCalculation"
                                    type="text"
                                    class="form-control" number-format
-                                   ng-model="formData.minBalanceForInterestCalculation"/>
+                                   ng-model="formData.minBalanceForInterestCalculation" late-validate number=true/>
+                            <form-validate valattributeform="Settings" valattribute="minBalanceForInterestCalculation"/>
                         </div>
                     </div>
                     <div class="form-group">
