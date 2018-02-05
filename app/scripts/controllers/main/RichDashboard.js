@@ -10,7 +10,11 @@
             scope.uniqueArray = [];
             scope.searchParams = [];
             scope.recents = [];
-            scope.dashModel = 'dashboard';
+            scope.dashModel = 'rich-dashboard';
+
+            scope.officeIdDisbursed = 1;
+            scope.officeId = 1;
+            scope.officeIdCollection = 1;
 
             scope.switch = function() {
 	        	location.path('/richdashboard');
@@ -90,7 +94,7 @@
             scope.bOfficeName = 'Head Office';
             scope.chartType = 'Days';
             scope.collectionPieData = [];
-            scope.dashModel = 'rich-dashboard';
+
             scope.switch = function() {
 	        	location.path('/home');
 			}
