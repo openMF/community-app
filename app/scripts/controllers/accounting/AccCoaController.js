@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccCoaController: function (scope,$rootScope, translate, resourceFactory, location) {
+        AccCoaController: function (scope,$rootScope, translate, resourceFactory, location, anchorScroll) {
 			
 			$rootScope.tempNodeID = -100; // variable used to store nodeID (from directive), so it(nodeID) is available for detail-table
 			
@@ -9,6 +9,12 @@
 
             scope.routeTo = function (id) {
                 location.path('/viewglaccount/' + id);
+            };
+
+            scope.scrollto = function (link){
+                location.hash(link);
+                anchorScroll();
+
             };
 
             if (!scope.searchCriteria.acoa) {

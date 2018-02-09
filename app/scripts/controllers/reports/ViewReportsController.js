@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewReportsController: function (scope, routeParams, resourceFactory, location, route) {
+        ViewReportsController: function (scope, routeParams, resourceFactory,  location, anchorScroll, route) {
             scope.reports = [];
             scope.type = routeParams.type;
             //to display type of report on breadcrumb
@@ -9,6 +9,12 @@
 
             scope.routeTo = function (report) {
                 location.path('/run_report/' + report.report_name).search({reportId: report.report_id, type: report.report_type});
+            };
+
+            scope.scrollto = function (link){
+                location.hash(link);
+                anchorScroll();
+
             };
 
             if (!scope.searchCriteria.reports) {

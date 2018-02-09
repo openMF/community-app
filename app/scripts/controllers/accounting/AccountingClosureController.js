@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter) {
+        AccountingClosureController: function (scope, resourceFactory, location, anchorScroll, translate, routeParams, dateFilter) {
             scope.first = {};
             scope.formData = {};
             scope.first.date = new Date();
@@ -21,6 +21,12 @@
 
             scope.routeTo = function (id) {
                 location.path('/view_close_accounting/' + id);
+            };
+            
+            scope.scrollto = function (link){
+                location.hash(link);
+                anchorScroll();
+
             };
 
             scope.submit = function () {
