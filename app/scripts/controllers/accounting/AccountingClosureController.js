@@ -55,7 +55,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', mifosX.controllers.AccountingClosureController]).run(function ($log) {
+    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter','$anchorScroll', mifosX.controllers.AccountingClosureController]).run(function ($log) {
         $log.info("AccountingClosureController initialized");
     });
 }(mifosX.controllers || {}));

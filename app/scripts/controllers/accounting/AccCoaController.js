@@ -115,7 +115,7 @@
 			
         }
     });
-    mifosX.ng.application.controller('AccCoaController', ['$scope','$rootScope', '$translate', 'ResourceFactory', '$location', mifosX.controllers.AccCoaController]).run(function ($log) {
+    mifosX.ng.application.controller('AccCoaController', ['$scope','$rootScope', '$translate', 'ResourceFactory', '$location','$anchorScroll', mifosX.controllers.AccCoaController]).run(function ($log) {
         $log.info("AccCoaController initialized");
     });
 }(mifosX.controllers || {}));

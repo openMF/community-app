@@ -86,7 +86,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', mifosX.controllers.ViewReportsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$anchorScroll' ,mifosX.controllers.ViewReportsController]).run(function ($log) {
         $log.info("ViewReportsController initialized");
     });
 }(mifosX.controllers || {}));

@@ -16,7 +16,7 @@
 
         }
     });
-    mifosX.ng.application.controller('AccountingRuleController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.AccountingRuleController]).run(function ($log) {
+    mifosX.ng.application.controller('AccountingRuleController', ['$scope', 'ResourceFactory', '$location','$anchorScroll', mifosX.controllers.AccountingRuleController]).run(function ($log) {
         $log.info("AccountingRuleController initialized");
     });
 }(mifosX.controllers || {}));
