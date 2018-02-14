@@ -43,8 +43,12 @@
     		
     		                <div class="col-sm-3">
     		                    <input id="openingDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-    		                           class="form-control" is-open="opened" min="minDat()" max="restrictDate"/>
+                                       class="form-control" is-open="opened" min="minDat()" max="restrictDate" required/>
     		                </div>
+                            <div class="col-sm-3">
+                                <span class="error" ng-if="dateError">{{ 'validation.msg.invalid.date.entered' | translate }}</span>
+                                <form-validate valattributeform="createofficeform" valattribute="openingDate"/>
+                            </div>
     		            </div>
     		        
     		            <div class="form-group">

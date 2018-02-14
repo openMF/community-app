@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         CreateOfficeController: function (scope, resourceFactory, location, dateFilter) {
+            scope.dateError = false;
             scope.offices = [];
             scope.first = {};
             scope.first.date = new Date();
@@ -21,13 +22,19 @@
                 };
 
             scope.submit = function () {
-                this.formData.locale = scope.optlang.code;
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                this.formData.dateFormat = scope.df;
-                this.formData.openingDate = reqDate;
-                resourceFactory.officeResource.save(this.formData, function (data) {
-                    location.path('/viewoffice/' + data.resourceId);
-                });
+                if(this.first.date <= scope.restrictDate)
+                {
+                    scope.dateError = false;
+                    this.formData.locale = scope.optlang.code;
+                    var reqDate = dateFilter(scope.first.date, scope.df);
+                    this.formData.dateFormat = scope.df;
+                    this.formData.openingDate = reqDate;
+                    resourceFactory.officeResource.save(this.formData, function (data) {
+                        location.path('/viewoffice/' + data.resourceId);
+                    });
+                }
+                else
+                    scope.dateError = true;
             };
         }
     });
