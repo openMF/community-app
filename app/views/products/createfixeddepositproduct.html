@@ -32,10 +32,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}<span class="required">*</span></label>
                         <div class="col-sm-2">
                             <textarea rows="2" id="description" name="description" ng-model="formData.description"
-                                      class="form-control"></textarea>
+                                      class="form-control" required late-validate></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="Details" valattribute="description"/>
                         </div>
                     </div>
                     <hr>
@@ -236,9 +239,11 @@
                                tooltip-append-to-body="true"></i>
                         </label>
                         <div class="col-sm-2">
-                            <input id="minimumDepositTerm" type="text" class="form-control"
-                                   ng-model="formData.minDepositTerm">
+                            <input id="minimumDepositTerm" type="text" name="minimumDepositTerm" class="form-control"
+                                   ng-model="formData.minDepositTerm" required late-validate>
+                            <form-validate valattributeform="Settings" valattribute="minimumDepositTerm"/>
                         </div>
+
                         <div class="col-sm-2">
                             <select id="minDepositTermTypeId" ng-model="formData.minDepositTermTypeId"
                                     class="form-control"
@@ -276,7 +281,7 @@
                         </label>
                         <div class="col-sm-2">
                             <input id="maximumDepositTerm" type="text" class="form-control"
-                                   ng-model="formData.maxDepositTerm">
+                                   ng-model="formData.maxDepositTerm"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="maxDepositTermTypeId" ng-model="formData.maxDepositTermTypeId"
@@ -385,9 +390,12 @@
                         <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.from' |
                             translate }}<span class="required">*</span></label>
                         <div class="col-sm-2">
-                            <input id="fromDate" sort type="text" class="form-control" datepicker-pop="dd MMMM yyyy"
+                            <input id="fromDate" sort type="text" name="fromDate" class="form-control" datepicker-pop="dd MMMM yyyy"
                                    ng-model="fromDate.date"
-                                   is-open="opened" min="minDate" max="restrictDate"/>
+                                   is-open="opened" min="minDate" max="restrictDate" required late-validate>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="interestchart" valattribute="fromDate"/>
                         </div>
                         <label class="control-label col-sm-2 col-sm-offset-2 " for="name">{{
                             'label.input.interestratechart.valid.to' | translate }}</label>
