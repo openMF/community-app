@@ -208,7 +208,7 @@
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
                         scope.formData.transactionAmount = data.amount;
-                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                        scope.formData[scope.modelName] =  new Date();
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
                         }
