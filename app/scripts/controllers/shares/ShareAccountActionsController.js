@@ -34,7 +34,7 @@
                 case "undoapproval":
                     scope.title = 'label.heading.undoapproveshareaccount';
                     scope.showDateField = false;
-                    scope.showNoteField = true;
+                    scope.showNoteField = false;
                     scope.taskPermissionName = 'UNDOAPPROVAL_SHAREACCOUNT';
                     break;
                 case "activate":
@@ -104,7 +104,7 @@
                         scope.shareaccountdetails = data;
                         scope.formData.unitPrice = data.currentMarketPrice ;
                     }) ;
-                    scope.title = 'label.heading.applyadditionalshares';
+                    scope.title = 'label.button.redeemshares';
                     scope.labelName = 'label.input.requesteddate';
                     scope.modelName = 'requestedDate';
                     scope.showDateField = true;

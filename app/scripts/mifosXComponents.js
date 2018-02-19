@@ -15,6 +15,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'UIConfigService',
             'NotificationResponseHeaderProvider'
         ],
+
         controllers: [
             'main/MainController',
             'main/LoginFormController',
@@ -62,6 +63,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ViewClientChargeController',
             'client/ClientChargesOverviewController',
             'client/SurveyController',
+            'client/ViewClientSurveyController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
             'product/CreateSavingProductController',
@@ -169,6 +171,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/AddAccountNumberPreferencesController',
             'system/EditAccountNumberPreferencesController',
             'system/ManageSurveysController',
+            'system/EditSurveyController',
+            'system/ViewSurveyController',
             'organization/HolController',
             'organization/ViewHolController',
             'organization/EditHolidayController',
@@ -275,6 +279,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'configurations/ExternalServicesController',
             'configurations/EditExternalServicesConfigurationController',
             'configurations/ViewExternalServicesController',
+            'configurations/ViewTwoFactorConfigController',
+            'configurations/EditTwoFactorConfigController',
             'product/tax/CreateTaxComponentController',
             'product/tax/ViewTaxComponentController',
             'product/tax/EditTaxComponentController',
@@ -290,7 +296,16 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
-            'notification/NotificationsController'
+            'notification/NotificationsController',
+            'notification/NotificationsController',
+            'configurations/AddressFormController',
+            'client/EditFamilyMemberController',
+            'client/AddFamilyMembersController',
+			'adhocquery/AdHocQueryListController',
+            'adhocquery/CreateAdHocQueryController',
+            'adhocquery/ViewAdHocQueryController',
+            'adhocquery/EditAdHocQueryController'
+
         ],
         filters: [
             'StatusLookup',

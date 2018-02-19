@@ -9,7 +9,7 @@
                 <h4>{{ title | translate}}</h4>
             </div>
             <br>
-            <form name="shareccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+            <form name="shareccountactionform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <api-validate></api-validate>
                 <fieldset>
                     <div class="form-group" ng-show="showPendingShares">
@@ -45,9 +45,12 @@
                                 class="required">*</span></label>
 
                         <div class="col-sm-3">
-                            <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
-                                   ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
+                            <input id="{{modelName}}" type="text" name="DateField" sort datepicker-pop="dd MMMM yyyy"
+                                   ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control" required late-validate>
                         </div>
+                        <div class="col-sm-3">
+                                <form-validate valattributeform="shareccountactionform" valattribute="DateField"/>
+                            </div>
                     </div>
 
                     <div ng-show="requestedShares">

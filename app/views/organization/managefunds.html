@@ -9,11 +9,13 @@
     		<legend>{{'label.heading.managefunds' | translate}}</legend>
     		<div class="row">
     		    <div class="form-group">
+              <div class="col-md-12">
     		        <div class="col-md-7">
-    		            <input name="fund" ng-autofocus="true" class="form-control"
+    		            <input name="fund" class="form-control"
     		                   ng-model="newfund"
     		                   placeholder="{{'label.input.newfund' | translate}}"
     		                   type="text"
+                           required
     		                    />
     		        </div>
     		        <div class="col-md-1">
@@ -21,35 +23,44 @@
     		        </div>
     		        <div class="col-md-4">
     		            <span ng-show="managefundform.fund.$invalid || funderror">
-    		                <small class="error" ng-show="managefundform.fund.$error.req || funderror">
+    		                <small class="error" ng-show="managefundform.fund.$error.req || addfunderror">
     		                    {{ 'label.requiredfield' | translate }}
     		                </small>
     		            </span>
     		        </div>
-    				<div class="clear"><br></div>
-    		        <div ng-repeat="fund in funds">
-    		            <div class="col-md-3">
-    		                <input data-ng-hide="fund.edit" disabled="" class="form-control"
-    		                       placeholder={{fund.name}} type="text"/>
-    		                <input data-ng-show="fund.edit" class="form-control" data-ng-model="formData[fund.id]"
-    		                       type="text"/>
-    		                &nbsp;&nbsp;
-    		            </div>
-    		            <div class="col-sm-1">
-    		                <a data-ng-hide="fund.edit" class="btn btn-primary"
-    		                        has-permission='UPDATE_FUND'
-    		                        data-ng-click="editFund(fund,fund.name,fund.id)"><i
-    		                        class="fa fa-edit "></i></a>
-    		                <a data-ng-show="fund.edit" class="btn btn-primary"
-    		                        has-permission='UPDATE_FUND'
-    		                        data-ng-click="saveFund(fund.id)">{{'label.anchor.save' |
-    		                    translate}}
-    		                </a>
-    		            </div>
-    		        </div>
+              </div>
+  		        <div ng-repeat="fund in funds">
+                <div class="col-md-6">
+  		            <div class="col-md-7">
+  		                <input data-ng-hide="fund.edit" disabled="" class="form-control"
+  		                       placeholder={{fund.name}} type="text"/>
+  		                <input data-ng-show="fund.edit" class="form-control" data-ng-model="formData[fund.id]"
+  		                       type="text" required/>
+  		                &nbsp;&nbsp;
+  		            </div>
+  		            <div class="col-md-2">
+  		                <a data-ng-hide="fund.edit" class="btn btn-primary"
+  		                        has-permission='UPDATE_FUND'
+  		                        data-ng-click="editFund(fund,fund.name,fund.id)"><i
+  		                        class="fa fa-edit "></i></a>
+  		                <a data-ng-show="fund.edit" class="btn btn-primary"
+  		                        has-permission='UPDATE_FUND'
+  		                        data-ng-click="saveFund(fund.id)">{{'label.anchor.save' |
+  		                    translate}}
+  		                </a>
+  		            </div>
+                  <div class="col-md-3">
+                      <span ng-show="managefundform.fund.$invalid || funderror[fund.id]">
+                          <small class="error" ng-show="managefundform.fund.$error.req || funderror[fund.id]">
+                              {{ 'label.requiredfield' | translate }}
+                          </small>
+                      </span>
+                  </div>
+                </div>
+  		        </div>
     		    </div>
     		</div>
-    	</form>	
+    	</form>
     	</div>
     </div>
 </div>

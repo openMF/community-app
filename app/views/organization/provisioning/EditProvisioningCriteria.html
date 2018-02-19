@@ -36,7 +36,7 @@
                                     class="fa fa-angle-double-right"></i></button>
                             <br/>
                             <button type="button" class="btn btn-primary" data-ng-click="removeLoanProduct()"><i
-                                    class="fa fa-angle-double-right"></i></button>
+                                    class="fa fa-angle-double-left"></i></button>
                         </div>
                         <div class="col-sm-3 col-md-3">
                             <label class="control-label col-sm-9">{{ 'label.input.selectedproducts' | translate }}</label>
@@ -56,7 +56,7 @@
                         <th>{{'label.heading.provisioningliabilityaccount' | translate}}</th>
                         <th>{{'label.heading.provisioningexpenseaccount' | translate}}</th>
                     </tr>
-                    <tr ng-repeat="provisioningcategory in definitions">
+                    <tr ng-repeat="provisioningcategory in definitions | orderBy:'categoryId'">
                         <td>{{provisioningcategory.categoryName}}</td>
                         <td>
                             <ng-form name="minage{{$index}}">

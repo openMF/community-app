@@ -1,0 +1,67 @@
+<div class="col-md-12" ng-controller="ViewAdHocQueryController">
+    <ul class="breadcrumb">
+        <li><a href="#/adhocquery">{{'label.anchor.adhoc' | translate}}</a></li>
+        <li class="active">{{adhocquery.name}}</li>
+    </ul>
+    <script type="text/ng-template" id="deleteadhocquery.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+			<label class="control-label col-sm-4" for="repeatPassword">Are you sure to delete the data</label>
+
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="well">
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/editadhocquery/{{adhocquery.id}}" class="btn btn-primary" has-permission='UPDATE_ADHOC'><i class="icon-edit icon-white"></i>
+                    {{'label.button.edit' | translate}}</a>
+                <button type="button" ng-click="deleteadhocquery()" class="btn btn-primary" has-permission='DELETE_ADHOC'>
+                    <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+                </button>
+            </div>
+        </div>
+        <h3 class="bolder">{{adhocquery.name}}</h3>
+        <div class="row">
+	        <div class="col-md-5">
+		        <table class="table table-bordered table-striped">
+		            <tr>
+		                <td>{{'label.heading.queryname' | translate}}:</td>
+		                <td>{{adhocquery.name}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.query' | translate}}:</td>
+		                <td>{{adhocquery.query}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.tableaffected' | translate}}:</td>
+		                <td>{{adhocquery.tableName}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.reportrunfrequncy' | translate}}:</td>
+		                <td>{{adhocquery.reportRunFrequency | translate}}</td>
+		            </tr>
+		            <tr ng-show="customReportRunFrequencyFieldShow">
+		                <td>{{'label.input.runreportevery' | translate}}:</td>
+		                <td>{{adhocquery.reportRunEvery | translate}} {{'label.input.runreporteverydays' | translate}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.isactive' | translate}}:</td>
+		                <td>{{adhocquery.isActive}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.createdby' | translate}}:</td>
+		                <td>{{adhocquery.createdBy}}</td>
+		            </tr>
+		            		        
+		     </table>
+			</div>
+		</div>
+    </div>
+</div>
+          

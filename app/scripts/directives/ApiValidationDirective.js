@@ -13,8 +13,8 @@
                         '<label ng-show="errorStatus">{{errorStatus}}</label><br />' +
                         '<div ng-repeat="error in errorArray">' +
                             '<label ng-hide="errorStatus">' +
-                                '{{error.code | translate:error.args}}' +
-                            '</label>'
+                                '{{error.code | translate:error.args}} - {{error.datatable}}' +
+                            '</label>' +
                         '</div></div></div>';
                     elm.html('').append($compile(template)(scope));
                 }
