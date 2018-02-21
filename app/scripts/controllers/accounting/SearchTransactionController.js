@@ -6,6 +6,8 @@
                 {option: "Manual Entries", value: true},
                 {option: "System Entries", value: false}
             ];
+            scope.maxDate = new Date();
+            scope.dateError = false;
             scope.isCollapsed = true;
             scope.displayResults = false;
             scope.transactions = [];
@@ -116,10 +118,15 @@
                 scope.formData.savingsaccountId = null;
             };
 
-            scope.searchTransaction = function () {
-                scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 14);
-                scope.isCollapsed = false;
+            scope.submit = function () {
+                if((this.date.first != undefined && this.date.first <= scope.maxDate) || (this.date.second != undefined && this.date.second <= scope.maxDate))
+                {
+                    scope.displayResults = true;
+                    scope.transactions = paginatorService.paginate(fetchFunction, 14);
+                    scope.isCollapsed = false;
+                }
+                else
+                    scope.dateError = true;
             };
 
             if(location.search().loanId != null){

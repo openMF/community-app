@@ -7,6 +7,7 @@
     <div class="card">
         <div class="content">
           <br>
+          <form name="searchtransactionform" ng-controller="SearchTransactionController" novalidate="" rc-submit="submit()">
             <div class="form-inline" ng-show="isCollapsed">
                 <div class="form-group">
                     <div class="form-group">
@@ -33,12 +34,17 @@
                     <h4 class="control-label ng-binding">{{'label.heading.daterange' | translate}}</h4>
                     <br>
                     <div class="form-group">
-                        <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" style="width: 155px;"/>
+                        <input id="fromDate" class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDate" max="maxDate" placeholder="{{ 'label.input.fromdate' | translate }}" style="width: 155px;"/>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" style="width: 155px;"/>
+                        <input id="toDate" class="form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.second" is-open="opened1" min="minDate" max="maxDate" placeholder="{{ 'label.input.todate' | translate }}" style="width: 155px;"/>
                     </div>
                 </div>
+                <br>
+                    <div class="col-sm-3">
+                        <span class="error" ng-if="dateError">{{ 'validation.msg.future.date.entered' | translate }}</span>
+                        <!-- <form-validate valattributeform="searchtransactionform" valattribute="toDate"/> -->
+                    </div>
                 <br>
                 <div class="form-group">
                     <h4 class="control-label ng-binding">{{'label.heading.transactionid' | translate}}</h4>
@@ -48,7 +54,7 @@
                             placeholder="{{'label.input.searchbytransaction' | translate}}" class="form-control"/>
                         </div>&nbsp;&nbsp;
                         <div class="form-group">
-                            <a ng-click="searchTransaction()" class="btn btn-primary btn-space pull-left btn-toolbar" has-permission='READ_JOURNALENTRY'> Search <i class="fa fa-search "></i></a>
+                            <button type="submit" class="btn btn-primary btn-space pull-left btn-toolbar" has-permission='READ_JOURNALENTRY'> Search <i class="fa fa-search "></i></button>
                         </div>
                 </div>
             </div>
@@ -115,6 +121,7 @@
                     <li class="next"><a id="next" ng-click="transactions.next()" href="" ng-disabled="!transactions.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
                 </ul>
             </div>
+        </form>
         </div>
     </div>
 </div>
