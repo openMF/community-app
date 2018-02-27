@@ -30,11 +30,16 @@
                                             <span class="fa fa-search"></span>
                                         </button>
                                     </span>
+                                    <div class="checkbox form-control">
+                                            <label for="showAll">
+                                                <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                                {{'label.button.showall' | translate }}
+                                            </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
                 <div class="col-sm-4">
                     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
@@ -60,7 +65,7 @@
 
                 <tbody>
                 <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
-                    total-items="totalClients">
+                    total-items="totalClients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>

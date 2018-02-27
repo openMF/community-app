@@ -23,6 +23,12 @@
                                     <span class="fa fa-search"></span>
                                 </button>
                             </span>
+                            <div class="checkbox form-control">
+                                <label for="showAll">
+                                    <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                        {{'label.button.showall' | translate }}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups" pagination-id="groups">
+                    <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups" pagination-id="groups" ng-show="group.status.code != 'clientStatusType.closed' || showClosed">
                         <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(group.id)">{{group.accountNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
