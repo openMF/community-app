@@ -33,18 +33,18 @@
     <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 
     <script type="text/ng-template" id="createentitydatatablecheck.html">
-        <form name="createdatatablecheckform" novalidate="">
+        <form name="createdatatablecheckform" novalidate="" class="form-horizontal">
             <api-validate></api-validate>
             <div class="modal-dialog">
                 <div class="modal-header silver">
                     <h3 class="bolder">{{'label.heading.createdatatablecheck' | translate}}</h3>
                 </div>
                 <br/>
-                <div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label col-sm-3">{{'label.input.entity' | translate}}<span
                                 class="required">*</span></label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <select id="checkEntity"
                                     name="checkEntity"
                                     chosen="entities"
@@ -60,12 +60,10 @@
                             <form-validate valattributeform="createdatatablecheckform" valattribute="checkEntity"/>
                         </div>
                     </div>
-                    <br/>
-                    <br/>
                     <div class="form-group">
                         <label class="control-label col-sm-3">{{'label.input.status' | translate}}<span
                                 class="required">*</span></label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <select id="checkStatus"
                                     name="checkStatus"
                                     chosen="statusList"
@@ -81,12 +79,10 @@
                             <form-validate valattributeform="createdatatablecheckform" valattribute="checkStatus"/>
                         </div>
                     </div>
-                    <br/>
-                    <br/>
                     <div class="form-group">
                         <label class="control-label col-sm-3">{{'label.input.datatable' | translate}}<span
                                 class="required">*</span></label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <select id="checkDatatable"
                                     name="checkDatatable"
                                     chosen="filteredDatatables"
@@ -102,11 +98,10 @@
                             <form-validate valattributeform="createdatatablecheckform" valattribute="checkDatatable"/>
                         </div>
                     </div>
-                    <br/>
-                    <br/>
                     <div class="form-group" ng-if="checkForm.entity == 'm_loan' || checkForm.entity == 'm_savings_account'">
-                        <label class="control-label col-sm-3">{{'label.input.product' | translate}}</label>
-                        <div class="col-sm-3">
+                        <label class="control-label col-sm-3">{{'label.input.product' | translate}}<span
+                        class="required">*</span></label>
+                        <div class="col-sm-5">
                             <select id="checkProduct"
                                     name="checkProduct"
                                     chosen="products"
@@ -132,9 +127,6 @@
                             <input id="systemDefinedCheckbox" name="systemDefinedCheckbox" type="checkbox" ng-model="$parent.checkForm.systemDefined">
                         </div>
                     </div>-->
-                    <br/>
-                    <br/>
-                    <br/>
                     <div class="col-md-offset-4">
                         <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                         <button class="btn btn-primary" ng-click="create()">{{'label.button.create' | translate}}</button>

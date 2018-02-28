@@ -9,7 +9,7 @@
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label class="control-label" for="name">{{'label.input.floatingratename' | translate}}<span
                             class="required">*</span>
                         &nbsp;
@@ -27,11 +27,12 @@
                 <div class="col-sm-3">
                     <input type="checkbox" name="name1" ng-model="formData.isBaseLendingRate"/>
                     <label class="control-label" >{{'label.input.isbaselendingrate' | translate}}
-                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isBaseLendingRate' | translate}}"></i>
+                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isBaseLendingRate' | translate}}"
+                        tooltip-append-to-body="true"></i>
                     </label>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <input type="checkbox" name="name1" ng-model="formData.isActive"/>
                     <label class="control-label" >{{'label.input.active' | translate}}
                         &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isActive' | translate}}"></i>
@@ -41,7 +42,7 @@
             </div>
             <hr/>
             <div class="form-group">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <label class="control-label bolder" >{{'label.heading.rateperiods' | translate}}
                         &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.rateperiods' | translate}}"></i>
                     </label>
@@ -55,8 +56,10 @@
             <table class="table width80" ng-show="formData.ratePeriods.length>0">
                 <tr class="graybg">
                     <th>{{'label.heading.fromdate' | translate}}
+                        <span class="required">*</span>
                         &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatingfromdate' | translate}}"></i></th>
                     <th>{{'label.heading.interestrate' | translate}}
+                        <span class="required">*</span>
                         &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatigannualinterest' | translate}}"></i></th>
                     <th>{{'label.heading.isdifferentaialtobaselendingrate' | translate}}
                         &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatingisdifferential' | translate}}"></i></th>
@@ -66,7 +69,7 @@
                 <tr ng-repeat="rateperiod in formData.ratePeriods">
                     <td>
                         <ng-form name="fromDate{{$index}}">
-                            <input type="text" id="fromDate1" name="fromDate1" datepicker-pop="dd MMMM yyyy"
+                            <input type="text" id="fromDate1{{$index}}" name="fromDate1" datepicker-pop="dd MMMM yyyy"
                                    ng-model="rateperiod.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
                                    class="form-control" required/>
                             <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate1.$error.required">{{ 'label.requirefield' | translate }}</span>
@@ -74,7 +77,7 @@
                     </td>
                     <td>
                         <ng-form name="interestRate{{$index}}">
-                            <input id="interestRate1" name="interestRate1" class="form-control" type="text"
+                            <input id="interestRate1{{$index}}" name="interestRate1" class="form-control" type="text"
                                    ng-model="rateperiod.interestRate" number-format required/>
                             <span class="error" ng-show="visitValidation&&interestRate{{$index}}.interestRate1.$error.required">{{ 'label.requirefield' | translate }}</span>
                         </ng-form>
@@ -85,12 +88,12 @@
                                ng-model="rateperiod.isDifferentialToBaseLendingRate"/>
                     </td>
                     <td>
-                        <a ng-click="deleteRatePeriod($index)"><i class="fa fa-times "></i></a>
+                        <a ng-click="deleteRatePeriod($index)"><i class="fa fa-times-circle fa-2x "></i></a>
                     </td>
                 </tr>
             </table>
 
-            <div class="col-md-offset-3">
+            <div class="col-md-offset-4">
                 <a id="cancel" href="#/floatingrates">
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>

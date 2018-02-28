@@ -135,7 +135,7 @@
                         name: "label.button.rejecttransfer",
                         href: "#/client",
                         subhref: "rejecttransfer",
-                        icon: "fa fa-times",
+                        icon: "fa fa-times-circle fa-2x",
                         taskPermissionName: "REJECTTRANSFER_CLIENT"
                     },
                     {

@@ -383,8 +383,11 @@
                     delete this.formData.locale;
                     delete this.formData.dateFormat;
                     resourceFactory.clientResource.save({clientId: routeParams.id, command: 'rejectTransfer'}, this.formData, function (data) {
-                        location.path('/viewclient/' + data.clientId);
+                        resourceFactory.clientResource.save({clientId: routeParams.id, command: 'withdrawTransfer'}, {} ,function (data) {
+                            location.path('/viewclient/' + data.clientId);
+                        });
                     });
+                    
                 }
                 if (scope.action == "undotransfer") {
                     delete this.formData.locale;
