@@ -235,29 +235,24 @@
                             </span>
                         </div>
                     </div>
-                    <table class="table width80" ng-show="charges.length>0">
-                        <tr class="graybg">
-                            <th>{{'label.heading.name' | translate}}</th>
-                            <th>{{'label.heading.type' | translate}}</th>
-                            <th>{{'label.heading.amount' | translate}}</th>
-                            <th>{{'label.heading.collectedon' | translate}}</th>
-                            <th>{{'label.heading.actions' | translate}}</th>
-                        </tr>
-                        <tr ng-repeat="charge in charges">
-                            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-                            <td>{{charge.chargeCalculationType.value}}</td>
-                            <td>
-                                <input id="charges[{{$index}}].amount" class="input-sm form-control" type="text" ng-model="charge.amount" number-format placeholder="{{'label.input.amount' | translate}}"
-                                />
-                            </td>
-                            <td>{{charge.chargeTimeType.value}}</td>
-                            <td>
-                                <a ng-click="deleteCharge($index)">
-                                    <i class="fa fa-times "></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
+                        <table class="table width80" ng-show="charges.length>0">
+                            <tr class="graybg">
+                                <th>{{'label.heading.name' | translate}}</th>
+                                <th>{{'label.heading.type' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.collectedon' | translate}}</th>
+                                <th>{{'label.heading.actions' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="charge in charges">
+                                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                                <td>{{charge.chargeCalculationType.value}}</td>
+                                <td><input id="charges[{{$index}}].amount" class="input-sm form-control" type="text"
+                                           ng-model="charge.amount" number-format
+                                           placeholder="{{'label.input.amount' | translate}}"/></td>
+                                <td>{{charge.chargeTimeType.value}}</td>
+                                <td><a ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x "></i></a></td>
+                            </tr>
+                        </table>
                     <br>
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous>

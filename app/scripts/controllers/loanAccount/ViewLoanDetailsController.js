@@ -198,7 +198,7 @@
                         },
                         {
                             name: "button.reject",
-                            icon: "fa fa-times",
+                            icon: "fa fa-times-circle fa-2x",
                             taskPermissionName: 'REJECT_LOAN'
                         }
                     ],

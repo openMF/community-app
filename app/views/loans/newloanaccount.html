@@ -549,22 +549,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="disbursementDetail in formData.disbursementData">
-                                        <td>
-                                            <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" placeholder="{{'label.input.expecteddisbursementon' | translate}}"
-                                                ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
-                                                min="minDate" max="'2020-06-22'" class="form-control" />
-                                        </td>
-                                        <td>
-                                            <input id="{{disbursementDetail[$index].principal}}" class="input-sm form-control" number-format type="text" ng-model="disbursementDetail.principal"
-                                                placeholder="{{'label.input.principal' | translate}}">
-                                        </td>
-                                        <td>
-                                            <a ng-click="deleteTranches($index)">
-                                                <i class="fa fa-times "></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tr ng-repeat="disbursementDetail in formData.disbursementData">
+                                    <td>
+                                        <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                                               datepicker-pop="dd MMMM yyyy"
+                                               placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                                               ng-model="disbursementDetail.expectedDisbursementDate"
+                                               is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
+                                               class="form-control"/>
+                                    </td>
+                                    <td>
+                                        <input id="{{disbursementDetail[$index].principal}}"
+                                               class="input-sm form-control" number-format type="text"
+                                               ng-model="disbursementDetail.principal"
+                                               placeholder="{{'label.input.principal' | translate}}">
+                                    </td>
+                                    <td><a ng-click="deleteTranches($index)"><i class="fa fa-times-circle fa-2x "></i></a></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -625,6 +626,7 @@
                                         <i class="fa fa-times "></i>
                                     </a>
                                 </td>
+                                <td><a ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x "></i></a></td>
                             </tr>
                         </table>
                         <div ng-show="loanaccountinfo.overdueCharges.length>0">
@@ -677,21 +679,15 @@
                                     <th>{{'label.heading.actions' | translate}}</th>
                                 </tr>
                                 <tr ng-repeat="collateral in collaterals">
-                                    <td>
-                                        <input type="text" class="input-sm form-control" ng-model="collateral.name" readonly>
-                                    </td>
-                                    <td>
-                                        <input id="{{collaterals[$index].value}}" type="text" class="form-control" ng-model="collateral.value">
-                                    </td>
-                                    <td>
-                                        <input id="{{collaterals[$index].description}}" type="text" ng-model="collateral.description" placeholder="{{'label.input.description' | translate}}"
-                                            class="form-control" />
-                                    </td>
-                                    <td>
-                                        <a ng-click="deleteCollateral($index)">
-                                            <i class="fa fa-times "></i>
-                                        </a>
-                                    </td>
+                                    <td><input type="text" class="input-sm form-control" ng-model="collateral.name"
+                                               readonly></td>
+                                    <td><input id="{{collaterals[$index].value}}" type="text" class="form-control"
+                                               ng-model="collateral.value"></td>
+                                    <td><input id="{{collaterals[$index].description}}" type="text"
+                                               ng-model="collateral.description"
+                                               placeholder="{{'label.input.description' | translate}}"
+                                               class="form-control"/></td>
+                                    <td><a ng-click="deleteCollateral($index)"><i class="fa fa-times-circle fa-2x "></i></a></td>
                                 </tr>
                             </table>
                         </div>

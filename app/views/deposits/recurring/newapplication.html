@@ -390,11 +390,90 @@
                     <td>{{incentiveData.amount | number}}</td>
                 </tr>
             </table>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
-        </div>
-    </script>
-        </fieldset>
-    </form>
+        </td>
+    </tr>
+</table>
+<hr/>
+<label class="control-label"><strong>{{ 'label.heading.charges' | translate }}</strong></label>
+<select ng-model="chargeId"
+        ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in chargeOptions|filter:data.currency.code:strict"
+        value="{{charge.id}}" class="form-control width170px">
+    <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
+</select>
+<a ng-click="addCharge(chargeId)"><i class="fa fa-plus "></i></a>
+    <span ng-show="errorchargeevent">
+        <small class="error">
+            {{'label.'+labelchargeerror | translate}}
+        </small>
+    </span>
+<table class="table" class="width100" ng-show="charges.length>0">
+    <tr class="graybg">
+        <th>{{'label.heading.name' | translate}}</th>
+        <th>{{'label.heading.type' | translate}}</th>
+        <th>{{'label.heading.amount' | translate}}</th>
+        <th>{{'label.heading.collectedon' | translate}}</th>
+        <th>{{'label.heading.date' | translate}}</th>
+        <th>{{'label.heading.repaymentsevery' | translate}}</th>
+        <th>{{'label.heading.actions' | translate}}</th>
+    </tr>
+    <tr ng-repeat="charge in charges">
+        <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+        <td>{{charge.chargeCalculationType.value}}</td>
+        <td><input id="charges[{{$index}}].amount" class="form-control" number-format type="text" ng-model="charge.amount"
+                   placeholder="{{'label.placeholder.amount' | translate}}"/></td>
+        <td>{{charge.chargeTimeType.value}}</td>
+        <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
+            <input id="charges[{{$index}}].feeOnMonthDay" class="date-disable form-control"
+                   type="text" datepicker-pop="dd MMMM" ng-model="charge.feeOnMonthDay" is-open="opened"/>
+        </td>
+        <td ng-show="charge.chargeTimeType.value=='Specified due date'">
+            <input id="charges[{{$index}}].dueDate" class="date-disable form-control"
+                   type="text" datepicker-pop="dd MMMM yyyy" ng-model="charge.dueDate" is-open="opened"/>
+        </td>
+        <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+            <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM"
+                   ng-model="charge.feeOnMonthDay" is-open="opened"/>
+        </td>
+        <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+            <input id="charges[{{$index}}].amount" class="form-control" number-format type="text"
+                   ng-model="charge.feeInterval"/>
+        </td>
+        <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
+        <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>
+        <td><a ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x "></i></a></td>
+    </tr>
+</table>
+</div>
+<div class="paddedtop col-md-offset-5">
+    <button id="cancel" ng-click="cancel()" class="btn">{{ 'label.button.cancel' | translate }}</button>
+    <button id="save" type="submit" class="btn btn-primary" ng-show="data">{{ 'label.button.save' | translate }}
+    </button>
+</div>
+<script type="text/ng-template" id="incentive.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
+        <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
+        <table class="table table-bordered width100">
+            <tr class="graybg">
+                <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                <td class="width20">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+            </tr>
+            <tr ng-repeat="incentiveData in chartSlab.incentives">
+                <td>{{incentiveData.attributeName.code | translate}}</td>
+                <td>{{incentiveData.conditionType.code | translate}} </td>
+                <td>{{incentiveData.attributeValueDesc}} </td>
+                <td>{{incentiveData.incentiveType.code | translate}} </td>
+                <td>{{incentiveData.amount | number}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+    </div>
+</script>
+</fieldset>
+</form>
 </div>
