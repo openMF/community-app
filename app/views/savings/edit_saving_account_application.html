@@ -262,24 +262,24 @@
                                ng-model="charge.amount" number-format
                                placeholder="{{'label.placeholder.amount' | translate}}"/></td>
                     <td>{{charge.chargeTimeType.value}}</td>
-                    <td ng-show="charge.chargeTimeType.value=='Annual Fee'">
+                    <td ng-switch on="charge.chargeTimeType.value">
                         <input id="charges[{{$index}}].feeOnMonthDay" class="input-medium form-control" readonly
                                class="date-disable" type="text" datepicker-pop="dd MMMM"
-                               ng-model="charge.feeOnMonthDay" is-open="opened"/>
-                    </td>
-                    <td ng-show="charge.chargeTimeType.value=='Specified due date'">
+                               ng-model="charge.feeOnMonthDay" is-open="opened" ng-switch-when='Annual Fee'/>
                         <input id="charges[{{$index}}].dueDate" class="input-medium form-control" readonly
                                class="date-disable" type="text" datepicker-pop="dd MMMM yyyy"
-                               ng-model="charge.dueDate" is-open="opened"/>
-                    </td>
-                    <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+                               ng-model="charge.dueDate" is-open="opened" ng-switch-when='Specified due date'/>
                         <input readonly class="date-disable" class="input-medium form-control" readonly
                                class="date-disable" type="text" datepicker-pop="dd MMMM"
-                               ng-model="charge.feeOnMonthDay" is-open="opened"/>
+                               ng-model="charge.feeOnMonthDay" is-open="opened" ng-switch-when='Monthly Fee'/>
+                        <input id="charges[{{$index}}].dueDate" class="input-medium form-control" type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="charge.dueDate" is-open="opened" ng-switch-when='Weekly Fee'/>
                     </td>
-                    <td ng-show="charge.chargeTimeType.value=='Monthly Fee'">
+                    <td ng-switch on="charge.chargeTimeType.value">
                         <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text"
-                               ng-model="charge.feeInterval"/>
+                               ng-model="charge.feeInterval" ng-switch-when='Monthly Fee'/>
+                        <input id="charges[{{$index}}].feeInterval" class="input-sm form-control" type="text"
+                               ng-model="charge.feeInterval" ng-switch-when='Weekly Fee'/>
                     </td>
                     <td ng-hide="charge.chargeTimeType.value=='Monthly Fee'"></td>
                     <td ng-hide="charge.chargeTimeType.value=='Annual Fee' || charge.chargeTimeType.value=='Specified due date' || charge.chargeTimeType.value=='Monthly Fee'"></td>

@@ -18,10 +18,18 @@
                                     <span class="fa fa-search"></span>
                                 </button>
                             </span>
+                            <div class="checkbox form-control">
+                                <label for="showAll">
+                                    <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                    {{'label.button.showall' | translate }}
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-sm-4">
                         <a href="#/createcenter" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i class="fa fa-plus "></i>{{'label.button.createcenter' | translate}}</a>
+                        <a href="#/bulkimportcenters" class="btn btn-primary pull-right" has-permission='CREATE_CENTER'><i
+                                +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importcenters' | translate}}</a>
                     </div>
                 </div>
             </form>
@@ -38,7 +46,7 @@
                 </thead>
 
                 <tbody>
-                <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: centersPerPage" total-items="totalCenters" pagination-id="centers">
+                <tr class="pointer-main" dir-paginate="center in centers | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: centersPerPage" total-items="totalCenters" pagination-id="centers" ng-show="center.status.code != 'groupingStatusType.closed' || showClosed">
                     <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
                     <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
                     <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
