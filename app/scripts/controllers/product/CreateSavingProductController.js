@@ -9,6 +9,8 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
+            scope.isClicked = false;
+
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
@@ -34,6 +36,7 @@
 
             scope.goNext = function(form){
                 WizardHandler.wizard().checkValid(form);
+                scope.isClicked = true;
             }
 
             scope.formValue = function(array,model,findattr,retAttr){
