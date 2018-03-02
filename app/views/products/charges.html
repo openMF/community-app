@@ -23,7 +23,7 @@
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.heading.chargeappliesto' | translate}}</th>
                 <th>{{'label.heading.ispenalty' | translate}}</th>
-                <th>{{'label.heading.active' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,9 @@
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
-                <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.active}}</td>
+                <td class="pointer" data-ng-click="routeTo(charge.id)">
+                    <i class="fa fa-stop {{'charges.StatusType.active.' + charge.active | StatusLookup}}" uib-tooltip="{{'label.tooltip.charges.active.' + charge.active | translate}}" tooltip-placement="right"></i>
+                </td>
             </tr>
             </tbody>
         </table>

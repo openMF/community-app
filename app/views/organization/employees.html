@@ -24,7 +24,7 @@
                     <th>{{ 'label.heading.name' | translate }}</th>
                     <th>{{ 'label.heading.isLoanOfficer' | translate }}</th>
                     <th>{{ 'label.heading.office' | translate }}</th>
-                    <th>{{ 'label.active' | translate }}</th>
+                    <th>{{ 'label.heading.status' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,9 @@
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
-                    <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isActive}}</td>
+                    <td class="pointer" data-ng-click="routeTo(employee.id)">
+                        <i class="fa fa-stop {{'employees.StatusType.active.' + employee.isActive | StatusLookup}}" uib-tooltip="{{'label.tooltip.employees.active.' + employee.isActive | translate}}" tooltip-placement="right"></i>
+                    </td>
                 </tr>
                 </tbody>
             </table>
