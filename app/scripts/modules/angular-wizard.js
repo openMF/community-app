@@ -69,8 +69,8 @@ angular.module('mgo-angular-wizard').directive('wzStep', function() {
                 $scope.title = $scope.wzTitle;
             });
             $scope.title = $scope.wzTitle;
-            if($element.find('.form-horizontal')[0].attributes['ng-submit']) {
-                $scope.formController = $element.find('.form-horizontal').controller("form");
+            if($element.find('form')[0].attributes['ng-submit']) {
+                $scope.formController = $element.find('form').controller("form");
             }
             wizard.addStep($scope);
             $scope.$on('$destroy', function(){
