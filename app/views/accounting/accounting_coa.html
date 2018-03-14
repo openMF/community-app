@@ -32,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr class="pointer-main" ng-repeat="coadata in coadatas | orderBy:['type.value','glCode']| SearchFilter:filterText">
+                    <tr class="pointer-main" dir-paginate="coadata in coadatas | orderBy:['type.value','glCode']| SearchFilter:filterText |  itemsPerPage: ChartsPerPage">
                         <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.glCode}}</td>
                         <td class="pointer" data-ng-click="routeTo(coadata.id)">{{coadata.type.value}}</td>
@@ -42,6 +42,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
             </div>
             <div ng-show="isTreeView"  >
                 <div ng-show="$root.tempNodeID >= 0" class="col-md-6 divscrollable" >

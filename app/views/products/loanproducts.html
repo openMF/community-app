@@ -24,8 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" 
-            ng-repeat="loanproduct in loanproducts | orderBy:'name':reverse | filter:filterText">
+            <tr class="pointer-main" dir-paginate="loanproduct in loanproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: LoanProductsPerPage">
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
                 <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
@@ -35,5 +34,6 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>

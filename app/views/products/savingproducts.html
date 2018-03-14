@@ -21,11 +21,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="savingproduct in savingproducts | orderBy:'name':reverse | filter:filterText">
+            <tr class="pointer-main" dir-paginate="savingproduct in savingproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: SavingsProductsPerPage">
                 <td class="pointer" data-ng-click="routeTo(savingproduct.id)">{{savingproduct.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(savingproduct.id)">{{savingproduct.shortName}}</td>
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>

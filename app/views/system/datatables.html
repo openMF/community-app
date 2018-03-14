@@ -24,12 +24,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText">
+                <tr class="pointer-main" dir-paginate="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText |  itemsPerPage: DataTablesPerPage">
                     <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.registeredTableName}}</td>
                     <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.applicationTableName}}</td>
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
         </div>
     </div>
 </div>
