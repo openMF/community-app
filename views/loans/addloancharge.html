@@ -1,0 +1,78 @@
+<div class="content-container" ng-controller="AddLoanChargeController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addloancharge' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <form class="form-horizontal" novalidate="" name="loanchargeform" ng-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <legend>{{ 'label.heading.addloancharge' | translate }}</legend>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="chargeId">{{ 'label.input.charge' | translate }}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <select id="chargeId" ng-model="formData.chargeId" class="form-control"
+                                    ng-options="charge.id as (charge.name+' '+'('+charge.currency.name+')') for charge in charges"
+                                    value="{{charge.id}}" ng-change="selectCharge(formData.chargeId)">
+                                <option value="">{{'label.selectcharge' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div ng-hide="isCollapsed">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="amount">{{ 'label.input.amount' | translate }}<span
+                                    class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="amount" type="text" class="form-control" name="amount" ng-model="formData.amount" required
+                                       number-format ng-late-Validate>
+                            </div>
+                            <div class="col-sm-3">
+                                <span ng-show="loanchargeform.amount.$invalid">
+                                  <small class="error">
+                                      {{ 'label.requiredfield' | translate }}
+                                  </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.chargecalculation' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" value="{{chargeData.chargeCalculationType.value}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.chargetime' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" value="{{chargeData.chargeTimeType.value}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="chargeData.chargeTimeType.id==2">
+                            <label class="control-label col-sm-2">{{ 'label.input.dueon' | translate }}<span
+                                    class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input id="dueDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                                       placeholder="{{'label.input.duedate' | translate}}" ng-model="formData.dueDate"
+                                       is-open="opened" min="minDate" max="'2020-06-22'"/>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="col-md-offset-3">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}
+                    </button>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_LOANCHARGE' ng-show="!isCollapsed">{{ 'label.button.save' |
+                        translate }}
+                    </button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>

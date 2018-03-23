@@ -1,0 +1,115 @@
+<div class="content-container" ng-controller="ProductiveCollectionSheetController">
+    <ul class="breadcrumb">
+        <li><a href="#/entercollectionsheet">{{'label.anchor.collectionsheet' | translate}}</a></li>
+    </ul>
+
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+                <div class="col-md-offset-9 ">
+                    <button class="btn btn-primary" ng-click="viewFullScreen()">{{'label.button.viewfullscreen' | translate}}
+                    </button>
+                </div>
+                <div id="productive_sheet" class="whitebg paddedtop" style="width:950px; height:850px; overflow: auto;">
+                    <div class="paddedtop">
+                        <span>{{'label.heading.branch' | translate}}&nbsp;:{{officeName}}</span>
+                        <span class="paddedleft90">{{'label.input.meetingdate' | translate}}&nbsp;:{{meetingDate}}</span>
+                    </div>
+                    <div class="tabbable tabs-below paddedtop" ng-show="noData">
+                      <span  class="col-sm-6 alert alert-warning"> <h3>{{'label.heading.nodataavailablefor' | translate}}&nbsp;{{officeName}}&nbsp;{{'label.heading.onmeetingdate' | translate}}{{meetingDate}}</h3></span>
+                    </div>
+                    <div class="tabbable tabs-below" ng-hide="noData">
+                        <ul class="nav nav-tabs nav-pills">
+                            <li ng-class="{statusactive: selectedTab == center.id}" ng-repeat="center in staffCenterData">
+                                <a ng-click="getAllGroupsByCenter(center.id, center.collectionMeetingCalendar.id)">
+                                    {{center.name}}
+                                    <i ng-show="selectedTab == center.id && !center.submitted" class="fa fa-circle statusprogresstab"></i>
+                                    <i ng-show="selectedTab != center.id && !center.submitted" class="fa fa-circle statusprogresspendingtab"></i>
+                                    <i ng-show="center.submitted" class="fa fa-circle statusprogresscompletedtab"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-hide="noData">
+                        <span>
+                            <button id="add" class="btn btn-primary" ng-click="detailsShow()">
+                                <i class="fa fa-plus" ng-hide="details"></i>
+                                <i class="fa fa-minus" ng-show="details"></i>
+                            </button>
+                        </span>
+                        <span class="graybg" ng-show="collectionsheetdata.loanProducts">
+                            {{'label.input.centertotal' | translate}}
+                        </span>
+                        <span style="height:30px" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+                              <span ng-repeat="total in grandTotal" ng-show="loanproduct.id == total.productId">
+                                <input type="text" class="input-sm" number-format ng-model="total.transactionAmount"
+                                       disabled="disabled">
+                              </span>
+                        </span>
+
+                    </div>
+                    <div ng-show="details" ng-hide="noData">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th scope="colgroup" ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+                                    {{loanproduct.name}}/{{'label.heading.charges' | translate}}
+                                </th>
+                                <th>{{'label.heading.attendance' | translate}}</th>
+                            </tr>
+                            </thead>
+                            <tbody ng-repeat="group in collectionsheetdata.groups">
+                            <tr>
+                                <td class="graybg">
+                                    <b>{{group.groupName}}</b>
+                                </td>
+                                <td scope="colgroup" colspan="{{collectionsheetdata.loanProducts.length}}">&nbsp;</td>
+                                <td colspan="1" scope="colgroup">&nbsp;</td>
+                            </tr>
+                            <tr ng-repeat="client in group.clients">
+                                <td>({{client.clientId}}){{client.clientName}}</td>
+                                <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+                                  <span ng-repeat="loan in client.loans" ng-show="loanproduct.id == loan.productId">
+                                    <input id="total" type="text" class="input-smaller" ng-model="loan.totalDue"
+                                           number-format ng-change="bulkRepaymentTransactionAmountChange()">
+                                  </span>
+                                </td>
+                                <td>
+                                    <select id="clientsAttendance[{{$index}}][attendanceType]" ng-model="client.attendanceType.id"
+                                            class="input-smaller"
+                                            ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"
+                                            value="{{attendance.id}}">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="graybg" ng-show="collectionsheetdata.loanProducts">{{'label.input.grouptotal' |
+                                    translate}}
+                                </td>
+                                <td ng-repeat="loanproduct in collectionsheetdata.loanProducts">
+                                    <span ng-repeat="grouptotal in groupTotal" ng-show="grouptotal.groupId == group.groupId">
+                                      <span ng-repeat="loanProductArray in grouptotal.loanProductArrayDup"
+                                            ng-show="loanproduct.id == loanProductArray.productId">
+                                        <input type="text" class="input-smaller" number-format ng-model="loanProductArray.transactionAmount"
+                                               disabled="disabled">
+                                      </span>
+                                    </span>
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-offset-9" ng-hide"noData">
+                        <button id="save" type="submit" class="btn btn-primary" ng-show="submitNextShow" ng-click="submit()">
+                            {{'label.button.submitandnextcenter' | translate}}
+                        </button>
+                        <button id="save" type="submit" class="btn btn-primary" ng-show="submitShow" ng-click="submit()">
+                            {{'label.button.save' | translate}}
+                        </button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

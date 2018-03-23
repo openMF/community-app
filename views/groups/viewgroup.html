@@ -1,0 +1,547 @@
+<div ng-controller="ViewGroupController" class="content-container">
+	<ul class="breadcrumb">
+	    <li><a ng-href="#/viewoffice/{{group.officeId}}">{{group.officeName}}</a></li>
+	    <li ng-show="group.centerName"><a ng-href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></li>
+	    <li>{{group.name}}</li>
+	</ul>
+	<script type="text/ng-template" id="deletegroup.html">
+    	<div class="modal-header silver">
+    	    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+    	</div>
+    	<div class="modal-body">
+    	    <api-validate></api-validate>
+    	    <br>
+    	    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' 	| translate}}</button>
+    	    <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' 	| translate}}</button>
+    	</div>
+	</script>
+	<script type="text/ng-template" id="groupunassignstaff.html">
+    	<div class="modal-header silver">
+    	    <h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
+    	</div>
+    	<div class="modal-body">
+    	    <api-validate></api-validate>
+    	    <br>
+    	    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' 	| translate}}</button>
+    	    <button class="btn btn-primary" ng-click="unassign()">	{{'label.button.confirm' | translate}}</button>
+    	</div>
+	</script>
+	<div class="card">
+		<div class="content">
+			<div class="toolbar">
+			    <h4 class="">
+			        <i class="fa fa-circle {{group.status.code | StatusLookup}}">
+			        </i>
+			        <i class="fa fa-group"></i>{{group.name}}
+			        <i class="fa fa-barcode"></i>
+			         {{ 'label.heading.accnum' | translate }}: {{group.accountNo}} | <i class="fa fa-building"></i>
+			         {{ 'label.heading.office' | translate }}: "{{group.officeName}}" |
+			        <i class="fa fa-map-marker"></i> {{ 'label.heading.center' | translate }}: "{{group.centerName}}"
+			    </h4>
+			</div>
+			<br>
+			<uib-tabset class = "scrollable" uib-tabset-name="groupuib-tabset" scrollable persistent-tab>
+				<uib-tab heading="{{ 'label.heading.general' | translate }}">
+						<div>
+						<div class="">
+					    <div class="btn-group pull-right"
+					    	data-ng-hide="group.status.value == 'Closed'">
+					        <a href="#/editgroup/{{group.id}}?managecode=2"
+					        	class="btn btn-primary" has-permission='UPDATE_GROUP'
+					          	data-ng-hide="group.status.value=='Active'"><i class="fa fa-check"></i>
+					          	{{'label.button.activate' | translate }}
+					        </a>
+					        <a href="#/editgroup/{{group.id}}?managecode=1"
+					        	has-permission='UPDATE_GROUP' class="btn btn-primary">
+					        	<i class="fa fa-edit "></i>
+					        	{{'label.button.edit' | translate }}
+					        </a>
+					        <a ng-show="group.active"
+					        	href="#/new_group_saving_application/{{group.id}}" has-permission='CREATE_SAVINGSACCOUNT'
+					        	class="btn btn-primary">
+					        	<i class="fa fa-file "></i>
+					        	{{ 'label.button.groupsavingapplication' | translate }}
+					        </a>
+					        <a ng-show="group.active"
+					        	href="#/newgrouploanaccount/{{group.id}}"
+					        	class="btn btn-primary" has-permission='CREATE_LOAN'>
+					        	<i class="fa fa-file "></i>
+					        	{{ 'label.button.grouploanapplication' | translate }}
+					        </a>
+					        <a ng-show="group.active && isGroupMembersAvailable"
+					        	href="#/newjlgloanaccount/{{group.id}}"
+					        	has-permission='CREATE_LOAN'
+					        	class="btn btn-primary">
+					        	<i class="fa fa-copy "></i>
+					        	{{ 'label.button.bulkjlgloanapplication' | translate }}
+					        </a>
+		                    <span uib-dropdown class="btn-group" on-toggle="toggled(open)">
+		                      <a class="btn btn-primary "  uib-dropdown-toggle>
+		                          {{ 'label.button.more' | translate}}
+		                          <span class="caret"></span>
+		                      </a>
+		                      <ul 	class="dropdown-menu dropdown-menu-right">
+			                      <li>
+				                      <a href="#/groupattendance?groupId={{group.id}}&calendarId={{group.collectionMeetingCalendar.id}}" has-permission='SAVEORUPDATEATTENDANCE_MEETING'
+				                      data-ng-show="group.collectionMeetingCalendar">{{'label.button.attendance' | translate }}
+				                      </a>
+			                      </li>
+		                          <li>
+		                              <a href="#/assignstaff/{{group.id}}/groups" data-ng-hide="group.staffId" has-permission='ASSIGNSTAFF_GROUP'>
+		                              {{'label.button.assignstaff' | translate }}
+		                              </a>
+		                          </li>
+		                          <li>
+		                              <a data-ng-click="unassignStaffGroup()" data-ng-show="group.staffId" has-permission='UNASSIGNSTAFF_GROUP'>
+		                              {{ 'label.button.unassignstaff' | translate }}
+		                              </a>
+		                          </li>
+		                          <li>
+		                              <a data-ng-click="deleteGroup()" data-ng-hide="group.status.value=='Active'" has-permission='DELETE_GROUP'>
+		                              {{ 'label.button.delete' | translate }}
+		                              </a>
+		                          </li>
+		                          <li>
+		                              <a href="#/closegroup/{{group.id}}" has-permission='CLOSE_GROUP'>{{ 'label.button.close' | translate }}
+		                              </a>
+		                          </li>
+		                          <li data-ng-show="group.status.value=='Active'">
+		                              <a href="#/attachmeeting/{{group.id}}/groups" ng-hide="group.centerId || group.collectionMeetingCalendar" has-permission='CREATE_MEETING' data-ng-hide="group.collectionMeetingCalendar">
+		                              {{ 'label.button.attachmeeting' | translate }}
+		                              </a>
+		                          </li>
+		                      </ul>
+		                    </span>
+					    </div>
+					    <div class="toolbar"> <br/> </div>
+						</div>
+						<div class="">
+						<div class="row client">
+				            <div class="col-sm-9 col-md-9 ">
+				                <div data-ng-show="group.status.value=='Closed'">
+						            <h3>{{'label.heading.groupclosed' | translate}}</h3>
+						        </div>
+				                <div id="center" class="row">
+				                	<div class="col-md-7">
+				                		<div class="panel panel-default">
+											<div class="panel-heading">
+												<h3 class="panel-title ng-binding">{{ 'label.heading.clients' | translate }}</h3>
+											</div>
+											<div class="panel-body">
+												<div class="list-group">
+													<a href="#/viewgroup/{{group.id}}" ng-repeat="group in center.groupMembers" class="list-group-item">
+										  				<i uib-tooltip="{{group.status.value}}" class="fa fa-stop {{group.status.code | StatusLookup}}" uib-tooltip=""></i> {{group.name}}
+										  			</a>
+										  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
+											            <a href="#/addmember?groupId={{group.id}}&officeId={{group.officeId}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
+											                <i class="fa fa-plus-sign-alt "></i>{{ 'label.button.add' | translate }}</a>
+											            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP'>
+											                <i class="fa fa-edit "></i>{{'label.button.managemembers' | translate }}</a>
+											            <a href="#/transferclients/{{group.id}}" class="btn btn-primary pull-right" has-permission='TRANSFERCLIENTS_GROUP'>
+											                <i class="fa fa-arrow-right "></i>{{'label.button.transferclients' | translate }}</a>
+											        </div>
+											        <table class="table table-condensed marginbottom0" style="display:inline-table;">
+											            <thead>
+												            <tr class="graybg">
+												                <th>{{'label.heading.accnum' | translate}}</th>
+												                <th>{{'label.heading.name' | translate}}</th>
+												                <th>{{ 'label.heading.actions' | translate }}</th>
+												            </tr>
+											            </thead>
+											            <tbody>
+												            <tr class="pointer-main" ng-repeat="member in group.clientMembers">
+												                <td class="pointer" data-ng-click="routeToMem(member.id)">
+												                	<i class="fa fa-stop {{member.status.code | StatusLookup}}" uib-tooltip="{{member.status.value}}"></i>
+												                		{{member.accountNo}}
+												                </td>
+												                <td class="pointer" data-ng-click="routeToMem(member.id)">{{member.displayName}}</td>
+												                </td>
+												                <td><a class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
+												                        class="fa fa-plus "></i>{{ 'label.button.jlgloanapplication' | translate }}</a></td>
+												            </tr>
+											            </tbody>
+											        </table>
+												</div>
+											</div>
+									    </div>
+				                	</div>
+				                	<div class="col-md-5 meeting">
+				                		<div class="alert alert-warning" role="alert">
+							                <table>
+							                    <tr>
+									                <th>{{ 'label.heading.nextmeetingon' | translate }}</th>
+									                <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+							                            <a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
+							                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="fa fa-edit "></i></a>
+							                            <span class="marginleftn7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+									                </td>
+									            </tr>
+									            <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+									                <th>{{ 'label.heading.meetingfrequency' | translate }}</th>
+									                <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
+									            </tr>
+							                    <tr data-ng-show="group.status.value=='Closed'">
+									                <th>{{ 'label.heading.closedate' | translate }}</th>
+									                <td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
+									            </tr>
+							                </table>
+						                </div>
+				                	</div>
+				                </div>
+							    <div data-ng-show="groupAccounts.loanAccounts">
+							    	<div class="pull-right">
+										<span data-ng-show="groupAccounts.loanAccounts">
+										    <button data-ng-show="openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+										        'label.button.viewclosedloans' | translate }}
+										    </button>
+										    <button data-ng-show="!openLoan" type="button" class="btn-primary btn btn-sm" data-ng-click="setLoan()">{{
+										        'label.button.viewactiveloans' | translate }}
+										    </button>
+										</span>
+								    </div>
+							        <div class="span gray-head">
+										<span class="boldlabel">
+										      <strong>{{ 'label.heading.loanaccoverview' | translate }}</strong>
+										</span>
+							        </div>
+							        <table class="table" data-ng-show="openLoan">
+							            <thead>
+								            <tr class="graybg">
+								            	<th>{{'label.heading.accnum' | translate}}</th>
+								                <th>{{ 'label.heading.products' | translate }}</th>
+												<th>{{'label.heading.loanamount' | translate}}</th>
+								                <th>{{'label.heading.outstandingamount' | translate}}</th>
+								                <th>{{'label.heading.dueamount' | translate}}</th>
+								                <th class="center">{{'label.heading.type' | translate}}</th>
+								                <th class="center">{{ 'label.heading.actions' | translate }}</th>
+								            </tr>
+							            </thead>
+							            <tbody>
+								            <tr class="pointer-main"
+								                ng-repeat="loanaccount in groupAccounts.loanAccounts | orderBy:'productName':reverse | filter:isLoanNotClosed">
+								                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+								                	<i ng-hide="loanaccount.inArrears" tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}"
+								                    	class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
+								                    <i ng-show="loanaccount.inArrears" tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}"
+								                     	class="fa fa-stop {{loanaccount.status.code | StatusLookup}}overdue"></i>
+								                	{{loanaccount.accountNo}}
+								                </td>
+								                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
+												<td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
+								                	<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
+								                </td>
+								                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.originalLoan|number}}</td>
+								                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanBalance|number}}</td>
+								                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.amountPaid|number}}</td>
+								                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
+								                	<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
+								                </td>
+								                <td class="pointer center" ng-if="loanaccount.status.active">
+								                	<a uib-tooltip="{{'label.button.makerepayment' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/repayment" class="btn btn-xs btn-primary ng-binding">
+								                		<i class="fa fa-dollar "></i>
+								                	</a>
+								                </td>
+								                <td class="pointer center" ng-if="loanaccount.status.pendingApproval">
+								                	<a uib-tooltip="{{'label.button.approve' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+								                		<i class="fa fa-check "></i>
+								                	</a>
+								                </td>
+								                <td class="pointer center" ng-if="!loanaccount.status.pendingApproval && !loanaccount.status.active">
+								                	<a uib-tooltip="{{'label.button.disburse' | translate}}" ng-href="#/loanaccount/{{loanaccount.id}}/disburse" class="btn btn-xs btn-primary ng-binding">
+								                		<i class="fa fa-flag "></i>
+								                	</a>
+								                </td>
+								            </tr>
+							            </tbody>
+							        </table>
+							        <table class="table" data-ng-show="!openLoan">
+							            <thead>
+							            <tr class="graybg">
+							            	<th>{{'label.heading.accnum' | translate}}</th>
+							                <th>{{ 'label.heading.products' | translate }}</th>
+							                <th>{{'label.heading.type' | translate}}</th>
+											<th>{{'label.heading.closedate' | translate}}</th>
+							            </tr>
+							            </thead>
+							            <tbody>
+							            <tr class="pointer-main"
+							                ng-repeat="loanaccount in groupAccounts.loanAccounts| orderBy:'productName':reverse | filter:isLoanClosed">
+							                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+							                	<i tooltip-placement="right" uib-tooltip="{{loanaccount.status.value}}" class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i>
+							                	{{loanaccount.accountNo}}
+							                </td>
+							                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)"> {{loanaccount.productName}}</td>
+							                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.loanType.value}}</td>
+							                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value == 'Individual'">
+							                	<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-user fa fa-large"></i>
+							                </td>
+							                <td class="pointer center" data-ng-click="routeToLoan(loanaccount.id)" ng-if="loanaccount.loanType.value != 'Individual'">
+							                	<i uib-tooltip="{{loanaccount.loanType.value}}" class="fa fa-group fa fa-large"></i>
+							                </td>
+							                <td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+							                    <span data-ng-show="loanaccount.timeline.closedOnDate">{{loanaccount.timeline.closedOnDate | DateFormat}}</span>
+							                </td>
+							            </tr>
+							            </tbody>
+							        </table>
+							    </div>
+							    <div data-ng-show="groupAccounts.savingsAccounts">
+							    	<div class="pull-right">
+										<span data-ng-show="groupAccounts.savingsAccounts">
+										    <button data-ng-show="openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">{{
+										        'label.button.viewclosedsavings' | translate }}
+										    </button>
+										    <button data-ng-show="!openSaving" type="button" data-ng-click="setSaving()" class="btn-primary btn btn-sm">
+										        {{ 'label.button.viewactivesavings' | translate }}
+										    </button>
+										</span>
+								    </div>
+							        <div class="span gray-head">
+										<span class="boldlabel">
+										      <strong>{{'label.heading.savingsaccoverview' | translate }}</strong>
+										</span>
+							        </div>
+							        <table class="table" data-ng-show="openSaving">
+							            <thead>
+							            <tr class="graybg">
+							            	<th>{{ 'label.heading.accnum' | translate }}</th>
+							                <th>{{ 'label.heading.products' | translate }}</th>
+							                <th>{{ 'label.heading.balance' | translate }}</th>
+							                <th>{{ 'label.heading.actions' | translate }}</th>
+							            </tr>
+							            </thead>
+							            <tbody>
+							            <tr class="pointer-main"
+							                ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingNotClosed">
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+						                		<i tooltip-placement="right" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+						                		{{savingaccount.accountNo}}
+							                </td>
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.accountBalance | number}}</td>
+							                <td class="pointer" ng-if="savingaccount.status.active">
+							                	<a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
+							                		<i class="fa fa-arrow-right "></i>
+							                	</a>
+		                                           <a uib-tooltip="{{'label.button.deposit' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/deposit" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+		                                               <i class="fa fa-arrow-right "></i>
+		                                           </a>
+							                	<a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '100'">
+							                		<i class="fa fa-arrow-left "></i>
+							                	</a>
+		                                           <a uib-tooltip="{{'label.button.withdraw' | translate}}" ng-href="#/recurringdepositaccount/{{savingaccount.id}}/withdrawal" class="btn btn-xs btn-primary ng-binding" ng-show="savingaccount.depositType.id == '300'">
+		                                               <i class="fa fa-arrow-left "></i>
+		                                           </a>
+							                </td>
+							                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
+							                	<a uib-tooltip="{{'label.button.approve' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+							                		<i class="fa fa-check "></i>
+							                	</a>
+							                </td>
+							                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
+							                	<a uib-tooltip="{{'label.button.undoapproval' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+							                		<i class="fa fa-undo "></i>
+							                	</a>
+							                	<a uib-tooltip="{{'label.button.activate' | translate}}" ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+							                		<i class="fa fa-check-circle-o "></i>
+							                	</a>
+							                </td>
+							            </tr>
+							            </tbody>
+							        </table>
+							        <table class="table" data-ng-show="!openSaving">
+							            <thead>
+							            <tr class="graybg">
+							            	<th>{{ 'label.heading.accnum' | translate }}</th>
+							                <th>{{ 'label.heading.products' | translate }}</th>
+							                <th>{{ 'label.heading.status' | translate }}</th>
+							                <th>{{ 'label.heading.closedate' | translate }}</th>
+							            </tr>
+							            </thead>
+							            <tbody>
+							            <tr class="pointer-main"
+							                ng-repeat="savingaccount in groupAccounts.savingsAccounts | orderBy:'productName':reverse | filter:isSavingClosed">
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+							                	<i uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+							                	{{savingaccount.accountNo}}
+							                </td>
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id)">{{savingaccount.productName}}</td>
+							                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{ savingaccount.status.value }}</td>
+                                            <td data-ng-show="savingaccount.timeline.closedOnDate">{{savingaccount.timeline.closedOnDate | DateFormat}}
+							                </td>
+							            </tr>
+							            </tbody>
+							        </table>
+							    </div>
+				            </div>
+				            <div class="col-sm-3 col-md-3">
+						    	<div class="thumbnail">
+		                            <div class="">
+							    		<h4><strong>{{group.name}} {{ 'label.heading.details' | translate }}</strong></h4>
+							        	<table class="table-minified">
+								            <tr data-ng-show="group.activationDate">
+								                <th>{{ 'label.heading.activationdate' | translate }}</th>
+								                <td><span class="padded-td">{{group.activationDate | DateFormat}}</span></td>
+								            </tr>
+								            <tr data-ng-show="group.staffName">
+								                <th>{{ 'label.heading.staff' | translate }}</th>
+								                <td><span class="padded-td">{{group.staffName}}</span>
+								                </td>
+								            </tr>
+								            <tr data-ng-show="group.externalId">
+								                <th>{{ 'label.input.externalid' | translate }}</th>
+								                <td><span class="padded-td">{{group.externalId}}</span>
+								                </td>
+								            </tr>
+								            <tr data-ng-show="group.centerName">
+								                <td>{{ 'label.heading.center' | translate }}</td>
+								                <td><span class="padded-td"><a class="list-group-item-text" href="#/viewcenter/{{group.centerId}}">{{group.centerName}}</a></span>
+								                </td>
+								            </tr>
+						                </table>
+						                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
+								        <table class="table-minified">
+								            <tr>
+								                <th>{{ 'label.numofactiveclient' | translate }}</th>
+								                <td>{{summary.activeClients}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactivegrouploans' | translate }}</th>
+								                <td>{{summary.activeGroupLoans}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactiveclientloans' | translate }}</th>
+								                <td>{{summary.activeClientLoans}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactivegroupborrowers' | translate }}</th>
+								                <td>{{summary.activeGroupBorrowers}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactiveclientborrowers' | translate }}</th>
+								                <td>{{summary.activeClientBorrowers}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactiveoverduegrouploans' | translate }}</th>
+								                <td>{{summary.overdueGroupLoans}}</td>
+								            </tr>
+								            <tr>
+								                <th>{{ 'label.numofactiveoverdueclientloans' | translate }}</th>
+								                <td>{{summary.overdueClientLoans}}</td>
+								            </tr>
+								        </table>
+							        </div>
+						    	</div>
+						    </div>
+				        </div>
+						</div>
+						</div>
+				</uib-tab>
+				<uib-tab heading="{{ 'label.heading.notes' | translate }}"
+						has-permission='READ_GROUPNOTE'>
+					    <br/>
+					    <form>
+					        <div class="form-group row">
+					            <div class="col-sm-8 col-md-8">
+					                <textarea rows="1" class="form-control" id="textarea" placeholder="{{ 'label.input.enternote' | translate }}" ng-model="formData.note"></textarea>
+					            </div>
+					            <div class="col-sm-1 col-md-1"></div>
+					            <div class="col-sm-3 col-md-3">
+					                <button class="btn btn-primary" type="submit" ng-click="saveNote()" has-permission='CREATE_GROUPNOTE'>{{ 'label.button.add' | translate }} </button>
+					            </div>
+					        </div>
+					    </form>
+						<div class="">
+							<br/>
+							<div ng-repeat="groupNote in groupNotes | orderBy:predicate:reverse">
+						        <blockquote>
+						            <p>{{groupNote.note}}</p>
+						            {{groupNote.id}}
+						            <small>{{'label.createdby' | translate}} :&nbsp;{{groupNote.createdByUsername}}</small>
+						            <small>{{'label.createdon' | translate}} :&nbsp;{{groupNote.createdOn | DateFormat}}</small>
+						        </blockquote>
+							</div>
+						</div>
+				</uib-tab>
+				<uib-tab heading="{{ 'label.heading.committee' | translate }}">
+					    <div class="">
+					        <div class="" data-ng-hide="group.status.value == 'Closed'">
+					        <a href="#/addrole/{{group.id}}" has-permission='ASSIGNROLE_GROUP' class="btn btn-primary pull-right">
+					        <i class="fa fa-plus-sign-alt "></i>
+					        {{ 'label.button.add' | translate }}</a>
+					        </div>
+					        <table class="table ">
+					            <thead>
+					            <tr>
+					                <th>{{ 'label.heading.role' | translate }}</th>
+					                <th>{{ 'label.heading.name' | translate }}</th>
+					                <th>{{ 'label.heading.clientid' | translate }}</th>
+					                <th></th>
+					            </tr>
+					            </thead>
+					            <tbody>
+					            <tr ng-repeat="grouprole in group.groupRoles">
+					                <td>{{grouprole.role.name}}</td>
+					                <td><a href="#/viewclient/{{grouprole.clientId}}">{{grouprole.clientName}}</a></td>
+					                <td>{{grouprole.clientId}}</td>
+					                <td>
+					                    <button type="button" class="btn btn-primary" data-ng-hide="group.status.value == 'Closed'" has-permission='UNASSIGNROLE_GROUP'
+					                    data-ng-click="delrole(grouprole.id)">
+					                    {{ 'label.button.unassign' | translate }}
+					                    </button>
+					                </td>
+					            </tr>
+					            </tbody>
+					        </table>
+					    </div>
+				</uib-tab>
+				<uib-tab heading="{{groupdatatable.registeredTableName}}"
+						ng-repeat="groupdatatable in groupdatatables" has-permission='READ_{{groupdatatable.registeredTableName}}'
+				     	select="dataTableChange(groupdatatable)">
+				    	<div>
+				        <div data-ng-hide="isClosedGroup" class="btn-group pull-right">
+				            <a ng-show="datatabledetails.isData"
+				            	class="btn btn-danger pull-right" ng-click="deleteAll(groupdatatable.registeredTableName, group.id)" has-permission='DELETE_{{groupdatatable.registeredTableName}}'>
+				            	<i class="fa fa-trash "></i>
+				            	{{'label.button.deleteall' | translate}}
+				            </a>
+				            <a data-ng-show="showDataTableAddButton"
+				               ng-href="#/makedatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?fromEntity=group"
+				               class="btn btn-primary" has-permission='CREATE_{{groupdatatable.registeredTableName}}'>
+				               <i class="fa fa-plus "></i>{{'label.button.add' | translate}}
+				            </a>
+				            <a data-ng-show="showDataTableEditButton"
+				               ng-href="#/viewsingledatatableentry/{{groupdatatable.registeredTableName}}/{{group.id}}?mode=edit"
+				               class="btn btn-primary" has-permission='UPDATE_{{groupdatatable.registeredTableName}}'><i
+				               class="fa fa-edit "></i>{{'label.button.edit' | translate}}
+				            </a>
+				        </div>
+				        <br>
+				        <br>
+				        <div ng-show="datatabledetails.isData">
+				            <table class="table" data-ng-show="datatabledetails.isMultirow">
+				                <thead>
+				                <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName | prettifyDataTableColumn}}</th>
+				                </thead>
+				                <tbody>
+				                <tr class="pointer-main" ng-repeat="data in datatabledetails.data">
+				                    <td class="pointer" ng-repeat="row in data.row track by $index" ng-click="viewDataTable(groupdatatable.registeredTableName,data)">{{row}}
+				                    </td>
+				                </tr>
+				                </tbody>
+				            </table>
+				            <table class="table table-bordered"
+				            	data-ng-hide="datatabledetails.isMultirow">
+				                <tr ng-repeat="value in singleRow">
+				                    <td class="graybg table-font-nav">
+				                    {{value.key | prettifyDataTableColumn}}</td>
+				                    <td><span class="padded-td">{{value.value}}</span></td>
+				                </tr>
+				            </table>
+				        </div>
+				    	</div>
+				</uib-tab>
+			</uib-tabset>
+		</div>
+	</div>
+</div>

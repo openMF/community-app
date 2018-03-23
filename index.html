@@ -1,271 +1,398 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Community App</title>
-    <link rel="icon" type="image/png" href="../img/favicon.ico">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/png">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-    <!-- Styles -->
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/compiled/theme.css" />
-
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
-
-    <link rel="stylesheet" href="css/compiled/index.css" type="text/css" media="screen" />    
-    <link rel="stylesheet" type="text/css" href="css/lib/animate.css" media="screen, projection" />    
-
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="./images/favicon.ico"/>
+    <title>{{ 'label.heading.mifosxclient' | translate }}</title>
+    <style>[data-ng-cloak] {
+        display: none !important;
+    }</style>
+    <link href="styles/styles.css" rel="stylesheet"/>
 </head>
-<body class="pull_top">
-    
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="index.html" class="navbar-brand">
-                    <strong><img src="img/logo.png" />&nbsp;&nbsp;Community App</strong>
-                </a>
+<body class="preview whitebg" id="top" data-spy="scroll" data-target=".subnav" data-offset="80"
+      data-ng-controller="MainController">
+
+<!--Loader -->
+<div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
+    <div id="loader" style="margin: 175px auto">
+        <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto"
+             class="img-responsive">
+        <img src="images/loader.gif" style="margin: 10px auto" class="img-responsive">
+    </div>
+</div>
+
+<div data-ng-hide="!domReady" data-ng-cloak>
+    <!-- Login Form  -->
+    <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null" data-ng-controller="LoginFormController">
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="pull-right ">
+                    {{ 'label.input.changelanguage' | translate }}
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                            {{optlang.name}} <span class="caret"></span>
+                        </button>
+                        <ul class="lang-dropdown" uib-dropdown-menu>
+                            <li ng-repeat="lang in langs">
+                                <a href ng-click="changeLang(lang, $event)">{{lang.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div ng-show="resetPassword">
+                    <form class="form-inline pull-right" role="form">
+                        <label><strong>{{ 'label.message.password.expired' | translate }}</strong></label>
+
+                        <div class="form-group">
+                            <input type="password" data-ng-model="passwordDetails.password"
+                                   placeholder="{{ 'label.input.password' | translate }}" class="input-sm form-control"
+                                   required
+                                   id="password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" data-ng-model="passwordDetails.repeatPassword"
+                                   placeholder="{{ 'label.input.repeatpassword' | translate }}"
+                                   class="input-sm form-control"
+                                   required id="repeatPassword">
+                        </div>
+                        <button class="btn btn-success" type="submit" data-ng-click="updatePassword()"
+                                id="updatepassword-button">{{ 'label.button.resetPassword' | translate }}
+                        </button>
+                    </form>
+                </div>
+
             </div>
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="index.html">The Adaptive Client</a></li>
-                    <li><a href="features.html">The Features</a></li>
-                    <li><a href="users.html">The Users</a></li>
-                    <li><a href="developers.html">The Developers</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Related Projects <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="https://github.com/openMF/mifosx">MifosX Platform</a></li>
-                            <li><a href="portfolio.html">Go Mobile</a></li>
-                            <li><a href="https://github.com/openMF/move-to-mifosx">Data Migration</a></li>
-                            <li><a href="portfolio.html">Data import utils</a></li>
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4 text-center">
+                        <img src="images/mifos-logo-flat.png" alt="Mifos X" style="width:80%; margin:auto;"
+                             class=" text-center img-responsive"/>
+                    </div>
+                </div>
+                <hr>
+
+                <div data-ng-form="loginForm">
+
+                    <div class="row" ng-hide="resetPassword || twoFactorRequired">
+                        <div class="col-sm-4 col-sm-offset-4">
+
+                            <div class="alert alert-danger" ng-show="authenticationFailed">
+                                {{ authenticationErrorMessage | translate }}
+                            </div>
+
+                            <form class="form">
+
+                                <div class="form-group">
+                                    <label for="uid">USERNAME</label>
+                                    <input type="text" name="username" id="uid" class="form-control"
+                                           ng-model="loginCredentials.username"
+                                           placeholder="{{ 'label.input.username' | translate |lowercase }}"
+                                           required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pwd">PASSWORD</label>
+                                    <input type="password" name="password" id="pwd" class="form-control"
+                                           ng-model="loginCredentials.password" autocomplete="new-password"
+                                           placeholder="{{ 'label.input.password' | translate | lowercase }}"
+                                           required/>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="login()"
+                                            id="login-button">
+                                        {{'label.button.signin' | translate }}
+                                    </button>
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                        <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="row" ng-show="twoFactorRequired && !otpRequested">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <h4>{{'label.heading.twofactor' | translate}}</h4>
+                                <hr>
+
+                                <p>{{'label.otp.delivery.info' | translate}}</p>
+                                <form class="form">
+                                    <div class="form-group">
+                                        <div ng-repeat="deliveryMethod in twoFactorDeliveryMethods" class="radio form-group">
+                                            <label for="{{deliveryMethod.name}}">
+                                            <input type="radio" id="{{deliveryMethod.name}}" name="otpDeliveryMethods"
+                                                   ng-model="$parent.selectedDeliveryMethodName" value="{{deliveryMethod.name}}">
+                                                {{'label.otp.delivery.select.' + deliveryMethod.name | translate:deliveryMethod}}</label>
+                                        </div>
+                                        <div class="checkbox form-group">
+                                            <label for="twofactorRememberMe">
+                                                <input type="checkbox" id="twofactorRememberMe" name="twofactorRememberMe" ng-model="twofactorRememberMe">
+                                                {{'label.button.tfa.remember_me' | translate }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="requestOTP()"
+                                                id="otp-request-button">
+                                            {{'label.button.otp.request' | translate}}
+                                        </button>
+                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                            <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+
+                    <div class="row" ng-show="otpRequested">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <hr>
+                            <h4>{{'label.heading.twofactor' | translate}}</h4>
+                            <p>
+                                {{'label.otp.verify.info' | translate}}
+                            </p>
+
+                            <div class="alert alert-danger" ng-show="otpTokenError">
+                                {{otpErrorMessage | translate}}
+                            </div>
+
+                            <form class="form">
+                                <div class="form-group">
+                                    <label for="otpToken">{{'label.otp.token' | translate}}</label>
+                                    <input type="text" id="otpToken" name="otpDeliveryMethods" class="form-control"
+                                           ng-model="otpToken">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="validateOTP()"
+                                            id="otp-verify-button">
+                                        {{'label.button.signin' | translate }}
+                                    </button>
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                        <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+
+                        <ul class="list-unstyled">
+                            <li><h5>RESOURCES</h5></li>
+                            <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual"
+                                   href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual">{{
+                                'label.anchor.usermanual' | translate }}</a></li>
+                            <li><a target="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842"
+                                   href="https://mifosforge.jira.com/wiki/pages/viewpage.action?pageId=14712842">{{
+                                'label.anchor.functionalspec' | translate }}</a></li>
+                            <li><a href="https://mifosforge.jira.com/wiki/display/MDZ/Welcome+in+the+Zone">{{
+                                'label.anchor.developerzone' | translate }}</a></li>
                         </ul>
-                    </li>
-                </ul>
+
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <ul class="list-unstyled">
+                            <li><h5>COMMUNITY</h5></li>
+                            <li><a target="https://groups.google.com/forum/#!forum/mifosusers"
+                                   href="https://groups.google.com/forum/#!forum/mifosusers">{{
+                                'label.anchor.usersgroup' |
+                                translate }}</a></li>
+                            <li><a target="https://groups.google.com/forum/#!forum/mifosdeveloper"
+                                   href="https://groups.google.com/forum/#!forum/mifosdeveloper">{{
+                                'label.anchor.developergroup' | translate }}</a></li>
+                            <li><a target="http://mifos.org/resources/community/communications/#mifos-irc"
+                                   href="http://mifos.org/community/communications/mifos-irc">{{ 'label.anchor.irc' |
+                                translate
+                                }}</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <ul class="list-unstyled">
+                            <li><h5>CONTRIBUTE</h5></li>
+                            <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles"
+                                   href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{
+                                'label.anchor.keydesignprinciples' | translate }}</a></li>
+                            <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Working+with+Code"
+                                   href="http://sourceforge.net/projects/mifos/">{{ 'label.anchor.workingwithcode' |
+                                translate
+                                }}</a></li>
+                            <li><a target="http://mifos.org/donate/" href="http://mifos.org/donate/">{{
+                                'label.anchor.donate' |
+                                translate }}</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <hr/>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 text-center">
+                        <br>
+
+                        <p class=" text-muted"><span ng-bind-html="text"></span>
+                            <br>
+                            <span style=" display: inline-block; margin:auto;min-width:40px; border-bottom:2px solid #e0e0e0;">&nbsp;</span>
+                        </p>
+
+                    </div>
+                </div>
+                <p class="text-center text-muted small">
+                    <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
+                    <br/> <span>{{ 'label.heading.uptodate' | translate }}</span>
+                </p>
             </div>
         </div>
     </div>
 
-    <section id="feature_slider" class="lol">
-        <!-- 
-            Each slide is composed by <img> and .info
-            - .info's position is customized with css in index.css
-            - each <img> parallax effect is declared by the following params inside its class:
-            
-            example: class="asset left-472 sp600 t120 z3"
-            left-472 means left: -472px from the center
-            sp600 is speed transition
-            t120 is top to 120px
-            z3 is z-index to 3
-            Note: Maintain this order of params
+    <!-- Navbar -->
+    <div ng-class="{fullscreen:true ,blockui:blockUI==true}" id="main" data-ng-hide="currentSession.user == null">
+        <div class="loading-widget-div" data-ng-show="blockUI">
+            <!-- TODO : insert loader here-->
+             <span class="centerloader">
+                <img src="images/833.svg" class="img-responsive">
+            </span>
+            <!--<div style="margin: 175px auto">
+            </div>-->
+        </div>
 
-            For the backgrounds, you can combine from the bgs folder :D
-        -->
-        <article class="slide" id="showcasing" style="background: url('img/backgrounds/happy_bg.JPG') repeat-x top center;">
-            <img class="asset left-30 sp600 t120 z2" src="img/slides/scene1/macbook.png" />
-            <img class="asset left-630 sp600 t120 z1" src="img/slides/scene1/cloud.png" />
-            <div class="info">
-                <h2>Banking On The Cloud To Better The Unbanked.</h2>
-            </div>
-        </article>
-        <article class="slide" id="ideas" style="background: url('img/backgrounds/mike_bg.JPG') repeat-x top center;">
-            <div class="info">
-                <h2>#accounting &nbsp;&nbsp; #portfolio_tracking &nbsp;&nbsp; #reporting</h2>
-            </div>
-            <img class="asset left-480 sp600 t260 z1" src="img/slides/scene2/left.png" />
-            <img class="asset left-210 sp600 t213 z2" src="img/slides/scene2/middle.png" />
-            <img class="asset left60 sp600 t260 z1" src="img/slides/scene2/right.png" />
-        </article>
-        <article class="slide" id="tour" style="background: url('img/backgrounds/pedro_bg.JPG') repeat-x top center;">
-            <img class="asset left-472 sp650 t210 z3" src="img/slides/scene3/ipad.png" />
-            <img class="asset left-350 sp450 t135 z2" src="img/slides/scene3/desktop.png" />
-            <img class="asset left-185 sp550 t220 z1" src="img/slides/scene3/macbook.png" />
-            <div class="info">
-                <h2>Adapts to laptop, desktop and tablets</h2>
-                <a href="features.html">TOUR THE PRODUCT</a>
-            </div>
-        </article>
-        <article class="slide" id="responsive" style="background: url('img/backgrounds/nuru_bg.JPG') repeat-x top center;">
-            <img class="asset left-425 sp600 t120 z3" src="img/slides/scene4/maker.png" />
-            <img class="asset left-190 sp500 t120 z2" src="img/slides/scene4/checker.png" />
-            <div class="info">
-                <h2>
-                    Configurable <strong>Maker & Checker </strong> for every action
-                </h2>                
-            </div>
-        </article>        
-    </section>
+        <div id="mifos-reskin-ui-container">
+            <div id="mifos-reskin-header-nav" ng-include="'views/_topnavbar.html'"></div>
 
-    <!-- Features -->
-
-    <div id="features">
-        <div class="container">
-            <div class="section_header">
-                <h3>Features</h3>
-            </div> 
-            <div class="row feature">
-                <div class="col-sm-6">
-                    <img src="img/showcase1.png" class="img-responsive" />
-                </div>
-                <div class="col-sm-6 info">
-                    <h3>
-                        Portfolio management
-                    </h3>
-                    <p>
-                        Today’s customers demand personalized services, transparency in operations, and accessibility to their accounts. MifosX is a platform that enables you to plan, execute, monitor, and manage customer saving and loan accounts.
-                    </p>
-                </div>
-            </div>
-            <div class="row feature">
-                <div class="col-sm-6 pic-right">
-                    <img src="img/showcase2.png" class="pull-right img-responsive" />
-                </div>
-                <div class="col-sm-6 info info-left">
-                    <h3>
-                        Accounting
-                    </h3>
-                    <p>
-                        MifosX has a built-in integrated financial and accounting management system, that effectively serves banks with multiple branches and profit centers. the integrated general ledger module supports real-time online updating of transactions and allows real time generation of statements that show the bank’s financial position.
-                    </p>
-                </div>                
-            </div>
-            <div class="row feature">
-                <div class="col-sm-6">
-                    <img src="img/showcase3.png" class="img-responsive" />
-                </div>
-                <div class="col-sm-6 info">
-                    <h3>
-                        Reports
-                    </h3>
-                    <p>
-                        Reporting is achieved using the Pentaho BI tool and custom suite with combination of d3js data visualization framwork that enables:
+            <div id="mifos-reskin-body-container" style="background-color: #ebeff1">
+                <nav id="mifos-reskin-side-nav"  ng-scrollbar>
+                    <div class="left-nav">
                         <ul>
-                            <li>Report creation using simple GUI based tools and an adminstration interface</li>
-                            <li>Generation of periodic reports delivered through email</li>
-                            <li>Bundled with most commonly used reports.</li>
+                            <li>
+                                <a class="black" href="#/help">
+                                    <i class="fa fa-keyboard-o"></i>
+                                    <span>{{'label.anchor.keyboardshortcut' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/nav/offices">
+                                    <i class="fa fa-compass "></i>
+                                    <span>{{'label.anchor.navigation' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/tasks">
+                                    <i class="fa fa-check "></i>
+                                    <span>{{ 'label.anchor.tasks'| translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/entercollectionsheet">
+                                    <i class="fa fa-tasks "></i>
+                                    <span>{{'label.anchor.collectionsheet' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/individualcollectionsheet">
+                                    <i class="fa fa-tasks "></i>
+                                    <span>{{'label.anchor.individualcollectionsheet' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/freqposting">
+                                    <i class="fa fa-repeat "></i>
+                                    <span>{{'label.anchor.frequentpostings' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/journalentry">
+                                    <i class="fa fa-plus "></i>
+                                    <span>{{'label.anchor.addjournalentries' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/accounts_closure">
+                                    <i class="fa fa-folder "></i>
+                                    <span>{{'label.anchor.closingentries' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/accounting_coa">
+                                    <i class="fa fa-sitemap "></i>
+                                    <span>{{'label.heading.chartofaccounts' | translate}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="black" href="#/notifications">
+                                    <i class="fa fa-bell" ></i>
+                                    <span>{{'label.heading.notification' | translate }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="black" href="#/createclient">
+                                    <i class="fa fa-user "></i>+ <span>{{ 'label.anchor.client' |translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/creategroup">
+                                    <i class="fa fa-group "></i>+ <span>{{ 'label.anchor.group' |translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" href="#/createcenter">
+                                <i class="fa fa-map-marker "></i>+ <span>{{'label.anchor.center' | translate}}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="black" ng-click="helpf()">
+                                    <i class="fa fa-question-circle"></i>
+                                    <span>{{'label.anchor.help' | translate }}</span> &nbsp; <i class="fa fa-external-link"></i>
+                                </a>
+                            </li>
+
                         </ul>
-                    </p>
-                </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="mifos-reskin-body-view">
+                <div class="" ng-view></div>
+                <!-- Footer -->
+                <br><br>
+                <footer>
+                    <p align="center"><a
+                            href="https://mifosforge.jira.com/browse/MIFOSX/component/11710/?selectedTab=com.atlassian.jira.jira-projects-plugin:component-changelog-panel"
+                            target="_blank"> {{'label.relVersion' | translate}} {{version}} | {{'label.relDate' |
+                        translate}} {{releasedate}} </a></p>
+                </footer>
+                <hr>
             </div>
         </div>
     </div>
-
-
-    <div id="clients">
-        <div class="container">
-            <div class="section_header">
-                <h3>Pilot Users</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client1"></div>
-                </div>
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client2"></div>
-                </div>
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client3"></div>
-                </div>
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client1"></div>
-                </div>
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client2"></div>
-                </div>
-                <div class="col-md-2 col-sm-4 client">
-                    <div class="img client3"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- starts footer -->
-    <footer id="footer">
-        <div class="container">
-            <div class="row sections">
-                <div class="col-sm-4 recent_posts">
-                    <h3 class="footer_header">
-                        For Users
-                    </h3>
-                    <div class="post">
-                        <div class="date">
-                            In case you need a little help
-                        </div>
-                        <a href="blogpost.html" class="title">
-                            Get it from your friends at Mifos community.
-                        </a>
-                    </div>
-                    <div class="post">
-                        <div class="date">
-                            All your questions will be answered
-                        </div>
-                        <a href="blogpost.html" class="title">
-                            Read our extra helpful FAQ
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-4 testimonials">
-                    <h3 class="footer_header">
-                        For specialists & developers
-                    </h3>
-                    <div class="wrapper">
-
-                    </div>
-                </div>
-                <div class="col-sm-4 contact">
-                    <h3 class="footer_header">
-                        Resources.
-                    </h3>
-                </div>
-            </div>
-            <div class="row credits">
-                <div class="col-md-12">
-                    <div class="row social">
-                        <div class="col-md-12">
-                            <a href="https://www.facebook.com/mifos.org" class="facebook">
-                                <span class="socialicons ico1"></span>
-                                <span class="socialicons_h ico1h"></span>
-                            </a>
-                            <a href="https://twitter.com/mifos" class="twitter">
-                                <span class="socialicons ico2"></span>
-                                <span class="socialicons_h ico2h"></span>
-                            </a>
-                            <a href="https://plus.google.com/u/0/communities/117459001560725673646" class="gplus">
-                                <span class="socialicons ico3"></span>
-                                <span class="socialicons_h ico3h"></span>
-                            </a>
-                            <a href="#" class="pinterest">
-                                <span class="socialicons ico5"></span>
-                                <span class="socialicons_h ico5h"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row copyright">
-                        <div class="col-md-12">
-                            Copyright © 2013 Mifos Initiative.
-                        </div>
-                    </div>
-                </div>            
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/theme.js"></script>
-
-    <script type="text/javascript" src="js/index-slider.js"></script>	
+</div>
+<!-- Le javascript -->
+<script type='text/javascript' data-main="scripts/loader.14962974.js" src='bower_components/requirejs/require.js'></script>
 </body>
 </html>

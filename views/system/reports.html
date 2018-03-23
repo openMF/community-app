@@ -1,0 +1,44 @@
+<div class="content-container" ng-controller="ReportsController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managereports' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                    <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-md-6">
+                    <a href="#/createreport" class="btn btn-primary pull-right" has-permission='CREATE_REPORT'><i class="fa fa-plus "></i>{{'label.button.createreport' | translate}}</a>
+                </div>
+            </div>
+            <hr/>
+            <br/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.reportname' | translate}}</th>
+                    <th>{{'label.heading.reporttype' | translate}}</th>
+                    <th>{{'label.heading.reportsubtype' | translate}}</th>
+                    <th>{{'label.heading.reportcategory' | translate}}</th>
+                    <th>{{'label.heading.corereport' | translate}}</th>
+                    <th>{{'label.heading.userreport' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="report in reports | orderBy:'reportName':reverse | filter:filterText">
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportType}}</td>
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportSubType}}</td>
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportCategory}}</td>
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.coreReport}}</td>
+                    <td class="pointer" data-ng-click="routeTo(report.id)">{{report.useReport}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

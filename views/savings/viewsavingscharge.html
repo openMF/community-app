@@ -1,0 +1,85 @@
+<div class="content-container" ng-controller="ViewSavingChargeController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewsavingaccount/{{savingId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcharge' | translate}}({{charge.name}})</li>
+        </ul>
+    <script type="text/ng-template" id="deletecharge.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+        <form class="form-horizontal">
+            <div class="pull-right">
+                <div class="btn-group" ng-show="showEditButtons">
+                    <a href="#/savingaccountcharge/{{savingId}}/editsavingcharge/{{chargeId}}" class="btn btn-primary" has-permission='UPDATE_SAVINGSACCOUNTCHARGE'>
+                        <i class="fa fa-edit "></i> {{'label.button.edit' | translate}}</a>
+                    <a ng-click="deleteCharge()" class="btn btn-danger" has-permission='DELETE_SAVINGSACCOUNTCHARGE'><i class="fa fa-trash "></i>{{'label.button.delete' | translate}} </a>
+                </div>
+                <div class="btn-group" ng-show="showWaiveButton">
+                    <a class="btn btn-primary" has-permission="PAY_SAVINGSACCOUNTCHARGE" href="#/savingaccountcharge/{{savingId}}/paycharge/{{charge.id}}">
+                        <i class="fa fa-check "></i>{{'label.button.paycharge' | translate}}</a>
+                    <a class="btn btn-danger" has-permission="WAIVE_SAVINGSACCOUNTCHARGE" href="#/savingaccountcharge/{{savingId}}/waive/{{charge.id}}">
+                        <i class="fa fa-flag "></i>{{'label.button.waivecharge' | translate}}</a>
+                    <a class="btn btn-warning" has-permission="INACTIVATE_SAVINGSACCOUNTCHARGE"
+                       href="#/savingaccountcharge/{{savingId}}/inactivate/{{charge.id}}"><i
+                            class="fa fa-ban-circle "></i>{{'label.button.inactivatecharge' | translate}}</a>
+                </div>
+            </div>
+            <h3>{{'label.anchor.viewcharge' | translate}}</h3>
+            <table class="width100">
+                <tr>
+                    <td class="width20">{{'label.heading.name' | translate}}</td>
+                    <td class="width60">{{charge.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.chargetype' | translate}}</td>
+                    <td>
+                        <span ng-show="charge.penalty">{{'label.heading.penalty' | translate}}</span>
+                        <span ng-hide="charge.penalty">{{'label.heading.fees' | translate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.currency' | translate}}</td>
+                    <td>{{charge.currency.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.paymentdueat' | translate}}</td>
+                    <td>{{charge.chargeTimeType.value}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.paymentdueasof' | translate}}</td>
+                    <td>{{charge.dueDate | DateFormat}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.calculationtype' | translate}}</td>
+                    <td>{{charge.chargeCalculationType.value}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.due' | translate}}</td>
+                    <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amount | number}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.paid' | translate}}</td>
+                    <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountPaid | number}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.waived' | translate}}</td>
+                    <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountWaived | number}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.outstanding' | translate}}</td>
+                    <td>{{charge.currency.displaySymbol}}&nbsp;{{charge.amountOutstanding | number}}</td>
+                </tr>
+            </table>
+        </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,247 @@
+<div ng-controller="ViewSmsCampaignController" class="content-container">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/smscampaigns">{{'label.anchor.smscampaings' | translate}}</a></li>
+            <li class="active">{{campaignData.campaignName}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content" >
+            <div class="toolbar">
+                <h3>{{'label.heading.viewsmscampaign' | translate}}</h3>
+            </div>
+            <br/>
+            <uib-tabset tabset-name="smsCampaignTabset">
+                <uib-tab heading="{{'label.heading.campaign' | translate}}">
+                    <div class="container">
+                        <div class="row col-md-12">
+                            <h3 class="bolder col-md-12">{{campaignData.campaignName}}
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <a href="#/editsmscampaign/{{campaignData.id}}" class="btn btn-primary" has-permission='UPDATE_SMSCAMPAIGN' ng-show="campaignData.campaignStatus.value != 'active'"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+                                        <a data-ng-click="activateSmsCampaign()" class="btn btn-primary" has-permission='ACTIVATE_SMSCAMPAIGN' ng-show="campaignData.campaignStatus.value === 'Pending'"><i
+                                                class="icon-ok-sign icon-white"></i>{{'label.button.activate' | translate}}</a>
+                                        <a data-ng-click="closeSmsCampaign()" class="btn btn-primary" has-permission='CLOSE_SMSCAMPAIGN' ng-show="campaignData.campaignStatus.value != 'closed'"><i
+                                                class="icon-remove-circle icon-white"></i>{{'label.button.close' | translate}}</a>
+                                        <a data-ng-click="reActivateSmsCampaign()" class="btn btn-primary" has-permission='REACTIVATE_SMSCAMPAIGN' ng-show="campaignData.campaignStatus.value != 'Pending' && campaignData.campaignStatus.value != 'active'"><i
+                                                class="icon-repeat icon-white"></i>{{'label.button.reactivate' | translate}}</a>
+                                        <a data-ng-click="deleteSmsCampaign()" class="btn btn-danger" has-permission='DELETE_SMSCAMPAIGN' ng-show="campaignData.campaignStatus.value === 'closed'"><i
+                                                class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+                                    </div>
+                                </div>
+                                <hr>
+                            </h3>
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-striped">
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.campaignname' | translate }}</strong></td>
+                                        <td>{{campaignData.campaignName}}</td>
+                                    </tr>
+                                    <!--<tr>
+                                        <td><strong>{{ 'label.heading.campaigntype' | translate }}</strong></td>
+                                        <td>{{campaignData.campaignType.value | translate}}</td>
+                                    </tr>-->
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.reportname' | translate }}</strong></td>
+                                        <td>{{campaignData.reportName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.status' | translate }}</strong></td>
+                                        <td>{{campaignData.campaignStatus.value}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.triggertype' | translate }}</strong></td>
+                                        <td>{{campaignData.triggerType.value | translate}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.templatemsg' | translate }}</strong></td>
+                                        <td>{{campaignData.campaignMessage}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>{{ 'label.heading.submittedondate' | translate }}</strong></td>
+                                        <td>{{campaignData.smsCampaignTimeLine.submittedOnDate | DateFormat}}</td>
+                                    </tr>
+                                    <tr ng-if="campaignData.recurrence">
+                                        <td><strong>{{ 'label.heading.recurrence' | translate }}</strong></td>
+                                        <td>{{campaignData.recurrence}}</td>
+                                    </tr>
+                                    <tr ng-if="campaignData.triggerEntityType">
+                                        <td><strong>{{ 'label.heading.entity' | translate }}</strong></td>
+                                        <td>{{campaignData.triggerEntityType.value}}</td>
+                                    </tr>
+                                    <tr ng-if="campaignData.triggerActionType">
+                                        <td><strong>{{ 'label.heading.action' | translate }}</strong></td>
+                                        <td>{{campaignData.triggerActionType.value}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+
+                <uib-tab heading="{{tabObj.name}}" ng-repeat="tabObj in tabsList" select="resetSMSList()" has-permission='READ_SMS' name="{{tabObj.status}}" ng-if="campaignData.campaignStatus.value != 'Pending'">
+                    <div class="container">
+                        <div class="row col-md-12">
+                            <h4 class="control-label ng-binding">{{'label.heading.daterange' | translate}}</h4>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-1" for="fromDate">{{'label.input.fromdate' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="fromDate" name="fromDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.fromDate" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-1" for="toDate">{{'label.input.todate' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <input class="form-control" id="toDate" name="toDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.toDate" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <a ng-click="fetchSMSByStatus(tabObj.status)" class="btn btn-sm btn-primary" has-permission='READ_SMS'>Search
+                                    <i class="icon-search icon-white"></i></a>
+                            </div>
+                            <div ng-if="smsList.length == 0">
+                                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                            </div>
+
+                            <div class="col-md-12" ng-show="smsList">
+                                <br/><br/>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <th>{{ 'label.heading.message' | translate }}</th>
+                                    <th>{{ 'label.heading.status' | translate }}</th>
+                                    <th>{{ 'label.heading.mobilenumber' | translate }}</th>
+                                    <th>{{ 'label.heading.campaignname' | translate }}</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr dir-paginate="sms in smsList | itemsPerPage: smsPerPage" total-items="totalSMS" pagination-id="tabObj.id">
+                                        <td>{{sms.message}}</td>
+                                        <td>{{sms.status.value}}</td>
+                                        <td>{{sms.mobileNo}}</td>
+                                        <td>{{sms.campaignName}}</td>{{sms}}
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <dir-pagination-controls pagination-id="tabObj.id" boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="activatesmscampaign.html">
+        <form name="activatesmsform" novalidate="">
+            <api-validate></api-validate>
+            <div class="modal-dialog">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.activatesmscampaign' | translate}}</h3>
+                </div>
+                <br/>
+                <div>
+                    <label class="control-label col-sm-3">{{'label.input.activationdate' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-4">
+                        <input id="activationDate" name="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.activationDate"
+                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                    </div>
+                    <div class="col-sm-4">
+                        <form-validate valattributeform="activatesmsform" valattribute="activationDate"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col-md-offset-4">
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script type="text/ng-template" id="closesmscampaign.html">
+        <form name="closesmsform" novalidate="">
+            <api-validate></api-validate>
+            <div class="modal-dialog">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.closesmscampaign' | translate}}</h3>
+                </div>
+                <br/>
+                <div>
+                    <label class="control-label col-sm-3">{{'label.input.closuredate' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-4">
+                        <input id="closureDate" name="closureDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.closureDate"
+                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                    </div>
+                    <div class="col-sm-4">
+                        <form-validate valattributeform="closesmsform" valattribute="closureDate"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col-md-offset-4">
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="closeSms()">{{'label.button.confirm' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script type="text/ng-template" id="reactivatesmscampaign.html">
+        <form name="reactivatesmsform" novalidate="">
+            <api-validate></api-validate>
+            <div class="modal-dialog">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.reactivatesmscampaign' | translate}}</h3>
+                </div>
+                <br/>
+                <div>
+                    <label class="control-label col-sm-3">{{'label.input.reactivationdate' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-4">
+                        <input id="reActivationDate" name="reActivationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.activationDate"
+                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                    </div>
+                    <div class="col-sm-4">
+                        <form-validate valattributeform="reactivatesmsform" valattribute="reActivationDate"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col-md-offset-4">
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="reactivate()">{{'label.button.confirm' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </script>
+
+    <script type="text/ng-template" id="deletesmscampaign.html">
+        <form name="deletesmsform" novalidate="">
+            <api-validate></api-validate>
+            <div class="modal-dialog">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.deletesmscampaign' | translate}}</h3>
+                </div>
+                <br/>
+                <br/>
+                <div class="col-md-offset-4">
+                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                    <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </script>
+</div>

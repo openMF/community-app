@@ -1,0 +1,160 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/reports">{{'label.anchor.managereports' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createreport' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br/>
+            <form name="createreportrform" novalidate="" class="" ng-controller="CreateReportController" rc-submit="submit()">
+                <api-validate></api-validate>
+                <div class="form-group">
+                    <table class="width100">
+                        <tr class="form-group">
+                            <td class="width11">
+                                <label class="control-label col-sm-2"><h4>{{ 'label.heading.reportdetails' | translate }}</h4></label>
+                            </td>
+                            <td class="blockquoteresult width86" width="90%">
+                                <table>
+                                    <tr>
+                                        <td class="width30 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.reportname' | translate }}&nbsp;<span
+                                                    class="required">*</span></label>
+
+                                            <div class="form-inline">
+                                                <input id="reportName" type="text" name="reportName" ng-model="formData.reportName"
+                                                       class="form-control"
+                                                       required late-Validate/>
+                                                <form-validate valattributeform="createreportrform" valattribute="reportName"/>
+                                            </div>
+                                        </td>
+                                        <td class="width20 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.reporttype' | translate }}&nbsp;<span
+                                                    class="required">*</span></label>
+                                            <select id="reportType" ng-model="formData.reportType" class="form-control width170px"
+                                                    ng-options="reportType for reportType in reportdetail.allowedReportTypes"
+                                                    value="">
+                                            </select>
+                                        </td>
+                                        <td class="width20 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.reportsubtype' | translate }}&nbsp;</label>
+                                            <select id="reportSubType" ng-model="formData.reportSubType" class="form-control width170px"
+                                                    ng-options="reportSubType for reportSubType in reportdetail.allowedReportSubTypes"
+                                                    value="">
+                                                <option value="">{{'label.selectone' | translate}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width30 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.reportcategory' | translate
+                                                }}&nbsp;</label>
+
+                                            <div class="form-inline">
+                                                <input id="reportCategory" type="text" class="form-control" ng-model="formData.reportCategory">
+                                            </div>
+                                        </td>
+                                        <td class="width20">
+                                        </td>
+                                        <td class="width20 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.userreportui' | translate }}</label>
+                                            <label class="checkbox margintopminustenpx">
+                                                <input type="checkbox" ng-model="formData.useReport" ng-true-value="true"
+                                                       ng-false-value="false">
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width30 paddedbottom10">
+                                            <label class="control-label">{{ 'label.input.description' | translate }}</label>
+                                            <div class="form-inline">
+                                            <textarea id="description" class="form-control" rows="2" ng-model="formData.description"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="col-md-1 minheight30px"></tr>
+
+                        <tr class="form-group">
+                            <td class="width8">
+                                <div data-ng-switch on="formData.reportType">
+                                    <div data-ng-switch-when="Pentaho"></div>
+                                    <div data-ng-switch-default>
+                                        <label class="control-label col-sm-2"><h4>{{ 'label.heading.sql' | translate }}</h4></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="width86">
+                                <div data-ng-switch on="formData.reportType">
+                                    <div data-ng-switch-when="Pentaho">
+
+                                    </div>
+                                    <div data-ng-switch-default>
+                                        <div class="blockquoteresult">
+                                            <table class="width100">
+                                                <tr>
+                                                    <td>
+                                                        <label class="control-label">{{ 'label.input.sql' | translate }}<span
+                                                                class="required">*</span></label>
+                                                        <textarea class="form-control width100" id="reportSql" rows="4" name="sql" ng-model="formData.reportSql"
+                                                                  required></textarea>
+                                                        <form-validate valattributeform="createreportrform" valattribute="sql"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="col-md-1 minheight30px"></tr>
+
+                        <tr class="form-group">
+                            <td class="width11">
+                                <label class="control-label col-sm-2"><h4>{{ 'label.heading.reportparameters' | translate }}</h4></label>
+                            </td>
+                            <td class="blockquoteresult width86">
+                                <form class="form-inline">
+                                    <select ng-model="allowedParameterId" class="form-control">
+                                        <option value="">{{'label.selectallowedparameter' | translate}}</option>
+                                        <option ng-repeat="allowedParameter in reportdetail.allowedParameters"
+                                                value="{{allowedParameter.id}}">{{allowedParameter.parameterName | translate}}
+                                        </option>
+                                    </select>
+                                    <a class="btn btn-primary"
+                                            ng-click="parameterSelected(allowedParameterId)"><i class="fa fa-plus "></i>{{
+                                        'label.button.add' | translate }}
+                                    </a>
+                                </form>
+                                <table data-ng-show="flag" class="table" width="50%">
+                                    <tr class="graybg">
+                                        <th>{{'label.heading.parameter' | translate}}</th>
+                                        <th>{{'label.heading.parameternamepassedtopentaho' | translate}}</th>
+                                        <th>{{'label.heading.actions' | translate}}</th>
+                                    </tr>
+                                    <tr ng-repeat="reportParameter in reportParameters">
+                                        <td>{{reportParameter.allowedParameterName | translate}}</td>
+                                        <td class="width30">
+                                            <input type="text" class="form-control" ng-model="reportParameter.reportParameterName">
+                                        </td>
+                                        <td><a ng-click="deleteParameter($index)"><i class="fa fa-times "></i></a></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-offset-6">
+                    <a id="cancel" href="#/reports" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_REPORT'>{{'label.button.save' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

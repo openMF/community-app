@@ -1,0 +1,59 @@
+<div class="content-container" ng-controller="ViewProvisioningCriteriaController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/viewallprovisionings">{{'label.anchor.provisioningcriteria' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewprovisioningcriteria' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
+            <fieldset>
+                <!-- Start -->
+                <h3 class="bolder">{{criterianame}}
+                    <div class="btn-group pull-right">
+                        <a href="#/editprovisioningcriteria/{{criteriaId}}" class="btn btn-primary" has-permission='UPDATE_CRITERIA'><i class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
+                        <button type="button" data-ng-click="deleteProvisionigCriteria()" class="btn btn-warning" has-permission='DELETE_CRITERIA'><i
+                                class="fa fa-trash "></i>{{'label.button.delete' | translate}}
+                        </button>
+                    </div>
+                </h3>
+                <hr>
+                <script type="text/ng-template" id="deletech.html">
+                    <div class="modal-header silver">
+                        <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+                    </div>
+                    <div class="modal-body ">
+                        <api-validate></api-validate>
+                        <br>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+                    </div>
+                </script>
+                <!-- end -->
+                <label class="control-label col-sm-2">{{'label.input.loanproduct' | translate}}</label>
+                <div class="col-sm-8">
+                    <textarea type="text" rows="3" name="loanproducts" ng-model="formattedProductNames" class="form-control" disabled></textarea>
+                </div>
+                <table class="table" class="width100" ng-show="definitions.length>0">
+                    <tr class="graybg">
+                        <th>{{'label.heading.provisioningcategory' | translate}}</th>
+                        <th>{{'label.heading.minimumage' | translate}}</th>
+                        <th>{{'label.heading.maximumage' | translate}}</th>
+                        <th>{{'label.heading.provisioningpercentage' | translate}}</th>
+                        <th>{{'label.heading.provisioningliabilityaccount' | translate}}</th>
+                        <th>{{'label.heading.provisioningexpenseaccount' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="provisioningcategory in definitions | orderBy:'categoryId'">
+                        <td>{{provisioningcategory.categoryName}}</td>
+                        <td>{{provisioningcategory.minAge}}</td>
+                        <td>{{provisioningcategory.maxAge}}</td>
+                        <td>{{provisioningcategory.provisioningPercentage}}</td>
+                        <td>{{provisioningcategory.liabilityName}}</td>
+                        <td>{{provisioningcategory.expenseName}}</td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+</div>

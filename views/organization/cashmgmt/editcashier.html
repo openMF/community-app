@@ -1,0 +1,104 @@
+<div class="col-md-12"  ng-controller="EditCashierController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+        <li><a href="#/tellers/{{cashier.tellerId}}/cashiers">{{cashier.tellerName}}</a></li>
+        <li class="active">{{'label.anchor.editcashier' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        <form name="editcashierform" novalidate="" class="form-horizontal"
+            rc-submit="submit()">
+            <api-validate></api-validate>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}</label>
+                <div class="col-sm-3">
+                    <input id="office" type="text" ng-model="office" class="form-control"  ng-disabled="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.teller.name' | translate }}</label>
+                <div class="col-sm-3">
+                   <input id="teller" type="text" ng-model="cashier.tellerName" class="form-control" ng-disabled="true"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.cashmgmt.tellerCashiers.cashierName' | translate}}</label>
+                <div class="col-sm-3">
+                    <select chosen="staffs" id="staffId" ng-model="formData.staffId" ng-disabled="true" class="form-control"
+                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                        <option value="{{staff.id}}">{{'label.menu.selectloanofficer' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.heading.cashmgmt.tellerCashiers.description' | translate}}</label>
+                <div class="col-sm-3">
+                    <input id="description" type="text" ng-model="formData.description" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startDate' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.startDate"
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2"> {{ 'label.input.teller.cashier.endDate' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="endDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.endDate"
+                           class="form-control" is-open="opened" min="minDate" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.fullDay' | translate }}</label>
+                <div class="checkbox-inline">
+                    <input id="fullDayCheckbox" type="checkbox" data-ng-change="setChoice()" checked="true" ng-model="formData.isFullDay" />
+                </div>
+            </div>
+
+            <div ng-show="formData.isFullDay==false">
+            <div class="form-group">
+                                <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.startTime' | translate }}</label>
+                                <table>
+                                    <tr>
+                                        <td><input id="hourStartTime" type="number" class="input-smaller" min="00" max="23" placeholder="HH" ng-model="formData.hourStartTime"></td>
+                                        <td><span>:</span></td>
+                                        <td><input id="minStartTime" type="number"  class="input-smaller" min="00" max="59" placeholder="mm" ng-model="formData.minStartTime"></td>
+                                    </tr>
+                                </table>
+            </div>
+            <div class="form-group">
+
+                                <label class="control-label col-sm-2">{{ 'label.input.teller.cashier.endTime' | translate }}</label>
+                                <table>
+                                    <tr>
+                                        <td><input id="hourEndTime" type="number" class="input-smaller" min="0" max="24" placeholder="HH" ng-model="formData.hourEndTime"></td>
+                                        <td>:</td>
+                                        <td><input id="minEndTime" type="number" class="input-smaller" min="0" max="60" placeholder="mm" ng-model="formData.minEndTime"></td>
+                                    </tr>
+                                </table>
+                </div>
+
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3">
+                        <a id="cancel" href="#/tellers/{{cashier.tellerId}}/cashiers">
+                            <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                        </a>
+                        <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATECASHIERALLOCATION_TELLER'>{{'label.button.save' | translate}}</button>
+                    </div>
+                </div>
+        </form>
+
+        </div>
+    </div>
+</div>

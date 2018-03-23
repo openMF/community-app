@@ -1,0 +1,256 @@
+<div class="content-container" ng-controller="SearchController">
+<div class="card">
+    <div class="content">
+        <div class="row-fluid">
+        <label ng-show="showMsg" class="error"><strong>{{'label.search.query.matched.results.exceeds.max.length' |
+            translate}}</strong></label>
+
+        <div class="span5">
+            <div ng-repeat="result in searchResults">
+                <div class="blockquoteresult" ng-class="{grbgcolor: result.entityId == selected}">
+                    <span ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING' || result.entityType  == 'SHARE'">
+                        <a href="#/view{{result.entityType | lowercase}}account/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+                    </span>
+                    <span ng-show="result.entityType  == 'CLIENT'">
+                        <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;|&nbsp;#{{result.entityAccountNo}}</a>
+                    </span>
+                    <span ng-show="result.entityType  == 'GROUP'">
+                        <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+                    </span>
+                    <span ng-show="result.entityType  == 'CENTER'">
+                        <a href="#/view{{result.entityType | lowercase}}/{{result.entityId}}">{{result.entityName}}</a>&nbsp;</a>
+                    </span>
+                    <span ng-show="result.entityType  == 'CLIENTIDENTIFIER'">
+                        <a href="#/viewclient/{{result.parentId}}">{{result.entityName}}</a>&nbsp;</a>
+                    </span>
+                    <span ng-show="result.entityType  == 'CLIENT'">
+                      <a ng-click="getClientDetails(result.entityId)"
+                         title="{{'label.input.additionalinformation'| translate}}"><i class="fa fa-zoom-in"></i></a>
+                    </span>
+                    <span ng-show="result.entityType  == 'GROUP'">
+                      <a ng-click="getGroupDetails(result.entityId)" title="{{'label.input.additionalinformation'| translate}}"><i
+                              class="fa fa-zoom-in"></i></a>
+                    </span>
+                    <span ng-show="result.entityType  == 'CENTER'">
+                      <a ng-click="getCenterDetails(result.entityId)"
+                         title="{{'label.input.additionalinformation'| translate}}"><i class="fa fa-zoom-in"></i></a>
+                    </span>
+                    <br>
+                    <span data-ng-show="result.entityType  == 'CLIENT' ||result.entityType  == 'GROUP' || result.entityType  == 'CENTER' "><strong>{{'label.heading.entity'
+                        | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{ 'label.heading.office' | translate
+                        }}</strong>:{{result.parentName}}</span>
+                    <span data-ng-show="result.entityType  == 'CLIENTIDENTIFIER'"><strong>{{'label.heading.entity' |
+                        translate}}</strong>:{{'label.heading.clientid' | translate}}&nbsp;|&nbsp;<strong>{{
+                        'label.heading.client' | translate }}</strong>:{{result.parentName}}</span>
+                    <span data-ng-show="result.entityType  == 'LOAN' || result.entityType  == 'SAVING' || result.entityType  == 'SHARE'"><strong>{{'label.heading.entity' | translate}}</strong>:{{result.entityType}}&nbsp;|&nbsp;<strong>{{
+                        'label.heading.' + result.parentType | translate }}</strong>:{{result.parentName}}</span>
+                    <span><br/></span>
+                </div>
+            </div>
+        </div>
+        <h3 data-ng-show="flag" style="position: absolute;top: 40%;left: 30%;"><strong>{{ 'label.nodatafound' | translate
+            }}</strong></h3>
+
+        <div class="span7">
+            <div ng-show="client">
+                <br/>
+                <div>
+                    <span class="pull-left">
+                        <i class="fa fa-user fa fa-3x"></i>
+                    </span>
+                    <span class="pull-left">
+                    <h3>
+                    &nbsp;{{client.displayName}}&nbsp;
+                    <i class="fa fa-circle {{client.status.value | StatusLookup}}"></i>
+                    &nbsp;</h3>
+                    </span>
+                </div>
+                <br/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in clientAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in clientAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance | number}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="center">
+                <br/>
+
+                <div>
+                        <span class="pull-left">
+                          <i class="fa fa-map-marker fa fa-3x"></i>
+                        </span>
+                        <span class="pull-left">
+                          <h3 class="table-font-nav">
+                              &nbsp;
+                              {{center.name}}
+                              &nbsp;
+                              <i class="fa fa-circle {{center.status.value | StatusLookup}}"></i>
+                              &nbsp;
+                          </h3>
+                        </span>
+                </div>
+                <br/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in centerAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in centerAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance | number}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.shareaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.approvedshares'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="shareaccount in clientAccounts.shareAccounts">
+                        <td>
+                            {{shareaccount.productName}}
+                        </td>
+                        <td>{{shareaccount.accountNo}}</td>
+                        <td>{{shareaccount.totalApprovedShares|number}}</td>
+                        <td>{{shareaccount.status.value}}</td>
+                        <td>
+                            <i class="icon-stop {{shareaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="group">
+                <br/>
+
+                <div>
+                            <span class="pull-left">
+                              <i class="fa fa-group fa fa-3x"></i>
+                            </span>
+                            <span class="pull-left">
+                              <h3>
+                                  &nbsp;
+                                  {{group.name}}
+                                  &nbsp;
+                                  <i class="fa fa-circle {{group.status.value | StatusLookup}}"></i>
+                                  &nbsp;
+                              </h3>
+                            </span>
+                </div>
+                <br/>
+                <table width="100%" class="table">
+                    <tr class="graybg">
+                        <th>{{'label.heading.loanaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.loantype'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="loanaccount in groupAccounts.loanAccounts | filter:isNotClosed">
+                        <td>
+                            {{loanaccount.productName}}
+                        </td>
+                        <td>
+                            {{loanaccount.accountNo}}
+                        </td>
+                        <td>{{loanaccount.loanType.value}}</td>
+                        <td>{{loanaccount.status.value}}</td>
+                        <td><i class="fa fa-stop {{loanaccount.status.code | StatusLookup}}"></i></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.savingaccount'| translate}}</th>
+                        <th></th>
+                        <th>{{'label.heading.balance'| translate}}</th>
+                        <th>{{'label.heading.status'| translate}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="savingaccount in groupAccounts.savingsAccounts">
+                        <td>
+                            {{savingaccount.productName}}
+                        </td>
+                        <td>{{savingaccount.accountNo}}</td>
+                        <td>{{savingaccount.accountBalance | number}}</td>
+                        <td>{{savingaccount.status.value}}</td>
+                        <td>
+                            <i class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>

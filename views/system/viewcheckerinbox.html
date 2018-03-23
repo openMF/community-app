@@ -1,0 +1,114 @@
+F<div class="content-container" ng-controller="ViewCheckerinboxController">
+    <ul class="breadcrumb">
+        <li><a href="#/tasks">{{'label.anchor.tasks' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewcheckerinbox' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.viewcheckerinbox' | translate}}</h4>
+            </div>
+            <br>
+            <div class="pull-right form-group">
+                <button type="button" class="btn btn-success" data-ng-click="checkerApprove('approve')"><i class="fa fa-check"></i>{{'label.button.approve' | translate}}</button>
+                <button type="button" class="btn btn-warning" data-ng-click="checkerDelete()"><i class="fa fa-trash-o"></i>{{'label.button.delete' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-ng-click="checkerReject('reject')"><i class="fa fa-times"></i>{{'label.button.reject' | translate}}</button>
+            </div>
+            <div class="paddedleft">
+                <table width="100%">
+                    <tr>
+                        <td width="35%"><strong>{{'label.heading.id' | translate}}:</strong></td>
+                        <td width="65%">{{details.id}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.status' | translate }}:</strong></td>
+                        <td>{{details.processingResult}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.user' | translate }}:</strong></td>
+                        <td>{{details.maker}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.action' | translate }}:</strong></td>
+                        <td>{{details.actionName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.entity' | translate }}:</strong></td>
+                        <td>{{details.entityName}}</td>
+                    </tr>
+                    <tr data-ng-show="details.resourceId">
+                        <td><strong>{{ 'label.heading.resourceid' | translate }}:</strong></td>
+                        <td>{{details.resourceId}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'label.heading.date' | translate }}:</strong></td>
+                        <td>{{details.madeOnDate | DateFormat}}</td>
+                    </tr>
+                    <tr data-ng-show="details.officeName">
+                        <td><strong>{{ 'label.heading.office' | translate }}:</strong></td>
+                        <td>{{details.officeName}}</td>
+                    </tr>
+                    <tr data-ng-show="details.savingsAccountNo">
+                        <td><strong>{{ 'label.heading.savingsaccountno' | translate }}:</strong></td>
+                        <td>{{details.savingsAccountNo}}</td>
+                    </tr>
+                    <tr data-ng-show="details.groupLevelName">
+                        <td><strong>{{details.groupLevelName}}:</strong></td>
+                        <td>{{details.groupName}}</td>
+                    </tr>
+                </table>
+            </div>
+            <hr/>
+            <div scroll>
+                <table class="table" data-ng-show="details.commandAsJson" data-anchor>
+                    <thead>
+                    <tr class="graybg">
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ 'label.heading.command' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="json in jsondata">
+                        <td class="width20"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{json.name}}</strong></td>
+                        <td class="width80">{{json.property}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="delete.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="approve.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+	<script type="text/ng-template" id="reject.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reject' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+</div>

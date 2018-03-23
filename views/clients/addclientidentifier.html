@@ -1,0 +1,64 @@
+<div class="content-container" ng-controller="ClientIdentifierController">
+    <ul class="breadcrumb">
+        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addclientidentities' | translate}}</li>
+    </ul>
+    <form name="clientidentifierform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.addclientidentifier' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="documentTypeId">{{'label.input.documenttype' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="documentTypeId" ng-model="formData.documentTypeId"
+                            ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
+                            value="{{documenttype.id}}" required="required" class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="status">{{'label.input.status' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="status" ng-model="formData.status"
+                            ng-options="status.label as status.label for status in statusTypes"
+                            value="{{status.label}}" required="required" class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="documentKey">{{'label.input.uniqueidentification' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="documentKey" type="text" name="identification" ng-model="formData.documentKey"
+                           required="required" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="clientidentifierform" valattribute="identification"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="description" rows="2" ng-model="formData.description" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewclient/{{clientId}}">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" has-permission='CREATE_CLIENTIDENTIFIER' class="btn btn-primary">{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

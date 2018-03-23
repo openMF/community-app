@@ -1,0 +1,155 @@
+<div class="content-container" ng-controller="ClientActionsController">
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{breadcrumbName | translate}}</li>
+        </ul>
+    <wizard current-step="step()" on-finish="submitDatatable()">
+        <wz-step wz-title="{{breadcrumbName | translate}}">
+    <form name="clientactionform" novalidate="" class="card form-horizontal well">
+        <div ng-show="submittedDatatables.length>0" uib-alert type="success">
+            <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the datatable entries will be updated.<br></span>
+        </div>
+        <api-validate></api-validate>
+        <div class="form-group" ng-show="showDateField">
+            <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input type="text" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName"
+                       ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"  class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group" ng-show="showActivationDateField">
+            <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input type="text" datepicker-pop="dd MMMM yyyy" id="{{modelName}}" name="modelName"
+                       ng-model="formData[modelName]" min="mindate" max="restrictDate"  class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group" ng-show="reasonField">
+            <label class="control-label col-sm-2">{{labelNamereason | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select id="{{reasonmodelName}}" ng-model="formData[reasonmodelName]"
+                        ng-options="reason.id as reason.name for reason in reasons"
+                        value="{{reason.id}}" class="form-control">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-show="staffField">
+            <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select chosen="staffOptions" id="staffId" ng-model="formData.staffId" class="form-control"
+                        ng-options="staff.id as staff.displayName for staff in staffOptions" value="{{staff.id}}">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-show="savingsField">
+            <label class="control-label col-sm-2">{{labelName | translate}}<span class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select id="savingsAccountId" ng-model="formData.savingsAccountId"  class="form-control"
+                        ng-options="savingsAccount.id as (savingsAccount.accountNo +'-'+savingsAccount.savingsProductName) for savingsAccount in savingAccountOptions" value="{{savingsAccount.id}}">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" ng-show="showNoteField">
+            <label class="control-label col-sm-2" for="note">{{ 'label.heading.notes' | translate}}</label>
+
+            <div class="col-sm-3">
+                <textarea rows="2" id="note" ng-model="formData.note" class="form-control"></textarea>
+            </div>
+        </div>
+        <div>
+            <button id="save1"  wz-next class="btn btn-primary pull-right" ng-show="isEntityDatatables">
+                {{'label.button.proceed' | translate}}
+            </button>
+        </div>
+        <div class="col-md-offset-3" ng-show="!showDeleteClient && !isEntityDatatables">
+            <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+            </button>
+            <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" wz-next>{{'label.button.save' | translate}}</button>
+        </div>
+    </form>
+        </wz-step>
+        <wz-step ng-if="isEntityDatatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
+            <div class="card-content">
+                <form class="card form-horizontal well">
+                    <div ng-show="submittedDatatables.length>0" uib-alert type="success">
+                        <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the datatable entries will be updated.<br></span>
+                    </div>
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <legend>{{datatable.registeredTableName}}</legend>
+                        <div class="form-group" ng-repeat="columnHeader in datatable.columnHeaders">
+                            <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn }}
+                                <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
+                            </label>
+                            <div class="col-sm-3">
+                                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
+                                       ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]" class="form-control"/>
+                                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
+                                       datepicker-pop="dd MMMM yyyy" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateType.date"
+                                       is-open="opened{{$index}}" class="form-control"/>
+                                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
+                                    <div class="form-group">
+                                        <input type="text" datepicker-pop="dd MMMM yyyy"
+                                               ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateTimeType.date"
+                                               is-open="opened{{$index}}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="time" placeholder="HH:MM:SS"
+                                               ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateTimeType.time" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                               value="true"/>
+                                        {{'label.input.true' | translate}}
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                               value="false"/>
+                                        {{'label.input.false' | translate}}
+                                    </label>
+                                </div>
+                                <span data-ng-switch on="columnHeader.columnDisplayType">
+		                  <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                  data-ng-switch-when="CODELOOKUP"
+                                  ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                  ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
+                                  value="{{columnValue.id}}" class="form-control">
+		                     <option value="">{{'label.selectone' | translate}}</option>
+		                  </select>
+		                  <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                  data-ng-switch-when="CODEVALUE"
+                                  ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                  ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
+                                  value="{{columnValue.id}}" class="form-control">
+		                     <option value="">{{'label.selectone' | translate}}</option>
+		                  </select>
+		               </span>
+                            </div>
+                        </div>
+                        <div class="pull-right" ng-if="!$last">
+                            <button id="save4" type="submit" class="btn btn-primary" wz-next>
+                                {{'label.button.proceed' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-offset-5" ng-if="$last">
+                            <button id="cancel" type="reset" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}
+                            </button>
+                            <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" wz-next>{{'label.button.save' | translate}}</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </wz-step>
+
+</div>

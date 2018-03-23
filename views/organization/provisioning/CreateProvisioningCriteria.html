@@ -1,0 +1,131 @@
+<div class="content-container" ng-controller="CreateProvisioningCriteriaController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/viewallprovisionings">{{'label.anchor.provisioningcriteria' | translate}}</a></li>
+
+        <li class="active">{{'label.anchor.createprovisioningcriteria' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.provisioningcriteria' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input name="name" type="text" id="name" ng-model="formData.criteriaName" class="form-control"
+                               required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createprovisioningcriteriaform" valattribute="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3 col-md-3 col-md-offset-1">
+                        <label class="control-label col-sm-9">{{ 'label.input.allproducts' | translate }}</label>
+                        <select id="available" ng-model="available" name="available" class="form-control multiselectmin" multiple>
+                            <option ng-repeat="allowedProduct in allloanproducts" value="{{allowedProduct.id}}">
+                                {{allowedProduct.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1 col-md-1 paddedtop25px">
+                        <button type="button" class="btn btn-primary" data-ng-click="addLoanProduct()"><i
+                                class="fa fa-angle-double-right"></i></button>
+                        <br/>
+                        <button type="button" class="btn btn-primary" data-ng-click="removeLoanProduct()"><i
+                                class="fa fa-angle-double-left"></i></button>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <label class="control-label col-sm-9">{{ 'label.input.selectedproducts' | translate }}</label>
+                        <select id="selected" ng-model="selected" name="selected" class="form-control multiselectmin" multiple>
+                            <option ng-repeat="selectedproduct in selectedloanproducts" value="{{selectedproduct.id}}">
+                                {{selectedproduct.name}}
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+                <table class="table" class="width100" ng-show="definitions.length>0">
+                    <tr class="graybg">
+                        <th>{{'label.heading.provisioningcategory' | translate}}</th>
+                        <th>{{'label.heading.minimumage' | translate}}</th>
+                        <th>{{'label.heading.maximumage' | translate}}</th>
+                        <th>{{'label.heading.provisioningpercentage' | translate}}</th>
+                        <th>{{'label.heading.provisioningliabilityaccount' | translate}}</th>
+                        <th>{{'label.heading.provisioningexpenseaccount' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="provisioningcategory in definitions">
+                        <td>{{provisioningcategory.categoryName}}</td>
+                        <td>
+                            <ng-form name="minage{{$index}}">
+                                <input id="minAge" name="minAge" class="form-control" type="text"
+                                       ng-model="provisioningcategory.minAge"
+                                       placeholder="{{'label.input.indays' | translate}}" number-format required ng-focus="doFocus($index)" ng-blur="doBlur($index)"/>
+                                <span class="error" ng-show="visitValidation&&minage{{$index}}.minAge.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            </ng-form>
+                        </td>
+
+                        <td>
+                            <ng-form name="maxage{{$index}}">
+                                <input id="maxAge" name="maxAge" class="form-control" type="text"
+                                       ng-model="provisioningcategory.maxAge"
+                                       placeholder="{{'label.input.indays' | translate}}" number-format required/>
+                                <span class="error" ng-show="visitValidation&&maxage{{$index}}.maxAge.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            </ng-form>
+                        </td>
+
+
+                        <td>
+                            <ng-form name="percentage{{$index}}">
+                                <input id="percentage" name="percentage" class="form-control" type="text"
+                                       ng-model="provisioningcategory.provisioningPercentage"
+                                       placeholder="{{'label.input.amount' | translate}}" number-format required/>
+                                <span class="error"
+                                      ng-show="visitValidation&&percentage{{$index}}.percentage.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            </ng-form>
+                        </td>
+
+                        <td>
+                            <ng-form name="liabilityaccount{{$index}}">
+                                <select id="liabilitaccont" name="liabilitaccont"
+                                        ng-model="provisioningcategory.liabilityAccount"
+                                        ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in template.glAccounts | filter: {type: {code: 'accountType.liability'}}"
+                                        value="{{liabilitaccont.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectliabilitiaccount' | translate}}</option>
+                                </select>
+                                <span class="error"
+                                      ng-show="visitValidation&&liabilityaccount{{$index}}.liabilitaccont.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            </ng-form>
+                        </td>
+
+                        <td>
+                            <ng-form name="expenseaccount{{$index}}">
+                                <select id="expenseaccount" name="expenseaccount"
+                                        ng-model="provisioningcategory.expenseAccount"
+                                        ng-options="liabilitaccont.id as liabilitaccont.name for liabilitaccont in template.glAccounts | filter: {type: {code: 'accountType.expense'}}"
+                                        value="{{liabilitaccont.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectexpenseaccount' | translate}}</option>
+                                </select>
+                                <span class="error"
+                                      ng-show="visitValidation&&expenseaccount{{$index}}.expenseaccount.$error.required">{{ 'label.requirefield' | translate }}</span>
+                            </ng-form>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/viewallprovisionings">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" ng-click="visitValidation=true" class="btn btn-primary"
+                            has-permission='CREATE_PROVISIONINGCRITERIA'>{{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>   
+        </div>
+    </div>
+</div>

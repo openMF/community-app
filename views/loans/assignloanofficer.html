@@ -1,0 +1,46 @@
+<div class="content-container" ng-controller="AssignLoanOfficerController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.assignloanofficer' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        <div class="toolbar">
+            <h4>{{ 'label.heading.assignloanofficer' | translate }}</h4>
+        </div>
+        <br/>
+        <form class="form-horizontal" name="assignloanofficerform" novalidate="" ng-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="toLoanOfficerId">{{ 'label.input.toloanofficer' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select class="form-control" id="toLoanOfficerId" ng-model="formData.toLoanOfficerId"
+                                ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                                value="{{loanOfficer.id}}"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="assignmentDate">{{ 'label.input.assignmentdate' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input class="form-control" sort id="assignmentDate" type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.assignmentDate" is-open="opened" max="restrictDate"/>
+                    </div>
+                </div>
+                <div class="col-md-offset-3">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate
+                        }}
+                    </button>
+                    <button id="save" type="submit" ng-disabled="!assignloanofficerform.$valid" has-permission='BULKREASSIGN_LOAN' class="btn btn-primary">{{
+                        'label.button.save' | translate }}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+</div>

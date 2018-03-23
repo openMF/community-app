@@ -1,0 +1,97 @@
+<div class="content-container">
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.guarantor' | translate}}</h4>
+            </div>
+            <br/>
+            <form class="form-horizontal" name="editguaratorform" novalidate="" 
+                ng-controller="EditGuarantorController"
+                  rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="relationshipType" ng-model="formData.relationshipType"
+                                    ng-options="type.id as type.name for type in template.allowedClientRelationshipTypes"
+                                    value="{{type.id}}">
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="firstname">{{ 'label.input.firstname' | translate }}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" required
+                                   late-Validate/>
+                            <form-validate valattributeform="editguaratorform" valattribute="firstname"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.lastname' | translate }}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="lastname" name="lastname" type="text" ng-model="formData.lastname" required late-Validate/>
+                            <form-validate valattributeform="editguaratorform" valattribute="lastname"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.dob' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="dob" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened"
+                                   min="minDate" max="restrictDate"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.address' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="addressline1" type="text" placeholder="Line 1" ng-model="formData.addressLine1"><br/>
+                            <input id="addressline2" type="text" placeholder="Line 2" ng-model="formData.addressLine2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.city' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="city" type="text" ng-model="formData.city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.zip' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="zip" type="text" ng-model="formData.zip">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.mobile' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="mobile" type="text" ng-model="formData.mobile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.residence' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <input id="residence" type="text" ng-model="formData.residence">
+                        </div>
+                    </div>
+                    <div class="col-md-offset-2 paddedleft120">
+                        <a id="cancel" href="#/listguarantors/{{template.loanId}}" class="btn btn-default">{{ 'label.button.cancel' | translate
+                            }}</a>
+                        <button id="save" type="submit" has-permission='UPDATE_GUARANTOR' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,91 @@
+<div ng-controller="AccEditGLAccountController" class="col-md-12">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+            <li><a href="#/accounting_coa">{{'label.anchor.coa' | translate}}</a></li>
+            <li><a href="#/viewglaccount/{{glAccountId}}">{{formData.name}}</a></li>
+            <li class="active">{{'label.anchor.editglaccount' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form name="editglaccountingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.editglaccount' | translate}}</legend>
+			<div class="form-group">
+				<label class="control-label col-sm-2 " for="type">{{'label.input.accounttype' | translate}}
+				</label>
+				<div class="col-sm-2">
+					<select id="type" ng-model="formData.type" class="form-control"
+							ng-options="accountType.id as accountType.code | translate for accountType in accountTypes" value="{{accountType.id}}"
+							ng-change="changeType()" required="required">
+					</select>
+				</div>
+				<label class="control-label col-sm-4" for="parentId">{{'label.input.parent' | translate}}</label>
+				<div class="col-sm-2">
+					<select id="parentId" ng-model="formData.parentId" class="form-control"
+							ng-options="headerType.id as headerType.name for headerType in headerTypes"
+							value="{{headerType.id}}">
+						<option value="">{{'label.selectparent' | translate}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2 ">{{'label.input.glcode' | translate}}<span
+						class="required">*</span></label>
+				<div class="col-sm-2">
+					<input type="text" id="glCode" name="glCode" ng-autofocus="true" ng-model="formData.glCode" class="form-control" required
+						   late-Validate/>
+				</div>
+				<div class="col-sm-2 ">
+					<form-validate valattributeform="createglaccountingform" valattribute="glCode"/>
+				</div>
+				<label class="control-label col-sm-2" >{{'label.input.accountname' | translate}}<span
+						class="required">*</span></label>
+				<div class="col-sm-2">
+					<input id="name" type="text"  name="name"
+						   ng-model="formData.name" class="form-control" required late-Validate/>
+				</div>
+				<div class="col-sm-2">
+					<form-validate valattributeform="createglaccountingform" valattribute="name"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2 " for="usage">{{'label.input.accountusage' | translate}}</label>
+
+				<div class="col-sm-2">
+					<select id="usage" ng-model="formData.usage" class="form-control">
+						<option ng-repeat="usageType in usageTypes" value="{{usageType.id}}">{{''+usageType.code+'' | translate}}</option>
+					</select>
+				</div>
+				<label class="control-label col-sm-4 " for="tagId">{{'label.input.tag' | translate}}</label>
+				<div class="col-sm-2">
+					<select id="tagId" ng-model="formData.tagId" class="form-control"
+							ng-options="type.id as type.name for type in types" value="{{type.id}}">
+						<option value="">{{'label.selecttag' | translate}}</option>
+					</select>          </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="manualEntriesAllowed">{{'label.input.manualentriesallowed' |
+					translate}}</label>
+
+				<div class="col-sm-3">
+					<label class="checkbox">
+						<input id="manualEntriesAllowed" type="checkbox" ng-model="formData.manualEntriesAllowed">
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="description">{{'label.input.description' |
+			        translate}}</label>
+			
+			    <div class="col-sm-8">
+			        <textarea id="description" name="description" ng-model="formData.description" rows="8" class="form-control" cols=""></textarea>
+			    </div>
+			</div>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/viewglaccount/{{glAccountId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_GLACCOUNT'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

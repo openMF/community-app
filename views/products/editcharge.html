@@ -1,0 +1,182 @@
+<div class="content-container" ng-controller="EditChargeController">
+    <api-validate></api-validate>
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editcharge' | translate}}</li>
+    </ul>
+    <form name="editchargeform" novalidate class="card form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.editcharge' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.chargesappliesto' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="chargeAppliesTo" ng-model="formData.chargeAppliesTo"
+                            data-ng-options="chargesapply.id as chargesapply.value for chargesapply in template.chargeAppliesToOptions"
+                            value="{{chargesapply.id}}" ng-disabled="true" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" class="form-control" required
+                           late-Validate/>
+                    <form-validate valattributeform="editchargeform" valattribute="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.currency' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="currencyCode" ng-model="formData.currencyCode"
+                            data-ng-options="currency.code as currency.name for currency in template.currencyOptions"
+                            value="{{currency.code}}" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.chargetimetype' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="chargeTimeType" ng-model="formData.chargeTimeType"
+                            data-ng-options="timetype.id as timetype.value for timetype in chargeTimeTypeOptions"
+                            value="{{timetype.id}}" ng-change="chargeTimeChange(formData.chargeTimeType)" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.chargecalculation' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="chargeCalculationType" ng-model="formData.chargeCalculationType"
+                            data-ng-options="chargecalculation.id as chargecalculation.value for chargecalculation in template.chargeCalculationTypeOptions | filter:filterChargeCalculations(formData.chargeTimeType)"
+                            value="{{chargecalculation.id}}" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-hide="showdatefield || flag">
+                <label class="control-label col-sm-2">{{'label.input.chargepaymentby' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="chargePaymentMode" ng-model="formData.chargePaymentMode"
+                            data-ng-options="chargepayment.id as chargepayment.value for chargepayment in template.chargePaymetModeOptions"
+                            value="{{chargepayment.id}}" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showdatefield">
+                <label class="control-label col-sm-2">{{'label.input.duedate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="duedate" type="text" datepicker-pop="dd MMMM" ng-model="first.date" is-open="opened"
+                           min="minDate" max="'2020-06-22'" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showFrequencyOptions">
+                <label class="control-label col-sm-2">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="addfeefrequency" type="checkbox" ng-model="addfeefrequency" ng-true-value="true"
+                                   ng-false-value="false">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="addfeefrequency ">
+                <label class="control-label col-sm-2" for="feeFrequency">{{'label.input.feefrequency' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
+                        ng-options="frequency.id as frequency.value for frequency in template.feeFrequencyOptions"
+                        value="{{frequency.id}}" class="form-control">
+                    <option value="">{{'label.selectone' | translate}}</option>
+                </select>
+                <form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>       
+                </div>
+            </div>
+            <div class="form-group" ng-show="addfeefrequency">
+                <label class="control-label col-sm-2" for="feeInterval">{{'label.input.frequencyInterval' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input class="input-sm form-control" id="feeIntervalLoan" name="feeIntervalLoan" type="text"
+                           ng-model="formData.feeInterval" late-Validate/>
+                    <form-validate valattributeform="createchargeform" valattribute="feeIntervalLoan"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="repeatEvery">
+                <label class="control-label col-sm-2" for="feeInterval">{{'label.input.repeatsevery' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input class="input-sm form-control" id="feeInterval" name="feeInterval" type="text"
+                           ng-model="formData.feeInterval" ng-required="repeatEvery" late-Validate/>{{'label.input.months'
+                    | translate}}
+                    <form-validate valattributeform="editchargeform" valattribute="feeInterval"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="amount">{{'label.input.amount' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="amount" type="text" id="amount" ng-model="formData.amount" class="form-control" number-format required late-Validate/>
+                    <form-validate valattributeform="editchargeform" valattribute="amount"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="active" type="checkbox" ng-model="formData.active">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showPenalty">
+                <label class="control-label col-sm-2" for="ispenalty">{{'label.input.ispenalty' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input id="ispenalty" type="checkbox" ng-model="formData.penalty">
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showGLAccount">
+                <label class="control-label col-sm-2">{{ 'label.input.incomefromcharges' | translate }}</label>
+                <div class="col-sm-3">
+                    <select id="incomeOrLiabilityAccountId" ng-model="formData.incomeAccountId"
+                            chosen="incomeAndLiabilityAccountOptions"
+                            ng-options="incomeAccount.id as incomeAccount.name for incomeAccount in incomeAndLiabilityAccountOptions"
+                            value="{{incomeAccount.id}}">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.taxgroup' | translate }}</label>
+                <div class="col-sm-3">
+                    <select id="taxGroupId" ng-model="formData.taxGroupId"
+                            chosen="template.taxGroupOptions"
+                            ng-options="taxGroup.id as taxGroup.name for taxGroup in template.taxGroupOptions"
+                            value="{{taxGroup.id}}" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_CHARGE'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="content-container" ng-controller="EmployeeController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.manageemployees' | translate}}&nbsp;&nbsp;{{employee.lastname}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+            <div class="row">
+                <div class="col-md-6">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-md-6">
+                    <a href="#/createemployee" class="btn btn-primary pull-right" has-permission='CREATE_STAFF'><i class="fa fa-plus "></i>{{'label.button.createemployee' | translate }}</a>
+                </div>
+            </div>
+            </div>
+            <br/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.name' | translate }}</th>
+                    <th>{{ 'label.heading.isLoanOfficer' | translate }}</th>
+                    <th>{{ 'label.heading.office' | translate }}</th>
+                    <th>{{ 'label.active' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" ng-repeat="employee in employees | filter:filterText">
+                    <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
+                    <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isActive}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

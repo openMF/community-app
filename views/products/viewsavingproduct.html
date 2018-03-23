@@ -1,0 +1,285 @@
+<div class="content-container" ng-controller="ViewSavingProductController">
+<div id="viewlptop"></div>
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li><a href="#/savingproducts">{{'label.anchor.savingproducts' | translate}}</a></li>
+            <li class="active">{{savingproduct.name}}</li>
+        </ul>
+
+<div class="card">
+    <div class="content">
+    <legend>{{savingproduct.name}}
+        <div class="pull-right">
+            <div class="btn-group">
+                <a href="#/editsavingproduct/{{savingproduct.id}}" class="btn btn-primary" has-permission='UPDATE_SAVINGSPRODUCT'><i class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
+            </div>
+        </div>
+    </legend>
+    <table width="100%">
+        <tr>
+            <td colspan="4">
+                <strong>{{'label.heading.details' | translate}}</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.description' | translate}}</td>
+            <td colspan="3">{{savingproduct.description}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.shortname' | translate}} :</td>
+            <td colspan="3">{{savingproduct.shortName}}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><br/></td>
+        </tr>
+        <tr>
+            <td colspan="4"><strong>{{'label.heading.items' | translate}}</strong></td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.currency' | translate}}</td>
+            <td colspan="3">{{savingproduct.currency.name}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.decimalplaces' | translate}}</td>
+            <td colspan="3">{{savingproduct.currency.decimalPlaces}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.currencyinmultiplesof' | translate}}</td>
+            <td colspan="3">{{savingproduct.currency.inMultiplesOf}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.nominalannualinterestrate' | translate}}</td>
+            <td colspan="3">{{savingproduct.nominalAnnualInterestRate}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.interestcompoundingperiod' | translate}}</td>
+            <td colspan="3">{{savingproduct.interestCompoundingPeriodType.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.interestpostingperiod' | translate}}</td>
+            <td colspan="3">{{savingproduct.interestPostingPeriodType.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.interestcalculatedusing' | translate}}</td>
+            <td colspan="3">{{savingproduct.interestCalculationType.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.daysinyears' | translate}}</td>
+            <td colspan="3">{{savingproduct.interestCalculationDaysInYearType.value}}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><br/></td>
+        </tr>
+        <tr>
+            <td colspan="4"><strong>{{'label.heading.settings' | translate}}</strong></td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.minimumopeningbalance' | translate}}</td>
+            <td colspan="3">{{savingproduct.minRequiredOpeningBalance|number}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.lockinPeriodFrequency' | translate}}</td>
+            <td colspan="3">{{savingproduct.lockinPeriodFrequency}} {{savingproduct.lockinPeriodFrequencyType.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.withdrawalfeefortransfers' | translate}}</td>
+            <td colspan="3">{{savingproduct.withdrawalFeeForTransfers}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.allowoverdraft' | translate}}</td>
+            <td colspan="3">{{savingproduct.allowOverdraft}}</td>
+        </tr>
+        <tr ng-show="savingproduct.allowOverdraft">
+            <td>{{'label.heading.overdraftlimit' | translate}}</td>
+            <td colspan="3">{{savingproduct.overdraftLimit}}</td>
+        </tr>
+        <tr ng-show="savingproduct.allowOverdraft">
+            <td>{{'label.heading.nominalannualinterestrateoverdraft' | translate}}</td>
+            <td colspan="3">{{savingproduct.nominalAnnualInterestRateOverdraft}}</td>
+        </tr>
+        <tr ng-show="savingproduct.allowOverdraft">
+            <td>{{'label.heading.minoverdraftforinterestcalculation' | translate}}</td>
+            <td colspan="3">{{savingproduct.minOverdraftForInterestCalculation}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
+            <td colspan="3">{{savingproduct.minBalanceForInterestCalculation|number}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.enforceMinRequiredBalance' | translate}}</td>
+            <td colspan="3">{{savingproduct.enforceMinRequiredBalance}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.minRequiredBalance' | translate}}</td>
+            <td colspan="3">{{savingproduct.minRequiredBalance|number}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.withholdtax' | translate}}</td>
+            <td colspan="3">{{savingproduct.withHoldTax}}</td>
+        </tr>
+        <tr ng-show="savingproduct.withHoldTax">
+            <td>{{'label.heading.withholdtaxgroup' | translate}}</td>
+            <td colspan="3">{{savingproduct.taxGroup.name}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.isDormancyTrackingActive' | translate}}</td>
+            <td colspan="3">{{savingproduct.isDormancyTrackingActive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToInactive' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToInactive}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToDormancy' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToDormancy}}</td>
+        </tr>
+        <tr ng-show="savingproduct.isDormancyTrackingActive">
+            <td>{{'label.heading.daysToEscheat' | translate}}</td>
+            <td colspan="3">{{savingproduct.daysToEscheat}}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><br/></td>
+        </tr>
+        <tr>
+            <td colspan="4"><strong>{{'label.heading.charges' | translate}}</strong></td>
+        </tr>
+        <tr class="bottomborder graybg">
+            <td>{{'label.heading.name' | translate}}</td>
+            <td>{{'label.heading.type' | translate}}</td>
+            <td>{{'label.heading.amount' | translate}}</td>
+            <td>{{'label.heading.collectedon' | translate}}</td>
+        </tr>
+        <tr ng-repeat="charge in savingproduct.charges">
+            <td>{{charge.name}}</td>
+            <td>{{charge.chargeCalculationType.value}}</td>
+            <td>{{charge.amount|number}}</td>
+            <td>{{charge.chargeTimeType.value}}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><br/></td>
+        </tr>
+        <tr>
+            <td><strong>{{'label.heading.accounting' | translate}}</strong></td>
+            <td colspan="3"><span ng-hide="hasAccounting">{{'label.none' | translate}}</span></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <table width="100%" ng-show="hasAccounting">
+                    <tr>
+                        <td>{{'label.heading.savingsreference' | translate}}({{'label.heading.assets' | translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.savingsReferenceAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.overdraftportfoliocontrol' | translate}}({{'label.heading.assets' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.overdraftPortfolioControl.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.savingscontrol' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.savingsControlAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.transfersinsuspenpense' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.transfersInSuspenseAccount.name}}</td>
+                    </tr>
+                    <tr ng-show="savingproduct.isDormancyTrackingActive">
+                        <td>{{'label.heading.escheatLiability' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.escheatLiabilityAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.interestOnSavingsAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.writeOff' | translate}}({{'label.heading.expenses' | translate}})</td>
+                        <td colspan="3">{{savingproduct.accountingMappings.writeOffAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.incomefromfee' | translate}}({{'label.heading.income' | translate}})</td>
+                        <td colspan="3">{{savingproduct.accountingMappings.incomeFromFeeAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.incomefrompenalties' | translate}}({{'label.heading.income' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.incomeFromPenaltyAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.interest.on.overdrafts' | translate}}({{'label.heading.income' | translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.incomeFromInterest.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4"><br/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>{{'label.heading.advancedaccountingrules' | translate}}</strong>
+                        </td>
+                    </tr>
+
+                    <tr class="toppadding bottomborder">
+                        <td colspan="4">{{'label.heading.configurefundsourcesforpaymentchannels' | translate}}</td>
+                    </tr>
+                    <tr class="bottomborder graybg">
+                        <td>{{'label.heading.paymenttype' | translate}}</td>
+                        <td colspan="3">{{'label.heading.fundsource' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="paymentChannel in savingproduct.paymentChannelToFundSourceMappings">
+                        <td>{{paymentChannel.paymentType.name}}</td>
+                        <td colspan="3">{{paymentChannel.fundSourceAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr class="toppadding bottomborder">
+                        <td colspan="4">{{'label.heading.feestospecificincome' | translate}}</td>
+                    </tr>
+                    <tr class="bottomborder graybg">
+                        <td>{{'label.heading.fees' | translate}}</td>
+                        <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="feeToIncomeAccount in savingproduct.feeToIncomeAccountMappings">
+                        <td>{{feeToIncomeAccount.charge.name}}</td>
+                        <td colspan="3">{{feeToIncomeAccount.incomeAccount.name}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr class="toppadding bottomborder">
+                        <td colspan="4">{{'label.heading.penaltiesspecifictoincomeacc' | translate}}</td>
+                    </tr>
+                    <tr class="bottomborder graybg">
+                        <td>{{'label.heading.penalty' | translate}}</td>
+                        <td colspan="3">{{'label.heading.incomeaccount' | translate}}</td>
+                    </tr>
+                    <tr ng-repeat="penaltyToIncomeAccount in savingproduct.penaltyToIncomeAccountMappings">
+                        <td>{{penaltyToIncomeAccount.charge.name}}</td>
+                        <td colspan="3">{{penaltyToIncomeAccount.incomeAccount.name}}</td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td class="pull-right">
+                <a ng-click="scrollto('viewlptop')"><i class="fa fa-upload"></i>{{'label.button.top' | translate}}</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+</div>

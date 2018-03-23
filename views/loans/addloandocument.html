@@ -1,0 +1,55 @@
+<div class="content-container" ng-controller="LoanDocumentController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+        <div class="toolbar">
+            <h4>{{'label.heading.uploaddocument' | translate}}</h4>
+        </div>
+        <form class="form-horizontal" name="loandocumentform" novalidate="" ng-submit="submit()">
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="name" type="text" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="loandocumentform" valattribute="name"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <textarea rows="2" id="description" ng-model="formData.description" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="file">{{'label.input.selectfile' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="file" type="file" ngf-select="onFileSelect($files)">
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/viewloanaccount/{{loanId}}">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" ng-disabled="!loandocumentform.$valid" has-permission='CREATE_DOCUMENT' class="btn btn-primary">
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+</div>

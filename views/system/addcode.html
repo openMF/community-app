@@ -1,0 +1,41 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
+        <li class="active">{{'label.anchor.addcode' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<div class="toolbar">
+    			<h4>{{'label.heading.addcode' | translate}}</h4>
+    		</div>
+    		<br/>
+    		<form name="addcodeform" novalidate="" class="form-horizontal" 
+    			ng-controller="AddCodeController"
+    		      rc-submit="submit()">
+    		    <api-validate></api-validate>
+    		    <fieldset>
+    		        <div class="form-group">
+    		            <label class="control-label col-sm-2" for="codename">{{'label.input.codename' | translate}}<span
+    		                    class="required">*</span></label>
+    		
+    		            <div class="col-sm-3">
+    		                <input type="text" id="codename" name="codename" ng-model="formData.name" class="form-control" required late-Validate/>
+    		            </div>
+    		            <div class="col-sm-3">
+    		                <form-validate valattributeform="addcodeform" valattribute="codename"/>
+    		            </div>
+    		        </div>
+    		        <br>
+    		
+    		        <div class="col-md-offset-3">
+    		            <a href="#/codes">
+    		                <button class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+    		            </a>
+    		            <button type="submit" class="btn btn-primary" has-permission='CREATE_CODE'>{{'label.button.save' | translate}}</button>
+    		        </div>
+    		    </fieldset>
+    		</form>
+    	</div>
+    </div>
+</div>

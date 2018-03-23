@@ -1,0 +1,39 @@
+<div class="content-container" ng-controller="EditMeetingBasedOnMeetingDatesController">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-show="entityType=='groups'"><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li ng-show="entityType=='centers'"><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editmeeting' | translate }}</li>
+
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <form ng-submit="submit()" class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.existingmeetingdates' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select id="presentmeetingdateId" ng-model="formData.presentMeetingDate"  class="form-control"
+                                ng-options="presentmeetingdate for presentmeetingdate in presentmeetingdates" value="{{presentmeetingdate}}">
+                        </select>
+                    </div>
+
+                    <label class="control-label col-sm-2">{{'label.input.revisedmeetingdates' | translate}}</label>
+                    <div class="col-sm-3">
+                        <input id="newmeetingdateId" type="text" name="newmeetingdate" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.newMeetingDate" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <div class="col-md-offset-2">
+                    <a id="cancel" ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
+                        | translate}}</a>
+                    <a ng-hide="entityType=='groups'" class="btn btn-default" href="#/viewcenter/{{groupOrCenterId}}">{{'label.button.cancel'
+                        | translate}}</a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

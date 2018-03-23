@@ -1,0 +1,60 @@
+<div class="content-container" ng-controller="CenterAttendanceController">
+    <ul class="breadcrumb">
+        <li class="active">attendance</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+                <div class="toolbar">
+                    <h4>{{'label.heading.attendance' | translate}}</h4>
+                </div>
+                <form name="centerattendanceform" novalidate="" class="form-horizontal">
+                    <api-validate></api-validate>
+                    <div class="error" ng-show="errorStatus">{{errorStatus}}</div>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{'label.input.meetingdate' | translate}}<span
+                                    class="required">*</span></label>
+
+                            <div class="col-sm-3">
+                                <input type="text" datepicker-pop="dd MMMM yyyy" id="date" name="date" ng-model="first.date" is-open="opened"
+                                       min="minDate" max="'2020-06-22'" class="form-control" required late-Validate />
+                                <span class="col-sm-12">
+                                    <form-validate valattributeform="centerattendanceform" valattribute="date"/>
+                                </span>
+                                       Next Meeting on:{{meeting.nextTenRecurringDates[0] |
+                                DateFormat}}
+                            </div>
+
+                            <div class="col-sm-5">
+                                <table class="table table-striped" width="100%">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th>{{ 'label.heading.name' | translate }}</th>
+                                        <th>{{ 'label.heading.attendance' | translate }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="client in clients">
+                                        <td>{{client.displayName}}</td>
+                                        <td>
+                                            <div>
+                                                <select id="attendanceId" ng-model="tempData[client.id]" ng-options="attendance.id as attendance.value for attendance in attendanceOptions" value="{{attendance.id}}" class="form-control">
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 paddedleft120">
+                            <a id="cancel" href="#/viewcenter/{{center.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                            <button id="save" type="button" class="btn btn-primary" data-ng-click="attendanceUpdate(meeting.id)" has-permission='CREATE_MEETING'>
+                                {{'label.button.save' | translate}}
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="content-container" ng-controller="ViewClientChargeController">
+        <ul class="breadcrumb">
+            <li><a ng-href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcharge' | translate }}</li>
+        </ul>
+    <div class="card well">
+        <h3 class="bolder"><i class="fa fa-stop  {{ (!(charge.isWaived || charge.isPaid)) |StatusLookup}}"></i>&nbsp;&nbsp;{{charge.name}}
+            <div class="btn-group pull-right">
+                <a uib-tooltip="{{'label.button.paycharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
+                   has-permission='PAY_CLIENTCHARGE' ng-href="#/viewclient/{{clientId}}/paycharge/{{charge.id}}"
+                   class="btn btn-primary">
+                    <i class="fa fa-dollar ">{{'label.button.pay' | translate}}</i>
+                </a> &nbsp;
+                <a uib-tooltip="{{'label.button.waivecharge' | translate}}" ng-show="!charge.isPaid && !charge.isWaived"
+                   has-permission='WAIVE_CLIENTCHARGE' ng-click="waiveCharge(charge.id)" class="btn btn-primary">
+                    <i class="fa fa-flag ">{{'label.button.waivecharge' | translate}}</i>
+                </a>
+                <button type="button" data-ng-click="deleteCharge()" ng-show="!charge.isPaid && !charge.isWaived"
+                        class="btn btn-primary" has-permission='DELETE_CLIENTCHARGE'><i
+                        class="fa fa-trash-o"></i>{{'label.button.delete' | translate}}
+                </button>
+            </div>
+        </h3>
+        <hr>
+
+        <api-validate></api-validate>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{charge.currency.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.chargetimetype' | translate}}</td>
+                        <td>{{charge.chargeTimeType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.chargecalculationtype' | translate}}</td>
+                        <td>{{charge.chargeCalculationType.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.dueasof' | translate}}</td>
+                        <td>{{charge.dueDate|DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.due' | translate}}</td>
+                        <td>{{charge.amount|number}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.paid' | translate}}</td>
+                        <td>{{charge.amountPaid|number}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.waived' | translate}}</td>
+                        <td>{{charge.amountWaived|number}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.outstanding' | translate}}</td>
+                        <td>{{charge.amountOutstanding|number}}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <h3>{{ 'label.heading.transactions' | translate}}</h3>
+            <table id="transactionsTable" data-ng-show="charge.clientTransactionDatas.length > 0"
+                   class="table table-condensed">
+                <tr class="graybg">
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.officeName' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.transactiondate' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+                <tr ng-class="pointer-main; {strikeoff : transaction.reversed}"
+                    ng-repeat="transaction in charge.clientTransactionDatas">
+                    <td class="pointer">{{transaction.id}}</td>
+                    <td class="pointer">{{transaction.officeName}}</td>
+                    <td class="pointer">{{transaction.type.value}}</td>
+                    <td class="pointer">{{transaction.date | DateFormat}}</td>
+                    <td class="pointer">{{transaction.amount | number}}</td>
+                    <td class="pointer">
+                        <a uib-tooltip="{{'label.button.delete' | translate}}" ng-if="!transaction.reversed"
+                           has-permission='UNDOTRANSACTION_CLIENT' ng-click="undoTransaction(transaction.id)"
+                           class="btn btn-xs btn-primary ng-binding">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-offset-5">
+            <a id="cancel" href="#/viewclient/{{clientId}}" class="btn btn-default">{{'label.button.back' |
+                translate}}</a>
+        </div>
+    </div>
+</div>
+

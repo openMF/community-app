@@ -1,0 +1,111 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
+        <li><a href="#/taxcomponents">{{'label.anchor.managetaxcomponents' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createtaxcomponent' | translate}}</li>
+    </ul>
+    <form name="createtaxcomponentform" novalidate="" class="card form-horizontal well"
+          ng-controller="CreateTaxComponentController"
+          rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createtaxcomponent' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
+                           class="form-control"
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createtaxcomponentform" valattribute="name"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.percentage' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="percentage" type="text" name="percentage" ng-model="formData.percentage"
+                           class="form-control" number-format
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="createtaxcomponentform" valattribute="percentage"/>
+                </div>
+            </div>
+
+
+            <div class="form-group" ng-show="false">
+                <label class="control-label col-sm-2">{{ 'label.input.debitaccounttype' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <select id="debitAccountType" ng-model="formData.debitAccountType"
+                            ng-options="accountType.id as accountType.value for accountType in data.glAccountTypeOptions"
+                            value="{{accountType.id}}" class="form-control"
+                            data-ng-change="populateDebitAccount()"></select>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="false">
+                <label class="control-label col-sm-2">{{ 'label.input.debitaccount' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <select id="debitAcountId" ng-model="formData.debitAcountId" class="form-control"
+                            chosen="debitaccounts"
+                            ng-options="account.id as account.name for account in debitaccounts"
+                            value="{{account.id}}">
+                        <option value="">{{'label.select' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.creditaccounttype' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <select id="creditAccountType" ng-model="formData.creditAccountType"
+                            ng-options="accountType.id as accountType.value for accountType in data.glAccountTypeOptions"
+                            value="{{accountType.id}}" class="form-control" data-ng-change="populateCreditAccount()">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.creditaccount' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <select id="creditAcountId" ng-model="formData.creditAcountId" class="form-control"
+                            chosen="creditaccounts"
+                            ng-options="account.id as account.name for account in creditaccounts"
+                            value="{{account.id}}">
+                        <option value="">{{'label.select' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="start.date"
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                </div>
+            </div>
+
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/taxcomponents">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_TAXCOMPONENT'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
