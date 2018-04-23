@@ -532,6 +532,11 @@
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
                         update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
                     }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {},{
+                        getAllNotifications: {method: 'GET', params: {isRead: true, sqlSearch: '@sqlSearch'}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead: false, sqlSearch: '@sqlSearch'}},
+                        update: {method: 'PUT', params:{}}
+                    }),
                     externalServicesS3Resource: defineResource(apiVer + "/externalservice/S3", {},{
                         get: {method: 'GET', params: {}, isArray : true},
                         put: {method: 'PUT', params:{}}
