@@ -112,7 +112,11 @@ Start a static server and open the project in the default browser. The applicati
 ```
 grunt serve
 ```
+### Compile sass to css
 
+```
+grunt compass:dev
+```
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.

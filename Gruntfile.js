@@ -374,17 +374,20 @@ module.exports = function(grunt) {
     compass: {                  // Task
         dist: {                   // Target
           options: {              // Target options
-            sassDir: 'app/styles-dev/main',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/',
             environment: 'production',
-            require: 'sass-css-importer'
+            require: 'sass-css-importer',
+            outputStyle: 'compressed',
           }
         },
         dev: {                    // Another target
           options: {
-            sassDir: 'app/styles-dev/main',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/',
-            require: 'sass-css-importer'
+            environment: 'development',
+            require: 'sass-css-importer',
+            outputStyle: 'expanded',
           }
         }
     },
