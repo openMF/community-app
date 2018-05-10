@@ -81,14 +81,12 @@
                            </div>
                            <label data-ng-switch on="showNonPersonOptions" class="control-label col-sm-2" for="isStaff">{{ 'label.input.isStaff' | translate }}</label>
 
-                           <div data-ng-switch on="showNonPersonOptions" class="col-sm-3">
-                              <label class="checkbox">
-                                 <input type="checkbox" id="isStaff" ng-model="formData.isStaff">
-                              </label>
+                                <div data-ng-switch on="showNonPersonOptions" class="col-sm-3">
+                                    <input type="checkbox" id="isStaff" ng-model="formData.isStaff">
+                                </div>
                            </div>
                         </div>
                      </div>
-                  </div>
                   <div data-ng-switch on="showNonPersonOptions">
                      <div data-ng-switch-when="false">
                         <div class="form-group">
@@ -282,6 +280,9 @@
 
                       <div ng-repeat="family in familyArray">
                         <div class="container">
+                            <div class="remove-btn">
+                                <a ng-click="removeFamilyMember($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
+                            </div>
                           <div class="form-group" >
                               <div class="control-label col-sm-2">
                                   <label>{{ 'label.input.relationship' | translate }}<span class="required">*</span></label>
@@ -294,7 +295,6 @@
                               <div class = "col-sm-2">
                                   <form-validate valattributeform="createclientform" valattribute="addressType"/>
                               </div>
-                              <a ng-click="removeFamilyMember($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
                           </div>
 
 
@@ -425,6 +425,9 @@
                      </div>
                      <div ng-repeat="addr in addressArray">
                          <div class="container">
+                            <div class="remove-btn">
+                                <a ng-click="removeAddress($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
+                            </div>
                         <div class="form-group" >
                            <div class="control-label col-sm-2">
                               <label>{{ 'label.input.addressType' | translate }}<span class="required">*</span></label>
@@ -437,7 +440,6 @@
                            <div class = "col-sm-2">
                               <form-validate valattributeform="createclientform" valattribute="addressType"/>
                            </div>
-                           <a ng-click="removeAddress($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
                         </div>
                         <div class="form-group" ng-show="street">
                            <div class="control-label col-sm-2">
