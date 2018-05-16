@@ -47,34 +47,36 @@
             </div>
             <div ng-show="displayResults">
                 <br>
-                <table class="table">
-                    <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.fromClient' | translate}}</th>
-                        <th>{{'label.heading.fromaccount' | translate}}</th>
-                        <th>{{'label.heading.toClient' | translate}}</th>
-                        <th>{{'label.heading.toaccount' | translate}}</th>
-                        <th>{{'label.heading.executionTime' | translate}}</th>
-                        <th>{{'label.heading.amount' | translate}}</th>
-                        <th>{{'label.heading.status' | translate}}</th>
-                        <th>{{'label.heading.errorlog' | translate}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="pointer-main" ng-repeat="transaction in transactions.currentPageItems">
-                        <td>{{transaction.fromClient.displayName}}({{transaction.fromClient.id}})</td>
-                        <td>{{transaction.fromAccount.productName}}({{transaction.fromAccount.id}})</td>
-                        <td>{{transaction.toClient.displayName}}({{transaction.toClient.id}})</td>
-                        <td>{{transaction.toAccount.productName}}({{transaction.toAccount.id}})</td>
-                        <td>{{transaction.executionTime | DateFormat}}</td>
-                        <td>{{transaction.amount}}</td>
-                        <td>{{transaction.status}}</td>
-                        <td>
-                            <button data-ng-show="isFailed(transaction)" class="btn-warning" ng-click="errorLog(transaction)"><i class="fa fa-exclamation"></i></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.fromClient' | translate}}</th>
+                            <th>{{'label.heading.fromaccount' | translate}}</th>
+                            <th>{{'label.heading.toClient' | translate}}</th>
+                            <th>{{'label.heading.toaccount' | translate}}</th>
+                            <th>{{'label.heading.executionTime' | translate}}</th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
+                            <th>{{'label.heading.errorlog' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="pointer-main" ng-repeat="transaction in transactions.currentPageItems">
+                            <td>{{transaction.fromClient.displayName}}({{transaction.fromClient.id}})</td>
+                            <td>{{transaction.fromAccount.productName}}({{transaction.fromAccount.id}})</td>
+                            <td>{{transaction.toClient.displayName}}({{transaction.toClient.id}})</td>
+                            <td>{{transaction.toAccount.productName}}({{transaction.toAccount.id}})</td>
+                            <td>{{transaction.executionTime | DateFormat}}</td>
+                            <td>{{transaction.amount}}</td>
+                            <td>{{transaction.status}}</td>
+                            <td>
+                                <button data-ng-show="isFailed(transaction)" class="btn-warning" ng-click="errorLog(transaction)"><i class="fa fa-exclamation"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <ul class="pager">
                     <li class="previous"><a id="prev" ng-click="transactions.previous()" href="" ng-disabled="!transactions.hasPrevious()">&larr; {{'label.button.previous' |
                         translate}}</a></li>

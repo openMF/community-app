@@ -1,6 +1,6 @@
 <div class="content-container" ng-controller="ListStandingInstructionController">
     <ul class="breadcrumb" >
-        <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}" ng-show="fromClient">{{standinginstruction.fromClient.displayName}}</a></li>
+        <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}" ng-show="fromClient">{{standinginstruction.fromClient.displayName}}</a></li><div class="content-container" ng-controller="ListStandingInstructionController"></div>
         <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
     </ul>
     <div class="card">
@@ -50,47 +50,49 @@
                         </div>
                     </div>
                     <div ng-show="displayResults" class="marginbuttontop25px">
-                        <table class="table">
-                            <thead>
-                            <tr class="graybg">
-                                <th>{{'label.heading.client' | translate}}</th>
-                                <th>{{'label.heading.fromaccount' | translate}}</th>
-                                <th>{{'label.heading.toclient' | translate}}</th>
-                                <th>{{'label.heading.toaccount' | translate}}</th>
-                                <th>{{'label.heading.amount' | translate}}</th>
-                                <th>{{'label.heading.validity' | translate}}</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="instruction in instructions.currentPageItems">
-                                <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
-                                <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
-                                <td>
-                                    <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
-                                    <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.client' | translate}}</th>
+                                    <th>{{'label.heading.fromaccount' | translate}}</th>
+                                    <th>{{'label.heading.toclient' | translate}}</th>
+                                    <th>{{'label.heading.toaccount' | translate}}</th>
+                                    <th>{{'label.heading.amount' | translate}}</th>
+                                    <th>{{'label.heading.validity' | translate}}</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="instruction in instructions.currentPageItems">
+                                    <td>{{instruction.fromClient.displayName}}-{{instruction.fromClient.id}}</td>
+                                    <td>{{instruction.fromAccount.accountNo}}({{instruction.fromAccountType.value}})</td>
+                                    <td>
+                                        <div ng-show="instruction.fromClient.id != instruction.toClient.id">{{instruction.toClient.displayName}}</div>
+                                        <div ng-show="instruction.fromClient.id == instruction.toClient.id">{{'label.heading.ownaccount' | translate}}</div>
 
-                                </td>
-                                <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
-                                <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
-                                <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
-                                <td class="select-row:selection">
-                                    <a type="button"  class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a type="button" class="btn btn-danger" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                    <a type="button" class="btn btn-warning" has-permission='READ_STANDINGINSTRUCTION'
-                                       href="#/viewstandinginstruction/{{instruction.id}}">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </a>
+                                    </td>
+                                    <td>{{instruction.toAccount.accountNo}}({{instruction.toAccountType.value}})</td>
+                                    <td>{{instruction.instructionType.value}}/{{instruction.amount | number}}</td>
+                                    <td>{{instruction.validFrom | DateFormat}} to {{instruction.validTill | DateFormat}}</td>
+                                    <td class="select-row:selection">
+                                        <a type="button"  class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{instruction.id}}/list">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a type="button" class="btn btn-danger" has-permission='DELETE_STANDINGINSTRUCTION' data-ng-show="instruction.status.value!='Deleted'"  data-ng-click="deletestandinginstruction(instruction.id)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        <a type="button" class="btn btn-warning" has-permission='READ_STANDINGINSTRUCTION'
+                                        href="#/viewstandinginstruction/{{instruction.id}}">
+                                            <i class="fa fa-eye-slash"></i>
+                                        </a>
 
-                                </td>
-                            </tr>
-                            </tbody>
+                                    </td>
+                                </tr>
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
                         <ul class="pager">
                             <li class="previous"><a id="prev" ng-click="instructions.previous()" href=""
                                                     ng-show="instructions.hasPrevious()">&larr; {{'label.button.previous' |

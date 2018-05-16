@@ -264,7 +264,8 @@
                     {{'label.'+labelchargeerror | translate}}
                 </small>
             </span>
-        <table class="table" class="width100" ng-show="charges.length>0">
+        <div class="table-responsive">
+            <table class="table" class="width100" ng-show="charges.length>0">
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.heading.type' | translate}}</th>
@@ -301,6 +302,7 @@
                 <td><a ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
             </tr>
         </table>
+    </div>
         </div>
         <div class="col-md-offset-5 paddedtop">
             <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
@@ -311,13 +313,14 @@
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.heading.incentives' | translate}}</h3>
                 <h3 class="bolder">{{'label.heading.customerattributes' | translate}}</h3>
-                <table class="table table-bordered width100">
+            <div class="table-responsive width100">   
+                <table class="table table-bordered">
                     <tr class="graybg">
-                        <td  class="width20">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
-                        <td class="width20">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
-                        <td class="width20">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
-                        <td class="width20">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
-                        <td class="width20">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
+                        <td  class="">{{'label.heading.interestratedetails.incentive.attributename' | translate}}</td>
+                        <td class="">{{'label.heading.interestratedetails.incentive.conditiontype' | translate}}</td>
+                        <td class="">{{'label.heading.interestratedetails.incentive.attributevalue' | translate}}</td>
+                        <td class="">{{'label.heading.interestratedetails.incentive.incentivetype' | translate}}</td>
+                        <td class="">{{'label.heading.interestratedetails.incentive.amount' | translate}}</td>
                     </tr>
                     <tr ng-repeat="incentiveData in chartSlab.incentives">
                         <td>{{incentiveData.attributeName.code | translate}}</td>
@@ -327,6 +330,7 @@
                         <td>{{incentiveData.amount | number}}</td>
                     </tr>
                 </table>
+            </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancel()">{{'label.button.close' | translate}}</button>
