@@ -418,7 +418,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-gh-pages')
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  grunt.registerTask('serve', ['clean:server', 'copy:server', 'compass:dev', 'connect:livereload', 'watch']);
 
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
