@@ -16,6 +16,7 @@
                 scope.saveSC();
             };
 
+            scope.DataTablesPerPage = 15;
             resourceFactory.DataTablesResource.getAllDataTables(function (data) {
                 scope.datatables = data;
             });

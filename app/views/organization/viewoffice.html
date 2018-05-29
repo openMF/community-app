@@ -13,7 +13,7 @@
                             <div class="row primarydiv">
                                 <div class="pull-right">
                                     <div class="btn-group">
-                                        <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="fa fa-edit "></i>{{
+                                        <a href="#/editoffice/{{office.id}}" class="btn btn-primary" has-permission='UPDATE_OFFICE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{
                                             'label.button.edit' | translate }}</a>
                                     </div>
                                 </div>
@@ -44,18 +44,18 @@
                 <uib-tab heading="{{officedatatable.registeredTableName}}" ng-repeat="officedatatable in officedatatables"
                      select="dataTableChange(officedatatable)" has-permission='READ_{{officedatatable.registeredTableName}}'>
                     <div>
-                        <div class="btn-group pull-right">
-                            <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-                               ng-click="deleteAll(officedatatable.registeredTableName, office.id)" has-permission='DELETE_{{officedatatable.registeredTableName}}'><i
-                                    class="fa fa-trash "></i>{{'label.button.deleteall' | translate}}</a>
+                        <div class="form-group pull-right">
                             <a data-ng-show="showDataTableAddButton"
                                ng-href="#/makedatatableentry/{{officedatatable.registeredTableName}}/{{office.id}}?fromEntity=office"
                                class="btn btn-primary" has-permission='CREATE_{{officedatatable.registeredTableName}}'><i
-                                    class="fa fa-plus "></i>{{'label.button.add' | translate}}</a>
+                               class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</a>
                             <a data-ng-show="showDataTableEditButton"
                                ng-href="#/viewsingledatatableentry/{{officedatatable.registeredTableName}}/{{office.id}}?mode=edit"
                                class="btn btn-primary" has-permission='UPDATE_{{officedatatable.registeredTableName}}'><i
-                                    class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
+                               class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                            <a ng-show="datatabledetails.isData" class="btn btn-danger"
+                               ng-click="deleteAll(officedatatable.registeredTableName, office.id)" has-permission='DELETE_{{officedatatable.registeredTableName}}'><i
+                               class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.deleteall' | translate}}</a>
                         </div>
                         <br>
                         <br>

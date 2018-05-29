@@ -18,10 +18,11 @@
     		
     		        <div class="col-sm-3">
     		            <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
-    		                    ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+    		                    ng-options="office.id as office.name for office in offices" name="officeId" value="{{office.id}}"
     		                    ng-change="updateLastClosed(formData.officeId)" required="required">
     		                <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
     		            </select>
+                        <form-validate valattributeform="createclosureform" valattribute="officeId"/>
     		            <span ng-show="lastClosed">{{ 'label.input.previouslyclosedon' | translate }} - {{lastClosed | DateFormat}}</span>
     		        </div>
     		    </div>

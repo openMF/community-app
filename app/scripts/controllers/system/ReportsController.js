@@ -18,6 +18,7 @@
                 scope.saveSC();
             }
 
+            scope.ReportsPerPage = 15;
             resourceFactory.reportsResource.getReport(function (data) {
                 scope.reports = data;
             });

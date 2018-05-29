@@ -4,7 +4,7 @@
         <li class="active">{{'label.anchor.viewroles' | translate}}</li>
     </ul>
 	<div class="pull-right">
-	    <a href="#/admin/addrole" class="btn btn-primary" has-permission='CREATE_ROLE'><i class="fa fa-plus "></i> {{'label.button.addrole' |
+	    <a href="#/admin/addrole" class="btn btn-primary" has-permission='CREATE_ROLE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addrole' |
 	        translate}}</a>
 	</div>
 	<div class="card" data-ng-controller="RoleController">
@@ -18,7 +18,7 @@
 	        </tr>
 	        </thead>
 	        <tbody>
-	        <tr class="pointer-main" data-ng-repeat="role in roles | orderBy:'name':reverse">
+	        <tr class="pointer-main" dir-paginate="role in roles | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: RolesPerPage">
 	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.name}}</td>
 	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.description}}</td>
 				<td class="pointer" data-ng-click="routeTo(role.id)">
@@ -28,5 +28,6 @@
 	        </tr>
 	        </tbody>
 	    </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
 	</div>
 </div>

@@ -50,9 +50,9 @@
                             <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" />
                         </div>
                         <div class="col-sm-3" ng-switch on="s.fieldType" ng-if="!s.optional">
-                            <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-Validate />
-                            <input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-Validate />
-                            <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-Validate />
+                            <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-validate />
+                            <input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-validate />
+                            <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" required late-validate />
                         </div>
                     </div>
 
@@ -92,7 +92,7 @@
                                 <option style="display:none" value="">{{'label.selectaction' | translate}}</option>
                             </select>
                         </div>
-                        <a ng-click="addEvent()"><i class="fa fa-plus "></i></a>
+                        <a ng-click="addEvent()" class="btn btn-primary"><i class="fa fa-plus "></i></a>
                     </div>
 
                     <table class="table" width="100%" ng-show="events.length>0">
@@ -103,7 +103,7 @@
                         <tr ng-repeat="event in events">
                             <td>{{event.entityName}}</td>
                             <td>{{event.actionName}}</td>
-                            <td><a ng-click="deleteEvent($index)"><i class="fa fa-times "></i></a></td>
+                            <td><a ng-click="deleteEvent($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                         </tr>
                     </table>
 

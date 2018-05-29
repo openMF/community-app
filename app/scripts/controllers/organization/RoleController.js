@@ -5,6 +5,8 @@
             scope.routeTo = function (id) {
                 location.path('/admin/viewrole/' + id);
             };
+
+            scope.RolesPerPage = 15;
             resourceFactory.roleResource.getAllRoles({}, function (data) {
                 scope.roles = data;
             });

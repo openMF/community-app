@@ -84,7 +84,7 @@
                            uib-tooltip="{{'label.tooltip.shareproductdecimalplaces' | translate}}"></i>
                         <div class="col-sm-2">
                             <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
-                                   ng-model="formData.digitsAfterDecimal" required late-validate/>
+                                   ng-model="formData.digitsAfterDecimal" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="decimalplace"/>
@@ -98,7 +98,7 @@
                         <div class="col-sm-2">
                             <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
                                    ng-model="formData.inMultiplesOf"
-                                   required late-validate/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="multiplesof"/>
@@ -126,7 +126,7 @@
                         <div class="col-sm-2">
                             <input id="totalnumberofshares" name="totalnumberofshares" number-format
                                    class="form-control"
-                                   ng-model="formData.totalShares" required late-validate/>
+                                   ng-model="formData.totalShares" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="totalnumberofshares"/>
@@ -139,8 +139,10 @@
                         <div class="col-sm-2">
                             <input ng-autofocus="true" type="text" id="totalsharestobeissued" name="totalsharestobeissued"
                                    ng-model="formData.sharesIssued"
-                                   number-format class="form-control" ng-change = "shareCapitaValue()"/>
+                                   number-format class="form-control" ng-change = "shareCapitaValue()" required late-validate number=true />
+                        <form-validate valattributeform="Terms" valattribute="totalsharestobeissued"/>
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{ 'label.input.nominalprice' | translate }}<span
@@ -149,7 +151,7 @@
                            uib-tooltip="{{'label.tooltip.nominalprice' | translate}}"></i>
                         <div class="col-sm-2">
                             <input id="nominalprice" name="nominalprice" number-format class="form-control"
-                                   ng-model="formData.unitPrice" required late-validate  ng-change = "shareCapitaValue()"/>
+                                   ng-model="formData.unitPrice" required late-validate number=true ng-change = "shareCapitaValue()"/>
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="nominalprice"/>
@@ -187,20 +189,20 @@
 
                         <div class="col-sm-2">
                             <input id="minimumshares" placeholder="{{'label.input.minimum' | translate}}" type="text"
-                                   class="form-control" ng-model="formData.minimumShares" required>
+                                   class="form-control" ng-model="formData.minimumShares" required late-validate>
                         </div>
                         <div class="col-sm-2">
                             <input type="text" id="nominalsharesperclient"
                                    placeholder="{{'label.input.default' | translate}}"
                                    name="interestRatePerPeriod" class="form-control" ng-model="formData.nominalShares"
-                                   required/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <input id="maximumshares" placeholder="{{'label.input.maximum' | translate}}" type="text"
                                    class="form-control" ng-model="formData.maximumShares" required>
                         </div>
                         <div class="col-sm-2">
-                            <form-validate valattributeform="Terms" valattribute="nominalsharesperclient"/>
+                            <form-validate valattributeform="Settings" valattribute="interestRatePerPeriod"/>
                         </div>
                     </div>
 
@@ -210,8 +212,9 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.minimumactiveperiod' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="minimumactiveperiod" type="text" class="form-control"
-                                   number-format ng-model="formData.minimumActivePeriodForDividends">
+                            <input id="minimumactiveperiod" type="text" name="minimumactiveperiod" class="form-control"
+                                   number-format ng-model="formData.minimumActivePeriodForDividends" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="minimumactiveperiod"/>
                         </div>
 
                         <div class="col-sm-2">
@@ -232,8 +235,9 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.shareproductlockinPeriodFrequency' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="lockinPeriodFrequency" type="text" class="form-control"
-                                   ng-model="formData.lockinPeriodFrequency">
+                            <input id="lockinPeriodFrequency" type="text" name="lockinPeriodFrequency" class="form-control"
+                                   ng-model="formData.lockinPeriodFrequency" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="lockinPeriodFrequency"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
@@ -279,8 +283,8 @@
                             </label>
                         </div>
                         <div class="col-sm-1">
-                            <input id="add" data-ng-click="addMarketPricePeriod()" type="button" class="btn btn-primary"
-                                   name="add" value="{{'label.button.add' | translate}}"/>
+                            <button id="add" data-ng-click="addMarketPricePeriod()" class="btn btn-primary"
+                                   name="add"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
                         </div>
                     </div>
 
@@ -309,13 +313,13 @@
                             <td>
                                 <ng-form name="shareValue{{$index}}">
                                     <input id="shareValue" name="shareValue" class="form-control" type="text"
-                                           ng-model="marketpriceperiod.shareValue" number-format required/>
+                                           ng-model="marketpriceperiod.shareValue" number-format required late-validate number=true />
                                     <span class="error"
                                           ng-show="visitValidation&&shareValue{{$index}}.shareValue.$error.required">{{ 'label.requirefield' | translate }}</span>
                                 </ng-form>
                             </td>
                             <td>
-                                <a ng-click="deleteMarketPricePeriod($index)"><i class="fa fa-times "></i></a>
+                                <a ng-click="deleteMarketPricePeriod($index)"><i class="fa fa-times-circle fa-2x"></i></a>
                             </td>
                         </tr>
                     </table>
@@ -342,7 +346,7 @@
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <a class="btn btn-primary" ng-click="chargeSelected(chargeId)">{{ 'label.button.add' |
+                            <a class="btn btn-primary" ng-click="chargeSelected(chargeId)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ 'label.button.add' |
                                 translate }}</a>
                         </div>
                     </div>
@@ -366,7 +370,7 @@
                                 <td></td>
                                 <td>{{charge.chargeTimeType.value}}</td>
                                 <td></td>
-                                <td><a href="" ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
+                                <td><a href="" ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                             </tr>
                         </table>
                     </div>
@@ -467,7 +471,7 @@
                 </fieldset>
             </form>
         </wz-step>
-        <wz-step wz-title="Preview">
+        <wz-step ng-if="isClicked" wz-title="Preview">
             <form name="Preview" novalidate="" class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
@@ -628,7 +632,7 @@
                     <br>
                     <br>
                     <div class="col-md-offset-5 paddedtop">
-                        <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">
+                        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">
                             {{'label.button.cancel' | translate}}
                         </button>
                         <button id="save" wz-next class="btn btn-primary" has-permission='CREATE_SAVINGSPRODUCT'

@@ -21,7 +21,7 @@
         <div class="modal-body ">
             <api-validate></api-validate>
             <br>
-            <button class="btn btn-warning" ng-click="cancelDeleteRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-default" ng-click="cancelDeleteRole()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="deleteRoles()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
@@ -32,7 +32,7 @@
         <div class="modal-body ">
             <api-validate></api-validate>
             <br>
-            <button class="btn btn-warning" ng-click="cancelDisableRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-default" ng-click="cancelDisableRole()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="disableRoles()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
@@ -43,7 +43,7 @@
         <div class="modal-body ">
             <api-validate></api-validate>
             <br>
-            <button class="btn btn-warning" ng-click="cancelEnableRole()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-default" ng-click="cancelEnableRole()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="enableRoles()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
@@ -64,26 +64,26 @@
         <hr>
         <div class="pull-right" ng-show="isDisabled">
             <div class="btn-group">
-                <a data-ng-click="editRoles(); backupCheckValues()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="fa fa-edit "></i>{{
-                    'label.button.edit' | translate }}</a>
+                <a data-ng-click="editRoles(); backupCheckValues()" class="btn btn-primary" has-permission='UPDATE_ROLE'><i class="fa fa-edit "></i>&nbsp;&nbsp;
+                {{ 'label.button.edit' | translate }}</a>
 			</div>
             <div class="btn-group" ng-if="!isRoleEnable(role.disabled)">
-                <a data-ng-click="disableRolesConfirmation()" class="btn btn-primary" has-permission='DISABLE_ROLE'><i class="fa fa-trash "></i>{{
-                    'label.button.disable' | translate }}</a>
+                <a data-ng-click="disableRolesConfirmation()" class="btn btn-danger" has-permission='DISABLE_ROLE'><i class="fa fa-lock "></i>&nbsp;&nbsp;
+                {{ 'label.button.disable' | translate }}</a>
             </div>
             <div class="btn-group" ng-if="isRoleEnable(role.disabled)">
-                <a data-ng-click="enableRolesConfirmation()" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="fa fa-trash "></i>{{
-                    'label.button.enable' | translate }}</a>
+                <a data-ng-click="enableRolesConfirmation()" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="fa fa-unlock-alt "></i>&nbsp;&nbsp;
+                {{ 'label.button.enable' | translate }}</a>
             </div>
 			<div class="btn-group">
-					<a data-ng-click="deleteRolesConfirmation()" class="btn btn-primary" has-permission='DELETE_ROLE'><i class="fa fa-trash "></i>{{
-                    'label.button.delete' | translate }}</a>
+					<a data-ng-click="deleteRolesConfirmation()" class="btn btn-danger" has-permission='DELETE_ROLE'><i class="fa fa-trash-o "></i>&nbsp;&nbsp;
+					{{ 'label.button.delete' | translate }}</a>
             </div>
 			
         </div>
-		<div class="btn-group" ng-show="!isDisabled" style="float: right">
+		<div class="form-group" ng-show="!isDisabled" style="float: right">
                <a data-ng-click="selectAll(false)" class="btn btn-primary"><i class="fa fa-ok-sign "></i>{{'label.button.selectAll' | translate}}</a>
-			   <a data-ng-click="selectAll(true)" class="btn btn-danger"><i class="fa fa-remove-sign "></i>{{'label.button.deselectAll' | translate}}</a>
+			   <a data-ng-click="selectAll(true)" class="btn btn-default"><i class="fa fa-remove-sign "></i>{{'label.button.deselectAll' | translate}}</a>
 			   
          </div>
         <h3>{{'label.heading.permissions' | translate}}:&nbsp;&nbsp;<strong>{{formatName(previousGrouping)}}</strong>

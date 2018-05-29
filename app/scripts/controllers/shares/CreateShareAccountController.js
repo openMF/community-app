@@ -14,6 +14,7 @@
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId
             }
+            scope.disabled = true;
             resourceFactory.shareAccountTemplateResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
                 scope.chargeOptions = data.chargeOptions;
@@ -30,6 +31,7 @@
                     scope.sharedetails = angular.copy(scope.formData);
                     scope.sharedetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
                 });
+                scope.disabled = false;
 
             };
 

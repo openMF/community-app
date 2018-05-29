@@ -5,6 +5,7 @@
             scope.actualGroups = [];
             scope.searchText = "";
             scope.searchResults = [];
+            scope.showClosed = false;
             scope.routeTo = function (id) {
                 location.path('/viewgroup/' + id);
             };

@@ -83,7 +83,7 @@
                            uib-tooltip="{{'label.tooltip.decimalplaces' | translate}}"></i>
                         <div class="col-sm-2">
                             <input type="text" id="digitsAfterDecimal" name="decimalplace" class="form-control"
-                                   ng-model="formData.digitsAfterDecimal" required late-validate/>
+                                   ng-model="formData.digitsAfterDecimal" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="decimalplace"/>
@@ -97,7 +97,7 @@
                         <div class="col-sm-2">
                             <input type="text" id="inMultiplesOf" class="form-control" name="multiplesof"
                                    ng-model="formData.inMultiplesOf"
-                                   required late-validate/>
+                                   required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Currency" valattribute="multiplesof"/>
@@ -125,7 +125,7 @@
                         <div class="col-sm-2">
                             <input id="nominalAnnualInterestRate" name="nominalAnnualInterestRate" type="text"
                                    class="form-control"
-                                   ng-model="formData.nominalAnnualInterestRate" required late-validate/>
+                                   ng-model="formData.nominalAnnualInterestRate" required late-validate number=true />
                         </div>
                         <div class="col-sm-2">
                             <form-validate valattributeform="Terms" valattribute="nominalAnnualInterestRate"/>
@@ -199,16 +199,18 @@
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.minimumopeningbalance' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="minRequiredOpeningBalance" type="text" class="form-control"
-                                   number-format ng-model="formData.minRequiredOpeningBalance">
+                            <input id="minRequiredOpeningBalance" type="text" name="minRequiredOpeningBalance" class="form-control"
+                                   number-format ng-model="formData.minRequiredOpeningBalance" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="minRequiredOpeningBalance"/>
                         </div>
                         <label class="control-label col-sm-2">{{ 'label.input.lockinPeriodFrequency' | translate
                             }}</label>
                         <i class="fa fa-question-circle col-sm-1"
                            uib-tooltip="{{'label.tooltip.lockinPeriodFrequency' | translate}}"></i>
                         <div class="col-sm-2">
-                            <input id="lockinPeriodFrequency" type="text" class="form-control"
-                                   ng-model="formData.lockinPeriodFrequency">
+                            <input id="lockinPeriodFrequency" type="text" name="lockinPeriodFrequency" class="form-control"
+                                   ng-model="formData.lockinPeriodFrequency" late-validate number=true>
+                            <form-validate valattributeform="Settings" valattribute="lockinPeriodFrequency"/>
                         </div>
                         <div class="col-sm-2">
                             <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
@@ -384,7 +386,7 @@
                             </select>
                         </div>
                         <div class="col-sm-1">
-                            <a class="btn btn-primary" ng-click="chargeSelected(chargeId)">{{ 'label.button.add' |
+                            <a class="btn btn-primary" ng-click="chargeSelected(chargeId)"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ 'label.button.add' |
                                 translate }}</a>
                         </div>
                     </div>
@@ -408,7 +410,7 @@
                                 <td></td>
                                 <td>{{charge.chargeTimeType.value}}</td>
                                 <td></td>
-                                <td><a href="" ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
+                                <td><a href="" ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                             </tr>
                         </table>
                     </div>
@@ -585,7 +587,7 @@
                                 translate}}
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-primary" ng-click="addConfigureFundSource()">{{ 'label.button.add' |
+                                <a class="btn btn-primary" ng-click="addConfigureFundSource()"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ 'label.button.add' |
                                     translate}}</a>
                             </div>
                             <table class="table">
@@ -617,12 +619,12 @@
                                         </select>
                                     </td>
                                     <td></td>
-                                    <td class="width30"><i class="fa fa-times" ng-click="deleteFund($index)"></i></td>
+                                    <td class="width30"><a ng-click="deleteFund($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                                 </tr>
                             </table>
                             <div class="col-md-8">{{'label.heading.mapfeestoincomeaccounts' | translate}}</div>
                             <div class="col-md-4">
-                                <a class="btn btn-primary" ng-click="mapFees()">{{ 'label.button.add' | translate }}</a>
+                                <a class="btn btn-primary" ng-click="mapFees()"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ 'label.button.add' | translate }}</a>
                             </div>
                             <table class="table">
                                 <tr class="graybg">
@@ -653,13 +655,13 @@
                                         </select>
                                     </td>
                                     <td></td>
-                                    <td class="width30"><i class="fa fa-times" ng-click="deleteFee($index)"></i></td>
+                                    <td class="width30"><a ng-click="deleteFee($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                                 </tr>
                             </table>
                             <div class="col-md-8">{{'label.heading.mappenaltiestospecificincomeaccounts' | translate}}
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-primary" ng-click="mapPenalty()">{{ 'label.button.add' | translate
+                                <a class="btn btn-primary" ng-click="mapPenalty()"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{ 'label.button.add' | translate
                                     }}</a>
                             </div>
                             <table class="table">
@@ -691,7 +693,7 @@
                                         </select>
                                     </td>
                                     <td></td>
-                                    <td class="width30"><i class="fa fa-times" ng-click="deletePenalty($index)"></i>
+                                    <td class="width30"><a ng-click="deletePenalty($index)"><i class="fa fa-times-circle fa-2x"></i></a>
                                     </td>
                                 </tr>
                             </table>
@@ -705,7 +707,7 @@
                 </fieldset>
             </form>
         </wz-step>
-        <wz-step wz-title="Preview">
+        <wz-step ng-if="isClicked" wz-title="Preview">
             <form name="Preview" novalidate=""  class="form-horizontal">
                 <fieldset>
                     <api-validate></api-validate>
@@ -1008,7 +1010,7 @@
                     <br>
                     <br>
                     <div class="col-md-offset-5 paddedtop">
-                        <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">
+                        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">
                             {{'label.button.cancel' | translate}}
                         </button>
                         <button id="save" wz-next class="btn btn-primary" has-permission='CREATE_SAVINGSPRODUCT'>{{'label.button.createsavingproduct'

@@ -88,23 +88,22 @@
             }
 
             scope.entityChange = function (entityId) {
-                scope.mappers.splice(0, 1);
                 if (entityId != 0) {
-                    scope.mappers.push({
+                    scope.mappers.splice(0, 1, {
                         mappersorder: 0,
                         mapperskey: "loan",
                         mappersvalue: "loans/{{loanId}}?associations=all&tenantIdentifier=" + $rootScope.tenantIdentifier,
-                        disable: 'true'
+                        defaultAddIcon: 'true'
                     });
                     scope.loanKeys();
                     scope.templateKeyEntity = "Loan";
                 } else {
                     scope.templateKeyEntity = "Client";
-                    scope.mappers.push({
+                    scope.mappers.splice(0, 1, {
                         mappersorder: 0,
                         mapperskey: "client",
                         mappersvalue: "clients/{{clientId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
-                        disable: 'true'
+                        defaultAddIcon: 'true'
                     });
                     scope.clientKeys();
                 }

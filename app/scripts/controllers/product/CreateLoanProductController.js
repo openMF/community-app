@@ -81,6 +81,7 @@
                 scope.formData.allowVariableInstallments = false ;
                 scope.product.interestRecalculationNthDayTypeOptions.push({"code" : "onDay", "id" : -2, "value" : "on day"});
                 scope.loanproduct = angular.copy(scope.formData);
+                scope.isClicked = false;
             });
 
              scope.$watch('formData',function(newVal){
@@ -98,6 +99,7 @@
 
             scope.goNext = function(form){
                 WizardHandler.wizard().checkValid(form);
+                scope.isClicked = true;
             }
 
             scope.chargeSelected = function (chargeId) {
