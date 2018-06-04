@@ -232,7 +232,6 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            console.log(translate.use);
             translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {
