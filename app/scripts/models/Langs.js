@@ -11,7 +11,8 @@
             { "name": "ພາສາລາວ", "code": "lo" },
             { "name": "tiếng Việt", "code": "vi" },
             { "name": "မြန်မာ", "code": "my_MM" },
-            { "name": "ဇော်ဂျီ", "code": "my" }
+            { "name": "ဇော်ဂျီ", "code": "my" },
+            { "name": "አማርኛ", "code": "et" }
         ]
     });
 }(mifosX.models || {}));

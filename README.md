@@ -18,7 +18,11 @@ Travis
 
 ## Building from source
 
-1. Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.       
+1. Ensure you have 
+
+   ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.    
+   ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
+
 <br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
 <br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
 
@@ -30,13 +34,16 @@ Travis
     npm install -g grunt-cli
    ```
 
-1. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
+1. Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
 
    ```
     bower install
    ```
    ```
     npm install
+   ```
+   ```
+    bundler install
    ```
 
 1. To preview the app, run the following command on the project root folder
@@ -112,7 +119,11 @@ Start a static server and open the project in the default browser. The applicati
 ```
 grunt serve
 ```
+### Compile sass to css
 
+```
+grunt compass:dev
+```
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.
