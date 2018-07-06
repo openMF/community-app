@@ -19,7 +19,6 @@
                             } else {
                                 ctrl.$setValidity('req', true);
                             }
-                            console.log(scope.number);
                             if(scope.number) {
                                 if (isMatchRegex || elm.val() == '') {
                                     ctrl.$setValidity('nval', true);
