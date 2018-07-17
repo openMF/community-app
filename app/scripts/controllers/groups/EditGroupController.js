@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditGroupController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditGroupController: function (scope, resourceFactory, location, routeParams, dateFilter, WizardHandler) {
             scope.first = {};
             scope.managecode = routeParams.managecode;
             scope.restrictDate = new Date();
@@ -187,7 +187,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditGroupController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditGroupController]).run(function ($log) {
+    mifosX.ng.application.controller('EditGroupController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','WizardHandler', mifosX.controllers.EditGroupController]).run(function ($log) {
         $log.info("EditGroupController initialized");
     });
 }(mifosX.controllers || {}));
