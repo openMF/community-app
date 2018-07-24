@@ -7,10 +7,10 @@ We would love you to contribute to Community and help make it better than it is 
 - [Issues and Bugs](#issue)
 - [Feature Requests](#feature)
 - [Submission Guidelines](#submit)
-- [Commit Message Guidelines](#commit)
+- [Commit Message Guidelines](#submit-pr)
 - [Communication Channels](#communication)
 
-## <a name=""build"></a> Building the community app
+## <a name="build"></a> Building the community app
 
 ## Building from source
 
