@@ -14,7 +14,7 @@
             'webstorage': '../bower_components/angular-webstorage/angular-webstorage.min',
             'require-css': '../bower_components/require-css/css',
             'd3': '../bower_components/d3/d3.min',
-            'nvd3': '../bower_components/nvd3/build/nv.d3.min',
+            'nvd3': '../bower_components/nvd3/nv.d3.min',
             'nvd3ChartDirectives': '../scripts/modules/angularjs-nvd3-directives',
             'styles': '../styles',
             'test': '../test/functional',
