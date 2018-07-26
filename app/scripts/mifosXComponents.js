@@ -358,7 +358,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'NumberFormatDirective',
             'SuccessfulResponsesDirective',
             'TabsPersistenceDirective',
-            'ScrollableDirective'
+            'ScrollableDirective',
+            'DecimalDirective'
         ]
     };
 
