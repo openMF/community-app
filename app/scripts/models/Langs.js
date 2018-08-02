@@ -5,6 +5,7 @@
             { "name": "Français", "code": "fr" },
             { "name": "Español", "code": "es" },
             { "name": "Português", "code": "pt" },
+            { "name": "Čeština", "code": "cs" },
             { "name": "中文", "code": "zh_CN" },
             { "name": "हिंदी", "code": "hi" },
             { "name": "ქართული", "code": "ka" },
