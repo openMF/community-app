@@ -1,0 +1,40 @@
+<!--Rates Module-->
+<div class="content-container" ng-controller="RateController">
+  <ul class="breadcrumb">
+    <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+    <li class="active">{{'label.anchor.rates' | translate}}</li>
+  </ul>
+
+  <div class="card well">
+    <div class="row">
+      <div class="col-m-9 col-sm-9">
+        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()"
+               class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+      </div>
+      <div class="col-m-3 col-sm-3">
+        <a href="#/createrate" class="btn btn-primary pull-right" has-permission='CREATE_RATE'><i
+            class="fa fa-plus "></i>{{'label.button.createrate' | translate}}</a>
+      </div>
+    </div>
+    <hr>
+
+    <table class="table">
+      <thead>
+      <tr class="graybg">
+        <th>{{'label.heading.name' | translate}}</th>
+        <th>{{'label.heading.chargeappliesto' | translate}}</th>
+        <th>{{'label.heading.active' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="pointer-main" dir-paginate="rate in rates |orderBy:'name':reverse | filter:filterText | itemsPerPage: RatesPerPage">
+        <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.name}}</td>
+        <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.productApply | translate }}</td>
+        <td class="pointer" data-ng-click="routeTo(rate.id)">{{rate.active | YesOrNo | translate}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+  </div>
+</div>
