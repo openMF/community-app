@@ -162,7 +162,72 @@
                 }
                 scope.formData.interestRateDifferential = scope.loanaccountinfo.interestRateDifferential ;
                 scope.formData.isFloatingInterestRate = scope.loanaccountinfo.isFloatingInterestRate ;
-            }
+
+                //Load Rates information
+                scope.formData.rates = scope.loanaccountinfo.rates;
+                scope.firstChange = false;
+                scope.rateOptions = scope.loanaccountinfo.product.rates.filter(function(rate){
+                    var exist = false;
+                    scope.formData.rates.forEach(function(addedRate){
+                        if(rate.id === addedRate.id){
+                            exist = true;
+                        }
+                    });
+                    return !exist;
+                });
+                if (scope.formData.rates && scope.formData.rates.length>0){
+                    scope.rateFlag=true;
+                }else{
+                    scope.rateFlag=false;
+                }
+
+
+            };
+
+            //Rate
+            scope.rateSelected = function(currentRate){
+
+                if(currentRate && !scope.checkIfRateAlreadyExist(currentRate)){
+                    scope.rateFlag=true;
+                    scope.formData.rates.push(currentRate);
+                    scope.rateOptions.splice(scope.rateOptions.indexOf(currentRate),1);
+                    scope.currentRate = '';
+                    currentRate = '';
+                    console.log(scope.rateOptions);
+                    scope.calculateRates();
+                }
+            };
+
+            scope.checkIfRateAlreadyExist = function(currentRate){
+                var exist = false;
+                scope.formData.rates.forEach(function(rate){
+                    if(rate.id === currentRate.id){
+                        exist = true;
+                    }
+                });
+
+                return exist;
+            };
+
+            scope.calculateRates = function(){
+                var total = 0;
+                scope.formData.rates.forEach(function(rate){
+                    total += rate.percentage;
+                });
+                if (total===0){
+                    scope.rateFlag=false;
+                    total=undefined;
+                }
+                scope.formData.interestRatePerPeriod = total;
+
+
+            };
+
+            scope.deleteRate = function (index){
+                scope.rateOptions.push(scope.formData.rates[index]);
+                scope.formData.rates.splice(index,1);
+                scope.calculateRates();
+            };
 
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {

@@ -322,8 +322,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
 			'adhocquery/AdHocQueryListController',
             'adhocquery/CreateAdHocQueryController',
             'adhocquery/ViewAdHocQueryController',
-            'adhocquery/EditAdHocQueryController'
-
+            'adhocquery/EditAdHocQueryController',
+            'product/RateController',
+            'product/CreateRateController',
+            'product/ViewRateController',
+            'product/EditRateController'
         ],
         filters: [
             'StatusLookup',
