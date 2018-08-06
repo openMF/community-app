@@ -212,7 +212,7 @@
                 <div class="col-sm-2">
                     <input type="text" placeholder="{{'label.input.default' | translate}}" id="principal"
                            name="principal"
-                           class="form-control" number-format ng-model="formData.principal" required late-validate/>
+                           class="form-control" number-format ng-model="formData.principal" required late-validate number=true />
                 </div>
                 <div class="col-sm-2">
                     <input type="text" placeholder="{{'label.input.maximum' | translate}}" id="maxPrincipal"
@@ -419,6 +419,71 @@
                 </div>
             </div>
             <div class="form-group" ng-show="!formData.isLinkedToFloatingInterestRates">
+                <!--Rate Module-->
+
+              <div ng-show="enableRates">
+                <div class="form-group">
+                  <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' |
+                    translate }}
+                    <i class="icon-question-sign"
+                       tooltip="{{'label.tooltip.loanproduct.nominalinterestrate' | translate}}"
+                       tooltip-append-to-body="true"></i>
+                  </label>
+
+                  <div class="col-sm-2">
+                    <input id="calculatedRatePerPeriod" readonly type="text"
+                           class="form-control" ng-model="calculatedRatePerPeriod">
+                  </div>
+                  <div class="col-sm-2">
+                    <select class="form-control" id="interestRateFrequencyTypeR"
+                            ng-model="formData.interestRateFrequencyType"
+                            ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in product.interestRateFrequencyTypeOptions"
+                            value="{{interestRateFrequencyType.id}}"></select>
+                  </div>
+                  <div class="col-sm-2">
+                    <form-validate valattributeform="createloanproductform"
+                                   valattribute="interestRatePerPeriod"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-3">
+                    <select id="currentRate" ng-model="currentRate" class="form-control"
+                            ng-options="rate as rate.name for rate in rateOptions"
+                            value="{{rate}}">
+                      <option class="displaynone" value="">{{'label.selectrate' | translate}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-1">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="rateSelected(currentRate)">{{ 'label.button.add' | translate
+                      }}
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <table data-ng-show="rateFlag" class="table width100">
+                    <tr class="graybg">
+                      <th>{{'label.heading.name' | translate}}</th>
+                      <th>{{'label.heading.percentage' | translate}}</th>
+                      <th></th>
+                      <th>{{'label.heading.actions' | translate}}</th>
+
+                    </tr>
+                    <tr ng-repeat="rate in rates">
+                      <td>{{rate.name}}</td>
+                      <td>{{rate.percentage | number}}</td>
+                      <td></td>
+                      <td><a ng-click="deleteRate($index)"><i
+                          class="fa fa-times icon-white"></i></a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <!-- End -->
                 <label class="control-label col-sm-2">{{ 'label.input.nominalinterestrate' | translate }}
                     <span class="required">*</span>
                     <i class="fa fa-question-circle"
@@ -428,15 +493,15 @@
 
                 <div class="col-sm-2">
                     <input id="minInterestRatePerPeriod" placeholder="{{'label.input.minimum' | translate}}" type="text"
-                           class="form-control" ng-model="formData.minInterestRatePerPeriod">
+                           class="form-control" ng-model="formData.minInterestRatePerPeriod" ng-disabled="rateFlag&&enableRates" number-format>
                 </div>
                 <div class="col-sm-2">
                     <input type="text" id="interestRatePerPeriod" placeholder="{{'label.input.default' | translate}}"
-                           name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod" required late-validate decimals />
+                           name="interestRatePerPeriod" class="form-control" ng-model="formData.interestRatePerPeriod" required late-validate decimals  ng-disabled="rateFlag&&enableRates" />
                 </div>
                 <div class="col-sm-2">
                     <input id="maxInterestRatePerPeriod" placeholder="{{'label.input.maximum' | translate}}" type="text"
-                           class="form-control" ng-model="formData.maxInterestRatePerPeriod">
+                           class="form-control" ng-model="formData.maxInterestRatePerPeriod" number-format ng-disabled="rateFlag&&enableRates">
                 </div>
                 <div class="col-sm-2">
                     <select class="form-control" id="interestRateFrequencyType"
