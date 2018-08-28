@@ -52,7 +52,8 @@
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT'}
+                        update: { method: 'PUT'},
+                        retrieveTransferDate: { method: 'GET', params:{}, isArray: true}
                     }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
                         getCharges: {method: 'GET'},
