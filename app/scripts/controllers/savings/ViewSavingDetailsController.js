@@ -217,7 +217,7 @@
                         {
                             name: "button.postInterestAsOn",
                             icon: "icon-arrow-right",
-                            taskPermissionName:"POSTINTERESTASON_SAVINGSACCOUNT"
+                            taskPermissionName:"POSTINTEREST_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.deposit",
