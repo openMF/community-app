@@ -43,7 +43,7 @@ Travis
     npm install
    ```
    ```
-    bundler install
+    bundle install
    ```
 
 1. To preview the app, run the following command on the project root folder
