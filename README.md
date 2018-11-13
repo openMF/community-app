@@ -9,7 +9,7 @@ This is the default web application built on top of the MifosX platform for the 
 
 Travis
 
-[![Build Status](https://travis-ci.org/openMF/community-app.png?branch=master)](https://travis-ci.org/openMF/community-app)
+[![Build Status](https://travis-ci.org/openMF/community-app.svg?branch=develop)](https://travis-ci.org/openMF/community-app)
 
 ## Online Demo
 
