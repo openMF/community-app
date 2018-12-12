@@ -117,12 +117,13 @@
             resourceFactory.groupResource.get({groupId: routeParams.id}, function (data) {
                 if (data.timeline.submittedOnDate) {
                     scope.mindate = new Date(data.timeline.submittedOnDate);
+                    scope.first.submitondate = new Date(dateFilter(data.timeline.submittedOnDate, scope.df));
                 }
             });
 
             scope.updateGroup = function () {
-                var reqDate = dateFilter(scope.first.date, scope.df);
-                this.formData.activationDate = reqDate;
+                this.formData.submittedOnDate = dateFilter(scope.first.submitondate, scope.df);
+                this.formData.activationDate = dateFilter(scope.first.date, scope.df);
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.groupResource.update({groupId: routeParams.id}, this.formData, function (data) {
