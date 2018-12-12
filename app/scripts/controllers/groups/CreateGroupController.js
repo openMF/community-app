@@ -167,8 +167,7 @@
                     scope.formData.clientMembers[i] = scope.addedClients[i].id;
                 }
                 if (this.formData.active) {
-                    var reqDate = dateFilter(scope.first.date, scope.df);
-                    this.formData.activationDate = reqDate;
+                    this.formData.activationDate = dateFilter(scope.first.date, scope.df);
                 }
                 if (routeParams.centerId) {
                     this.formData.centerId = routeParams.centerId;
@@ -177,8 +176,7 @@
                     this.formData.officeId = routeParams.officeId;
                 }
                 if (scope.first.submitondate) {
-                    reqDat = dateFilter(scope.first.submitondate, scope.df);
-                    this.formData.submittedOnDate = reqDat;
+                    this.formData.submittedOnDate = dateFilter(scope.first.submitondate, scope.df);
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
