@@ -512,7 +512,7 @@
                   $uibModalInstance.close('approveLoanReschedule');
                 };
                 $scope.cancel = function () {
-                  $uibmodalInstance.dismiss('cancel');
+                  $uibModalInstance.dismiss('cancel');
                 };
               }
               scope.checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval = function() {                var newValue = !scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval();
