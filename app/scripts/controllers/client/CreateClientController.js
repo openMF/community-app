@@ -314,6 +314,7 @@
 
                 if(scope.enableAddress===true)
                 {
+                    scope.formData.address = [];
                     for(var i=0;i<scope.addressArray.length;i++)
                     {
                         var temp=new Object();
