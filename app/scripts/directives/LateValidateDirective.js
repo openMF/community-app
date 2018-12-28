@@ -2,11 +2,13 @@
     mifosX.directives = _.extend(module, {
         LateValidateDirective: function () {
             var numRegex = /^([0-9])*([0-9]+(,)[0-9]+)*$/;
+            var decimalRegex=/^([0-9])*([0-9]+(,)[0-9]+)*([0-9]+(\.)[0-9]+)*$/;
             return {
                 restrict: 'A',
                 require: 'ngModel',
                 scope:{
-                    number:'@number'
+                    number:'@number',
+                    decimalNumber:'@decimalNumber'
                 },
 
                 link: function (scope, elm, attr, ctrl) {
@@ -14,6 +16,7 @@
                     elm.bind('blur', function () {
                         scope.$apply(function () {
                             var isMatchRegex = numRegex.test(elm.val());
+                            var isDecimalMatchRegex=decimalRegex.test(elm.val());
                             if (elm.val() == "") {
                                 ctrl.$setValidity('req', false);
                             } else {
@@ -21,6 +24,13 @@
                             }
                             if(scope.number) {
                                 if (isMatchRegex || elm.val() == '') {
+                                    ctrl.$setValidity('nval', true);
+                                } else {
+                                    ctrl.$setValidity('nval', false);
+                                }
+                            }
+                            if(scope.decimalNumber) {
+                                if (isDecimalMatchRegex || elm.val() == '') {
                                     ctrl.$setValidity('nval', true);
                                 } else {
                                     ctrl.$setValidity('nval', false);
