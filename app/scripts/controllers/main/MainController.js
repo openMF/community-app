@@ -44,6 +44,8 @@
                     }
                 });
             }
+            
+
 
             scope.$on('scrollbar.show', function(){
                   console.log('Scrollbar show');
@@ -52,7 +54,12 @@
                   console.log('Scrollbar hide');
                 });
 
-            uiConfigService.init();
+            uiConfigService.init(scope);
+            
+            
+            scope.$on('configJsonObj',function(e,response){
+                scope.response = response;
+            });
             //hides loader
             scope.domReady = true;
             scope.activity = {};
