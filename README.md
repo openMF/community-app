@@ -42,6 +42,12 @@ Travis
    ```
     npm install
    ```
+   
+1. Install the bundler using this command
+
+   ```
+    sudo apt install ruby-bundler
+   ``` 
    ```
     bundle install
    ```
