@@ -23,18 +23,19 @@ Travis
    ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.    
    ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
 
-<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
+<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the "/usr/bin/env: node: No such file or directory" problem).
 <br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
-1. To download the dependencies, and be able to build, first install bower & grunt
+1. ####To download the dependencies, and be able to build,
+   - first install bower & grunt
    ```
     npm install -g bower
     npm install -g grunt-cli
    ```
 
-1. Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
+   -  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
 
    ```
     bower install
@@ -51,9 +52,9 @@ Travis
    ```
     grunt serve
    ```
-   or open the 'index.html' file in FIREFOX browser
+   or open the 'index.html' file with FIREFOX browser
 
-   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
+   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
 
    ```
     Waiting...Warning: EMFILE, too many open files
@@ -66,7 +67,7 @@ You are done.
 
 ### Connecting to a MifosX Platform using OAuth 2 authentication:
 
-Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth"
+Edit the value of property 'security' in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth"
 
 ### Connecting to a MifosX Platform running on a different host:
 
@@ -96,8 +97,8 @@ Following are the tasks integrated.
 
 ### Validate JS and HTML files
 
-Validate the JS files to detect errors and potential problems in JavaScript code. All errors output will be written to jshint-log.xml file which get created under project base directory.
-Checks the markup validity of HTML files. All errors output will be written to console.
+Validate the JS files to detect errors and potential problems in JavaScript code. All errors output will be written in the jshint-log.xml file which is created under project base directory.
+Checks the markup validity of HTML files. All errors output will be written on the console.
 
 ```
 grunt validate
