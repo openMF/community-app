@@ -13,7 +13,7 @@
 13. Shivam Kumar Singh (https://github.com/Shivamkumar4848) : learner(html, css, js)
 14. Matthew Katz (https://github.com/mykatz): Fullstack Web Dev.  Proficient in Nodejs, Java, Python.
 15. Rohit Tanikella (https://github.com/rohittanikella): Python and Java enthusiast.
-16. HARSH PAL (https://github.com/iamhp2k) : C++ and Android tricks.
+16. Harsh Pal (https://github.com/hpnighowl) : C++ and Android Lover.
 17. Avikam Mangla (https://github.com/Avikam03) : Open Source Enthusiast!
 18. Sudhanshu Singh (https://github.com/ssudhanshu488) : Programming Lover
 19. Leo Anuonyeh(https://github.com/ynxxleo) : web front-end developer
