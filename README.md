@@ -119,6 +119,21 @@ Start a static server and open the project in the default browser. The applicati
 ```
 grunt serve
 ```
+
+### Docker
+To build a Docker image for the current repo, run:
+```
+docker build -t mifos-community-app .
+```
+You can then run a Docker Container from the image above like this:
+```
+docker run --name mifos-ui -it -d -p 80:80 mifos-community-app
+```
+
+Access the webapp on http://localhost in your browser. Ma
+The Dockerfile uses a ruby and node base image to build the current repo and deploys the app on nginx which is exposed 
+port 80 within the container
+
 ### Compile sass to css
 
 ```
