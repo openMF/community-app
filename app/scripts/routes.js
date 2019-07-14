@@ -4,6 +4,9 @@
             .when('/', {
                 templateUrl: 'views/home.html'
             })
+            .when('/new/:path*', {
+                templateUrl: 'views/newapp.html'
+            })
             .when('/login', {
                 templateUrl: 'views/login.html'
             })

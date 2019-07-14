@@ -54,12 +54,44 @@ module.exports = function(grunt) {
             livereload: 35729,
             open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
         },
+        proxies: [
+            {
+                context: '/new',
+                host: 'localhost',
+                port: 4200,
+                https: false,
+                xforward: false,
+                // headers: {
+                //     "x-custom-added-header": value
+                // },
+                // hideHeaders: ['x-removed-header']
+            }
+        ],
         livereload: {
             options: {
                 base: [
                     '.tmp',
                     '<%= mifosx.app %>'
-                ]
+                ],
+                middleware: function (connect, options) {
+                    if (!Array.isArray(options.base)) {
+                        options.base = [options.base];
+                    }
+
+                    // Setup the proxy
+                    var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+
+                    // Serve static files.
+                    options.base.forEach(function(base) {
+                        middlewares.push(connect.static(base));
+                    });
+
+                    // Make directory browse-able.
+                    var directory = options.directory || options.base[options.base.length - 1];
+                    middlewares.push(connect.directory(directory));
+
+                    return middlewares;
+                }
             }
         }
     },
@@ -415,10 +447,18 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.loadNpmTasks('grunt-gh-pages')
+  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-connect-proxy');
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['clean:server', 'copy:server', 'compass:dev', 'connect:livereload', 'watch']);
+  grunt.registerTask('serve',
+      [
+          'clean:server',
+          'copy:server',
+          'compass:dev',
+          'configureProxies:server',
+          'connect:livereload',
+          'watch']);
 
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
