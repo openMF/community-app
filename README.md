@@ -120,10 +120,9 @@ grunt compass:dev
 
 Just open test/SpecRunner.html in the browser.
 
-## Getting Started doc
+## Getting Started Guide
 
-https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/edit#heading=h.vhgp8hu9moqn
-
+Understand key files and concepts in the codebase <a href="https://github.com/openMF/community-app/blob/develop/Getting-Started.md"> Get Started with Code</a>
 
 ## Contribution guidelines
 
