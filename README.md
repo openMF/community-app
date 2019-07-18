@@ -28,7 +28,7 @@ Travis
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
-1. ####To download the dependencies, and be able to build,
+1. To download the dependencies, and be able to build,
    - first install bower & grunt
    ```
     npm install -g bower
