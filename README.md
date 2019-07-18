@@ -35,7 +35,7 @@ Note: On Ubuntu Linux you can use `sudo apt-get install npm nodejs-legacy` (node
     npm install -g grunt-cli
    ```
 
-   -  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
+1.  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
 
    ```
     bower install
