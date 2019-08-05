@@ -10,9 +10,9 @@ This is the default web application built on top of the MifosX platform for the 
 
 ## Building from source
 
-1. Ensure you have 
+1. Ensure you have
 
-   ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.    
+   ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
    ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
 
 <br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
@@ -122,9 +122,9 @@ You can then run a Docker Container from the image above like this:
 docker run --name mifos-ui -it -d -p 80:80 mifos-community-app
 ```
 
-Access the webapp on http://localhost in your browser. Ma
-The Dockerfile uses a ruby and node base image to build the current repo and deploys the app on nginx which is exposed 
-port 80 within the container
+Access the webapp on http://localhost in your browser.
+The Dockerfile uses a ruby and node base image to build the current repo and deploys the app on nginx which is exposed
+on port 80 within the container.
 
 ### Compile sass to css
 
