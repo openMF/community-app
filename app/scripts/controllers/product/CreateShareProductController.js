@@ -1,10 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateShareProductController: function (scope, resourceFactory, dateFilter, location) {
+        CreateShareProductController: function (scope, resourceFactory, dateFilter, location,WizardHandler) {
             scope.formData = {};
+            scope.shareproduct = {};
             scope.charges = [];
             scope.formData.marketPricePeriods = [] ;
             scope.showOrHideValue = "show";
+            scope.isClicked = false;
+
             resourceFactory.productsResource.template({productType:'share', resourceType:'template'}, function(data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
@@ -14,9 +17,32 @@
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.formData.currencyCode = data.currencyOptions[0].code;
                 scope.formData.digitsAfterDecimal = data.currencyOptions[0].decimalPlaces;
+                scope.formData.allowDividendCalculationForInactiveClients = false;
                 scope.formData.accountingRule = '1';
-
+                scope.shareproduct = angular.copy(scope.formData);
             });
+            
+            scope.shareCapitaValue = function () {
+                 scope.formData.shareCapital =   scope.formData.unitPrice * scope.formData.sharesIssued;
+            };
+
+            scope.$watch('formData',function(newVal){
+                scope.shareproduct = angular.extend(scope.shareproduct,newVal);
+            },true);
+
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+                scope.isClicked = true;
+            }
+            
+            scope.formValue = function(array,model,findattr,retAttr){
+                findattr = findattr ? findattr : 'id';
+                retAttr = retAttr ? retAttr : 'value';
+                console.log(findattr,retAttr,model);
+                return _.find(array, function (obj) {
+                    return obj[findattr] === model;
+                })[retAttr];
+            };
 
             scope.addMarketPricePeriod = function () {
                 var marketPrice = {} ;
@@ -68,7 +94,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('CreateShareProductController', ['$scope', 'ResourceFactory', 'dateFilter', '$location', mifosX.controllers.CreateShareProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateShareProductController', ['$scope', 'ResourceFactory', 'dateFilter', '$location','WizardHandler', mifosX.controllers.CreateShareProductController]).run(function ($log) {
         $log.info("CreateShareProductController initialized");
     });
 }(mifosX.controllers || {}));

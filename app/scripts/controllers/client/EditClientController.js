@@ -29,6 +29,7 @@
                     accountNo: data.accountNo,
                     staffId: data.staffId,
                     externalId: data.externalId,
+                    isStaff:data.isStaff,
                     mobileNo: data.mobileNo,
                     savingsProductId: data.savingsProductId,
                     genderId: data.gender.id,
@@ -107,9 +108,6 @@
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                if (scope.opensavingsproduct == 'false') {
-                    this.formData.savingsProductId = null;
-                }
                 if (scope.choice === 1) {
                     if (scope.date.activationDate) {
                         this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);

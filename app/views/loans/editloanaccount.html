@@ -166,6 +166,13 @@
                             ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery"
                             ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{repaymentFrequencyType.id}}"/>&nbsp;
+                    <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType" ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions" ng-show="formData.repaymentFrequencyType == 2" value="{{repaymentFrequencyNthDayType.id}}">
+                    <option value="">{{'label.selecton' | translate}}</option>
+                    </select>&nbsp;
+                    <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
+                    ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for  repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions" ng-show="formData.repaymentFrequencyType == 2" value="{{repaymentFrequencyDayOfWeekType.id}}">
+                    <option value="">{{'label.selectday' | translate}}</option>
+                    </select>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
                 </td>
             </tr>
@@ -193,7 +200,7 @@
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
-                    <select id="interestType" ng-model="formData.interestType" class="form-control width170px"
+                     <select id="interestType" ng-model="formData.interestType" class="form-control width170px"
                             ng-options="interestType.id as interestType.value for interestType in loanaccountinfo.interestTypeOptions"
                             value="{{interestType.id}}" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestType"/>
                 </td>
@@ -225,6 +232,9 @@
                             ng-options="amortizationType.id as amortizationType.value for amortizationType in loanaccountinfo.amortizationTypeOptions"
                             value="{{amortizationType.id}}" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.amortizationType"/>
                 </td>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.isequalamortization' | translate }}</label></td>
+                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"> <input type="checkbox" ng-model="formData.isEqualAmortization" ng-true-value="true" ng-false-value="false">
+                </td>
             </tr>
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true"><label>{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span
@@ -234,7 +244,7 @@
                             ng-options="interestCalculationPeriodType.id as interestCalculationPeriodType.value for interestCalculationPeriodType in loanaccountinfo.interestCalculationPeriodTypeOptions" class="form-control width170px"
                             value="{{interestCalculationPeriodType.id}}" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestCalculationPeriodType"/>
                 </td>
-                <td colspan="2" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true || formData.interestCalculationPeriodType == 0"><label>{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}&nbsp;<span class="required">*</span>: &nbsp;</label>
+                <td colspan="2" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true || formData.interestCalculationPeriodType == 0"><label>{{ 'label.input.allowpartialperiodinterestcalcualtion' | translate }}&nbsp;</label>
                     <label class="checkbox control-label">
                         <input id="allowPartialPeriodInterestCalcualtion" type="checkbox"
                                ng-model="formData.allowPartialPeriodInterestCalcualtion" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.interestCalculationPeriodType">
@@ -423,7 +433,7 @@
                                ng-model="disbursementDetail.principal"
                                placeholder="{{'label.input.principal' | translate}}">
                     </td>
-                    <td><a ng-click="deleteTranches($index)"><i class="fa fa-times "></i></a></td>
+                    <td><a ng-click="deleteTranches($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
                 </tr>
                 </tbody>
             </table>
@@ -458,7 +468,7 @@
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
                            is-open="'openedch'+$index" min="minDate" max="'2020-06-22'"/>
                 </td>
-                <td><a ng-click="deleteCharge($index)"><i class="fa fa-times "></i></a></td>
+                <td><a ng-click="deleteCharge($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
             </tr>
         </table>
         <div ng-show="loanaccountinfo.overdueCharges.length>0">
@@ -504,7 +514,7 @@
                            ng-model="collateral.value"></td>
                 <td><input id="{{collaterals[$index].description}}" class="form-control" type="text" ng-model="collateral.description"
                            placeholder="{{'label.input.description' | translate}}"></td>
-                <td><a ng-click="deleteCollateral($index)"><i class="fa fa-times "></i></a></td>
+                <td><a ng-click="deleteCollateral($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
             </tr>
         </table>
         </div>

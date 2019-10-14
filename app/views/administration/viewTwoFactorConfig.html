@@ -1,0 +1,40 @@
+<div class="content-container" ng-controller="ViewTwoFactorConfigController">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewtwofactorconfig' | translate}}</li>
+        </ul>
+<div class="card">
+    <div class="content" ng-hide="disabledTwoFactor">
+        <uib-tabset tabset-name="configTabset">
+            <uib-tab heading="{{'label.heading.' + tabName | translate}}" ng-repeat="(tabName, configs) in tabs">
+                <a href="#/twofactorconfig/edit/{{tabName}}" class="btn btn-primary pull-right" has-permission='UPDATE_TWOFACTOR_CONFIGURATION'><i class="fa fa-plus "></i>{{'label.button.edit' | translate}}</a>
+                <table class="table">
+                    <thead>
+                    <tr class="graybg">
+
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.value' | translate}}</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="config in configs">
+
+                        <td>
+                            {{config.name}}
+                        </td>
+                        <td>{{config.value}}</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+    <div class="content" ng-show="disabledTwoFactor">
+        <p>{{'error.twofactor.config.disabled' | translate}}</p>
+    </div>
+</div>
+</div>

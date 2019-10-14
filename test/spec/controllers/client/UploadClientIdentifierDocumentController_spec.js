@@ -23,31 +23,25 @@ describe('UploadClientIdentifierDocumentController', function() {
     ); 
   }));
 
-  it('should put the select file in the scope', function(){
-    var file = {name: 'some file'}
-    this.scope.onFileSelect ([file]);
-    expect(this.scope.file).toBe(file);
-  });
-
-  describe('on submit', function(){
+  describe('on uploadPic', function(){
     var url;
     beforeEach(function(){
       url = this.$rootScope.hostUrl + this.API_VERSION + '/client_identifiers/' + this.routeParams.resourceId + '/documents';
-      this.scope.file = {name: 'some file'}  
+      picFile = {name: 'some file'}  
       this.scope.formData = 'formData';
     });
 
     it('should call the upload service', function(){ 
-      this.scope.submit();  
+      this.scope.uploadPic(picFile);  
       expect(this.upload.upload).toHaveBeenCalledWith({
         url: url,
         data: this.scope.formData,
-        file: this.scope.file,
+        file: picFile,
       });
     });
 
     it('should change the location after file has been uploaded', function(){
-      this.scope.submit();
+      this.scope.uploadPic();
       deferedUpload.resolve('data');
       this.scope.$digest();
       expect(this.location.path).toHaveBeenCalledWith('/viewclient/' + this.routeParams.clientId);

@@ -5,14 +5,17 @@
                 restrict: 'E',
                 require: '?ngmodel',
                 link: function (scope, elm, attr, ctrl) {
-                    var template = '<div class="error" ng-repeat="errorArray in errorDetails" ng-show="errorStatus || errorDetails">' +
-                        '<label>' +
+                    var template = '<div uib-alert type="danger" ng-show="errorStatus || errorDetails.length > 0">' +
+                        '<div ng-repeat="errorArray in errorDetails">' +
+                        '<label><i class="fa fa-exclamation-circle"></i>' +
                         '{{' + 'errorArray.args.params[0].value'    +' | translate}}' + ' field is required' +
                         '</label>' +
-                        '<label ng-show="errorStatus">{{errorStatus}}</label>' +
-                        '<label ng-hide="errorStatus" ng-repeat="error in errorArray">' +
-                        '{{error.code | translate:error.args}}' +
-                        '</label></div>';
+                        '<label ng-show="errorStatus">{{errorStatus}}</label><br />' +
+                        '<div ng-repeat="error in errorArray">' +
+                            '<label ng-hide="errorStatus">' +
+                                '{{error.code | translate:error.args}} - {{error.datatable}}' +
+                            '</label>' +
+                        '</div></div></div>';
                     elm.html('').append($compile(template)(scope));
                 }
             };

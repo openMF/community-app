@@ -44,6 +44,8 @@
                     }
                 });
             }
+            
+
 
             scope.$on('scrollbar.show', function(){
                   console.log('Scrollbar show');
@@ -52,7 +54,12 @@
                   console.log('Scrollbar hide');
                 });
 
-            uiConfigService.init();
+            uiConfigService.init(scope);
+            
+            
+            scope.$on('configJsonObj',function(e,response){
+                scope.response = response;
+            });
             //hides loader
             scope.domReady = true;
             scope.activity = {};
@@ -148,6 +155,12 @@
             };
 
             scope.leftnav = false;
+            scope.$on("UserAuthenticationTwoFactorRequired", function (event, data) {
+                if (sessionManager.get(data)) {
+                    scope.start(scope.currentSession);
+                }
+            });
+
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
                 scope.authenticationFailed = false;
                 scope.resetPassword = data.shouldRenewPassword;
@@ -165,7 +178,7 @@
             });
 
             var setSearchScopes = function () {
-                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,loans"};
+                var all = {name: "label.search.scope.all", value: "clients,clientIdentifiers,groups,savings,shares,loans"};
                 var clients = {
                     name: "label.search.scope.clients.and.clientIdentifiers",
                     value: "clients,clientIdentifiers"
@@ -175,8 +188,9 @@
                     value: "groups"
                 };
                 var savings = {name: "label.input.adhoc.search.loans", value: "loans"};
+                var shares = {name: "label.search.scope.shares", value: "shares"};
                 var loans = {name: "label.search.scope.savings", value: "savings"};
-                scope.searchScopes = [all,clients,groups,loans,savings];
+                scope.searchScopes = [all,clients,groups,loans,savings,shares];
                 scope.currentScope = all;
             }
 
@@ -206,6 +220,7 @@
             '<span>Sounds interesting?<a href="http://mifos.org/take-action/volunteer/"> Get involved!</a></span>';
 
             scope.logout = function () {
+                $rootScope.$broadcast("OnUserPreLogout");
                 scope.currentSession = sessionManager.clear();
                 scope.resetPassword = false;
                 location.path('/').replace();
@@ -224,7 +239,6 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            console.log(translate.use);
             translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {

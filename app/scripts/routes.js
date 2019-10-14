@@ -2,7 +2,7 @@
     var defineRoutes = function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/start.html'
+                templateUrl: 'views/home.html'
             })
             .when('/login', {
                 templateUrl: 'views/login.html'
@@ -123,6 +123,12 @@
             })
             .when('/survey/:clientId', {
                 templateUrl: 'views/clients/survey.html'
+            })
+            .when('/viewsurvey/:id', {
+                templateUrl: 'views/surveys/viewsurvey.html'
+            })
+            .when('/clients/survey/:clientId', {
+                templateUrl: 'views/surveys/viewclientsurvey.html'
             })
             .when('/newclientloanaccount/:clientId', {
                 templateUrl: 'views/loans/newloanaccount.html'
@@ -803,6 +809,12 @@
             .when('/externalservices/:externalServicesType/editconfig', {
                 templateUrl: 'views/administration/editExternalServicesConfiguration.html'
             })
+            .when('/twofactorconfig', {
+                templateUrl: 'views/administration/viewTwoFactorConfig.html'
+            })
+            .when('/twofactorconfig/edit/:configType', {
+                templateUrl: 'views/administration/editTwoFactorConfig.html'
+            })
             .when('/loans/:loanId/reschedule/', {
                 templateUrl: 'views/loans/rescheduleloans.html'
             })
@@ -919,7 +931,88 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
-        ;
+            .when('/editsurvey/:id',{
+                templateUrl: 'views/surveys/editsurvey.html'
+            })
+            .when('/editfamilymember/:clientId/:familyMemberId', {
+                templateUrl: 'views/clients/editfamilymembers.html'
+            })
+            .when('/addfamilymembers/:clientId/', {
+                templateUrl: 'views/clients/addfamilymembers.html'
+            })
+            .when('/bulkimportoffices', {
+                 templateUrl: 'views/organization/bulkimport/bulkimportoffices.html'
+             })
+             .when('/bulkimportclients', {
+                 templateUrl: 'views/organization/bulkimport/bulkimportclients.html'
+             })
+            .when('/bulkimportloanaccounts', {
+            templateUrl: 'views/organization/bulkimport/bulkimportloanaccounts.html'
+            })
+            .when('/bulkimportloanrepayments', {
+                templateUrl: 'views/organization/bulkimport/bulkimportloanrepayments.html'
+            })
+            .when('/bulkimportguarantor', {
+                templateUrl: 'views/organization/bulkimport/bulkimportguarantor.html'
+            })
+            .when('/bulkimportsavingsaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportsavingsaccounts.html'
+            })
+            .when('/bulkimportsavingsaccountstransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportsavingsaccountstransactions.html'
+            })
+            .when('/bulkimportrecurringdeposits', {
+                templateUrl: 'views/organization/bulkimport/bulkimportrecurringdeposits.html'
+            })
+            .when('/bulkimportrecurringdepositstransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportrecurringdepositstransactions.html'
+            })
+            .when('/bulkimportshareaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportshareaccounts.html'
+            })
+            .when('/bulkimportfixeddepositaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportfixeddepositaccounts.html'
+            })
+            .when('/bulkimportfixeddeposittransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportfixeddeposittransactions.html'
+            })
+            .when('/bulkimportcoa', {
+                templateUrl: 'views/organization/bulkimport/bulkimportcoa.html'
+            })
+            .when('/bulkimportjournalentries', {
+                templateUrl: 'views/organization/bulkimport/bulkimportjournalentries.html'
+            })
+            .when('/bulkimportgroup', {
+                templateUrl: 'views/organization/bulkimport/bulkimportgroup.html'
+            })
+            .when('/bulkimportcenters', {
+                templateUrl: 'views/organization/bulkimport/bulkimportcenters.html'
+            })
+            .when('/bulkimportemployees', {
+                templateUrl: 'views/organization/bulkimport/bulkimportemployees.html'
+            })
+            .when('/bulkimportusers', {
+                templateUrl: 'views/organization/bulkimport/bulkimportusers.html'
+            })
+            .when('/bulkimport', {
+                templateUrl: 'views/organization/bulkimport/bulkimport.html'
+            })
+			.when('/adhocquery/', {
+                templateUrl: 'views/adhocquery/adhocquerylists.html'
+            })
+            .when('/createadhocquery/', {
+                templateUrl: 'views/adhocquery/createadhocquery.html'
+            })
+            .when('/viewadhocquery/:id', {
+                templateUrl: 'views/adhocquery/viewadhocquery.html'
+            })
+            .when('/editadhocquery/:id', {
+                templateUrl: 'views/adhocquery/editadhocquery.html'
+            })
+            .otherwise({
+                templateUrl: "views/errors/404.html"
+            })
+            ;
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

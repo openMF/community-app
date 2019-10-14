@@ -50,19 +50,19 @@
                             <div class="controls">
                                 <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy"
                                        ng-model="fromDate.date"
-                                       is-open="opened" min="minDate" max="restrictDate"/>
+                                       is-open="opened" min="minDate" max="restrictDate" class="form-control" />
                             </div>
                         </div>
                     </td>
                     <td>
-                        <div class="control-group">
+                        <div class="control-group paddedleft0">
                             <label class="control-label" for="name">{{ 'label.input.interestratechart.valid.to' |
                                 translate }}</label>
 
                             <div class="controls">
                                 <input id="endDate" sort type="text" datepicker-pop="dd MMMM yyyy"
                                        ng-model="endDate.date"
-                                       is-open="opened" min="minDate" max="restrictDate"/>
+                                       is-open="opened" min="minDate" max="restrictDate" class="form-control" />
                             </div>
                         </div>
                     </td>
@@ -70,10 +70,10 @@
                         <div class="control-group">
                             <label class="control-label" for="name">{{
                                 'label.input.interestratechart.primary.grouping.amount' |
-                                translate }}<span class="required">*</span></label>
+                                translate }}</label>
 
-                            <div class="controls">
-                                <label class="checkbox">
+                            <div class="controls checkbox paddedleft0">
+                                <label>
                                     <input id="isPrimaryGroupingByAmount" type="checkbox"
                                            ng-model="isPrimaryGroupingByAmount">
 
@@ -105,28 +105,55 @@
 
                             <tr ng-repeat="chartSlab in chart.chartSlabs">
                                 <td ng-show="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom1" name="amountRangeFrom" type="text" class="input-mini"
-                                           ng-model="chartSlab.amountRangeFrom"/> -
-                                    <input id="amountRangeTo1" name="amountRangeTo" type="text" class="input-mini"
-                                           ng-model="chartSlab.amountRangeTo"/>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input id="amountRangeFrom1" name="amountRangeFrom" type="text" class="input-mini"
+                                                        ng-model="chartSlab.amountRangeFrom"/>
+                                            </td>
+                                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+                                            <td>
+                                                <input id="amountRangeTo1" name="amountRangeTo" type="text" class="input-mini"
+                                                       ng-model="chartSlab.amountRangeTo"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
-                                <td>
-                                    <select class="input-small" id="periodType" ng-model="chartSlab.periodType.id"
+                                <td class="width15">
+                                    <select class="form-control width170px" id="periodType" ng-model="chartSlab.periodType.id"
                                             ng-options="type.id as type.value for type in chart.periodTypes"
                                             value="{{chartSlab.periodType.id}}">
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="fromPeriod" name="fromPeriod" type="text" class="form-control"
-                                           ng-model="chartSlab.fromPeriod" /> -
-                                    <input id="toPeriod" name="toPeriod" type="text" class="form-control"
-                                           ng-model="chartSlab.toPeriod"/>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input id="fromPeriod" name="fromPeriod" type="text" class="form-control"
+                                                    ng-model="chartSlab.fromPeriod" />
+                                            </td>
+                                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+                                            <td>
+                                                <input id="toPeriod" name="toPeriod" type="text" class="form-control"
+                                                    ng-model="chartSlab.toPeriod"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                                 <td ng-hide="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
-                                           ng-model="chartSlab.amountRangeFrom"/> -
-                                    <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
-                                           ng-model="chartSlab.amountRangeTo"/>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
+                                                       ng-model="chartSlab.amountRangeFrom"/>
+                                            </td>
+                                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+                                            <td>
+                                                <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
+                                                        ng-model="chartSlab.amountRangeTo"/>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                                 <td><input id="annualInterestRate" name="annualInterestRate" type="text"
                                            class="form-control"

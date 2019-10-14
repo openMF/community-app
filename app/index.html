@@ -15,15 +15,19 @@
 <!--Loader -->
 <div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
     <div id="loader" style="margin: 175px auto">
-        <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto"
-             class="img-responsive">
-        <img src="./images/loader.gif" style="margin: 10px auto" class="img-responsive">
+        <div class="wrapper">
+            <div class="bottom triangle"></div>
+            <div class="top triangle"></div>
+            <div class="left triangle"></div>
+            <div class="right triangle"></div>
+          </div>          
+        <img src="images/loader.gif" style="margin: 10px auto" class="img-responsive">
     </div>
 </div>
 
 <div data-ng-hide="!domReady" data-ng-cloak>
     <!-- Login Form  -->
-    <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null">
+    <div class="container" style="margin-top:10vh;" data-ng-hide="currentSession.user != null" data-ng-controller="LoginFormController">
 
 
         <div class="row">
@@ -79,9 +83,9 @@
                 </div>
                 <hr>
 
-                <div data-ng-form="loginForm" data-ng-controller="LoginFormController">
+                <div data-ng-form="loginForm">
 
-                    <div class="row" ng-hide="resetPassword">
+                    <div class="row" ng-hide="resetPassword || twoFactorRequired">
                         <div class="col-sm-4 col-sm-offset-4">
 
                             <div class="alert alert-danger" ng-show="authenticationFailed">
@@ -121,12 +125,77 @@
                         </div>
                     </div>
 
+                    <div class="row" ng-show="twoFactorRequired && !otpRequested">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <h4>{{'label.heading.twofactor' | translate}}</h4>
+                                <hr>
+
+                                <p>{{'label.otp.delivery.info' | translate}}</p>
+                                <form class="form">
+                                    <div class="form-group">
+                                        <div ng-repeat="deliveryMethod in twoFactorDeliveryMethods" class="radio form-group">
+                                            <label for="{{deliveryMethod.name}}">
+                                            <input type="radio" id="{{deliveryMethod.name}}" name="otpDeliveryMethods"
+                                                   ng-model="$parent.selectedDeliveryMethodName" value="{{deliveryMethod.name}}">
+                                                {{'label.otp.delivery.select.' + deliveryMethod.name | translate:deliveryMethod}}</label>
+                                        </div>
+                                        <div class="checkbox form-group">
+                                            <label for="twofactorRememberMe">
+                                                <input type="checkbox" id="twofactorRememberMe" name="twofactorRememberMe" ng-model="twofactorRememberMe">
+                                                {{'label.button.tfa.remember_me' | translate }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="requestOTP()"
+                                                id="otp-request-button">
+                                            {{'label.button.otp.request' | translate}}
+                                        </button>
+                                        <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                            <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+
+                    <div class="row" ng-show="otpRequested">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <hr>
+                            <h4>{{'label.heading.twofactor' | translate}}</h4>
+                            <p>
+                                {{'label.otp.verify.info' | translate}}
+                            </p>
+
+                            <div class="alert alert-danger" ng-show="otpTokenError">
+                                {{otpErrorMessage | translate}}
+                            </div>
+
+                            <form class="form">
+                                <div class="form-group">
+                                    <label for="otpToken">{{'label.otp.token' | translate}}</label>
+                                    <input type="text" id="otpToken" name="otpDeliveryMethods" class="form-control"
+                                           ng-model="otpToken">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="!load" data-ng-click="validateOTP()"
+                                            id="otp-verify-button">
+                                        {{'label.button.signin' | translate }}
+                                    </button>
+                                    <button class="btn btn-block btn-primary" type="submit" data-ng-show="load">
+                                        <img data-ng-src="images/ring.svg" alt=""> <b>loading...</b>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
 
-
+                <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.hideCommunityDetails">
                 <hr/>
-
-                <div class="row">
+                
+                <div class="row" >
                     <div class="col-xs-4 text-center">
 
                         <ul class="list-unstyled">
@@ -178,6 +247,7 @@
                 </div>
 
                 <hr/>
+            
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 text-center">
                         <br>
@@ -189,10 +259,13 @@
 
                     </div>
                 </div>
+            </div>
+            <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
                 <p class="text-center text-muted small">
                     <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
-                    <br/> <span>{{ 'label.heading.uptodate' | translate }}</span>
+                    <br/> <span>{{response.uiDisplayConfigurations.whiteLabel.loginPage.companyName}}{{ 'label.heading.uptodate' | translate }}</span>
                 </p>
+            </div>
             </div>
         </div>
     </div>
@@ -202,8 +275,8 @@
         <div class="loading-widget-div" data-ng-show="blockUI">
             <!-- TODO : insert loader here-->
              <span class="centerloader">
-                <img src="images/small-loader.gif" class="img-responsive">
-            </span> 
+                <img src="images/833.svg" class="img-responsive">
+            </span>
             <!--<div style="margin: 175px auto">
             </div>-->
         </div>
@@ -211,7 +284,7 @@
         <div id="mifos-reskin-ui-container">
             <div id="mifos-reskin-header-nav" ng-include="'views/_topnavbar.html'"></div>
 
-            <div id="mifos-reskin-body-container">
+            <div id="mifos-reskin-body-container" style="background-color: #ebeff1">
                 <nav id="mifos-reskin-side-nav"  ng-scrollbar>
                     <div class="left-nav">
                         <ul>
@@ -304,7 +377,7 @@
                             <li>
                                 <a class="black" ng-click="helpf()">
                                     <i class="fa fa-question-circle"></i>
-                                    <span>{{'label.anchor.help' | translate }}</span> &nbsp; <span class="fa fa-external-link"></span>
+                                    <span>{{'label.anchor.help' | translate }}</span> &nbsp; <i class="fa fa-external-link"></i>
                                 </a>
                             </li>
 

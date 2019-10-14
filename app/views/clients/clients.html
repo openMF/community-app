@@ -12,7 +12,7 @@
             <br>
 
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <form ng-submit="search()" class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-4">
@@ -20,7 +20,7 @@
                                        class="form-control unstyled"
                                        placeholder="{{'label.input.filterbynameaccno' | translate}}">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="input-group">
                                     <input data-ng-model="searchText" type="text"
                                            placeholder="{{'label.input.searchByNameAccNo' | translate}}"
@@ -30,15 +30,22 @@
                                             <span class="fa fa-search"></span>
                                         </button>
                                     </span>
+                                    <div class="checkbox form-control">
+                                            <label for="showAll">
+                                                <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                                {{'label.button.showall' | translate }}
+                                            </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
-                            class="fa fa-plus"></i> {{'label.button.createclient' | translate}}</a>
+                            class="fa fa-plus"></i> {{'label.button.createclient' | translate}}</a> &nbsp;&nbsp;
+                    <a href="#/bulkimportclients" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
+ +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importclients' | translate}}</a>
                 </div>
             </div>
             <hr/>
@@ -57,13 +64,13 @@
                 </thead>
 
                 <tbody>
-                <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main" 
-                    total-items="totalClients">
+               <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
+                    total-items="totalClients"  pagination-id="clients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">
-                        <i class="fa fa-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
+                        <i class="fa fa-stop {{client.status.code | StatusLookup}}" uib-tooltip="{{client.status.value}}" uib-tooltip-placement="top" ></i>
                         <small ng-if="client.subStatus.description">[{{client.subStatus.description}}]</small>
                     </td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
@@ -72,9 +79,9 @@
                 </tbody>
 
             </table>
-            <dir-pagination-controls align="center" boundary-links="true"
+           <dir-pagination-controls align="center" boundary-links="true"
                                      template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
-                                     on-page-change="getResultsPage(newPageNumber)">
+                                     on-page-change="getResultsPage(newPageNumber)" pagination-id="clients">
                                      </dir-pagination-controls>
 
         </div>

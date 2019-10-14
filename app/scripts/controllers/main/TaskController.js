@@ -15,8 +15,17 @@
             scope.restrictDate = new Date();
             //this value will be changed within each specific tab
             scope.requestIdentifier = "loanId";
-            
+
             scope.itemsPerPage = 15;
+
+            scope.loanRescheduleData = [];
+            scope.checkForBulkLoanRescheduleApprovalData = [];
+            scope.rescheduleData = function(){
+              resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
+                scope.loanRescheduleData = data;
+              });
+            };
+            scope.rescheduleData();
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
@@ -32,7 +41,7 @@
                 var newValue = !scope.checkerInboxAllCheckBoxesMet();
                 if(!angular.isUndefined(scope.searchData)) {
                     for (var i = scope.searchData.length - 1; i >= 0; i--) {
-                        scope.checkData[scope.searchData[i].id] = newValue; 
+                        scope.checkData[scope.searchData[i].id] = newValue;
                     };
                 }
             }
@@ -53,7 +62,7 @@
                 var newValue = !scope.clientApprovalAllCheckBoxesMet(officeName);
                 if(!angular.isUndefined(scope.groupedClients[officeName])) {
                     for (var i = scope.groupedClients[officeName].length - 1; i >= 0; i--) {
-                        scope.approveData[scope.groupedClients[officeName][i].id] = newValue; 
+                        scope.approveData[scope.groupedClients[officeName][i].id] = newValue;
                     };
                 }
             }
@@ -74,7 +83,7 @@
                 var newValue = !scope.loanApprovalAllCheckBoxesMet(office);
                 if(!angular.isUndefined(scope.offices)) {
                     for (var i = office.loans.length - 1; i >= 0; i--) {
-                        scope.loanTemplate[office.loans[i].id] = newValue; 
+                        scope.loanTemplate[office.loans[i].id] = newValue;
                     };
                 }
             }
@@ -95,7 +104,7 @@
                 var newValue = !scope.loanDisbursalAllCheckBoxesMet();
                 if(!angular.isUndefined(scope.loans)) {
                     for (var i = scope.loans.length - 1; i >= 0; i--) {
-                        scope.loanDisbursalTemplate[scope.loans[i].id] = newValue; 
+                        scope.loanDisbursalTemplate[scope.loans[i].id] = newValue;
                     };
                 }
             }
@@ -214,16 +223,18 @@
                 }
             };
 
-            $(window).scroll(function () {
+            $('#mifos-reskin-ui-container').on('scroll',function () {
                 if ($(this).scrollTop() > 100) {
                     $('.head-affix').css({
-                        "position": "fixed",
-                        "top": "50px"
+                        position: "fixed",
+                        top: "50px",
+                        width: "80%"
                     });
 
                 } else {
                     $('.head-affix').css({
-                        position: 'static'
+                        position: 'static',
+                        width: "100%"
                     });
                 }
             });
@@ -249,10 +260,10 @@
                     scope.requestIdentifier = "clientId";
 
                     var reqId = 1;
-                    _.each(items, function (value, key) {                         
+                    _.each(items, function (value, key) {
                         if (value == true) {
-                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "clients/"+key+"?command=activate", 
-                            method: "POST", body: JSON.stringify(activate)});                        
+                            scope.batchRequests.push({requestId: reqId++, relativeUrl: "clients/"+key+"?command=activate",
+                            method: "POST", body: JSON.stringify(activate)});
                         }
                     });
 
@@ -264,8 +275,8 @@
                                     route.reload();
                                 }
                             }
-                            
-                        }    
+
+                        }
                     });
 
                     scope.approveData = {};
@@ -322,7 +333,7 @@
 
 
             resourceFactory.clientResource.getAllClients({sqlSearch: 'c.status_enum=100'}, function (data) {
-                scope.groupedClients = _.groupBy(data.pageItems, "officeName");               
+                scope.groupedClients = _.groupBy(data.pageItems, "officeName");
             });
 
             scope.search = function () {
@@ -405,10 +416,10 @@
                 scope.requestIdentifier = "loanId";
 
                 var reqId = 1;
-                _.each(scope.loanTemplate, function (value, key) { 
+                _.each(scope.loanTemplate, function (value, key) {
                     if (value == true) {
-                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=approve", 
-                        method: "POST", body: JSON.stringify(scope.formData)});                        
+                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=approve",
+                        method: "POST", body: JSON.stringify(scope.formData)});
                     }
                 });
 
@@ -422,8 +433,8 @@
                                 scope.loanResource();
                             }
                         }
-                        
-                    }    
+
+                    }
                 });
             };
 
@@ -460,14 +471,14 @@
                     }
                 });
 
-                scope.batchRequests = [];      
-                scope.requestIdentifier = "loanId";          
+                scope.batchRequests = [];
+                scope.requestIdentifier = "loanId";
 
                 var reqId = 1;
-                _.each(scope.loanDisbursalTemplate, function (value, key) { 
+                _.each(scope.loanDisbursalTemplate, function (value, key) {
                     if (value == true) {
-                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=disburse", 
-                        method: "POST", body: JSON.stringify(scope.formData)});                        
+                        scope.batchRequests.push({requestId: reqId++, relativeUrl: "loans/"+key+"?command=disburse",
+                        method: "POST", body: JSON.stringify(scope.formData)});
                     }
                 });
 
@@ -481,11 +492,80 @@
                                 scope.loanResource();
                             }
                         }
-                        
-                    }    
+
+                    }
                 });
             };
+            scope.approveBulkLoanReschedule = function () {
+              if (scope.checkForBulkLoanRescheduleApprovalData) {
+                $uibModal.open({
+                  templateUrl: 'loanreschedule.html',
+                  controller: ApproveBulkLoanRescheduleCtrl
+                });
+              }
+            };
 
+              var ApproveBulkLoanRescheduleCtrl = function ($scope, $uibModalInstance) {
+                $scope.approveLoanReschedule = function () {
+                  scope.bulkLoanRescheduleApproval();
+                  route.reload();
+                  $uibModalInstance.close('approveLoanReschedule');
+                };
+                $scope.cancel = function () {
+                  $uibModalInstance.dismiss('cancel');
+                };
+              }
+              scope.checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval = function() {                var newValue = !scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval();
+                scope.checkForBulkLoanRescheduleApprovalData = [];
+                if(!angular.isUndefined(scope.loanRescheduleData)) {
+                  for (var i = scope.loanRescheduleData.length - 1; i >= 0; i--) {        scope.checkForBulkLoanRescheduleApprovalData[scope.loanRescheduleData[i].id] = newValue;
+                  };
+                }
+              }
+              scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval = function() {
+                var checkBoxesMet = 0;
+                if(!angular.isUndefined(scope.loanRescheduleData)) {
+                  _.each(scope.loanRescheduleData, function(data) {
+                    if(_.has(scope.checkForBulkLoanRescheduleApprovalData, data.id)) {
+                      if(scope.checkForBulkLoanRescheduleApprovalData[data.id] == true) {
+                        checkBoxesMet++;
+                      }
+                    }
+                  });
+                  return (checkBoxesMet===scope.loanRescheduleData.length);
+                }
+              }
+              scope.bulkLoanRescheduleApproval = function () {
+                scope.formData.approvedOnDate = dateFilter(new Date(), scope.df);
+                scope.formData.dateFormat = scope.df;
+                scope.formData.locale = scope.optlang.code;
+                var selectedAccounts = 0;
+                var approvedAccounts = 0;
+                _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) {
+                  if (value == true) {
+                    selectedAccounts++;
+                  }
+                });
+                scope.batchRequests = [];
+                scope.requestIdentifier = "RESCHEDULELOAN";
+                var reqId = 1;
+                _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) {
+                  if (value == true) {
+                    var url =  "rescheduleloans/"+key+"?command=approve";
+                    var bodyData = JSON.stringify(scope.formData);
+                    var batchData = {requestId: reqId++, relativeUrl: url, method: "POST", body: bodyData};
+                    scope.batchRequests.push(batchData);
+                    }
+                  });
+                  resourceFactory.batchResource.post(scope.batchRequests, function (data) {
+                    for(var i = 0; i < data.length; i++) {
+                      if(data[i].statusCode = '200') {
+                        approvedAccounts++;
+                        data[i].body = JSON.parse(data[i].body);      scope.checkForBulkLoanRescheduleApprovalData[data[i].body.resourceId] = false;
+                      }
+                    }
+                  });
+                };
         }
     });
     mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$uibModal', '$location', mifosX.controllers.TaskController]).run(function ($log) {

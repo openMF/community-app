@@ -1,132 +1,147 @@
-# Writing Unit Tests for Mifos Community App
+# Contributing to Mifos Community App
 
-## Best Practices:
- - Write tests before adding a new feature.
- - Make sure to include tests that fail without your code and pass with your code.
- - Make sure your changes do not cause other tests to fail.
- - Name tests descriptively.
- - Only test one piece of functionality at a time.
+We would love you to contribute to Community and help make it better than it is today, As a contributor, here are guidelines we would like you to follow:
 
-## What to test?
- - Test interactions and expected behavior.
- - Avoid testing that a method was run, instead test that the outcome of the method was correct.
- - Test only functionality that resides within that class.
+- [Building Community App](#build)
+- [Question or Problem?](#question)
+- [Issues and Bugs](#issue)
+- [Feature Requests](#feature)
+- [Submission Guidelines](#submit)
+- [Commit Message Guidelines](#submit-pr)
+- [Communication Channels](#communication)
 
-## Where to test?
- - Use a separate test class for each class. Make sure to name the class appropriately.
- - Use a corresponding file structure.
+## <a name="build"></a> Building the community app
 
-## How to structure a test?
+## Building from source
 
-In the below example, we will take a look at SearchController. The purpose of this section of the SearchController is to take in a client ID and return client information, populating the scope to display for the user.
+1.  Ensure you have
 
-For this section, we want to test that given a client ID for an existing user, we return the correct client information that is populated to the scope.
+    `npm` installed - goto http://nodejs.org/download/ to download installer for your OS.  
+    `ruby` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
 
-```javascript
-function(module) {
-  mifosX.controllers = _.extend(module, {
-    SearchController: function(scope, routeParams , resourceFactory) {
+<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
+<br/> Tip: If you are using Ubuntu/Linux, then doing `npm config set prefix ~` prevents you from having to run npm as root.
 
-        scope.searchResults = [];
-        resourceFactory.globalSearch.search( {query: routeParams.query} , function(data){
-            scope.searchResults = data;
-        });
-        scope.getClientDetails = function(clientId) {
+1.  Clone this repository to your local filesystem (default branch is 'develop')
 
-            scope.selected = clientId;
-            resourceFactory.clientResource.get({clientId:clientId} , function(data) {
-              scope.group = '';
-              scope.client = data;
-              scope.center = '';
-            });
-            resourceFactory.clientAccountResource.get({clientId: clientId} , function(data) {
-              scope.clientAccounts = data;
-            });
-        };
+1.  To download the dependencies, and be able to build, first install bower & grunt
 
-     }
-  });
-  mifosX.ng.application.controller('SearchController', ['$scope','$routeParams','ResourceFactory', mifosX.controllers.SearchController]).run(function($log) {
-    $log.info("SearchController initialized");
-  });
-}(mifosX.controllers || {}));
-```
+    ```
+     npm install -g bower
+     npm install -g grunt-cli
+    ```
 
-### Test Setup:
+1.  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the project root folder
 
-In the below tests, we first set up the controller and mock dependencies, which are scope, route, and resourceFactory. Notice that we are mocking specific service calls, which include resourceFactory.globalSearch.search, etc. These are mocked using Jasmine Spy Objects, which allow us to stub real behavior.
+    ```
+     bower install
+    ```
 
-Notice that we did not create a spy for scope, as we want to test how scope is changing.
+    ```
+     npm install
+    ```
 
-```javascript
-describe("SearchController", function() {
-    var resourceCallback, clientGet, clientAccountGet, groupGet, groupAccountGet,centerGet, centerAccountGet;
-    beforeEach(function() {
-        this.scope = {};
+    ```
+     bundler install
+    ```
 
-        this.route =jasmine.createSpyObj("$routeParams", ['query']);
+1.  To preview the app, run the following command on the project root folder
 
-        this.resourceFactory = {
-            globalSearch: {
-                search: jasmine.createSpy('globalSearch.search()').andCallFake(function(query,callback) {
-                    resourceCallback = callback;
-                })},
-            clientResource: {
-                get: jasmine.createSpy('clientResources.get()').andCallFake(function(params,callback)  {
-                    clientGet = callback;
-                })},
-            clientAccountResource : {
-                get: jasmine.createSpy('clientAccountResources.get()').andCallFake(function(params,callback){
-                    clientAccountGet=callback;
-                })}
-         }
-         this.controller = new mifosX.controllers.SearchController(this.scope, this.route, this.resourceFactory);
-     }
-```
+    ```
+     grunt serve
+    ```
 
-### Testing:
+    or open the 'index.html' file in FIREFOX browser
 
-Notice the naming conventions below, as each test describes the particular feature that is being tested. Follow naming conventions of the particular project.
+    Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
 
-Group tests that are similar in behavior. See how "describe" wraps tests that are testing specific outcomes of a single feature or action.
+    ```
+     Waiting...Warning: EMFILE, too many open files
+    ```
 
-Each test should have an expect statement. In most cases, tests should only have one expect statement.
+1.  Default username/password: mifos/password. This application will hit the demo server by default.
 
+You are done.
 
-```javascript
-     it("should populate the search results on loading", function(){
-             resourceCallback({"data":"searchResults"});
-             expect(this.resourceFactory.globalSearch.search).toHaveBeenCalled();
-             expect(this.scope.searchResults.data).toBe("searchResults");
-         });
+## <a name="question"></a> Got a Question or Problem?
 
-         describe("when a clientId is selected",function(){
-             beforeEach(function() {
-                 this.scope.getClientDetails("123");
-                 clientGet({'clientId':'123'});
-             });
+If you have got any questions or problem, please email to our [mailing list](https://lists.sourceforge.net/lists/listinfo/mifos-developer)
 
-             it("should set the clientId to selected when the clientId is selected",function(){
-                 expect(this.scope.selected).toBe("123");
-             });
-             it("should set the group to blank",function(){
-                 expect(this.scope.group).toBe("");
-             });
-             it("should set the center to blank",function(){
-                 expect(this.scope.center).toBe("");
-             });
-             it("should get the client data",function(){
-                 expect(this.scope.client.clientId).toBe("123");
-             });
-             it("should get the client account data",function(){
-                 clientAccountGet({'account':'1'});
-                 expect(this.scope.clientAccounts.account).toBe("1");
-             });
+If you would like to chat about the question in real-time, you can reach out via our [Gitter](https://gitter.im/openMF/community-app) channel.
 
-         });
-      }
-```
+## <a name="issue"></a> Found a Bug?
 
-## Contributing:
+If you find a bug in the source code, you can help us by submitting an issue to our [GitHub Repository](https://github.com/openMF/community-app). Even better, you can submit a Pull Request with a fix.
 
-Please feel free to add to and contribute to this documentation!
+## <a name="feature"></a> Missing a Feature?
+
+You can _request_ a new feature by [submitting an issue](#submit-issue) to our GitHub
+Repository. If you would like to _implement_ a new feature, please submit an issue with
+a proposal for your work first, to be sure that we can use it.
+Please consider what kind of change it is:
+
+- For a **Major Feature**, first open an issue and outline your proposal so that it can be
+  discussed. This will also allow us to better coordinate our efforts, prevent duplication of work,
+  and help you to craft the change so that it is successfully accepted into the project.
+- **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
+
+## <a name="submit"></a> Submission Guidelines
+
+### <a name="submit-issue"></a> Submitting an Issue
+
+- Follow the Issue Template while creating the issue.
+- Include Screenshots if any (specially for UI related issues)
+- For UI enhancements or workflows, include mockups to get a clear idea.
+
+### Best Practices for assigning an issue:
+
+- If you would like to work on an issue, inform in the issue ticket by commenting on it.
+- Please be sure that you are able to reproduce the issue, before working on it. If not, please ask for clarification by commenting or asking the issue creator.
+
+## <a name="submit-pr"></a> Submitting a Pull Request (PR)
+
+### Instruction for making a code change
+
+**Working on your first pull requests ?** You can learn how from this free series [How to Contribute to an Open Source Project on GitHub.](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+
+Our central development branch is `develop` , which should be clean and ready for release at any time. Feel free to discuss about any issue in gitter channel
+
+1.  **Choose a descriptive branch name** - It should be like `issue-1888` if your are working on issue number 1888
+
+2.  **Create a branch name with this name, starting from develop** -
+
+`git fetch upstream`
+
+`git checkout develop`
+
+`git merge upstream/develop`
+
+`git checkout -b your-branch-name`
+
+3.  **Make commit to your feature branch**- Each commit should be self-contained and have a descriptive commit message that helps other developers understand why the changes were made.
+
+    - If you are sending PR then it should notify which issue you are solving. Like this `BranchName: Fix #issueno - description`
+
+      For example `Fix #1234 - Issue Description`
+
+4.
+
+- If the PR is for solving some Issue related to UI, post 2 pictures, first picture containing the earlier UI and the second picture containing the updated UI.
+
+- Include the URLs to the views that are effected by the PR. For example, if the PR has some improvements in the clients page, have the URL information as: https://demo.openmf.org/newbeta/#/clients
+
+5.  Please ensure that the code you write is well-tested.
+
+_Wait for your PR to get reviewed till then you can start working on another issue_
+
+6.  Squash all your commits to a single commit.
+
+## <a name="communication"></a> Communication Channels
+
+### Mailing lists
+
+We have several mailing lists in the form of Google groups that you can join:
+
+- [Mifos-Developer](https://lists.sourceforge.net/lists/listinfo/mifos-developer)
+
+- [Chat room](https://gitter.im/openMF/mifos)

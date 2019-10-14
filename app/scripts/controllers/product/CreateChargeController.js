@@ -39,6 +39,7 @@
                         scope.showGLAccount = false;
                         break ;
                     case 3:
+                        scope.showChargePaymentByField = false;
                         scope.chargeCalculationTypeOptions = scope.template.clientChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
@@ -99,13 +100,18 @@
             };
 
 	    scope.filterChargeCalculations = function(chargeTimeType) {
-		return function (item) {
-			if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
-			{
-				return false;
-			}
-			return true;
-		};
+
+		    return function (item) {
+			    if (chargeTimeType == 12 && ((item.id == 3) || (item.id == 4)))
+			    {
+				    return false;
+			    }
+                if (chargeTimeType != 12 && item.id == 5)
+                {
+                    return false;
+                }
+			    return true;
+		    };
 	    };
             scope.submit = function () {
                 //when chargeTimeType is 'annual' or 'monthly fee' then feeOnMonthDay added to

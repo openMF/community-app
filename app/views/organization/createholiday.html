@@ -13,10 +13,10 @@
     		<form name="addholidayform" novalidate="" class="form-horizontal" ng-controller="AddHolController"
     		      rc-submit="submit()">
     		    <api-validate></api-validate>
-    		    <fieldset>	
+    		    <fieldset>
     		        <div class="form-group">
     		            <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
-    		
+
     		            <div class="col-sm-3">
     		                <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
     		                       class="form-control" required late-Validate/>
@@ -29,42 +29,66 @@
     		            <div>
     		                <label class="control-label col-sm-2">{{ 'label.input.fromdate' | translate }}<span
     		                        class="required">*</span></label>
-    		
+
     		                <div class="col-sm-3">
-    		                    <input id="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDat" 
-                                max="'2050-06-22'" class="form-control"/>
+    		                    <input id="fromDate" name="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDat"
+                                max="'2050-06-22'" class="form-control" required/>
     		                </div>
+                            <div class="">
+                                <span class="error" ng-if="firstError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
+                                <form-validate valattributeform="addholidayform" valattribute="fromDate"/>
+                            </div>
     		            </div>
     		            <div>
     		                <label class="control-label col-sm-1">{{ 'label.input.todate' | translate }}<span
     		                        class="required">*</span></label>
-    		
+
     		                <div class="col-sm-3">
-    		                    <input id="toDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+    		                    <input id="toDate" name="toDate" sort type="text" datepicker-pop="dd MMMM yyyy"
     		                           ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'"
-    		                           class="form-control"/>
+    		                           class="form-control" required/>
+
+                                <span class="error" ng-if="secondError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
     		                </div>
     		            </div>
     		        </div>
-    		        <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.heading.repaymentscheduleing.rule' | translate }}<span
+                            class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <select id="repaymentSchedulingRuleType" name="schedulingRule" class="form-control" ng-model="reschedulingType" ng-change="selectRescheduleType(reschedulingType)"
+                                    ng-options="repaymentSchedulingRule.value | translate for repaymentSchedulingRule in repaymentSchedulingRules"
+                                    value="{{repaymentSchedulingRule.id}}" required></select>
+                        </div>
+                        <form-validate valattributeform="addholidayform" valattribute="schedulingRule"/>
+
+                  </div>
+
+    		        <div class="form-group"  ng-show="reschedulingType.id == specificRescheduleType">
     		            <label class="control-label col-sm-2">{{ 'label.input.repaymentsheduleto' | translate }}<span
     		                    class="required">*</span></label>
-    		
+
     		            <div class="col-sm-3">
-    		                <input id="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
+    		                <input id="repaymentsRescheduledTo" name="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
     		                       ng-model="date.third" is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control"/>
     		            </div>
-    		        </div>    
+                        <div class="col-sm-3">
+                            <span class="error" ng-if="thirdError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
+                            <form-validate valattributeform="addholidayform" valattribute="repaymentsRescheduledTo"/>
+                        </div>
+    		        </div>
     		        <div class="form-group">
     		            <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
-    		
+
     		            <div class="col-sm-3">
     		                <input id="" type="text" data-ng-model="formData.description" class="form-control"/>
     		            </div>
-    		        </div>    
+    		        </div>
     		        <div class="form-group">
-    		            <label class="control-label col-sm-2">{{ 'label.input.applicableoffices' | translate }}</label>
-    		
+    		            <label class="control-label col-sm-2">{{ 'label.input.applicableoffices' | translate }}<span
+								class="required">*</span></label>
+
     		            <div
     		                    data-angular-treeview="true"
     		                    data-tree-id="holidaytreeview"
@@ -80,7 +104,7 @@
     		                {{'label.button.save' | translate}}
     		            </button>
     		        </div>
-    		
+
     		    </fieldset>
     		</form>
     	</div>

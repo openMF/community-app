@@ -18,7 +18,7 @@
             scope.meetingDate = routeParams.meetingDate;
             var submittedStaffId = [];
             scope.details = false;
-
+            scope.noData = true;
             resourceFactory.centerResource.getAllMeetingFallCenters(params, function (data) {
                 if (data[0]) {
                     scope.staffCenterData = data[0].meetingFallCenters;
@@ -61,6 +61,9 @@
                 }
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.collectionsheetdata = data;
+                    if(data.groups.length > 0){
+                      scope.noData = false;
+                    }
                     scope.clientsAttendanceArray(data.groups);
                     scope.total(data);
                 });
@@ -217,7 +220,7 @@
                             break;
                         }
                     }
-                    
+
                 });
             };
         }

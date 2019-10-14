@@ -1,4 +1,5 @@
-<div class="col-md-12" ng-controller="ViewLoanProductController">
+<div class="content-container" ng-controller="ViewLoanProductController">
+<div id="viewlptop"></div>
 <div class="paddedbottom10">
     <ul class="breadcrumb">
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
@@ -7,13 +8,15 @@
     </ul>
 </div>
 <div>
-<div class="pull-right">
-    <div class="btn-group">
-        <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
-                class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
-    </div>
-</div>
-<legend>{{loanproduct.name}}</legend>
+    <div class="card">
+        <div class="content">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
+                       class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                </div>
+            </div>
+            <legend>{{loanproduct.name}}</legend>
 <table width="100%">
 <tr>
     <td>
@@ -186,6 +189,10 @@
 <tr>
     <td>{{'label.heading.interestmethod' | translate}}</td>
     <td colspan="3">{{loanproduct.interestType.value}}</td>
+</tr>
+<tr>
+    <td>{{'label.heading.equalamortization' | translate}}</td>
+    <td colspan="3">{{loanproduct.isEqualAmortization}}</td>
 </tr>
 <tr>
     <td>{{'label.heading.interestcalculationperiod' | translate}}</td>
@@ -549,5 +556,7 @@
     </td>
 </tr>
 </table>
+</div>
+</div>
 </div>
 </div>

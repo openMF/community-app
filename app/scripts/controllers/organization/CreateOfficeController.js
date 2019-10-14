@@ -12,6 +12,14 @@
                 }
             });
 
+             scope.minDat = function() {
+                 for(var i=0;i<scope.offices.length;i++) {
+                     if ((scope.offices[i].id) === (scope.formData.parentId)) {
+                         return scope.offices[i].openingDate;
+                     }
+                 }
+                };
+
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 var reqDate = dateFilter(scope.first.date, scope.df);

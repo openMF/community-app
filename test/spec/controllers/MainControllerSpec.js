@@ -14,7 +14,7 @@ describe("MainController", function () {
         this.keyboardManager = jasmine.createSpyObj('keyboardManager', ['bind']);
 
         this.translate = jasmine.createSpyObj("translate", ["use"]);
-        this.rootScope = jasmine.createSpy();
+        this.rootScope = jasmine.createSpyObj("$rootScope", ['$broadcast']);
         this.localStorageService = jasmine.createSpyObj("localStorageService", ["addToLocalStorage", "getFromLocalStorage"]);
         this.promise = jasmine.createSpyObj('Promise', ['success','then']);
         this.http = jasmine.createSpyObj("$http", ['get']);

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, $upload, $rootScope, routeParams, $modal) {
+        EditSmsCampaignController: function (scope, WizardHandler, resourceFactory, location, http, dateFilter, API_VERSION, Upload, $rootScope, routeParams, $uibModal) {
 
             scope.reportParams = new Array();
             scope.reportDateParams = new Array();
@@ -65,7 +65,12 @@
                 scope.campaignData.id = data.id;
                 scope.campaignData.campaignName = data.campaignName;
                 scope.campaignData.campaignMessage = data.campaignMessage;
-                scope.campaignData.smsProvider = data.providerId;
+                if(data.providerId){
+                    scope.campaignData.smsProvider = data.providerId;
+                }else{
+                    scope.campaignData.smsProvider = null;
+                }                
+                scope.campaignData.isNotification = data.isNotification;
                 scope.campaignData.triggerType = data.triggerType.id;
                 scope.campaignData.campaignType = data.campaignType.id;
                 scope.campaignData.report = data.runReportId;
@@ -224,13 +229,24 @@
                     recurrenceStartDate: scope.scheduledDateTime,
                     dateTimeFormat: scope.dft,
                     runReportId : scope.campaignData.report,
-                    paramValue : scope.paramValues
+                    paramValue : scope.paramValues,
+                    isNotification : scope.campaignData.isNotification
                 }
 
                 resourceFactory.smsCampaignResource.update({campaignId: routeParams.campaignId}, scope.submissionData, function(data) {
                     location.path('/viewsmscampaign/' + routeParams.campaignId);
                 });
 
+            };
+
+
+
+            scope.getcampaignType = function(){
+                if(scope.campaignData.isNotification==false){
+                    return 1;
+                }else{
+                    return 2;
+                }
             };
 
             var setDisableTimeout = function() {
@@ -241,7 +257,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', '$upload', '$rootScope', '$routeParams', '$modal', mifosX.controllers.EditSmsCampaignController]).run(function ($log) {
+    mifosX.ng.application.controller('EditSmsCampaignController', ['$scope', 'WizardHandler', 'ResourceFactory', '$location', '$http', 'dateFilter', 'API_VERSION', 'Upload', '$rootScope', '$routeParams', '$uibModal', mifosX.controllers.EditSmsCampaignController]).run(function ($log) {
         $log.info("EditSmsCampaignController initialized");
     });
 }(mifosX.controllers || {}));

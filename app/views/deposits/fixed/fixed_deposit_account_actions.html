@@ -9,8 +9,8 @@
                 <h3>{{ title | translate}}</h3>
             </div>
             <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
-                <api-validate></api-validate>
                 <fieldset>
+                    <api-validate></api-validate>
                     <div class="form-group" ng-show="showDateField">
                         <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
                                 class="required">*</span></label>
@@ -20,7 +20,18 @@
                                    ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate"/>
                         </div>
                     </div>
-
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{'label.input.depositamount' | translate}}</label>
+                      <label class="col-sm-3">{{depositAmount}}</label>
+                    </div>
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{ 'label.input.activationcharge' | translate}}</label>
+                      <label class="col-sm-3">{{activationChargeAmount}}</label>
+                    </div>
+                    <div class="form-group" ng-show="action=='activate' && activationChargeAmount>0">
+                      <label class="control-label col-sm-2">{{ 'label.heading.transactionamount' | translate}}</label>
+                      <label class="col-sm-2">{{totalAmountIncludingActivationCharge}}</label>
+                    </div>
                     <div class="form-group" ng-show="showAmount">
                         <label class="control-label col-sm-2">{{ 'label.input.amount' | translate}}<span
                                 class="required">*</span></label>
@@ -147,7 +158,7 @@
                     </div>
 
                     <div class="form-group" ng-show="showAmountField">
-                        <label class="control-label col-sm-2">{{ labelName | translate}}<span class="required">*</span></label>
+                        <label class="control-label col-sm-2">{{ 'label.input.amount' | translate}}<span class="required">*</span></label>
 
                         <div class="col-sm-3">
                             <input type="text" id="amount" number-format class="form-control" ng-model="formData.amount">

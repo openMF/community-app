@@ -121,10 +121,17 @@
                 scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                 scope.formData.repaymentEvery = scope.loanaccountinfo.repaymentEvery;
                 scope.formData.repaymentFrequencyType = scope.loanaccountinfo.repaymentFrequencyType.id;
+                if (scope.loanaccountinfo.repaymentFrequencyNthDayType != null){
+                    scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.repaymentFrequencyNthDayType.id;
+                }
+                if(scope.loanaccountinfo.repaymentFrequencyDayOfWeekType != null){
+                    scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.repaymentFrequencyDayOfWeekType.id
+                }
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
+                scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
                 scope.formData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
                 scope.formData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
@@ -230,11 +237,13 @@
                     for (var i in scope.collaterals) {
                         scope.formData.collateral.push({type: scope.collaterals[i].type, value: scope.collaterals[i].value, description: scope.collaterals[i].description});
                     }
-                    
+
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
-                    this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    if(scope.loanaccountinfo.calendarOptions){
+                        this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    }
                     scope.syncRepaymentsWithMeeting = this.formData.syncRepaymentsWithMeeting;
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
@@ -288,7 +297,9 @@
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
-                    this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    if(scope.loanaccountinfo.calendarOptions){
+                        this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    }
                 }
                 delete this.formData.syncRepaymentsWithMeeting;
                 delete this.formData.interestRateFrequencyType;

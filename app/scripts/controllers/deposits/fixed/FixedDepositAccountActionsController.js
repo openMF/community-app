@@ -11,6 +11,16 @@
             scope.isAccountClose = false;
             scope.showPaymentDetails = false;
             scope.paymentTypes = [];
+            scope.activationChargeAmount = 0;
+            scope.totalAmountIncludingActivationCharge = 0;
+            scope.depositAmount = 0;
+            if(scope.action=='activate'){
+                resourceFactory.fixedDepositAccountResource.get({accountId: scope.savingAccountId, associations:'charges'}, function (data) {
+                        scope.totalAmountIncludingActivationCharge = data.depositAmount+parseFloat(data.activationCharge);
+                        scope.depositAmount = data.depositAmount;
+                        scope.activationChargeAmount = data.activationCharge;
+                 });
+            }
 
             switch (scope.action) {
                 case "approve":

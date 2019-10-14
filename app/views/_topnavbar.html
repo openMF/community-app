@@ -16,9 +16,11 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" uib-collapse="!isNavCollapsed">
             <ul class="nav navbar-nav" id="main-menu-left">
-                <li class="" uib-dropdown>
+                <li class="" uib-dropdown is-open="li.client.status.isopen"
+                ng-mouseenter="li.client.status.isopen = true" ng-mouseleave="li.client.status.isopen = false">
                     <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                       ng-class="{ activate: isActive('clients') }" href><i class="fa fa-users"></i> {{
+                       ng-class="{ activate: isActive('clients') }" href >
+                       <i class="fa fa-users"></i> {{
                         'label.anchor.clients' | translate }}<b class="caret"></b></a>
                     <ul class="" uib-dropdown-menu id="swatch-menu">
                         <li><a href="#/clients" has-permission='READ_CLIENT'>{{ 'label.anchor.clients' | translate
@@ -29,11 +31,17 @@
                             }}</a></li>
                     </ul>
                 </li>
-                <li><a ng-class="{ activate: isActive('acc') }" href="#/accounting"><i class="fa fa-money"></i> {{
-                    'label.anchor.accounting' | translate }}</a></li>
-                <li class="" uib-dropdown id="reports-menu">
+                <li uib-dropdown is-open="li.accounting.status.isopen"
+                ng-mouseenter="li.accounting.status.isopen = true" ng-mouseleave="li.accounting.status.isopen = false">
+                    <a ng-class="{ activate: isActive('acc') }" href="#/accounting">
+                        <i class="fa fa-money"></i> {{ 'label.anchor.accounting' | translate }}
+                    </a>
+                </li>
+                <li class="" uib-dropdown id="reports-menu" is-open="li.reports.status.isopen"
+                ng-mouseenter="li.reports.status.isopen = true" ng-mouseleave="li.reports.status.isopen = false">
                     <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                       ng-class="{ activate: isActive('rep') }" href><i class="fa fa-bar-chart-o"></i> {{
+                       ng-class="{ activate: isActive('rep') }" href>
+                       <i class="fa fa-bar-chart-o"></i> {{
                         'label.anchor.reports' | translate }}<b class="caret"></b></a>
                     <ul class="" uib-dropdown-menu>
                         <li><a href="#/reports/all" has-permission='READ_REPORT'>{{ 'label.anchor.all' | translate
@@ -52,9 +60,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class="" uib-dropdown id="preview-menu">
+                <li class="" uib-dropdown id="preview-menu" is-open="li.admin.status.isopen"
+                ng-mouseenter="li.admin.status.isopen = true" ng-mouseleave="li.admin.status.isopen = false">
                     <a class="" uib-dropdown-toggle data-toggle="uib-dropdown"
-                       ng-class="{ activate: isActive('admin') }" href><i class="fa fa-wrench"></i> {{
+                       ng-class="{ activate: isActive('admin') }" href>
+                       <i class="fa fa-wrench"></i> {{
                         'label.anchor.admin' | translate }}<b class="caret"></b></a>
                     <ul class="" uib-dropdown-menu>
                         <li><a href="#/users" has-permission='READ_USER'>{{ 'label.anchor.users' | translate }}</a>
@@ -68,7 +78,8 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="main-menu-right">
-                <li class="" uib-dropdown id="notification-icon" ng-controller="NotificationsController">
+                <li class="" uib-dropdown id="notification-icon" ng-controller="NotificationsController" is-open="li.notif.status.isopen"
+                ng-mouseenter="li.notif.status.isopen = true" ng-mouseleave="li.notif.status.isopen = false">
                     <a href class="" uib-dropdown-toggle data-toggle="uib-dropdown"
                        ng-click="fetchItemsInNotificationTray()">
                         <span class="fa fa-bell"></span>
@@ -86,7 +97,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="" uib-dropdown id="user-menu">
+                <li class="" uib-dropdown id="user-menu" is-open="li.user.status.isopen"
+                ng-mouseenter="li.user.status.isopen = true" ng-mouseleave="li.user.status.isopen = false">
                     <a id="user-dropdown" class="" uib-dropdown-toggle data-toggle="uib-dropdown" href>
                         {{currentSession.user.name}}<b class="caret"></b></a>
                     <ul class="" uib-dropdown-menu>

@@ -23,13 +23,20 @@
             });
 
             scope.productiveCollectionSheet = function () {
-                for (var i = 0; i < scope.offices.length; i++) {
-                    if (scope.offices[i].id === scope.officeId) {
-                        scope.officeName = scope.offices[i].name;
+                if (scope.officeId && scope.loanOfficerId ) {
+                    for (var i = 0; i < scope.offices.length; i++) {
+                        if (scope.offices[i].id === scope.officeId) {
+                            scope.officeName = scope.offices[i].name;
+                        }
                     }
+                    scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
+                    location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
+                } else {
+                    scope.collectionsheetform.office.$valid = true;
+                    scope.collectionsheetform.office.$error.req = true;
+                    scope.collectionsheetform.loanOfficer.$valid = true;
+                    scope.collectionsheetform.loanOfficer.$error.req = true;
                 }
-                scope.meetingDate = dateFilter(scope.date.transactionDate, scope.df);
-                location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
             };
 
             scope.officeSelected = function (officeId) {
@@ -60,6 +67,7 @@
 
             scope.loanOfficerSelected = function (loanOfficerId) {
                 if (loanOfficerId) {
+                    scope.loanOfficerId = loanOfficerId;
                     resourceFactory.centerResource.getAllCenters({officeId: scope.officeId, staffId: loanOfficerId, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (data) {
                         scope.centers = data;
                     });
@@ -363,7 +371,7 @@
                     var cl = scope.clients.length;
                     for (var j = 0; j < cl; j++) {
                         scope.client = scope.clients[j];
-                        if (scope.client.attendanceType.id === 0) {
+                        if (scope.client.attendanceType && scope.client.attendanceType.id === 0) {
                             scope.client.attendanceType.id = 1;
                         }
                     }
@@ -382,9 +390,12 @@
                                 }
                                 var savingsTransaction = {
                                     savingsId:saving.savingsId,
-                                    transactionAmount:dueAmount
+                                    transactionAmount:dueAmount,
+                                    depositAccountType: saving.depositAccountType=='Saving Deposit'?100:(saving.depositAccountType=='Recurring Deposit'?300:400)
                                 };
-                                scope.bulkSavingsDueTransactions.push(savingsTransaction);
+                                if(savingsTransaction.transactionAmount>0){
+                                    scope.bulkSavingsDueTransactions.push(savingsTransaction);
+                                }
                             });
 
                             _.each(client.loans, function (loan) {
@@ -409,12 +420,12 @@
                     scope.formData.transactionDate = dateFilter(scope.date.transactionDate, scope.df);
                 }
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
-                
+
                 _.each(scope.savingsgroups, function (group) {
                     _.each(group.clients, function (client) {
                         var clientAttendanceDetails = {
                             clientId: client.clientId,
-                            attendanceType: client.attendanceType.id
+                            attendanceType: client.attendanceType != undefined?client.attendanceType.id:null
                         };
                         scope.clientsAttendance.push(clientAttendanceDetails);
                     });

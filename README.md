@@ -1,12 +1,7 @@
-# MifosX Community App
+# MifosX Community App [![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  [![Build Status](https://travis-ci.com/openMF/community-app.svg?branch=develop)](https://travis-ci.org/openMF/community-app)  [![Docker Hub](https://img.shields.io/docker/pulls/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app)  [![Docker Build](https://img.shields.io/docker/cloud/build/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app/builds)
 
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
-## Build Status
-
-Travis
-
-[![Build Status](https://travis-ci.org/openMF/community-app.png?branch=master)](https://travis-ci.org/openMF/community-app)
 
 ## Online Demo
 
@@ -15,8 +10,12 @@ Travis
 
 ## Building from source
 
-1. Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.       
-<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem). 
+1. Ensure you have
+
+   ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
+   ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
+
+<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
 <br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
@@ -27,13 +26,16 @@ Travis
     npm install -g grunt-cli
    ```
 
-1. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
+1. Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
 
    ```
     bower install
    ```
    ```
-    npm install 
+    npm install
+   ```
+   ```
+    bundle install
    ```
 
 1. To preview the app, run the following command on the project root folder
@@ -43,7 +45,7 @@ Travis
    ```
    or open the 'index.html' file in FIREFOX browser
 
-   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/ 
+   Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
 
    ```
     Waiting...Warning: EMFILE, too many open files
@@ -71,7 +73,7 @@ e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=d
 e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
 ## Adding dependencies
 
-You can also add more dependencies on bower.json. 
+You can also add more dependencies on bower.json.
 You can search for them in http://sindresorhus.com/bower-components/ or even:
 
 ```
@@ -110,6 +112,25 @@ Start a static server and open the project in the default browser. The applicati
 grunt serve
 ```
 
+### Docker
+To build a Docker image for the current repo, run:
+```
+docker build -t mifos-community-app .
+```
+You can then run a Docker Container from the image above like this:
+```
+docker run --name mifos-ui -it -d -p 80:80 mifos-community-app
+```
+
+Access the webapp on http://localhost in your browser.
+The Dockerfile uses a ruby and node base image to build the current repo and deploys the app on nginx which is exposed
+on port 80 within the container.
+
+### Compile sass to css
+
+```
+grunt compass:dev
+```
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.
@@ -121,5 +142,4 @@ https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/
 
 ## Contribution guidelines
 
-Please read the <a href="https://github.com/openMF/community-app/blob/master/Contributing.md" >contribution guidelines</a>
-
+Please read the <a href="https://github.com/openMF/community-app/blob/develop/Contributing.md" >contribution guidelines</a>

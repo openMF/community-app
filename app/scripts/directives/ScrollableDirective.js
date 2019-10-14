@@ -17,12 +17,16 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                    
 
                    init();
+                    function scrollOnWheel($event){
+                        var delta = Math.max(-1, Math.min(1, ($event.originalEvent.wheelDelta || -$event.originalEvent.detail)));
+                        navTabsElement.scrollLeft -= 15*delta;
+                        $event.preventDefault();
 
+                    }
                    function startScroll($event) {
                        if ($event.target == element) {
                            scrollTimer = $interval(function() {
-                               navTabsElement.scrollLeft += ($event.clientX > 200) ? 10 : -10;
-                               console.log(navTabsElement.scrollLeft);
+                               navTabsElement.scrollLeft += ($event.clientX > 260) ? 10 : -10;
                            }, 1000 / 60);
                        }
                    }
@@ -66,8 +70,7 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
 
                    function onNavTabsMouseDown($event) {
                        var currentlyScrollable = element.classList.contains('scrollable');
-                       console.log(currentlyScrollable);
-
+                  
                        if (currentlyScrollable === true) {
                            $event.preventDefault();
 
@@ -84,38 +87,28 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                    }
 
                    function checkForScroll(){
-                       console.log('checking tabs for scroll');
                        var currentlyScrollable = element.classList.contains('scrollable'),
                            difference = 1;
-                       console.log(element.classList);
-                       
-                       console.log(currentlyScrollable);
-                       
+
 
                        // determine whether or not it should actually be scrollable
                        // the logic is different if the tabs are currently tagged as scrollable
                     
-                       console.log(navTabsElement.clientWidth);
-                       console.log(navTabsElement.scrollWidth);
                        if (currentlyScrollable === true) {
                            difference = navTabsElement.scrollWidth - navTabsElement.clientWidth;
                        } else {
                            difference = navTabsElement.clientHeight - navTabsElement.querySelector('.nav-tabs > li').clientHeight;
                        }
-                       console.log(difference);
+                       
 
                        if (difference > 2) {
                            element.classList.add("scrollable");
-                       } 
+                       }
                    }
 
                    function bindEventListeners() {
                        wrappedElement.on('mousedown', function($event) {
                            startScroll($event);
-                       });
-
-                       wrappedElement.on('click', function($event) {
-                           console.log('CLICK', $event.defaultPrevented);
                        });
 
                        wrappedElement.on('mouseup mouseleave', function($event) {
@@ -124,6 +117,9 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                     
 
                        angular.element(navTabsElement).on('mousedown', onNavTabsMouseDown);
+                       angular.element(navTabsElement).on('DOMMouseScroll',scrollOnWheel);
+                       angular.element(navTabsElement).on('mousewheel',scrollOnWheel);
+                       
 
                        $window.addEventListener('resize', onWindowResize);
 
@@ -135,7 +131,6 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                    }
 
                    $scope.$on('checkTabs', function(){
-                       console.log("tabcheck");
                        $timeout(checkForScroll, 10); });
 
                    function init() {

@@ -1,7 +1,7 @@
 <div class="content-container">
     <ul class="breadcrumb">
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-        <li class="active">{{'label.anchor.managehooks' | translate}}</li>
+        <li class="active">{{'label.anchor.makedatatableentry' | translate}}</li>
     </ul>
     <div class="card">
         <div class="content">
@@ -9,14 +9,9 @@
                 <h4>{{ 'label.heading.makedatatableentry' | translate }}</h4>
             </div>
             <br/>
+            <api-validate></api-validate>
            <form class="form-horizontal" ng-controller="MakeDataTableEntryController" ng-submit="submit()">
-               <div class="error" ng-show="errorStatus || errorDetails">
-                   <label>{{"label.error" | translate}}</label>
-                   <label ng-show="errorStatus">{{errorStatus}}</label>
-                   <label ng-hide="errorStatus" ng-repeat="error in errorDetails">
-                       {{error.code | translate:error.args}}-{{error.field}}
-                   </label>
-               </div>
+
                <fieldset>
                    <h3>{{ 'label.heading.datatablename' | translate }}-<strong>{{tableName}}</strong></h3>
                    <hr/>

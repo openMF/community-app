@@ -15,35 +15,41 @@
                         <uib-tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ'>
                             <div class="head-affix">
                                 <table class="table condensed-table">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-				                    <span class="input-append grpinputicons">
-				                        <input ng-autofocus="true" autocomplete="off"
-                                               typeahead-on-select="viewUser($item)"
-                                               placeholder="{{'label.input.searchbyuser' | translate}}" type="text"
-                                               ng-model="user"
-                                               uib-typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"
-                                               class="form-control">
-				                        <button type="button" ng-click="isCollapsed = !isCollapsed"
-                                                class="btn control btn-default"><i
-                                                class="fa fa-chevron-down"></i></button>
-				                        <button type="button" ng-click="search()" class="btn btn-primary control"><i
-                                                class="fa fa-search icon-white"></i></button>
-				                    </span>
-                                        </div>
-                                        <div class="form-group">
-				                    <span>
-				                        <button type="button" class="btn btn-success"
-                                                data-ng-click="approveOrRejectChecker('approve')"><i
-                                                class="icon-ok"></i>{{'label.button.approve' | translate}}</button>
-				                        <button type="button" class="btn btn-danger" data-ng-click="deleteChecker()"><i
-                                                class="icon-trash"></i>{{'label.button.delete' | translate}}</button>
-				                        <button type="button" class="btn btn-warning"
-                                                data-ng-click="approveOrRejectChecker('reject')"><i
-                                                class="icon-remove"></i>{{'label.button.reject' | translate}}</button>
-				                    </span>
-                                        </div>
-                                    </div>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                            <span class="input-append grpinputicons">
+                                                <input ng-autofocus="true" autocomplete="off"
+                                                       typeahead-on-select="viewUser($item)"
+                                                       placeholder="{{'label.input.searchbyuser' | translate}}" type="text"
+                                                       ng-model="user"
+                                                       uib-typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"
+                                                       class="form-control">
+                                                <button type="button" ng-click="isCollapsed = !isCollapsed"
+                                                        class="btn control btn-default"><i
+                                                        class="fa fa-chevron-down"></i></button>
+                                                <button type="button" ng-click="search()" class="btn btn-primary control"><i
+                                                        class="fa fa-search icon-white"></i></button>
+                                            </span>
+                                                </div>
+                                                <div class="form-group">
+                                            <span>
+                                                <button type="button" class="btn btn-success"
+                                                        data-ng-click="approveOrRejectChecker('approve')"><i
+                                                        class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve' | translate}}</button>
+                                                <button type="button" class="btn btn-danger" data-ng-click="deleteChecker()"><i
+                                                        class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}</button>
+                                                <button type="button" class="btn btn-warning"
+                                                        data-ng-click="approveOrRejectChecker('reject')"><i
+                                                        class="fa fa-times"></i>&nbsp;&nbsp;{{'label.button.reject' | translate}}</button>
+                                            </span>
+                                                </div>
+                                            </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
                                 </table>
                             </div>
                             <div uib-collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
@@ -101,7 +107,7 @@
                                 <div class="modal-body">
                                     <api-validate></api-validate>
                                     <br>
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' |
@@ -116,7 +122,7 @@
                                 <div class="modal-body">
                                     <api-validate></api-validate>
                                     <br>
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' |
@@ -156,12 +162,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div>
-                                <center>
+                            <div class="text-center">
                                     <dir-pagination-controls pagination-id="inbox"
                                                              boundary-links="true"
                                                              template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
-                                </center>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
@@ -177,7 +181,7 @@
                                         <th>
                                             <button type="button" class="btn btn-success"
                                                     data-ng-click="approveClient()" has-permission='ACTIVATE_CLIENT'><i
-                                                    class="icon-ok"></i>{{'label.button.approve' | translate}}
+                                                    class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve' | translate}}
                                             </button>
                                         </th>
                                     </tr>
@@ -197,7 +201,7 @@
                                            max="restrictDate"/>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="approve(date.actDate)">
@@ -247,9 +251,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <dir-pagination-controls pagination-id="'_' + $index"
-                                                         boundary-links="true"
-                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'_' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
@@ -264,7 +270,7 @@
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-success" data-ng-click="approveLoan()"
-                                                    has-permission='APPROVE_LOAN'><i class="icon-ok"></i>{{'label.button.approve'
+                                                    has-permission='APPROVE_LOAN'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve'
                                                 | translate}}
                                             </button>
                                         </th>
@@ -279,7 +285,7 @@
                                 <div class="modal-body">
                                     <api-validate></api-validate>
                                     <br>
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' |
@@ -322,9 +328,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <dir-pagination-controls pagination-id="'__' + $index"
-                                                         boundary-links="true"
-                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'__' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
                             </div>
                         </uib-tab>
                         <uib-tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
@@ -339,7 +347,7 @@
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-success" data-ng-click="disburseLoan()"
-                                                    has-permission='APPROVE_LOAN'><i class="icon-ok"></i>{{'label.button.disburse'
+                                                    has-permission='APPROVE_LOAN'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.disburse'
                                                 | translate}}
                                             </button>
                                         </th>
@@ -349,12 +357,12 @@
                             </div>
                             <script type="text/ng-template" id="disburseloan.html">
                                 <div class="modal-header silver">
-                                    <h3 class="bolder">{{'label.heading.disburse' | translate}}</h3>
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <api-validate></api-validate>
                                     <br>
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="disburse()">{{'label.button.confirm' |
@@ -385,6 +393,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="text-center">
                                 <dir-pagination-controls pagination-id="loan-disbursal"
                                                          boundary-links="true"
                                                          template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
@@ -403,8 +413,8 @@
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-success"
-                                                    data-ng-click="approveLoanReschedule()"
-                                                    has-permission='APPROVE_LOANRESCHEDULE'><i class="icon-ok"></i>{{'label.button.approve'
+                                                    data-ng-click="approveBulkLoanReschedule()"
+                                                    has-permission='APPROVE_LOANRESCHEDULE'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve'
                                                 | translate}}
                                             </button>
                                         </th>
@@ -414,12 +424,12 @@
                             </div>
                             <script type="text/ng-template" id="loanreschedule.html">
                                 <div class="modal-header silver">
-                                    <h3 class="bolder">{{'label.heading.disburse' | translate}}</h3>
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
                                 </div>
                                 <div class="modal-body">
                                     <api-validate></api-validate>
                                     <br>
-                                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' |
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
                                         translate}}
                                     </button>
                                     <button class="btn btn-primary" ng-click="approveLoanReschedule()">
@@ -431,19 +441,31 @@
                                 <table class="table condensed-table">
                                     <thead>
                                     <tr class="graybg">
-                                        <th></th>
+                                        <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval()" ng-checked="checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval()"/></th>
                                         <th>{{'label.heading.client' | translate}}</th>
                                         <th>{{'label.heading.reschulerequest' | translate}}</th>
                                         <th>{{'label.heading.loanaccountnum' | translate}}</th>
-                                        <th>{{'label.heading.loanproduct' | translate}}</th>
-                                        <th>{{'label.heading.principal' | translate}}</th>
+                                        <th>{{'label.heading.reschedulefrom' | translate}}</th>
+                                        <th>{{'label.heading.reschedulereason' | translate}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-
+                                      <tr dir-paginate="loanReschedule in loanRescheduleData | filter:filterText2 | itemsPerPage: itemsPerPage"
+                                          pagination-id="rescheduleLoan">
+                                      <td><input type="checkbox" data-ng-model="checkForBulkLoanRescheduleApprovalData[loanReschedule.id]"/></td>
+                                      <td><a href="#/viewclient/{{loanReschedule.clientId}}">{{loanReschedule.clientName}}</a></td>
+                                      <td><a href="#/loans/{{loanReschedule.loanId}}/viewreschedulerequest/{{loanReschedule.id}}">{{loanReschedule.id}}</a></td>
+                                      <td><a href="#/viewloanaccount/{{loanReschedule.loanId}}">{{loanReschedule.loanAccountNumber}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleFromDate | DateFormat}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleReasonCodeValue.name}}</a></td>
+                                    </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="text-center">
+                                <dir-pagination-controls pagination-id="rescheduleLoan"
+                                                         boundary-links="true"
+                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
                             </div>
                         </uib-tab>
                     </uib-tabset>

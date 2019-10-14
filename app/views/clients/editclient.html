@@ -68,6 +68,12 @@
 						<div class="col-sm-3">
 							<input id="middlename" type="text" ng-model="formData.middlename" class="form-control">
 						</div>
+						<label class="control-label col-sm-2" for="isStaff">{{ 'label.input.isStaff' | translate }}</label>
+						<div class="col-sm-3">
+							<label class="checkbox">
+								<input type="checkbox" id="isStaff" ng-model="formData.isStaff">
+							</label>
+						</div>
 					</div>
 				</div>
 	        </div>
@@ -138,7 +144,7 @@
 			
 			    <div class="col-sm-3">
 			        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
-			               ng-model="date.dateOfBirth" is-open="opened1" max="restrictDate"  class="form-control"/>
+			               ng-model="date.dateOfBirth" is-open="opened1" min="minDate" max="restrictDate"  class="form-control"/>
 			    </div>
 
 				<div data-ng-switch on="showNonPersonOptions">
@@ -210,17 +216,16 @@
 				<div data-ng-switch-when="true">
 					<div class="form-group">
 						<label class="control-label col-sm-2">{{'label.input.constitution' | translate}}<span
-								class="required">*</span></label>
+								class="required"></span></label>
 
 						<div class="col-sm-3">
 							<select id="constitutionId" name="constitution" ng-model="formData.clientNonPersonDetails.constitutionId"  class="form-control"
 									ng-options="constitution.id as constitution.name for constitution in clientNonPersonConstitutionOptions"
-									value="{{constitution.id}}" required late-Validate>
+									value="{{constitution.id}}">
 								<option value="">--{{'label.menu.constitution' | translate}}--</option>
 							</select>
 						</div>
 						<div class="col-sm-2">
-							<form-validate valattributeform="editclientform" valattribute="constitution"/>
 						</div>
 					</div>
 				</div>
@@ -239,8 +244,7 @@
 			</div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:<span
-                        class="required">*</span></label>
+                <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
 
                 <div class="col-sm-3">
                     <input id="submittedOnDate" type="text" name="submittedOnDate" datepicker-pop="dd MMMM yyyy"
@@ -259,17 +263,6 @@
 	                           max="restrictDate"  class="form-control"/>
 	                </div>
 
-	            </div>
-	        </div>
-	        <div class="form-group" ng-show="opensavingsproduct">
-	            <label class="control-label col-sm-2">{{ 'label.input.savingproduct' | translate }}:</label>
-	
-	            <div class="col-sm-3">
-	                <select id="savingsProductId" ng-model="formData.savingsProductId"
-	                        ng-options="savingProduct.id as savingProduct.name for savingProduct in savingproducts"
-	                        value="{{savingProduct.id}}"  class="form-control">
-	                    <option value="">{{'label.menu.selectsavingproduct' | translate}}</option>
-	                </select>
 	            </div>
 	        </div>
 	        <div class="col-md-offset-3">

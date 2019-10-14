@@ -65,6 +65,8 @@
                 });
             }
 
+            scope.ReportsPerPage = 15;
+
             // Remove the duplicate entries from the array. The reports api returns same report multiple times if it have more than one parameter.
             scope.getReports = function (data) {
                 var prevId = -1;

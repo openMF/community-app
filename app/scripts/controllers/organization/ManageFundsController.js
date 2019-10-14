@@ -1,8 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ManageFundsController: function (scope, location, resourceFactory) {
-            scope.funderror = false;
+            scope.funderror = [];
             scope.formData = [];
+            scope.addfunderror = false;
             resourceFactory.fundsResource.getAllFunds(function (data) {
                 scope.funds = data;
             });
@@ -11,18 +12,24 @@
                 scope.formData[id] = name;
             };
             scope.saveFund = function (id) {
+              if(this.formData[id])
+              {
+                scope.funderror[id] = false;
                 resourceFactory.fundsResource.update({fundId: id}, {'name': this.formData[id]}, function (data) {
                     location.path('/managefunds');
                 });
+              } else {
+                scope.funderror[id] = true;
+              }
             };
             scope.addFund = function () {
                 if (scope.newfund != undefined) {
-                    scope.funderror = false;
+                    scope.addfunderror = false;
                     resourceFactory.fundsResource.save({'name': scope.newfund}, function (data) {
                         location.path('/managefunds');
                     });
                 } else {
-                    scope.funderror = true;
+                    scope.addfunderror = true;
                 }
 
                 scope.newfund = undefined;

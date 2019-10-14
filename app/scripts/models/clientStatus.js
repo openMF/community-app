@@ -102,12 +102,6 @@
                         taskPermissionName: "CREATE_SAVINGSACCOUNT"
                     },
                     {
-                        name: "label.button.newshareaccount",
-                        href: "#/createshareaccount",
-                        icon: "fa fa-plus",
-                        taskPermissionName: "CREATE_SHAREACCOUNT"
-                    },
-                    {
                         name: "label.button.newcharge",
                         href: "#/viewclient",
                         subhref: "addcharge",
@@ -124,7 +118,7 @@
                         name: "label.button.close",
                         href: "#/client",
                         subhref: "close",
-                        icon: "fa fa-remove-circle",
+                        icon: "fa fa-times-circle-o",
                         taskPermissionName: "CLOSE_CLIENT"
                     },
 
@@ -134,14 +128,14 @@
                         name: "label.button.accepttransfer",
                         href: "#/client",
                         subhref: "acceptclienttransfer",
-                        icon: "fa fa-check-sign",
+                        icon: "fa fa-check",
                         taskPermissionName: "ACCEPTTRANSFER_CLIENT"
                     },
                     {
                         name: "label.button.rejecttransfer",
                         href: "#/client",
                         subhref: "rejecttransfer",
-                        icon: "fa fa-remove",
+                        icon: "fa fa-times",
                         taskPermissionName: "REJECTTRANSFER_CLIENT"
                     },
                     {
