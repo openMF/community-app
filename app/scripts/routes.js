@@ -923,8 +923,6 @@
             .when('/notifications', {
                 templateUrl: 'views/notification/notifications.html'
             })
-            .when('/selfservice/createuser/:clientId',{
-                templateUrl: 'views/selfservice/createuser.html'
             .when('/surveys',{
                 templateUrl: 'views/surveys/surveys.html'
             })
@@ -1009,10 +1007,12 @@
             .when('/editadhocquery/:id', {
                 templateUrl: 'views/adhocquery/editadhocquery.html'
             })
+            .when('/selfservice/createuser/:clientId',{
+                templateUrl: 'views/selfservice/createuser.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
-            })
-            ;
+            });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
