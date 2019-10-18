@@ -7,7 +7,6 @@ This is the default web application built on top of the MifosX platform for the 
 
 <a target="_blank" href="https://demo.openmf.org">Access the online demo version here</a>
 
-
 ## Building from source
 
 1. Ensure you have
@@ -21,18 +20,22 @@ This is the default web application built on top of the MifosX platform for the 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
 1. To download the dependencies, and be able to build, first install bower & grunt
+
    ```
     npm install -g bower
     npm install -g grunt-cli
    ```
 
-1. Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the   project root folder
+1. Next pull the runtime and build time dependencies by running bower, npm, and gem bundler install commands on the project root folder
 
    ```
     bower install
    ```
    ```
     npm install
+   ```
+   ```
+    gem install bundler
    ```
    ```
     bundle install
@@ -71,6 +74,7 @@ If you want to connect to the API running elsewhere, then append the baseApiUrl 
 e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
 e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
+
 ## Adding dependencies
 
 You can also add more dependencies on bower.json.
@@ -138,7 +142,6 @@ Just open test/SpecRunner.html in the browser.
 ## Getting Started doc
 
 https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/edit#heading=h.vhgp8hu9moqn
-
 
 ## Contribution guidelines
 
