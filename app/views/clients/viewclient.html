@@ -238,6 +238,9 @@
 										<li class="{{button.icon}}">
 											<a href="#/clients/survey/{{client.id}}">{{'label.survey' | translate}}</a>
 										</li>
+										<li class="{{button.icon}}">
+											<a href="#/selfservice/createuser/{{client.id}}">{{'label.createselfserviceuser' | translate}}</a>
+										</li>
 									</ul>
 								</span>
 						</div>
@@ -427,7 +430,7 @@
 											<th>Actions</th>
 										</tr>
 										<tr class="pointer-main"
-											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed">
+											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed | filter:isSavings">
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
 												<i uib-tooltip-placement="right" ng-show="savingaccount.subStatus.id==0" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 												<i uib-tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  uib-tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
@@ -466,7 +469,165 @@
 											<th>{{'label.heading.closedate' | translate}}</th>
 										</tr>
 										<tr class="pointer-main"
-											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed">
+											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed | filter:isSavings">
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+												<i uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+												{{savingaccount.accountNo}}
+											</td>
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+												<span data-ng-show="savingaccount.timeline.closedOnDate">{{savingaccount.timeline.closedOnDate | DateFormat}}</span>
+											</td>
+										</tr>
+									</table>
+								</div>
+                                <!-- Fixed deposits overview -->
+                                <div data-ng-show="showFixed">
+									<div class="pull-right">
+											<span data-ng-show="clientAccounts.savingsAccounts">
+												<button data-ng-show="openFixed" type="button" data-ng-click="setFixed()"
+														class="btn-primary btn btn-sm">
+													{{ 'label.button.viewclosedfixed' | translate }}
+												</button>
+												<button data-ng-show="!openFixed" type="button" data-ng-click="setFixed()"
+														class="btn-primary btn btn-sm">
+													{{ 'label.button.viewactivefixed' | translate }}
+												</button>
+											</span>
+									</div>
+                                    <div class="span gray-head">
+                                                <span class="boldlabel">
+                                                    <strong>{{'label.heading.fixedaccoverview' | translate }}</strong>
+                                                </span>
+                                        </div>
+                                        <table class="table table-condensed" data-ng-show="openFixed">
+                                            <tr class="graybg">
+                                                <th>{{'label.heading.accnum' | translate}}</th>
+                                                <th>{{'label.heading.savingaccount' | translate}}</th>
+                                                <th>{{'label.heading.lastActive' | translate}}</th>
+                                                <th class="center">{{'label.heading.balance' | translate}}</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            <tr class="pointer-main"
+                                                ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed | filter:isFixed">
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+                                                    <i uib-tooltip-placement="right" ng-show="savingaccount.subStatus.id==0" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                                                    <i uib-tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  uib-tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
+                                                    {{savingaccount.accountNo}}
+                                                </td>
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.lastActiveTransactionDate|DateFormat}}</td>
+                                                <td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
+                                                <td class="pointer" ng-if="savingaccount.status.active">
+                                                <span ng-repeat="button in savingsActionbuttons">
+                                                  <a uib-tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+                                                     ng-click="navigateToSavingsOrDepositAccount(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
+                                                     class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} "></i>
+                                                  </a>
+                                                </span>
+                                                </td>
+                                                <td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
+                                                    <a uib-tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+                                                        <i class="fa fa-check "></i>
+                                                    </a>
+                                                </td>
+                                                <td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
+                                                    <a uib-tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+                                                        <i class="fa fa-undo "></i>
+                                                    </a>
+                                                    <a uib-tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+                                                        <i class="fa fa-check-circle "></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table class="table table-condensed" data-ng-show="!openFixed">
+                                            <tr class="graybg">
+                                                <th>{{'label.heading.accnum' | translate}}</th>
+                                                <th>{{'label.heading.savingaccount' | translate}}</th>
+                                                <th>{{'label.heading.closedate' | translate}}</th>
+                                            </tr>
+                                            <tr class="pointer-main"
+                                                ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed | filter:isFixed">
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+                                                    <i uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+                                                    {{savingaccount.accountNo}}
+                                                </td>
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+                                                <td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+                                                    <span data-ng-show="savingaccount.timeline.closedOnDate">{{savingaccount.timeline.closedOnDate | DateFormat}}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                <!-- Recurring deposits overview -->
+                                <div ng-show="showRecurring">
+									<div class="pull-right">
+											<span data-ng-show="clientAccounts.savingsAccounts">
+												<button data-ng-show="openRecurring" type="button" data-ng-click="setRecurring()"
+														class="btn-primary btn btn-sm">
+													{{ 'label.button.viewclosedrecurring' | translate }}
+												</button>
+												<button data-ng-show="!openRecurring" type="button" data-ng-click="setRecurring()"
+														class="btn-primary btn btn-sm">
+													{{ 'label.button.viewactiverecurring' | translate }}
+												</button>
+											</span>
+									</div>
+									<div class="span gray-head">
+											<span class="boldlabel">
+												<strong>{{'label.heading.recurringaccoverview' | translate }}</strong>
+											</span>
+									</div>
+									<table class="table table-condensed" data-ng-show="openRecurring">
+										<tr class="graybg">
+											<th>{{'label.heading.accnum' | translate}}</th>
+											<th>{{'label.heading.savingaccount' | translate}}</th>
+											<th>{{'label.heading.lastActive' | translate}}</th>
+											<th class="center">{{'label.heading.balance' | translate}}</th>
+											<th>Actions</th>
+										</tr>
+										<tr class="pointer-main"
+											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingNotClosed | filter:isRecurring">
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
+												<i uib-tooltip-placement="right" ng-show="savingaccount.subStatus.id==0" uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
+												<i uib-tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  uib-tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="fa fa-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
+												{{savingaccount.accountNo}}
+											</td>
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.lastActiveTransactionDate|DateFormat}}</td>
+											<td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
+											<td class="pointer" ng-if="savingaccount.status.active">
+											<span ng-repeat="button in savingsActionbuttons">
+											  <a uib-tooltip="{{'label.'+button.name | translate}}" ng-show="button.name" has-permission='{{button.taskPermissionName}}'
+												 ng-click="navigateToSavingsOrDepositAccount(button.name.replace('button.',''), savingaccount.id, savingaccount.depositType.id)"
+												 class="btn btn-xs btn-primary ng-binding" ng-if="savingaccount.depositType.id==button.type"><i class="{{button.icon}} "></i>
+											  </a>
+											</span>
+											</td>
+											<td class="pointer" ng-if="savingaccount.status.submittedAndPendingApproval">
+												<a uib-tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/approve" class="btn btn-xs btn-primary ng-binding">
+													<i class="fa fa-check "></i>
+												</a>
+											</td>
+											<td class="pointer" ng-if="!savingaccount.status.submittedAndPendingApproval && !savingaccount.status.active">
+												<a uib-tooltip="{{'label.button.undoapproval' | translate}}" has-permission='APPROVALUNDO_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/undoapproval" class="btn btn-xs btn-primary ng-binding">
+													<i class="fa fa-undo "></i>
+												</a>
+												<a uib-tooltip="{{'label.button.activate' | translate}}" has-permission='ACTIVATE_SAVINGSACCOUNT' ng-href="#/savingaccount/{{savingaccount.id}}/activate" class="btn btn-xs btn-primary ng-binding">
+													<i class="fa fa-check-circle "></i>
+												</a>
+											</td>
+										</tr>
+									</table>
+									<table class="table table-condensed" data-ng-show="!openRecurring">
+										<tr class="graybg">
+											<th>{{'label.heading.accnum' | translate}}</th>
+											<th>{{'label.heading.savingaccount' | translate}}</th>
+											<th>{{'label.heading.closedate' | translate}}</th>
+										</tr>
+										<tr class="pointer-main"
+											ng-repeat="savingaccount in clientAccounts.savingsAccounts | orderBy:'id':true | filter:isSavingClosed | filter:isRecurring">
 											<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
 												<i uib-tooltip="{{savingaccount.status.value}}" class="fa fa-stop {{savingaccount.status.code | StatusLookup}}"></i>
 												{{savingaccount.accountNo}}
@@ -688,14 +849,6 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr ng-show="view.street">
-								<th >
-									{{'label.input.street' | translate }}
-								</th>
-								<td>
-									{{address.street}}
-								</td>
-							</tr>
 							<tr ng-show="view.addressLine1">
 								<th>
 									{{'label.input.addressline1' | translate }}
