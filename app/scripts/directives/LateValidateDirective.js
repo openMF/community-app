@@ -12,18 +12,18 @@
                 },
 
                 link: function (scope, elm, attr, ctrl) {
-                    if (attr.type === 'radio' || attr.type === 'checkbox') return;
+                    if (attr.type === 'radio' || attr.type === 'checkbox' || attr.type ==='input') return;
                     elm.bind('blur', function () {
                         scope.$apply(function () {
                             var isMatchRegex = numRegex.test(elm.val());
                             var isDecimalMatchRegex=decimalRegex.test(elm.val());
-                            if (elm.val() == "") {
+                            if (elm.val() === null) {
                                 ctrl.$setValidity('req', false);
                             } else {
                                 ctrl.$setValidity('req', true);
                             }
                             if(scope.number) {
-                                if (isMatchRegex || elm.val() == '') {
+                                if (isMatchRegex || elm.val() === '') {
                                     ctrl.$setValidity('nval', true);
                                 } else {
                                     ctrl.$setValidity('nval', false);
