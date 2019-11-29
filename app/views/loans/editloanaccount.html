@@ -7,77 +7,79 @@
         <li class="active">{{'label.anchor.modifyloanapplication' | translate}}</li>
     </ul>
 </div>
-<form name="editloanaccountform" novalidate="" class="well form-inline" rc-submit="submit()">
-<api-validate></api-validate>
-<table class="width100">
-    <tr>
-        <td class="width14">
-            <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
-        </td>
-        <td class="width36 paddedbottom10">
-            <select id="productId" ng-model="formData.productId" class="form-control width170px"
-                    ng-options="product.id as product.name for product in loanaccountinfo.productOptions"
-                    value="{{product.id}}" ng-change="loanProductChange(formData.productId)"/>
-            <option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
-            </select>
-        </td>
-        <td class="width14">
-            <label ng-show="formData.productId">{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
-        </td>
-        <td class="width36 paddedbottom10">
-            <select ng-show="formData.productId" id="loanOfficerId" ng-model="formData.loanOfficerId" class="form-control width170px"
-                    ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanaccountinfo.loanOfficerOptions | orderBy:'displayName':reverse"
-                    value="{{loanOfficer.id}}">
-                <option value="">{{'label.selectloanofficer' | translate}}</option>
-            </select>
-        </td>
-    </tr>
-    <tr ng-show="formData.productId">
-        <td>
-            <label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
-        </td>
-        <td class="paddedbottom10">
-            <select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId" class="form-control width170px"
-                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                    value="{{loanPurpose.id}}">
-                <option value="">{{'label.selectpurpose' | translate}}</option>
-            </select>
-        </td>
-        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
-        <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
-            <select id="fundId" ng-model="formData.fundId" class="form-control width170px"
-                    ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" value="{{fund.id}}">
-                <option value="">{{'label.selectfund' | translate}}</option>
-            </select>
-        </td>
-    </tr>
-    <tr ng-show="formData.productId">
-        <td>
-            <label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
-        </td>
-        <td class="paddedbottom10">
-            <input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
-                   ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
-        </td>
-        <td>
-            <label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' |
-                translate }}<span class="required">*</span>:&nbsp;</label>
-        </td>
-        <td class="paddedbottom10">
-            <input id="expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
-                   ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'"
-                   date-disabled="disabled(date, mode)" late-Validate/>
-        </td>
-    </tr>
-    <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.externalid' | translate }}</label></td>
-        <td class="paddedbottom10">
-            <input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"/>
-        </td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<form name="editloanaccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+		<api-validate></api-validate>
+<fieldset>
+    <legend>{{ 'label.heading.editloanapplication' | translate }}</legend>
+	<table class="width100">
+			<tr>
+					<td class="width14">
+							<label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+					</td>
+					<td class="width36 paddedbottom10">
+							<select id="productId" ng-model="formData.productId" class="form-control width170px"
+											ng-options="product.id as product.name for product in loanaccountinfo.productOptions"
+											value="{{product.id}}" ng-change="loanProductChange(formData.productId)"/>
+							<option style="display:none" value="">{{'label.selectloanproduct' | translate}}</option>
+							</select>
+					</td>
+					<td class="width14">
+							<label ng-show="formData.productId">{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
+					</td>
+					<td class="width36 paddedbottom10">
+							<select ng-show="formData.productId" id="loanOfficerId" ng-model="formData.loanOfficerId" class="form-control width170px"
+											ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanaccountinfo.loanOfficerOptions | orderBy:'displayName':reverse"
+											value="{{loanOfficer.id}}">
+									<option value="">{{'label.selectloanofficer' | translate}}</option>
+							</select>
+					</td>
+			</tr>
+			<tr ng-show="formData.productId">
+					<td>
+							<label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
+					</td>
+					<td class="paddedbottom10">
+							<select chosen="loanaccountinfo.loanPurposeOptions" id="loanPurposeId" ng-model="formData.loanPurposeId" class="form-control width170px"
+											ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
+											value="{{loanPurpose.id}}">
+									<option value="">{{'label.selectpurpose' | translate}}</option>
+							</select>
+					</td>
+					<td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
+					<td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
+							<select id="fundId" ng-model="formData.fundId" class="form-control width170px" style="width: 170px;"
+											ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" value="{{fund.id}}">
+									<option value="">{{'label.selectfund' | translate}}</option>
+							</select>
+					</td>
+			</tr>
+			<tr ng-show="formData.productId">
+					<td>
+							<label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label>
+					</td>
+					<td class="paddedbottom10">
+							<input id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+										ng-model="formData.submittedOnDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+					</td>
+					<td>
+							<label title="{{ 'label.input.expecteddisbursementon' | translate }}">{{ 'label.input.disbursementon' |
+									translate }}<span class="required">*</span>:&nbsp;</label>
+					</td>
+					<td class="paddedbottom10">
+							<input id="expectedDisbursementDate" type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+										ng-model="formData.expectedDisbursementDate" is-open="opened1" min="minDate" max="'2020-06-22'"
+										date-disabled="disabled(date, mode)" late-Validate/>
+					</td>
+			</tr>
+			<tr ng-show="formData.productId">
+					<td><label>{{ 'label.input.externalid' | translate }}</label></td>
+					<td class="paddedbottom10">
+							<input type="text" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control"/>
+					</td>
+					<td></td>
+					<td></td>
+			</tr>
+	</table>
 <div ng-hide="previewRepayment">
     <div ng-show="loanaccountinfo">
         <div ng-hide="loanaccountinfo.meeting == undefined">
@@ -583,5 +585,6 @@
         translate}}
     </button>
 </div>
+</fieldset>
 </form>
 </div>
