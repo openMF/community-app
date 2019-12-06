@@ -19,6 +19,10 @@ This is the default web application built on top of the MifosX platform for the 
 
 1. Clone this repository to your local filesystem (default branch is 'develop')
 
+   ```
+    git clone https://github.com/openMF/community-app.git
+   ```
+   
 1. To download the dependencies, and be able to build, first install bower & grunt
 
    ```
@@ -54,8 +58,13 @@ This is the default web application built on top of the MifosX platform for the 
     Waiting...Warning: EMFILE, too many open files
 
    ```
+   
+1. You can use these credentials to log in
 
-1. Default username/password: mifos/password. This application will hit the demo server by default.
+   ```
+    Username: mifos
+    Password: password
+   ```
 
 You are done.
 
@@ -146,3 +155,5 @@ https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/
 ## Contribution guidelines
 
 Please read the <a href="https://github.com/openMF/community-app/blob/develop/Contributing.md" >contribution guidelines</a>
+
+Note: This application will hit the demo server by default.
