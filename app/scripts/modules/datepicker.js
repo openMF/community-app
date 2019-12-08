@@ -129,8 +129,8 @@ angular.module('modified.datepicker', ['strap.position'])
             return dates;
         }
 
-        function makeDate(date, format, isSelected, isSecondary) {
-            return { date: date, label: dateFilter(date, format), selected: !!isSelected, secondary: !!isSecondary };
+        function makeDate(date, format, isSelected, isSecondary, disabled) {
+            return { date: date, label: dateFilter(date, format), selected: !!isSelected, secondary: !!isSecondary, disabled: disabled};
         }
 
         this.modes = [
@@ -140,11 +140,14 @@ angular.module('modified.datepicker', ['strap.position'])
                     var year = date.getFullYear(), month = date.getMonth(), firstDayOfMonth = new Date(year, month, 1);
                     var difference = startingDay - firstDayOfMonth.getDay(),
                         numDisplayedFromPreviousMonth = (difference > 0) ? 7 - difference : -difference,
-                        firstDate = new Date(firstDayOfMonth), numDates = 0;
+                        numDisplayedFromNextMonth = 0,firstDate = new Date(firstDayOfMonth), numDates = 0;
 
                     if (numDisplayedFromPreviousMonth > 0) {
+                        numDisplayedFromNextMonth = (35 - getDaysInMonth(year, month + 1)) - numDisplayedFromPreviousMonth;
                         firstDate.setDate(-numDisplayedFromPreviousMonth + 1);
                         numDates += numDisplayedFromPreviousMonth; // Previous
+                    }else {
+                        numDisplayedFromNextMonth = 35 - getDaysInMonth(year, month + 1);
                     }
                     numDates += getDaysInMonth(year, month + 1); // Current
                     numDates += (7 - numDates % 7) % 7; // Next
@@ -152,7 +155,13 @@ angular.module('modified.datepicker', ['strap.position'])
                     var days = getDates(firstDate, numDates), labels = new Array(7);
                     for (var i = 0; i < numDates; i++) {
                         var dt = new Date(days[i]);
+                        if (numDisplayedFromPreviousMonth > 0 && i < numDisplayedFromPreviousMonth) {
+                            days[i] = makeDate(dt, format.day, (selected && selected.getDate() === dt.getDate() && selected.getMonth() === dt.getMonth() && selected.getFullYear() === dt.getFullYear()), dt.getMonth() !== month, true);
+                        }else if (numDisplayedFromNextMonth > 0 && i >= numDates - numDisplayedFromNextMonth) {
+                            days[i] = makeDate(dt, format.day, (selected && selected.getDate() === dt.getDate() && selected.getMonth() === dt.getMonth() && selected.getFullYear() === dt.getFullYear()), dt.getMonth() !== month, true);
+                        }else {
                         days[i] = makeDate(dt, format.day, (selected && selected.getDate() === dt.getDate() && selected.getMonth() === dt.getMonth() && selected.getFullYear() === dt.getFullYear()), dt.getMonth() !== month);
+                        }
                     }
                     for (var j = 0; j < 7; j++) {
                         labels[j] = dateFilter(days[j].date, format.dayHeader);
@@ -316,7 +325,9 @@ angular.module('modified.datepicker', ['strap.position'])
 
                     var currentMode = datepickerCtrl.modes[mode], data = currentMode.getVisibleDates(selected, date);
                     angular.forEach(data.objects, function (obj) {
-                        obj.disabled = datepickerCtrl.isDisabled(obj.date, mode);
+                        if(obj.disabled === undefined) {
+                            obj.disabled = datepickerCtrl.isDisabled(obj.date, mode);
+                        }
                     });
 
                     ngModel.$setValidity('date-disabled', (!date || !datepickerCtrl.isDisabled(date)));
