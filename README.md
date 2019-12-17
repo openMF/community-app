@@ -5,7 +5,7 @@ This is the default web application built on top of the MifosX platform for the 
 
 ## Online Demo
 
-<a target="_blank" href="https://demo.openmf.org">Access the online demo version here</a>
+<a target="_blank" href="https://demo.mifos.io">Access the online demo version here</a>
 
 ## Building from source
 
@@ -74,7 +74,7 @@ Edit the value of property "security" in <a href="https://github.com/openMF/comm
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.openmf.org.
+By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.mifos.io.
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
@@ -82,7 +82,7 @@ If you want to connect to the API running elsewhere, then append the baseApiUrl 
 
 e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
-e.g. http://localhost:9002/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
+e.g. http://localhost:9002/?baseApiUrl=https://demo.mifos.io&tenantIdentifier=default
 
 ## Adding dependencies
 
