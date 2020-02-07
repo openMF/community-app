@@ -5,7 +5,7 @@
     </ul>
     <wizard current-step="step" on-finish="submitDatatable()" class="card well">
         <wz-step wz-title="{{title | translate}}">
-    <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+    <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit($event)">
         <fieldset>
             <div ng-show="submittedDatatables.length > 0" uib-alert type="success">
                 <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the entries will be updated.<br></span>
@@ -209,14 +209,25 @@
                         <button type="submit" ng-click="cancel()" class="btn btn-primary">{{ 'label.button.cancel' | translate }}</button>
                     </div>
 
-                    <div class="col-md-offset-3" ng-hide="showDelete">
+                    <div class="col-md-offset-3" ng-hide="showDelete || showBlock">
                         <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
                         <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                     </div>
+
                 </div>
             </div>
         </fieldset>
     </form>
+            <form name="savingccountactionform" novalidate="" class="form-horizontal">
+                <div class="col-md-offset-3" ng-show="showBlock">
+                    <button id="cancel" ng-click="cancel()"
+                            class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                    <button id="debit"  type="submit" ng-click = "blockUnblockDebit(taskPermissionNameDebit)" ng-show = "debitStatus"
+                            class="btn btn-primary">{{buttonTextDebit | translate}}</button>
+                    <button id="credit"  type="submit" ng-click = "blockUnblockDebit(taskPermissionNameCredit)" ng-show = "creditStatus"
+                            class="btn btn-primary">{{buttonTextCredit | translate}}</button>
+                </div>
+            </form>
         </wz-step>
         <wz-step ng-if="isEntityDatatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
             <div class="card-content">
