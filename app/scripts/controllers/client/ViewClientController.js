@@ -291,9 +291,9 @@
                             file: file
                         }).then(function (imageData) {
                             // to fix IE not refreshing the model
-                            if (!scope.$$phase) {
+                            $timeout(function () {
                                 scope.$apply();
-                            }
+                            });
                             $uibModalInstance.close('upload');
                             route.reload();
                         });
