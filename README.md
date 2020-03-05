@@ -11,8 +11,8 @@ This is the default web application built on top of the MifosX platform for the 
 
 1. Ensure you have
 
-   ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.
-   ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
+   * ```npm``` installed - goto http://nodejs.org/download/ to download the installer for your OS.
+   * ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download the latest version of ruby.
 
 <br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
 <br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
