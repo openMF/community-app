@@ -322,6 +322,10 @@
                         {
                             temp.addressTypeId=scope.addressArray[i].addressTypeId;
                         }
+                        if(scope.addressArray[i].street)
+                        {
+                            temp.street=scope.addressArray[i].street;
+                        }
                         if(scope.addressArray[i].addressLine1)
                         {
                             temp.addressLine1=scope.addressArray[i].addressLine1;
@@ -377,7 +381,7 @@
 
 
                 // family array
-
+                scope.formData.familyMembers=[];
                 for(var i=0;i<scope.familyArray.length;i++)
                 {
                     var temp=new Object();

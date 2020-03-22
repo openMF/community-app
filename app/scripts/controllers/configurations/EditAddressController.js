@@ -54,13 +54,15 @@
                 resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data)
                 {
 
-
-
-                        $scope.editable=true;
+                    $scope.editable=true;
                     for(var i=0;i<data.length;i++)
                     {
                         if(data[i].addressId==addressId)
                         {
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
                             if(data[i].addressLine1&&$scope.addressLine1)
                             {
                                 $scope.formData.addressLine1=data[i].addressLine1;

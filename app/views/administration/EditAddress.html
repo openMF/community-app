@@ -1,12 +1,17 @@
-<div ng-controller="EditAddressController">
-
-
+<div class="card-content" ng-controller="EditAddressController">
+    <api-validate></api-validate>
     <form name="FieldConfiguration" novalidate="" class="form-horizontal well" >
         <api-validate></api-validate>
         <fieldset>
-
-
-
+            <div class="form-group" ng-show="street">
+                <label class="control-label col-sm-2" for="street">{{ 'label.input.street' | translate }}<span class="required">*</span></label>
+                <div class="col-sm-3">
+                   <input type="text" name="street" id="street" ng-model="formData.street" class="form-control" required late-validate>
+                </div>
+                <div class = "col-sm-2">
+                   <form-validate valattributeform="createclientform" valattribute="street"/>
+                </div>
+             </div>
 
             <div class="form-group" ng-show="addressLine1">
                 <label class="control-label col-sm-2" for="addressline1">{{ 'label.input.addressline1' | translate }}</label>

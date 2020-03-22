@@ -428,11 +428,11 @@
                         </div>
                      </div>
                      <div ng-repeat="addr in addressArray">
-                        <div class="form-group" >
+                        <div class="form-group">
                            <div class="control-label col-sm-2">
                               <label>{{ 'label.input.addressType' | translate }}<span class="required">*</span></label>
                            </div>
-                           <div class="col-sm-3"  >
+                           <div class="col-sm-3">
                               <select chosen="addressTypes" name="addressType" ng-model="addressArray[$index].addressTypeId"  class="form-control"
                                  ng-options="addressType.id as addressType.name for addressType in addressTypes track by addressType.id"
                                  value="addressTypeId" required late-validate></select>
@@ -442,6 +442,19 @@
                            </div>
                            <a ng-click="removeAddress($index)" uib-tooltip="{{'label.remove.row' | translate}}"><i class="fa fa-times"></i></a>
                         </div>
+
+                        <div class="form-group" ng-show="street">
+                           <div class="control-label col-sm-2">
+                              <label>{{ 'label.input.street' | translate }}<span class="required">*</span></label>
+                           </div>
+                           <div class="col-sm-3">
+                              <input type="text" name="street" id="street" ng-model="addressArray[$index].street" class="form-control" required late-validate>
+                           </div>
+                           <div class = "col-sm-2">
+                              <form-validate valattributeform="createclientform" valattribute="street"/>
+                           </div>
+                        </div>
+                       
                         <div class="form-group" ng-show="addressLine1">
                            <label class="control-label col-sm-2" >{{ 'label.input.addressline1' | translate }}</label>
                            <div class="col-sm-3">
