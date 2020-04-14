@@ -4,6 +4,7 @@
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
+            scope.transientData ={};
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -42,7 +43,8 @@
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
                 resourceFactory.fixedDepositAccountTemplateResource.get(scope.inparams, function (data) {
-
+                    scope.depositRolloverOptions = data.maturityInstructionOptions;
+                    scope.savingsAccounts = data.savingsAccounts;
                     scope.data = data;
                     scope.charges = data.charges;
 
@@ -181,6 +183,9 @@
                 } else {
                     location.path('/viewgroup/' + scope.groupId);
                 }
+            }
+            scope.changeMaturityInstruction = function(){
+                scope.formData.transferToSavingsId =null;
             }
 
             /**
