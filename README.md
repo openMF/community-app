@@ -139,6 +139,8 @@ Access the webapp on http://localhost in your browser.
 The Dockerfile uses a ruby and node base image to build the current repo and deploys the app on nginx which is exposed
 on port 80 within the container.
 
+This Docker image is (since #[3112](https://github.com/openMF/community-app/issues/3112)) also available on https://hub.docker.com/r/openmf/community-app/.
+
 ### Compile sass to css
 
 ```
