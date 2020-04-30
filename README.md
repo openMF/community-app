@@ -14,8 +14,22 @@ This is the default web application built on top of the MifosX platform for the 
    * ```npm``` installed - goto http://nodejs.org/download/ to download the installer for your OS.
    * ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download the latest version of ruby.
 
-Note: On Ubuntu Linux you can use `sudo apt-get install npm nodejs-legacy`, which avoids the `/usr/bin/env: node: No such file or directory` problem.
+Note: On Ubuntu Linux, install the following at root 
+    sudo apt-get update
+sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates nano
+To check the latest release, visit  https://nodejs.org/en/download/releases/
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -   (Note; replace with your favourite version as for this I used 14)
+sudo apt-get -y install nodejs
+sudo apt-get install -y build-essential
+node --version
+npm --version
 
+     sudo npm install -g bower
+	   sudo npm install -g grunt
+	   sudo npm install -g grunt-cli --force
+	   grunt --version
+     sudo apt-get install ruby-full rubygems
+     
 Note that on Linux distributions you'll need to install the Ruby Development package (e.g. `sudo dnf install ruby-devel` on Fedora), and not just `ruby`, otherwise `bundle install` below will fail when it gets to installing `ffi` which uses native extensions.
 
 1. Clone this repository to your local filesystem (default branch is 'develop'):
