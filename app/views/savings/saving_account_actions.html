@@ -219,14 +219,75 @@
         </fieldset>
     </form>
             <form name="savingccountactionform" novalidate="" class="form-horizontal">
-                <div class="col-md-offset-3" ng-show="showBlock">
+                <fieldset ng-show="showBlock">
+                    <div class="form-group">
+                       <label class="control-label col-sm-2">{{ 'label.blockNarration.select' | translate }}</label>
+                       <select id="narrationId" ng-model="formData.narrationId"
+                        ng-options="narrationType.id as narrationType.name for narrationType in blockNarrationTypes"
+                        value="{{narrationType.id}}" class="form-control col-sm-3" style="width:24% !important">
+                        <option value="{{blockNarration.id}}">{{blockNarration.name | translate}}</option>
+                       </select>
+                    </div>
+                    <div class="form-group" ng-show="showReasonForBlockDebitCredit">
+                        <label class="control-label col-sm-2" for="note">{{ 'label.input.reasonForBlock' | translate}}<span
+                                class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <textarea rows="2" id="reasonForBlockDebitCredit" ng-model="formData.reasonForBlock" class="form-control" required></textarea>
+                        </div>
+                    </div>
+
+                    <br/>
                     <button id="cancel" ng-click="cancel()"
                             class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                    
                     <button id="debit"  type="submit" ng-click = "blockUnblockDebit(taskPermissionNameDebit)" ng-show = "debitStatus"
                             class="btn btn-primary">{{buttonTextDebit | translate}}</button>
                     <button id="credit"  type="submit" ng-click = "blockUnblockDebit(taskPermissionNameCredit)" ng-show = "creditStatus"
                             class="btn btn-primary">{{buttonTextCredit | translate}}</button>
+                </fieldset>
+                <!-- change -->
+
+                <br>
+                <div class="" ng-show="showPNDHistory">
+                    <table class="table table-bordered">
+                        <colgroup span="4"></colgroup>
+                        <thead>
+                        <tr>
+                            <th class="pointer">
+                                {{'label.heading.updatedon' | translate}}
+                            </th>
+                            <th class="pointer">
+                                {{'label.heading.updatedby' | translate}}
+                            </th>
+                            <th class="pointer">
+                                {{'label.heading.type' | translate}}
+                            </th>
+                            <th class="pointer">
+                                {{'label.blockNarration' | translate}}
+                            </th>
+                            <th class="pointer">
+                                {{'label.input.pndComment' | translate}}
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <!-- -->
+                        <tbody>
+                        <tr class="pointer-main" dir-paginate="blockNarrationHistory in blockNarrationHistoryData | itemsPerPage: transactionsPerPage">
+                            <td class="pointer">{{blockNarrationHistory.blockNarrationDateString}}</td>
+                            <td class="pointer">{{blockNarrationHistory.submittedByUsername}}</td>
+                            <td class="pointer">{{blockNarrationHistory.subStatus}}</td>
+                            <td class="pointer">{{blockNarrationHistory.blockNarrationValue}}</td>
+                            <td class="pointer">{{blockNarrationHistory.blockNarrationComment}}</td>
+                        </tr>
+                        </tbody>
+                        <!-- -->
+
+                    </table>
                 </div>
+                <!-- end -->
+
             </form>
         </wz-step>
         <wz-step ng-if="isEntityDatatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
