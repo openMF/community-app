@@ -7,7 +7,7 @@ I will be here going through the community-app code mainly as many developers an
 Codebaseco
 We are using AngularJS and requirejs in our application so that we have proper code organization. Some of the advantages of going this direction include;way are we don’t have to worry about including script tags in the right order when building Angular app and. Also, here we can manually bootstrap our AangularJS application. Some Important Files
 app/index.html
-	This is the first file you will start with usually. Here we have the code for the login page and sidenav. So, any changes you want to do in these components it can be directly done here. Also, you will see a script tag below in body of requirejs
+	This is the first file you will start with usually. Here we have the code for the login page and sidenav. So, any changes you want to do in these components it can be directly done here. Also, you will see a script tag below in body of require js.
 
 <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
 
@@ -88,10 +88,10 @@ Here all the styles files are defined.
 ## Localisation
 
 The Community app has support for multiple languages and accordingly, we are using labels inside our application. For example: 
-{{‘'label.heading.frequentpostings' | translate}}
+{{"label.heading.frequentpostings"| translate}}
 
 In locale-en.json file, you will find similar entry and its value in English. We ensure that Make sure when we are adding any new label, we just create an entry in the locale-en file and don’t touch other files. 
-"label.heading.frequentpostings": "Frequent Postings",
+"label.heading.frequentpostings": "Frequent Postings".
 
 
 
