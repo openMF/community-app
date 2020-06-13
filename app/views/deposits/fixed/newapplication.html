@@ -234,6 +234,36 @@
                             {{data.taxGroup.name}}
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="4" class="paddedbottom20">
+                            <input type="checkbox" ng-model="transientData.maturityInstuctions"> &nbsp;
+                            <label class="control-label">{{ 'label.input.apply.maturity.instructions' | translate }}&nbsp;</label>
+                        </td>
+                    </tr>
+                    <tr ng-show="transientData.maturityInstuctions">
+                        <td class="paddedbottom20" ng-show="transientData.maturityInstuctions">
+                            <label class="control-label">{{ 'label.input.maturity.instruction' | translate }}&nbsp;
+                            </label>
+                        </td>
+                        <td  class="paddedbottom20" ng-show="transientData.maturityInstuctions">
+                            <select id="depositRollover" ng-model="formData.maturityInstructionId" ng-options="depositRollover.id as depositRollover.value for depositRollover in depositRolloverOptions"
+                            class="form-control width170px" value="{{depositRollover.id}}" ng-change="changeMaturityInstruction()">
+                            <!--option value="">{{'label.menu.selectone' | translate}}</option-->
+                        </select>
+                        </td>
+                    </tr>
+                    <tr ng-if="formData.maturityInstructionId == 200">
+                        <td  class="paddedbottom20">
+                            <label class="control-label">{{ 'label.input.transfer.to.account' | translate }}&nbsp;
+                            </label>
+                        </td>
+                        <td   class="paddedbottom20">
+                            <select id="depositRollover" ng-model="formData.transferToSavingsId" ng-options="savingsAccount.id as savingsAccount.accountNo for savingsAccount in savingsAccounts"
+                            class="form-control width170px" value="{{savingsAccount.id}}">
+                            <option value="">{{'label.menu.selectone' | translate}}</option>
+                        </select>
+                        </td>
+                    </tr>
                 </table>
                 <hr data-ng-show="formData.productId" />
                 <h3 ng-show="data">{{ 'label.heading.interestchart' | translate }}</h3>

@@ -78,6 +78,18 @@
                         <th class="active fontnormal"> {{'label.heading.withholdtaxgroup' | translate}}</th>
                         <td><span class="padded-td">{{savingaccountdetails.taxGroup.name}}</span></td>
                     </tr>
+                    <tr ng-if="savingaccountdetails.onAccountClosure && savingaccountdetails.onAccountClosure.id ">
+                        <th class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                        </th>
+                        <td><span
+                                class="padded-td">{{savingaccountdetails.onAccountClosure.value}}
+                                <span ng-if="savingaccountdetails.onAccountClosure.id == 1 || savingaccountdetails.onAccountClosure.id == 2">
+                                    (Re-Invest) </span>  
+                                <span ng-if="savingaccountdetails.onAccountClosure.id == 200">
+                                    (to) {{savingaccountdetails.transferToSavingsAccount.accountNo}}</span> 
+                            </span>
+                        </td>
+                    </tr>
                 </table>
                 <br>
                 <table class="table table-bordered table-striped" ng-show="!savingaccountdetails.status.rejected && !savingaccountdetails.status.submittedAndPendingApproval">
@@ -110,13 +122,6 @@
                             translate}}
                         </th>
                         <td><span class="padded-td">{{savingaccountdetails.interestCalculationType.value}}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="active fontnormal">{{'label.noofdaysinyear' | translate}}
-                        </th>
-                        <td><span
-                                class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
                         </td>
                     </tr>
                     <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
@@ -257,6 +262,18 @@
                                     </td>
                                     <td><span
                                             class="padded-td">{{savingaccountdetails.interestCalculationDaysInYearType.value}}</span>
+                                    </td>
+                                </tr>
+                                <tr ng-if="savingaccountdetails.onAccountClosure && savingaccountdetails.onAccountClosure.id ">
+                                    <td class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                                    </td>
+                                    <td><span
+                                            class="padded-td">{{savingaccountdetails.onAccountClosure.value}}
+                                            <span ng-if="savingaccountdetails.onAccountClosure.id == 300|| savingaccountdetails.onAccountClosure.id == 400">
+                                                (Re-Invest) </span> 
+                                            <span ng-if="savingaccountdetails.onAccountClosure.id == 200">
+                                                    (to) {{savingaccountdetails.transferToSavingsAccount.accountNo}}</span>                  
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr ng-show="savingaccountdetails.preClosurePenalApplicable">
