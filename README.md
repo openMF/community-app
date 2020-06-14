@@ -80,7 +80,7 @@ You are done.
 
 ### Connecting to a MifosX Platform using OAuth 2 authentication:
 
-Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth"
+Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth".
 
 ### Connecting to a MifosX Platform running on a different host:
 
@@ -88,7 +88,7 @@ By default, when the app is running from the local filesystem, it will connect t
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
-If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters,
+If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters.
 
 e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
