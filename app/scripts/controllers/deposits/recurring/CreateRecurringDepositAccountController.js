@@ -1,15 +1,19 @@
-(function (module) {
+    (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateRecurringDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
+        CreateRecurringDepositAccountController: function (scope, resourceFactory, location, routeParams, WizardHandler, dateFilter, uiConfigService, $uibModal) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
             scope.restrictDate = new Date();
+            scope.recurringDetails = {};
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
             if (routeParams.centerEntity) {
                 scope.centerEntity = true;
             }
+            scope.date = {};
+			scope.date.submittedOnDate = new Date();
+            scope.disabled = true;
 
             //interest rate chart details
             scope.chart = {};
@@ -39,6 +43,10 @@
                 scope.groupName = data.groupName;
             });
 
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
+
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
                 resourceFactory.recurringDepositAccountTemplateResource.get(scope.inparams, function (data) {
@@ -66,6 +74,9 @@
                     if (data.interestFreePeriodApplicable) scope.formData.interestFreePeriodApplicable = data.interestFreePeriodApplicable;
                     if (data.preClosurePenalApplicable) scope.formData.preClosurePenalApplicable = data.preClosurePenalApplicable;
 
+                    scope.disabled = false;
+                    scope.recurringDetails = angular.copy(scope.formData);
+                    scope.recurringDetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
                     scope.chart = data.accountChart;
                     scope.chartSlabs = scope.chart.chartSlabs;
                     //format chart date values
@@ -99,6 +110,19 @@
                 });
             };
 
+            scope.$watch('formData',function(newVal){
+               scope.recurringDetails = angular.extend(scope.recurringDetails,newVal);
+            });
+
+            scope.formValue = function(array,model,findattr,retAttr){
+                findattr = findattr ? findattr : 'id';
+                retAttr = retAttr ? retAttr : 'value';
+                console.log(findattr,retAttr,model);
+                return _.find(array, function (obj) {
+                    return obj[findattr] === model;
+                })[retAttr];
+            };
+            
             scope.addCharge = function (chargeId) {
                 scope.errorchargeevent = false;
                 if (chargeId) {
@@ -166,6 +190,7 @@
                 if (scope.formData.expectedFirstDepositOnDate) {
                     this.formData.expectedFirstDepositOnDate = dateFilter(scope.formData.expectedFirstDepositOnDate, scope.df);
                 }
+
 
                 resourceFactory.recurringDepositAccountResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositaccount/' + data.savingsId);
@@ -392,7 +417,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreateRecurringDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.CreateRecurringDepositAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateRecurringDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'WizardHandler', 'dateFilter','$uibModal', mifosX.controllers.CreateRecurringDepositAccountController]).run(function ($log) {
         $log.info("CreateRecurringDepositAccountController initialized");
     });
 }(mifosX.controllers || {}));
