@@ -3,14 +3,10 @@
         <li><a href="#/viewfixeddepositaccount/{{accountId}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a></li>
         <li class="active">{{'label.anchor.editfixeddepositapplication' | translate}}</li>
     </ul>
-    <api-validate></api-validate>
-    <div class="card">
-        <div class="content">
-            <div class="toolbar">
-                <h4>{{ 'label.heading.editfixeddepositapplication' | translate }}</h4>
-            </div>
-            <form name="editfixeddepositaccountform" novalidate="" class="well form-inline" rc-submit="submit()">
-        <fieldset>
+    <form name="editfixeddepositaccountform" novalidate="" class="well form-inline card" rc-submit="submit()">
+        <api-validate></api-validate>
+    <fieldset>
+        <legend>{{ 'label.heading.editfixeddepositapplication' | translate }}</legend>
         <table class="width100">
             <tr>
                 <td class="width14">
@@ -198,6 +194,30 @@
                     </select>
                 </td>
             </tr>
+
+            <tr>
+                <td>
+                    <label class="control-label">{{ 'label.input.maturity.instruction' | translate }}</label>
+                </td>
+                <td>
+                    <select id="depositRollover" ng-model="formData.maturityInstructionId" ng-options="depositRollover.id as depositRollover.value for depositRollover in depositRolloverOptions"
+                            class="form-control width170px" value="{{depositRollover.id}}" ng-change="changeMaturityInstruction()">
+                    </select>
+                </td>
+            </tr>
+            <tr ng-if="formData.maturityInstructionId == 200">
+                <td >
+                    <label class="control-label">{{ 'label.input.transfer.to.account' | translate }}&nbsp;
+                    </label>
+                </td>
+                <td >
+                    <select id="depositRollover" ng-model="formData.transferToSavingsId" ng-options="savingsAccount.id as savingsAccount.accountNo for savingsAccount in savingsAccounts"
+                    class="form-control width170px" value="{{savingsAccount.id}}" >
+                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                </select>
+                </td>
+            </tr>
+
             <tr ng-show="data.taxGroup">
                 <td colspan="2" class="paddedbottom10">
                     <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
@@ -334,6 +354,4 @@
         </script>
         </fieldset>
         </form>
-    </div>
-</div>
 </div>

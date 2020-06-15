@@ -297,6 +297,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
             'notification/NotificationsController',
+            'selfservice/CreateSelfServiceUserController',
             'notification/NotificationsController',
             'configurations/AddressFormController',
             'client/EditFamilyMemberController',
@@ -358,7 +359,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'NumberFormatDirective',
             'SuccessfulResponsesDirective',
             'TabsPersistenceDirective',
-            'ScrollableDirective'
+            'ScrollableDirective',
+            'DecimalDirective'
         ]
     };
 

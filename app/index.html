@@ -15,8 +15,12 @@
 <!--Loader -->
 <div id="loaderWrapper" data-ng-hide="domReady" style="position: absolute; height: 100%; width: 100%; top: 0;">
     <div id="loader" style="margin: 175px auto">
-        <img src="./images/MifosX_logo.png" alt="MifosX" style="min-width: 50px;   width: 6%; margin: 0 auto"
-             class="img-responsive">
+        <div class="wrapper">
+            <div class="bottom triangle"></div>
+            <div class="top triangle"></div>
+            <div class="left triangle"></div>
+            <div class="right triangle"></div>
+          </div>          
         <img src="images/loader.gif" style="margin: 10px auto" class="img-responsive">
     </div>
 </div>
@@ -91,7 +95,7 @@
                             <form class="form">
 
                                 <div class="form-group">
-                                    <label for="uid">USERNAME</label>
+                                    <label for="uid">{{ 'label.input.username' | translate | uppercase }}</label>
                                     <input type="text" name="username" id="uid" class="form-control"
                                            ng-model="loginCredentials.username"
                                            placeholder="{{ 'label.input.username' | translate |lowercase }}"
@@ -99,7 +103,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="pwd">PASSWORD</label>
+                                    <label for="pwd">{{ 'label.input.password' | translate | uppercase }}</label>
                                     <input type="password" name="password" id="pwd" class="form-control"
                                            ng-model="loginCredentials.password" autocomplete="new-password"
                                            placeholder="{{ 'label.input.password' | translate | lowercase }}"
@@ -188,14 +192,14 @@
 
                 </div>
 
-
+                <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.hideCommunityDetails">
                 <hr/>
-
-                <div class="row">
+                
+                <div class="row" >
                     <div class="col-xs-4 text-center">
 
                         <ul class="list-unstyled">
-                            <li><h5>RESOURCES</h5></li>
+                            <li><h5>{{'label.heading.resources' | translate | uppercase }}</h5></li>
                             <li><a target="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual"
                                    href="https://mifosforge.jira.com/wiki/display/MIFOS/User+Manual">{{
                                 'label.anchor.usermanual' | translate }}</a></li>
@@ -209,7 +213,7 @@
                     </div>
                     <div class="col-xs-4 text-center">
                         <ul class="list-unstyled">
-                            <li><h5>COMMUNITY</h5></li>
+                            <li><h5>{{'label.heading.community' | translate | uppercase }}</h5></li>
                             <li><a target="https://groups.google.com/forum/#!forum/mifosusers"
                                    href="https://groups.google.com/forum/#!forum/mifosusers">{{
                                 'label.anchor.usersgroup' |
@@ -226,7 +230,7 @@
                     </div>
                     <div class="col-xs-4 text-center">
                         <ul class="list-unstyled">
-                            <li><h5>CONTRIBUTE</h5></li>
+                            <li><h5>{{'label.heading.contribute' | translate | uppercase}}</h5></li>
                             <li><a target="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles"
                                    href="https://mifosforge.jira.com/wiki/display/MDZ/Key+Design+Principles/">{{
                                 'label.anchor.keydesignprinciples' | translate }}</a></li>
@@ -243,6 +247,7 @@
                 </div>
 
                 <hr/>
+            
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3 text-center">
                         <br>
@@ -254,10 +259,13 @@
 
                     </div>
                 </div>
+            </div>
+            <div class="row" ng-hide = "response.uiDisplayConfigurations.whiteLabel.loginPage.releaseDetails">
                 <p class="text-center text-muted small">
                     <span>{{ 'label.heading.version' | translate }} {{ version }}</span>
-                    <br/> <span>{{ 'label.heading.uptodate' | translate }}</span>
+                    <br/> <span>{{response.uiDisplayConfigurations.whiteLabel.loginPage.companyName}}{{ 'label.heading.uptodate' | translate }}</span>
                 </p>
+            </div>
             </div>
         </div>
     </div>

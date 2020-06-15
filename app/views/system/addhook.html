@@ -49,10 +49,11 @@
                     <label class="control-label col-sm-2" ng-if="s.optional">{{s.fieldName}}</label>
                     <label class="control-label col-sm-2" ng-if="s.optional == false">{{s.fieldName}} <span class="required">*</span></label>
                         <div class="col-sm-3" ng-switch on="s.fieldType">
-                            <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
-                            <input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
-                            <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}"/>
+                            <input ng-switch-when="string" type="text" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-validate/>
+                            <input ng-switch-when="password" type="password" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-validate/>
+                            <input ng-switch-when="boolean" type="checkbox" id="{{s.fieldName}}" name="{{s.fieldName}}" class="form-control" ng-model="schemaInputs[$index]" placeholder="{{s.placeholder}}" required late-validate/>
                         </div>
+
                     </div>
 
                     <div class="form-group" ng-show="showUgdTemplatesDropdown">
@@ -73,26 +74,28 @@
                         <div class="col-sm-2">
                             <select ng-model="grouping"
                             ng-options="grouping as grouping.name for grouping in groupings"
-                            value="{{grouping.name}}" ng-change="resetActions()" class="form-control">
+                            value="{{grouping.name}}" ng-change="resetActions()" name="groups" class="form-control" required late-validate>
                                 <option style="display:none" value="">{{'label.selectgrouping' | translate}}</option>
                             </select>
+                            <form-validate valattributeform="createhookform" valattribute="groups"/>
                         </div>
                         <div class="col-sm-2">
                             <select ng-model="entity"
                             ng-options="entity as entity.name for entity in grouping.entities"
-                            value="{{entity.name}}" class="form-control" ng-change="changeEntity(entity.name)">
+                            value="{{entity.name}}" class="form-control" name="entity" ng-change="changeEntity(entity.name)" required late-validate>
                                 <option style="display:none" value="">{{'label.selectentity' | translate}}</option>
                             </select>
+                            <form-validate valattributeform="createhookform" valattribute="entity"/>
                         </div>
                         <div class="col-sm-2">
                             <select ng-model="action"
                             ng-options="action as action for action in entity.actions"
-                            value="{{action.name}}" class="form-control">
+                            value="{{action.name}}" name="action" class="form-control" required late-validate>
                                 <option style="display:none" value="">{{'label.selectaction' | translate}}</option>
                             </select>
-
+                            <form-validate valattributeform="createhookform" valattribute="action"/>
                         </div>
-                        <a ng-click="addEvent()"><i class="fa fa-plus "></i></a>
+                        <a ng-click="addEvent()" class="btn btn-primary"><i class="fa fa-plus "></i></a>
                     </div>
 
                     <table class="table" width="100%" ng-show="events.length>0">

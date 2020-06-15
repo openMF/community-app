@@ -59,10 +59,13 @@
                                       ng-options="debitAccount.name for debitAccount in rule.debitAccounts">
                                 </select>
 
-                                <input id="debits[{{$index}}]" type="text" class="input-sm form-control" number-format
-                                       ng-model="dbAccount.debitAmount">
+                                <input id="debits[{{$index}}]" type="text" name="debits" class="input-sm form-control" number-format
+                                       ng-model="dbAccount.debitAmount" required late-validate>
                                 <a ng-click="removeDebitAccount($index)">&nbsp;<i
+
                                         class="fa fa-times-circle fa-2x"></i></a>
+                                &nbsp;&nbsp;&nbsp;<form-validate valattributeform="freqpostingform" valattribute="debits"/>
+
                             </div>
                             <h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;
                                 <a ng-click="addCrAccount()" ng-show="allowCreditEntries">&nbsp;<i class="fa fa-plus "></i></a>
@@ -71,9 +74,11 @@
                               <select ng-init="crAccount.select = rule.creditAccounts[0]" class="input-sm form-control" ng-model="crAccount.select"
                                         ng-options="creditAccount.name for creditAccount in formData.rule.creditAccounts">
                               </select>
-                              <input id="credits[{{$index}}]" type="text" class="input-sm form-control" number-format
-                                     ng-model="crAccount.crAmount">
-                              <a ng-click="removeCrAccount($index)">&nbsp;<i class="fa fa-times-circle fa-2x"></i></a>
+
+                              <input id="credits[{{$index}}]" type="text" name="credits" class="input-sm form-control" number-format
+                                     ng-model="crAccount.crAmount" required late-validate>
+                              <a ng-click="removeCrAccount($index)">&nbsp;<i class="fa fa-times "></i></a>
+                              &nbsp;&nbsp;&nbsp;<form-validate valattributeform="freqpostingform" valattribute="credits"/>
                           </div>
                         </div>
                     </div>

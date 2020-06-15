@@ -32,7 +32,7 @@
                             <option selected="selected" value="">{{'label.all' | translate}}</option>
                             <option ng-repeat="action in template.actionNames" value="{{action}}">{{action}}</option>
                         </select>
-                        <a ng-click="clearFilters()" class="btn btn-primary control pull-right"><i class="fa fa-remove-sign">{{'label.button.reset' | translate}}</i></a>
+                        <a ng-click="clearFilters()" class="btn btn-primary pull-right"><i class="fa fa-undo"></i>&nbsp;&nbsp;{{'label.button.reset' | translate}}</a>
                     </div>
 
                     <div class="form-inline">
@@ -49,17 +49,17 @@
                             <option selected="selected" value="">{{'label.all' | translate}}</option>
                             <option ng-repeat="user in template.appUsers" value="{{user.id}}">{{user.username}}</option>
                         </select>
-                        <span><a ng-click="searchAudit()" class="btn btn-primary control pull-right" has-permission='READ_AUDIT'><i class="fa fa-search "></i>{{'label.button.advancesearch' | translate}}</a></span>
+                        <span><a ng-click="searchAudit()" class="btn btn-primary pull-right" has-permission='READ_AUDIT'><i class="fa fa-search "></i>&nbsp;&nbsp;{{'label.button.advancesearch' | translate}}</a></span>
                     </div>
                 </div>
 
                 <div ng-show="displayResults">
                 <br>
                     <div data-ng-show="flag" class="pull-right">
-                        <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="fa fa-file "></i>{{'label.button.exportcsv' | translate }}</button>
+                        <button type="button" class="btn btn-primary" ng-csv="csvData"><i class="fa fa-file "></i>&nbsp;&nbsp;{{'label.button.exportcsv' | translate }}</button>
                     </div>
                     <br> 
-                    <div scroll data-ng-show="flag">
+                    <div data-ng-show="flag">
                         <table class="table table-bordered width1200px" data-anchor>
                             <thead>
                             <tr class="graybg">
@@ -76,7 +76,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="highlight-row pointer" data-ng-click="routeTo(data.id)" ng-repeat="data in searchData.pageItems">
+                            <tr class="pointer-main" data-ng-click="routeTo(data.id)" ng-repeat="data in searchData.pageItems">
                                 <td>{{data.id}}</td>
                                 <td>{{data.resourceId}}</td>
                                 <td>{{data.processingResult | translate}}</td>

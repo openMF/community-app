@@ -11,8 +11,12 @@
                         '<small class="error" ng-show="' + scope.formNameAttribute + '.' + scope.inputAttributeName + '.$error.req || rc.' + scope.formNameAttribute + '.attempted || ' + scope.formNameAttribute + '.$submitted ">' +
                         '{{' + "'label.requirefield'" + ' | translate}}' +
                         '</small>' +
+                        '<small class="required error" ng-show="' + scope.formNameAttribute + '.' + scope.inputAttributeName + '.$error.nval">' +
+                        '{{' + "'label.mustbenumeric'" + ' | translate}}' +
+                        '</small>' +
                         '</span>';
                     elm.html('').append($compile(template)(scope));
+
                 }
             };
         }

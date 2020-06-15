@@ -11,9 +11,11 @@
                     <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
                 </div>
                 <div class="col-md-6">
-                    <a href="#/createemployee" class="btn btn-primary pull-right" has-permission='CREATE_STAFF'><i class="fa fa-plus "></i>{{'label.button.createemployee' | translate }}</a>
-                    <a href="#/bulkimportemployees" class="btn btn-primary pull-right" has-permission='CREATE_STAFF'>
-                        <i class="fa fa-upload"></i>&nbsp;{{'label.button.importemployees' | translate}}</a>
+                    <div class="pull-right">
+                        <a href="#/createemployee" class="btn btn-primary" has-permission='CREATE_STAFF'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createemployee' | translate }}</a>
+                        <a href="#/bulkimportemployees" class="btn btn-primary" has-permission='CREATE_STAFF'>
+                            <i class="fa fa-upload"></i>&nbsp;{{'label.button.importemployees' | translate}}</a>
+                    </div>
                 </div>
             </div>
             </div>
@@ -28,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="employee in employees | filter:filterText">
+                <tr class="pointer-main" dir-paginate="employee in employees | filter:{displayName:filterText} |  itemsPerPage: EmployeesPerPage">
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
                     <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
@@ -38,6 +40,7 @@
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
         </div>
     </div>
 </div>

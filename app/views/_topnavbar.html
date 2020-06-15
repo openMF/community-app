@@ -87,7 +87,7 @@
                     <div class="numberCircle" ng-hide="numberOfUnreadNotifications == 0">{{ numberOfUnreadNotifications }}</div>
                     <ul class="notification-container" uib-dropdown-menu>
                         <ul class="notification-list" ng-repeat="notification in notifications">
-                            <li ng-click="navigateToAction(notification)">
+                            <li ng-class="notification.isRead ? '' : 'new-notification'" ng-click="navigateToAction(notification)">
                                 <h4>{{ notification.content }}</h4>
                                 <span>{{ notification.createdAt }}</span>
                             </li>

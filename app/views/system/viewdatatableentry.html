@@ -7,13 +7,18 @@
             <br/>
             <form class="form-horizontal" ng-controller="DataTableEntryController" ng-submit="submit()">
                 <div ng-show="isViewMode">
-                    <div class="row pull-right btn-group">
-                        <a ng-click="editDatatableEntry()" class="btn btn-primary" has-permission='UPDATE_{{tableName}}'><i class="fa fa-edit "></i>{{
-                            'label.button.edit' | translate }}</a>
-                        <button type="button" ng-click="deleteDatatableEntry()" class="btn btn-danger" has-permission='DELETE_{{tableName}}'><i
-                                class="fa fa-trash "></i> {{ 'label.button.delete' | translate }}
-                        </button>
+                    <div class="row">
+                        <div class="col-md-offset-6 col-md-6">
+                            <div class="pull-right">
+                                <a ng-click="editDatatableEntry()" class="btn btn-primary" has-permission='UPDATE_{{tableName}}'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{
+                                    'label.button.edit' | translate }}</a>
+                                <button type="button" ng-click="deleteDatatableEntry()" class="btn btn-danger" has-permission='DELETE_{{tableName}}'><i
+                                        class="fa fa-trash-o"></i>&nbsp;&nbsp;{{ 'label.button.delete' | translate }}
+                                </button>
+                            </div>
+                        </div>
                     </div>
+
                     <script type="text/ng-template" id="deletedatatable.html">
                         <div class="modal-header silver">
                             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -21,7 +26,7 @@
                         <div class="modal-body">
                             <api-validate></api-validate>
                             <br>
-                            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                         </div>
                     </script>

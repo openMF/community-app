@@ -194,6 +194,7 @@
                     scope.modelName = 'transactionDate';
                     scope.showDateField = true;
                     scope.showAccountNumber=true;
+                    scope.taskPermissionName = 'POSTINTEREST_SAVINGSACCOUNT';
                     break;
                 case "withdrawal":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {

@@ -11,6 +11,16 @@
             scope.taskPermissionName = 'ALL_FUNCTIONS';
             scope.submittedDatatables = [];
             var submitStatus = [];
+            scope.showTransferDate = false;
+
+            var retrieveTransferDate = function(){
+                resourceFactory.clientResource.retrieveTransferDate({clientId: scope.clientId, anotherresource: 'transferproposaldate'}, function (data1) {
+                    scope.transferDate = data1;
+                    if(scope.transferDate){
+                        scope.showTransferDate = true;
+                    }
+                })
+            };
 
             scope.RequestEntities = function(entity,status){
                 resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
@@ -129,16 +139,19 @@
                     scope.breadcrumbName = 'label.anchor.acceptclienttransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'ACCEPTTRANSFER_CLIENT';
+                    retrieveTransferDate();
                     break;
                 case "rejecttransfer":
                     scope.breadcrumbName = 'label.anchor.rejecttransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'REJECTTRANSFER_CLIENT';
+                    retrieveTransferDate();
                     break;
                 case "undotransfer":
                     scope.breadcrumbName = 'label.anchor.undotransfer';
                     scope.showNoteField = true;
                     scope.taskPermissionName = 'WITHDRAWTRANSFER_CLIENT';
+                    retrieveTransferDate();
                     break;
                 case "reject":
                     scope.labelName = 'label.input.rejectiondate';

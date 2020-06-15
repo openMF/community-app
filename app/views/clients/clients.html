@@ -64,8 +64,8 @@
                 </thead>
 
                 <tbody>
-                <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
-                    total-items="totalClients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
+               <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
+                    total-items="totalClients"  pagination-id="clients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
@@ -79,9 +79,9 @@
                 </tbody>
 
             </table>
-            <dir-pagination-controls align="center" boundary-links="true"
+           <dir-pagination-controls align="center" boundary-links="true"
                                      template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
-                                     on-page-change="getResultsPage(newPageNumber)">
+                                     on-page-change="getResultsPage(newPageNumber)" pagination-id="clients">
                                      </dir-pagination-controls>
 
         </div>

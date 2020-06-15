@@ -2,7 +2,7 @@
     var defineRoutes = function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/start.html'
+                templateUrl: 'views/home.html'
             })
             .when('/login', {
                 templateUrl: 'views/login.html'
@@ -1007,10 +1007,12 @@
             .when('/editadhocquery/:id', {
                 templateUrl: 'views/adhocquery/editadhocquery.html'
             })
+            .when('/selfservice/createuser/:clientId',{
+                templateUrl: 'views/selfservice/createuser.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
-            })
-            ;
+            });
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

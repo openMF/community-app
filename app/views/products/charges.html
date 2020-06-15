@@ -14,7 +14,7 @@
                 <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
             </div>
             <div class="col-md-2 col-sm-3 paddedbottom20">
-                <a href="#/createcharge" class="btn btn-primary pull-right" has-permission='CREATE_CHARGE'><i class="fa fa-plus "></i>{{'label.button.createcharge' | translate}}</a>
+                <a href="#/createcharge" class="btn btn-primary pull-right" has-permission='CREATE_CHARGE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createcharge' | translate}}</a>
             </div>
         </div>
         <table class="table">
@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="charge in charges |orderBy:'name':reverse | filter:filterText">
+            <tr class="pointer-main" dir-paginate="charge in charges | orderBy:'name':reverse  | filter:{name:filterText} |  itemsPerPage: ChargesPerPage">
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.chargeAppliesTo.code | translate }}</td>
                 <td class="pointer" data-ng-click="routeTo(charge.id)">{{charge.penalty}}</td>
@@ -37,6 +37,7 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
     
 </div>

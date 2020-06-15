@@ -52,7 +52,8 @@
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
-                        update: { method: 'PUT'}
+                        update: { method: 'PUT'},
+                        retrieveTransferDate: { method: 'GET', params:{}, isArray: true}
                     }),
                     clientChargesResource: defineResource(apiVer + "/clients/:clientId/charges/:resourceType", {clientId: '@clientId', resourceType: '@resourceType'}, {
                         getCharges: {method: 'GET'},
@@ -531,6 +532,11 @@
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET' , params: {paymentTypeId: '@paymentTypeId'}},
                         update: {method: 'PUT', params: {paymentTypeId: '@paymentTypeId'}}
+                    }),
+                    notificationsResource: defineResource(apiVer + "/notifications", {},{
+                        getAllNotifications: {method: 'GET', params: {isRead: true, sqlSearch: '@sqlSearch'}},
+                        getAllUnreadNotifications: {method: 'GET', params: {isRead: false, sqlSearch: '@sqlSearch'}},
+                        update: {method: 'PUT', params:{}}
                     }),
                     externalServicesS3Resource: defineResource(apiVer + "/externalservice/S3", {},{
                         get: {method: 'GET', params: {}, isArray : true},
