@@ -39,7 +39,7 @@
                         for(var i=0;i<data.length;i++)
                         {
                             data[i].field='scope.view.'+data[i].field;
-                            eval(data[i].field+"="+data[i].is_enabled);
+                            eval(data[i].field+"="+data[i].isEnabled);
 
                         }
 

@@ -36,7 +36,7 @@
                 for(var i=0;i<data.length;i++)
                 {
                     data[i].field='$scope.'+data[i].field;
-                    eval(data[i].field+"="+data[i].is_enabled);
+                    eval(data[i].field+"="+data[i].isEnabled);
 
                 }
 
@@ -54,13 +54,15 @@
                 resourceFactory.clientAddress.get({type:addresstypid,clientId:clientId},function(data)
                 {
 
-
-
-                        $scope.editable=true;
+                    $scope.editable=true;
                     for(var i=0;i<data.length;i++)
                     {
                         if(data[i].addressId==addressId)
                         {
+                            if(data[i].street&&$scope.street)
+                            {
+                                $scope.formData.street=data[i].street;
+                            }
                             if(data[i].addressLine1&&$scope.addressLine1)
                             {
                                 $scope.formData.addressLine1=data[i].addressLine1;
@@ -107,7 +109,7 @@
                             }
                             if(data[i].isActive&&$scope.isActive)
                             {
-                                isActive=data[i].isActive;
+                                $scope.formData.isActive=data[i].isActive;
                             }
                         }
                     }
