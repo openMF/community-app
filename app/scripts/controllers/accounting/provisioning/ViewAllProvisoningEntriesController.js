@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewAllProvisoningEntriesController: function (scope, routeParams, paginatorService, resourceFactory, location, $uibModal) {
+        ViewAllProvisoningEntriesController: function (scope, routeParams, dateFilter,paginatorService, resourceFactory, location, $uibModal) {
+        	scope.filterDate;
 
             scope.routeTo = function (id) {
                 location.path('/viewprovisioningentry/' + id);
@@ -24,6 +25,10 @@
                 var params = {};
                 params.offset = offset;
                 params.limit = limit;
+                if (scope.filterDate) {
+                    params.filterDate = dateFilter(scope.filterDate, scope.df);
+                };
+                
                 params.locale = scope.optlang.code;
                 params.dateFormat = scope.df;
                 scope.saveSC();
@@ -34,7 +39,7 @@
             scope.entries = paginatorService.paginate(fetchFunction, 10);
         }
     });
-    mifosX.ng.application.controller('ViewAllProvisoningEntriesController', ['$scope', '$routeParams', 'PaginatorService', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewAllProvisoningEntriesController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewAllProvisoningEntriesController', ['$scope', '$routeParams','dateFilter', 'PaginatorService', 'ResourceFactory', '$location', '$uibModal', mifosX.controllers.ViewAllProvisoningEntriesController]).run(function ($log) {
         $log.info("ViewAllProvisoningEntriesController initialized");
     });
 }(mifosX.controllers || {}));
