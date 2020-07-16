@@ -1,20 +1,42 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        GuarantorController: function (scope, resourceFactory, routeParams, location, dateFilter) {
+        GuarantorController: function ($q,scope, resourceFactory, routeParams, location, dateFilter) {
             scope.template = {};
             scope.clientview = false;
             scope.temp = true;
             scope.date = {};
             scope.formData = {};
             scope.restrictDate = new Date();
+            scope.clientData={};
+            scope.offices=[];
+            scope.toClients=[];
+
+            resourceFactory.clientTemplateResource.get(function(data) {
+                scope.offices=data.officeOptions;
+                scope.formData.officeId=scope.offices[0].id;
+            });
+
+            scope.changeOffice=function(officeId){
+                resourceFactory.clientTemplateResource.get({officeId:officeId},function (data) {
+                    scope.staffs=data.staffOptions;
+                });
+            };
 
             resourceFactory.guarantorResource.get({ loanId: routeParams.id, templateResource: 'template'}, function (data) {
                 scope.template = data;
                 scope.loanId = routeParams.id;
             });
-            resourceFactory.clientResource.getAllClientsWithoutLimit(function (data) {
-                scope.clients = data.pageItems;
-            });
+
+            scope.clientOptions=function(value){
+            var deferred=$q.defer();
+                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName:value, orderBy: 'displayName', officeId:
+                scope.formData.officeId,sortOrder: 'ASC'},function (data) {
+                    deferred.resolve(data.pageItems);
+                });
+                return deferred.promise;
+            }
+
+
             scope.viewClient = function (item) {
                 scope.clientview = true;
                 scope.client = item;
@@ -68,7 +90,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('GuarantorController', ['$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.GuarantorController]).run(function ($log) {
+   mifosX.ng.application.controller('GuarantorController', ['$q','$scope', 'ResourceFactory', '$routeParams', '$location', 'dateFilter', mifosX.controllers.GuarantorController]).run(function ($log) {
         $log.info("GuarantorController initialized");
     });
 }(mifosX.controllers || {}));
