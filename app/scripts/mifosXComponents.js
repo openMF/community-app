@@ -331,7 +331,15 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/RateController',
             'product/CreateRateController',
             'product/ViewRateController',
-            'product/EditRateController'
+            'product/EditRateController',
+            'loanAccount/NewGLIMAccountController',
+            'loanAccount/ViewGLIMaccountController',
+            'loanAccount/GLIMLoanAccountActionsController',
+            'savings/CreateGSIMAccountController',
+            'savings/ViewGSIMaccountController',
+            'savings/GSIMAccountActionsController',
+            'savings/EditGSIMAccountController',
+            'savings/AddNewMemberToGSIMController'
         ],
         filters: [
             'StatusLookup',
