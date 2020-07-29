@@ -1,4 +1,4 @@
-<div ng-controller="RescheduleLoansRequestController">
+    <div ng-controller="RescheduleLoansRequestController">
     <div>
         <ul class="breadcrumb">
             <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
@@ -104,6 +104,27 @@
                 <div class="col-sm-3 paddedbottom10">
                     <input id="newinterestrate" type="text" ng-show="adjustinterestrates" class="form-control paddedbottom10"
                            ng-model="formData.newInterestRate"></div>
+            </div>
+
+            <input type="checkbox" ng-model="changeEMI" > &nbsp;<span
+                class="control-label"><label>{{ 'label.input.changeEMI' | translate }}&nbsp;</label></span>
+            <div class="form-group" data-ng-show="changeEMI" >
+
+                <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.emi.change.upto' | translate
+                    }}&nbsp;</label>
+                <div class="col-sm-3 paddedbottom10">
+                    <input id="adjustedDueDate" type="text" data-ng-show="changeEMI"  name="adjustedDueDate" datepicker-pop="dd MMMM yyyy"
+                           class="form-control " ng-model="formData.endDate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="changeEMI" >
+                <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.new.emi' | translate
+                    }}&nbsp;</label>
+
+                <div class="col-sm-3 paddedbottom10">
+                    <input id="interestgrace" class="form-control" data-ng-show="changeEMI"  type="text" ng-model="formData.emi">
+                </div>
             </div>
 
             <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
