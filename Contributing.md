@@ -14,7 +14,7 @@ We would love you to contribute to Community and help make it better than it is 
 
 ## Building from source
 
-1.  Ensure you have
+1.  Ensure you have:
 
     `npm` installed - goto http://nodejs.org/download/ to download installer for your OS.  
     `ruby` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
@@ -24,14 +24,14 @@ We would love you to contribute to Community and help make it better than it is 
 
 1.  Clone this repository to your local filesystem (default branch is 'develop')
 
-1.  To download the dependencies, and be able to build, first install bower & grunt
+1.  To download the dependencies, and be able to build, first install bower & grunt:
 
     ```
      npm install -g bower
      npm install -g grunt-cli
     ```
 
-1.  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the project root folder
+1.  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the project root folder:
 
     ```
      bower install
@@ -45,7 +45,7 @@ We would love you to contribute to Community and help make it better than it is 
      bundler install
     ```
 
-1.  To preview the app, run the following command on the project root folder
+1.  To preview the app, run the following command on the project root folder:
 
     ```
      grunt serve
@@ -61,11 +61,11 @@ We would love you to contribute to Community and help make it better than it is 
 
 1.  Default username/password: mifos/password. This application will hit the demo server by default.
 
-You are done.
+1. You are done.
 
 ## <a name="question"></a> Got a Question or Problem?
 
-If you have got any questions or problem, please email to our [mailing list](https://lists.sourceforge.net/lists/listinfo/mifos-developer)
+If you have got any questions or problem, please email to our [mailing list](https://lists.sourceforge.net/lists/listinfo/mifos-developer).
 
 If you would like to chat about the question in real-time, you can reach out via our [Gitter](https://gitter.im/openMF/community-app) channel.
 
@@ -104,9 +104,9 @@ Please consider what kind of change it is:
 
 **Working on your first pull requests ?** You can learn how from this free series [How to Contribute to an Open Source Project on GitHub.](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
-Our central development branch is `develop` , which should be clean and ready for release at any time. Feel free to discuss about any issue in gitter channel
+Our central development branch is `develop` , which should be clean and ready for release at any time. Feel free to discuss about any issue in gitter channel:
 
-1.  **Choose a descriptive branch name** - It should be like `issue-1888` if your are working on issue number 1888
+1.  **Choose a descriptive branch name** - It should be like `issue-1888` if your are working on issue number 1888.
 
 2.  **Create a branch name with this name, starting from develop** -
 

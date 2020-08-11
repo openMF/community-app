@@ -88,6 +88,10 @@ By default, when the app is running from the local filesystem, it will connect t
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
+If you are running the Fineract backend locally, for the first time or have cleared the cookies from your browser, you will need to first bypass the security warning by accepting the SSL in your browser with:
+
+https://localhost:8443/fineract-provider/api/v1&tenantIdentifier=default
+
 If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters,
 
 e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default

@@ -29,15 +29,22 @@
                     }
                 }
 
+                scope.inparams = {};
                 if (data.clientId) {
                     scope.formData.clientId = data.clientId;
                     scope.clientName = data.clientName;
+                    scope.inparams.clientId = data.clientId
                 }
                 if (data.groupId) {
                     scope.formData.groupId = data.groupId;
                     scope.groupName = data.groupName;
+                    scope.inparams.groupId = data.groupId
                 }
                 scope.formData.productId = data.depositProductId;
+                scope.inparams.productId = scope.formData.productId;
+                resourceFactory.fixedDepositAccountTemplateResource.get(scope.inparams, function (data) {
+                    scope.depositRolloverOptions = data.maturityInstructionOptions;
+                });
                 scope.products = data.productOptions;
                 scope.savingsAccounts = data.savingsAccounts;
                 if (data.linkedAccount) {
@@ -54,6 +61,8 @@
                 scope.formData.depositPeriod = data.depositPeriod;
                 scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                 scope.formData.withHoldTax = data.withHoldTax;
+                scope.formData.maturityInstructionId = data.onAccountClosure.id;
+                scope.formData.transferToSavingsId = data.transferToSavingsId;
                 /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                 //scope.formData.annualFeeAmount = data.annualFeeAmount;
                 //scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
@@ -199,6 +208,10 @@
                 location.path('/viewsavingaccount/' + scope.accountId);
             }
 
+            scope.changeMaturityInstruction = function(){
+                scope.formData.transferToSavingsId =null;
+            }
+            
             scope.submit = function () {
                 if (this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.locale = scope.optlang.code;
