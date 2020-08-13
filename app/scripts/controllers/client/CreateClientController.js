@@ -101,12 +101,12 @@
 
                 scope.enableAddress=data.isAddressEnabled;
 
-                if(scope.enableAddress===true)
-                {
-                    scope.addressTypes=data.address[0].addressTypeIdOptions;
-                    scope.countryOptions=data.address[0].countryIdOptions;
-                    scope.stateOptions=data.address[0].stateProvinceIdOptions;
-
+                    
+                    if (scope.enableAddress === true) {
+                        scope.addressTypes = data.address.addressTypeIdOptions;
+                        scope.countryOptions = data.address.countryIdOptions;
+                        scope.stateOptions = data.address.stateProvinceIdOptions;
+                    
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
 
 
@@ -321,6 +321,8 @@
                         if(scope.addressArray[i].addressTypeId)
                         {
                             temp.addressTypeId=scope.addressArray[i].addressTypeId;
+                        } if (scope.addressArray[i].street) {
+                            temp.street = scope.addressArray[i].street;
                         }
                         if(scope.addressArray[i].addressLine1)
                         {
