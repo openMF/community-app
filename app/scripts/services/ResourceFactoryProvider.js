@@ -47,8 +47,8 @@
                     importResource: defineResource(apiVer + "/imports", {}, {
                 			getImports: {method: 'GET', params: {}, isArray: true}
                     }),
-                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', sqlSearch: '@sqlSearch'}, {
-                        getAllClients: {method: 'GET', params: {limit: 1000, sqlSearch: '@sqlSearch'}},
+                    clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", {clientId: '@clientId', anotherresource: '@anotherresource', status: '@status'}, {
+                        getAllClients: {method: 'GET', params: {limit: 1000, status: '@status'}},
                         getAllClientsWithoutLimit: {method: 'GET', params: {}},
                         getClientClosureReasons: {method: 'GET', params: {}},
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true},
