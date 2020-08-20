@@ -11,7 +11,7 @@
                 scope.rescheduleFromDate = dateFilter(scope.rescheduleFromDate,"dd MMMM yyyy");
                 scope.submittedOnDate = new Date(scope.loanRescheduleDetails.timeline.submittedOnDate);
                 scope.submittedOnDate = dateFilter(scope.submittedOnDate,"dd MMMM yyyy");
-
+                scope.loanRescheduleDetails.emichange = [];
                 for(var i in scope.loanTermVariationsData) {
                     if(scope.loanTermVariationsData[i].termType.value == "dueDate") {
                         scope.loanRescheduleDetails.adjustedDueDate = new Date(scope.loanTermVariationsData[i].dateValue);
@@ -39,6 +39,13 @@
                         scope.adjustinterestrates = true;
                     }
 
+                    if(scope.loanTermVariationsData[i].termType.value == "emiAmount") {
+                        var emi = {};
+                        emi.emi = scope.loanTermVariationsData[i].decimalValue;
+                        emi.instDate = dateFilter(scope.loanTermVariationsData[i].dateValue,"dd MMMM yyyy");
+                        scope.loanRescheduleDetails.emichange.push(emi);
+                        scope.changeEMI = true;
+                    }
                 }
             });
 

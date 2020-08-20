@@ -13,9 +13,14 @@
 	                    class="required">*</span></label>
 
 	            <div class="col-sm-3">
-	                <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required late-Validate/>
+	                <input type="text" minlength="5" id="username" name="username" ng-model="formData.username" class="form-control" required late-Validate/>
 	            </div>
 	            <div class="col-sm-3">
+					<span ng-show="createuserform.username.$invalid">
+						<small class="error required">
+							{{'label.usernameminfivechars' | translate}}
+						</small>
+					</span>
 	                <form-validate valattributeform="createuserform" valattribute="username"/>
 	            </div>
 	        </div>
@@ -106,11 +111,16 @@
 	                            class="required">*</span></label>
 
 	                    <div class="col-sm-3">
-	                        <input type="password" id="password" name="password" ng-model="formData.password" class="form-control" required
-	                               late-Validate>
+	                        <input type="password" minlength="6" id="password" name="password" ng-model="formData.password" class="form-control" required
+								   late-Validate>
 	                    </div>
 	                    <div class="col-sm-3">
-	                        <form-validate valattributeform="createuserform" valattribute="password"/>
+							<span ng-show="createuserform.password.$invalid">
+								<small class="error required">
+									{{'label.passwordminsixchars' | translate}}
+								</small>
+							</span>
+							<form-validate valattributeform="createuserform" valattribute="password"/>
 	                    </div>
 	                </div>
 	                <div class="form-group">
