@@ -6,6 +6,8 @@
             scope.formData = {};
             scope.accountId = routeParams.gsimChildAccountId;
             scope.parentAccountId=routeParams.parentGSIMId;
+            scope.groupId=routeParams.groupId;
+            scope.gsimAccountNumber=routeParams.gsimAccountNumber;
             scope.charges = [];
             scope.restrictDate = new Date();
             resourceFactory.savingsResource.get({accountId: scope.accountId, template: 'true', associations: 'charges',staffInSelectedOfficeOnly:'true'}, function (data) {
@@ -123,7 +125,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewsavingaccount/' + scope.accountId);
+                location.path('/viewgsimaccount/' + scope.groupId+'/'+scope.gsimAccountNumber);
             }
 
             scope.submit = function () {

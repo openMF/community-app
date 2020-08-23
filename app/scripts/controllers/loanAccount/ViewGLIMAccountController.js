@@ -3,7 +3,7 @@
         ViewGLIMaccountController: function (scope, routeParams, resourceFactory, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
 
             var parentLoanAccountNo=routeParams.id;
-
+            scope.groupId=routeParams.groupId;
             scope.glimId=routeParams.glimId;
             scope.groupGLIMAccounts={};
             scope.productName="";
@@ -14,16 +14,12 @@
 
             var parentglimid=0;
 
-            <!-- we -->
+
 
             resourceFactory.glimLoanTemplate.get({glimId: scope.glimId}, function (data) {
-                scope.glimAccounts = data[0];
 
-                if(scope.approvalArray.length!=0)
-                {
-                    scope.approvalArray=[];
+                scope.glimAccounts = data;
 
-                }
                 for(i=0;i<scope.glimAccounts.length;i++)
                 {
 
@@ -39,9 +35,8 @@
 
                     scope.approvalArray.push(temp);
                 }
-
             });
-            <!-- we -->
+
 
             resourceFactory.groupGLIMAccountResource.get({groupId: routeParams.groupId,parentLoanAccountNo:parentLoanAccountNo }, function (data) {
                 scope.groupGLIMAccounts = data[0];
@@ -117,10 +112,10 @@
                         location.path('/editloanaccount/' + parentglimid);
                         break;
                     case "approve":
-                        location.path('/glimloanaccount/' + routeParams.id + '/glimApprove/'+accountId);   //accountid is glimId and  routerparamsid is child loanid
+                        location.path('/glimloanaccount/' + routeParams.id + '/glimApprove/'+accountId +'/'+scope.groupId);   //accountid is glimId and  routerparamsid is child loanid
                         break;
                     case "reject":
-                        location.path('/glimloanaccount/' + routeParams.id +'/reject/'+accountId);
+                        location.path('/glimloanaccount/' + routeParams.id +'/reject/'+accountId+'/'+scope.groupId);
                         break;
                     case "withdrawnbyclient":
                         location.path('/loanaccount/' + accountId + '/withdrawnByApplicant');
@@ -133,19 +128,19 @@
                         });
                         break;
                     case "undoapproval":
-                        location.path('/glimloanaccount/' + routeParams.id + '/undoapproval/'+ accountId );
+                        location.path('/glimloanaccount/' + routeParams.id + '/undoapproval/'+ accountId +'/'+scope.groupId);
                         break;
                     case "disburse":
-                        location.path('/glimloanaccount/' + routeParams.id + '/glimDisburse/'+accountId);
+                        location.path('/glimloanaccount/' + routeParams.id + '/glimDisburse/'+accountId+'/'+scope.groupId);
                         break;
                     case "disbursetosavings":
                         location.path('/loanaccount/' + accountId + '/disbursetosavings');
                         break;
                     case "undodisbursal":
-                        location.path('/glimloanaccount/'+ routeParams.id + '/undodisbursal/'+ accountId );
+                        location.path('/glimloanaccount/'+ routeParams.id + '/undodisbursal/'+ accountId +'/'+scope.groupId);
                         break;
                     case "makerepayment":
-                        location.path('/glimloanaccount/' + routeParams.id + '/glimrepayment/'+accountId);
+                        location.path('/glimloanaccount/' + routeParams.id + '/glimrepayment/'+accountId+'/'+scope.groupId);
                         break;
                     case "prepayment":
                         location.path('/loanaccount/' + accountId + '/prepayloan');

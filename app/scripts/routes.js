@@ -148,7 +148,7 @@
             .when('/viewloanaccount/:id', {
                 templateUrl: 'views/loans/viewloanaccountdetails.html'
             })
-            .when('/viewglimaccount/:groupId/:id', {
+            .when('/viewglimaccount/:groupId/:id/:glimId', {
                 templateUrl: 'views/loans/viewglimaccount.html'
             })
             .when('/viewgsimaccount/:groupId/:gsimAccountNumber', {
@@ -160,7 +160,7 @@
             .when('/loanaccount/:id/:action', {
                 templateUrl: 'views/loans/loanaccountactions.html'
             })
-            .when('/glimloanaccount/:id/:action/:glimId', {
+            .when('/glimloanaccount/:id/:action/:glimId/:groupId', {
                 templateUrl: 'views/loans/glimloanaccountactions.html'
             })
             .when('/loanaccountcharge/:id/:action/:chargeId', {
@@ -569,7 +569,7 @@
             .when('/editsavingaccount/:id', {
                 templateUrl: 'views/savings/edit_saving_account_application.html'
             })
-            .when('/editgsimaccount/:parentGSIMId/:gsimChildAccountId', {
+            .when('/editgsimaccount/:parentGSIMId/:gsimChildAccountId/:groupId/:gsimAccountNumber', {
                 templateUrl: 'views/savings/edit_gsim_account_application.html'
             })
             .when('/addnewmember/:groupId/:parentGSIMAccounNo/:gsimChildAccountId', {
@@ -578,7 +578,7 @@
             .when('/savingaccount/:id/:action', {
                 templateUrl: 'views/savings/saving_account_actions.html'
             })
-            .when('/gsimaccount/:parentId/:childId/:action', {
+            .when('/gsimaccount/:parentId/:childId/:action/:groupId/:gsimAccountNumber', {
                 templateUrl: 'views/savings/gsim_account_actions.html'
             })
             .when('/savingaccountcharge/:id/:action/:chargeId', {

@@ -2,6 +2,8 @@
     mifosX.controllers = _.extend(module, {
         GSIMAccountActionsController: function (scope, resourceFactory, location, routeParams, dateFilter) {
 
+            scope.groupId=routeParams.groupId;
+            scope.gsimAccountNumber=routeParams.gsimAccountNumber;
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.childId;
             scope.parentAccountId = routeParams.parentId;
@@ -243,7 +245,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewsavingaccount/' + routeParams.childId);
+                location.path('/viewgsimaccount/' + scope.groupId+'/'+scope.gsimAccountNumber);
             };
 
             scope.submit = function () {
@@ -378,7 +380,7 @@
                     }
 
                     resourceFactory.gsimCommandsResource.save(params, this.formData, function (data) {
-                        location.path('/viewsavingaccount/' + data.savingsId);
+                        location.path('/viewgsimaccount/' + scope.groupId+'/'+scope.gsimAccountNumber);
                     });
                 }
             };

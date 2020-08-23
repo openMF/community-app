@@ -19,8 +19,8 @@
             scope.routeToSaving = function (id) {
                 location.path('/viewsavingaccount/' + id);
             };
-            scope.routeToGLIMLoan = function (glimAccountNumber) {
-                location.path('/viewglimaccount/' +scope.groupId +'/'+glimAccountNumber);
+            scope.routeToGLIMLoan = function (glimAccountNumber, glimId) {
+                location.path('/viewglimaccount/' +scope.groupId +'/'+glimAccountNumber +'/'+glimId);
             };
 
             scope.routeToGSIMAccount = function (gsimAccountNumber) {

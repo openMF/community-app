@@ -5,6 +5,7 @@
             scope.action = routeParams.action || "";
             scope.accountId = routeParams.id; //childloanId
             scope.glimId=routeParams.glimId;
+            scope.groupId=routeParams.groupId;
 
             scope.formData = {};
             scope.showDateField = true;
@@ -238,7 +239,6 @@
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
                     break;
                 case "glimrepayment":
-                    <!-- scope.formData.paymentTypeId=0; -->
                     scope.formData.formDataArray=[];
                     scope.glimAccounts=[];
                     scope.repaymentArray=[];
@@ -539,7 +539,7 @@
             }
 
             scope.cancel = function () {
-                location.path('/viewglimaccount/' + routeParams.id);
+                location.path('/viewglimaccount/' +scope.groupId+"/" +routeParams.id +"/"+routeParams.glimId);
             };
 
             scope.addTrancheAmounts = function(){
@@ -715,13 +715,13 @@
                 else if(scope.action == "glimApprove")
                 {
                     resourceFactory.glimLoan.post({glimId: scope.glimId,command:'approve'},this.formData,function (data) {
-                        location.path('/viewloanaccount/' + scope.accountId);
+                        location.path('/viewglimaccount/' +scope.groupId+"/" +routeParams.id +"/"+routeParams.glimId);
                     });
                 }
 
                 else if(scope.action == "glimDisburse"){
                     resourceFactory.glimLoan.post({glimId: scope.glimId,command:'disburse'},this.formData,function (data) {
-                        location.path('/viewloanaccount/' + scope.accountId);
+                        location.path('/viewglimaccount/' +scope.groupId+"/" +routeParams.id +"/"+routeParams.glimId);
                     });
                 }else if(scope.action == "undoapproval"){
 
@@ -755,7 +755,7 @@
 
                     resourceFactory.glimLoan.save({glimId: scope.glimId,command:'glimrepayment'}, this.formData, function (data) {
 
-                        location.path('/viewloanaccount/' + scope.accountId);
+                        location.path('/viewglimaccount/' +scope.groupId+"/" +routeParams.id +"/"+routeParams.glimId);
 
                     });
                 }

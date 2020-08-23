@@ -122,13 +122,13 @@
                 eventName = eventName || "";
                 switch (eventName) {
                     case "modifyapplication":
-                        location.path('/editgsimaccount/' + parentGSIMId+'/'+gsimChildAccountId);
+                        location.path('/editgsimaccount/' + parentGSIMId+'/'+gsimChildAccountId+'/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "approve":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/approve');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/approve/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "reject":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/reject');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/reject/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "withdrawnbyclient":
                         location.path('/savingaccount/' + accountId + '/withdrawnByApplicant');
@@ -141,16 +141,16 @@
                         });
                         break;
                     case "undoapproval":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/undoapproval');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/undoapproval/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "activate":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/activate');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+ '/activate/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "deposit":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+  '/gsimDeposit');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+  '/gsimDeposit/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "withdraw":
-                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+  '/gsimWithdrawal');
+                        location.path('/gsimaccount/'+parentGSIMId +'/'+gsimChildAccountId+  '/gsimWithdrawal/'+scope.groupId+'/'+scope.gsimAccountNumber);
                         break;
                     case "addcharge":
                         location.path('/savingaccounts/' + accountId + '/charges');

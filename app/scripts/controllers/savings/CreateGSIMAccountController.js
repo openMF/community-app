@@ -310,7 +310,7 @@
                 }
 
                 resourceFactory.gsimResource.save(this.formData, function (data) {
-                    location.path('/viewsavingaccount/' + data.savingsId);
+                    location.path('/viewgroup/'+ scope.groupId);
                 });
             };
 

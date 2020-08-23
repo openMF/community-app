@@ -42,21 +42,26 @@
 								      <strong>{{ 'label.heading.glimloanaccoverview' | translate }}</strong>
 								</span>
                     <tr class="graybg">
+                        <th>{{'label.heading.loanId' | translate}}</th>
                         <th>{{'label.heading.clientid' | translate}}</th>
-                        <th>{{'label.heading.accnum' | translate}}</th>
-                        <th>{{'label.heading.productname' | translate}}</th>
-                        <th>{{'label.heading.status' | translate}}</th>
+                        <th>{{'label.heading.clientname' | translate}}</th>
+                        <th>{{'label.heading.loanaccountnum' | translate}}</th>
+                        <th>{{'label.heading.clientprincipalloan' | translate}}</th>
+                        <th>{{'label.heading.grouplprincipalloan' | translate}}</th>
                     </tr>
 
-                   <tr class="pointer-main" ng-repeat="glimloanaccount in groupGLIMAccounts.childGLIMAccounts">
+                   <tr class="pointer-main" ng-repeat="glimloanaccount in glimAccounts">
+                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanId }}</td>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.id)">{{glimloanaccount.id }}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientId }}</td>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.id)">{{glimloanaccount.accountNo }}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.clientName }}</td>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.id)">{{glimloanaccount.productName }}</td>
+                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childLoanAccountNo }}</td>
 
-                        <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.id)">{{glimloanaccount.status.value }}</td>
+                       <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.childPrincipalAmount }}</td>
+
+                       <td class="pointer" data-ng-click="routeToLoan(glimloanaccount.childLoanId)">{{glimloanaccount.parentPrincipalAmount }}</td>
                     </tr>
 
                 </table>
