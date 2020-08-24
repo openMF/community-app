@@ -32,7 +32,7 @@
                 else{
                     scope.allowAttributeConfiguration = false;
                 }
-
+                scope.enableRates = scope.loanproduct.isRatesEnabled;
             });
 
             scope.scrollto = function (link) {
