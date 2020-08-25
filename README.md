@@ -39,6 +39,7 @@ If this fails with `npm WARN checkPermissions Missing write access to /usr/local
    ```
     bower install
    ```
+For Windows PC, before you run `npm install` check in the root folder if any package-lock.json is generated and delete it then you can run `npm install` other wise you will be faced with `Npm ERR! code EPERM  error errno -4048 error { Error: EPERM: operation not permitted, rename ....` a permission error even if you are using administrator user 
    ```
     npm install
    ```
