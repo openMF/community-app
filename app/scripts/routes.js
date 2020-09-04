@@ -1019,9 +1019,22 @@
             .when('/externalservicesCB/CreditBureau/mapcblp', {
                 templateUrl: 'views/administration/MapCreditBureauToLP.html'
             })
+            .when('/rates', {
+                templateUrl: 'views/products/rates.html'
+            })
+            .when('/createrate', {
+                templateUrl: 'views/products/createrate.html'
+            })
+            .when('/viewrate/:rateId', {
+                templateUrl: 'views/products/viewrate.html'
+            })
+            .when('/editrate/:rateId', {
+                templateUrl: 'views/products/editrate.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
             });
+        $locationProvider.hashPrefix('');
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

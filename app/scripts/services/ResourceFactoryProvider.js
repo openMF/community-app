@@ -735,6 +735,12 @@
                     twoFactorConfigResource: defineResource(apiVer+"/twofactor/configure", {}, {
                         getAllConfigs: {method: 'GET', params: {}},
                         put: {method: 'PUT', params: {}}
+                    }),
+                    rateResource: defineResource(apiVer + "/rates/:rateId", {rateId: '@rateId'}, {
+                        getAllRates: {method: 'GET', params: {}, isArray: true},
+                        getRate: {method: 'GET', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        save: {method: 'POST', params: {}}
                     })
                 };
             }];

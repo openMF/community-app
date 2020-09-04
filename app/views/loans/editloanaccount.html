@@ -198,7 +198,7 @@
                         class="required">*</span></label></td>
                 <td class="paddedbottom10">
                     <input id="interestRatePerPeriod" class="form-control" type="text" name="nominalinterestrate"
-                           ng-model="formData.interestRatePerPeriod"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                           ng-model="formData.interestRatePerPeriod" ng-disabled="rateFlag"/>&nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
                 </td>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"><label>{{ 'label.input.interestmethod' | translate }}</label></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
@@ -441,6 +441,42 @@
             </table>
         </div>
         <hr/>
+        <!--Rate Module-->
+        <div ng-show="ratesEnabled">
+        <h3>{{ 'label.heading.rates' | translate }}</h3>
+        <hr>
+        <div class="form-group">
+            <div class="col-md-12">
+                <select id="currentRate" ng-model="currentRate" class="form-control"
+                        ng-options="rate as rate.name for rate in rateOptions"
+                        value="{{rate}}">
+                    <option class="displaynone" value="">{{'label.selectrate' | translate}}</option>
+                </select>
+
+                <button type="button" class="btn btn-primary"
+                        ng-click="rateSelected(currentRate)">{{ 'label.button.add' | translate }}
+                </button>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <table class="table width100">
+                <tr class="graybg">
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.percentage' | translate}}</th>
+                    <th></th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+
+                </tr>
+                <tr ng-repeat="rate in formData.rates">
+                    <td>{{rate.name}}</td>
+                    <td>{{rate.percentage| number}}</td>
+                    <td></td>
+                    <td><a ng-click="deleteRate($index)"><i class="fa fa-times icon-white"></i></a></td>
+                </tr>
+            </table>
+        </div>
+        <!-- End -->
+        </div>
         <div class="col-md-12">
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
         <select ng-model="chargeFormData.chargeId" class="form-control width170px"
