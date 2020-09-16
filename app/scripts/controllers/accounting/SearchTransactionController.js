@@ -9,6 +9,7 @@
             scope.isCollapsed = true;
             scope.displayResults = false;
             scope.transactions = [];
+            scope.maxDate=new Date();
             scope.glAccounts = [];
             scope.offices = [];
             scope.date = {};
