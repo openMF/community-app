@@ -1,0 +1,35 @@
+<div class="content-container" ng-controller="ViewRateController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/rates">{{'label.anchor.rates' | translate}}</a></li>
+        <li class="active">{{rate.name}}</li>
+    </ul>
+    <div class="card well">
+        <h3 class="bolder">{{rate.name}}
+            <div class="btn-group pull-right">
+                <a href="#/editrate/{{rate.id}}" class="btn btn-primary" has-permission='UPDATE_RATE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+
+            </div>
+        </h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.percentage' | translate}}</td>
+                        <td>{{rate.percentage | number}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.active' | translate}}</td>
+                        <td>{{rate.active | YesOrNo | translate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.rateappliesto' | translate}}</td>
+                        <td>{{rate.productApply | translate}}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

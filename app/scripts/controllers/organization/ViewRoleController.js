@@ -12,6 +12,7 @@
             resourceFactory.rolePermissionResource.get({roleId: routeParams.id}, function (data) {
                 scope.role = data;
                 scope.isDisabled = true;
+                scope.isAllFunctionsDisabled = false;
 
                 var currentGrouping = "";
                 for (var i in data.permissionUsageData) {
@@ -24,6 +25,7 @@
                     var temp = { code: data.permissionUsageData[i].code};
                     scope.formData[data.permissionUsageData[i].code] = data.permissionUsageData[i].selected;
                     tempPermissionUIData[currentGrouping].permissions.push(temp);
+                    scope.isAllFunctionsDisabled = scope.formData['ALL_FUNCTIONS'];
                 }
 
                 scope.backupCheckValues = function()
@@ -173,11 +175,45 @@
                     {
                         for(var i in checkboxes)
                         {
-                            checkboxes[i].checked = 0;
+                            if (i >= 1)
+                            {
+                                checkboxes[i].checked = 0;
+                            }
+                            else
+                            {
+                                if ('ALL_FUNCTIONS' == this.permissions.permissions[0].code)
+                                {
+                                    if (!this.isAllFunctionsDisabled)
+                                    {
+                                        checkboxes[i].checked = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    checkboxes[i].checked = 0;
+                                }
+                            }
                         }
                         for(var i = 0; i< this.permissions.permissions.length; i++)
                         {
-                            this.formData[this.permissions.permissions[i].code] = false;
+                            if (i >= 1)
+                            {
+                                this.formData[this.permissions.permissions[i].code] = false;
+                            }
+                            else
+                            {
+                                if ('ALL_FUNCTIONS' == this.permissions.permissions[0].code)
+                                {
+                                    if (!this.isAllFunctionsDisabled)
+                                    {
+                                    this.formData[this.permissions.permissions[i].code] = false;
+                                    }
+                                }
+                                else
+                                {
+                                    this.formData[this.permissions.permissions[i].code] = false;
+                                }
+                            }
                         }
 
                     }
@@ -196,7 +232,6 @@
 
                     checkboxesChanged = false; // user canceled editing - set flag to false
                 };
-
 
 
             });

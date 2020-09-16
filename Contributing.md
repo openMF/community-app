@@ -128,7 +128,7 @@ Our central development branch is `develop` , which should be clean and ready fo
 
 - If the PR is for solving some Issue related to UI, post 2 pictures, first picture containing the earlier UI and the second picture containing the updated UI.
 
-- Include the URLs to the views that are effected by the PR. For example, if the PR has some improvements in the clients page, have the URL information as: https://demo.openmf.org/newbeta/#/clients
+- Include the URLs to the views that are effected by the PR. For example, if the PR has some improvements in the clients page, have the URL information as: https://demo.mifos.io/newbeta/#/clients
 
 5.  Please ensure that the code you write is well-tested.
 
