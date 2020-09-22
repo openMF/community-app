@@ -1,0 +1,244 @@
+<div class="col-md-12" ng-controller="GSIMAccountActionsController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+        <li class="active">{{action}}</li>
+    </ul>
+    <form name="savingccountactionform" novalidate="" class="form-horizontal well card" ng-submit="submit()">
+        <fieldset>
+            <api-validate></api-validate>
+            <legend>{{ title | translate}}</legend>
+
+            <div class="form-group" ng-show="showDateField">
+                <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData[modelName]" is-open="opened" min="minDate" max="restrictDate" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="showvoucherNumberField">
+                <label class="control-label col-sm-2" for="voucherNumber">{{ 'label.input.voucherNumber' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="voucherNumber"  name="voucherNumber" ng-model="formData.voucherNumber" class="form-control" required late-Validate/>
+                </div>
+
+                <div class="col-sm-3">
+                    <form-validate valattributeform="savingccountactionform" valattribute="voucherNumber"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="showpaymentDescriptionField">
+                <label class="control-label col-sm-2" for="paymentDescription">{{ 'label.input.paymentDescription' | translate}}</label>
+
+                <div class="col-sm-6">
+                    <input id="paymentDescription" type="text" name="paymentDescription" ng-model="formData.paymentDescription" class="form-control"/>
+                </div>
+                <div class="col-sm-6">
+                    <form-validate valattributeform="savingccountactionform" valattribute="paymentDescription"/>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="withdrawBalance">
+                <label class="control-label col-sm-2" for="withdrawBalance">{{ 'label.input.withdrawBalance' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="withdrawBalance" type="checkbox" name="withdrawBalance"
+                           ng-model="formData.withdrawBalance" ng-change="isTransaction=formData.withdrawBalance"/>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="postInterestValidationOnClosure">
+                <label class="control-label col-sm-2" for="checkValidate">{{ 'label.input.postInterestValidationOnClosure' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="checkValidate" type="checkbox" name="Validation"
+                           ng-model="formData.postInterestValidationOnClosure" ng-checked="true"/>
+                </div>
+            </div>
+
+            <div class="form-group" data-ng-show="formData.withdrawBalance">
+                <label class="control-label col-sm-2" >{{ 'label.input.transactionamount' |
+                    translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" ng-model="accountBalance" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="showDepositTable">
+                <div >
+                    <legend>{{ 'label.heading.savingsaccoverview' | translate }}</legend>
+                </div>
+                <table border="2" class="table-bordered">
+                    <th>
+                        <tr class="graybg">
+                            <th>
+                                {{ 'label.heading.name' | translate }}
+                            </th>
+                            <th>
+                                {{ 'label.heading.accnum' | translate }}
+                            </th>
+                            <th>
+                                {{ 'label.heading.balance' | translate }}
+                            </th>
+                            <th>
+                                {{'label.input.transactionamount' | translate }}
+                            </th>
+                           <!-- <th>
+                                {{'label.input.voucherNumber' | translate }}
+                            </th>
+                            <th>
+                                {{'label.input.paymentDescription' | translate }}
+                            </th>-->
+                            <th>
+                                {{'label.input.paymenttype' | translate}}
+                            </th>
+                            <th>
+                                {{ 'label.input.showpaymentdetails'|translate}}
+                            </th>
+
+                        </tr>
+                    </th>
+                    <body>
+                    <tr  ng-repeat="childAccounts in gsimAccounts">
+                        <td >
+                            <input  type="text" name="displayName" ng-model="childAccounts.displayName"
+                                    class="form-control" readonly>
+                        </td>
+                        <td >
+                            <input  type="text" name="accountNo" ng-model="depositArray[$index].accountNo"
+                                    class="form-control" readonly>
+                        </td>
+                        <td>
+                            <input  type="text" name="accountBalance" ng-model="depositArray[$index].accountBalance"
+                                    class="form-control" readonly>
+                        </td>
+                        <td>
+                            <input id="transactionAmount" type="text" name="transactionAmount"
+                                   ng-model="depositArray[$index].transactionAmount" placeholder="0" class="form-control" number-format />
+                        </td>
+                       <!-- <td>
+                            <input type="text"  ng-model="depositArray[$index].voucherNumber" class="form-control" />
+                        </td>
+                        <td>
+                            <input  type="text" name="paymentDescription" ng-model="depositArray[$index].paymentDescription" class="form-control"/>
+                        </td>-->
+                        <td >
+                            <select id="paymentTypeId" ng-model="depositArray[$index].paymentTypeId"
+                                    ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+                                    value="{{paymentType.id}}" class="form-control" >
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </td>
+                        <td class="col-sm-3">
+                            <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
+                                <i ng-show="showPaymentDetails" class="fa fa-minus "></i>
+                                <i ng-show="!showPaymentDetails" class="fa fa-plus "></i>
+                            </a>
+
+                            <div uib-collapse="!showPaymentDetails">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' | translate}}</label>
+
+                                    <div class="col-sm-4">
+                                        <input id="accountNumber" type="text" ng-model="depositArray[$index].accountNumber" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="checkNumber">{{ 'label.input.checknumber' |
+                                        translate}}</label>
+
+                                    <div class="col-sm-4">
+                                        <input id="checkNumber" type="text" ng-model="depositArray[$index].checkNumber" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="routingCode">{{ 'label.input.routingcode' |
+                                        translate}}</label>
+
+                                    <div class="col-sm-4">
+                                        <input id="routingCode" type="text" ng-model="depositArray[$index].routingCode" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="receiptNumber">{{ 'label.input.receiptnumber' |
+                                        translate}}</label>
+
+                                    <div class="col-sm-4">
+                                        <input id="receiptNumber" type="text" ng-model="depositArray[$index].receiptNumber" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' | translate}}</label>
+
+                                    <div class="col-sm-4">
+                                        <input id="bankNumber" type="text" ng-model="depositArray[$index].bankNumber" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </body>
+                </table>
+            </div>
+
+            <div class="form-group" ng-show="showAnnualAmountField">
+                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="amoun" type="text" name="amount" ng-model="formData.amount" required late-Validate/>
+                    <span ng-show="savingccountactionform.amoun.$invalid">
+            <small class="error">
+                {{ 'label.requiredfield' | translate}}
+            </small>
+          </span>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showNoteField">
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea rows="2" id="note" ng-model="formData.note" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="showAmountField">
+                <label class="control-label col-sm-2">{{ labelName | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="amount" ng-model="formData.amount" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="paymentDatefield">
+                <label class="control-label col-sm-2" for="modelName">{{'label.input.paymentdate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData[modelName]" is-open="opened" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group" ng-show="showDelete || waiveCharge || inactivateCharge">
+                <label class="control-label col-sm-2">{{ 'label.areyousure' | translate }}</label>
+            </div>
+            <div class="col-md-offset-3" ng-show="showDelete">
+                <button type="reset" ng-click="submit()" has-permission='{{taskPermissionName}}' class="btn btn-default">{{ 'label.button.confirm' | translate }}</button>
+                <button type="submit" ng-click="cancel()" class="btn btn-primary">{{ 'label.button.cancel' | translate }}</button>
+            </div>
+
+            <div class="col-md-offset-3" ng-hide="showDelete">
+                <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
