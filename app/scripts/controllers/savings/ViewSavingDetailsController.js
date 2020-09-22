@@ -124,6 +124,9 @@
                     case "postInterestAsOn":
                         location.path('/savingaccount/' + accountId + '/postInterestAsOn');
                         break;
+                    case "holdAmount":
+                           location.path('/savingaccount/' + accountId + '/holdAmount');
+                    break;
 
                 }
             };
@@ -255,6 +258,10 @@
                             {
                                 name: "button.close",
                                 taskPermissionName:"CLOSE_SAVINGSACCOUNT"
+                            }
+                            {
+                                name: "button.holdAmount",
+                                taskPermissionName : "HOLDAMOUNT_SAVINGSACCOUNT"
                             }
                         ]
 
