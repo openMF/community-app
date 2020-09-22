@@ -18,6 +18,17 @@
             <button class="btn btn-primary" ng-click="undoTransaction()">{{'label.button.undo' | translate}}</button>
         </div>
     </script>
+    <script type="text/ng-template" id="releaseamount.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.button.releaseamount' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="releaseAmountTransaction()">{{'label.button.releaseamount' | translate}}</button>
+        </div>
+    </script>
 <div class="card well">
     <api-validate></api-validate>
     <br>
@@ -29,7 +40,8 @@
                href="#/savingaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
                class="btn btn-primary"><i class="fa fa-pencil "></i>{{ 'label.button.edit' | translate}}</a>
             <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='UNDOTRANSACTION_SAVINGSACCOUNT'><i
-                    class="fa fa-trash-o "></i>{{ 'label.button.undo' | translate}}</a>
+                    class="fa fa-trash-o "></i>{{ 'label.button.undo' | translate}}</a>&nbsp
+            <a ng-show = "transaction.transactionType.id === 20 && transaction.releaseIdOfHoldAmountTransaction <= 0" ng-click="releaseAmount(transaction.accountId, transaction.id)" class="btn btn-primary" has-permission='RELEASEAMOUNT_SAVINGSACCOUNT'>{{ 'label.button.releaseamount' | translate}}</a>
         </div>
     </div>
 
