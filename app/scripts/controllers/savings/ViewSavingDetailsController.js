@@ -258,7 +258,7 @@
                             {
                                 name: "button.close",
                                 taskPermissionName:"CLOSE_SAVINGSACCOUNT"
-                            }
+                            },
                             {
                                 name: "button.holdAmount",
                                 taskPermissionName : "HOLDAMOUNT_SAVINGSACCOUNT"
