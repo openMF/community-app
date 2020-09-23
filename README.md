@@ -1,49 +1,66 @@
-# MifosX Community App
-
-[![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+# MifosX Community App [![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  [![Build Status](https://travis-ci.com/openMF/community-app.svg?branch=develop)](https://travis-ci.org/openMF/community-app)  [![Docker Hub](https://img.shields.io/docker/pulls/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app)  [![Docker Build](https://img.shields.io/docker/cloud/build/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app/builds)
 
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
-## Build Status
-
-Travis
-
-[![Build Status](https://travis-ci.org/openMF/community-app.png?branch=master)](https://travis-ci.org/openMF/community-app)
 
 ## Online Demo
 
-<a target="_blank" href="https://demo.openmf.org">Access the online demo version here</a>
-
+<a target="_blank" href="https://demo.mifos.io">Access the online demo version here</a>
 
 ## Building from source
 
-1. Ensure you have ```npm``` installed - goto http://nodejs.org/download/ to download installer for your OS.       
-<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
-<br/> Tip: If you are using Ubuntu/Linux, then doing ```npm config set prefix ~``` prevents you from having to run npm as root.
+1. Ensure you have
 
-1. Clone this repository to your local filesystem (default branch is 'develop')
+   * ```npm``` installed - goto http://nodejs.org/download/ to download the installer for your OS.
+   * ```ruby``` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download the latest version of ruby.
 
-1. To download the dependencies, and be able to build, first install bower & grunt
+Note: On Ubuntu Linux you can use `sudo apt-get install npm nodejs-legacy`, which avoids the `/usr/bin/env: node: No such file or directory` problem.
+
+Note that on Linux distributions you'll need to install the Ruby Development package (e.g. `sudo dnf install ruby-devel` on Fedora), and not just `ruby`, otherwise `bundle install` below will fail when it gets to installing `ffi` which uses native extensions.
+
+1. Clone this repository to your local filesystem (default branch is 'develop'):
+
+   ```
+    git clone https://github.com/openMF/community-app.git
+   ```
+   
+1. To download the dependencies, and be able to build, first install bower & grunt:
+
    ```
     npm install -g bower
     npm install -g grunt-cli
    ```
 
-1. Next pull the runtime and build time dependencies by running bower and npm install commands on the project root folder
+If this fails with `npm WARN checkPermissions Missing write access to /usr/local/lib` and `npm ERR! code EACCES` because you are not running `npm` with `sudo` as `root` (which you rightfully really shouldn't!) then use `npm config set prefix ~` once before doing `npm install`.  Note that in that case `bower` and `grunt` will be installed into `./bin/bower` instead of `/usr/local/bin`, and so you need to prefix it in the usages below.
+
+
+1. Next pull the runtime and build time dependencies by running `bower`, `npm`, and `gem` commands on the project root folder:
 
    ```
     bower install
    ```
+For Windows PC, before you run `npm install` check in the root folder if any package-lock.json is generated and delete it then you can run `npm install` other wise you will be faced with `Npm ERR! code EPERM  error errno -4048 error { Error: EPERM: operation not permitted, rename ....` a permission error even if you are using administrator user 
    ```
     npm install
    ```
+   ```
+    gem install bundler
+   ```
+   ```
+    bundle install
+   ```
+   
+   If you used `npm config set prefix ~`, then you have to use `./bin/bower install` instead of `bower install`.
 
-1. To preview the app, run the following command on the project root folder
+
+1. To preview the app, run the following command on the project root folder:
 
    ```
     grunt serve
    ```
+   
+   If you used `npm config set prefix ~`, then you have to use `./bin/grunt serve` instead of `grunt serve`.
+
    or open the 'index.html' file in FIREFOX browser
 
    Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
@@ -52,8 +69,13 @@ Travis
     Waiting...Warning: EMFILE, too many open files
 
    ```
+   
+1. You can use these credentials to log in:
 
-1. Default username/password: mifos/password. This application will hit the demo server by default.
+   ```
+    Username: mifos
+    Password: password
+   ```
 
 You are done.
 
@@ -63,15 +85,20 @@ Edit the value of property "security" in <a href="https://github.com/openMF/comm
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running from the local filesystem, it will connect to the platform (mifosng-provider REST API) deployed on demo.openmf.org.
+By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.mifos.io.
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
+If you are running the Fineract backend locally, for the first time or have cleared the cookies from your browser, you will need to first bypass the security warning by accepting the SSL in your browser with:
+
+https://localhost:8443/fineract-provider/api/v1&tenantIdentifier=default
+
 If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters,
 
-e.g. http://localhost:9000/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
+e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
 
-e.g. http://localhost:9000/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
+e.g. http://localhost:9002/?baseApiUrl=https://demo.mifos.io&tenantIdentifier=default
+
 ## Adding dependencies
 
 You can also add more dependencies on bower.json.
@@ -113,6 +140,30 @@ Start a static server and open the project in the default browser. The applicati
 grunt serve
 ```
 
+### Docker
+
+This project publishes a Docker image (since #[3112](https://github.com/openMF/community-app/issues/3112)) available on https://hub.docker.com/r/openmf/community-app/.  Our [Dockerfile](Dockerfile) uses a Ruby and Node.JS base image to build the current repo and deploy the app on Nginx, which is exposed on port 80 within the container.  It can be used like this to access the webapp on http://localhost:9090 in your browser:
+
+    docker run --name community-app -it -p 9090:80 openmf/community-app
+
+
+To locally build this Docker image from source (after `git clone` this repo), run:
+```
+docker build -t mifos-community-app .
+```
+You can then run a Docker Container from the image above like this:
+```
+docker run --name mifos-ui -it -d -p 80:80 mifos-community-app
+```
+
+Access the webapp on http://localhost in your browser.
+
+
+### Compile sass to css
+
+```
+grunt compass:dev
+```
 ## Running the tests
 
 Just open test/SpecRunner.html in the browser.
@@ -121,7 +172,8 @@ Just open test/SpecRunner.html in the browser.
 
 https://docs.google.com/document/d/1oXQ2mNojyDFkY_x4RBRPaqS-xhpnDE9coQnbmI3Pobw/edit#heading=h.vhgp8hu9moqn
 
-
 ## Contribution guidelines
 
-Please read the <a href="https://github.com/openMF/community-app/blob/master/Contributing.md" >contribution guidelines</a>
+Please read the <a href="https://github.com/openMF/community-app/blob/develop/Contributing.md" >contribution guidelines</a>
+
+Note: This application will hit the demo server by default.

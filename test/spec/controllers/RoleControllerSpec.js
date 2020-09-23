@@ -2,7 +2,9 @@ describe("RoleController", function () {
     var resourceCallback;
 
     beforeEach(function () {
-        this.scope = {};
+        this.scope = jasmine.createSpyObj("$scope", ['saveSC']);
+        this.scope.searchCriteria = {}
+
         this.resourceFactory = { roleResource: {
             getAllRoles: jasmine.createSpy('roleResource.getAllRoles()').andCallFake(function (params, callback) {
                 resourceCallback = callback;

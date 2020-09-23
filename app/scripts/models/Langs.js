@@ -5,13 +5,16 @@
             { "name": "Français", "code": "fr" },
             { "name": "Español", "code": "es" },
             { "name": "Português", "code": "pt" },
+            { "name": "Čeština", "code": "cs" },
             { "name": "中文", "code": "zh_CN" },
             { "name": "हिंदी", "code": "hi" },
             { "name": "ქართული", "code": "ka" },
             { "name": "ພາສາລາວ", "code": "lo" },
             { "name": "tiếng Việt", "code": "vi" },
             { "name": "မြန်မာ", "code": "my_MM" },
-            { "name": "ဇော်ဂျီ", "code": "my" }
+            { "name": "ဇော်ဂျီ", "code": "my" },
+            { "name": "አማርኛ", "code": "et" },
+            { "name": "తెలుగు", "code": "te"}
         ]
     });
 }(mifosX.models || {}));

@@ -9,15 +9,20 @@
         <form name="createprovisioningcriteriaform" novalidate="" class="form-horizontal" rc-submit="submit()">
             <fieldset>
                 <!-- Start -->
-                <h3 class="bolder">{{criterianame}}
-                    <div class="btn-group pull-right">
-                        <a href="#/editprovisioningcriteria/{{criteriaId}}" class="btn btn-primary" has-permission='UPDATE_CRITERIA'><i class="fa fa-edit "></i>{{'label.button.edit' | translate}}</a>
-                        <button type="button" data-ng-click="deleteProvisionigCriteria()" class="btn btn-warning" has-permission='DELETE_CRITERIA'><i
-                                class="fa fa-trash "></i>{{'label.button.delete' | translate}}
-                        </button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3><strong>{{criterianame}}</strong></h3>
                     </div>
-                </h3>
-                <hr>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <a href="#/editprovisioningcriteria/{{criteriaId}}" class="btn btn-primary" has-permission='UPDATE_CRITERIA'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                            <button type="button" data-ng-click="deleteProvisionigCriteria()" class="btn btn-danger" has-permission='DELETE_CRITERIA'><i
+                                    class="fa fa-trash-o "></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr />
                 <script type="text/ng-template" id="deletech.html">
                     <div class="modal-header silver">
                         <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -25,7 +30,7 @@
                     <div class="modal-body ">
                         <api-validate></api-validate>
                         <br>
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
                         <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
                     </div>
                 </script>

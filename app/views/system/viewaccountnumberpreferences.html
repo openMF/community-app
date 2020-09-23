@@ -10,7 +10,7 @@
         <div class="modal-body">
             <api-validate></api-validate>
             <br>
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
@@ -23,20 +23,20 @@
             <form name="viewprefform" novalidate="" class="form-horizontal" rc-submit="submit()">
                 <api-validate></api-validate>
                 <fieldset>
-                    <div class="pull-right">
-                        <div class="btn-group ">
-                            <button id="approve" type="button" ng-click="editPreferences()" class="btn btn-primary" has-permission="UPDATE_ACCOUNTNUMBERFORMAT">
-                                <i class="fa fa-edit "></i>
-                                {{ 'label.button.edit' | translate }}</button>
-                            <button data-ng-click="deletePreferences()" type="button" class="btn btn-warning" has-permission="DELETE_ACCOUNTNUMBERFORMAT">
-                                <i class="fa fa-trash "></i>
-                                {{'label.button.delete' | translate}}</button>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-2">{{'label.input.accountType' | translate}}<span class="required">*</span></label>
                         <div class="col-sm-3">
                             {{accountType}}
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                <button id="approve" type="button" ng-click="editPreferences()" class="btn btn-primary" has-permission="UPDATE_ACCOUNTNUMBERFORMAT">
+                                    <i class="fa fa-edit "></i>&nbsp;&nbsp;
+                                    {{ 'label.button.edit' | translate }}</button>
+                                <button data-ng-click="deletePreferences()" type="button" class="btn btn-danger" has-permission="DELETE_ACCOUNTNUMBERFORMAT">
+                                    <i class="fa fa-trash-o"></i>&nbsp;&nbsp;
+                                    {{'label.button.delete' | translate}}</button>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

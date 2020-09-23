@@ -1,0 +1,87 @@
+<div ng-controller="MapCreditBureauToLpController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+            <li class="active">{{'label.anchor.mapcblp' | translate}}</li>
+        </ul>
+
+    </div>
+
+        <api-validate></api-validate>
+        <fieldset>
+
+            <legend>{{ 'label.anchor.mapcblp' | translate }}</legend>
+
+            <div class="card">
+
+                <form name="MapCreditBureauToLpController" novalidate="" class="form-horizontal well" ng-submit="submit()">
+
+            <div class="form-group">
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.product' | translate }}</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+                </div>
+                <div class="col-sm-3" >
+                    <select chosen="lps" id="lp" ng-model="formData.loanProductId"  class="form-control"
+                            ng-options="lp.loanProductId as lp.loanProductName for lp in lps"
+                            value="formData.loanProductId"></select>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="orgcreditbureau">{{'label.input.creditbureau' | translate}}</label>
+                <div class="col-sm-3">
+                    <select chosen="creditbureaus" id="orgcreditbureau" ng-model="creditBureauId"  class="form-control"
+                            ng-options="creditbureau.creditBureauId as creditbureau.creditBureauSummary for creditbureau in creditbureaus"
+                            value="creditBureauId"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-sm-2" for="isCreditCheckMandatory">{{'label.input.isCreditCheckMandatory' | translate}} </label>
+                <div class="col-sm-3">
+                    <input id="isCreditCheckMandatory" class="input-mini-small" type="checkbox"
+                           ng-model="formData.isCreditcheckMandatory">
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <label class="control-label col-sm-2" for="skipCreditCheck">{{'label.input.skipcreditcheckinfailure' | translate}}</label>
+                <div class="col-sm-3">
+                    <input id="skipCreditCheck" class="input-mini-small" type="checkbox"
+                           ng-model="formData.skipCreditcheckInFailure">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="stale">{{ 'label.input.stale' | translate }}</label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="stale" name="stale" ng-model="formData.stalePeriod"  class="form-control" required
+                           late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="stale" valattribute="stale"/>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" ng-href="#/externalservicesCB/CreditBureau" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+
+                <button id="save" type="submit" ng-disabled="!MapCreditBureauToLpController.$valid" has-permission='UPDATE_EXTERNALSERVICES' class="btn btn-primary">{{
+                    'label.button.save' | translate }}
+                </button>
+
+            </div>
+
+                </form>
+
+            </div>
+
+        </fieldset>
+
+</div>

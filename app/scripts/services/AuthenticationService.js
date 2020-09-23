@@ -5,7 +5,8 @@
             var twoFactorIsRememberMeRequest = false;
             var twoFactorAccessToken = null;
 
-            var onLoginSuccess = function (data) {
+            var onLoginSuccess = function (response) {
+                var data = response.data;
                 if(data.isTwoFactorAuthenticationRequired != null && data.isTwoFactorAuthenticationRequired == true) {
                     if(hasValidTwoFactorToken(data.username)) {
                         var token = getTokenFromStorage(data.username);
@@ -20,23 +21,26 @@
                 }
             };
 
-            var onLoginFailure = function (data, status) {
+            var onLoginFailure = function (response) {
+                var data = response.data;
+                var status = response.status;
                 scope.$broadcast("UserAuthenticationFailureEvent", data, status);
             };
 
             var apiVer = '/fineract-provider/api/v1';
 
-            var getUserDetails = function(data){
-
+            var getUserDetails = function(response){
+                var data = response.data;
                 localStorageService.addToLocalStorage('tokendetails', data);
                 setTimer(data.expires_in);
                 httpService.get( apiVer + "/userdetails?access_token=" + data.access_token)
-                    .success(onLoginSuccess)
-                    .error(onLoginFailure);
+                    .then(onLoginSuccess)
+                    .catch(onLoginFailure);
 
             }
 
-            var updateAccessDetails = function(data){
+            var updateAccessDetails = function(response){
+                var data = response.data;
                 var sessionData = webStorage.get('sessionData');
                 sessionData.authenticationKey = data.access_token;
                 webStorage.add("sessionData",sessionData);
@@ -56,19 +60,19 @@
                 var refreshToken = localStorageService.getFromLocalStorage("tokendetails").refresh_token;
                 httpService.cancelAuthorization();
                 httpService.post( "/fineract-provider/api/oauth/token?&client_id=community-app&grant_type=refresh_token&client_secret=123&refresh_token=" + refreshToken)
-                    .success(updateAccessDetails);
+                    .then(updateAccessDetails);
             }
 
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
         		if(SECURITY === 'oauth'){
 	                httpService.post( "/fineract-provider/api/oauth/token?username=" + credentials.username + "&password=" + credentials.password +"&client_id=community-app&grant_type=password&client_secret=123")
-	                    .success(getUserDetails)
-	                    .error(onLoginFailure);
+                    .then(getUserDetails)
+                    .catch(onLoginFailure);
         		} else {
-	                httpService.post(apiVer + "/authentication?username=" + credentials.username + "&password=" + credentials.password)
-	                    .success(onLoginSuccess)
-	                    .error(onLoginFailure);
+                    httpService.post(apiVer + "/authentication", { "username": credentials.username, "password": credentials.password})
+                    .then(onLoginSuccess)
+                    .catch(onLoginFailure);
         		}
             };
 
@@ -80,7 +84,8 @@
                 localStorageService.addToLocalStorage('userData', userData);
             };
 
-            var onOTPValidateSuccess = function (data) {
+            var onOTPValidateSuccess = function (response) {
+                var data = response.data;
                 var accessToken = data.token;
                 if(twoFactorIsRememberMeRequest) {
                     saveTwoFactorTokenToStorage(userData.username, data);
@@ -91,7 +96,9 @@
                 localStorageService.addToLocalStorage('userData', userData);
             };
 
-            var onOTPValidateError = function (data, status) {
+            var onOTPValidateError = function (response) {
+                var data = response.data;
+                var status = response.status;
                 scope.$broadcast("TwoFactorAuthenticationFailureEvent", data, status);
             };
 
@@ -134,8 +141,8 @@
             this.validateOTP = function (token, rememberMe) {
                 twoFactorIsRememberMeRequest = rememberMe;
                 httpService.post(apiVer + "/twofactor/validate?token=" + token)
-                    .success(onOTPValidateSuccess)
-                    .error(onOTPValidateError);
+                    .then(onOTPValidateSuccess)
+                    .catch(onOTPValidateError);
             };
 
             scope.$on("OnUserPreLogout", function (event) {

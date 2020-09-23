@@ -34,7 +34,7 @@
                 case "undoapproval":
                     scope.title = 'label.heading.undoapproveshareaccount';
                     scope.showDateField = false;
-                    scope.showNoteField = true;
+                    scope.showNoteField = false;
                     scope.taskPermissionName = 'UNDOAPPROVAL_SHAREACCOUNT';
                     break;
                 case "activate":

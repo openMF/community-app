@@ -38,6 +38,7 @@
                 return obj;
             }
 
+            scope.OfficesPerPage =15;
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = scope.deepCopy(data);
                 for (var i in data) {

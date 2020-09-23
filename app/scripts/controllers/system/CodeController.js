@@ -18,6 +18,7 @@
                 scope.saveSC();
             };
 
+            scope.CodesPerPage = 15;
             resourceFactory.codeResources.getAllCodes(function (data) {
                 scope.codes = data;
             });

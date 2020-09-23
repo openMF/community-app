@@ -23,6 +23,7 @@
                 this.formData.rescheduleFromDate = dateFilter(this.formData.rescheduleFromDate, scope.df);
                 this.formData.adjustedDueDate = dateFilter(this.formData.adjustedDueDate, scope.df);
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
+                this.formData.endDate = dateFilter(this.formData.endDate, scope.df);
                 this.formData.rescheduleReasonComment = scope.comments;
                 resourceFactory.loanRescheduleResource.put(this.formData, function (data) {
                     scope.requestId = data.resourceId;
