@@ -12,7 +12,7 @@
                     <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
                 </div>
                 <div class="col-md-6">
-                    <a href="#/createreport" class="btn btn-primary pull-right" has-permission='CREATE_REPORT'><i class="fa fa-plus "></i>{{'label.button.createreport' | translate}}</a>
+                    <a href="#/createreport" class="btn btn-primary pull-right" has-permission='CREATE_REPORT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createreport' | translate}}</a>
                 </div>
             </div>
             <hr/>
@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="report in reports | orderBy:'reportName':reverse | filter:filterText">
+                <tr class="pointer-main" dir-paginate="report in reports | orderBy:'reportName':reverse  | filter:{reportName:filterText} |  itemsPerPage: ReportsPerPage">
                     <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportName}}</td>
                     <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportType}}</td>
                     <td class="pointer" data-ng-click="routeTo(report.id)">{{report.reportSubType}}</td>
@@ -39,6 +39,7 @@
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html">
         </div>
     </div>
 </div>

@@ -18,7 +18,7 @@
                     scope.surveys = data;
                 });
             };
-            
+
             scope.getAllSurveys();
 
             scope.isActive = function(validFrom,validTo){

@@ -20,7 +20,9 @@
 
             scope.getGroups = function() {
                 resourceFactory.groupResource.getAllGroups({officeId: scope.formData.officeId }, function (data) {
-                    scope.groups = data;
+                    scope.groups = data.filter(function (group) {
+                        return !group.centerId;
+                    });
                 });
             }
 

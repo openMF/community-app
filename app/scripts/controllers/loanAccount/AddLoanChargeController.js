@@ -6,6 +6,8 @@
             scope.formData = {};
             scope.isCollapsed = true;
             scope.loanId = routeParams.id;
+            scope.first = {};
+            scope.first.date = new Date();
             resourceFactory.loanChargeTemplateResource.get({loanId: scope.loanId}, function (data) {
                 scope.charges = data.chargeOptions;
             });
@@ -27,10 +29,9 @@
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                if (this.formData.dueDate) {
-                    this.formData.dueDate = dateFilter(this.formData.dueDate, scope.df);
+                if(scope.chargeData.chargeTimeType.id==2){
+                    this.formData.dueDate = dateFilter(this.first.date, scope.df);
                 }
-                ;
                 resourceFactory.loanResource.save({resourceType: 'charges', loanId: scope.loanId}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });

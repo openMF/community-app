@@ -52,7 +52,7 @@ module.exports = function(grunt) {
             port:  9002,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.openmf.org'
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://demo.mifos.io'
         },
         livereload: {
             options: {
@@ -374,17 +374,20 @@ module.exports = function(grunt) {
     compass: {                  // Task
         dist: {                   // Target
           options: {              // Target options
-            sassDir: 'app/styles-dev/main',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/',
             environment: 'production',
-            require: 'sass-css-importer'
+            require: 'sass-css-importer',
+            outputStyle: 'compressed',
           }
         },
         dev: {                    // Another target
           options: {
-            sassDir: 'app/styles-dev/main',
+            sassDir: 'app/styles-dev/',
             cssDir: 'app/styles/',
-            require: 'sass-css-importer'
+            environment: 'development',
+            require: 'sass-css-importer',
+            outputStyle: 'expanded',
           }
         }
     },
@@ -415,7 +418,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-gh-pages')
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  grunt.registerTask('serve', ['clean:server', 'copy:server', 'compass:dev', 'connect:livereload', 'watch']);
 
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);

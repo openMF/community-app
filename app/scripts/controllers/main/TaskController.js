@@ -332,7 +332,7 @@
             });
 
 
-            resourceFactory.clientResource.getAllClients({sqlSearch: 'c.status_enum=100'}, function (data) {
+            resourceFactory.clientResource.getAllClients({status: 'pending'}, function (data) {
                 scope.groupedClients = _.groupBy(data.pageItems, "officeName");
             });
 
@@ -512,7 +512,7 @@
                   $uibModalInstance.close('approveLoanReschedule');
                 };
                 $scope.cancel = function () {
-                  $uibmodalInstance.dismiss('cancel');
+                  $uibModalInstance.dismiss('cancel');
                 };
               }
               scope.checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval = function() {                var newValue = !scope.checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval();

@@ -123,6 +123,13 @@
                         {{loanRescheduleDetails.interestRate}}
                     </td>
                 </tr>
+                <tr ng-repeat = "emi in loanRescheduleDetails.emichange">
+                    <td class = "paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="changeEMI"> &nbsp;<span
+                            class="control-label">{{ 'label.input.changeEMI' | translate }}&nbsp;</span>
+                    </td>
+                    <td>{{'label.input.installment.date' | translate}} : {{emi.instDate | DateFormat}}, &nbsp;&nbsp;&nbsp;&nbsp;{{"label.input.new.emi"|translate}} : {{emi.emi }}</td>
+                </tr>
                 <!--<tr>
                     <td class = "paddedtop">
                         <input type="checkbox" ng-disabled="true" ng-model="loanRescheduleDetails.recalculateInterest"> &nbsp;<span

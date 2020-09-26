@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="report in reports| orderBy:'report_name':reverse | filter:filterText | filter:filterByReportSubType">
+            <tr class="pointer-main" dir-paginate="report in reports| orderBy:'report_name':reverse | filter:{report_name:filterText} |filter:filterByReportSubType | itemsPerPage: ReportsPerPage">
                 <td class="pointer" data-ng-click="routeTo(report)">{{''+report.report_name+'' | translate}}</td>
                 <td class="pointer" data-ng-click="routeTo(report)">{{report.report_type}}</td>
                 <td class="pointer" data-ng-click="routeTo(report)">{{report.report_category}}</td>
@@ -24,5 +24,6 @@
         <div ng-hide="true" ng-repeat="report in reports">
             <input type="hidden" id="locale_name_{{$index}}" name="locale_name" ng-model="report.report_locale_name" value="{{report.report_name | translate}}" />
         </div>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>

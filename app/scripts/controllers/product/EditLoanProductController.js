@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter, translate) {
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
@@ -15,12 +15,17 @@
             scope.pvFlag = false;
             scope.rvFlag = false;
             scope.interestRecalculationOnDayTypeOptions = [];
+            scope.translate = translate;
+            //Rates
+            scope.rates = [];
+            scope.rateFlag = false;
             for (var i = 1; i <= 28; i++) {
                 scope.interestRecalculationOnDayTypeOptions.push(i);
             }
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
+                scope.ratesEnabled = data.ratesEnabled;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
@@ -241,7 +246,72 @@
                 scope.formData.minimumGap = scope.product.minimumGap;
                 scope.formData.maximumGap = scope.product.maximumGap;
                 scope.formData.canUseForTopup = scope.product.canUseForTopup;
+
+                //Rate Module
+                scope.formData.rates = scope.product.rates;
+                scope.rateOptions = scope.product.rateOptions || [];
+                scope.calculatedRatePerPeriod = scope.product.interestRatePerPeriod;
+                scope.enableRates = scope.product.isRatesEnabled;
+
+                if (scope.enableRates){
+                  if (scope.formData.rates && scope.formData.rates.length>0){
+                    scope.rateFlag=true;
+                  }
+                  scope.formData.rates.forEach(function(rate){
+                    scope.rateOptions.forEach(function(rateOption, index, array){
+                      if(rate.name === rateOption.name){
+                        scope.rateOptions.splice(index,1);
+                      }
+                    });
+                  });
+                }
             });
+
+            //Rate
+            scope.rateSelected = function(currentRate){
+
+                if(currentRate){
+                    scope.formData.rates.push(currentRate);
+                    scope.rateOptions.splice(scope.rateOptions.indexOf(currentRate),1);
+                    scope.currentRate = '';
+                    scope.calculateRates();
+                }
+            };
+
+            scope.calculateRates = function(){
+                var total = 0;
+                var minRate = 0;
+                scope.formData.rates.forEach(function(rate){
+                    if(rate.percentage < minRate || minRate === 0){
+                        minRate = rate.percentage;
+                    }
+                    total += rate.percentage;
+                });
+
+                if (minRate===0){
+                  minRate=undefined;
+                }
+                if (total===0){
+                  total=undefined;
+                  scope.rateFlag=false;
+                }
+                scope.formData.minInterestRatePerPeriod = minRate;
+
+                //Assign the same total range to this values.
+                scope.formData.interestRatePerPeriod = total;
+                scope.formData.maxInterestRatePerPeriod = total;
+                scope.calculatedRatePerPeriod = total;
+
+                console.log(scope.formData);
+
+            };
+
+            scope.deleteRate = function (index){
+                scope.rateOptions.push(scope.formData.rates[index]);
+                scope.formData.rates.splice(index,1);
+                scope.calculateRates();
+            };
+
 
             scope.chargeSelected = function (chargeId) {
                 if(chargeId){
@@ -526,7 +596,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.EditLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$translate', mifosX.controllers.EditLoanProductController]).run(function ($log) {
         $log.info("EditLoanProductController initialized");
     });
 }(mifosX.controllers || {}));

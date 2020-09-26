@@ -11,7 +11,7 @@
             });
 
             scope.updateActivityOptions = function(activityId){
-                if(activityId === 100){
+                if(activityId === 100 || activityId === 101 || activityId === 102 || activityId === 103){
                     scope.accountOptions = scope.glAccountOptions.assetAccountOptions;
                 }else if(activityId === 200 || activityId === 201){
                     scope.accountOptions = scope.glAccountOptions.liabilityAccountOptions;

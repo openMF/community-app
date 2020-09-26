@@ -1,0 +1,118 @@
+<div  ng-controller="ViewCreditBureauSummaryController">
+    <div >
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
+        </ul>
+    </div>
+
+    <fieldset>
+
+        <legend>{{ 'label.anchor.cbconfigured' | translate}}</legend>
+        <a href="#/externalservicesCB/CreditBureau/addcb" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.addcb' | translate}}</a>
+
+
+        <div class="card">
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.cbid' | translate}}</th>
+                    <th>{{'label.heading.alias' | translate}}</th>
+                    <th>{{'label.heading.cbName' | translate}}</th>
+                    <th>{{'label.heading.cbproduct'|translate}}</th>
+                    <th>{{'label.heading.country'|translate}}</th>
+                    <th>{{'label.heading.is_active' | translate}}</th>
+                    <th>Active/Inactive</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="config in Configs" data-ng-model="button">
+                    <td>{{$index+1}}</td>
+
+                    <td>{{config.alias}}</td>
+                    <td>{{config.creditBureauName}}</td>
+                    <td>{{config.creditBureauProduct}}</td>
+                    <td>{{config.creditBureauCountry}}</td>
+                    <td>
+                        <i class="fa fa-check-circle" style="color:green"; data-ng-show="config.is_active"></i>
+                        <i class="fa fa-times-circle" style="color:red"; data-ng-hide="config.is_active"></i>
+
+                    </td>
+
+                    <td >
+
+                        <button ng-click="changeCbStatus(config.organisationCreditBureauId,config.is_active)" data-ng-show="config.is_active" class="btn btn-primary">
+                            {{"label.button.disable" | translate}}
+                        </button>
+                        <button ng-click="changeCbStatus(config.organisationCreditBureauId,config.is_active)"  data-ng-hide="config.is_active" class="btn btn-primary">
+                            {{"label.button.enable" | translate}}
+                        </button>
+
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>{{ 'label.anchor.cblpmapping' | translate}}</legend>
+
+        <a href="#/externalservicesCB/CreditBureau/mapcblp" class="btn btn-primary pull-right" ><i class="icon-plus icon-white"></i>{{'label.button.mapcblp' | translate}}</a>
+        <div class="card">
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+
+
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.alias' | translate}}</th>
+                    <th>{{'label.heading.cbsummary' | translate}}</th>
+                    <th>{{'label.heading.loanproduct' | translate}}</th>
+                    <th>{{'label.heading.is_creditcheck_mandatory' | translate}}</th>
+                    <th>{{'label.heading.skip_credit_check_in_failure' | translate}}</th>
+                    <th>{{'label.heading.stale_period' | translate}}</th>
+                    <th></th>
+                    <th>{{'label.heading.is_active' | translate}}</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="config1 in CBConfigs">
+
+                    <td>{{$index+1}}</td>
+                    <td>{{config1.alias}}</td>
+                    <td>{{config1.creditbureauSummary}}</td>
+                    <td>{{config1.loanProductName}}</td>
+                    <td>{{config1.isCreditCheckMandatory}}</td>
+                    <td>{{config1.skipCrediCheckInFailure}}</td>
+                    <td>{{config1.stalePeriod}}</td>
+                    <td>
+                        <i class="fa fa-check-circle" style="color:green"; data-ng-show="config1.is_active"></i>
+                        <i class="fa fa-times-circle" style="color:red"; data-ng-hide="config1.is_active"></i>
+                    </td>
+                    <td>
+                        <button ng-click="changeMappingStatus(config1.creditbureauLoanProductMappingId,config1.is_active)" data-ng-show="config1.is_active" class="btn btn-primary">
+                            {{"label.button.disable" | translate}}
+                        </button>
+                        <button ng-click="changeMappingStatus(config1.creditbureauLoanProductMappingId,config1.is_active)" data-ng-hide="config1.is_active" class="btn btn-primary">
+                            {{"label.button.enable" | translate}}
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </fieldset>
+</div>
