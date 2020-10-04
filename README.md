@@ -103,15 +103,13 @@ By default, when the app is running from the local filesystem, it will connect t
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
-If you are running the Fineract backend locally, for the first time or have cleared the cookies from your browser, you will need to first bypass the security warning by accepting the SSL in your browser with:
+If you want to connect to the Fineract API running elsewhere, then append the `baseApiUrl` and `tenantIdentifier` as query parameters, for example:
 
-https://localhost:8443/fineract-provider/api/v1&tenantIdentifier=default
+* http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default if you are running the Fineract backend locally; note that because of the default self signed SSL certification, on the first time use (or after you have cleared the cookies from your browser), you will need to first bypass the security warning by accepting the SSL in your browser by going once to https://localhost:8443/fineract-provider/api/v1&tenantIdentifier=default and accepting it.
 
-If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters,
+* http://localhost:9002/?baseApiUrl=https://demo.fineract.dev&tenantIdentifier=default to use https://www.fineract.dev which always automatically runs the very latest Fineract back-end
 
-e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
-
-e.g. http://localhost:9002/?baseApiUrl=https://demo.mifos.io&tenantIdentifier=default
+* http://localhost:9002/?baseApiUrl=https://demo.mifos.io&tenantIdentifier=default
 
 ## Adding dependencies
 

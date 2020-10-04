@@ -1,0 +1,264 @@
+<div ng-controller="AddNewMemberToGSIMController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewsavingaccount/{{accountId}}">{{'label.anchor.viewsavingaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.editsavingapplication' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <form name="editsavingccountform" novalidate="" class="well form-inline" rc-submit="submit()">
+        <fieldset>
+            <legend>{{ 'label.heading.editsavingapplication' | translate }}</legend>
+            <table class="width100">
+                <tr>
+                    <td class="width14">
+                        <label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="productId" ng-model="formData.productId"
+                                ng-options="product.id as product.name for product in products" value="{{product.id}}"
+                                class="form-control width170px" required="required">
+                            <option style="display:none" value="">{{'label.selectsavingproduct' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width14">
+                        <label ng-show="formData.productId" class="control-label">{{ 'label.input.submittedon' | translate
+                            }}&nbsp;<span class="required">*</span></label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input ng-show="formData.productId" id="submittedOnDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+                               ng-model="formData.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
+                               class="form-control" readonly />
+                    </td>
+                </tr>
+                <tr ng-show="formData.productId">
+                    <td class="width14">
+                        <label>{{ 'label.input.fieldofficer' | translate }}:&nbsp;</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <select id="fieldOfficerId" ng-model="formData.fieldOfficerId" class="form-control width170px"
+                                ng-options="fieldOfficer.id as fieldOfficer.displayName for fieldOfficer in fieldOfficers"
+                                value="{{fieldOfficer.id}}" class="form-control" readonly>
+                            <option value="">{{'label.selectfieldofficer' | translate}}</option>
+                        </select>
+                    </td>
+                    <td class="width14">
+                        <label ng-show="formData.productId" class="control-label">{{ 'label.input.externalid' | translate
+                            }}</label>
+                    </td>
+                    <td class="width36 paddedbottom10">
+                        <input ng-show="formData.productId" id="externalId" ng-model="formData.externalId" class="form-control" readonly/>
+                    </td>
+                </tr>
+            </table>
+            <hr data-ng-show="formData.productId"/>
+            <label ng-show="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+
+            <div ng-show="data">
+                <table class="width100">
+                    <tr>
+                        <td class="width14"><label class="control-label">{{ 'label.heading.currency' | translate }}</label>
+                        </td>
+                        <td class="width36">
+                            <label><b>{{data.currency.name}}({{data.currency.displaySymbol}})</b></label>
+                        </td>
+                        <td class="width14"><label class="control-label">{{ 'label.heading.decimalplaces' | translate}}</label>
+                        </td>
+                        <td class="width36">
+                            <label><b>{{data.currency.decimalPlaces}}</b></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.nominalannualinterestrate' | translate
+                                }}&nbsp;<span class="required">*</span></label>
+                        </td>
+
+                        <td class="width36 paddedbottom10">
+                            <input id="nominalAnnualInterestRate" type="text"
+                                   name="nominalannualinterestrate"
+                                   ng-model="formData.nominalAnnualInterestRate" class="form-control"
+                                   required late-Validate readonly/>
+                            <form-validate valattributeform="newsavingccountform"
+                                           valattribute="nominalannualinterestrate"/>
+                        </td>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.interestcompoundingperiod' | translate
+                                }}&nbsp;<span class="required">*</span></label>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <select id="interestCompoundingPeriodType"
+                                    ng-model="formData.interestCompoundingPeriodType"
+                                    ng-options="type.id as type.value for type in data.interestCompoundingPeriodTypeOptions"
+                                    value="{{type.id}}" class="form-control width170px" readonly></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.currencyinmultiplesof' | translate }}&nbsp;</label></td>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <input type="text" value="{{data.currency.inMultiplesOf}}"
+                                   class="form-control" readonly/>
+                        </td>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.interestpostingperiod' | translate }}&nbsp;<span
+                                    class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10">
+                            <select id="interestPostingPeriodType" ng-model="formData.interestPostingPeriodType"
+                                    ng-options="type.id as type.value for type in data.interestPostingPeriodTypeOptions"
+                                    value="{{type.id}}" class="form-control width170px" readonly>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td class="width14"><label class="control-label">{{ 'label.input.interestcalculatedusing' | translate }}&nbsp;<span
+                                class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10">
+                            <select id="interestCalculationType"
+                                    ng-model="formData.interestCalculationType"
+                                    ng-options="type.id as type.value for type in data.interestCalculationTypeOptions"
+                                    value="{{type.id}}" class="form-control width170px">
+                            </select></td>
+                        <td class="width14"><label class="control-label">{{ 'label.input.daysinyears' | translate }}&nbsp;<span
+                                class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10">
+                            <select id="interestCalculationDaysInYearType"
+                                    ng-model="formData.interestCalculationDaysInYearType"
+                                    ng-options="type.id as type.value for type in data.interestCalculationDaysInYearTypeOptions"
+                                    value="{{type.id}}" class="form-control width170px">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.minimumopeningbalance' | translate }}&nbsp;</label>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <input id="minRequiredOpeningBalance" type="text"
+                                   number-format ng-model="formData.minRequiredOpeningBalance" class="form-control">
+                        </td>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.lockinPeriodFrequency' | translate }}</label>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <div class="form-inline">
+                                <input id="lockinPeriodFrequency" type="text" class="form-control"
+                                       ng-model="formData.lockinPeriodFrequency">&nbsp;
+                                <select id="lockinPeriodFrequencyType" ng-model="formData.lockinPeriodFrequencyType"
+                                        class="form-control width170px"
+                                        ng-options="type.id as type.value for type in data.lockinPeriodFrequencyTypeOptions"
+                                        value="{{type.id}}">
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="paddedbottom10 paddedtop">
+                            <input type="checkbox" ng-model="formData.withdrawalFeeForTransfers">&nbsp;
+                            <label class="control-label">{{ 'label.input.withdrawalfeefortransfers' | translate }}&nbsp;</label>
+                        </td>
+                        <td class="width14"></td>
+                        <td class="width36 paddedbottom10"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="paddedbottom10">
+                            <input type="checkbox" ng-model="formData.allowOverdraft"> &nbsp;<span
+                                class="control-label">{{ 'label.input.allowoverdraft' | translate }}&nbsp;</span>
+                        </td>
+                        <td class="width14" ng-show="formData.allowOverdraft">
+                            <label class="control-label">{{ 'label.input.overdraftlimit' | translate
+                                }}&nbsp;</label></td>
+                        <td class="width36 paddedbottom10" ng-show="formData.allowOverdraft">
+                            <input id="overdraftLimit" type="text"
+                                   number-format ng-model="formData.overdraftLimit">
+                        </td>
+                    </tr>
+                    <tr ng-show="formData.allowOverdraft">
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.nominalannualinterestrateoverdraft' | translate
+                                }}&nbsp;</label></td>
+                        <td class="width36 paddedbottom10">
+                            <input id="nominalAnnualInterestRateOverdraft" type="text"
+                                   ng-model="formData.nominalAnnualInterestRateOverdraft">
+                        </td>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.minoverdraftforinterestcalculation' | translate
+                                }}&nbsp;</label></td>
+                        <td class="width36 paddedbottom10">
+                            <input id="minOverdraftForInterestCalculation" type="text"
+                                   number-format ng-model="formData.minOverdraftForInterestCalculation">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="paddedbottom10" ng-hide="formData.allowOverdraft">
+                            <input type="checkbox" ng-model="formData.enforceMinRequiredBalance"> &nbsp;<span
+                                class="control-label">{{ 'label.input.enforceMinRequiredBalance' | translate }}&nbsp;</span>
+                        </td>
+                        <td class="width14" ng-hide="formData.allowOverdraft">
+                            <label class="control-label">{{ 'label.input.minRequiredBalance' | translate
+                                }}&nbsp;</label></td>
+                        <td class="width36 paddedbottom10" ng-hide="formData.allowOverdraft">
+                            <input id="minRequiredBalance" type="text" class="form-control"
+                                   number-format ng-model="formData.minRequiredBalance">
+                        </td>
+                    </tr>
+                    <tr ng-show="data.minBalanceForInterestCalculation">
+                        <td > {{'label.heading.minbalanceforinterestcalculation' | translate}}</td>
+                    </tr>
+                    <tr ng-show="data.taxGroup">
+                        <td colspan="2" class="paddedbottom10">
+                            <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
+                                class="control-label">{{ 'label.input.withholdtax' | translate }}&nbsp;</span>
+                        </td>
+                        <td class="width14" ng-show="formData.withHoldTax">
+                            <label class="control-label">{{ 'label.input.taxgroup' | translate
+                                }}&nbsp;</label></td>
+                        <td class="width36 paddedbottom10" ng-show="formData.withHoldTax">
+                            {{data.taxGroup.name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width14"></td>
+                        <td class="width36 paddedbottom10"></td>
+                        <td class="width14"></td>
+                        <td class="width36 paddedbottom10"></td>
+                    </tr>
+
+                </table>
+                <hr/>
+
+                <div class="row">
+                    <table class="table table-condensed">
+                        <thead>
+                        <tr class="active">
+                            <th><input type="checkbox"  ng-click="checkerInboxAllCheckBoxesClicked()" ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
+                            <th>{{'label.heading.clientid' | translate}}</th>
+                            <th>{{'label.heading.clientname' | translate}}</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="client in clientsNotPresentInGSIM" ng-init="outerIndex = $index">
+                            <td>
+                                <input type="checkbox" ng-model="clientsNotPresentInGSIM[outerIndex].isSelected" ng-click="checkerInboxAllCheckBoxesMet()">
+                            </td>
+                            <td>{{client.id}}</td>
+                            <td>{{client.displayName}}</td>
+
+                        </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-offset-4">
+                <button id="cancel" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
+                <button id="save" type="submit" class="btn btn-primary" ng-show="data" has-permission='UPDATE_SAVINGSACCOUNT'>{{
+                    'label.button.save' |
+                    translate }}
+                </button>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
