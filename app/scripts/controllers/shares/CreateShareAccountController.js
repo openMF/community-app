@@ -15,6 +15,17 @@
                 scope.inparams.clientId = scope.clientId
             }
             scope.disabled = true;
+
+            resourceFactory.clientAccountResource.get({clientId:scope.inparams.clientId}, function(savingsData){
+                scope.savingsData = savingsData.savingsAccounts.filter(function(savings){
+                    return savings.status.active;
+                })
+            })
+
+            resourceFactory.chargeResource.getAllCharges(function(chargesData){
+                scope.chargeOptions = chargesData;
+            })
+
             resourceFactory.shareAccountTemplateResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
                 scope.chargeOptions = data.chargeOptions;
@@ -76,6 +87,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.charges = [];
+                this.formData.savingsAccountId = this.formData.savingsAccountId.toString();
 
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.charges.length > 0) {
