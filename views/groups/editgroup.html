@@ -1,81 +1,99 @@
 <div class="content-container" ng-controller="EditGroupController">
+<div class="content-container" data-ng-controller="MemberManageController">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li><a href="#/viewgroup/{{group.id}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+    </ul>
     <wizard current-step="step" on-finish="submitDatatable()">
-        <div data-ng-switch on="managecode" class="card well">
-            <wz-step wz-title="{{'label.heading.editgroup' | translate}}">
-        <form name="editgroupform" novalidate="" class="form-horizontal" rc-submit="updateGroup()"
-              data-ng-switch-when="1">
-            <fieldset>
-                <api-validate></api-validate>
-                <!--<legend>{{'label.heading.editgroup' | translate}}</legend>-->
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
-                            class="required">*</span></label>
+        <div class="card well">
+         <wz-step wz-title="{{'label.heading.details' | translate}}">
+                <div ng-show="managecode == 1">
+               
+                    <form name="editgroupform" novalidate="" class="form-horizontal" ng-submit="updateGroup()">
+                        <fieldset>
+                            <api-validate></api-validate>
+                            <legend>{{'label.heading.editgroup' | translate}}</legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                                        class="required">*</span></label>
 
-                    <div class="col-sm-3">
-                        <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{editGroup.name}}"
-                               ng-model="formData.name" class="form-control" required late-Validate/>
-                    </div>
-                    <div class="col-sm-3">
-                        <form-validate valattributeform="editgroupform" valattribute="name"/>
-                    </div>
+                                <div class="col-sm-3">
+                                    <input ng-autofocus="true" type="text" id="name" name="name" placeholder="{{editGroup.name}}"
+                                           ng-model="formData.name" class="form-control" required late-Validate/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="editgroupform" valattribute="name"/>
+                                </div>
+                            </div>
+                            <div class="form-group info">
+                                <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <select chosen="editGroup.staffOptions" id="staffId" ng-model="formData.staffId"
+                                            data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions"
+                                            value="{{staff.id}}" class="form-control">
+                                        <option value="">{{'label.menu.selectstaff' | translate}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+
+                                <div class="col-sm-3">
+                                    <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+                                           ng-model="first.submitondate" is-open="opened1" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                                </div>
+                            </div>
+                            <div ng-hide="editGroup.status.value == 'Pending'">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+
+                                    <div class="col-sm-3">
+                                        <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
+                                               min="'2000-01-01'" max="restrictDate" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-3">
+                                <a href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                <button type="submit" class="btn btn-primary" has-permission='UPDATE_GROUP'>{{'label.button.save' | translate}}</button>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-                <div class="form-group info">
-                    <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
-
-                    <div class="col-sm-3">
-                        <select chosen="editGroup.staffOptions" id="staffId" ng-model="formData.staffId"
-                                data-ng-options="staff.id as staff.displayName for staff in editGroup.staffOptions"
-                                value="{{staff.id}}" class="form-control">
-                            <option value="">{{'label.menu.selectstaff' | translate}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
-
-                    <div class="col-sm-3">
-                        <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
-                    </div>
-                </div>
-                <div ng-hide="editGroup.status.value == 'Pending'">
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
-
-                        <div class="col-sm-3">
-                            <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date" is-open="opened"
-                                   min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                <div ng-show="managecode == 2">
+                    <legend>{{'label.heading.activate.group' | translate}}</legend>
+                    <form class="form-horizontal card well">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
+                                        class="required">*</span></label>
+                            <div class="col-sm-3">
+                                <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                                       is-open="opened" min="mindate" max="restrictDate" required class="form-control"/>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-offset-3">
-                    <a href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button type="submit" class="btn btn-primary" has-permission='UPDATE_GROUP'>{{'label.button.save' | translate}}</button>
-                </div>
-            </fieldset>
-        </form>
-        <form class="form-horizontal card well" ng-switch-when="2">
-            <div class="form-group">
-                <label class="control-label col-sm-2">{{ 'label.input.enteractivationdate' | translate }}<span
-                            class="required">*</span></label>
-                <div class="col-sm-3">
-                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
-                           is-open="opened" min="mindate" max="restrictDate" required class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <button id="save1"  wz-next class="btn btn-primary pull-right" ng-show="isEntityDatatables">
-                    {{'label.button.proceed' | translate}}
-                </button>
+                        <div class="form-group">
+                            <button id="save1"  wz-next class="btn btn-primary pull-right" ng-show="isEntityDatatables">
+                                {{'label.button.proceed' | translate}}
+                            </button>
 
-                <div class="col-sm-3 col-md-offset-2" ng-hide="isEntityDatatables">
-                    <a id="cancel" href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button id="save" type="button" class="btn btn-primary" wz-next ><i
-                            class="fa fa-check-sign " has-permission='ACTIVATE_GROUP'></i>{{ 'label.button.activate' | translate }}
-                    </button>
-                </div>
+                            <div class="col-sm-3 col-md-offset-2" ng-hide="isEntityDatatables">
+                                <a id="cancel" href="#/viewgroup/{{editGroup.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                                <button id="save" type="button" class="btn btn-primary" wz-next ><i
+                                        class="fa fa-check-sign " has-permission='ACTIVATE_GROUP'></i>{{ 'label.button.activate' | translate }}
+                                </button>
+                            </div>
 
-            </div>
-        </form>
+                        </div>
+                    </form>
+                </div>
             </wz-step>
             <wz-step ng-if="isEntityDatatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
                 <div class="card-content">
@@ -152,6 +170,6 @@
                     </form>
                 </div>
             </wz-step>
-            </div>
+        </div>
     </wizard>
 </div>

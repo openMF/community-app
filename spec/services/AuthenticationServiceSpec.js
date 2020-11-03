@@ -5,9 +5,9 @@ describe("AuthenticationService", function () {
         scope = jasmine.createSpyObj("$rootScope", ['$broadcast', '$on']);
         localStorageService = jasmine.createSpyObj('localStorageService', ['addToLocalStorage']);
 
-        httpService = jasmine.createSpyObj("httpService", ['post', 'success', 'error']);
+        httpService = jasmine.createSpyObj("httpService", ['post', 'then', 'catch']);
         httpService.post.andReturn(httpService);
-        _.each(['success', 'error'], function (method) {
+        _.each(['then', 'catch'], function (method) {
             httpService[method].andCallFake(function (callback) {
                 callbacks[method] = callback;
                 return this;
@@ -21,7 +21,7 @@ describe("AuthenticationService", function () {
     });
 
     it("should pass the correct parameters to the post method", function () {
-        expect(httpService.post).toHaveBeenCalledWith("/fineract-provider/api/v1/authentication?username=test_username&password=test_password");
+        expect(httpService.post).toHaveBeenCalledWith("/fineract-provider/api/v1/authentication", { "username" : "test_username", "password" : "test_password" });
     });
 
     it("should broadcast 'UserAuthenticationStartEvent'", function () {
@@ -30,7 +30,7 @@ describe("AuthenticationService", function () {
 
     describe("On successful authentication", function () {
         it("should broadcast a 'UserAuthenticationSuccessEvent' on successful authentication", function () {
-            callbacks['success']("test_data");
+            callbacks['then']({ data: "test_data"});
 
             expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationSuccessEvent", "test_data");
         });
@@ -38,7 +38,7 @@ describe("AuthenticationService", function () {
 
     describe("On failed authentication", function () {
         it("should broadcast a 'UserAuthenticationFailureEvent' on failed authentication", function () {
-            callbacks['error']("test_data", "status_code");
+            callbacks['catch']({ data: "test_data", status:"status_code" });
 
             expect(scope.$broadcast).toHaveBeenCalledWith("UserAuthenticationFailureEvent", "test_data", "status_code");
         });

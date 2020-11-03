@@ -1,5 +1,5 @@
 ﻿/*
- Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
+ Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
-CKEDITOR.plugins.setLang("uicolor","bg",{title:"ПИ избор на цвят",preview:"Преглед",config:"Вмъкнете този низ във Вашия config.js fajl",predefined:"Предефинирани цветови палитри"});
+CKEDITOR.plugins.setLang("uicolor","bg",{title:"Избор на цвят за интерфейса",options:"Опции за цвят",highlight:"Освети",selected:"Избран цвят",predefined:"Предефинирани цветови палитри",config:"Вмъкнете този низ във вашия config.js файл"});

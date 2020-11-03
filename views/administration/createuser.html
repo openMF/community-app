@@ -13,9 +13,14 @@
 	                    class="required">*</span></label>
 
 	            <div class="col-sm-3">
-	                <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required late-Validate/>
+	                <input type="text" minlength="5" id="username" name="username" ng-model="formData.username" class="form-control" required late-Validate/>
 	            </div>
 	            <div class="col-sm-3">
+					<span ng-show="createuserform.username.$invalid">
+						<small class="error required">
+							{{'label.usernameminfivechars' | translate}}
+						</small>
+					</span>
 	                <form-validate valattributeform="createuserform" valattribute="username"/>
 	            </div>
 	        </div>
@@ -87,8 +92,11 @@
 	            </div>
 
 				<label class="control-label col-sm-3">{{'label.input.overridepasswordexpiry' | translate}}
-				<i class="fa fa-question-circle control-label fa fa-align-left"
-				   uib-tooltip="{{'label.tooltip.overridepasswordexpiry' | translate}}"></i></label>
+                    <i class="fa fa-question-circle"
+                       uib-tooltip="{{'label.tooltip.overridepasswordexpiry' | translate}}"
+                       tooltip-append-to-body="true">
+                    </i>
+                </label>
 				<div class="col-sm-3">
 				<label class="checkbox">
 						<input type="checkbox" ng-model="formData.passwordNeverExpires">
@@ -103,11 +111,16 @@
 	                            class="required">*</span></label>
 
 	                    <div class="col-sm-3">
-	                        <input type="password" id="password" name="password" ng-model="formData.password" class="form-control" required
-	                               late-Validate>
+	                        <input type="password" minlength="6" id="password" name="password" ng-model="formData.password" class="form-control" required
+								   late-Validate>
 	                    </div>
 	                    <div class="col-sm-3">
-	                        <form-validate valattributeform="createuserform" valattribute="password"/>
+							<span ng-show="createuserform.password.$invalid">
+								<small class="error required">
+									{{'label.passwordminsixchars' | translate}}
+								</small>
+							</span>
+							<form-validate valattributeform="createuserform" valattribute="password"/>
 	                    </div>
 	                </div>
 	                <div class="form-group">
@@ -128,11 +141,12 @@
 	            <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
 
 	            <div class="col-sm-3">
-	                <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control" data-ng-change="getOfficeStaff()"
-	                        ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+	                <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control" name="officeId" data-ng-change="getOfficeStaff()"
+	                        ng-options="office.id as office.name for office in offices" value="{{office.id}}" required>
 	                    <option value="">--{{'label.menu.selectoffice' | translate}}--</option>
 	                </select>
 	            </div>
+                <form-validate valattributeform="createuserform" valattribute="officeId"/>
 	        </div>
 	        <div class="form-group">
 	            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
@@ -163,11 +177,12 @@
 				<div class="col-sm-3 col-md-3">
 					<label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}<span
 	                    class="required">*</span></label>
-					<select id="roles" name="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
-						<option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
+					<select id="roles" name="roles" ng-model="selected" class="form-control multiselectmin" multiple>
+						<option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}" required late-validate>
 							{{availablerole.name}}
 						</option>
 					</select>
+                    <form-validate valattributeform="createuserform" valattribute="roles"/>
 				</div>
 			</div>
 

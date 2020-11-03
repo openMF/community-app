@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="user in users| orderBy:'firstname':reverse |    filter:filterText">
+            <tr class="pointer-main" dir-paginate="user in users | orderBy:'firstname':reverse  | filter:filterText |  itemsPerPage: UsersPerPage">
                 <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}}</td>
                 <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastname}}</td>
                 <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
@@ -36,5 +36,6 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html">
     </div>
 </div>

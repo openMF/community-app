@@ -72,12 +72,13 @@
                         </tr>
                     </table>
                     <hr>
-                    <button class="btn btn-default pull-left" wz-previous disabled>
-                        <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
+                    <button class="btn btn-default pull-left" wz-previous disabled ng-hide="disabled"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
-                    <button class="btn btn-default pull-right" type="submit">Next&nbsp;&nbsp;
-                        <i class="fa fa-arrow-right"></i>
+                    <button class="btn btn-default pull-right" type="submit" ng-hide="disabled">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>
                     </button>
+                    <div class="col-sm-offset-6">
+                    <button class="btn btn-warning" ng-hide="!disabled" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                    </div>
                 </fieldset>
             </form>
         </wz-step>
@@ -308,7 +309,7 @@
                             </td>
                             <td>
                                 <a ng-click="deleteCharge($index)">
-                                    <i class="fa fa-times "></i>
+                                    <i class="fa fa-times-circle fa-2x"></i>
                                 </a>
                             </td>
                         </tr>

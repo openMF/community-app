@@ -149,7 +149,7 @@
 
     AbstractChosen.prototype.choice_label = function(item) {
       if (this.include_group_label_in_selected && (item.group_label != null)) {
-        return "<b class='group-name'>" + item.group_label + "</b>" + item.html;
+        return "<b class='group-name'>" + (this.escape_html(item.group_label)) + "</b>" + item.html;
       } else {
         return item.html;
       }
@@ -255,7 +255,9 @@
       }
       option_el = document.createElement("li");
       option_el.className = classes.join(" ");
-      option_el.style.cssText = option.style;
+      if (option.style) {
+        option_el.style.cssText = option.style;
+      }
       option_el.setAttribute("data-option-array-index", option.array_index);
       option_el.innerHTML = option.highlighted_html || option.html;
       if (option.title) {
@@ -329,7 +331,7 @@
       }
     };
 
-    AbstractChosen.prototype.winnow_results = function() {
+    AbstractChosen.prototype.winnow_results = function(options) {
       var escapedQuery, fix, i, len, option, prefix, query, ref, regex, results, results_group, search_match, startpos, suffix, text;
       this.no_results_clear();
       results = 0;
@@ -385,7 +387,9 @@
         return this.no_results(query);
       } else {
         this.update_results_content(this.results_option_build());
-        return this.winnow_results_set_highlight();
+        if (!(options != null ? options.skip_highlight : void 0)) {
+          return this.winnow_results_set_highlight();
+        }
       }
     };
 
@@ -572,7 +576,7 @@
     };
 
     AbstractChosen.prototype.get_single_html = function() {
-      return "<a class=\"chosen-single chosen-default\">\n  <input class=\"chosen-search-input\" type=\"text\" autocomplete=\"off\" />\n  <span>" + this.default_text + "</span>\n  <div><b></b></div>\n</a>\n<div class=\"chosen-drop\">\n  <div class=\"chosen-search\">\n  </div>\n  <ul class=\"chosen-results\"></ul>\n</div>";
+      return "<a class=\"chosen-single chosen-default\">\n  <span>" + this.default_text + "</span>\n  <div><b></b></div>\n</a>\n<div class=\"chosen-drop\">\n  <div class=\"chosen-search\">\n    <input class=\"chosen-search-input\" type=\"text\" autocomplete=\"off\" />\n  </div>\n  <ul class=\"chosen-results\"></ul>\n</div>";
     };
 
     AbstractChosen.prototype.get_multi_html = function() {
@@ -929,7 +933,7 @@
       this.results_data = SelectParser.select_to_array(this.form_field);
       if (this.is_multiple) {
         this.search_choices.find("li.search-choice").remove();
-      } else if (!this.is_multiple) {
+      } else {
         this.single_set_selected_text();
         if (this.disable_search || this.form_field.options.length <= this.disable_search_threshold) {
           this.search_field[0].readOnly = true;
@@ -981,9 +985,6 @@
         });
         return false;
       }
-      if (!this.is_multiple) {
-        this.search_container.append(this.search_field);
-      }
       this.container.addClass("chosen-with-drop");
       this.results_showing = true;
       this.search_field.focus();
@@ -1001,10 +1002,6 @@
     Chosen.prototype.results_hide = function() {
       if (this.results_showing) {
         this.result_clear_highlight();
-        if (!this.is_multiple) {
-          this.selected_item.prepend(this.search_field);
-          this.search_field.focus();
-        }
         this.container.removeClass("chosen-with-drop");
         this.form_field_jq.trigger("chosen:hiding_dropdown", {
           chosen: this
@@ -1149,14 +1146,20 @@
         item.selected = true;
         this.form_field.options[item.options_index].selected = true;
         this.selected_option_count = null;
-        this.search_field.val("");
         if (this.is_multiple) {
           this.choice_build(item);
         } else {
           this.single_set_selected_text(this.choice_label(item));
         }
         if (this.is_multiple && (!this.hide_results_on_select || (evt.metaKey || evt.ctrlKey))) {
-          this.winnow_results();
+          if (evt.metaKey || evt.ctrlKey) {
+            this.winnow_results({
+              skip_highlight: true
+            });
+          } else {
+            this.search_field.val("");
+            this.winnow_results();
+          }
         } else {
           this.results_hide();
           this.show_search_field_default();
