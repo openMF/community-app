@@ -3,9 +3,11 @@
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
 
-## Online Demo
+## Getting started / Online Demo
 
-<a target="_blank" href="https://demo.mifos.io">Access the online demo version here</a>
+The latest version of this UI is continuously re-deployed immediately (CI/CD) at openmf.github.io/community-app every time a Pull Request with a new feature or bugfix is merged.  You should always specify the backend via `baseApiUrl` (see details below), so for example to access the https://www.fineract.dev online demo environment, use:
+
+https://openmf.github.io/community-app?baseApiUrl=https://demo.fineract.dev&tenantIdentifier=default
 
 ## Building from source
 
@@ -85,7 +87,7 @@ Edit the value of property "security" in <a href="https://github.com/openMF/comm
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.mifos.io.
+By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.mifos.io, but that environment is no longer actively updated; we recommend using https://www.fineract.dev instead, as above.
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
@@ -95,7 +97,6 @@ If you want to connect to the Fineract API running elsewhere, then append the `b
 
 * http://localhost:9002/?baseApiUrl=https://demo.fineract.dev&tenantIdentifier=default to use https://www.fineract.dev which always automatically runs the very latest Fineract back-end
 
-* http://localhost:9002/?baseApiUrl=https://demo.mifos.io&tenantIdentifier=default
 
 ## Adding dependencies
 
