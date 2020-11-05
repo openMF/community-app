@@ -22,6 +22,14 @@ before_script:
   - grunt prod
 notifications:
   email: true
-# Taken from:  https://github.com/mdix/es6-babel-browserify-karma-boilerplate/blob/master/.travis.yml#L3
+# Above is taken from: https://github.com/mdix/es6-babel-browserify-karma-boilerplate/blob/master/.travis.yml#L3
 
-#trying test
+# Below is documented at https://docs.travis-ci.com/user/deployment/pages/
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local-dir: dist/community-app
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: develop
