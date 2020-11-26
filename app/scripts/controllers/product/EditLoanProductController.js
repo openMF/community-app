@@ -41,10 +41,10 @@
                     scope.date.second = new Date(data.closeDate);
                 }
                 if (data.firstDateForSemi) {
-                    scope.date.semiMonthFirstDate = scope.product.firstDateForSemi;
+                    scope.date.semiMonthFirstDate = new Date(scope.product.firstDateForSemi);
                 }
                 if (data.seconDateForSemi) {
-                    scope.date.semiMonthSecondDate = scope.product.seconDateForSemi;
+                    scope.date.semiMonthSecondDate = new Date(scope.product.seconDateForSemi);
                 }
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
