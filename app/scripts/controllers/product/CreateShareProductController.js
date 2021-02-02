@@ -21,10 +21,6 @@
                 scope.formData.accountingRule = '1';
                 scope.shareproduct = angular.copy(scope.formData);
             });
-            
-            scope.shareCapitaValue = function () {
-                 scope.formData.shareCapital =   scope.formData.unitPrice * scope.formData.sharesIssued;
-            };
 
             scope.$watch('formData',function(newVal){
                 scope.shareproduct = angular.extend(scope.shareproduct,newVal);

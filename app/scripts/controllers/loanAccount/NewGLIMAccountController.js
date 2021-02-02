@@ -264,7 +264,7 @@
                     }
                 }
 
-                console.log("gsim id"+scope.gsimAccountId);
+                console.log("gsim id"+scope.formData.gsimAccountId);
 
                 var child=0;
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
@@ -331,6 +331,9 @@
                         loanApplication.syncDisbursementWithMeeting = scope.loanApplicationCommonData.syncDisbursementWithMeeting;
                         loanApplication.lastApplication=false;
                         loanApplication.applicationId=applicationId;
+
+                        loanApplication.linkAccountId=scope.formData.gsimAccountId;
+                        console.log('formData.gsimAccountId : '+scope.formData.gsimAccountId);
 
                         if (!_.isUndefined(scope.formData.datatables) && scope.formData.datatables.length > 0) {
                             loanApplication.datatables = scope.formData.datatables;
