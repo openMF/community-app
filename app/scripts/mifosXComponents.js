@@ -296,6 +296,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/entitydatatablechecks/EntityDatatableChecksController',
+            'configurations/AddressFormController',
+            'configurations/ViewCreditBureauSummaryController',
+            'configurations/AddNewCreditBureauController',
+            'configurations/MapCreditBureauToLpController',
             'notification/NotificationsController',
             'selfservice/CreateSelfServiceUserController',
             'notification/NotificationsController',
@@ -323,8 +327,19 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
 			'adhocquery/AdHocQueryListController',
             'adhocquery/CreateAdHocQueryController',
             'adhocquery/ViewAdHocQueryController',
-            'adhocquery/EditAdHocQueryController'
-
+            'adhocquery/EditAdHocQueryController',
+            'product/RateController',
+            'product/CreateRateController',
+            'product/ViewRateController',
+            'product/EditRateController',
+            'loanAccount/NewGLIMAccountController',
+            'loanAccount/ViewGLIMAccountController',
+            'loanAccount/GlimLoanAccountActionsController',
+            'savings/CreateGSIMAccountController',
+            'savings/ViewGSIMaccountController',
+            'savings/GSIMAccountActionsController',
+            'savings/EditGSIMAccountController',
+            'savings/AddNewMemberToGSIMController'
         ],
         filters: [
             'StatusLookup',

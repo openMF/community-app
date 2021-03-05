@@ -3,6 +3,9 @@
         ViewGroupController: function (scope, routeParams, route, location, resourceFactory, dateFilter, $uibModal) {
             scope.group = [];
             scope.template = [];
+            scope.groupGLIMAccounts=[];
+            scope.groupGSIMAccounts=[];
+            scope.groupId=routeParams.id;
             scope.formData = {};
             scope.choice = 0;
             scope.staffData = {};
@@ -15,6 +18,13 @@
             };
             scope.routeToSaving = function (id) {
                 location.path('/viewsavingaccount/' + id);
+            };
+            scope.routeToGLIMLoan = function (glimAccountNumber, glimId) {
+                location.path('/viewglimaccount/' +scope.groupId +'/'+glimAccountNumber +'/'+glimId);
+            };
+
+            scope.routeToGSIMAccount = function (gsimAccountNumber) {
+                location.path('/viewgsimaccount/' + scope.groupId+'/'+gsimAccountNumber);
             };
             scope.routeToMem = function (id) {
                 location.path('/viewclient/' + id);
@@ -44,6 +54,13 @@
             });
             resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
                 scope.groupNotes = data;
+            });
+            resourceFactory.groupGLIMAccountResource.get({groupId: routeParams.id}, function (data) {
+                scope.groupGLIMAccounts = data;
+            });
+
+            resourceFactory.groupGSIMAccountResource.get({groupId: routeParams.id}, function (data) {
+                scope.groupGSIMAccounts = data;
             });
             scope.delrole = function (id) {
                 resourceFactory.groupResource.save({groupId: routeParams.id, command: 'unassignRole', roleId: id}, {}, function (data) {

@@ -1,0 +1,72 @@
+<div class="col-md-12" ng-controller="CreateRateController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/rates">{{'label.anchor.rates' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createrate' | translate}}</li>
+    </ul>
+    <form name="createrateform"  novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <div ng-show="rateError" role="alert" style="color:red">{{'label.error.rate.already.exist' | translate}}</div>
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.chargesappliesto' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="productApply" name="productApply" ng-model="formData.productApply"
+                            ng-options="productApply.id as productApply.id | translate for productApply in rateOptions"
+                            value="{{productApply.id}}" class="form-control"
+                            required>
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createrateform" valattribute="productApply"/>
+                </div>
+            </div>
+            <hr/>
+            <div ng-show="formData.productApply">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input name="name" type="text" id="name" ng-model="formData.name" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createrateform" valattribute="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="percentage">{{'label.input.percentage' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="percentage" name="percentage" type="text" number-format ng-model="formData.percentage" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createrateform" valattribute="percentage"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="active" type="checkbox" ng-model="formData.active" data-ng-change="setChoice()">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-3">
+                    <a id="cancel" href="#/rates">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_RATE'>
+                        {{'label.button.save' | translate}}
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

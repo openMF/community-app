@@ -49,6 +49,20 @@
                     </tr>
                     <tr class="span2"></tr>
                 </table>
+              <div ng-show="transaction.type.repayment">
+                <h3>{{ 'label.heading.transactiondetails' | translate}}</h3>
+                <div class="row span"  >
+                  <div class="col-sm-6 col-md-6">
+                    <table class="table table-striped table-bordered" >
+                      <tr ng-repeat="detail in details">
+                        <th class="table-bold-loan" ng-style="detail.boldTitle && {'font-weight' : 'bold' , 'text-align' : detail.align}">{{detail.description | translate}}</th>
+                        <td ng-show="detail.containsAmount"><span class="padded-td" ng-style="detail.boldTitle && {'font-weight' : 'bold' }">{{transaction.currency.displaySymbol}} {{detail.amount}}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
                 <table width="100%" ng-show="transaction.paymentDetailData">
                     <tr>
                         <td width="20%"><strong>{{ 'label.heading.paymentdetails' | translate}}</strong></td>

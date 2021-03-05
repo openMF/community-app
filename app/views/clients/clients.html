@@ -6,11 +6,10 @@
 
     <div class="card">
         <div class="toolbar">
-            <h4>List of Clients</h4>
+            <h4 class="pull-left">List of Clients</h4>
         </div>
         <div class="content">
             <br>
-
             <div class="row">
                 <div class="col-sm-8">
                     <form ng-submit="search()" class="form-horizontal">
@@ -31,10 +30,10 @@
                                         </button>
                                     </span>
                                     <div class="checkbox form-control">
-                                            <label for="showAll">
-                                                <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
-                                                {{'label.button.showall' | translate }}
-                                            </label>
+                                        <label for="showAll">
+                                            <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                            &nbsp;{{'label.button.showall' | translate }}
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -43,14 +42,12 @@
                 </div>
                 <div class="col-sm-4">
                     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
-                            class="fa fa-plus"></i> {{'label.button.createclient' | translate}}</a> &nbsp;&nbsp;
-                    <a href="#/bulkimportclients" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
- +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importclients' | translate}}</a>
+                        class="fa fa-plus"></i> {{'label.button.createclient' | translate}}</a> &nbsp;&nbsp;
+                    <a href="#/bulkimportclients" style="margin-right: 5px" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
+                        class="fa fa-upload"></i>&nbsp;{{'label.button.importclients' | translate}}</a>
                 </div>
             </div>
             <hr/>
-
-
             <table class="table">
                 <thead>
                 <tr>
@@ -64,7 +61,7 @@
                 </thead>
 
                 <tbody>
-               <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
+                <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
                     total-items="totalClients"  pagination-id="clients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
                     <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
@@ -79,10 +76,10 @@
                 </tbody>
 
             </table>
-           <dir-pagination-controls align="center" boundary-links="true"
+            <dir-pagination-controls align="center" boundary-links="true"
                                      template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
                                      on-page-change="getResultsPage(newPageNumber)" pagination-id="clients">
-                                     </dir-pagination-controls>
+            </dir-pagination-controls>
 
         </div>
     </div>

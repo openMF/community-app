@@ -1,11 +1,13 @@
-# MifosX Community App [![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  [![Build Status](https://travis-ci.com/openMF/community-app.svg?branch=develop)](https://travis-ci.org/openMF/community-app)  [![Docker Hub](https://img.shields.io/docker/pulls/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app)  [![Docker Build](https://img.shields.io/docker/cloud/build/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app/builds)
+# MifosX Community App [![Join the chat at https://gitter.im/openMF/community-app](https://badges.gitter.im/openMF/community-app.svg)](https://gitter.im/openMF/community-app?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)  [![Build Status](https://travis-ci.com/openMF/community-app.svg?branch=develop)](https://travis-ci.com/github/openMF/community-app)  [![Docker Hub](https://img.shields.io/docker/pulls/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app)  [![Docker Build](https://img.shields.io/docker/cloud/build/openmf/community-app.svg)](https://hub.docker.com/r/openmf/community-app/builds)
 
 This is the default web application built on top of the MifosX platform for the mifos user community. It is a Single-Page App (SPA) written in web standard technologies like JavaScript, CSS and HTML5. It leverages common popular frameworks/libraries such as AngularJS, Bootstrap and Font Awesome.
 
 
-## Online Demo
+## Getting started / Online Demo
 
-<a target="_blank" href="https://demo.openmf.org">Access the online demo version here</a>
+The latest version of this UI is continuously re-deployed immediately (CI/CD) at openmf.github.io/community-app every time a Pull Request with a new feature or bugfix is merged.  You should always specify the backend via `baseApiUrl` (see details below), so for example to access the https://www.fineract.dev online demo environment, use:
+
+https://openmf.github.io/community-app?baseApiUrl=https://demo.fineract.dev&tenantIdentifier=default
 
 ## Building from source
 
@@ -39,6 +41,7 @@ If this fails with `npm WARN checkPermissions Missing write access to /usr/local
    ```
     bower install
    ```
+For Windows PC, before you run `npm install` check in the root folder if any package-lock.json is generated and delete it then you can run `npm install` other wise you will be faced with `Npm ERR! code EPERM  error errno -4048 error { Error: EPERM: operation not permitted, rename ....` a permission error even if you are using administrator user 
    ```
     npm install
    ```
@@ -84,15 +87,16 @@ Edit the value of property "security" in <a href="https://github.com/openMF/comm
 
 ### Connecting to a MifosX Platform running on a different host:
 
-By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.openmf.org.
+By default, when the app is running from the local filesystem, it will connect to the platform (fineract-provider REST API) deployed on demo.mifos.io, but that environment is no longer actively updated; we recommend using https://www.fineract.dev instead, as above.
 
 The app connects to the platform running on the same host/port when deployed on a server.
 
-If you want to connect to the API running elsewhere, then append the baseApiUrl and tenantIdentifier as query parameters.
+If you want to connect to the Fineract API running elsewhere, then append the `baseApiUrl` and `tenantIdentifier` as query parameters, for example:
 
-e.g. http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default
+* http://localhost:9002/?baseApiUrl=https://localhost:8443&tenantIdentifier=default if you are running the Fineract backend locally; note that because of the default self signed SSL certification, on the first time use (or after you have cleared the cookies from your browser), you will need to first bypass the security warning by accepting the SSL in your browser by going once to https://localhost:8443/fineract-provider/api/v1&tenantIdentifier=default and accepting it.
 
-e.g. http://localhost:9002/?baseApiUrl=https://demo.openmf.org&tenantIdentifier=default
+* http://localhost:9002/?baseApiUrl=https://demo.fineract.dev&tenantIdentifier=default to use https://www.fineract.dev which always automatically runs the very latest Fineract back-end
+
 
 ## Adding dependencies
 

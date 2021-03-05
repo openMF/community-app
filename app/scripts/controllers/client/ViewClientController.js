@@ -493,6 +493,13 @@
             };
             resourceFactory.clientAccountResource.get({clientId: routeParams.id}, function (data) {
                 scope.clientAccounts = data;
+                if(data.loanAccounts){
+                    for(var i in data.loanAccounts){
+                        if(data.loanAccounts[i].status.value == "Active" && data.loanAccounts[i].inArrears){
+                            scope.clientAccounts.loanAccounts[i].status.value = "Active in Bad Standing"
+                        }
+                    }
+                }
                 if (data.savingsAccounts) {
                     for (var i in data.savingsAccounts) {
                         if (data.savingsAccounts[i].status.value == "Active") {

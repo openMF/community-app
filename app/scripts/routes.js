@@ -142,14 +142,26 @@
             .when('/newjlgloanaccount/:groupId', {
                 templateUrl: 'views/loans/newjlgloanaccount.html'
             })
+            .when('/newglimaccount/:groupId', {
+                templateUrl: 'views/loans/newglimaccount.html'
+            })
             .when('/viewloanaccount/:id', {
                 templateUrl: 'views/loans/viewloanaccountdetails.html'
+            })
+            .when('/viewglimaccount/:groupId/:id/:glimId', {
+                templateUrl: 'views/loans/viewglimaccount.html'
+            })
+            .when('/viewgsimaccount/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/viewgsimaccount.html'
             })
             .when('/adjustrepaymentschedule/:accountId', {
                 templateUrl: 'views/loans/AdjustRepaymentSchdule.html'
             })
             .when('/loanaccount/:id/:action', {
                 templateUrl: 'views/loans/loanaccountactions.html'
+            })
+            .when('/glimloanaccount/:id/:action/:glimId/:groupId', {
+                templateUrl: 'views/loans/glimloanaccountactions.html'
             })
             .when('/loanaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/loans/loanaccountactions.html'
@@ -518,6 +530,9 @@
             .when('/new_client_saving_application/:clientId', {
                 templateUrl: 'views/savings/new_saving_account_application.html'
             })
+            .when('/new_gsim_application/:groupId', {
+                templateUrl: 'views/savings/gsimapplication.html'
+            })
             .when('/new_group_saving_application/:groupId', {
                 templateUrl: 'views/savings/new_saving_account_application.html'
             })
@@ -554,8 +569,17 @@
             .when('/editsavingaccount/:id', {
                 templateUrl: 'views/savings/edit_saving_account_application.html'
             })
+            .when('/editgsimaccount/:parentGSIMId/:gsimChildAccountId/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/edit_gsim_account_application.html'
+            })
+            .when('/addnewmember/:groupId/:parentGSIMAccounNo/:gsimChildAccountId', {
+                templateUrl: 'views/savings/addNewMemberToGSIM.html'
+            })
             .when('/savingaccount/:id/:action', {
                 templateUrl: 'views/savings/saving_account_actions.html'
+            })
+            .when('/gsimaccount/:parentId/:childId/:action/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/gsim_account_actions.html'
             })
             .when('/savingaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/savings/saving_account_actions.html'
@@ -1010,9 +1034,31 @@
             .when('/selfservice/createuser/:clientId',{
                 templateUrl: 'views/selfservice/createuser.html'
             })
+            .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+             .when('/externalservicesCB/CreditBureau/addcb', {
+                 templateUrl: 'views/administration/addNewCreditBureau.html'
+            })
+            .when('/externalservicesCB/CreditBureau/mapcblp', {
+                templateUrl: 'views/administration/MapCreditBureauToLP.html'
+            })
+            .when('/rates', {
+                templateUrl: 'views/products/rates.html'
+            })
+            .when('/createrate', {
+                templateUrl: 'views/products/createrate.html'
+            })
+            .when('/viewrate/:rateId', {
+                templateUrl: 'views/products/viewrate.html'
+            })
+            .when('/editrate/:rateId', {
+                templateUrl: 'views/products/editrate.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
             });
+        $locationProvider.hashPrefix('');
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -14,54 +14,7 @@ We would love you to contribute to Community and help make it better than it is 
 
 ## Building from source
 
-1.  Ensure you have:
-
-    `npm` installed - goto http://nodejs.org/download/ to download installer for your OS.  
-    `ruby` installed - goto https://www.ruby-lang.org/en/documentation/installation/ to download latest version of ruby.
-
-<br/> Note: On Ubuntu Linux you can use 'sudo apt-get install npm nodejs-legacy' (nodejs-legacy is required to avoid the ""/usr/bin/env: node: No such file or directory" problem).
-<br/> Tip: If you are using Ubuntu/Linux, then doing `npm config set prefix ~` prevents you from having to run npm as root.
-
-1.  Clone this repository to your local filesystem (default branch is 'develop')
-
-1.  To download the dependencies, and be able to build, first install bower & grunt:
-
-    ```
-     npm install -g bower
-     npm install -g grunt-cli
-    ```
-
-1.  Next pull the runtime and build time dependencies by running bower, npm and gem bundler install commands on the project root folder:
-
-    ```
-     bower install
-    ```
-
-    ```
-     npm install
-    ```
-
-    ```
-     bundler install
-    ```
-
-1.  To preview the app, run the following command on the project root folder:
-
-    ```
-     grunt serve
-    ```
-
-    or open the 'index.html' file in FIREFOX browser
-
-    Note: If you see a warning similar to the one shown below on running `grunt serve` , try increasing the number of open files limit as per the suggestions at http://stackoverflow.com/questions/34588/how-do-i-change-the-number-of-open-files-limit-in-linux/
-
-    ```
-     Waiting...Warning: EMFILE, too many open files
-    ```
-
-1.  Default username/password: mifos/password. This application will hit the demo server by default.
-
-1. You are done.
+See [README](README.md).
 
 ## <a name="question"></a> Got a Question or Problem?
 
@@ -128,7 +81,7 @@ Our central development branch is `develop` , which should be clean and ready fo
 
 - If the PR is for solving some Issue related to UI, post 2 pictures, first picture containing the earlier UI and the second picture containing the updated UI.
 
-- Include the URLs to the views that are effected by the PR. For example, if the PR has some improvements in the clients page, have the URL information as: https://demo.openmf.org/newbeta/#/clients
+- Include the URLs to the views that are effected by the PR. For example, if the PR has some improvements in the clients page, have the URL information as: https://demo.mifos.io/newbeta/#/clients
 
 5.  Please ensure that the code you write is well-tested.
 
