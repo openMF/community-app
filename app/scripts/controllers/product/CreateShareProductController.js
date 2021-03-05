@@ -6,6 +6,8 @@
             scope.charges = [];
             scope.formData.marketPricePeriods = [] ;
             scope.showOrHideValue = "show";
+            scope.isClicked = false;
+
             resourceFactory.productsResource.template({productType:'share', resourceType:'template'}, function(data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
@@ -19,10 +21,6 @@
                 scope.formData.accountingRule = '1';
                 scope.shareproduct = angular.copy(scope.formData);
             });
-            
-            scope.shareCapitaValue = function () {
-                 scope.formData.shareCapital =   scope.formData.unitPrice * scope.formData.sharesIssued;
-            };
 
             scope.$watch('formData',function(newVal){
                 scope.shareproduct = angular.extend(scope.shareproduct,newVal);
@@ -30,6 +28,7 @@
 
             scope.goNext = function(form){
                 WizardHandler.wizard().checkValid(form);
+                scope.isClicked = true;
             }
             
             scope.formValue = function(array,model,findattr,retAttr){

@@ -2,7 +2,7 @@
     var defineRoutes = function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'views/start.html'
+                templateUrl: 'views/home.html'
             })
             .when('/login', {
                 templateUrl: 'views/login.html'
@@ -142,14 +142,26 @@
             .when('/newjlgloanaccount/:groupId', {
                 templateUrl: 'views/loans/newjlgloanaccount.html'
             })
+            .when('/newglimaccount/:groupId', {
+                templateUrl: 'views/loans/newglimaccount.html'
+            })
             .when('/viewloanaccount/:id', {
                 templateUrl: 'views/loans/viewloanaccountdetails.html'
+            })
+            .when('/viewglimaccount/:groupId/:id/:glimId', {
+                templateUrl: 'views/loans/viewglimaccount.html'
+            })
+            .when('/viewgsimaccount/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/viewgsimaccount.html'
             })
             .when('/adjustrepaymentschedule/:accountId', {
                 templateUrl: 'views/loans/AdjustRepaymentSchdule.html'
             })
             .when('/loanaccount/:id/:action', {
                 templateUrl: 'views/loans/loanaccountactions.html'
+            })
+            .when('/glimloanaccount/:id/:action/:glimId/:groupId', {
+                templateUrl: 'views/loans/glimloanaccountactions.html'
             })
             .when('/loanaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/loans/loanaccountactions.html'
@@ -518,6 +530,9 @@
             .when('/new_client_saving_application/:clientId', {
                 templateUrl: 'views/savings/new_saving_account_application.html'
             })
+            .when('/new_gsim_application/:groupId', {
+                templateUrl: 'views/savings/gsimapplication.html'
+            })
             .when('/new_group_saving_application/:groupId', {
                 templateUrl: 'views/savings/new_saving_account_application.html'
             })
@@ -554,8 +569,17 @@
             .when('/editsavingaccount/:id', {
                 templateUrl: 'views/savings/edit_saving_account_application.html'
             })
+            .when('/editgsimaccount/:parentGSIMId/:gsimChildAccountId/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/edit_gsim_account_application.html'
+            })
+            .when('/addnewmember/:groupId/:parentGSIMAccounNo/:gsimChildAccountId', {
+                templateUrl: 'views/savings/addNewMemberToGSIM.html'
+            })
             .when('/savingaccount/:id/:action', {
                 templateUrl: 'views/savings/saving_account_actions.html'
+            })
+            .when('/gsimaccount/:parentId/:childId/:action/:groupId/:gsimAccountNumber', {
+                templateUrl: 'views/savings/gsim_account_actions.html'
             })
             .when('/savingaccountcharge/:id/:action/:chargeId', {
                 templateUrl: 'views/savings/saving_account_actions.html'
@@ -938,6 +962,63 @@
             .when('/addfamilymembers/:clientId/', {
                 templateUrl: 'views/clients/addfamilymembers.html'
             })
+            .when('/bulkimportoffices', {
+                 templateUrl: 'views/organization/bulkimport/bulkimportoffices.html'
+             })
+             .when('/bulkimportclients', {
+                 templateUrl: 'views/organization/bulkimport/bulkimportclients.html'
+             })
+            .when('/bulkimportloanaccounts', {
+            templateUrl: 'views/organization/bulkimport/bulkimportloanaccounts.html'
+            })
+            .when('/bulkimportloanrepayments', {
+                templateUrl: 'views/organization/bulkimport/bulkimportloanrepayments.html'
+            })
+            .when('/bulkimportguarantor', {
+                templateUrl: 'views/organization/bulkimport/bulkimportguarantor.html'
+            })
+            .when('/bulkimportsavingsaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportsavingsaccounts.html'
+            })
+            .when('/bulkimportsavingsaccountstransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportsavingsaccountstransactions.html'
+            })
+            .when('/bulkimportrecurringdeposits', {
+                templateUrl: 'views/organization/bulkimport/bulkimportrecurringdeposits.html'
+            })
+            .when('/bulkimportrecurringdepositstransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportrecurringdepositstransactions.html'
+            })
+            .when('/bulkimportshareaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportshareaccounts.html'
+            })
+            .when('/bulkimportfixeddepositaccounts', {
+                templateUrl: 'views/organization/bulkimport/bulkimportfixeddepositaccounts.html'
+            })
+            .when('/bulkimportfixeddeposittransactions', {
+                templateUrl: 'views/organization/bulkimport/bulkimportfixeddeposittransactions.html'
+            })
+            .when('/bulkimportcoa', {
+                templateUrl: 'views/organization/bulkimport/bulkimportcoa.html'
+            })
+            .when('/bulkimportjournalentries', {
+                templateUrl: 'views/organization/bulkimport/bulkimportjournalentries.html'
+            })
+            .when('/bulkimportgroup', {
+                templateUrl: 'views/organization/bulkimport/bulkimportgroup.html'
+            })
+            .when('/bulkimportcenters', {
+                templateUrl: 'views/organization/bulkimport/bulkimportcenters.html'
+            })
+            .when('/bulkimportemployees', {
+                templateUrl: 'views/organization/bulkimport/bulkimportemployees.html'
+            })
+            .when('/bulkimportusers', {
+                templateUrl: 'views/organization/bulkimport/bulkimportusers.html'
+            })
+            .when('/bulkimport', {
+                templateUrl: 'views/organization/bulkimport/bulkimport.html'
+            })
 			.when('/adhocquery/', {
                 templateUrl: 'views/adhocquery/adhocquerylists.html'
             })
@@ -950,10 +1031,34 @@
             .when('/editadhocquery/:id', {
                 templateUrl: 'views/adhocquery/editadhocquery.html'
             })
+            .when('/selfservice/createuser/:clientId',{
+                templateUrl: 'views/selfservice/createuser.html'
+            })
+            .when('/externalservicesCB/CreditBureau', {
+                templateUrl: 'views/administration/CreditBureauSummary.html'
+            })
+             .when('/externalservicesCB/CreditBureau/addcb', {
+                 templateUrl: 'views/administration/addNewCreditBureau.html'
+            })
+            .when('/externalservicesCB/CreditBureau/mapcblp', {
+                templateUrl: 'views/administration/MapCreditBureauToLP.html'
+            })
+            .when('/rates', {
+                templateUrl: 'views/products/rates.html'
+            })
+            .when('/createrate', {
+                templateUrl: 'views/products/createrate.html'
+            })
+            .when('/viewrate/:rateId', {
+                templateUrl: 'views/products/viewrate.html'
+            })
+            .when('/editrate/:rateId', {
+                templateUrl: 'views/products/editrate.html'
+            })
             .otherwise({
                 templateUrl: "views/errors/404.html"
-            })
-            ;
+            });
+        $locationProvider.hashPrefix('');
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

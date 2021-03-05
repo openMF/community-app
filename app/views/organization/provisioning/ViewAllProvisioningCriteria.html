@@ -11,7 +11,7 @@
                         <input ng-model="filterText" type="text" class="form-control " ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
                     </div>
                     <div class="col-md-6">
-                        <a href="#/createprovisioningcriteria" class="btn btn-primary pull-right" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="fa fa-plus "></i>{{'label.button.createprovisioningcriteria' | translate}}</a>
+                        <a href="#/createprovisioningcriteria" class="btn btn-primary pull-right" has-permission='CREATE_PROVISIONING_CRITERIA'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createprovisioningcriteria' | translate}}</a>
                     </div>
                 </div>
             </div>
@@ -23,12 +23,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="pointer-main" ng-repeat="criteriaObject in criterias |orderBy:'criteriaName':reverse | filter:filterText">
+                <tr class="pointer-main" dir-paginate="criteriaObject in criterias | orderBy:'criteriaName':reverse | filter:filterText |  itemsPerPage: ProvisioningPerPage">
                     <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.criteriaName}}</td>
                     <td class="pointer" data-ng-click="routeTo(criteriaObject.criteriaId)">{{criteriaObject.createdBy}}</td>
                 </tr>
                 </tbody>
-            </table>  
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
         </div>
     </div>
 </div>

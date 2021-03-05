@@ -1,11 +1,19 @@
+dist: xenial
 language: node_js
 node_js:
-   - "0.10"
+   - "8"
 before_install:
-  - mkdir travis-phantomjs
-  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs
-  - export PATH=$PWD/travis-phantomjs:$PATH
+  - echo "Nothing"
+  - sudo rm -rf node-modules/
+  - wget http://mirrors.kernel.org/ubuntu/pool/main/i/icu/libicu52_52.1-3ubuntu0.8_amd64.deb
+  - sudo dpkg -i libicu52*.deb
+  - sudo apt-get install libfontconfig1 fontconfig libfontconfig1-dev libfreetype6-dev
+  - export PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
+  - wget https://github.com/Medium/phantomjs/releases/download/v2.1.1/$PHANTOM_JS.tar.bz2
+  - sudo tar xvjf $PHANTOM_JS.tar.bz2
+  - sudo mv $PHANTOM_JS /usr/local/share
+  - sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+  - phantomjs --version
 before_script:
   - npm install -g grunt-cli
   - npm install -g bower
@@ -14,6 +22,14 @@ before_script:
   - grunt prod
 notifications:
   email: true
-# Taken from:  https://github.com/mdix/es6-babel-browserify-karma-boilerplate/blob/master/.travis.yml#L3
+# Above is taken from: https://github.com/mdix/es6-babel-browserify-karma-boilerplate/blob/master/.travis.yml#L3
 
-#trying test
+# Below is documented at https://docs.travis-ci.com/user/deployment/pages/
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local-dir: dist/community-app
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: develop

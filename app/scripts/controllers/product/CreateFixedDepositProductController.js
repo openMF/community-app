@@ -9,6 +9,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
+            scope.isClicked = false;
 
             //interest rate details
             scope.chart = {};
@@ -46,6 +47,7 @@
 
             scope.goNext = function(form){
                 WizardHandler.wizard().checkValid(form);
+                scope.isClicked = true;
             }
 
             scope.formValue = function(array,model,findattr,retAttr){

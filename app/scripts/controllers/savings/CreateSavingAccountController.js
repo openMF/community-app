@@ -140,6 +140,10 @@
                     scope.disabled = false;
                     scope.savingdetails = angular.copy(scope.formData);
                     scope.savingdetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
+                    scope.savingdetails.interestCompoundingPeriodTypeValue = scope.formValue(data.interestCompoundingPeriodTypeOptions,scope.formData.interestCompoundingPeriodType);
+                    scope.savingdetails.interestPostingPeriodTypeValue = scope.formValue(data.interestPostingPeriodTypeOptions,scope.formData.interestPostingPeriodType);
+                    scope.savingdetails.interestCalculationTypeValue = scope.formValue(data.interestCalculationTypeOptions,scope.formData.interestCalculationType);
+                    scope.savingdetails.interestCalculationDaysInYearTypeValue = scope.formValue(data.interestCalculationDaysInYearTypeOptions,scope.formData.interestCalculationDaysInYearType);
                 });
             };
 

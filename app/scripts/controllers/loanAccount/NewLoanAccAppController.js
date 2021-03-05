@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, uiConfigService, WizardHandler) {
+        NewLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, uiConfigService, WizardHandler, translate) {
             scope.previewRepayment = false;
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
@@ -22,6 +22,8 @@
             scope.customSteps = [];
             scope.tempDataTables = [];
             scope.disabled = true;
+            scope.translate= translate;
+            scope.rateFlag=false;
 
             scope.date.first = new Date();
 
@@ -50,6 +52,7 @@
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                scope.ratesEnabled = data.isRatesEnabled;
 
                 if (data.clientName) {
                     scope.clientName = data.clientName;
@@ -67,6 +70,10 @@
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.previewClientLoanAccInfo();
+                    scope.loandetails.interestValue = scope.loanaccountinfo.interestType.value;
+                    scope.loandetails.amortizationValue = scope.loanaccountinfo.amortizationType.value;
+                    scope.loandetails.interestCalculationPeriodValue = scope.loanaccountinfo.interestCalculationPeriodType.value;
+                    scope.loandetails.transactionProcessingStrategyValue = scope.formValue(scope.loanaccountinfo.transactionProcessingStrategyOptions,scope.formData.transactionProcessingStrategyId,'id','name');
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
                     scope.disabled = false;
@@ -177,9 +184,58 @@
 
                 scope.loandetails = angular.copy(scope.formData);
                 scope.loandetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
+                scope.formData.rates = scope.loanaccountinfo.product.rates;
+                if (scope.formData.rates && scope.formData.rates.length>0){
+                    scope.rateFlag=true;
+                }
+                scope.rateOptions = [];
             };
 
-            scope.$watch('formData',function(newVal){
+          //Rate
+          scope.rateSelected = function(currentRate){
+
+            if(currentRate && !scope.checkIfRateAlreadyExist(currentRate)){
+                scope.rateFlag=true;
+              scope.formData.rates.push(currentRate);
+              scope.rateOptions.splice(scope.rateOptions.indexOf(currentRate),1);
+              scope.currentRate = '';
+              currentRate = '';
+              scope.calculateRates();
+            }
+          };
+
+          scope.checkIfRateAlreadyExist = function(currentRate){
+            var exist = false;
+            scope.formData.rates.forEach(function(rate){
+              if(rate.id === currentRate.id){
+                exist = true;
+              }
+            });
+
+            return exist
+          };
+
+          scope.calculateRates = function(){
+            var total = 0;
+            scope.formData.rates.forEach(function(rate){
+              total += rate.percentage;
+            });
+            if (total===0){
+                total=undefined;
+                scope.rateFlag=false;
+            }
+            scope.formData.interestRatePerPeriod = total;
+
+
+          };
+
+          scope.deleteRate = function (index){
+            scope.rateOptions.push(scope.formData.rates[index]);
+            scope.formData.rates.splice(index,1);
+            scope.calculateRates();
+          };
+
+          scope.$watch('formData',function(newVal){
                 scope.loandetails = angular.extend(scope.loandetails,newVal);
             },true);
 
@@ -412,7 +468,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'UIConfigService', 'WizardHandler', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'UIConfigService', 'WizardHandler', '$translate',mifosX.controllers.NewLoanAccAppController]).run(function ($log) {
         $log.info("NewLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));

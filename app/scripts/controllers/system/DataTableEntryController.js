@@ -100,7 +100,7 @@
                         if(scope.columnHeaders[i].value != null) {
                             scope.formDat[scope.columnHeaders[i].columnName] = {
                                 date: dateFilter(new Date(scope.columnHeaders[i].value), scope.df),
-                                time: dateFilter(new Date(scope.columnHeaders[i].value), scope.tf)
+                                time: new Date(scope.columnHeaders[i].value)
                             };
                         }
                     } else {

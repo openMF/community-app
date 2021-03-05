@@ -18,6 +18,7 @@
                 scope.saveSC();
             };
 
+            scope.SavingsProductsPerPage = 15;
             resourceFactory.savingProductResource.getAllSavingProducts(function (data) {
                 scope.savingproducts = data;
             });

@@ -17,6 +17,8 @@
                 scope.saveSC();
             };
 
+            scope.EmployeesPerPage = 15;
+            scope.showActive = true;
             resourceFactory.employeeResource.getAllEmployees(function (data) {
                 scope.employees = data;
             });
