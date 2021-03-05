@@ -12,6 +12,7 @@
             scope.loandetails = [];
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
+                    $rootScope.rates = scope.loandetails.rates;
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 };
             };

@@ -9,7 +9,7 @@
                 <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
             </div>
             <div class="col-md-3 paddedbottom20">
-                <a href="#/createrecurringdepositproduct" has-permission='CREATE_RECURRINGDEPOSITPRODUCT' class="btn btn-primary pull-right"><i class="fa fa-plus "></i>{{'label.button.createrecurringdepositproduct' | translate}}</a>
+                <a href="#/createrecurringdepositproduct" has-permission='CREATE_RECURRINGDEPOSITPRODUCT' class="btn btn-primary pull-right"><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createrecurringdepositproduct' | translate}}</a>
             </div>
         </div>
         <table class="table">
@@ -20,11 +20,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="pointer-main" ng-repeat="product in depositproducts | orderBy:'name':reverse | filter:filterText">
+            <tr class="pointer-main" dir-paginate="product in depositproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: RecurringDepositsPerPage">
                 <td class="pointer" data-ng-click="routeTo(product.id)">{{product.name}}</td>
                 <td class="pointer" data-ng-click="routeTo(product.id)">{{product.shortName}}</td>
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>

@@ -1,15 +1,21 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal) {
+        CreateFixedDepositAccountController: function (scope, resourceFactory, location, routeParams, dateFilter,$uibModal, WizardHandler) {
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
+            scope.transientData ={};
             scope.restrictDate = new Date();
+            scope.fixedDetails = {};
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
             if (routeParams.centerEntity) {
                 scope.centerEntity = true;
             }
+
+            scope.date = {};
+			scope.date.submittedOnDate = new Date();
+            scope.disabled = true;
 
             //interest rate chart details
             scope.chart = {};
@@ -39,10 +45,15 @@
                 scope.savingsAccounts = data.savingsAccounts;
             });
 
+            scope.goNext = function(form){
+                WizardHandler.wizard().checkValid(form);
+            }
+
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
                 resourceFactory.fixedDepositAccountTemplateResource.get(scope.inparams, function (data) {
-
+                    scope.depositRolloverOptions = data.maturityInstructionOptions;
+                    scope.savingsAccounts = data.savingsAccounts;
                     scope.data = data;
                     scope.charges = data.charges;
 
@@ -67,6 +78,9 @@
                     if (data.interestFreePeriodApplicable) scope.formData.interestFreePeriodApplicable = data.interestFreePeriodApplicable;
                     if (data.preClosurePenalApplicable) scope.formData.preClosurePenalApplicable = data.preClosurePenalApplicable;
 
+                    scope.disabled = false;
+                    scope.fixedDetails = angular.copy(scope.formData);
+                    scope.fixedDetails.productName = scope.formValue(scope.products,scope.formData.productId,'id','name');
                     scope.chart = data.accountChart;
                     scope.chartSlabs = scope.chart.chartSlabs;
                     //format chart date values
@@ -102,6 +116,19 @@
                     scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
                     scope.formData.transferInterestToSavings = 'false';
                 });
+            };
+
+            scope.$watch('formData',function(newVal){
+               scope.fixedDetails = angular.extend(scope.fixedDetails,newVal);
+            });
+
+            scope.formValue = function(array,model,findattr,retAttr){
+                findattr = findattr ? findattr : 'id';
+                retAttr = retAttr ? retAttr : 'value';
+                console.log(findattr,retAttr,model);
+                return _.find(array, function (obj) {
+                    return obj[findattr] === model;
+                })[retAttr];
             };
 
             scope.addCharge = function (chargeId) {
@@ -181,6 +208,9 @@
                 } else {
                     location.path('/viewgroup/' + scope.groupId);
                 }
+            }
+            scope.changeMaturityInstruction = function(){
+                scope.formData.transferToSavingsId =null;
             }
 
             /**
@@ -389,7 +419,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateFixedDepositAccountController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$uibModal', 'WizardHandler', mifosX.controllers.CreateFixedDepositAccountController]).run(function ($log) {
         $log.info("CreateFixedDepositAccountController initialized");
     });
 }(mifosX.controllers || {}));

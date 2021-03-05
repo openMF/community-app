@@ -1,0 +1,144 @@
+<div class="content-container" ng-controller="CreateSelfServiceUserController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewclient/{{clientId}}">{{formData.firstname}} {{formData.lastname}}</a></li>
+        <li class="active">{{'label.createselfserviceuser' | translate}}</li>
+    </ul>
+    <div class="card">
+        <form name="createselfserviceuserform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+            <legend>{{'label.createselfserviceuser' | translate}}</legend>
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="username">{{'label.input.username' | translate}}<span
+                        class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="createuserform" valattribute="username"/>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="firstname">{{'label.input.firstname' | translate}}<span
+                        class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control" required
+                            late-Validate ng-disabled="true"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="createselfserviceuserform" valattribute="firstname"/>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <label class="control-label col-sm-2" for="lastname">{{'label.input.lastname' | translate}}<span
+                            class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control" required late-Validate ng-disabled="true"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="createselfserviceuserform" valattribute="lastname"/>
+                        </div>
+                </div>
+                <div data-ng-switch on="formData.sendPasswordToEmail">
+                    <div data-ng-switch-when="true">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="email">{{'label.input.email' | translate}}<span
+                                class="required">*</span></label>
+
+                                <div class="col-sm-3">
+                                    <input type="email" id="email" name="email" class="form-control" ng-model="formData.email" required late-Validate/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="createselfserviceuserform" valattribute="email"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-ng-switch-when="false">
+                            <div class="form-group" data-ng-show="!formData.sendPasswordToEmail">
+                                <label class="control-label col-sm-2" for="email1">{{'label.input.email' | translate}}</label>
+
+                                <div class="col-sm-3">
+                                    <input type="email" id="email1" name="email1" class="form-control" ng-model="formData.email"/>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.autogeneratepassword' | translate}}</label>
+
+                    <div class="col-sm-3">
+                            <input type="checkbox" ng-model="formData.sendPasswordToEmail">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.overridepasswordexpiry' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <input type="checkbox" ng-model="formData.passwordNeverExpires">
+                            <i class="fa fa-question-circle fa fa-align-left"
+                               uib-tooltip="{{'label.tooltip.overridepasswordexpiry' | translate}}"></i>
+                        </div>
+                    </div>
+                <div data-ng-switch on="formData.sendPasswordToEmail">
+                    <div data-ng-switch-when="false">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="password">{{'label.input.password' | translate}}<span
+                                class="required">*</span></label>
+
+                                <div class="col-sm-3">
+                                    <input type="password" id="password" name="password" ng-model="formData.password" class="form-control" required
+                                    late-Validate>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="createselfserviceuserform" valattribute="password"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="repeatPassword">{{'label.input.repeatpassword' | translate}}<span
+                                    class="required">*</span></label>
+
+                                    <div class="col-sm-3">
+                                        <input type="password" id="repeatPassword" name="repeatPassword" class="form-control"
+                                        ng-model="formData.repeatPassword" required late-Validate>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <form-validate valattributeform="createselfserviceuserform" valattribute="repeatPassword"/>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.status' | translate}}</label>
+                    <div class="col-sm-3">
+                        {{ (accountActive ? 'label.tooltip.loanProduct.active' : 'label.tooltip.loanProduct.inActive') | translate }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3 col-sm-offset-2">
+                        <input type="submit" value="{{'label.button.activateselfservice' | translate }}" ng-disabled="accountActive" ng-class="accountActive ? 'btn btn-md btn-disabled' : 'btn btn-md btn-primary' "/>
+                    </div>
+                    <div class="col-sm-2">
+                        <a uib-tooltip="{{'label.button.selfserviceactivatehelp' | translate}}" class="ng-binding">
+                                <i class="fa fa-question-circle fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <script type="text/ng-template" id="selfserviceModal.html">
+            <div class="modal-header silver">
+                <h3 class="bolder text-success"><i class="fa fa-check-circle"></i> {{'label.heading.selfserivceaccountactivated' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <p>{{'label.createdselfserviceuser' | translate}}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+            </div>
+        </script>
+</div>

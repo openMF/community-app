@@ -2,7 +2,8 @@
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale,
                   uiConfigService, $http) {
-            $http.get('release.json').success(function(data) {
+            $http.get('release.json').then(function onSuccess(response) {
+                var data = response.data;
                 scope.version = data.version;
                 scope.releasedate = data.releasedate;
             });
@@ -16,7 +17,8 @@
 
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
-                $http.get('scripts/config/LogoConfig.json').success(function(datas) {
+                $http.get('scripts/config/LogoConfig.json').then(function onSuccess(response) {
+                    var datas = response.data;
                     for(var i in datas){
                         var data = datas[i];
                         if(data.tenantIdentifier != undefined && data.tenantIdentifier == $rootScope.tenantIdentifier){
@@ -42,9 +44,11 @@
                             }
                         }
                     }
+                }).catch(function onError(response) {
+                    console.warn("Error: ", response.data)
                 });
             }
-
+            
             scope.$on('scrollbar.show', function(){
                   console.log('Scrollbar show');
                 });
@@ -52,7 +56,12 @@
                   console.log('Scrollbar hide');
                 });
 
-            uiConfigService.init();
+            uiConfigService.init(scope);
+            
+            
+            scope.$on('configJsonObj',function(e,response){
+                scope.response = response;
+            });
             //hides loader
             scope.domReady = true;
             scope.activity = {};
@@ -232,7 +241,6 @@
                 scope.optlang = scope.langs[0];
                 tmhDynamicLocale.set(scope.langs[0].code);
                 }
-            console.log(translate.use);
             translate.use(scope.optlang.code);
 
             scope.isActive = function (route) {

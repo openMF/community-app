@@ -18,6 +18,7 @@
                 scope.saveSC();
             };
 
+            scope.ChargesPerPage =15;
             scope.$broadcast('ChargeDataLoadingStartEvent');
             resourceFactory.chargeResource.getAllCharges(function (data) {
                 scope.charges = data;

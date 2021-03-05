@@ -70,8 +70,7 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
 
                    function onNavTabsMouseDown($event) {
                        var currentlyScrollable = element.classList.contains('scrollable');
-                       console.log(currentlyScrollable);
-
+                  
                        if (currentlyScrollable === true) {
                            $event.preventDefault();
 
@@ -88,7 +87,6 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                    }
 
                    function checkForScroll(){
-                       console.log('checking tabs for scroll');
                        var currentlyScrollable = element.classList.contains('scrollable'),
                            difference = 1;
 
@@ -133,7 +131,6 @@ Reference from JSfiddle : https://jsfiddle.net/sonicblis/2afea34h/9/
                    }
 
                    $scope.$on('checkTabs', function(){
-                       console.log("tabcheck");
                        $timeout(checkForScroll, 10); });
 
                    function init() {

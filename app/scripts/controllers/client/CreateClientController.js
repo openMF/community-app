@@ -37,7 +37,6 @@
             scope.tf = "HH:mm";
             scope.clientId = routeParams.clientId;
 
-
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
                 requestParams.groupId = routeParams.groupId;
@@ -103,24 +102,23 @@
 
                 if(scope.enableAddress===true)
                 {
-                    scope.addressTypes=data.address.addressTypeIdOptions;
-                    scope.countryOptions=data.address.countryIdOptions;
-                    scope.stateOptions=data.address.stateProvinceIdOptions;
+                    scope.addressTypes=data.address[0].addressTypeIdOptions;
+                    scope.countryOptions=data.address[0].countryIdOptions;
+                    scope.stateOptions=data.address[0].stateProvinceIdOptions;
 
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
-
-
 
                         for(var i=0;i<data.length;i++)
                         {
                             data[i].field='scope.'+data[i].field;
-                            eval(data[i].field+"="+data[i].is_enabled);
-
+                            if(data[i].is_enabled == undefined) {
+                                //For dev.mifos.io or demo.mifos.io
+                                eval(data[i].field+"="+data[i].isEnabled);
+                            } else {
+                                //For fineract server
+                                eval(data[i].field+"="+data[i].is_enabled);
+                            }
                         }
-
-
-
-
 
                     })
 
@@ -314,6 +312,7 @@
 
                 if(scope.enableAddress===true)
                 {
+                    scope.formData.address = [];
                     for(var i=0;i<scope.addressArray.length;i++)
                     {
                         var temp=new Object();
@@ -321,13 +320,13 @@
                         {
                             temp.addressTypeId=scope.addressArray[i].addressTypeId;
                         }
-                        if(scope.addressArray[i].street)
-                        {
-                            temp.street=scope.addressArray[i].street;
-                        }
                         if(scope.addressArray[i].addressLine1)
                         {
                             temp.addressLine1=scope.addressArray[i].addressLine1;
+                        }
+                        if(scope.addressArray[i].street) 
+                        {
+                            temp.street=scope.addressArray[i].street;
                         }
                         if(scope.addressArray[i].addressLine2)
                         {

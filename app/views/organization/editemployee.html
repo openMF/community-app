@@ -64,7 +64,15 @@
                         <label class="control-label col-sm-2" for="mobileNo">{{ 'label.input.mobileNo' | translate }}</label>
 
                         <div class="col-sm-3">
-                            <input type="text" id="mobileNo" class="form-control" ng-model="formData.mobileNo">
+                            <input type="text" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
+                                   ng-pattern="/^[0-9]+$/"  class="form-control"/>
+                        </div>
+                        <div class="col-sm-2">
+                        <span ng-show="editemployeeform.mobileNo.$invalid && editemployeeform.mobileNo.$dirty">
+                        <small class="required" ng-show="editemployeeform.mobileNo.$error.pattern">
+                        {{'label.mustbenumeric' | translate}}
+                        </small>
+                        </span>
                         </div>
                     </div>
 

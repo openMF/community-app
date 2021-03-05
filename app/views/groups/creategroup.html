@@ -21,7 +21,7 @@
 									<div ng-show="forceOffice == null">
 										<select chosen="offices" name="office" id="officeId" ng-model="formData.officeId"
 												ng-options="office.id as office.name for office in offices" value="{{office.id}}"
-												ng-change="changeOffice(formData.officeId)" class="form-control" required>
+												ng-change="changeOffice(formData.officeId)" class="form-control" required late-validate>
 											<option value="">{{'label.menu.selectoffice' | translate}}</option>
 										</select>
 									</div>
@@ -42,7 +42,7 @@
 										class="required">*</span></label>
 
 								<div class="col-sm-3">
-									<input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-Validate/>
+									<input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required late-validate>
 								</div>
 								<div class="col-sm-2">
 									<form-validate valattributeform="creategroupform" valattribute="name"/>
@@ -132,10 +132,11 @@
 								<button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_GROUP' wz-next>{{'label.button.save' | translate}}</button>
 							</div>
 							<hr>
-							<button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
+                                                       <button ng-show="datatables.length > 0" class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
 							</button>
-							<button class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
+							<button ng-show="datatables.length > 0" class="btn btn-default pull-right" wz-next>Next&nbsp;&nbsp;<i
 									class="fa fa-arrow-right"></i></button>
+
 						</fieldset>
 					</form>
 			</wz-step>
