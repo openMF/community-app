@@ -83,7 +83,7 @@ You are done.
 
 ### Connecting to a MifosX Platform using OAuth 2 authentication:
 
-Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth"
+Edit the value of property "security" in <a href="https://github.com/openMF/community-app/blob/develop/app/scripts/modules/configurations.js#L6">configurations.js</a> to "oauth".
 
 ### Connecting to a MifosX Platform running on a different host:
 
