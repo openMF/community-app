@@ -52,9 +52,10 @@
 	            <label class="control-label col-sm-2 " for="usage">{{'label.input.accountusage' | translate}}</label>
 	
 	            <div class="col-sm-2">
-					<select id="usage" ng-model="formData.usage" class="form-control">
-						<option ng-repeat="usageType in usageTypes" value="{{usageType.id}}">{{''+usageType.code+'' | translate}}</option>
-					</select>
+					<select  id="usage" ng-model="formData.usage" class="form-control"
+                           ng-options="usageType.id as usageType.value for usageType in usageTypes" value="{{usageType.id}}">
+                    </select>
+					
 	            </div>
 	            <label class="control-label col-sm-4 " for="tagId">{{'label.input.tag' | translate}}</label>
 	            <div class="col-sm-2">
