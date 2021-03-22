@@ -31,10 +31,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}<span class="required">*</span></label>
                         <div class="col-sm-2">
                             <textarea rows="2" id="description" name="description" ng-model="formData.description"
-                                      class="form-control" ></textarea>
+                                      class="form-control"  required late-validate></textarea>
                         </div>
                     </div>
                     <hr>
@@ -325,12 +325,12 @@
                             <input id="withHoldTax" type="checkbox" ng-model="formData.withHoldTax" ng-true-value="true"
                                 ng-false-value="false">
                         </div>
-                        <div ng-show="formData.withHoldTax">
-                            <label class="control-label col-sm-2">{{ 'label.input.taxgroup' | translate }}</label>
+                        <div ng-if="formData.withHoldTax">
+                            <label class="control-label col-sm-2">{{ 'label.input.taxgroup' | translate }}<span class="required">*</span></label>
                             <div class="col-sm-2">
                                 <select id="taxGroupId" ng-model="formData.taxGroupId" chosen="product.taxGroupOptions"
                                     ng-options="taxGroup.id as taxGroup.name for taxGroup in product.taxGroupOptions"
-                                    value="{{taxGroup.id}}">
+                                    value="{{taxGroup.id}}" required late-validate>
                                     <option value="">{{'label.select' | translate}}</option>
                                 </select>
                             </div>
@@ -421,7 +421,7 @@
                                 <td ng-hide="isPrimaryGroupingByAmount">
                                     {{'label.heading.interestratedetails.amount.range' | translate}}
                                 </td>
-                                <td>{{'label.heading.interestratedetails.interest' | translate}}</td>
+                                <td>{{'label.heading.interestratedetails.interest' | translate}}<span class="required">*</span></td>
                                 <td>{{'label.heading.interestratedetails.description' | translate}}</td>
                                 <td>
                                     <div ng-show="chart.chartSlabs.length < 1">
@@ -484,7 +484,7 @@
                                 </td>
                                 <td class="width15">
                                     <input id="annualInterestRate" name="annualInterestRate" type="text" class="form-control"
-                                        ng-model="chartSlab.annualInterestRate" />
+                                        ng-model="chartSlab.annualInterestRate"  required late-validate/>
                                 </td>
                                 <td class="width20"><input name="description" type="text" class="form-control" ng-model="chartSlab.description" /></td>
                                 <td class="width10">
