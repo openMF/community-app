@@ -132,6 +132,7 @@
                 scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 scope.formData.interestRateFrequencyType = scope.loanaccountinfo.interestRateFrequencyType.id;
                 scope.formData.amortizationType = scope.loanaccountinfo.amortizationType.id;
+                scope.formData.fixedPrincipalPercentagePerInstallment = scope.loanaccountinfo.fixedPrincipalPercentagePerInstallment;
                 scope.formData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formData.isEqualAmortization = scope.loanaccountinfo.isEqualAmortization;
                 scope.formData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;

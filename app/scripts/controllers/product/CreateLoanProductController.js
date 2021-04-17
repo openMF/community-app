@@ -415,6 +415,10 @@
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
 
+                if(this.formData.amortizationType != 0){
+                    this.formData.fixedPrincipalPercentagePerInstallment = null;
+                }
+
                 if (this.formData.recalculationCompoundingFrequencyType == 4) {
                     if(this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
                         delete this.formData.recalculationCompoundingFrequencyNthDayType;
