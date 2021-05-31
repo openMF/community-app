@@ -30,6 +30,7 @@
                         scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
                         scope.showGLAccount = false;
+                        scope.minMaxCap=true;
                         break ;
                     case 2:
                         scope.showChargePaymentByField = false;
@@ -37,6 +38,7 @@
                         scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = false;
+			            scope.minMaxCap=false;                        
                         break ;
                     case 3:
                         scope.showChargePaymentByField = false;
@@ -44,6 +46,7 @@
                         scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = true;
+                        scope.minMaxCap=false;
                         break ;
                     case 4:
                         scope.showChargePaymentByField = false;
@@ -52,6 +55,7 @@
                         scope.addfeefrequency = false;
                         scope.showGLAccount = false;
                         scope.showPenalty = false ;
+                        scope.minMaxCap=false;
                         break ;
                 }
             }

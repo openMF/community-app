@@ -19,11 +19,13 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.minMaxCap=true;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
+                    scope.minMaxCap=false;
                 }else if(data.chargeAppliesTo.value === 'Shares') {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
@@ -32,12 +34,14 @@
                     scope.showGLAccount = false;
                     scope.showPenalty = false ;
                     scope.flag = true;
+                    scope.minMaxCap=false;
                 }else {
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.minMaxCap=false;
                 }
 
                 scope.formData = {
@@ -48,7 +52,9 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    minCap:data.minCap,
+		            maxCap:data.maxCap
                 };
 
                 if(data.incomeOrLiabilityAccount){
