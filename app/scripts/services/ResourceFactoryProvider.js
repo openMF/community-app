@@ -585,7 +585,7 @@
                     addressFieldConfiguration:defineResource(apiVer+"/fieldconfiguration/:entity",{},{
                         get:{method:'GET',params:{},isArray:true }
                     }),
-                    clientAddress:defineResource(apiVer+"/clients/:clientId/addresses",{},{
+                    clientAddress:defineResource(apiVer+"/client/:clientId/addresses",{},{
 
                         post:{method:'POST',params:{type:'@type'}},
                         get:{method:'GET',params:{type:'@type',status:'@status'},isArray:true},
