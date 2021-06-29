@@ -1,0 +1,24 @@
+name: MifosX Community App CI/CD
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build MifosX Community App
+      run: docker build -o dist/community-app .
+    
+    - name: Archive Release
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'community-app.zip'
+        directory: 'dist/community-app'
