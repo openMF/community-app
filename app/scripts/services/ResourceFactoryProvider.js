@@ -169,6 +169,9 @@
                         get: {method: 'GET', params: {}, isArray: true},
                         getChargeTemplates: {method: 'GET', params: {}}
                     }),
+                    loantransactionResource: defineResource(apiVer + "/loans/:loanId/transactions/:id", {loanId: '@loanId', id: '@id'}, {
+                        put: {method: 'PUT', params: {}}
+                    }),
                     savingProductResource: defineResource(apiVer + "/savingsproducts/:savingProductId/:resourceType", {savingProductId: '@savingProductId', resourceType: '@resourceType'}, {
                         getAllSavingProducts: {method: 'GET', params: {}, isArray: true},
                         update: {method: 'PUT', params: {}}

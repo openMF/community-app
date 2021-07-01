@@ -695,8 +695,12 @@
                                         <i class="fa fa-file-text fa fa-large"></i>
                                     </span>
                                     </td>
-									 <td> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" tooltip-placement="left" ng-click="viewloantransactionjournalentries(transaction.id)">
+									 <td data-ng-show="transaction.manuallyReversed === false"> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" tooltip-placement="left" ng-click="viewloantransactionjournalentries(transaction.id)">
                                         <i class="fa fa-arrow-circle-right fa fa-large coll"></i>
+                                    </span>
+                                    </td>
+                                    <td data-ng-show="transaction.type.id === 9 && transaction.manuallyReversed === false"> <span uib-tooltip="{{'label.anchor.viewjournalentries' | translate}}" tooltip-placement="left" ng-click="undoCharge(transaction.id)">
+                                        <i class="fa fa-flag "></i>
                                     </span>
                                     </td>
                                 </tr>

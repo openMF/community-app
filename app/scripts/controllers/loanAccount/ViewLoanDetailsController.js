@@ -152,6 +152,7 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
                 scope.loandetails = data;
+                console.log(scope.loandetails);
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
@@ -438,6 +439,25 @@
                             return id;
                         }
                     }
+                });
+            };
+
+            scope.transactionDataObject = {};
+            scope.index = 0;
+            scope.undoCharge = function (id) {
+                resourceFactory.loantransactionResource.put({loanId: scope.loandetails.id, id: id}, function(data) {
+                    console.log(data);
+                    route.reload();
+                    //location.path('/viewloanaccount/' + scope.loandetails.id);
+                    
+                    //scope.transactionDataObject = scope.loandetails.transactions.filter((transaction) => transaction.id === id)[0];
+                    //scope.index = scope.loandetails.transaction.indexOf(scope.transactionDataObject);
+                    //scope.loandetails.transactions[scope.index].principalPortion = data.principalPortion;
+                    //scope.loandetails.transactions[scope.index].interestPortion = data.interestPortion;
+                    //scope.loandetails.transactions[scope.index].feeChargesPortion = data.feeChargesPortion;
+                    //scope.loandetails.transactions[scope.index].penaltyChargesPortion = data.penaltyChargesPortion;
+                    //scope.loandetails.transactions[scope.index].outstandingLoanBalance = data.outstandingLoanBalance;
+                    //scope.loandetails.transactions[scope.index].reversed = 1;
                 });
             };
 
