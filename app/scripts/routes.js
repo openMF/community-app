@@ -1040,6 +1040,15 @@
              .when('/externalservicesCB/CreditBureau/addcb', {
                  templateUrl: 'views/administration/addNewCreditBureau.html'
             })
+            .when('/externalservicesCB/CreditBureau/configuration', {
+                templateUrl: 'views/administration/CreditBureauConfiguration.html'
+            })
+            .when('/externalservicesCB/CreditBureau/newconfiguration/', {
+                templateUrl: 'views/administration/addNewCreditBureauConfiguration.html'
+            })
+            .when('/externalservicesCB/CreditBureau/editconfiguration/:creditbureauId', {
+                templateUrl: 'views/administration/EditCreditBureauConfiguration.html'
+            })
             .when('/externalservicesCB/CreditBureau/mapcblp', {
                 templateUrl: 'views/administration/MapCreditBureauToLP.html'
             })
@@ -1054,6 +1063,18 @@
             })
             .when('/editrate/:rateId', {
                 templateUrl: 'views/products/editrate.html'
+            })
+            .when('/creditBureauSummary/:id/:productId', {
+                templateUrl: 'views/loans/creditbureausummary.html'
+            })
+            .when('/creditreport/thitsaworkCreditbureau/:cbId', {
+                templateUrl: 'views/loans/creditReportFetch_ThitsaWorks.html'
+            })
+            .when('/creditreport/thitsaworkCreditbureau/:lpId/:cbId', {
+                templateUrl: 'views/loans/creditReportFetch_ThitsaWorks.html'
+            })
+            .when('/creditreport/thitsaworkUploadCreditbureau/:clientId/:cbId', {
+                templateUrl: 'views/loans/creditReportUpload_ThitsaWorks.html'
             })
             .otherwise({
                 templateUrl: "views/errors/404.html"
