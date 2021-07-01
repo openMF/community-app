@@ -238,6 +238,18 @@
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true"> <input type="checkbox" ng-model="formData.isEqualAmortization" ng-true-value="true" ng-false-value="false">
                 </td>
             </tr>
+            <tr ng-show="formData.amortizationType == 0">
+                <td class="form-group"  >
+                    <label class="control-label">{{ 'label.input.fixed.pricipal.percentage.per.installment' | translate }}
+                        <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.fixed.pricipal.percentage.per.installment' | translate}}"
+                        tooltip-append-to-body="true"></i>
+                    </label>
+                </td>
+                <td>
+                    <input id="fixedPrincipalPercentagePerInstallment" type="text" name="fixedPrincipalPercentagePerInstallment" class="form-control"
+                            ng-model="formData.fixedPrincipalPercentagePerInstallment" late-validate number>
+                </td>
+            </tr>
             <tr>
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestCalculationPeriodType == true"><label>{{ 'label.input.interestcalculationperiod' | translate }}&nbsp;<span
                         class="required">*</span></label></td>
