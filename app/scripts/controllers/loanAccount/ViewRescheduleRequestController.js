@@ -38,6 +38,11 @@
                         scope.loanRescheduleDetails.interestRate = scope.loanTermVariationsData[i].decimalValue;
                         scope.adjustinterestrates = true;
                     }
+                    if(scope.loanTermVariationsData[i].termType.value == "principalPercentagePerInstallment") {
+                        scope.loanRescheduleDetails.newFixedPrincipalPercentagePerInstallment = scope.loanTermVariationsData[i].decimalValue;
+                        scope.changeFixedPrincipalPercentagePerInstallment = true;
+                    }
+                    
 
                     if(scope.loanTermVariationsData[i].termType.value == "emiAmount") {
                         var emi = {};

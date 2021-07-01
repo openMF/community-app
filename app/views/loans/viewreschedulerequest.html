@@ -129,7 +129,8 @@
                             class="control-label">{{ 'label.input.changeEMI' | translate }}&nbsp;</span>
                     </td>
                     <td>{{'label.input.installment.date' | translate}} : {{emi.instDate | DateFormat}}, &nbsp;&nbsp;&nbsp;&nbsp;{{"label.input.new.emi"|translate}} : {{emi.emi }}</td>
-                </tr>
+                </tr>  
+                 
                 <!--<tr>
                     <td class = "paddedtop">
                         <input type="checkbox" ng-disabled="true" ng-model="loanRescheduleDetails.recalculateInterest"> &nbsp;<span
@@ -138,6 +139,21 @@
                     </td>
                     <td></td>
                 </tr>-->
+                <tr>
+                    <td class ="paddedtop">
+                        <input type="checkbox" ng-disabled="true" ng-model="changeFixedPrincipalPercentagePerInstallment"> &nbsp;<span
+                            class="control-label">{{ 'label.input.change.fixed.principal.percentage.per.installment' | translate }}&nbsp;</span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="changeFixedPrincipalPercentagePerInstallment">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.new.fixed.principal.percentage.per.installment' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="changeFixedPrincipalPercentagePerInstallment">
+                        {{loanRescheduleDetails.newFixedPrincipalPercentagePerInstallment}}
+                    </td>
+                </tr>
             </table>
                     <div align="center">
                     <button type="button" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' | translate }}</button>
