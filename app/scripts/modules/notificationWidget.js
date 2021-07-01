@@ -162,6 +162,9 @@ angular.module('notificationWidget', [])
                         for(var i = 0; i < data.length; i++) {
                             //console.log(data[i]);
                             var jsonErrors = JSON.parse(data[i].body);
+                            if (jsonErrors == null){
+                              return;
+                            }
                             var valErrors = jsonErrors.errors;
                             var errorArray = new Array();
                             var arrayIndex = 0;

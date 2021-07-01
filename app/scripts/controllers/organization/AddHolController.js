@@ -116,57 +116,38 @@
                 }
             }
 
-            scope.minDat = new Date();
+            // scope.minDate = new Date();
             scope.submit = function () {
                 var testDate = new Date();
                 testDate.setDate(testDate.getDate() - 1);
 
-                if(scope.date.first < testDate || scope.date.second < testDate || (scope.reschedulingType.id == scope.specificRescheduleType && scope.date.third < testDate) ){
-                    if(scope.date.first < testDate) {
-                        scope.firstError = true;
-                    } else {
-                        scope.firstError = false;
-                    }
-                    if (scope.date.second < testDate) {
-                        scope.secondError = true;
-                    } else {
-                        scope.secondError = false;
-                    }
-                    if (scope.date.third < testDate) {
-                        scope.thirdError = true;
-                    } else {
-                       scope.thirdError = false;
-                    }
+                // scope.firstError = false;
+                // scope.secondError = false;
+                // scope.thirdError = false;
+                var reqFirstDate = dateFilter(scope.date.first, scope.df);
+                var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                var reqThirdDate = undefined;
+                var newholiday = new Object();
+                newholiday.locale = scope.optlang.code;
+                newholiday.dateFormat = scope.df;
+                newholiday.name = this.formData.name;
+                newholiday.fromDate = reqFirstDate;
+                newholiday.toDate = reqSecondDate;                    
+                newholiday.reschedulingType = scope.reschedulingType.id;
+                if(scope.reschedulingType.id == scope.specificRescheduleType){
+                    reqThirdDate = dateFilter(scope.date.third, scope.df);
+                    newholiday.repaymentsRescheduledTo = reqThirdDate;
                 }
-                else {
-                    scope.firstError = false;
-                    scope.secondError = false;
-                    scope.thirdError = false;
-                    var reqFirstDate = dateFilter(scope.date.first, scope.df);
-                    var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                    var reqThirdDate = undefined;
-                    var newholiday = new Object();
-                    newholiday.locale = scope.optlang.code;
-                    newholiday.dateFormat = scope.df;
-                    newholiday.name = this.formData.name;
-                    newholiday.fromDate = reqFirstDate;
-                    newholiday.toDate = reqSecondDate;                    
-                    newholiday.reschedulingType = scope.reschedulingType.id;
-                    if(scope.reschedulingType.id == scope.specificRescheduleType){
-                        reqThirdDate = dateFilter(scope.date.third, scope.df);
-                        newholiday.repaymentsRescheduledTo = reqThirdDate;
-                    }
-                    newholiday.description = this.formData.description;
-                    newholiday.offices = [];
-                    for (var i in holidayOfficeIdArray) {
-                        var temp = new Object();
-                        temp.officeId = holidayOfficeIdArray[i];
-                        newholiday.offices.push(temp);
-                    }
-                    resourceFactory.holValueResource.save(newholiday, function (data) {
-                        location.path('/holidays');
-                    });
+                newholiday.description = this.formData.description;
+                newholiday.offices = [];
+                for (var i in holidayOfficeIdArray) {
+                    var temp = new Object();
+                    temp.officeId = holidayOfficeIdArray[i];
+                    newholiday.offices.push(temp);
                 }
+                resourceFactory.holValueResource.save(newholiday, function (data) {
+                    location.path('/holidays');
+                });
             };
         }
     });

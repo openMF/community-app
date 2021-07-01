@@ -40,6 +40,12 @@
                 if (data.closeDate) {
                     scope.date.second = new Date(data.closeDate);
                 }
+                if (data.firstDateForSemi) {
+                    scope.date.semiMonthFirstDate = new Date(scope.product.firstDateForSemi);
+                }
+                if (data.seconDateForSemi) {
+                    scope.date.semiMonthSecondDate = new Date(scope.product.seconDateForSemi);
+                }
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
                     if(scope.penaltyOptions[i].chargeTimeType.code == 'chargeTimeType.overdueInstallment')
@@ -98,7 +104,7 @@
                     principalThresholdForLastInstallment: scope.product.principalThresholdForLastInstallment,
                     installmentAmountInMultiplesOf: scope.product.installmentAmountInMultiplesOf,
                     canDefineInstallmentAmount : scope.product.canDefineInstallmentAmount,
-                    isEqualAmortization : scope.product.isEqualAmortization,
+                    isEqualAmortization : scope.product.isEqualAmortization
                 };
 
                 if (scope.product.isInterestRecalculationEnabled) {
@@ -120,7 +126,7 @@
                     if(scope.formData.interestRecalculationCompoundingMethod != 0){
                         scope.formData.recalculationCompoundingFrequencyType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyType.id;
                         scope.formData.recalculationCompoundingFrequencyInterval = scope.product.interestRecalculationData.recalculationCompoundingFrequencyInterval;
-                        
+
                         if (scope.product.interestRecalculationData.recalculationCompoundingFrequencyOnDay != null) {
                             scope.formData.recalculationCompoundingFrequencyNthDayType = -2;
                             scope.formData.recalculationCompoundingFrequencyOnDayType = scope.product.interestRecalculationData.recalculationCompoundingFrequencyOnDay;
@@ -462,6 +468,8 @@
                 scope.selectedConfigurableAttributes = [];
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                var firstSemiDate = dateFilter(scope.date.semiMonthFirstDate, scope.df);
+                var secondSemiDate = dateFilter(scope.date.semiMonthSecondDate, scope.df);
                 var temp = '';
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
@@ -508,7 +516,7 @@
                     scope.transactionProcessingStrategy = false;
                 }
 
-                scope.selectedConfigurableAttributes = 
+                scope.selectedConfigurableAttributes =
 		{amortizationType:scope.amortization,
                     interestType:scope.interestMethod,
                     transactionProcessingStrategyId:scope.transactionProcessingStrategy,
@@ -527,6 +535,8 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
+                this.formData.semiMonthFirstDate = firstSemiDate;
+                this.formData.semiMonthSecondDate = secondSemiDate;
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {

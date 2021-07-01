@@ -304,6 +304,8 @@
             scope.submit = function () {
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                var firstSemiDate = dateFilter(scope.date.semiMonthFirstDate, scope.df);
+                var secondSemiDate = dateFilter(scope.date.semiMonthSecondDate, scope.df);
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
@@ -377,6 +379,8 @@
                 this.formData.startDate = reqFirstDate;
                 this.formData.closeDate = reqSecondDate;
                 this.formData.rates = scope.rates;
+                this.formData.semiMonthFirstDate = firstSemiDate;
+                this.formData.semiMonthSecondDate = secondSemiDate
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
