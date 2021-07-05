@@ -91,6 +91,7 @@
 
             resourceFactory.sharesAccount.get({shareAccountId: routeParams.id}, function (data) {
                 scope.shareaccountdetails = data;
+                console.log(data);
                 scope.convertDateArrayToObject('date');
                 scope.staffData.staffId = data.staffId;
                 scope.date.toDate = new Date();
