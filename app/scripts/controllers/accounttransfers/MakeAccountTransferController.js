@@ -30,15 +30,19 @@
                 scope.changeEvent();
             };
 
+            scope.toAccountType = null;
+
             scope.changeEvent = function () {
 
                 var params = scope.formData;
+                scope.toAccountType = params.toAccountType;
                 delete params.transferAmount;
                 delete params.transferDate;
                 delete params.transferDescription;
 
                 resourceFactory.accountTransfersTemplateResource.get(params, function (data) {
                     scope.transfer = data;
+                    console.log(data);
                     scope.toOffices = data.toOfficeOptions;
                     scope.toAccountTypes = data.toAccountTypeOptions;
                     scope.toClients = data.toClientOptions;
