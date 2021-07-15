@@ -253,6 +253,7 @@
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
                         data.chargeId = data.id;
                         scope.charges.push(data);
+                        console.log(scope.charges);
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }

@@ -150,8 +150,21 @@
                 };
             };
 
+            scope.postDatedChecks = [];
+
+            // TODO: Route to view Post Dated Checks
+            scope.viewPostDatedChecks = function (id) {
+                console.log(id);
+                resourceFactory.postDatedChecks.get({loanId: routeParams.id, installmentId: id}, function(data) {
+                    scope.postDatedChecks = data;
+                    location.path('/loan/' + scope.loandetails.id + '/viewpostdatedcheck/' + id);
+                })
+                //scope.id = scope.postDatedChecks.filter((check) => check.installmentId === id)[0].id;
+            }
+
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
                 scope.loandetails = data;
+                console.log(data);
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;

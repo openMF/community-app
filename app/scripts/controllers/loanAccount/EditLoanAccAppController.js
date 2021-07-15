@@ -13,6 +13,7 @@
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
+                console.log(data);
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: data.loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
                     scope.collateralOptions = data.loanCollateralOptions || [];
@@ -47,7 +48,7 @@
                 //update collaterals
                 if (scope.loanaccountinfo.collateral) {
                     for (var i in scope.loanaccountinfo.collateral) {
-                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].type.id, name: scope.loanaccountinfo.collateral[i].type.name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
+                        scope.collaterals.push({type: scope.loanaccountinfo.collateral[i].id, name: scope.loanaccountinfo.collateral[i].name, value: scope.loanaccountinfo.collateral[i].value, description: scope.loanaccountinfo.collateral[i].description});
                     }
                 }
 

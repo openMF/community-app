@@ -21,6 +21,7 @@
             scope.processDate = false;
             scope.submittedDatatables = [];
             var submitStatus = [];
+            scope.postDatedChecks = [];
 
             rootScope.RequestEntities = function(entity,status,productId){
                 resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
@@ -109,6 +110,8 @@
                 loop.next();
                 return loop;
             }
+            
+            console.log(scope.action);
 
             switch (scope.action) {
                 case "approve":
@@ -127,6 +130,7 @@
                         scope.productId = data.loanProductId;
                         if(data.disbursementDetails != ""){
                             scope.disbursementDetails = data.disbursementDetails;
+                            console.log(scope.disbursementDetails);
                             scope.approveTranches = true;
                         }
                         for(var i in data.disbursementDetails){
@@ -167,6 +171,14 @@
                     scope.modelName = 'actualDisbursementDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.numberOfRepayments = data.numberOfRepayments;
+                        scope.formData.isPostDatedCheck = false;
+                        scope.postDatedChecks = data.loanRepaymentScheduleInstallments;
+                        console.log(data);
+                        console.log(scope.postDatedChecks);
+                        for (var i=0; i< scope.postDatedChecks.length; i++) {
+                            scope.postDatedChecks[i].date = new Date(scope.postDatedChecks[i].date);
+                        }
                         if (data.paymentTypeOptions.length > 0) {
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
@@ -507,6 +519,21 @@
                     if(scope.formData.approvedLoanAmount == null){
                         scope.formData.approvedLoanAmount = scope.showTrancheAmountTotal;
                     }
+                }
+
+                if (scope.action === 'disburse') {
+                    // Get post dated checks
+                    scope.postDatedChecksArray = [];
+
+                    if (scope.formData.isPostDatedCheck) {
+                        for (var i=0; i<scope.postDatedChecks.length; i++) {
+                            scope.postDatedChecksArray.push({amount: scope.postDatedChecks[i].amount, date: dateFilter(scope.postDatedChecks[i].date, scope.df), name: scope.postDatedChecks[i].name, 
+                                                            accountNo: scope.postDatedChecks[i].accountNo, installmentId: scope.postDatedChecks[i].installmentId});
+                        }
+    
+                        this.formData.postDatedChecks = scope.postDatedChecksArray;
+                    }
+                    delete this.formData.isPostDatedCheck;
                 }
 
                 if (this.formData[scope.modelName]) {

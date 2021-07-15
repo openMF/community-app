@@ -506,60 +506,60 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
-                                <th colspan="5" scope="colgroup"></th>
-                                <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
-                                <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
-                                <th colspan="6" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                                <th colspan="5" scope="colgroup" class="pointer"></th>
+                                <th colspan="2" scope="colgroup" class="pointer">{{'label.heading.loanamountandbalance' | translate}}</th>
+                                <th colspan="3" scope="colgroup" class="pointer">{{'label.heading.totalcostofloan' | translate}}</th>
+                                <th colspan="6" scope="colgroup" class="pointer">{{'label.heading.installmenttotals' | translate}}</th>
                             </tr>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{{'label.heading.days' | translate}}</th>
-                                <th scope="col">{{'label.heading.date' | translate}}</th>
-                                <th scope="col">{{'label.heading.paiddate' | translate}}</th>
-                                <th scope="col">&nbsp;</th>
+                                <th scope="col" class="pointer">#</th>
+                                <th scope="col" class="pointer">{{'label.heading.days' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.date' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.paiddate' | translate}}</th>
+                                <th scope="col" class="pointer">&nbsp;</th>
 
-                                <th scope="col">{{'label.heading.principaldue' | translate}}</th>
-                                <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.principaldue' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.balanceofloan' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.interest' | translate}}</th>
-                                <th scope="col">{{'label.heading.fees' | translate}}</th>
-                                <th scope="col">{{'label.heading.penalties' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.interest' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.fees' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.penalties' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.due' | translate}}</th>
-                                <th scope="col">{{'label.heading.paid' | translate}}</th>
-                                <th scope="col">{{'label.heading.inadvance' | translate}}</th>
-                                <th scope="col">{{'label.heading.late' | translate}}</th>
-                                <th scope="col" data-ng-show="isWaived">{{'label.heading.waived' | translate}}</th>
-                                <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.due' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.paid' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.inadvance' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.late' | translate}}</th>
+                                <th scope="col" class="pointer" data-ng-show="isWaived">{{'label.heading.waived' | translate}}</th>
+                                <th scope="col" class="pointer">{{'label.heading.outstanding' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="period in loandetails.repaymentSchedule.periods">
-                                <td scope="row">{{period.period}}</td>
-                                <td>{{period.daysInPeriod}}</td>
-                                <td>{{period.dueDate | DateFormat}}</td>
-                                <td>{{period.obligationsMetOnDate | DateFormat}}</td>
-                                <td>
+                            <tr class="pointer-main" ng-repeat="period in loandetails.repaymentSchedule.periods" ng-click="viewPostDatedChecks(period.period)">
+                                <td class="pointer" scope="row">{{period.period}}</td>
+                                <td class="pointer">{{period.daysInPeriod}}</td>
+                                <td class="pointer">{{period.dueDate | DateFormat}}</td>
+                                <td class="pointer">{{period.obligationsMetOnDate | DateFormat}}</td>
+                                <td class="pointer">
                                     <div ng-show="period.obligationsMetOnDate"><i class="fa fa-check "></i></div>
                                 </td>
 
-                                <td>{{period.principalDue | number}}</td>
-                                <td>{{period.principalLoanBalanceOutstanding | number}}</td>
-                                <td>{{period.interestOriginalDue | number}}</td>
-                                <td>{{period.feeChargesDue | number}}</td>
-                                <td>{{period.penaltyChargesDue | number}}</td>
+                                <td class="pointer">{{period.principalDue | number}}</td>
+                                <td class="pointer">{{period.principalLoanBalanceOutstanding | number}}</td>
+                                <td class="pointer">{{period.interestOriginalDue | number}}</td>
+                                <td class="pointer">{{period.feeChargesDue | number}}</td>
+                                <td class="pointer">{{period.penaltyChargesDue | number}}</td>
 
-                                <td>{{period.totalDueForPeriod | number}}</td>
-                                <td>{{period.totalPaidForPeriod | number}}</td>
-                                <td>{{period.totalPaidInAdvanceForPeriod | number}}</td>
-                                <td>{{period.totalPaidLateForPeriod | number}}</td>
-                                <td data-ng-show="isWaived">{{period.totalWaivedForPeriod | number}}</td>
-                                <td>{{period.totalOutstandingForPeriod | number}}</td>
+                                <td class="pointer">{{period.totalDueForPeriod | number}}</td>
+                                <td class="pointer">{{period.totalPaidForPeriod | number}}</td>
+                                <td class="pointer">{{period.totalPaidInAdvanceForPeriod | number}}</td>
+                                <td class="pointer">{{period.totalPaidLateForPeriod | number}}</td>
+                                <td class="pointer" data-ng-show="isWaived">{{period.totalWaivedForPeriod | number}}</td>
+                                <td class="pointer">{{period.totalOutstandingForPeriod | number}}</td>
                             </tr>
                             </tbody>
                             <tfoot class="ui-widget-header">
                             <tr>
-                                <th>&nbsp;</th>
+                                <th> &nbsp;</th>
                                 <th>{{loandetails.repaymentSchedule.loanTermInDays}}</th>
                                 <th colspan="3">{{'label.heading.total' | translate}}</th>
 
