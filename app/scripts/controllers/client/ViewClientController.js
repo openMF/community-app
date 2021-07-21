@@ -17,6 +17,8 @@
             scope.updateDefaultSavings = false;
             scope.charges = [];
 
+            scope.collaterals = [];
+
 
             // address
             scope.addresses=[];
@@ -95,6 +97,13 @@
 
             }
 
+            // collaterals
+
+            resourceFactory.clientcollateralResource.getAllCollaterals({clientId: routeParams.id}, function(data) {
+                scope.collaterals = data;
+                scope.collateralSize = scope.collaterals.length;
+            })
+
 
             // end of address
 
@@ -102,9 +111,6 @@
             // family members
 
             scope.families=[];
-
-
-
 
             resourceFactory.familyMembers.get({clientId:routeParams.id},function(data)
             {
@@ -122,6 +128,14 @@
 
                     route.reload();
                 })
+
+            }
+
+            scope.viewCollaterals=function()
+            {
+
+                location.path('/clients/'+ routeParams.id +'/viewallclientcollaterals');
+
 
             }
 
@@ -170,11 +184,16 @@
 
             scope.routeToShareAccount = function(id) {
                 location.path('/viewshareaccount/'+id)
-            } ;
+            };
+
+            scope.routeToCollateral = function(id) {
+                location.path('/viewclient/' + routeParams.id + '/viewclientcollateral/' + id);
+            }
 
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                console.log(scope.client);
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {

@@ -226,6 +226,11 @@
                                         <li data-ng-show="client.status.value=='Active'">
 											<a href="#/createshareaccount/{{client.id}}" has-permission='CREATE_SHAREACCOUNT'>{{'label.button.newshareaccount' | translate}}</a>
 										</li>
+
+										<li data-ng-show="client.status.value=='Active'">
+											<a href="#/createclientcollateral/{{client.id}}" has-permission='CREATE_COLLATERAL'>{{'label.button.createcollateral' | translate}}</a>
+										</li>
+
 										<li data-ng-show="client.status.value=='Active'">
 											<a href="#/newclientfixeddepositaccount/{{client.id}}" has-permission='CREATE_FIXEDDEPOSITACCOUNT'>{{'label.newfixeddepositaccount' | translate}}</a>
 										</li>
@@ -480,6 +485,41 @@
 											</td>
 										</tr>
 									</table>
+								</div>
+								<!-- Collateral Overview -->
+								<div data-ng-show="collateralSize != 0">
+									<div class="pull-right">
+										<span>
+											<button type="button" data-ng-click="viewCollaterals()"
+													class="btn-primary btn btn-sm">
+												{{ 'label.button.viewcollaterals' | translate }}
+											</button>
+										</span>
+									</div>
+									<div class="span gray-head">
+										<span class="boldlabel">
+											<strong>{{'label.heading.collaterals' | translate }}</strong>
+										</span>
+								    </div>
+								<table class="table table-condensed">
+									<tr class="graybg">
+										<th>{{'label.heading.id' | translate}}</th>
+										<th>{{'label.heading.name' | translate}}</th>
+										<th>{{'label.heading.quantity' | translate}}</th>
+										<th>{{'label.heading.totalValue' | translate}}</th>
+										<th>{{'label.heading.totalCollateralValue' | translate}}</th>
+									</tr>
+									<tr class="pointer-main"
+										ng-repeat="collateral in client.clientCollateralManagements">
+										<td class="pointer" data-ng-click="routeToCollateral(collateral.id)">
+											{{collateral.id}}
+										</td>
+										<td class="pointer" data-ng-click="routeToCollateral(collateral.name)">{{collateral.name}}</td>
+										<td class="pointer" data-ng-click="routeToCollateral(collateral.id)">{{collateral.quantity}}</td>
+										<td class="pointer" data-ng-click="routeToCollateral(collateral.id)">{{collateral.total}}</td>
+										<td class="pointer center" data-ng-click="routeToCollateral(collateral.id)">{{collateral.totalCollateral}}</td>
+									</tr>
+								</table>
 								</div>
                                 <!-- Fixed deposits overview -->
                                 <div data-ng-show="showFixed">
