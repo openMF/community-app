@@ -56,7 +56,7 @@
             resourceFactory.clientcollateralTemplateResource.getAllCollaterals({clientId: scope.clientId}, function(data) {
                 scope.collateralsData = data;
                 console.log(scope.collateralsData);
-            })
+            });
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
@@ -315,9 +315,11 @@
             }
 
             scope.deleteCollateral = function (index) {
+                console.log(index);
+                console.log(scope.collaterals[index]);
                 scope.collateralId = scope.collaterals[index].collateralId;
-                scope.collateralObject = scope.collateralAddedDataArray.filter((collateral) => collateral.collateralId == collateralId)[0];
-                scope.collateralsData.push(collateralObject);
+                scope.collateralObject = scope.collateralAddedDataArray.filter((collateral) => collateral.collateralId == scope.collateralId)[0];
+                scope.collateralsData.push(scope.collateralObject);
                 scope.collaterals.splice(index, 1);
                 
             };
@@ -431,7 +433,6 @@
                     for (var i in scope.collaterals) {
                         scope.formData.collateral.push({clientCollateralId: scope.collaterals[i].collateralId, quantity: scope.collaterals[i].quantity * 1.0});
                     }
-                    ;
                 }
 
                 if (this.formData.syncRepaymentsWithMeeting) {
