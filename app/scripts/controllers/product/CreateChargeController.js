@@ -11,6 +11,9 @@
             scope.translate = translate;
             scope.showFrequencyOptions = false;
             scope.showPenalty = true ;
+            scope.showfreewithdrawalfrequency = false;
+            scope.showrestartfrequency = false;
+            scope.paymentTypes = [];
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -90,6 +93,8 @@
                         if (chargeTimeType === scope.chargeTimeTypeOptions[i].id) {
                             if (scope.chargeTimeTypeOptions[i].value == "Annual Fee" || scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
                                 scope.showdatefield = true;
+                                scope.showenablefreewithdrawal = false;
+                                scope.showenablepaymenttype = false;
                                 scope.repeatsEveryLabel = 'label.input.months';
                                 //to show 'repeats every' field for monthly fee
                                 if (scope.chargeTimeTypeOptions[i].value == "Monthly Fee") {
@@ -101,6 +106,17 @@
                                 scope.repeatEvery = true;
                                 scope.showdatefield = false;
                                 scope.repeatsEveryLabel = 'label.input.weeks';
+                                scope.showenablefreewithdrawal = false;
+                                scope.showenablepaymenttype = false;
+                            }
+                            else if (scope.chargeTimeTypeOptions[i].value == "Withdrawal Fee") {
+                                scope.showenablefreewithdrawal = true;
+                                scope.showenablepaymenttype = true;
+                            }
+                            else{
+                                scope.showenablefreewithdrawal = false;
+                                scope.showenablepaymenttype = false;
+                            }
                             }
                             else {
                                 scope.showdatefield = false;
@@ -109,8 +125,18 @@
 
                         }
                     }
-                }
+
             }
+
+            resourceFactory.paymentTypeResource.getAll( function (data) {
+                scope.paymentTypes = data;
+            });
+
+            resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
+                scope.product = data;
+                const i = 1;
+                scope.filteredItems = scope.product.repaymentFrequencyTypeOptions.slice(0, i).concat(scope.product.repaymentFrequencyTypeOptions.slice(i + 1, scope.product.repaymentFrequencyTypeOptions.length));
+            })
 
             scope.setChoice = function () {
                 if (this.formData.active) {
@@ -119,6 +145,33 @@
                 else if (!this.formData.active) {
                     scope.choice = 0;
                 }
+
+                if(this.formData.enablepaymenttypes){
+                    scope.choice = 1;
+                }else if(!this.formData.enablepaymenttypes){
+                    scope.choice = 0;
+                }
+            };
+
+            scope.setOptions = function() {
+                if (this.formData.enableFreeWithdrawalCharge) {
+                    scope.showfreewithdrawalfrequency = true;
+                    scope.showrestartfrequency = true;
+
+                } else if (!this.formData.enableFreeWithdrawalCharge) {
+                    scope.showfreewithdrawalfrequency = false;
+                    scope.showrestartfrequency = false;
+                }
+
+                if(this.formData.enablePaymentType){
+                    scope.showpaymenttype = true;
+                }else if(!this.formData.enablePaymentType){
+                    scope.showpaymenttype = false;
+                }
+            };
+
+            scope.hideweek = function(){
+                return this.formData.countFrequencyType.id !==1;
             };
 
 	    scope.filterChargeCalculations = function(chargeTimeType) {
@@ -155,6 +208,8 @@
                     delete this.formData.chargePaymentMode;
                 }
                 this.formData.active = this.formData.active || false;
+                this.formData.enableFreeWithdrawalCharge = this.formData.enableFreeWithdrawalCharge || false;
+                this.formData.enablePaymentType = this.formData.enablePaymentType || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
                 resourceFactory.chargeResource.save(this.formData, function (data) {
