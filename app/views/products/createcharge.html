@@ -66,6 +66,7 @@
                         <form-validate valattributeform="createchargeform" valattribute="chargetimetype"/>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{'label.input.chargecalculation' | translate}}<span
                             class="required">*</span></label>
@@ -98,6 +99,7 @@
                         <form-validate valattributeform="createchargeform" valattribute="showchargepaymentbyfield"/>
                     </div>
                 </div>
+
                 <div class="form-group" ng-show="showdatefield">
                     <label class="control-label col-sm-2">{{'label.input.duedate' | translate}}<span
                             class="required">*</span></label>
@@ -107,6 +109,80 @@
                                min="minDate"  class="form-control"/>
                     </div>
                 </div>
+
+                <div class="form-group" ng-show="showenablepaymenttype">
+                    <label class="col-sm-2">{{'label.input.enablepaymenttype' | translate}}  <i class="fa fa-question-circle"
+                                                                                                uib-tooltip="{{'label.tooltip.charge.enablePaymentType' | translate}}"
+                                                                                                tooltip-append-to-body="true"></i> </label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="enablePaymentType" type="checkbox" ng-model="formData.enablePaymentType" data-ng-change="setOptions()">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showpaymenttype">
+                    <label class="control-label col-sm-2">{{'label.input.paymenttype' | translate}}</label>
+
+                    <div class="col-sm-3">
+                            <select id="paymentTypeId" class="form-control ng-pristine ng-valid" value=""
+                                    ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+                                    ng-model="formData.paymentTypeId">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showenablefreewithdrawal">
+                    <label class="control-label col-sm-2">{{'label.input.enablefreewithdrawal' | translate}} <i class="fa fa-question-circle"
+                                                                                                                uib-tooltip="{{'label.tooltip.charge.enablefreewithdrawal' | translate}}"
+                                                                                                                tooltip-append-to-body="true"></i> </label>
+
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="enablefreewithdrawal" type="checkbox" ng-model="formData.enableFreeWithdrawalCharge" data-ng-change="setOptions()">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showfreewithdrawalfrequency">
+                    <label class="control-label col-sm-2">{{'label.input.freewithdrawalfrequency' | translate}}<span
+                            class="required">*</span> <i class="fa fa-question-circle"
+                                                         uib-tooltip="{{'label.tooltip.charge.freeWithdrawalFrequency' | translate}}"
+                                                         tooltip-append-to-body="true"></i> </label>
+
+                    <div class="col-sm-3">
+                        <input id="freewithdrawalfrequency" name="amount" type="text" ng-model="formData.freeWithdrawalFrequency" class="form-control" number-format late-Validate/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showrestartfrequency">
+                    <label class="control-label col-sm-2">{{'label.input.restartcount' | translate}}<span
+                            class="required">*</span> <i class="fa fa-question-circle"
+                                                         uib-tooltip="{{'label.tooltip.charge.restartCountFrequency' | translate}}"
+                                                         tooltip-append-to-body="true"></i></label>
+
+                    <div class="col-sm-3">
+                        <input id="freerestartfrequency" name="amount" type="text" ng-model="formData.restartCountFrequency" class="form-control" number-format late-Validate/>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <select id="repaymentFrequencyType" class="form-control"
+                                    ng-model="formData.countFrequencyType"
+                                    ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in filteredItems"
+                                    ng-change = "loanproduct.repaymentFrequencyOption.value = formValue(product.repaymentFrequencyTypeOptions,formData.repaymentFrequencyType)"
+                                    value="{{repaymentFrequencyType.id}}"></select>
+                        </div>
+                        <div class="col-sm-2">
+                            <form-validate valattributeform="Terms" valattribute="repaymentEvery"/>
+                        </div>
+                    </div>
+
+                </div>
+
+
                 <div class="form-group" ng-show="showFrequencyOptions">
                 	<label class="control-label col-sm-2">{{ 'label.input.addfeefrequency' | translate }}&nbsp;</label>
 					<div class="col-sm-3">
@@ -122,7 +198,7 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <select id="feeFrequency" name="feeFrequency" ng-model="formData.feeFrequency"
+                        <select id="feeFrequency" name="feeFrequency" ng-model="formData.countFrequencyType"
 	                            ng-options="frequency.id as frequency.value | translate for frequency in template.feeFrequencyOptions"
 	                            value="{{frequency.id}}" class="form-control">
 	                        <option value="">{{'label.selectone' | translate}}</option>
@@ -132,6 +208,8 @@
                     	<form-validate valattributeform="createchargeform" valattribute="chargeappliesto"/>
                     </div>
                 </div>
+
+
                 <div class="form-group" ng-show="addfeefrequency">
                     <label class="control-label col-sm-2" for="feeInterval">{{'label.input.frequencyInterval' | translate}}<span
                             class="required">*</span></label>
