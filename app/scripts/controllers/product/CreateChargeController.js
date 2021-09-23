@@ -2,7 +2,9 @@
     mifosX.controllers = _.extend(module, {
         CreateChargeController: function (scope, resourceFactory, location, dateFilter, translate) {
             scope.template = [];
-            scope.formData = {};
+            scope.formData = {
+              subCharges: []
+            };
             scope.first = {};
             scope.isCollapsed = true;
             scope.showdatefield = false;
@@ -11,6 +13,10 @@
             scope.translate = translate;
             scope.showFrequencyOptions = false;
             scope.showPenalty = true ;
+            scope.available = [];
+            scope.selected = [];
+            scope.selectedCharges = [] ;
+            scope.availableCharges = [];
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
@@ -21,7 +27,55 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.availableCharges = data.subCharges || [];
             });
+
+            // Add Charges
+
+            scope.addCharge = function() {
+              for (var i in this.available){
+                for (var j in scope.availableCharges){
+                  if (scope.availableCharges[j].id == this.available[i]) {
+                      var temp = {};
+                      temp.id = this.available[i];
+                      temp.name = scope.availableCharges[j].name;
+                      scope.selectedCharges.push(temp);
+                      scope.availableCharges.splice(j, 1);
+                  }
+                }
+              }
+
+              for (var i in this.available) {
+                  for (var j in scope.selectedCharges) {
+                      if (scope.selectedCharges[j].id == this.available[i]) {
+                          scope.available.splice(i, 1);
+                      }
+                  }
+              }
+            }
+
+            scope.removeCharge = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedCharges) {
+                        if (scope.selectedCharges[j].id == this.selected[i]) {
+                            var temp = {};
+                            temp.id = this.selected[i];
+                            temp.name = scope.selectedCharges[j].name;
+                            scope.availableCharges.push(temp);
+                            scope.selectedCharges.splice(j, 1);
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove selected items in above loop, all items will not be moved to availableRoles
+                for (var i in this.selected) {
+                    for (var j in scope.availableCharges) {
+                        if (scope.availableCharges[j].id == this.selected[i]) {
+                            scope.selected.splice(i, 1);
+                        }
+                    }
+                }
+            };
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
                 switch(chargeAppliesId) {
@@ -135,6 +189,14 @@
                 this.formData.active = this.formData.active || false;
                 this.formData.locale = scope.optlang.code;
                 this.formData.monthDayFormat = 'dd MMM';
+                if (scope.selectedCharges.length == 0){
+                  delete scope.formData.subCharges;
+                } else {
+                  for (var i in scope.selectedCharges) {
+                      scope.formData.subCharges.push(scope.selectedCharges[i].id) ;
+                  }
+                }
+
                 resourceFactory.chargeResource.save(this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
                 });
