@@ -344,7 +344,7 @@
                                 .then(function(response) {
                                     let data = response.data;
                                     let status = response.status;
-                                    let headers = response.header;
+                                    let headers = response.headers;
                                     let config = response.config;
                                     var contentType = headers('Content-Type');
                                     var file = new Blob([data], {type: contentType});
