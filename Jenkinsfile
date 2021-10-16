@@ -7,8 +7,7 @@ pipeline {
         DOCKER_PASSWORD = credentials('docker-password')
         DOCKER_ENV="development"
         REGISTRY = credentials('docker-registry')
-        HARBOR_NAMESPACE = credentials('docker-namespace')
-        JAVA_HOME = '/usr/lib/jvm/zulu11-ca-amd64/'
+        HARBOR_NAMESPACE = credentials('docker-namespace')        
         GIT_BRANCH = 'develop'
         GIT_URL = 'https://github.com/openMF/community-app.git'
         COMPANY = 'mifos'
