@@ -4,7 +4,7 @@
 
             scope.configId = routeParams.configId;
             resourceFactory.configurationResource.get({id: scope.configId}, function (data) {
-                scope.formData = {value: data.value};
+                scope.formData = {value: data.value, stringValue: data.stringValue};
             });
             scope.cancel = function () {
                 location.path('/global');
