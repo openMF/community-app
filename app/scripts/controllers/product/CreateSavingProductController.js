@@ -18,24 +18,6 @@
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
-                scope.paymentOptions = [];
-                //
-                scope.accountMappingForPayment = scope.product.accountMappingForPayment;
-                var accountMappingForPaymentVar = scope.accountMappingForPayment;
-                if(accountMappingForPaymentVar.indexOf("Asset") > -1){
-                    scope.paymentOptions = scope.paymentOptions.concat(scope.assetAccountOptions);
-                }
-                if(accountMappingForPaymentVar.indexOf("Liability") > -1){
-                    scope.paymentOptions = scope.paymentOptions.concat(scope.liabilityAccountOptions);
-                }
-               if(accountMappingForPaymentVar.indexOf("Expense") > -1){
-                scope.paymentOptions = scope.paymentOptions.concat(scope.expenseAccountOptions);
-                }
-               if(accountMappingForPaymentVar.indexOf("Income") > -1){
-                scope.paymentOptions = scope.paymentOptions.concat(scope.incomeAccountOptions);
-                }
-                
-
 
                 scope.formData.currencyCode = data.currencyOptions[0].code;
                 scope.formData.digitsAfterDecimal = data.currencyOptions[0].decimalPlaces;
@@ -96,12 +78,12 @@
 
             scope.addConfigureFundSource = function () {
                 if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 &&
-                    scope.paymentOptions && scope.paymentOptions.length > 0) {
+                    scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
                     scope.configureFundOptions.push({
                         paymentTypeId: scope.product.paymentTypeOptions[0].id,
-                        fundSourceAccountId: scope.paymentOptions[0].id,
+                        fundSourceAccountId: scope.assetAccountOptions[0].id,
                         paymentTypeOptions: scope.product.paymentTypeOptions,
-                        assetAccountOptions: scope.paymentOptions
+                        assetAccountOptions: scope.assetAccountOptions
                     });
                 }
                 ;
