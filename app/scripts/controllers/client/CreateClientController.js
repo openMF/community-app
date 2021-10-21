@@ -102,9 +102,9 @@
 
                 	   if (scope.enableAddress === true) {
                            scope.addressTypes = data.address[0].addressTypeIdOptions;
-                           scope.countryOptions = data.address.countryIdOptions;
-                           scope.stateOptions = data.address.stateProvinceIdOptions;
-                       
+                           scope.countryOptions = data.address[0].countryIdOptions;
+                           scope.stateOptions = data.address[0].stateProvinceIdOptions;
+
                     resourceFactory.addressFieldConfiguration.get({entity:entityname},function(data){
 
                         for(var i=0;i<data.length;i++)
