@@ -45,6 +45,23 @@
                     daysToDormancy: data.daysToDormancy,
                     daysToEscheat: data.daysToEscheat
                 }
+                scope.paymentOptions = [];
+                //
+                scope.accountMappingForPayment = scope.product.accountMappingForPayment.toLowerCase();
+                var accountMappingForPaymentVar = scope.accountMappingForPayment;
+                if(accountMappingForPaymentVar.indexOf("asset") > -1){
+                    scope.paymentOptions = scope.paymentOptions.concat(scope.assetAccountOptions);
+                }
+                if(accountMappingForPaymentVar.indexOf("liability") > -1){
+                    scope.paymentOptions = scope.paymentOptions.concat(scope.liabilityAccountOptions);
+                }
+               if(accountMappingForPaymentVar.indexOf("expense") > -1){
+                scope.paymentOptions = scope.paymentOptions.concat(scope.expenseAccountOptions);
+                }
+               if(accountMappingForPaymentVar.indexOf("income") > -1){
+                scope.paymentOptions = scope.paymentOptions.concat(scope.incomeAccountOptions);
+                }
+
 
                 if(data.withHoldTax){
                     scope.formData.taxGroupId = data.taxGroup.id;
@@ -65,6 +82,8 @@
                 scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
                 scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
 
+                
+
                 _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                     scope.configureFundOptions.push({
                         paymentTypeId: fundSource.paymentType.id,
@@ -73,7 +92,7 @@
                         assetAccountOptions: scope.assetAccountOptions
                     })
                 });
-
+                
                 _.each(scope.product.feeToIncomeAccountMappings, function (fees) {
                     scope.specificIncomeaccounts.push({
                         chargeId: fees.charge.id,
@@ -120,16 +139,17 @@
                 scope.charges.splice(index, 1);
             }
 
-            scope.addConfigureFundSource = function () {
+             scope.addConfigureFundSource = function () {
                 if (scope.product.paymentTypeOptions && scope.product.paymentTypeOptions.length > 0 &&
-                    scope.assetAccountOptions && scope.assetAccountOptions.length > 0) {
+                    scope.paymentOptions && scope.paymentOptions.length > 0) {
                     scope.configureFundOptions.push({
                         paymentTypeId: scope.product.paymentTypeOptions[0].id,
-                        fundSourceAccountId: scope.assetAccountOptions[0].id,
+                        fundSourceAccountId: scope.paymentOptions[0].id,
                         paymentTypeOptions: scope.product.paymentTypeOptions,
-                        assetAccountOptions: scope.assetAccountOptions
+                        assetAccountOptions: scope.paymentOptions
                     });
                 }
+                ;
             }
 
             scope.mapFees = function () {
