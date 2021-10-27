@@ -13,6 +13,25 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.assetAccountOptions = data.assetAccountOptions || [];
+                scope.expenseAccountOptions = data.expenseAccountOptions;
+                scope.accountMappingForChargeConfig = data.accountMappingForChargeConfig;
+                scope.accountMappingForCharge= [];
+                
+                var accountMappingForChargeConfigVar = scope.accountMappingForChargeConfig.toLowerCase();
+
+                if(accountMappingForChargeConfigVar.indexOf("asset") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.assetAccountOptions);
+                }
+                if(accountMappingForChargeConfigVar.indexOf("liability") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.liabilityAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("expense") > -1){
+                scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.expenseAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("income") > -1){
+                scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.incomeAccountOptions);
+                }
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
@@ -24,6 +43,7 @@
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
+                    scope.showGLAccount = true;
                 }else if(data.chargeAppliesTo.value === 'Shares') {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
@@ -52,8 +72,8 @@
                 };
 
                 if(data.incomeOrLiabilityAccount){
-                    scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
-                }
+                    scope.formData.incomeAccountId = data.accountMappingForCharge.id;   
+                } 
 
                 if(data.taxGroup){
                     scope.formData.taxGroupId = data.taxGroup.id;
