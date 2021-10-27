@@ -21,6 +21,26 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+
+                scope.assetAccountOptions = data.assetAccountOptions || [];
+                scope.expenseAccountOptions = data.expenseAccountOptions;
+                scope.accountMappingForChargeConfig = data.accountMappingForChargeConfig;
+                scope.accountMappingForCharge = [];
+                
+                var accountMappingForChargeConfigVar = scope.accountMappingForChargeConfig.toLowerCase();
+
+                if(accountMappingForChargeConfigVar.indexOf("asset") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.assetAccountOptions);
+                }
+                if(accountMappingForChargeConfigVar.indexOf("liability") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.liabilityAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("expense") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.expenseAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("income") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.incomeAccountOptions);
+                }
             });
 
             scope.chargeAppliesToSelected = function (chargeAppliesId) {
@@ -36,7 +56,7 @@
                         scope.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
-                        scope.showGLAccount = false;
+                        scope.showGLAccount = true;
                         break ;
                     case 3:
                         scope.showChargePaymentByField = false;
@@ -52,8 +72,10 @@
                         scope.addfeefrequency = false;
                         scope.showGLAccount = false;
                         scope.showPenalty = false ;
-                        break ;
+                            break ;
                 }
+                
+                
             }
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
