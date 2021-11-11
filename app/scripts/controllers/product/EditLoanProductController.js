@@ -72,6 +72,7 @@
                     maxInterestRatePerPeriod: scope.product.maxInterestRatePerPeriod,
                     interestRateFrequencyType: scope.product.interestRateFrequencyType.id,
                     amortizationType: scope.product.amortizationType.id,
+                    fixedPrincipalPercentagePerInstallment: scope.product.fixedPrincipalPercentagePerInstallment,
                     interestType: scope.product.interestType.id,
                     interestCalculationPeriodType: scope.product.interestCalculationPeriodType.id,
                     allowPartialPeriodInterestCalcualtion:scope.product.allowPartialPeriodInterestCalcualtion,
@@ -564,6 +565,10 @@
 
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
+                }
+
+                if(this.formData.amortizationType != 0){
+                    this.formData.fixedPrincipalPercentagePerInstallment = null;
                 }
 
                 if (this.formData.recalculationCompoundingFrequencyType == 4) {
