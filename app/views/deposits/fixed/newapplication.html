@@ -262,6 +262,29 @@
                             </td>
 
                         </tr>
+                        <tr >
+                            <td>
+                                <label class="control-label">{{ 'label.input.maturity.instruction' | translate }}</label>
+                            </td>
+                            <td>
+                                <select id="depositRollover" ng-model="formData.maturityInstructionId" ng-options="depositRollover.id as depositRollover.value for depositRollover in depositRolloverOptions"
+                                        class="form-control width170px" value="{{depositRollover.id}}" ng-change="changeMaturityInstruction()">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-if="formData.maturityInstructionId == 200">
+                            <td >
+                                <label class="control-label">{{ 'label.input.transfer.to.account' | translate }}&nbsp;
+                                </label>
+                            </td>
+                            <td >
+                                <select id="depositRollover" ng-model="formData.transferToSavingsId" ng-options="savingsAccount.id as savingsAccount.accountNo for savingsAccount in savingsAccounts"
+                                class="form-control width170px" value="{{savingsAccount.id}}" ng-change="changeMaturityInstruction()">
+                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                            </select>
+                            </td>
+                        </tr>
+    
                         <tr ng-show="data.taxGroup">
                             <td colspan="2" class="paddedbottom10">
                                 <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
@@ -493,6 +516,18 @@
                         <tr>
                             <td>{{ 'label.input.linksavings' | translate }}</td>
                             <td colspan="6">{{fixedDetails.linkAccountName}}</td>
+                        </tr>
+                        <tr ng-if="maturityDetails.maturityInstructionId ">
+                            <td class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                            </td>
+                            <td><span
+                                    class="padded-td">{{maturityDetails.onAccountClosure.value}}
+                                    <span ng-if="maturityDetails.maturityInstructionId == 300|| maturityDetails.maturityInstructionId == 400">
+                                        (Re-Invest) </span> 
+                                    <span ng-if="maturityDetails.maturityInstructionId == 200">
+                                            (to) {{maturityDetails.transferToSavingsAccount.accountNo}}</span>                  
+                                </span>
+                            </td>
                         </tr>
                         <tr ng-show="data.taxGroup">
                             <td>{{ 'label.input.withholdtax' | translate }}</td>
