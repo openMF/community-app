@@ -84,7 +84,7 @@
                 if(!objTypeUrlMap[notification.objectType] ){
                     return;
                 }
-                location.path(objTypeUrlMap[notification.objectType] + notification.objectId);
+                location.path(objTypeUrlMap[notification.objectType] + notification.objectIdentifier);
             };
             scope.countFromLastResponse = function() {
                 scope.counter++;
