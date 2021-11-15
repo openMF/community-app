@@ -27,10 +27,10 @@
                     scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.liabilityAccountOptions);
                 }
                if(accountMappingForChargeConfigVar.indexOf("expense") > -1){
-                scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.expenseAccountOptions);
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.expenseAccountOptions);
                 }
                if(accountMappingForChargeConfigVar.indexOf("income") > -1){
-                scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.incomeAccountOptions);
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.incomeAccountOptions);
                 }
 
                 if (data.chargeAppliesTo.value === "Loan") {
@@ -70,9 +70,9 @@
                     chargeCalculationType: data.chargeCalculationType.id,
                     amount: data.amount
                 };
-
+                console.log(data.incomeOrLiabilityAccount);
                 if(data.incomeOrLiabilityAccount){
-                    scope.formData.incomeAccountId = data.accountMappingForCharge.id;   
+                    scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
                 } 
 
                 if(data.taxGroup){
