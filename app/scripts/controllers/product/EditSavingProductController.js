@@ -62,7 +62,6 @@
                 scope.paymentOptions = scope.paymentOptions.concat(scope.incomeAccountOptions);
                 }
 
-
                 if(data.withHoldTax){
                     scope.formData.taxGroupId = data.taxGroup.id;
                 }
@@ -71,18 +70,36 @@
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
-                scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
+                if(data.accountingMappings.savingsReferenceAccount){
+                    scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
+                }
+                if(data.accountingMappings.savingsControlAccount){
+                    scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
+                }
+                if(data.accountingMappings.transfersInSuspenseAccount){
                 scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
-                scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
-                scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
-                scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
-                scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
-                scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
-                scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
-                scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
-
-                
+                }
+                if(data.accountingMappings.escheatLiabilityAccount){
+                    scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount.id;
+                }
+                if(data.accountingMappings.incomeFromFeeAccount){
+                    scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
+                }
+                if(data.accountingMappings.incomeFromPenaltyAccount){
+                    scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
+                }
+                if(data.accountingMappings.interestOnSavingsAccount){
+                    scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
+                }
+                if(data.accountingMappings.writeOffAccount){
+                    scope.formData.writeOffAccountId = data.accountingMappings.writeOffAccount.id;
+                }
+                if(data.accountingMappings.overdraftPortfolioControl){
+                    scope.formData.overdraftPortfolioControlId = data.accountingMappings.overdraftPortfolioControl.id;
+                }
+                if(data.accountingMappings.incomeFromInterest){
+                    scope.formData.incomeFromInterestId = data.accountingMappings.incomeFromInterest.id;
+                }
 
                 _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                     scope.configureFundOptions.push({
