@@ -316,6 +316,7 @@
                     scope.paymentDatefield = true;
                     scope.modelName = 'dueDate';
                     scope.taskPermissionName = 'PAY_SAVINGSACCOUNTCHARGE';
+                    scope.showNoteField = true; 
                     break;
                 case "inactivate":
                     scope.inactivateCharge = true;
