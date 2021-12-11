@@ -86,7 +86,9 @@
                     clientIdenfierResource: defineResource(apiVer + "/clients/:clientId/identifiers/:id", {clientId: '@clientId', id: '@id'}, {
                         get: {method: 'GET', params: {}}
                     }),
-
+                    clientDocumentTemplateResource: defineResource(apiVer + "/clients/:clientId/documentsuploaded", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
                     surveyResource: defineResource(apiVer + "/surveys/:surveyId", {surveyId: '@surveyId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         get: {method: 'GET', params: {surveyId: '@surveyId'}, isArray: false},

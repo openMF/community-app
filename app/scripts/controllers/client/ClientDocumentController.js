@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientDocumentController: function (scope, location, http, routeParams, API_VERSION, Upload, $rootScope) {
+        ClientDocumentController: function (scope, location, resourceFactory, http, routeParams, API_VERSION, Upload, $rootScope) {
             scope.clientId = routeParams.clientId;
             scope.onFileSelect = function (files) {
                 scope.formData.file = files[0];
@@ -18,9 +18,13 @@
                         location.path('/viewclient/' + scope.clientId);
                     });
             };
+
+            resourceFactory.codeValueResource.getAllCodeValues({codeId: 34}, function (data) {
+                scope.documenttypes = data;
+            });
         }
     });
-    mifosX.ng.application.controller('ClientDocumentController', ['$scope', '$location', '$http', '$routeParams', 'API_VERSION', 'Upload', '$rootScope', mifosX.controllers.ClientDocumentController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientDocumentController', ['$scope', '$location', 'ResourceFactory', '$http', '$routeParams', 'API_VERSION', 'Upload', '$rootScope', mifosX.controllers.ClientDocumentController]).run(function ($log) {
         $log.info("ClientDocumentController initialized");
     });
 }(mifosX.controllers || {}));
