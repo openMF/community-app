@@ -1,0 +1,51 @@
+name: Build and Deploy Registrar to S3
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Source branch (default dev, dev/master/'staging'/specific branch or tag)
+        default: 'dev'
+        required: true
+      environment:
+        description: Target environment on AWS (default dev, dev/staging/'prod'/other environnment)
+        default: 'dev'
+        required: true
+env:
+  AWS_REGION: 'us-east-1'
+  AWS_S3_BUCKET: 'demo'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Node 14
+        uses: actions/setup-node@v2
+        with:
+            node-version: '14'
+            cache: 'npm'
+      - run: npm install -g bower
+      - run: npm install -g grunt-cli
+      # Install Dependencies
+      - name: bower install
+        run: |
+          bower --allow-root install
+      - name: npm install
+        run: |
+          npm install
+      - name: bundle install
+        run: |
+          bundle install
+      - name: bower install
+        run: |
+          grunt prod
+      # SYNC to S3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync ./dist/community-app s3://${{ env.AWS_S3_BUCKET }} --delete
