@@ -1,0 +1,49 @@
+name: VFD Ghana Production deployment
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment: Production'
+        options: ['Production']
+        required: true
+        default: 'Production'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.FITER_DOCKER_USERNAME }}
+          password: ${{ secrets.FITER_DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
+          repository: fiter1/community-app/vfd-frontend
+          tags: latest
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_VFD_GHANA_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_VFD_GHANA_PROD }}
+          aws-region: eu-west-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: vfd-ghana-frontend-prod
+          IMAGE_TAG: ${{ steps.extract_branch.outputs.branch }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
