@@ -24,6 +24,9 @@
 
             scope.charges = [];
             scope.inparams = {};
+
+            scope.maturityDetails = {};
+
             if (scope.clientId) {
                 scope.inparams.clientId = scope.clientId
             }
@@ -210,8 +213,21 @@
                 }
             }
             scope.changeMaturityInstruction = function(){
-                scope.formData.transferToSavingsId =null;
-            }
+                
+                scope.maturityDetails.maturityInstructionId = scope.formData.maturityInstructionId;
+                // scope.maturityDetails.onAccountClosure = scope.depositRolloverOptions.find(function(item){
+                //     return item.id == scope.formData.maturityInstructionId
+                // });
+
+                scope.maturityDetails.onAccountClosure = _.find(scope.depositRolloverOptions,function(item){
+                    return item.id == scope.formData.maturityInstructionId;
+                });
+                
+                scope.maturityDetails.transferToSavingsAccount = _.find(scope.savingsAccounts,function(item){ 
+                    return item.id == scope.formData.transferToSavingsId;
+                });
+                  
+            }          
 
             /**
              * Add a new row with default values for entering chart details

@@ -45,6 +45,13 @@
                                 <option value="">{{'label.selectfieldofficer' | translate}}</option>
                             </select>
                         </td>
+                        <td class="width14">
+                            <label>{{ 'label.input.externalid' | translate }}
+                            </label>
+                        </td>
+                        <td class="width36 paddedbottom20">
+                            <input ng-show="formData.productId" id="externalId" ng-model="formData.externalId" class="form-control" />
+                        </td>
                     </tr>
                 </table>
                 <hr>
@@ -255,6 +262,29 @@
                             </td>
 
                         </tr>
+                        <tr >
+                            <td>
+                                <label class="control-label">{{ 'label.input.maturity.instruction' | translate }}</label>
+                            </td>
+                            <td>
+                                <select id="depositRollover" ng-model="formData.maturityInstructionId" ng-options="depositRollover.id as depositRollover.value for depositRollover in depositRolloverOptions"
+                                        class="form-control width170px" value="{{depositRollover.id}}" ng-change="changeMaturityInstruction()">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-if="formData.maturityInstructionId == 200">
+                            <td >
+                                <label class="control-label">{{ 'label.input.transfer.to.account' | translate }}&nbsp;
+                                </label>
+                            </td>
+                            <td >
+                                <select id="depositRollover" ng-model="formData.transferToSavingsId" ng-options="savingsAccount.id as savingsAccount.accountNo for savingsAccount in savingsAccounts"
+                                class="form-control width170px" value="{{savingsAccount.id}}" ng-change="changeMaturityInstruction()">
+                                <option value="">{{'label.menu.selectone' | translate}}</option>
+                            </select>
+                            </td>
+                        </tr>
+    
                         <tr ng-show="data.taxGroup">
                             <td colspan="2" class="paddedbottom10">
                                 <input type="checkbox" ng-model="formData.withHoldTax"> &nbsp;<span
@@ -412,6 +442,10 @@
                             <td>{{ 'label.input.fieldofficer' | translate }}</td>
                             <td colspan="6">{{fixedDetails.fieldOfficerName}}</td>
                         </tr>
+                        <tr ng-show="formData.externalId">
+                            <td>{{ 'label.input.externalid' | translate}}</td>
+                            <td colspan="6">{{formData.externalId}}</td>
+                        </tr>
                         <tr>
                             <td colspan="7"><br></td>
                         </tr>
@@ -482,6 +516,18 @@
                         <tr>
                             <td>{{ 'label.input.linksavings' | translate }}</td>
                             <td colspan="6">{{fixedDetails.linkAccountName}}</td>
+                        </tr>
+                        <tr ng-if="maturityDetails.maturityInstructionId ">
+                            <td class="active fontnormal">{{'label.input.maturity.instruction' | translate}}
+                            </td>
+                            <td><span
+                                    class="padded-td">{{maturityDetails.onAccountClosure.value}}
+                                    <span ng-if="maturityDetails.maturityInstructionId == 300|| maturityDetails.maturityInstructionId == 400">
+                                        (Re-Invest) </span> 
+                                    <span ng-if="maturityDetails.maturityInstructionId == 200">
+                                            (to) {{maturityDetails.transferToSavingsAccount.accountNo}}</span>                  
+                                </span>
+                            </td>
                         </tr>
                         <tr ng-show="data.taxGroup">
                             <td>{{ 'label.input.withholdtax' | translate }}</td>

@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce) {
+        RunReportsController: function (scope, routeParams, resourceFactory, location, dateFilter, http, API_VERSION, $rootScope, $sce, $log) {
             scope.isCollapsed = false; //displays options div on startup
             scope.hideTable = true; //hides the results div on startup
             scope.hidePentahoReport = true; //hides the results div on startup
@@ -340,15 +340,23 @@
                             // http://docs.angularjs.org/error/$sce/insecurl
                             reportURL = $sce.trustAsResourceUrl(reportURL);
                             reportURL = $sce.valueOf(reportURL);
-                            http.get(reportURL, {responseType: 'arraybuffer'}).
-                              success(function(data, status, headers, config) {
-                                var contentType = headers('Content-Type');
-                                var file = new Blob([data], {type: contentType});
-                                var fileContent = URL.createObjectURL(file);
+                            http.get(reportURL, {responseType: 'arraybuffer'})
+                                .then(function(response) {
+                                    let data = response.data;
+                                    let status = response.status;
+                                    let headers = response.headers;
+                                    let config = response.config;
+                                    var contentType = headers('Content-Type');
+                                    var file = new Blob([data], {type: contentType});
+                                    var fileContent = URL.createObjectURL(file);
 
-                                // Pass the form data to the iframe as a data url.
-                                scope.baseURL = $sce.trustAsResourceUrl(fileContent);
-                              });
+                                    // Pass the form data to the iframe as a data url.
+                                    scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              })
+                            .catch(function(error){
+                                $log.error(`Error loading ${scope.reportType} report`);
+                                $log.error(error);
+                            });
                             break;
                         case "Chart":
                             scope.hideTable = true;
@@ -390,7 +398,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', mifosX.controllers.RunReportsController]).run(function ($log) {
+    mifosX.ng.application.controller('RunReportsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$http', 'API_VERSION', '$rootScope', '$sce', '$log', mifosX.controllers.RunReportsController]).run(function ($log) {
         $log.info("RunReportsController initialized");
     });
 }(mifosX.controllers || {}));

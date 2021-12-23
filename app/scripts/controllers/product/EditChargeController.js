@@ -13,18 +13,60 @@
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+                scope.assetAccountOptions = data.assetAccountOptions || [];
+                scope.expenseAccountOptions = data.expenseAccountOptions;
+                scope.accountMappingForChargeConfig = data.accountMappingForChargeConfig;
+                scope.accountMappingForCharge= [];
+                
+                var accountMappingForChargeConfigVar = scope.accountMappingForChargeConfig.toLowerCase();
+
+                if(accountMappingForChargeConfigVar.indexOf("asset") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.assetAccountOptions);
+                }
+                if(accountMappingForChargeConfigVar.indexOf("liability") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.liabilityAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("expense") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.expenseAccountOptions);
+                }
+               if(accountMappingForChargeConfigVar.indexOf("income") > -1){
+                    scope.accountMappingForCharge = scope.accountMappingForCharge.concat(scope.incomeAccountOptions);
+                }
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
-                    scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
+                    scope.template.chargeCalculationTypeOptions = scope.paymentTypes.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
+                    scope.paymentTypeOptions = data.paymentTypeOptions;
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
-                }else if(data.chargeAppliesTo.value === 'Shares') {
+                    scope.showGLAccount = true;
+                    if(data.freeWithdrawal === true) {
+                        scope.showenablefreewithdrawal = true;
+                        scope.showpaymenttype = true;
+                        scope.showfreewithdrawalfrequency = true;
+                        scope.showrestartfrequency = true;
+                        scope.enableFreeWithdrawalCharge = true;
+                    }
+                    else{
+                        scope.showenablefreewithdrawal = true;
+                        scope.showpaymenttype = true;
+                    }
+                    if(data.isPaymentType === true){
+                        scope.showenablepaymenttype = true;
+                        scope.enablePaymentType = true;
+                    }
+                    else{
+                        scope.showenablepaymenttype = true;
+                        scope.enablePaymentType = false;
+                        scope.showpaymenttype = false;
+                    }
+
+                } else if(data.chargeAppliesTo.value === 'Shares') {
                     scope.showChargePaymentByField = false;
                     scope.chargeCalculationTypeOptions = scope.template.shareChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.shareChargeTimeTypeOptions;
@@ -43,17 +85,23 @@
                 scope.formData = {
                     name: data.name,
                     active: data.active,
+                    enableFreeWithdrawalCharge: data.freeWithdrawal,
+                    enablePaymentType: data.isPaymentType,
+                    freeWithdrawalFrequency:data.freeWithdrawalChargeFrequency,
+                    restartCountFrequency: data.restartFrequency,
+                    countFrequencyType: data.restartFrequencyEnum,
                     penalty: data.penalty,
                     currencyCode: data.currency.code,
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
+                    paymentTypeId: data.paymentTypeOptions.id,
                     amount: data.amount
                 };
-
+                console.log(data.incomeOrLiabilityAccount);
                 if(data.incomeOrLiabilityAccount){
-                    scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;
-                }
+                    scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
+                } 
 
                 if(data.taxGroup){
                     scope.formData.taxGroupId = data.taxGroup.id;
@@ -136,6 +184,37 @@
                 };
             };
 
+            resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
+                scope.product = data;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
+                const i = 1;
+                scope.filteredItems = scope.product.repaymentFrequencyTypeOptions.slice(0, i).concat(scope.product.repaymentFrequencyTypeOptions.slice(i + 1, scope.product.repaymentFrequencyTypeOptions.length));
+            });
+
+            resourceFactory.paymentTypeResource.getAll( function (data) {
+
+            });
+
+            scope.setOptions = function() {
+                if (this.formData.enableFreeWithdrawalCharge) {
+                    scope.showfreewithdrawalfrequency = true;
+                    scope.showrestartfrequency = true;
+
+                } else if (!this.formData.freewithdrawal) {
+                    scope.showfreewithdrawalfrequency = false;
+                    scope.showrestartfrequency = false;
+                }
+
+                if(this.formData.enablePaymentType){
+                    scope.showpaymenttype = true;
+                    scope.showenablepaymenttype = true;
+                }
+                else if(!this.formData.enablePaymentType){
+                    scope.showpaymenttype = false;
+                    scope.showenablepaymenttype = true;
+                }
+            };
+
             scope.submit = function () {
                 if (scope.formData.chargeAppliesTo === 2) {
                     if (scope.showdatefield === true) {
@@ -149,6 +228,8 @@
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.active = this.formData.active || false;
+                this.formData.enableFreeWithdrawalCharge = this.formData.enableFreeWithdrawalCharge || false;
+                this.formData.enablePaymentType = this.formData.enablePaymentType || false;
                 this.formData.penalty = this.formData.penalty || false;
                 resourceFactory.chargeResource.update({chargeId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewcharge/' + data.resourceId);
