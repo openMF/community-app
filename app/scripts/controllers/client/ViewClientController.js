@@ -16,6 +16,7 @@
             scope.showRecurring = false;
             scope.updateDefaultSavings = false;
             scope.charges = [];
+            scope.legalform = 'm_client';
 
 
             // address
@@ -269,7 +270,23 @@
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                 });
+
+                if(data.legalForm.value != null){
+                    if (data.legalForm.value === 'PERSON') {
+                        scope.legalform = 'm_client_person'
+                    } else if (data.legalForm.value === 'ENTITY') {
+                        scope.legalform = 'm_client_entity'
+                    }
+                    resourceFactory.DataTablesResource.getAllDataTables({apptable: scope.legalform}, function (data) {
+                        scope.clientdatatables = data;
+                    });
+                }
             });
+
+            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
+                scope.clientdatatables = data;
+            });
+
             scope.deleteClient = function () {
                 $uibModal.open({
                     templateUrl: 'deleteClient.html',
@@ -663,10 +680,6 @@
                     }
                 });
             };
-
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
-                scope.clientdatatables = data;
-            });
 
             scope.dataTableChange = function (clientdatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
