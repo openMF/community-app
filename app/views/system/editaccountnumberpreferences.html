@@ -30,9 +30,13 @@
                         <label class="control-label col-sm-2">{{'label.input.prefixField' | translate}}</label>
                         <div class="col-sm-3">
                             <select chosen="prefixTypeOptions"  id="prefixType" ng-model="formData.prefixType"  class="form-control"
-                                    ng-options="accountNumberPrefixType.id as accountNumberPrefixType.value for accountNumberPrefixType in prefixTypeOptions"
-                                    value="{{accountNumberPrefixType.id}}">
+                             ng-options="accountNumberPrefixType.id as accountNumberPrefixType.value for accountNumberPrefixType in prefixTypeOptions"
+                             value="{{accountNumberPrefixType.id}}" ng-change="accountNumberPrefix(formData.prefixType)">
                             </select>
+                        </div>
+                        <div class="col-sm-3" ng-show="addCharacter">
+                            <input type="text" name="prefixCharacter" ng-model="formData.prefixCharacter" ng-maxlength="maxlength"/>
+                            <span style="color:red" ng-show="editprefform.prefixCharacter.$error.maxlength">Prefix should NOT EXCEED length of the Account Number Length</span>
                         </div>
                     </div>
                     <div class="col-md-offset-5">

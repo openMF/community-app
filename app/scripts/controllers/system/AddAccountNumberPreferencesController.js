@@ -3,6 +3,7 @@
         AddAccountNumberPreferencesController: function (scope, resourceFactory, location, routeParams) {
             scope.formData = {};
             scope.addPrefix = true;
+            scope.addCharacter = false;
 
             resourceFactory.accountNumberTemplateResource.get(function(data){
                 scope.data = data;
@@ -26,6 +27,28 @@
                     scope.prefixTypeOptions = scope.data.prefixTypeOptions["accountType.group"];
                 }
             }
+
+            scope.accountNumberPrefix = function (prefixType) {
+                for (var i in scope.prefixTypeOptions) {
+                    if (prefixType === scope.prefixTypeOptions[i].id) {
+                        if (scope.prefixTypeOptions[i].value == "PREFIX_SHORT_NAME"){
+                            scope.addCharacter = true;
+                        }
+                        else{
+                            scope.addCharacter = false;
+                        }
+                    }
+                }
+            }
+            resourceFactory.configurationResource.get({'id': 40},function (data) {
+                scope.isMaxlengthEnable = data.enabled;
+                if(scope.isMaxlengthEnable == true){
+                    scope.maxlength = data.value - 1;
+                }
+                else{
+                    scope.maxlength = 8;
+                }
+            });
 
             scope.cancel = function(){
                 location.path('/accountnumberpreferences');
