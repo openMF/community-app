@@ -10,6 +10,7 @@
             scope.hideAccrualTransactions = false;
             scope.isHideAccrualsCheckboxChecked = true;
             scope.loandetails = [];
+            scope.postdatedchecks = [];
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
                 if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1) {
                     $rootScope.rates = scope.loandetails.rates;
@@ -27,6 +28,13 @@
                     scope.loandetails.transactions[i][dateFieldName] = new Date(scope.loandetails.transactions[i].date);
                 }
             };
+            
+             resourceFactory.postDatedChecks.getAll({loanId: routeParams.id},function(data)
+            {
+
+                scope.postdatedchecks=data;
+
+            });
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
@@ -73,7 +81,14 @@
                         location.path('/loanaccount/' + accountId + '/undodisbursal');
                         break;
                     case "makerepayment":
-                        location.path('/loanaccount/' + accountId + '/repayment');
+                    	 if (scope.postdatedchecks.length === 0) {
+                            location.path('/loanaccount/' + accountId + '/repayment');
+                    	 } else {
+				 $uibModal.open({
+				    templateUrl: 'makerepayment.html',
+				    controller: RepaymentCtrl
+				});                 	 
+                    	 }
                         break;
                     case "prepayment":
                         location.path('/loanaccount/' + accountId + '/prepayloan');
@@ -124,6 +139,12 @@
                         break;
                 }
             };
+            
+            var RepaymentCtrl = function ($scope, $uibModalInstance) {
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
 
             scope.delCharge = function (id) {
                 $uibModal.open({
@@ -149,6 +170,15 @@
                     $uibModalInstance.dismiss('cancel');
                 };
             };
+
+            scope.postDatedChecks = [];
+
+            scope.viewPostDatedChecks = function (id) {
+                resourceFactory.postDatedChecks.get({loanId: routeParams.id, installmentId: id}, function(data) {
+                    scope.postDatedChecks = data;
+                    location.path('/loan/' + scope.loandetails.id + '/viewpostdatedcheck/' + id);
+                })
+            }
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id, associations: 'all',exclude: 'guarantors,futureSchedule'}, function (data) {
                 scope.loandetails = data;

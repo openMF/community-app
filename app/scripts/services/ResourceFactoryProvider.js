@@ -218,6 +218,14 @@
                         getLoanAccountDetails: {method: 'GET', params: {}},
                         update: {method: 'PUT'}
                     }),
+                    postDatedChecks: defineResource(apiVer + "/loans/:loanId/postdatedchecks/:installmentId", {loanId: '@loanId', installmentId: '@installmentId'}, {
+                        get: {method: 'GET', params: {}},
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    postDatedCheckById: defineResource(apiVer + "/loans/:loanId/postdatedchecks/:id", {loanId: '@loanId', id: '@id', editType: '@editType'}, {
+                        update: {method: 'PUT', params: {editType: '@editType'}},
+                        delete: {method: 'DELETE', params: {}}
+                    }),   
                     glimLoan: defineResource(apiVer + "/loans/glimAccount/:glimId", {glimId:'@glimId',command: '@command'}, {
                         post: {method: 'POST', params: {}}
                     }),

@@ -1,0 +1,70 @@
+
+<div class="content-container" ng-controller="ViewPostDatedChecksController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.loans' | translate}}</a></li>
+        <li class="active">{{postDatedCheckID}}</li>
+    </ul>
+    <div class="card well">
+        <h3 class="bolder"> Post Dated Check
+            <div class="form-group pull-right" ng-if="postDatedCheck.status !== null">
+             <a href="#/viewloanaccount/{{loanId}}/bouncepostdatedcheck/{{postDatedCheck.installmentId}}" class="btn btn-primary" has-permission='BOUNCE_POST_DATED_CHECK'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.bounce' | translate}}</a>
+             <a href="#/viewloanaccount/{{loanId}}/editpostdatedcheck/{{postDatedCheck.installmentId}}" class="btn btn-primary" has-permission='UPDATE_POST_DATED_CHECK'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+             <button type="button" data-ng-click="clearPostDatedCheck()" class="btn btn-danger" has-permission='CLEAR_POST_DATED_CHECK' ng-if="paymentTypes.length > 0"><i
+                     class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.clear' | translate}}
+             </button>
+         </div>
+        </h3>
+        <hr>
+    <script type="text/ng-template" id="paymentType.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.paymentType' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="clearPostDatedCheck.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.clear' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="clear()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{'label.heading.name' | translate}}</td>
+                    <td>{{postDatedCheck.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.checkNo' | translate}}</td>
+                    <td>{{postDatedCheck.checkNo}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.date' | translate}}</td>
+                    <td>{{postDatedCheck.installmentDate | date}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.amount' | translate}}</td>
+                    <td>{{postDatedCheck.amount}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.accountNo' | translate}}</td>
+                    <td>{{postDatedCheck.accountNo}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.installment' | translate}}</td>
+                    <td>{{postDatedCheck.installmentId}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</div> 

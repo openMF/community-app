@@ -21,6 +21,7 @@
             scope.processDate = false;
             scope.submittedDatatables = [];
             var submitStatus = [];
+            scope.postDatedChecks = [];
 
             rootScope.RequestEntities = function(entity,status,productId){
                 resourceFactory.entityDatatableChecksResource.getAll({limit:-1},function (response) {
@@ -167,6 +168,12 @@
                     scope.modelName = 'actualDisbursementDate';
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'disburse'}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.numberOfRepayments = data.numberOfRepayments;
+                        scope.formData.isPostDatedCheck = false;
+                        scope.postDatedChecks = data.loanRepaymentScheduleInstallments;
+                        for (var i=0; i< scope.postDatedChecks.length; i++) {
+                            scope.postDatedChecks[i].date = new Date(scope.postDatedChecks[i].date);
+                        }
                         if (data.paymentTypeOptions.length > 0) {
                             scope.formData.paymentTypeId = data.paymentTypeOptions[0].id;
                         }
@@ -509,6 +516,21 @@
                     }
                 }
 
+                if (scope.action === 'disburse') {
+                    // Get post dated checks
+                    scope.postDatedChecksArray = [];
+
+                    if (scope.formData.isPostDatedCheck) {
+                        for (var i=0; i<scope.postDatedChecks.length; i++) {
+                            scope.postDatedChecksArray.push({amount: scope.postDatedChecks[i].amount, date: dateFilter(scope.postDatedChecks[i].date, scope.df), name: scope.postDatedChecks[i].name, 
+                                                            accountNo: scope.postDatedChecks[i].accountNo, installmentId: scope.postDatedChecks[i].installmentId, checkNo: scope.postDatedChecks[i].checkNo});
+                        }
+    
+                        this.formData.postDatedChecks = scope.postDatedChecksArray;
+                    }
+                    delete this.formData.isPostDatedCheck;
+                }
+
                 if (this.formData[scope.modelName]) {
                     this.formData[scope.modelName] = dateFilter(this.formData[scope.modelName], scope.df);
                 }
@@ -518,6 +540,7 @@
                 }
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan") {
+                    // Check post dated checks exist
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;
