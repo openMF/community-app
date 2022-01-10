@@ -270,22 +270,19 @@
                 resourceFactory.runReportsResource.get({reportSource: 'ClientSummary', genericResultSet: 'false', R_clientId: routeParams.id}, function (data) {
                     scope.client.ClientSummary = data[0];
                 });
+                scope.entitySubType = data.legalForm.value;
 
-                if(data.legalForm.value != null){
-                    if (data.legalForm.value === 'PERSON') {
-                        scope.legalform = 'm_client_person'
-                    } else if (data.legalForm.value === 'ENTITY') {
-                        scope.legalform = 'm_client_entity'
-                    }
-                    resourceFactory.DataTablesResource.getAllDataTables({apptable: scope.legalform}, function (data) {
-                        scope.clientdatatables = data;
-                    });
+                resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
+                    scope.clientdatatables = data;
+                });
+            });
+
+
+            scope.entitySubTypeFilter = function (datatable) {
+                if (datatable.entitySubType === scope.entitySubType) {
+                    return true;
                 }
-            });
-
-            resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_client'}, function (data) {
-                scope.clientdatatables = data;
-            });
+            }
 
             scope.deleteClient = function () {
                 $uibModal.open({
@@ -682,8 +679,10 @@
             };
 
             scope.dataTableChange = function (clientdatatable) {
-                resourceFactory.DataTablesResource.getTableDetails({datatablename: clientdatatable.registeredTableName,
-                    entityId: routeParams.id, genericResultSet: 'true'}, function (data) {
+                resourceFactory.DataTablesResource.getTableDetails({
+                    datatablename: clientdatatable.registeredTableName,
+                    entityId: routeParams.id, genericResultSet: 'true'
+                }, function (data) {
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;

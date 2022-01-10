@@ -1185,8 +1185,8 @@
 					  <object height="60%" width="70%" ng-show="preview" data="{{fileUrl}}" type="{{fileType}}"></object>
 				  </div>
 				</uib-tab>
-				<uib-tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables"
-						 select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}'>
+				<uib-tab heading="{{clientdatatable.registeredTableName}}" ng-repeat="clientdatatable in clientdatatables | filter:entitySubTypeFilter"
+						 select="dataTableChange(clientdatatable)" has-permission='READ_{{clientdatatable.registeredTableName}}' >
 					<api-validate></api-validate>
 					<div>
 						<div data-ng-hide="isClosedClient" class="btn-group pull-right">
