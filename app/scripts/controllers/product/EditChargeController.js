@@ -7,6 +7,7 @@
             scope.first = {};
             scope.flag = false;
 	        scope.showPenalty = true ;
+            scope.paymentTypeOptions = [];
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -45,6 +46,10 @@
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    resourceFactory.paymentTypeResource.getAll( function (data) {
+                        scope.paymentTypeOptions = data;
+                    });
+
                     if(data.freeWithdrawal === true) {
                         scope.showenablefreewithdrawal = true;
                         scope.showpaymenttype = true;
@@ -186,13 +191,9 @@
 
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
-                scope.paymentTypeOptions = data.paymentTypeOptions;
+
                 const i = 1;
                 scope.filteredItems = scope.product.repaymentFrequencyTypeOptions.slice(0, i).concat(scope.product.repaymentFrequencyTypeOptions.slice(i + 1, scope.product.repaymentFrequencyTypeOptions.length));
-            });
-
-            resourceFactory.paymentTypeResource.getAll( function (data) {
-
             });
 
             scope.setOptions = function() {
