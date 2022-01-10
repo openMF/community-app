@@ -5,6 +5,7 @@
             scope.columns = [];
             scope.columnnameerror = false;
             scope.columntypeerror = false;
+            scope.showLegalForm = false;
             scope.datatableTemplate = {};
             scope.labelerror = "requiredfield";
 
@@ -43,6 +44,14 @@
                 }
             };
 
+            scope.legalFormChange = function (apptableName) {
+                if (apptableName == 'm_client') {
+                    scope.showLegalForm = true;
+                }
+                else{
+                    scope.showLegalForm = false;
+                }
+            }
             scope.submit = function () {
                 if (scope.columns.length == 0) {
                     scope.errorDetails = [];
