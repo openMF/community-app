@@ -64,6 +64,30 @@
 	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
 	                    <td>{{charge.chargeCalculationType.value}}</td>
 	                </tr>
+					<tr>
+						<td>{{'label.heading.enablepaymenttype' | translate}}</td>
+						<td>{{charge.isPaymentType}}</td>
+					</tr>
+					<tr ng-show="charge.isPaymentType == true">
+						<td>{{'label.heading.paymenttype' | translate}}</td>
+						<td>{{charge.paymentTypeOptions	.name}}</td>
+					</tr>
+					<tr>
+						<td>{{'label.heading.enablewithdrawtype' | translate}}</td>
+						<td>{{charge.freeWithdrawal}}</td>
+					</tr>
+					<tr ng-show="charge.freeWithdrawal == true">
+						<td>{{'label.heading.freewithdrawalfrequency' | translate}}</td>
+						<td>{{charge.freeWithdrawalChargeFrequency}}</td>
+					</tr>
+					<tr ng-show="charge.freeWithdrawal == true">
+						<td>{{'label.heading.restartcount' | translate}}</td>
+						<td>{{charge.restartFrequency}}</td>
+					</tr>
+					<tr ng-show="charge.freeWithdrawal == true">
+						<td>{{'label.heading.frequencyType' | translate}}</td>
+						<td>{{frequencyType}}</td>
+					</tr>
 	                <tr>
 	                    <td>{{'label.heading.active' | translate}}</td>
 	                    <td>{{charge.active | YesOrNo}}</td>
