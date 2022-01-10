@@ -17,6 +17,8 @@
             scope.updateDefaultSavings = false;
             scope.charges = [];
             scope.legalform = 'm_client';
+            scope.locale = scope.optlang.code;
+
 
 
             // address
@@ -671,11 +673,25 @@
                                     }
                                     scope.identitydocuments[j].documents = data;
                                 }
+
+                                scope.countryCode = scope.identitydocuments[j].documentIssueCountryCode;
+
+                                if(scope.countryCode !== '' && scope.countryCode !== null && scope.countryCode !== undefined) {
+                                    resourceFactory.translateCountryCodeResource.getCountryValue({
+                                        locale: scope.optlang.code,
+                                        countryCode: scope.countryCode
+                                    }, function (data) {
+                                        scope.country = data.countryName;
+                                    })
+                                }
                             }
+
                         });
                     }
                 });
             };
+
+
 
             scope.dataTableChange = function (clientdatatable) {
                 resourceFactory.DataTablesResource.getTableDetails({

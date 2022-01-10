@@ -308,6 +308,12 @@
                         getAllCodeValues: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT', params: {} }
                     }),
+                    countryValueResource: defineResource(apiVer + "/country/:locale", {locale: '@locale'}, {
+                        getAllCountryValues: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    translateCountryCodeResource: defineResource(apiVer + "/country/:locale/:countryCode", {locale: '@locale', countryCode: '@countryCode'}, {
+                        getCountryValue: {method: 'GET', params: {}}
+                    }),
 					hookResources: defineResource(apiVer + "/hooks/:hookId", {hookId: "@hookId"}, {
                         getAllHooks: {method: 'GET', params: {}, isArray: true},
                         getHook: {method: 'GET', params: {}},
