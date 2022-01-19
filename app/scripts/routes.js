@@ -551,6 +551,12 @@
             .when('/viewonholdtransactions/:savingsId/:fromPath/:fromPathId', {
                 templateUrl: 'views/savings/list_onhold_transactions.html'
             })
+            .when('/savingaccount/:savingsId/hold', {
+                templateUrl: 'views/savings/holdSavingsAccount.html'
+            })
+            .when('/viewsavingsholdtransactions/:savingsId', {
+                templateUrl: 'views/savings/holdSavingsTransactions.html'
+            })
             .when('/groups', {
                 templateUrl: 'views/groups/groups.html'
             })

@@ -374,6 +374,15 @@
                     savingsOnHoldTrxnsResource: defineResource(apiVer + "/savingsaccounts/:savingsId/onholdtransactions", {savingsId: '@savingsId'}, {
                         get: {method: 'GET', params: {}}
                     }),
+                    savingsAccountBlockResource: defineResource(apiVer + "/savingsaccounts/:savingsId", {savingsId: '@savingsId'}, {
+                        post: {method: 'POST', params:{command : 'block'}}
+                    }),
+                    savingsAccountTransactionBlockResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions", {savingsId: '@savingsId', command:'@command'}, {
+                        post: {method: 'POST', params: {}},
+                    }),
+                    savingsAccountReleaseTransactionResource: defineResource(apiVer + "/savingsaccounts/:savingsId/transactions/:transactionId", {savingsId: '@savingsId', transactionId: '@transactionId'}, {
+                        post: {method: 'POST', params:{command : 'releaseAmount'}}
+                    }),
                     fixedDepositAccountResource: defineResource(apiVer + "/fixeddepositaccounts/:accountId/:resourceType", {accountId: '@accountId', resourceType: '@resourceType'}, {
                         get: {method: 'GET', params: {}},
                         update: {method: 'PUT'}

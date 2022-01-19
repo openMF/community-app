@@ -1,0 +1,45 @@
+<div class="content-container" ng-controller="HoldSavingsTransactionController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewsavingaccount/{{savingsId}}">{{'label.anchor.viewsavingsaccount' | translate}}</a></li>
+        <li class="active">{{'label.anchor.holdaccount' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.hold' | translate }}</h4>
+            </div>
+            <br/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.accnum' | translate}}</th>
+                    <th>{{'label.heading.reasons' | translate}}</th>
+                    <th>{{'label.heading.date' | translate}}</th>
+                    <th>{{'label.heading.amount' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <body>
+                <tr ng-repeat="transaction in savingaccountdetails.transactions" ng-if="transaction.transactionType.id===20 && transaction.releaseTransactionId === 0">
+                    <td>{{transaction.id}}</td>
+                    <td>{{transaction.accountNo}}</td>
+                    <td>{{transaction.reasonForBlock  | translate}}</td>
+                    <td>{{transaction.date | DateFormat}}</td>
+                    <td>{{transaction.amount}}</td>
+                    </td>
+
+                    <td>
+		                  <span>
+                              <a ng-click="releasefund(transaction.id)" class="btn btn-primary btn-offset"
+                                 has-permission='RELEASEAMOUNT_SAVINGSACCOUNT'>{{"label.button.releasefund" | translate}}</a>&nbsp;
+
+		                  </span>
+                    </td>
+                </tr>
+                </body>
+            </table>
+
+        </div>
+    </div>
+</div>
