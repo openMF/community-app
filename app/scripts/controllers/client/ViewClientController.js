@@ -427,7 +427,6 @@
                             },
                             file: file
                         }).then(function (imageData) {
-                            // to fix IE not refreshing the model
                             if (!scope.$$phase) {
                                 scope.$apply();
                             }
@@ -980,6 +979,53 @@
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss('cancel');
                 };
+            };
+
+            resourceFactory.creditBureauTemplate.get(function (data) {
+                scope.creditbureaus = data;
+                scope.creditbureauname = scope.creditbureaus.creditBureauName;
+
+            });
+
+            scope.getcreditreport = function(creditBureauId) {
+                scope.creditbureau = creditBureauId;
+               if (creditBureauId == 1) { //id 1 is assigned for ThitsaWorks CreditBureau
+                    location.path('/creditreport/thitsaworkCreditbureau/'+scope.creditbureau);
+                }
+               else{
+                   alert("Please Select Respective integrated Credit Bureau");
+               }
+            };
+
+            scope.onFileSelect = function (files) {
+                scope.formData.file = files[0];
+            };
+
+            scope.upload = function () {
+                Upload.upload({
+                    url: $rootScope.hostUrl + API_VERSION + '/creditBureauIntegration/addCreditReport?creditBureauId=1',
+                    data: {file: scope.formData.file},
+                }).then(function (data) {
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+                });
+            };
+
+            scope.uploadReport = function (creditBureauId) {
+                scope.creditbureau = creditBureauId;
+                if (creditBureauId == 1) {
+                    location.path('/creditreport/thitsaworkUploadCreditbureau/' + routeParams.id +'/'+ scope.creditbureau);
+                }
+            };
+
+            scope.downloadCreditReport = function (creditBureauId) {
+                scope.creditbureau = creditBureauId;
+                if (creditBureauId == 1) { //id 1 is assigned for ThitsaWorks CreditBureau
+                    location.path('/creditreport/thitsaworkDownloadCreditbureau/' + routeParams.id +'/'+ scope.creditbureau);
+                }else{
+                    alert("Please Select Respective integrated Credit Bureau");
+                }
             };
 
         }

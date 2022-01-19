@@ -1255,7 +1255,33 @@
 						</blockquote>
 					</div>
 				</uib-tab>
-			</uib-tabset>
-		</div>
-	</div>
-</div>
+				<uib-tab heading="{{ 'label.heading.creditreportcheck' | translate }}" has-permission='READ_CLIENTNOTE'>
+					<form class="form">
+						<div class="form-group">
+							<tr>
+								<td class="width5">
+									<label>{{ 'label.input.creditbureau' | translate }}
+										<span class="required">*</span>:
+									</label>
+								</td><td class="width5 paddedbottom20">
+								<select chosen="creditbureaus" id="orgcreditbureau" ng-model="creditBureauId"  class="form-control"
+										ng-options="creditbureau.creditBureauId as creditbureau.creditBureauSummary for creditbureau in creditbureaus"
+										value="creditBureauId"></select>
+							</td>
+							</tr>
+							<tr>
+								<td>
+								<a id="creditcheck" class="btn btn-default" ng-click="getcreditreport(creditBureauId)">{{'label.button.creditcheck' | translate}}</a>
+								</td>
+								<td>
+									<a id="uploadcreditreport" class="btn btn-default" ng-click="uploadReport(creditBureauId)">{{'label.button.upload' | translate}}</a>
+								</td>
+                                </tr>
+                            </div>
+                        </form>
+
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>

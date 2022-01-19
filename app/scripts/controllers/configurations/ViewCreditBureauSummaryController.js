@@ -51,7 +51,7 @@
 
                 var formData={};
                 formData.creditBureauId=cb_id;
-                formData.is_active=!status;
+                formData.isActive=!status;
 
                 resourceFactory.creditBureauSummary.put(formData, function (data) {
                     route.reload();
@@ -62,7 +62,7 @@
             $scope.changeMappingStatus=function (mappingid,status) {
                 var mappingUpdate={};
                 mappingUpdate.creditbureauLoanProductMappingId=mappingid;
-                mappingUpdate.is_active=!status;
+                mappingUpdate.isActive=!status;
                 resourceFactory.creditBureauMapping.put(mappingUpdate,function (data) {
 
                     route.reload();
