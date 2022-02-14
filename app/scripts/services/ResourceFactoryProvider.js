@@ -646,6 +646,15 @@
                     creditBureauTemplate: defineResource(apiVer + "/CreditBureauConfiguration/", {}, {
                         get: {method: 'GET', isArray: true }
                     }),
+                    addCreditBureauConfiguration: defineResource(apiVer + "/CreditBureauConfiguration/configuration/:creditBureauId", {creditBureauId:'@creditBureauId'}, {
+                        post: {method: 'POST',params:{}},
+                    }),
+                    updateCreditBureauConfiguration: defineResource(apiVer + "/CreditBureauConfiguration/configuration/:configurationId", {configurationId:'@configurationId'}, {
+                        put: {method: 'PUT',params:{}}
+                    }),
+                    fetchCreditBureauConfiguration: defineResource(apiVer + "/CreditBureauConfiguration/config/:organisationCreditBureauId", {organisationCreditBureauId:'@organisationCreditBureauId'}, {
+                        get: {method: 'GET', isArray: true}
+                    }),
                     creditBureauByCountry: defineResource(apiVer + "/CreditBureauConfiguration/dropdown/:country", {country:'@country'}, {
                         get: {method: 'GET',isArray: true }
                     }),
@@ -654,6 +663,21 @@
                     }),
                     equifaxCreditCheck: defineResource(apiVer + "/CreditBureauConfiguration/equifax", {}, {
                         get: {method: 'GET',params:{} }
+                    }),
+                    thitsaworkCreditCheck: defineResource(apiVer + "/creditBureauIntegration/getcreditreport/", {}, {
+                        get: {method: 'GET',params:{}}
+                    }),
+                    creditBureauGeneric: defineResource(apiVer + "/creditBureauIntegration/creditReport", {}, {
+                        post: {method: 'POST'}
+                    }),
+                    saveCreditReport: defineResource(apiVer + "/creditBureauIntegration/saveCreditReport", {apiRequestBodyAsJson:'@apiRequestBodyAsJson', creditBureauId : '@creditBureauId',  nationalId : '@nationalId'}, {
+                        post: {method: 'POST'}
+                    }),
+                    getSavedCreditReportsDetails: defineResource(apiVer + "/creditBureauIntegration/creditReport/:creditBureauId", {creditBureauId : '@creditBureauId'}, {
+                        get: {method: 'GET', isArray : true}
+                    }),
+                    creditBureauByLoanProductId: defineResource(apiVer + "/CreditBureauConfiguration/loanProduct/:loanProductId", {loanProductId:'@loanProductId'}, {
+                        get: {method: 'GET' ,params: {} }
                     }),
                     lpdropdown: defineResource(apiVer + "/CreditBureauConfiguration/loanProduct", {}, {
                         get: {method: 'GET', isArray: true }

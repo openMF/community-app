@@ -1,0 +1,252 @@
+<div class="content-container" ng-controller="CreditReportFetchThitsaWorksController">
+        <ul class="breadcrumb">
+            <li ng-show="loandetails.clientName"><a
+                    ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
+            <li><a href="#/clients/">{{'label.anchor.client' | translate}}</a></li>
+            <li class="active">{{'label.anchor.creditcheck' | translate}}</li>
+
+
+        </ul>
+
+        <legend> {{ 'label.anchor.creditcheck' | translate }}</legend>
+        <api-validate></api-validate>
+        <hr>
+
+    <table class="" style="border-spacing: 5px; border-collapse: separate">
+
+        <tr>
+            <td class="width5">
+                <label>{{ 'label.input.nrc' | translate }} <span class="required">*</span>:&nbsp;</label>
+            </td>
+            <td class="width5 paddedbottom20">
+                <input type="text" id="alias"ng-model="thitnrc"  name="alias"     class="form-control">
+            </td>
+
+        </tr>
+        <tr>
+            <td class="width5 paddedbottom20">
+                <a id="creditcheck" class="btn btn-default" ng-click="getcreditreport()">{{'label.button.creditcheck' | translate}}</a>
+
+                </button>
+
+            </td>
+        </tr>
+
+        <table class="table" id="creditreport">
+            <tr ng-show="creditchecks" class="graybg">
+                <td >
+                    {{'label.input.personalinformation' | translate}}
+                </td>
+                <td></td>
+            </tr>
+            <tr ng-show="creditchecks">
+                <td>{{'label.input.nrc' | translate}}
+                </td>
+                <td>{{NRC| translate}} </td>
+            </tr>
+            <tr ng-show="creditchecks">
+                <td>{{'label.input.name' | translate}}
+                </td>
+                <td>{{Name| translate}} </td>
+            </tr>
+
+            <tr ng-show="creditchecks">
+                <td> {{'label.input.gender' | translate}} </td>
+                <td> {{Gender | translate}}</td>
+            </tr>
+
+            <tr ng-show="creditchecks">
+                <td> {{'label.input.dob' | translate}} </td>
+                <td> {{Dob | translate}}</td>
+            </tr>
+
+            <tr ng-show="creditchecks">
+                <td>{{'label.input.address' | translate}} </td>
+                <td> {{Address | translate}} </td>
+            </tr>
+
+            <tr ng-show="creditchecks">
+                <td>{{'label.input.fathername' | translate}} </td>
+                <td> {{FatherName | translate}} </td>
+            </tr>
+
+            <tr class="graybg" ng-show="creditchecks">
+                <td>
+                    {{'label.heading.score' | translate}}
+                </td>
+                <td> {{creditScores.Score | translate}} </td>
+            </tr>
+
+            <tr ng-show="creditchecks">
+                <td>
+                    {{'label.heading.class' | translate}}
+                </td>
+                <td> {{creditScores.Class | translate}} </td>
+            </tr>
+            <tr ng-show="creditchecks">
+                <td>
+                    {{'label.heading.notes' | translate}}
+                </td>
+                <td> {{creditScores.Note | translate}} </td>
+            </tr>
+
+
+            <table class="table" ng-show="creditchecks" ng-repeat="x in openAccounts">
+                <tr class="graybg" ng-show="creditchecks">
+                    <td>
+                        {{'label.input.activeloans' | translate}} : {{$index +1}}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.reportdate' | translate}}</td>
+                    <td> {{x.ReportingDate | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.loanGUID' | translate}}</td>
+
+                    <td> {{x.LoanGUID | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.institution' | translate}}</td>
+                    <td> {{x.Institution | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.division' | translate}}</td>
+                    <td> {{x.Division | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.township' | translate}}</td>
+                    <td> {{x.Township | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.disbursedondate' | translate}}</td>
+                    <td> {{x.DisbursedDate | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.disbursedamount' | translate}}</td>
+                    <td> {{x.DisbursedAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.principaloutstandingamount' | translate}}</td>
+                    <td> {{x.PrincipalOutstandingAmount | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.totaloutstandingamount' | translate}}</td>
+                    <td> {{x.TotalOutstandingAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.principaloverdueamount' | translate}}</td>
+                    <td> {{x.PrincipalOverdueAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.totaloverdueamount' | translate}}</td>
+                    <td> {{x.TotalOverdueAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.daysindelay' | translate}}</td>
+                    <td> {{x.DaysInDelay | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.updateddtm' | translate}}</td>
+                    <td> {{x.UpdatedDtm | translate}} </td>
+                </tr>
+
+            </table>
+
+            <table class="table" ng-show="creditchecks" ng-repeat="p in closedAccounts">
+
+                <tr class="graybg" ng-show="creditchecks">
+                    <td>
+                        {{'label.input.paidloans' | translate}} : {{$index +1}}
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.reportdate' | translate}}</td>
+                    <td> {{p.ReportingDate | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.claimGUID' | translate}}</td>
+
+                    <td> {{p.ClaimGUID | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.name' | translate}}</td>
+                    <td> {{p.Name | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.fathername' | translate}}</td>
+                    <td> {{p.FatherName | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.division' | translate}}</td>
+                    <td> {{p.Division | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.township' | translate}}</td>
+                    <td> {{p.Township | translate}} </td>
+                </tr>
+                <tr>
+                    <td>{{'label.input.wardvillage' | translate}}</td>
+                    <td> {{p.WardVillage | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.disbursedondate' | translate}}</td>
+                    <td> {{p.DisbursedDate | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.disbursedamount' | translate}}</td>
+                    <td> {{p.DisbursedAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.paidoffdate' | translate}}</td>
+                    <td> {{p.WriteOffDate | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.principalpaidoffdate' | translate}}</td>
+                    <td> {{p.PrincipalWriteOffAmount | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.note' | translate}}</td>
+                    <td> {{p.Note | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.updateddtm' | translate}}</td>
+                    <td> {{p.UpdatedDtm | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.status' | translate}}</td>
+                    <td> {{p.Status | translate}} </td>
+                </tr>
+
+                <tr>
+                    <td>{{'label.input.institution' | translate}}</td>
+                    <td> {{p.Institution | translate}} </td>
+                </tr>
+            </table>
+        </table>
+    </table>
+
+</fieldset>
+    </div>
+
