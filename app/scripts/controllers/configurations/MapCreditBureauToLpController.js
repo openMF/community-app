@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MapCreditBureauToLpController: function ($scope, resourceFactory, $routeParams, location) {
-            $scope.formData = {};
+            $scope.formData = {skipCreditcheckInFailure:false,isCreditcheckMandatory:false,locale:'en'}; //added default data
             $scope.cb_id={};
             $scope.lps=[];
             $scope.cbdropdowns=[];
@@ -14,17 +14,15 @@
                 $scope.lps=data;
             });
 
-            resourceFactory.creditBureauTemplate.get(function (data) {
+            resourceFactory.creditBureauSummary.get(function (data) {
                 $scope.creditbureaus=data;
             });
 
             $scope.submit = function () {
 
-                $scope.formData.locale='en';
-
-                resourceFactory.addCreditBureauLoanProductMapping.save({cb_id: $scope.creditBureauId},this.formData, function (data) {
-                    location.path('/externalservicesCB/CreditBureau');
-                });
+                    resourceFactory.addCreditBureauLoanProductMapping.post({cb_id: $scope.organisationCreditBureauId}, this.formData, function (data) {
+                        location.path('/externalservicesCB/CreditBureau');
+                    });
 
             };
 

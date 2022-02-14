@@ -1,0 +1,32 @@
+<div class="content-container" ng-controller="CreditReportUploadThitsaWorksController">
+    <ul class="breadcrumb">
+        <li ng-if="!groupid"><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li class="active"><a href="#/viewclient/{{clientId}}">{{displayName}}</a></li>
+        <li class="active">{{'label.anchor.uploaddocument' | translate}}</li>
+    </ul>
+    <wizard current-step="step" class="card well">
+        <wz-step icon="fa fa-circle-o" wz-title="{{'label.heading.uploaddocument' | translate}}">
+          <div class="card">
+            <div class="content">
+              <div class="toolbar">
+                <form class="form">
+                  <api-validate></api-validate>
+                   <div class="form-group">
+                       <label class="control-label col-sm-2" for="file">{{'label.input.uploadcreditreport' | translate}}<span class="required">*</span>
+                       </label>
+                         <div class="col-sm-5">
+                           <input type="file" id="file" accept=".csv" class="form-control btn btn-default" ngf-select="onFileSelect($files)">
+                         </div>
+                     <div class="col-sm-2">
+                          <button style="margin-left:10px;" type="button" class="form-control btn btn-primary col-sm-2" ng-click="upload()">
+                             {{'label.button.upload' | translate}}
+                          </button>
+                     </div>
+                   </div>
+                </form>
+             </div>
+            </div>
+          </div>
+        </wz-step>
+    </wizard>
+</div>

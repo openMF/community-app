@@ -1,0 +1,86 @@
+<div  class="content-container" ng-controller="AddNewCreditBureauConfigurationController">
+
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/externalservices">{{'label.anchor.externalServices' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewCreditBureauSummary' | translate}}</li>
+    </ul>
+    <legend> {{ 'label.anchor.creditbureauconfiguration' | translate }}</legend>
+    <div class="card">
+        <div class="content">
+
+            <br/>
+
+            <form name="creditbureauconfigform" novalidate="" class="form-horizontal" ng-controller="CreditBureauConfigurationController"
+                  rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.input.creditbureau' | translate }} <span class="required">*</span>:&nbsp;</label>
+
+                        <div class="col-sm-3">
+                            <select chosen="creditbureaus" id="orgcreditbureau" ng-model="creditBureauId" required class="form-control"
+                                    ng-options="creditbureau.creditBureauId as creditbureau.creditBureauSummary for creditbureau in creditbureaus"
+                                    value="creditBureauId"></select>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="creditbureauconfigform" valattribute="name"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-2">{{ 'label.input.configkey' | translate }} <span class="required">*</span>:&nbsp;</label>
+
+                        <div class="col-sm-3">
+                             <input type="text" id="configkey" ng-model="formdata.configkey" name="configkey" class="form-control"
+                                    required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="creditbureauconfigform" valattribute="name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-2">{{ 'label.input.value' | translate }} <span class="required">*</span>:&nbsp;</label>
+
+                        <div class="col-sm-3">
+                            <input type="text" id="value" ng-model="formdata.value"  name="value" class="form-control"
+                                   required late-Validate/>
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="creditbureauconfigform" valattribute="name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-2">{{ 'label.input.description' | translate }} <span class="required">*</span>:&nbsp;</label>
+
+                        <div class="col-sm-3">
+
+                            <input type="text" id="description" ng-model="formdata.description"  name="description"   class="form-control"
+                                   required late-Validate/>
+
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="creditbureauconfigform" valattribute="name"/>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <a id="creditcheck" class="btn btn-default" ng-click="addConfig(creditBureauId)">{{'label.button.submit' | translate}}</a>
+
+                            <button type="reset" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' |
+                                translate}}
+                            </button>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
