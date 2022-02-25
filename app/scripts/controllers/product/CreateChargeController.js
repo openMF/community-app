@@ -138,12 +138,11 @@
                             else{
                                 scope.showenablefreewithdrawal = false;
                                 scope.showenablepaymenttype = false;
-                            }
-                            }
-                            else {
                                 scope.showdatefield = false;
                                 scope.repeatEvery = false;
                             }
+                            }
+
 
                         }
                     }

@@ -39,6 +39,7 @@
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
+                    scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
                     scope.showMinAndMaxAmountSettings = false;
@@ -118,7 +119,11 @@
                  }
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
-                } 
+                }
+
+                if(data.paymentTypeOptions){
+                    scope.formData.paymentTypeId = data.paymentTypeOptions.id;
+                }
 
                 if(data.taxGroup){
                     scope.formData.taxGroupId = data.taxGroup.id;
