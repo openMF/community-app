@@ -36,7 +36,7 @@
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
-                    scope.template.chargeCalculationTypeOptions = scope.paymentTypes.loanChargeCalculationTypeOptions;
+                    scope.template.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
                 } else if (data.chargeAppliesTo.value === "Savings") {
@@ -100,13 +100,15 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    paymentTypeId: data.paymentTypeOptions.id,
                     amount: data.amount
                 };
-                console.log(data.incomeOrLiabilityAccount);
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
-                } 
+                }
+
+                if(data.paymentTypeOptions){
+                    scope.formData.paymentTypeId = data.paymentTypeOptions.id;
+                }
 
                 if(data.taxGroup){
                     scope.formData.taxGroupId = data.taxGroup.id;
