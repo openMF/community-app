@@ -1,0 +1,34 @@
+name: Publish Image in Docker Hub 
+
+on:
+  push:
+    branches: [ gedit-develop ]
+  pull_request:
+    branches: [ gedit-develop ]
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+    env:
+        DOCKER_ORGANIZATION: ${{secrets.DOCKER_ORGANIZATION}}
+        COMMUNITY_APP_VERSION: ${{secrets.COMMUNITY_APP_LATEST_STABLE_VERSION}}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+    - name: Build the Docker image
+      run: docker build -t community-app:latest .
+      
+    - name: Docker Hub Prepare
+      run: docker image tag community-app $DOCKER_ORGANIZATION/community-app:$COMMUNITY_APP_VERSION
+
+    - name: Docker Hub Push  
+      run: docker image push $DOCKER_ORGANIZATION/community-app:$COMMUNITY_APP_VERSION
