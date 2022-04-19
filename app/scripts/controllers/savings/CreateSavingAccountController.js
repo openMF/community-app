@@ -125,6 +125,8 @@
                     scope.formData.overdraftLimit = data.overdraftLimit;
                     scope.formData.nominalAnnualInterestRateOverdraft = data.nominalAnnualInterestRateOverdraft;
                     scope.formData.minOverdraftForInterestCalculation = data.minOverdraftForInterestCalculation;
+                    scope.formData.lienAllowed = data.lienAllowed;
+                    scope.formData.maxAllowedLienLimit = data.maxAllowedLienLimit;
                     scope.formData.enforceMinRequiredBalance = data.enforceMinRequiredBalance;
                     scope.formData.minRequiredBalance = data.minRequiredBalance;
                     scope.formData.withHoldTax = data.withHoldTax;
