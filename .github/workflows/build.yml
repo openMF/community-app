@@ -1,0 +1,38 @@
+name: Publish Packages and Images
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - ameta
+      - staging
+      - dev
+jobs:
+  # Version Package
+  build-server-images:
+    name: Build Server Images
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      # Set Slug
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v2.x
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ECR_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ECR_SECRET }}
+          aws-region: us-east-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      # Set Server Name
+      - name: Build and Push to GitHub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            "916148231619.dkr.ecr.us-east-2.amazonaws.com/fih-ui:latest"
