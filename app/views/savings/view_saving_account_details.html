@@ -493,7 +493,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="pointer-main" ng-hide="transaction.reversed"
+                            <tr class="pointer-main" ng-class="{'pointer-main strike-grey' : transaction.reversed, 'pointer-main amber' : transaction.isReversal, 
+                            'pointer-main': !(transaction.reversed || transaction.isReversal)}"
                                 ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column[2]:transactionSort.ascending">
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
@@ -505,17 +506,19 @@
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    {{transaction.transactionType.value}}
+                                    {{transaction.transactionType.value}}<span ng-if=" transaction.isReversal">(R)</span>
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    <div ng-show="isDebit(transaction.transactionType)">
+                                    <div ng-show="(isDebit(transaction.transactionType)&&!transaction.isReversal)||
+                                    (!isDebit(transaction.transactionType)&&transaction.isReversal)">
                                         {{transaction.amount| number}}
                                     </div>
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    <div ng-show="!isDebit(transaction.transactionType)">
+                                    <div ng-show="(!isDebit(transaction.transactionType)&&!transaction.isReversal)||
+                                    (isDebit(transaction.transactionType)&&transaction.isReversal)">
                                         {{transaction.amount| number}}
                                     </div>
                                 </td>
