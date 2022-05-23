@@ -521,7 +521,7 @@
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    {{transaction.transactionType.value}}
+                                    {{transaction.transactionType.value}}<span ng-if=" transaction.isReversal">(R)</span>
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
@@ -533,13 +533,15 @@
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    <div ng-show="isDebit(transaction.transactionType)">
+                                    <div ng-show="(isDebit(transaction.transactionType)&&!transaction.isReversal)||
+                                    (!isDebit(transaction.transactionType)&&transaction.isReversal)">
                                         {{transaction.amount| number}}
                                     </div>
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    <div ng-show="!isDebit(transaction.transactionType)">
+                                    <div ng-show="(!isDebit(transaction.transactionType)&&!transaction.isReversal)||
+                                    (isDebit(transaction.transactionType)&&transaction.isReversal)">
                                         {{transaction.amount| number}}
                                     </div>
                                 </td>
