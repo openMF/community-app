@@ -115,6 +115,28 @@
                         </div>
                      </div>
                   </div>
+<!--                  USERNAME ADD-->
+                  <div data-ng-switch on="showNonPersonOptions">
+                     <div data-ng-switch-when="false">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="surname">{{'label.input.surname' | translate}}
+<!--                              <span class="required">*</span>-->
+                           </label>
+                           <div class="col-sm-3">
+                              <input type="text" id="surname" name="surname" ng-model="formData.surname"
+                                 class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/" late-Validate />
+                           </div>
+                           <div class="col-sm-2">
+                              <span ng-show="createclientform.surname.$invalid && createclientform.surname.$dirty">
+                                 <small class="error required" ng-show="createclientform.surname.$error.pattern">
+                                    {{'validation.msg.client.name.cannot.start.specialchar.ornumber' | translate}}
+                                 </small>
+                              </span>
+                              <form-validate valattributeform="createclientform" valattribute="surname" />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                   <div data-ng-switch on="showNonPersonOptions">
                      <div data-ng-switch-when="true">
                         <div class="form-group">
@@ -448,11 +470,11 @@
                         </div>
 
                         <div class="form-group">
-                           <label class="control-label col-sm-2" for="dateofbirth">{{ 'label.input.dateofbirth' |
+                           <label class="control-label col-sm-2" for="dateofbirth2">{{ 'label.input.dateofbirth' |
                               translate }}</label>
 
                            <div class="col-sm-3">
-                              <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                              <input id="dateofbirth2" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
                                  ng-model="familyArray[$index].dateOfBirth" is-open="opened1" min="minDate "
                                  max="restrictDate" class="form-control" />
                            </div>

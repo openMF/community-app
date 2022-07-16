@@ -6,14 +6,17 @@
             scope.selected = [];
             scope.selectedRoles = [] ;
             scope.availableRoles = [];
+            scope.genderOptions = [];
             scope.formData = {
                 sendPasswordToEmail: true,
                 roles: []
             };
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
+                scope.genderOptions = data.genderOptions;
                 scope.availableRoles = data.availableRoles;
             });
+
 
             scope.addRole = function () {
                 for (var i in this.available) {
