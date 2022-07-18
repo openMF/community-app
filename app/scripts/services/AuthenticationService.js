@@ -66,6 +66,7 @@
             this.authenticateWithUsernamePassword = function (credentials) {
                 scope.$broadcast("UserAuthenticationStartEvent");
 
+                //skip authentication.
                 onLoginSuccess({data:{username:"b.mart"}})
                 return;
         		if(SECURITY === 'oauth'){
