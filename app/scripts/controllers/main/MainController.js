@@ -10,10 +10,15 @@
 
             scope.islogofoldernamefetched = false;
             scope.islogofoldernameconfig = false;
-            scope.isFaviconPath = false;
-            scope.isHeaderLogoPath = false;
-            scope.isBigLogoPath = false;
-            scope.isLargeLogoPath = false;
+            scope.isFaviconPath = true;
+            scope.isHeaderLogoPath = true;
+            scope.isBigLogoPath = true;
+            scope.isLargeLogoPath = true;
+            scope.faviconPath = "images/logo.png";
+            scope.bigLogoPath = "images/logo.png";
+            scope.headerLogoPath = "images/logo.png";
+            scope.largeLogoPath = "images/logo.png";
+
 
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
