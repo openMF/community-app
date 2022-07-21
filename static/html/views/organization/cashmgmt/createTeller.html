@@ -1,0 +1,83 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createTeller' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<form name="createtellerform" novalidate="" class="form-horizontal" ng-controller="CreateTellerController" rc-submit="submit()">
+    		    <api-validate></api-validate>
+    		    <fieldset>
+    		        <legend>{{'label.heading.cashmgmt.createTeller' | translate}}</legend>
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.name' | translate }}<span
+    		                        class="required">*</span></label>
+
+    		                <div class="col-sm-3">
+    		                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name" class="form-control"
+    		                           required late-Validate/>
+    		                </div>
+    		                <div class="col-sm-3">
+    		                    <form-validate valattributeform="createtellerform" valattribute="name"/>
+    		                </div>
+    		            </div>
+
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.office' | translate }}<span class="required">*</span></label>
+
+    		                <div class="col-sm-3">
+    		                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+    		                            ng-options="office.id as office.name for office in offices"
+    		                            value="{{office.id}}"></select>
+    		                </div>
+    		            </div>
+
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.description' | translate }}</label>
+
+    		                <div class="col-sm-3">
+								<textarea id="description"  rows="2" type="text" name="description" ng-model="formData.description" class="form-control"></textarea>
+    		                </div>
+    		            </div>
+
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.startDate' | translate }}<span
+    		                        class="required">*</span></label>
+
+    		                <div class="col-sm-3">
+    		                    <input id="startDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+    		                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+    		                </div>
+    		            </div>
+
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.endDate' | translate }}</label>
+
+    		                <div class="col-sm-3">
+    		                    <input id="endDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="formData.endDate"
+    		                           class="form-control" is-open="opened" min="minDate" />
+    		                </div>
+    		            </div>
+    	                <div class="form-group">
+    		                <label class="control-label col-sm-2">{{ 'label.input.teller.status' | translate }}<span
+    		                        class="required">*</span></label>
+    		                <div class="col-sm-3">
+    					        <select id="usage" ng-model="formData.status"
+    					                ng-options="tellerStatus.id as tellerStatus.value for tellerStatus in tellerStatuses"
+    					                value="{{tellerStatus.id}}" class="form-control"></select>
+    					    </div>
+    		            </div>
+
+
+    		        <div class="col-md-offset-3">
+    		            <a id="cancel" href="#/tellers">
+    		                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+    		            </a>
+    		            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_TELLER'>{{'label.button.save' | translate}}</button>
+    		        </div>
+    		    </fieldset>
+    		</form>
+    	</div>
+    </div>
+</div>

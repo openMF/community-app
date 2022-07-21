@@ -1,0 +1,98 @@
+<div class="content-container" ng-controller="FixedDepositAccountPartialLiquidationController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewfixeddepositaccount/{{accountId}}">{{'label.anchor.viewfixeddepositaccount' | translate}}</a>
+        </li>
+        <li class="active">{{'label.button.partialliquidation' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h3>{{ 'label.button.partialliquidation' | translate}}</h3>
+            </div>
+            <form name="savingccountactionform" novalidate="" class="form-horizontal" ng-submit="submit()">
+                <fieldset>
+                    <api-validate></api-validate>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.button.liquidationdate' |
+                            translate}}<span
+                                    class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input id="submittedOnDate" type="text" sort datepicker-pop="dd MMMM yyyy"
+                                   class="form-control"
+                                   ng-model="date.submittedOnDate" is-open="opened" min="minDate" max="restrictDate"
+                                   ng-change="fetchMaturityAmount()"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.button.liquidationamount' |
+                            translate}}<span
+                                    class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <input id="liquidationAmount" type="text" class="form-control" number-format
+                                   ng-model="formData.liquidationAmount"
+                                   ng-change="calculateOutstanding()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="balanceAfterLqdn">{{'label.button.balanceafterliquidation'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="balanceAfterLqdn">{{balanceAfterLqdn | number}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="submittedOnDate">{{'label.button.remainingtenure' |
+                            translate}}</label>
+                        <div class="col-sm-2">
+                            <input id="depositPeriod" type="text" class="form-control" ng-disabled="!changeTenure"
+                                   number-format ng-model="formData.depositPeriod"
+                                   ng-change="calculateRemainingTenure()">
+                        </div>
+                        <div class="col-sm-1">
+                            <label>{{'label.input.days' | translate}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="changeTenure">{{'label.button.changetenure'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <input id="changeTenure" type="checkbox" ng-model="changeTenure" ng-true-value="true"
+                                   ng-false-value="false" ng-change="calculateRemainingTenure()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nominalAnnualInterestRate">{{'label.input.nominalannualinterestrate'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="nominalAnnualInterestRate">{{interestRate | number}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="interestToBeEarned">{{'label.totalinteresttobeearned'
+                            | translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="interestToBeEarned">{{interestToBeEarned | number}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="maturityAmount">{{'label.account.maturity.amount' |
+                            translate}}</label>
+                        <div class="col-sm-3">
+                            <label id="maturityAmount">{{maturityAmount | number}}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-2">
+                        <button id="cancel" ng-click="cancel()" class="btn">{{ 'label.button.cancel' | translate }}
+                        </button>
+                        <button id="save" type="submit" class="btn btn-primary">{{ 'label.button.save' | translate }}
+                        </button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

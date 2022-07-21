@@ -1,0 +1,181 @@
+---
+# Source: eden-ui/charts/edens-frontend/templates/config-env.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: RELEASE-NAME-edens-frontend
+  # namespace: default
+  annotations:
+    "helm.sh/hook-weight": "-1"
+data:
+  DOLLAR: "$"
+  FINERACT_BASE_URL: "/fineract-provider/api/v1"
+  FINERACT_DOMAIN: "a3a1916594856498aaac021692b981c5-205189284.us-west-2.elb.amazonaws.com"
+  FINERACT_PROXY_URL: "http://backend-edens-backend"
+---
+# Source: eden-ui/charts/edens-frontend/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "RELEASE-NAME-edens-frontend-mount"
+data:
+  logback.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+        Licensed to the Apache Software Foundation (ASF) under one
+        or more contributor license agreements. See the NOTICE file
+        distributed with this work for additional information
+        regarding copyright ownership. The ASF licenses this file
+        to you under the Apache License, Version 2.0 (the
+        "License"); you may not use this file except in compliance
+        with the License. You may obtain a copy of the License at
+        http://www.apache.org/licenses/LICENSE-2.0
+        Unless required by applicable law or agreed to in writing,
+        software distributed under the License is distributed on an
+        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+        KIND, either express or implied. See the License for the
+        specific language governing permissions and limitations
+        under the License.
+    -->
+    <configuration scan="false">
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+            <resetJUL>false</resetJUL>
+        </contextListener>
+    
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <withJansi>false</withJansi>
+            <encoder>
+                <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+            </encoder>
+        </appender>
+    
+        <!--
+        <logger name="org.apache.camel" level="DEBUG" />
+        -->
+    
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </configuration>
+---
+# Source: eden-ui/charts/edens-frontend/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: RELEASE-NAME-edens-frontend
+  labels:
+    helm.sh/chart: edens-frontend-0.1.2
+    app.kubernetes.io/name: edens-frontend
+    app.kubernetes.io/instance: RELEASE-NAME
+    app_name: edens-frontend
+    app.kubernetes.io/version: "1.0.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: edens-frontend
+    app.kubernetes.io/instance: RELEASE-NAME
+    app_name: edens-frontend
+---
+# Source: eden-ui/charts/edens-frontend/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: RELEASE-NAME-edens-frontend
+  labels:
+    helm.sh/chart: edens-frontend-0.1.2
+    app.kubernetes.io/name: edens-frontend
+    app.kubernetes.io/instance: RELEASE-NAME
+    app_name: edens-frontend
+    app.kubernetes.io/version: "1.0.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: edens-frontend
+      app.kubernetes.io/instance: RELEASE-NAME
+      app_name: edens-frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: edens-frontend
+        app.kubernetes.io/instance: RELEASE-NAME
+        app_name: edens-frontend
+    spec:
+      serviceAccountName: application-sa
+      securityContext:
+        {}
+      volumes:
+        - name: tmp
+          hostPath:
+            path: /tmp/tomcat
+        - name: config
+          configMap:
+            name: "RELEASE-NAME-edens-frontend-mount"
+            # An array of keys from the ConfigMap to create as files
+            items:
+            - key: logback.xml
+              path: logback.xml      
+      containers:
+        - name: edens-frontend
+          securityContext:
+            {}
+          image: "858112783435.dkr.ecr.eu-west-2.amazonaws.com/fineract-ui-edens:edenscapital-dev"
+          imagePullPolicy: Always
+          volumeMounts:
+          - name: tmp
+            mountPath: /data/tomcat
+          - name: config
+            mountPath: /app/resources/logback.xml
+            subPath: logback.xml
+            readOnly: true
+          envFrom:
+          - configMapRef:
+              name: RELEASE-NAME-edens-frontend          
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 512m
+              memory: 1024Mi
+            requests:
+              cpu: 512m
+              memory: 512Mi
+---
+# Source: eden-ui/charts/edens-frontend/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: RELEASE-NAME-edens-frontend
+  labels:
+    helm.sh/chart: edens-frontend-0.1.2
+    app.kubernetes.io/name: edens-frontend
+    app.kubernetes.io/instance: RELEASE-NAME
+    app_name: edens-frontend
+    app.kubernetes.io/version: "1.0.2"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-issuer
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - "mifos.edens360.com"
+      secretName: fineract-tls
+  rules:
+    - host: "mifos.edens360.com"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: RELEASE-NAME-edens-frontend
+              servicePort: 80

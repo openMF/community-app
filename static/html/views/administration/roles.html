@@ -1,0 +1,33 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewroles' | translate}}</li>
+    </ul>
+	<div class="pull-right">
+	    <a href="#/admin/addrole" class="btn btn-primary" has-permission='CREATE_ROLE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addrole' |
+	        translate}}</a>
+	</div>
+	<div class="card" data-ng-controller="RoleController">
+	    <br>
+	    <table class="table">
+	        <thead>
+	        <tr class="graybg">
+	            <th>{{'label.heading.name' | translate}}</th>
+	            <th>{{'label.heading.description' | translate}}</th>
+				<th>{{'label.heading.status' | translate}}</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	        <tr class="pointer-main" dir-paginate="role in roles | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: RolesPerPage">
+	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.name}}</td>
+	            <td class="pointer" data-ng-click="routeTo(role.id)">{{role.description}}</td>
+				<td class="pointer" data-ng-click="routeTo(role.id)">
+					<div ng-if="!isRoleEnable(role.disabled)">{{'label.heading.enabledrole' | translate }}</div>
+					<div ng-if="isRoleEnable(role.disabled)">{{'label.heading.disabled' | translate }}</div>
+				</td>
+	        </tr>
+	        </tbody>
+	    </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+	</div>
+</div>

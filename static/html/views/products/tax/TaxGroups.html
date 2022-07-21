@@ -1,0 +1,25 @@
+<div class="content-container" ng-controller="TaxGroupController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managetaxgroup' | translate}}</li>
+    </ul>
+    <div class="clear"></div>
+    <div class="card well">
+        <div class="pull-right">
+            <a href="#/createtaxgroup" class="btn btn-primary" has-permission='CREATE_TAXGROUP'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createtaxgroup' | translate}}</a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" ng-repeat="taxgroup in taxgroups | orderBy:'name':reverse  | filter:filterText">
+                <td class="pointer" data-ng-click="routeTo(taxgroup.id)">{{taxgroup.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

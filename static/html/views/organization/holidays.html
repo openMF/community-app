@@ -1,0 +1,51 @@
+<div class="content-container" data-ng-controller="HolController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.manageholidays' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+        <div class="row">
+            <div class="col-md-5">
+                <input ng-model="filterText" type="text" class="form-control span marginbottom0px"  ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}"/>
+            </div>
+        <div class="col-md-5">
+            <select chosen="offices" name="office" id="office" ng-model="formData.officeId" class="form-control input-sm" data-ng-options="office.id as office.name for office in offices" data-ng-change="getHolidays()" value="{{office.id}}" required>
+                <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <a href="#/createholiday" class="btn btn-primary pull-right" has-permission='CREATE_HOLIDAY'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createholiday' | translate}}</a>
+        </div>
+        <br/>
+        <div class="">
+                <span ng-show="creategroupform.office.$invalid && creategroupform.office.$dirty">
+                <small class="error" ng-show="creategroupform.office.$error.required">{{'label.requiredfield' | translate}}</small>
+            </span>
+        </div>
+        <br/>
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.holidayname' | translate}}</th>
+                    <th>{{'label.heading.startdate' | translate}}</th>
+                    <th>{{'endDateSelect' | translate}}</th>
+                    <th>{{'label.heading.repaymentsheduleto' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" dir-paginate="holiday in holidays | orderBy:'fromDate' | filter:filterText | itemsPerPage: HolidaysPerPage" ng-show="holiday.status.value != 'Deleted'">
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.name}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.fromDate | DateFormat}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.toDate | DateFormat}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)"  ng-show="holiday.repaymentsRescheduledTo == undefined || holiday.repaymentsRescheduledTo == null">{{'label.nextrepaymentdate' | translate}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)"  ng-show="holiday.repaymentsRescheduledTo != undefined && holiday.repaymentsRescheduledTo != null">{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+                    <td class="pointer" data-ng-click="routeTo(holiday.id)">{{holiday.status.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>
+</div>

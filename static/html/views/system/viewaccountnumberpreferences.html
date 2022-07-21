@@ -1,0 +1,62 @@
+<div class="content-container" data-ng-controller="ViewAccountNumberPreferencesController">
+    <ul class="breadcrumb">
+        <li><a href="#/accountnumberpreferences">{{'label.anchor.accountNumberPreferences' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewAccountNumberPreferences' | translate}}</li>
+    </ul>
+    <script type="text/ng-template" id="deletepreferences.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.deletePreferences' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.viewAccountNumberPreferences' | translate}}</h4>
+            </div>
+            <br/>
+            <form name="viewprefform" novalidate="" class="form-horizontal" rc-submit="submit()">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2">{{'label.input.accountType' | translate}}<span class="required">*</span></label>
+                        <div class="col-sm-3">
+                            {{accountType}}
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pull-right">
+                                <button id="approve" type="button" ng-click="editPreferences()" class="btn btn-primary" has-permission="UPDATE_ACCOUNTNUMBERFORMAT">
+                                    <i class="fa fa-edit "></i>&nbsp;&nbsp;
+                                    {{ 'label.button.edit' | translate }}</button>
+                                <button data-ng-click="deletePreferences()" type="button" class="btn btn-danger" has-permission="DELETE_ACCOUNTNUMBERFORMAT">
+                                    <i class="fa fa-trash-o"></i>&nbsp;&nbsp;
+                                    {{'label.button.delete' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2">{{'label.input.addPrefix' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <input id="activeCheckbox" type="checkbox" ng-model="addPrefix"  ng-disabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="addPrefix">
+                        <label class="col-sm-2">{{'label.input.prefixField' | translate}}</label>
+                        <div class="col-sm-3">
+                            {{prefixType}}
+                        </div>
+                    </div>
+                    <div class="col-md-offset-5">
+                        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.back' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,313 @@
+<div class="content-container" ng-controller="CreateStandingInstructionController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewclient/{{standinginstruction.fromClient.id}}">{{standinginstruction.fromClient.displayName}}</a></li>
+            <li class="active">{{'label.anchor.standinginstruction' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+                <form class="form-horizontal" name="standinginstructionform" novalidate="" rc-submit="submit()">
+                    <fieldset>
+                        <legend>{{ 'label.heading.createstandinginstruction' | translate }}</legend>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name" >{{'label.heading.name' | translate}}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.name' | translate}}"></i>
+                            </label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="name" name="name" ng-model="formData.name" class="form-control" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="displayName">{{'label.heading.applicant' | translate}}
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.applicant' | translate}}"></i>
+                            </label>
+                            
+                            <div class="col-sm-3" id="displayName">
+                                <input class="form-control" id="disabledInput" type="text" placeholder="{{standinginstruction.fromClient.displayName}}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="transferType" >{{'label.heading.type' | translate}}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.type' | translate}}"></i>
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="transferType" ng-model="formData.transferType" name="transferType"
+                                    ng-options="transferType.id as transferType.value for transferType in standinginstruction.transferTypeOptions" value="{{transferType.id}}" ng-change="changeEvent()" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="transferType"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class=" control-label col-sm-2" for="priority" > {{'label.heading.priority' | translate}} <span class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.priority' | translate}}"></i>
+                            </label>
+                            
+
+                            <div class="col-sm-3">
+                               <select id="priority" ng-model="formData.priority" name="priority"
+                                    ng-options="priority.id as priority.value for priority in standinginstruction.priorityOptions" value="{{priority.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="priority"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class=" control-label col-sm-2" for="status" >{{'label.heading.status' | translate}}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.status' | translate}}"></i>  
+                            </label>
+
+                            <div class="col-sm-3">
+                               <select id="status" ng-model="formData.status" name="status"
+                                    ng-options="status.id as status.value for status in standinginstruction.statusOptions" value="{{status.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="status"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="fromAccountType" >{{ 'label.heading.fromaccounttype' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.fromAccountType' | translate}}"></i> 
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="fromAccountType" ng-model="formData.fromAccountType" name="fromAccountType"
+                                        ng-options="fromAccountType.id as fromAccountType.value for fromAccountType in standinginstruction.fromAccountTypeOptions"
+                                        ng-change="changeEvent()" value="{{fromAccountType.id}}" class="form-control"
+                                        required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="fromAccountType"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="fromAccountId" >{{ 'label.heading.fromaccount' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.fromAccount' | translate}}"></i> 
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="fromAccountId" ng-model="formData.fromAccountId" name="fromAccount"
+                                        ng-options="fromAccount.id as (fromAccount.productName+' - '+fromAccount.accountNo) for fromAccount in standinginstruction.fromAccountOptions"
+                                        ng-change="changeEvent()" value="{{toAccount.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="fromAccount"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="destination" >{{ 'label.heading.destination' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.destination' | translate}}"></i> 
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="destination" ng-model="destination" name="destination"
+                                                ng-options="destination.id as destination.name for destination in destinationOptions"
+                                                ng-change="changedestination()" value="{{destination.id}}" class="form-control" required late-validate>
+                                            <option value="">{{'label.selectone' | translate}}</option>
+                                        </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="destination"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="toOfficeId" >{{ 'label.input.tooffice' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.toOffice' | translate}}"></i>    
+                            </label>
+
+                            <div class="col-sm-3">
+                                <div ng-show="allowclientedit">
+                                    <select id="toOfficeId" ng-model="formData.toOfficeId" name="toOfficeId"
+                                            ng-options="toOffice.id as toOffice.name for toOffice in standinginstruction.toOfficeOptions"
+                                            ng-change="changeEvent()" value="{{toOffice.id}}" class="form-control" required late-validate>
+                                        <option value="">{{'label.selectone' | translate}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="toOfficeId"/>
+                            </div>
+                                <div data-ng-hide="allowclientedit">
+                                    <label class="control-label">{{standinginstruction.toOffice.name}}</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="toClientId" >{{ 'label.input.toclient' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.toClient' | translate}}"></i>    
+                            </label>
+
+                            <div class="col-sm-3">
+                                <div ng-show="allowclientedit">
+                                    <select id="toClientId" ng-model="formData.toClientId" name="client"
+                                            ng-options="toClient.id as toClient.displayName for toClient in standinginstruction.toClientOptions"
+                                            ng-change="changeEvent()" value="{{toClient.id}}" class="form-control" required>
+                                        <option value="">{{'label.selectone' | translate}}</option>
+                                    </select>
+                                </div>
+                                <div data-ng-hide="allowclientedit">
+                                    <label class="control-label">{{standinginstruction.toClient.displayName}}</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="standinginstructionform" valattribute="client"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="toAccountType" >{{ 'label.input.toaccounttype' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.toaccountType' | translate}}"></i>   
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="toAccountType" ng-model="formData.toAccountType" name="account"
+                                        ng-options="toAccountType.id as toAccountType.value for toAccountType in standinginstruction.toAccountTypeOptions"
+                                        ng-change="changeEvent()" value="{{toAccountType.id}}" class="form-control"
+                                        required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="account"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="toAccountId" >{{ 'label.input.toaccount' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.toAccount' | translate}}"></i>   
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="toAccountId" ng-model="formData.toAccountId" name="accountnumber"
+                                        ng-options="toAccount.id as (toAccount.productName+' - '+toAccount.accountNo) for toAccount in standinginstruction.toAccountOptions"
+                                        ng-change="changeEvent()" value="{{toAccount.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="accountnumber"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="instructionType" >{{ 'label.input.instructiontype' | translate }}
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.standinginstructiontype' | translate}}"></i> 
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select id="instructionType" ng-model="formData.instructionType" name="instructionType"
+                                        ng-options="instructionType.id as (instructionType.value) for instructionType in standinginstruction.instructionTypeOptions"
+                                        value="{{instructionType.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="instructionType"/>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="transferAmount" >{{ 'label.input.amount' | translate }}
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.amount' | translate}}"></i>  
+                            </label>
+                            <div class="col-sm-3">
+                                <input type="text" id="transferAmount" name="transferAmount" number-format ng-model="formData.amount" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="validFrom" >{{ 'label.heading.validfrom' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.validity-from-to' | translate}}"></i>    
+                            </label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="validFrom" datepicker-pop="dd MMMM yyyy" ng-model="formData.validFrom"
+                                       is-open="opened" min="restrictDate" name="validFrom" class="form-control"/>
+                            </div>
+                             <label class="control-label col-sm-1" for="validTill">{{ 'label.heading.to' | translate }}</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" id="validTill" datepicker-pop="dd MMMM yyyy" ng-model="formData.validTill"
+                                       is-open="opened" min="restrictDate" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="recurrenceType" >{{ 'label.heading.recurrencetype' | translate }}<span
+                                    class="required">*</span>
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.recurrence-type' | translate}}"></i> 
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="recurrenceType" ng-model="formData.recurrenceType" name="recurrenceType"
+                                        ng-options="recurrenceType.id as (recurrenceType.value) for recurrenceType in standinginstruction.recurrenceTypeOptions"
+                                        value="{{recurrenceType.id}}" class="form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="standinginstructionform" valattribute="recurrenceType"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="recurrenceInterval"  >{{ 'label.heading.recurrenceinterval' | translate }}
+                                <i class="fa fa-question-circle" tooltip-placement="right" uib-tooltip="{{'label.tooltip.csi.interval' | translate}}"></i>    
+                            </label>
+                            <div class="col-sm-3">
+                                <input type="text" id="recurrenceInterval" name="recurrenceInterval"
+                                       ng-model="formData.recurrenceInterval" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="recurrenceFrequency" >{{ 'label.heading.recurrencefrequency' | translate }}
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.recurrence-frequency' | translate}}" ></i>   
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="recurrenceFrequency" ng-model="formData.recurrenceFrequency" name="recurrenceFrequency"
+                                        ng-options="recurrenceFrequency.id as (recurrenceFrequency.value) for recurrenceFrequency in standinginstruction.recurrenceFrequencyOptions"
+                                        value="{{recurrenceFrequency.id}}" class="form-control">
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="recurrenceOnMonthDay" >{{ 'label.heading.recurrenceonmonthday' | translate }}
+                                <i class="fa fa-question-circle" tooltip-append-to-body="true" uib-tooltip="{{'label.tooltip.csi.on-month-day' | translate}}"></i>    
+                            </label>
+                            <div class="col-sm-3">
+                                <input type="text" id="recurrenceOnMonthDay" name="recurrenceOnMonthDay"
+                                       ng-model="recurrenceOnMonthDay" datepicker-pop="dd MMMM"
+                                       is-open="opened" class="form-control"/>
+
+                            </div>
+                        </div>
+                        <div class="col-md-offset-3">
+                            <a id="cancel" href="#/viewclient/{{standinginstruction.fromClient.id}}" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_STANDINGINSTRUCTION'>{{ 'label.button.save' | translate }}</button>
+                        </div>
+                    </fieldset>
+                </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="col-md-12" ng-controller="AdHocQueryListController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.adhoc' | translate}}</li>
+    </ul>
+
+    <input ng-model="filterText" type="text" ng-keyup="onFilter()" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <a class="btn btn-primary pull-right" href="#/createadhocquery" has-permission='CREATE_ADHOC'><i class="fa fa-plus fa fa-large"></i>&nbsp;&nbsp;{{'label.anchor.createadhoc' | translate}}</a>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.queryname' | translate}}</th>
+            <th>{{'label.heading.query' | translate}}</th>
+            <th>{{'label.heading.tableaffected' | translate}}</th>
+            <th>{{'label.heading.email' | translate}}</th>
+            <th>{{'label.heading.reportrunfrequncy' | translate}}</th>
+            <th>{{'label.heading.isactive' | translate}}</th>
+            <th>{{'label.heading.createdby' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="adhocquery in adhocquerys| orderBy:'name':reverse | filter:filterText">
+            <!-- <td class="pointer" data-ng-click="routeTo(aduocquery.id)">{{aduocquery.name}}</td> -->
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.query}}</td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.tableName}}</td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.email}}</td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.reportRunFrequency | translate}} </td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.isActive}} </td>
+            <td class="pointer" data-ng-click="routeTo(adhocquery.id)">{{adhocquery.createdBy}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

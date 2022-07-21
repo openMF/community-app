@@ -1,0 +1,56 @@
+<div class="content-container" ng-controller="TransactionClassificationController">
+    <ul class="breadcrumb">
+        <li ><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.transactionclassification' | translate}}</li>
+    </ul>
+    <div class="card">
+        <api-validate></api-validate>
+        <div class="toolbar">
+            <h4>{{ 'label.heading.transactionclassification' | translate }}</h4>
+        </div>
+        <div class="content">
+            <br>
+            <div class="row">
+                <div class="col-sm-10">
+                    <form name="filtertransactionclassification" class="form-horizontal">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input data-ng-model="searchText" type="text"
+                                       placeholder="{{'label.input.searchTransactionClassification' | translate}}"
+                                       class="form-control unstyled"/>
+                                <span class="input-group-btn">
+                                        <button class="btn btn-default form-control">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#/transactionclassification/add" class="btn btn-primary pull-right">
+                        <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.createtransactionclassification' | translate}}
+                    </a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{'label.heading.classification' | translate}}</th>
+                    <th>{{'label.heading.operatorName' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="transactionClassification in transactionClassifications | filter: searchText" class="pointer-main" >
+                    <td class="pointer">{{ transactionClassification.classification}}</td>
+                    <td class="pointer">{{ transactionClassification.operator}}</td>
+                    <td><a type="button" class="btn btn-primary" ng-click="deletetransactionClassification(transactionClassification.id)"><i class="fa fa-scissors"></i>&nbsp;&nbsp;{{'label.heading.delete' | translate}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

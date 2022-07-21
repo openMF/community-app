@@ -1,0 +1,66 @@
+<div class="col-md-12" ng-controller="EditMeetingController">
+    <ul class="breadcrumb">
+        <li><a href="#/groups">{{'label.anchor.groups' | translate}}</a></li>
+        <li ng-show="entityType=='groups'"><a href="#/viewgroup/{{groupOrCenterId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
+        <li ng-show="entityType=='centers'"><a href="#/viewcenter/{{groupOrCenterId}}">{{'label.anchor.viewcenter' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editmeeting' | translate }}</li>
+    </ul>
+    <api-validate></api-validate>
+    <form ng-submit="submit()" class="well form-horizontal">
+        <fieldset>
+	        <legend>{{'label.heading.editmeeting' | translate}}
+                 <span class="pull-right ">
+ <a class="btn btn-primary" href="#/editcalendarbasedonmeetingdates/{{entityType}}/{{groupOrCenterId}}/{{calendarId}}" >{{ 'label.button.editcalendarbasedonmeetingdates' | translate }}</a></span>
+            </legend>
+
+
+            <div class="form-group">
+             <alert type="danger" >{{'warning.msg.calendar.update.note' | translate}} </alert>
+            </div>
+
+            <div class="form-group" ng-show="formData.repeating">
+                <label  class="control-label col-sm-2">{{'label.heading.meetingdetails'
+                    | translate}}</label>
+                <div class="col-sm-10">
+	                <label class="control-label col-md-1">{{'label.input.repeats' | translate}}</label>
+	                <div class="col-sm-3">
+		                <select class="input-sm form-control" ng-model="formData.frequency"
+		                        ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
+		                        ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}"></select>
+	                </div>
+                    <label class="control-label col-md-2">{{'label.input.repeatsevery' | translate}}</label>
+                    <div class="col-sm-3">
+	                    <select class="input-sm form-control" ng-model="formData.interval"
+	                            ng-options="repeatsEveryOption for repeatsEveryOption in repeatsEveryOptions"
+	                            value="{{repeatsEveryOption}}"></select>
+	                </div>
+	                <label class="control-label col-md-1">{{periodValue}}</label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="formData.repeating">
+                <div class="col-md-6 col-md-offset-2">
+                    <div ng-show="formData.frequency==2" class="col-md-1" ng-repeat="repeatsOnOption in repeatsOnOptions">
+                        <input type="radio" ng-model="formData.repeatsOnDay" value="{{repeatsOnOption.value}}">
+                        {{repeatsOnOption.name}} <br/>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="control-label col-sm-4">{{'label.input.calendar.changes.effective.from' | translate}}<span
+                        class="required">*</span></label>
+                <div class="col-sm-3">
+                    <input id="startDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+                </div>
+            </div>
+	        <div class="col-md-offset-2">
+	            <a id="cancel" ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
+	                | translate}}</a>
+	            <a ng-hide="entityType=='groups'" class="btn btn-default" href="#/viewcenter/{{groupOrCenterId}}">{{'label.button.cancel'
+	                | translate}}</a>
+	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
+	        </div>
+	   </fieldset>
+    </form>
+</div>

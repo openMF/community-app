@@ -1,0 +1,506 @@
+<div class="content-container" ng-controller="LoanAccountActionsController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.'+action | translate}}</li>
+        </ul>
+    </div>
+    <wizard on-finish="submitDatatable()" current-step = "step" class="card well">
+        <wz-step wz-title="{{ title | translate}}">
+    <form class="form-horizontal" name="loanactionform" novalidate="" >
+        <fieldset>
+            <div ng-show="submittedDatatables.length > 0" uib-alert type="success">
+                <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the datatable entries will be updated.<br></span>
+            </div>
+            <api-validate></api-validate>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <!--<legend>{{ title | translate}}</legend>-->
+                    </td>
+                    <td ng-show="addDisburseDetails" align="right">
+                        <legend>
+                            <button type="button" class="btn btn-primary" align="right"
+                                    ng-click="addTranches()">{{ 'label.button.add' | translate }}
+                            </button>
+                        </legend>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-group" ng-show="showDateField">
+                <label class="control-label col-sm-2" for="modelName">{{labelName | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" sort type="text" datepicker-pop="dd MMMM yyyy" class="form-control"
+                           ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showApprovalAmount">
+                <label class="control-label col-sm-2">{{'label.input.expecteddisbursementon' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="expectedDisbursementDate" sort type="text" class="form-control"
+                           datepicker-pop="dd MMMM yyyy" ng-model="form.expectedDisbursementDate"
+                           min="'2000-01-01'" max="restrictDate"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showApprovalAmount">
+                <label class="control-label col-sm-2">{{ 'label.heading.approvedamount' |
+                    translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="approvedAmt" type="text" name="amount" ng-model="formData.approvedLoanAmount"
+                           class="form-control"
+                           number-format required late-Validate>
+                </div>
+            </div>
+            <div class="form-group col-sm-3" ng-show="approveTranches" style="width: 100%;padding-left: 26px">
+                <label class="control-label col-sm-2">{{ 'label.heading.tranchedetails' | translate }}</label>
+
+                <div>
+                    <table style="width:80%" class="table table-bordered">
+                        <tr>
+                            <td colspan="5" align="right">
+                                <button type="button" class="btn btn-primary"
+                                        ng-click="addTranches()">{{ 'label.button.addTranche' | translate }}
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{'label.input.expecteddisbursementon' | translate}}</td>
+                            <td>{{'label.account.deposit.principal.amount' | translate}}</td>
+                            <td>{{'label.heading.actions' | translate}}</td>
+                        </tr>
+                        <tr ng-repeat="details in disbursementDetails">
+                            <td>{{'label.heading.tranche' | translate}}{{$index + 1}}</td>
+                            <td>
+                                <input id="details[{{$index}}].expectedDisbursementDate" type="text"
+                                       datepicker-pop="dd MMMM yyyy" class="form-control"
+                                       ng-model="details.expectedDisbursementDate" is-open="'openedtranche'+$index"
+                                       min="minDate" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="details[{{$index}}].principal"
+                                       ng-change="addTrancheAmounts()" ng-model="details.principal">
+                            </td>
+                            <td>
+                                <a ng-click="deleteTranches($index);addTrancheAmounts();"><i
+                                        class="fa fa-times-circle fa-2x"></i></a>
+                            </td>
+                        </tr>
+                        <tr colspan="5">
+                            <td>{{'label.heading.total' | translate}}</td>
+                            <td></td>
+                            <td>{{showTrancheAmountTotal}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div ng-show="disbursementDetails">
+                <div class="form-group" ng-show="showApprovalAmount">
+                    <label class="control-label col-sm-2" for="approvedAmount">{{ 'label.input.transactionamount' |
+                        translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="approvedAmount" type="text" name="amount" ng-model="formData.approvedLoanAmount"
+                               class="form-control"
+                               number-format required late-Validate>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="loanactionform" valattribute="amount"/>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showAmountField">
+                    <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
+                        translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="transactionAmount" type="text" name="amount" ng-model="formData.transactionAmount"
+                               class="form-control"
+                               number-format required late-Validate>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="loanactionform" valattribute="amount"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="principalPortion">
+                    <label class="control-label col-sm-2" for="principalPortion">{{ 'label.input.principal' |
+                        translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="principalPortion" type="text" name="principa" ng-model="principalPortion"
+                               class="form-control"
+                               number-format readonly>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="interestPortion">
+                    <label class="control-label col-sm-2" for="interestPortion">{{ 'label.input.interest' |
+                        translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="interestPortion" type="text" name="interest" ng-model="interestPortion"
+                               class="form-control"
+                               number-format readonly>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="feeChargesPortion">
+                    <label class="control-label col-sm-2" for="feeChargesPortion">{{ 'label.input.fees' |
+                        translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="feeChargesPortion" type="text" name="fees" ng-model="feeChargesPortion"
+                               class="form-control"
+                               number-format readonly>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="isLoanWriteOff">
+                    <label class="control-label col-sm-2" for="writeOffAmount">{{ 'label.input.amount' |
+                        translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="writeOffAmount" type="text" name="amount" ng-model="writeOffAmount"
+                               class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showPenaltyPortionDisplay">
+                    <label class="col-sm-3" for="transactionAmount">{{ 'label.input.payspenaltyportion' |
+                        translate}}</label>
+                </div>
+
+                <div class="form-group" ng-show="showEMIAmountField">
+                    <label class="control-label col-sm-2" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' |
+                        translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input id="transactionAmount" type="text" class="form-control" name="amount"
+                               ng-model="formData.fixedEmiAmount">
+                    </div>
+                </div>
+
+                <div ng-show="isTransaction">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymenttype' |
+                            translate}}</label>
+
+                        <div class="col-sm-3">
+                            <select id="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control"
+                                    ng-options="paymentType.id as paymentType.name for paymentType in paymentTypes"
+                                    value="{{paymentType.id}}"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{ 'label.anchor.showpaymentdetails' | translate}}</label>
+
+                        <div class="col-sm-3">
+                            <a class="btn btn-primary" ng-click="showPaymentDetails=!showPaymentDetails">
+                                <i ng-show="showPaymentDetails" class="fa fa-minus "></i>
+                                <i ng-show="!showPaymentDetails" class="fa fa-plus "></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div uib-collapse="!showPaymentDetails">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="accountNumber">{{ 'label.input.accnum' |
+                                translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="accountNumber" type="text" class="form-control"
+                                       ng-model="formData.accountNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="checkNumber">{{ 'label.input.checknumber' |
+                                translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="checkNumber" class="form-control" type="text"
+                                       ng-model="formData.checkNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="routingCode">{{ 'label.input.routingcode' |
+                                translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="routingCode" class="form-control" type="text"
+                                       ng-model="formData.routingCode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="receiptNumber">{{ 'label.input.receiptnumber' |
+                                translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="receiptNumber" class="form-control" type="text"
+                                       ng-model="formData.receiptNumber">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="bankNumber">{{ 'label.input.banknumber' |
+                                translate}}</label>
+
+                            <div class="col-sm-3">
+                                <input id="bankNumber" class="form-control" type="text" ng-model="formData.bankNumber">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showNoteField">
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="note" rows="2" class="form-control" ng-model="formData.note"></textarea>
+                </div>
+            </div>
+            <div class="form-group" ng-show="installmentchargeField">
+                <label class="control-label col-sm-2" for="note">{{ 'label.input.installment' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select id="installmentNumber" ng-model="formData.installmentNumber" class="form-control"
+                            ng-options="installmentCharge.installmentNumber as installmentCharge.installmentNumber for installmentCharge in installmentCharges"
+                            value="{{installmentCharge.installmentNumber}}"></select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="paymentDatefield">
+                <label class="control-label col-sm-2" for="modelName">{{'label.input.paymentdate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" class="form-control" type="text" sort datepicker-pop="dd MMMM yyyy"
+                           ng-model="formData.transactionDate" is-open="opened"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showEditChargeAmount">
+                <label class="control-label col-sm-2">{{ 'label.input.amount' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="amount" ng-model="formData.amount">
+                </div>
+            </div>
+            <div class="form-group" ng-show="showEditChargeDueDate">
+                <label class="control-label col-sm-2" for="modelName">{{'label.input.dueforcollectedon' |
+                    translate}}<span
+                            class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy" class="form-control"
+                           ng-model="formData.dueDate"
+                           is-open="opened"/>
+                </div>
+            </div>
+            <div class="form-group" ng-show="showEditDisburseDate">
+                <label class="control-label col-sm-2" for="modelName">{{'label.input.expecteddisbursementon' |
+                    translate}}<span
+                            class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="{{modelName}}" type="text" sort datepicker-pop="dd MMMM yyyy" class="form-control"
+                           ng-model="formData.updatedExpectedDisbursementDate" is-open="opened"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.principal' |
+                        translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="principal" type="text" name="amount" ng-model="formData.updatedPrincipal"
+                               class="form-control"
+                               number-format required late-Validate>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table width100" ng-show="addDisburseDetails && disbursementDetails.length > 0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                    <th>{{'label.input.principal' | translate}}</th>
+                    <th>{{'label.input.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="disbursementDetail in disbursementDetails">
+                    <td ng-hide="disbursementDetail.id">
+                        <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                               ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
+                               min="minDate" />
+                    </td>
+                    <td ng-hide="disbursementDetail.id">
+                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format
+                               type="text"
+                               ng-model="disbursementDetail.principal"
+                               placeholder="{{'label.input.principal' | translate}}">
+                    </td>
+                    <td ng-hide="disbursementDetail.id"><a ng-click="deleteTranches($index)"><i
+                            class="fa fa-times-circle fa-2x"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table width100" ng-show="deleteDisburseDetails && disbursementDetails.length > 0">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                    <th>{{'label.input.principal' | translate}}</th>
+                    <th>{{'label.input.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="disbursementDetail in disbursementDetails">
+                    <td>
+                        <input id="disbursementDetail[{{$index}}].expectedDisbursementDate" type="text"
+                               datepicker-pop="dd MMMM yyyy" class="form-control"
+                               placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                               ng-model="disbursementDetail.expectedDisbursementDate" ng-disabled="true"
+                               is-open="'openedtranche'+$index"
+                               ng-show="disbursementDetail.actualDisbursementDate == null"
+                               min="minDate" />
+                    </td>
+                    <td>
+                        <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format
+                               type="text"
+                               ng-model="disbursementDetail.principal"
+                               ng-show="disbursementDetail.actualDisbursementDate == null"
+                               placeholder="{{'label.input.principal' | translate}}" ng-disabled="true">
+                    </td>
+                    <td ng-show="disbursementDetail.actualDisbursementDate == null"><a
+                            ng-click="deleteTranches($index)"><i
+                            class="fa fa-times-circle fa-2x"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="">
+                <button id="save1"  wz-next class="btn btn-primary pull-right" ng-show="isEntityDatatables">
+                    {{'label.button.proceed' | translate}}
+                </button>
+                <div ng-hide="isEntityDatatables">
+                    <div class="form-group" ng-show="showDelete || showwaiveforspecicficduedate">
+                        <label class="control-label col-sm-2 col-md-offset-10">{{ 'label.areyousure' | translate}}</label>
+                    </div>
+                    <div class="col-md-offset-2 col-md-offset-10" ng-show="showDelete || showwaiveforspecicficduedate">
+                        <button type="reset" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' |
+                            translate}}
+                        </button>
+                        <button type="submit" has-permission='{{taskPermissionName}}' wz-next
+                                class="btn btn-primary">{{
+                            'label.button.confirm' |
+                            translate}}
+                        </button>
+                    </div>
+                    <div class="col-md-offset-2 col-md-offset-10" ng-hide="showDelete || showwaiveforspecicficduedate">
+                        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |
+                            translate}}
+                        </button>
+                        <button id="save" type="submit" has-permission='{{taskPermissionName}}' wz-next class="btn btn-primary">{{
+                            'label.button.save' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+        </wz-step>
+        <wz-step ng-if="isEntityDatatables" ng-repeat="datatable in datatables" wz-title="{{datatable.registeredTableName}}">
+            <div class="card-content">
+                <form class="form-horizontal">
+                    <div ng-show="submittedDatatables.length>0" uib-alert type="success">
+                        <span ng-repeat="table in submittedDatatables"><i class="fa fa-check"></i>Entry in ` {{table}} ` has been made successfully. If the inputs are changed, the datatable entries will be updated.<br></span>
+                    </div>
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <!--<legend>{{datatable.registeredTableName}}</legend>-->
+                        <div class="form-group" ng-repeat="columnHeader in datatable.columnHeaders">
+                            <label class="control-label col-sm-3">{{ columnHeader.columnName | prettifyDataTableColumn }}
+                                <span ng-show="!columnHeader.isColumnNullable" class="required">*</span>
+                            </label>
+                            <div class="col-sm-3">
+                                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text"
+                                       ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]" class="form-control"/>
+                                <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text"
+                                           datepicker-pop="dd MMMM yyyy" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateType.date"
+                                       is-open="opened{{$index}}" class="form-control"/>
+                                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
+                                    <div class="form-group">
+                                        <input type="text" datepicker-pop="dd MMMM yyyy"
+                                               ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateTimeType.date"
+                                               is-open="opened{{$index}}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="time" placeholder="HH:MM:SS"
+                                               ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName].dateTimeType.time" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                               value="true"/>
+                                        {{'label.input.true' | translate}}
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                               value="false"/>
+                                        {{'label.input.false' | translate}}
+                                    </label>
+                                </div>
+                                <span data-ng-switch on="columnHeader.columnDisplayType">
+		                  <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                  data-ng-switch-when="CODELOOKUP"
+                                  ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                  ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
+                                  value="{{columnValue.id}}" class="form-control">
+		                     <option value="">{{'label.selectone' | translate}}</option>
+		                  </select>
+		                  <select ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+                                  data-ng-switch-when="CODEVALUE"
+                                  ng-model="entityformData.datatables[datatables.indexOf(datatable)].data[columnHeader.columnName]"
+                                  ng-options="columnValue.value as columnValue.value for columnValue in columnHeader.columnValues"
+                                  value="{{columnValue.id}}" class="form-control">
+		                     <option value="">{{'label.selectone' | translate}}</option>
+		                  </select>
+		               </span>
+                            </div>
+                        </div>
+                        <div class="pull-right" ng-if="!$last">
+                            <button id="save4" type="submit" class="btn btn-primary" wz-next>
+                                {{'label.button.proceed' | translate}}
+                            </button>
+                        </div>
+                        <div class="col-md-offset-5" ng-if="$last">
+                            <div class="form-group" ng-show="showDelete || showwaiveforspecicficduedate">
+                                <label class="control-label col-sm-2">{{ 'label.areyousure' | translate}}</label>
+                            </div>
+                            <div class="col-md-offset-2" ng-show="showDelete || showwaiveforspecicficduedate">
+                                <button type="reset" ng-click="cancel()" class="btn btn-default">{{ 'label.button.cancel' |
+                                    translate}}
+                                </button>
+                                <button type="submit" has-permission='{{taskPermissionName}}' wz-next
+                                        class="btn btn-primary">{{
+                                    'label.button.confirm' |
+                                    translate}}
+                                </button>
+                            </div>
+                            <div class="col-md-offset-2" ng-hide="showDelete || showwaiveforspecicficduedate">
+                                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |
+                                    translate}}
+                                </button>
+                                <button id="save" type="submit" has-permission='{{taskPermissionName}}' wz-next class="btn btn-primary">{{
+                                    'label.button.save' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </wz-step>
+    </wizard>
+</div>

@@ -1,0 +1,59 @@
+<div class="content-container" ng-controller="TellersController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.tellers' | translate}}</li>
+    </ul>
+
+<div class="card" >
+<div class="content">
+    <div class="toolbar">
+        <div class="row">
+            <div class="col-md-6">
+                <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control col-md-6" placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <a href="#/createTeller" class="btn btn-primary" has-permission='CREATE_TELLER'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createteller' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div ng-hide="isTreeView">
+        <api-validate></api-validate>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.cashmgmt.officeName' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerName' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerStatus' | translate}}</th>
+                <th>{{'label.heading.cashmgmt.tellerStartDate' | translate}}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="teller in tellers | orderBy:'teller.officeName'  | filter:filterText |  itemsPerPage: TellersPerPage">
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.officeName}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.name}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.status}}</td>
+                <td class="pointer" data-ng-click="routeToCashiers(teller.id)">{{teller.startDate | DateFormat}}</td>
+                <td >
+
+                    <a class="btn btn-info" data-ng-click="routeTo(teller.id)"><i class="fa fa-eye"></i>&nbsp;&nbsp;{{'label.button.view' | translate}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="#/editteller/{{teller.id}}" class="btn btn-primary" has-permission='UPDATE_TELLER'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{
+                        'label.button.edit' | translate }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-danger" has-permission='DELETE_TELLER' data-ng-click="routeToDelete(teller.id)"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}</a>
+                </td>
+                <!--<td data-ng-click="routeTo(teller.id)">
+
+                </td>
+                <td data-ng-click="routeTo(teller.id)">
+
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>
+</div>

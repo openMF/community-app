@@ -1,0 +1,112 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createholiday' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<div class="toolbar">
+    			<h4>{{'label.heading.createholiday' | translate}}</h4>
+    		</div>
+    		<br>
+    		<form name="addholidayform" novalidate="" class="form-horizontal" ng-controller="AddHolController"
+    		      rc-submit="submit()">
+    		    <api-validate></api-validate>
+    		    <fieldset>
+    		        <div class="form-group">
+    		            <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span class="required">*</span></label>
+
+    		            <div class="col-sm-3">
+    		                <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
+    		                       class="form-control" required late-Validate/>
+    		            </div>
+    		            <div class="col-sm-3">
+    		                <form-validate valattributeform="addholidayform" valattribute="name"/>
+    		            </div>
+    		        </div>
+    		        <div class="form-group">
+    		            <div>
+    		                <label class="control-label col-sm-2">{{ 'label.input.fromdate' | translate }}<span
+    		                        class="required">*</span></label>
+
+    		                <div class="col-sm-3">
+    		                    <input id="fromDate" name="fromDate" sort type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.first" is-open="opened" min="minDat"
+                                max="'2050-06-22'" class="form-control" required/>
+    		                </div>
+                            <div class="">
+                                <span class="error" ng-if="firstError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
+                                <form-validate valattributeform="addholidayform" valattribute="fromDate"/>
+                            </div>
+    		            </div>
+    		            <div>
+    		                <label class="control-label col-sm-1">{{ 'label.input.todate' | translate }}<span
+    		                        class="required">*</span></label>
+
+    		                <div class="col-sm-3">
+    		                    <input id="toDate" name="toDate" sort type="text" datepicker-pop="dd MMMM yyyy"
+    		                           ng-model="date.second" is-open="opened1" min="minDate" 
+    		                           class="form-control" required/>
+
+                                <span class="error" ng-if="secondError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
+    		                </div>
+    		            </div>
+    		        </div>
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.heading.repaymentscheduleing.rule' | translate }}<span
+                            class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <select id="repaymentSchedulingRuleType" name="schedulingRule" class="form-control" ng-model="reschedulingType" ng-change="selectRescheduleType(reschedulingType)"
+                                    ng-options="repaymentSchedulingRule.value | translate for repaymentSchedulingRule in repaymentSchedulingRules"
+                                    value="{{repaymentSchedulingRule.id}}" required></select>
+                        </div>
+                        <form-validate valattributeform="addholidayform" valattribute="schedulingRule"/>
+
+                  </div>
+
+    		        <div class="form-group"  ng-show="reschedulingType.id == specificRescheduleType">
+    		            <label class="control-label col-sm-2">{{ 'label.input.repaymentsheduleto' | translate }}<span
+    		                    class="required">*</span></label>
+
+    		            <div class="col-sm-3">
+    		                <input id="repaymentsRescheduledTo" name="repaymentsRescheduledTo" sort type="text" datepicker-pop="dd MMMM yyyy"
+    		                       ng-model="date.third" is-open="opened2" min="minDate"  class="form-control"/>
+    		            </div>
+                        <div class="col-sm-3">
+                            <span class="error" ng-if="thirdError">{{ 'validation.msg.holiday.date.cannot.be.past.date' | translate }}</span>
+                            <form-validate valattributeform="addholidayform" valattribute="repaymentsRescheduledTo"/>
+                        </div>
+    		        </div>
+    		        <div class="form-group">
+    		            <label class="control-label col-sm-2">{{ 'label.input.description' | translate }}</label>
+
+    		            <div class="col-sm-3">
+    		                <input id="" type="text" data-ng-model="formData.description" class="form-control"/>
+    		            </div>
+    		        </div>
+    		        <div class="form-group">
+    		            <label class="control-label col-sm-2">{{ 'label.input.applicableoffices' | translate }}<span
+								class="required">*</span></label>
+
+    		            <div
+    		                    data-angular-treeview="true"
+    		                    data-tree-id="holidaytreeview"
+    		                    data-tree-model="treedata"
+    		                    data-node-id="id"
+    		                    data-node-label="name"
+    		                    data-node-children="children">
+    		            </div>
+    		        </div>
+    		        <div class="col-md-offset-3">
+    		            <a id="cancel" class="btn btn-default" href="#/holidays">{{'label.button.cancel' | translate}}</a>
+    		            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_HOLIDAY'>
+    		                {{'label.button.save' | translate}}
+    		            </button>
+    		        </div>
+
+    		    </fieldset>
+    		</form>
+    	</div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="content-container" ng-controller="CreateFloatingRateController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createfloatingrate' | translate}}</li>
+    </ul>
+
+    <form name="newfloatingrateform" novalidate="" rc-submit="submit()" class="card form-horizontal well">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label class="control-label" for="name">{{'label.input.floatingratename' | translate}}<span
+                            class="required">*</span> &nbsp;
+                        <i class="fa fa-question-circle"
+                        uib-tooltip="{{'label.tooltip.floatingratename' | translate}}"
+                        tooltip-append-to-body="true"></i>
+                    </label>
+                </div>
+                <div class="col-sm-2">
+                    <input name="name" type="text" id="name" ng-model="formData.name" class="form-control"
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="newfloatingrateform" valattribute="name"/>
+                </div>
+                <div class="col-sm-3">
+                  <input type="checkbox" name="name1" ng-model="formData.isBaseLendingRate"/>
+                  <label class="control-label" >{{'label.input.isbaselendingrate' | translate}}
+                  &nbsp;    <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isBaseLendingRate' | translate}}"
+                        tooltip-append-to-body="true"></i>
+                  </label>
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="checkbox" name="name1" ng-model="formData.isActive"/>
+                    <label class="control-label" >{{'label.input.active' | translate}}
+                    &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.isActive' | translate}}"></i>
+                    </label>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label class="bolder" >{{'label.heading.rateperiods' | translate}}
+                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.rateperiods' | translate}}"
+                         tooltip-append-to-body="true"></i>
+                    </label>
+                </div>
+                <div class="col-sm-1">
+                    <button id="add" data-ng-click="addRatePeriod()" class="btn btn-primary" name="add"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.add' | translate}}</button>
+                </div>
+            </div>
+            <BR>
+            <table class="table width80" ng-show="formData.ratePeriods.length>0" >
+                <tr class="graybg" class="width50">
+                    <th>{{'label.heading.fromdate' | translate}}
+                        <span class="required">*</span>
+                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatingfromdate' | translate}}"></i></th>
+                    <th>{{'label.heading.interestrate' | translate}}
+                        <span class="required">*</span>
+                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatigannualinterest' | translate}}"></i></th>
+                    <th>{{'label.heading.isdifferentaialtobaselendingrate' | translate}}
+                        &nbsp;<i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.floatingisdifferential' | translate}}"></i></th>
+                    <th> {{'label.heading.actions' | translate}}</th>
+                </tr>
+                <tr ng-repeat="rateperiod in formData.ratePeriods">
+                    <td>
+                        <ng-form name="fromDate{{$index}}">
+                        <input type="text" id="fromDate{{$index}}" name="fromDate" datepicker-pop="dd MMMM yyyy"
+                               ng-model="rateperiod.fromDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
+                               class="form-control" required/>
+                            <span class="error" ng-show="visitValidation&&fromDate{{$index}}.fromDate.$error.required">{{ 'label.requirefield' | translate }}</span>
+                        </ng-form>
+                    </td>
+                    <td>
+                        <ng-form name="interestRate{{$index}}">
+                           <input id="interestRate{{$index}}" name="interestRate" class="form-control" type="text"
+                                   ng-model="rateperiod.interestRate" number-format required/>
+                            <span class="error" ng-show="visitValidation&&interestRate{{$index}}.interestRate.$error.required">{{ 'label.requirefield' | translate }}</span>
+                        </ng-form>
+                    </td>
+                    <td>
+                       <input id="isDifferentialToBaseLendingRate" name="isDifferentialToBaseLendingRate"  type="checkbox"
+                                      ng-model="rateperiod.isDifferentialToBaseLendingRate"/>
+                    </td>
+                    <td>
+                        <a ng-click="deleteRatePeriod($index)"><i class="fa fa-times-circle fa-2x"></i></a>
+                    </td>
+                   </tr>
+            </table>
+            <div class="col-md-offset-4">
+                <a id="cancel" href="#/floatingrates">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" ng-click="visitValidation=true" class="btn btn-primary"
+                        has-permission='CREATE_FLOATINGRATE'>{{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

@@ -1,0 +1,118 @@
+<div class="content-container" ng-controller="ViewCodeController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
+        <li class="active">{{code.name | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{code.name | translate}}</h4>
+            </div>
+            <br/>
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.editcode' | translate}}
+                            </button>
+                            <a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addcodevalues' | translate}}</a>
+                            <a data-ng-click="delCode()" class="btn btn-danger" has-permission='DELETE_CODE' ng-show="code.systemDefined == false"><i
+                            class="fa fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <div data-ng-show="newcode.edit">
+                    <api-validate></api-validate>
+                    <div class="col-sm-3">
+                        <input type="text" data-ng-model="codename.name" class="form-control"/>
+                    </div>
+                    <button type="button" class="btn btn-default" data-ng-click="showEditCode(1)">{{'label.button.cancel' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary" data-ng-click="updateCode()" has-permission='UPDATE_CODE'>{{'label.button.save' |
+                        translate}}
+                    </button>
+                    <hr/>
+                </div>
+                <div>
+                    <table class="table" ui:sortable>
+                        <thead>
+                        <tr>
+                            <th>{{ 'label.heading.name' | translate }}</th>
+                            <th>{{ 'label.heading.description' | translate }}</th>
+                            <th>{{ 'label.heading.position' | translate }}</th>
+                            <th>{{'label.heading.active' | translate}}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="codevalue in codevalues">
+                            <td>
+                                <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
+                                <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name"
+                                       type="text" class="form-control" required/>
+                            </td>
+                            <td>
+                                <span data-ng-hide="codevalue.edit">{{codevalue.description}}</span>
+                                <textarea data-ng-show="codevalue.edit" name="description" ng-model="formData[codevalue.id].description"
+                                       type="text" class="form-control"/>
+                            </td>
+                            <td>
+                                <span data-ng-hide="codevalue.edit">{{codevalue.position}}</span>
+                                <input data-ng-show="codevalue.edit" name="position" ng-model="formData[codevalue.id].position"
+                                       type="text" class="form-control"/>
+                            </td>
+                            <td>
+                                <span data-ng-hide="codevalue.edit">{{codevalue.active}}</span>
+                                <input data-ng-show="codevalue.edit" id="activeCheckbox" name="isActive" ng-model="formData[codevalue.id].isActive"
+                                        type="checkbox" data-ng-change="setChoice()" class="form-control"/>
+                            </td>
+                            <td>
+                                <button data-ng-hide="codevalue.edit" class="btn btn-primary" type="button" has-permission='UPDATE_CODEVALUE'
+                                        data-ng-click="showEdit(codevalue.id,codevalue.name,codevalue.description,codevalue.position,codevalue,codevalue.active)"><i
+                                        class="fa fa-edit "></i></button>
+                                <button data-ng-show="codevalue.edit" class="btn btn-primary" type="button" has-permission='UPDATE_CODEVALUE'
+                                        data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
+                                    translate}}
+                                </button>
+                                <button data-ng-hide="codevalue.edit" class="btn btn-danger" type="button" has-permission='DELETE_CODEVALUE'
+                                        data-ng-click="deleteCodeValue(codevalue.id)"><i class="fa fa-trash-o "></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="deletecode.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="deletecodevalue.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+
+</div>
+
+

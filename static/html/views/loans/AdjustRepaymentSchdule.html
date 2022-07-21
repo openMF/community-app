@@ -1,0 +1,235 @@
+<div class="content-container" ng-controller="AdjustRepaymentSchedule">
+<ul class="breadcrumb">
+    <li ng-show="loandetails.clientName"><a
+            ng-href="#/viewclient/{{loandetails.clientId}}">{{loandetails.clientName}}</a></li>
+    <li ng-show="loandetails.group"><a
+            ng-href="#/viewgroup/{{loandetails.group.id}}">{{loandetails.group.name}}</a></li>
+    <li class="active">{{loandetails.loanProductName}}({{loandetails.accountNo}})</li>
+</ul>
+<script type="text/ng-template" id="resetschedule.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.reset' | translate}}</h3>
+    </div>
+    <div class="modal-body ">
+        <api-validate></api-validate>
+        <br>
+        <div class="form-group row">
+            <label class="control-label col-sm-12">{{'label.input.resetconfirmationtext' | translate}}</label>
+        </div>
+        <br>
+        <div class="col-md-offset-4">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="pattern.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.patternupdate' | translate}}</h3>
+    </div>
+    <div class="modal-body ">
+        <form name="popupform" novalidate=""  rc-submit="submit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="row" ng-show="invaliddaterangeerror">
+                    <label class="error col-sm-12">{{'label.input.error' | translate}} <BR> {{'label.input.invaliddaterange' | translate}}</label>
+                    <BR>
+                </div>
+                <div ng-show="invaliddaterangeerror">
+                    <BR>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3" for="fromDate">{{'label.input.fromdate' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-4">
+                        <select id="fromDate" name="fromDate"
+                                ng-model="adjustmentData.fromDate" class="form-control"
+                                ng-options="period.dueDate as period.formattedDueDate for period in periods"
+                                value="{{period.dueDate}}" class="form-control" required>
+                            <option value="">{{'label.selectfromdate' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="popupform" valattribute="fromDate"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-3">{{'label.input.todate' | translate}}</label>
+
+                    <div class="col-sm-4">
+                        <select id="toDate" name="toDate" ng-model="adjustmentData.toDate"
+                                ng-options="period.dueDate as period.formattedDueDate for period in periods"
+                                value="{{period.dueDate}}" class="form-control">
+                            <option value="">{{'label.selecttodate' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-2">{{'label.input.duedate' | translate}}
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-sm-3">{{'label.input.increasemonthby' | translate}}
+                    </label>
+
+                    <div class="col-sm-2">
+                        <select id="month" name="month"
+                                ng-model="adjustmentData.month"
+                                ng-options="o as o for o in months"
+                                value="{{o}}" class="form-control">
+                        </select>
+                    </div>
+                    <label class="control-label col-sm-3">{{'label.input.dayofmonth' | translate}}
+                    </label>
+
+                    <div class="col-sm-2">
+                        <select id="dayofmonth" name="dayofmonth"
+                                ng-model="adjustmentData.day"
+                                ng-options="o as o for o in days"
+                                value="{{o}}" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row" ng-show="enablePrincipal">
+                    <label class="control-label col-sm-3" for="fromDate">{{'label.input.principalamount' |
+                        translate}}
+                    </label>
+
+                    <div class="col-sm-4">
+                        <input id="principal" name="principalDue" class="form-control" type="text"
+                               ng-model="adjustmentData.principalDue" number-format/>
+                    </div>
+                </div>
+                <div class="form-group row" ng-show="enableInstallment">
+                    <label class="control-label col-sm-3" for="fromDate">{{'label.input.totalinstallmentamount' |
+                        translate}}
+                    </label>
+
+                    <div class="col-sm-4">
+                        <input id="outstanding" name="outstanding" class="form-control" type="text"
+                               ng-model="adjustmentData.totalInstallmentAmountForPeriod" number-format/>
+                    </div>
+                </div>
+
+                <div class="row col-md-offset-4">
+                    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+                    </button>
+                    <button id="save1" type="submit" class="btn btn-primary">{{'label.button.confirm' |
+                        translate}}
+                    </button>
+                </div>
+                <BR><BR>
+            </fieldset>
+        </form>
+    </div>
+</script>
+<div class="card">
+    <div class="content">
+    <form name="adjustrepaymentschedule" novalidate="" class="form-horizontal" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <table class="table table-striped .width100">
+                <colgroup span="4"></colgroup>
+                <thead>
+                <tr>
+                    <th colspan="2" scope="colgroup"></th>
+                    <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
+                    <th colspan="1" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
+                    <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                    <th colspan="2" scope="colgroup"></th>
+                </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{'label.heading.date' | translate}}</th>
+
+                    <th scope="col">{{'label.heading.principaldue' | translate}}</th>
+                    <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+
+                    <th scope="col">{{'label.heading.interest' | translate}}</th>
+
+                    <th scope="col">{{'label.heading.installmentamount' | translate}}</th>
+                    <th scope="col" colspan="2">{{'label.heading.actions' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="period in loandetails.repaymentSchedule.periods">
+                    <td scope="row">{{period.period}}</td>
+                    <td>
+                        <ng-form name="dueDate{{$index}}">
+                            <input id="dueDate" name="dueDate" datepicker-pop="dd MMMM yyyy" class="form-control"
+                                   type="text"
+                                   ng-model="period.dueDate" is-open="opened" min="'2000-01-01'" max="restrictDate"
+                                   required/>
+                            <span class="error" ng-show="visitValidation&&dueDate{{$index}}.dueDate.$error.required">{{ 'label.requirefield' | translate }}</span>
+                        </ng-form>
+                    </td>
+                    <td ng-show="enablePrincipal">
+                        <input id="principalDue" name="principalDue" class="form-control" type="text"
+                               ng-model="period.principalDue"
+                               number-format/>
+
+                    </td>
+                    <td ng-show="!enablePrincipal">{{period.principalDue | number}}</td>
+                    <td>{{period.principalLoanBalanceOutstanding | number}}</td>
+                    <td>{{period.interestOriginalDue | number}}</td>
+                    <td ng-show="enableInstallment">
+                        <input id="totalInstallmentAmountForPeriod" name="totalInstallmentAmountForPeriod" class="form-control"
+                               type="text"
+                               ng-model="period.totalInstallmentAmountForPeriod" number-format/>
+                    </td>
+                    <td ng-show="!enableInstallment">{{period.totalInstallmentAmountForPeriod | number}}</td>
+
+                    <td>
+                        <div>
+                            <a ng-click="deleteInstallment($index)"><i class="fa fa-times-circle fa-2x"></i></a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div>
+                            <a ng-click="addInstallment($index)"><i class="fa fa-plus "></i></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot class="ui-widget-header">
+                <tr>
+                    <th colspan="2">{{'label.heading.total' | translate}}</th>
+                    <th>{{loandetails.repaymentSchedule.totalPrincipalExpected | number}}</th>
+                    <th>&nbsp;</th>
+                    <th>{{loandetails.repaymentSchedule.totalInterestCharged | number}}</th>
+                    <th>{{loandetails.repaymentSchedule.totalOutstanding | number}}</th>
+                </tr>
+                </tfoot>
+            </table>
+
+        </fieldset>
+
+        <div class="col-md-offset-4">
+            <a id="cancel" href="#/viewloanaccount/{{loandetails.id}}">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            </a>
+            <button id="pattern" class="btn btn-primary" ng-click="pattern()" type="button"
+                    has-permission='CREATESCHEDULEEXCEPTIONS_LOAN'>{{'label.button.pattern' | translate}}
+            </button>
+
+            <button id="reset" class="btn btn-primary" ng-click="resetToOriginalSchedule()" type="button"
+                    has-permission='DELETESCHEDULEEXCEPTIONS_LOAN'>{{'label.button.reset' | translate}}
+            </button>
+
+            <button id="validate" class="btn btn-primary" ng-click="visitValidation=validate()" type="button" value="validate"
+                    has-permission='CREATESCHEDULEEXCEPTIONS_LOAN'>{{'label.button.validate' | translate}}
+            </button>
+
+            <button id="save" type="submit" ng-click="visitValidation=true" class="btn btn-primary" value="submit"
+                    has-permission='CREATESCHEDULEEXCEPTIONS_LOAN'>{{'label.button.save' | translate}}
+            </button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>

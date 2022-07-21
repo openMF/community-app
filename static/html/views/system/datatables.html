@@ -1,0 +1,36 @@
+<div class="content-container" ng-controller="DataTableController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managedatatables' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" ng-model="filterText" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-md-6">
+                    <a href="#/createdatatable" class="btn btn-primary pull-right" has-permission='CREATE_DATATABLE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createdatatable' | translate}}</a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.datatablename' | translate}}</th>
+                    <th>{{'label.heading.associatedwith' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" dir-paginate="datatable in datatables | orderBy:'registeredTableName':reverse | filter:filterText |  itemsPerPage: DataTablesPerPage">
+                    <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.registeredTableName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(datatable.registeredTableName)">{{datatable.applicationTableName}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

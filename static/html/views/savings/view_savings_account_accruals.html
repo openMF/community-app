@@ -1,0 +1,106 @@
+<div class="content-container" ng-controller="ViewSavingDepositAccrualTransactionController">
+    <div>
+        <ul class="breadcrumb">
+            <li ng-show="groupLevel == 1"><a href="#/viewcenter/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+            <li ng-show="groupLevel == 2"><a href="#/viewgroup/{{savingaccountdetails.groupId}}">{{savingaccountdetails.groupName}}</a>
+            <li ng-show="savingaccountdetails.clientName"><a href="#/viewclient/{{savingaccountdetails.clientId}}">{{savingaccountdetails.clientName}}</a>
+            <li class="active" ng-show="savingaccountdetails.depositType.id==100">{{savingaccountdetails.savingsProductName}}({{savingaccountdetails.accountNo}})</li>
+            <li class="active" ng-show="savingaccountdetails.depositType.id==200 || savingaccountdetails.depositType.id==300">{{savingaccountdetails.depositProductName}}({{savingaccountdetails.accountNo}})</li>
+        </ul>
+    </div>
+    <div class="card">
+        <div class="content">
+            <br/>
+            <table class="table table-bordered">
+                <colgroup span="4"></colgroup>
+                <thead>
+                <tr>
+                    <th class="pointer" ng-click="changeTransactionSort('id')">{{'label.heading.id' |
+                        translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('date')">
+                        {{'label.heading.transactiondate' | translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">
+                        {{'label.heading.transactiontype' | translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' |
+                        translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.credit'
+                        | translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('runningBalance')">
+                        {{'label.heading.balance' | translate}}
+                    </th>
+                    <th class="pointer" ng-click="changeTransactionSort('runningBalance')">
+                        {{'label.heading.viewreceipts' | translate}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr dir-paginate="transaction in savingaccountdetails.transactions | itemsPerPage: transactionsPerPage"
+                    total-items="totalTransactions" pagination-id="transactions"
+                    class="pointer-main"
+                    ng-hide="transaction.reversed"
+                >
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        {{transaction.id}}
+                    </td>
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        {{transaction.date | DateFormat}}
+                    </td>
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        {{transaction.transactionType.value}}
+                    </td>
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        <div ng-show="isDebit(transaction.transactionType)">
+                            {{transaction.amount| number}}
+                        </div>
+                    </td>
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        <div ng-show="!isDebit(transaction.transactionType)">
+                            {{transaction.amount| number}}
+                        </div>
+                    </td>
+                    <td class="pointer"
+                        data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                        {{transaction.runningBalance| number}}
+                    </td>
+                    <td><span ng-if=" transaction.reversed!=true"
+                              ng-click="viewSavingsTransactionReceipts(transaction.id)">
+                                    <i class="fa fa-file-text fa fa-large"></i>
+                                </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="center" ng-show="(formData.savingsaccountId != null && isValid == true) || (formData.fixedDepositId != null && isValid == true)">
+                <a href="{{path}}"
+                   class="btn btn-default center"
+                ><i
+                        class=""></i>{{'label.button.back' | translate}}</a></div>
+            <dir-pagination-controls align="center" boundary-links="true"
+                                     template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
+                                     on-page-change="getResultsPage(newPageNumber)" pagination-id="transactions">
+            </dir-pagination-controls>
+            <div>
+                <button ng-show="printbtn" ng-click="printReport()" class="btn btn-primary"><i
+                        class="fa fa-print ">{{'label.button.print' |
+                    translate}}
+                </i></button>
+                <div id="printreceiptcontent">
+                    <iframe id="rptLoadingreceiptFrame" ng-show="viewReport" ng-src="{{viewReportDetails}}"
+                            frameborder="0" width="100%" height="800px"></iframe>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

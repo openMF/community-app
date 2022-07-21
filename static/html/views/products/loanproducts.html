@@ -1,0 +1,39 @@
+<div class="content-container" ng-controller="LoanProductController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.loanproducts' | translate}}</li>
+    </ul>
+
+    <div class="card well">
+        <div class="row">
+            <div class="col-m-9 col-sm-9">
+                <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+            </div>
+            <div class="col-m-3 col-sm-3">
+                <a href="#/createloanproduct" class="btn btn-primary pull-right" has-permission='CREATE_LOANPRODUCT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createloanproduct' | translate}}</a>
+            </div>
+        </div>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
+                <th>{{'label.heading.expirydate' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="loanproduct in loanproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: LoanProductsPerPage">
+                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.shortName}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">{{loanproduct.closeDate | DateFormat}}</td>
+                <td class="pointer" data-ng-click="routeTo(loanproduct.id)">
+                    <i class="fa fa-stop {{loanproduct.status | StatusLookup}}" uib-tooltip="{{'label.tooltip.' + loanproduct.status | translate}}" tooltip-placement="right"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>

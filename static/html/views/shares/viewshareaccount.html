@@ -1,0 +1,161 @@
+<div class="content-container" ng-controller="ViewShareAccountController">
+    <ul class="breadcrumb">
+        <li ng-show="shareaccountdetails.clientName"><a href="#/viewclient/{{shareaccountdetails.clientId}}">{{shareaccountdetails.clientName}}</a>
+        <li class="active">{{shareaccountdetails.productName}}({{shareaccountdetails.accountNo}})</li>
+    </ul>
+    <div class="card well">
+        <div class="">
+                <div class="span gray-head">
+                    <span style="margin-left: 10px;font-size:24px">
+                        <strong><i class="fa fa-stop {{shareaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{shareaccountdetails.productName}}(#{{shareaccountdetails.accountNo}})</strong>
+                    </span>
+                </div>
+                <div class="col-md-12 ">
+                    <div class="pull-right btn-group">
+                          <a ng-show="button.name"  ng-repeat="button in buttons.singlebuttons" has-permission='{{button.taskPermissionName}}'
+                          ng-click="clickEvent(button.name.replace('button.',''), shareaccountdetails.id)"
+                          class="btn btn-primary"><i class="{{button.icon}} "></i>{{'label.'+button.name |
+                          translate}}</a>
+                      <span ng-show="buttons.options" uib-dropdown class="btn-group dropdown" on-toggle="toggled(open)">
+                          <a class="btn btn-primary" uib-dropdown-toggle>
+                              {{'label.button.more' | translate}}
+                              <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown dropdown-menu">
+                              <li class="{{button.icon}}" ng-repeat="button in buttons.options">
+                                  <a ng-click="clickEvent(button.name.replace('button.',''), shareaccountdetails.id)" has-permission='{{button.taskPermissionName}}'>{{'label.'+button.name | translate}}</a>
+                              </li>
+                          </ul>
+                      </span>
+                  </div>
+              </div>
+            <hr/>
+            <div class="col-sm-12 col-md-12">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <td>{{'label.heading.activatedon' | translate}}</td>
+                                <td>{{shareaccountdetails.timeline.activatedDate | DateFormat}}<span
+                                    data-ng-hide="shareaccountdetails.timeline.activatedDate">{{ 'label.notactivated' | translate }}</span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.currency' | translate}}</td>
+                                <td>{{shareaccountdetails.currency.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.externalid' | translate}}</td>
+                                <td>{{shareaccountdetails.externalId}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.linkedsavingsaccountnumber' | translate}}</td>
+                                <td>{{shareaccountdetails.savingsAccountNumber}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td>{{'label.heading.approvedshares' | translate}}</td>
+                                <td>{{shareaccountdetails.summary.totalApprovedShares | number}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.pendingforapproval' | translate}}</td>
+                                <td>{{shareaccountdetails.summary.totalPendingForApprovalShares | number}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="paddedleft" style="margin-left:-1px;margin-top: -20px; margin-right: 1px; padding: 10px;">
+                <hr class="marginbottom"/>
+                <uib-tabset tabset-name="shareAccountDetails">
+                    <uib-tab ng-show="purchasedSharesTableShow" has-permission="READ_SHAREACCOUNTPURCHASE" heading="{{'label.heading.purchasedsharesoverview' | translate}}">
+                     <br>
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.transactiondate' | translate}}</th>
+                                <th>{{'label.heading.transactiontype' | translate}}</th>
+                                <th>{{'label.heading.totalshares' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.purchasedorredeemedprice' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.chargeamount' | translate}}</th>
+                                <th>{{'label.heading.amountreceivedorreturned' | translate}}</th>
+                            </tr>
+                            <tr class="pointer-main" ng-repeat="purchasedShare in purchasedShares">
+                                <td>{{purchasedShare.purchasedDate | DateFormat}}</td>
+                                <td ng-show="purchasedShare.type.value=='Charge Payment'">{{purchasedShare.type.value}}</td>
+                                <td ng-show="!(purchasedShare.type.value=='Charge Payment')">{{purchasedShare.type.value}} ({{purchasedShare.status.value}})</td>
+                                <td>{{purchasedShare.numberOfShares | number}}</td>
+                                <td></td>
+                                <td ng-show="purchasedShare.purchasedPrice">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.purchasedPrice | number}}</td>
+                                <td ng-show="!purchasedShare.purchasedPrice"></td>
+                                <td></td>
+                                <td ng-show="!(purchasedShare.type.value=='Charge Payment')">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.chargeAmount | number}}</td>
+                                <td ng-show="purchasedShare.type.value=='Charge Payment'">{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.amount | number}}</td>
+                                <td>{{shareaccountdetails.currency.displaySymbol}}{{purchasedShare.amount | number}}</td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+
+                    <uib-tab ng-show="chargeTableShow" has-permission="READ_SHAREACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
+                        <br>
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.name' | translate}}</th>
+                                <th>{{'label.heading.feeorpenalty' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.paymentdueat' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.calculationtype' | translate}}</th>
+                                <th></th>
+                                <th>{{'label.heading.due' | translate}}</th>
+                                <th>{{'label.heading.paid' | translate}}</th>
+                                <th>{{'label.heading.waived' | translate}}</th>
+                                <th>{{'label.heading.outstanding' | translate}}</th>
+                                <th></th>
+                            </tr>
+                            <tr class="pointer-main" ng-repeat="charge in charges | filter:{isActive:showActiveCharges}">
+                                <td class="pointer">{{charge.name}}</td>
+                                <td class="pointer" ng-show="'charge.penalty'==true">{{"penalty"}}</td>
+                                <td class="pointer" ng-hide="'charge.penalty'==true">{{"fee"}}</td>
+                                <td class="pointer"></td>
+                                <td class="pointer">{{charge.chargeTimeType.value}}</td>
+                                <td class="pointer"></td>
+                                <td class="pointer">{{charge.chargeCalculationType.value}}</td>
+                                <td class="pointer"></td>
+                                <td class="pointer">{{charge.currency.displaySymbol}}{{charge.amount| number}}</td>
+                                <td class="pointer">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
+                                <td class="pointer">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
+                                <td class="pointer">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
+                                <td class="pointer"></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab ng-show="showDividends" has-permission="READ_SHAREACCOUNTDIVIDENDS" heading="{{'label.heading.dividends' | translate}}">
+                        <br>
+                        <table class="table width100">
+                            <tr class="graybg">
+                                <th>{{'label.heading.transactiondate' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.savingtransactionreference' | translate}}</th>
+                                <th>{{'label.heading.status' | translate}}</th>
+
+                            </tr>
+                            <tr class="pointer-main" ng-repeat="dividend in dividends">
+                                <td>{{dividend.postedDate | DateFormat}}</td>
+                                <td>{{shareaccountdetails.currency.displaySymbol}}{{dividend.amount | number}}</td>
+                                <td>{{dividend.savingsTransactionId}}</td>
+                                <td>{{dividend.status.value}}</td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+</div>

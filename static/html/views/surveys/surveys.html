@@ -1,0 +1,64 @@
+<div class="content-container" ng-controller="ManageSurveysController">
+    <ul class="breadcrumb">
+        <li ><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.managesurveys' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="toolbar">
+            <h4>{{ 'label.heading.surveys' | translate }}</h4>
+        </div>
+        <div class="content">
+            <br>
+            <div class="row">
+                <div class="col-sm-10">
+                    <form name="filtersurveys" class="form-horizontal">
+                        <div class="col-md-6">
+                                <div class="input-group">
+                                    <input data-ng-model="searchText" type="text"
+                                           placeholder="{{'label.input.searchsurveys' | translate}}"
+                                           class="form-control unstyled"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default form-control">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#/surveys/add" class="btn btn-primary pull-right">
+                        <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.createsurvey' | translate}}
+                    </a>
+                </div>
+            </div>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{'label.heading.key' | translate}}</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.description' | translate}}</th>
+                    <th>{{'label.heading.countrycode' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="survey in surveys | filter: searchText" ng-click="routeTo(survey.id)"  class="pointer-main" >
+                        <td class="pointer">{{ survey.key }}</td>
+                        <td class="pointer">{{ survey.name }}</td>
+                        <td class="pointer">{{ survey.description }}</td>
+                        <td class="pointer">{{ survey.countryCode }}</td>
+                        <td class="pointer" ng-show="isActive(survey.validFrom, survey.validTo)">{{'label.heading.active' | translate}}</td>
+                        <td class="pointer" ng-show="!isActive(survey.validFrom, survey.validTo)">{{'label.heading.deactivated' | translate}}
+                        </td>
+                        <td ng-show="isActive(survey.validFrom, survey.validTo)"><a type="button" class="btn btn-danger" ng-click="activateOrDeactivateSurvey(survey.id,'deactivate')"><i class="fa fa-lock"></i>&nbsp;&nbsp;{{'label.button.deactivate' | translate}}</a></td>
+                        <td ng-show="!isActive(survey.validFrom, survey.validTo)"><a type="button" class="btn btn-primary" ng-click="activateOrDeactivateSurvey(survey.id,'activate')"><i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;{{'label.button.activate' | translate}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+    </div>
+</div>

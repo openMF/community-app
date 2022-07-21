@@ -1,0 +1,85 @@
+<div class="content-container" ng-controller="ViewLoanTransactionController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanaccount/{{transaction.accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+        <li class="active">{{ 'label.anchor.viewtransaction' | translate}}</li>
+    </ul>
+    <script type="text/ng-template" id="undotransaction.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.button.undo' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="undoTransaction()">{{'label.button.undo' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.details' | translate}}</h4>
+                <div ng-hide="transaction.type.contra" class="btn-group pull-right">
+                    <a href="#/loanaccount/{{transaction.accountId}}/modifytransaction?transactionId={{transaction.id}}"
+                    class="btn btn-primary" has-permission='ADJUST_LOAN'><i class="fa fa-pencil "></i>{{ 'label.button.edit' | translate}}</a>
+                    <a ng-click="undo(transaction.accountId, transaction.id)" class="btn btn-danger" has-permission='ADJUST_LOAN'><i
+                    class="fa fa-trash "></i>{{ 'label.button.undo' | translate}}</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table width="100%">
+                    <tr>
+                        <td width="20%">{{ 'label.heading.id' | translate}}</td>
+                        <td width="80%">{{transaction.id}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.type' | translate}}</td>
+                        <td>{{transaction.type.value}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.date' | translate}}</td>
+                        <td>{{transaction.date | DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.currency' | translate}}</td>
+                        <td>{{transaction.currency.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.amount' | translate}}</td>
+                        <td>{{transaction.amount | number}}</td>
+                    </tr>
+                    <tr class="span2"></tr>
+                </table>
+                <table width="100%" ng-show="transaction.paymentDetailData">
+                    <tr>
+                        <td width="20%"><strong>{{ 'label.heading.paymentdetails' | translate}}</strong></td>
+                        <td width="80%"></td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.paymentType">
+                        <td>{{ 'label.heading.paymenttype' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.paymentType.name}}</td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.accountNumber">
+                        <td>{{ 'label.heading.accnum' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.accountNumber}}</td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.checkNumber">
+                        <td>{{ 'label.heading.checknumber' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.checkNumber}}</td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.routingCode">
+                        <td>{{ 'label.heading.routingcode' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.routingCode}}</td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.receiptNumber">
+                        <td>{{ 'label.heading.receiptnumber' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.receiptNumber}}</td>
+                    </tr>
+                    <tr ng-show="transaction.paymentDetailData.bankNumber">
+                        <td>{{ 'label.heading.banknumber' | translate}}</td>
+                        <td>{{transaction.paymentDetailData.bankNumber}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

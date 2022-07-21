@@ -1,0 +1,51 @@
+<div class="content-container" ng-controller="ViewTemplateController">
+    <ul class="breadcrumb">
+        <li><a href="#/templates">{{'label.anchor.templates' | translate}}</a></li>
+        <li class="active">{{template.name}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <a href="#/edittemplate/{{template.id}}" class="btn btn-primary" has-permission='UPDATE_TEMPLATE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                        <button type="button" class="btn btn-danger" ng-click="deleteTemplate()" has-permission='DELETE_TEMPLATE'><i class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="">
+                <h3>{{template.name}}</h3>
+                <table class="table table-bordered" width="80%">
+                    <tr>
+                        <td width="20%">{{'label.heading.entity' | translate }}</td>
+                        <td width="60%">{{template.entity}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.heading.type' | translate }}</td>
+                        <td>{{template.type}}</td>
+                    </tr>
+                    <tr data-ng-show="templateText">
+                        <td valign="top">{{ 'label.heading.text' | translate }}</td>
+                        <td ng-bind-html="templateText"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="deletetemplate.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+</div>

@@ -1,0 +1,26 @@
+<div class="content-container">
+<div class="card well" id="expertsearch" data-ng-controller="ExpertSearchController">
+    <h3 class="paddedleft"><strong>{{'label.heading.welcome' | translate}}, {{currentSession.user.name}}</strong>
+    	<div class="btn-group pull-right">
+	        <label class="btn btn-primary" ng-model="dashModel" btn-radio="'dashboard'"><i class="fa fa-home"></i>&nbsp;&nbsp;{{'label.heading.home' | translate}}</label>
+	        <label class="btn btn-primary" ng-click="switch()" ng-model="dashModel" btn-radio="'rich-dashboard'"><i class="fa fa-tachometer"></i>&nbsp;&nbsp;{{'label.heading.dashboard' | translate}}</label>
+	    </div>
+    </h3>
+    <hr/>
+    <input id="expert" type="text" data-ng-model="formData.search"
+	    placeholder="{{'label.input.searchactivities' | translate}}" class="col-md-4 form-control" typeahead-on-select="search()"
+	    ng-autofocus="true" uib-typeahead="param as param for param in searchParams | filter:$viewValue | limitTo:8"/>
+    <div id="home" class="row">
+    	<div class="col-md-8">
+    		<h3>{{'label.heading.navigation.guide' | translate}}: </h3>
+			<i class="fa fa-arrow-left"></i>{{'label.heading.left.shortcuts' | translate}} &nbsp;&nbsp;
+			<i class="fa fa-arrow-up"></i>{{'label.heading.top.menu' | translate}} &nbsp;&nbsp;
+			<i class="fa fa-arrow-up top-right"></i>{{'label.heading.right.search' | translate}}
+    	</div>
+	    <div class="col-md-6 col-md-offset-3">
+			<img src="./images/mifos_lg-logo.jpg" alt="MifosX" class="img-responsive" ng-if="!isLargeLogoPath">
+			<img src="{{largeLogoPath}}" alt="MifosX" class="img-responsive" ng-if="isLargeLogoPath">
+	    </div>
+    </div>
+</div>
+</div>

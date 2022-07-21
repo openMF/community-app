@@ -1,0 +1,24 @@
+<div class="content-container" ng-controller="NotificationsController" ng-init="initNotificationsPage()">
+    <div class="card">
+        <div class="content">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{'label.heading.notification' | translate }}</th>
+                    <th>{{ 'label.heading.createdAt' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" dir-paginate="notification in notifications | itemsPerPage: notificationsPerPage"
+                    total-items="totalNotifications" ng-click="navigateToAction(notification)">
+                    <td class="pointer">{{ notification.content }}</td>
+                    <td>{{ notification.createdAt }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url=
+                    "bower_components/angular-utils-pagination/dirPagination.tpl.html"
+                                     on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

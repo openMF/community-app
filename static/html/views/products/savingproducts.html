@@ -1,0 +1,32 @@
+<div class="content-container" ng-controller="SavingProductController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.savingproducts' | translate}}</li>
+    </ul>
+    
+    <div class="card well">
+        <div class="row">
+            <div class="col-md-9">
+                <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbynameshortname' | translate}}">
+            </div>
+            <div class="col-md-3 paddedbottom20">
+                <a href="#/createsavingproduct" class="btn btn-primary pull-right" has-permission='CREATE_SAVINGSPRODUCT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createsavingproduct' | translate}}</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.shortname' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="savingproduct in savingproducts | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: SavingsProductsPerPage">
+                <td class="pointer" data-ng-click="routeTo(savingproduct.id)">{{savingproduct.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(savingproduct.id)">{{savingproduct.shortName}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+<div class="content-container" ng-controller="ViewStandingInstructionController">
+    <ul class="breadcrumb">
+        <li><a href="#/liststandinginstructions/{{standinginstruction.fromOffid}}/{{
+        standinginstruction.fromClient.id}}">{{'label.heading.liststandinginstruction'| translate}}</a></li>
+        <li class="active">{{'label.anchor.standinginstruction' | translate}}>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{ 'label.heading.viewstandinginstruction' | translate }}</h4>
+            </div>
+            <form class="form-horizontal" name="standinginstructionform" 
+            novalidate="" rc-submit="submit()">
+                <fieldset>
+                    <div class="">
+                        <a title="{{'label.button.viewtransactionhistory' | translate}}"  has-permission='READ_ACCOUNTTRANSFER'
+                        href="#/listaccounttransactions/{{standinginstruction.id}}">{{'label.button.viewtransactionhistory' | translate}}</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class = "table">
+                            <tr>
+                                <td>{{'label.heading.name' | translate}}</td>
+                                <td>{{standinginstruction.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.applicant' | translate}}</td>
+
+                                <td>{{standinginstruction.fromClient.displayName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.type' | translate}}</td>
+
+                                <td>
+                                    {{standinginstruction.transferType.value}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.priority' | translate}}</td>
+
+                                <td>
+                                    {{standinginstruction.priority.value}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.status' | translate}}</td>
+
+                                <td>{{standinginstruction.status.value}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.fromaccounttype' | translate }}</td>
+
+                                <td>
+                                    {{standinginstruction.fromAccountType.value}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.fromaccount' | translate }}</td>
+
+                                <td>
+                                    {{standinginstruction.fromAccount.productName}} - {{standinginstruction.fromAccount.accountNo}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'label.heading.destination' | translate }}</td>
+
+                                <td ng-show="allowclientedit">
+                                 {{'label.heading.withinbank' | translate}}
+                             </td>
+                             <td ng-hide="allowclientedit">
+                                 {{'label.heading.ownaccount' | translate}}
+                             </td>
+                         </tr>
+                         <tr>
+                            <td>{{ 'label.input.tooffice' | translate }}</td>
+                            <td >{{standinginstruction.toOffice.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ 'label.input.toclient' | translate }}</td>
+                            <td >{{standinginstruction.toClient.displayName}}</td>
+                        </tr>
+                        <tr>
+                         <td>{{ 'label.input.toaccounttype' | translate }}</td>
+
+                         <td>
+                            {{standinginstruction.toAccountType.value}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'label.input.toaccount' | translate }}</td>
+
+                        <td>
+                            {{standinginstruction.toAccount.productName}} - {{standinginstruction.toAccount.accountNo}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                     <td>{{ 'label.input.instructiontype' | translate }}</td>
+
+                     <td>{{standinginstruction.instructionType.value}}</td>
+
+                 </tr>
+                 <tr>
+                    <td>{{ 'label.input.amount' | translate }}</td>
+                    <td>{{standinginstruction.amount| number}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.validfrom' | translate }}</td> 
+                    <td>{{standinginstruction.validFrom | DateFormat}}</td>
+                    <tr>
+                    </tr>
+                    <td>{{ 'label.heading.validtill' | translate }}</td>
+
+                    <td>{{standinginstruction.validTill | DateFormat}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.recurrencetype' | translate }}</td>
+                    <td>{{standinginstruction.recurrenceType.value}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.recurrenceinterval' | translate }}</td>
+                    <td>{{standinginstruction.recurrenceInterval}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.recurrencefrequency' | translate }}</td>
+                    <td>{{standinginstruction.recurrenceFrequency.value}}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'label.heading.recurrenceonmonthday' | translate }}</td>
+                    <td>{{standinginstruction.recurrenceOnMonthDay | DayMonthFormat}}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a id="cancel" class="btn btn-default" data-ng-click="cancel()" has-permission='READ_STANDINGINSTRUCTION'>{{ 'label.button.cancel' | translate }}</a>
+                        <a id="edit" class="btn btn-primary" has-permission='UPDATE_STANDINGINSTRUCTION' data-ng-show="standinginstruction.status.value!='Deleted'"  href="#/editstandinginstruction/{{standinginstruction.id}}/view">{{ 'label.button.edit' | translate }}</a>
+                    </td>
+                </tr>
+                </table>
+            </div>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+</div>

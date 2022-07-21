@@ -1,0 +1,53 @@
+<div class="content-container" ng-controller="ViewLoanCollateralController">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.viewcollateral' | translate}}({{collateral.type.name}})</li>
+        </ul>
+    <script type="text/ng-template" id="deletecollateral.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.viewcollateral' | translate}}</h4>
+                <div class="pull-right" data-ng-show="showEditButtons">
+                    <div class="btn-group">
+                        <a href="#/loan/{{loanId}}/editcollateral/{{collateralId}}" class="btn btn-primary btn-sm" has-permission='UPDATE_COLLATERAL'><i
+                                class="fa fa-edit "></i> {{'label.button.edit' | translate}}</a>
+                        <button type="button" ng-click="deleteCollateral()" class="btn btn-danger btn-sm" has-permission='DELETE_COLLATERAL'><i
+                                class="fa fa-trash "></i>{{'label.button.delete' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <td class="width20">{{'label.heading.name' | translate}}</td>
+                        <td class="width80">{{collateral.type.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.description' | translate}}</td>
+                        <td>{{collateral.description}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.currency' | translate}}</td>
+                        <td>{{collateral.currency.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.value' | translate}}</td>
+                        <td>{{collateral.currency.displaySymbol}}&nbsp;&nbsp;{{collateral.value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

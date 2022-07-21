@@ -1,0 +1,47 @@
+
+<div class="content-container" ng-controller="SmsCampaignsController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li class="active">{{'label.anchor.smscampaings' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.anchor.smscampaings' | translate}}</h4>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <a href="#/createsmscampaign" class="btn btn-primary pull-right" has-permission='CREATE_SMSCAMPAIGN'><i class="fa fa-plus fa fa-large"></i>&nbsp;&nbsp;{{'label.button.createcampaign' | translate}}</a>
+                </div>
+            </div>
+            <br>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.campaignname' | translate}}</th>
+                    <th>{{'label.heading.templatemsg' | translate}}</th>
+                    <th>{{'label.heading.campaigntype' | translate}}</th>
+                    <th>{{'label.heading.triggertype' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.approvedby' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" dir-paginate="smsCampaign in smsCampaigns | filter:filterText | itemsPerPage: smsCampaignsPerPage" total-items="totalSMSCampaigns">
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignMessage}}</td>
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.triggerType.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.campaignStatus.value}}</td>
+                    <td class="pointer" data-ng-click="routeTo(smsCampaign.id)">{{smsCampaign.smsCampaignTimeLine.submittedByUsername}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

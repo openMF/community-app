@@ -1,0 +1,74 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.manageschedulerjobs' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<div ng-controller="SchedulerJobsController">
+    		    <table class="table-condensed">
+    		        <tr>
+    		            <td><h3><strong>{{'label.heading.schedulerstatus' | translate}}&nbsp;:</strong>&nbsp;{{schedulerstatus}}</h3></td>
+    		            <td></td>
+    		            <td>
+    		                <button class="btn btn-warning" ng-show="schedulerstatus=='Active'" ng-click="suspendJobs()" has-permission='UPDATE_SCHEDULER'><i class="fa fa-times"></i>&nbsp;&nbsp;{{'label.button.suspend' | translate}}</button>
+    		                <button class="btn btn-success" ng-show="schedulerstatus=='Standby'" ng-click="activeJobs()" has-permission='UPDATE_SCHEDULER'><i class="fa fa-check"></i>&nbsp;&nbsp;{{ 'label.button.activate' | translate }}</button>
+    		            </td>
+    		        </tr>
+    		    </table>
+    		    <hr ng-show="sentForExecution"/>
+    		    <table ng-show="sentForExecution" class="table-condensed">
+    		        <tr  class="graybg" ng-show="sentForExecution">
+    		            <th>{{'label.heading.jobssentforexecution' | translate}}<th>
+    		        </tr>
+    		        <tr ng-repeat="jobexecution in sentForExecution">
+    		            <td><i class="fa fa-check "></i>{{jobexecution}}</td>
+    		        </tr>
+    		    </table>
+    		    <hr ng-show="sentForExecution"/>
+    		    <br ng-show="sentForExecution"/>
+    		    <table class="table">
+    		        <thead>
+    		            <tr class="graybg">
+    		                <th><input type="checkbox" ng-model="activeall" ng-change="selectAll(activeall)"/></th>
+    		                <th>{{'label.heading.name' | translate}}</th>
+    		                <th>{{'label.heading.nextrun' | translate}}</th>
+    		                <th>{{'label.heading.previousrun' | translate}}</th>
+    		                <th>{{'label.heading.previousrunstatus' | translate}}</th>
+    		                <th>{{'label.heading.currentlyrunning' | translate}}</th>
+    		                <th>{{'label.heading.errorlog' | translate}}</th>
+    		            </tr>
+    		        </thead>
+    		        <tbody>
+    		            <tr ng-repeat="job in jobs | orderBy:'displayName':reverse" class="pointer-main">
+    		                <td><input type="checkbox" ng-model="job.checkbox" ng-change="runJobSelected(job.jobId, job.checkbox)"/></td>
+    		                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.displayName}}</td>
+    		                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.nextRunTime}}</td>
+    		                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.jobRunStartTime}}</td>
+    		                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.lastRunHistory.status}}</td>
+    		                <td class="pointer" data-ng-click="routeTo(job.jobId)">{{job.currentlyRunning | YesOrNo}}</td>
+    		                <td><button data-ng-show="job.lastRunHistory.jobRunErrorLog" class="btn btn-warning" ng-click="errorLog(job.jobId)"><i class="fa fa-exclamation"></i></button></td>
+    		            </tr>
+    		        </tbody>
+    		    </table>
+    		    <div class="col-md-offset-">
+    		        <button id="run" class="btn btn-primary" has-permission='EXECUTEJOB_SCHEDULER' ng-click="runSelectedJobs()"><i class="fa fa-play "></i>&nbsp;&nbsp;{{'label.button.runselectedjobs' | translate}}</button>
+    		        <button id="cancel" class="btn btn-primary" ng-click="refresh()"><i class="fa fa-repeat "></i>&nbsp;&nbsp;{{'label.button.refresh' | translate}}</button>
+    		    </div>
+    		</div>
+    	</div>
+    </div>
+
+	<script type="text/ng-template" id="errorlog.html">
+        	<div class="modal-header silver">
+            	<h3 class="bolder">{{'label.heading.errorlog' | translate}}</h3>
+        	</div>
+        	<div class="modal-body">
+            	<pre class="pre-wrap">{{error}}</pre>
+        	</div>
+        	<div class="modal-footer">
+            	<button class="btn btn-default" ng-click="cancel()">{{'label.button.close' | translate}}</button>
+        	</div>
+    </script>
+
+</div>

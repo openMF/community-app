@@ -1,0 +1,91 @@
+<div class="content-container" ng-controller="ClientController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.clients' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+
+    <div class="card">
+        <div class="toolbar">
+            <h4>List of Clients</h4>
+        </div>
+        <div class="content">
+            <br>
+
+            <div class="row">
+                <div class="col-sm-8">
+                    <form ng-submit="search()" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input ng-autofocus="true" ng-model="filterText" ng-keyup="onFilter()" type="text"
+                                       class="form-control unstyled"
+                                       placeholder="{{'label.input.filterbynameaccno' | translate}}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input data-ng-model="searchText" type="text"
+                                           placeholder="{{'label.input.searchByNameAccNo' | translate}}"
+                                           class="form-control unstyled"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary form-control">
+                                            <span class="fa fa-search"></span>
+                                        </button>
+                                    </span>
+                                    <div class="checkbox form-control">
+                                            <label for="showAll">
+                                                <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                                {{'label.button.showall' | translate }}
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
+                            class="fa fa-plus"></i> {{'label.button.createclient' | translate}}</a> &nbsp;&nbsp;
+                    <a href="#/bulkimportclients" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'><i
+ +                            class="fa fa-upload"></i>&nbsp;{{'label.button.importclients' | translate}}</a>
+                </div>
+            </div>
+            <hr/>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.clientno' | translate}}</th>
+                    <th>{{'label.heading.externalid' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                    <th>{{'label.heading.staff' | translate}}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+               <tr dir-paginate="client in clients | orderBy:'displayName':reverse  | filter:filterText | itemsPerPage: clientsPerPage" class="pointer-main"
+                    total-items="totalClients"  pagination-id="clients" ng-show="client.status.code != 'clientStatusType.closed' || showClosed">
+                    <td class="pointer" data-ng-click="routeTo(client.id)">{{client.displayName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
+                    <td class="pointer" data-ng-click="routeTo(client.id)">{{client.externalId}}</td>
+                    <td class="pointer" data-ng-click="routeTo(client.id)">
+                        <i class="fa fa-stop {{client.status.code | StatusLookup}}" uib-tooltip="{{client.status.value}}" uib-tooltip-placement="top" ></i>
+                        <small ng-if="client.subStatus.description">[{{client.subStatus.description}}]</small>
+                    </td>
+                    <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(client.id)">{{client.staffName}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+           <dir-pagination-controls align="center" boundary-links="true"
+                                     template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"
+                                     on-page-change="getResultsPage(newPageNumber)" pagination-id="clients">
+                                     </dir-pagination-controls>
+
+        </div>
+    </div>
+
+
+</div>

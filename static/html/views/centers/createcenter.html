@@ -1,0 +1,139 @@
+<div class="content-container" ng-controller="CreateCenterController">
+    <ul class="breadcrumb">
+        <li><a href="#/centers">{{'label.anchor.centers' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createcenter' | translate}}</li>
+    </ul>
+    <div class="card">
+    	<div class="content">
+    		<div class="toolbar">
+    			<h4>{{'label.heading.createcenter' | translate}}</h4>
+    		</div>
+    		<hr/>
+    			<form name="createcenterform" novalidate="" class="form-horizontal"
+    			      rc-submit="submit()">
+    			    <api-validate></api-validate>
+    			    <fieldset>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+    			                    class="required">*</span></label>
+
+    			            <div class="col-sm-3">
+    			                <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.name" class="form-control" required
+    			                       late-Validate/>
+    			            </div>
+    			            <div class="col-sm-3">
+    			                <form-validate valattributeform="createcenterform" valattribute="name"/>
+    			            </div>
+    			        </div>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2">{{'label.input.office' | translate}}<span class="required">*</span></label>
+
+    			            <div class="col-sm-3">
+    			                <select chosen="offices" id="officeId" ng-model="formData.officeId"
+    			                        ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+    			                        ng-change="changeOffice()" class="form-control">
+    			                </select>
+    			            </div>
+    			        </div>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+
+    			            <div class="col-sm-3">
+    			                <select chosen="staffs" id="staffId" ng-model="formData.staffId"
+    			                        ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}" class="form-control">
+    			                    <option value="">{{'label.menu.selectstaff' | translate}}</option>
+    			                </select>
+    			            </div>
+    			        </div>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2" for="active">{{'label.input.active' | translate}}</label>
+
+    			            <div class="col-sm-3">
+    			                <input type="checkbox" id="active" data-ng-change="setChoice()" ng-model="formData.active">
+    			            </div>
+    				        <div data-ng-switch on="choice">
+    				            <div class="form-group" data-ng-switch-when="1">
+    				                <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span class="required">*</span></label>
+
+    				                <div class="col-sm-3">
+    				                    <input id="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+    				                           is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+    				                </div>
+    				            </div>
+    				        </div>
+    				    </div>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2" for="externalid">{{'label.input.externalid' | translate}}</label>
+
+    			            <div class="col-sm-3">
+    			                <input type="text" id="externalId" ng-model="formData.externalId" class="form-control"/>
+    			            </div>
+    			        </div>
+    			        <div class="form-group">
+    			            <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}:</label>
+
+    			            <div class="col-sm-3">
+    			                <input id="submittedon" type="text" name="submittedon" datepicker-pop="dd MMMM yyyy"
+    			                       ng-model="first.submitondate" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"/>
+    			            </div>
+    			        </div>
+    		            <div class="form-group">
+    		                <label class="control-label col-sm-2">{{'label.input.select.groups' | translate}}:</label>
+
+    		                <div class="col-sm-9 col-md-9">
+    		                    <div class="row">
+    		                        <div class="col-sm-4 col-md-4">
+    		                            <select chosen="groups" id="groupMembers" ng-model="available" ng-change="viewGroup(available)"
+    		                                    class="form-control"
+    		                                    ng-options="group as group.name for group in groups | filter:group.centerName='false'">
+    		                                <option class="displaynone" value="">{{'label.menu.selectgroup' | translate}}</option>
+    		                            </select>
+    		                            <div class="row">
+    		                                <div ng-repeat="groupMember in addedGroups">
+    		                                    <div class="col-sm-12 col-md-12 marginbuttontop25px">
+    		                                        <input disabled="" class="form-control input-xxlarge" placeholder={{groupMember.name}}
+    		                                               type="text"/>
+    		                                    </div>
+    		                                    <div class="col-sm-1 col-md-1">
+    		                                    </div>
+    		                                </div>
+    		                            </div>
+    		                        </div>
+    		                        <div class="col-sm-1 col-md-1">
+    		                            <button ng-show="available" type="button" class="btn angled-btn btn-primary" data-ng-click="add()">
+    		                                <i class="fa fa-plus"></i></button>
+    		                            <button ng-repeat="groupMember in addedGroups" type="button"
+    		                                    class="btn angled-btn btn-primary marginbuttontop25px" data-ng-click="sub(groupMember.id)">
+    		                                <i class="fa fa-times"></i></button>
+    		                        </div>
+    		                        <div class="col-sm-5 col-md-5">
+    		                            <div data-ng-show="available">
+    		                                <p>{{'label.heading.groupdetails' | translate}}</p>
+    		                                <table class="table">
+    		                                    <tr>
+    		                                        <td class="width36">{{'label.heading.name' | translate}}</td>
+    		                                        <td class="width60">{{group.name}}</td>
+    		                                    </tr>
+    		                                    <tr>
+    		                                        <td>{{ 'label.heading.id' | translate }}</td>
+    		                                        <td valign="top">{{group.id}}</td>
+    		                                    </tr>
+    		                                    <tr>
+    		                                        <td>{{ 'label.heading.office' | translate }}</td>
+    		                                        <td>{{group.officeName}}</td>
+    		                                    </tr>
+    		                                </table>
+    		                            </div>
+    		                        </div>
+    		                    </div>
+    		                </div>
+    		            </div>
+    			        <div class="col-md-offset-2 paddedleft">
+    			            <a id="cancel" href="#/centers" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+    			            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_CENTER'>{{'label.button.save' | translate}}</button>
+    			        </div>
+    			    </fieldset>
+    			</form>
+    	</div>
+    </div>
+</div>

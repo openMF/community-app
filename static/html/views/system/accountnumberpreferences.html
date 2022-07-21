@@ -1,0 +1,34 @@
+<div class="content-container" data-ng-controller="AccountNumberPreferencesController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li class="active">{{'label.anchor.accountNumberPreferences' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+                <div class="col-md-6">
+                    <a href="#/addaccountnumberpreferences" class="btn btn-primary pull-right" has-permission='ADD_PREFERENCES'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.addpreferences' | translate }}</a>
+                </div>
+            </div>
+            <br/>
+            <hr/>
+            <table class="table">
+                <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.accountNumberPreferences' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="pointer-main" data-ng-repeat="preference in preferences | filter:filterText">
+                    <td class="pointer" data-ng-click="routeTo(preference.id)">{{preference["accountType"].value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="content-container" ng-controller="ViewDataTableController">
+    <ul class="breadcrumb">
+        <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li><a href="#/datatables">{{'label.anchor.managedatatables' | translate}}</a></li>
+        <li class="active">{{datatable.registeredTableName}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{datatable.registeredTableName}}</h4>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>{{'label.heading.associatedwith' | translate}}</strong>&nbsp;&nbsp;{{datatable.applicationTableName}}
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <a href="#/editdatatable/{{datatable.registeredTableName}}" class="btn btn-primary" has-permission='UPDATE_DATATABLE'><i
+                                    class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+                            <button type="button" class="btn btn-danger" ng-click="deleteTable()" has-permission='DELETE_DATATABLE'><i
+                                    class="fa fa-trash-o "></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <table class="table" ui:sortable>
+                <thead>
+                <tr>
+                    <th>{{'label.heading.fieldname' | translate}}</th>
+                    <th>{{'label.heading.type' | translate}}</th>
+                    <th>{{'label.heading.length' | translate}}</th>
+                    <th>{{'label.heading.code' | translate}}</th>
+                    <th>{{'label.heading.mandatory' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="column in datatable.columnHeaderData">
+                        <td>{{column.columnName}}</td>
+                        <td>{{column.columnDisplayType}}</td>
+                        <td>{{column.columnLength}}</td>
+                        <td>{{column.columnCode}}</td>
+                        <td>{{!column.isColumnNullable}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            
+        <script type="text/ng-template" id="deletetable.html">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+                </div>
+                <div class="modal-body ">
+                    <api-validate></api-validate>
+                    <br>
+                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                    <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+                </div>
+        </script>
+    </div>
+</div>

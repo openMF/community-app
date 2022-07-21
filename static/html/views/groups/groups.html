@@ -1,0 +1,62 @@
+<div class="content-container" ng-controller="GroupController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.groups' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP'><i class="fa fa-plus "></i>
+                {{'label.button.creategroup' | translate}}</a>
+            </div>
+            <br/>
+            <div class="clearfix"></div>
+            <form ng-submit="search()" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input ng-autofocus="true" ng-model="filterText" type="text" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbynameorstatusoroffice' | translate}}">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input  data-ng-model="searchText" type="text" placeholder="{{'label.input.searchByNameExternalId' | translate}}" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary form-control">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </span>
+                            <div class="checkbox form-control">
+                                <label for="showAll">
+                                    <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                                        {{'label.button.showall' | translate }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th> {{'label.heading.accnum' | translate}}</th>
+                        <th> {{'label.heading.externalid' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
+                        <th>{{'label.heading.office' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pointer-main" dir-paginate="group in groups | orderBy:'name':reverse  | filter:filterText | itemsPerPage: groupsPerPage" total-items="totalGroups" pagination-id="groups" ng-show="group.status.code != 'clientStatusType.closed' || showClosed">
+                        <td class="pointer" data-ng-click="routeTo(group.id)">{{group.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(group.id)">{{group.accountNo}}</td>
+                        <td class="pointer" data-ng-click="routeTo(group.id)">{{group.externalId}}</td>
+                        <td class="pointer" data-ng-click="routeTo(group.id)">
+                            <i class="fa fa-stop {{group.status.code | StatusLookup}}" uib-tooltip="{{group.status.value}}" uib-tooltip-placement="top">
+                            </i>
+                        </td>
+                        <td data-ng-click="routeTo(group.id)">{{group.officeName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls boundary-links="true"  pagination-id="groups" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

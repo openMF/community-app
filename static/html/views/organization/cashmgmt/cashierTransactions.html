@@ -1,0 +1,86 @@
+<div class="content-container" ng-controller="CashierTransactionsController">
+        <ul class="breadcrumb">
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/tellers">{{'label.anchor.tellers' | translate}}</a></li>
+            <li class="active">{{'label.anchor.cashiertransactions' | translate}}</li>
+        </ul>
+    <div class="card">
+        <div class="content">
+        <div class="">
+            <table class="table table-striped table-condensed">
+                <tr class="col-xs-14">
+                    <td class="col-md-5">{{'label.heading.cashmgmt.officeName' | translate}} : {{cashierSummaryAndTxns.officeName}} |
+                        {{'label.heading.cashmgmt.tellerName' | translate }} : {{cashierSummaryAndTxns.tellerName}} |
+                        {{'label.heading.cashmgmt.cashierName' | translate }} : {{cashierSummaryAndTxns.cashierName}}</td>
+                    <td class="col-md-2">
+                        <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
+                                ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
+                                value="{{currency.code}}" required>
+                            <option value=""> {{'label.selectcurrency' | translate}} </option>
+                        </select>
+                    </td>
+                    <td>
+                        <a ng-click="routeToTxn()" class="btn btn-primary">{{'label.button.cashier.showtxn' | translate}} </a>
+                    </td>
+
+                    <td><span class="h4">{{'label.heading.cashmgmt.cashier.netAmount' | translate}}: {{cashierSummaryAndTxns.netCash | number}}</span></td>
+                    <td><button id="allocate" type="submit" class="btn btn-success pull-right" has-permission='ALLOCATECASHIER_TELLER'
+                                data-ng-click="routeToAllocate()">
+                        <i class="fa fa-level-down "></i>{{'label.button.cashier.allocatefunds' | translate}}
+                    </button>
+
+                        <button id="settle" type="submit" class="btn btn-warning pull-right" has-permission='SETTLECASHFROMCASHIER_TELLER'
+                                data-ng-click="routeToSettle()">
+                            <i class="fa fa-level-up "></i>{{'label.button.cashier.settlefunds' | translate}}
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="clear"></div>
+        <div ng-hide="isTreeView">
+            <input ng-autofocus="true" ng-model="filterText" type="text" class="form-control span marginbottom0px"
+                   placeholder="{{'label.input.filterbynameexternalid' | translate}}">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="graybg">
+                    <th align="center">{{'label.date' | translate}}</th>
+                    <th align="center">{{'label.heading.transactions' | translate}}</th>
+                    <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountAlloc' | translate}}: {{cashierSummaryAndTxns.sumCashAllocation | number}}</th>
+                    <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountCashIn' | translate}}: {{cashierSummaryAndTxns.sumInwardCash | number}}</th>
+                    <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountCashOut' | translate}}: {{cashierSummaryAndTxns.sumOutwardCash | number}}</th>
+                    <th align="center">{{'label.heading.cashmgmt.cashier.txnAmountSettle' | translate}}: {{cashierSummaryAndTxns.sumCashSettlement | number}}</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <!-- <tr ng-repeat="txn in cashierSummaryAndTxns.cashierTransactions| orderBy:'txn.txnDate' | orderBy:'createdDate'  | filter:filterText ">-->
+                <tr dir-paginate="txn in cashierTransactions | orderBy:'txn.txnDate' | filter:filterText | itemsPerPage: txnPerPage" total-items="totaltxn">
+                    <td>{{txn.txnDate | DateFormat}}</td>
+
+                    <td>{{txn.txnType.value}}</td>
+
+                    <td >
+                        <span ng-if="txn.txnType.value == 'Allocate Cash'">{{txn.txnAmount | number}}</span>
+                    </td>
+
+                    <td>
+                        <span ng-if="txn.txnType.value == 'Cash In'">{{txn.txnAmount | number}}</span>
+                    </td>
+
+                    <td>
+                        <span ng-if="txn.txnType.value == 'Cash Out'">{{txn.txnAmount | number}}</span>
+                    </td>
+
+                    <td >
+                        <span ng-if="txn.txnType.value == 'Settle Cash'">{{txn.txnAmount | number}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>   
+        </div>
+    </div>
+    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+</div>

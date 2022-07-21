@@ -1,0 +1,59 @@
+<div class="content-container" ng-controller="ViewFloatingRateController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/floatingrates">{{'label.anchor.floatingrates' | translate}}</a></li>
+        <li class="active">{{'label.anchor.floatingrate' | translate}}</li>
+    </ul>
+
+    <form name="newfloatingrateform" novalidate="" class="card form-horizontal well">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="btn-group pull-right">
+                <a href="#/editfloatingrate/{{id}}" class="btn btn-primary" has-permission='UPDATE_FLOATINGRATE'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label class="control-label">{{'label.input.floatingratename' | translate}}:&nbsp;</label>
+                    <label class="control-label">{{name}}</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="checkbox" name="name1" ng-model="isBaseLendingRate" disabled/>
+                    <label class="control-label" >{{'label.input.isbaselendingrate' | translate}}</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="checkbox" name="name1" ng-model="isActive" disabled/>
+                    <label class="control-label" >{{'label.input.active' | translate}}</label>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <div class="col-sm-5">
+                    <h3 class="bolder">{{'label.heading.rateperiods' | translate}}
+                    </h3>
+                </div>
+            </div>
+
+            <BR>
+            <table class="table width80"  ng-show="ratePeriods.length>0">
+                <tr class="graybg">
+                    <th>{{'label.heading.fromdate' | translate}}</th>
+                    <th>{{'label.heading.interestrate' | translate}}</th>
+                    <th>{{'label.heading.isdifferentaialtobaselendingrate' | translate}}</th>
+                </tr>
+                <tr ng-repeat="rateperiod in ratePeriods |orderBy:'rateperiod.fromDate'">
+                    <td>
+                        <label class="control-label">{{rateperiod.fromDate | DateFormat}}</label>
+                    </td>
+                    <td>
+                        <label class="control-label">{{rateperiod.interestRate | FormatNumber}}</label>
+                    </td>
+                    <td>
+                        <input id="isDifferentialToBaseLendingRate" name="isDifferentialToBaseLendingRate"  type="checkbox"
+                               ng-model="rateperiod.isDifferentialToBaseLendingRate" disabled/>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+
+</div>

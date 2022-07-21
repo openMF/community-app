@@ -1,0 +1,77 @@
+<div class="content-container">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/taxconfiguration">{{'label.anchor.managetaxconfigurations' | translate}}</a></li>
+        <li><a href="#/taxgroups">{{'label.anchor.managetaxgroup' | translate}}</a></li>
+        <li class="active">{{'label.anchor.edittaxgroup' | translate}}</li>
+    </ul>
+    <form name="edittaxgroupform" novalidate="" class="card form-horizontal well"
+          ng-controller="EditTaxGroupController"
+          rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.edittaxgroup' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.name' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="name" ng-autofocus="true" type="text" name="name" ng-model="formData.name"
+                           class="form-control"
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="edittaxgroupform" valattribute="name"/>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 grbgcolor">
+                <label class="col-sm-4">{{ 'label.input.taxcomponent' | translate }}</label>
+                <label class="col-sm-3">{{ 'label.input.startdate' | translate }}</label>
+                <label class="col-sm-3">{{ 'label.input.enddate' | translate }}</label>
+                <label class="col-sm-2"> <a class="btn btn-primary" ng-click="addTaxComponent()"><i
+                        class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.add.row' | translate}}</a></label>
+            </div>
+            <div class="form-group col-sm-12" ng-repeat="taxcomponent in taxComponents">
+                <div class="col-sm-4" ng-show="taxcomponent.new">
+                    <select id="taxComponents[{{$index}}].taxcomponent" ng-model="taxcomponent.taxComponentId"
+                            chosen="data.taxComponents"
+                            ng-options="component.id as component.name for component in data.taxComponents"
+                            value="{{component.id}}" class="form-control">
+                        <option value="">{{'label.select' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-4" ng-hide="taxcomponent.new">
+                    {{taxcomponent.name}}
+                </div>
+                <div class="col-sm-3" ng-show="taxcomponent.new">
+                    <input id="taxComponents[{{$index}}].startDate" sort type="text"
+                           datepicker-pop="dd MMMM yyyy" ng-model="taxcomponent.date"
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                </div>
+                <div class="col-sm-3" ng-hide="taxcomponent.new">
+                    {{taxcomponent.date | DateFormat}}
+                </div>
+                <div class="col-sm-3" ng-show="taxcomponent.canModify">
+                    <input id="taxComponents[{{$index}}].endDate" sort type="text"
+                           datepicker-pop="dd MMMM yyyy" ng-model="taxcomponent.endDate"
+                           class="form-control" is-open="opened" min="minDate" max="restrictDate"/>
+                </div>
+                <div class="col-sm-3" ng-hide="taxcomponent.canModify">
+                    {{taxcomponent.endDate | DateFormat}}
+                </div>
+                <div class="col-sm-2" ng-show="taxcomponent.new"><a ng-click="deleteTaxComponent($index)"><i
+                        class="fa fa-times-circle fa-2x"></i></a></div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewtaxgroup/{{data.id}}">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_TAXGROUP'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>

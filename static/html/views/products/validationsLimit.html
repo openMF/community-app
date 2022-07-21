@@ -1,0 +1,47 @@
+<div class="content-container" ng-controller="ValidationLimitController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.validation.limits' | translate}}</li>
+    </ul>
+    
+    <div class="card well">
+        <div class="toolbar">
+        <h4>Validation Limit</h4>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2 col-sm-3 paddedbottom20">
+                <a href="#/createvalidationlimit" class="btn btn-primary pull-right" has-permission='CREATE_VALIDATIONLIMIT'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createvalidation' | translate}}</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th class = "col-sm-1">{{'label.heading.clientlevel' | translate}}</th>
+                <th class = "col-sm-1" >{{'label.heading.maximumsingledepositamount' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.maximumcumulativebalance' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.defaultsinglewithdrawlimit ' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.defaultdailywithdrawlimit' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.maximumclientspecificsinglewithdrawlimit' | translate}}</th>
+                <th class = "col-sm-1">{{'label.heading.maximumclientspecificdailywithdrawlimit' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" data-ng-repeat="limit in validationLimits">
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.clientLevel.name}}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumSingleDepositAmount|number }}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumCumulativeBalance|number}}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumSingleWithdrawLimit|number}}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumDailyWithdrawLimit|number}}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumClientSpecificSingleWithdrawLimit|number}}</td>
+                <td class="pointer" data-ng-click="routeTo(limit.id)">{{limit.maximumClientSpecificDailyWithdrawLimit|number}}</td>
+<!--                <td class="pointer"><a href="#/editvalidationlimit/{{limit.id}}" class="btn btn-primary pull-right"-->
+<!--                                       has-permission='UPDATE_VALIDATIONLIMIT'>&nbsp;&nbsp{{'label.button.edit' | translate}}</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+
+
+    
+</div>
+</div>

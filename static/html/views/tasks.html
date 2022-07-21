@@ -1,0 +1,584 @@
+<div class="content-container" ng-controller="TaskController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.tasks' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>{{'label.heading.pendingtasks' | translate}}</h4>
+            </div>
+            <br>
+            <div class="">
+                <fieldset>
+                    <api-validate></api-validate>
+                    <uib-tabset tabset-name="taskTabset">
+                        <uib-tab heading="{{'label.heading.checkerinbox' | translate}}">
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                            <span class="input-append grpinputicons">
+                                                <input ng-autofocus="true" autocomplete="off"
+                                                       typeahead-on-select="viewUser($item)"
+                                                       placeholder="{{'label.input.searchbyuser' | translate}}" type="text"
+                                                       ng-model="user"
+                                                       uib-typeahead="users.username as users.username for users in checkerTemplate.appUsers | filter:$viewValue | limitTo:8"
+                                                       class="form-control">
+                                                <button type="button" ng-click="isCollapsed = !isCollapsed"
+                                                        class="btn control btn-default"><i
+                                                        class="fa fa-chevron-down"></i></button>
+                                                <button type="button" ng-click="search()" class="btn btn-primary control"><i
+                                                        class="fa fa-search icon-white"></i></button>
+                                            </span>
+                                                </div>
+                                                <div class="form-group">
+                                            <span>
+                                                <button type="button" class="btn btn-success"
+                                                        data-ng-click="approveOrRejectChecker('approve')"><i
+                                                        class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve' | translate}}</button>
+                                                <button type="button" class="btn btn-danger" data-ng-click="deleteChecker()"><i
+                                                        class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}</button>
+                                                <button type="button" class="btn btn-warning"
+                                                        data-ng-click="approveOrRejectChecker('reject')"><i
+                                                        class="fa fa-times"></i>&nbsp;&nbsp;{{'label.button.reject' | translate}}</button>
+                                            </span>
+                                                </div>
+                                            </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div uib-collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
+                                <div class="form-group">
+                                    <input type="text" placeholder="{{'label.input.fromdate' | translate}}"
+                                           datepicker-pop="dd MMMM yyyy"
+                                           ng-model="date.from" is-open="opened" min="minDate" 
+                                           date-disabled="disabled(date, mode)" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <input type="text" placeholder="{{'label.input.todate' | translate}}"
+                                               datepicker-pop="dd MMMM yyyy"
+                                               ng-model="date.to" is-open="opened1" min="minDate" 
+                                               date-disabled="disabled(date, mode)" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select ng-model="formData.action" class="form-control">
+                                            <option value="">{{'label.all' | translate}}</option>
+                                            <option value="">--{{'label.selectaction' | translate}}--</option>
+                                            <option ng-repeat="action in checkerTemplate.actionNames"
+                                                    value="{{action}}">{{action}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <select ng-model="formData.entity" class="form-control">
+                                            <option value="">{{'label.all' | translate}}</option>
+                                            <option value="">--{{'label.selectaction' | translate}}--</option>
+                                            <option ng-repeat="entity in checkerTemplate.entityNames"
+                                                    value="{{entity}}">{{entity}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <input type="text" placeholder="{{'label.input.resourceid' | translate}}"
+                                               ng-model="formData.resourceId" class="form-control">
+                                    </div>
+                                </div>
+				        <span><a ng-click="search()" class="btn btn-primary"><i class="icon-search icon-white"></i>{{'label.button.advancesearch'
+				            | translate}}</a>
+				            <br/><br/>
+				        </span>
+                            </div>
+                            <script type="text/ng-template" id="deletechecker.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' |
+                                        translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="approvechecker.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' |
+                                        translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div ng-show="searchData" style="overflow-x:auto;">
+                                <table class="table">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()"
+                                                   ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
+                                        <th>{{'label.heading.id' | translate}}</th>
+                                        <th>{{'label.heading.madeondate' | translate}}</th>
+                                        <th>{{'label.heading.user' | translate}}</th>
+                                        <th>{{'label.heading.action' | translate}}</th>
+                                        <th>{{'label.heading.entity' | translate}}</th>
+                                        <th>{{'label.heading.accountname' | translate}}</th>
+                                        <th>{{'label.heading.nubannumber' | translate}}</th>
+                                        <th>{{'label.heading.debit' | translate}}</th>
+                                        <th>{{'label.heading.credit' | translate}}</th>
+                                        <th>{{'label.heading.availableBalance' | translate}}</th>
+                                        <th>{{'label.heading.remarks' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="pointer-main"
+                                        dir-paginate="data in searchData | itemsPerPage: itemsPerPage"
+                                        pagination-id="inbox">
+                                        <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate |
+                                            DateFormat}}
+                                        </td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.clientName}}</td>
+                                        <td class="pointer" ng-show="!(data.creditGl)" data-ng-click="routeTo(data.id)">{{data.savingsAccountNo}}
+                                        </td>
+                                        <td class="pointer" ng-show="data.creditGl" data-ng-click="routeTo(data.id)"> C-{{data.creditGl}}/ D-{{data.debitGl}}
+                                        </td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">
+                                            <div ng-show="isDebit(data.actionName) || data.creditGl">
+                                                {{data.transactionAmount | number}}
+                                            </div>
+                                        </td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">
+                                            <div ng-show="!isDebit(data.actionName) || data.creditGl">
+                                                {{data.transactionAmount | number}}
+                                            </div>
+                                        </td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.availableBalance | number}}
+                                        </td>
+                                        <td class="pointer" data-ng-click="routeTo(data.id)">{{data.remarks}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                    <dir-pagination-controls pagination-id="inbox"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT'>
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input ng-autofocus="true" ng-model="filterText" type="text"
+                                                   class="input-sm form-control"
+                                                   placeholder="{{'label.input.filterbyname' | translate}}">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success"
+                                                    data-ng-click="approveClient()" has-permission='ACTIVATE_CLIENT'><i
+                                                    class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve' | translate}}
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="approveclient.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.enterclientsactivationdate' |
+                                        translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                                </div>
+                                <div class="modal-body modal-big">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <input type="text" datepicker-pop="dd MMMM yyyy" ng-model="date.actDate"
+                                           is-open="opened" min="restrictDate"
+                                           max="restrictDate"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="approve(date.actDate)">
+                                        {{'label.button.confirm' | translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div ng-repeat="(officeName,values) in groupedClients">
+                                <table class="table condensed-table">
+                                    <tr>
+                                        <td>
+                                            <strong>{{officeName}}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table class="table condensed-table">
+                                                <thead>
+                                                <tr class="graybg">
+                                                    <th><input type="checkbox"
+                                                               ng-click="clientApprovalAllCheckBoxesClicked(officeName)"
+                                                               ng-checked="clientApprovalAllCheckBoxesMet(officeName)"/>
+                                                    </th>
+                                                    <th>{{'label.heading.name' | translate}}</th>
+                                                    <th>{{'label.heading.accnum' | translate}}</th>
+                                                    <th>{{'label.heading.staff' | translate}}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="pointer-main"
+                                                    dir-paginate="client in values | filter : {active: 'false', status: { value:'Pending'}} | filter:filterText | itemsPerPage: itemsPerPage"
+                                                    pagination-id="'_' + $index">
+                                                    <td><input type="checkbox" data-ng-model="approveData[client.id]"/>
+                                                    </td>
+                                                    <td class="pointer" data-ng-click="routeToClient(client.id)">
+                                                        {{client.displayName}}
+                                                    </td>
+                                                    <td class="pointer" data-ng-click="routeToClient(client.id)">
+                                                        {{client.accountNo}}
+                                                    </td>
+                                                    <td class="pointer" data-ng-click="routeToClient(client.id)">
+                                                        {{client.staffName}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'_' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.loanapproval' | translate}}" has-permission='READ_LOAN'>
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input ng-autofocus="true" ng-model="filterText1" type="text"
+                                                   class="input-sm form-control"
+                                                   placeholder="{{'label.input.filterbyname' | translate}}">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success" data-ng-click="approveLoan()"
+                                                    has-permission='APPROVE_LOAN'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve'
+                                                | translate}}
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="approveloan.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' |
+                                        translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div ng-repeat="office in offices">
+                                <table class="table condensed-table">
+                                    <tr ng-show="office.loans.length > 0">
+                                        <td><strong>{{office.name}}</strong></td>
+                                    </tr>
+                                    <tr ng-show="office.loans.length > 0">
+                                        <td>
+                                            <table class="table condensed-table">
+                                                <thead>
+                                                <tr class="graybg">
+                                                    <th><input type="checkbox"
+                                                               ng-click="loanApprovalAllCheckBoxesClicked(office)"
+                                                               ng-checked="loanApprovalAllCheckBoxesMet(office)"/></th>
+                                                    <th>{{'label.heading.client' | translate}}</th>
+                                                    <th>{{'label.heading.loan' | translate}}</th>
+                                                    <th>{{'label.heading.amount' | translate}}</th>
+                                                    <th>{{'label.heading.loanpurpose' | translate}}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr dir-paginate="loan in office.loans | filter:filterText1 | itemsPerPage:itemsPerPage"
+                                                    pagination-id="'__' + $index">
+                                                    <td><input type="checkbox" ng-model="loanTemplate[loan.id]"></td>
+                                                    <td class="pointer"><a href='#/viewclient/{{loan.clientId}}'>{{loan.clientName}}</a>
+                                                    </td>
+                                                    <td class="pointer"><a href='#/viewloanaccount/{{loan.id}}'>{{loan.loanProductName}}({{loan.accountNo}})</a>
+                                                    </td>
+                                                    <td class="pointer">{{loan.principal | number}}</td>
+                                                    <td class="pointer">{{loan.loanPurposeName}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="text-center">
+                                    <dir-pagination-controls pagination-id="'__' + $index"
+                                                             boundary-links="true"
+                                                             template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="{{'label.heading.loandisbursal' | translate}}" has-permission='READ_LOAN'>
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input ng-autofocus="true" ng-model="filterText2" type="text"
+                                                   class="input-sm form-control"
+                                                   placeholder="{{'label.input.filterbyname' | translate}}">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success" data-ng-click="disburseLoan()"
+                                                    has-permission='APPROVE_LOAN'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.disburse'
+                                                | translate}}
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="disburseloan.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="disburse()">{{'label.button.confirm' |
+                                        translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div>
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th><input type="checkbox" ng-click="loanDisbursalAllCheckBoxesClicked()"
+                                                   ng-checked="loanDisbursalAllCheckBoxesMet()"/></th>
+                                        <th>{{'label.heading.client' | translate}}</th>
+                                        <th>{{'label.heading.loanaccountnum' | translate}}</th>
+                                        <th>{{'label.heading.loanproduct' | translate}}</th>
+                                        <th>{{'label.heading.principal' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr dir-paginate="loan in loans | filter : {status : { waitingForDisbursal :'true' }}| filter:filterText2 | itemsPerPage: itemsPerPage"
+                                        pagination-id="loan-disbursal">
+                                        <td><input type="checkbox" ng-model="loanDisbursalTemplate[loan.id]"></td>
+                                        <td><a href="#/viewclient/{{loan.clientId}}">{{loan.clientName}}</a></td>
+                                        <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.accountNo}}</a></td>
+                                        <td><a href="#/viewloanaccount/{{loan.id}}">{{loan.loanProductName}}</a></td>
+                                        <td>{{loan.principal | number}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <dir-pagination-controls pagination-id="loan-disbursal"
+                                                         boundary-links="true"
+                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                            </div>
+                        </uib-tab>
+
+                        <uib-tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input ng-autofocus="true" ng-model="filterText2" type="text"
+                                                   class="input-sm form-control"
+                                                   placeholder="{{'label.input.filterbyname' | translate}}">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success"
+                                                    data-ng-click="approveBulkLoanReschedule()"
+                                                    has-permission='APPROVE_LOANRESCHEDULE'><i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve'
+                                                | translate}}
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="loanreschedule.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.rescheduleloan' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="approveLoanReschedule()">
+                                        {{'label.button.confirm' | translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div>
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClickedForBulkLoanRescheduleApproval()" ng-checked="checkerInboxAllCheckBoxesMetForBulkLoanRescheduleApproval()"/></th>
+                                        <th>{{'label.heading.client' | translate}}</th>
+                                        <th>{{'label.heading.reschulerequest' | translate}}</th>
+                                        <th>{{'label.heading.loanaccountnum' | translate}}</th>
+                                        <th>{{'label.heading.reschedulefrom' | translate}}</th>
+                                        <th>{{'label.heading.reschedulereason' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr dir-paginate="loanReschedule in loanRescheduleData | filter:filterText2 | itemsPerPage: itemsPerPage"
+                                          pagination-id="rescheduleLoan">
+                                      <td><input type="checkbox" data-ng-model="checkForBulkLoanRescheduleApprovalData[loanReschedule.id]"/></td>
+                                      <td><a href="#/viewclient/{{loanReschedule.clientId}}">{{loanReschedule.clientName}}</a></td>
+                                      <td><a href="#/loans/{{loanReschedule.loanId}}/viewreschedulerequest/{{loanReschedule.id}}">{{loanReschedule.id}}</a></td>
+                                      <td><a href="#/viewloanaccount/{{loanReschedule.loanId}}">{{loanReschedule.loanAccountNumber}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleFromDate | DateFormat}}</a></td>
+                                      <td><a>{{loanReschedule.rescheduleReasonCodeValue.name}}</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <dir-pagination-controls pagination-id="rescheduleLoan"
+                                                         boundary-links="true"
+                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                            </div>
+                        </uib-tab>
+
+                        <!-- Authorization Request To View Client -->
+                        <uib-tab heading="{{'label.heading.requestauthorizationtoviewaccount' | translate}}" has-permission='APPROVEREQUESTTOVIEWCLIENT_AUTHORIZATIONREQUEST'>
+                            <div class="head-affix">
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input ng-autofocus="true" ng-model="filterText2" type="text"
+                                                   class="input-sm form-control"
+                                                   placeholder="{{'label.input.filterbyname' | translate}}">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-success"
+                                                    data-ng-click="approveAuthorizationRequestToViewClient()" 
+                                                    has-permission='APPROVEREQUESTTOVIEWCLIENT_AUTHORIZATIONREQUEST'>
+                                                    <i class="fa fa-check"></i>&nbsp;&nbsp;{{'label.button.approve'
+                                                | translate}}
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="authorizationrequesttoviewclient.html">
+                                <div class="modal-header silver">
+                                    <h3 class="bolder">{{'label.heading.requestauthorizationtoviewaccount' | translate}}</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <select id="durationType" ng-model="durationType"
+                                        ng-options="durationType.id as durationType.name for durationType in durationTypes"
+                                        value="{{durationType.id}}"  class="form-control" required late-Validate>
+                                        <option value="">--{{'label.menu.selectdurationtype' | translate}}--</option>
+                                    </select>
+                                    <br>
+                                    <input id="duration" type="text" name="duration" ng-model="duration"
+                                        class="form-control" number-format required late-Validate>
+                                    <br>
+                                    <textarea rows="1" class="form-control marginbottom0px" id="textarea" 
+                                    placeholder="{{'label.input.comments' | translate}}" ng-model="comment">  </textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <api-validate></api-validate>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' |
+                                        translate}}
+                                    </button>
+                                    <button class="btn btn-primary" ng-click="approve(durationType,duration,comment)">
+                                        {{'label.button.confirm' | translate}}
+                                    </button>
+                                    <button class="btn btn-warning" ng-click="reject()">
+                                        {{'label.button.reject' | translate}}
+                                    </button>
+                                </div>
+                            </script>
+                            <div>
+                                <table class="table condensed-table">
+                                    <thead>
+                                    <tr class="graybg">
+                                        <th><input type="checkbox" ng-click="authorizationRequestApprovalAllCheckBoxesClicked()" 
+                                            ng-checked="authorizationRequestApprovalAllCheckBoxesMet()"/></th>
+                                        <th>{{'label.heading.client' | translate}}</th>
+                                        <th>{{'label.heading.user' | translate}}</th>
+                                        <th>{{'label.heading.requestedDate' | translate}}</th>
+                                        <th>{{'label.heading.comment' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr dir-paginate="authorizationRequest in authorizationRequestData | itemsPerPage: itemsPerPage"
+                                          pagination-id="'__' + $index">
+                                      <td><input type="checkbox" data-ng-model="authorizationRequestTemplate[authorizationRequest.id]"/></td>
+                                      <td><a href="#/viewclient/{{authorizationRequest.client.id}}">{{authorizationRequest.client.displayName}}</a></td>
+                                      <td><a href="#/viewuser/{{authorizationRequest.user.id}}">{{authorizationRequest.user.firstname + ' ' + authorizationRequest.user.lastname}}</a></td>
+                                      <td><a>{{authorizationRequest.requestedDate | DateFormat}}</a></td>
+                                      <td><a>{{authorizationRequest.comment}}</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <dir-pagination-controls pagination-id="'__' + $index"
+                                                         boundary-links="true"
+                                                         template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"/>
+                            </div>
+                        </uib-tab>
+                        <!-- End Request Authorization -->
+                    </uib-tabset>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>

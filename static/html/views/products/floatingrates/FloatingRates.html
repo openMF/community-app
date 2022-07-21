@@ -1,0 +1,35 @@
+<div class="content-container" ng-controller="FloatingRatesController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.floatingrates' | translate}}</li>
+    </ul>
+<div class="card well">
+    <div class="row">
+        <div class="col-md-9">
+            <input ng-model="filterText" type="text" class="form-control" ng-keyup="onFilter()" placeholder="{{'label.input.filterbyname' | translate}}">
+        </div>
+        <div class="col-md-3">
+            <a href="#/createfloatingrate" class="btn btn-primary pull-right" has-permission='CREATE_FLOATINGRATE'><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.button.createfloatingrate' | translate}}</a>
+        </div>
+    </div>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.createdby' | translate}}</th>
+            <th>{{'label.heading.isbaselendingrate' | translate}}</th>
+            <th>{{'label.heading.active' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="pointer-main" ng-repeat="floatingrate in floatingrates |orderBy:'name' | filter:filterText">
+            <td class="pointer" data-ng-click="routeTo(floatingrate.id)">{{floatingrate.name}}</td>
+            <td class="pointer" data-ng-click="routeTo(floatingrate.id)">{{floatingrate.createdBy}}</td>
+            <td class="pointer" data-ng-click="routeTo(floatingrate.id)">{{floatingrate.isBaseLendingRate}}</td>
+            <td class="pointer" data-ng-click="routeTo(floatingrate.id)">{{floatingrate.isActive}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

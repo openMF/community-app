@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod-issuer
+  name: eden-prod-ingress
+  namespace: application
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - mifos.edens360.com
+      secretName: fineract-tls
+  rules:
+  - host: mifos.edens360.com
+    http:
+      paths:
+      # - backend:
+      #     service:
+      #       name: frontend-edens-frontend
+      #       port:
+      #         number: 80
+        # path: /
+        # pathType: ImplementationSpecific
+      - backend:
+          service:
+            name: backend-edens-backend
+            port:
+              number: 80
+        # path: /fineract-provider/
+        path: /
+        pathType: Prefix
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: eden-prod-ingress
+#   namespace: application
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - http:
+#       paths:
+#       - backend:
+#           service:
+#             name: frontend-edens-frontend
+#             port:
+#               number: 80
+#         path: /
+#         pathType: ImplementationSpecific
+#       - backend:
+#           service:
+#             name: backend-edens-backend
+#             port:
+#               number: 80
+#         path: /fineract-provider/api/v1
+#         pathType: Prefix

@@ -1,0 +1,101 @@
+<div class="col-md-12">
+	<ul class="breadcrumb">
+		<li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+		<li><a href="#/adhocquery">{{'label.anchor.adhoc' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createadhoc' | translate}}</li>
+    </ul>
+	<form name="creategadhocqueryform" novalidate="" class="form-horizontal well"
+	      ng-controller="CreateAdHocQueryController" rc-submit="submit()">
+		<api-validate></api-validate>
+	    <fieldset>
+	        <legend>{{'label.heading.createadhocquery' | translate}}</legend>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" >{{'label.input.name' | translate}}
+	            </label>
+	            <div class="col-sm-6">
+	                <input id="name" type="text"  name="name"
+							ng-model="formData.name" class="form-control" />
+	            </div>
+				
+	        </div>
+	               
+	        <div class="form-group">
+	        	<label class="control-label col-sm-2" for="description">{{'label.input.query' | translate}} </label>
+	
+	            <div class="col-sm-8">
+	                <textarea id="query" name="query" ng-model="formData.query" rows="8"
+	                          cols="" class="form-control"></textarea>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" >{{'label.input.tablename' | translate}}
+	            		</label>
+	            <div class="col-sm-6">
+	                <input id="tableName" type="text"  name="name"
+							ng-model="formData.tableName" class="form-control" />
+	            </div>
+				
+	        </div>
+	        <div class="form-group">
+	        	<label class="control-label col-sm-2" for="description">{{'label.input.tablefields' | translate}}</label>
+	
+	            <div class="col-sm-8">
+	                <textarea id="tableFields" name="tableFields" ng-model="formData.tableFields" rows="8"
+	                          cols="" class="form-control"></textarea>
+	            </div>
+	        </div>
+	         <div class="form-group">
+	                    <label class="control-label col-sm-2" for="email">{{'label.input.email' | translate}}</label>
+	
+	                    <div class="col-sm-6">
+	                    <input id="email" type="text"  name="email"
+							ng-model="formData.email" class="form-control" />
+	                        
+	                    </div>
+	                
+	            </div>
+
+		<div class="form-group">
+	    <label class="control-label col-sm-2">{{ 'label.input.reportrunfrequncy' | translate }}
+        <i class="fa fa-question-sign" tooltip="{{'label.tooltip.reportrunfrequncy' | translate}}" tooltip-append-to-body="true"></i>
+	    </label>
+	    <div class="col-sm-2">
+        <select id="reportRunFrequency" class="form-control"
+                ng-change="reportRunFrequencySelected(formData.reportRunFrequency)"
+                ng-model="formData.reportRunFrequency"
+                ng-options="reportRunFrequency.id as reportRunFrequency.value | translate for reportRunFrequency in template.reportRunFrequencies"
+                value="{{reportRunFrequency.id}}">
+	        <option value="">{{'label.selectone' | translate}}</option>
+        </select>
+	    </div>
+			<div ng-show="customReportRunFrequencyFieldShow">
+	      <label class="control-label col-sm-2" for="reportRunEvery">{{'label.input.runreportevery' | translate}}</label>
+
+	      <div class="col-sm-1">
+	        <input id="reportRunEvery" type="text"  name="reportRunEvery"
+								 ng-model="formData.reportRunEvery" class="form-control"/>
+        </div>
+
+	      <label class="control-label col-sm-1" for="reportRunEvery">{{'label.input.runreporteverydays' | translate}}</label>
+			</div>
+    </div>
+
+	        <div class="form-group">
+	            <label class="control-label col-sm-2" for="isActive">Active  {{'label.input.isactive' |
+	                translate}}</label>
+	
+	            <div class="col-sm-3">
+	                <label class="checkbox">
+	                    <input id="isActive" type="checkbox" ng-model="formData.isActive">
+	                </label>
+	            </div>
+	        </div>
+	
+	
+	        <div class="col-md-offset-5">
+	            <a id="cancel" href="#/adhocquery" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_USER'>{{'label.button.save' | translate}} </button>
+	        </div>
+	    </fieldset>
+	</form>
+</div>

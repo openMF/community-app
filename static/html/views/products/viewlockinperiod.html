@@ -1,0 +1,51 @@
+<div class="content-container" ng-controller="ViewLockInPeriodController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+		<li><a href="#/lockinperiod">{{'label.anchor.lockinperiod' | translate}}</a></li>
+		<li class="active">{{lockInPeriod.productName}}</li>
+    </ul>
+    <div class="card well">
+		<h3 class = "bolder">{{lockInPeriod.productName}}
+        	<div class="form-group pull-right">
+				<a href="#/editlockinperiod/{{lockInPeriod.id}}" class="btn btn-primary" has-permission='UPDATE_SAVINGSACCOUNTLOCKINPERIOD'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+				<button type="button" data-ng-click="deleteLockInPeriod()" class="btn btn-danger" has-permission='DELETE_SAVINGSACCOUNTLOCKINPERIOD'><i
+						class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+				</button>
+            </div>
+        </h3>
+        <hr>
+		<script type="text/ng-template" id="deletech.html">
+			<div class="modal-header silver">
+				<h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+			</div>
+			<div class="modal-body ">
+				<api-validate></api-validate>
+				<br>
+				<button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+				<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+			</div>
+		</script>
+        <div class="row">
+        	<div class="col-md-6">
+	            <table class="table table-bordered table-striped">
+					<tr>
+						<td>{{'label.heading.savingsproductname' | translate}}</td>
+						<td>{{lockInPeriod.productName}}</td>
+					</tr>
+					<tr>
+						<td>{{'label.heading.lockInPeriodFrequency' | translate}}</td>
+						<td>{{lockInPeriod.lockinPeriodFrequency|number}}</td>
+					</tr>
+                    <tr>
+                        <td>{{'label.heading.lockInPeriodFrequencyType' | translate}}</td>
+                        <td>{{lockInPeriod.lockinPeriodFrequencyType.value}}</td>
+                    </tr>
+	                <tr>
+	                    <td>{{'label.heading.rate' | translate}}</td>
+	                    <td>{{lockInPeriod.rate|number}}%</td>
+	                </tr>
+	            </table>
+	    	</div>
+        </div>
+    </div>
+</div>

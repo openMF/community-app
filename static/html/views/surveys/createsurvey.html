@@ -1,0 +1,154 @@
+<div class="content-container" ng-controller="ManageSurveysController">
+    <ul class="breadcrumb">
+        <li ><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+        <li ><a href="#/surveys">{{'label.anchor.managesurveys' | translate}}</a></li>
+        <li class="active">{{'label.heading.createsurvey' | translate}}</li>
+    </ul>   
+    <form name="createsurveyform">     
+        <div class="card">
+            <div class="card-content">
+                <div novalidate="" class="card form-horizontal well" >
+                   <api-validate></api-validate>
+                   <fieldset>
+                    <legend>{{'label.heading.createsurvey' | translate}}</legend>
+                    <div class="form-group">
+                       <label class="control-label col-sm-2" for="key">{{'label.heading.key' | translate}}<span
+                          class="required">*</span></label>
+                       <div class="col-sm-3">
+                          <input type="text" id="key" name="key" maxlength="32" ng-model="formData.key" class="form-control"
+                             required late-Validate/>
+                       </div>
+                       <div class="col-sm-1">
+                          <form-validate valattributeform="createsurveyform" valattribute="key"/>
+                       </div>
+                       <label class="control-label col-sm-1" for="name">{{'label.input.name' | translate}}<span
+                          class="required">*</span></label>
+                       <div class="col-sm-3">
+                          <input type="text" id="name" name="name"  maxlength="255" ng-model="formData.name" class="form-control"
+                             required late-Validate/>
+                       </div>
+                       <div class="col-sm-1">
+                          <form-validate valattributeform="createsurveyform" valattribute="name"/>
+                       </div>
+                    </div>
+                    <div class="form-group">
+                       <label class="control-label col-sm-2" for="countrycode">{{'label.heading.countrycode' | translate}}<span
+                          class="required">*</span></label>
+                       <div class="col-sm-3">
+                          <input type="text" id="countrycode" name="countrycode" maxlength="2" ng-model="formData.countryCode" max class="form-control"
+                             required late-Validate/>
+                       </div>
+                       <div class="col-sm-1">
+                          <form-validate valattributeform="createsurveyform" valattribute="countrycode"/>
+                       </div>
+                       <label class="control-label col-sm-1" for="description">{{'label.input.description' | translate}}</label>
+                       <div class="col-sm-3">
+                          <textarea type="text" id="description" name="description" ng-model="formData.description" class="form-control"
+                            ></textarea>
+                       </div>
+                       <div class="col-sm-1">
+                          <form-validate valattributeform="createsurveyform" valattribute="description"/>
+                       </div>
+                    </div>
+                    
+                    <div class="pull-right">
+                      <input type="submit" id="save1" type="submit" class="btn btn-primary" ng-click="showQuestionsForm()" value="{{'label.button.proceed' | translate}}" >       
+                    </div>
+                   </fieldset>  
+                </div>
+            </div>
+        </div>
+            <div class="card well"  novalidate="" rc-submit="createSurvey()" ng-show="showQuestions">
+                <div class="card-content">
+                    <legend>{{'label.heading.questions' | translate}}</legend>
+                    <div class="content">
+                        
+                         <fieldset>
+                        <div class="row">
+                            <div class="col-sm-12 well" ng-repeat="question in formData.questionDatas" ng-show="formData.questionDatas.length>0">
+                                <div name="addquestion" class="form-horizontal">
+                                  <div class="col-sm-12">
+                                      <label class="col-sm-2">{{'label.heading.question' | translate}} :&nbsp;{{($index+1)}}</label>
+                                      <a class="col-md-offset-9" ng-click="deleteQuestion($index)"><i class="fa fa-times-circle fa-2x"></i></a>
+                                  </div>
+                                    <div class="qform">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2" for="key">{{'label.heading.key' | translate}}<span
+                                              class="required">*</span></label>
+                                              <div class="col-sm-3">
+                                                  <input type="text" id="key" name="key" maxlength="32"  ng-model="question.key" class="form-control"  required late-Validate/>
+                                              </div>
+                                              <div class="col-sm-1">
+                                                  <form-validate valattributeform="createsurveyform" valattribute="key"/>
+                                              </div>
+                                              <label class="control-label col-sm-1" for="name">{{'label.text' | translate}}<span
+                                              class="required">*</span></label>
+                                              <div class="col-sm-3">
+                                                  <input type="text" id="text" name="text" maxlength="255"  ng-model="question.text" class="form-control"
+                                                  required late-Validate/>
+                                              </div>
+                                              <div class="col-sm-1">
+                                                  <form-validate valattributeform="createsurveyform" valattribute="text"/>
+                                              </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2" for="description">{{'label.input.description' | translate}}</label>
+                                            <div class="col-sm-3">
+                                                <textarea type="text" id="description" name="description" ng-model="question.description" class="form-control"
+                                                ></textarea>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <form-validate valattributeform="addquestionform" valattribute="description"/>
+                                            </div>
+                                        </div>
+                                            <div class="form-group">
+                                               <label class="control-label col-sm-2" for="description">{{'label.input.options' | translate}}
+                                                <span class="required">*</span></label>
+                                                <div class="col-sm-10">
+                                                    <a class="btn btn-primary" ng-click="showOptionForm(question)"><i class="fa fa-plus"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-10 col-md-offset-2" ng-show="question.responseDatas.length>0">
+                                                <div class="well col-sm-12" ng-repeat="option in question.responseDatas">
+                                                   <label class="control-label col-sm-2" for="name">{{'label.text' | translate}}<span
+                                                      class="required">*</span>
+                                                    </label>
+                                                      <div class="col-sm-3">
+                                                          <input type="text" id="text" name="text" ng-model="option.text" class="form-control" required late-Validate/>
+                                                      </div>
+                                                      <div class="col-sm-1">
+                                                          <form-validate valattributeform="createsurveyform" valattribute="text"/>
+                                                      </div>
+                                                      <label class="control-label col-sm-2" for="name">{{'label.heading.value' | translate}}<span
+                                                      class="required">*</span></label>
+                                                      <div class="col-sm-3">
+                                                          <input type="number" id="text" name="value" onKeyPress="if(this.value.length>3) return false;"  ng-model="option.value" class="form-control"
+                                                          required late-Validate/>
+                                                      </div>
+                                                      <div class="col-sm-1">
+                                                          <form-validate valattributeform="createsurveyform" valattribute="text"/>
+                                                      </div>
+                                                      <div class="col-sm-1">
+                                                          <a ng-click="deleteOption(question,$index)"><i class="fa fa-times-circle fa-2x"></i></a>
+                                                      </div>
+                                                  </div>
+                                            </div>
+                                        <hr/>
+                                    </div>    
+                                </div>                 
+                                </div>
+                        </div>
+                       </fieldset>
+                       <br>
+                        <div class="row col-sm-offset-5">
+                            <a class="btn btn-md btn-primary" ng-click="showQuestionForm()"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.button.addquestion' | translate}}</a>
+                            <a class="btn btn-md btn-primary" ng-click="createSurvey()" ng-disabled="!formData.questionDatas.length">{{'label.heading.createsurvey' | translate}}</a> 
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+             </div> 
+
+
+</form>
+</div>

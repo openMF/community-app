@@ -1,0 +1,88 @@
+<div class="content-container" ng-controller="DefineOpeningBalancesController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+        <li class="active">{{'label.anchor.define.openingbalances' | translate}}</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>opening balances</h4>
+            </div>
+            <br/>
+            <api-validate></api-validate>
+            <form name="openingbalancesform" novalidate="" class="form-horizontal" ng-submit="submit()">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control"
+                                ng-options="office.id as office.name for office in offices" name="officeId" value="{{office.id}}"
+                                required="required" late-validate>
+                            <option class="displaynone" value="">{{'label.selectoffice' | translate}}</option>
+                        </select>
+                    </div>
+                    <form-validate valattributeform="openingbalancesform" valattribute="officeId"/>
+                    <label class="control-label col-sm-2">{{ 'label.input.currency' | translate }}&nbsp;<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select id="currencyCode" name="currency" ng-model="formData.currencyCode" class="form-control"
+                                ng-options="currency.code as (currency.name+' ('+ currency.displaySymbol +')') for currency in currencyOptions"
+                                value="{{currency.code}}" required>
+                        </select>
+                    </div>
+                    <div class="col-md-offset-3 center">
+                        <a ng-click="retrieveOpeningBalances(formData.officeId, formData.currencyCode )" class="btn btn-primary"> {{'label.button.searchdata' | translate}} </a>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="data.contraAccount.name">
+                    <label class="control-label col-sm-2">{{ 'label.input.opening.balances.contra.account' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <label class="control-label">{{ data.contraAccount.name }}({{data.contraAccount.glCode}})</label>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="data.contraAccount.name">
+                    <label class="control-label col-sm-2">{{ 'label.input.date.of.opening.balances' | translate }}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input class="date-disable form-control" type="text" datepicker-pop="dd MMMM yyyy" ng-model="first.date"
+                               is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+                    </div>
+                </div>
+
+                <table class="table" ng-show="allGls">
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.type' | translate}}</th>
+                        <th>{{'label.heading.glcode' | translate}}</th>
+                        <th>{{'label.heading.account' | translate}}</th>
+                        <th ng-if="totalDebitAmount > 0">{{'label.heading.debit' | translate}} : {{totalDebitAmount | number}}</th>
+                        <th ng-if="totalDebitAmount == 0">{{'label.heading.debit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'DEBIT'  | number}} </th>
+                        <th ng-if="totalCreditAmount > 0">{{'label.heading.credit' | translate}} : {{totalCreditAmount | number}}</th>
+                        <th ng-if="totalCreditAmount == 0">{{'label.heading.credit' | translate}} : {{ allGls | AddUpTotalFor:'amount':'entryType.value':'CREDIT'  | number}} </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="gl in allGls">
+                        <td>
+                            <span ng-show="allGls[$index].glAccountType.value != allGls[$index-1].glAccountType.value">
+                            {{gl.glAccountType.value}}
+                            </span>
+                        </td>
+                        <td>{{gl.glAccountCode}}</td>
+                        <td>{{gl.glAccountName}}</td>
+                        <td><input type="text" name="debits{{$index}}" ng-model="gl.debit"  number-format class="form-control" ng-change="keyPress()" /></td>
+                        <td><input type="text" name="credits{{$index}}" ng-model="gl.credit"  number-format class="form-control" ng-change="keyPress()" /></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-offset-3" ng-show="data.contraAccount.name" >
+                    <a id="cancel" href="#/accounting" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                    <button id="save" type="submit" class="btn btn-primary" has-permission='DEFINEOPENINGBALANCE_JOURNALENTRY'>{{ 'label.button.save' | translate }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

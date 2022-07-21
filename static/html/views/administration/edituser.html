@@ -1,0 +1,131 @@
+<div class="content-container" ng-controller="EditUserController">
+        <ul class="breadcrumb">
+            <li><a href="#/users">{{'label.anchor.users' | translate}}</a></li>
+            <li><a href="#/viewuser/{{userId}}">{{formData.firstname}}{{formData.lastname}}</a></li>
+            <li class="active">{{'label.anchor.edituser' | translate}}</li>
+        </ul>
+    <form name="edituserform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.edituser' | translate}}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="username">{{'label.input.username' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="username" name="username" ng-model="formData.username" class="form-control" required
+                           late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="edituserform" valattribute="username"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="firstname">{{'label.input.firstname' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="firstname" name="firstname" value="{{user.firstname}}"
+                           ng-model="formData.firstname" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="edituserform" valattribute="firstname"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="lastname">{{'label.input.lastname' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="lastname" name="lastname" value="{{user.lastname}}"
+                           ng-model="formData.lastname" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="edituserform" valattribute="lastname"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">{{'label.input.email' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input type="email" id="email" name="email" value="{{user.email}}" ng-model="formData.email" class="form-control"
+                           required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="edituserform" valattribute="email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.overridepasswordexpiry' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="formData.passwordNeverExpires">
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="officeId">{{'label.input.office' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select chosen="offices" id="officeId" ng-model="formData.officeId" class="form-control" data-ng-change="getOfficeStaff()"
+                            ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.staff' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <select chosen="staffs" id="staffId" ng-model="formData.staffId"  class="form-control"
+                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                        <option value="">--{{'label.menu.selectstaff' | translate}}--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 col-md-3 col-md-offset-1">
+                    <label class="control-label col-sm-9">{{ 'label.input.availableroles' | translate }}</label>
+                    <select id="availableroles" ng-model="available" name="availableroles" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-1 col-md-1 paddedtop25px">
+                    <button type="button" class="btn btn-primary" data-ng-click="addRole()"><i
+                            class="fa fa-angle-double-right"></i></button>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-ng-click="removeRole()"><i
+                            class="fa fa-angle-double-left"></i></button>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                  <label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}<span
++	                    class="required">*</span></label>
+                    <select id="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
+                        <option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
+                            {{availablerole.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewuser/{{userId}}">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_USER'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

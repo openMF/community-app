@@ -16,6 +16,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       # Set Slug
+
+      # Set Slug
+      - name: Get short SHA
+        id: slug
+        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
+
+        
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v2.x
 
@@ -35,4 +42,4 @@ jobs:
           context: .
           push: true
           tags: |
-            "916148231619.dkr.ecr.us-east-2.amazonaws.com/fih-ui:latest"
+            "916148231619.dkr.ecr.us-east-2.amazonaws.com/fih-ui:${{ steps.slug.outputs.sha8 }}"

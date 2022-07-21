@@ -1,0 +1,73 @@
+<div class="content-container" ng-controller="ViewHolController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/holidays">{{'label.anchor.manageholidays' | translate}}</a></li>
+        <li class="active">{{holiday.name}}</li>
+    </ul>
+    <script type="text/ng-template" id="activateHoliday.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.activateholiday' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="deleteHoliday.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.deleteholiday' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="activate()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="card">
+        <div class="content">
+                <div class="">
+                    <div class="pull-right">
+                        <div class="form-group">
+                            <a ng-show="holidayStatusPending" data-ng-click="activateHoliday()" class="btn btn-primary" has-permission='ACTIVATE_HOLIDAY'><i
+                                    class="fa fa-unlock-alt "></i>
+                                {{ 'label.button.activate' | translate }}</a>
+                            <a ng-show="holidayStatusPending || holidayStatusActive" href="#/editholiday/{{holiday.id}}"
+                               class="btn btn-primary" has-permission='UPDATE_HOLIDAY'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{ 'label.button.edit' | translate }}</a>
+                            <a ng-hide="holidayStatusDeleted" data-ng-click="deleteHoliday()" class="btn btn-danger" has-permission='DELETE_HOLIDAY'><i
+                                    class="fa fa-trash-o"></i>&nbsp;&nbsp;{{ 'label.button.delete' | translate }}</a>
+                        </div>
+                    </div>
+                    <h3 class="bolder">{{holiday.name}}</h3>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td>{{ 'label.heading.name' | translate }}</td>
+                                    <td>{{holiday.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.fromdate' | translate }}</td>
+                                    <td>{{holiday.fromDate | DateFormat}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'label.heading.todate' | translate }}</td>
+                                    <td>{{holiday.toDate | DateFormat}}</td>
+                                </tr>
+                                <tr ng-show="holiday.repaymentsRescheduledTo == undefined || holiday.repaymentsRescheduledTo == null">
+                                    <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
+                                    <td>{{'label.nextrepaymentdate' | translate}}</td>
+                                </tr>
+                                <tr ng-show="holiday.repaymentsRescheduledTo != undefined && holiday.repaymentsRescheduledTo != null">
+                                    <td>{{ 'label.heading.repaymentsheduleto' | translate }}</td>
+                                    <td>{{holiday.repaymentsRescheduledTo | DateFormat}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
