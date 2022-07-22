@@ -1,6 +1,5 @@
-
-(function (mifosX) {
-    var defineHeaders = function ($httpProvider, $translateProvider, ResourceFactoryProvider, HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL, FINERACT_BASE_URL) {
+(function(mifosX) {
+    var defineHeaders = function($httpProvider, $translateProvider, ResourceFactoryProvider, HttpServiceProvider, $idleProvider, $keepaliveProvider, IDLE_DURATION, WARN_DURATION, KEEPALIVE_INTERVAL, FINERACT_BASE_URL) {
         var mainLink = getLocation(window.location.href);
         var baseApiUrl = "https://demo.mifos.io";
         var host = "";
@@ -21,7 +20,7 @@
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
                 console.log("other than demo server", domains[0]);
             }
-            host = "http://" + mainLink.hostname;
+            host = "https://" + mainLink.hostname;
             console.log('hostname from mainLink = ', host);
         }
         //accessing from a file system or other servers
@@ -29,19 +28,19 @@
             var baseApiUrlEnv = FINERACT_BASE_URL;
 
             if (mainLink.hostname != "") {
-                baseApiUrl = "http://" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
+                baseApiUrl = "https://" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
             }
 
             if (QueryParameters["baseApiUrl"]) {
                 baseApiUrl = QueryParameters["baseApiUrl"];
             }
 
-            if(baseApiUrlEnv !== '$FINERACT_BASE_URL'){
+            if (baseApiUrlEnv !== '$FINERACT_BASE_URL') {
                 baseApiUrl = baseApiUrlEnv;
             }
 
             var queryLink = getLocation(baseApiUrl);
-            host = "http://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
+            host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
             portNumber = queryLink.port;
 
             $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';
@@ -53,8 +52,8 @@
         }
 
         ResourceFactoryProvider.setBaseUrl(host);
-        HttpServiceProvider.addRequestInterceptor('demoUrl', function (config) {
-            return _.extend(config, {url: host + config.url });
+        HttpServiceProvider.addRequestInterceptor('demoUrl', function(config) {
+            return _.extend(config, { url: host + config.url });
         });
 
         // Enable CORS! (see e.g. http://enable-cors.org/)
@@ -80,19 +79,19 @@
         $idleProvider.warningDuration(WARN_DURATION); //warning time(sec)
         $keepaliveProvider.interval(KEEPALIVE_INTERVAL); //keep-alive ping
     };
-    mifosX.ng.application.config(defineHeaders).run(function ($log, $idle) {
+    mifosX.ng.application.config(defineHeaders).run(function($log, $idle) {
         $log.info("Initial tasks are done!");
         $idle.watch();
     });
 }(mifosX || {}));
 
-getLocation = function (href) {
+getLocation = function(href) {
     var l = document.createElement("a");
     l.href = href;
     return l;
 };
 
-QueryParameters = (function () {
+QueryParameters = (function() {
     var result = {};
     if (window.location.search) {
         // split up the query string and store in an associative array
