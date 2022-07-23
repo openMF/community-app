@@ -294,6 +294,7 @@
                 if (this.formData.legalFormId == scope.clientPersonId || this.formData.legalFormId == null) {
                     delete this.formData.fullname;
                 } else {
+                    delete this.formData.surname;
                     delete this.formData.firstname;
                     delete this.formData.middlename;
                     delete this.formData.lastname;
