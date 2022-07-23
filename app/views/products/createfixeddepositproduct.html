@@ -353,156 +353,24 @@
                             tooltip-append-to-body="true"></i>
                     </h3>
                     <hr>
-                    <!--<tr>
-                           <td>
-                               <div class="control-group">
-                                   <label class="control-label" for="name">{{ 'label.input.interestratechart.name' | translate
-                                       }}<span
-                                               class="required">*</span></label>
-
-                                   <div class="controls">
-                                       <input id="name" ng-autofocus="true" type="text" name="name" ng-model="chart.name"/>
-                                   </div>
-                               </div>
-                           </td>
-                           <td>
-                               <div class="control-group">
-                                   <label class="control-label" for="name">{{ 'label.input.interestratechart.description' |
-                                       translate
-                                       }}</label>
-
-                                   <div class="controls">
-                                       <input id="chdescription" ng-autofocus="true" type="text" name="chdescription"
-                                              ng-model="chart.description"/>
-                                   </div>
-                               </div>
-                           </td>
-                           <td>&nbsp;</td>
-                           <td>&nbsp;</td>
-                       </tr>-->
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="name">{{ 'label.input.interestratechart.valid.from'
-                            |
-                            translate }}<span class="required">*</span></label>
+                        <label class="control-label col-sm-2" for="name">{{'label.heading.interestratedetails.period.type' | translate}}
+                            <span class="required">*</span></label>
                         <div class="col-sm-2">
-                            <input id="fromDate" sort type="text" name="fromDate" class="form-control" datepicker-pop="dd MMMM yyyy"
-                                ng-model="fromDate.date" is-open="opened" min="minDate" max="restrictDate" required
-                                late-validate>
-                        </div>
+                        <select class="form-control" id="periodType" ng-model="interestrate.periodType"
+                            ng-options="type.id as type.value for type in chart.periodTypes" value="{{interestrate.periodType}}"  late-validate required>
+                        </select>
+                        </div> 
                         <div class="col-sm-2">
                             <form-validate valattributeform="interestchart" valattribute="fromDate" />
                         </div>
-                        <label class="control-label col-sm-2 col-sm-2 " for="name">{{
-                            'label.input.interestratechart.valid.to' | translate }}</label>
+                        <label class="control-label col-sm-2" for="name">{{'label.heading.interestrate' | translate}}
+                            <span class="required">*</span></label>
                         <div class="col-sm-2">
-                            <input id="endDate" sort type="text" class="form-control" datepicker-pop="dd MMMM yyyy"
-                                ng-model="endDate.date" is-open="opened" min="minDate" />
+                            <input id="interestrate" name="interestrate" type=" " class="form-control" number-format ng-model="interestrate.amount" late-validate  required decimal-number=true/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="name">{{
-                            'label.input.interestratechart.primary.grouping.amount' |
-                            translate }}</label>
-                        <div class="col-sm-2">
-                            <label class="checkbox">
-                                <input id="isPrimaryGroupingByAmount" type="checkbox" ng-model="isPrimaryGroupingByAmount">
-
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table table-bordered width100">
-                            <tr class="graybg">
-                                <td ng-show="isPrimaryGroupingByAmount">
-                                    {{'label.heading.interestratedetails.amount.range' | translate}}
-                                </td>
-                                <td>{{'label.heading.interestratedetails.period.type' | translate}}</td>
-                                <td>{{'label.heading.interestratedetails.period.from.to' | translate}}</td>
-                                <td ng-hide="isPrimaryGroupingByAmount">
-                                    {{'label.heading.interestratedetails.amount.range' | translate}}
-                                </td>
-                                <td>{{'label.heading.interestratedetails.interest' | translate}}<span class="required">*</span></td>
-                                <td>{{'label.heading.interestratedetails.description' | translate}}</td>
-                                <td>
-                                    <div ng-show="chart.chartSlabs.length < 1">
-                                        <a class="btn btn-primary" ng-click="addNewRow()"><i class="fa fa-plus"></i>&nbsp;&nbsp;{{'label.add.row'
-                                            | translate}}</a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr ng-repeat="chartSlab in chart.chartSlabs">
-                                <td ng-show="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom1" name="amountRangeFrom1" type="text" class="input-mini"
-                                        ng-model="chartSlab.amountRangeFrom" late-validate decimal-number=true/>
-                                    <span ng-show="interestchart.amountRangeFrom1.$invalid && interestchart.amountRangeFrom1.$dirty">
-                                        <small class="required error">
-                                            {{'label.mustbenumeric' | translate}}
-                                        </small>
-                                    </span> -
-                                    <input id="amountRangeTo1" name="amountRangeTo1" type="text" class="input-mini"
-                                        ng-model="chartSlab.amountRangeTo" late-validate decimal-number=true/>
-                                    <span ng-show="interestchart.amountRangeTo1.$invalid && interestchart.amountRangeTo1.$dirty">
-                                        <small class="required error">
-                                            {{'label.mustbenumeric' | translate}}
-                                        </small>
-                                    </span>
-                                </td>
-                                <td class="width20">
-                                    <select class="form-control" id="periodType" ng-model="chartSlab.periodType.id"
-                                        ng-options="type.id as type.value for type in chart.periodTypes" value="{{chartSlab.periodType.id}}">
-                                    </select>
-                                </td>
-                                <td class="width15">
-                                    <table class="width100">
-                                        <tr>
-                                            <td><input id="fromPeriod" name="fromPeriod" type="text" class="form-control"
-                                                    ng-model="chartSlab.fromPeriod" /></td>
-                                            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
-                                            <td><input id="toPeriod" name="toPeriod" type="text" class="form-control"
-                                                    ng-model="chartSlab.toPeriod" /></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td ng-hide="isPrimaryGroupingByAmount">
-                                    <input id="amountRangeFrom" name="amountRangeFrom" type="text" class="input-mini"
-                                        ng-model="chartSlab.amountRangeFrom" late-validate decimal-number=true />
-                                    <span ng-show="interestchart.amountRangeFrom.$invalid && interestchart.amountRangeFrom.$dirty">
-                                        <small class="required error">
-                                            {{'label.mustbenumeric' | translate}}
-                                        </small>
-                                    </span> -
-                                    <input id="amountRangeTo" name="amountRangeTo" type="text" class="input-mini"
-                                        ng-model="chartSlab.amountRangeTo" late-validate decimal-number=true />
-
-                                    <span ng-show="interestchart.amountRangeTo.$invalid && interestchart.amountRangeTo.$dirty">
-                                        <small class="required error">
-                                            {{'label.mustbenumeric' | translate}}
-                                        </small>
-                                    </span>
-
-                                </td>
-                                <td class="width15">
-                                    <input id="annualInterestRate" name="annualInterestRate" type="text" class="form-control"
-                                        ng-model="chartSlab.annualInterestRate"  required late-validate/>
-                                </td>
-                                <td class="width20"><input name="description" type="text" class="form-control" ng-model="chartSlab.description" /></td>
-                                <td class="width10">
-                                    <a ng-click="removeRow($index)"><i class="fa fa-times-circle fa-2x"></i></a>
-
-                                    <div ng-show="$last">
-                                        <br />
-                                        <a ng-click="addNewRow()" class="btn btn-primary"><i class="fa fa-plus "></i>&nbsp;&nbsp;{{'label.add.row'
-                                            | translate}}</a>
-                                    </div>
-                                </td>
-                                <td class="width8">
-                                    <a ng-click="incentives($index)"><i class=""></i>{{'label.incentive.row'
-                                        | translate}}</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                  
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>

@@ -16,8 +16,10 @@
             scope.endDate = {};//required for date formatting
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
+            scope.interestrate = {}
 
             resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
+                console.log(data)
                 scope.product = data;
                 scope.charges = data.charges;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -67,6 +69,7 @@
                     scope.formData.taxGroupId = data.taxGroup.id;
                 }
                 scope.chart = scope.product.activeChart;
+                scope.interestrate.amount = scope.chart.chartSlabs[0].annualInterestRate;
 
                 _.each(scope.chart.chartSlabs, function (chartSlab) {
                     _.each(chartSlab.incentives, function (incentive){
@@ -273,7 +276,9 @@
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
                 this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                //this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts.push(copyChartDataStatic());//add chart details
+
                 this.formData = removeEmptyValues(this.formData);
                 resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
@@ -343,6 +348,21 @@
              *  create new chart data object
              */
 
+             copyChartDataStatic = function(){
+                return newChartData = {
+                    id: scope.chart.id,
+                    name: new String(Date.now().toString(36) + Math.random().toString(36).substring(2)),
+                    description: "Fixed period chart data",
+                    fromDate: dateFilter('01 January 1979','dd MMMM yyyy'),
+                    locale: scope.optlang.code,
+                    dateFormat: scope.df,
+                    chartSlabs: angular.copy(copyChartSlabStatic())
+
+                }
+
+            }
+
+
             copyChartData = function () {
                 var newChartData = {
                     id: scope.chart.id,
@@ -370,6 +390,21 @@
              * @param chartSlabs
              * @returns {Array}
              */
+
+             copyChartSlabStatic = function(){
+                var slabArray = [];
+                slabArray.push({
+                    id: scope.chart.chartSlabs[0].id,
+                    description: "",
+                    fromPeriod: 1,
+                    amountRangeFrom: 1,
+                    annualInterestRate: scope.interestrate.amount,
+                    locale: scope.optlang.code,
+                    periodType: scope.interestrate.periodType
+                });
+                return slabArray;
+            }
+
             copyChartSlabs = function (chartSlabs) {
                 var detailsArray = [];
                 _.each(chartSlabs, function (chartSlab) {

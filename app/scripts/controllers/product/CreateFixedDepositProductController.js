@@ -10,13 +10,9 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
             scope.isClicked = false;
-
+            scope.interestrate = {}
             //interest rate details
             scope.chart = {};
-            scope.restrictDate = new Date();
-            scope.fromDate = {}; //required for date formatting
-            scope.endDate = {};//required for date formatting
-            scope.isPrimaryGroupingByAmount = false;
 
             resourceFactory.fixedDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -35,7 +31,6 @@
                 scope.formData.preClosurePenalInterestOnTypeId = scope.product.preClosurePenalInterestOnTypeOptions[0].id;
                 //set chart template
                 scope.chart = scope.product.chartTemplate;
-                scope.chart.chartSlabs = [];
                 scope.formData.accountingRule = '1';
                 scope.depositproduct = angular.copy(scope.formData);
 
@@ -184,7 +179,10 @@
                 this.formData.charges = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
                 this.formData.charts = [];//declare charts array
-                this.formData.charts.push(copyChartData(scope.chart));//add chart details
+             //   this.formData.charts.push(copyChartData(scope.chart));//add chart details
+                this.formData.charts.push(copyChartDataStatic());//add chart details
+
+
 
                 resourceFactory.fixedDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
@@ -256,6 +254,19 @@
                 scope.chart.chartSlabs.splice(index, 1);
             }
 
+            copyChartDataStatic = function(){
+                return newChartData = {
+                    name: new String(Date.now().toString(36) + Math.random().toString(36).substring(2)),
+                    description: "Fixed period chart data",
+                    fromDate: dateFilter('01 January 1979','dd MMMM yyyy'),
+                    locale: scope.optlang.code,
+                    dateFormat: scope.df,
+                    chartSlabs: angular.copy(copyChartSlabStatic())
+
+                }
+
+            }
+
             /**
              *  create new chart data object
              */
@@ -301,6 +312,20 @@
              * @param chartSlab
              *
              */
+
+            copyChartSlabStatic = function(){
+                var slabArray = [];
+                slabArray.push({
+                    id: 1,
+                    description: "",
+                    fromPeriod: 1,
+                    amountRangeFrom: 1,
+                    annualInterestRate: scope.interestrate.amount,
+                    locale: scope.optlang.code,
+                    periodType: scope.interestrate.periodType
+                });
+                return slabArray;
+            }
 
             copyChartSlab = function (chartSlab) {
                 var newChartSlabData = {
