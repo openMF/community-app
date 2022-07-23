@@ -7,7 +7,7 @@
                 scope.offices = data;
             });
             resourceFactory.roleResource.getAllRoles({}, function (data) {
-                scope.roles = data;
+                scope.roles = data; 
             });
 
             scope.$on('OpenUserFormDialog', function () {
