@@ -8,6 +8,7 @@
             scope.availableRoles = [];
             scope.formData = {
                 sendPasswordToEmail: true,
+                locale: 'en',
                 roles: []
             };
             resourceFactory.userTemplateResource.get(function (data) {
