@@ -450,6 +450,14 @@
                 });
             };
 
+            scope.transactionDataObject = {};
+            scope.index = 0;
+            scope.undoCharge = function (id) {
+                resourceFactory.loantransactionResource.put({loanId: scope.loandetails.id, id: id}, function(data) {
+                    route.reload();
+                });
+            };
+
             var DelInstructionCtrl = function ($scope, $uibModalInstance, ids) {
                 $scope.delete = function () {
                     resourceFactory.standingInstructionResource.cancel({standingInstructionId: ids}, function (data) {
