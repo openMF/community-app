@@ -109,6 +109,17 @@
 			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="deleteOwnerPic.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.deleteownerimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="clientunassignstaff.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.unassignstaff' | translate}}</h3>
@@ -123,6 +134,20 @@
 	<script type="text/ng-template" id="uploadsig.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.selectclientsignature' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" ngf-select ng-model="file">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="uploadOwnerSelfi.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.selectOwnerSelfi' | translate}}</h3>
 		</div>
 		<div class="modal-body">
 			<api-validate></api-validate>
@@ -1102,6 +1127,186 @@
 
 					</div>
 				</uib-tab>
+
+				<uib-tab ng-show="businessOwnerEnabled" heading="{{'label.heading.businessOwners' | translate}}" >
+					<!--<fieldset>-->
+					<!-- <div ng-controller="AddressController">-->
+					<div ng-show="businessOwnerEnabled">
+						<button class="btn btn-primary pull-right" ng-click="routeToAddBusinessOwner()"><i class="icon-plus icon-white"></i>{{'label.button.addBusinessOwners' | translate}}</button>
+						<br>
+
+						<table class="table" ng-repeat="owner in owners"  class="table table-condensed">
+							<thead>
+							<tr class="graybg">
+								<th class="graybg"> {{owner.status}}</th>
+								<td>
+									<button ng-click="ChangeBusinessOwnerStatus(owner.clientId,owner.isActive,owner.id)" data-ng-hide="owner.isActive" class="btn btn-primary">
+										{{"label.button.enable" | translate}}
+									</button>
+									<button ng-click="ChangeBusinessOwnerStatus(owner.clientId,owner.isActive,owner.id)"  data-ng-show="owner.isActive" class="btn btn-primary">
+										{{"label.button.disable" | translate}}
+									</button>
+									<button class="btn btn-primary pull-right" ng-click="editBusinessOwners(owner.id)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+								</td>
+
+							</tr>
+							</thead>
+							<tbody>
+							<tr >
+								<th >
+									{{'label.input.firstname' | translate }}
+								</th>
+								<td>
+									{{owner.firstName}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.middlename' | translate }}
+								</th>
+								<td>
+									{{owner.middleName}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.lastname' | translate }}
+								</th>
+								<td>
+									{{owner.lastName}}
+								</td>
+							</tr>
+
+
+
+							<tr >
+								<th >
+									{{'label.input.username' | translate }}
+								</th>
+								<td>
+									{{owner.username}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{'label.input.email' | translate }}
+								</th>
+								<td>
+									{{owner.email}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.mobileNumber' | translate }}
+								</th>
+								<td>
+									{{owner.mobileNumber}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{'label.input.alterMobileNumber' | translate }}
+								</th>
+								<td>
+									{{owner.alterMobileNumber}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{'label.input.dateofbirth' | translate }}
+								</th>
+								<td>
+									{{owner.dateOfBirth | DateFormat }}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.city' | translate }}
+								</th>
+								<td>
+									{{owner.city}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.street' | translate }}
+								</th>
+								<td>
+									{{owner.streetNumberAndName}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{ 'label.input.state_province' | translate }}
+								</th>
+								<td>
+									{{owner.stateName}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.country' | translate }}
+								</th>
+								<td>
+									{{owner.countryName}}
+								</td>
+							</tr>
+
+							<tr>
+								<th >
+									{{ 'label.input.lga' | translate }}
+								</th>
+								<td>
+									{{owner.lga}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.bvn' | translate }}
+								</th>
+								<td>
+									{{owner.bvn}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{'label.input.is_active' | translate}}
+								</th>
+								<td>
+									{{owner.isActive}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{'label.input.userselfi' | translate}}
+								</th>
+								<td>
+									<img ng-show="owner.imagePresent"  ng-src="{{owner.image}}" alt="Avatar" data-ng-click="showOwnerPicture(owner)" title="{{'label.zoom' | translate}}" >
+									<button type="button" class="btn btn-primary" data-ng-click="captureOwnerPic(owner.id)"
+											uib-tooltip="{{'label.button.capturepic' | translate}}">
+										<i class="fa fa-camera"></i>
+									</button>
+									<button type="button" class="btn btn-primary" ng-show="owner.imagePresent" data-ng-click="deleteOwnerPic(owner)"
+											uib-tooltip="{{'label.button.deletepic' | translate}}">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+							</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+					<!--</fieldset>-->
+
+				</uib-tab>
+
 
 
 				<!--end of family tab-->

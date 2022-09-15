@@ -962,6 +962,12 @@
             .when('/addfamilymembers/:clientId/', {
                 templateUrl: 'views/clients/addfamilymembers.html'
             })
+            .when('/addBusinessOwners/:clientId/', {
+                 templateUrl: 'views/clients/addBusinessOwners.html'
+             })
+            .when('/editBusinessOwners/:clientId/:businessOwnerId', {
+                  templateUrl: 'views/clients/editBusinessOwners.html'
+             })
             .when('/bulkimportoffices', {
                  templateUrl: 'views/organization/bulkimport/bulkimportoffices.html'
              })

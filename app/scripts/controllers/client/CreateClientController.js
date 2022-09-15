@@ -36,6 +36,8 @@
             scope.formDat.datatables = [];
             scope.tf = "HH:mm";
             scope.clientId = routeParams.clientId;
+            scope.businessOwnersArray=[];
+            scope.formData.businessOwners=[];
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
@@ -97,7 +99,11 @@
                     }
                 }
 
-
+                scope.businessOwnerEnabled=data.isBusinessOwnerEnabled;
+                if (scope.businessOwnerEnabled === true) {
+                           scope.countryOptions = data.ownersData[0].countryIdOptions;
+                           scope.stateOptions = data.ownersData[0].stateProvinceIdOptions;
+                }
                 scope.enableAddress=data.isAddressEnabled;
 
                 	   if (scope.enableAddress === true) {
@@ -174,6 +180,18 @@
             scope.removeFamilyMember=function(index)
             {
                 scope.familyArray.splice(index,1);
+            }
+
+          // Bussiness owners
+
+            scope.addBusinessOwners=function()
+            {
+                scope.businessOwnersArray.push({});
+            }
+
+            scope.removeBusinessOwners=function(index)
+            {
+                scope.businessOwnersArray.splice(index,1);
             }
 
 
@@ -430,15 +448,84 @@
 
                         temp.dateOfBirth=dateFilter(scope.familyArray[i].dateOfBirth, scope.df);
                     }
+                    if(scope.addressArray[i].isActive)
+                    {
+                        temp.isActive=scope.addressArray[i].isActive;
+
+                    }
 
                     temp.locale = scope.optlang.code;
                     temp.dateFormat = scope.df;
                     scope.formData.familyMembers.push(temp);
                 }
 
-                //
+                // business Owners array
 
+                for(var i=0;i<scope.businessOwnersArray.length;i++)
+                {
+                    var temp=new Object();
+                    scope.formData.businessOwners = [];
+                    if(scope.businessOwnersArray[i].firstnameOwner)
+                    {
+                        temp.firstName=scope.businessOwnersArray[i].firstnameOwner;
+                    }
+                    if(scope.businessOwnersArray[i].middleNameOwner)
+                    {
+                        temp.middleName=scope.businessOwnersArray[i].middleNameOwner;
+                    }
+                    if(scope.businessOwnersArray[i].lastNameOwner)
+                    {
+                        temp.lastName=scope.businessOwnersArray[i].lastNameOwner;
+                    }
+                    if(scope.businessOwnersArray[i].username)
+                    {
+                        temp.username=scope.businessOwnersArray[i].username;
+                    }
+                    if(scope.businessOwnersArray[i].mobileNumberOwner)
+                    {
+                        temp.mobileNumber=scope.businessOwnersArray[i].mobileNumberOwner;
+                    }
+                    if(scope.businessOwnersArray[i].alterMobileNumber)
+                    {
+                        temp.alterMobileNumber=scope.businessOwnersArray[i].alterMobileNumber;
+                    }
+                    if(scope.businessOwnersArray[i].email)
+                    {
+                        temp.email=scope.businessOwnersArray[i].email;
+                    }
+                    if(scope.businessOwnersArray[i].streetNumberAndName)
+                    {
+                        temp.streetNumberAndName=scope.businessOwnersArray[i].streetNumberAndName;
+                    }
+                    if(scope.businessOwnersArray[i].city)
+                    {
+                        temp.city=scope.businessOwnersArray[i].city;
+                    }
+                    if(scope.businessOwnersArray[i].lga)
+                    {
+                        temp.lga=scope.businessOwnersArray[i].lga;
+                    }
+                    if(scope.businessOwnersArray[i].countryId)
+                    {
+                        temp.countryId=scope.businessOwnersArray[i].countryId;
+                    }
+                    if(scope.businessOwnersArray[i].stateProvinceId)
+                    {
+                       temp.stateProvinceId=scope.businessOwnersArray[i].stateProvinceId;
+                    }
+                    if(scope.businessOwnersArray[i].dateOfBirthOwner)
+                    {
+                        temp.dateOfBirth=dateFilter(scope.businessOwnersArray[i].dateOfBirthOwner, scope.df);
+                    }
+                    if(scope.businessOwnersArray[i].bvn)
+                    {
+                         temp.bvn=scope.businessOwnersArray[i].bvn;
+                    }
 
+                    temp.locale = scope.optlang.code;
+                    temp.dateFormat = scope.df;
+                    scope.formData.businessOwners.push(temp);
+                }
 
                 resourceFactory.clientResource.save(this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);

@@ -608,6 +608,27 @@
                     familyMemberTemplate:defineResource(apiVer+"/clients/:clientId/familymembers/template",{},{
                         get:{method: 'GET',params:{}}
                     }),
+                    businessOwners:defineResource(apiVer+"/clients/:clientId/businessOwners/",{},{
+
+                      get:{method: 'GET',isArray: true },
+                      post:{method:'POST',params:{}}
+
+                    }),
+                    businessOwner:defineResource(apiVer+"/clients/:clientId/businessOwners/:businessOwnerId",{},{
+
+                        get:{method: 'GET',params:{} },
+                        delete:{method: 'DELETE',params:{}},
+                            put:{method:'PUT',params:{}}
+
+                    }),
+
+                    businessOwnerStatus:defineResource(apiVer+"/clients/:clientId/businessOwners/:businessOwnerId/updateOwnerStatus",{},{
+
+                        get:{method:'GET',params:{status:'@status'}},
+                    }),
+                    businessOwnersTemplate:defineResource(apiVer+"/clients/:clientId/businessOwners/template",{},{
+                       get:{method: 'GET',params:{}}
+                    }),
                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                          get: {method: 'GET',params:{}},
                         getAll: {method: 'GET',params:{}, isArray : true},

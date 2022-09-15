@@ -30,6 +30,7 @@
             resourceFactory.clientTemplateResource.get(function(data)
             {
                 scope.enableAddress=data.isAddressEnabled;
+                scope.businessOwnerEnabled=data.isBusinessOwnerEnabled;
                 if(scope.enableAddress===true)
                 {
 
@@ -113,6 +114,32 @@
 
 
             });
+            // business owners
+            scope.owners=[];
+
+            resourceFactory.businessOwners.get({clientId:routeParams.id},function(data)
+              {
+                scope.owners=data;
+                scope.owner = [];
+                angular.forEach(scope.owners, function (title, key) {
+                if (title.imagePresent) {
+                    http({
+                        method: 'GET',
+                        url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + title.id + '/images?maxHeight=150'
+                    }).then(function (imageData) {
+                        title.image = imageData.data;
+                    });
+                }
+                });
+              });
+            scope.ChangeBusinessOwnerStatus=function(id,status, businessOwnerId)
+            {
+                formdata.isActive=!status
+                resourceFactory.businessOwnerStatus.get({clientId:routeParams.id, businessOwnerId:businessOwnerId, status: formdata.isActive},function(data)
+                 {
+                     route.reload();
+                 });
+            }
 
             scope.deleteFamilyMember=function(clientFamilyMemberId)
             {
@@ -133,6 +160,14 @@
 
             }
 
+            scope.editBusinessOwners=function(clientBusinessOwnerId)
+            {
+
+                location.path('/editBusinessOwners/'+routeParams.id+'/'+clientBusinessOwnerId);
+
+
+            }
+
             scope.routeToaddFamilyMember=function()
             {
                 location.path('/addfamilymembers/'+ routeParams.id);
@@ -141,6 +176,10 @@
 
             // end of family members
 
+            scope.routeToAddBusinessOwner=function()
+            {
+                location.path('/addBusinessOwners/'+ routeParams.id);
+            }
 
 
             scope.routeToLoan = function (id) {
@@ -373,6 +412,82 @@
                     $scope.picture = null;
                 }
             };
+
+            scope.captureOwnerPic = function (id) {
+                $uibModal.open({
+                    templateUrl: 'capturepic.html',
+                    controller: CaptureOwnerPicCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                       ownerId: function() {
+                           return id
+                       }
+                    }
+                });
+            };
+            var CaptureOwnerPicCtrl = function ($scope, $uibModalInstance, ownerId) {
+
+                $scope.picture = null;
+                $scope.error = null;
+                $scope.videoChannel = {
+                    video: null,
+                    videoWidth: 320,
+                    videoHeight: 240
+                };
+                $scope.stream = null;
+
+                $scope.onVideoSuccess = function () {
+                    $scope.error = null;
+                };
+
+                $scope.onStream = function(stream) {
+                    $scope.stream = stream
+                }
+
+                $scope.onVideoError = function (err) {
+                    if(typeof err != "undefined")
+                        $scope.error = err.message + '(' + err.name + ')';
+                };
+
+                $scope.takeScreenshot = function () {
+                    if($scope.videoChannel.video) {
+                        var picCanvas = document.createElement('canvas');
+                        var width = $scope.videoChannel.video.width;
+                        var height = $scope.videoChannel.video.height;
+
+                        picCanvas.width = width;
+                        picCanvas.height = height;
+                        var ctx = picCanvas.getContext("2d");
+                        ctx.drawImage($scope.videoChannel.video, 0, 0, width, height);
+                        var imageData = ctx.getImageData(0, 0, width, height);
+                        document.querySelector('#clientSnapshot').getContext("2d").putImageData(imageData, 0, 0);
+                        $scope.picture = picCanvas.toDataURL();
+                    }
+                };
+                $scope.uploadscreenshot = function () {
+                    if($scope.picture != null) {
+                        http({
+                            method: 'POST',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + ownerId + '/images',
+                            data: $scope.picture
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $scope.stream.getVideoTracks()[0].stop();
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    $scope.stream.getVideoTracks()[0].stop();
+                };
+                $scope.reset = function () {
+                    $scope.picture = null;
+                }
+            };
             scope.deletePic = function () {
                 $uibModal.open({
                     templateUrl: 'deletePic.html',
@@ -396,6 +511,34 @@
                     $uibModalInstance.dismiss('cancel');
                 };
             };
+            scope.deleteOwnerPic = function (owner) {
+                            $uibModal.open({
+                                templateUrl: 'deleteOwnerPic.html',
+                                controller: DeleteOwnerPicCtrl,
+                                resolve: {
+                                       items: function(){
+                                           return owner
+                                       }
+                                   },
+                            });
+                        };
+                        var DeleteOwnerPicCtrl = function ($scope, $uibModalInstance, items) {
+                            $scope.delete = function () {
+                                http({
+                                    method: 'DELETE',
+                                    url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + items.id + '/images',
+                                }).then(function (imageData) {
+                                    if (!scope.$$phase) {
+                                        scope.$apply();
+                                    }
+                                    $uibModalInstance.close('delete');
+                                    route.reload();
+                                });
+                            };
+                            $scope.cancel = function () {
+                                $uibModalInstance.dismiss('cancel');
+                            };
+                        };
             scope.uploadSig = function () {
                 $uibModal.open({
                     templateUrl: 'uploadsig.html',
@@ -414,6 +557,36 @@
                             file: file
                         }).then(function (imageData) {
                             // to fix IE not refreshing the model
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.uploadOwnerSelfi = function () {
+                $uibModal.open({
+                    templateUrl: 'uploadOwnerSelfi.html',
+                    controller: uploadOwnerSelfiCtrl
+                });
+            };
+            var uploadOwnerSelfiCtrl = function ($scope, $uibModalInstance) {
+                $scope.upload = function (file) {
+                    if (file) {
+                        Upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                            data: {
+                                name: 'clientBusinessOwner',
+                                description: 'client business Owner'
+                            },
+                            file: file
+                        }).then(function (imageData) {
                             if (!scope.$$phase) {
                                 scope.$apply();
                             }
@@ -905,6 +1078,18 @@
                     size: "lg"
                 });
             };
+            scope.showOwnerPicture = function (owner) {
+                $uibModal.open({
+                    templateUrl: 'photo-dialog.html',
+                    controller: ViewOwnerLargerPicCtrl,
+                    size: "lg",
+                    resolve: {
+                       A: function() {
+                           return owner
+                       }
+                    }
+                });
+            };
 
             var ViewClientWithoutSignature = function($scope,$uibModalInstance){
                 $scope.cancel = function () {
@@ -959,6 +1144,23 @@
                         http({
                             method: 'GET',
                             url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/images?maxWidth=860'
+                        }).then(function (imageData) {
+                            $scope.largeImage = imageData.data;
+                        });
+                    }
+                };
+                loadImage();
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                };
+            };
+            var ViewOwnerLargerPicCtrl = function ($scope, $uibModalInstance, A) {
+              console.log(A);
+                var loadImage = function () {
+                    if (A.imagePresent) {
+                        http({
+                            method: 'GET',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + A.id + '/images?maxWidth=860'
                         }).then(function (imageData) {
                             $scope.largeImage = imageData.data;
                         });
