@@ -968,6 +968,12 @@
             .when('/editBusinessOwners/:clientId/:businessOwnerId', {
                   templateUrl: 'views/clients/editBusinessOwners.html'
              })
+            .when('/addEmploymentInfo/:clientId/', {
+                 templateUrl: 'views/clients/addEmploymentInfo.html'
+             })
+            .when('/editEmploymentInfo/:clientId/:employmentInfoId', {
+                  templateUrl: 'views/clients/editEmploymentInfo.html'
+             })
             .when('/bulkimportoffices', {
                  templateUrl: 'views/organization/bulkimport/bulkimportoffices.html'
              })
