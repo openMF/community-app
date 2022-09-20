@@ -77,6 +77,28 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group" data-ng-show="isGroupLoan">
+                    <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.transactorname' | translate}}
+                        <span class="required">*</span></label>
+
+
+                    <div class="col-sm-3">
+                        <select id="transactorId" ng-model="formData.transactorId"
+                                ng-options="member.id as member.displayName + ' | ' + member.accountNo for member in membersOfGroup"
+                                value="{{member.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" data-ng-show="isGroupLoan">
+                    <label class="control-label col-sm-2" >{{ 'label.input.transactorphonenumber' |
+                        translate}}</label>
+                    <div class="col-sm-3">
+                        <input type="text" id="transactorPhoneNumber" name="transactorPhoneNumber" ng-model="formData.transactorPhoneNumber"
+                           ng-pattern="/^[0-9]+$/" class="form-control" />
+                     </div>
+                </div>
+
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.showpaymentdetails' | translate}}</label>
 
