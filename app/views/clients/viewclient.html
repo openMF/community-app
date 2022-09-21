@@ -938,6 +938,15 @@
 									{{address.stateName}}
 								</td>
 							</tr>
+							<tr ng-show="view.lgaId">
+								<th >
+									{{ 'label.input.lga' | translate }}
+								</th>
+								<td>
+									{{address.lga.name}}
+								</td>
+
+							</tr>
 							<tr ng-show="view.countryId">
 								<th >
 									{{ 'label.input.country' | translate }}
@@ -1128,7 +1137,7 @@
 					</div>
 				</uib-tab>
 
-				<uib-tab ng-show="businessOwnerEnabled" heading="{{'label.heading.businessOwners' | translate}}" >
+				<uib-tab ng-show="businessOwnerEnabled && client.legalForm.id == 2" heading="{{'label.heading.businessOwners' | translate}}">
 					<!--<fieldset>-->
 					<!-- <div ng-controller="AddressController">-->
 					<div ng-show="businessOwnerEnabled">
@@ -1307,7 +1316,162 @@
 
 				</uib-tab>
 
+				<uib-tab ng-show="employmentInfoEnabled && client.legalForm.id == 1" heading="{{'label.heading.employmentInfo' | translate}}" >
+					<!--<fieldset>-->
+					<!-- <div ng-controller="AddressController">-->
+					<div ng-show="employmentInfoEnabled">
+						<button class="btn btn-primary pull-right" ng-click="routeToAddEmploymentInfo()"><i class="icon-plus icon-white"></i>{{'label.button.addEmploymentInfo' | translate}}</button>
+						<br>
 
+						<table class="table" ng-repeat="info in employmentInfo"  class="table table-condensed">
+							<thead>
+							<tr class="graybg">
+								<th class="graybg"> {{info.status}}</th>
+								<td>
+									<button ng-click="ChangeEmploymentInfoStatus(info.clientId,info.isActive,info.id)" data-ng-hide="info.isActive" class="btn btn-primary">
+										{{"label.button.enable" | translate}}
+									</button>
+									<button ng-click="ChangeEmploymentInfoStatus(info.clientId,info.isActive,info.id)"  data-ng-show="info.isActive" class="btn btn-primary">
+										{{"label.button.disable" | translate}}
+									</button>
+									<button class="btn btn-primary pull-right" ng-click="editEmploymentInfo(info.id)"><i class="icon-plus icon-white"></i>{{'label.button.edit' | translate}}</button>
+								</td>
+
+							</tr>
+							</thead>
+							<tbody>
+							<tr >
+								<th >
+									{{'label.input.employmentStatus' | translate }}
+								</th>
+								<td>
+									{{info.employmentStatus.name}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{'label.input.employerName' | translate }}
+								</th>
+								<td>
+									{{info.employerName}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{'label.input.businessName' | translate }}
+								</th>
+								<td>
+									{{info.businessName}}
+								</td>
+							</tr>
+
+
+							<tr >
+								<th >
+									{{'label.input.nameOfSchool' | translate }}
+								</th>
+								<td>
+									{{info.nameOfSchool}}
+								</td>
+							</tr>
+
+
+
+							<tr >
+								<th >
+									{{'label.input.monthlyIncome' | translate }}
+								</th>
+								<td>
+									{{info.monthlyIncome}}
+								</td>
+							</tr>
+
+							<tr >
+								<th >
+									{{ 'label.input.city' | translate }}
+								</th>
+								<td>
+									{{info.city.name}}
+								</td>
+							</tr>
+							<tr >
+								<th >
+									{{ 'label.input.street' | translate }}
+								</th>
+								<td>
+									{{info.streetNumberAndName}}
+								</td>
+							</tr>
+							<tr>
+								<th>
+									{{ 'label.input.state_province' | translate }}
+								</th>
+								<td>
+									{{info.state.name}}
+								</td>
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.country' | translate }}
+								</th>
+								<td>
+									{{info.country.name}}
+								</td>
+							</tr>
+
+							<tr>
+								<th >
+									{{ 'label.input.lga' | translate }}
+								</th>
+								<td>
+									{{info.lga.name}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.accountnumber' | translate }}
+								</th>
+								<td>
+									{{info.accountNumber}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.bankname' | translate }}
+								</th>
+								<td>
+									{{info.bank.name}}
+								</td>
+
+							</tr>
+							<tr>
+								<th >
+									{{ 'label.input.industry' | translate }}
+								</th>
+								<td>
+									{{info.industry.name}}
+								</td>
+
+							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.is_active' | translate}}
+								</th>
+								<td>
+									{{info.isActive}}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<!--</fieldset>-->
+
+				</uib-tab>
 
 				<!--end of family tab-->
 

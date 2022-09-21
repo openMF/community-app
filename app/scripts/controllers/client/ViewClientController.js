@@ -31,6 +31,7 @@
             {
                 scope.enableAddress=data.isAddressEnabled;
                 scope.businessOwnerEnabled=data.isBusinessOwnerEnabled;
+                scope.employmentInfoEnabled=data.isEmploymentInfoEnabled;
                 if(scope.enableAddress===true)
                 {
 
@@ -52,6 +53,7 @@
                     {
 
                         scope.addresses=data;
+                        console.log(data);
 
 
                     })
@@ -141,6 +143,15 @@
                  });
             }
 
+            scope.ChangeEmploymentInfoStatus=function(id,status, employmentInfoId)
+            {
+                formdata.isActive=!status
+                resourceFactory.employmentInfoStatus.get({clientId:routeParams.id, employmentInfoId:employmentInfoId, status: formdata.isActive},function(data)
+                 {
+                     route.reload();
+                 });
+            }
+
             scope.deleteFamilyMember=function(clientFamilyMemberId)
             {
 
@@ -168,6 +179,11 @@
 
             }
 
+            scope.editEmploymentInfo=function(employmentInfoId)
+            {
+               location.path('/editEmploymentInfo/'+routeParams.id+'/'+employmentInfoId);
+            }
+
             scope.routeToaddFamilyMember=function()
             {
                 location.path('/addfamilymembers/'+ routeParams.id);
@@ -180,7 +196,14 @@
             {
                 location.path('/addBusinessOwners/'+ routeParams.id);
             }
-
+            scope.routeToAddEmploymentInfo=function()
+            {
+                location.path('/addEmploymentInfo/'+ routeParams.id);
+            }
+            resourceFactory.employmentInformation.get({clientId:routeParams.id},function(data)
+              {
+                scope.employmentInfo=data;
+              });
 
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
