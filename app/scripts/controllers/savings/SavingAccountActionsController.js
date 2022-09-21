@@ -178,7 +178,7 @@
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.membersOfGroup = data.membersOfGroup;
-
+                        //This implementation supports on deposit only. Don't include it on withdraw
                         if(data.groupId != null){
                         scope.isGroupLoan = true;
                         }else{
