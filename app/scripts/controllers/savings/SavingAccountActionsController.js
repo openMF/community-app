@@ -13,7 +13,9 @@
             scope.isTransaction = false;
             scope.transactionAmountField = false;
             scope.showPaymentDetails = false;
+            scope.isGroupLoan = false;
             scope.paymentTypes = [];
+            scope.membersOfGroup = [];
             scope.submittedDatatables = [];
             scope.tf = "HH:mm";
             var submitStatus = [];
@@ -175,6 +177,14 @@
                 case "deposit":
                     resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
                         scope.paymentTypes = data.paymentTypeOptions;
+                        scope.membersOfGroup = data.membersOfGroup;
+                        //This implementation supports on deposit only. Don't include it on withdraw
+                        if(data.groupId != null && data.groupId > 0){
+                        scope.isGroupLoan = true;
+                        }else{
+                        scope.isGroupLoan = false;
+                        }
+
                     });
                     scope.title = 'label.heading.depositmoneytosavingaccount';
                     scope.labelName = 'label.input.transactiondate';

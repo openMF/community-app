@@ -451,6 +451,12 @@
                                 <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">
                                     {{'label.heading.transactiontype' | translate}}
                                 </th>
+                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                    {{'label.heading.transactorName' | translate}}
+                                </th>
+                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                    {{'label.heading.transactorPhoneNumber' | translate}}
+                                </th>
                                 <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' |
                                     translate}}
                                 </th>
@@ -479,6 +485,14 @@
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                     {{transaction.transactionType.value}}
+                                </td>
+                                <td class="pointer"
+                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
+                                    {{transaction.paymentDetailData.transactorName}}
+                                </td>
+                                <td class="pointer"
+                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
+                                    {{transaction.paymentDetailData.transactorPhoneNumber}}
                                 </td>
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
