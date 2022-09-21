@@ -4,6 +4,7 @@
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
+            scope.isGroupLoan = false;
             scope.formData = {};
             scope.date = {};
             scope.staffData = {};
@@ -149,6 +150,13 @@
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
+
+                if(data.groupId != null && data.groupId > 0){
+                    scope.isGroupLoan = true;
+                   }else{
+                   scope.isGroupLoan = false;
+                   }
+
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
                 scope.chargePayAction = data.status.value == "Active" ? true : false;
                 if (scope.savingaccountdetails.charges) {
@@ -318,20 +326,6 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
-            /*// Saving notes not yet implemented
-            resourceFactory.savingsResource.getAllNotes({accountId: routeParams.id,resourceType:'notes'}, function (data) {
-                scope.savingNotes = data;
-            });
-
-            scope.saveNote = function () {
-                resourceFactory.savingsResource.save({accountId: routeParams.id, resourceType: 'notes'}, this.formData, function (data) {
-                    var today = new Date();
-                    temp = { id: data.resourceId, note: scope.formData.note, createdByUsername: "test", createdOn: today };
-                    scope.savingNotes.push(temp);
-                    scope.formData.note = "";
-                    scope.predicate = '-id';
-                });
-            };*/
 
             scope.dataTableChange = function (datatable) {
                 resourceFactory.DataTablesResource.getTableDetails({datatablename: datatable.registeredTableName,

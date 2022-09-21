@@ -179,11 +179,12 @@
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.membersOfGroup = data.membersOfGroup;
                         //This implementation supports on deposit only. Don't include it on withdraw
-                        if(data.groupId != null){
+                        if(data.groupId != null && data.groupId > 0){
                         scope.isGroupLoan = true;
                         }else{
                         scope.isGroupLoan = false;
                         }
+
                     });
                     scope.title = 'label.heading.depositmoneytosavingaccount';
                     scope.labelName = 'label.input.transactiondate';
