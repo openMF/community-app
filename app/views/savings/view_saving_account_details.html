@@ -725,19 +725,19 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
-                                <th class="pointer" ng-click="changeTransactionSort('id')">{{'label.heading.id' |
+                                <th class="pointer" >{{'label.heading.id' |
                                     translate}}
                                 </th>
-                                <th class="pointer" ng-click="changeTransactionSort('date')">
+                                <th class="pointer" >
                                     {{'label.heading.accountnumber' | translate}}
                                 </th>
-                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">
+                                <th class="pointer" >
                                     {{'label.heading.name' | translate}}
                                 </th>
-                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                <th class="pointer"  data-ng-show="isGroupLoan">
                                     {{'label.heading.totaldeposit' | translate}}
                                 </th>
-                                <th class="pointer" ng-click="changeTransactionSort('transactionType.value')" data-ng-show="isGroupLoan">
+                                <th class="pointer"  data-ng-show="isGroupLoan">
                                     {{'label.heading.totalwithdraw' | translate}}
                                 </th>
                                 <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.eligibility' |
@@ -746,32 +746,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="pointer-main" ng-hide="transaction.reversed"
-                                ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column[2]:transactionSort.ascending">
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    {{transaction.id}}
+                            <tr class="pointer-main"
+                                ng-repeat="contribution in savingaccountdetails.contributions">
+                                <td class="pointer">
+                                    {{contribution.id}}
                                 </td>
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    {{transaction.date | DateFormat}}
+                                <td class="pointer">
+                                    {{contribution.accountNumber}}
                                 </td>
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                    {{transaction.transactionType.value}}
+                                <td class="pointer">
+                                    {{contribution.name}}
                                 </td>
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
-                                    {{transaction.paymentDetailData.transactorName}}
+                                <td class="pointer">
+                                    {{contribution.totalDeposit | number}}
                                 </td>
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)" data-ng-show="isGroupLoan">
-                                    {{transaction.paymentDetailData.transactorPhoneNumber}}
+                                <td class="pointer">
+                                    {{contribution.totalWithdraw | number}}
                                 </td>
-                                <td class="pointer"
-                                    data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                <td class="pointer">
                                     <div ng-show="isDebit(transaction.transactionType)">
-                                        {{transaction.amount| number}}
+                                        {{contribution.eligibility | number}}
                                     </div>
                                 </td>
                             </tr>
