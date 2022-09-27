@@ -718,15 +718,14 @@
                             </tr>
                         </table>
                     </uib-tab>
-                    <uib-tab heading="{{'label.heading.contributions' | translate}}"
-                             ng-show="#" select="convertDateArrayToObject('date')">
+                    <uib-tab heading="{{'label.heading.contributions' | translate}}" ng-show="isGroupLoan">
                         <br>
                         <table class="table table-bordered">
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
-                                <th class="pointer" >{{'label.heading.id' |
-                                    translate}}
+                                <th class="pointer" >
+                                    {{'label.heading.id' |  translate}}
                                 </th>
                                 <th class="pointer" >
                                     {{'label.heading.accountnumber' | translate}}
@@ -734,14 +733,17 @@
                                 <th class="pointer" >
                                     {{'label.heading.name' | translate}}
                                 </th>
-                                <th class="pointer"  data-ng-show="isGroupLoan">
+                                <th class="pointer" >
                                     {{'label.heading.totaldeposit' | translate}}
                                 </th>
-                                <th class="pointer"  data-ng-show="isGroupLoan">
+                                <th class="pointer" >
                                     {{'label.heading.totalwithdraw' | translate}}
                                 </th>
-                                <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.eligibility' |
-                                    translate}}
+                                <th class="pointer" >
+                                    {{'label.heading.eligibility' | translate}}
+                                </th>
+                                <th class="pointer" >
+                                    {{'label.heading.eligibilityRate' | translate}}
                                 </th>
                             </tr>
                             </thead>
@@ -764,9 +766,10 @@
                                     {{contribution.totalWithdraw | number}}
                                 </td>
                                 <td class="pointer">
-                                    <div ng-show="isDebit(transaction.transactionType)">
                                         {{contribution.eligibility | number}}
-                                    </div>
+                                </td>
+                                <td class="pointer">
+                                    {{contribution.eligibilityRate | number}}
                                 </td>
                             </tr>
                             </tbody>
