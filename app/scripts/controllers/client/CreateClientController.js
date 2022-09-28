@@ -525,9 +525,9 @@
                     {
                         temp.firstName=scope.businessOwnersArray[i].firstnameOwner;
                     }
-                    if(scope.businessOwnersArray[i].middleNameOwner)
+                    if(scope.businessOwnersArray[i].titleOwner)
                     {
-                        temp.middleName=scope.businessOwnersArray[i].middleNameOwner;
+                        temp.title=scope.businessOwnersArray[i].titleOwner;
                     }
                     if(scope.businessOwnersArray[i].lastNameOwner)
                     {
