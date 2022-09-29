@@ -48,6 +48,8 @@
                 delete scope.formData.stateName;
                 delete scope.formData.countryName;
                 delete scope.formData.titleName;
+                delete scope.formData.cityName;
+                delete scope.formData.typeName;
                 delete scope.formData.imageId;
                 delete scope.formData.imagePresent;
                 this.formData.locale = scope.optlang.code;

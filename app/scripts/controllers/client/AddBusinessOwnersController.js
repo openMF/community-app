@@ -22,7 +22,7 @@
                 scope.countryOptions=data.countryIdOptions;
                 scope.cityOptions=data.cityIdOptions;
                 scope.titleOptions=data.titleIdOptions;
-                scope.typeIdOptions=data.typeIdOptions;
+                scope.typeOptions=data.typeIdOptions;
             });
 
             scope.routeTo=function()
