@@ -10,6 +10,9 @@
             scope.date = {};
             scope.countryOptions=[];
             scope.stateOptions=[];
+            scope.cityOptions=[];
+            scope.titleOptions=[];
+            scope.typeIdOptions=[];
             clientId=routeParams.clientId;
             businessOwnerId=routeParams.businessOwnerId;
 
@@ -17,7 +20,9 @@
             {
                 scope.stateOptions=data.stateProvinceIdOptions;
                 scope.countryOptions=data.countryIdOptions;
-
+                scope.cityOptions=data.cityIdOptions;
+                scope.titleOptions=data.titleIdOptions;
+                scope.typeIdOptions=data.typeIdOptions;
             });
 
             resourceFactory.businessOwner.get({clientId:clientId,businessOwnerId:businessOwnerId},function(data)
@@ -42,6 +47,7 @@
                 delete scope.formData.updatedOn;
                 delete scope.formData.stateName;
                 delete scope.formData.countryName;
+                delete scope.formData.titleName;
                 delete scope.formData.imageId;
                 delete scope.formData.imagePresent;
                 this.formData.locale = scope.optlang.code;

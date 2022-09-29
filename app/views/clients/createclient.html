@@ -512,14 +512,18 @@
                            </div>
 
                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="titleOwner">{{'label.input.title' | translate
-                                 }}</label>
-
-                              <div class="col-sm-3">
-                                 <input type="text" id="titleOwner" name="titleOwner"
-                                        ng-model="businessOwnersArray[$index].titleOwner" class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/">
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.input.title' | translate }}<span class="required">*</span></label>
                               </div>
-
+                              <div class="col-sm-3">
+                                 <select chosen="titleOptions" name = "titleOption" ng-model="businessOwnersArray[$index].titleId"
+                                         class="form-control" required
+                                         ng-options="titleOption.id as titleOption.name for titleOption in titleOptions track by titleOption.id"
+                                         value="titleId"></select>
+                              </div>
+                              <div class="col-sm-2">
+                                 <form-validate valattributeform="createclientform" valattribute="title" />
+                              </div>
                            </div>
 
                            <div class="form-group">
@@ -528,7 +532,7 @@
 
                               <div class="col-sm-3">
                                  <input type="text" id="ownershipOwner" name="ownershipOwner"
-                                        ng-model="businessOwnersArray[$index].ownershipOwner" class="form-control" ng-pattern="/(^[A-z])[A-z.'-]*/">
+                                        ng-model="businessOwnersArray[$index].ownershipOwner" class="form-control">
                               </div>
 
                            </div>

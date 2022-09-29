@@ -23,13 +23,15 @@
 
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="title">{{'label.input.title' | translate }}</label>
-
-                <div class="col-sm-3">
-                    <input type="text" id="title" name="title" ng-model="formData.title"  class="form-control" required>
+            <div class="form-group" >
+                <div class="control-label col-sm-2">
+                    <label>{{ 'label.input.title' | translate }}<span class="required">*</span></label>
                 </div>
-
+                <div class="col-sm-3" >
+                    <select chosen="titleOptions" id="titleOption" ng-model="formData.titleId"  class="form-control"
+                            ng-options="titleOption.id as titleOption.name for titleOption in titleOptions track by titleOption.id"
+                            value="formData.title_id" required></select>
+                </div>
             </div>
 
             <div class="form-group" >

@@ -10,6 +10,9 @@
             scope.date = {};
             scope.countryOptions=[];
             scope.stateOptions=[];
+            scope.cityOptions=[];
+            scope.titleOptions=[];
+            scope.typeIdOptions=[];
             clientId=routeParams.clientId;
             businessOwnerId=routeParams.businessOwnerId;
 
@@ -17,7 +20,9 @@
             {
                 scope.stateOptions=data.stateProvinceIdOptions;
                 scope.countryOptions=data.countryIdOptions;
-
+                scope.cityOptions=data.cityIdOptions;
+                scope.titleOptions=data.titleIdOptions;
+                scope.typeIdOptions=data.typeIdOptions;
             });
 
             scope.routeTo=function()
