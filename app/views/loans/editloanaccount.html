@@ -129,6 +129,20 @@
                            ng-model="formData.createStandingInstructionAtDisbursement"></label>
                 </td>
             </tr>
+            <tr ng-show="loanaccountinfo.accountSummaryCollectionData">
+                <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkGroupSavingsAccountId == true">
+                    <label>{{ 'label.input.groupSavingsAccountLinkage' | translate }}
+                        <span class="required">*</span>:&nbsp;
+                    </label>
+                </td>
+                <td class="width31 paddedbottom20" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.groupSavingsAccountId == true">
+                    <select id="groupSavingsAccountId" ng-model="formData.groupSavingsAccountId"
+                            ng-options="savingaccount.id as savingaccount.accountNo for savingaccount in loanaccountinfo.accountSummaryCollectionData.savingsAccounts"
+                            class="form-control width170px" value="{{savingaccount.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </td>
+            </tr>
         </table>
         <hr ng-show="loanaccountinfo"/>
         <label><strong>{{ 'label.heading.terms' | translate }}</strong></label>
