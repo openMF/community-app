@@ -22,7 +22,7 @@
                 scope.countryOptions=data.countryIdOptions;
                 scope.cityOptions=data.cityIdOptions;
                 scope.titleOptions=data.titleIdOptions;
-                scope.typeIdOptions=data.typeIdOptions;
+                scope.typeOptions=data.typeIdOptions;
             });
 
             resourceFactory.businessOwner.get({clientId:clientId,businessOwnerId:businessOwnerId},function(data)
@@ -31,6 +31,21 @@
                 if (data.dateOfBirth) {
                     var dobDate = dateFilter(data.dateOfBirth, scope.df);
                     scope.date.dateOfBirth = new Date(dobDate);
+                }
+                if(data.titleId){
+                    scope.formData.titleId = data.titleId;
+                }
+                if(data.typeId){
+                    scope.formData.typeId = data.typeId;
+                }
+                if(data.cityId){
+                    scope.formData.cityId = data.cityId;
+                }
+                if(data.stateProvinceId){
+                    scope.formData.stateProvinceId = data.stateProvinceId;
+                }
+                if(data.countryId){
+                    scope.formData.countryId = data.countryId;
                 }
             });
 
