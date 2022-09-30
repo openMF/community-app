@@ -67,6 +67,20 @@
 			<button class="btn btn-primary" ng-click="upload(file)">{{'label.button.upload' | translate}}</button>
 		</div>
 	</script>
+	<script type="text/ng-template" id="uploadbusinessownerid.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<api-validate></api-validate>
+			<br>
+			<input type="file" ng-model="ownerIdfile" ngf-select="onOwnerIdFileSelect($files)">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+			<button class="btn btn-primary" ng-click="uploadOwnerIdFile()">{{'label.button.upload' | translate}}</button>
+		</div>
+	</script>
 	<script type="text/ng-template" id="capturepic.html">
 		<div class="modal-header silver">
 			<h3 class="bolder">{{'label.heading.captureclientimage' | translate}}</h3>
@@ -1324,6 +1338,24 @@
 									{{owner.nin}}
 								</td>
 							</tr>
+
+							<tr>
+								<th>
+									{{'label.input.businessOwnerId' | translate}}
+								</th>
+								<td>
+									<img ng-show="owner.imagePresent"  ng-src="{{owner.image}}" alt="Avatar" data-ng-click="showOwnerPicture(owner)" title="{{'label.zoom' | translate}}" >
+									<button type="button" class="btn btn-primary" data-ng-click="captureOwnerId(owner.id)"
+											uib-tooltip="{{'label.button.capturepic' | translate}}">
+										<i class="fa fa-camera"></i>
+									</button>
+									<button type="button" class="btn btn-primary" ng-show="owner.imagePresent" data-ng-click="deleteOwnerPic(owner)"
+											uib-tooltip="{{'label.button.deletepic' | translate}}">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+							</tr>
+
 							<tr>
 								<th>
 									{{'label.input.userselfi' | translate}}

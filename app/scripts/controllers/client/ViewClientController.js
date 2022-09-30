@@ -436,6 +436,55 @@
                 }
             };
 
+            scope.captureOwnerId = function (id) {
+                $uibModal.open({
+                    templateUrl: 'uploadbusinessownerid.html',
+                    controller: CaptureOwnerIdCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                       ownerId: function() {
+                           return id
+                       }
+                    }
+                });
+            };
+
+            var CaptureOwnerIdCtrl = function ($scope, $uibModalInstance, ownerId) {
+                $scope.ownerIdFile = null;
+
+                $scope.onOwnerIdFileSelect = function (files){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(files[0]);
+                    reader.onload = function () {
+                        $scope.ownerIdFile = reader.result;
+                        console.log($scope.ownerIdFile);
+                    }
+                    reader.onerror = function (error) {
+                        console.log('Error: ', error);
+                    }
+                };
+
+                $scope.uploadOwnerIdFile = function () {
+                    if($scope.ownerIdFile != null) {
+                        http({
+                            method: 'POST',
+                            url: $rootScope.hostUrl + API_VERSION + '/businessowner/' + ownerId + '/images',
+                            data: $scope.ownerIdFile
+                        }).then(function (imageData) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            $uibModalInstance.close('upload');
+                            route.reload();
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss('cancel');
+                    $scope.stream.getVideoTracks()[0].stop();
+                };
+            };
+
             scope.captureOwnerPic = function (id) {
                 $uibModal.open({
                     templateUrl: 'capturepic.html',
