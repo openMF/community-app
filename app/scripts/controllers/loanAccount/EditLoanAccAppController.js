@@ -157,6 +157,9 @@
                 if (scope.loanaccountinfo.linkedAccount) {
                     scope.formData.linkAccountId = scope.loanaccountinfo.linkedAccount.id;
                 }
+                if (scope.loanaccountinfo.groupSavingsAccountId) {
+                   scope.formData.groupSavingsAccountId = scope.loanaccountinfo.groupSavingsAccountId;
+                }
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
                 }
