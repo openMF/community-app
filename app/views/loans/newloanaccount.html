@@ -161,6 +161,21 @@
                                 <input id="createStandingInstruction" class="input-mini-small" type="checkbox" ng-model="formData.createStandingInstructionAtDisbursement">
                             </td>
                         </tr>
+                        <tr ng-show="loanaccountinfo.accountSummaryCollectionData">
+                            <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkGroupSavingsAccountId == true">
+                                <label>{{ 'label.input.groupSavingsAccountLinkage' | translate }}
+                                    <span class="required">*</span>:&nbsp;
+                                </label>
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.linkGroupSavingsAccountId' | translate}}"></i>
+                            </td>
+                            <td class="width31 paddedbottom20" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
+                                <select id="linkGroupSavingsAccountId" ng-model="formData.groupSavingsAccountId" ng-options="savingaccount.id as savingaccount.accountNo for savingaccount in loanaccountinfo.accountSummaryCollectionData.savingsAccounts"
+                                        ng-change="loandetails.linkAccountName = formValue(loanaccountinfo.accountSummaryCollectionData.savingsAccounts,formData.linkGroupSavingsAccountId,'id','accountNo')"
+                                        class="form-control width170px" value="{{savingaccount.id}}">
+                                    <option value="">{{'label.menu.selectone' | translate}}</option>
+                                </select>
+                            </td>
+                        </tr>
                     </table>
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous disabled ng-hide="disabled"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
