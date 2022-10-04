@@ -344,6 +344,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/EditBusinessOwnersController',
             'client/AddEmploymentInfoController',
             'client/EditEmploymentInfoController',
+            'client/BusinessOwnerDocumentController',
         ],
         filters: [
             'StatusLookup',

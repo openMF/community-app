@@ -600,6 +600,10 @@
                     {
                          temp.nin=scope.businessOwnersArray[i].nin;
                     }
+                    if(scope.businessOwnersArray[i].isActive)
+                    {
+                         temp.isActive=scope.businessOwnersArray[i].isActive;
+                    }
 
                     temp.locale = scope.optlang.code;
                     temp.dateFormat = scope.df;

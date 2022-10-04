@@ -109,6 +109,9 @@
             .when('/addclientdocument/:clientId', {
                 templateUrl: 'views/clients/addclientdocument.html'
             })
+            .when('/addbusinessownerdocument/:ownerId/:clientId', {
+                templateUrl: 'views/clients/addBusinessOwnersDocument.html'
+            })
             .when('/clientclosedloanaccount/:clientId', {
                 templateUrl: 'views/clients/clientclosedloanaccount.html'
             })

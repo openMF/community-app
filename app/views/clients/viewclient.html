@@ -69,7 +69,7 @@
 	</script>
 	<script type="text/ng-template" id="uploadbusinessownerid.html">
 		<div class="modal-header silver">
-			<h3 class="bolder">{{'label.heading.selectclientimage' | translate}}</h3>
+			<h3 class="bolder">{{'label.heading.uploadvalidid' | translate}}</h3>
 		</div>
 		<div class="modal-body">
 			<api-validate></api-validate>
@@ -1338,6 +1338,14 @@
 									{{owner.nin}}
 								</td>
 							</tr>
+							<tr>
+								<th>
+									{{'label.input.is_active' | translate}}
+								</th>
+								<td>
+									{{owner.isActive}}
+								</td>
+							</tr>
 
 							<tr>
 								<th>
@@ -1346,8 +1354,8 @@
 								<td>
 									<img ng-show="owner.imagePresent"  ng-src="{{owner.image}}" alt="Avatar" data-ng-click="showOwnerPicture(owner)" title="{{'label.zoom' | translate}}" >
 									<button type="button" class="btn btn-primary" data-ng-click="captureOwnerId(owner.id)"
-											uib-tooltip="{{'label.button.capturepic' | translate}}">
-										<i class="fa fa-camera"></i>
+											uib-tooltip="{{'label.button.uploadOwnerId' | translate}}">
+										<i class="fa fa-upload"></i>
 									</button>
 									<button type="button" class="btn btn-primary" ng-show="owner.imagePresent" data-ng-click="deleteOwnerPic(owner)"
 											uib-tooltip="{{'label.button.deletepic' | translate}}">
@@ -1358,18 +1366,22 @@
 
 							<tr>
 								<th>
-									{{'label.input.userselfi' | translate}}
+									{{'label.input.uploadProofOfAddress' | translate}}
 								</th>
 								<td>
-									<img ng-show="owner.imagePresent"  ng-src="{{owner.image}}" alt="Avatar" data-ng-click="showOwnerPicture(owner)" title="{{'label.zoom' | translate}}" >
-									<button type="button" class="btn btn-primary" data-ng-click="captureOwnerPic(owner.id)"
-											uib-tooltip="{{'label.button.capturepic' | translate}}">
-										<i class="fa fa-camera"></i>
-									</button>
-									<button type="button" class="btn btn-primary" ng-show="owner.imagePresent" data-ng-click="deleteOwnerPic(owner)"
-											uib-tooltip="{{'label.button.deletepic' | translate}}">
-										<i class="fa fa-trash-o"></i>
-									</button>
+										<a href="#/addbusinessownerdocument/{{owner.id}}/{{client.id}}" class="btn btn-primary" has-permission='CREATE_DOCUMENT' uib-tooltip="{{'label.button.uploadProofOfAddress' | translate}}">
+											<i class="fa fa-upload"></i></a>
+								</td>
+							</tr>
+							<tr ng-repeat="clientdocument in owner.businessOwnerDocs">
+								<th>
+									{{clientdocument.name}}
+								</th>
+								<td>{{clientdocument.fileName}}
+
+									<a target="_blank" href="{{hostUrl}}{{clientdocument.docUrl}}"><i class="fa fa-cloud-download"></i></a>&nbsp;
+									<a ng-show="clientdocument.fileIsImage" ng-click="previewDocument(clientdocument.docUrl,clientdocument.fileName)"><i class="fa fa-eye"></i></a>
+									<a ng-click="deleteDocument(clientdocument.id,$index)"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 

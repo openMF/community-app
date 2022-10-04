@@ -122,8 +122,7 @@
             resourceFactory.businessOwners.get({clientId:routeParams.id},function(data)
               {
                 scope.owners=data;
-                scope.owner = [];
-                angular.forEach(scope.owners, function (title, key) {
+              angular.forEach(scope.owners, function (title, key) {
                 if (title.imagePresent) {
                     http({
                         method: 'GET',
@@ -132,7 +131,24 @@
                         title.image = imageData.data;
                     });
                 }
+
+                resourceFactory.businessOwnersDocumentsResource.getAllBusinessOwnerDocuments({ownerId: title.id}, function (data) {
+                     for (var l in data) {
+
+                         var loandocs = {};
+                         loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                         data[l].docUrl = loandocs;
+                         if (data[l].fileName)
+                             if (data[l].fileName.toLowerCase().indexOf('.jpg') != -1 || data[l].fileName.toLowerCase().indexOf('.jpeg') != -1 || data[l].fileName.toLowerCase().indexOf('.png') != -1)
+                                 data[l].fileIsImage = true;
+                         if (data[l].type)
+                              if (data[l].type.toLowerCase().indexOf('image') != -1)
+                                 data[l].fileIsImage = true;
+                     }                  console.log(data);
+                   title.businessOwnerDocs  = data;
                 });
+              });
+
               });
             scope.ChangeBusinessOwnerStatus=function(id,status, businessOwnerId)
             {
@@ -973,6 +989,7 @@
                                 data[l].fileIsImage = true;
                     }
                     scope.clientdocuments = data;
+                    console.log(data, "doc")
                 });
             };
 
@@ -1006,7 +1023,6 @@
                     scope.clientdocuments.splice(index, 1);
                 });
             };
-
             scope.isLoanNotClosed = function (loanaccount) {
                 if (loanaccount.status.code === "loanStatusType.closed.written.off" ||
                     loanaccount.status.code === "loanStatusType.closed.obligations.met" ||

@@ -646,7 +646,10 @@
                        get:{method: 'GET',params:{}}
                     }),
                     employmentInfoStatus:defineResource(apiVer+"/clients/:clientId/employmentInfo/:employmentInfoId/updateInfoStatus",{},{
-                       get:{method:'GET',params:{status:'@status'}},
+                       get:{method:'GET',params:{status:'@status'}}
+                    }),
+                    businessOwnersDocumentsResource: defineResource(apiVer + "/business_owners/:ownerId/documents/:documentId", {clientId: '@ownerId', documentId: '@documentId'}, {
+                        getAllBusinessOwnerDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
                    provisioningcriteria: defineResource(apiVer + "/provisioningcriteria/:criteriaId",{criteriaId:'@criteriaId'},{
                          get: {method: 'GET',params:{}},
