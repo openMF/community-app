@@ -371,7 +371,14 @@
                            </div>
 
                         </div>
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="emailId">{{'label.input.email' | translate}}</label>
 
+                           <div class="col-sm-3">
+                              <input type="email" id="emailId" name="emailId" class="form-control" ng-model="familyArray[$index].email"/>
+                           </div>
+
+                        </div>
 
                         <div class="form-group">
                            <label class="control-label col-sm-2" for="qualification">{{ 'label.input.qualification' |
@@ -464,8 +471,84 @@
                                  ng-model="familyArray[$index].dateOfBirth" is-open="opened1" min="minDate "
                                  max="restrictDate" class="form-control" />
                            </div>
-
                         </div>
+                           <div class="form-group">
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.input.addressType' | translate }}</label>
+                              </div>
+                              <div class="col-sm-3">
+                                 <select chosen="addressTypes" name="addressType"
+                                         ng-model="familyArray[$index].addressTypeId" class="form-control"
+                                         ng-options="addressType.id as addressType.name for addressType in addressTypes "
+                                         value="addressTypeId" late-validate></select>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">{{ 'label.input.addressline1' | translate }}</label>
+                              <div class="col-sm-3">
+                                 <input type="text" name="addressline1" ng-model="familyArray[$index].addressLine1"
+                                        class="form-control">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">{{ 'label.input.addressline2' | translate }}</label>
+                              <div class="col-sm-3">
+                                 <input type="text" name="addressline2" ng-model="familyArray[$index].addressLine2"
+                                        class="form-control">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label col-sm-2">{{ 'label.input.addressline3' | translate }}</label>
+                              <div class="col-sm-3">
+                                 <input type="text" name="addressline3" ng-model="familyArray[$index].addressLine3"
+                                        class="form-control">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.heading.city' | translate }}</label>
+                              </div>
+                              <div class="col-sm-3">
+                                 <select chosen="cityOptions" name = "cityOption" ng-model="familyArray[$index].cityId"
+                                         class="form-control" ng-options="cityOption.id as cityOption.name for cityOption in cityOptions track by cityOption.id"
+                                         value="cityId"></select>
+                              </div>
+
+                           </div>
+                           <div class="form-group">
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.input.state_province' | translate }}</label>
+                              </div>
+                              <div class="col-sm-3">
+                                 <select chosen="stateOptions" name = "stateProvince" ng-model="familyArray[$index].stateProvinceId"
+                                         class="form-control"
+                                         ng-options="stateOption.id as stateOption.name for stateOption in stateOptions track by stateOption.id"
+                                         value="stateProvinceId"></select>
+                              </div>
+                           </div>
+
+                           <div class="form-group" >
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.input.country' | translate }}</label>
+                              </div>
+                              <div class="col-sm-3">
+                                 <select chosen="countryOptions" name = "country" ng-model="familyArray[$index].countryId"
+                                         class="form-control"
+                                         ng-options="countryOption.id as countryOption.name for countryOption in countryOptions track by countryOption.id"
+                                         value="countryId"></select>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <div class="control-label col-sm-2">
+                                 <label>{{ 'label.input.postalCode' | translate }}</label>
+                              </div>
+                              <div class="col-sm-3">
+                                 <input type="text" name="postalCode" ng-model="familyArray[$index].postalCode" class="form-control">
+                              </div>
+                              <div class="col-sm-2">
+                                 <form-validate valattributeform="createclientform" valattribute="postalCode" />
+                              </div>
+                           </div>
 
                      </div>
 

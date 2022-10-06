@@ -503,13 +503,39 @@
                     }
                     if(scope.familyArray[i].dateOfBirth)
                     {
-
                         temp.dateOfBirth=dateFilter(scope.familyArray[i].dateOfBirth, scope.df);
                     }
-                    if(scope.addressArray[i].isActive)
+                    if(scope.familyArray[i].email)
                     {
-                        temp.isActive=scope.addressArray[i].isActive;
-
+                        temp.email=scope.familyArray[i].email;
+                    }
+                    if(scope.familyArray[i].addressLine1)
+                    {
+                        temp.address1=scope.familyArray[i].addressLine1;
+                    }
+                    if(scope.familyArray[i].addressLine2)
+                    {
+                         temp.address2=scope.familyArray[i].addressLine2;
+                    }
+                    if(scope.familyArray[i].addressLine3)
+                    {
+                         temp.address3=scope.familyArray[i].addressLine3;
+                    }
+                    if(scope.familyArray[i].cityId)
+                    {
+                        temp.cityId=scope.familyArray[i].cityId;
+                    }
+                    if(scope.familyArray[i].stateProvinceId)
+                    {
+                        temp.stateProvinceId=scope.familyArray[i].stateProvinceId;
+                    }
+                    if(scope.familyArray[i].countryId)
+                    {
+                        temp.countryId=scope.familyArray[i].countryId;
+                    }
+                    if(scope.familyArray[i].postalCode)
+                    {
+                        temp.postalCode=scope.familyArray[i].postalCode;
                     }
 
                     temp.locale = scope.optlang.code;

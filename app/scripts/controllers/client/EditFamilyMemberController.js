@@ -48,6 +48,11 @@
                delete scope.formData.gender;
                delete scope.formData.profession;
                delete scope.formData.relationship;
+               delete scope.formData.stateName;
+               delete scope.formData.countryName;
+               delete scope.formData.titleName;
+               delete scope.formData.cityName;
+               delete scope.formData.addressType;
 
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
