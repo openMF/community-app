@@ -150,8 +150,10 @@
                 scope.genderIdOptions=data.familyMemberOptions.genderIdOptions;
                 scope.maritalStatusIdOptions=data.familyMemberOptions.maritalStatusIdOptions;
                 scope.professionIdOptions=data.familyMemberOptions.professionIdOptions;
-
-
+                scope.countryOptions = data.familyMemberOptions.countryIdOptions;
+                scope.stateOptions = data.familyMemberOptions.stateProvinceIdOptions;
+                scope.cityOptions = data.familyMemberOptions.cityIdOptions;
+                scope.addressTypes = data.familyMemberOptions.addressTypeIdOptions;
 
             });
 
