@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanDetailsController: function (scope, routeParams, resourceFactory,paginatorService, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewLoanDetailsController: function (scope, routeParams, resourceFactory,paginatorService, location, route, http, $uibModal, dateFilter, API_VERSION, $sce, $rootScope, $window) {
             scope.loandocuments = [];
             scope.report = false;
             scope.hidePentahoReport = true;
@@ -567,8 +567,11 @@
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Loan Account Schedule");
+                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -580,11 +583,28 @@
                 paramName = "R_selectLoan";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.loandetails.accountNo);
                 if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
+                    reportURL += "&" + reportParams;
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
 
+                 reportURL = $sce.trustAsResourceUrl(reportURL);
+                                reportURL = $sce.valueOf(reportURL);
+                                http.get(reportURL, {responseType: 'arraybuffer'})
+                                    .then(function(response) {
+                                        let data = response.data;
+                                        let headers = response.headers;
+                                        var contentType = headers('Content-Type');
+                                        var file = new Blob([data], {type: contentType});
+                                        var fileContent = URL.createObjectURL(file);
+
+                                        // Pass the form data to the iframe as a data url.
+                                        scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                                        scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                                    })
+                                    .catch(function(error){
+                                        $log.error(`Error loading ${scope.reportType} report`);
+                                        $log.error(error);
+                                    });
             };
 
             scope.viewloantransactionreceipts = function (transactionId) {
@@ -606,6 +626,7 @@
                 }
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
                 scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+                $window.open(scope.viewReportDetails); //Just Testing If Data comes back but will be removed
 
             };
             scope.viewloantransactionjournalentries = function(transactionId){
@@ -723,7 +744,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService', '$location', '$route', '$http', '$uibModal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope','$window', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
 }(mifosX.controllers || {}));
