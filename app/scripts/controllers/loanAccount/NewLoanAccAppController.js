@@ -77,6 +77,7 @@
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
                     scope.disabled = false;
+                    scope.computeInterest(scope.loanaccountinfo.jlgInterestChartRateSummaryData);
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -374,7 +375,11 @@
                 }
                 return fieldType;
             };
-
+            scope.computeInterest = function(jlgInterestChart){
+             if (!_.isUndefined(jlgInterestChart) && jlgInterestChart.length > 0) {
+                 scope.computedJlgInterest = jlgInterestChart[0].interestRate;
+                 }
+            }
             scope.submit = function () {
                 // if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
                 //     WizardHandler.wizard().next();
