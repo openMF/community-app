@@ -210,10 +210,10 @@
                                     <span class="required">*</span>:</label>
                             </td>
                             <td class="width36 paddedbottom20">
-                                <input id="loanTermFrequency" class="form-control" name="loanterm" type="text" ng-model="formData.loanTermFrequency" required
+                                <input id="loanTermFrequency" class="form-control" name="loanterm" type="text" ng-model="formData.loanTermFrequency" ng-change="computeInterestRateForJlg()" required
                                     late-Validate/>
                                 <select ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.loanTermFrequencyType == true" id="loanTermFrequencyType"
-                                    class="form-control" ng-model="formData.loanTermFrequencyType" ng-change="loandetails.loanTermFrequencyValue = formValue(loanaccountinfo.termFrequencyTypeOptions,formData.loanTermFrequencyType)"
+                                    class="form-control" ng-model="formData.loanTermFrequencyType" ng-change="loandetails.loanTermFrequencyValue = formValue(loanaccountinfo.termFrequencyTypeOptions,formData.loanTermFrequencyType);computeInterestRateForJlg();"
                                     ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                                     value="{{termFrequencyType.id}}"></select>
                                 <form-validate valattributeform="Terms" valattribute="loanterm" />
@@ -288,8 +288,8 @@
                                 {{loanaccountinfo.interestRateFrequencyType.value}}
                             </td>
                             <td class="paddedbottom20" ng-show = "loanaccountinfo.jlgInterestChartRateSummaryData.length > 0 ">
-                                <input id="interestRatePerPeriodCompute" class="form-control" type="text" name="nominalinterestrate" ng-model="computedJlgInterest" disabled/>
-                                {{loanaccountinfo.jlgInterestChartRateSummaryData}}
+                                <input id="interestRatePerPeriodCompute" class="form-control" type="text" name="nominalinterestrate" ng-model="formData.interestRatePerPeriod" ng-disabled="formData.loanTermFrequency == 1 && formData.loanTermFrequencyType == 1"/>
+<!--                                {{computedJlgInterest}}-->
                             </td>
                             <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
                                 <label>{{ 'label.input.interestmethod' | translate }}</label>
