@@ -88,8 +88,8 @@
                                 <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.disbursementon' | translate}}"></i>
                             </td>
                             <td class="paddedbottom20 width36">
-                                <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon" datepicker-pop="dd MMMM yyyy" ng-model="date.second"
-                                    is-open="opened1" min="minDate"  class="form-control" required />
+                                <input id="expectedDisbursementDate" sort type="text" name="expecteddisbursementon" datepicker-pop="dd MMMM yyyy" ng-model="date.second" ng-focus="computeInterestRateForJlg()"
+                                    is-open="opened1" min="minDate"  class="form-control" required/>
                                 <form-validate valattribute="expecteddisbursementon" valattributeform="Details" />
                             </td>
                         </tr>
@@ -289,7 +289,6 @@
                             </td>
                             <td class="paddedbottom20" ng-show = "loanaccountinfo.jlgInterestChartRateSummaryData.length > 0 ">
                                 <input id="interestRatePerPeriodCompute" class="form-control" type="text" name="nominalinterestrate" ng-model="formData.interestRatePerPeriod" ng-disabled="formData.loanTermFrequency == 1 && formData.loanTermFrequencyType == 1"/>
-<!--                                {{computedJlgInterest}}-->
                             </td>
                             <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestType == true">
                                 <label>{{ 'label.input.interestmethod' | translate }}</label>

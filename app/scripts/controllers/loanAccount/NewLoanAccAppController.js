@@ -279,9 +279,8 @@
                 }
             };
             scope.computeInterestRateForJlg = function() {
-                  scope.formData.interestRatePerPeriod = scope.formData.loanTermFrequency;
-
-
+                  console.log("******** Event Captured ::--  ***********"+ dateFilter(scope.date.second, scope.df));
+                  scope.formData.interestRatePerPeriod = null;
                   if(scope.formData.loanTermFrequency == 1 && scope.formData.loanTermFrequencyType == 1){
                    var disbursementDate = dateFilter(scope.date.second, scope.df);
                    var nextMeetingDate  = dateFilter(new Date(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
@@ -290,40 +289,31 @@
                    var diffInDisbursementAndMeetingDates = scope.diffDate(disbursementDate,nextMeetingDate);
 
 
-                    console.log("******** New Params  ***********");
+                   console.log("******** New Params  ***********");
                    console.log(disbursementDate);
                    console.log(nextMeetingDate);
                    console.log(loanTermFrequency);
                    console.log(loanTermFrequencyType);
-                   console.log(diffInDisbursementAndMeetingDates);
+                   console.log("Diff >>> "+diffInDisbursementAndMeetingDates);
                    console.log("******** New Params Ends *******");
 
-
-                   scope.formData.interestRatePerPeriod = scope.formData.loanTermFrequency;
-
-                   angular.forEach(scope.loanaccountinfo.jlgInterestChartRateSummaryData, function(value, key) {
-                    console.log(value);
-                     if (key == 0) {
-                        console.log(value);
-                        //Apply Logic Here
-                     }
+            angular.forEach(scope.loanaccountinfo.jlgInterestChartRateSummaryData, function(value, key) {
+                    console.log("Diff In Loop >>> "+diffInDisbursementAndMeetingDates+" DayOfWeek ----->"+value.dayOfWeek);
+                  if(diffInDisbursementAndMeetingDates == value.dayOfWeek){
+                       scope.formData.interestRatePerPeriod = value.interestRate;
+                   }
                    })
 
-
-                  }else{
-                   scope.formData.interestRatePerPeriod = scope.formData.loanTermFrequency;
-                   console.log("Am not able to compute Interest for JLG Loans");
                   }
                  };
 
-                 scope.diffDate = function(date1, date2){
-                           var dateOut1 = new Date(date1);
-                            var dateOut2 = new Date(date2);
-
-                           var timeDiff = Math.abs(dateOut1.getTime() - dateOut2.getTime());
-                           var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                           return diffDays;
-                     };
+            scope.diffDate = function(date1, date2){
+                  var dateOut1 = new Date(date1);
+                  var dateOut2 = new Date(date2);
+                  var timeDiff = Math.abs(dateOut1.getTime() - dateOut2.getTime());
+                  var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                  return diffDays;
+                  };
 
             scope.syncDisbursementWithMeetingchange = function () {
                 if (scope.formData.syncDisbursementWithMeeting) {
