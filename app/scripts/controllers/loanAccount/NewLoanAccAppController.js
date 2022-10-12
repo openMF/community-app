@@ -24,6 +24,7 @@
             scope.disabled = true;
             scope.translate= translate;
             scope.rateFlag=false;
+            scope.interestRateChart = {};
 
             scope.date.first = new Date();
 
@@ -77,7 +78,6 @@
                     scope.datatables = data.datatables;
                     scope.handleDatatables(scope.datatables);
                     scope.disabled = false;
-                    scope.computeInterest(scope.loanaccountinfo.jlgInterestChartRateSummaryData);
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
@@ -191,6 +191,11 @@
                     scope.rateFlag=true;
                 }
                 scope.rateOptions = [];
+                if(scope.loanaccountinfo.jlgInterestChartRateSummaryData != null && scope.loanaccountinfo.jlgInterestChartRateSummaryData !== undefined){
+                scope.interestRateChart = scope.loanaccountinfo.jlgInterestChartRateSummaryData;
+                console.log(scope.interestRateChart);
+                console.log(scope.loanaccountinfo.jlgInterestChartRateSummaryData);
+                }
             };
 
           //Rate
@@ -279,8 +284,8 @@
                 }
             };
             scope.computeInterestRateForJlg = function() {
-                  console.log("******** Event Captured ::--  ***********"+ dateFilter(scope.date.second, scope.df));
-                  scope.formData.interestRatePerPeriod = null;
+                  //Reset interest to default
+                  scope.formData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                   if(scope.formData.loanTermFrequency == 1 && scope.formData.loanTermFrequencyType == 1){
                    var disbursementDate = dateFilter(scope.date.second, scope.df);
                    var nextMeetingDate  = dateFilter(new Date(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
@@ -288,17 +293,7 @@
                    var loanTermFrequencyType = scope.formData.loanTermFrequencyType;
                    var diffInDisbursementAndMeetingDates = scope.diffDate(disbursementDate,nextMeetingDate);
 
-
-                   console.log("******** New Params  ***********");
-                   console.log(disbursementDate);
-                   console.log(nextMeetingDate);
-                   console.log(loanTermFrequency);
-                   console.log(loanTermFrequencyType);
-                   console.log("Diff >>> "+diffInDisbursementAndMeetingDates);
-                   console.log("******** New Params Ends *******");
-
             angular.forEach(scope.loanaccountinfo.jlgInterestChartRateSummaryData, function(value, key) {
-                    console.log("Diff In Loop >>> "+diffInDisbursementAndMeetingDates+" DayOfWeek ----->"+value.dayOfWeek);
                   if(diffInDisbursementAndMeetingDates == value.dayOfWeek){
                        scope.formData.interestRatePerPeriod = value.interestRate;
                    }
@@ -307,12 +302,16 @@
                   }
                  };
 
-            scope.diffDate = function(date1, date2){
-                  var dateOut1 = new Date(date1);
-                  var dateOut2 = new Date(date2);
-                  var timeDiff = Math.abs(dateOut1.getTime() - dateOut2.getTime());
-                  var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                  return diffDays;
+            scope.diffDate = function(disbursementDate,nextMeetingDate){
+                 var msPerDay = 8.64e7;
+
+                   var x0 = new Date(disbursementDate);
+                   var x1 = new Date(nextMeetingDate);
+
+                   x0.setHours(12,0,0);
+                   x1.setHours(12,0,0);
+
+                   return Math.round( (x1 - x0) / msPerDay );
                   };
 
             scope.syncDisbursementWithMeetingchange = function () {
@@ -411,11 +410,7 @@
                 }
                 return fieldType;
             };
-            scope.computeInterest = function(jlgInterestChart){
-             if (!_.isUndefined(jlgInterestChart) && jlgInterestChart.length > 0) {
-                 scope.computedJlgInterest = jlgInterestChart[0].interestRate;
-                 }
-            }
+
             scope.submit = function () {
                 // if (WizardHandler.wizard().getCurrentStep() != scope.noOfTabs) {
                 //     WizardHandler.wizard().next();

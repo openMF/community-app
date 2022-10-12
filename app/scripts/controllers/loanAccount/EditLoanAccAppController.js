@@ -10,6 +10,7 @@
             scope.restrictDate = new Date();
             scope.date = {};
             scope.rateFlag = false;
+            scope.interestRateChart = {}
 
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.loanaccountinfo = data;
@@ -185,6 +186,9 @@
                 }else{
                     scope.rateFlag=false;
                 }
+                 if(scope.loanaccountinfo.jlgInterestChartRateSummaryData != null && scope.loanaccountinfo.jlgInterestChartRateSummaryData !== undefined){
+                  scope.interestRateChart = scope.loanaccountinfo.jlgInterestChartRateSummaryData;
+                  }
             };
 
             //Rate
@@ -259,6 +263,36 @@
                     scope.formData.syncDisbursementWithMeeting = false;
                 }
             };
+
+            scope.computeInterestRateForJlg = function() {
+                   //Reset interest to default
+                  scope.formData.interestRatePerPeriod =  scope.loanaccountinfo.interestRatePerPeriod;
+                  if(scope.formData.loanTermFrequency == 1 && scope.formData.loanTermFrequencyType == 1){
+                   var disbursementDate = dateFilter(scope.formData.expectedDisbursementDate, scope.df);
+                   var nextMeetingDate  = dateFilter(new Date(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[0]),scope.df);
+                   var loanTermFrequency = scope.formData.loanTermFrequency;
+                   var loanTermFrequencyType = scope.formData.loanTermFrequencyType;
+                   var diffInDisbursementAndMeetingDates = scope.diffDate(disbursementDate,nextMeetingDate);
+
+            angular.forEach(scope.loanaccountinfo.jlgInterestChartRateSummaryData, function(value, key) {
+                  if(diffInDisbursementAndMeetingDates == value.dayOfWeek){
+                       scope.formData.interestRatePerPeriod = value.interestRate;
+                   }
+                   })
+                  }
+                 };
+
+            scope.diffDate = function(disbursementDate,nextMeetingDate){
+                     var msPerDay = 8.64e7;
+
+                       var x0 = new Date(disbursementDate);
+                       var x1 = new Date(nextMeetingDate);
+
+                       x0.setHours(12,0,0);
+                       x1.setHours(12,0,0);
+
+                       return Math.round( (x1 - x0) / msPerDay );
+                      };
 
             scope.syncDisbursementWithMeetingchange = function () {
                 if (scope.formData.syncDisbursementWithMeeting) {
