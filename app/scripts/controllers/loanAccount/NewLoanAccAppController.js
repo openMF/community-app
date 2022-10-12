@@ -193,8 +193,6 @@
                 scope.rateOptions = [];
                 if(scope.loanaccountinfo.jlgInterestChartRateSummaryData != null && scope.loanaccountinfo.jlgInterestChartRateSummaryData !== undefined){
                 scope.interestRateChart = scope.loanaccountinfo.jlgInterestChartRateSummaryData;
-                console.log(scope.interestRateChart);
-                console.log(scope.loanaccountinfo.jlgInterestChartRateSummaryData);
                 }
             };
 
