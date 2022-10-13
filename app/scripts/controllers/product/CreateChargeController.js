@@ -14,10 +14,12 @@
             scope.showfreewithdrawalfrequency = false;
             scope.showrestartfrequency = false;
             scope.paymentTypes = [];
+            scope.showMinAndMaxAmountSettings = false;
 
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
                 scope.showChargePaymentByField = true;
+                scope.showMinAndMaxAmountSettings = false;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
 
@@ -53,6 +55,7 @@
                         scope.chargeCalculationTypeOptions = scope.template.loanChargeCalculationTypeOptions;
                         scope.chargeTimeTypeOptions = scope.template.loanChargeTimeTypeOptions;
                         scope.showGLAccount = false;
+                        scope.showMinAndMaxAmountSettings = false;
                         break ;
                     case 2:
                         scope.showChargePaymentByField = false;
@@ -60,6 +63,7 @@
                         scope.chargeTimeTypeOptions = scope.template.savingsChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = true;
+                        scope.showMinAndMaxAmountSettings = true;
                         break ;
                     case 3:
                         scope.showChargePaymentByField = false;
@@ -67,6 +71,7 @@
                         scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                         scope.addfeefrequency = false;
                         scope.showGLAccount = true;
+                        scope.showMinAndMaxAmountSettings = false;
                         break ;
                     case 4:
                         scope.showChargePaymentByField = false;
@@ -75,6 +80,7 @@
                         scope.addfeefrequency = false;
                         scope.showGLAccount = false;
                         scope.showPenalty = false ;
+                        scope.showMinAndMaxAmountSettings = false;
                             break ;
                 }
                 
