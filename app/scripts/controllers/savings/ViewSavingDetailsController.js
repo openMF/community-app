@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, paginatorService, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, paginatorService, location, $uibModal, route, dateFilter, $sce, $rootScope, API_VERSION, http) {
             scope.report = false;
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
@@ -395,8 +395,9 @@
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Saving Transactions");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Client Saving Transactions");
+                 reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
 
                 var reportParams = "";
                 scope.startDate = dateFilter(scope.date.fromDate, 'yyyy-MM-dd');
@@ -408,11 +409,28 @@
                 paramName = "R_savingsAccountId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.savingaccountdetails.accountNo);
                 if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
+                    reportURL += "&" + reportParams;
                 }
 
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+                              reportURL = $sce.valueOf(reportURL);
+
+                              http.get(reportURL, {responseType: 'arraybuffer'})
+                              .then(function(response) {
+                              let data = response.data;
+                              let status = response.status;
+                              let headers = response.headers;
+                              let config = response.config;
+                              var contentType = headers('Content-Type');
+                              var file = new Blob([data], {type: contentType});
+                              var fileContent = URL.createObjectURL(file);
+                              scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                              }).catch(function(error){
+                              $log.error(`Error loading ${scope.reportType} report`);
+                              $log.error(error);
+                              });
 
             };
 
@@ -424,17 +442,37 @@
                 scope.viewReport = true;
                 scope.hidePentahoReport = true;
                 scope.formData.outputType = 'PDF';
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Savings Transaction Receipt");
-                scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+                var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Savings Transaction Receipt");
+                reportURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&tenantIdentifier=" + $rootScope.tenantIdentifier+"&locale="+scope.optlang.code;
+
+
 
                 var reportParams = "";
                 var paramName = "R_transactionId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(transactionId);
                 if (reportParams > "") {
-                    scope.baseURL += "&" + reportParams;
+                    reportURL += "&" + reportParams;
                 }
-                // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
-                scope.viewReportDetails = $sce.trustAsResourceUrl(scope.baseURL);
+
+                reportURL = $sce.trustAsResourceUrl(reportURL);
+                              reportURL = $sce.valueOf(reportURL);
+
+                              http.get(reportURL, {responseType: 'arraybuffer'})
+                              .then(function(response) {
+                              let data = response.data;
+                              let status = response.status;
+                              let headers = response.headers;
+                              let config = response.config;
+                              var contentType = headers('Content-Type');
+                              var file = new Blob([data], {type: contentType});
+                              var fileContent = URL.createObjectURL(file);
+                              scope.baseURL = $sce.trustAsResourceUrl(fileContent);
+                              scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                              }).catch(function(error){
+                              $log.error(`Error loading ${scope.reportType} report`);
+                              $log.error(error);
+                              });
 
             };
 
@@ -502,7 +540,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory','PaginatorService' , '$location','$uibModal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));
