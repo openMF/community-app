@@ -252,7 +252,9 @@
                     return obj[findattr] === model;
                 })[retAttr];
             };
-
+            scope.$watch("date.second", function(newValue, oldValue) {
+            scope.computeInterestRateForJlg();
+            });
             scope.addCharge = function () {
                 if (scope.chargeFormData.chargeId) {
                     resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {

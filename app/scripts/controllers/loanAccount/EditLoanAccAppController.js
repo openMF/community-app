@@ -368,6 +368,9 @@
 
             uiConfigService.appendConfigToScope(scope);
 
+             scope.$watch("formData.expectedDisbursementDate", function(newValue, oldValue) {
+                        scope.computeInterestRateForJlg();
+                        });
 
             scope.submit = function () {
                 // Make sure charges and collaterals are empty before initializing.
