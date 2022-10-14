@@ -18,6 +18,8 @@
             scope.charges = [];
             scope.legalform = 'm_client';
 
+            scope.collaterals = [];
+
 
             // address
             scope.addresses=[];
@@ -96,22 +98,13 @@
 
             }
 
-
-            // end of address
-
-
             // family members
 
             scope.families=[];
 
-
-
-
             resourceFactory.familyMembers.get({clientId:routeParams.id},function(data)
             {
-
                 scope.families=data;
-
 
             });
 
@@ -124,6 +117,10 @@
                     route.reload();
                 })
 
+            }
+
+            scope.viewCollaterals=function() {
+                location.path('/clients/'+ routeParams.id +'/viewallclientcollaterals');
             }
 
             scope.editFamilyMember=function(clientFamilyMemberId)
@@ -171,11 +168,17 @@
 
             scope.routeToShareAccount = function(id) {
                 location.path('/viewshareaccount/'+id)
-            } ;
+            };
+
+            scope.routeToCollateral = function(id) {
+                location.path('/viewclient/' + routeParams.id + '/viewclientcollateral/' + id);
+            }
 
             scope.haveFile = [];
             resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
                 scope.client = data;
+                scope.collaterals = scope.client.clientCollateralManagements;
+                scope.collateralSize = scope.collaterals.length;
                 scope.isClosedClient = scope.client.status.value == 'Closed';
                 scope.staffData.staffId = data.staffId;
                 if (data.imagePresent) {

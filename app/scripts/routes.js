@@ -187,8 +187,8 @@
             .when('/loan/:loanId/editcollateral/:id', {
                 templateUrl: 'views/loans/editloancollateral.html'
             })
-            .when('/loan/:loanId/viewcollateral/:id', {
-                templateUrl: 'views/loans/viewloancollateral.html'
+            .when('/loan/:id/viewcollateral/:collateralId', {
+                templateUrl: 'views/loans/viewloancollateraldata.html'
             })
             .when('/loan/:loanId/viewcharge/:id', {
                 templateUrl: 'views/loans/viewloancharge.html'
@@ -219,6 +219,24 @@
             })
             .when('/viewcharge/:id', {
                 templateUrl: 'views/products/viewcharge.html'
+            })
+            .when('/collaterals', {
+                templateUrl: 'views/products/collaterals.html'
+            })
+            .when('/createclientcollateral/:id', {
+                templateUrl: 'views/clients/createclientcollateral.html'
+            })
+            .when('/viewclient/:id/editclientcollateral/:collateralId', {
+                templateUrl: 'views/clients/editclientcollateral.html'
+            })
+            .when('/viewclient/:id/viewclientcollateral/:collateralId', {
+                templateUrl: 'views/clients/viewclientcollateral.html'
+            })
+            .when('/viewclient/:id/viewallclientcollaterals', {
+                templateUrl: 'views/clients/viewallclientcollaterals.html'
+            })
+            .when('/viewcollateral/:id', {
+                templateUrl: 'views/products/viewcollateral.html'
             })
             .when('/floatingrates', {
                 templateUrl: 'views/products/floatingrates/FloatingRates.html'
@@ -701,8 +719,17 @@
             .when('/createcharge', {
                 templateUrl: 'views/products/createcharge.html'
             })
+            .when('/createcollateral', {
+                templateUrl: 'views/products/createcollateral.html'
+            })
             .when('/editcharge/:id', {
                 templateUrl: 'views/products/editcharge.html'
+            })
+            .when('/editcollateral/:id', {
+                templateUrl: 'views/products/editcollateral.html'
+            })
+            .when('/loan/:id/viewcollateraldata/:collateralId', {
+                templateUrl: 'views/products/viewcollateraldata.html'
             })
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId', {
                 templateUrl: 'views/collection/productivecollectionsheet.html'

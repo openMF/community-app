@@ -539,34 +539,57 @@
             </table>
         </div>
         <div class="col-md-12 paddedtop" ng-hide = "response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true">
-            <label><strong>{{ 'label.heading.collaterals' | translate }}</strong></label>
-            <select ng-model="collateralFormData.collateralIdTemplate" class="form-control width170px"
-                    ng-options="collateralTemplate.name for collateralTemplate in collateralOptions"
-                    value="{{collateralTemplate.id}}">
+            <label class="control-label col-sm-1">
+                <strong>{{ 'label.heading.collaterals' | translate }}</strong>
+            </label>
+            <select ng-model="collateralFormData.collateralId" ng-options="collateral.collateralId as collateral.name for collateral in collateralsData"
+                value="{{collateral.collateralId}}" class="form-control width170px col-sm-2">
             </select>&nbsp;&nbsp;
-            <input class="form-control" type="text" ng-model="collateralFormData.collateralValueTemplate"
-                   placeholder="{{'label.input.value' | translate}}">&nbsp;&nbsp;
-            <input type="text" ng-model="collateralFormData.collateralDescriptionTemplate" class="form-control"
-                   placeholder="{{'label.input.description' | translate}}">
-            <a ng-click="addCollateral()">&nbsp;<i class="fa fa-plus "></i></a>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" ng-model="collateralFormData.quantity" placeholder="{{'label.input.quantity' | translate}}"
+                    number-format ng-change="updateValues()">
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" ng-model="collateralFormData.total"
+                    number-format readonly>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control" type="text" ng-model="collateralFormData.totalCollateral"
+                    number-format readonly>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-primary" ng-click="addCollateral()" class="col-sm-1">&nbsp;
+                    <i class="fa fa-plus "></i>&nbsp;Add</a>
+            </div>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.collateralSection == true">
-        <table class="table" class="width100" ng-show="collaterals.length>0">
-            <tr class="graybg">
-                <th>{{'label.heading.name' | translate}}</th>
-                <th>{{'label.heading.value' | translate}}</th>
-                <th>{{'label.heading.description' | translate}}</th>
-                <th>{{'label.heading.actions' | translate}}</th>
-            </tr>
-            <tr ng-repeat="collateral in collaterals">
-                <td><input type="text" class="form-control" ng-model="collateral.name" readonly></td>
-                <td><input id="{{collaterals[$index].value}}" type="text" class="form-control"
-                           ng-model="collateral.value"></td>
-                <td><input id="{{collaterals[$index].description}}" class="form-control" type="text" ng-model="collateral.description"
-                           placeholder="{{'label.input.description' | translate}}"></td>
-                <td><a ng-click="deleteCollateral($index)"><i class="fa fa-times-circle fa-2x"></i></a></td>
-            </tr>
-        </table>
+            <table class="" class="width100" ng-show="collaterals.length>0">
+                <tr class="graybg">
+                    <th>{{'label.heading.id' | translate}}</th>
+                    <th>{{'label.heading.quantity' | translate}}</th>
+                    <th>{{'label.heading.totalValue' | translate}}</th>
+                    <th>{{'label.heading.totalCollateralValue' | translate}}</th>
+                </tr>
+                <tr ng-repeat="collateral in collaterals">
+                    <td>
+                        <input type="text" class="input-sm form-control" ng-model="collateral.collateralId" readonly>
+                    </td>
+                    <td>
+                        <input id="{{collaterals[$index].quantity}}" type="text" class="form-control" ng-model="collateral.quantity" readonly>
+                    </td>
+                    <td>
+                        <input id="total" type="text" class="form-control" ng-model="collateral.total">
+                    </td>
+                    <td>
+                        <input id="totalCollateral" type="text" class="form-control" ng-model="collateral.totalCollateral">
+                    </td>
+                    <td>
+                        <a ng-click="deleteCollateral($index)">
+                            <i class="fa fa-times-circle fa-2x"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
