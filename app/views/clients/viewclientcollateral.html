@@ -1,0 +1,73 @@
+<div class="content-container" ng-controller="ViewClientCollateralController">
+    <ul class="breadcrumb">
+        <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+        <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.clientcollateral' | translate}}</a></li>
+        <li class="active">{{collateralId}}</li>
+    </ul>
+    <div class="card well">
+        <h3 class="bolder">{{collateral.name}}
+            <div class="form-group pull-right">
+             <a href="#/viewclient/{{clientId}}/editclientcollateral/{{collateralId}}" class="btn btn-primary" has-permission='UPDATE_CLIENT_COLLATERAL_PRODUCT'><i class="fa fa-edit "></i>&nbsp;&nbsp;{{'label.button.edit' | translate}}</a>
+             <button type="button" data-ng-click="deleteClientCollateral()" class="btn btn-danger" has-permission='DELETE_CLIENT_COLLATERAL_PRODUCT'><i
+                     class="fa fa-trash-o"></i>&nbsp;&nbsp;{{'label.button.delete' | translate}}
+             </button>
+         </div>
+        </h3>
+        <hr>
+    <script type="text/ng-template" id="deleteclientcollateral.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>{{'label.heading.name' | translate}}</td>
+                    <td>{{collateral.name}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.quantity' | translate}}</td>
+                    <td>{{collateral.quantity}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.totalValue' | translate}}</td>
+                    <td>{{collateral.total}}</td>
+                </tr>
+                <tr>
+                    <td>{{'label.heading.totalCollateralValue' | translate}}</td>
+                    <td>{{collateral.totalCollateral}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="bolder"> Transaction Details </h3>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.id' | translate}}</th>
+                <th>{{'label.heading.lastRepayment' | translate}}</th>
+                <th>{{'label.heading.remainingAmount' | translate}}</th>
+                <th>{{'label.heading.lastRepaymentDate' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer-main" dir-paginate="transaction in loanTransactions | itemsPerPage: TransactionsPerPage">
+                <td class="pointer" >{{transaction.loanId}}</td>
+                <td class="pointer" >{{transaction.lastRepayment}}</td>
+                <td class="pointer" >{{transaction.remainingAmount}}</td>
+                <td class="pointer" >{{transaction.lastRepaymentDate.date | date}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>

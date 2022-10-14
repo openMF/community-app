@@ -1,0 +1,85 @@
+<div class="content-container" ng-controller="EditCollateralController">
+    <api-validate></api-validate>
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/collaterals">{{'label.anchor.collaterals' | translate}}</a></li>
+        <li class="active">{{'label.anchor.editCollateral' | translate}}</li>
+    </ul>
+    <form name="editcollateralform" novalidate class="card form-horizontal well" rc-submit="submit()">
+        <fieldset>
+            <legend>{{'label.heading.editcollateral' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input name="name" ng-autofocus="true" type="text" id="name" ng-model="formData.name" class="form-control" required
+                           late-Validate/>
+                    <form-validate valattributeform="editcollateralform" valattribute="name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.type' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="type" name="type" type="text" class="form-control" ng-model="formData.type" required late-validate>
+                </div>
+                
+                <div class="col-sm-2">
+                    <form-validate valattributeform="editcollateralform" valattribute="type"/>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="unitType">{{ 'label.input.unittype' | translate }}<span
+                    class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="unitType" class="form-control" ng-model="formData.unitType" required late-validate>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="editcollateralform" valattribute="unitType"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="basePrice">{{'label.input.baseprice' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="basePrice" name="basePrice" type="text" ng-model="formData.basePrice" class="form-control" number-format required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="editcollateralform" valattribute="basePrice"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="currency">{{ 'label.input.currency' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select id="currency" name="currency" ng-model="formData.currency" class="form-control"
+                            ng-options="currency.code as currency.name for currency in currencyOptions"
+                            value="{{currency.code}}"></select>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="editcollateralform" valattribute="currency"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pctToBase">{{'label.input.pcttobase' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="pctToBase" name="pctToBase" type="text" ng-model="formData.pctToBase" class="form-control" number-format required late-Validate/>
+                </div>
+                <div class="col-sm-3">
+                    <form-validate valattributeform="editcollateralform" valattribute="pctToBase"/>
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/viewcollateral/{{collateralId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_COLLATERAL_PRODUCT'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
