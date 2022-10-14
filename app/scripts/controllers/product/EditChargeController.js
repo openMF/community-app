@@ -96,7 +96,9 @@
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
                     paymentTypeId: data.paymentTypeOptions.id,
-                    amount: data.amount
+                    amount: data.amount,
+                    minAmount: data.minAmount,
+                    maxAmount: data.maxAmount
                 };
                 console.log(data.incomeOrLiabilityAccount);
                 if(data.incomeOrLiabilityAccount){
