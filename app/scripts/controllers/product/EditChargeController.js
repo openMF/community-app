@@ -7,6 +7,7 @@
             scope.first = {};
             scope.flag = false;
 	        scope.showPenalty = true ;
+	        scope.showMinAndMaxAmountSettings = false;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -35,9 +36,12 @@
 
                 if (data.chargeAppliesTo.value === "Loan") {
                     scope.chargeTimeTypeOptions = data.loanChargeTimeTypeOptions;
-                    scope.template.chargeCalculationTypeOptions = scope.paymentTypes.loanChargeCalculationTypeOptions;
                     scope.flag = false;
                     scope.showFrequencyOptions = true;
+                    scope.showMinAndMaxAmountSettings = false;
+                    if(typeof scope.paymentTypes !== 'undefined' || scope.paymentTypes != null){
+                    scope.template.chargeCalculationTypeOptions = scope.paymentTypes.loanChargeCalculationTypeOptions;
+                    }
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -45,6 +49,7 @@
                     scope.flag = true;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.showMinAndMaxAmountSettings = true;
                     if(data.freeWithdrawal === true) {
                         scope.showenablefreewithdrawal = true;
                         scope.showpaymenttype = true;
@@ -74,12 +79,14 @@
                     scope.showGLAccount = false;
                     scope.showPenalty = false ;
                     scope.flag = true;
+                    scope.showMinAndMaxAmountSettings = false;
                 }else {
                     scope.flag = true;
                     scope.template.chargeCalculationTypeOptions = data.clientChargeCalculationTypeOptions;
                     scope.chargeTimeTypeOptions = scope.template.clientChargeTimeTypeOptions;
                     scope.showFrequencyOptions = false;
                     scope.showGLAccount = true;
+                    scope.showMinAndMaxAmountSettings = false;
                 }
 
                 scope.formData = {
@@ -95,12 +102,13 @@
                     chargeAppliesTo: data.chargeAppliesTo.id,
                     chargeTimeType: data.chargeTimeType.id,
                     chargeCalculationType: data.chargeCalculationType.id,
-                    paymentTypeId: data.paymentTypeOptions.id,
                     amount: data.amount,
                     minAmount: data.minAmount,
                     maxAmount: data.maxAmount
                 };
-                console.log(data.incomeOrLiabilityAccount);
+                 if(typeof scope.paymentTypeOptions !== 'undefined' || scope.paymentTypeOptions != null){
+                    scope.formData.paymentTypeId = data.paymentTypeOptions.id;
+                 }
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
                 } 
