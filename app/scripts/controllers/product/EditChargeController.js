@@ -8,6 +8,8 @@
             scope.flag = false;
 	        scope.showPenalty = true ;
 	        scope.showMinAndMaxAmountSettings = false;
+	        scope.loanChargeCalculationType = false;
+            scope.loanChargeTimeChange = false;
 
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
@@ -148,6 +150,12 @@
                 } else {
                     scope.formData.chargePaymentMode = data.chargePaymentMode.id;
                 }
+                if(data.chargeCalculationType){
+                scope.chargeCalculationTypeChange(data.chargeCalculationType.id);
+                }
+                if(data.chargeTimeType){
+                scope.chargeTimeChange(data.chargeTimeType.id);
+                }
             });
             //when chargeAppliesTo is savings, below logic is
             //to display 'Due date' field, if chargeTimeType is
@@ -178,7 +186,22 @@
                         }
                     }
                 }
+                 if(chargeTimeType == 2){
+                                scope.loanChargeTimeChange = false;
+                                }else{
+                                scope.loanChargeTimeChange = true;
+                                }
+                                console.log(chargeTimeType+" Charge Time type  "+scope.loanChargeTimeChange);
             }
+            scope.chargeCalculationTypeChange = function (chargeCalculationType) {
+                                scope.loanChargeCalculationType = false;
+                                if(chargeCalculationType == 1){
+                                scope.loanChargeCalculationType = false;
+                                }else{
+                                scope.loanChargeCalculationType = true;
+                                }
+                                 console.log(chargeCalculationType+" Charge Calculation type  "+scope.loanChargeCalculationType);
+                                    }
 
             scope.filterChargeCalculations = function(chargeTimeType) {
                 return function (item) {
