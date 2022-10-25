@@ -78,6 +78,19 @@
                     scope.showOrHideValue = 'show';
                 }
             }
+            scope.isAccountingEnabled = function () {
+                            if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 ) {
+                                return true;
+                            }
+                            return false;
+                        }
+
+            scope.isAccrualAccountingEnabled = function () {
+                            if (scope.formData.accountingRule == 3 ) {
+                                return true;
+                            }
+                            return false;
+                        }
 
             scope.chargeSelected = function (chargeId) {
                 if (chargeId) {

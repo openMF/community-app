@@ -453,11 +453,17 @@
                             |translate}}
                         </label>
                     </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" ng-model="formData.accountingRule" value="3">{{'label.input.periodicaccrual'
+                            |translate}}
+                        </label>
+                    </div>
                     <hr>
-                    <div class="col-md-12" ng-show="formData.accountingRule==2">
+                    <div class="col-md-12" ng-show="isAccountingEnabled()">
                         <div class="form-group">
                             <h4>{{"label.heading.assets" | translate}}</h4>
-                            <label class="control-label">{{ 'label.input.savingreference' | translate }}
+                            <label class="control-label col-sm-2">{{ 'label.input.savingreference' | translate }}
                                 <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.savingreference' | translate}}" tooltip-append-to-body="true"></i>
                             </label>
                             <div class="col-sm-3">
@@ -480,6 +486,43 @@
                                 </select>
                             </div>
                         </div>
+                            <div class="form-group" ng-show="isAccrualAccountingEnabled()">
+                            <label class="control-label col-sm-2">{{ 'label.input.receivableinterest' | translate }}
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivableinterest' | translate}}" tooltip-append-to-body="true"></i>
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="receivableInterestAccountId" ng-model="formData.receivableInterestAccountId"
+                                        chosen="assetAccountOptions"
+                                        ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                                        ng-change="savingproduct.accountingMappings.receivableInterestAccount.name = formValue(assetAccountOptions,formData.receivableInterestAccountId,'id','name')"
+                                        value="{{assetAccount.id}}">
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-2">{{ 'label.input.receivablefees' | translate }}
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivablefees' | translate}}" tooltip-append-to-body="true"></i>
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="receivableFeeAccountId" ng-model="formData.receivableFeeAccountId"
+                                        chosen="assetAccountOptions"
+                                        ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                                        ng-change="savingproduct.accountingMappings.receivableFeeAccount.name = formValue(assetAccountOptions,formData.receivableFeeAccountId,'id','name')"
+                                        value="{{assetAccount.id}}">
+                                </select>
+                            </div>
+                            </div>
+                            <div class="form-group" ng-show="isAccrualAccountingEnabled()">
+                            <label class="control-label col-sm-2">{{ 'label.input.receivablepenalties' | translate }}
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.receivablepenalties' | translate}}" tooltip-append-to-body="true"></i>
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="receivablePenaltyAccountId" ng-model="formData.receivablePenaltyAccountId"
+                                        chosen="assetAccountOptions"
+                                        ng-options="assetAccount.id as assetAccount.name for assetAccount in assetAccountOptions"
+                                        ng-change="savingproduct.accountingMappings.receivablePenaltyAccount.name = formValue(assetAccountOptions,formData.receivablePenaltyAccountId,'id','name')"
+                                        value="{{assetAccount.id}}">
+                                </select>
+                            </div>
+                            </div>
                         <hr>
                         <div class="form-group">
                             <h4>{{"label.heading.liabilities" | translate}}</h4>
@@ -503,6 +546,20 @@
                                         chosen="liabilityAccountOptions"
                                         ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
                                         ng-change="savingproduct.accountingMappings.transfersInSuspenseAccount.name = formValue(liabilityAccountOptions,formData.transfersInSuspenseAccountId,'id','name')"
+                                        value="{{liabilityAccount.id}}">
+                                </select>
+                            </div>
+                        </div>
+                            <div class="form-group" ng-show="isAccrualAccountingEnabled()">
+                            <label class="control-label col-sm-2">{{ 'label.input.interestPayableAccountId' | translate }}
+                                <i class="fa fa-question-circle" uib-tooltip="{{'label.tooltip.interestPayableAccountId' | translate}}" tooltip-append-to-body="true"></i>
+                            </label>
+                            <div class="col-sm-3">
+                                <select id="interestPayableAccountId"
+                                        ng-model="formData.interestPayableAccountId"
+                                        chosen="liabilityAccountOptions"
+                                        ng-options="liabilityAccount.id as liabilityAccount.name for liabilityAccount in liabilityAccountOptions"
+                                        ng-change="savingproduct.accountingMappings.interestPayableAccount.name = formValue(liabilityAccountOptions,formData.interestPayableAccountId,'id','name')"
                                         value="{{liabilityAccount.id}}">
                                 </select>
                             </div>
@@ -705,6 +762,11 @@
                             </table>
                         </div>
                     </div>
+
+
+
+
+
                     <hr>
                     <button class="btn btn-default pull-left" wz-previous><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Previous
                     </button>
