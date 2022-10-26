@@ -82,12 +82,28 @@
                      data.accountingMappings.savingsControlAccount.id : null;
                 }
                 if(data.accountingMappings){
+                    scope.formData.receivableInterestAccountId = data.accountingMappings.receivableInterestAccountId != null ?
+                    data.accountingMappings.receivableInterestAccountId.id : null;
+                }
+                if(data.accountingMappings){
+                    scope.formData.receivableFeeAccountId = data.accountingMappings.receivableFeeAccountId != null ?
+                    data.accountingMappings.receivableFeeAccountId.id : null;
+                }
+                if(data.accountingMappings){
+                    scope.formData.receivablePenaltyAccountId = data.accountingMappings.receivablePenaltyAccountId != null ?
+                    data.accountingMappings.receivablePenaltyAccountId.id : null;
+                }
+                if(data.accountingMappings){
                 scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount != null ? data.accountingMappings.transfersInSuspenseAccount.id
                 :null;
                 }
                 if(data.accountingMappings){
                     scope.formData.escheatLiabilityId = data.accountingMappings.escheatLiabilityAccount != null ?
                      data.accountingMappings.escheatLiabilityAccount.id : null;
+                }
+                if(data.accountingMappings){
+                    scope.formData.interestPayableAccountId = data.accountingMappings.interestPayableAccountId != null ?
+                     data.accountingMappings.interestPayableAccountId.id : null;
                 }
                 if(data.accountingMappings){
                     scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount != null ?
@@ -151,7 +167,19 @@
                     scope.showOrHideValue = 'show';
                 }
             }
+            scope.isAccountingEnabled = function () {
+                                        if (scope.formData.accountingRule == 2 || scope.formData.accountingRule == 3 ) {
+                                            return true;
+                                        }
+                                        return false;
+                                    }
 
+            scope.isAccrualAccountingEnabled = function () {
+                                        if (scope.formData.accountingRule == 3 ) {
+                                            return true;
+                                        }
+                                        return false;
+                                    }
             scope.chargeSelected = function (chargeId) {
                 if (chargeId) {
                     resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, this.formData, function (data) {
