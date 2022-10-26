@@ -3,7 +3,7 @@ name: Deploy to ECR
 on:
  
   push:
-    branches: [ moniafrica-master ]
+    branches: [ moniafrica-prod ]
 
 jobs:
   
@@ -24,7 +24,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_moni_africa }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_moni_africa }}
-        aws-region: us-east-2
+        aws-region: us-east-1
     
     - id: commit
       uses: pr-mpt/actions-commit-hash@v1
@@ -48,7 +48,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_moni_africa }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_moni_africa }}
-        aws-region: us-east-2
+        aws-region: us-east-1
     
     - name: installing dependcies
       run: |
@@ -64,7 +64,7 @@ jobs:
     
     - name: updating kubeconfig and helm repo
       run: |
-       aws eks --region us-east-2 update-kubeconfig --name moni-africa-dev
+       aws eks --region us-east-1 update-kubeconfig --name moni-africa-prod
        helm repo add fiter-apps https://chartmuseum.fiter.io/ --username ${{ secrets.CHARTMUSEUM_USERNAME }} --password ${{ secrets.CHARTMUSEUM_PASSWORD }}
        
     - name: deploy backend
