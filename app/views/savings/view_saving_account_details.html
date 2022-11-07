@@ -443,6 +443,10 @@
                                 ng-click="viewJournalEntries()" style="margin-right: 8px;">
                             {{'label.button.viewjournalentries' | translate}}
                         </button>
+                        <button class="btn btn-primary pull-right" ng-show="checkStatus()"
+                                ng-click="viewAccrualTransaction()" style="margin-right: 8px;">
+                            {{'label.input.show.accrual.transactions' | translate}}
+                        </button>
                         <br>
                         <table class="table table-bordered">
                             <colgroup span="4"></colgroup>
@@ -478,7 +482,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="pointer-main" ng-hide="transaction.reversed"
+                            <tr class="pointer-main" ng-hide="transaction.reversed ||  (hideAccrualTransactions && (transaction.transactionType.id == 22 || transaction.transactionType.id == 23 || transaction.transactionType.id == 24 || transaction.transactionType.id == 25))"
                                 ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column[2]:transactionSort.ascending">
                                 <td class="pointer"
                                     data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">

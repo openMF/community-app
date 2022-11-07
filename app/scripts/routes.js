@@ -371,6 +371,9 @@
             .when('/searchtransaction', {
                 templateUrl: 'views/accounting/search_transaction.html'
             })
+            .when('/viewaccrualtransaction', {
+                templateUrl: 'views/savings/view_savings_account_accruals.html'
+            })
             .when('/accounts_closure', {
                 templateUrl: 'views/accounting/accounts_closure.html'
             })
