@@ -130,6 +130,9 @@
                     case "postInterestAsOn":
                         location.path('/savingaccount/' + accountId + '/postInterestAsOn');
                         break;
+                    case "postAccrualInterestAsOn":
+                         location.path('/savingaccount/' + accountId + '/postAccrualInterestAsOn');
+                    break;
                     case "holdAmount":
                            location.path('/savingaccount/' + accountId + '/holdAmount');
                     break;
@@ -235,6 +238,11 @@
                             name: "button.postInterestAsOn",
                             icon: "icon-arrow-right",
                             taskPermissionName:"POSTINTEREST_SAVINGSACCOUNT"
+                        },
+                        {
+                                name: "button.postAccrualInterestAsOn",
+                                icon: "icon-arrow-right",
+                                taskPermissionName:"POSTACCRUALINTERESTASON_SAVINGSACCOUNT"
                         },
                         {
                             name: "button.deposit",
