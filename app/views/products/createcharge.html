@@ -4,7 +4,7 @@
         <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
         <li class="active">{{'label.anchor.createcharge' | translate}}</li>
     </ul>
-    <form name="createchargeform" novalidate="" class="card form-horizontal well" ng-click="submit()">
+    <form name="createchargeform" novalidate="" class="card form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
@@ -247,13 +247,15 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-show="(showMinAndMaxAmountSettings && formData.chargeCalculationType == 2 && formData.chargeTimeType == 5) || (formData.chargeAppliesTo == 1 && loanChargeCalculationType && loanChargeTimeChange)">
+                <div class="form-group" ng-show="(showMinAndMaxAmountSettings && formData.chargeCalculationType == 2 && formData.chargeTimeType == 5)
+                || (formData.chargeAppliesTo == 1 && loanChargeCalculationType && loanChargeTimeChange)">
                     <label class="control-label col-sm-2" for="minAmount">{{'label.input.minAmount' | translate}}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="minAmount" name="minAmount" type="text" ng-model="formData.minAmount" class="form-control" number-format required late-Validate/>
+                        <input id="minAmount" name="minAmount" type="text" ng-model="formData.minAmount" class="form-control" number-format
+                               ng-required='loanChargeCalculationType' late-Validate/>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" ng-if="loanChargeCalculationType" >
                         <form-validate valattributeform="createchargeform" valattribute="minAmount"/>
                     </div>
                 </div>
@@ -262,9 +264,10 @@
                             class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input id="maxAmount" name="maxAmount" type="text" ng-model="formData.maxAmount" class="form-control" number-format required late-Validate/>
+                        <input id="maxAmount" name="maxAmount" type="text" ng-model="formData.maxAmount" class="form-control" number-format
+                               ng-required='loanChargeCalculationType' late-Validate/>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" ng-if="loanChargeCalculationType">
                         <form-validate valattributeform="createchargeform" valattribute="maxAmount"/>
                     </div>
                 </div>
