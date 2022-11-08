@@ -155,10 +155,13 @@
                 scope.convertDateArrayToObject('date');
                 scope.recalculateInterest = data.recalculateInterest || true;
                 scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
-                scope.date.fromDate = new Date(data.timeline.actualDisbursementDate);
+                scope.date.fromDate =  new Date(data.timeline.actualDisbursementDate);
                 scope.date.toDate = new Date();
                 scope.status = data.status.value;
                 scope.chargeAction = data.status.value == "Submitted and pending approval" ? true : false;
+                if(scope.status == 'Submitted and pending approval' || scope.status == 'Approved'){
+                scope.date.fromDate = new Date(data.timeline.submittedOnDate);
+                }
                 scope.decimals = data.currency.decimalPlaces;
                 if (scope.loandetails.charges) {
                     scope.charges = scope.loandetails.charges;
@@ -711,6 +714,12 @@
             scope.checkStatus = function(){
                 if(scope.status == 'Active' || scope.status == 'Closed (obligations met)' || scope.status == 'Overpaid' ||
                     scope.status == 'Closed (rescheduled)' || scope.status == 'Closed (written off)'){
+                    return true;
+                }
+                return false;
+            };
+            scope.checkStatusNotActive = function(){
+                if(scope.status == 'Submitted and pending approval' || scope.status == 'Approved'){
                     return true;
                 }
                 return false;
