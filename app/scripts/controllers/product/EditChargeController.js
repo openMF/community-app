@@ -6,9 +6,9 @@
             scope.repeatEvery = false;
             scope.first = {};
             scope.flag = false;
-	        scope.showPenalty = true ;
-	        scope.showMinAndMaxAmountSettings = false;
-	        scope.loanChargeCalculationType = false;
+	          scope.showPenalty = true ;
+	          scope.showMinAndMaxAmountSettings = false;
+	          scope.loanChargeCalculationType = false;
             scope.loanChargeTimeChange = false;
             scope.paymentTypeOptions = [];
 
@@ -114,9 +114,11 @@
                     minAmount: data.minAmount,
                     maxAmount: data.maxAmount
                 };
-                 if(typeof scope.paymentTypeOptions !== 'undefined' || scope.paymentTypeOptions != null){
+                
+                if(typeof scope.paymentTypeOptions !== 'undefined' || scope.paymentTypeOptions != null){
                     scope.formData.paymentTypeId = data.paymentTypeOptions.id;
-                 }
+                }
+                
                 if(data.incomeOrLiabilityAccount){
                     scope.formData.incomeAccountId = data.incomeOrLiabilityAccount.id;   
                 }
